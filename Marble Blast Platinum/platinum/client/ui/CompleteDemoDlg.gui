@@ -310,6 +310,11 @@ function CompleteDemoDlg::dosave(%this) {
 	deleteFile(%tmp);
 
 	$Record::NeedSave = false;
+
+	zip(%final);
+	deleteFile(%final);
+	setModPaths($modPath);
+
 	RootGui.popDialog(%this);
 	eval(%this.callback);
 }
