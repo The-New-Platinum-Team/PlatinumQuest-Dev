@@ -129,7 +129,7 @@ function Editor::checkActiveLoadDone() {
 
 //------------------------------------------------------------------------------
 function toggleEditor(%make) {
-	if (%make && $Editor::Enabled && !lb()) {
+	if (%make && $Editor::Enabled) {
 		if (!$missionRunning) {
 			MessageBoxOK("Mission Required", "Please load a mission before activating the Level Editor.");
 			return;
