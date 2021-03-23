@@ -91,6 +91,10 @@ function Mode_GemMadness::shouldRestartOnOOB(%this, %object) {
 }
 function Mode_GemMadness::onOutOfBounds(%this, %object) {
 	if ($Server::ServerType $= "SinglePlayer") {
+		%this.gotAllGems = false;
+		commandToAll('UseTimeScore', false);
+		%object.client.player.setMode(Victory);
+		messageClient(%object.client, 'MsgRaceOver', '\c0Congratulations! You\'ve finished!');
 		$Game::FinishClient = %object.client;
 		endGameSetup();
 	}
@@ -129,6 +133,8 @@ function Mode_GemMadness::getFinalScore(%this, %object) {
 	return $ScoreType::Score TAB %object.client.getGemCount();
 }
 function Mode_GemMadness::onEnterPad(%this, %object) {
+	%this.gotAllGems = false;
+	commandToAll('UseTimeScore', false);
 	%object.client.player.setMode(Victory);
 	messageClient(%object.client, 'MsgRaceOver', '\c0Congratulations! You\'ve finished!');
 	$Game::FinishClient = %object.client;

@@ -247,6 +247,7 @@ function input_escapeFromGame(%val) {
 			}
 		} else {
 			RootGui.pushDialog(ExitGameDlg);
+			alxSetChannelVolume(1, 0); // main_gi
 		}
 	} else {
 		MessageBoxYesNo("Disconnect", "Disconnect from the server?",

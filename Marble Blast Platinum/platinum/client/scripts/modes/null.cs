@@ -113,7 +113,11 @@ function ClientMode_null::onActivate(%this, %object) {
 	}
 	if (%currentMis.gems > 0) {
 		ModeInfo_null.name = "Gem Collection";
-		ModeInfo_null.desc = "Pick up all the Gems, and then get to the finish!";
+		if (%currentMis.gems == 1) {
+			ModeInfo_null.desc = "Pick up 1 gem, and then get to the finish!";
+		} else {
+			ModeInfo_null.desc = "Pick up all" SPC %currentMis.gems SPC "gems, and then get to the finish!";
+		}
 	} else if (%currentMis.time > 0) {
 		ModeInfo_null.name = "Time Trial";
 		ModeInfo_null.desc = "Get to the finish before time runs out!";
