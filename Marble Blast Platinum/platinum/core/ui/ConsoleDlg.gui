@@ -195,7 +195,7 @@ function ToggleConsole(%make) {
 		} else {
 			// disable console during leaderboard usage
 			///      keep $LB as that is for the login screen
-			if (lb() || $LB) {
+			if (false) {
 				ConsoleEntry.setVisible(0);
 			} else {
 				ConsoleEntry.setVisible(1);
@@ -222,10 +222,6 @@ function ToggleConsole(%make) {
 
 function toggleConsoleEditor() {
 	$Editor::Enabled = !$Editor::Enabled;
-	if (lb()) {
-		$Editor::Enabled = false;
-		echo("I'm not sure what you were expecting.");
-	}
 	ConsoleEEnabled.setValue($Editor::Enabled);
 }
 
