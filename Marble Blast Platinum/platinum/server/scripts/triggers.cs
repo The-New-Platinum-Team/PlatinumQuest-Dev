@@ -464,6 +464,7 @@ function TimeStopTrigger::onEnterTrigger(%this,%trigger,%obj) {
 		$Game::TimeStoppedClients ++;
 		if ($Game::TimeStoppedClients == 1) {
 			Time::stop();
+			commandToClient(%obj.client, 'UpdateTimeTravelCountdown'); // main_gi v4.2.3: Update TT timer even in a timestop
 		}
 	}
 }

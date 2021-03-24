@@ -302,64 +302,72 @@ function PlayGui::updateGems(%this, %updateMax) {
 	%color = (%this.gemGreen ? $TimeColor["stopped"] : $TimeColor["normal"]);
 	GemsSlash.setNumberColor("slash", %color);
 
+
 	%maxNeedsToUpdate = (%this.GemsTotalTracked != %this.maxGems || %this.ColorTracked != %color || %updateMax);
 	%this.GemsTotalTracked = %max;
 	%this.ColorTracked = %color;
 
 	%one = %count % 10;
 	%ten = ((%count - %one) / 10) % 10;
-	%hundred = ((%count - %one) / 10 - %ten) / 10;
-	GemsFoundHundred.setNumberColor(%hundred, %color);
+	%hun = ((%count - %one) / 10 - %ten) / 10;
+	GemsFoundHundred.setNumberColor(%hun, %color);
 	GemsFoundTen.setNumberColor(%ten, %color);
 	GemsFoundOne.setNumberColor(%one, %color);
 
-	GemsFoundHundred.setVisible(!(%hundred == 0));
-	GemsFoundTen.setVisible(!(%hundred == 0 && %ten == 0));
+	GemsFoundHundred.setVisible(!(%hun == 0) || $pref::GemCounterAlwaysThreeDigits); 
+	GemsFoundTen.setVisible(!(%hun == 0 && %ten == 0) || $pref::GemCounterAlwaysThreeDigits); 
 
+	%this.GemsFoundHundredTracked = %hun;
+	%this.GemsFoundTenTracked = %ten;
+	%this.GemsFoundOneTracked = %one;
+
+	if (%hun != 0 || $pref::GemCounterAlwaysThreeDigits) { // Move the slash and everything over.
+		GemsFoundHundred.setPosition("30 0");
+		GemsFoundTen.setPosition("54 0");
+		GemsFoundOne.setPosition("78 0"); // 78 + 23 = 101
+		GemsSlash.setPosition("101 0"); // 101 + 19 = 20
+		GemsTotalHundred.setPosition("120 0");
+		GemsTotalTen.setPosition("144 0");
+		GemsTotalOne.setPosition("168 0");
+	} else {
+		GemsFoundHundred.setPosition("6 0"); // This shouldn't appear, but it should show here I guess
+		GemsFoundTen.setPosition("30 0");
+		GemsFoundOne.setPosition("54 0");
+		GemsSlash.setPosition("77 0");
+		GemsTotalHundred.setPosition("96 0");
+		GemsTotalTen.setPosition("120 0");
+		GemsTotalOne.setPosition("144 0");
+	}
+	
+	GemsQuota.setPosition((%max < 10? "157" : (%max < 100? "181" : "205")) + (%hun == 0? -24 : 0) SPC "28");
+	// quota is 37 away by default, 120+37=157 144+37=181, -24 if current gems are 2 digit instead of 3 digit
 	if (%maxNeedsToUpdate) {
 		%one = %max % 10;
 		%ten = ((%max - %one) / 10) % 10;
-		%hundred = ((%max - %one) / 10 - %ten) / 10;
+		%hun = ((%max - %one) / 10 - %ten) / 10;
 
-		if (%hundred == 0) { // Gem total is 0__
-			if (!(%ten == 0)) { // Gem total is 0XX
-				GemsTotalHundred.setNumberColor(%ten, %color);
-				GemsTotalTen.setNumberColor(%one, %color);
-				GemsTotalTen.setVisible(true);
-				GemsTotalOne.setVisible(false);
-				GemsQuota.setPosition("162 28");
-
-				GemsFoundTen.setPosition("30 0");
-				GemsFoundOne.setPosition("54 0");
-				GemsSlash.setPosition("77 0");
-				GemsTotalHundred.setPosition("96 0");
-				GemsTotalTen.setPosition("120 0");
-			} else { // Gem total is 00X
-				GemsTotalHundred.setNumberColor(%one, %color);
-				GemsTotalTen.setVisible(false);
-				GemsTotalOne.setVisible(false);
-				GemsQuota.setPosition("136 28");
-
-				GemsFoundOne.setPosition("54 0");
-				GemsSlash.setPosition("77 0");
-				GemsTotalHundred.setPosition("96 0");
-			}
-		} else { // Gem total is using all 3 digits, default behavior
-			GemsTotalHundred.setNumberColor(%hundred, %color);
+		if ($pref::GemCounterAlwaysThreeDigits) {
+			GemsTotalHundred.setNumberColor(%hun, %color);
 			GemsTotalTen.setNumberColor(%ten, %color);
 			GemsTotalOne.setNumberColor(%one, %color);
+			GemsQuota.setPosition("205 28");
 			GemsTotalTen.setVisible(true);
 			GemsTotalOne.setVisible(true);
-			GemsQuota.setPosition("205 28");
-
-			GemsFoundHundred.setPosition("30 0");
-			GemsFoundTen.setPosition("54 0");
-			GemsFoundOne.setPosition("78 0"); // 78 + 23 = 101
-			GemsSlash.setPosition("101 0"); // 101 + 19 = 20
-			GemsTotalHundred.setPosition("120 0");
-			GemsTotalTen.setPosition("144 0");
-			GemsTotalOne.setPosition("168 0");
+			return;
 		}
+
+		if (%max < 10) {
+			GemsTotalHundred.setNumberColor(%one, %color);
+		} else if (%max < 100) {
+			GemsTotalHundred.setNumberColor(%ten, %color);
+			GemsTotalTen.setNumberColor(%one, %color);
+		} else {
+			GemsTotalHundred.setNumberColor(%hun, %color);
+			GemsTotalTen.setNumberColor(%ten, %color);
+			GemsTotalOne.setNumberColor(%one, %color);
+		}
+		GemsTotalTen.setVisible(%ten != 0 || %hun != 0); // 0X0 or X00 where X is not 0
+		GemsTotalOne.setVisible(%hun != 0);
 	}
 }
 
@@ -521,6 +529,7 @@ function PlayGui::resetTimer(%this,%dt) {
 
 	%this.stopCountdown();
 	%this.updateCountdown();
+	%this.updateTimeTravelCountdown(); // main_gi v4.2.3
 	%this.updateControls();
 	%this.stopTimer();
 }
@@ -787,6 +796,7 @@ function PlayGui::updateTimer(%this, %timeInc) {
 			%this.bonusTime = 0;
 		}
 	}
+	%this.updateTimeTravelCountdown(); // main_gi v4.2.3
 	if (!%this.stopped && !%this.bonusTime) {
 		alxStop($BonusSfx);
 		$BonusSfx = "";
@@ -807,6 +817,56 @@ function PlayGui::updateTimer(%this, %timeInc) {
 	}
 
 	%this.updateControls();
+}
+
+function clientCmdUpdateTimeTravelCountdown() {
+	// main_gi v4.2.3: By default, the color DOESN'T change to green properly if you get a TT timer during the start phase, if you end the level with a TT, or if you enter a timestop with a TT. So this function is called in /server/powerups.cs (TimeTravelItem::onPickup), /server/triggers.cs (TimeStopTrigger), /server/game.cs (endGameSetup).
+	PlayGui.updateTimeTravelCountdown();
+}
+
+function PlayGui::updateTimeTravelCountdown(%this) {
+	%timeUsed = %this.bonusTime + 99; // When you pick up a 5s timer, it should start by displaying 5.0, instead of 4.9. This also prevents the TT timer from showing 0.0. But if you add 100, picking up a 5s timer can show "5.1". Turns out adding 99 actually works perfectly here.
+	%secondsLeft = mFloor(%timeUsed/1000);
+	%tenths = mFloor(%timeUsed/100) % 10;
+
+	%one = mFloor(%secondsLeft) % 10;
+	%ten = mFloor(%secondsLeft / 10) % 10;
+	%hun = mFloor(%secondsLeft / 100);
+
+	%color = (%this.stopped || $PlayTimerActive == 0) ? $TimeColor["stopped"] : $TimeColor["normal"]; // can try $Game::TimeStoppedClients >= 1
+
+	%offsetIfThousandths = $pref::Thousandths? 5:0;
+	if (%secondsLeft < 10) {
+		PGCountdownTTFirstDigit.setNumberColor(%one, %color);
+		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%tenths, %color);
+		PGCountdownTTThirdDigitOrDecimal.setPosition("397" + %offsetIfThousandths SPC "0");
+	} else if (%secondsLeft < 100) {
+		PGCountdownTTFirstDigit.setNumberColor(%ten, %color);
+		PGCountdownTTSecondDigit.setNumberColor(%one, %color);
+		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%tenths, %color);
+		PGCountdownTTThirdDigitOrDecimal.setPosition("413" + %offsetIfThousandths SPC "0");
+	} else if (%secondsLeft < 999) {
+		PGCountdownTTFirstDigit.setNumberColor(%hun, %color);
+		PGCountdownTTSecondDigit.setNumberColor(%ten, %color);
+		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%one, %color);
+		PGCountdownTTThirdDigitOrDecimal.setPosition("407" + %offsetIfThousandths SPC "0");
+	} else {
+		PGCountdownTTFirstDigit.setNumberColor(9, %color);
+		PGCountdownTTSecondDigit.setNumberColor(9, %color);
+		PGCountdownTTThirdDigitOrDecimal.setNumberColor(9, %color);
+		PGCountdownTTThirdDigitOrDecimal.setPosition("407" + %offsetIfThousandths SPC "0");
+	}
+	
+	PGCountdownTTImage.setPosition("348" + %offsetIfThousandths SPC "3");
+	PGCountdownTTFirstDigit.setPosition("375" + %offsetIfThousandths SPC "0");
+	PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
+
+	PGCountdownTTPoint.setNumberColor("point", %color);
+	PGCountdownTTPoint.setVisible(!(%secondsLeft >= 100));
+	PGCountdownTTPoint.setPosition((%secondsLeft >= 10 ? "403" : "388") + %offsetIfThousandths SPC "0");
+
+	PGCountdownTTSecondDigit.setVisible(%secondsLeft >= 10);
+	PGCountdownTT.setVisible(%this.bonusTime);
 }
 
 function PlayGui::updateControls(%this) {
