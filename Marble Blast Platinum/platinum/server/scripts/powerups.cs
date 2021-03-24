@@ -587,6 +587,8 @@ function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
 	if (%bonus > 0)
 		%user.client.incBonusTime(%bonus);
 
+	commandToAll('UpdateTimeTravelCountdown'); // main_gi v4.2.3
+	
 	return true;
 }
 

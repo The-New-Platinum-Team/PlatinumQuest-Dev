@@ -91,6 +91,7 @@ function menuLoadMission(%file) {
 	menuSetMission(%file);
 	menuStartLoading();
 
+	$Menu::CurrentlyLoadedMission = %file;
 	$Menu::FirstLoad = false;
 	//If we need to start a server first, do so here
 	if (!$Game::Menu) {
@@ -242,12 +243,19 @@ function menuMissionExit() {
 		//Start camera loop
 		LocalClientConnection.camera.schedule(1000, moveOnPath, CameraPath1);
 	} else {
-		endMission(true);
-		//Destroy player, etc
+		// main_gi:
+		// Making it so if it's off, stay in the level, just don't render the camera.
+		alxSetChannelVolume(1, 0);
+		onMissionReset();
+		MissionCleanup.add(%camera = new Camera() {
+			dataBlock = Observer;
+		});
+		%camera.setTransform("-999999 -999999 -999999 1 0 0 0"); // Move it far, far away.
+		%camera.scopeToClient(LocalClientConnection);
+		LocalClientConnection.setControlObject(%camera);
 		LocalClientConnection.onClientLeaveGame();
-
-		$Menu::Loaded = false;
-		$Menu::Loading = false;
+		cancelAll(LocalClientConnection);
+		menuSendCb("NewMission", $Menu::CurrentlyLoadedMission); // Show the static background image.
 	}
 
 	menuSendCb("MissionExit");
