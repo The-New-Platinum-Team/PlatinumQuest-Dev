@@ -128,18 +128,18 @@ function ConsoleEntry::eval() {
 	// Don't allow them to use the following commands.
 	// i rewrote part of this to make it easier to understand
 	%testExpr = strlwr(%text);
-	%invalid[0] = "$"@"c"@"r"@"c"; // $crc
-	%invalid[1] = "$"@"g"@"a"@"m"@"e"@":"@":"; // $game::
-	%invalid[2] = "$"@"l"@"b"; // $lb
-	%invalid[3] = "."@"d"@"u"@"m"@"p"; // .dump
-	%invalid[4] = "e"@"v"@"a"@"l"; // eval
-	%invalid[5] = "c"@"a"@"l"@"l"; // call
-	%invalid[6] = "t"@"r"@"e"@"e"; // tree
-	%invalid[7] = "g"@"u"@"i"@"e"@"d"@"i"@"t"; // guiedit
-	%invalid[8] = "e"@"x"@"e"@"c"; // exec
-	%invalid[9] = "w"@"i"@"n"@"c"@"o"@"n"@"s"@"o"@"l"@"e"; // winconsole
-	%invalid[10] = "d"@"b"@"g"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // dbgSetParameters
-	%invalid[11] = "t"@"e"@"l"@"n"@"e"@"t"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // telnetSetParameters
+	// %invalid[0] = "$"@"c"@"r"@"c"; // $crc
+	// %invalid[1] = "$"@"g"@"a"@"m"@"e"@":"@":"; // $game::
+	// %invalid[2] = "$"@"l"@"b"; // $lb
+	// %invalid[3] = "."@"d"@"u"@"m"@"p"; // .dump
+	// %invalid[4] = "e"@"v"@"a"@"l"; // eval
+	// %invalid[5] = "c"@"a"@"l"@"l"; // call
+	// %invalid[6] = "t"@"r"@"e"@"e"; // tree
+	// %invalid[7] = "g"@"u"@"i"@"e"@"d"@"i"@"t"; // guiedit
+	// %invalid[8] = "e"@"x"@"e"@"c"; // exec
+	// %invalid[9] = "w"@"i"@"n"@"c"@"o"@"n"@"s"@"o"@"l"@"e"; // winconsole
+	// %invalid[10] = "d"@"b"@"g"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // dbgSetParameters
+	// %invalid[11] = "t"@"e"@"l"@"n"@"e"@"t"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // telnetSetParameters
 
 	if (stripos(%testExpr, "testcheats") != -1) {
 		echo("Enabling editor for you. Here's the variable in case you care about that:");
@@ -159,8 +159,8 @@ function ConsoleEntry::eval() {
 		}
 	}
 
-   $Game::Offline = true; //No LB access if you use the console
-   MenuOnlineButton.setActive(false);
+   // $Game::Offline = true; //No LB access if you use the console
+   // MenuOnlineButton.setActive(false);
 
 	%cheatExpr = strReplace(%testExpr, " ", "_");
 	if (isFunction("cheat_" @ %cheatExpr)) {

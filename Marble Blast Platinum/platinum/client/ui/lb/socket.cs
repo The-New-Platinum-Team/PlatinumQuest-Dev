@@ -172,6 +172,7 @@ function LBNetwork::delete(%this) {
 
 function LBNetwork::send(%this, %data) {
 	%this.echo(trim(%data), "Send");
+	echo("LBNetwork << " @ %data);
 	Parent::send(%this, %data);
 }
 
@@ -340,6 +341,7 @@ function LBNetwork::onLine(%this, %line) {
 		return;
 
 	%this.echo(%line, "Line");
+	echo("LBNetwork >> " @ %line);
 
 	//Lines are always in the form of <cmd> <data>
 	%cmd  = firstWord(%line);
