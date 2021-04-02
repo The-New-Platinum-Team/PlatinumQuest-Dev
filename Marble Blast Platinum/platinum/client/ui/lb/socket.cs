@@ -25,10 +25,10 @@
 //-----------------------------------------------------------------------------
 
 //RELEASE PORT
-$LB::Server = "webchat.marbleblast.com:28002";
+// $LB::Server = "webchat.marbleblast.com:28002";
 
 //DEV PORT
-//$LB::Server = "webchat.marbleblast.com:28003";
+$LB::Server = "localhost:420";
 
 //-----------------------------------------------------------------------------
 // Connecting and Disconnecting

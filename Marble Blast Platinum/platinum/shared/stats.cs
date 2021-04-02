@@ -24,8 +24,10 @@
 // PQ Demo statistics tracking
 //-----------------------------------------------------------------------------
 
-$Stats::Server = "https://marbleblast.com";
-$Stats::Path   = "/pq/leader/";
+// $Stats::Server = "https://marbleblast.com";
+// $Stats::Path   = "/pq/leader/";
+$Stats::Server = "http://localhost:1337";
+$Stats::Path   = "/";
 $Stats::RetryTime = 15000;
 
 function statsGet(%page, %values) {
