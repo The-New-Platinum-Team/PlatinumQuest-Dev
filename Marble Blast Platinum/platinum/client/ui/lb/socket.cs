@@ -28,7 +28,7 @@
 $LB::Server = "webchat.marbleblast.com:28002";
 
 //DEV PORT
-//$LB::Server = "webchat.marbleblast.com:28003";
+// $LB::Server = $ServerInfo::webchatServer;
 
 //-----------------------------------------------------------------------------
 // Connecting and Disconnecting
@@ -47,7 +47,7 @@ function LBconnect() {
 	LBChatGui.setEnableChatEntry(true);
 
 	%sock = new TCPObject(LBNetwork);
-	%sock.connect($LB::Server);
+	%sock.connect($LBServerInfo::webchatServer);
 
 	LBMessage("Logging In...", "LBdisconnect();");
 }
@@ -83,7 +83,7 @@ function LBguestConnect() {
 	$LB::Guest = true;
 
 	%sock = new TCPObject(LBNetwork);
-	%sock.connect($LB::Server);
+	%sock.connect($LBServerInfo::webchatServer);
 
 	LBMessage("Logging In...", "LBdisconnect();");
 }
@@ -159,7 +159,7 @@ function LBRelogin() {
 	}
 
 	%sock = new TCPObject(LBNetwork);
-	%sock.connect($LB::Server);
+	%sock.connect($LBServerInfo::webchatServer);
 
 	cancelIgnorePause($LB::ReloginSchedule);
 	$LB::ReloginSchedule = scheduleIgnorePause(5000, LBRelogin);
