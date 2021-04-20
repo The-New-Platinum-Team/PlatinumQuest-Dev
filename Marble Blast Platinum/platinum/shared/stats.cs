@@ -26,7 +26,7 @@
 
 // $Stats::Server = "https://marbleblast.com";
 // $Stats::Path   = "/pq/leader/";
-$Stats::Server = "http://localhost:1337";
+// $Stats::Server = $ServerInfo::PQServer;
 $Stats::Path   = "/";
 $Stats::RetryTime = 15000;
 
@@ -72,7 +72,7 @@ function StatsRequest::send(%this) {
 	if (!$pref::SSL::VerifyPeer) {
 		StatsNetwork.setOption("verify-peer", false);
 	}
-	StatsNetwork.host = $Stats::Server;
+	StatsNetwork.host = $LBServerInfo::PQServer;
 	StatsNetwork.sendRequest(%this);
 
 	if (%this.getGroup() !$= StatsRequests) {

@@ -471,10 +471,10 @@ function MPJoinServerDlg::queryGG(%this) {
 	//Use our master
 
 	if ($pref::Master[0] $= "2:master.garagegames.com:28002")
-		$pref::Master[0] = "2:marbleblast.com:29000";
+		$pref::Master[0] = $LBServerInfo::mpMasterServer;
 
-	if ($pref::Master[0] $= "2:marbleblast.com:29000")
-		$pref::Master[0] = "2:master.marbleblast.com:29000";
+	if ($pref::Master[0] !$= $LBServerInfo::mpMasterServer)
+		$pref::Master[0] = $LBServerInfo::mpMasterServer;
 
 	$Client::GameTypeQuery = "Any";
 	$Client::MissionTypeQuery = "Any";

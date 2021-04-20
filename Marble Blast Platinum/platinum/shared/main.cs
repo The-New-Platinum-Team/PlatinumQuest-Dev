@@ -48,6 +48,7 @@ function initShared() {
 	exec("./tcp.cs"); //for dec2hex for support
 	exec("./mp/support.cs"); //for rot13
 	exec("./support.cs");
+	exec("./servers.cs");
 	exec("./mp/defaults.cs");
 	exec("./mp/opCodes.cs");
 	exec("./mission.cs");

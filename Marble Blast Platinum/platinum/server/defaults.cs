@@ -30,7 +30,7 @@
 // List of master servers to query, each one is tried in order
 // until one responds
 $Pref::Server::RegionMask = 2;
-$pref::Master[0] = "2:master.marbleblast.com:29000";
+$pref::Master[0] = $LBServerInfo::mpMasterServer;
 
 // The connection error message is transmitted to the client immediatly
 // on connection, if any further error occures during the connection
