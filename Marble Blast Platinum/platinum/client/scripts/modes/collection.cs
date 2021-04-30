@@ -42,6 +42,7 @@ function ClientMode_collection::onLoad(%this) {
 	%this.registerCallback("radarShouldShowObject");
 	%this.registerCallback("onEndGameSetup");
 	%this.registerCallback("shouldGhostFollow");
+	%this.registerCallback("getDefaultScore"); // main_gi
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_collection::timeMultiplier(%this) {
@@ -54,7 +55,6 @@ function ClientMode_collection::getGemColor(%this, %gem) {
 	return %gem.getSkinName();
 }
 function ClientMode_collection::onEndGameSetup(%this) {
-	PlayGui.setTime(0);
 }
 function ClientMode_collection::shouldGhostFollow(%this, %object) {
 	return true;
@@ -86,4 +86,8 @@ function clientCmdCollectionRing(%index, %id) {
 		%obj.setTransform("-1e9 -1e9 -1e9 1 0 0 0");
 		%obj.setScale("0 0 0");
 	}
+}
+
+function ClientMode_collection::getDefaultScore(%this) {  // main_gi
+	return $ScoreType::Score TAB 0 TAB "Matan W.";
 }
