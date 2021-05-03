@@ -28,8 +28,8 @@
 //-----------------------------------------------------------------------------
 
 setModPaths("platinum;packages");
-for ($file = findFirstFile("packages/*.pak"); $file !$= ""; $file = findNextFile("packages/*.pak")) {
-	loadPackage(fileBase($file));
+for ($file = findFirstFile("packages/*.mbpak"); $file !$= ""; $file = findNextFile("packages/*.mbpak")) {
+	loadMBPackage(fileBase($file));
 }
 
 //$baseMods = "platinum";
