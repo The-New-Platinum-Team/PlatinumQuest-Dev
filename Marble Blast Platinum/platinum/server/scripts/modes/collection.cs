@@ -38,6 +38,9 @@ function Mode_collection::onLoad(%this) {
 	%this.registerCallback("getStartTime");
 	%this.registerCallback("onUpdateGhost");
 	%this.registerCallback("timeMultiplier");
+	%this.registerCallback("onTimeExpire"); // main_gi
+	%this.registerCallback("getScoreType"); // main_gi
+	%this.registerCallback("getFinalScore"); // main_gi
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_collection::shouldIgnoreGem(%this, %object) {
@@ -164,6 +167,13 @@ function Mode_collection::checkWin(%this, %client) {
 		}
 	}
 	//We win!
+
+	// main_gi
+	%this.gotAllGems = true;
+	commandToClient(%this, 'UseTimeScore', true);
+	Time::stop();
+	Time::set(MissionInfo.time - $Time::CurrentTime);
+
 	endGameSetup();
 }
 function Mode_collection::getColors(%this) {
@@ -279,3 +289,23 @@ datablock StaticShapeData(CollectionRing) {
 
 	emap = true;
 };
+
+
+
+function Mode_collection::onTimeExpire(%this) {
+	// main_gi
+	%this.gotAllGems = false;
+	commandToAll('UseTimeScore', false);
+}
+function Mode_collection::getScoreType(%this) {
+	if (%this.gotAllGems) {
+		return $ScoreType::Time;
+	}
+	return $ScoreType::Score;
+}
+function Mode_collection::getFinalScore(%this, %object) {
+	if (%this.gotAllGems) {
+		return $ScoreType::Time TAB $Time::CurrentTime;
+	}
+	return $ScoreType::Score TAB %object.client.getGemCount();
+}
