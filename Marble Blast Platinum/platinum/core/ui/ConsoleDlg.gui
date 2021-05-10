@@ -60,6 +60,7 @@ new GuiControl(ConsoleDlg) {
 			altCommand = "ConsoleEntry::eval();";
 			horizSizing = "width";
 			vertSizing = "top";
+			commandUp = "ConsoleEntry.setValue($lastCommand);";
 		};
 		new GuiButtonCtrl(ConsoleTrace) {
 			profile = "GuiButtonProfile";
@@ -99,8 +100,31 @@ new GuiControl(ConsoleDlg) {
 			extent = "50 20";
 			visible = "1";
 			text = "Editor";
-			buttonType = "ToggleButton";
+			buttonType = "PushButton";
 			command = "toggleConsoleEditor();";
+		};
+		new GuiButtonCtrl(ConsoleEchoSend) {
+			profile = "GuiButtonProfile";
+			vertSizing = "top";
+			position = "200 330";
+			extent = "50 20";
+			visible = "1";
+			text = "Echosend";
+			buttonType = "PushButton";
+			command = "ConsoleEntry.eval(\"echo\");";
+		};
+		new GuiButtonCtrl(ConsoleLastCommand) {
+			profile = "GuiButtonProfile";
+			vertSizing = "top";
+			position = "250 330";
+			extent = "50 20";
+			visible = "1";
+			text = "Last Cmd";
+			buttonType = "RepeaterButton";
+			command = "ConsoleEntry.setValue($lastCommand);";
+            repeatPeriod = 350;
+            accelerator = "up";
+            repeatDecay = 100;
 		};
 	};
 };
@@ -108,38 +132,26 @@ new GuiControl(ConsoleDlg) {
 
 $ConsoleActive = false;
 
-function ConsoleEntry::eval() {
+function ConsoleEntry::eval(%this, %echoCommand) {
 	%text = ConsoleEntry.getValue();
 	if (%text $= "")
 		return;
 
-	// disable console during leaderboard usage
-	///      keep $LB as that is for the login screen
-	// if (lb()) {
-	// 	warn("Console usage is disabled during the leaderboards.");
-	// 	warn("We do not want cheaters in a non-cheating environment.");
-	// 	warn("Exit the leaderboards to re-enable the console.");
-	// 	warn("Thank you,");
-	// 	warn("   ~The Platinum Team");
-	// 	ConsoleEntry.setValue("");
-	// 	return;
-	// }
-
 	// Don't allow them to use the following commands.
 	// i rewrote part of this to make it easier to understand
 	%testExpr = strlwr(%text);
-	// %invalid[0] = "$"@"c"@"r"@"c"; // $crc
-	// %invalid[1] = "$"@"g"@"a"@"m"@"e"@":"@":"; // $game::
-	// %invalid[2] = "$"@"l"@"b"; // $lb
-	// %invalid[3] = "."@"d"@"u"@"m"@"p"; // .dump
-	// %invalid[4] = "e"@"v"@"a"@"l"; // eval
-	// %invalid[5] = "c"@"a"@"l"@"l"; // call
-	// %invalid[6] = "t"@"r"@"e"@"e"; // tree
-	// %invalid[7] = "g"@"u"@"i"@"e"@"d"@"i"@"t"; // guiedit
-	// %invalid[8] = "e"@"x"@"e"@"c"; // exec
-	// %invalid[9] = "w"@"i"@"n"@"c"@"o"@"n"@"s"@"o"@"l"@"e"; // winconsole
-	// %invalid[10] = "d"@"b"@"g"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // dbgSetParameters
-	// %invalid[11] = "t"@"e"@"l"@"n"@"e"@"t"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // telnetSetParameters
+	//%invalid[0] = "$"@"c"@"r"@"c"; // $crc
+	//%invalid[1] = "$"@"g"@"a"@"m"@"e"@":"@":"; // $game::
+	//%invalid[2] = "$"@"l"@"b"; // $lb
+	//%invalid[3] = "."@"d"@"u"@"m"@"p"; // .dump
+	//%invalid[4] = "e"@"v"@"a"@"l"; // eval
+	//%invalid[5] = "c"@"a"@"l"@"l"; // call
+	//%invalid[6] = "t"@"r"@"e"@"e"; // tree
+	//%invalid[7] = "g"@"u"@"i"@"e"@"d"@"i"@"t"; // guiedit
+	//%invalid[8] = "e"@"x"@"e"@"c"; // exec
+	//%invalid[9] = "w"@"i"@"n"@"c"@"o"@"n"@"s"@"o"@"l"@"e"; // winconsole
+	//%invalid[10] = "d"@"b"@"g"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // dbgSetParameters
+	//%invalid[11] = "t"@"e"@"l"@"n"@"e"@"t"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"; // telnetSetParameters
 
 	if (stripos(%testExpr, "testcheats") != -1) {
 		echo("Enabling editor for you. Here's the variable in case you care about that:");
@@ -149,18 +161,17 @@ function ConsoleEntry::eval() {
 		remind("Opening the editor will not save times!", $ReminderDlg::EditorNoSave);
 	}
 
-	echo("\c3$ " @ %text);
-	for (%i = 0; %i < 12; %i ++) {
-		if (stripos(%testExpr,%invalid[%i]) != -1) {
-			//echo("\c5Forbidden command.");
-			echo("\c2Syntax error in input.");
-			ConsoleEntry.setValue("");
-			return;
-		}
-	}
+	//echo("\c3$ " @ %text);
+	//for (%i = 0; %i < 12; %i ++) {
+	//	if (stripos(%testExpr,%invalid[%i]) != -1) {
+	//		//echo("\c5Forbidden command.");
+	//		echo("\c2Syntax error in input.");
+	//		ConsoleEntry.setValue("");
+	//		return;
+	//	}
+	//}
 
-   // $Game::Offline = true; //No LB access if you use the console
-   // MenuOnlineButton.setActive(false);
+   //MenuOnlineButton.setActive(false);
 
 	%cheatExpr = strReplace(%testExpr, " ", "_");
 	if (isFunction("cheat_" @ %cheatExpr)) {
@@ -169,12 +180,41 @@ function ConsoleEntry::eval() {
 		return;
 	}
 
+	if (%echoCommand $= "echo") {
+		if (getSubStr(%text, strlen(%text)-1, 1) $= ";") {%text = getSubStr(%text, 0, strlen(%text)-1);} // drop semicolon at end if echoed
+		if (getSubStr(%text, 0, 4) $= "echo") {%text = getSubStr(%text, 4, strlen(%text)-1);} // drop "echo" at the start
+		%text = "echo(" @ %text @ ");";
+	}
+	%text = strreplace(%text, ";;", ";");
+	$lastCommand = %text;
+
 	eval(%text);
 	ConsoleEntry.setValue("");
 
 	ConsoleTrace.setValue($tracing);
 	ConsoleDebug.setValue($DEBUG);
 	ConsoleEEnabled.setValue($Editor::Enabled);
+}
+
+function recompile() {
+	%patterns = "*.cs;*.gui";
+	%compiled = false;
+	while (%patterns !$= "") {
+		%patterns = nextToken(%patterns, "exp", ";");
+
+		for (%file = findFirstFile(%exp); %file !$= ""; %file = findNextFile(%exp)) {
+			// Leaving a hole in because some level scripts were boning people (these scripts are never exec'd, only read+eval'd)
+			if (filePath(filePath(filePath(%file))) $= ($usermods @ "/data/multiplayer"))
+				continue;
+			// We should compile all of these files, just to be sure
+			if (!isFile(%file @ ".dso")) {
+				if (compile(%file)) {
+					%compiled = true;
+					echo("Compiled" @ "%file");
+				}
+			}
+		}
+	}
 }
 
 function ctrace() {
@@ -195,11 +235,6 @@ function ToggleConsole(%make) {
 		} else {
 			// disable console during leaderboard usage
 			///      keep $LB as that is for the login screen
-			if (false) {
-				ConsoleEntry.setVisible(0);
-			} else {
-				ConsoleEntry.setVisible(1);
-			}
 
 			if (ControllerGui.isJoystick()) {
 				$ConsoleLast = ControllerGui.control;
@@ -222,6 +257,10 @@ function ToggleConsole(%make) {
 
 function toggleConsoleEditor() {
 	$Editor::Enabled = !$Editor::Enabled;
+	if (lb()) {
+		$Editor::Enabled = false;
+		echo("I'm not sure what you were expecting.");
+	}
 	ConsoleEEnabled.setValue($Editor::Enabled);
 }
 
