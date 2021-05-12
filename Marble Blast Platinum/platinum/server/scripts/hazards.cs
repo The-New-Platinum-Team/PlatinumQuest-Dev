@@ -37,6 +37,12 @@ datablock AudioProfile(TrapDoorOpenSfx) {
 	preload = true;
 };
 
+datablock AudioProfile(TrapDoorOpenMbgSfx) {
+	filename    = "~/data/sound/ap_mbg/TrapDoorOpen.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
 
 datablock StaticShapeData(TrapDoor) {
 	className = "TrapDoorClass";
@@ -45,11 +51,21 @@ datablock StaticShapeData(TrapDoor) {
 	resetTime = 5000;
 	scopeAlways = true;
 
+	// TODO: rethink which textures to use, perhaps use more. Remove frictions as they do not take effect.
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+
 	customField[0, "field"  ] = "resetTime";
 	customField[0, "type"   ] = "time";
 	customField[0, "name"   ] = "Reset Time";
 	customField[0, "desc"   ] = "How long it takes the trapdoor to reopen.";
 	customField[0, "default"] = "Default";
+	customField[1, "field"  ] = "skin";
+	customField[1, "type"   ] = "string";
+	customField[1, "name"   ] = "Skin Name";
+	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[1, "default"] = "skin0";
 };
 
 datablock StaticShapeData(TrapDoor_PQ : TrapDoor) {
@@ -59,8 +75,27 @@ datablock StaticShapeData(TrapDoor_PQ : TrapDoor) {
 function TrapDoorClass::onAdd(%this, %obj) {
 	%obj._open = false;
 	%obj._timeout = 200;
+	// Default variables
 	if (%obj.resetTime $= "")
 		%obj.resetTime = "Default";
+
+	if (%obj.skin $= "")
+		%obj.skin = "base";
+		
+	// Skin takes effect upon mission reset or reload
+	if (%obj.skinName !$= "") { //clean up old skinname field
+		%obj.skin = %obj.skinName;
+		%obj.skinName = "";
+	}
+
+	if (%obj.skin $= "")
+		%obj.skin = %obj.getSkinName();
+	else
+		%obj.setSkinName(%obj.skin);
+
+	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "base")) 
+		%obj.skin = "skin1";
+		%obj.setSkinName(%obj.skin);
 }
 
 function TrapDoorClass::onCollision(%this,%obj,%col) {
@@ -78,15 +113,21 @@ function TrapDoorClass::onCollision(%this,%obj,%col) {
 }
 
 function TrapdoorClass::open(%this, %obj) {
+	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
+	%obj.playAudio(0,TrapDoorOpenMbgSfx);
+	else %obj.playAudio(0,TrapDoorOpenSfx);
+
 	%obj.setThreadDir(0,true);
 	%obj.playThread(0,"fall",1);
-	%obj.playAudio(0,TrapDoorOpenSfx);
 	%obj._open = true;
 }
 
 function TrapdoorClass::close(%this, %obj) {
+	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
+	%obj.playAudio(0,TrapDoorOpenMbgSfx);
+	else %obj.playAudio(0,TrapDoorOpenSfx);
+
 	%obj.setThreadDir(0,false);
-	%obj.playAudio(0,TrapDoorOpenSfx);
 	%obj._open = false;
 }
 
