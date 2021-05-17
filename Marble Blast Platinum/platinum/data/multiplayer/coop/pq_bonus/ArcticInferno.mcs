@@ -51,44 +51,44 @@ if (!$Server::Hosting || $Server::_Dedicated) return;
 // This is a great place to put custom datablocks.
 
 datablock StaticShapeData(PointsIceShard1 : IceShard1) {
-	//Totally not like these are gems or anything
-	skinCount = 5;
-	skin[0] = "base";
-	skin[1] = "red";
-	skin[2] = "yellow";
-	skin[3] = "blue";
-	skin[4] = "platinum";
-	points["red"]      = 1;
-	points["yellow"]   = 2;
-	points["blue"]     = 5;
-	points["platinum"] = 10;
+   //Totally not like these are gems or anything
+   skinCount = 5;
+   skin[0] = "base";
+   skin[1] = "red";
+   skin[2] = "yellow";
+   skin[3] = "blue";
+   skin[4] = "platinum";
+   points["red"]      = 1;
+   points["yellow"]   = 2;
+   points["blue"]     = 5;
+   points["platinum"] = 10;
 
-	points = 1;
+   points = 1;
 };
 
 datablock StaticShapeData(PointsIceShard2 : IceShard2) {
-	//Totally not like these are gems or anything
-	skinCount = 5;
-	skin[0] = "base";
-	skin[1] = "red";
-	skin[2] = "yellow";
-	skin[3] = "blue";
-	skin[4] = "platinum";
-	points["red"]      = 1;
-	points["yellow"]   = 2;
-	points["blue"]     = 5;
-	points["platinum"] = 10;
+   //Totally not like these are gems or anything
+   skinCount = 5;
+   skin[0] = "base";
+   skin[1] = "red";
+   skin[2] = "yellow";
+   skin[3] = "blue";
+   skin[4] = "platinum";
+   points["red"]      = 1;
+   points["yellow"]   = 2;
+   points["blue"]     = 5;
+   points["platinum"] = 10;
 
-	points = 1;
+   points = 1;
 };
 
 function PointsIceShard1::onAdd(%this, %obj) {
-	IceShard1::onAdd(%this, %obj);
-	%obj.setSkinName(%obj.skin);
+   IceShard1::onAdd(%this, %obj);
+   %obj.setSkinName(%obj.skin);
 }
 
 function PointsIceShard2::onAdd(%this, %obj) {
-	PointsIceShard1::onAdd(%this, %obj);
+   PointsIceShard1::onAdd(%this, %obj);
 }
 
 function PointsIceShard1::onMissionReset(%this, %ice) {
@@ -100,6 +100,27 @@ function PointsIceShard2::onMissionReset(%this, %ice) {
    PointsIceShard1::onMissionReset(%this, %ice);
 }
 
+function clientCbCheckEndgameAchievements() {
+   if (!mp() && LocalClientConnection.gemsFound[1] == 0
+      && LocalClientConnection.gemsFound[2] == 0
+      && LocalClientConnection.gemsFound[10] == 0
+      && LocalClientConnection.gemCount >= 150) {
+      activateAchievement($Achievement::Category::Level, 18);
+   }
+}
+
+
+function queueIcePoints(%points, %marble) { // For the purpose of stacking gem numbers together esp. for fire blast
+   if ($icePointsQueued == 0) {
+      schedule(4, 0, resolveIcePoints, %marble); // Delay the gem number for 4ms
+   }
+   $icePointsQueued += %points;
+}
+function resolveIcePoints(%marble) {
+   %marble.client.displayGemMessage("+" @ $icePointsQueued, "88ccff");
+   $icePointsQueued = 0;
+}
+
 package ArcticInferno {
    function FireballItem::addIceShard(%this, %item, %ice, %marble) {
       Parent::addIceShard(%this, %item, %ice, %marble);
@@ -109,51 +130,53 @@ package ArcticInferno {
          if (!%ice.collected && !$playingDemo) {
             %ice.collected = true;
             $Game::GemCount --;
+            %marble.client.gemsFound[%points] ++;
             %marble.client.onFoundGem(%points);
          }
-         %marble.client.displayGemMessage("+" @ %points, "88ccff");
+         // %marble.client.displayGemMessage("+" @ %points, "88ccff");
+         queueIcePoints(%points, %marble); // Gotta pass the %marble all over wooOOooOo
       }
    }
-	function countGems(%group) {
-		if (!MissionInfo.arcticInferno) {
-			deactivatePackage(ArcticInferno);
-			return countGems(%group);
-		}
-		// Count up all gems out there are in the world
-		%gems = 0;
-		%count = %group.getCount();
-		for (%i = 0; %i < %count; %i++) {
-			%object = %group.getObject(%i);
-			%type = %object.getClassName();
-			if (%type $= "SimGroup")
-				%gems += countGems(%object);
-			else if (%type $= "Item" && %object.getDatablock().classname $= "Gem")
-				%gems++;
-			else if (%type $= "StaticShape" && %object.getDatablock().points)
-				%gems++;
-		}
-		return %gems;
-	}
-	function countVisibleGems(%group) {
-		if (!MissionInfo.arcticInferno) {
-			deactivatePackage(ArcticInferno);
-			return countVisibleGems(%group);
-		}
-		// Count up all gems out there are in the world
-		%gems = 0;
-		%count = %group.getCount();
-		for (%i = 0; %i < %count; %i++) {
-			%object = %group.getObject(%i);
-			%type = %object.getClassName();
-			if (%type $= "SimGroup")
-				%gems += countVisibleGems(%object);
-			else if (%type $= "Item" && %object.getDatablock().classname $= "Gem" && !%object.isHidden())
-				%gems++;
-			else if (%type $= "StaticShape" && %object.getDatablock().points && %object.getDamageState() !$= "Destroyed")
-				%gems++;
-		}
-		return %gems;
-	}
+   function countGems(%group) {
+      if (!MissionInfo.arcticInferno) {
+         deactivatePackage(ArcticInferno);
+         return countGems(%group);
+      }
+      // Count up all gems out there are in the world
+      %gems = 0;
+      %count = %group.getCount();
+      for (%i = 0; %i < %count; %i++) {
+         %object = %group.getObject(%i);
+         %type = %object.getClassName();
+         if (%type $= "SimGroup")
+            %gems += countGems(%object);
+         else if (%type $= "Item" && %object.getDatablock().classname $= "Gem")
+            %gems++;
+         else if (%type $= "StaticShape" && %object.getDatablock().points)
+            %gems++;
+      }
+      return %gems;
+   }
+   function countVisibleGems(%group) {
+      if (!MissionInfo.arcticInferno) {
+         deactivatePackage(ArcticInferno);
+         return countVisibleGems(%group);
+      }
+      // Count up all gems out there are in the world
+      %gems = 0;
+      %count = %group.getCount();
+      for (%i = 0; %i < %count; %i++) {
+         %object = %group.getObject(%i);
+         %type = %object.getClassName();
+         if (%type $= "SimGroup")
+            %gems += countVisibleGems(%object);
+         else if (%type $= "Item" && %object.getDatablock().classname $= "Gem" && !%object.isHidden())
+            %gems++;
+         else if (%type $= "StaticShape" && %object.getDatablock().points && %object.getDamageState() !$= "Destroyed")
+            %gems++;
+      }
+      return %gems;
+   }
 };
 
 //--- SERVER PREMISSION SCRIPTS END ---
