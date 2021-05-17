@@ -526,6 +526,8 @@ datablock ItemData(TimeTravelItem) {
 	friction = 1;
 	elasticity = 0.3;
 	emap = false;
+	skin[0] = "base";
+	skin[1] = "mbg";
 
 	// Dynamic properties defined by the scripts
 	noRespawn = true;
@@ -544,6 +546,11 @@ datablock ItemData(TimeTravelItem) {
 	customField[0, "name"   ] = "Time Bonus";
 	customField[0, "desc"   ] = "Bonus time to add.";
 	customField[0, "default"] = $Game::TimeTravelBonus;
+	customField[1, "field"  ] = "skin";
+	customField[1, "type"   ] = "string";
+	customField[1, "name"   ] = "Skin Name";
+	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[1, "default"] = "base";
 };
 
 datablock ItemData(TimeTravelItem_PQ : TimeTravelItem) {
@@ -566,6 +573,24 @@ function TimeTravelItem::onAdd(%this, %obj) {
 		%obj.timeBonus = "5000";
 
 	%this.checkTime(%obj);
+
+	if (%obj.skin $= "")
+		%obj.skin = "base";
+		
+	// Skin takes effect upon mission reset or reload
+	if (%obj.skinName !$= "") { //clean up old skinname field
+		%obj.skin = %obj.skinName;
+		%obj.skinName = "";
+	}
+
+	if (%obj.skin $= "")
+		%obj.skin = %obj.getSkinName();
+	else
+		%obj.setSkinName(%obj.skin);
+
+	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "base")) 
+		%obj.skin = "mbg";
+		%obj.setSkinName(%obj.skin);
 }
 
 function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
