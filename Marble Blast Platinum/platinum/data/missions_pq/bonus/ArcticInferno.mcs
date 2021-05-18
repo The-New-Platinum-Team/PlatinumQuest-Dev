@@ -123,6 +123,18 @@ function clientCbCheckEndgameAchievements() {
 	}
 }
 
+
+function queueIcePoints(%points, %marble) { // For the purpose of stacking gem numbers together esp. for fire blast
+	if ($icePointsQueued == 0) {
+		schedule(4, 0, resolveIcePoints, %marble); // Delay the gem number for 4ms
+	}
+	$icePointsQueued += %points;
+}
+function resolveIcePoints(%marble) {
+	%marble.client.displayGemMessage("+" @ $icePointsQueued, "88ccff");
+	$icePointsQueued = 0;
+}
+
 package ArcticInferno {
 	function FireballItem::addIceShard(%this, %item, %ice, %marble) {
 		Parent::addIceShard(%this, %item, %ice, %marble);
@@ -135,7 +147,8 @@ package ArcticInferno {
 				%marble.client.gemsFound[%points] ++;
 				%marble.client.onFoundGem(%points);
 			}
-			%marble.client.displayGemMessage("+" @ %points, "88ccff");
+			// %marble.client.displayGemMessage("+" @ %points, "88ccff");
+			queueIcePoints(%points, %marble); // Gotta pass the %marble all over wooOOooOo
 		}
 	}
 	function countGems(%group) {
