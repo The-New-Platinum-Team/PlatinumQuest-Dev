@@ -650,6 +650,8 @@ function GameConnection::mountPlayerImage(%this, %powerUp, %slot) {
 	%image = %powerUp.image;
 	if (%this.isMegaMarble() && %powerUp.megaImage !$= "") {
 		%image = %powerUp.megaImage;
+	} else if ((MissionInfo.useUltraMarble $= "1") && %powerUp.image $= "HelicopterImage_MBU") {
+		%image = %powerUp.ultraImage;
 	}
 
 	// These are hard-coded into the engine (shame on you, GG)
