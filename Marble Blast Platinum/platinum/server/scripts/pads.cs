@@ -39,6 +39,10 @@ datablock StaticShapeData(StartPad) {
 	playAnimation = true;
 };
 
+datablock StaticShapeData(StartPad_MBG : StartPad) {
+	shapeFile = "~/data/shapes/pads/mbg/startarea.dts";
+};
+
 datablock StaticShapeData(StartPad_PQ : StartPad) {
 	shapeFile = "~/data/shapes_pq/Gameplay/pads/startpad.dts";
 
@@ -79,6 +83,12 @@ function StartPadClass::onAdd(%this, %obj) {
 		%obj.setSkinName(%obj.skin);
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
+
+	if ((Sky.materialList !$= "platinum/data/skies/sky_day.dml") && %obj.dataBlock $= "StartPad") {
+		return;
+	}
+
+	%obj.setDataBlock(StartPad_MBG);
 }
 
 //-----------------------------------------------------------------------------
@@ -92,6 +102,10 @@ datablock StaticShapeData(EndPad) {
 
 	skinCount = 0;
 	playAnimation = true;
+};
+
+datablock StaticShapeData(EndPad_MBG : EndPad) {
+	shapeFile = "~/data/shapes/pads/mbg/endarea.dts";
 };
 
 datablock StaticShapeData(EndPad_PQ : EndPad) {
@@ -133,4 +147,10 @@ function EndPadClass::onAdd(%this, %obj) {
 		%obj.setSkinName(%obj.skin);
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
+
+	if ((Sky.materialList !$= "platinum/data/skies/sky_day.dml") && %obj.dataBlock $= "EndPad") {
+		return;
+	}
+
+	%obj.setDataBlock(EndPad_MBG);
 }

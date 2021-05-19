@@ -159,6 +159,18 @@ datablock ItemData(SuperJumpItem_PQ : SuperJumpItem) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superjump.dts";
 };
 
+datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
+	shapeFile = "~/data/shapes_mbu/items/superjump.dts";
+};
+
+function SuperJumpItem::onAdd(%this, %obj) {
+	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "SuperJumpItem") {
+		return;
+	}
+
+	%obj.setDataBlock(SuperJumpItem_MBU);
+}
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(PuSuperBounceVoiceSfx) {
@@ -271,6 +283,18 @@ datablock ItemData(SuperSpeedItem) {
 datablock ItemData(SuperSpeedItem_PQ : SuperSpeedItem) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superspeed.dts";
 };
+
+datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
+	shapeFile = "~/data/shapes_mbu/items/superspeed.dts";
+};
+
+function SuperSpeedItem::onAdd(%this, %obj) {
+	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "SuperSpeedItem") {
+		return;
+	}
+
+	%obj.setDataBlock(SuperSpeedItem_MBU);
+}
 
 //-----------------------------------------------------------------------------
 
@@ -393,6 +417,12 @@ datablock AudioProfile(HelicopterLoopSfx) {
 	preload = true;
 };
 
+datablock AudioProfile(HelicopterLoopMBUSfx) {
+	filename    = "~/data/sound/ap_mbg/useGyrocopter.wav";
+	description = AudioClosestLooping3d;
+	preload = true;
+};
+
 datablock ShapeBaseImageData(HelicopterImage) {
 	// Basic Item properties
 	shapeFile = "~/data/shapes/images/Blank.dts";
@@ -425,8 +455,32 @@ datablock ItemData(HelicopterItem_PQ : HelicopterItem) {
 };
 
 datablock ShapeBaseImageData(HelicopterImage_PQ : ActualHelicopterImage) {
-	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/gyrocopter.dts";
+	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/helicopter.dts";
 };
+
+datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
+	shapeFile = "~/data/shapes_mbu/images/helicopter.dts";
+	image = HelicopterImage_MBU;
+	ultraImage = HelicopterImage_MBUBall;
+};
+
+datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
+	shapeFile = "~/data/shapes_mbu/images/helicopter_image.dts";
+	stateSound[0] = HelicopterLoopMBUSfx;
+};
+
+datablock ShapeBaseImageData(HelicopterImage_MBUBall : ActualHelicopterImage) {
+	shapeFile = "~/data/shapes_mbu/images/helicopter_image_mbu.dts";
+	stateSound[0] = HelicopterLoopMBUSfx;
+};
+
+function HelicopterItem::onAdd(%this, %obj) {
+	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "HelicopterItem") {
+		return;
+	}
+
+	%obj.setDataBlock(HelicopterItem_MBU);
+}
 
 //-----------------------------------------------------------------------------
 // Special non-inventory power ups
@@ -560,6 +614,13 @@ datablock ItemData(TimeTravelItem_PQ : TimeTravelItem) {
 	replacement = "TimePenaltyItem_PQ";
 };
 
+datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
+	shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
+
+	//For ::timeCheck() to replace if the time is negative
+	replacement = "TimePenaltyItem_MBU";
+};
+
 datablock ItemData(SundialItem_PQ : TimeTravelItem) {
 	// Basic Item properties
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/sundial.dts";
@@ -591,6 +652,12 @@ function TimeTravelItem::onAdd(%this, %obj) {
 	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "base")) 
 		%obj.skin = "mbg";
 		%obj.setSkinName(%obj.skin);
+
+	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "TimeTravelItem") {
+		return;
+	}
+
+	%obj.setDataBlock(TimeTravelItem_MBU);
 }
 
 function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
@@ -621,6 +688,12 @@ function TimeTravelItem_PQ::onAdd(%this, %obj) {
 	return TimeTravelItem::onAdd(%this, %obj);
 }
 function TimeTravelItem_PQ::onPickup(%this,%obj,%user,%amount) {
+	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
+}
+function TimeTravelItem_MBU::onAdd(%this, %obj) {
+	return TimeTravelItem::onAdd(%this, %obj);
+}
+function TimeTravelItem_MBU::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
 
@@ -658,6 +731,18 @@ datablock ItemData(TimePenaltyItem_PQ : TimeTravelItem) {
 
 	//For ::timeCheck() to replace if the time is negative
 	replacement = "TimeTravelItem_PQ";
+
+	//For the time message
+	messageColor = "ff9999";
+	grayMessageColor = "cccccc";
+};
+
+datablock ItemData(TimePenaltyItem_MBU : TimeTravelItem) {
+	//pickupAudio = TimePenaltySfx;
+	shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
+
+	//For ::timeCheck() to replace if the time is negative
+	replacement = "TimeTravelItem_MBU";
 
 	//For the time message
 	messageColor = "ff9999";
@@ -775,6 +860,9 @@ function TimeTravelItem_PQ::checkTime(%this, %obj) {
 	TimeTravelItem::checkTime(%this, %obj);
 }
 function SundialItem_PQ::checkTime(%this, %obj) {
+	TimeTravelItem::checkTime(%this, %obj);
+}
+function TimeTravelItem_MBU::checkTime(%this, %obj) {
 	TimeTravelItem::checkTime(%this, %obj);
 }
 function TimePenaltyItem::checkTime(%this, %obj) {
@@ -927,6 +1015,14 @@ function EasterEgg::getPickupName(%this, %obj) {
 	return "an Easter Egg!";
 }
 
+function EasterEgg::onAdd(%this, %obj) {
+	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "EasterEgg") {
+		return;
+	}
+
+	%obj.setDataBlock(EasterEgg_MBU);
+}
+
 function EasterEgg::onPickup(%this,%obj,%user,%amount) {
 	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
 		return false;
@@ -955,6 +1051,25 @@ function serverCmdEggStatus(%client, %status, %display, %pickup) {
 		%client.playPitchedSound("easterfound");
 	}
 }
+
+datablock ItemData(EasterEgg_MBU) {
+	category = "Powerups";	// This should be put in a new category
+	className = "PowerUp";	// Ditto
+
+	// Basic Item properties
+	shapeFile = "~/data/shapes_mbu/items/egg.dts";
+	mass = 1;
+	friction = 1;
+	elasticity = 0.3;
+	emap = false;
+
+	displayName = "Easter Egg";
+
+	// Dynamic properties defined by the scripts
+	noRespawn = true;
+	maxInventory = 1;
+	noPickupMessage = true;
+};
 
 //-----------------------------------------------------------------------------
 
@@ -1031,6 +1146,10 @@ function NestEgg_PQ::getPickupName(%this, %obj) {
 }
 
 function NestEgg_PQ::onPickup(%this,%obj,%user,%amount) {
+	return EasterEgg::onPickup(%this, %obj, %user, %amount);
+}
+
+function EasterEgg_MBU::onPickup(%this,%obj,%user,%amount) {
 	return EasterEgg::onPickup(%this, %obj, %user, %amount);
 }
 
