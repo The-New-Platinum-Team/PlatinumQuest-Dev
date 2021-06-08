@@ -98,6 +98,23 @@ new GuiControl(PlayMissionGui) {
 		_guiSize = "1024 768";
 		scoresPerPage = "5";
 
+
+	new GuiBorderButtonCtrl() {
+		profile = "PQButtonPlainProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "874 693";
+		extent = "140 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "OptionsGui.show(\"exit\");";
+		helpTag = "0";
+		text = "Options";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	};
 	new GuiControl(PM_NotQualifiedScreen) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "width";
@@ -2396,20 +2413,26 @@ function PlayMissionGui::updateMissionInfo(%this) {
 							%format = "";
 							%value = "";
 						} else {
+							%firstPlace = %row.placement == 1;
 							//TODO: More types of these things?
 							switch$ (%type) {
 							case "time":
-								%format = (%col.type $= "" ? getScoreFormatting($ScoreType::Time TAB %value, %info, %showAwesome, %row.placement) : "");
+								%format = (%col.type $= "" ? getScoreFormatting($ScoreType::Time TAB %value, %info, %showAwesome, %firstPlace) : "");
 								%value = formatTime(%value);
 							case "score":
-								%format = (%col.type $= "" ? getScoreFormatting($ScoreType::Score TAB %value, %info, %showAwesome, %row.placement) : "");
+								%format = (%col.type $= "" ? getScoreFormatting($ScoreType::Score TAB %value, %info, %showAwesome, %firstPlace) : "");
 								%value = formatScore(%value);
 							case "place":
 								%format = "";
 								%value = %value @ ".";
+							case "rating":
+								//%value = mFloor(%value/1000); // main_gi
 							default:
 								%format = "";
 							}
+						}
+						if (%field $= "rating") {
+							%value = formatCommas(mFloor(strreplace(%value, ",", "")/1000)); // main_gi, might be the hackiest thing ever
 						}
 
 						%value = clipPx($DefaultFont, 21, %value, %tabWidth[%j], false);
@@ -2487,7 +2510,8 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 		//Information text
 		%text = "<font:21><just:left>" @ %info.desc;
-		%text = %text NL "<just:left>Author:<just:right>" @ %artist;
+		//%text = %text NL "<just:left>Author:<just:right>" @ %artist;
+		%text = %text NL "<just:right>by " @ %artist; // main_gi
 
 		//Figure out what times/scores it needs
 		%defined = "Gold Platinum Ultra PlatinumQuest LBCustom";
@@ -2594,12 +2618,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%score = getField($hs[%i], 1);
 			%name = getField($hs[%i], 2);
 
-			%placement = 0;
-			//Same logic as updateMissionFrame, mark as world record if we have the record
-			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%this.personalScoreListCache.record)
-				&& %this.personalScoreListCache.record.containsEntry(%info.id)) {
-				%placement = 1;
-			}
+			%placement = (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%this.personalScoreListCache.record) && %this.personalScoreListCache.record.containsEntry(%info.id)) ? 1 : 0; // Mainly a hack, give the record color if you have it
 
 			%color = getScoreFormatting($hs[%i], %info, 1, %placement);
 			%formatted = %color @ (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score));
@@ -3271,20 +3290,36 @@ function PlayMissionGui::loadOnlineScores(%this) {
 		%this.personalScoreCacheLoading[%this.getMissionInfo().id] = true;
 		%this.globalScoreCacheFailed[%this.getMissionInfo().id] = false;
 		%this.personalScoreCacheFailed[%this.getMissionInfo().id] = false;
+	}
+
+	//Get new scores
+	statsGetGlobalTopScores(%this.getMissionInfo());
+
+	if (!$LB::Guest) {
+		statsGetPersonalTopScores(%this.getMissionInfo());
+	}
+
+	if (%this.globalScoreMode !$= "") {
+		%this.loadOnlineScoreModes();
+	}
+}
+
+function PlayMissionGui::loadOnlineScoreModes(%this) {
+	//Reset current scores
+	if (%this.getMissionInfo().id !$= "") {
 		%this.globalScoreModeCacheLoading[%this.getMissionInfo().id] = true;
 		%this.globalScoreModeCacheFailed[%this.getMissionInfo().id] = false;
 	}
 
 	//Get new scores
-	statsGetGlobalTopScores(%this.getMissionInfo());
 	statsGetTopScoreModes(%this.getMissionInfo());
-
-	if (!$LB::Guest) {
-		statsGetPersonalTopScores(%this.getMissionInfo());
-	}
 }
 
 function PlayMissionGui::setScoreMode(%this, %mode) {
+	if ($ThisControl.getValue() && %this.globalScoreMode $= "") {
+		%this.loadOnlineScoreModes();
+	}
+
 	%this.globalScoreMode = ($ThisControl.getValue() ? %mode : "");
 	%this.globalPage = %this.getInitialScoresPage();
 	%this.updateMissionInfo();
