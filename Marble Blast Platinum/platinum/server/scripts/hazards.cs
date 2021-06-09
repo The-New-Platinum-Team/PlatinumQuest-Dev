@@ -43,6 +43,12 @@ datablock AudioProfile(TrapDoorOpenMbgSfx) {
 	preload = true;
 };
 
+datablock AudioProfile(TrapDoorOpenMbuSfx) {
+	filename    = "~/data/sound/ap_mbu/TrapDoorOpen.ogg";
+	description = AudioDefault3d;
+	preload = true;
+};
+
 
 datablock StaticShapeData(TrapDoor) {
 	className = "TrapDoorClass";
@@ -66,17 +72,26 @@ datablock StaticShapeData(TrapDoor) {
 	customField[1, "name"   ] = "Skin Name";
 	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
 	customField[1, "default"] = "skin0";
+	customField[2, "field"  ] = "mbuanim";
+	customField[2, "type"   ] = "boolean";
+	customField[2, "name"   ] = "Use MBU anim/sound?";
+	customField[2, "desc"   ] = "If ticked then the old anim/sound will be used for MBU trapdoors.";
+	customField[2, "default"] = "0";
 };
 
 datablock StaticShapeData(TrapDoor_PQ : TrapDoor) {
 	shapeFile = "~/data/shapes_pq/Gameplay/hazards/trapdoor.dts";
 };
 
+datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
+	shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
+};
+
 function TrapDoorClass::onAdd(%this, %obj) {
 	%obj._open = false;
 	%obj._timeout = 200;
 	// Default variables
-	if (%obj.resetTime $= "")
+	if (%obj.resetTime $= "0")
 		%obj.resetTime = "Default";
 
 	if (%obj.skin $= "")
@@ -96,6 +111,9 @@ function TrapDoorClass::onAdd(%this, %obj) {
 	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "base")) 
 		%obj.skin = "skin1";
 		%obj.setSkinName(%obj.skin);
+
+	if (%obj.mbuanim $= "")
+		%obj.mbuanim = "0";
 }
 
 function TrapDoorClass::onCollision(%this,%obj,%col) {
@@ -115,6 +133,7 @@ function TrapDoorClass::onCollision(%this,%obj,%col) {
 function TrapdoorClass::open(%this, %obj) {
 	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
 	%obj.playAudio(0,TrapDoorOpenMbgSfx);
+	
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 
 	%obj.setThreadDir(0,true);
@@ -122,12 +141,37 @@ function TrapdoorClass::open(%this, %obj) {
 	%obj._open = true;
 }
 
+function TrapDoor_MBU::open(%this, %obj) {
+	%obj.setThreadDir(0,true);
+
+	if ((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU"))  {
+	%obj.playThread(0,"mbuFall",1);
+	%obj.playAudio(0,TrapDoorOpenMbuSfx);
+
+	} else { 
+	%obj.playThread(0,"fall",1);
+	%obj.playAudio(0,TrapDoorOpenSfx);
+	}
+
+	%obj._open = true;
+}
+
 function TrapdoorClass::close(%this, %obj) {
-	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
+	if ((%obj.mbuanim $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
 	%obj.playAudio(0,TrapDoorOpenMbgSfx);
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 
 	%obj.setThreadDir(0,false);
+	%obj._open = false;
+}
+
+function TrapDoor_MBU::close(%this, %obj) {
+	%obj.setThreadDir(0,false);
+
+	if ((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU")) 
+	%obj.playAudio(0,TrapDoorOpenMbuSfx);
+	else %obj.playAudio(0,TrapDoorOpenSfx);
+
 	%obj._open = false;
 }
 
