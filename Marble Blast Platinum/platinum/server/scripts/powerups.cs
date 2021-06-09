@@ -439,7 +439,7 @@ datablock ItemData(HelicopterItem_PQ : HelicopterItem) {
 };
 
 datablock ShapeBaseImageData(HelicopterImage_PQ : ActualHelicopterImage) {
-	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/helicopter.dts";
+	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/gyrocopter.dts";
 };
 
 datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
