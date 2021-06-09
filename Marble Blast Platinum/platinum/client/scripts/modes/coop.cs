@@ -54,11 +54,11 @@ function ClientMode_coop::onLoad(%this) {
 }
 function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 	switch$ (%object.this.getDataBlock().getName()) {
-	case  "SuperJumpItem" or "SuperJumpItem_PQ" or
-			"SuperSpeedItem" or "SuperSpeedItem_PQ" or
+	case  "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or
+			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
-			"HelicopterItem" or "HelicopterItem_PQ" or
+			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or
 			"BlastItem" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or
@@ -79,11 +79,11 @@ function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 }
 function ClientMode_coop::shouldPickupItem(%this, %object) {
 	switch$ (%object.this.getDataBlock().getName()) {
-	case  "SuperJumpItem" or "SuperJumpItem_PQ" or
-			"SuperSpeedItem" or "SuperSpeedItem_PQ" or
+	case  "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or
+			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
-			"HelicopterItem" or "HelicopterItem_PQ" or
+			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or
 			"BlastItem" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or

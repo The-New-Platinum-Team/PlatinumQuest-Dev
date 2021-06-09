@@ -161,10 +161,10 @@ function Item::onClientCollision(%this, %marble) {
 			clientCmdSetGravityDir(%ortho, false, %rotation);
 			alxPlay(PuAntiGravityVoiceSfx);
 		}
-	case "SuperJumpItem" or "SuperJumpItem_PQ":
+	case "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU":
 		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
 		alxPlay(PuSuperJumpVoiceSfx);
-	case "SuperSpeedItem" or "SuperSpeedItem_PQ":
+	case "SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU":
 		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
 		alxPlay(PuSuperSpeedVoiceSfx);
 	case "SuperBounceItem" or "SuperBounceItem_PQ":
@@ -173,7 +173,7 @@ function Item::onClientCollision(%this, %marble) {
 	case "ShockAbsorberItem" or "ShockAbsorberItem_PQ":
 		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
 		alxPlay(PuShockAbsorberVoiceSfx);
-	case "HelicopterItem" or "HelicopterItem_PQ":
+	case "HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU":
 		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
 		alxPlay(PuGyrocopterVoiceSfx);
 	case "MegaMarbleItem":
@@ -194,15 +194,15 @@ function Item::_getPowerUpId(%this) {
 
 function ItemData::_getPowerUpId(%this) {
 	switch$ (%this.getName()) {
-	case "SuperJumpItem" or "SuperJumpItem_PQ":
+	case "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU":
 		return 1;
-	case "SuperSpeedItem" or "SuperSpeedItem_PQ":
+	case "SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU":
 		return 2;
 	case "SuperBounceItem" or "SuperBounceItem_PQ":
 		return 3;
 	case "ShockAbsorberItem" or "ShockAbsorberItem_PQ":
 		return 4;
-	case "HelicopterItem" or "HelicopterItem_PQ":
+	case "HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU":
 		return 5;
 	case "MegaMarbleItem":
 		return 6;

@@ -163,14 +163,6 @@ datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
 	shapeFile = "~/data/shapes_mbu/items/superjump.dts";
 };
 
-function SuperJumpItem::onAdd(%this, %obj) {
-	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "SuperJumpItem") {
-		return;
-	}
-
-	%obj.setDataBlock(SuperJumpItem_MBU);
-}
-
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(PuSuperBounceVoiceSfx) {
@@ -287,14 +279,6 @@ datablock ItemData(SuperSpeedItem_PQ : SuperSpeedItem) {
 datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
 	shapeFile = "~/data/shapes_mbu/items/superspeed.dts";
 };
-
-function SuperSpeedItem::onAdd(%this, %obj) {
-	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "SuperSpeedItem") {
-		return;
-	}
-
-	%obj.setDataBlock(SuperSpeedItem_MBU);
-}
 
 //-----------------------------------------------------------------------------
 
@@ -474,14 +458,6 @@ datablock ShapeBaseImageData(HelicopterImage_MBUBall : ActualHelicopterImage) {
 	stateSound[0] = HelicopterLoopMBUSfx;
 };
 
-function HelicopterItem::onAdd(%this, %obj) {
-	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "HelicopterItem") {
-		return;
-	}
-
-	%obj.setDataBlock(HelicopterItem_MBU);
-}
-
 //-----------------------------------------------------------------------------
 // Special non-inventory power ups
 //-----------------------------------------------------------------------------
@@ -652,12 +628,6 @@ function TimeTravelItem::onAdd(%this, %obj) {
 	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "base")) 
 		%obj.skin = "mbg";
 		%obj.setSkinName(%obj.skin);
-
-	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "TimeTravelItem") {
-		return;
-	}
-
-	%obj.setDataBlock(TimeTravelItem_MBU);
 }
 
 function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
@@ -1013,14 +983,6 @@ datablock ItemData(EasterEgg) {
 
 function EasterEgg::getPickupName(%this, %obj) {
 	return "an Easter Egg!";
-}
-
-function EasterEgg::onAdd(%this, %obj) {
-	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "EasterEgg") {
-		return;
-	}
-
-	%obj.setDataBlock(EasterEgg_MBU);
 }
 
 function EasterEgg::onPickup(%this,%obj,%user,%amount) {
