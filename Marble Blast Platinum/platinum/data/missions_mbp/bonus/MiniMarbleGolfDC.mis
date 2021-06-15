@@ -1,0 +1,2092 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         startHelpText = "Get to the finish as fast as you can!";
+         name = "Mini Marble Golf - DC";
+         desc = "A mini marble golf level which wasn\'t good for me...";
+         level = "20";
+         type = "LBCustom";
+         artist = "Matan";
+         music = "Pianoforte.ogg";
+         time = "100000";
+         goldTime = "60000";
+         UltimateTime = "30000";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Bonus/Bonus_Sky.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         locked = "true";
+         scale = "1 1 1";
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "0 0 -1.8";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "0 0 1";
+      rotation = "1 0 0 0";
+      scale = "0.005 0.005 2";
+      interiorFile = "~/data/lbinteriors_mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+         locked = "true";
+   };
+   new InteriorInstance() {
+      position = "3.6 -4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2200";
+            smoothingType = "Spline";
+         };
+         new Marker() {
+            position = "0 -7 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "300";
+            smoothingType = "Spline";
+         };
+         new Marker() {
+            position = "0 -1 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "700";
+            smoothingType = "Spline";
+         };
+         new Marker() {
+            position = "0 6 5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "5000";
+            smoothingType = "Spline";
+         };
+         new Marker() {
+            position = "0 7 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "5";
+            msToNext = "1000";
+            smoothingType = "Spline";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "-3 -33 -7.5";
+         rotation = "1 0 0 9.99997";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_mbg/addon/pinball0.dif";
+         interiorIndex = "0";
+         basePosition = "-3 -33 -7.5";
+         baseRotation = "1 0 0 9.99997";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new InteriorInstance() {
+      position = "81.6 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 3.8 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 19.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 11.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 35 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 27.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 42.8 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 50.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "11.4 50.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "27 50.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "19.2 50.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "34.8 50.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "34.8 66.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "34.8 58.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "30.908 73.8844 -0.5";
+      rotation = "0 0 1 90";
+      scale = "1.06 0.9733 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "34.8 78 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "34.8 85.8 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "34.8 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "42.6 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "58.2 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "50.4 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "66 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "73.8 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 77.2204 2.7795";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "97.2 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "105 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "89.4 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 93.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.702 49.8921 -0.5";
+      rotation = "0 0 1 90";
+      scale = "1.26 0.975 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 81.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 73.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 65.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 57.8 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 50 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 34.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 42.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "112.8 26.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "120.6 26.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "128.4 26.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "135.649 26.6 2.84";
+      rotation = "0 1 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "142.296 26.6 -0.457";
+      rotation = "0 -1 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "150 26.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157.8 26.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 26.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 34.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 42.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "108.902 88.6921 -0.5";
+      rotation = "0 0 1 90";
+      scale = "1.26 0.975 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 54.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 62.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 70.3623 -0.47";
+      rotation = "-1 0 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 131 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 84.8096 2.8264";
+      rotation = "1 0 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 92 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 99.8 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 115.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 107.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157.8 107.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157.8 115.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "173.4 107.6 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "173.4 115.4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "173.4 131 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "173.4 123.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157.8 131 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157.8 123.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1157.35 1041.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 123.2 -4.1";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "164.189 126.995 -2.05";
+      rotation = "1 0 0 90";
+      scale = "1.3 0.5 1.2";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 123.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 128 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "165.6 126.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.26 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "160.32 126.2 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.26 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6 -11.7571 0.86";
+      rotation = "1 0 0 9.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "962.352 931.585 0.861001";
+      rotation = "1 0 0 9.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 931.585 0.861001";
+      rotation = "1 0 0 9.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "11.4 3.8 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-4.2 3.8 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-4.2 -4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "11.4 -4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-4.2 -4 -0.5";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "11.4 -11.7571 0.86";
+      rotation = "1 0 0 9.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-4.2 -11.7571 0.86";
+      rotation = "1 0 0 9.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "962.352 947.19 -0.497998";
+      rotation = "-1 0 0 4.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "985.752 931.585 0.861001";
+      rotation = "1 0 0 9.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 931.585 0.861001";
+      rotation = "1 0 0 9.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 939.35 -0.499998";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "985.752 939.35 -0.499998";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 939.35 -0.499998";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "962.352 939.35 -0.499998";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 947.19 -0.497998";
+      rotation = "-1 0 0 4.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "985.752 947.192 -0.497998";
+      rotation = "-1 0 0 4.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 947.19 -0.497998";
+      rotation = "-1 0 0 4.99997";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 954.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 954.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 986.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 962.716 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 962.716 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 970.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 970.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 978.316 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 978.316 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 993.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 993.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 986.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 986.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "977.952 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "970.152 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "985.752 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(wateroob2) {
+      position = "1028.97 1007.1 0.630002";
+      rotation = "1 0 0 0";
+      scale = "6 5.4 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "993.552 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.733 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "985.752 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1056.55 1007.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.1 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "987.366 1011.11 0.47";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "981.841 1014.56 0.47";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1020.55 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.9 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(wateroob2) {
+      position = "993.564 1004.71 0.630002";
+      rotation = "1 0 0 0";
+      scale = "7.8 3 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "1009.15 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1009.15 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1001.35 1004.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.8 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "993.296 1014.3 0.47";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1048.15 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1028.85 1014.52 0.47";
+      rotation = "1 0 0 0";
+      scale = "0.9 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1040.35 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1043.75 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1063.75 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "2.0333 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1063.75 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.8 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1055.95 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.8 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1032.55 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "2 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1016.95 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 993.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 993.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 986.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "998.937 1003.48 0.47";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(wateroob2) {
+      position = "1034.97 1007.7 0.630002";
+      rotation = "1 0 0 0";
+      scale = "5.4 6 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(wateroob2) {
+      position = "985.788 1009.53 0.630002";
+      rotation = "1 0 0 0";
+      scale = "7.8 3.3 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "993.552 1006.12 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.8666 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1001.35 1009.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1001.35 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.95 1.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "997.452 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.95 1.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1022.95 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1 0.8 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1028.95 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1 0.8 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1034.95 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1040.35 1001.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.9 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1019.75 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.4 1.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1022.55 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.4 1.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1028.95 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.8 1.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1025.35 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.4 1.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1032.55 1007.12 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.8 1.2 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1034.95 1007.12 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.2 1.2 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1040.35 1007.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.35 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1037.65 1007.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.35 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1011.6 1007.22 0.47";
+      rotation = "1 0 0 0";
+      scale = "0.9 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1018.93 1004.51 0.47";
+      rotation = "1 0 0 0";
+      scale = "0.9 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1036.74 1005.78 0.47";
+      rotation = "1 0 0 0";
+      scale = "0.9 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1028.34 1004.83 0.47";
+      rotation = "1 0 0 0";
+      scale = "0.9 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1022.93 1013.16 0.47";
+      rotation = "1 0 0 0";
+      scale = "0.9 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1051.55 1007.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1043.75 1007.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.7 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1063.75 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "2.2 1.5 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1054.35 1007.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.4 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1059.35 1007.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.4 0.9 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1049.35 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1050.55 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1051.75 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1052.95 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1054.15 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1056.55 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1057.75 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1055.35 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1059.35 1006.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.8 0.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         powerUp = "0";
+         time = "0";
+         gemCount = "0";
+         Pad = "2042";
+         bonusTime = "0";
+         penaltyTime = "0";
+   };
+   new InteriorInstance() {
+      position = "161.8 129.2 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.1705 47.7134 -1.19209e-007";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "30.2937 83.1706 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "97.5565 95.2237 1.19209e-007";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "134.819 32.5357 2.76713";
+      rotation = "0 1 0 25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "162.69 90.4223 0.629874";
+      rotation = "1 0 0 25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "164 127 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "159.2 127 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_flower.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "162.681 91.1005 1.33985";
+      rotation = "1 0 0 25";
+      scale = "0.1 0.1 0.1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "1143.51 1037.61 4.3";
+      rotation = "0 0 1 8.02137";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new ScriptObject() {
+         powerUp = "0";
+         time = "0";
+         gemCount = "0";
+         Pad = "1829";
+         bonusTime = "0";
+         penaltyTime = "0";
+   };
+   new Item() {
+      position = "108.9 77.3 0.2";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(wateroob) {
+      position = "105 73.2228 0";
+      rotation = "1 0 0 0";
+      scale = "7.8 23 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "1071.55 965.09 0.300002";
+      rotation = "0 0 1 90";
+      scale = "1.4 1.95 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 970.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 978.316 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 970.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 978.316 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 949.716 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 957.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 957.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 941.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1079.35 949.716 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 949.716 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1071.55 941.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1106.65 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "3.25 2.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1087.15 941.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1087.15 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1144.12 1037.81 -1.48977";
+      rotation = "-1 0 0 90";
+      scale = "1.3 0.5 1.2";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_tube.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(wateroob3) {
+      position = "1133.95 982.633 3.88";
+      rotation = "1 0 0 0";
+      scale = "15.6 2.5 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "1126.15 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "3.25 2.6 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1133.95 941.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1133.95 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 941.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 941.916 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 934.116 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 949.716 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 957.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 957.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 1012.89 0.300002";
+      rotation = "0 0 1 90";
+      scale = "1.4 1.95 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 965.316 0.180002";
+      rotation = "-1 0 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 965.316 0.180002";
+      rotation = "-1 0 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 972.174 3.43";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 972.174 3.43";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 982.774 3.43";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 982.774 3.43";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 979.974 3.43";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.4666 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 979.974 3.43";
+      rotation = "1 0 0 0";
+      scale = "1.3 0.4666 1";
+      interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 990.363 3.477";
+      rotation = "1 0 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 990.363 3.477";
+      rotation = "1 0 0 25";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 997.543 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 997.516 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 1005.34 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 1005.32 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 1041.52 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 1018.14 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 1025.92 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 1018.12 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 1025.94 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1137.75 1033.74 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.65 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1149.55 1033.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "0.65 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1141.75 1041.54 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1133.95 1025.94 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1157.35 1025.92 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1157.35 1033.72 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "164.189 126.995 -2.05";
+      rotation = "-1 0 0 90";
+      scale = "1.3 0.5 1.2";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_grass_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1133.95 1041.54 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1133.95 1033.74 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1140.36 1036.91 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.305 0.92 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1145.65 1036.91 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.265 0.92 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_1x1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1145.65 1038.75 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.32 0.466 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1145.66 1033.71 0.180002";
+      rotation = "1 0 0 0";
+      scale = "1.32 0.5333 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1144.12 1037.81 -1.48977";
+      rotation = "1 0 0 90";
+      scale = "1.3 0.5 1.2";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_tube.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1145.64 1033.91 -3.38977";
+      rotation = "1 0 0 0";
+      scale = "1.3 1.3 1";
+      interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "1081.43 941.205 0.800002";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(wateroob2) {
+      position = "1087.67 949.726 0.680001";
+      rotation = "1 0 0 0";
+      scale = "38 15.6 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(flower) {
+      position = "-5.1295 45.0508 -0.219737";
+      rotation = "1 0 0 0";
+      scale = "16 1 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "These are the Park World flowers. They are most likely to have a Time Modifier on the top or somewhere else on them, hidden from view.";
+   };
+   new Trigger(end1) {
+      position = "148.979 138.755 -0.1";
+      rotation = "1 0 0 0";
+      scale = "25 33 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "When you finish a hole you shall be teleported to the next one.";
+   };
+   new Trigger(ramp) {
+      position = "21.1397 68.6388 -0.0999999";
+      rotation = "1 0 0 0";
+      scale = "16 1 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "These ramps are here to slow you down!";
+   };
+   new Trigger(sand) {
+      position = "54.9695 102.274 -0.1";
+      rotation = "1 0 0 0";
+      scale = "1 10 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The sand is of higher friction than the grass so you\'re slowed down a bit in here.";
+   };
+   new Trigger(water) {
+      position = "102.682 83.0887 -0.3";
+      rotation = "1 0 0 0";
+      scale = "16 1 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Watch out for the water! You may not go on them! Use this Jump Boost to get above this obstacle!";
+   };
+   new Item() {
+      position = "1.18737 47.723 2.1";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 0.6";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "12500";
+   };
+   new Item() {
+      position = "161.794 129.228 2.1";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 0.6";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "6000";
+   };
+   new Trigger() {
+      position = "159.6 129.2 -3.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 3";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         destination = "SecondHole";
+   };
+   new Trigger(SecondHole) {
+      position = "969 934.4 1.2";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(wateroob2) {
+      position = "977.988 1017.33 0.630002";
+      rotation = "1 0 0 0";
+      scale = "23.4 7.8 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(EndPoint) {
+      position = "1141.54 1037.8 -7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new Trigger(wateroob2) {
+      position = "1043.71 1017.31 0.630002";
+      rotation = "1 0 0 0";
+      scale = "7.8 9.6 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(wateroob2) {
+      position = "1020.53 1017.32 0.630002";
+      rotation = "1 0 0 0";
+      scale = "12 7.8 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(wateroob2) {
+      position = "1009.17 1009.5 0.630002";
+      rotation = "1 0 0 0";
+      scale = "7.8 7.8 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(wateroob2) {
+      position = "1051.51 1017.31 0.630002";
+      rotation = "1 0 0 0";
+      scale = "7.8 7.8 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(wateroob2) {
+      position = "1059.31 1017.31 0.630002";
+      rotation = "1 0 0 0";
+      scale = "4.4 10.8 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(wateroob2) {
+      position = "1016.97 1006.5 0.630002";
+      rotation = "1 0 0 0";
+      scale = "12 4.8 0.1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(waterfish) {
+      position = "962.093 971.68 0.580002";
+      rotation = "1 0 0 0";
+      scale = "16 1 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Don\'t touch the water or the jellyfish!";
+   };
+   new Trigger(stayhere) {
+      position = "-37.5053 1061.27 -5.92837";
+      rotation = "1 0 0 0";
+      scale = "1200 1100 100";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Metropolis.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

@@ -1,0 +1,135 @@
+// Rep. by Perishingflames
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "Ian";
+         desc = "Learn the basics of rolling around! Follow the path around and touch the finish pad to finish the level.";
+         startHelpText = "Press <func:bind moveforward> to roll the marble forward!";
+         name = "Learning the Basics";
+         level = "17";
+         type = "LBCustom";
+         music = "Rising Temper.ogg";
+         goldTime = "17000";
+         UltimateTime = "6000";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Bonus/Bonus_Sky.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569861149077900047473967104.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160049016675429178998259712.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         scale = "1 1 1";
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         locked = "true";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "2.06823 0.50582 499.353";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "7.81372 -2.33205 499.11";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/LearningTheBasics.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-4.1497 6.52546 507.15";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.2";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(Bounds) {
+      position = "-14.3147 31.5259 473.302";
+      rotation = "1 0 0 0";
+      scale = "50 50 50";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-3.93012 -5.0823 499.24";
+      rotation = "1 0 0 0";
+      scale = "1 13 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Press <func:bind jump> to Jump!";
+   };
+   new Trigger() {
+      position = "17.4099 19.7587 499.401";
+      rotation = "1 0 0 0";
+      scale = "1 13 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Press <func:bind movebackward> to roll the marble backward!";
+   };
+   new Trigger() {
+      position = "19.7211 -1.8498 499.401";
+      rotation = "1 0 0 0";
+      scale = "13 1 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Press <func:bind moveleft> to roll the marble to the left!";
+   };
+   new Trigger() {
+      position = "-4.39157 7.94858 499.374";
+      rotation = "1 0 0 0";
+      scale = "13 1 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Press <func:bind moveright> to roll the marble to the right!";
+   };
+   new StaticShape(EndPoint) {
+      position = "14.0757 2.75319 506.887";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Metropolis.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

@@ -1,0 +1,145 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "16";
+         name = "Learning the Anti-Recoil";
+         startHelpText = "Use the Anti-Recoil PowerUp to avoid bouncing off when you land!";
+         desc = "Learn to use the anti-recoil to make falling easier.";
+         artist = "Andrew";
+         type = "LBCustom";
+         music = "Grudge.ogg";
+         goldTime = "5000";
+         UltimateTime = "4500";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 -1.73483e+09 -1.73483e+09";
+      fogVolume2 = "-1 -1.73483e+09 -1.73483e+09";
+      fogVolume3 = "-1 -1.73483e+09 -1.73483e+09";
+      materialList = "~/data/skies/Bonus/Bonus_Sky.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
+   };
+   new Sun() {
+      direction = "0.701976 -0.52137 -0.485184";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new Trigger(Bounds) {
+      position = "-12.1 18.0508 -66";
+      rotation = "1 0 0 0";
+      scale = "23 30 110";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new ScriptObject() {
+         bonusTime = "0";
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "1802";
+   };
+   new InteriorInstance() {
+      position = "9.63131 -7.81271 -54.9864";
+      rotation = "1 0 0 0";
+      scale = "1.5 1.5 170";
+      interiorFile = "~/data/lbinteriors_mbp/green_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape(StartPoint) {
+      position = "-0.807994 -2.28062 30";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new InteriorInstance() {
+      position = "6.22548 -6.02739 -61.0209";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/green_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "6.20292 -0.127932 -60.3";
+      rotation = "1 0 0 20";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbp/green_3x3.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape(EndPoint) {
+      position = "-0.696454 -1.0517 -60.53";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new StaticShape() {
+      position = "0.0198329 -0.937487 -56.9009";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape() {
+      position = "-2.51396 3.86734 31.1382";
+      rotation = "0 0 -1 15";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new Item() {
+      position = "-0.836151 2.74548 30.2136";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "ShockAbsorberItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         showHelpOnPickup = "1";
+   };
+   new ScriptObject() {
+         bonusTime = "0";
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "3502";
+   };
+   new ScriptObject() {
+         bonusTime = "0";
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "2995";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Tim Trance.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---
