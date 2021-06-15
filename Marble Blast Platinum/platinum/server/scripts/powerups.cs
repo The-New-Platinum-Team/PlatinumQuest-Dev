@@ -93,9 +93,9 @@ function PowerUp::onUse(%this, %obj, %user) {
 	// do stuff for multiplayer
 	if ($Server::ServerType $= "Multiplayer") {
 		// particles for clients
-		if (%name $= "SuperJumpItem" || %name $= "SuperJumpItem_PQ")
+		if (%name $= "SuperJumpItem" || %name $= "SuperJumpItem_PQ" || %name $= "SuperJumpItem_MBU")
 			%user.client.transferParticles(MarbleSuperJumpEmitter, true);
-		else if (%name $= "SuperSpeedItem" || %name $= "SuperSpeedItem_PQ")
+		else if (%name $= "SuperSpeedItem" || %name $= "SuperSpeedItem_PQ" || %name $= "SuperSpeedItem_MBU")
 			%user.client.transferParticles(MarbleSuperSpeedEmitter, true);
 	}
 	if (%this.image !$= "") {
@@ -1209,14 +1209,19 @@ function BlastItem::onPickup(%this, %obj, %user, %amount) {
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(doMegaMarbleSfx) {
-	filename    = "~/data/sound/doSuperJump.wav";
-//   filename    = "~/data/sound/doMegaMarble.wav";
+    filename    = "~/data/sound/doMegaMarble.wav";
 	description = AudioDefault3d;
 	preload     = true;
 };
 
 datablock AudioProfile(PuMegaMarbleVoiceSfx) {
 	filename    = "~/data/sound/puMegaMarbleVoice.wav";
+	description = AudioDefault3d;
+	preload     = true;
+};
+
+datablock AudioProfile(MegaShrinkSfx) {
+	filename    = "~/data/sound/MegaShrink.ogg";
 	description = AudioDefault3d;
 	preload     = true;
 };
@@ -1285,6 +1290,7 @@ function MegaMarbleItem::onUse(%this, %obj, %user) {
 
 function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 	cancel(%user.megaSchedule);
+	//%user.client.play2d(MegaShrinkSfx);
 
 	%user.client.setMegaMarble(false);
 	%user.client.schedule(10, gravityImpulse, "0 0 1", "-2 -2 -2");
