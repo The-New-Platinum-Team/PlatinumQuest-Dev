@@ -51,14 +51,6 @@ datablock StaticShapeData(Clear) {
 
 function Clear::onAdd(%this, %obj) {
 	%obj.playThread(0, "Rotate");
-
-	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "Clear") {
-		return;
-	}
-
-	%obj.setDataBlock(Astrolabe);
-	%obj.setScale("1 1 1");
-	%obj.setTransform("0 0 -600");
 }
 
 
@@ -104,12 +96,4 @@ datablock StaticShapeData(Wintry) {
 
 function Wintry::onAdd(%this, %obj) {
 	%obj.playThread(0, "Rotate");
-
-	if ((MissionInfo.game !$= "Ultra") && %obj.dataBlock $= "Wintry") {
-		return;
-	}
-
-	%obj.setDataBlock(Astrolabe);
-	%obj.setScale("1 1 1");
-	%obj.setTransform("0 0 -600");
 }
