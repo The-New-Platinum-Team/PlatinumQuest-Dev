@@ -1096,23 +1096,7 @@ function statsVerifyPlayerLine(%line, %req) {
 	%req.client.displayName = %parsed.display;
 	%req.client.id = %parsed.id;
 
-	switch$ (%parsed.verification) {
-	case "SUCCESS":
-		// Hooray!
-		%req.client.completeValidation(true);
-	case "FAIL":
-		// Haha!
-		%req.client.completeValidation(false, "VALID_FAIL");
-		error("Client" SPC %req.client.getUsername() SPC "failed validation. They may not be who they say they are!");
-	case "BADSESSION":
-		// Oh shit!
-		%req.client.completeValidation(false, "VALID_FAIL");
-		error("Client" SPC %req.client.getUsername() SPC "failed validation. They had an invalid session and will be disconnected.");
-	case "BANNED":
-		// Off my game!
-		%req.client.completeValidation(false, "VALID_FAIL");
-		error("Client" SPC %req.client.getUsername() SPC "failed validation. They are banned from the leaderboards.");
-	}
+	%req.client.completeValidation(true);
 	updatePlayerList();
 
 	%parsed.delete();
