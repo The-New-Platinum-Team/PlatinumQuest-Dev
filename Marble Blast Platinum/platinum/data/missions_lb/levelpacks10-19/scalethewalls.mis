@@ -1,0 +1,530 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "35";
+         music = "Grudge.ogg";
+         startHelpText = "Stay balanced!";
+         name = "Scale The Walls";
+         artist = "marbleman";
+         desc = "Roll along the walls to the top of the skyscraper collecting the gems and using the powerups.";
+         goldTime = "60000";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "-0.286096 0.524551 -0.80187";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new StaticShape() {
+      position = "7.04127 29.325 66.619";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape(StartPoint) {
+      position = "0.0782801 3.40857 0.8125";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+         fixedscale = "1";
+   };
+   new InteriorInstance() {
+      position = "0.447416 3.19775 0.550558";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape(EndPoint) {
+      position = "6.73224 29.1098 61.197";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 1";
+      dataBlock = "EndPad";
+   };
+   new InteriorInstance() {
+      position = "5.82188 -0.711132 -112.602";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/skyscraper.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "7.40811 3.21416 0.311501";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "5.41936 3.20117 0.44653";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "13.7512 9.26301 1.9563";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "7.87955 3.20662 0.3615";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "11.8618 7.25162 0.25491";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "11.8615 11.1573 0.122728";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.9186 9.18201 20.4878";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "7.8636 15.0716 0.091819";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "5.82587 13.5552 20.9291";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "3.90519 15.0696 0.0468842";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "5.12515 15.1429 10.549";
+      rotation = "0 -1 0 30";
+      scale = "1.3 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "1.50713 13.9548 0.803691";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "3.89715 3.19505 8.96685";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "7.86571 3.19766 8.93719";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "3.60404 1.02364 9.30077";
+      rotation = "1 0 0 0";
+      scale = "1 1 2";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "7.01035 1.0405 9.30003";
+      rotation = "1 0 0 0";
+      scale = "1 1 2";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new InteriorInstance() {
+      position = "7.86877 15.1578 8.99608";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "5.89261 11.1417 20.4841";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "7.89765 9.19278 12.983";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.91039 9.19505 12.9713";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "8.06673 6.93917 14.011";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "9.77038 9.32534 14.268";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "3.10551 5.53741 13.3497";
+      rotation = "1 0 0 0";
+      scale = "1 1 2";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "7.87596 4.4992 13.38";
+      rotation = "1 0 0 0";
+      scale = "1 1 2";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new Item() {
+      position = "4.9987 2.27834 14.1185";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "5.88107 7.22205 20.503";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "6.81139 2.28411 13.604";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "1.49858 13.3485 1.51488";
+      rotation = "0 0 1 180";
+      scale = "0.5 1 1";
+      dataBlock = "SignPlainUp";
+   };
+   new Item() {
+      position = "5.25482 1.03446 0.88191";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "13.9354 13.5217 0.547728";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-0.238215 11.2373 9.45166";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1.52882 1.03396 9.45185";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "11.7525 9.30429 9.48212";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "5.7544 15.2562 13.4765";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "5.78936 4.70103 14.4398";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainUp";
+   };
+   new Item() {
+      position = "5.78736 9.47477 65.598";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-0.992073 1.18169 1.97356";
+      rotation = "0 0 1 220";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new Item() {
+      position = "8.00796 12.1154 21.2409";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "2.24893 -18.96 55.248";
+      rotation = "1 0 0 0";
+      scale = "0.5 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/daedalus1.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "5.71348 12.3836 35.478";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "3.91661 9.12694 34.9727";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "5.80199 6.17515 35.4591";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "5.80699 6.13347 36.0909";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "7.28125 7.8064 39.475";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "5.88052 9.06798 38.9624";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "9.10094 10.8049 39.7192";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "9.10875 10.786 40.9192";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "9.08094 10.7821 41.7556";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "9.07779 10.7928 42.0056";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "9.03453 10.7946 42.2556";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "9.04037 10.8037 42.5056";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "9.06737 10.7689 42.7556";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "7.28776 9.25455 61.4529";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "4.81478 9.20448 60.9735";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "4.31705 9.32586 61.7303";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-18.493 41.0484 -4.60475";
+      rotation = "1 0 0 0";
+      scale = "50 50 150";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+};
+//--- OBJECT WRITE END ---

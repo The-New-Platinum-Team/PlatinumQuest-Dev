@@ -1,0 +1,565 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         UltimateTime = "50000";
+         time = "150000";
+         desc = "Try to survival in two zones!";
+         startHelpText = "Here is the first part - Filpical.";
+         artist = "Steven\'s Product";
+         level = "3";
+         name = "Brown Zone";
+         goldTime = "100000";
+         type = "custom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/Brownzone.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "2 24.25 5.75";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "2 24.25 2.25";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "2 24.25 5.75";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/Brownzone.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new StaticShape(StartPoint) {
+      position = "-16.9939 69.0029 -21.9976";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "-24.0015 -37.9934 -9.998";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new Trigger(Bounds) {
+      position = "-139 166.2 -69.6";
+      rotation = "1 0 0 0";
+      scale = "272 290 444";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "-2.96687 72.0299 -17.9987";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-15.9874 75.2145 -22.0021";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-5.01264 74.0044 -17.9504";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "4.75354 80.9878 -23.1995";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-5.00968 70.022 -13.9514";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "4.79948 81.0447 -11.004";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-23.1818 63.0412 -4.04758";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "2.80038 63.0507 -12.0189";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "4.9515 71.1926 -4.984";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "9.0266 68.8437 -9.19948";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3.7247 71.3139 -8.78537";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "2.70643 70.3539 -0.886996";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "9.01865 59.1236 -9.94858";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "2";
+   };
+   new Item() {
+      position = "9.06175 53.0159 -7.65661";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-10.9974 64.9412 -8.70058";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "2";
+   };
+   new Trigger(destination) {
+      position = "2.0008 43.2709 2.49647";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(teleport) {
+      position = "-26.9962 63.9997 -14.0009";
+      rotation = "1 0 0 0";
+      scale = "1 2 2";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         destination = "destination";
+   };
+   new Item() {
+      position = "2.55715 42.725 5.61989";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new TSStatic() {
+      position = "1.99924 32.0021 1.50026";
+      rotation = "1 0 0 0";
+      scale = "2 7.5 0.25";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new TSStatic() {
+      position = "2.00124 32.4981 6.00026";
+      rotation = "1 0 0 0";
+      scale = "2 8 0.25";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new TSStatic() {
+      position = "2.00085 11.2525 1.49913";
+      rotation = "1 0 0 0";
+      scale = "2 4.75 0.25";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new TSStatic() {
+      position = "2.00085 11.2525 5.9991";
+      rotation = "1 0 0 0";
+      scale = "2 4.75 0.25";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/Brownzone2.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-16.5 -27 -10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-16.5 -27 -7";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-16.5 -27 -10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2000";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/Brownzone2.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new InteriorInstance() {
+      position = "0.000302906 0.000119262 -0.000871825";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/Brownzonecurveaddon.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "7.00494 -5.05457 8.18654";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new TSStatic() {
+      position = "-7.99879 -25.002 -2.50053";
+      rotation = "1 0 0 0";
+      scale = "6 1 0.25";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new StaticShape() {
+      position = "1.01032 81.0075 -9.99988";
+      rotation = "0 0 1 90";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "checkPoint";
+   };
+   new Item() {
+      position = "28.9553 68.9784 -17.9502";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "1.96903 40.9822 1.99871";
+      rotation = "0 0 1 180";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "checkPoint";
+   };
+   new StaticShape() {
+      position = "1.99686 2.03728 1.99664";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "checkPoint";
+   };
+   new Item() {
+      position = "12.1951 -19.4311 -1.95158";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "4";
+   };
+   new Item() {
+      position = "14.9336 -3.08347 -9.502";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "15000";
+   };
+   new StaticShape() {
+      position = "12.9575 -6.99509 -12.0016";
+      rotation = "0 0 1 180";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "checkPoint";
+   };
+   new Item() {
+      position = "-9.00737 -21.0013 -8.95064";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-8.97737 -32.952 -5.95022";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "14.9427 1.21856 16.0434";
+      rotation = "0.581352 0.57511 -0.575568 119.617";
+      scale = "1 1 1";
+      dataBlock = "SignDown";
+   };
+   new StaticShape() {
+      position = "19.0115 -5.02324 8.0006";
+      rotation = "0 0 1 180";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "checkPoint";
+   };
+   new Trigger(help2) {
+      position = "1.9959 82.4997 -10.0012";
+      rotation = "1 0 0 0";
+      scale = "2 3 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Gain your full speed to go over the gap.";
+   };
+   new StaticShape() {
+      position = "4.11718 25.0214 3.2551";
+      rotation = "0 0 1 159";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new Item() {
+      position = "4.04951 80.9848 -14.9881";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "9.01691 66.9978 -10.0025";
+      rotation = "0 0 1 180";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "checkPoint";
+   };
+   new InteriorInstance() {
+      position = "0.000302906 0.000119262 -0.000871825";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/Brownzonecurveaddon2.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(help6) {
+      position = "0.00633143 4.00728 1.99873";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Here is the curved zone - Curvilization";
+   };
+   new Trigger(help1) {
+      position = "-5.99975 70.9974 -13.9984";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Can you figure out how to go to the opposite side?";
+   };
+   new Trigger(help3) {
+      position = "6.00025 64.0032 -16.0023";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "I believe you can do this. Go ahead.";
+   };
+   new Trigger(help4) {
+      position = "-0.000304013 54.5 -12.0029";
+      rotation = "1 0 0 0";
+      scale = "2 3 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Bounce onto the platform ahead.Otherwise use Phil\'s wall hit.";
+   };
+   new Trigger(help5) {
+      position = "-2.07932e-005 41.9958 2.00454";
+      rotation = "1 0 0 0";
+      scale = "4 2 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Don\'t be afraid! But jump over the gap when you arrive the sign.";
+   };
+   new StaticShape() {
+      position = "2.00957 -0.268691 1.99986";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "1.98847 39.4941 7.00054";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "60000";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

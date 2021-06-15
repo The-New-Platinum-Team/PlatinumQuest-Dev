@@ -1,0 +1,899 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "6";
+         music = "Seaside Revisited.ogg";
+         startHelpText = "Beware of the toxic yellow socks.";
+         name = "Clean Your Room";
+         artist = "Henry Jones";
+         desc = "Roll through the path, but beware of stinky socks!";
+         goldTime = "9000";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         rotation = "1 0 0 0";
+         locked = "true";
+         scale = "1 1 1";
+         position = "0 0 0";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "0.0682294 0.50582 496.553";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "24.0431 8.5256 499.43";
+         rotation = "0 0 1 179.518";
+         scale = "1 1 1";
+         dataBlock = "EndPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "12.0128 12.1969 499.11";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training1.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new StaticShape(EndSign) {
+      position = "22.4672 8.43532 504.46";
+      rotation = "0 0 1 160.519";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new InteriorInstance() {
+      position = "3.14309 4.17773 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "12.3151 12.4954 501.491";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training1.dif";
+      showTerrainInside = "0";
+         hidden = "true";
+         locked = "false";
+   };
+   new InteriorInstance() {
+      position = "0.230697 11.7544 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.350107 1.22248 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.3921 9.02044 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.490673 5.84592 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.17653 2.38686 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.39916 -4.16473 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "4.43269 17.0948 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.9922 6.82512 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.568605 10.0407 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-1.75684 11.5137 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.1042 13.4383 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.46834 15.4087 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.74348 10.2778 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.35732 16.6556 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.75397 -4.33478 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.48708 5.0762 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.41179 15.3876 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.79639 15.2063 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-1.04918 14.1326 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.98908 12.6705 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.43661 1.36702 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.948163 7.70078 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.737868 4.06826 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.49883 -1.49892 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.95404 5.28483 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.19746 10.4571 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.05089 7.67479 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.451421 11.9044 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.64717 17.1504 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-1.61681 2.93593 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.72946 0.299263 524.592";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.9896 11.0167 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.0171095 14.9711 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.19627 13.2114 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.14977 8.73958 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.783812 9.91108 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.51829 12.074 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.01253 15.6693 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-1.06718 17.6243 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.79079 17.0612 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.761482 16.6016 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.37394 3.49532 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.69118 7.29152 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.284067 13.4218 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.31528 13.2402 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.825389 2.96277 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.772588 15.981 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "21.0351 9.72718 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "22.1361 9.78207 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "23.3789 9.8236 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "19.9222 22.344 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "24.9713 11.0981 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "23.198 14.9547 524.619";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "26.3307 22.9564 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "27.5204 15.6552 524.551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(outbounds) {
+      position = "20.7622 11.9777 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-2.68091 3.61416 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "1.9008 4.63785 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-0.998051 6.30441 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "1.70113 7.53604 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-2.9606 9.55172 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "0.793979 9.93284 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-1.04294 12.1724 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "3.50613 12.5318 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "1.26762 14.3309 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-1.98525 13.7584 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-1.30716 16.3676 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "2.53723 17.4497 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-2.28099 17.9305 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "1.41898 19.3884 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "4.1716 19.3424 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "19.6605 24.6007 498.606";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "26.0729 25.214 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "22.9332 17.195 498.801";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "23.1245 12.1102 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "-0.289533 0.296588 496.41";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(outbounds) {
+      position = "0.317802 12.3057 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "1.1588 17.6144 498.624";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-3.62717 5.75798 498.582";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-1.86432 5.18897 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-2.73596 7.33163 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-3.63941 11.2597 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "0.234611 8.10451 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "2.74431 9.07593 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "1.93851 12.7111 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "2.73722 14.9363 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-3.23045 13.2472 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-0.0145208 14.0404 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-0.698909 14.1714 498.701";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-0.544995 15.6606 498.701";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "2.52336 19.2856 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-1.33871 19.8661 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-1.00452 18.8667 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "0.509869 18.2183 498.651";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "0.109094 18.9046 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "3.23653 0.763266 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-0.596412 3.49323 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "0.572528 5.14188 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "2.46078 2.60695 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "21.8731 12.0163 498.648";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "2.89194 6.45376 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-1.2002 9.97206 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-2.39623 11.0025 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-3.43932 15.4601 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-2.57102 15.4943 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-0.239773 17.2301 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-3.72644 17.6564 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "27.2844 17.8761 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "24.7223 13.3331 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "0.863337 15.6876 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "-2.66723 -1.91744 498.601";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(outbounds) {
+      position = "1.50024 -2.07841 498.633";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-13.2484 37.1155 495.306";
+      rotation = "1 0 0 0";
+      scale = "50 50 10";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+};
+//--- OBJECT WRITE END ---

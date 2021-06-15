@@ -1,0 +1,733 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         name = "Nerves of Steel";
+         goldTime = "165000";
+         UltimateTime = "120000";
+         startHelpText = "Don\'t slide off!";
+         desc = "The challenges that await you require agility, patience, and skill to defeat. Can you do it?";
+         type = "Custom";
+         artist = "Andrew Sears";
+         level = "25";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      materialList = "~/data/skies/Expert/Expert_Sky.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "0.700000 0.700000 0.700000 1.000000";
+      ambient = "0.100000 0.100000 0.200000 1.000000";
+   };
+   new InteriorInstance() {
+      position = "-103.287 -287.789 381.68";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/NervesofSteel.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-103.288 -287.788 381.68";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/SandCurve_Sloped.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape(StartPoint) {
+      position = "-103.29 -287.664 381.93";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "-100.305 -238.629 443.81";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new StaticShape() {
+      position = "-100.447 -237.901 450.002";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new Trigger(IBT) {
+      position = "-141.324 -207.318 359.317";
+      rotation = "1 0 0 0";
+      scale = "100 110 160";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "-106.797 -274.511 381.66";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-116.328 -277.714 382.28";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-115.818 -279.726 381.93";
+      rotation = "0 0 1 225";
+      scale = "1 1 1";
+      dataBlock = "SignDownSide";
+   };
+   new Item() {
+      position = "-119.035 -282.173 375.72";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-116.296 -304.628 381.437";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-124.077 -291.189 383.43";
+      rotation = "0 0 1 230";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-117.498 -293.611 381.38";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignUpSide";
+   };
+   new Trigger(NoS1) {
+      position = "-117.788 -289.441 381.387";
+      rotation = "1 0 0 0";
+      scale = "2.5 1 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Be sure to get the diamond in front of you first!";
+   };
+   new Item() {
+      position = "-89.3422 -245.868 417.63";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "2";
+   };
+   new StaticShape() {
+      position = "-117.256 -275.446 388.68";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-110.19 -262.67 390.86";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-102.892 -294.863 390.67";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-105.02 -281.66 388.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-132.476 -293.311 394.58";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-110.323 -287.717 395.47";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-110.291 -285.303 374.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.2";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-93.094 -287.989 403.392";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-93.0629 -289.382 403.392";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-113.914 -294.106 405.263";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-111.049 -295.557 404.69";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-106.802 -283.659 403.336";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignUpSide";
+   };
+   new StaticShape() {
+      position = "-110.18 -285.659 403.43";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "checkPoint";
+   };
+   new Trigger(NoS2) {
+      position = "-112.45 -283.736 403.399";
+      rotation = "1 0 0 0";
+      scale = "7 5 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Use the checkpoint to help you reach the platform above.";
+   };
+   new StaticShape() {
+      position = "-125.44 -303.334 391.736";
+      rotation = "0 0 -1 110";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new Item() {
+      position = "-108.907 -255.428 420.627";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "10000";
+   };
+   new Item() {
+      position = "-111.387 -262.467 412.576";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-83.3237 -238.689 421.765";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-72.3775 -238.63 423.927";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(NoS3) {
+      position = "-74.9403 -235.166 423.559";
+      rotation = "1 0 0 0";
+      scale = "3 7 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Fall down and aim for the passageway below.";
+   };
+   new Item() {
+      position = "-84.9822 -238.664 415.009";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-81.9896 -231.331 412.79";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new StaticShape() {
+      position = "-86.4403 -231.348 412.79";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignCautionDanger";
+   };
+   new StaticShape() {
+      position = "-68.3945 -222.165 412.94";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new Item() {
+      position = "-69.8949 -216.31 411.73";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-50.0926 -233.359 411.67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-54.4957 -233.399 411.67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-53.2601 -245.391 412.67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-58.7611 -255.78 414.68";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "Nuke";
+         resetTime = "Default";
+   };
+   new Item() {
+      position = "-63.2491 -258.647 415.68";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-71.9487 -258.659 417.68";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "checkPoint";
+   };
+   new StaticShape() {
+      position = "-73.1016 -258.621 417.68";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-71.8549 -243.892 417.83";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-97.5092 -242.857 417.68";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Trigger(NoS4) {
+      position = "-97.7999 -234.652 417.593";
+      rotation = "1 0 0 0";
+      scale = "3 1 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Don\'t be afraid! Roll off this platform \'til you reach the sign, then grab the diamond and continue straight ahead from there.";
+   };
+   new TSStatic() {
+      position = "-96.2835 -227.415 416.68";
+      rotation = "1 0 0 0";
+      scale = "1.5 5.75 0.5";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new TSStatic() {
+      position = "-82.347 -223.145 416.68";
+      rotation = "1 0 0 0";
+      scale = "12.45 1.5 0.5";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new StaticShape() {
+      position = "-96.2684 -221.725 417.68";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-88.2339 -223.191 417.68";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "2";
+   };
+   new StaticShape() {
+      position = "-67.0806 -223.201 417.68";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-68.478 -230.125 417.68";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignUp";
+   };
+   new Item() {
+      position = "-68.3944 -228.763 423.808";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-68.4485 -232.834 435.68";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "2";
+   };
+   new Item() {
+      position = "-70.3863 -238.789 435.28";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-96.3035 -238.669 443.81";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "2";
+   };
+   new StaticShape() {
+      position = "-96.3001 -236.661 439.68";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-96.3214 -240.747 439.68";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-109.2 -296.4 390.3";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "5000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-99.2 -296.4 390.3";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "10";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-99.2 -296.4 390.3";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "5000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-109.2 -296.4 390.3";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "-103.288 -287.789 381.68";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/NervesofSteel2.dif";
+         interiorIndex = "0";
+         basePosition = "-103.288 -287.789 381.68";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-122.9 -279.9 391";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "3000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-122.9 -291.3 391";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "10";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-122.9 -291.3 391";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "3000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-122.9 -279.9 391";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "10";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "-103.286 -283.65 381.68";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/NervesofSteel2.dif";
+         interiorIndex = "1";
+         basePosition = "-103.286 -283.65 381.68";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-87.2 -239.9 417.1";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-87.2 -246.5 417.1";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "10";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-87.2 -246.5 417.1";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-87.2 -239.9 417.1";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "10";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "-103.6 -283.8 381.6";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/NervesofSteel2.dif";
+         interiorIndex = "2";
+         basePosition = "-103.6 -283.8 381.6";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new Item() {
+      position = "-95.0961 -296.626 390.532";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-120.936 -279.961 392.052";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-117.253 -291.352 393.659";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-133.578 -292.092 389.826";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         destination = "ee";
+   };
+   new Trigger(ee) {
+      position = "-104.511 -280.508 373.571";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

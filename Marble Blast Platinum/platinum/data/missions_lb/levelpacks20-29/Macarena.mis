@@ -1,0 +1,157 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "25";
+         music = "Astrolabe.ogg";
+         startHelpText = "Beware!";
+         name = "Macarena";
+         artist = "Henry";
+         desc = "The muddiest level of all.";
+         goldTime = "25000";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         rotation = "1 0 0 0";
+         locked = "true";
+         scale = "1 1 1";
+         position = "0 0 0";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "-1.28796 0.274093 497.153";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "146.871 38.402 495.775";
+      rotation = "1 0 0 180";
+      scale = "1.5 2 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "22.7695 0.0315822 496.505";
+      rotation = "1 0 0 190";
+      scale = "3 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "59.6464 -1.40527 496.665";
+      rotation = "1 0 0 200";
+      scale = "1.5 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "80.3093 -1.51398 496.068";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "109.18 -3.01905 495.744";
+      rotation = "1 0 0 0";
+      scale = "2.5 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "115.279 11.0389 492.428";
+      rotation = "1 0 0 180";
+      scale = "1.7 7 7";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "125.66 32.6899 495.792";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.01";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "162.45 38.4276 490.833";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.14 38.2388 492.151";
+      rotation = "1 0 0 0";
+      scale = "1 1 15";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "156.077 38.4966 491.314";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape(EndPoint) {
+      position = "125.955 33.1842 495.742";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-9.0334 81.7193 479.583";
+      rotation = "1 0 0 0";
+      scale = "200 100 50";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+};
+//--- OBJECT WRITE END ---

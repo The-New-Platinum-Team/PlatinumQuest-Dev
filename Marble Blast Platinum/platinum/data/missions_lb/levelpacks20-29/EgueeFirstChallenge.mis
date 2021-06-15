@@ -1,0 +1,1040 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         desc = "A test mission to test your skills.";
+         goldTime = "130000";
+         level = "11";
+         UltimateTime = "105000";
+         type = "LBCustom";
+         artist = "Eguee";
+         time = "0";
+         name = "Eguee\'s First Challenge";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-8 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-8 -9.5 -12.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "-6 -6.5 -8.75";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-4 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-4 -9.5 -11.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "-2 -6.5 -7.75";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "1";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 -9.5 -10.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "2 -6.5 -6.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "2";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "4 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "4 -9.5 -9.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "6 -6.5 -4.75";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "3";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "8 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "8 -9.5 -8.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "10 -6.5 -3.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "4";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "12 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "12 -9.5 -7.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "14 -6.5 -2.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "5";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "16 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "16 -9.5 -6.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "18 -6.5 -1.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "6";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "20 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "20 -9.5 -5.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "22 -6.5 -0.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "7";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "24 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "24 -9.5 -4.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "26 -6.5 0.75";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "8";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "28 -9.5 -17.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "28 -9.5 -3.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "30 -6.5 1.75";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -10.0000000 1.0000000 0.0000000 20.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.0000000";
+            targetTime = "9999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "9";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-111 21 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1200";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-123 21 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "400";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-123 17 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-131 17 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1200";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-131 5 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-123 5 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "5";
+            msToNext = "400";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-123 9 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "6";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-115 9 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "7";
+            msToNext = "1200";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-115 -3 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "8";
+            msToNext = "1600";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-131 -3 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "9";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-131 -11 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "10";
+            msToNext = "3200";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-99 -11 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "11";
+            msToNext = "1600";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-99 5 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "12";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-107 5 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "13";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-107 13 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "14";
+            msToNext = "400";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-103 13 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "15";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-103 21 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "16";
+            msToNext = "800";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-111 21 -16.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "17";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "-117.5 9 -14.5";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -2.0000000 2.0000000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -4.0000000";
+            targetTime = "99999999999999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/BigPitChallenge.dif";
+         interiorIndex = "10";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            trigger0_name = "StartTrigger";
+            initialTargetPosition = "0";
+      };
+   };
+   new Trigger(Bounds) {
+      position = "-235 144.5 -77.85";
+      rotation = "1 0 0 0";
+      scale = "468 304 100";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "133.146 6.53159 11.5537";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape(StartPoint) {
+      position = "-55.9582 25.0855 -17.008";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new Item() {
+      position = "-61.7344 32.2722 -14.9351";
+      rotation = "1 0 0 225";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-109.91 34.033 -14.8163";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-133.649 12.562 -14.587";
+      rotation = "1 0 0 0";
+      scale = "20 40 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "-77.9347 -64.0746 -15.7496";
+      rotation = "0 0 1 90";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "checkPoint";
+   };
+   new StaticShape() {
+      position = "-22.9811 -6.51161 -16.2627";
+      rotation = "1 0 0 0";
+      scale = "0.4 0.4 0.4";
+      dataBlock = "checkPoint";
+   };
+   new Item() {
+      position = "61.6672 -8.26541 -24.5337";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "2";
+   };
+   new Item() {
+      position = "118.774 -7.25155 7.14633";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "126.058 -10.9336 7.45334";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "93.5498 -21.7998 6.84081";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "85.615 -8.56172 6.72903";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "102.146 -11.6371 7.16424";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "133.19 6.29354 5.5362";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "95.3207 5.88519 6.34633";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "85.8679 6.60708 6.34633";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "95.3918 6.07792 10.9463";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "85.6462 6.35049 11.9537";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "86.0748 -9.21559 12.9537";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "101.961 -11.5202 12.9537";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "93.7839 -21.7919 12.9537";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "118.951 -7.50803 12.9537";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "125.774 -11.0759 12.9537";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "77.9054 -6.47921 9.24556";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "checkPoint";
+   };
+   new Trigger(destination) {
+      position = "70.3359 203.27 35.0544";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(EndPoint) {
+      position = "134.012 -4.7219 9.32726";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new Trigger(Tlel) {
+      position = "55.9762 -2.71204 -27.35";
+      rotation = "1 0 0 0";
+      scale = "8 8 40";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         destination = "destination";
+         delay = "35000";
+   };
+   new Item() {
+      position = "125.96 -4.60828 9.7159";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "7500";
+   };
+   new Item() {
+      position = "-70.0467 39.8841 -15.3132";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5500";
+   };
+   new Item() {
+      position = "-82.0947 -11.3013 -11.2495";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "20000";
+   };
+   new Item() {
+      position = "-109.055 9.25369 -14.1746";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "119.902 -16.7774 10.4764";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "113.281 -14.4825 10.4764";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new Trigger() {
+      position = "-60.7415 33.0019 -16.1211";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Stay off the ice!";
+   };
+   new Trigger() {
+      position = "-114.995 29.2528 -15.9121";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Don\'t jump, if you want to stay in bounds!";
+   };
+   new Trigger() {
+      position = "-82.9633 6.72993 -15.9121";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Time your jumps!";
+   };
+   new Item() {
+      position = "67.7021 -6.14275 9.43398";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-60.0208 -61.9737 -16.0819";
+      rotation = "1 0 0 0";
+      scale = "2 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Bounce Bounce Bounce!";
+   };
+   new Trigger() {
+      position = "-23.7499 -2.4469 -16.5995";
+      rotation = "1 0 0 0";
+      scale = "2 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Reach for the sky to raise the platforms!";
+   };
+   new Trigger() {
+      position = "53.2534 -2.59399 10.15";
+      rotation = "1 0 0 0";
+      scale = "2 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "You\'ve got 40 seconds to save the wo- er, I mean grab the gem.";
+   };
+   new Trigger() {
+      position = "76.0821 -10.2493 8.40365";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Explore both sides of this maze!";
+   };
+   new Item() {
+      position = "-22.721 -6.56439 -17.1863";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-37.455 -43.2357 -15.0375";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "38.4739 -6.70301 7.25822";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-81.9501 -14.4412 -12.563";
+      rotation = "1 0 0 0";
+      scale = "0.25 0.25 0.25";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

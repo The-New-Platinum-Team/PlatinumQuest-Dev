@@ -1,0 +1,1357 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         type = "LBCustom";
+         startHelpText = "You have 75 seconds to find as many time travels as you can.";
+         name = "Time Travel Hunt";
+         desc = "The more of them you get, the lower your final time will be.\n\nAoMP:5";
+         level = "5";
+         artist = "Technostick";
+         goldTime = "5000";
+         music = "Endurance.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         position = "0 0 0";
+         locked = "true";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "0 0 -0.3";
+         rotation = "0 0 1 40";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "0 0 50";
+         rotation = "1 0 0 180";
+         scale = "20 20 20";
+         dataBlock = "EndPad";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/obstacle_course1.dif";
+         interiorIndex = "10";
+         basePosition = "-456.2 -365.15 181";
+         baseRotation = "0 0 1 30";
+         baseScale = "10 10 10";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/obstacle_course1.dif";
+         interiorIndex = "10";
+         basePosition = "-499.5 -330.15 181";
+         baseRotation = "0 0 1 30";
+         baseScale = "10 10 10";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/obstacle_course1.dif";
+         interiorIndex = "10";
+         basePosition = "40.5 -605.15 181";
+         baseRotation = "0 0 1 -30";
+         baseScale = "10 10 10";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/obstacle_course1.dif";
+         interiorIndex = "10";
+         basePosition = "83.8 -570.15 181";
+         baseRotation = "0 0 1 -30";
+         baseScale = "10 10 10";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "80000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "100";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0 0 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "10";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/pathways.dif";
+         interiorIndex = "0";
+         basePosition = "-300 180 155";
+         baseRotation = "0 1 0 0";
+         baseScale = "10 10 10";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/pathways.dif";
+         interiorIndex = "0";
+         basePosition = "-300 180 204";
+         baseRotation = "0 1 0 0";
+         baseScale = "10 10 10";
+            initialTargetPosition = "-1";
+      };
+   };
+   new Item() {
+      position = "0 0 20";
+      rotation = "1 0 0 0";
+      scale = "200 200 0.1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "-60000";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-1.585 -10 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-4.585 -18 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-2.585 -20 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-3.585 -26 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-5.585 -13 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-8.585 -20 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-6.585 -25 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-7.585 -23 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-5.585 -22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "0.415 -18 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "1.415 -10 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "7.415 -24 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "5.415 -19 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "3.415 -25 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "4.415 -13 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "6.415 -21 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-0.585 -11 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "0.415 -13 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-1.585 -23 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "1.415 -25 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "0.415 -29 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-2.585 -32 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "1.415 -33 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "2.415 -27 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "4.415 -27 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-3.585 -13 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "2.415 -22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "0.01 1 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-59.5 -8.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-62.5 1.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-59.5 3.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-59.5 -2.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-58.5 -3.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-56.5 5.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-58.5 6.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-56.5 13.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-54.5 3.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-55.5 1.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-55.5 1.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-53.5 -2.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-55.5 -4.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-52.5 10.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-56.5 8.78 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-56.5 -14.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-60 -13.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
+         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorIndex = "5";
+         basePosition = "-56.5 -12.22 50";
+         baseRotation = "0 1 0 0";
+         baseScale = "1 0.01 5";
+            initialTargetPosition = "0";
+      };
+   };
+   new Item() {
+      position = "-0.5 -2.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-1.5 -2.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "1.5 -3.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "3.5 -3.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "4.5 -3.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "5.5 -4.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "2.5 -4.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "3.5 -4.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "4.5 -4.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "3.5 -1.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "8.3 0 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "6.5 3 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "1.5 7.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "0.5 9.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "2.5 10 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "0 14.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-1.5 11.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-3.5 8.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "0.5 5.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-2.5 3.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-4.5 1.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-6.5 -3 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-8.3 0 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "2.5 -10 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "0.5 -8.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "-2.5 -8.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Item() {
+      position = "0 -14.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	timeBonus = "5000";
+   };
+   new Trigger(Bounds) {
+      position = "-110 110 -10";
+      rotation = "1 0 0 0";
+      scale = "1120 160 120";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---
