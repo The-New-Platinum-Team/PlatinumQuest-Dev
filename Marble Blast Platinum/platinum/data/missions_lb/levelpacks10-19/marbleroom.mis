@@ -1,0 +1,270 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         desc = "Use your marble skills to overcome this course!";
+         startHelpText = "Look for powerups!";
+         type = "LBCustom";
+         level = "27";
+         name = "The Marble Room";
+         goldTime = "42000";
+         artist = "marbleman";
+         time = "85000";
+         music = "Grudge.ogg";
+         AlarmStartTime = "25";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 -1 1";
+      fogVolume2 = "-1 -1 1";
+      fogVolume3 = "-1 -1 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -1.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -1.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -1.000000";
+   };
+   new Sun() {
+      direction = "0.465861 0.62724 -0.624134";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new StaticShape() {
+      position = "73.372 33.3739 -84.9787";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape(StartPoint) {
+      position = "20 -3.6 -162";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "73.3386 33.5395 -93.201";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new Trigger(Bounds) {
+      position = "-563.148 485.578 -295.265";
+      rotation = "1 0 0 0";
+      scale = "1000 1000 1000";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "1";
+   };
+   new StaticShape() {
+      position = "20.7321 -4.69938 -162.55";
+      rotation = "1 0 0 90";
+      scale = "8 20 8";
+      dataBlock = "SignCaution";
+   };
+   new InteriorInstance() {
+      position = "-32.8 59.2387 307.814";
+      rotation = "1 0 0 0";
+      scale = "25 25 10";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_airmove.dif";
+      showTerrainInside = "0";
+         locked = "1";
+   };
+   new TSStatic() {
+      position = "-8.81061 271.386 120.131";
+      rotation = "1 0 0 90";
+      scale = "450 600 1";
+      shapeName = "~/data/shapes/QuickSand.dts";
+         locked = "1";
+   };
+   new Item() {
+      position = "19.8752 -0.501912 -161.568";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "9.64692 8.9157 -156.424";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-9.50959 11.6651 -150.023";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "9.62151 8.9741 -156.042";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-11.1333 -2.14359 -146.002";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-11.1079 -2.20199 -146.384";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "5.71029 -10.6544 -142.683";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "5.7357 -10.7128 -143.065";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-9.08869 10.992 -149.641";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "21.0855 1.1144 -136.433";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_jewel.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "21.7785 53.3707 -124.422";
+      rotation = "-1 0 0 45";
+      scale = "6 8 5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-58.9677 42.311 -122.835";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainUp";
+   };
+   new InteriorInstance() {
+      position = "21.8553 74.2841 -108.887";
+      rotation = "1 0 0 0";
+      scale = "6 3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-25.1889 100.856 -118.412";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59.4079 49.9031 -125.028";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_bounce.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-58.8939 44.6221 -123.705";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-58.9027 44.6195 -122.206";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-62.0241 74.2947 -107.878";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new Item() {
+      position = "31.115 -8.93459 -135.842";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.5854 33.5525 -94.0063";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-60.8636 33.8621 -92.8276";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+};
+//--- OBJECT WRITE END ---

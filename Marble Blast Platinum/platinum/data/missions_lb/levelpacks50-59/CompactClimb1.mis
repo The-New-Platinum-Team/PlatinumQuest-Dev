@@ -1,0 +1,178 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         goldTime = "17000";
+         time = "30000";
+         UltimateTime = "10800";
+         startHelpText = "You have to think outside the box to complete some challenges! Don\'t let the roof mess up your camera!";
+         desc = "Traverse this small building, grab the gems and finish as quickly as possible!";
+         artist = "TehMarbler";
+         type = "Custom";
+         level = "9";
+         name = "Compact Climb V1";
+         music = "astrolabe.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "-1.09768 -1.61695 1.48801";
+      rotation = "0 0 -1 89.9544";
+      scale = "0 0 0";
+      dataBlock = "StartPad";
+   };
+   new InteriorInstance() {
+      position = "-11.8997 -16.1418 -0.99623";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/compactclimb.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-10.6339 -2.67036 10.4915";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new Item() {
+      position = "-8.10987 -0.650295 5.55246";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-6.18712 -2.64975 10.0603";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-11.3884 -0.43602 4.49688";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Arrow";
+   };
+   new StaticShape() {
+      position = "-10.8631 -3.82529 4.48968";
+      rotation = "0 0 -1 91.1003";
+      scale = "1 1 1";
+      dataBlock = "Arrow";
+   };
+   new Trigger(outsidethebox) {
+      position = "-4.12889 0.361173 5.49342";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Be sure not to go too fast or too slow on the wall hit.";
+   };
+   new Trigger(OUTSIDETHRFRIKKINBOX) {
+      position = "-11.6558 0.369949 12.0145";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Remember, think outside the box!";
+   };
+   new Trigger(dontdrown) {
+      position = "-9.64174 0.362751 13.36";
+      rotation = "1 0 0 0";
+      scale = "2 2 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Be sure to jump over the water, marbles can\'t swim!";
+   };
+   new Trigger(water) {
+      position = "-7.65151 0.382424 12.9923";
+      rotation = "1 0 0 0";
+      scale = "2 2 0.3";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(diagnalmovement1) {
+      position = "-5.64459 0.360422 13.4888";
+      rotation = "1 0 0 0";
+      scale = "2 2 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Use diagnal movement to get across the gap. You can touch the water over there, it\'s safe.";
+   };
+   new StaticShape(EndPoint) {
+      position = "3.31529 -2.64403 13.496";
+      rotation = "0 0 1 89.9544";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "EndPad";
+   };
+   new Item() {
+      position = "4.63733 -0.61792 17.4778";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(stayinhereorDIEfoo) {
+      position = "-13.1096 4.33635 1.55185";
+      rotation = "1 0 0 0";
+      scale = "18 13 18";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "-3.38984 -2.83718 2.49002";
+      rotation = "0 0 1 179.336";
+      scale = "1 1 1";
+      dataBlock = "Arrow";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

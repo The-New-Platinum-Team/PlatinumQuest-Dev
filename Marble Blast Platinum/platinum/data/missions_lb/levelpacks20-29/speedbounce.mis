@@ -1,0 +1,124 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "39";
+         music = "Grudge.ogg";
+         startHelpText = "Use the Shock Absorber to hit the finish!";
+         name = "Speed Bounce";
+         artist = "marbleman";
+         desc = "Bounce down the platforms while travelling at very high speed!";
+         goldTime = "27000";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 0.29083 0.822779";
+      fogVolume2 = "-1 0.314212 0.783026";
+      fogVolume3 = "-1 0.681746 0.113754";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.360587";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.298365";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 0.271986";
+   };
+   new Sun() {
+      direction = "0.488577 0.573201 -0.657825";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new InteriorInstance() {
+      position = "55.0149 -0.696463 -164.781";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/greatdivide.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "1245.48 -1.13233 -458.03";
+      rotation = "0 0 1 90";
+      scale = "2 2 2";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape(StartPoint) {
+      position = "29 0.2 -4.6";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+         fixedscale = "1";
+   };
+   new StaticShape(EndPoint) {
+      position = "1242.4 5.80125e-007 -466.6";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+         fixedscale = "1";
+   };
+   new Item() {
+      position = "60.767 0.311407 -4.42143";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "511.772 -0.179389 -319.808";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/greatdivide.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "972.451 -1.07939 -515.638";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/greatdivide.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "69.6319 0.23577 -4.99849";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "ShockAbsorberItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(Bounds) {
+      position = "9.91013 53.9136 -479.329";
+      rotation = "1 0 0 0";
+      scale = "1300 100 500";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+};
+//--- OBJECT WRITE END ---

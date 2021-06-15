@@ -1,0 +1,1933 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         goldTime = "10000";
+         ultimateTime = "5000";
+         type = "Beginner";
+         time = "0";
+         startHelpText = "Explore the Marble\'s House!";
+         artist = "Kurt";
+         desc = "Marble finally bought a house, this one is quite comfortable and not a bunch of hallways. It is quite big and you must explore it";
+         name = "DA HOUSE";
+         level = "13";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "0";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.000000 0.000000 0.000000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.47605e-027 1.69387e+038";
+      fogVolume2 = "-1 -1.17676e-038 0.0383887";
+      fogVolume3 = "-1 2.75609e+038 1.76723e-012";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -14848524993944557000000000000000.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 99392957236346094000.000000";
+   };
+   new Sun() {
+      direction = "0.0447997 0.998996 -0.000145794";
+      color = "43.000000 63468560384.000000 1.000000 1.000000";
+      ambient = "1.000000 1.000000 1.000000 1.000000";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "17202";
+         bonusTime = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.7229 -16.6852 41.0228";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-57.7463 -20.695 45.3656";
+      rotation = "1 0 0 90.0896";
+      scale = "1.8583 1.68989 0.02";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new StaticShape(StartPoint) {
+      position = "-57.6692 -19.696 43.6243";
+      rotation = "0 0 1 180.091";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new InteriorInstance() {
+      position = "-51.7007 -20.7117 41.0119";
+      rotation = "1 0 0 0";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-53.6038 -20.6316 51.0147";
+      rotation = "-9.7789e-009 1 -9.7867e-009 89.9544";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-61.7066 -20.7391 39.034";
+      rotation = "9.77891e-009 -1 -9.75557e-009 90.1369";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-52.0182 -151.853 49.8438";
+      rotation = "1 0 0 180";
+      scale = "0.957814 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-99.4366 -161.293 51.0728";
+      rotation = "0 1 0 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_shock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.7422 -148.521 59.2554";
+      rotation = "-1 0 0 88.8084";
+      scale = "1 2.9941 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "29.6868 -149.035 59.1419";
+      rotation = "-1 0 0 89.9544";
+      scale = "22.1764 4.03458 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-106.987 -161.188 51.0733";
+      rotation = "0.00159243 -0.999999 -5.00586e-007 90.0457";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_shock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-142.631 -20.7497 41.0917";
+      rotation = "1 0 0 0";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-143.088 -151.85 49.4129";
+      rotation = "1 0 0 180";
+      scale = "0.957814 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-152.689 -20.7173 39.1138";
+      rotation = "9.77891e-009 -1 -9.75557e-009 90.1369";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-144.997 -20.7276 51.0945";
+      rotation = "-9.7789e-009 1 -9.7867e-009 89.9544";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-143.689 -148.881 59.3372";
+      rotation = "-1 0 0 88.8084";
+      scale = "1 2.9941 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-148.871 14.2014 45.4569";
+      rotation = "0 0 1 89.9543";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_tornado.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-142.087 -23.7269 43.9633";
+      rotation = "1 0 0 89.9544";
+      scale = "0.614149 4.0424 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-155.376 -21.6019 79.7296";
+      rotation = "0.703845 0.000565921 0.710354 179.936";
+      scale = "4.60335 5.25517 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-148.927 14.21 57.7651";
+      rotation = "-0.706825 0.707389 -3.08963e-008 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_tornado.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-148.15 -23.845 43.9308";
+      rotation = "1 0 0 89.9544";
+      scale = "0.614149 4.0424 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-142.556 -0.222703 79.6613";
+      rotation = "0 1 0 90.5273";
+      scale = "4.60335 5.25517 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-142.728 -23.7655 47.0174";
+      rotation = "1 0 0 89.9544";
+      scale = "1 2.24631 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-144.983 -20.7066 63.8858";
+      rotation = "-9.7789e-009 1 -9.7867e-009 89.9544";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-152.903 -20.7327 51.9051";
+      rotation = "9.77891e-009 -1 -9.75557e-009 90.1369";
+      scale = "1 32.1363 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-143.215 -151.847 62.2042";
+      rotation = "1 0 0 180";
+      scale = "0.957814 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-142.897 -20.7053 53.883";
+      rotation = "1 0 0 0";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-149.444 17.3179 40.1882";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "2015";
+         bonusTime = "0";
+   };
+   new StaticShape() {
+      position = "-148.678 -20.773 45.2999";
+      rotation = "1 0 0 89.3814";
+      scale = "1 1.25654 0.02";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new StaticShape() {
+      position = "-148.794 -20.8327 58.1267";
+      rotation = "1 0 0 89.3814";
+      scale = "1.17258 1.25654 0.01";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new Item() {
+      position = "-148.951 -60.4813 59.0005";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-158.659 -150.594 64.7604";
+      rotation = "0.57942 0.578958 -0.573655 239.721";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_airmove.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-147.731 -105.217 97.8561";
+      rotation = "0 1 0 89.9544";
+      scale = "4.77434 11.5227 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-148.064 -102.93 85.1277";
+      rotation = "0 1 0 90.5273";
+      scale = "2.83801 0.57097 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-150.607 -104.149 61.2601";
+      rotation = "1 0 0 0";
+      scale = "30 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_mbg/parts/tubes/tube_long.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-151.517 -103.179 57.3572";
+      rotation = "0 -1 0 89.9544";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "598.944 -102.619 61.3047";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_mbg/parts/tubes/tube_turn.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "611.18 32.8367 57.1336";
+      rotation = "1 0 0 0";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "610.862 -98.3046 65.4548";
+      rotation = "1 0 0 180";
+      scale = "0.957814 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "601.174 32.8093 55.1557";
+      rotation = "9.77891e-009 -1 -9.75557e-009 90.1369";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "609.371 32.8592 67.1364";
+      rotation = "-9.7789e-009 1 -9.7867e-009 89.9544";
+      scale = "1 32.7829 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "605.056 -102.785 60.8381";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "605.099 -97.9585 61.0925";
+      rotation = "1 0 0 90.0896";
+      scale = "0.930389 1.41278 0.02";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new InteriorInstance() {
+      position = "671.042 37.6047 64.6282";
+      rotation = "1 0 0 0";
+      scale = "12.2028 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "671.111 37.4733 61.242";
+      rotation = "1 0 0 0";
+      scale = "12.2004 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "602.198 37.4904 60.1277";
+      rotation = "0 1 0 89.9544";
+      scale = "0.141824 0.939593 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "670.788 39.5475 61.6354";
+      rotation = "-1 0 0 89.9544";
+      scale = "12.2092 0.385292 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "674.335 31.4312 61.9746";
+      rotation = "-1 0 0 89.9544";
+      scale = "12.0664 0.385292 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "989.71 30.0438 60.7738";
+      rotation = "1 0 0 0";
+      scale = "1 0.111691 0.1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceroom.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "987.511 37.3239 56.8149";
+      rotation = "1 0 0 0";
+      scale = "1 0.111691 0.1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceroom.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "987.626 37.1278 65.7927";
+      rotation = "1 0 0 0";
+      scale = "1 0.157316 0.1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceroom.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "989.74 44.3927 62.6512";
+      rotation = "1 0 0 0";
+      scale = "1 0.111691 0.1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceroom.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1077.5 37.4965 61.2095";
+      rotation = "1 0 0 0";
+      scale = "12.2004 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1077.44 37.6279 64.6457";
+      rotation = "1 0 0 0";
+      scale = "12.2028 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1080.73 31.4544 61.9421";
+      rotation = "-1 0 0 89.9544";
+      scale = "12.0664 0.385292 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1077.18 39.5706 61.6029";
+      rotation = "-1 0 0 89.9544";
+      scale = "12.2092 0.385292 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/testMap.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1460.66 37.0035 63.3369";
+      rotation = "1 0 0 0";
+      scale = "14.9404 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1461.78 37.1181 59.1055";
+      rotation = "1 0 0 0";
+      scale = "14.9404 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1460.42 32.661 62.8946";
+      rotation = "-1 0 0 90.5273";
+      scale = "14.9404 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1460.38 41.6101 62.7914";
+      rotation = "-1 0 0 90.5273";
+      scale = "14.9404 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3404.19 25.2759 73.4013";
+      rotation = "-0.577503 0.577043 0.577505 119.947";
+      scale = "1 1 88.3788";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training1.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "1387.47 37.0243 60.0296";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1394.08 36.7943 60.1805";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1391.82 36.9609 60.0307";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1391.6 36.7976 60.0807";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1391.36 36.8279 60.1296";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1389.91 36.9739 59.9922";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1382.08 36.9277 60.0475";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1384.06 37.0388 59.9843";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1385.6 37.0891 59.9569";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1388.56 36.9598 60.001";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-150.855 -150.033 57.8146";
+      rotation = "0.72138 -0.00265927 0.692534 180.373";
+      scale = "1.44388 0.944703 0.011";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new Item() {
+      position = "3353.14 37.0211 61.6254";
+      rotation = "1 0 0 0";
+      scale = "30.5986 4.0573 10.2183";
+      dataBlock = "ShockAbsorberItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "3370.74 37.1454 60.805";
+      rotation = "0 1 0 89.3814";
+      scale = "1.97023 4.02136 0.02";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "2015";
+         bonusTime = "0";
+   };
+   new InteriorInstance() {
+      position = "3368.22 41.397 39.0741";
+      rotation = "0 -1 0 88.8084";
+      scale = "6.38283 2.17206 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "3371.75 38.0903 60.3682";
+      rotation = "0 -1 0 90.1369";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "3367.69 -16.1022 79.5462";
+      rotation = "0.580939 -0.575489 0.575606 119.623";
+      scale = "6.38283 2.47541 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3367.45 17.5034 41.8322";
+      rotation = "0 -1 0 89.9543";
+      scale = "6.38283 2.17206 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3374.42 7.06046 64.4808";
+      rotation = "1 0 0 89.9544";
+      scale = "1 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3381.49 16.1392 62.4479";
+      rotation = "1 0 0 0";
+      scale = "1.76223 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3374.38 18.6987 70.4031";
+      rotation = "-1 0 0 89.3814";
+      scale = "1 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3364.56 15.8096 60.3075";
+      rotation = "0 -1 0 89.9544";
+      scale = "1.23942 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3386.79 18.793 75.8394";
+      rotation = "-1 0 0 89.3814";
+      scale = "4.192 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3381.87 15.9617 67.2363";
+      rotation = "1 0 0 0";
+      scale = "3.57831 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3385.72 7.53027 70.1567";
+      rotation = "1 0 0 89.9544";
+      scale = "4.07002 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3337.42 16.0166 78.172";
+      rotation = "0 1 0 180.091";
+      scale = "4.04937 1.49495 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "3373.05 13.3946 66.1668";
+      rotation = "1 0 0 179.909";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "3368.44 12.6463 65.4392";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "3356.38 2.3357 69.9505";
+      rotation = "-0.575569 0.581352 0.575109 119.617";
+      scale = "1.85839 5.47724 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3547.58 19.2527 77.9368";
+      rotation = "-0.999975 0.00499992 -0.00505419 89.3829";
+      scale = "48.6289 5.47724 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3356.52 -185.99 78.2865";
+      rotation = "-0.575569 0.581352 0.575109 119.617";
+      scale = "24.554 5.47724 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3353.64 -192.452 53.9316";
+      rotation = "-1.31968e-006 0.0107964 0.999942 89.9542";
+      scale = "26.1291 49.3292 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3156.4 -235.359 49.3719";
+      rotation = "0.579421 -0.572731 0.579871 120.279";
+      scale = "33.2967 8.96541 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3552.44 -89.9642 57.111";
+      rotation = "0.999975 0.00499992 0.00503811 89.5654";
+      scale = "49.74 5.47724 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3353.42 122.408 77.2169";
+      rotation = "0.706801 0.707412 0.00056388 180.81";
+      scale = "26.1291 48.6067 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3333.96 -12.2026 67.9667";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3311.61 -57.5789 64.3506";
+      rotation = "0 0 1 179.909";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3241.03 -54.7601 64.7109";
+      rotation = "1 0 0 0";
+      scale = "0.627014 1 2e-011";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_gravity.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3191.06 -42.9286 64.7538";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_mines.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3183.56 -79.507 63.86";
+      rotation = "1 0 0 0";
+      scale = "0.385927 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3179.31 -69.1055 63.8086";
+      rotation = "1 0 0 0";
+      scale = "1 0.226367 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3243.78 -42.0152 70.0584";
+      rotation = "-1 0 0 13.7511";
+      scale = "1.41646 8.60794 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3244.54 -75.6341 61.7292";
+      rotation = "1 0 0 0";
+      scale = "1.41646 1.79069 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3243.93 -13.7076 53.8359";
+      rotation = "1 0 0 28.6479";
+      scale = "1.41646 8.60794 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3236.14 -68.239 58.8367";
+      rotation = "1 0 0 0";
+      scale = "1 0.911374 1";
+      interiorFile = "~/data/lbinteriors_mbg/addon/pipe4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3216.74 12.7212 59.1835";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/addon/whorl1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3198.36 14.6167 58.8236";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3194.25 10.605 59.2155";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_mbg/addon/airwalk.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3194.27 -30.2208 59.7785";
+      rotation = "0.707388 -0.706825 -0.000563018 180.065";
+      scale = "4.50143 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3193.88 -70.1475 55.8711";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/addon/pipe.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape(EndPoint) {
+      position = "3193.89 -70.2151 54.0077";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "6962";
+         bonusTime = "0";
+   };
+   new InteriorInstance() {
+      position = "-53.7603 -16.7038 51.7661";
+      rotation = "0 1 0 89.9543";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-61.6909 -16.6879 39.793";
+      rotation = "0 -1 0 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.752 -20.7239 49.7627";
+      rotation = "1 0 0 179.909";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.8064 -17.0496 47.824";
+      rotation = "-1 0 0 89.9544";
+      scale = "1 1 0";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-150.672 -104.047 61.09";
+      rotation = "-0.700281 0.00328358 0.71386 180.301";
+      scale = "1.44388 1.20959 0.001";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new StaticShape() {
+      position = "1357.81 35.6294 60.905";
+      rotation = "0 1 0 88.8085";
+      scale = "2.32317 5.81197 0.1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new StaticShape() {
+      position = "3370.43 13.6891 65.9009";
+      rotation = "0 -1 0 89.9543";
+      scale = "2.32317 5.81197 0.01";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new StaticShape() {
+      position = "605.476 32.8302 61.6465";
+      rotation = "-0.577044 0.577504 -0.577502 119.947";
+      scale = "2.87533 1.60936 0.02";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new Trigger() {
+      position = "3353.14 15.9758 70.0167";
+      rotation = "1 0 0 0";
+      scale = "1 5.93624 6.25434";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The Fun Room";
+   };
+   new Trigger() {
+      position = "3340.7 42.93 55.6094";
+      rotation = "1 0 0 0";
+      scale = "13.13 13.2335 15.8505";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The Spare Room";
+   };
+   new Trigger() {
+      position = "-152.098 -148.843 54.8777";
+      rotation = "1 0 0 0";
+      scale = "1 13.2335 6.25434";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The Bathroom";
+   };
+   new Trigger() {
+      position = "-50.3371 -24.0737 42.1182";
+      rotation = "0 0 1 87.6625";
+      scale = "1 13.2335 6.25434";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The Entrance Hall";
+   };
+   new Trigger() {
+      position = "-51.353 -149.293 41.9998";
+      rotation = "0 0 1 87.6625";
+      scale = "1 13.2335 6.25434";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The Kitchen";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "2015";
+         bonusTime = "0";
+   };
+   new Trigger() {
+      position = "-142.116 -20.1068 42.1833";
+      rotation = "0 0 1 87.6625";
+      scale = "1 13.2335 6.25434";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Quite an Odd Bedroom!";
+   };
+   new Trigger() {
+      position = "-148.837 -102 59.7697";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The pipe hallway";
+   };
+   new Trigger() {
+      position = "603.574 33.2306 59.6995";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The Long Hallway";
+   };
+   new Trigger() {
+      position = "1357.32 40.7481 57.4693";
+      rotation = "1 0 0 0";
+      scale = "8 8 8";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Running Practice Hall - A Very Long One";
+   };
+   new InteriorInstance() {
+      position = "3184.67 -75.2815 66.8185";
+      rotation = "-1 0 0 89.9544";
+      scale = "0.373507 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3182.28 -66.3207 66.9362";
+      rotation = "0 1 0 89.9544";
+      scale = "1.07096 0.1498 1";
+      interiorFile = "~/data/lbinteriors_mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "3344.52 4.45489 69.968";
+      rotation = "1 0 0 0";
+      scale = "13.707 1 5.68864";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "It Won\'t Be Fun if You Fall off the Edge and Die";
+   };
+   new Trigger() {
+      position = "3153.44 17.6235 53.9293";
+      rotation = "1 0 0 0";
+      scale = "200.626 105.122 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "29.9745 -149.148 59.2189";
+      rotation = "-1 0 0 89.9544";
+      scale = "22.1764 4.03458 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "4037";
+         bonusTime = "0";
+   };
+   new InteriorInstance() {
+      position = "-92.8955 -160.351 43.0347";
+      rotation = "1 0 0 89.9544";
+      scale = "1.74231 4.02284 0";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-103.155 -167.2 43.4342";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "20000";
+   };
+   new InteriorInstance() {
+      position = "-51.8131 -12.8864 41.0556";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-53.8505 -12.905 51.7989";
+      rotation = "0 1 0 89.9543";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.8966 -10.8508 47.8549";
+      rotation = "-1 0 0 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.8422 -16.9251 49.7955";
+      rotation = "1 0 0 179.909";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-61.7811 -12.8891 39.8258";
+      rotation = "0 -1 0 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-57.731 -14.9104 44.0556";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "50000";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "5496";
+         bonusTime = "0";
+   };
+   new TSStatic() {
+      position = "-61.4895 -165.354 41.434";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new InteriorInstance() {
+      position = "-51.0192 -156.658 40.4877";
+      rotation = "1 0 0 0";
+      scale = "1 1.46058 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-50.936 -164.985 40.4547";
+      rotation = "1 0 0 0";
+      scale = "1 1.46058 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-54.3702 -162.292 40.4736";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "-59.5214 -165.343 41.4422";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "-59.4806 -163.183 41.4353";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "-61.4738 -163.271 41.4322";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "-147.522 -165.147 43.5423";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/signs/cautionsign.dts";
+   };
+   new StaticShape() {
+      position = "-136.102 -166.631 44.4477";
+      rotation = "-0.00295352 0.710353 0.703839 179.529";
+      scale = "1.29886 2.49906 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new InteriorInstance() {
+      position = "-142.951 -156.98 40.9555";
+      rotation = "1 0 0 0";
+      scale = "1 3.91692 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-143.047 -157.032 42.5608";
+      rotation = "1 0 0 0";
+      scale = "1 3.91692 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "-147.773 -168.412 41.9219";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "-147.447 -161.698 43.6546";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/items/gem.dts";
+   };
+   new InteriorInstance() {
+      position = "-132.508 -162.613 42.8372";
+      rotation = "0.581317 0.569805 -0.580854 120.611";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-141.953 -174.601 42.9768";
+      rotation = "0.57942 -0.573654 0.578959 120.279";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-138.487 -166.621 44.4303";
+      rotation = "1 0 0 90.5273";
+      scale = "1.16499 2.49906 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new TSStatic() {
+      position = "-136.837 -169.409 43.8694";
+      rotation = "1 0 0 0";
+      scale = "2.46797 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+   };
+   new TSStatic() {
+      position = "-136.899 -169.552 44.598";
+      rotation = "1 0 0 0";
+      scale = "2.46797 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+   };
+   new TSStatic() {
+      position = "-136.935 -169.555 45.3652";
+      rotation = "1 0 0 0";
+      scale = "2.46797 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+   };
+   new TSStatic() {
+      position = "-136.383 -169.103 44.5977";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/landmine.dts";
+   };
+   new TSStatic() {
+      position = "-137.617 -169.464 44.6519";
+      rotation = "1 0 0 89.9544";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/signs/cautionsign.dts";
+   };
+   new InteriorInstance() {
+      position = "-148.754 25.8294 37.3493";
+      rotation = "1 0 0 0";
+      scale = "0.401989 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.772 26.0977 37.3463";
+      rotation = "1 0 0 0";
+      scale = "0.401989 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-139.751 25.8918 40.0822";
+      rotation = "-1 0 0 10.3133";
+      scale = "0.242939 0.252132 0.126118";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.78 26.4651 41.3423";
+      rotation = "-1 0 0 89.9544";
+      scale = "0.401989 0.285138 0.184212";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-143.799 26.3323 41.3212";
+      rotation = "-1 0 0 89.9544";
+      scale = "0.401989 0.285138 0.184212";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-144.77 25.759 40.0611";
+      rotation = "-1 0 0 10.3133";
+      scale = "0.242939 0.252132 0.126118";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-143.791 25.9649 37.3252";
+      rotation = "1 0 0 0";
+      scale = "0.401989 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-148.762 26.1968 41.3454";
+      rotation = "-1 0 0 89.9544";
+      scale = "0.401989 0.285138 0.184212";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-149.733 25.6235 40.0853";
+      rotation = "-1 0 0 10.3133";
+      scale = "0.242939 0.252132 0.126118";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-146.886 19.1792 66.1033";
+      rotation = "0 1 0 180.482";
+      scale = "0.401989 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-146.844 19.5466 62.1076";
+      rotation = "0.0029706 0.707385 -0.706822 180.341";
+      scale = "0.401989 0.285138 0.184212";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-145.884 18.9733 63.3759";
+      rotation = "0.000377815 0.995953 -0.0898792 180.48";
+      scale = "0.242939 0.252132 0.126118";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-154.589 18.988 66.0203";
+      rotation = "0 1 0 180.482";
+      scale = "0.401989 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-150.992 19.5287 62.0562";
+      rotation = "0.0029706 0.707385 -0.706822 180.341";
+      scale = "0.401989 0.285138 0.184212";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-150.01 19.0161 63.3244";
+      rotation = "0.000377815 0.995953 -0.0898792 180.48";
+      scale = "0.242939 0.252132 0.126118";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-151.028 19.0807 66.0519";
+      rotation = "0 1 0 180.482";
+      scale = "0.401989 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-154.547 19.3554 62.0245";
+      rotation = "0.0029706 0.707385 -0.706822 180.341";
+      scale = "0.401989 0.285138 0.184212";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-153.587 18.7821 63.2927";
+      rotation = "0.000377815 0.995953 -0.0898792 180.48";
+      scale = "0.242939 0.252132 0.126118";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-161.066 -104.099 54.6205";
+      rotation = "1 0 0 0";
+      scale = "1 0.213511 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-160.793 -147.296 54.5207";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-160.985 -100.987 54.2014";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-163.394 -100.927 54.6372";
+      rotation = "1 0 0 0";
+      scale = "0.236316 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-169.619 -119.628 56.4455";
+      rotation = "0 -1 0 89.3814";
+      scale = "0.250051 0.383606 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-165.446 -122.59 54.4813";
+      rotation = "0 0 1 89.3814";
+      scale = "0.374728 0.1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-164.38 -120.691 54.479";
+      rotation = "1 0 0 0";
+      scale = "0.367565 0.1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-164.374 -119.611 54.4798";
+      rotation = "1 0 0 0";
+      scale = "0.367565 0.1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-167.611 -118.321 57.0813";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Hmm... Square Toilet";
+   };
+   new InteriorInstance() {
+      position = "-139.054 -174.504 48.9823";
+      rotation = "0.707385 -0.70682 0.00353459 180.341";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1116.87 39.8106 62.5119";
+      rotation = "1 0 0 0";
+      scale = "0.04 0.04 0.04";
+      interiorFile = "~/data/lbinteriors_custom/mbg/xmastree.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1118.5 34.0325 62.3677";
+      rotation = "1 0 0 0";
+      scale = "0.04 0.04 0.04";
+      interiorFile = "~/data/lbinteriors_custom/mbg/xmastree.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1111.87 35.0238 62.4499";
+      rotation = "1 0 0 0";
+      scale = "0.04 0.04 0.04";
+      interiorFile = "~/data/lbinteriors_custom/mbg/xmastree.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1111 40.1634 62.4766";
+      rotation = "1 0 0 0";
+      scale = "0.04 0.04 0.04";
+      interiorFile = "~/data/lbinteriors_custom/mbg/xmastree.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "608.908 39.6852 60.4923";
+      rotation = "1 0 0 0";
+      scale = "0.04 0.04 0.02";
+      interiorFile = "~/data/lbinteriors_mbg/intermediate/tree.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "606.715 39.66 60.5605";
+      rotation = "1 0 0 0";
+      scale = "0.04 0.04 0.02";
+      interiorFile = "~/data/lbinteriors_mbg/intermediate/tree.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "3373.55 38.6408 63.2569";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/images/helicopter.dts";
+   };
+   new TSStatic() {
+      position = "3373.91 13.8466 86.3869";
+      rotation = "0 1 0 89.9544";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/ductfan.dts";
+   };
+   new TSStatic() {
+      position = "3375.46 34.1764 88.7062";
+      rotation = "0 1 0 89.9544";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "3373.88 25.8332 87.7516";
+      rotation = "-0.00624656 0.999968 0.0049999 77.3511";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/bumpers/pball_tri.dts";
+   };
+   new TSStatic() {
+      position = "3373.91 14.0662 80.9522";
+      rotation = "0 1 0 87.0896";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/bumpers/pball_round.dts";
+   };
+   new TSStatic() {
+      position = "3374.24 17.9109 87.2572";
+      rotation = "0 0 1 88.2355";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/buttons/pushButton.dts";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "3499";
+         bonusTime = "0";
+   };
+   new StaticShape() {
+      position = "3348.55 3.50865 70.0344";
+      rotation = "1 0 0 0";
+      scale = "10.9531 14.114 12.9674";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new WayPoint() {
+      position = "3349.04 -10.6049 70.1167";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "WayPointMarker";
+      team = "0";
+   };
+   new SpawnSphere() {
+      position = "3348.16 -7.18168 70.1452";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SpawnSphereMarker";
+      radius = "100";
+      sphereWeight = "100";
+      indoorWeight = "100";
+      outdoorWeight = "100";
+   };
+   new StaticShape() {
+      position = "3243.75 -54.4206 64.6869";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "3274.18 -55.9911 64.8704";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "oilslick";
+   };
+   new StaticShape() {
+      position = "3188.37 -30.3623 64.4293";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Tornado";
+   };
+   new StaticShape() {
+      position = "3177.43 -83.0032 65.2173";
+      rotation = "0.331496 -0.884629 -0.327936 96.3918";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new Item() {
+      position = "-136.103 -168.621 43.9761";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "30000";
+   };
+   new Trigger() {
+      position = "-138.459 -166.826 42.7672";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "YUM!!";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "2015";
+         bonusTime = "0";
+   };
+   new TSStatic() {
+      position = "-144.202 25.8843 39.0788";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "-148.718 25.7699 39.0242";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "-136.165 -169.158 45.3802";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.03";
+      shapeName = "~/data/shapes/quicksand.dts";
+   };
+   new TSStatic() {
+      position = "-138.409 -168.966 43.9039";
+      rotation = "1 0 0 172.46";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/bumpers/pball_round.dts";
+   };
+   new TSStatic() {
+      position = "-138.846 -169.193 43.8707";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/images/glow_bounce.dts";
+   };
+   new TSStatic() {
+      position = "-138.411 -168.846 45.3809";
+      rotation = "1 0 0 0";
+      scale = "0.2 0.2 0.2";
+      shapeName = "~/data/shapes/bumpers/pball_tri.dts";
+   };
+   new StaticShape() {
+      position = "-158.448 30.1639 40.8109";
+      rotation = "-1 0 0 45.2637";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-147.404 16.7522 40.907";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainUp";
+   };
+   new StaticShape() {
+      position = "-148.78 -154.274 44.1636";
+      rotation = "0 0 -1 110.008";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "3292";
+         bonusTime = "0";
+   };
+   new TSStatic() {
+      position = "-147.463 -158.437 43.3982";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/markers/octahedron.dts";
+   };
+   new StaticShape() {
+      position = "-57.0474 -153.062 44.1683";
+      rotation = "0 0 1 120.321";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new InteriorInstance() {
+      position = "-76.0558 -172.148 40.405";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/newmap.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "-72.7493 -168.713 43.288";
+      rotation = "0 1 0 180.091";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/bumpers/pball_round.dts";
+   };
+   new StaticShape() {
+      position = "-149.341 -150.954 58.2122";
+      rotation = "0 0 1 185.821";
+      scale = "3 3 3";
+      dataBlock = "SignPlainRight";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "7275";
+         bonusTime = "0";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "2015";
+         bonusTime = "0";
+   };
+   new StaticShape() {
+      position = "-166.23 -120.463 56.5351";
+      rotation = "1 0 0 83.0789";
+      scale = "2 1 2";
+      dataBlock = "PushButton";
+         resetTime = "Default";
+         triggerMesg = "true";
+         activated = "0";
+   };
+   new InteriorInstance() {
+      position = "-165.336 -95.6692 58.3828";
+      rotation = "0.701933 0.702492 -0.117456 193.409";
+      scale = "1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square2.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-159.293 -104.678 61.9434";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "605.14 40.3891 61.161";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new TSStatic() {
+      position = "-166.217 -150.208 57.6538";
+      rotation = "0 1 0 179.909";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/items/gem.dts";
+   };
+   new TSStatic() {
+      position = "-165.419 -148.406 56.9131";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/items/superbounce.dts";
+   };
+   new TSStatic() {
+      position = "-166.041 -149.273 57.4304";
+      rotation = "0.577044 -0.577503 0.577504 119.947";
+      scale = "0.3 0.3 0.3";
+      shapeName = "~/data/shapes/images/helicopter.dts";
+   };
+   new TSStatic() {
+      position = "-165.539 -103.258 60.6248";
+      rotation = "1 0 0 19.4807";
+      scale = "0.3 0.3 0.3";
+      shapeName = "~/data/shapes/bumpers/pball_round.dts";
+   };
+   new InteriorInstance() {
+      position = "725.04 43.0603 57.6352";
+      rotation = "1 0 0 0";
+      scale = "8.78177 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/square.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "665.458 42.6425 60.5039";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.01";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceroom.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "686.023 39.7031 61.9446";
+      rotation = "1 0 0 0";
+      scale = "0.02 0.02 0.02";
+      interiorFile = "~/data/lbinteriors_custom/mbg/xmastree.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "690.834 39.8913 58.7682";
+      rotation = "1 0 0 0";
+      scale = "0.586669 0.498204 0.625863";
+      interiorFile = "~/data/lbinteriors_custom/mbg/boostbox.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "728.472 39.5924 60.1178";
+      rotation = "1 0 0 0";
+      scale = "0.01 0.01 0.01";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building2.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         gemCount = "0";
+         penaltyTime = "0";
+         time = "0";
+         powerUp = "0";
+         pad = "4617";
+         bonusTime = "0";
+   };
+   new InteriorInstance() {
+      position = "748.599 40.6458 60.1285";
+      rotation = "1 0 0 0";
+      scale = "0.04 0.04 0.04";
+      interiorFile = "~/data/lbinteriors_custom/mbg/tunnel0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "758.414 38.1693 61.3799";
+      rotation = "1 0 0 0";
+      scale = "0.01 0.01 0.01";
+      interiorFile = "~/data/lbinteriors_custom/mbg/chiloop.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "902.21 38.6015 60.2473";
+      rotation = "1 0 0 0";
+      scale = "0.02 0.02 0.01";
+      interiorFile = "~/data/lbinteriors_custom/mbg/vortex.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1228.88 34.5651 60.1958";
+      rotation = "1 0 0 0";
+      scale = "0.02 0.02 0.02";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spacebase.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-150.772 -150.596 72.2405";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "40000";
+   };
+   new Trigger() {
+      position = "3193.78 -67.4161 59.4244";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The End";
+   };
+   new StaticShape() {
+      position = "3353.52 12.7575 72.2569";
+      rotation = "0 -1 0 89.9543";
+      scale = "3.36505 3.33762 0.1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         timeout = "200";
+         open = "0";
+   };
+   new Item() {
+      position = "-141.212 -104.344 61.4803";
+      rotation = "1 0 0 0";
+      scale = "15.5303 3.8689 6.63673";
+      dataBlock = "ShockAbsorberItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

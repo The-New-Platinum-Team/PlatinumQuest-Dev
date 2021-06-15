@@ -1,0 +1,3822 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+	 type = "Custom";
+	 game = "Custom";
+	 modification = "PlatinumQuest";
+         artist = "Technostar";
+         awesomeHint = "Keep your speed high and work around obstacles that may slow you down. Cutting corners wherever possible will help too. ";
+         awesomeTime = "32000";
+         desc = "Rush around this sweet racetrack!";
+         game = "PlatinumQuest";
+         gameMode = "laps";
+         generalHint = "If you are caught in the upper molasses swamps, keep jumping! The sticky syrup makes it almost impossible to control your marble. ";
+         lapsNumber = "2";
+         level = "40";
+         music = "Upbeat Freedom.ogg";
+         name = "Sugar Rush";
+         noLapsCheckpoint = "0";
+         platinumTime = "70000";
+         ultimateHint = "Snag every Time Travel that you can. Working on your ring stunts will help a lot, and so will mastering your landings off of the mountain. If you can quickly make it up the mountain with only one super speed, that will save you several seconds each lap.";
+         ultimateTime = "50000";
+   };
+   new SimGroup(SceneryGroup) {
+
+      new StaticShape() {
+         position = "-43.5 -19.5 6.05";
+         rotation = "0 0 1 225";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "-51 -12 6.05";
+         rotation = "0 0 -1 115";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "-78.5 -2 14.05";
+         rotation = "0 0 -1 33.7501";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "-72 2.5 14.05";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "-118.5 -4.5 12.05";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "-118.5 -12.5 12.05";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "-118.5 -22 12.05";
+         rotation = "0 0 1 89.9994";
+         scale = "1 1 1";
+         dataBlock = "Fence_3TilesLength";
+      };
+      new StaticShape() {
+         position = "-117.99 -10 6.5";
+         rotation = "0 -1 0 90.0002";
+         scale = "0.5 0.5 1";
+         dataBlock = "Hourglass_Graffiti";
+      };
+      new StaticShape() {
+         position = "-174.75 -48.25 8.05";
+         rotation = "0 0 1 33.7501";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "-161.75 -5.75 1.55";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "-193.25 16.5 8.05";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "-129.5 90 28.55";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_3TilesLength";
+      };
+   };
+   new InteriorInstance() {
+      position = "-56.2846 -17.927 6.1";
+      rotation = "0 0 1 191.25";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(MissionData) {
+
+      new MissionArea(MissionArea) {
+         area = "-360 -648 720 1296";
+         flightCeiling = "300";
+         flightCeilingRange = "20";
+            locked = "true";
+      };
+      new Sky(Sky) {
+         position = "336 136 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         cloudHeightPer[0] = "0";
+         cloudHeightPer[1] = "0";
+         cloudHeightPer[2] = "0";
+         cloudSpeed1 = "0.0001";
+         cloudSpeed2 = "0.0002";
+         cloudSpeed3 = "0.0003";
+         visibleDistance = "500";
+         useSkyTextures = "1";
+         renderBottomTexture = "1";
+         SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+         fogDistance = "300";
+         fogColor = "0.600000 0.600000 0.600000 1.000000";
+         fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+         fogVolume2 = "-1 1.07208e-014 8.756e-014";
+         fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+         materialList = "~/data/skies_pq/Blender3/blender3.dml";
+         windVelocity = "1 0 0";
+         windEffectPrecipitation = "0";
+         noRenderBans = "1";
+         fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+         fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+         fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+      };
+   };
+   new InteriorInstance() {
+      position = "-53 -12 6.1";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "1.400000 1.000000 0.800000 1.000000";
+      ambient = "0.400000 0.300000 0.400000 1.000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "-12.75 3.8147e-006 3.75002";
+      rotation = "0 0 -1 90.0002";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "StartPad_PQ";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-21.4977 -0.645925 13.735";
+         rotation = "0 0 -1 89.9999";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-54.7112 15.8268 10.5624";
+         rotation = "0.0601899 0.0900809 -0.994114 112.813";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-98.5 7.5 15.235";
+         rotation = "-0.0373547 -0.0901816 0.995225 224.807";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-97.3906 -34.2299 11.9139";
+         rotation = "-0.017948 -0.09023 0.995759 202.407";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-125.498 -49.7514 11.1067";
+         rotation = "-0.0898795 0.0898794 -0.991889 90.4664";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-170.373 -47.0173 14.2921";
+         rotation = "-0.350263 -0.234036 0.906942 24.7405";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "8000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath7) {
+         position = "-168.433 51.77 9.89868";
+         rotation = "-0.524723 -0.430627 -0.734321 15.2794";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath8) {
+         position = "-163.033 91.56 55.1109";
+         rotation = "0.317544 -0.380038 0.868756 96.808";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath9";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath9) {
+         position = "-83.278 88.5188 20.9714";
+         rotation = "0.0898794 -0.0898793 0.991889 90.4666";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath10";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath10) {
+         position = "24.4222 93.0412 11.9142";
+         rotation = "0.0902297 0.0179481 0.995759 157.593";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath11";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath11) {
+         position = "17.1364 33.4306 16.5766";
+         rotation = "0.0764932 0.0511116 0.995759 157.593";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath12";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath12) {
+         position = "30.961 2.05223 15.3815";
+         rotation = "0.166566 0.351972 -0.921071 108.097";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath13";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath13) {
+         position = "14.3957 38.765 13.8994";
+         rotation = "0.0898786 -0.0898785 -0.991889 90.4671";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath14";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath14) {
+         position = "-43.5 22.5 15.2588";
+         rotation = "0.157881 -0.031405 -0.986959 68.1964";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath15";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath15) {
+         position = "-94.6091 27.2202 15.0176";
+         rotation = "0 0 1 202.5";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath16";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(CameraPath16) {
+         position = "-183.243 30.0874 6.94816";
+         rotation = "0.634876 0.424209 -0.645739 91.9568";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            CamFOV = "0";
+            DirectionRotation = "0";
+            FinalRotOffset = "0 0 0";
+            LookAtPoint = " ";
+            Relative = "0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "1";
+      };
+      new StaticShape(PathA1) {
+         position = "9.94848 78.5438 21.3753";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "PathA2";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "0";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(PathA2) {
+         position = "18.0749 65.4696 24.2147";
+         rotation = "0.707108 0.707106 2.54462e-006 180";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "PathA1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "0";
+            useRotation = "1";
+            useScale = "0";
+      };
+   };
+   new StaticShape() {
+      position = "-120.411 -9.9479 0.8979";
+      rotation = "0 0 -1 87.0002";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new Trigger(Bounds) {
+      position = "-229.87 -97.1125 -4.492";
+      rotation = "1 0 0 0";
+      scale = "284 246 118.5";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(CBase0) {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new StaticShape() {
+      position = "-120.411 -9.9479 0.8979";
+      rotation = "-0.0733097 -0.0695686 -0.99488 87.2942";
+      scale = "1 1 1";
+      dataBlock = "Cannon_Custom";
+         aimSize = "0.25";
+         aimTriggers = "0";
+         basename = "CBase0";
+         chargeTime = "2000";
+         force = "30";
+         instant = "0";
+         instantDelayTime = "0";
+         lockCam = "0";
+         lockTime = "0";
+         pitch = "8";
+         pitchBoundHigh = "8";
+         pitchBoundLow = "8";
+         showAim = "0";
+         showReticle = "0";
+         useBase = "1";
+         useCharge = "0";
+         yaw = "-87";
+         yawBoundLeft = "0";
+         yawBoundRight = "0";
+         yawLimit = "1";
+   };
+   new Trigger(GumdropPhysics) {
+      position = "-182 4.00001 -12";
+      rotation = "1 0 0 0";
+      scale = "24 40 32";
+      dataBlock = "MarblePhysModTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         marbleAttribute0 = "gravity";
+         noEmitters = "1";
+         value0 = "10";
+   };
+   new StaticShape() {
+      position = "-175.55 11.5769 2.00803";
+      rotation = "0 0 -1 33.7501";
+      scale = "3.5 3.5 3.5";
+      dataBlock = "RoundBumper_PQ";
+   };
+   new StaticShape() {
+      position = "-166.549 16.0769 2.00803";
+      rotation = "0 0 -1 11.25";
+      scale = "3.5 3.5 3.5";
+      dataBlock = "RoundBumper_PQ";
+   };
+   new StaticShape() {
+      position = "-170.003 26.0692 1.00803";
+      rotation = "0 0 1 45.0001";
+      scale = "3.5 3.5 3.5";
+      dataBlock = "RoundBumper_PQ";
+   };
+   new StaticShape() {
+      position = "-179.468 23.5945 2.00803";
+      rotation = "0 0 -1 45.0001";
+      scale = "3.5 3.5 3.5";
+      dataBlock = "RoundBumper_PQ";
+   };
+   new StaticShape() {
+      position = "-163.521 35.0505 2.00803";
+      rotation = "0 0 1 22.5001";
+      scale = "3.5 3.5 3.5";
+      dataBlock = "RoundBumper_PQ";
+   };
+   new StaticShape() {
+      position = "-177.495 39.1009 1.00803";
+      rotation = "0 0 1 22.5001";
+      scale = "3.5 3.5 3.5";
+      dataBlock = "RoundBumper_PQ";
+   };
+   new SimGroup(LapsGroup) {
+
+      new Trigger(Checkpoint1) {
+         position = "-91 -6 4";
+         rotation = "1 0 0 0";
+         scale = "2 12 12";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            SpawnPoint = "-90 0 10 0 0 1 -90";
+            checkpointNumber = "1";
+            customSpawnPoint = "1";
+            enableRespawning = "0";
+      };
+      new Trigger(Counter) {
+         position = "-14 -6 4";
+         rotation = "1 0 0 0";
+         scale = "2 12 12";
+         dataBlock = "LapsCounterTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            SpawnPoint = "-13 0 6 0 0 1 90";
+            customSpawnPoint = "1";
+            enableRespawning = "1";
+            forceGravity = "-20";
+      };
+      new Trigger(Checkpoint2) {
+         position = "-186 -4 -4";
+         rotation = "1 0 0 0";
+         scale = "36 2 20";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            SpawnPoint = "-170 -3 6 1 0 0 0";
+            checkpointNumber = "2";
+            customSpawnPoint = "1";
+            enableRespawning = "1";
+      };
+      new Trigger(Checkpoint3) {
+         position = "-188.468 44.114 2.89283";
+         rotation = "1 0 0 0";
+         scale = "36 2 20";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            SpawnPoint = "-170 -3 10 1 0 0 0";
+            checkpointNumber = "3";
+            customSpawnPoint = "1";
+            enableRespawning = "0";
+      };
+      new Trigger(GoodGravity) {
+         position = "-14 -6 4";
+         rotation = "1 0 0 0";
+         scale = "2 12 12";
+         dataBlock = "GravityTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            SimRotation = "0 1 0 180";
+            onLeave = "0";
+      };
+      new Trigger(Mudpit) {
+         position = "-54 -28 2";
+         rotation = "1 0 0 0";
+         scale = "96 42 0.25";
+         dataBlock = "WaterPhysicsTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            VelocityMultiplier = "0.1";
+      };
+      new Trigger(Checkpoint3) {
+         position = "-186 68 37.5";
+         rotation = "1 0 0 0";
+         scale = "36 2 20";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            SpawnPoint = "-170 69 46 1 0 0 0";
+            checkpointNumber = "3";
+            customSpawnPoint = "1";
+            enableRespawning = "1";
+      };
+      new Trigger(Checkpoint4) {
+         position = "-8 76 4";
+         rotation = "1 0 0 0";
+         scale = "2 24 24";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            SpawnPoint = "-7 88 6 0 0 1 90";
+            checkpointNumber = "4";
+            customSpawnPoint = "1";
+            enableRespawning = "1";
+      };
+   };
+   new Item() {
+      position = "-130 60 24";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "-170 56 4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new InteriorInstance() {
+      position = "-34.5 3 4.06";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-71.5056 -0.766929 14.07";
+      rotation = "0 0 1 213.75";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-26 -2.5 4";
+      rotation = "0 0 1 236.25";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(Mudpit3) {
+      position = "8 14 2";
+      rotation = "1 0 0 0";
+      scale = "34 8 0.25";
+      dataBlock = "WaterPhysicsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         VelocityMultiplier = "0.1";
+   };
+   new Trigger(Mudpit2) {
+      position = "-46 14 2";
+      rotation = "1 0 0 0";
+      scale = "8 2 0.25";
+      dataBlock = "WaterPhysicsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         VelocityMultiplier = "0.1";
+   };
+   new Trigger(Mudpit4) {
+      position = "-78 42 2";
+      rotation = "1 0 0 0";
+      scale = "24 18 0.25";
+      dataBlock = "WaterPhysicsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         VelocityMultiplier = "0.1";
+   };
+   new StaticShape() {
+      position = "26 14 2.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform2_2x2";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "30 14 2.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform2_2x2";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "1 0.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "24 10 2.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform2_2x2";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "28 10 2.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform2_2x2";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "28 6.06482 3.05";
+      rotation = "1 0 0 22.5001";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform2_2x2";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "24 6.06482 3.05";
+      rotation = "1 0 0 22.5001";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform2_2x2";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "20.5 -4.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "22.5 -4.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "24.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "22.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "20.5 -8.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "18.5 -8.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "18.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "16.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "16.5 -4.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "14.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "14.5 -2.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "16.5 -2.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "10.5 -6.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "12.5 -4.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "14.5 -4.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "10.5 -8.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "12.5 -8.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "2.5 -2.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "4.5 -2.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "4.5 -4.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "4.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "2.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "6.5 -6.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "8.5 -4.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "6.5 -8.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "12.5 1.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "14.5 1.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "6 3 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "6 5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "6 7 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "10.5 -0.5 2.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "12.5 -0.5 2.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "10.5 1.5 2.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin2";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "8.5 1.5 2.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-1 0.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new InteriorInstance() {
+      position = "-75 -6 22";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3a.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-110 -8 15";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-94 -32 16.5";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "6000";
+   };
+   new Item() {
+      position = "-137.5 -54.5 4.175";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SundialItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "2500";
+   };
+   new Item() {
+      position = "19 55.5 15";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "30 23.5 16";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "6000";
+   };
+   new Item() {
+      position = "-176 -22 1.42489";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-166 22 7.25";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-177 16 6.25";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-177.5 37.5 7";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-120.72 90.1655 52.0255";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-119.275 78.8359 48.6895";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-136.108 86.0072 55.8989";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-68.5 88 11.2479";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-60.25 96 11.2168";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-36.5 95.5 11.6571";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-45 81 11.3266";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "10.5 -8.5 4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "-1 0.5 4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "26 5.5 2.42489";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         timeBonus = "2000";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-82 -3.5 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-82 6 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-82 -3.5 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/SugarRush.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-74 1.5 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-74 11 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-74 1.5 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/SugarRush.dif";
+         interiorIndex = "1";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-118 -10 2";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-118 -10 -24";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "-110 -8 15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-2.0000000 -0.5000000 2.0000000 0.0000000 1.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -4.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
+            targetTime = "99999";
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/SugarRush.dif";
+         interiorIndex = "2";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "0";
+      };
+   };
+   new InteriorInstance() {
+      position = "-170.5 -57.5 6.56461";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-64.5 -15.5 6";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-164.5 -32.5 4.2";
+      rotation = "1 0 0 0";
+      scale = "0.2 0.2 0.2";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-182 -43.5 24";
+      rotation = "0 0 1 225";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "6 88 -2";
+      rotation = "0 0 1 90.0002";
+      scale = "0.4 0.4 0.4";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush5a.dif";
+      showTerrainInside = "0";
+         Path = "PathA1";
+   };
+   new InteriorInstance() {
+      position = "-124.5 -46 4.07";
+      rotation = "0 0 -1 101.25";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-123.5 -50 4";
+      rotation = "0 0 1 236.25";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-72.5 -1.5 16.1205";
+      rotation = "1 0 0 11.2501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59 -6.5 6.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51 -16 5.72257";
+      rotation = "0.02972 0.0979741 0.994745 213.583";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-63.5 -0.5 5.55704";
+      rotation = "1 0 0 11.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-55.5674 -12.5235 11.9121";
+      rotation = "0.705398 -0.67829 -0.205758 15.8972";
+      scale = "0.4 0.4 0.4";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-53.8543 -15.7822 6.3";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-55 -11 6.1";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59.5 -13 6.1";
+      rotation = "0 0 1 33.7501";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-65.6107 -9.05357 7.67886";
+      rotation = "0 -1 0 22.5";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-67.5 -7 9.80334";
+      rotation = "-1 3.89385e-008 5.84078e-008 22.5001";
+      scale = "0.6 0.6 0.6";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-81.5 -2.5 29.3943";
+      rotation = "0.0978078 -0.0653528 -0.993057 112.869";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-71.5 -7.5 14";
+      rotation = "0 0 -1 67.5002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-76.8511 -13.474 13.7338";
+      rotation = "0 0 1 168.75";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-80 -10.5 14.3";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-76 -3 14.3";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-83.5 -5.5 14.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-75.5 -8 14.07";
+      rotation = "1 0 0 0";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape(CBase1) {
+      position = "-154 88 41.8899";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new StaticShape() {
+      position = "-154 88 41.8899";
+      rotation = "-0.0868262 0.0868266 0.992433 90.4357";
+      scale = "1 1 1";
+      dataBlock = "Cannon_Custom";
+         aimSize = "0.25";
+         aimTriggers = "0";
+         basename = "CBase1";
+         chargeTime = "2000";
+         force = "30";
+         instant = "0";
+         instantDelayTime = "0";
+         lockCam = "0";
+         lockTime = "0";
+         pitch = "10";
+         pitchBoundHigh = "70";
+         pitchBoundLow = "0";
+         showAim = "1";
+         showReticle = "0";
+         useBase = "1";
+         useCharge = "0";
+         yaw = "90";
+         yawBoundLeft = "30";
+         yawBoundRight = "30";
+         yawLimit = "1";
+   };
+   new StaticShape() {
+      position = "-154 88 41.8899";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new StaticShape(CBase2) {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new StaticShape(CBase3) {
+      position = "-154 80 41.8899";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new StaticShape() {
+      position = "-154 80 41.8899";
+      rotation = "-0.0868262 0.0868266 0.992433 90.4357";
+      scale = "1 1 1";
+      dataBlock = "Cannon_Custom";
+         aimSize = "0.25";
+         aimTriggers = "0";
+         basename = "CBase3";
+         chargeTime = "2000";
+         force = "30";
+         instant = "0";
+         instantDelayTime = "0";
+         lockCam = "0";
+         lockTime = "0";
+         pitch = "10";
+         pitchBoundHigh = "70";
+         pitchBoundLow = "0";
+         showAim = "1";
+         showReticle = "0";
+         useBase = "1";
+         useCharge = "0";
+         yaw = "90";
+         yawBoundLeft = "30";
+         yawBoundRight = "30";
+         yawLimit = "1";
+   };
+   new StaticShape() {
+      position = "-154 80 41.8899";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new StaticShape() {
+      position = "-154 96 41.8899";
+      rotation = "-0.0868262 0.0868266 0.992433 90.4357";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannon";
+         aimSize = "0.25";
+         aimTriggers = "0";
+         basename = "CBase4";
+         chargeTime = "2000";
+         force = "30";
+         instant = "0";
+         instantDelayTime = "0";
+         lockCam = "0";
+         lockTime = "0";
+         pitch = "10";
+         pitchBoundHigh = "70";
+         pitchBoundLow = "0";
+         showAim = "1";
+         showReticle = "0";
+         useBase = "1";
+         useCharge = "0";
+         yaw = "90";
+         yawBoundLeft = "30";
+         yawBoundRight = "30";
+         yawLimit = "1";
+   };
+   new StaticShape(CBase4) {
+      position = "-154 96 41.8899";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DefaultCannonBase";
+   };
+   new InteriorInstance() {
+      position = "-64 4 4";
+      rotation = "1 0 0 0";
+      scale = "0.2 0.2 0.2";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-124 -0.5 12";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-122 -6 12";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-120.5 2 12.1";
+      rotation = "0 0 -1 101.25";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-123.5 -18 12.1";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-122 -20 12.07";
+      rotation = "0 0 1 202.5";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6e.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-121 -14 28";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-134 -21 23.7228";
+      rotation = "0 0 -1 33.7501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-127 -32.5 18.5258";
+      rotation = "0.0953833 -0.230275 -0.96844 46.3141";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-129 8.5 11.5561";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-131.478 -9.00939 7.21559";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-121.5 -22 19.7317";
+      rotation = "0.0975498 -0.0975495 -0.990438 90.5507";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-137 7.5 7.04672";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-130 -24.5 10.5";
+      rotation = "0 0 -1 112.5";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-131 0.5 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-129.5 -16.5 9.36489";
+      rotation = "1 0 0 11.2501";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-120.323 -10.6846 12.1";
+      rotation = "0 0 -1 112.5";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-137.5 -21.5 9.3891";
+      rotation = "0.129261 0.193454 -0.972557 113.965";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.511 -5.25641 8.1";
+      rotation = "0 0 1 44.9993";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.5 1 8.3";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-128 -6.5 10.0333";
+      rotation = "0 1 0 22.5001";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-120.5 -18.5 12.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-137.96 15.6998 3.47418";
+      rotation = "1 0 0 11.2501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-37 -9 4.34465";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-10 -9.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32 8.5 5.1515";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "16.5 9.5 2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "32.9758 5 16.9999";
+      rotation = "0 1 0 11.2501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-131 -44 4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-131.5 -52.5 4.07";
+      rotation = "0 0 1 123.749";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-146 -6 32.1144";
+      rotation = "1 0 0 11.2501";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3a.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-105.5 -49.5 4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "IceSlick3";
+   };
+   new StaticShape() {
+      position = "-60 10 4.01651";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "IceSlick2";
+   };
+   new InteriorInstance() {
+      position = "-136 -52 4.07";
+      rotation = "0 0 -1 56.2501";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-142.192 -44.8007 4.07";
+      rotation = "0 0 1 236.25";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-148 -53 4.07";
+      rotation = "0 0 -1 56.2501";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-139 -55 4";
+      rotation = "0 0 1 236.25";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-143.5 -48 4";
+      rotation = "0 0 -1 45.0001";
+      scale = "0.748767 0.747516 0.413218";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-151 -42.5 4.2";
+      rotation = "-0.726836 0.485648 0.48565 107.978";
+      scale = "0.2 0.2 0.2";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-145.5 -64 4.91734";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-137.75 -10 2";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "FadePlatform2_2x2";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "250";
+         fadeoutTime = "250";
+         functionality = "periodic";
+         invisibleTime = "1000";
+         permanent = "0";
+         skin = "skin3";
+         visibleTime = "500";
+   };
+   new InteriorInstance() {
+      position = "-144.415 8.30288 27.1924";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-95.75 -3.75 4.19274";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "Sign02";
+         skin = "red_diag_2";
+   };
+   new InteriorInstance() {
+      position = "-160.25 -69.25 20.6716";
+      rotation = "0.0979366 0.0405664 0.994366 224.771";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-180.75 -28 7.93636";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-147.75 -24.25 29.054";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-175.75 -47.5 11.1038";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-162.5 -40 8.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-164.5 -58.5 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-177.25 -52.5 8.3";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-140.25 -32.75 20.4108";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-131.43 -34.6582 18.1";
+      rotation = "0 0 1 33.7501";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-144.605 -33.3001 18.6";
+      rotation = "0 0 1 123.75";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-137 -35.5 18.0745";
+      rotation = "1 0 0 67.5002";
+      scale = "0.4 0.4 0.4";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-119.163 -29.25 22.4149";
+      rotation = "0 -1 0 11.2501";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.5 -61.75 6.38991";
+      rotation = "-0.194944 -0.0387776 0.980048 202.062";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-147.75 -62.5 5.57";
+      rotation = "0 0 1 123.749";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-161.596 -54.2305 8.07";
+      rotation = "0 0 -1 67.5013";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-174.5 -64.25 8.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-182.25 -38.25 8.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-147.25 -72.25 14.6061";
+      rotation = "0.0879223 -0.607676 -0.789303 25.1234";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-158.165 -33.6924 8";
+      rotation = "0 0 -1 101.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-155.371 -70.4874 8.07";
+      rotation = "0 0 -1 56.2501";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-161.911 -36.3078 8.07";
+      rotation = "0 0 1 191.25";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-155.25 -63.25 7.38371";
+      rotation = "0 -1 0 11.2501";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-171.991 -17.4328 4.3";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-173 -33.5 4.1";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-163.247 -13.1367 4.1";
+      rotation = "0 0 1 56.2501";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-185.25 -20.75 10.6213";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-185.342 -30.9923 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-162.5 -65.5 8.2";
+      rotation = "0.139274 0.700215 0.700215 195.857";
+      scale = "0.2 0.2 0.2";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-159.99 -55.3639 8.07";
+      rotation = "0 0 1 213.749";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-160.611 -53.1813 8.07";
+      rotation = "0 0 1 22.4989";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-160.25 -53.75 8.07";
+      rotation = "0 0 -1 67.5013";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-160.5 -53.5 8.21";
+      rotation = "0 0 -1 67.5013";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-175.938 -38.312 8.1";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-175.5 -37.25 8.1";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-175.75 -37.75 8.3";
+      rotation = "0 0 1 89.9994";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-177.549 -37.3888 8.1";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-176.177 -39.9973 8.1";
+      rotation = "0 0 -1 101.25";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-159.5 -22.75 8";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-192.942 7.58482 8.1";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-192.754 8.14682 8.35";
+      rotation = "0 0 1 89.9996";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-192.5 8.5 8.1";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-193.181 5.89952 8.1";
+      rotation = "0 0 -1 101.25";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-194.553 8.50802 8.1";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-157.765 -27.1057 8";
+      rotation = "0 0 1 236.25";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-159.869 -28.6817 8.07";
+      rotation = "0 0 1 191.25";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-154.75 -17 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-180.5 -7.25 25.1078";
+      rotation = "1 0 0 11.2501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-187 2 7.4533";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-181.587 -23.4276 8.52845";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-187.201 -17.1087 8.1";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-186.742 -10.1708 8.2";
+      rotation = "0.139274 0.700215 0.700215 195.857";
+      scale = "0.2 0.2 0.2";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-155.55 25.2092 -12";
+      rotation = "0 0 1 56.2496";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.053 -43.6189 -4";
+      rotation = "0 0 -1 45.0001";
+      scale = "0.748767 0.747516 0.413218";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-141.29 -53.0108 -4";
+      rotation = "0 0 1 78.7494";
+      scale = "0.748767 0.747516 0.413218";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-153.25 -48 -4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-195 17.75 18.3059";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-194.595 27.2475 19.9634";
+      rotation = "0.0969795 -0.14514 -0.984647 68.3216";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-194.25 33.5 9.64999";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8d.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-197.75 30 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-154.5 -1 7.6879";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-163.782 47.5775 8.54598";
+      rotation = "0 0 1 168.75";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-140.494 47.5731 19.8242";
+      rotation = "0.00965342 -0.0980127 0.995138 168.804";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-121.228 55.8901 30.4874";
+      rotation = "0 0 1 168.75";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-188.5 106.25 17.8873";
+      rotation = "0 0 1 168.75";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-176.5 71.5 51.3391";
+      rotation = "0 0 1 168.75";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-179 97.75 50.72";
+      rotation = "0 0 1 168.75";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-177.25 56.1226 36.063";
+      rotation = "-1 0 0 22.5001";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-187.5 47.5 7.88208";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-123.437 71.9267 32.7358";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-174.5 80.3387 49.2906";
+      rotation = "0 0 1 213.75";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-159.389 102.972 38.7091";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-171.796 103.417 47.985";
+      rotation = "1 0 0 11.2501";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-188 87.75 18.9499";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-112.5 56.75 26.3149";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-176.5 46.25 12.115";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-121.25 87.75 14.1415";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-119.218 47.9434 20.3028";
+      rotation = "-0.278777 -0.278776 -0.919003 94.834";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.013 101.431 36.0467";
+      rotation = "0 -1 0 22.5001";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-104.997 80.2224 10.4701";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-98.2826 94.4745 7.26058";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-176 88.75 55.1234";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-106 55.75 11.7996";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-106.25 39.5 2.62896";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-130 47.5 31.1424";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-112.913 87.8324 15.6712";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-119 103.5 22.8886";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-127.434 88.296 29.9693";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-146.25 41 9.88868";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-184.75 55.75 10.8127";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-184.852 95.615 35.7003";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-178.497 62.8486 70.9609";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-121.5 64.3305 47.8861";
+      rotation = "0 -1 0 11.2501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-98.25 47.5 27.1387";
+      rotation = "-1 0 0 11.2501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-105.5 97 19.3194";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-153 104 45.8404";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-103.616 64.2871 23.1825";
+      rotation = "0 -1 0 22.5001";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-195.25 46.25 35.1564";
+      rotation = "0 0 -1 78.7502";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-115.194 95.5902 25.9731";
+      rotation = "-0.0964103 -0.180371 -0.978862 57.2739";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-138.228 71.1084 41.914";
+      rotation = "0.0979374 0.0405668 0.994365 224.771";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4c.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-153.286 49.1869 16.1";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-175.226 48.4866 12.6";
+      rotation = "0 0 1 112.499";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-160.63 47.0711 8.6";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-161.5 49 8.6";
+      rotation = "0 0 1 202.5";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-132.256 46.1493 28.1";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-174.75 77.5 50.1";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-126.809 93.8994 30.1";
+      rotation = "0 0 1 168.75";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-126.629 81.2956 31.6";
+      rotation = "0 0 -1 78.7502";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6f.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-122.12 64.0937 32.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-179.392 102.952 49.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-171.261 80.0684 44.3";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-193.131 40.1048 8.3";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-105.75 88 13.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-128 98.5 30.3";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-91.1931 102.068 9.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-21.25 89.5 4.01651";
+      rotation = "0 0 -1 22.5001";
+      scale = "1 1 1";
+      dataBlock = "IceSlick2";
+   };
+   new StaticShape() {
+      position = "31 49 4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "IceSlick1";
+   };
+   new InteriorInstance() {
+      position = "-88.2157 57.3162 24.6611";
+      rotation = "0 0 1 225";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-75.7953 100.229 23.9644";
+      rotation = "-0.0953832 0.230275 -0.96844 46.3141";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-27.7915 66.2401 25.3802";
+      rotation = "0 0 -1 78.7502";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-22.0981 97.8893 24.1922";
+      rotation = "-0.230275 -0.0953832 -0.96844 46.3141";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-52.2444 104.417 9.5";
+      rotation = "0 0 1 33.7501";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-39.4186 57.7768 9.5";
+      rotation = "0 0 1 146.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-77.5395 61.7203 9.5";
+      rotation = "0 0 1 236.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-10.9552 81.6628 9.5";
+      rotation = "0 0 -1 78.7502";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-60.0465 70.32 12.7551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-42.3703 109.891 12.3823";
+      rotation = "0 0 -1 101.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-80.3962 45.9423 12.8417";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-63.25 104 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59.9962 109.115 16.2645";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-84.5342 71.4516 17.0155";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-42.3661 71.5752 17.4923";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush3a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-71.5843 74.6597 18.3342";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 0.6";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-49.7368 57.7322 15.9322";
+      rotation = "0 0 -1 45.0001";
+      scale = "0.6 0.6 0.6";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-18.5013 74.7467 18.0965";
+      rotation = "0 0 -1 67.5002";
+      scale = "0.6 0.6 0.6";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-52.7023 111.25 18.8424";
+      rotation = "0 1 0 11.2501";
+      scale = "0.6 0.6 0.6";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-71.2198 56.4748 16.6849";
+      rotation = "0 0 -1 90.0002";
+      scale = "0.6 0.6 0.6";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-92.6813 106.934 18.8905";
+      rotation = "1 0 0 0";
+      scale = "0.6 0.6 0.6";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush4b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-34.6049 69.6759 9.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-75.25 71 9.75392";
+      rotation = "0 0 1 213.75";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-87.5402 49.6666 9.5";
+      rotation = "0 0 1 89.9994";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-80.3766 104.781 9.5";
+      rotation = "0 0 1 157.5";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-15.3642 96.574 9.5";
+      rotation = "0 0 1 157.5";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-38 45.75 9.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-55.9712 65.2926 8.36967";
+      rotation = "0 0 1 11.2501";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-34.2859 101.256 9.5";
+      rotation = "0 0 1 213.75";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush10b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-28.4716 54.8313 12.314";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush8a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-46.3296 48.9946 9.5";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-14.6372 78.9296 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-18.9506 100.917 9.5";
+      rotation = "0 0 -1 78.7502";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-83.5002 59.2525 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-65.75 71.5 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-85.7414 104.08 9.5";
+      rotation = "0 0 1 225";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-88.7792 66.5354 10.3";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-49.3699 70.6312 9.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-27.424 73.2694 9.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-40.5926 104.276 9.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-33.5998 54.5331 10.3";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-72.918 62.6083 9.8";
+      rotation = "0 0 -1 67.5002";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-79.7028 50.3353 9.8";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-66.3077 109.432 9.8";
+      rotation = "0 0 -1 56.2501";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-26.5166 104.12 9.8";
+      rotation = "0 0 1 225";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-17.1852 71.1474 9.8";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.5549 46.8786 9.6";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-42.2049 63.3665 10.1";
+      rotation = "0 0 1 225";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-79.6073 55.3424 9.6";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59.4404 73.6557 9.6";
+      rotation = "0 0 1 236.25";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-69.4756 103.119 9.6";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-47.9141 105.682 9.6";
+      rotation = "0 0 1 225";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-21.8475 73.5657 9.6";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 0.1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-62.25 62.75 7.87216";
+      rotation = "-1 0 0 22.5001";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-89.6567 71.9121 9.57";
+      rotation = "1 0 0 0";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-95.7428 80.9136 9.57";
+      rotation = "0 0 1 134.999";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-29.0706 100.768 9.57";
+      rotation = "1 0 0 0";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-54.5363 110.103 9.57";
+      rotation = "1 0 0 0";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-80.9294 102.066 9.57";
+      rotation = "0 0 -1 112.5";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-8.30272 77.7616 9.57";
+      rotation = "1 0 0 0";
+      scale = "0.07 0.07 0.07";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush6a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-33.9056 62.1865 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-88.6108 54.0343 10";
+      rotation = "0 0 1 225";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-57 104 9.5";
+      rotation = "0 0 1 213.75";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-11.25 94 9.5";
+      rotation = "0 0 1 191.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-26.25 60.5 9.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-46.75 108.75 9.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-99 78.75 9.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-91 48 9.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-8.75 97.5 9.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "31.1428 93.5372 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "37.4916 89.173 9.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush9b.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "22.5911 -0.0920944 2";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush11a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "7.25 -1 2.3";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush2a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.973356 45.8282 -12";
+      rotation = "0 0 1 191.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59.5146 24.9099 -12";
+      rotation = "0 0 1 78.7496";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-62.9868 50.5131 2";
+      rotation = "0 0 1 146.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "30.9206 1.13097 2";
+      rotation = "0 0 1 191.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-108.898 -28.157 -12";
+      rotation = "0 0 1 191.25";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush7a.dif";
+      showTerrainInside = "0";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/music/Electroforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new InteriorInstance() {
+      position = "-155.474 49.0418 25.3557";
+      rotation = "0 0 -1 45.0001";
+      scale = "0.7 0.7 0.7";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/SugarRush1b.dif";
+      showTerrainInside = "0";
+   };
+};
+//--- OBJECT WRITE END ---

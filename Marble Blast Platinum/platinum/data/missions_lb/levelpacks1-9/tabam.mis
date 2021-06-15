@@ -1,0 +1,547 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         type = "LBCustom";
+         time = "130000";
+         goldTime = "80000";
+         name = "There and Back Again Machine";
+         level = "44";
+         startHelpText = "only the skilledest of marblers can pass the challenges that lay ahead...";
+         desc = "Enjoy! by Moshe Damkani";
+         artist = "Moshe Damkani";
+         marbleRadius = "0.2";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.481726 0.481726 -0.732038";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         position = "0 0 0";
+         locked = "true";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "-3.731895 -46.7738 491";
+         rotation = "0 0 1 90";
+         scale = ".1 .1 .1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "-11.4267 -46.7803 494.9";
+         rotation = "0 -1 0 90";
+         scale = "10 10 10";
+         dataBlock = "EndPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "230 -46.7738 490.817";
+      rotation = "0 1 0 180";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_airmove.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.216 -219.042 720";
+      rotation = "1 0 0 0";
+      scale = "1 1 .5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_airmove.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.79 -217.246 720";
+      rotation = "1 0 0 0";
+      scale = "4.2 5 .2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.663 -227.235 707.4";
+      rotation = "1 0 0 0";
+      scale = "4 .2 6";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "233.727 -74.8827 689.486";
+      rotation = "1 0 0 0";
+      scale = ".2 5 3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "237.047 -74.8827 689.486";
+      rotation = "1 0 0 0";
+      scale = ".2 5 3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "238 -42.5 495.15";
+      rotation = "1 0 0 180";
+      scale = ".5 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/thrillride.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "289.451 -71.59 541";
+      rotation = "1 0 0 180";
+      scale = "1.5 1.2 1.2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/SkillCourse3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -154.495 516.1";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_tornado.dif";
+      showTerrainInside = "0";
+  };
+   new InteriorInstance() {
+      position = "236.838 -149.931 510.9";
+      rotation = "0 1 0 10";
+      scale = ".15 6 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+  };
+   new InteriorInstance() {
+      position = "216.154 -150.027 514";
+      rotation = "0 -1 0 10";
+      scale = ".15 6 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "235.52 -157.589 525";
+      rotation = "1 0 0 170";
+      scale = "5 5 5";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "235.318 -135.664 512.325";
+      rotation = "1 0 0 140";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+  };
+   new StaticShape() {
+      position = "235.318 -105.858 513.5";
+      rotation = "1 0 0 0";
+      scale = "5 5 .1";
+      dataBlock = "RoundBumper";
+   };
+   new Item() {
+      position = "235.318 -125.678 515.399";
+      rotation = "1 0 0 170";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "235.318 -93.678 515.399";
+      rotation = "0 1 0 97";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "224.882 -45 541";
+      rotation = "0 1 0 10";
+      scale = "2 .5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+	  };
+   new InteriorInstance() {
+      position = "235.056 -45 541";
+      rotation = "0 1 0 -10";
+      scale = "2 .5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "234.703 -35.478 563";
+      rotation = "0 1 0 83";
+      scale = ".5 .4 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+	  };
+   new InteriorInstance() {
+      position = "229.2 -35.3927 564";
+      rotation = "0 1 0 10";
+      scale = "1.5 .4 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+	  };
+   new InteriorInstance() {
+      position = "237.998 -43.6372 582";
+      rotation = "0 0 -1 30";
+      scale = ".2 .4 4";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+	  };
+   new InteriorInstance() {
+      position = "220.411 -43.1621 582";
+      rotation = "0 0 1 30";
+      scale = ".2 .4 4";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "229.07 -28.3539 605";
+      rotation = "-1 0 0 90";
+      scale = "2 2 2";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "235.011 -229.197 695";
+      rotation = "1 0 0 155";
+      scale = "12 12 3";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "229.095 -29.461 587";
+      rotation = "1 0 0 0";
+      scale = ".2 .2 .2";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "232.741 -61.9594 564";
+      rotation = "1 0 0 20";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+	  };
+   new Item() {
+      position = "231.755 -19.0036 562";
+      rotation = "-1 0 0 25";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "230.077 -47.604 540";
+      rotation = "1 0 0 10";
+      scale = "7 7 2";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "229.981 -20.9562 547";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "231.314 -19.1308 550";
+      rotation = "0 1 0 90";
+      scale = ".5 .3 .5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "229.981 -20.9562 547";
+      rotation = "1 0 0 10";
+      scale = ".3 .3 20";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/tornadotoss.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "229.981 -20.9562 547";
+      rotation = "0 -1 0 90";
+      scale = ".2 .2 .2";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+  };
+   new StaticShape() {
+      position = "246 -47.2542 514";
+      rotation = "0 1 0 90";
+      scale = "12 12 .1";
+      dataBlock = "RoundBumper";
+   };
+   new Item() {
+      position = "242.364 -47.2542 514";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "237.64 -49.3346 515";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "216.2 -40.8916 498";
+      rotation = "1 0 0 -5";
+      scale = ".4 .4 .4";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "221.794 -26.8001 491.5";
+      rotation = "1 0 0 25";
+      scale = ".01 5 .5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "237.286 -211.28 696.6";
+      rotation = "0 0 1 50";
+      scale = ".1 .1 .1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "225.797 -220.479 696.6";
+      rotation = "0 0 -1 50";
+      scale = ".1 .1 .1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.000219345 -46.7738 487.926";
+      rotation = "0 -1 0 40";
+      scale = "1 .01 .1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -146.996 695.6";
+      rotation = "1 0 0 90";
+      scale = ".2 .2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.342 -147.233 583.5";
+      rotation = "1 0 0 10";
+      scale = ".4 .4 2.2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -105.242 669.781";
+      rotation = "1 0 0 60";
+      scale = ".2 .2 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -84.3236 694";
+      rotation = "-1 0 0 5";
+      scale = ".5 .05 .1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/backagain.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -76.8838 695.449";
+      rotation = "1 0 0 0";
+      scale = "1 6 .2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -71.5565 690.086";
+      rotation = "-1 0 0 40";
+      scale = "1 4 .2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -71.5565 690.086";
+      rotation = "-1 0 0 40";
+      scale = "1 4 .2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "235.388 -135.364 654.072";
+      rotation = "-1 0 0 20";
+      scale = "1.5 1.5 .1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/spaceblock.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "215.399 -48.4144 498";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "143.644 -46.7738 395";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "204.084 -46.7738 449.5";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "235.388 -101.842 669.781";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "235.388 -84.1745 694.2";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1"; 
+   };
+   new InteriorInstance() {
+      position = "223.453 -46.7738 489";
+      rotation = "0 -1 0 40";
+      scale = ".3 .2 .5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "95 -46.7738 409.017";
+      rotation = "1 0 0 0";
+      scale = ".6 .6 .8";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "228.828 -57.5781 648";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "95 -46.7738 408.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "227 -46.7738 485.7";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "227 -46.7738 485.6";
+      rotation = "1 0 0 10";
+      scale = ".2 .2 .2";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-0.000219345 -46.7738 487.926";
+      rotation = "0 -1 0 40";
+      scale = "1.2 .05 .3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
+      showTerrainInside = "0";
+   };
+     new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Beach Party.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---
