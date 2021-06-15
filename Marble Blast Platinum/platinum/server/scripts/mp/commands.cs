@@ -210,22 +210,22 @@ function serverCmdFileCRC(%client, %file, %crc) {
 
 	// If they try to send us a file that we don't have, it's probably hax
 	// or something we couldn't handle if we tried. Just kick 'em off.
-	if (!isFile(%file)) {
-		commandToClient(%client, 'CRCError', fileBase(%file) @ fileExt(%file) @ " unknown file");
-		devecho("\c2" @ %client.getUsername() SPC "unknown file" SPC %file @ "!");
-		// Haha, sucker!
-		%client.failedCRC = true;
-		return;
-	}
+	// if (!isFile(%file)) {
+	// 	commandToClient(%client, 'CRCError', fileBase(%file) @ fileExt(%file) @ " unknown file");
+	// 	devecho("\c2" @ %client.getUsername() SPC "unknown file" SPC %file @ "!");
+	// 	// Haha, sucker!
+	// 	%client.failedCRC = true;
+	// 	return;
+	// }
 
-	// THOUGHT YOU COULD GET AWAY WITH IT, HUH? NOPE.
-	if ($MP::ServerCRC[%file] !$= %crc) {
-		commandToClient(%client, 'CRCError', fileBase(%file) @ fileExt(%file) @ " invalid crc (" @ %crc SPC "!=" SPC $MP::ServerCRC[%file] @ ")");
-		devecho("\c2" @ %client.getUsername() SPC "invalid file crc" SPC %file SPC "(" @ %crc SPC "!=" SPC $MP::ServerCRC[%file] @ ")");
-		// Haha, sucker!
-		%client.failedCRC = true;
-		return;
-	}
+	// // THOUGHT YOU COULD GET AWAY WITH IT, HUH? NOPE.
+	// if ($MP::ServerCRC[%file] !$= %crc) {
+	// 	commandToClient(%client, 'CRCError', fileBase(%file) @ fileExt(%file) @ " invalid crc (" @ %crc SPC "!=" SPC $MP::ServerCRC[%file] @ ")");
+	// 	devecho("\c2" @ %client.getUsername() SPC "invalid file crc" SPC %file SPC "(" @ %crc SPC "!=" SPC $MP::ServerCRC[%file] @ ")");
+	// 	// Haha, sucker!
+	// 	%client.failedCRC = true;
+	// 	return;
+	// }
 
 	// Hopefully they reach here, as then the file is correct. The next
 	// message will come through any moment, let's see how they fare.
@@ -239,49 +239,49 @@ $CRC_NOPE = (!$Server::Dedicated);
 $LB::ValidateSessions = true;
 
 function serverCmdFinishCRC(%client, %cFiles) {
-	if (%client.failedCRC) {
-		devecho("\c2" @ %client._name SPC "failed CRC check!");
-		// Hahahahahahahahahaha NO.
-		if (!%client.isSuperAdmin) {
-			if ($CRC_NOPE) {
-				%client.delete("CRC_NOPE");
-				return;
-			}
-		}
-	}
+	// if (%client.failedCRC) {
+	// 	devecho("\c2" @ %client._name SPC "failed CRC check!");
+	// 	// Hahahahahahahahahaha NO.
+	// 	if (!%client.isSuperAdmin) {
+	// 		if ($CRC_NOPE) {
+	// 			%client.delete("CRC_NOPE");
+	// 			return;
+	// 		}
+	// 	}
+	// }
 
-	// Ok fine, they've passed SO FAR. Will they pass the final test?
-	for (%i = 0; %i < $MP::ServerFiles; %i ++) {
-		%file = $MP::ServerFile[%i];
-		if (%client.crcSuccess[%file] $= "" && $fileExec[%file] !$= "") {
-			devecho("\c2" @ %client._name SPC "missing file" SPC %file @ "!");
-			// Caught you! Thought you could get away without that one pesky
-			// file that we needed. Get off my server, damned kids.
-			if (!%client.isSuperAdmin) {
-				if ($CRC_NOPE) {
-					%client.delete("CRC_NOPE");
-					return;
-				}
-			}
-		}
+	// // Ok fine, they've passed SO FAR. Will they pass the final test?
+	// for (%i = 0; %i < $MP::ServerFiles; %i ++) {
+	// 	%file = $MP::ServerFile[%i];
+	// 	if (%client.crcSuccess[%file] $= "" && $fileExec[%file] !$= "") {
+	// 		devecho("\c2" @ %client._name SPC "missing file" SPC %file @ "!");
+	// 		// Caught you! Thought you could get away without that one pesky
+	// 		// file that we needed. Get off my server, damned kids.
+	// 		if (!%client.isSuperAdmin) {
+	// 			if ($CRC_NOPE) {
+	// 				%client.delete("CRC_NOPE");
+	// 				return;
+	// 			}
+	// 		}
+	// 	}
 
-		%client.crcSuccess[%file] = "";
-	}
+	// 	%client.crcSuccess[%file] = "";
+	// }
 
-	%cFiles -= %client.crcExtra;
+	// %cFiles -= %client.crcExtra;
 
-	// Ok, here's the real test. Did they send the right values for %files?
-	if ($MP::ServerFiles != %cFiles) {
-		// Well, I guess you get to sit and think about what you just did
-		// in the naughty corner of NOPE!
-		devecho("\c2" @ %client._name SPC "invalid file count! (" @ %cFiles SPC "!=" SPC $MP::ServerFiles @ ")");
-		if (!%client.isSuperAdmin) {
-			if ($CRC_NOPE) {
-				%client.delete("CRC_NOPE");
-				return;
-			}
-		}
-	}
+	// // Ok, here's the real test. Did they send the right values for %files?
+	// if ($MP::ServerFiles != %cFiles) {
+	// 	// Well, I guess you get to sit and think about what you just did
+	// 	// in the naughty corner of NOPE!
+	// 	devecho("\c2" @ %client._name SPC "invalid file count! (" @ %cFiles SPC "!=" SPC $MP::ServerFiles @ ")");
+	// 	if (!%client.isSuperAdmin) {
+	// 		if ($CRC_NOPE) {
+	// 			%client.delete("CRC_NOPE");
+	// 			return;
+	// 		}
+	// 	}
+	// }
 
 	// HOLY SHIT THEY ACTUALLY PASSED THE CRC CHECK. WHAT ARE THE CHANCES
 	// OF THIS ACTUALLY HAPPENING? (oh god I hope it's > 50%)
