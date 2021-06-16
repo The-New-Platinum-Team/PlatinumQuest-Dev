@@ -1011,6 +1011,7 @@ function restartLevel(%exitgame) {
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
 		%client.restartLevel();
+		%client.setQuickRespawnStatus(true);
 	}
 
 	Mode::callback("onRestartLevel", "");
