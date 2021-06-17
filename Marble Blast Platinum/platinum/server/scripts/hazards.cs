@@ -312,12 +312,41 @@ function Tornado::onMissionReset(%this, %obj) {
 	}
 }
 
+datablock StaticShapeData(Tornado_MBM : Tornado) {
+	shapeFile = "~/data/shapes_mbu/hazards/tornado.dts";
+};
+
 //-----------------------------------------------------------------------------
 datablock StaticShapeData(OilSlick) {
 	category = "Hazards";
 	shapeFile = "~/data/shapes/hazards/oilslick.dts";
 	scopeAlways = true;
+
+	customField[1, "field"  ] = "skin";
+	customField[1, "type"   ] = "string";
+	customField[1, "name"   ] = "Skin Name";
+	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[1, "default"] = "skin0";
+
+	skin[0] = "base";
+	skin[1] = "ice";
 };
+
+function OilSlick::onAdd(%this,%obj) {
+	if (%obj.skin $= "")
+		%obj.skin = "base";
+		
+	// Skin takes effect upon mission reset or reload
+	if (%obj.skinName !$= "") { //clean up old skinname field
+		%obj.skin = %obj.skinName;
+		%obj.skinName = "";
+	}
+
+	if (%obj.skin $= "")
+		%obj.skin = %obj.getSkinName();
+	else
+		%obj.setSkinName(%obj.skin);
+}
 
 //-----------------------------------------------------------------------------
 // LandMine
@@ -490,6 +519,11 @@ datablock StaticShapeData(LandMine) {
 
 datablock StaticShapeData(LandMine_PQ : LandMine) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Mine/landmine.dts";
+	skin = "base";
+};
+
+datablock StaticShapeData(LandMine_MBM : LandMine) {
+	shapeFile = "~/data/shapes_mbu/hazards/landmine.dts";
 	skin = "base";
 };
 
@@ -910,7 +944,15 @@ function Tornado_PQ::onAdd(%this, %obj) {
 	%this.schedule(1000, "initFX", %obj);
 }
 
+function Tornado_MBM::onAdd(%this, %obj) {
+	Tornado::onAdd(%this, %obj);
+}
+
 function Tornado_PQ::onMissionReset(%this, %obj) {
+	Tornado::onMissionReset(%this, %obj);
+}
+
+function Tornado_MBM::onMissionReset(%this, %obj) {
 	Tornado::onMissionReset(%this, %obj);
 }
 
