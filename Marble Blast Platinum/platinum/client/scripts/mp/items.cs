@@ -176,7 +176,7 @@ function Item::onClientCollision(%this, %marble) {
 	case "HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU":
 		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
 		alxPlay(PuGyrocopterVoiceSfx);
-	case "MegaMarbleItem":
+	case "MegaMarbleItem" or "MegaMarbleItem_MBU":
 		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
 		alxPlay(PuMegaMarbleVoiceSfx);
 	}
@@ -204,7 +204,7 @@ function ItemData::_getPowerUpId(%this) {
 		return 4;
 	case "HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU":
 		return 5;
-	case "MegaMarbleItem":
+	case "MegaMarbleItem" or "MegaMarbleItem_MBU":
 		return 6;
 	case "AnvilItem":
 		return 8;

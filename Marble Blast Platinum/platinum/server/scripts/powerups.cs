@@ -1190,6 +1190,22 @@ datablock ItemData(BlastItem) {
 	coopClient = 1;
 };
 
+datablock ItemData(BlastItem_MBU : BlastItem) {
+	shapeFile = "~/data/shapes_mbu/images/blast.dts";
+
+	fxEmitter[0] = "BlastMBUEmitter";
+};
+
+function BlastItem_MBU::onAdd(%this, %obj) {
+	return BlastItem::onAdd(%this, %obj);
+
+	// load particles
+	%this.schedule(1000, "initFX", %obj);
+}
+function BlastItem_MBU::onPickup(%this,%obj,%user,%amount) {
+	return BlastItem::onPickup(%this, %obj, %user, %amount);
+}
+
 function BlastItem::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 }
@@ -1261,8 +1277,30 @@ datablock ItemData(MegaMarbleItem) {
 	customField[1, "default"] = "10000";
 };
 
+datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {
+	shapeFile = "~/data/shapes_mbu/images/megamarble.dts";
+
+	fxEmitter[0] = "MegaMarbleMBUEmitter";
+};
+
 function MegaMarbleItem::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
+}
+
+function MegaMarbleItem_MBU::onAdd(%this, %obj) {
+	return MegaMarbleItem::onAdd(%this, %obj);
+
+	// load particles
+	%this.schedule(1000, "initFX", %obj);
+}
+function MegaMarbleItem_MBU::onPickup(%this,%obj,%user,%amount) {
+	return MegaMarbleItem::onPickup(%this, %obj, %user, %amount);
+}
+function MegaMarbleItem_MBU::onUse(%this,%obj,%user,%amount) {
+	return MegaMarbleItem::onUse(%this, %obj, %user, %amount);
+}
+function MegaMarbleItem_MBU::onUnuse(%this,%obj,%user,%amount) {
+	return MegaMarbleItem::onUnuse(%this, %obj, %user, %amount);
 }
 
 function MegaMarbleItem::onUse(%this, %obj, %user) {

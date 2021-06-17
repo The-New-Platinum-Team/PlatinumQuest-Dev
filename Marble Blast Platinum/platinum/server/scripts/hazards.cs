@@ -236,6 +236,14 @@ datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
 	compile = "pls";
 	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
 };
+datablock StaticShapeData(DuctFan_MBM : DuctFan) {
+	compile = "pls";
+	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
+};
+datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
+	compile = "pls";
+	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
+};
 
 datablock StaticShapeData(NomeshDuctFan_PQ : DuctFan) {
 	compile = "pls";

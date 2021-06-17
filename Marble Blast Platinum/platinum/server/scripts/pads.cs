@@ -65,6 +65,13 @@ datablock StaticShapeData(StartPad_PQ_Construction : StartPad) {
 	playAnimation = false;
 };
 
+datablock StaticShapeData(StartPad_MBM : StartPad) {
+	shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
+
+	// Mobile pads don't have an animation.
+	playAnimation = false;
+};
+
 function StartPadClass::onAdd(%this, %obj) {
 	$Game::StartPad = %obj;
 	%obj.setName("StartPoint");
@@ -117,6 +124,13 @@ datablock StaticShapeData(EndPad_PQ_Construction : EndPad) {
 	shapeFile = "~/data/shapes_pq/Gameplay/pads/endpadconst.dts";
 
 	// No animation on construction end pad
+	playAnimation = false;
+};
+
+datablock StaticShapeData(EndPad_MBM : EndPad) {
+	shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
+
+	// Mobile pads don't have an animation.
 	playAnimation = false;
 };
 

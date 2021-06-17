@@ -59,8 +59,8 @@ function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
-			"MegaMarbleItem" or
-			"BlastItem" or
+			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
+			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or
 			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
 		//PowerUp
@@ -84,8 +84,8 @@ function ClientMode_coop::shouldPickupItem(%this, %object) {
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
-			"MegaMarbleItem" or
-			"BlastItem" or
+			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
+			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or
 			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
 		//PowerUp
