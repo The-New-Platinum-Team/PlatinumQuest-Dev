@@ -1,13 +1,13 @@
 # PlatinumQuest
 
-This is the main repository for the public release of the game data and scripts for PQ ([old repository here](https://github.com/PlatinumTeam/PlatinumQuest).
+This is the main repository for the public release of the game data and scripts for PQ ([old repository here](https://github.com/PlatinumTeam/PlatinumQuest)).
 
 See [MBExtender](https://github.com/The-New-Platinum-Team/MBExtender-Dev) for the C++ engine modification source code ([old repository here](https://github.com/PlatinumTeam/MBExtender)).
 
 For new developers this should *not* be downloaded from the GitHub website, but cloned with git (or a git client such as VSCode or GitHub Desktop), which has an interface that lets you easily update it and sync your local files to this repository.
 
 ## Running
-To run this, you need a copy of the latest game executables. Best source of this is the [PQ Binaries repository](https://github.com/The-New-Platinum-Team/PQBinaries). This includes any exe/dlls, the `plugins` dir, and `packages/boot.pak`. Or, if you want to build the plugins from source, clone and build [MBExtender](https://github.com/PlatinumTeam/MBExtender) and install it into `Marble Blast Platinum`.
+To run this, you need a copy of the latest game executables. Get them from [PQ Binaries repository](https://github.com/The-New-Platinum-Team/PQBinaries). Copy the files in the platform specific folders to `Marble Blast Platinum` folder. Or, if you want to build the plugins from source, clone and build [MBExtender](https://github.com/The-New-Platinum-Team/MBExtender-Dev) and install it into `Marble Blast Platinum`.
 
 ## License
 MIT License for all PQ script files and shaders. See the headers of individual files for further details.
