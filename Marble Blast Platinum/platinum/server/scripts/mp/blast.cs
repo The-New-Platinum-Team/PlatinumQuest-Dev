@@ -87,6 +87,82 @@ function serverCmdBlast(%client, %gravity) {
 // Blast Particle
 //-----------------------------------------------------------------------------
 
+datablock ParticleData(MBUBlastSmoke) {
+   textureName          = "~/data/particles/twirl";
+   dragCoefficient      = 1.0;
+   gravityCoefficient   = -0.5;
+   inheritedVelFactor   = 0.1;
+   constantAcceleration = 1;
+   lifetimeMS           = 1000;
+   lifetimeVarianceMS   = 150;
+   spinSpeed     = 90;
+   spinRandomMin = -90.0;
+   spinRandomMax =  90.0;
+
+	colors[0]     = "0 1 1 0.1";
+	colors[1]     = "0 1 1 0.5";
+	colors[2]     = "0 1 1 0.9";
+
+   sizes[0]      = 0.25;
+   sizes[1]      = 0.25;
+   sizes[2]      = 0.5;
+
+   times[0]      = 0;
+   times[1]      = 0.75;
+   times[2]      = 1.0;
+};
+
+datablock ParticleData(MBUUltraBlastSmoke) {
+   textureName          = "~/data/particles/twirl";
+   dragCoefficient      = 1.0;
+   gravityCoefficient   = 0;
+   inheritedVelFactor   = 0.1;
+   constantAcceleration = 1;
+   lifetimeMS           = 1000;
+   lifetimeVarianceMS   = 150;
+   spinSpeed     = 20;
+   spinRandomMin = -90.0;
+   spinRandomMax =  90.0;
+
+	colors[0]     = "1 0.7 0 0.1";
+	colors[1]     = "1 0.7 0 0.5";
+	colors[2]     = "1 0.7 0 0.9";
+
+   sizes[0]      = 0.35;
+   sizes[1]      = 0.35;
+   sizes[2]      = 0.35;
+
+   times[0]      = 0;
+   times[1]      = 0.4;
+   times[2]      = 1.0;
+};
+
+datablock ParticleEmitterData(MBUBlastEmitter) {
+   ejectionPeriodMS = 10;
+   periodVarianceMS = 0;
+   ejectionVelocity = 15.0;
+   velocityVariance = 0.25;
+   thetaMin         = 00.0;
+   thetaMax         = 90.0;
+	phiReferenceVel  = 0;
+	phiVariance      = 360;
+   lifetimeMS       = 500;
+	particles        = "MBUBlastSmoke";
+};
+
+datablock ParticleEmitterData(MBUUltraBlastEmitter) {
+   ejectionPeriodMS = 10;
+   periodVarianceMS = 0;
+   ejectionVelocity = 15.0;
+   velocityVariance = 0.25;
+   thetaMin         = 00.0;
+   thetaMax         = 90.0;
+	phiReferenceVel  = 0;
+	phiVariance      = 360;
+   lifetimeMS       = 500;
+	particles        = "MBUUltraBlastSmoke";
+};
+
 datablock ParticleData(BlastSmoke) {
 	textureName          = "~/data/particles/smoke";
 	dragCoefficient      = 1;
@@ -213,6 +289,13 @@ function GameConnection::makeBlastParticle(%this, %gravity) {
 	%this.player.sendShockwave(%this.blastValue * (%this.usingSpecialBlast ? $MP::BlastRechargeShockwaveStrength : $MP::BlastShockwaveStrength));
 
 	// get the blast particles
-	%emitter = (%this.usingSpecialBlast ? UltraBlastEmitter : BlastEmitter);
-	%this.transferParticles(%emitter, false, %gravity);
+	if ((Sky.materialList $= "platinum/data/skies_mbu/beginner/sky_beginner.dml") || (Sky.materialList $= "platinum/data/skies_mbu/intermediate/sky_intermediate.dml") || (Sky.materialList $= "platinum/data/skies_mbu/advanced/sky_advanced.dml")) {
+		%this.player.mountImage(BlastImage, 0);
+		%this.mountSch = %this.player.schedule(400, "unmountImage", 0);
+		%emitter = (%this.usingSpecialBlast ? MBUUltraBlastEmitter : MBUBlastEmitter);
+		%this.transferParticles(%emitter, false, %gravity);
+	} else {
+		%emitter = (%this.usingSpecialBlast ? UltraBlastEmitter : BlastEmitter);
+		%this.transferParticles(%emitter, false, %gravity);
+	}
 }
