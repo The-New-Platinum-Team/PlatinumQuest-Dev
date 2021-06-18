@@ -380,9 +380,15 @@ function dumpObject(%obj, %format) {
 
 
 function LBResolveName(%name, %notitle) {
-	//Not online, don't try to get their name
-	if (!$LB::LoggedIn)
-		return %name;
+	if (!$LB::LoggedIn) {
+		//Not online, still want to get their name though (they could've been disconnected in a server)
+		%name = decodeName(%name);
+		if (%name $= $LB::Username && $LB::DisplayName !$= "") {
+			return $LB::DisplayName;
+		} else {
+			return %name;
+		}
+	}
 
 	%name = decodeName(%name);
 
