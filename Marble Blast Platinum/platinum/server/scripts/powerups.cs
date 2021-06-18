@@ -1188,12 +1188,27 @@ datablock ItemData(BlastItem) {
 	emap = false;
 	pickupName = "a Blast PowerUp!";
 	coopClient = 1;
+
+	image = BlastImage;
 };
 
 datablock ItemData(BlastItem_MBU : BlastItem) {
 	shapeFile = "~/data/shapes_mbu/images/blast.dts";
 
 	fxEmitter[0] = "BlastMBUEmitter";
+};
+
+datablock ShapeBaseImageData(BlastImage)
+{
+   // Basic Item properties
+   shapeFile = "~/data/shapes_mbu/images/distort.dts";
+   emap = false;
+   mountPoint = 0;
+   offset = "0 0 0";
+   stateName[0]                     = "Grow";
+   stateSequence[0]                 = "grow";
+//   stateSound[0] = doBlastSfx;
+   ignoreMountRotation = true;
 };
 
 function BlastItem_MBU::onAdd(%this, %obj) {
