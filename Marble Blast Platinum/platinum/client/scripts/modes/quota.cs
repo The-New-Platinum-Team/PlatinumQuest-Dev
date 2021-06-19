@@ -41,13 +41,30 @@ function ClientMode_quota::onLoad(%this) {
 	%this.registerCallback("shouldUpdateGems");
 	%this.registerCallback("showEndGame");
 	%this.registerCallback("onShowPlayGui");
+	%this.registerCallback("onRespawnOnCheckpoint");
+	%this.registerCallback("onMissionReset");
+	%this.registerCallback("onClientLeaveGame");
+
+
 }
 function ClientMode_quota::radarShowShouldFinish(%this, %remaining) {
 	return PlayGui.gemCount >= MissionInfo.GemQuota;
 }
 function ClientMode_quota::shouldUpdateGems(%this) {
-	%madeQuota = (PlayGui.gemCount >= MissionInfo.GemQuota);
-	PlayGui.gemGreen = %madeQuota;
+	%gotQuota = (PlayGui.gemCount >= MissionInfo.GemQuota);
+	PlayGui.gemGreen = %gotQuota;
+
+	%trueMaxGems = $Game::GemCount; // Since "GemCount" doesn't count extra-valued gems, this will need to be reworked if Hunt+Quota integration happens.
+	%gotAllGems = (PlayGui.gemCount == %trueMaxGems);
+	if (%gotAllGems) { // Rainbow gem counter on 100% quota
+		GemsQuota.setVisible(false);
+		PlayGui.gemRainbow = true;
+		PlayGui.gemRainbowNewMax = %trueMaxGems;
+	} else {
+		GemsQuota.setVisible(true);
+		PlayGui.gemRainbow = false;
+		cancel($quotacompleteparty);
+	}
 	return true;
 }
 function ClientMode_quota::showEndGame(%this) {
@@ -73,6 +90,26 @@ function ClientMode_quota::showEndGame(%this) {
 	}
 	return "";
 }
+
+function undoRainbowEffectIfNeeded(%needed) {
+	if ((PlayGui.gemCount != $Game::GemCount) || %needed) { // again, $Game::GemCount is inaccurate for hunt+quota integration
+		GemsQuota.setVisible(true);
+		PlayGui.gemRainbow = false;
+		cancel($quotacompleteparty);
+		PlayGui.updateGems();
+	}
+}
+
+function ClientMode_quota::onMissionReset(%this) {
+	undoRainbowEffectIfNeeded();
+}
+function ClientMode_quota::onRespawnOnCheckpoint(%this) {
+	undoRainbowEffectIfNeeded();
+}
+function ClientMode_quota::onClientLeaveGame(%this) {
+	undoRainbowEffectIfNeeded(true);
+}
+
 
 function ClientMode_quota::onShowPlayGui(%this) {
 	GemsQuota.setVisible(true);
