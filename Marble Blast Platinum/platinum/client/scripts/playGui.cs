@@ -382,6 +382,9 @@ function PlayGui::updateGems(%this, %updateMax) {
 			GemsTotalHundred.setNumberColor(%hun, %color);
 			GemsTotalTen.setNumberColor(%ten, %color);
 			GemsTotalOne.setNumberColor(%one, %color);
+			%this.GemsTotalHundredTracked = %hun;
+			%this.GemsTotalTenTracked = %ten;
+			%this.GemsTotalOneTracked = %one;
 			GemsQuota.setPosition("205 28");
 			GemsTotalTen.setVisible(true);
 			GemsTotalOne.setVisible(true);
@@ -390,13 +393,19 @@ function PlayGui::updateGems(%this, %updateMax) {
 
 		if (%max < 10) {
 			GemsTotalHundred.setNumberColor(%one, %color);
+			%this.GemsTotalHundredTracked = %one;
 		} else if (%max < 100) {
 			GemsTotalHundred.setNumberColor(%ten, %color);
+			%this.GemsTotalHundredTracked = %ten;
 			GemsTotalTen.setNumberColor(%one, %color);
+			%this.GemsTotalTenTracked = %one;
 		} else {
 			GemsTotalHundred.setNumberColor(%hun, %color);
 			GemsTotalTen.setNumberColor(%ten, %color);
 			GemsTotalOne.setNumberColor(%one, %color);
+			%this.GemsTotalHundredTracked = %hun;
+			%this.GemsTotalTenTracked = %ten;
+			%this.GemsTotalOneTracked = %one;
 		}
 		GemsTotalTen.setVisible(%ten != 0 || %hun != 0); // 0X0 or X00 where X is not 0
 		GemsTotalOne.setVisible(%hun != 0);
