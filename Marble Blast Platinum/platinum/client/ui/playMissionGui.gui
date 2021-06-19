@@ -2488,6 +2488,10 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%platinumScoreLabel = (%info.platinumScore[%index] !$= "" ? formatScore(%info.platinumScore[%index]) : %platinumScoreLabel);
 			%ultimateScoreLabel = (%info.ultimateScore[%index] !$= "" ? formatScore(%info.ultimateScore[%index]) : %ultimateScoreLabel);
 			%awesomeScoreLabel  = (%info.awesomeScore[%index]  !$= "" ? formatScore(%info.awesomeScore[%index])  : %awesomeScoreLabel);
+		} else if (%info.platinumScore[1] !$= "") { // Transfer the [1] score to singleplayer
+			%platinumScoreLabel = %info.platinumScore[1];
+			%ultimateScoreLabel = %info.ultimateScore[1];
+			%awesomeScoreLabel = %info.awesomeScore[1];
 		}
 		//Use score if a time isn't available
 		%parLabel      = (%parScoreLabel     $= "N/A" ? %parTimeLabel       : %parScoreLabel);
