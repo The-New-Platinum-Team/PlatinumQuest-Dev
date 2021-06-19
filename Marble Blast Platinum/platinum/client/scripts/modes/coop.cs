@@ -61,7 +61,7 @@ function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
 			"BlastItem" or "BlastItem_MBU" or
-			"AntiGravityItem" or "AntiGravityItem_PQ" or
+			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
 			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
 		//PowerUp
 		if (%object.this.respawning) {
@@ -86,7 +86,7 @@ function ClientMode_coop::shouldPickupItem(%this, %object) {
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
 			"BlastItem" or "BlastItem_MBU" or
-			"AntiGravityItem" or "AntiGravityItem_PQ" or
+			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
 			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
 		//PowerUp
 		if (%object.this.respawning) {
