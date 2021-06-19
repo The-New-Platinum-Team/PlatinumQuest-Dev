@@ -927,6 +927,12 @@ datablock ItemData(AntiGravityItem_PQ : AntiGravityItem) {
 	pickupName = "a Gravity Modifier!";
 };
 
+datablock ItemData(AntiGravityItem_MBU : AntiGravityItem) {
+	shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
+
+	pickupName = "a Gravity Modifier!";
+};
+
 function AntiGravityItem::onAdd(%this, %obj) {
 	%obj.playThread(0,"Ambient");
 }
@@ -955,6 +961,13 @@ function AntiGravityItem_PQ::onAdd(%this, %obj) {
 }
 
 function AntiGravityItem_PQ::onPickup(%this, %obj, %user, %amount) {
+	return AntiGravityItem::onPickup(%this, %obj, %user, %amount);
+}
+function AntiGravityItem_MBU::onAdd(%this, %obj) {
+	AntiGravityItem::onAdd(%this, %obj);
+}
+
+function AntiGravityItem_MBU::onPickup(%this, %obj, %user, %amount) {
 	return AntiGravityItem::onPickup(%this, %obj, %user, %amount);
 }
 
@@ -1163,11 +1176,25 @@ datablock ItemData(NoRespawnAntiGravityItem_PQ : NoRespawnAntiGravityItem) {
 	pickupName = "a Gravity Modifier!";
 };
 
+datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
+	shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
+
+	pickupName = "a Gravity Modifier!";
+};
+
 function NoRespawnAntiGravityItem_PQ::onAdd(%this, %obj) {
 	NoRespawnAntiGravityItem::onAdd(%this, %obj);
 }
 
 function NoRespawnAntiGravityItem_PQ::onPickup(%this, %obj, %user, %amount) {
+	return NoRespawnAntiGravityItem::onPickup(%this, %obj, %user, %amount);
+}
+
+function NoRespawnAntiGravityItem_MBU::onAdd(%this, %obj) {
+	NoRespawnAntiGravityItem::onAdd(%this, %obj);
+}
+
+function NoRespawnAntiGravityItem_MBU::onPickup(%this, %obj, %user, %amount) {
 	return NoRespawnAntiGravityItem::onPickup(%this, %obj, %user, %amount);
 }
 

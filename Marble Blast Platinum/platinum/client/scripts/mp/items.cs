@@ -152,7 +152,7 @@ function Item::onClientCollision(%this, %marble) {
 		return;
 
 	switch$ (%this.getDataBlock().getName()) {
-	case "AntiGravityItem" or "NoRespawnAntiGravityItem" or "AntiGravityItem_PQ" or "NoRespawnAntiGravityItem_PQ":
+	case "AntiGravityItem" or "NoRespawnAntiGravityItem" or "AntiGravityItem_PQ" or "NoRespawnAntiGravityItem_PQ" or "AntiGravityItem_MBU" or "NoRespawnAntiGravityItem_MBU":
 		// It's a gravity modifier
 		%rotation = getWords(%this.getTransform(),3);
 		%ortho = VectorRemoveNotation(vectorOrthoBasis(%rotation));
@@ -218,8 +218,8 @@ function ItemData::_getPowerUpId(%this) {
 function isClientSidedItem(%item) {
 	switch$ (%item.getDataBlock().getName()) {
 	case
-		"AntiGravityItem" or "AntiGravityItem_PQ" or
-		"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or
+		"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
+		"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or "NoRespawnAntiGravityItem_MBU" or
 		"AnvilItem": return true;
 	}
 	return false;
