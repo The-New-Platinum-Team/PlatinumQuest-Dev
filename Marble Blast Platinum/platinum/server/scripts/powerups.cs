@@ -1626,8 +1626,8 @@ datablock ItemData(BubbleItem) {
 	emap = false;
 
 	// Dynamic properties defined by the scripts
-	pickupName = "a Bubble Powerup!";
-	useName = "Bubble Powerup";
+	pickupName = "a Bubble PowerUp!";
+	useName = "Bubble PowerUp";
 	maxInventory = 1;
 	radar = 1;
 
