@@ -118,6 +118,10 @@ function Unlock::getMissionScoreFlags(%mission, %scoreInfo) {
 		%platinumScore = (%mission.platinumScore[%index] ? %mission.platinumScore[%index] : %platinumScore);
 		%ultimateScore = (%mission.ultimateScore[%index] ? %mission.ultimateScore[%index] : %ultimateScore);
 		%awesomeScore  = (%mission.awesomeScore[%index]  ? %mission.awesomeScore[%index]  : %awesomeScore);
+	} else if (%mission.platinumScore[1] !$= "") { // Transfer the [1] score to singleplayer
+		%platinumScore = %mission.platinumScore[1];
+		%ultimateScore = %mission.ultimateScore[1];
+		%awesomeScore = %mission.awesomeScore[1];
 	}
 
 	//Non time-based
