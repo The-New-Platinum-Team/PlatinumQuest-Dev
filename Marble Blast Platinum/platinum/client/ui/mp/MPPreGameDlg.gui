@@ -337,7 +337,7 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 		repeatPeriod = "1000";
 		repeatDecay = "1";
 	};
-	new GuiBorderButtonCtrl() {
+	new GuiBorderButtonCtrl(MPPreGameServerSettings) {
 		profile = "PQButtonPlainProfile";
 		horizSizing = "left";
 		vertSizing = "top";
@@ -362,6 +362,7 @@ function MPPreGameDlg::onWake(%this) {
 
 	MPPreGameReady.setValue(false);
 	MPPreGameSpectate.setValue(false);
+	MPPreGameServerSettings.setVisible($Server::Hosting);
 
 	%this.ready();
 	%this.updateInfo();
