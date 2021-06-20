@@ -563,11 +563,12 @@ function reformatGameEndText() {
 	%platinumScoreLabel = (%info.platinumScore !$= "" ? formatScore(%info.platinumScore) : "N/A");
 	%ultimateScoreLabel = (%info.ultimateScore !$= "" ? formatScore(%info.ultimateScore) : "N/A");
 	%awesomeScoreLabel  = (%info.awesomeScore  !$= "" ? formatScore(%info.awesomeScore)  : "N/A");
-	if (%info.platinumScore[1] !$= "" || %info.goldScore[1] !$= "") { // Transfer the [1] score to singleplayer
-		%goldScoreLabel     = %info.goldScore[1];
+	if (%info.platinumScore[1] !$= "") { // Transfer the [1] score to singleplayer
 		%platinumScoreLabel = %info.platinumScore[1];
 		%ultimateScoreLabel = %info.ultimateScore[1];
 		%awesomeScoreLabel = %info.awesomeScore[1];
+	} else if (%info.goldScore[1] !$= "") { // GOLD SCORE????
+		%goldScoreLabel     = %info.goldScore[1];
 	}
 
 	//Use score if a time isn't available
