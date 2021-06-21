@@ -392,14 +392,12 @@ function LBResolveName(%name, %notitle) {
 
 	%name = decodeName(%name);
 
-	//if (%name $= $LB::Username && $LB::DisplayName !$= "") {
-	//	return $LB::DisplayName;
-	//}
-	// HiGuy why did you add this
-
 	//Get their user info from the list
 	%entry = LBUserListArray.getEntryByVariable("username", %name);
 	if (!isObject(%entry)) {
+		if (%name $= $LB::Username && $LB::DisplayName !$= "") {
+			return $LB::DisplayName;
+		}
 		return %name;
 	}
 
