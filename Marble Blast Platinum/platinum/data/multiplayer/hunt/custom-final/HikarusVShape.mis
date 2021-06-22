@@ -30,7 +30,7 @@ new SimGroup(MissionGroup) {
       cloudSpeed1 = "0.0001";
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
-      visibleDistance = "1000";
+      visibleDistance = "10000";
       useSkyTextures = "1";
       renderBottomTexture = "1";
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
@@ -39,7 +39,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-31 1.3684e-38";
       fogVolume2 = "-1 1.07208e-14 8.756e-14";
       fogVolume3 = "-1 5.1012e-10 2.05098e-08";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
+		materialList = "~/data/skies_mbu/beginner/sky_beginner.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -52,12 +52,12 @@ new SimGroup(MissionGroup) {
       color = "1.000000 1.000000 0.900000 1.000000";
       ambient = "0.400000 0.400000 0.500000 1.000000";
    };
-   new StaticShape(SkySphere) {
-      position = "0 0 0";
-      rotation = "1 0 0 0";
-      scale = "1000 1000 1000";
-      dataBlock = "clear";
-   };
+	new StaticShape() {
+		position = "0 0 -600";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "astrolabe";
+	};
    new InteriorInstance() {
       position = "0 0 0";
       rotation = "1 0 0 0";
