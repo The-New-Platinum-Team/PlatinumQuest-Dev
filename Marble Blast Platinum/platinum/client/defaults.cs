@@ -36,6 +36,7 @@ $pref::Master[0] = $LBServerInfo::mpMasterServer;
 $pref::Player::Name = "Platinum Player";
 $pref::Player::defaultFov = 90;
 $pref::Player::zoomSpeed = 0;
+$pref::Thousandths = 1;
 $pref::showFPSCounter = 0;
 $pref::environmentMaps = 0;
 $pref::HelpTriggers = 1;
