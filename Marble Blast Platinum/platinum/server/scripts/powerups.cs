@@ -401,12 +401,6 @@ datablock AudioProfile(HelicopterLoopSfx) {
 	preload = true;
 };
 
-datablock AudioProfile(HelicopterLoopMBUSfx) {
-	filename    = "~/data/sound/ap_mbg/useGyrocopter.wav";
-	description = AudioClosestLooping3d;
-	preload = true;
-};
-
 datablock ShapeBaseImageData(HelicopterImage) {
 	// Basic Item properties
 	shapeFile = "~/data/shapes/images/Blank.dts";
@@ -450,12 +444,10 @@ datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
 
 datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
 	shapeFile = "~/data/shapes_mbu/images/helicopter_image.dts";
-	stateSound[0] = HelicopterLoopMBUSfx;
 };
 
 datablock ShapeBaseImageData(HelicopterImage_MBUBall : ActualHelicopterImage) {
 	shapeFile = "~/data/shapes_mbu/images/helicopter_image_mbu.dts";
-	stateSound[0] = HelicopterLoopMBUSfx;
 };
 
 //-----------------------------------------------------------------------------
@@ -1274,12 +1266,6 @@ datablock AudioProfile(doMegaMarbleSfx) {
 
 datablock AudioProfile(PuMegaMarbleVoiceSfx) {
 	filename    = "~/data/sound/puMegaMarbleVoice.wav";
-	description = AudioDefault3d;
-	preload     = true;
-};
-
-datablock AudioProfile(MegaShrinkSfx) {
-	filename    = "~/data/sound/MegaShrink.ogg";
 	description = AudioDefault3d;
 	preload     = true;
 };

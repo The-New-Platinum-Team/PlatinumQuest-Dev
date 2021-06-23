@@ -56,7 +56,7 @@ datablock StaticShapeData(Sign) {
 	elasticity = 0.3;
 };
 
-datablock StaticShapeData(SignDown) {
+datablock StaticShapeData(SignDown : Sign) {
 	// Mission editor category
 	superCategory = "Scenery";
 	category = "Signs MBP";
@@ -69,7 +69,7 @@ datablock StaticShapeData(SignDown) {
 	elasticity = 0.3;
 };
 
-datablock StaticShapeData(SignUp) {
+datablock StaticShapeData(SignUp: Sign) {
 	// Mission editor category
 	superCategory = "Scenery";
 	category = "Signs MBP";
@@ -82,7 +82,7 @@ datablock StaticShapeData(SignUp) {
 	elasticity = 0.3;
 };
 
-datablock StaticShapeData(SignSide) {
+datablock StaticShapeData(SignSide: Sign) {
 	// Mission editor category
 	superCategory = "Scenery";
 	category = "Signs MBP";
@@ -95,7 +95,7 @@ datablock StaticShapeData(SignSide) {
 	elasticity = 0.3;
 };
 
-datablock StaticShapeData(SignDownSide) {
+datablock StaticShapeData(SignDownSide: Sign) {
 	// Mission editor category
 	superCategory = "Scenery";
 	category = "Signs MBP";
@@ -108,7 +108,7 @@ datablock StaticShapeData(SignDownSide) {
 	elasticity = 0.3;
 };
 
-datablock StaticShapeData(SignUpSide) {
+datablock StaticShapeData(SignUpSide: Sign) {
 	// Mission editor category
 	superCategory = "Scenery";
 	category = "Signs MBP";
@@ -123,7 +123,7 @@ datablock StaticShapeData(SignUpSide) {
 
 //-----------------------------------------------------------------------------
 
-datablock StaticShapeData(Arrow) {
+datablock StaticShapeData(Arrow: Sign) {
 	// Mission editor category
 	superCategory = "Scenery";
 	category = "Signs MBP";

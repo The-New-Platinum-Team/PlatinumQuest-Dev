@@ -25,23 +25,23 @@ if ($pref::UseLowResGlass) {
 		shapeFile = "~/data/shapes/Glass/3x3.dts";
 	};
 
-	datablock StaticShapeData(glass_6shape) {
+	datablock StaticShapeData(glass_6shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/6x3.dts";
 	};
 
-	datablock StaticShapeData(glass_9shape) {
+	datablock StaticShapeData(glass_9shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/9x3.dts";
 	};
 
-	datablock StaticShapeData(glass_12shape) {
+	datablock StaticShapeData(glass_12shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/12x3.dts";
 	};
 
-	datablock StaticShapeData(glass_15shape) {
+	datablock StaticShapeData(glass_15shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/15x3.dts";
 	};
 
-	datablock StaticShapeData(glass_18shape) {
+	datablock StaticShapeData(glass_18shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/18x3.dts";
 	};
 } else {
@@ -49,23 +49,23 @@ if ($pref::UseLowResGlass) {
 		shapeFile = "~/data/shapes/Glass/Col/3x3.dts";
 	};
 
-	datablock StaticShapeData(glass_6shape) {
+	datablock StaticShapeData(glass_6shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/Col/6x3.dts";
 	};
 
-	datablock StaticShapeData(glass_9shape) {
+	datablock StaticShapeData(glass_9shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/Col/9x3.dts";
 	};
 
-	datablock StaticShapeData(glass_12shape) {
+	datablock StaticShapeData(glass_12shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/Col/12x3.dts";
 	};
 
-	datablock StaticShapeData(glass_15shape) {
+	datablock StaticShapeData(glass_15shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/Col/15x3.dts";
 	};
 
-	datablock StaticShapeData(glass_18shape) {
+	datablock StaticShapeData(glass_18shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/Col/18x3.dts";
 	};
 }
