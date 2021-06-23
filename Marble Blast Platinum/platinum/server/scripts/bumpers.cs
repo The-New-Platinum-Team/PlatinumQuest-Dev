@@ -110,6 +110,6 @@ function RoundBumper_MBU::onCollision( %this, %obj, %col ,%vec, %vecLen, %materi
       %obj.playThread( 0, "activate" );
       %obj.playAudio( 0, %this.sound );
    	//   %obj.playThread( 0, "idle" );
-	  %obj.idleSch = %obj.schedule(300, playThread, 0, "idle");
+	  %obj.idleSch = %obj.schedule(200, playThread, 0, "idle");
    //}
 }

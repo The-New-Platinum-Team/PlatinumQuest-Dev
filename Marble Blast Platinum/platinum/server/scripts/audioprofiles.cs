@@ -77,25 +77,28 @@ datablock AudioDescription(AudioClosest3d) {
 //-----------------------------------------------------------------------------
 // Looping sounds
 
-datablock AudioDescription(AudioDefaultLooping3d) {
-	volume   = 1.0;
-	isLooping= true;
+//Unused.
+// datablock AudioDescription(AudioDefaultLooping3d) {
+// 	volume   = 1.0;
+// 	isLooping= true;
 
-	is3D     = true;
-	ReferenceDistance= 20.0;
-	MaxDistance= 100.0;
-	type     = $EffectAudioType;
-};
+// 	is3D     = true;
+// 	ReferenceDistance= 20.0;
+// 	MaxDistance= 100.0;
+// 	type     = $EffectAudioType;
+// };
 
-datablock AudioDescription(AudioCloseLooping3d) {
-	volume   = 1.0;
-	isLooping= true;
 
-	is3D     = true;
-	ReferenceDistance= 10.0;
-	MaxDistance= 50.0;
-	type     = $EffectAudioType;
-};
+//Unused.
+// datablock AudioDescription(AudioCloseLooping3d) {
+// 	volume   = 1.0;
+// 	isLooping= true;
+
+// 	is3D     = true;
+// 	ReferenceDistance= 10.0;
+// 	MaxDistance= 50.0;
+// 	type     = $EffectAudioType;
+// };
 
 datablock AudioDescription(AudioClosestLooping3d) {
 	volume   = 1.0;
@@ -141,11 +144,11 @@ datablock AudioDescription(AudioLooping2D) {
 //-----------------------------------------------------------------------------
 // Ready - Set - Get Rolling
 
-datablock AudioProfile(pickupSfx) {
-	filename    = "~/data/sound/pickup.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(pickupSfx) {
+// 	filename    = "~/data/sound/pickup.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
 datablock AudioProfile(HelpDingSfx) {
 	filename    = "~/data/sound/InfoTutorial.wav";
@@ -171,28 +174,29 @@ datablock AudioProfile(GetRollingVoiceSfx) {
 	preload = true;
 };
 
-datablock AudioProfile(jumpSfx) {
-	filename    = "~/data/sound/bounce.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(jumpSfx) {
+// 	filename    = "~/data/sound/bounce.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
-datablock AudioProfile(bounceSfx) {
-	filename    = "~/data/sound/bounce.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(bounceSfx) {
+// 	filename    = "~/data/sound/bounce.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
 datablock AudioProfile(blastSfx) {
 	filename    = "~/data/sound/blast.wav";
 	description = AudioDefault3d;
 	preload = true;
 };
-datablock AudioProfile(Silence) {
-	filename    = "~/data/sound/Silence.ogg";
-	description = AudioClosest3d;
-	preload = true;
-};
+
+// datablock AudioProfile(Silence) {
+// 	filename    = "~/data/sound/Silence.ogg";
+// 	description = AudioClosest3d;
+// 	preload = true;
+// };
 
 datablock AudioProfile(fireballSizzleSfx) {
 	filename    = "~/data/sound/fireballSizzle.wav";
@@ -210,11 +214,11 @@ datablock AudioProfile(bubbleSnuffSfx) {
 //-----------------------------------------------------------------------------
 // Misc
 
-datablock AudioProfile(PenaltyVoiceSfx) {
-	filename    = "~/data/sound/penalty.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(PenaltyVoiceSfx) {
+// 	filename    = "~/data/sound/penalty.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
 datablock AudioProfile(OutOfBoundsVoiceSfx) {
 	filename    = "~/data/sound/whoosh.wav";
@@ -222,8 +226,8 @@ datablock AudioProfile(OutOfBoundsVoiceSfx) {
 	preload = true;
 };
 
-datablock AudioProfile(DestroyedVoiceSfx) {
-	filename    = "~/data/sound/destroyedVoice.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(DestroyedVoiceSfx) {
+// 	filename    = "~/data/sound/destroyedVoice.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };

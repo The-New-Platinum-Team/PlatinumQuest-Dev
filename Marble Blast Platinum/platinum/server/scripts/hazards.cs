@@ -236,14 +236,14 @@ datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
 	compile = "pls";
 	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
 };
-datablock StaticShapeData(DuctFan_MBM : DuctFan) {
-	compile = "pls";
-	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
-};
-datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
-	compile = "pls";
-	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
-};
+// datablock StaticShapeData(DuctFan_MBM : DuctFan) {
+// 	compile = "pls";
+// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
+// };
+// datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
+// 	compile = "pls";
+// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
+// };
 
 datablock StaticShapeData(NomeshDuctFan_PQ : DuctFan) {
 	compile = "pls";
@@ -360,7 +360,7 @@ function OilSlick::onAdd(%this,%obj) {
 // LandMine
 
 datablock AudioProfile(ExplodeSfx) {
-	filename    = "~/data/sound/explode1.wav";
+	filename    = "~/data/sound/NukeExplode.wav";
 	description = AudioDefault3d;
 	preload = true;
 };
@@ -613,28 +613,28 @@ function Magnet::onMissionReset(%this, %obj) {
 
 //-----------------------------------------------------------------------------
 
-datablock AudioProfile(ExplodeSfx) {
-	filename    = "~/data/sound/NukeExplode.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(ExplodeSfx) {
+// 	filename    = "~/data/sound/NukeExplode.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
 
-datablock ParticleData(NukeParticle) { // Is this even used?
-	textureName          = "~/data/particles/smoke";
-	dragCoefficient      = 2;
-	gravityCoefficient   = 0.2;
-	inheritedVelFactor   = 0.2;
-	constantAcceleration = 0.0;
-	lifetimeMS           = 1000;
-	lifetimeVarianceMS   = 1500;
+// datablock ParticleData(NukeParticle) { // Is this even used?
+// 	textureName          = "~/data/particles/smoke";
+// 	dragCoefficient      = 2;
+// 	gravityCoefficient   = 0.2;
+// 	inheritedVelFactor   = 0.2;
+// 	constantAcceleration = 0.0;
+// 	lifetimeMS           = 1000;
+// 	lifetimeVarianceMS   = 1500;
 
-	colors[0]     = "0.56 0.36 0.26 1.0";
-	colors[1]     = "0.56 0.36 0.26 0.0";
+// 	colors[0]     = "0.56 0.36 0.26 1.0";
+// 	colors[1]     = "0.56 0.36 0.26 0.0";
 
-	sizes[0]      = 0.5;
-	sizes[1]      = 1.0;
-};
+// 	sizes[0]      = 0.5;
+// 	sizes[1]      = 1.0;
+// };
 
 
 datablock ParticleEmitterData(NukeEmitter) {

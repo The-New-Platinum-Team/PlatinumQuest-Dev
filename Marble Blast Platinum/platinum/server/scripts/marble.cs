@@ -462,47 +462,47 @@ if (!$Server::Dedicated) {
 
 //------------------------------------------------------------------------------
 
-datablock AudioProfile(MegaBounce1Sfx) {
-	filename    = "~/data/sound/mega_bouncehard1.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(MegaBounce1Sfx) {
+// 	filename    = "~/data/sound/mega_bouncehard1.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
-datablock AudioProfile(MegaBounce2Sfx) {
-	filename    = "~/data/sound/mega_bouncehard2.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(MegaBounce2Sfx) {
+// 	filename    = "~/data/sound/mega_bouncehard2.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
-datablock AudioProfile(MegaBounce3Sfx) {
-	filename    = "~/data/sound/mega_bouncehard3.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(MegaBounce3Sfx) {
+// 	filename    = "~/data/sound/mega_bouncehard3.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
-datablock AudioProfile(MegaBounce4Sfx) {
-	filename    = "~/data/sound/mega_bouncehard4.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(MegaBounce4Sfx) {
+// 	filename    = "~/data/sound/mega_bouncehard4.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
-datablock AudioProfile(MegaJumpSfx) {
-	filename    = "~/data/sound/Jump.wav";
-	description = AudioDefault3d;
-	preload = true;
-};
+// datablock AudioProfile(MegaJumpSfx) {
+// 	filename    = "~/data/sound/Jump.wav";
+// 	description = AudioDefault3d;
+// 	preload = true;
+// };
 
-datablock AudioProfile(MegaRollingHardSfx) {
-	filename    = "~/data/sound/mega_roll.wav";
-	description = AudioClosestLooping3d;
-	preload = true;
-};
+// datablock AudioProfile(MegaRollingHardSfx) {
+// 	filename    = "~/data/sound/mega_roll.wav";
+// 	description = AudioClosestLooping3d;
+// 	preload = true;
+// };
 
-datablock AudioProfile(MegaSlippingSfx) {
-	filename    = "~/data/sound/Sliding.wav";
-	description = AudioClosestLooping3d;
-	preload = true;
-};
+// datablock AudioProfile(MegaSlippingSfx) {
+// 	filename    = "~/data/sound/Sliding.wav";
+// 	description = AudioClosestLooping3d;
+// 	preload = true;
+// };
 
 //-----------------------------------------------------------------------------
 

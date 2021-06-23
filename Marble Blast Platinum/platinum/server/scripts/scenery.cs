@@ -53,7 +53,7 @@ datablock StaticShapeData(Cloud48) {
 	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
 	customField[0, "default"] = "";
 };
-datablock StaticShapeData(Cloud36) {
+datablock StaticShapeData(Cloud36 : Cloud48) {
 	className = "Scenery";
 	superCategory = "Scenery";
 	category = "Clouds";
@@ -852,19 +852,19 @@ datablock StaticShapeData(LapsRing) {
 	shapeFile = "~/data/shapes_pq/Gameplay/ring_3.dts";
 };
 
-datablock StaticShapeData(CurvedPlatform_2Radius_2Height) {
-	className = "LevelParts";
-	superCategory = "Level Parts";
-	category = "Multi Decker";
-	shapeFile = "~/data/shapes_pq/LevelParts/Platforms/CurvedPlatform_2Radius_2Height.dts";
-};
+// datablock StaticShapeData(CurvedPlatform_2Radius_2Height) {
+// 	className = "LevelParts";
+// 	superCategory = "Level Parts";
+// 	category = "Multi Decker";
+// 	shapeFile = "~/data/shapes_pq/LevelParts/Platforms/CurvedPlatform_2Radius_2Height.dts";
+// };
 
-datablock StaticShapeData(CurvedPlatform_2Radius_2Height_180) {
-	className = "LevelParts";
-	superCategory = "Level Parts";
-	category = "Multi Decker";
-	shapeFile = "~/data/shapes_pq/LevelParts/Platforms/CurvedPlatform_2Radius_2Height_180.dts";
-};
+// datablock StaticShapeData(CurvedPlatform_2Radius_2Height_180) {
+// 	className = "LevelParts";
+// 	superCategory = "Level Parts";
+// 	category = "Multi Decker";
+// 	shapeFile = "~/data/shapes_pq/LevelParts/Platforms/CurvedPlatform_2Radius_2Height_180.dts";
+// };
 
 datablock StaticShapeData(Marblius) {
 	className = "LevelParts";
@@ -883,19 +883,19 @@ datablock StaticShapeData(Spectrum) {
 	shapeFile = "~/data/shapes_pq/Other/Spectrum.dts";
 };
 
-datablock StaticShapeData(Spectrum2) {
+datablock StaticShapeData(Spectrum2: Spectrum) {
 	className = "EffectShape";
 	category = "Other";
 	shapeFile = "~/data/shapes_pq/Other/Spectrum_sub.dts";
 };
 
-datablock StaticShapeData(Spectrum3) {
+datablock StaticShapeData(Spectrum3: Spectrum) {
 	className = "EffectShape";
 	category = "Other";
 	shapeFile = "~/data/shapes_pq/Other/Spectrum_unlit.dts";
 };
 
-datablock StaticShapeData(Spectrum4) {
+datablock StaticShapeData(Spectrum4: Spectrum) {
 	className = "EffectShape";
 	category = "Other";
 	shapeFile = "~/data/shapes_pq/Other/Spectrum_sub_unlit.dts";
