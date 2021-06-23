@@ -730,6 +730,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				static = 1;
 				skin = "red";
 			};
+		case "mbu":
+			%obj = new Item() {
+				dataBlock = "GemItemRed_MBU";
+				rotate = 1;
+				static = 1;
+			};
 		default:
 			%obj = new Item() {
 				dataBlock = "GemItemRed";
@@ -751,6 +757,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				rotate = 1;
 				static = 1;
 				skin = "yellow";
+			};
+		case "mbu":
+			%obj = new Item() {
+				dataBlock = "GemItemYellow_MBU";
+				rotate = 1;
+				static = 1;
 			};
 		default:
 			%obj = new Item() {
@@ -774,6 +786,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				static = 1;
 				skin = "blue";
 			};
+		case "mbu":
+			%obj = new Item() {
+				dataBlock = "GemItemBlue_MBU";
+				rotate = 1;
+				static = 1;
+			};
 		default:
 			%obj = new Item() {
 				dataBlock = "GemItemBlue";
@@ -795,6 +813,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				rotate = 1;
 				static = 1;
 				skin = "platinum";
+			};
+		case "mbu":
+			%obj = new Item() {
+				dataBlock = "GemItemPlatinum_MBU";
+				rotate = 1;
+				static = 1;
 			};
 		default:
 			%obj = new Item() {
@@ -2464,6 +2488,19 @@ function changeGemColor(%obj, %color) {
 	     "CandyItemBlack" or
 	     "CandyItemPlatinum":
 		%obj.setDataBlock("CandyItem" @ %color);
+		%obj.setSkinName(strlwr(%color));
+		%obj.onInspectApply();
+	case "GemItem_MBU" or
+	     "GemItemBlue_MBU" or
+	     "GemItemRed_MBU" or
+	     "GemItemYellow_MBU" or
+	     "GemItemPurple_MBU" or
+	     "GemItemGreen_MBU" or
+	     "GemItemTurquoise_MBU" or
+	     "GemItemOrange_MBU" or
+	     "GemItemBlack_MBU" or
+	     "GemItemPlatinum_MBU":
+		%obj.setDataBlock("GemItem" @ %color @ "_MBU");
 		%obj.setSkinName(strlwr(%color));
 		%obj.onInspectApply();
 	}
