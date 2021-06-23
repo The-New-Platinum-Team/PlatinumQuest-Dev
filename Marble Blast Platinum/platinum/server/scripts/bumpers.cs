@@ -79,3 +79,37 @@ datablock StaticShapeData(TriangleBumper_PQ : TriangleBumper) {
 datablock StaticShapeData(RoundBumper_PQ : RoundBumper) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/bumpers/roundbumper.dts";
 };
+
+datablock StaticShapeData(RoundBumper_MBU)
+{
+   category = "Hazards";
+   className = "Bumper";
+   shapeFile = "~/data/shapes_mbu/bumpers/pball_round.dts";
+   scopeAlways = true;
+   sound = BumperDing;
+};
+
+function RoundBumper_MBU::onAdd( %this, %obj )
+{
+   %obj.playThread( 0, "idle" );
+}
+
+// function RoundBumper_MBU::onEndSequence( %this, %obj, %slot )
+// {
+//    // This means the activate sequence is done, so put back to idle
+//    %obj.stopThread( 0 );
+//    %obj.playThread( 0, "idle" );
+// }
+
+function RoundBumper_MBU::onCollision( %this, %obj, %col ,%vec, %vecLen, %material )
+{
+   // Currently activates when any object hits it.
+   //if( %material $= "BumperMaterial" ) 
+   //{
+      %obj.stopThread( 0 );
+      %obj.playThread( 0, "activate" );
+      %obj.playAudio( 0, %this.sound );
+   	//   %obj.playThread( 0, "idle" );
+	  %obj.idleSch = %obj.schedule(300, playThread, 0, "idle");
+   //}
+}
