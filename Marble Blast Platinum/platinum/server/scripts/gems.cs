@@ -362,7 +362,7 @@ datablock ItemData(GemItem_MBU : GemItem) {
 	customField[0, "default"] = "";
 };
 
-datablock ItemData(GemItemRed_MBU: GemItem_MBU) {
+datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
 	skin = "red";
 	huntExtraValue = 0; //1 pt
 	spawnChance = 0.90;
@@ -370,7 +370,7 @@ datablock ItemData(GemItemRed_MBU: GemItem_MBU) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemYellow_MBU: GemItem_MBU) {
+datablock ItemData(GemItemYellow_MBU : GemItem_MBU) {
 	skin = "yellow";
 	huntExtraValue = 1; //2 pts
 	spawnChance = 0.65;
@@ -378,7 +378,7 @@ datablock ItemData(GemItemYellow_MBU: GemItem_MBU) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemBlue_MBU: GemItem_MBU) {
+datablock ItemData(GemItemBlue_MBU : GemItem_MBU) {
 	skin = "blue";
 	huntExtraValue = 4; //1 less because you get 1 point for collecting it
 	spawnChance = 0.35;
@@ -386,7 +386,7 @@ datablock ItemData(GemItemBlue_MBU: GemItem_MBU) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemPlatinum_MBU: GemItem_MBU) {
+datablock ItemData(GemItemPlatinum_MBU : GemItem_MBU) {
 	skin = "platinum";
 	huntExtraValue = 9; //10 pts
 	spawnChance = 0.18;
