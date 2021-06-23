@@ -52,6 +52,135 @@ if ($loadingMissionInfo) return;
 //Put any scripts that will be loaded on all clients (in MP / SP) here.
 // Note: these will be loaded by dedicated servers too, so be sure to test for
 // $Server::Dedicated before creating any GUI.
+//-----------------------------------------------------------------------------
+// Spooky Matan Ghost Noises
+// ----------------------------------------------------------------------------
+
+// Standard Ghost exhasperations
+datablock AudioProfile(GhostSound1)  { filename = "~/data/sound/ghost/g1.wav"; description = AudioDefault3D; preload = true; };		// Gasp 1
+datablock AudioProfile(GhostSound2)  { filename = "~/data/sound/ghost/g2.wav"; description = AudioDefault3D; preload = true; };		// Gasp 2
+datablock AudioProfile(GhostSound3)  { filename = "~/data/sound/ghost/g3.wav"; description = AudioDefault3D; preload = true; };		// Exhale 1
+datablock AudioProfile(GhostSound4)  { filename = "~/data/sound/ghost/g4.wav"; description = AudioDefault3D; preload = true; };		// Exhale 2
+datablock AudioProfile(GhostSound5)  { filename = "~/data/sound/ghost/g23.wav"; description = AudioDefault3D; preload = true; };	// Shriek noise thing
+datablock AudioProfile(GhostSound6)  { filename = "~/data/sound/ghost/g47.wav"; description = AudioDefault3D; preload = true; };	// Haunting Laughter
+datablock AudioProfile(GhostSound7)  { filename = "~/data/sound/ghost/g17.wav"; description = AudioDefault3D; preload = true; };	// Soft Coughing
+datablock AudioProfile(GhostSound8)  { filename = "~/data/sound/ghost/g18.wav"; description = AudioDefault3D; preload = true; };	// Soft Coughing 2
+datablock AudioProfile(GhostSound9)  { filename = "~/data/sound/ghost/g71.wav"; description = AudioDefault3D; preload = true; };	// Sigh
+datablock AudioProfile(GhostSound10) { filename = "~/data/sound/ghost/g72.wav"; description = AudioDefault3D; preload = true; };	// Oooh
+
+// Silly Ghosts
+datablock AudioProfile(GhostSound11)  { filename = "~/data/sound/ghost/g5.wav"; description = AudioDefault3D; preload = true; };	// Kalle
+datablock AudioProfile(GhostSound12)  { filename = "~/data/sound/ghost/g7.wav"; description = AudioDefault3D; preload = true; };	// HiGuy
+datablock AudioProfile(GhostSound13)  { filename = "~/data/sound/ghost/g8.wav"; description = AudioDefault3D; preload = true; };	// Jeff
+datablock AudioProfile(GhostSound14)  { filename = "~/data/sound/ghost/g9.wav"; description = AudioDefault3D; preload = true; };	// Matan
+datablock AudioProfile(GhostSound15)  { filename = "~/data/sound/ghost/g10.wav"; description = AudioDefault3D; preload = true; };	// Regislian
+datablock AudioProfile(GhostSound16)  { filename = "~/data/sound/ghost/g11.wav"; description = AudioDefault3D; preload = true; };	// Buzzmusic
+datablock AudioProfile(GhostSound17)  { filename = "~/data/sound/ghost/g12.wav"; description = AudioDefault3D; preload = true; };	// Spooky
+datablock AudioProfile(GhostSound18)  { filename = "~/data/sound/ghost/g13.wav"; description = AudioDefault3D; preload = true; };	// Aayrl
+datablock AudioProfile(GhostSound19)  { filename = "~/data/sound/ghost/g14.wav"; description = AudioDefault3D; preload = true; };	// Damn it ?
+datablock AudioProfile(GhostSound20)  { filename = "~/data/sound/ghost/g15.wav"; description = AudioDefault3D; preload = true; };	// John Cena
+datablock AudioProfile(GhostSound21)  { filename = "~/data/sound/ghost/g16.wav"; description = AudioDefault3D; preload = true; };	// Help I'm Lost
+datablock AudioProfile(GhostSound22)  { filename = "~/data/sound/ghost/g19.wav"; description = AudioDefault3D; preload = true; };	// 2Spooky4Me
+datablock AudioProfile(GhostSound23)  { filename = "~/data/sound/ghost/g20.wav"; description = AudioDefault3D; preload = true; };	// Threefolder
+datablock AudioProfile(GhostSound24)  { filename = "~/data/sound/ghost/g21.wav"; description = AudioDefault3D; preload = true; };	// RDS Empire
+datablock AudioProfile(GhostSound25)  { filename = "~/data/sound/ghost/g22.wav"; description = AudioDefault3D; preload = true; };	// PQ Where
+datablock AudioProfile(GhostSound26)  { filename = "~/data/sound/ghost/g24.wav"; description = AudioDefault3D; preload = true; };	// Doot Doot
+datablock AudioProfile(GhostSound27)  { filename = "~/data/sound/ghost/g25.wav"; description = AudioDefault3D; preload = true; };	// Dank Memes
+datablock AudioProfile(GhostSound28)  { filename = "~/data/sound/ghost/g26.wav"; description = AudioDefault3D; preload = true; };	// Lose the Game
+datablock AudioProfile(GhostSound29)  { filename = "~/data/sound/ghost/g27.wav"; description = AudioDefault3D; preload = true; };	// Kurt Perks 2016
+datablock AudioProfile(GhostSound30)  { filename = "~/data/sound/ghost/g28.wav"; description = AudioDefault3D; preload = true; };	// Always Salt your Pasta while Boiling It
+datablock AudioProfile(GhostSound31)  { filename = "~/data/sound/ghost/g29.wav"; description = AudioDefault3D; preload = true; };	// And Don't Call me Shirley
+datablock AudioProfile(GhostSound32)  { filename = "~/data/sound/ghost/g30.wav"; description = AudioDefault3D; preload = true; };	// Are you 18 yet?
+datablock AudioProfile(GhostSound33)  { filename = "~/data/sound/ghost/g31.wav"; description = AudioDefault3D; preload = true; };	// Are you still there?
+datablock AudioProfile(GhostSound34)  { filename = "~/data/sound/ghost/g32.wav"; description = AudioDefault3D; preload = true; };	// B5 ... Miss
+datablock AudioProfile(GhostSound35)  { filename = "~/data/sound/ghost/g33.wav"; description = AudioDefault3D; preload = true; };	// Batman does not eat nachos
+datablock AudioProfile(GhostSound36)  { filename = "~/data/sound/ghost/g34.wav"; description = AudioDefault3D; preload = true; };	// Be serious with me!
+datablock AudioProfile(GhostSound37)  { filename = "~/data/sound/ghost/g35.wav"; description = AudioDefault3D; preload = true; };	// Beware the Airhorn
+datablock AudioProfile(GhostSound38)  { filename = "~/data/sound/ghost/g36.wav"; description = AudioDefault3D; preload = true; };	// Beware
+datablock AudioProfile(GhostSound39)  { filename = "~/data/sound/ghost/g37.wav"; description = AudioDefault3D; preload = true; };	// Bloody Hell mate!
+datablock AudioProfile(GhostSound40)  { filename = "~/data/sound/ghost/g38.wav"; description = AudioDefault3D; preload = true; };	// Bloody Mary
+datablock AudioProfile(GhostSound41)  { filename = "~/data/sound/ghost/g39.wav"; description = AudioDefault3D; preload = true; };	// Bow chika bow wow
+datablock AudioProfile(GhostSound42)  { filename = "~/data/sound/ghost/g40.wav"; description = AudioDefault3D; preload = true; };	// Candlejack
+datablock AudioProfile(GhostSound43)  { filename = "~/data/sound/ghost/g41.wav"; description = AudioDefault3D; preload = true; };	// Challenges where
+datablock AudioProfile(GhostSound44)  { filename = "~/data/sound/ghost/g42.wav"; description = AudioDefault3D; preload = true; };	// Come Discord Brah
+datablock AudioProfile(GhostSound45)  { filename = "~/data/sound/ghost/g43.wav"; description = AudioDefault3D; preload = true; };	// Disconnect ... Invalid Packet
+datablock AudioProfile(GhostSound46)  { filename = "~/data/sound/ghost/g44.wav"; description = AudioDefault3D; preload = true; };	// Do not pass go
+datablock AudioProfile(GhostSound47)  { filename = "~/data/sound/ghost/g45.wav"; description = AudioDefault3D; preload = true; };	// Don't Blink
+datablock AudioProfile(GhostSound48)  { filename = "~/data/sound/ghost/g46.wav"; description = AudioDefault3D; preload = true; };	// Download more RAM
+datablock AudioProfile(GhostSound49)  { filename = "~/data/sound/ghost/g48.wav"; description = AudioDefault3D; preload = true; };	// Free JoJo
+datablock AudioProfile(GhostSound50)  { filename = "~/data/sound/ghost/g49.wav"; description = AudioDefault3D; preload = true; };	// Give us your money please
+datablock AudioProfile(GhostSound51)  { filename = "~/data/sound/ghost/g50.wav"; description = AudioDefault3D; preload = true; };	// Gotta Ghost Fast
+datablock AudioProfile(GhostSound52)  { filename = "~/data/sound/ghost/g51.wav"; description = AudioDefault3D; preload = true; };	// HiGuy Crash bug
+datablock AudioProfile(GhostSound53)  { filename = "~/data/sound/ghost/g52.wav"; description = AudioDefault3D; preload = true; };	// Hosis
+datablock AudioProfile(GhostSound54)  { filename = "~/data/sound/ghost/g53.wav"; description = AudioDefault3D; preload = true; };	// joj
+datablock AudioProfile(GhostSound55)  { filename = "~/data/sound/ghost/g54.wav"; description = AudioDefault3D; preload = true; };	// I like chocolate
+datablock AudioProfile(GhostSound56)  { filename = "~/data/sound/ghost/g55.wav"; description = AudioDefault3D; preload = true; };	// I like pizza
+datablock AudioProfile(GhostSound57)  { filename = "~/data/sound/ghost/g56.wav"; description = AudioDefault3D; preload = true; };	// Illuminati confirmed
+datablock AudioProfile(GhostSound58)  { filename = "~/data/sound/ghost/g57.wav"; description = AudioDefault3D; preload = true; };	// I never beat A-Maze-Ing's qualify time
+datablock AudioProfile(GhostSound59)  { filename = "~/data/sound/ghost/g58.wav"; description = AudioDefault3D; preload = true; };	// I see you
+datablock AudioProfile(GhostSound60)  { filename = "~/data/sound/ghost/g59.wav"; description = AudioDefault3D; preload = true; };	// It's time to d-d-d-d-duel
+datablock AudioProfile(GhostSound61)  { filename = "~/data/sound/ghost/g60.wav"; description = AudioDefault3D; preload = true; };	// It's time
+datablock AudioProfile(GhostSound62)  { filename = "~/data/sound/ghost/g61.wav"; description = AudioDefault3D; preload = true; };	// Join the Navy
+datablock AudioProfile(GhostSound63)  { filename = "~/data/sound/ghost/g62.wav"; description = AudioDefault3D; preload = true; };	// Join us
+datablock AudioProfile(GhostSound64)  { filename = "~/data/sound/ghost/g63.wav"; description = AudioDefault3D; preload = true; };	// Let me out of here
+datablock AudioProfile(GhostSound65)  { filename = "~/data/sound/ghost/g64.wav"; description = AudioDefault3D; preload = true; };	// Made in China
+datablock AudioProfile(GhostSound66)  { filename = "~/data/sound/ghost/g65.wav"; description = AudioDefault3D; preload = true; };	// Make Halloween Great Again
+datablock AudioProfile(GhostSound67)  { filename = "~/data/sound/ghost/g66.wav"; description = AudioDefault3D; preload = true; };	// Make Marble Blast Great Again
+datablock AudioProfile(GhostSound68)  { filename = "~/data/sound/ghost/g67.wav"; description = AudioDefault3D; preload = true; };	// Mega Marble Kids
+datablock AudioProfile(GhostSound69)  { filename = "~/data/sound/ghost/g68.wav"; description = AudioDefault3D; preload = true; };	// My Favorite Day is FrightDay
+datablock AudioProfile(GhostSound70)  { filename = "~/data/sound/ghost/g69.wav"; description = AudioDefault3D; preload = true; };	// My Precious
+datablock AudioProfile(GhostSound71)  { filename = "~/data/sound/ghost/g70.wav"; description = AudioDefault3D; preload = true; };	// NonHomogenousSecondOrderLinearDifferentialEquatioonnnnssss
+datablock AudioProfile(GhostSound72)  { filename = "~/data/sound/ghost/g73.wav"; description = AudioDefault3D; preload = true; };	// Oooh Candy
+datablock AudioProfile(GhostSound73)  { filename = "~/data/sound/ghost/g74.wav"; description = AudioDefault3D; preload = true; };	// Pay attention to me
+datablock AudioProfile(GhostSound74)  { filename = "~/data/sound/ghost/g75.wav"; description = AudioDefault3D; preload = true; };	// Pineapple Pizza
+datablock AudioProfile(GhostSound75)  { filename = "~/data/sound/ghost/g76.wav"; description = AudioDefault3D; preload = true; };	// Pokemon Gooooooooohst
+datablock AudioProfile(GhostSound76)  { filename = "~/data/sound/ghost/g77.wav"; description = AudioDefault3D; preload = true; };	// PQ
+datablock AudioProfile(GhostSound77)  { filename = "~/data/sound/ghost/g78.wav"; description = AudioDefault3D; preload = true; };	// PQ crashed make pq crash again
+datablock AudioProfile(GhostSound78)  { filename = "~/data/sound/ghost/g79.wav"; description = AudioDefault3D; preload = true; };	// PQ crashed please send a crash log
+datablock AudioProfile(GhostSound79)  { filename = "~/data/sound/ghost/g80.wav"; description = AudioDefault3D; preload = true; };	// Punkin Pie
+datablock AudioProfile(GhostSound80)  { filename = "~/data/sound/ghost/g81.wav"; description = AudioDefault3D; preload = true; };	// spooooocough...cough..dead
+datablock AudioProfile(GhostSound81)  { filename = "~/data/sound/ghost/g82.wav"; description = AudioDefault3D; preload = true; };	// Puzzle Level 12 Exists
+datablock AudioProfile(GhostSound82)  { filename = "~/data/sound/ghost/g83.wav"; description = AudioDefault3D; preload = true; };	// QuArK is better than Constructor
+datablock AudioProfile(GhostSound83)  { filename = "~/data/sound/ghost/g84.wav"; description = AudioDefault3D; preload = true; };	// Random Noise Here
+datablock AudioProfile(GhostSound84)  { filename = "~/data/sound/ghost/g85.wav"; description = AudioDefault3D; preload = true; };	// Rick Ghastly is my Favorite Singer
+datablock AudioProfile(GhostSound85)  { filename = "~/data/sound/ghost/g86.wav"; description = AudioDefault3D; preload = true; };	// Rosie Ghostie
+datablock AudioProfile(GhostSound86)  { filename = "~/data/sound/ghost/g87.wav"; description = AudioDefault3D; preload = true; };	// Salty
+datablock AudioProfile(GhostSound87)  { filename = "~/data/sound/ghost/g88.wav"; description = AudioDefault3D; preload = true; };	// Awesome
+datablock AudioProfile(GhostSound88)  { filename = "~/data/sound/ghost/g89.wav"; description = AudioDefault3D; preload = true; };	// Scoobydoobydoo..where are you..
+datablock AudioProfile(GhostSound89)  { filename = "~/data/sound/ghost/g90.wav"; description = AudioDefault3D; preload = true; };	// Shazbot
+datablock AudioProfile(GhostSound90)  { filename = "~/data/sound/ghost/g91.wav"; description = AudioDefault3D; preload = true; };	// Spam all day every day
+datablock AudioProfile(GhostSound91)  { filename = "~/data/sound/ghost/g92.wav"; description = AudioDefault3D; preload = true; };	// Speedboostaiiiirrrrrrrrrr
+datablock AudioProfile(GhostSound92)  { filename = "~/data/sound/ghost/g94.wav"; description = AudioDefault3D; preload = true; };	// Spook-ghetti
+datablock AudioProfile(GhostSound93)  { filename = "~/data/sound/ghost/g95.wav"; description = AudioDefault3D; preload = true; };	// Spooky Ghouls
+datablock AudioProfile(GhostSound94)  { filename = "~/data/sound/ghost/g96.wav"; description = AudioDefault3D; preload = true; };	// TeeWorlds
+datablock AudioProfile(GhostSound95)  { filename = "~/data/sound/ghost/g97.wav"; description = AudioDefault3D; preload = true; };	// Thanks Obama
+datablock AudioProfile(GhostSound96)  { filename = "~/data/sound/ghost/g98.wav"; description = AudioDefault3D; preload = true; };	// The boogieman lives
+datablock AudioProfile(GhostSound97)  { filename = "~/data/sound/ghost/g99.wav"; description = AudioDefault3D; preload = true; };	// There's no place like hell
+datablock AudioProfile(GhostSound98)  { filename = "~/data/sound/ghost/g100.wav"; description = AudioDefault3D; preload = true; };	// This is Sparta
+datablock AudioProfile(GhostSound99)  { filename = "~/data/sound/ghost/g101.wav"; description = AudioDefault3D; preload = true; };	// Thou shall not pass
+datablock AudioProfile(GhostSound100) { filename = "~/data/sound/ghost/g103.wav"; description = AudioDefault3D; preload = true; };	// Too Spooky
+datablock AudioProfile(GhostSound101) { filename = "~/data/sound/ghost/g104.wav"; description = AudioDefault3D; preload = true; };	// Tourney hype
+datablock AudioProfile(GhostSound102) { filename = "~/data/sound/ghost/g105.wav"; description = AudioDefault3D; preload = true; };	// Tsuf
+datablock AudioProfile(GhostSound103) { filename = "~/data/sound/ghost/g106.wav"; description = AudioDefault3D; preload = true; };	// Thistle
+datablock AudioProfile(GhostSound104) { filename = "~/data/sound/ghost/g107.wav"; description = AudioDefault3D; preload = true; };	// VislinkCannotBeCoplanarWithANode
+datablock AudioProfile(GhostSound105) { filename = "~/data/sound/ghost/g108.wav"; description = AudioDefault3D; preload = true; };	// Welcome to Replay of the Day
+datablock AudioProfile(GhostSound106) { filename = "~/data/sound/ghost/g109.wav"; description = AudioDefault3D; preload = true; };	// Why am I speaking like this?
+datablock AudioProfile(GhostSound107) { filename = "~/data/sound/ghost/g110.wav"; description = AudioDefault3D; preload = true; };	// Windows encountered an error
+datablock AudioProfile(GhostSound108) { filename = "~/data/sound/ghost/g111.wav"; description = AudioDefault3D; preload = true; };	// Windows is updating your computer
+
+// Matan being silly, 1/200 times.
+datablock AudioProfile(GhostSoundFun) { filename = "~/data/sound/ghost/gfun.wav"; description = AudioDefault3D; preload = true; };			// Ooh Aah I am a Ghost
+
+// Play an Airhorn meme every 1/400 times.
+datablock AudioProfile(GhostSoundAirhorn) { filename = "~/data/sound/ghost/airhorn.wav"; description = AudioDefault3D; preload = true; };	// AIRHORN.WAAAAAAAAV
+
+// Truly Terrifying noises. 1/500 choose one of these randomly.
+datablock AudioProfile(GhostSoundScary1) { filename = "~/data/sound/ghost/GETOUT.wav"; description = AudioDefault3D; preload = true; };		// GET OUT
+datablock AudioProfile(GhostSoundScary2) { filename = "~/data/sound/ghost/SILENCE.wav"; description = AudioDefault3D; preload = true; };	// SILENCE
+datablock AudioProfile(GhostSoundScary3) { filename = "~/data/sound/ghost/tsuf.wav"; description = AudioDefault3D; preload = true; };		// Tsuf Squeak
+datablock AudioProfile(GhostSoundScary4) { filename = "~/data/sound/ghost/yeti1.wav"; description = AudioDefault3D; preload = true; };		// Yeti 1
+datablock AudioProfile(GhostSoundScary5) { filename = "~/data/sound/ghost/yeti2.wav"; description = AudioDefault3D; preload = true; };		// Yeti 2
+
 
 //--- CLIENT SCRIPTS END ---
 //Don't continue loading if this is a client (non-server)
