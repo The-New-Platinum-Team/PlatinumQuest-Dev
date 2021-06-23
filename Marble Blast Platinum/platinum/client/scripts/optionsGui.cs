@@ -126,7 +126,6 @@ function OptionsGui::apply(%this) {
 	MoveMap.save("~/client/config.cs");
 	JoystickMap.save("~/client/config.cs", true); //Append
 
-	pauseMusic();
 	flushInteriorRenderBuffers();
 	cleanupReflectiveMarble();
 
@@ -186,7 +185,16 @@ function OptionsGui::apply(%this) {
 
 	applyGraphicsQuality();
 
-	resumeMusic();
+	// Instead of pausing and resuming always, let's not bother the player with a music reset if it's not necessary.
+	%playing = alxIsPlaying($currentMusicHandle);
+	if (OptionsGui.messedWithMusicVolume) {
+		if (%playing && Opt_musicVolume_getValue() < 10) {
+			pauseMusic();
+		} else if (!%playing && Opt_musicVolume_getValue() > 10) {
+			resumeMusic();
+		}
+		OptionsGui.messedWithMusicVolume = false;
+	}
 }
 
 //Functions for applyGraphicsQuality and updateFrameController moved to core/client/canvas.cs
@@ -876,6 +884,8 @@ function Opt_musicVolume_setValue(%value) {
 
 	$pref::Audio::channelVolume2 = (%value / 100);
 	OptionsGui.updateChannelVolume(2);
+
+	OptionsGui.messedWithMusicVolume = true;
 }
 
 //-----------------------------------------------------------------------------
