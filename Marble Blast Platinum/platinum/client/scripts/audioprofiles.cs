@@ -345,7 +345,7 @@ function resumeMusic() {
 	$JukeboxDlg::isPlaying = true;
 }
 
-$Music::Exclude = "Pianoforte\tComforting Mystery\tQuiet Lab\tUpbeat Finale\tGood to Jump to (Loop Edit)\tElectroforte\tShell\tXmas Trance\tHalloween Trance\tFlanked\tMBP Old Shell\tMetropolis";
+$Music::Exclude = "Pianoforte\tComforting Mystery\tQuiet Lab\tUpbeat Finale\tGood to Jump to (Loop Edit)\tElectroforte\tShell\tXmas Trance\tHalloween Trance\tFlanked\tMBP Old Shell\tMetropolis\tSeaside";
 function buildMusicList() {
 	if (!$musicFound) {
 		$NumMusicFiles = 0;
