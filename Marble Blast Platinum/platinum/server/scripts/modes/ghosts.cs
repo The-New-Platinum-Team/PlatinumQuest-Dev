@@ -545,12 +545,12 @@ function moveSpookyGhost(%obj) {
 // // ----------------------------------------------------------------------------
 
 // // Standard Ghost exhasperations
-// datablock AudioProfile(GhostSound1)  { filename = "~/data/sound/ghost/g1.wav"; description = AudioDefault3D; preload = true; };		// Gasp 1
+datablock AudioProfile(GhostSound1)  { filename = "~/data/sound/ghost/g1.wav"; description = AudioDefault3D; preload = true; };		// Gasp 1
 // datablock AudioProfile(GhostSound2)  { filename = "~/data/sound/ghost/g2.wav"; description = AudioDefault3D; preload = true; };		// Gasp 2
 // datablock AudioProfile(GhostSound3)  { filename = "~/data/sound/ghost/g3.wav"; description = AudioDefault3D; preload = true; };		// Exhale 1
 // datablock AudioProfile(GhostSound4)  { filename = "~/data/sound/ghost/g4.wav"; description = AudioDefault3D; preload = true; };		// Exhale 2
 // datablock AudioProfile(GhostSound5)  { filename = "~/data/sound/ghost/g23.wav"; description = AudioDefault3D; preload = true; };	// Shriek noise thing
-// datablock AudioProfile(GhostSound6)  { filename = "~/data/sound/ghost/g47.wav"; description = AudioDefault3D; preload = true; };	// Haunting Laughter
+datablock AudioProfile(GhostSound6)  { filename = "~/data/sound/ghost/g47.wav"; description = AudioDefault3D; preload = true; };	// Haunting Laughter
 // datablock AudioProfile(GhostSound7)  { filename = "~/data/sound/ghost/g17.wav"; description = AudioDefault3D; preload = true; };	// Soft Coughing
 // datablock AudioProfile(GhostSound8)  { filename = "~/data/sound/ghost/g18.wav"; description = AudioDefault3D; preload = true; };	// Soft Coughing 2
 // datablock AudioProfile(GhostSound9)  { filename = "~/data/sound/ghost/g71.wav"; description = AudioDefault3D; preload = true; };	// Sigh
@@ -657,35 +657,32 @@ function moveSpookyGhost(%obj) {
 // datablock AudioProfile(GhostSound108) { filename = "~/data/sound/ghost/g111.wav"; description = AudioDefault3D; preload = true; };	// Windows is updating your computer
 
 // // Matan being silly, 1/200 times.
-// datablock AudioProfile(GhostSoundFun) { filename = "~/data/sound/ghost/gfun.wav"; description = AudioDefault3D; preload = true; };			// Ooh Aah I am a Ghost
+// datablock AudioProfile(GhostSoundFun) { filename = "~/data/sound/ghost/g112.wav"; description = AudioDefault3D; preload = true; };			// Ooh Aah I am a Ghost
 
 // // Play an Airhorn meme every 1/400 times.
-// datablock AudioProfile(GhostSoundAirhorn) { filename = "~/data/sound/ghost/airhorn.wav"; description = AudioDefault3D; preload = true; };	// AIRHORN.WAAAAAAAAV
+datablock AudioProfile(GhostSoundAirhorn) { filename = "~/data/sound/ghost/airhorn.wav"; description = AudioDefault3D; preload = true; };	// AIRHORN.WAAAAAAAAV
 
 // // Truly Terrifying noises. 1/500 choose one of these randomly.
 // datablock AudioProfile(GhostSoundScary1) { filename = "~/data/sound/ghost/GETOUT.wav"; description = AudioDefault3D; preload = true; };		// GET OUT
-// datablock AudioProfile(GhostSoundScary2) { filename = "~/data/sound/ghost/SILENCE.wav"; description = AudioDefault3D; preload = true; };	// SILENCE
+// datablock AudioProfile(GhostSoundScary2) { filename = "~/data/sound/ghost/g113.wav"; description = AudioDefault3D; preload = true; };	// SILENCE
 // datablock AudioProfile(GhostSoundScary3) { filename = "~/data/sound/ghost/tsuf.wav"; description = AudioDefault3D; preload = true; };		// Tsuf Squeak
-// datablock AudioProfile(GhostSoundScary4) { filename = "~/data/sound/ghost/yeti1.wav"; description = AudioDefault3D; preload = true; };		// Yeti 1
-// datablock AudioProfile(GhostSoundScary5) { filename = "~/data/sound/ghost/yeti2.wav"; description = AudioDefault3D; preload = true; };		// Yeti 2
+// datablock AudioProfile(GhostSoundScary4) { filename = "~/data/sound/ghost/g114.wav"; description = AudioDefault3D; preload = true; };		// Yeti 1
+// datablock AudioProfile(GhostSoundScary5) { filename = "~/data/sound/ghost/g115.wav"; description = AudioDefault3D; preload = true; };		// Yeti 2
 
 // Map ghost sounds to ghosts.
 function ScaryGhost::spookySound(%this, %obj) {
 	cancel(%this.spookySoundSch[%obj]);
 
+	%ghostrandom = $userMods @ "/data/sound/ghost/" @ "g" @ getRandom(1, 111) @ ".wav";
+
 	if (!isObject(%obj))
 		return;
-
-	%sound = GhostSound @ getRandom(1, 108);
-	if (getRandom(0, 200) == 200)
-		%sound = GhostSoundFun;
+	%sound = GhostSound @ getRandom(1);
 	if (getRandom(0, 1000) == 1000)
 		%sound = GhostSoundAirhorn;
-	if (getRandom(0, 500) == 500) {
-		%sound = GhostSoundScary @ getRandom(1, 5);
-	}
 
 	serverPlay3d(%sound, %obj.getTransform());
 
 	%this.spookySoundSch[%obj] = %this.schedule(getRandom(15000, 20000), "spookySound", %obj);
+	%this.randomSoundSch[%obj] = %this.schedule(getRandom(7500, 10000), GhostSound1.filename = %ghostrandom); //Hacky method in order to preserve datablock space.
 }
