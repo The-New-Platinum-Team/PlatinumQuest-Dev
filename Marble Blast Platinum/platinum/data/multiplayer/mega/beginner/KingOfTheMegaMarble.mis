@@ -39,7 +39,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
+	  materialList = "~/data/skies_mbu/beginner/sky_beginner.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -52,12 +52,12 @@ new SimGroup(MissionGroup) {
       color = "1.080000 1.030000 0.900000 1.000000";
       ambient = "0.400000 0.400000 0.500000 1.000000";
    };
-   new StaticShape() {
-      position = "0 0 0";
-      rotation = "1 0 0 0";
-      scale = "10000 10000 10000";
-      dataBlock = "Clear";
-   };
+	new StaticShape() {
+		position = "0 0 -600";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "astrolabe";
+	};
    new InteriorInstance() {
       position = "-28.2 0 20.4";
       rotation = "1 0 0 0";
@@ -172,7 +172,7 @@ new SimGroup(MissionGroup) {
       position = "-37.2 9 20.85";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -181,7 +181,7 @@ new SimGroup(MissionGroup) {
       position = "-19.2 3 20.85";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -190,7 +190,7 @@ new SimGroup(MissionGroup) {
       position = "-13.2 21 20.85";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -199,7 +199,7 @@ new SimGroup(MissionGroup) {
       position = "-37.2 21 20.837";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -208,7 +208,7 @@ new SimGroup(MissionGroup) {
       position = "-31.2 3 20.837";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -217,7 +217,7 @@ new SimGroup(MissionGroup) {
       position = "-19.2 27 20.837";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -226,7 +226,7 @@ new SimGroup(MissionGroup) {
       position = "-13.2 9.2 20.7";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -235,7 +235,7 @@ new SimGroup(MissionGroup) {
       position = "-31.2 27 20.7";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -244,7 +244,7 @@ new SimGroup(MissionGroup) {
       position = "-25.2 15 21.1";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -253,6 +253,22 @@ new SimGroup(MissionGroup) {
       fileName = "~/data/sound/music/Pianoforte.ogg";
       description = "AudioMusic";
       preload = "0";
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-5.38874 -4.37534 34.4564";
+         rotation = "0.613388 0.244346 -0.751032 55.8839";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
