@@ -83,9 +83,9 @@ datablock StaticShapeData(TrapDoor_PQ : TrapDoor) {
 	shapeFile = "~/data/shapes_pq/Gameplay/hazards/trapdoor.dts";
 };
 
-datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
-	shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
-};
+// datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
+// 	shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
+// };
 
 function TrapDoorClass::onAdd(%this, %obj) {
 	%obj._open = false;
@@ -228,14 +228,15 @@ datablock StaticShapeData(SmallDuctFan_PQ : SmallDuctFan) {
 	compile = "pls";
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/ductfan.dts";
 };
-datablock StaticShapeData(DuctFan_MBU : DuctFan) {
-	compile = "pls";
-	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
-};
-datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
-	compile = "pls";
-	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
-};
+// datablock StaticShapeData(DuctFan_MBU : DuctFan) {
+// 	compile = "pls";
+// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
+// };
+// datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
+// 	compile = "pls";
+// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
+// };
+
 // datablock StaticShapeData(DuctFan_MBM : DuctFan) {
 // 	compile = "pls";
 // 	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
@@ -1348,3 +1349,35 @@ function IceShard::unfreeze(%this, %ice, %marble, %cancel) {
 	echo("Ice shard impulse is " @ %impulse);
 	%marble.isFrozen = 0;
 }
+
+//MBU Datablocks down below.
+
+if (!$pref::LegacyItems) {
+	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
+		shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
+	};
+
+	datablock StaticShapeData(DuctFan_MBU : DuctFan) {
+		compile = "pls";
+		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
+	};
+	datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
+		compile = "pls";
+		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
+	};
+} else {
+	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
+		shapeFile = "~/data/shapes/hazards/trapdoor.dts";
+	};
+
+	datablock StaticShapeData(DuctFan_MBU : DuctFan) {
+		compile = "pls";
+		shapeFile = "~/data/shapes/hazards/ductfan.dts";
+	};
+	datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
+		compile = "pls";
+		shapeFile = "~/data/shapes/hazards/ductfan.dts";
+	};
+}
+
+

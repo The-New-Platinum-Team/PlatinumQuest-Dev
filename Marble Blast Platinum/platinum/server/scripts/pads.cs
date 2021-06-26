@@ -65,12 +65,11 @@ datablock StaticShapeData(StartPad_PQ_Construction : StartPad) {
 	playAnimation = false;
 };
 
-datablock StaticShapeData(StartPad_MBM : StartPad) {
-	shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
+// datablock StaticShapeData(StartPad_MBM : StartPad) {
+// 	shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
 
-	// Mobile pads don't have an animation.
-	playAnimation = false;
-};
+// 	playAnimation = true;
+// };
 
 function StartPadClass::onAdd(%this, %obj) {
 	$Game::StartPad = %obj;
@@ -127,12 +126,11 @@ datablock StaticShapeData(EndPad_PQ_Construction : EndPad) {
 	playAnimation = false;
 };
 
-datablock StaticShapeData(EndPad_MBM : EndPad) {
-	shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
+// datablock StaticShapeData(EndPad_MBM : EndPad) {
+// 	shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
 
-	// Mobile pads don't have an animation.
-	playAnimation = false;
-};
+// 	playAnimation = true;
+// };
 
 function EndPadClass::onAdd(%this, %obj) {
 	$Game::EndPad = %obj;
@@ -147,4 +145,32 @@ function EndPadClass::onAdd(%this, %obj) {
 		%obj.setSkinName(%obj.skin);
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
+}
+
+//MBM Datablocks down below.
+
+if (!$pref::LegacyItems) {
+	datablock StaticShapeData(EndPad_MBM : EndPad) {
+		shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
+
+		playAnimation = true;
+	};
+
+	datablock StaticShapeData(StartPad_MBM : StartPad) {
+		shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
+
+		playAnimation = true;
+	};
+} else {
+	datablock StaticShapeData(EndPad_MBM : EndPad) {
+		shapeFile = "~/data/shapes/pads/endarea.dts";
+
+		playAnimation = true;
+	};
+
+	datablock StaticShapeData(StartPad_MBM : StartPad) {
+		shapeFile = "~/data/shapes/pads/startarea.dts";
+
+		playAnimation = true;
+	};
 }

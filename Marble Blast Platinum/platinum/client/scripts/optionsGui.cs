@@ -307,6 +307,9 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Preload Levels";
 $Options::Type    ["Graphics", $i  ] = "boolean";
+$Options::Name    ["Graphics", $i++] = "legacyItems";
+$Options::Title   ["Graphics", $i  ] = "Legacy Items";
+$Options::Type    ["Graphics", $i  ] = "boolean";
 if (canSupportAntiAliasing()) { //This is not available on mac
 	$Options::Name ["Graphics", $i++] = "antiAliasing";
 	$Options::Title["Graphics", $i  ] = "Anti Aliasing";
@@ -690,6 +693,24 @@ function Opt_animateBackground_decrease() {
 
 function Opt_animateBackground_increase() {
 	$pref::animatePreviews = !$pref::animatePreviews;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_legacyItems_getDisplay() {
+	return $pref::legacyItems ? "Enabled" : "Disabled";
+}
+
+function Opt_legacyItems_getValue() {
+	return $pref::legacyItems;
+}
+
+function Opt_legacyItems_decrease() {
+	$pref::legacyItems = !$pref::legacyItems;
+}
+
+function Opt_legacyItems_increase() {
+	$pref::legacyItems = !$pref::legacyItems;
 }
 
 //-----------------------------------------------------------------------------
