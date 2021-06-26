@@ -30,7 +30,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_training) {
 	file = "training";
 
 	name = "MP Training";
-	desc = "See how quickly you can get more than half of the points.";
+	desc = "Get different types of spawns under varying time limits.";
 
 	teams = 0;
 });
@@ -41,5 +41,9 @@ function ClientMode_training::onLoad(%this) {
 }
 
 function clientCmdTrainingTime(%time) {
-	addHelpLine("Got winning points in " @ formatTime(%time));
+	addHelpLine("Got all gems in " @ formatTime(%time));
+}
+
+function clientCmdPointsMessage(%current, %max) {
+	addHelpLine("Got" SPC %current @ "/" @ %max SPC "points");
 }

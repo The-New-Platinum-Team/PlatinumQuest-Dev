@@ -24,8 +24,9 @@
 
 function Mode_training::onLoad(%this) {
 	%this.registerCallback("onHuntGemSpawn");
+	%this.registerCallback("onMissionLoaded");
 	%this.registerCallback("onMissionReset");
-	%this.registerCallback("onFoundGem");
+	%this.registerCallback("onMissionEnded");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 
@@ -33,36 +34,86 @@ function Mode_training::onMissionReset(%this) {
 	//Count the total
 	%this.spawnMax = %this.getCurrentSpawnScore();
 	%this.spawnTime = getSimTime();
-	%this.waitingNotice = false;
+	cancel($countdowngraphic);
+	cancel($pointsmessage);
+	cancel($respawngemsloop);
+	%this.schedule(4000, respawnTimerLoop); // 4000 is the ready set go sequence
+	// Make spawnpoints visible
+	echo("Load");
+	// For each spawnpoint
+	%spawnCount = SpawnPointSet.getCount();
+	for (%i = 0; %i < %spawnCount; %i ++) {
+		%spawn = SpawnPointSet.getObject(%i);
+		//addGemLight(%spawn);
+		MissionCleanup.add(%spawn._light = new StaticShape() {
+			datablock = "PhysModEmitterBase";
+			position = getWords(%spawn.position, 0, 1) SPC (getWord(%spawn.position, 2) - 8); // lower the emitter by a lot
+			rotation = %spawn.rotation;
+			scale = %spawn.scale;
+		});
+	}
+	//%staticShape = new StaticShape() {
+	//	position = %pos[%j];
+	//	rotation = "1 0 0 0";
+	//	scale = "1 1 1";
+	//	datablock = PhysModEmitterBase;
+	//};
+	//MissionCleanup.add(%staticShape);
+}
+
+function Mode_training::onMissionLoaded(%this) {
+}
+
+
+function Mode_training::onMissionEnded(%this) {
+	cancel($countdowngraphic);
+	cancel($pointsmessage);
+	cancel($respawngemsloop);
+}
+
+function Mode_training::pointsMessage(%this) {
+	if (sub64_int(getSimTime(), %this.spawnTime) < %this.respawnTimer) {
+		commandToAll('TrainingTime', sub64_int(getSimTime(), %this.spawnTime));
+	} else {
+		commandToAll('PointsMessage', %this.spawnMax - %this.getCurrentSpawnScore(), %this.spawnMax);
+	}
+	
+}
+
+function deleteNonBlues() { // (unused function)
+	// There's a blue? Delete all except that.
+	echo("Delete!");
+	%blue = false;
+	%gemCount = SpawnedSet.getCount();
+	for (%i = 0; %i < $GemsCount; %i ++) {
+		%gem = $Gems[%i];
+		if (%gem._huntDatablock.huntExtraValue == 0) {
+			unspawnGem(%gem, true);
+		}
+	}
+	// Hide gemlights:
+	commandToAll('UpdateItems');
 }
 
 function Mode_training::onHuntGemSpawn(%this) {
-	if (%this.waitingNotice) {
-		//Got half the points on the last gem in the spawn
-		commandToClient(%this.waitingClient, 'TrainingTime', sub64_int(getSimTime(), %this.spawnTime));
-	}
-	//Count the total
+	cancel($pointsmessage);
+	%this.respawnTimerLoop();
+
 	%this.spawnMax = %this.getCurrentSpawnScore();
 	%this.spawnTime = getSimTime();
-
-	//If they get 100% in the time before we spawn the next then don't do it
-	cancel(%this.spawnSch);
 }
 
-function Mode_training::onFoundGem(%this, %object) {
-	//Count how many gems remain
-	%score = %this.getCurrentSpawnScore();
-
-	if (%score <= %this.spawnMax / 2) {
-		//You got em all
-		if (!isEventPending(%this.spawnSch)) {
-			%this.spawnSch = schedule(1000, 0, spawnHuntGemGroup);
-			%this.waitingNotice = false;
-			commandToClient(%object.client, 'TrainingTime', sub64_int(getSimTime(), %this.spawnTime));
-		}
-	} else {
-		%this.waitingNotice = true;
-		%this.waitingClient = %object.client;
+function Mode_training::respawnTimerLoop(%this) {
+	echo("Hey!");
+	cancel($countdowngraphic);
+	cancel($pointsmessage);
+	cancel($respawngemsloop);
+	%this.respawnTimer = 7000;
+	%time = %this.respawnTimer;
+	if (PlayGui.currentTime > %time) {
+		$countdowngraphic = schedule(0, 0, commandToAll, 'StartCountdown', %time, "timerTimeTravel");
+		$pointsmessage    = %this.schedule(%time, pointsMessage);
+		$respawngemsloop    = schedule(%time+1, 0, spawnHuntGemGroup); // +1 so points message displays first
 	}
 }
 
