@@ -350,49 +350,49 @@ datablock ItemData(FancyGemItem_PQ : GemItem) {
 	customField[1, "default"] = "";
 };
 
-datablock ItemData(GemItem_MBU : GemItem) {
-	shapeFile = "~/data/shapes_mbu/items/gem.dts";
+// datablock ItemData(GemItem_MBU : GemItem) {
+// 	shapeFile = "~/data/shapes_mbu/items/gem.dts";
 
-	pickupName = "a gem!";
+// 	pickupName = "a gem!";
 
-	customField[0, "field"  ] = "skin";
-	customField[0, "type"   ] = "string";
-	customField[0, "name"   ] = "Skin Name";
-	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
-	customField[0, "default"] = "";
-};
+// 	customField[0, "field"  ] = "skin";
+// 	customField[0, "type"   ] = "string";
+// 	customField[0, "name"   ] = "Skin Name";
+// 	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+// 	customField[0, "default"] = "";
+// };
 
-datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
-	skin = "red";
-	huntExtraValue = 0; //1 pt
-	spawnChance = 0.90;
-	messageColor = "ff9999";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
+// 	skin = "red";
+// 	huntExtraValue = 0; //1 pt
+// 	spawnChance = 0.90;
+// 	messageColor = "ff9999";
+// 	customField[0, "field"] = "";
+// };
 
-datablock ItemData(GemItemYellow_MBU : GemItem_MBU) {
-	skin = "yellow";
-	huntExtraValue = 1; //2 pts
-	spawnChance = 0.65;
-	messageColor = "ffff99";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemYellow_MBU : GemItem_MBU) {
+// 	skin = "yellow";
+// 	huntExtraValue = 1; //2 pts
+// 	spawnChance = 0.65;
+// 	messageColor = "ffff99";
+// 	customField[0, "field"] = "";
+// };
 
-datablock ItemData(GemItemBlue_MBU : GemItem_MBU) {
-	skin = "blue";
-	huntExtraValue = 4; //1 less because you get 1 point for collecting it
-	spawnChance = 0.35;
-	messageColor = "9999ff";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemBlue_MBU : GemItem_MBU) {
+// 	skin = "blue";
+// 	huntExtraValue = 4; //1 less because you get 1 point for collecting it
+// 	spawnChance = 0.35;
+// 	messageColor = "9999ff";
+// 	customField[0, "field"] = "";
+// };
 
-datablock ItemData(GemItemPlatinum_MBU : GemItem_MBU) {
-	skin = "platinum";
-	huntExtraValue = 9; //10 pts
-	spawnChance = 0.18;
-	messageColor = "cccccc";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemPlatinum_MBU : GemItem_MBU) {
+// 	skin = "platinum";
+// 	huntExtraValue = 9; //10 pts
+// 	spawnChance = 0.18;
+// 	messageColor = "cccccc";
+// 	customField[0, "field"] = "";
+// };
 
 //-----------------------------------------------------------------------------
 
@@ -564,3 +564,87 @@ datablock ParticleData(GemParticleTurquoise : GemParticleBase) {
 datablock ParticleEmitterData(GemEmitterTurquoise : GemEmitterBase) {
 	particles = "GemParticleTurquoise";
 };
+
+//MBU Datablocks down below.
+
+if (!$pref::LegacyItems) {
+	datablock ItemData(GemItem_MBU : GemItem) {
+		shapeFile = "~/data/shapes_mbu/items/gem.dts";
+
+		pickupName = "a gem!";
+
+		customField[0, "field"  ] = "skin";
+		customField[0, "type"   ] = "string";
+		customField[0, "name"   ] = "Skin Name";
+		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+		customField[0, "default"] = "";
+	};
+	datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
+		skin = "red";
+		huntExtraValue = 0; //1 pt
+		spawnChance = 0.90;
+		messageColor = "ff9999";
+		customField[0, "field"] = "";
+	};
+	datablock ItemData(GemItemYellow_MBU : GemItem_MBU) {
+		skin = "yellow";
+		huntExtraValue = 1; //2 pts
+		spawnChance = 0.65;
+		messageColor = "ffff99";
+		customField[0, "field"] = "";
+	};
+	datablock ItemData(GemItemBlue_MBU : GemItem_MBU) {
+		skin = "blue";
+		huntExtraValue = 4; //1 less because you get 1 point for collecting it
+		spawnChance = 0.35;
+		messageColor = "9999ff";
+		customField[0, "field"] = "";
+	};
+	datablock ItemData(GemItemPlatinum_MBU : GemItem_MBU) {
+		skin = "platinum";
+		huntExtraValue = 9; //10 pts
+		spawnChance = 0.18;
+		messageColor = "cccccc";
+		customField[0, "field"] = "";
+	};		
+} else {
+	datablock ItemData(GemItem_MBU : GemItem) {
+		shapeFile = "~/data/shapes/items/gem.dts";
+
+		pickupName = "a gem!";
+
+		customField[0, "field"  ] = "skin";
+		customField[0, "type"   ] = "string";
+		customField[0, "name"   ] = "Skin Name";
+		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+		customField[0, "default"] = "";
+	};
+	datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
+		skin = "red";
+		huntExtraValue = 0; //1 pt
+		spawnChance = 0.90;
+		messageColor = "ff9999";
+		customField[0, "field"] = "";
+	};
+	datablock ItemData(GemItemYellow_MBU : GemItem_MBU) {
+		skin = "yellow";
+		huntExtraValue = 1; //2 pts
+		spawnChance = 0.65;
+		messageColor = "ffff99";
+		customField[0, "field"] = "";
+	};
+	datablock ItemData(GemItemBlue_MBU : GemItem_MBU) {
+		skin = "blue";
+		huntExtraValue = 4; //1 less because you get 1 point for collecting it
+		spawnChance = 0.35;
+		messageColor = "9999ff";
+		customField[0, "field"] = "";
+	};
+	datablock ItemData(GemItemPlatinum_MBU : GemItem_MBU) {
+		skin = "platinum";
+		huntExtraValue = 9; //10 pts
+		spawnChance = 0.18;
+		messageColor = "cccccc";
+		customField[0, "field"] = "";
+	};						
+}
