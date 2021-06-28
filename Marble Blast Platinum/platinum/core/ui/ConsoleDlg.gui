@@ -292,6 +292,14 @@ function cheat_win() {
 		error("Can't exactly win a game you're not playing.");
 	}
 }
+function cheat_egg() {
+	%time = $Time::ElapsedTime;
+	if (%time == 0) {
+		$time = 690;
+	}
+	$Game::EasterEgg = true;
+	commandToClient(LocalClientConnection, 'FoundEgg', %time);
+}
 function cheat_party() {
 	//:D
 	doParty();
