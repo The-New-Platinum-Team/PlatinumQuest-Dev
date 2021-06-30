@@ -662,9 +662,18 @@ function reformatGameEndText() {
 
 	%text = %text @ "<just:center><color:000000><font:26><shadowcolor:7777777F>";
 
+	%totalTTs = countTTs(MissionGroup);
+	if (mp() || %totalTTs == 0 || anyRespawningTTs(MissionGroup)) { // No time travels, don't bother with a message
+		%textTTs = "";
+	} else {
+		%grabbedTTs = countInvisibleTTs(MissionGroup);
+		%plural = %totalTTs > 1? "'s" : "";
+		%textTTs = "<spush><shadow:1:1><shadowcolor:0000007f><color:00FF00>(" @ %grabbedTTs @ "/" @ %totalTTs @ " TT" @ %plural @ ")<spop> ";
+	}
+
 	%text = %text @
 	        "<just:left>Time Passed:<just:right>" @ formatTime($Game::ElapsedTime) @ "\n" @
-	        "<just:left>Clock Bonuses:<just:right>" @ formatTime($Game::BonusTime) @ "\n";
+	        "<just:left>Clock Bonuses:<just:right>" @ %textTTs @ formatTime($Game::BonusTime) @ "\n";
 
 	// Display the score info
 	EG_Description.setText(%text);
@@ -721,6 +730,48 @@ function reformatGameEndText() {
 	EG_TopTimesText.setText(%scoreText);
 
 	ClientMode::callback("updateEndGame");
+}
+function anyRespawningTTs(%group) {
+	%count = %group.getCount();
+	for (%i = 0; %i < %count; %i++) {
+		%object = %group.getObject(%i);
+		%type = %object.getClassName();
+		if (%type $= "SimGroup") {
+			if (anyRespawningTTs(%object)) {
+				return true;
+			}
+		} else if (%object.respawnTime > 0 && %object.timeBonus > 0) {
+			return true;
+		}
+	}
+	return false;
+}
+function countTTs(%group) {
+	// stolen from countgems function in server/game.cs
+	%tts = 0;
+	%count = %group.getCount();
+	for (%i = 0; %i < %count; %i++) {
+		%object = %group.getObject(%i);
+		%type = %object.getClassName();
+		if (%type $= "SimGroup")
+			%tts += countTTs(%object);
+		else if (%type $= "Item" && %object.timeBonus > 0 && %object.timePenalty $= "") // There are time penalty TT's with a timeBonus AND a timePenalty. Why.
+			%tts++;
+	}
+	return %tts;
+}
+function countInvisibleTTs(%group) {
+	%tts = 0;
+	%count = %group.getCount();
+	for (%i = 0; %i < %count; %i++) {
+		%object = %group.getObject(%i);
+		%type = %object.getClassName();
+		if (%type $= "SimGroup")
+			%tts += countInvisibleTTs(%object);
+		else if (%type $= "Item" && %object.timeBonus > 0 && %object.timePenalty $= "" && %object.isHidden())
+			%tts++;
+	}
+	return %tts;
 }
 
 function getScoreFormatting(%score, %info, %showAwesome, %placement) {
