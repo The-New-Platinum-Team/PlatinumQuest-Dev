@@ -148,6 +148,10 @@ function PlayGui::onWake(%this) {
 	PGLapsCounter.setVisible(false);
 	PGSpeedometer.setVisible(ClientMode::callback("shouldShowSpeedometer", false));
 
+	if ($pref::alwaysshowspeedometer) {
+	    PGSpeedometer.setVisible(1);	
+	}
+
 	ClientMode::callback("onShowPlayGui", "");
 }
 
