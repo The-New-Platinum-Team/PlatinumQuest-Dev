@@ -1584,6 +1584,12 @@ datablock AudioProfile(DoBubbleSfx) {
 	preload = true;
 };
 
+datablock AudioProfile(BubbleLoopSfx) {
+	filename    = "~/data/sound/bubble.wav";
+	description = AudioClosestLooping3d;
+	preload = true;
+};
+
 datablock ShapeBaseImageData(BubbleImage) {
 	// Basic Item properties
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/bubble.dts";
@@ -1594,7 +1600,7 @@ datablock ShapeBaseImageData(BubbleImage) {
 	mountPoint = 0;
 	offset = "0 0 0";
 	stateName[0] = "Blah";
-	stateSound[0] = SuperBounceLoopSfx;
+	stateSound[0] = BubbleLoopSfx;
 };
 
 datablock ItemData(BubbleItem) {
