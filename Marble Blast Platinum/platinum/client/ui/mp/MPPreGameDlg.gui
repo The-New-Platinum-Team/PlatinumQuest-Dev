@@ -382,6 +382,8 @@ function MPPreGameDlg::onWake(%this) {
 	MPPreGameSpectate.setValue(false);
 	MPPreGameServerSettings.setVisible($Server::Hosting);
 
+	MPPreGameServerSettings.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();");
+
 	%this.ready();
 	%this.updateInfo();
 
