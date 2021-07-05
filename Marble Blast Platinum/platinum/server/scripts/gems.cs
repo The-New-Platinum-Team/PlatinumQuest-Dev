@@ -207,6 +207,11 @@ datablock ItemData(GemItemYellow: GemItem) {
 	customField[0, "field"] = "";
 };
 
+datablock ItemData(GemItemPink: GemItem) {
+	skin = "base";
+	customField[0, "field"] = "";
+};
+
 datablock ItemData(GemItemPurple: GemItem) {
 	skin = "purple";
 	customField[0, "field"] = "";
@@ -285,6 +290,11 @@ datablock ItemData(GemItemYellow_PQ: GemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
+datablock ItemData(GemItemPink_PQ: GemItem_PQ) {
+	skin = "base";
+	customField[1, "disable"] = 1;
+};
+
 datablock ItemData(GemItemPurple_PQ: GemItem_PQ) {
 	skin = "purple";
 	customField[1, "disable"] = 1;
@@ -348,6 +358,68 @@ datablock ItemData(FancyGemItem_PQ : GemItem) {
 	customField[1, "name"   ] = "Skin Name";
 	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
 	customField[1, "default"] = "";
+};
+
+datablock ItemData(FancyGemItemBlue_PQ: FancyGemItem_PQ) {
+	skin = "blue";
+	huntExtraValue = 4; //1 less because you get 1 point for collecting it
+	spawnChance = 0.35;
+	messageColor = "9999ff";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemRed_PQ: FancyGemItem_PQ) {
+	skin = "red";
+	huntExtraValue = 0; //1 pt
+	spawnChance = 0.90;
+	messageColor = "ff9999";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemYellow_PQ: FancyGemItem_PQ) {
+	skin = "yellow";
+	huntExtraValue = 1; //2 pts
+	spawnChance = 0.65;
+	messageColor = "ffff99";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemPink_PQ: FancyGemItem_PQ) {
+	skin = "base";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemPurple_PQ: FancyGemItem_PQ) {
+	skin = "purple";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemGreen_PQ: FancyGemItem_PQ) {
+	skin = "Green";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemTurquoise_PQ: FancyGemItem_PQ) {
+	skin = "Turquoise";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemOrange_PQ: FancyGemItem_PQ) {
+	skin = "orange";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemBlack_PQ: FancyGemItem_PQ) {
+	skin = "black";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
+	skin = "platinum";
+	huntExtraValue = 9; //10 pts
+	spawnChance = 0.18;
+	messageColor = "cccccc";
+	customField[1, "disable"] = 1;
 };
 
 // datablock ItemData(GemItem_MBU : GemItem) {
