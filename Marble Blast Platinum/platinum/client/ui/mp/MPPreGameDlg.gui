@@ -488,8 +488,9 @@ function MPPreGameDlg::update(%this) {
 
 		// add on stuff to the list
 		%name = clipPx($DefaultFont, 18, %name, %px, true);
-
-		if (%player.ready) {
+		if (%player.ready && %player.specState == 2) {
+			%status = "[Spectator]";
+		} else if (%player.ready) {
 			%status = "[Ready]";
 		} else if (%player.loadState != 3) {
 			%status = "[Loading...]";
