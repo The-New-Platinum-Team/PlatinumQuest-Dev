@@ -2,43 +2,44 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         Time = "300000";
          alarmStartTime = "25";
          artist = "Alex Swanson";
-         level = "2";
-         gameMode = "king";
-         score0 = "25";
-         ultimateScore0 = "100";
-         score = "40";
-         radiusFromGem = "22";
          desc = "Go around or cut across.";
-         ultimateScore = "120";
-         type = "Intermediate";
-         overviewHeight = "0";
-         score1 = "40";
-         ultimateScore1 = "150";
-         maxGemsPerSpawn = "6";
-         platinumScore0 = "60";
-         platinumScore = "80";
          game = "Ultra";
-         time = "300000";
-         name = "Vortex Effect";
-         platinumScore1 = "80";
+         gameMode = "king";
+         level = "2";
+         maxGemsPerSpawn = "6";
          music = "Tim Trance.ogg";
+         name = "Vortex Effect";
+         overviewHeight = "0";
+         platinumScore = "80";
+         platinumScore0 = "60";
+         platinumScore1 = "80";
+         radiusFromGem = "22";
+         score = "40";
+         score0 = "25";
+         score1 = "40";
+         type = "Intermediate";
+         ultimateScore = "120";
+         ultimateScore0 = "100";
+         ultimateScore1 = "150";
    };
    new Item() {
-      position = "4 -24 5.484221";
+      position = "4 -24 5.48422";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "-41 7 0.187";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -47,7 +48,7 @@ new SimGroup(MissionGroup) {
       position = "-1 -68 1.687";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -61,14 +62,16 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-47.5 -53.5 2";
-         rotation = "0 0 1 54.43101";
+         rotation = "0 0 1 54.431";
          scale = "1 1 1";
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-25 -58.5 5";
@@ -77,6 +80,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-13 -68 3";
@@ -85,6 +89,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "3 -57.5 1.5";
@@ -93,6 +98,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-2 -9.5 5";
@@ -100,6 +106,7 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
       };
       new Trigger() {
          position = "-2 7.5 2";
@@ -108,6 +115,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-1.5 26 2";
@@ -116,6 +124,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "25.5 26 2";
@@ -124,6 +133,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "32 42.5 5";
@@ -132,6 +142,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "32 19 5";
@@ -140,6 +151,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "31.5 5 5";
@@ -148,6 +160,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "56 12 2";
@@ -156,14 +169,16 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "50 -30 7";
-         rotation = "0 0 -1 89.38139";
+         rotation = "0 0 -1 89.3814";
          scale = "1 1 1";
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "40 -41.5 7";
@@ -172,6 +187,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "60 -56 7";
@@ -180,14 +196,16 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "38 -76 4.5";
-         rotation = "0 0 -1 10.88611";
+         rotation = "0 0 -1 10.8861";
          scale = "1 1 1";
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "26 12.5 -1";
@@ -196,6 +214,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-32.5 -49 5";
@@ -204,6 +223,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             add = "0 0 1";
+            gravity = "0";
       };
    };
    new Trigger(Bounds) {
@@ -235,10 +255,10 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies_mbu/intermediate/sky_intermediate.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -252,10 +272,10 @@ new SimGroup(MissionGroup) {
       ambient = "0.400000 0.400000 0.500000 1.000000";
    };
    new StaticShape() {
-      position = "0 0 0";
+      position = "0 0 -600";
       rotation = "1 0 0 0";
-      scale = "10000 10000 10000";
-      dataBlock = "Dusk";
+      scale = "1 1 1";
+      dataBlock = "Astrolabe";
    };
    new InteriorInstance() {
       position = "0 0 0";
@@ -296,7 +316,7 @@ new SimGroup(MissionGroup) {
       position = "9 -29 10.234";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem";
+      dataBlock = "HelicopterItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -305,7 +325,7 @@ new SimGroup(MissionGroup) {
       position = "-46 -66 0.234";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem";
+      dataBlock = "HelicopterItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -314,7 +334,7 @@ new SimGroup(MissionGroup) {
       position = "60 -66 2.734";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem";
+      dataBlock = "HelicopterItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -323,7 +343,7 @@ new SimGroup(MissionGroup) {
       position = "26 7.5 -3.266";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem";
+      dataBlock = "HelicopterItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -332,7 +352,7 @@ new SimGroup(MissionGroup) {
       position = "-13 23 1.234";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem";
+      dataBlock = "HelicopterItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -341,88 +361,97 @@ new SimGroup(MissionGroup) {
       position = "34 -66 3.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "51 -21 6";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "16 26 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "-28 -10 1";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "-13 -58 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "11 -9 1.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "50 -49 5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "36 4.5 3";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "-37.3504 -34.0349 3";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "15 -35 10.6";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem";
+      dataBlock = "SuperJumpItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -431,7 +460,7 @@ new SimGroup(MissionGroup) {
       position = "-23 -81 0.2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem";
+      dataBlock = "SuperJumpItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -440,7 +469,7 @@ new SimGroup(MissionGroup) {
       position = "-9 -81 0.2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem";
+      dataBlock = "SuperJumpItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -449,7 +478,7 @@ new SimGroup(MissionGroup) {
       position = "36 42 2.734";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem";
+      dataBlock = "HelicopterItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -458,7 +487,7 @@ new SimGroup(MissionGroup) {
       position = "52 12 0.2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem";
+      dataBlock = "SuperJumpItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -467,7 +496,7 @@ new SimGroup(MissionGroup) {
       position = "7 31 1.2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem";
+      dataBlock = "SuperJumpItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -476,7 +505,7 @@ new SimGroup(MissionGroup) {
       position = "38 -12 3.187";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -485,7 +514,7 @@ new SimGroup(MissionGroup) {
       position = "60 -40 4.687";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -494,7 +523,7 @@ new SimGroup(MissionGroup) {
       position = "-34 -58 3.187";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem";
+      dataBlock = "SuperSpeedItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -506,46 +535,61 @@ new SimGroup(MissionGroup) {
       dataBlock = "kingTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Flanked.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-20.9071 -61.5516 33.6562";
+         rotation = "0.654346 -0.280272 0.702338 62.7543";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Item() {
       position = "20 -40 5.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
-      position = "20 -24 5.484221";
+      position = "20 -24 5.48422";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "4 -40 5.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem";
+      dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
       position = "11.75 -32 9.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem";
+      dataBlock = "MegaMarbleItem_MBU";
       collideable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
 };
 //--- OBJECT WRITE END ---
