@@ -38,6 +38,9 @@ function Mode_training::onMissionReset(%this) {
 	cancel($pointsmessage);
 	cancel($respawngemsloop);
 	%this.schedule(4000, respawnTimerLoop); // 4000 is the ready set go sequence
+}
+
+function Mode_training::onMissionLoaded(%this) {
 	// Make spawnpoints visible
 	echo("Load");
 	// For each spawnpoint
@@ -59,9 +62,13 @@ function Mode_training::onMissionReset(%this) {
 	//	datablock = PhysModEmitterBase;
 	//};
 	//MissionCleanup.add(%staticShape);
-}
-
-function Mode_training::onMissionLoaded(%this) {
+	MissionInfo.redSpawnChance = 0.001;
+	MissionInfo.yellowSpawnChance = 0.001;
+	MissionInfo.blueSpawnChance = 1;
+	MissionInfo.platinumSpawnChance = 1;
+	MissionInfo.radiusFromGem = "135";
+	MissionInfo.blast = "1";
+	MissionInfo.CustomRadarRule = $Radar::Flags::Gems | $Radar::Flags::Powerups;
 }
 
 
