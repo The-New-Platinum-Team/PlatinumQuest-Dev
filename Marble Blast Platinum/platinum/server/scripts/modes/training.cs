@@ -56,9 +56,9 @@ function Mode_training::onMissionLoaded(%this) {
 		//});
 		MissionCleanup.add(%spawn = new TSStatic() {
 			shapeName = "~/data/shapes_pq/Gameplay/LightBeam/lightbeam.dts";
-			position = getWords(%spawn.position, 0, 1) SPC (getWord(%spawn.position, 2) - 8); // lower the emitter by a lot
+			position = getWords(%spawn.position, 0, 2);
 			rotation = %spawn.rotation;
-			scale = %spawn.scale;
+			scale = "0.5 0.5 0.3";
 		});
 
 		
@@ -119,7 +119,6 @@ function Mode_training::onHuntGemSpawn(%this) {
 }
 
 function Mode_training::respawnTimerLoop(%this) {
-	echo("Hey!");
 	cancel($countdowngraphic);
 	cancel($pointsmessage);
 	cancel($respawngemsloop);
