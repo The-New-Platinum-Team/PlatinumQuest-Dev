@@ -48,12 +48,20 @@ function Mode_training::onMissionLoaded(%this) {
 	for (%i = 0; %i < %spawnCount; %i ++) {
 		%spawn = SpawnPointSet.getObject(%i);
 		//addGemLight(%spawn);
-		MissionCleanup.add(%spawn._light = new StaticShape() {
-			datablock = "PhysModEmitterBase";
+		//MissionCleanup.add(%spawn._light = new StaticShape() {
+		//	//datablock = "PhysModEmitterBase";
+		//	position = getWords(%spawn.position, 0, 1) SPC (getWord(%spawn.position, 2) - 8); // lower the emitter by a lot
+		//	rotation = %spawn.rotation;
+		//	scale = %spawn.scale;
+		//});
+		MissionCleanup.add(%spawn = new TSStatic() {
+			shapeName = "~/data/shapes_pq/Gameplay/LightBeam/lightbeam.dts";
 			position = getWords(%spawn.position, 0, 1) SPC (getWord(%spawn.position, 2) - 8); // lower the emitter by a lot
 			rotation = %spawn.rotation;
 			scale = %spawn.scale;
 		});
+
+		
 	}
 	//%staticShape = new StaticShape() {
 	//	position = %pos[%j];
