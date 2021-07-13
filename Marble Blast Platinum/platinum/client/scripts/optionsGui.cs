@@ -424,9 +424,12 @@ $Options::Min     ["Gameplay", 7] = 5;
 $Options::Max     ["Gameplay", 7] = 85;
 $Options::Ticks   ["Gameplay", 7] = 80; //Every 1
 $Options::JoyTicks["Gameplay", 7] = 16; //Every 5
-$Options::Name    ["Gameplay", 8] = "alwaysshowspeedometer";
+$Options::Name    ["Gameplay", 8] = "alwaysShowSpeedometer";
 $Options::Title   ["Gameplay", 8] = "Always Show Speedometer";
 $Options::Type    ["Gameplay", 8] = "boolean";
+$Options::Name    ["Gameplay", 9] = "powerupsAlwaysOnRadar";
+$Options::Title   ["Gameplay", 9] = "Powerups Always on Radar";
+$Options::Type    ["Gameplay", 9] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -1108,20 +1111,38 @@ function Opt_thousandths_increase() {
 // Connie: This was simpler to do than I had originally expected lmao
 //-----------------------------------------------------------------------------
 
-function Opt_alwaysshowspeedometer_getDisplay() {
-	return $pref::alwaysshowspeedometer ? "Enabled" : "Disabled";
+function Opt_alwaysShowSpeedometer_getDisplay() {
+	return $pref::alwaysShowSpeedometer ? "Enabled" : "Disabled";
 }
 
-function Opt_alwaysshowspeedometer_getValue() {
-	return $pref::alwaysshowspeedometer;
+function Opt_alwaysShowSpeedometer_getValue() {
+	return $pref::alwaysShowSpeedometer;
 }
 
-function Opt_alwaysshowspeedometer_decrease() {
-	$pref::alwaysshowspeedometer = !$pref::alwaysshowspeedometer;
+function Opt_alwaysShowSpeedometer_decrease() {
+	$pref::alwaysShowSpeedometer = !$pref::alwaysShowSpeedometer;
 }
 
-function Opt_alwaysshowspeedometer_increase() {
-	$pref::alwaysshowspeedometer = !$pref::alwaysshowspeedometer;
+function Opt_alwaysShowSpeedometer_increase() {
+	$pref::alwaysShowSpeedometer = !$pref::alwaysShowSpeedometer;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_powerupsAlwaysOnRadar_getDisplay() {
+	return $pref::powerupsAlwaysOnRadar ? "Enabled" : "Disabled";
+}
+
+function Opt_powerupsAlwaysOnRadar_getValue() {
+	return $pref::powerupsAlwaysOnRadar;
+}
+
+function Opt_powerupsAlwaysOnRadar_decrease() {
+	$pref::powerupsAlwaysOnRadar = !$pref::powerupsAlwaysOnRadar;
+}
+
+function Opt_powerupsAlwaysOnRadar_increase() {
+	$pref::powerupsAlwaysOnRadar = !$pref::powerupsAlwaysOnRadar;
 }
 
 //-----------------------------------------------------------------------------

@@ -433,14 +433,14 @@ function radarShouldShow(%object) {
 			or "AnvilItem"
 			or "BubbleItem"
 			or "CustomSuperJumpItem":
-			if (($Radar::SearchRule & $Radar::Flags::Powerups) == 0)
+			if (($Radar::SearchRule & $Radar::Flags::Powerups) == 0 || !$pref::powerupsAlwaysOnRadar)
 				return false;
 		case "TimeTravelItem"
 			or "TimePenaltyItem"
 			or "RespawningTimeTravelItem"
 			or "RespawningTimePenaltyItem"
 			or "SundialItem":
-			if (($Radar::SearchRule & $Radar::Flags::TimeTravels) == 0)
+			if (($Radar::SearchRule & $Radar::Flags::TimeTravels) == 0 || !$pref::powerupsAlwaysOnRadar)
 				return false;
 		}
 
