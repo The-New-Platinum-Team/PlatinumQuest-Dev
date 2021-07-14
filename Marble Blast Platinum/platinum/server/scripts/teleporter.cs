@@ -247,6 +247,7 @@ function TeleportTrigger::onEnterTrigger(%data, %obj, %colObj) {
 	if (!%trigger.silent)
 		%client.teleSound = %client.play3D(TeleportSound, %client.player.getTransform());
 	%client.player.setCloaked(true);
+	commandToClient(%client, 'PushTimer', 696969, getSimTime(), %delay);
 }
 
 function TeleportTrigger::onLeaveTrigger(%data, %obj, %colObj) {
@@ -256,6 +257,7 @@ function TeleportTrigger::onLeaveTrigger(%data, %obj, %colObj) {
 	cancel(%client.teleSched[%obj]);
 	alxStop(%client.teleSound);
 	%client.player.setCloaked(false);
+	commandToClient(%client, 'PushTimer', 696969, getSimTime(), 0);
 }
 
 function RelativeTPTrigger::onAdd(%this, %obj) {

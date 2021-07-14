@@ -110,6 +110,8 @@ function clientCmdCbOnRespawn() {
 
 	deleteVariables("$Client::UsedPowerup*");
 
+	PlayGui.clearPowerupTimers();
+
 	clientResetTriggerEntry();
 	Gravity::clearTriggers();
 	Physics::popAllLayers();
@@ -132,6 +134,8 @@ function clientCmdCbOnRespawnOnCheckpoint() {
 	$Game::BubbleActive = 0;
 	Physics::popLayerName("Bubble");
 
+	PlayGui.clearPowerupTimers();
+	
 	clientResetTriggerEntry();
 	Gravity::clearTriggers();
 	$Client::Frozen = false;
