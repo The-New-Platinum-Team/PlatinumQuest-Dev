@@ -119,8 +119,10 @@ function GameConnection::setSpectating(%this, %spectating) {
 	} else {
 		%this.spawnPlayer();
 		%this.startGame();
-		%this.player.setMode(Start);
-		%this.setGameState(Ready);
+		if ($Game::State $= "start") { // Skip Ready/Set/Go, unless the host is still going through Ready/Set/Go. Also, the 'startGame' above doesn't modify this variable.
+			%this.player.setMode(Start);
+			%this.setGameState(Ready);
+		}
 
 		// make keys enabled again for controlling the client!
 		commandToClient(%this, 'FinishSpectating');
