@@ -430,6 +430,9 @@ $Options::Type    ["Gameplay", 8] = "boolean";
 $Options::Name    ["Gameplay", 9] = "powerupsAlwaysOnRadar";
 $Options::Title   ["Gameplay", 9] = "Powerups Always on Radar";
 $Options::Type    ["Gameplay", 9] = "boolean";
+$Options::Name    ["Gameplay", 10] = "powerupTimers";
+$Options::Title   ["Gameplay", 10] = "Powerup Timers";
+$Options::Type    ["Gameplay", 10] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -1143,6 +1146,24 @@ function Opt_powerupsAlwaysOnRadar_decrease() {
 
 function Opt_powerupsAlwaysOnRadar_increase() {
 	$pref::powerupsAlwaysOnRadar = !$pref::powerupsAlwaysOnRadar;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_powerupTimers_getDisplay() {
+	return $pref::powerupTimers ? "Enabled" : "Disabled";
+}
+
+function Opt_powerupTimers_getValue() {
+	return $pref::powerupTimers;
+}
+
+function Opt_powerupTimers_decrease() {
+	$pref::powerupTimers = !$pref::powerupTimers;
+}
+
+function Opt_powerupTimers_increase() {
+	$pref::powerupTimers = !$pref::powerupTimers;
 }
 
 //-----------------------------------------------------------------------------

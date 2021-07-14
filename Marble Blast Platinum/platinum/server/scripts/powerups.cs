@@ -1351,6 +1351,7 @@ function MegaMarbleItem::onUse(%this, %obj, %user) {
 	%timeout = (%obj.timeout > 0 ? %obj.timeout : %this.defaultTimeout);
 	cancel(%user.megaSchedule);
 	%user.megaSchedule = %this.schedule(%timeout, "onUnuse", %obj, %user);
+	commandToClient(%user.client, 'PushTimer', 6, getSimTime(), %timeout);
 
 	return Parent::onUse(%this, %obj, %user);
 }
@@ -1358,6 +1359,7 @@ function MegaMarbleItem::onUse(%this, %obj, %user) {
 function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 	cancel(%user.megaSchedule);
 	//%user.client.play2d(MegaShrinkSfx);
+	commandToClient(%user.client, 'PushTimer', 6, getSimTime(), 0);
 
 	%user.client.setMegaMarble(false);
 	%user.client.schedule(10, gravityImpulse, "0 0 1", "-2 -2 -2");
@@ -1476,6 +1478,9 @@ function TeleportItem::performTeleport(%this, %obj, %user) {
 	cancel(%user.client.telePowerupSched);
 	%user.client.telePowerupSched = %this.schedule(%user.teleporterTime, finishTeleport, %obj, %user);
 	%user.setCloaked(true);
+
+	%id = %obj.keepVelocity? 777777:7; // If it's a transporter powerup it's yellow and uses a different icon, with special id 777777. Otherwise 7 like normal.
+	commandToClient(%user.client, 'PushTimer', %id, getSimTime(), %user.teleporterTime);
 }
 
 function TeleportItem::finishTeleport(%this, %obj, %user) {

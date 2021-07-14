@@ -188,7 +188,15 @@ function clientCmdDoPowerUp(%powerUpId) {
 function clientCmdActivatePowerUp(%powerUpId) {
 	$Client::UsedPowerup[%powerUpId] = true;
 	$Game::PowerupActive[%powerUpId] = true;
-	$Game::PowerupStart[%powerUpId] = $Sim::Time;
+	$Game::PowerupStart[%powerUpId] = getSimTime();
+
+	if (%powerupId >= 3 && %powerupId <= 5) {
+		// [1] Super Jump / [2] Super Speed / [8] Anvil are instant.
+		// [3] Super Bounce, [4] Shock Absorber, [5] Gyrocopter
+		// [6] Mega Marble 10s, [7] Teleporter 2s. Handled by their respective powerup codes.
+		// [9] Nerfed super jump for White Noise PQ level.
+		PlayGui.pushPowerupTimer(%powerupId, getSimTime(), 5000);
+	}
 	//if (%powerUpId == 6)
 	//MegaRollingHardSfx.filename = RollingHardSfx.filename = "~/data/sound/mega_roll.wav";
 }

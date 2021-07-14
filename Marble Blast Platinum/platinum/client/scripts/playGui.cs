@@ -126,6 +126,8 @@ function PlayGui::onWake(%this) {
 	alxSetChannelVolume(1, $pref::Audio::channelVolume1);
 	alxSetChannelVolume(2, $pref::Audio::channelVolume2);
 
+	%this.clearPowerupTimers();
+
 	PGScoreListContainer.setVisible(%multiplayer);
 	PG_BlastBar.setVisible(!$SpectateMode && shouldEnableBlast());
 	RadarSetMode($Pref::RadarMode);
@@ -419,21 +421,11 @@ function PlayGui::updateBubbleBar(%this) {
 		PG_BubbleMeterText.setVisible(true);
 		PG_BubbleFill.setVisible(true);
 		PG_BubbleMeterImage.setBitmap(expandFilename("~/client/ui/game/specials/bubblebar"));
-		%rounded = $Game::BubbleTime / 1000;
-		if (%rounded >= 100) {
-			%rounded = mRound(%rounded, 0);
-		} else {
-			%rounded = mRound(%rounded, 1);
-			if (mFloor(%rounded) == %rounded) {
-				//No decimal, add one
-				%rounded = %rounded @ ".0";
-			}
-		}
 
 		//Full size is 133 62
 		PG_BubbleFill.setExtent(50 + (83 * ($Game::BubbleTime / $Game::BubbleTotalTime)) SPC 62);
 		//231 241 241
-		PG_BubbleMeterText.setText("<just:center><font:24><color:000000>" @ %rounded);
+		PG_BubbleMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths($Game::BubbleTime));
 	} else {
 		PG_BubbleContainer.setVisible(false);
 	}
@@ -452,24 +444,46 @@ function PlayGui::updateFireballBar(%this) {
 		//check for cooldown is active OR time < 1000; if so, return
 		%canBlast = !(%time < 1000 || (getSimTime() - $Client::FireballLastBlastTime < 2000));
 
-		%rounded = %time / 1000;
-		if (%rounded >= 100) {
-			%rounded = mRound(%rounded, 0);
-		} else {
-			%rounded = mRound(%rounded, 1);
-			if (mFloor(%rounded) == %rounded) {
-				//No decimal, add one
-				%rounded = %rounded @ ".0";
-			}
-		}
-
 		PG_FireballMeterImage.setBitmap(expandFilename("~/client/ui/game/specials/" @(%canBlast ? "fireballbar-lit" : "fireballbar-unlit")));
 		//Full size is 133 62
 		PG_FireballFill.setExtent(50 + (83 * (%time / $Client::FireballActiveTime)) SPC 62);
-		PG_FireballMeterText.setText("<just:center><font:24><color:000000>" @ %rounded);
+		PG_FireballMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%time));
 	} else {
 		PG_FireballContainer.setVisible(false);
 	}
+}
+
+function roundToTenths(%x) {
+	%rounded = ((%x + 49) / 1000); // Having 0001 ms will add 49 to it, making it 0050, so 0.0 should never show.
+	if (%rounded >= 100) {
+		%rounded = mRound(%rounded, 0);
+	} else {
+		%rounded = mRound(%rounded, 1);
+		if (mFloor(%rounded) == %rounded) {
+			//No decimal, add one
+			%rounded = %rounded @ ".0";
+		}
+	}
+	return %rounded;
+}
+
+function specialBarFor(%id) {
+	if (%id == 3) { // Super Bounce
+		return expandFilename("~/client/ui/game/specials/superbouncebar");
+	} else if (%id == 4) { // Shock Absorber
+		return expandFilename("~/client/ui/game/specials/shockabsorberbar");
+	} else if (%id == 5) { // Gyrocopter
+		return expandFilename("~/client/ui/game/specials/gyrocopterbar");
+	} else if (%id == 6) { // Mega Marble
+		return expandFilename("~/client/ui/game/specials/megamarblebar");
+	} else if (%id == 7) { // Teleporter
+		return expandFilename("~/client/ui/game/specials/teleporterbar");
+	} else if (%id == 777777) { // Transporter
+		return expandFilename("~/client/ui/game/specials/transporterbar");
+	} else if (%id == 696969) { // Teleport (not item, 696969 is dummy value)
+		return expandFilename("~/client/ui/game/specials/teleporttriggerbar");
+	}
+	return expandFilename("~/client/ui/game/specials/gray");
 }
 
 function PlayGui::updateBarPositions(%this) {
@@ -504,7 +518,116 @@ function PlayGui::updateBarPositions(%this) {
 	} else if (%fireball) {
 		PG_FireballContainer.setPosition(%x SPC %y);
 	}
+
+	if (%this.powerupTimersTrueLength >= 1) {
+		%num = %this.powerupTimersTrueIndexToFalse[0];
+		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		PG_FirstTimerContainer.setVisible(true);
+		PG_FirstTimerContainer.setPosition(%x SPC %y + 60);
+		PG_FirstTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_FirstTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
+		PG_FirstTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
+	} else {
+		PG_FirstTimerContainer.setVisible(false);
+	}
+
+	if (%this.powerupTimersTrueLength >= 2) {
+		%num = %this.powerupTimersTrueIndexToFalse[1];
+		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		PG_SecondTimerContainer.setVisible(true);
+		PG_SecondTimerContainer.setPosition(%x SPC %y + 120);
+		PG_SecondTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_SecondTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
+		PG_SecondTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
+	} else {
+		PG_SecondTimerContainer.setVisible(false);
+	}
+	if (%this.powerupTimersTrueLength >= 3) {
+		%num = %this.powerupTimersTrueIndexToFalse[2];
+		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		PG_ThirdTimerContainer.setVisible(true);
+		PG_ThirdTimerContainer.setPosition(%x SPC %y + 180);
+		PG_ThirdTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_ThirdTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
+		PG_ThirdTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
+	} else {
+		PG_ThirdTimerContainer.setVisible(false);
+	}
+	if (%this.powerupTimersTrueLength >= 4) {
+		%num = %this.powerupTimersTrueIndexToFalse[3];
+		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		PG_FourthTimerContainer.setVisible(true);
+		PG_FourthTimerContainer.setPosition(%x SPC %y + 240);
+		PG_FourthTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_FourthTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
+		PG_FourthTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
+	} else {
+		PG_FourthTimerContainer.setVisible(false);
+	}
 }
+
+function clientCmdPushTimer(%whichpowerup, %timer, %duration) {
+	PlayGui.pushPowerupTimer(%whichpowerup, %timer, %duration);
+}
+function PlayGui::clearPowerupTimers() {
+	for (%i = 0; %i < %this.powerupTimersLength; %i ++) { // Cancel all the schedules.
+		cancel(%this.powerupTimersSchedules[%i]);
+	}
+	%this.powerupTimersLength = 0;
+	%this.powerupTimersTrueLength = 0;
+}
+function PlayGui::pushPowerupTimer(%this, %whichpowerup, %time, %duration) {
+	if (!$pref::powerupTimers)
+		return
+	%powerupAlreadyQueued = false;
+	%powerupAlreadyQueuedIndex = 0;
+	for (%i = 0; %i < %this.powerupTimersLength; %i ++) { // No duplicate IDs.
+		if (%whichpowerup == %this.powerupTimersId[%i]) {
+			%powerupAlreadyQueued = true;
+			%powerupAlreadyQueuedIndex = %i;
+			break;
+		}
+	}
+	if (%powerupAlreadyQueued == false) {
+		// If this was Fubar, we'd look for an open slot to put the timer in. There is no code for that though, since I've decided to use a system where there can be infinite queue length, but powerups won't be visually slotted earlier in the list.
+
+		%this.powerupTimersLength ++;     // If you stacked like 10 powerups and the first 7 expired, the pointers to the 3 active powerups would be 7, 8, 9. That's what this Length variable is about. I pretty much have to do this, because I can't modify schedules after they're made, so instead, powerup timer schedules are stored as 'pointers' and the pointers can be changed.
+		%this.powerupTimersTrueLength ++; // This is the amount of powerups truly active.
+
+		%curIndex = %this.powerupTimersLength-1; // just to be safe, ++ and then -1, so this is 0 at first
+		%this.powerupTimersId[%curIndex] = %whichpowerup;
+
+		%trueIndex = %this.powerupTimersTrueLength-1;
+		%this.powerupTimersTrueIndexToFalse[%trueIndex] = %curIndex;
+		%this.powerupTimersFalseIndexToTrue[%curIndex] = %trueIndex;
+		// It's a pair of lookup arrays.
+		// Want the 3rd active powerup? It's %this.powerupTimersTrueIndexToFalse[2].
+
+	} else { // making it a new schedule, we don't want the old one to pop
+		%curIndex = %powerupAlreadyQueuedIndex;
+		cancel(%this.powerupTimersSchedules[%curIndex]);
+	}
+
+	%this.powerupTimersTimeActivated[%curIndex] = %time;
+	%this.powerupTimersDuration[%curIndex] = %duration;
+	%this.powerupTimersSchedules[%curIndex] = %this.schedule(%duration, popPowerupTimer, %curIndex);
+}
+
+function PlayGui::popPowerupTimer(%this, %index) { // The powerup ID does not matter in this case.
+	%this.powerupTimersId[%index] = -1;
+	%this.powerupTimersTrueLength --;
+	if (%this.powerupTimersTrueLength == 0) { // If there are no powerups, we can get rid of the whole powerup stack.
+		%this.powerupTimersLength = 0;
+	}
+	// Offset the future true indexes -1.
+	%trueIndex = %this.powerupTimersFalseIndexToTrue[%index];
+	for (%i = %trueIndex; %i < %this.powerupTimersTrueLength; %i ++) {
+		%this.powerupTimersFalseIndexToTrue[%this.powerupTimersTrueIndexToFalse[%i+1]] --;
+		%this.powerupTimersTrueIndexToFalse[%i] = %this.powerupTimersTrueIndexToFalse[%i+1];
+	}
+}
+
+// Look through up to the length and get the ones that are actually active. If there is nothing, set both the length and true length to 0.
 
 //-----------------------------------------------------------------------------
 // Elapsed Timer Display
