@@ -70,8 +70,6 @@ function activateTexturePack(%packName) {
 
 	warn("Loading texture pack: " @ %pack.name);
 	ActiveTexturePacks.addEntry(%pack);
-
-	PlayGui.updateGems(true);
 }
 
 function deactivateTexturePack(%packName) {
@@ -102,6 +100,8 @@ function reloadTexturePacks() {
 	clearTextureHolds();
 	purgeResources();
 	flushTextureCache();
+
+	PlayGui.updateGems(true);
 }
 
 //Faster version of reloadTexturePacks that doesn't do any of the bitmap swapping or
