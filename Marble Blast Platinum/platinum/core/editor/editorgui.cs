@@ -181,7 +181,7 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItem("Camera", "Very Fast", 8, "Shift 6", 1);
 	EditorMenuBar.addMenuItem("Camera", "Fastest", 9, "Shift 7", 1);
 	EditorMenuBar.addMenuItem("Camera", "-", 0);
-	EditorMenuBar.addMenuItem("Camera", "Focus on Selection", 11, "F");
+	EditorMenuBar.addMenuItem("Camera", "Focus on Selection", 11, "Alt F");
 
 	EditorMenuBar.addMenu("World", 6);
 	EditorMenuBar.addMenuItem("World", "Lock Selection", 10, "Ctrl L");
