@@ -48,4 +48,4 @@ for (%i = 0; %i < 9; %i++)
 for (%i = 0; %i < 9; %i++)
 	EditorMap.bindCmd(keyboard, "ctrl " @ %i, "editor.gotoBookmark(" @ %i @ ");", "");
 
-EditorMap.bindCmd(keyboard, "ctrl f", "EWorldEditor.focusOnSelection();", "");
+EditorMap.bindCmd(keyboard, "alt f", "EWorldEditor.focusOnSelection();", "");
