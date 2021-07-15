@@ -571,7 +571,7 @@ function PlayGui::updateBarPositions(%this) {
 function clientCmdPushTimer(%whichpowerup, %timer, %duration) {
 	PlayGui.pushPowerupTimer(%whichpowerup, %timer, %duration);
 }
-function PlayGui::clearPowerupTimers() {
+function PlayGui::clearPowerupTimers(%this) {
 	for (%i = 0; %i < %this.powerupTimersLength; %i ++) { // Cancel all the schedules.
 		cancel(%this.powerupTimersSchedules[%i]);
 	}
