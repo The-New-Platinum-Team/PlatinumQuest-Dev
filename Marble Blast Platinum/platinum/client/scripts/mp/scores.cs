@@ -329,13 +329,11 @@ function scoreListUpdate() {
 			// Total row counter
 			%rowIdx ++;
 
-			%estimated = mFloor(%score * (MissionInfo.time / max(1, MissionInfo.time -    PlayGui.currentTime)));
-
-			%nameWidth = 210 - (15 * strlen(%score)) - ($MPPref::ScorePredictor ? 5 + (15 * strlen(%estimated)) : 0);
+			%nameWidth = 210 - (15 * strlen(%score));
 
 			%color = "<color:" @ getTeamColor(%color) @ ">";
 			%scoreText.setText(%font   @ %teamIdx @ "." TAB clipPx($DefaultFont, 28, %team, 300, true) TAB %score);
-			%pgscoreText.setText(%pgfont @ %color[%teamIdx] @ %teamIdx @ "." TAB %color @ clipPx($DefaultFont, 28, %team, %nameWidth, true) @ %color[%teamIdx] @ "<just:right>" @ %face @ %score @ ($MPPref::ScorePredictor ? " " @ %estimated : ""));
+			%pgscoreText.setText(%pgfont @ %color[%teamIdx] @ %teamIdx @ "." TAB %color @ clipPx($DefaultFont, 28, %team, %nameWidth, true) @ %color[%teamIdx] @ "<just:right>" @ %face @ %score);
 
 			%container.lastUpdate   = $MP::ScoreUpdate;
 			%pgcontainer.lastUpdate = $MP::ScoreUpdate;
@@ -521,7 +519,6 @@ function scoreListUpdate() {
 				%pgpingctrl.setBitmap($usermods @ "/client/ui/lb/play/connection-" @ %bitmap @ ".png");
 				//%pingctrl.setBitmap($usermods @ "/client/ui/lb/play/connection-" @ %bitmap @ ".png");
 
-				%estimated = mFloor(%score * (MissionInfo.time / max(1, MissionInfo.time - PlayGui.currentTime)));
 				%gems1     = mFloor(getWord(%gems, 0));
 				%gems2     = mFloor(getWord(%gems, 1));
 				%gems5     = mFloor(getWord(%gems, 2));
@@ -542,7 +539,7 @@ function scoreListUpdate() {
 				if (%state $= "2") %prefix = "[S] ";
 
 				%scoreText.setText(%font2   @ clipPx($DefaultFont, 28, LBResolveName(%player, true), 300, true) TAB %face @ %score);
-				%pgscoreText.setText(%pgfont2 @ "<spush>" @ %color @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), 170, true) @ "<spop><just:right>" @ %pgface @ %score @ ($MPPref::ScorePredictor ? " " @ %estimated : ""));
+				%pgscoreText.setText(%pgfont2 @ "<spush>" @ %color @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), 170, true) @ "<spop><just:right>" @ %pgface @ %score);
 
 				%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 				%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
@@ -810,18 +807,10 @@ function scoreListUpdate() {
 				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
-			%nameWidth = 200 - (15 * strlen(%score)) - ($MPPref::ScorePredictor ? (15 * strlen(%estimated)) : 0);
-
-			%estimatedColor = "<shadowcolor:0000007f><shadow:1:1>";
-			if (%estimated < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
-				%estimated = "<spush>" @ %estimatedColor @ "<color:FF6666>" @ %estimated @ "<spop>";
-			else if (%estimated >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx])
-				%estimated = "<spush>" @ %estimatedColor @ "<color:" @ %ultimateColor @ ">" @ %estimated @ "<spop>";
-			else if (%estimated >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx])
-				%estimated = "<spush>" @ %estimatedColor @ "<color:" @ %platinumColor @ ">" @ %estimated @ "<spop>";
+			%nameWidth = 200 - (15 * strlen(%score));
 
 			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %score);
-			%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score @ ($MPPref::ScorePredictor ? " " @ %estimated : ""));
+			%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score);
 
 			%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 			%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
