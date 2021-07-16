@@ -42,7 +42,53 @@ function ClientMode_hunt::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("onEndGameSetup");
 	%this.registerCallback("getDefaultScore");
+	%this.registerCallback("onClientLeaveGame");
+	%this.registerCallback("onMissionLoaded");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+}
+
+
+function updatePredictor() {
+	cancel($updatePredictorSchedule);
+	if (!$Game::IsMode["hunt"]) {return;}
+	%score = PlayGui.gemCount;
+	// Code stolen from \platinum\client\scripts\mp\scores.cs
+
+	%platinumColor = "FFFFFF";
+	%ultimateColor = "FFCC22";
+	%estimated = mFloor(%score * (MissionInfo.time) / max(1, MissionInfo.time - PlayGui.currentTime));
+	// vars to look at: MissionInfo.time, PlayGui.currentTime, PlayGui.bonusTime, PlayGui.totalTime, PlayGui.totalBonus
+	// in Hunt, currentTime is basically reversed.
+
+	if ((MissionInfo.time - PlayGui.currentTime) < 10000 || (MissionInfo.awesomeScore && %estimated > MissionInfo.awesomeScore * 2)) { // Don't show if the match hasn't been 10s long, to prevent stupid predictors
+		PGScorePredictor.setText(" ");
+	} else {
+		%estimatedColor = "<shadowcolor:0000007f><shadow:1:1>";
+		%vs = !$Server::Hosting //Not host, so there must be someone else who is
+			|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+			|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+		%scoreIdx = (%vs ? 0 : 1);
+		%score = MissionInfo.score[%scoreIdx] || MissionInfo.score;
+		%pla = MissionInfo.platinumScore[%scoreIdx] || MissionInfo.platinumScore;
+		%ult = MissionInfo.ultimateScore[%scoreIdx] || MissionInfo.ultimateScore;
+		// Do not involve Awesome Score in the visuals, that's a spoilery red color that is also close to the failing-par color.
+
+		if (%estimated < %par && %par)
+			%estimated = "<spush>" @ %estimatedColor @ "<color:FF6666>" @ %estimated @ "<spop>";
+		else if (%estimated >= %ult && %ult)
+			%estimated = "<spush>" @ %estimatedColor @ "<color:" @ %ultimateColor @ ">" @ %estimated @ "<spop>";
+		else if (%estimated >= %pla && %pla)
+			%estimated = "<spush>" @ %estimatedColor @ "<color:" @ %platinumColor @ ">" @ %estimated @ "<spop>";
+		%font = "<bold:24>"; // default <bold:48>
+
+		PGScorePredictor.setText($MPPref::ScorePredictor ? %font @ %estimated : "");
+	}
+	$updatePredictorSchedule = schedule(1000, 0, updatePredictor);
+}
+
+function ClientMode_hunt::onClientLeaveGame(%this) {
+	cancel($updatePredictorSchedule);
+	PGScorePredictor.setVisible(false);
 }
 
 function ClientMode_hunt::shouldUpdateGems(%this) {
@@ -58,6 +104,8 @@ function ClientMode_hunt::shouldUpdateGems(%this) {
 	%thousand = ((%count - %one - (%ten * 10) - (%hundred * 100)) / 1000) % 10;
 
 	%color = ($Server::ServerType $= "Multiplayer" && PlayGui.gemGreen) ? $TimeColor["stopped"] : $TimeColor["normal"];
+
+	updatePredictor();
 
 	HuntGemsFoundOne.setVisible(true);
 	HuntGemsFoundTen.setVisible(true);
@@ -90,6 +138,10 @@ function ClientMode_hunt::shouldUpdateGems(%this) {
 	}
 	return false;
 }
+function ClientMode_hunt::onMissionLoaded(%this) {
+	PGScorePredictor.setVisible(true);
+}
+
 function ClientMode_hunt::timeMultiplier(%this) {
 	return -1;
 }
