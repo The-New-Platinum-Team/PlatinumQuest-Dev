@@ -233,6 +233,9 @@ function clientCmdNoCollision(%item) {
 function clientCmdStartCountdown(%time, %icon) {
 	PlayGui.startCountdown(%time, %icon);
 }
+function clientCmdStartCountdownLeft(%time, %icon) {
+	PlayGui.startCountdownLeft(%time, %icon);
+}
 
 function clientCmdIncrementOOBCounter() {
 	//Don't oob if we're exiting

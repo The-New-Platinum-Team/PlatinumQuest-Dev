@@ -444,6 +444,9 @@ function MPshouldSendScores() {
 	if ($MPPref::Server::DoubleSpawns) {
 		return false;
 	}
+	if ($MPPref::Server::CompetitiveMode) {
+		return false;
+	}
 
 	return true;
 }
