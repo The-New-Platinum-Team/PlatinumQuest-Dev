@@ -163,8 +163,17 @@ function onPostServerVariableSet(%id, %previous, %value) {
 		case "CompetitiveMode":
 			if (%value) {
 				Mode_hunt::respawnTimerLoop();
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					%client = ClientGroup.getObject(%i);
+					%client.addBubbleLine("Competitive Mode is on. Gems autorespawn after 25 seconds, and spawns can happen with up to 2 points left behind.");
+				}
 			} else {
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					%client = ClientGroup.getObject(%i);
+					%client.addBubbleLine("Competitive Mode is now off.");
+				}
 				cancel($HuntCompetitive_HideGemsLoop);
+				cancel($HuntCompetitive_ResetLeftbehindLoop);
 				cancel($HuntCompetitive_RespawnGemsLoop);
 				commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
 			}

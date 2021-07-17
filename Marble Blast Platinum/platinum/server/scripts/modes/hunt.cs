@@ -74,14 +74,19 @@ function Mode_hunt::shouldStoreGem(%this, %object) {
 
 	return false;
 }
+function resetLeftbehind() {
+	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
+}
 function Mode_hunt::respawnTimerLoop(%this) {
 	cancel($HuntCompetitive_HideGemsLoop);
+	cancel($HuntCompetitive_ResetLeftbehindLoop);
 	cancel($HuntCompetitive_RespawnGemsLoop);
 	%this.respawnTimer = 25000;
 	%time = %this.respawnTimer;
 	if (PlayGui.currentTime > %time) {
 		commandToAll('StartCountdownLeft', %time, "timerHuntRespawn");
 		$HuntCompetitive_HideGemsLoop    = schedule(%time-1, 0, hideGems);
+		$HuntCompetitive_ResetLeftbehindLoop    = schedule(%time-1, 0, resetLeftbehind);
 		$HuntCompetitive_RespawnGemsLoop    = schedule(%time, 0, spawnHuntGemGroup);
 	}
 }
@@ -103,8 +108,19 @@ function Mode_hunt::onMissionReset(%this, %object) {
 		}
 	}
 
+	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
 	if ($MPPref::Server::CompetitiveMode) {
+		if (!mp()) {
+			$MPPref::Server::CompetitiveMode = 0;
+			cancel($HuntCompetitive_HideGemsLoop);
+			cancel($HuntCompetitive_RespawnGemsLoop);
+			return;
+		}
 		%this.schedule(3500, respawnTimerLoop);
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			%client = ClientGroup.getObject(%i);
+			%client.addBubbleLine("Competitive Mode is on. Gems autorespawn after 25 seconds, and spawns can happen with up to 2 points left behind.");
+		}
 	}
 }
 function Mode_hunt::onHuntGemSpawn(%this) {
