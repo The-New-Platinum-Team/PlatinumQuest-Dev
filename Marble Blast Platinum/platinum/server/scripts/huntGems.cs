@@ -234,7 +234,9 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 
 		%set = spawnGemGroupSet(%center, %exclude);
 		for (%j = 0; %j < %set.getCount(); %j ++) {
-			%spawnSet.add(%set.getObject(%j));
+			if (%set.getObject(%j).isHidden()) {
+				%spawnSet.add(%set.getObject(%j));
+			}
 		}
 
 		//Only the first gem is the "real" center
@@ -689,9 +691,12 @@ function unspawnGem(%gem, %nocheck) {
 	if ($Hunt::CurrentGemCount > 0)
 		$Hunt::CurrentGemCount --;
 
+	devecho("Unspawn");
+	devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 	if ($MPPref::Server::CompetitiveMode && $Game::Running && !%nocheck) {
-		if (%gem.leftBehind == true) {
-			%gem.leftBehind = false;
+		if (%gem._leftBehind == true) {
+			devecho("Removed a left-behind gem")
+			%gem._leftBehind = false;
 			$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
 		}
 		// If current gem POINTS of the current spawn are 2 or less, respawn.
@@ -702,16 +707,22 @@ function unspawnGem(%gem, %nocheck) {
 			// all gems are left behind
 			for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
 				%gem2 = SpawnedSet.getObject(%i);
-				if (%gem2.leftBehind) {
-					%gem2.leftBehind = false;
+				if (%gem2._leftBehind == true) {
+					devecho("Removed a left-behind gem")
+					%gem2._leftBehind = false;
 					unspawnGem(%gem2, 1);
 				} else {
-					%gem2.leftBehind = true;
+					devecho("Marked a left-behind gem")
+					%gem2._leftBehind = true;
 				}
 			}
 			$Hunt::CurrentCompetitivePointsLeftBehind = %curspawn; // We already subtracted the last "leftBehind", so this is now correct.
+			devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 			spawnHuntGemGroup(%gem);
+			devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 		}
+	} else {
+		%gem._leftBehind = false;
 	}
 
 	if ($Hunt::CurrentGemCount <= 0 && !%nocheck)
