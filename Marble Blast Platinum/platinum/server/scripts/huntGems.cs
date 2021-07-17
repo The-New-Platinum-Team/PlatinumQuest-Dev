@@ -708,6 +708,7 @@ function unspawnGem(%gem, %nocheck) {
 			for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
 				%gem2 = SpawnedSet.getObject(%i);
 				if (%gem2.leftBehind) {
+					%gem2.leftBehind = false;
 					unspawnGem(%gem2, 1);
 				} else {
 					%gem2.leftBehind = true;
