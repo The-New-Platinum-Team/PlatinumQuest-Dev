@@ -97,7 +97,7 @@ function spawnHuntGemGroup(%exclude) {
 function doSpawnHuntGemGroup(%exclude) {
 	if (isObject(GemGroups) && MissionInfo.gemGroups && GemGroups.getCount()) {
 		// We need to do a gemgroups spawn
-		hideGems();
+		//hideGems();
 //		devecho("Doing a gemgroup spawn!");
 
 		if (getHuntSpawnType() > 0) {
@@ -196,7 +196,7 @@ function doSpawnHuntGemGroup(%exclude) {
 
 function spawnHuntGemsInGroup(%groups, %exclude) {
 	//echo("Spawning in groups" SPC %groups);
-	hideGems();
+	//hideGems();
 
 	if (mp() && $MPPref::Server::SpawnRamp && !$Game::isMode["coop"]) {
 		//Early in the game, exclude high-value gems from being spawned
@@ -676,6 +676,14 @@ function spawnGem(%gem) {
 	return true;
 }
 
+function getCurrentSpawnScore() {
+	%score = 0;
+	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+		%score += 1 + SpawnedSet.getObject(%i)._huntDatablock.huntExtraValue;
+	}
+	return %score;
+}
+$Hunt::CurrentCompetitivePointsLeftBehind = 0;
 function unspawnGem(%gem, %nocheck) {
 	if (!isObject(%gem))
 		return;
@@ -685,6 +693,30 @@ function unspawnGem(%gem, %nocheck) {
 		SpawnedSet.remove(%gem);
 	if ($Hunt::CurrentGemCount > 0)
 		$Hunt::CurrentGemCount --;
+
+	if ($MPPref::Server::CompetitiveMode && $Game::Running && !%nocheck) {
+		if (%gem.leftBehind == true) {
+			%gem.leftBehind = false;
+			$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
+		}
+		// If current gem POINTS of the current spawn are 2 or less, respawn.
+		// This leaves some gems behind. The number of gems left behind should be tracked.
+		%curspawn = getCurrentSpawnScore() - $Hunt::CurrentCompetitivePointsLeftBehind;
+		if (%curspawn <= 2) {
+			// all previously left behind gems disappear
+			// all gems are left behind
+			for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+				%gem2 = SpawnedSet.getObject(%i);
+				if (%gem2.leftBehind) {
+					unspawnGem(%gem2, 1);
+				} else {
+					%gem2.leftBehind = true;
+				}
+			}
+			$Hunt::CurrentCompetitivePointsLeftBehind = %curspawn; // We already subtracted the last "leftBehind", so this is now correct.
+			spawnHuntGemGroup(%gem);
+		}
+	}
 
 	if ($Hunt::CurrentGemCount <= 0 && !%nocheck)
 		spawnHuntGemGroup(%gem);

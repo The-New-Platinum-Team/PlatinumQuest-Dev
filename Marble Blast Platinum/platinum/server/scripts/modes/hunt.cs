@@ -37,6 +37,7 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
 	%this.registerCallback("timeMultiplier");
+	%this.registerCallback("onHuntGemSpawn");
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("shouldRestorePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
@@ -74,8 +75,20 @@ function Mode_hunt::shouldStoreGem(%this, %object) {
 
 	return false;
 }
+function Mode_hunt::respawnTimerLoop(%this) {
+	cancel($HuntCompetitive_HideGemsLoop);
+	cancel($HuntCompetitive_RespawnGemsLoop);
+	%this.respawnTimer = 25000;
+	%time = %this.respawnTimer;
+	if (PlayGui.currentTime > %time) {
+		commandToAll('StartCountdownLeft', %time, "timerHuntRespawn");
+		$HuntCompetitive_HideGemsLoop    = schedule(%time-1, 0, hideGems);
+		$HuntCompetitive_RespawnGemsLoop    = schedule(%time, 0, spawnHuntGemGroup);
+	}
+}
 function Mode_hunt::onMissionReset(%this, %object) {
 	resetSpawnWeights();
+	hideGems();
 
 	if ($Server::SpawnGroups) {
 		$Game::FirstSpawn = true;
@@ -89,6 +102,15 @@ function Mode_hunt::onMissionReset(%this, %object) {
 				%client.pointToNearestGem();
 			}
 		}
+	}
+
+	if ($MPPref::Server::CompetitiveMode) {
+		%this.schedule(3500, respawnTimerLoop);
+	}
+}
+function Mode_hunt::onHuntGemSpawn(%this) {
+	if ($MPPref::Server::CompetitiveMode) {
+		%this.respawnTimerLoop();
 	}
 }
 function Mode_hunt::onRespawnPlayer(%this, %object) {

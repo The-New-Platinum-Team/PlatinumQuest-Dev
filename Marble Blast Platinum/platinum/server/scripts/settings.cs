@@ -143,6 +143,7 @@ serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQu
 serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts", true,      "check");
 serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests", false,     "check");
 serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,     "check");
+serverAddSetting("CompetitiveMode",        "Competitive Mode",       "$MPPref::Server::CompetitiveMode", true,     "check");
 serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
 
 //Called before a server variable is set
@@ -172,6 +173,14 @@ function onPostServerVariableSet(%id, %previous, %value) {
 						break;
 					}
 				}
+			}
+		case "CompetitiveMode":
+			if (%value) {
+				Mode_hunt::respawnTimerLoop();
+			} else {
+				cancel($HuntCompetitive_HideGemsLoop);
+				cancel($HuntCompetitive_RespawnGemsLoop);
+				commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
 			}
 		case "StealMode":
 			if (%value) {
