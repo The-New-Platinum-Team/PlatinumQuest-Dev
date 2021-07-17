@@ -89,6 +89,9 @@ function Mode_hunt::respawnTimerLoop(%this) {
 		$HuntCompetitive_HideGemsLoop    = schedule(%time-1, 0, hideGems);
 		$HuntCompetitive_ResetLeftbehindLoop    = schedule(%time-1, 0, resetLeftbehind);
 		$HuntCompetitive_RespawnGemsLoop    = schedule(%time, 0, spawnHuntGemGroup);
+	} else {
+		// The countdown is not going to trigger, don't bother showing it.
+		commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
 	}
 }
 function Mode_hunt::onMissionReset(%this, %object) {
