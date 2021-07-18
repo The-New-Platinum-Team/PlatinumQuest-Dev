@@ -110,20 +110,8 @@ new SimGroup(MissionGroup) {
 				disable = "0";
 				displayonce = "0";
 				extended = "0";
-				persistTime = "2000";
-				text = "Welcome to PlatinumQuest!\nPress <func:bind moveforward> to move the marble forwards.";
-				triggerRadius = "5";
-		};
-		new StaticShape(PressA) {
-			position = "-36 -84.25 2.75";
-			rotation = "1 0 0 0";
-			scale = "1 1 1";
-			dataBlock = "HelpBubble";
-				disable = "0";
-				displayonce = "0";
-				extended = "0";
-				persistTime = "2000";
-				text = "Press <func:bind moveleft> to move left.";
+				persistTime = "5000";
+				text = "Welcome to PlatinumQuest!\nUse the <func:bind moveforward>, <func:bind moveleft>, <func:bind movebackward>, and <func:bind moveright> keys to move.";
 				triggerRadius = "5";
 		};
 		new StaticShape(PressJump) {
@@ -135,31 +123,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "3500";
-				text = "Press <func:bind jump> to make the marble jump.";
-				triggerRadius = "6";
-		};
-		new StaticShape(GravityIsWicked) {
-			position = "-60 -49.25 12";
-			rotation = "1 0 0 0";
-			scale = "1 1 1";
-			dataBlock = "HelpBubble";
-				disable = "0";
-				displayonce = "0";
-				extended = "0";
-				persistTime = "2500";
-				text = "Whoa!!";
-				triggerRadius = "5";
-		};
-		new StaticShape(PressD) {
-			position = "-60 -46 30.25";
-			rotation = "-1 0 0 90";
-			scale = "1 1 1";
-			dataBlock = "HelpBubble";
-				disable = "0";
-				displayonce = "0";
-				extended = "0";
-				persistTime = "2000";
-				text = "Press <func:bind moveright> to move right.";
+				text = "Press <func:bind jump> to jump. You can hold it to automatically jump.";
 				triggerRadius = "6";
 		};
 		new StaticShape(PressS) {
@@ -171,7 +135,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "4000";
-				text = "Press <func:bind movebackward> to move the marble backwards. Use your mouse or the keyboard keys (<func:bind turnLeft>, <func:bind turnRight>, <func:bind panUp> and <func:bind panDown>) to move the camera.";
+				text = "Use your mouse, or the keyboard keys (<func:bind panUp>, <func:bind panDown>, <func:bind turnLeft>, <func:bind turnRight>) to move the camera.";
 				triggerRadius = "6";
 		};
 		new StaticShape(LeCheckpoint) {
@@ -195,7 +159,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "2500";
-				text = "Collect a Super Speed powerup and press <func:bind mouseFire> key to get an immediate boost of speed.";
+				text = "Collect a Super Speed powerup and press <func:bind mouseFire> to use it.";
 				triggerRadius = "4";
 		};
 		new StaticShape(GravityMortifier) {
@@ -207,7 +171,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "3000";
-				text = "The Gravity Modifier changes what the direction of \'down\' is. Earlier on you entered a trigger that does the same thing.\nPretty cool, eh?";
+				text = "The Gravity Modifier changes what the direction of \'down\' is.";
 				triggerRadius = "7";
 		};
 		new StaticShape(SuperJawmp) {
@@ -231,7 +195,29 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "3000";
-				text = "The Super Bounce powerup allows a greater bounce back from any fall. If you get stuck, push <func:bind forceRespawn> to return to this checkpoint.";
+				text = "The Super Bounce powerup allows a greater bounce back from any fall.";
+				triggerRadius = "7";
+		};
+		new Trigger(FallenInPitPath) {
+			position = "27.8158 -8.7505 19.9358";
+			rotation = "1 0 0 0";
+			scale = "12 8 1";
+			dataBlock = "PathTrigger";
+			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+				object1 = "FallenInPit";
+				Path1 = "pathpita";
+				TriggerOnce = "1";
+		};
+		new StaticShape(FallenInPit) {
+			position = "9999 9999 9999";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			dataBlock = "HelpBubble";
+				disable = "0";
+				displayonce = "0";
+				extended = "0";
+				persistTime = "3000";
+				text = "If you get stuck, push <func:bind forceRespawn> to return to the checkpoint.";
 				triggerRadius = "7";
 		};
 		new StaticShape(ItIsADamnedPillow) {
@@ -243,7 +229,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "3000";
-				text = "The Shock Absorber powerup prevent you from bouncing when hitting floors or walls.";
+				text = "The Shock Absorber powerup prevents you from bouncing.";
 				triggerRadius = "6";
 		};
 		new StaticShape(MovingPlatform) {
@@ -255,7 +241,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "2500";
-				text = "Hit this button to unlock the finish pad, then continue across this moving platform.";
+				text = "Hit this button to open the finish.";
 				triggerRadius = "6";
 		};
 		new StaticShape(GyroButton) {
@@ -267,7 +253,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "2500";
-				text = "The Gyrocopter slows your fall. Use it to cross the large gap ahead.";
+				text = "The Gyrocopter slows your fall. Use it to cross the gap.";
 				triggerRadius = "7";
 		};
 		new StaticShape(SweetAnEgg) {
@@ -414,6 +400,47 @@ new SimGroup(MissionGroup) {
 		};
 		new StaticShape(path1c) {
 			position = "-36 -98 2.75";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			dataBlock = "PathNode";
+				nextNode = "path1d";
+				timeToNext = "9999999";
+				usePosition = "1";
+				useRotation = "0";
+				useScale = "0";
+				reverseRotation = "0";
+				RotationMultiplier = "1";
+				placed = "1";
+		};
+		new StaticShape(pathpita) {
+			position = "9999 9999 9999";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			dataBlock = "PathNode";
+				nextNode = "pathpitb";
+				delay = "3000";
+				timeToNext = "1";
+				usePosition = "1";
+				reverseRotation = "0";
+				RotationMultiplier = "1";
+				placed = "1";
+		};
+		new StaticShape(pathpitb) {
+			position = "33.5 -12.75 19.75";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			dataBlock = "PathNode";
+				nextNode = "path1c";
+				timeToNext = "9999999";
+				usePosition = "1";
+				useRotation = "0";
+				useScale = "0";
+				reverseRotation = "0";
+				RotationMultiplier = "1";
+				placed = "1";
+		};
+		new StaticShape(pathpitc) {
+			position = "33.5 -12.75 19.75";
 			rotation = "1 0 0 0";
 			scale = "1 1 1";
 			dataBlock = "PathNode";
