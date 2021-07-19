@@ -958,6 +958,10 @@ function clientCmdUpdateTimeTravelCountdown() {
 }
 
 function PlayGui::updateTimeTravelCountdown(%this) {
+	if ($pref::HideTimeTravelTimer) {
+		PGCountdownTT.setVisible(false);
+		return;
+	}
 	%timeUsed = %this.bonusTime + 99; // When you pick up a 5s timer, it should start by displaying 5.0, instead of 4.9. This also prevents the TT timer from showing 0.0. But if you add 100, picking up a 5s timer can show "5.1". Turns out adding 99 actually works perfectly here.
 	%secondsLeft = mFloor(%timeUsed/1000);
 	%tenths = mFloor(%timeUsed/100) % 10;
