@@ -654,6 +654,7 @@ function spawnGem(%gem) {
 		RootGroup.add(new SimSet(SpawnedSet));
 
 	SpawnedSet.add(%gem);
+	%gem._leftBehind = false; // For competitive
 
 	if ($MP::FinalSpawn)
 		return true;
@@ -685,6 +686,15 @@ function getCurrentSpawnScore() {
 	}
 	return %score;
 }
+function countLeftBehinds() {
+	%score = 0;
+	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+		if (SpawnedSet.getObject(%i)._leftBehind) {
+			%score += 1 + SpawnedSet.getObject(%i)._huntDatablock.huntExtraValue;
+		}
+	}
+	return %score;
+}
 $Hunt::CurrentCompetitivePointsLeftBehind = 0;
 function unspawnGem(%gem, %nocheck) {
 	if (!isObject(%gem))
@@ -699,11 +709,6 @@ function unspawnGem(%gem, %nocheck) {
 	devecho("Unspawn");
 	devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 	if ($MPPref::Server::CompetitiveMode && $Game::Running && !%nocheck) {
-		if (%gem._leftBehind == true) {
-			devecho("Removed a left-behind gem");
-			%gem._leftBehind = false;
-			$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
-		}
 		// If current gem POINTS of the current spawn are 2 or less, respawn.
 		// This leaves some gems behind. The number of gems left behind should be tracked.
 		%curspawn = getCurrentSpawnScore() - $Hunt::CurrentCompetitivePointsLeftBehind;
@@ -713,18 +718,14 @@ function unspawnGem(%gem, %nocheck) {
 			for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
 				%gem2 = SpawnedSet.getObject(%i);
 				if (%gem2._leftBehind == true) {
-					devecho("Removed a left-behind gem");
 					%gem2._leftBehind = false;
 					unspawnGem(%gem2, 1);
 				} else {
-					devecho("Marked a left-behind gem");
 					%gem2._leftBehind = true;
 				}
 			}
 			$Hunt::CurrentCompetitivePointsLeftBehind = %curspawn; // We already subtracted the last "leftBehind", so this is now correct.
-			devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 			spawnHuntGemGroup(%gem);
-			devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 		}
 	} else {
 		%gem._leftBehind = false;
