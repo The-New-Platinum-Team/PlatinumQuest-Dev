@@ -280,6 +280,10 @@ function PlayGui::updateGems(%this, %updateMax) {
 		if ($currentGame $= "PlatinumQuest") {
 			%skins = "platinum";
 			%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
+		} else if
+		   ($currentGame $= "Ultra") {
+			%skins = "red";
+			%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
 		} else {
 			%skins = "base black blue green orange platinum purple red turquoise yellow";
 			%dts = $usermods @ "/data/shapes/items/gem.dts";
