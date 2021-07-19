@@ -695,7 +695,7 @@ function unspawnGem(%gem, %nocheck) {
 	devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 	if ($MPPref::Server::CompetitiveMode && $Game::Running && !%nocheck) {
 		if (%gem._leftBehind == true) {
-			devecho("Removed a left-behind gem")
+			devecho("Removed a left-behind gem");
 			%gem._leftBehind = false;
 			$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
 		}
@@ -708,11 +708,11 @@ function unspawnGem(%gem, %nocheck) {
 			for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
 				%gem2 = SpawnedSet.getObject(%i);
 				if (%gem2._leftBehind == true) {
-					devecho("Removed a left-behind gem")
+					devecho("Removed a left-behind gem");
 					%gem2._leftBehind = false;
 					unspawnGem(%gem2, 1);
 				} else {
-					devecho("Marked a left-behind gem")
+					devecho("Marked a left-behind gem");
 					%gem2._leftBehind = true;
 				}
 			}
