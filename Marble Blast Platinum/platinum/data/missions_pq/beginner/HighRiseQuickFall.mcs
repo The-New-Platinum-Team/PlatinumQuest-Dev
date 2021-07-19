@@ -132,7 +132,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "3000";
-				text = " Use the Anvil to shoot through the gate below before it shuts.";
+				text = " Use the Anvil to drop through the gates!";
 				triggerRadius = "4";
 		};
 		new StaticShape(anvilhelp) {
@@ -144,7 +144,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "2000";
-				text = " The Anvil will shoot you downwards quickly. Think of it as a reverse Super Jump.";
+				text = " The Anvil will shoot you downwards quickly, like a reverse Super Jump.";
 				triggerRadius = "4";
 		};
 		new StaticShape(cannonhelp) {
@@ -156,7 +156,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "1500";
-				text = "Launch out of this automatic cannon, and use the Anvil right after you get it!";
+				text = "Launch out of this automatic cannon, and use the Anvil soon after you get it!";
 				triggerRadius = "6";
 		};
 		new StaticShape(halfPipeHelp) {
@@ -168,29 +168,19 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "2000";
-				text = " Use the Anvil to gain speed on this ramp. Launch to the finish pad! Hint: Jumping isn\'t necessary here. Just start holding <func:bind moveforward> halfway down the ramp.";
+				text = " Use the Anvil to gain speed on this ramp. You don't need to jump, just control your speed.";
 				triggerRadius = "4";
 		};
 	};
-	new Trigger(carefulHelp) {
-		position = "-2.75 9.5 137.25";
-		rotation = "1 0 0 0";
-		scale = "2 2 2";
-		dataBlock = "HelpTrigger";
-		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-			displayonce = "0";
-			persistTime = "2000";
-			text = "Be careful!";
-	};
 	new Trigger(didntmakeitHelp) {
-		position = "-2 4 138.5";
+		position = "-2 8.75 138.5";
 		rotation = "1 0 0 0";
-		scale = "6 6 0.5";
+		scale = "6 12 0.5";
 		dataBlock = "HelpTrigger";
 		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
 			displayonce = "0";
 			persistTime = "0";
-			text = "You didn\'t make it! That\'s okay, just use the back exit and hop down the steps instead.";
+			text = "You didn\'t make it! That\'s okay, just use the back exit.";
 	};
 	new Sun() {
 		direction = "0.638261 0.459006 -0.61801";
@@ -449,16 +439,6 @@ new SimGroup(MissionGroup) {
 		dataBlock = "WaterPhysicsTrigger";
 		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
 			VelocityMultiplier = "0.5";
-	};
-	new Trigger(chuteHelp) {
-		position = "-1.5 12.75 128.875";
-		rotation = "1 0 0 0";
-		scale = "4 5 2";
-		dataBlock = "HelpTrigger";
-		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-			displayonce = "0";
-			persistTime = "3000";
-			text = "Slide down the chute and into the water!";
 	};
 	new StaticShape() {
 		position = "-4.33002 11.0976 137.589";

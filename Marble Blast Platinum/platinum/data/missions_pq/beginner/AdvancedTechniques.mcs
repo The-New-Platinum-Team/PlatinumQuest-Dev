@@ -6,7 +6,7 @@ new ScriptObject() {
 		name = "Advanced Techniques";
 		type = "Beginner";
 		level = "14";
-		desc = "Learn about several techniques that will come in handy, including the Wall Hit and Diagonal Movement.";
+		desc = "Learn about several marble movement techniques, including the Wall Hit and Diagonal Movement.";
 		startHelpText = "Roll down the slope as fast as you can and jump right before you hit the wall.";
 		artist = "Threefolder";
 		music = "Good To Jump To.ogg";
@@ -14,8 +14,8 @@ new ScriptObject() {
 		platinumTime = "23000";
 		ultimateTime = "16000";
 		awesomeTime = "9750";
-		generalHint = "You can also use Diagonal Movement with <func:bind moveforward> and <func:bind moveright> instead of <func:bind moveforward> and <func:bind moveleft>, if you prefer. It really doesn\'t matter.\nAlso, try not to rely on the guides for Diagonal Movement, as no other levels will help you in that way.\n\nThe Platinum Time requires you to use Diagonal Momvement, and possibly catch a Time Travel on the way.";
-		ultimateHint = "Use Diagonal Movement at the first Wall Hit to grab the high-up Time Travel.\nIn general, you\'ll want to use Diagonal Movement as much as possible for this and pretty much every other level.";
+		generalHint = "Use Diagonal Movement the whole way through. There are two Time Travels, and you don\'t even need both.";
+		ultimateHint = "Maximizing your height with Wall Hits is not the best method. You don\'t want to waste too much time in the air. If you jump at different timings before a Wall Hit, you can choose how much horizontal speed is converted.";
 		awesomeHint = "Turns out you\'re not even taught the method required to get the best time. Perhaps you need to Vice your way to it?";
 		eggHint = "The egg\'s location is... shocking.";
 		CustomRadarRule = $Radar::Flags::TimeTravels | $Radar::Flags::EndPad | $Radar::Flags::Checkpoints;
@@ -486,7 +486,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "3000";
-				text = "After rebounding from this wall ahead of you, control the marble in the air to reach the ledge to your left.";
+				text = "To get the most effective Wall Hits, jump as late as possible and at the lowest point of the wall.";
 				triggerRadius = "5";
 		};
 		new StaticShape(diagStartHelp) {
@@ -497,20 +497,8 @@ new SimGroup(MissionGroup) {
 				disable = "0";
 				displayonce = "0";
 				extended = "0";
-				persistTime = "3000";
-				text = "Face the target while standing on the Checkpoint. Now hold <func:bind moveforward> and <func:bind moveleft> to start using Diagonal Movement!";
-				triggerRadius = "5";
-		};
-		new StaticShape(diagExplainHelp) {
-			position = "11.5 26 10";
-			rotation = "1 0 0 0";
-			scale = "1 1 1";
-			dataBlock = "HelpBubble";
-				disable = "0";
-				displayonce = "0";
-				extended = "0";
-				persistTime = "6000";
-				text = "Diagonal Movement will cause your marble to roll much faster than normal, which makes it great if you\'re aiming for reaching the Ultimate Time. Use it to cross this gap!";
+				persistTime = "8000";
+				text = "Wait! Diagonal Movement is much faster than normal!\nTo pass this, hold <func:bind moveforward> + <func:bind moveleft> or <func:bind moveforward> + <func:bind moveright> instead of only holding <func:bind moveforward>.";
 				triggerRadius = "5";
 		};
 		new StaticShape(diag2Help) {
@@ -522,7 +510,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "2000";
-				text = " If you hold <func:bind jump> and use Diagonal Movement you\'ll go even faster, but that won\'t be necessary for this tutorial.";
+				text = "If you hold <func:bind jump> you'll also go faster, which can be combined with Diagonal Movement for maximum speed.";
 				triggerRadius = "4";
 		};
 		new StaticShape(diag2Help) {
@@ -534,7 +522,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "4000";
-				text = "Jump at and slam into the wall ahead of you with the Shock Absorber activated and you\'ll be able to climb it!\nDiagonal Movement may help you.";
+				text = "What happens if you try to do a Wall Hit with a Shock Absorber activated?";
 				triggerRadius = "4";
 		};
 		new StaticShape(finaleHelp) {
@@ -546,7 +534,7 @@ new SimGroup(MissionGroup) {
 				displayonce = "0";
 				extended = "0";
 				persistTime = "4000";
-				text = "Finally, try doing a Wall Hit while using Diagonal Movement to get to the finish. Don\'t fall!";
+				text = "The faster you are when you hit the wall, the higher you'll bounce back.";
 				triggerRadius = "4";
 		};
 	};
@@ -734,7 +722,7 @@ new SimGroup(MissionGroup) {
 			displayonce = "1";
 			persistTime = "5000";
 			resettime = "2377.425049";
-			text = "You just performed a Wall Hit! Wall Hits can allow you to reach ledges that are simply too high to jump to.";
+			text = "That was a Wall Hit! You can do that for any wall at any time to get to high places.";
 	};
 	new Trigger(check1trigger) {
 		position = "26 30.5 7.5";

@@ -7,7 +7,7 @@ new ScriptObject() {
 		type = "Tutorial";
 		level = "10";
 		desc = "Stay above the qualifying speed as you maneuver through traffic.";
-		startHelpText = "Here, you\'ll learn how to play high-speed levels.\nIf you know diagonal movement, that will come in handy.";
+		startHelpText = "Jumping is a great way to gain speed, but needs to be controlled. Holding <func:bind jump> to automatically jump will be very useful here.";
 		artist = "Pablo Vasquez";
 		music = "Reanimation.ogg";
 		game = "PlatinumQuest";
@@ -15,7 +15,8 @@ new ScriptObject() {
 		platinumTime = "46000";
 		ultimateTime = "35000";
 		awesomeTime = "26000";
-		generalHint = "In Haste mode, the goal is to finish the level above a certain speed. In this level, that \"certain speed\" is 20. If you fall below this speed when you reach the finish, you\'ll be rejected!\n\nOn the straightway before the loop, try holding <func:bind jump> to keep jumping. This will actually allow you to gain a crazy amount of speed and make it to the finish with no problem.";
+		generalHint = "In Haste mode, the goal is to finish the level above a certain speed. In this level, that \"certain speed\" is 20. If you fall below this speed when you reach the finish, you\'ll be rejected!\n\nOn the straightway before the loop, try holding <func:bind jump> to keep jumping. This will actually allow you to gain a crazy amount of speed and make it to the finish with no problem.\n
+		We're not supposed to tell you this, but diagonal movement is much faster than straight movement...";
 		ultimateHint = "You\'ll need to skip the big tube. It\'s a rather tricky jump...";
 		awesomeHint = "Exit the ramp from the side and diagonal your way to victory!";
 		CustomRadarRule = $Radar::Flags::EndPad;
@@ -948,7 +949,7 @@ new SimGroup(MissionGroup) {
 			displayonce = "0";
 			extended = "0";
 			persistTime = "2000";
-			text = "It\'s important to jump all around big slopes like the one ahead of you.";
+			text = "It\'s important to hold <func:bind jump> to keep gaining speed during big curves.";
 			Time = "3000";
 	};
 	new Trigger(Bounds) {
@@ -973,7 +974,7 @@ new SimGroup(MissionGroup) {
 			displayonce = "0";
 			extended = "0";
 			persistTime = "2000";
-			text = "There\'s a finish trigger stretching across the whole platform, so you don\'t have to hit the actual pad.";
+			text = "The finish zone extends to the entire platform.";
 			Time = "3000";
 	};
 	new Trigger(helptrig1) {
@@ -985,7 +986,7 @@ new SimGroup(MissionGroup) {
 			displayonce = "0";
 			extended = "0";
 			persistTime = "2000";
-			text = "Fly to the next platform!\nActivate the Super Speed when you reach the end of this ramp.";
+			text = "Fly to the next platform!\nActivate the Super Speed at the end of this ramp.";
 			Time = "3000";
 	};
 	new Trigger(finish) {
