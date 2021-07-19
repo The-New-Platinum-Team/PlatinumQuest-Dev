@@ -117,6 +117,7 @@ function Mode_hunt::onMissionReset(%this, %object) {
 		if (!mp()) {
 			$MPPref::Server::CompetitiveMode = 0;
 			cancel($HuntCompetitive_HideGemsLoop);
+			cancel($HuntCompetitive_ResetLeftbehindLoop);
 			cancel($HuntCompetitive_RespawnGemsLoop);
 			return;
 		}
