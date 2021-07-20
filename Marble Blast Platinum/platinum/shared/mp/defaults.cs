@@ -188,6 +188,8 @@ $MPPref::Server::DoubleSpawnGroups = false;
 
 //20s timer and remaining gems
 $MPPref::Server::CompetitiveMode = false;
+$MPPref::Server::TrainingMode = false;
+$MPPref::Server::PartySpawns = false;
 
 //-----------------------------------------------------------------------------
 // Prefs

@@ -645,6 +645,35 @@ function spawnGem(%gem) {
 		%gem.setDataBlock(GemItemRed);
 		%gem.setSkinName("red");
 	}
+	if ($MPPref::Server::PartySpawns) {
+		if (%gem._nonPartyDatablock $= "") {
+			%gem._nonPartyDatablock = %gem.getDataBlock().getName();
+			%gem._nonPartySkin = %gem.getDataBlock().skin;
+			%gem._nonPartySuffix = strchr(%gem.getDataBlock().getName(), "_");
+		}
+		%chosen = getRandom(0, 12);
+		if (%chosen <= 4) {
+			%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
+			%gem.setSkinName("red");
+		} else if (%chosen <= 9) {
+			%gem.setDataBlock("GemItemYellow" @ %gem._nonPartySuffix);
+			%gem.setSkinName("yellow");
+		} else if (%chosen <= 11) {
+			%gem.setDataBlock("GemItemBlue" @ %gem._nonPartySuffix);
+			%gem.setSkinName("blue");
+		} else {
+			%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
+			%gem.setSkinName("platinum");
+		}
+		%gem.onInspectApply();
+	} else {
+		if (%gem._nonPartyDatablock !$= "") {
+			%gem.setDataBlock(%gem._nonPartyDatablock);
+			%gem.setSkinName(%gem._nonPartySkin);
+			%gem._nonPartyDatablock = "";
+			%gem.onInspectApply();
+		}
+	}
 	if (!isObject(SpawnedSet))
 		RootGroup.add(new SimSet(SpawnedSet));
 
