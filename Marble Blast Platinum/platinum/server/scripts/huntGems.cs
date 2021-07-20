@@ -706,12 +706,14 @@ function unspawnGem(%gem, %nocheck) {
 			for (%i = SpawnedSet.getCount() - 1; %i >= 0; %i --) {
 				%gem2 = SpawnedSet.getObject(%i);
 				if (%gem2._leftBehind == true) {
+					%gem2._leftBehind = false;
+					unspawnGem(%gem2, 1); // (, 1) so this doesn't recurse
 				} else {
 					%gem2._leftBehind = true;
 					%gem2._light.setSkinName("black");
-					$Hunt::CurrentCompetitivePointsLeftBehind += %gem2._huntDatablock.huntExtraValue + 1;
 				}
 			}
+			$Hunt::CurrentCompetitivePointsLeftBehind = %curspawn; // %curspawn is the old leftbehind plus the current spawn. We are removing those now, so the current spawn is our new leftbehind.
 			spawnHuntGemGroup(%gem);
 		}
 	} else {
