@@ -681,15 +681,6 @@ function getCurrentSpawnScore() {
 	}
 	return %score;
 }
-function countLeftBehinds() {
-	%score = 0;
-	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
-		if (SpawnedSet.getObject(%i)._leftBehind) {
-			%score += 1 + SpawnedSet.getObject(%i)._huntDatablock.huntExtraValue;
-		}
-	}
-	return %score;
-}
 $Hunt::CurrentCompetitivePointsLeftBehind = 0;
 function unspawnGem(%gem, %nocheck) {
 	if (!isObject(%gem))
@@ -700,6 +691,9 @@ function unspawnGem(%gem, %nocheck) {
 		SpawnedSet.remove(%gem);
 	if ($Hunt::CurrentGemCount > 0)
 		$Hunt::CurrentGemCount --;
+	if (%gem._leftBehind) {
+		$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
+	}
 
 	devecho("Unspawn");
 	devecho($Hunt::CurrentCompetitivePointsLeftBehind);
@@ -708,27 +702,23 @@ function unspawnGem(%gem, %nocheck) {
 		// This leaves some gems behind. The number of gems left behind should be tracked.
 		%curspawn = getCurrentSpawnScore() - $Hunt::CurrentCompetitivePointsLeftBehind;
 		if (%curspawn <= 2) {
-			// all previously left behind gems disappear
-			// all gems are left behind
-			for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+			// all previously left behind gems disappear, all gems now are considered 'left behind'
+			for (%i = SpawnedSet.getCount() - 1; %i >= 0; %i --) {
 				%gem2 = SpawnedSet.getObject(%i);
 				if (%gem2._leftBehind == true) {
-					%gem2._leftBehind = false;
-					unspawnGem(%gem2, 1);
 				} else {
 					%gem2._leftBehind = true;
+					%gem2._light.setSkinName("black");
+					$Hunt::CurrentCompetitivePointsLeftBehind += %gem2._huntDatablock.huntExtraValue + 1;
 				}
 			}
-			$Hunt::CurrentCompetitivePointsLeftBehind = %curspawn; // We already subtracted the last "leftBehind", so this is now correct.
 			spawnHuntGemGroup(%gem);
 		}
 	} else {
 		%gem._leftBehind = false;
+		if ($Hunt::CurrentGemCount <= 0 && !%nocheck)
+			spawnHuntGemGroup(%gem);
 	}
-
-	if ($Hunt::CurrentGemCount <= 0 && !%nocheck)
-		spawnHuntGemGroup(%gem);
-
 	//Nukesweeper deletes gems, causes warnings
 	if (!isObject(%gem))
 		return;

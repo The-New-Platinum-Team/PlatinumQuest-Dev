@@ -74,20 +74,18 @@ function Mode_hunt::shouldStoreGem(%this, %object) {
 
 	return false;
 }
-function resetLeftbehind() {
+function huntCompetitiveLoop() {
+	hideGems();
 	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
+	spawnHuntGemGroup();
 }
 function Mode_hunt::respawnTimerLoop(%this) {
-	cancel($HuntCompetitive_HideGemsLoop);
-	cancel($HuntCompetitive_ResetLeftbehindLoop);
-	cancel($HuntCompetitive_RespawnGemsLoop);
+	cancel($HuntCompetitiveLoop);
 	%this.respawnTimer = 25000;
 	%time = %this.respawnTimer;
 	if (PlayGui.currentTime > %time) {
 		commandToAll('StartCountdownLeft', %time, "timerHuntRespawn");
-		$HuntCompetitive_HideGemsLoop    = schedule(%time-1, 0, hideGems);
-		$HuntCompetitive_ResetLeftbehindLoop    = schedule(%time-1, 0, resetLeftbehind);
-		$HuntCompetitive_RespawnGemsLoop    = schedule(%time, 0, spawnHuntGemGroup);
+		$HuntCompetitiveLoop    = schedule(%time, 0, huntCompetitiveLoop);
 	} else {
 		// The countdown is not going to trigger, don't bother showing it.
 		commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
@@ -111,13 +109,11 @@ function Mode_hunt::onMissionReset(%this, %object) {
 		}
 	}
 
-	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
 	if ($MPPref::Server::CompetitiveMode) {
 		if (!mp()) {
 			$MPPref::Server::CompetitiveMode = 0;
-			cancel($HuntCompetitive_HideGemsLoop);
-			cancel($HuntCompetitive_ResetLeftbehindLoop);
-			cancel($HuntCompetitive_RespawnGemsLoop);
+			cancel($HuntCompetitiveLoop);
+			commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
 			return;
 		}
 		%this.schedule(3500, respawnTimerLoop);
