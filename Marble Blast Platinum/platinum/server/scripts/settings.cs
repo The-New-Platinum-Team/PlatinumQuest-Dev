@@ -186,9 +186,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 					%client = ClientGroup.getObject(%i);
 					%client.addBubbleLine("Competitive Mode is now off.");
 				}
-				cancel($HuntCompetitive_HideGemsLoop);
-				cancel($HuntCompetitive_ResetLeftbehindLoop);
-				cancel($HuntCompetitive_RespawnGemsLoop);
+				cancel($HuntCompetitiveLoop);
 				commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
 			}
 		case "StealMode":
