@@ -446,6 +446,12 @@ function MPshouldSendScores() {
 	if ($MPPref::Server::CompetitiveMode) {
 		return false;
 	}
+	if ($MPPref::Server::TrainingMode) {
+		return false;
+	}
+	if ($MPPref::Server::PartySpawns) {
+		return false;
+	}
 
 	return true;
 }

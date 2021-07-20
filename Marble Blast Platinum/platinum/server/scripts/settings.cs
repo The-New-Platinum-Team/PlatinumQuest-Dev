@@ -144,6 +144,8 @@ serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server:
 serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests", false,     "check");
 serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,     "check");
 serverAddSetting("CompetitiveMode",        "Competitive Mode",       "$MPPref::Server::CompetitiveMode", true,     "check");
+serverAddSetting("TrainingMode",        "1v1 Training",       "$MPPref::Server::TrainingMode", true,     "check");
+serverAddSetting("PartySpawns",        "Party Spawns",       "$MPPref::Server::PartySpawns", true,     "check");
 serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
 
 //Called before a server variable is set
@@ -194,6 +196,12 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				activateMode("steal");
 			} else {
 				deactivateMode("steal");
+			}
+		case "TrainingMode":
+			if (%value) {
+				activateMode("training");
+			} else {
+				deactivateMode("training");
 			}
 	}
 }
