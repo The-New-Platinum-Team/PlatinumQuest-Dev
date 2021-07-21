@@ -235,6 +235,9 @@ function Radar::setDot(%dot, %pos, %extent, %bitmap, %reset) {
 	%dot.setPosition(%pos);
 	%dot.setExtent(%extent);
 	%dot.setBitmap(%bitmap);
+	if (%bitmap !$= "platinum/client/ui/mp/radar/Pointer.png") {
+		%dot.bitmapRotation = %dot._bitmapRotationPreset;
+	}
 }
 
 function SceneObject::SetRadarTarget(%this, %bitmap) {
@@ -518,6 +521,43 @@ function Radar::AddDot(%object, %bitmap) {
 	};
 	%dot.setVisible($Game::RadarMode > 0);
 	PlayGuiContent.add(%dot);
+	%class = %object.getClassName();
+	%name = %object.getDatablock().getName();
+ 	if (%class $= "Item" && stripos(%name, "AntiGravity") != -1) {
+		// Don't know how to gravity math, so hardcoded
+		%direction = getGravityDir(); //getWords($MP::MyMarble.getGravityDir(), 6, 9);
+		if (%direction $= "0 0 -1") { // normal
+			%dot._bitmapRotationPreset = 180-mRadToDeg(getWord(%object.getRotation(), 3));
+		} else if (%direction $= "0 0 1") { // upside down
+			%dot._bitmapRotationPreset = mRadToDeg(getWord(%object.getRotation(), 3));
+		} else if (%direction $= "1 0 0") {
+			if (%object.getRotation() $= "0 1 0 90") {
+				%dot._bitmapRotationPreset = 180;
+			} else {
+				%dot._bitmapRotationPreset = 90;
+			}
+		} else if (%direction $= "-1 0 0") {
+			if (%object.getRotation() $= "0 -1 0 90") {
+				%dot._bitmapRotationPreset = 180;
+			} else {
+				%dot._bitmapRotationPreset = 90;
+			}
+		} else if (%direction $= "0 -1 0") {
+			if (%object.getRotation() $= "1 0 0 90") {
+				%dot._bitmapRotationPreset = 180;
+			} else {
+				%dot._bitmapRotationPreset = 90;
+			}
+		} else if (%direction $= "0 1 0") {
+			if (%object.getRotation() $= "-1 0 0 90") {
+				%dot._bitmapRotationPreset = 180;
+			} else {
+				%dot._bitmapRotationPreset = 90;
+			}
+		} else {
+			%dot._bitmapRotationPreset = mRadToDeg(getWord(%object.getRotation(), 3));
+		}
+	}
 	return %dot;
 }
 
