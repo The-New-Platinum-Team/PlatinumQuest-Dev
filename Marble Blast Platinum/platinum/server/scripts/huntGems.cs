@@ -650,7 +650,7 @@ function spawnGem(%gem) {
 		%gem.setDataBlock(GemItemRed);
 		%gem.setSkinName("red");
 	}
-	if ($MPPref::Server::PartySpawns && !$Game::isMode["coop"]) {
+	if ($MPPref::Server::PartySpawns && mp() && !$Game::isMode["coop"]) {
 		if (%gem._nonPartyDatablock $= "") {
 			%gem._nonPartyDatablock = %gem.getDataBlock().getName();
 			%gem._nonPartySkin = %gem.getDataBlock().skin;
