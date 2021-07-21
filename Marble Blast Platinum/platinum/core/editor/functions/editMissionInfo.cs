@@ -135,7 +135,9 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addTextEditField("EMI_Hunt_MaxGemsPerSpawn", "Maximum gems per spawn:", MissionInfo.maxGemsPerSpawn, 100, -1);
 		LargeFunctionDlg.addDropMenu("EMI_Hunt_GemGroups", "Use Gem Groups:", MissionInfo.gemGroups, 0, "0\tNo\n1\tSpawn Whole Group\n2\tRandom Spawn in Group");
 		LargeFunctionDlg.addTextEditField("EMI_Hunt_SpawnBlock", "Minimum Next Spawn Distance (= 2 * spawn radius):", MissionInfo.spawnBlock, 100, -1);
+		LargeFunctionDlg.addNote("\c5-- Experimental Modifiers --", 0);
 		LargeFunctionDlg.addTextEditField("EMI_Hunt_TimeBonus", "Time Bonus after spawn (Blank for normal hunt):", MissionInfo.additionaltime, 100, -1);
+	    LargeFunctionDlg.addCheckBox("EMI_Hunt_RagingBull", "SS and SJ upon new spawn (Uncheck for normal hunt)", MissionInfo.ragingbull, 0);
 		LargeFunctionDlg.addNote("\c5-- Gem spawn chances --", 0);
 		LargeFunctionDlg.addSlider("EMI_Hunt_RGSC", "Red gem chance:", "0 1", MissionInfo.redSpawnChance, 1, 0);
 		LargeFunctionDlg.addSlider("EMI_Hunt_YGSC", "Yellow gem chance:", "0 1", MissionInfo.yellowSpawnChance, 1, 0);
@@ -338,6 +340,7 @@ function editMissionInfo(%gui) {
 	miAssign(radiusFromGem, EMI_Hunt_GemSpawnRadius, $Game::isMode["hunt"]);
 	miAssign(maxGemsPerSpawn, EMI_Hunt_MaxGemsPerSpawn, $Game::isMode["hunt"]);
 	miAssign(additionaltime, EMI_Hunt_TimeBonus, $Game::isMode["hunt"]);
+	miAssign(ragingbull, EMI_Hunt_RagingBull, $Game::isMode["hunt"]);
 	miAssign(gemGroups, EMI_Hunt_GemGroups, $Game::isMode["hunt"]);
 	miAssign(spawnBlock, EMI_Hunt_SpawnBlock, $Game::isMode["hunt"]);
 	miAssign(redSpawnChance, EMI_Hunt_RGSC, $Game::isMode["hunt"]);
