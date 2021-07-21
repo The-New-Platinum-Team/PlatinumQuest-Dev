@@ -394,6 +394,7 @@ function radarShouldShow(%object) {
 	} else {
 		%name = %object.getDatablock().getName();
 		%name = strReplace(%name, "_PQ", "");
+		%name = strReplace(%name, "_MBU", "");
 		%name = strReplace(%name, "_MBM", "");
 		%skin = %object.getSkinName();
 	}
@@ -440,7 +441,7 @@ function radarShouldShow(%object) {
 			or "RespawningTimeTravelItem"
 			or "RespawningTimePenaltyItem"
 			or "SundialItem":
-			if (($Radar::SearchRule & $Radar::Flags::TimeTravels) && 0 || !$pref::powerupsAlwaysOnRadar)
+			if (($Radar::SearchRule & $Radar::Flags::TimeTravels) == 0 && !$pref::powerupsAlwaysOnRadar)
 				return false;
 		}
 
@@ -480,6 +481,7 @@ function Radar::AddDot(%object, %bitmap) {
 		} else {
 			%name = %object.getDatablock().getName();
 			%name = strReplace(%name, "_PQ", "");
+			%name = strReplace(%name, "_MBU", "");
 			%name = strReplace(%name, "_MBM", "");
 			%skin = %object.getSkinName();
 			%bitmap = $userMods @ "/client/ui/mp/radar/" @ %name @ ".png";
