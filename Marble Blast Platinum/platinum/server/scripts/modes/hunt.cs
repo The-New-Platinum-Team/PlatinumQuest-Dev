@@ -40,6 +40,7 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("shouldRestorePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
+	%this.registerCallback("onHuntGemSpawn");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_hunt::onActivate(%this) {
@@ -152,3 +153,38 @@ function Mode_hunt::shouldPlayRespawnSound(%this) {
 	// Hunt mode should not play respawn sound when player respawns from OOB
 	return false;
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// All of the stuff below this is for the "Time!" Hunt Modifier - A "mode" where if you get all of the gems in one spawn, you get additional time given or taken from you. ~ Connie
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ClientAudioGroup.add(new AudioProfile(TimeTickSfx) {
+	filename    = "~/data/sound/TimeTravelActive.wav";
+	description = "ClientAudio2D";
+	preload = true;
+});
+
+function Mode_hunt::onHuntGemSpawn(%this, %object) {
+    if (missioninfo.additionaltime != "") {
+		if ($Game::FirstSpawn) {
+            return;
+		} else {
+            %additionalhunttime = missioninfo.additionaltime / 1000;
+
+    	    Time::set($Time::CurrentTime + missioninfo.additionaltime);
+            alxPlay("TimeTickSfx");
+
+			if (missioninfo.additionaltime < 0) {
+	            PlayGui.displayGemMessage(%additionalhunttime @ "s", "ff8888"); 
+			} else {
+		        PlayGui.displayGemMessage("+" @ %additionalhunttime @ "s", "88ff88");
+			}
+		}
+	} else {
+        return;
+	}
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Everything above this is for the "Time!" Hunt Modifier
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
