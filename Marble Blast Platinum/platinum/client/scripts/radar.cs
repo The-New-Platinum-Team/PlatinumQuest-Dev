@@ -233,7 +233,7 @@ function Radar::setDot(%dot, %pos, %extent, %bitmap, %reset) {
 		%dot.setVisible(true);
 	}
 	%dot.setPosition(%pos);
-	%dot.setExtent(%extent);
+	%dot.setExtent(VectorScale(%extent, $pref::radarScale));
 	%dot.setBitmap(%bitmap);
 }
 

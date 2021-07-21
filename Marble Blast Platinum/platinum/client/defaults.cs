@@ -40,6 +40,7 @@ $pref::Thousandths = 1;
 $pref::alwaysShowSpeedometer = 0;
 $pref::powerupsAlwaysOnRadar = 0;
 $pref::powerupTimers = 1;
+$pref::radarScale = 1;
 $pref::showFPSCounter = 0;
 $pref::environmentMaps = 0;
 $pref::HelpTriggers = 1;
