@@ -155,7 +155,7 @@ function Mode_hunt::shouldPlayRespawnSound(%this) {
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// All of the stuff below this is for the "Time!" Hunt Modifier - A "mode" where if you get all of the gems in one spawn, you get additional time given or taken from you. ~ Connie
+// All of the stuff below this is for the Hunt Modifier Mini-Modes. In order: Bonus time upon new spawn, Ragingbull - SS and SJ upon new spawn.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ClientAudioGroup.add(new AudioProfile(TimeTickSfx) {
@@ -165,7 +165,7 @@ ClientAudioGroup.add(new AudioProfile(TimeTickSfx) {
 });
 
 function Mode_hunt::onHuntGemSpawn(%this, %object) {
-    if (missioninfo.additionaltime != "") {
+    if (missioninfo.additionaltime != "") {      //Bonus Time upon New Spawn - Modifier 1
 		if ($Game::FirstSpawn) {
             return;
 		} else {
@@ -180,11 +180,20 @@ function Mode_hunt::onHuntGemSpawn(%this, %object) {
 		        PlayGui.displayGemMessage("+" @ %additionalhunttime @ "s", "88ff88");
 			}
 		}
-	} else {
-        return;
+	}
+	
+	if (missioninfo.ragingbull) {                //Ragingbull - SS and SJ upon new spawn - Modifier 2
+		if ($Game::FirstSpawn) {
+			return;
+		} else {
+			MPGetMyMarble().doPowerUp(1);
+			alxPlay(doSuperJumpSfx);
+			MPGetMyMarble().doPowerup(2);
+			alxPlay(doSuperSpeedSfx);
+		}
 	}
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Everything above this is for the "Time!" Hunt Modifier
+// Everything above this is for the Hunt Modifier Mini-Modes.
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
