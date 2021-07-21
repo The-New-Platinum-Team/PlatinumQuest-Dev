@@ -650,14 +650,18 @@ function spawnGem(%gem) {
 		%gem.setDataBlock(GemItemRed);
 		%gem.setSkinName("red");
 	}
-	if ($MPPref::Server::PartySpawns) {
+	if ($MPPref::Server::PartySpawns && !$Game::isMode["coop"]) {
 		if (%gem._nonPartyDatablock $= "") {
 			%gem._nonPartyDatablock = %gem.getDataBlock().getName();
 			%gem._nonPartySkin = %gem.getDataBlock().skin;
 			%gem._nonPartySuffix = strchr(%gem.getDataBlock().getName(), "_");
+			%gem._nonPartyPosition = %gem.position;
+			%gem._nonPartyScale = %gem.scale;
 		}
 		%chosen = getRandom(0, 12);
-		if (%chosen <= 4) {
+		%gem.setTransform(%gem._nonPartyPosition);
+		%gem.setScale(VectorScale(%gem._nonPartyScale, 2));
+		if (%chosen <= 4 && %gem._nonPartySkin $= "red") { // Don't downgrade a higher value gem to red. For maps like Bowl and such.
 			%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
 			%gem.setSkinName("red");
 		} else if (%chosen <= 9) {
@@ -666,15 +670,21 @@ function spawnGem(%gem) {
 		} else if (%chosen <= 11) {
 			%gem.setDataBlock("GemItemBlue" @ %gem._nonPartySuffix);
 			%gem.setSkinName("blue");
-		} else {
+		} else if (%chosen == 12) { // No "else", fall through because the first 'if' can fail
 			%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
 			%gem.setSkinName("platinum");
+			if (getRandom(0, 1) == 0) { // Up high!
+				%gem.setTransform(getWords(%gem._nonPartyPosition, 0, 1) SPC (getWord(%gem._nonPartyPosition, 2) + 15)); // %"gem.position =" only works visually, don't do it
+				%gem.setScale(VectorScale(%gem._nonPartyScale, 10));
+			}
 		}
 		%gem.onInspectApply();
 	} else {
 		if (%gem._nonPartyDatablock !$= "") {
 			%gem.setDataBlock(%gem._nonPartyDatablock);
 			%gem.setSkinName(%gem._nonPartySkin);
+			%gem.setTransform(%gem._nonPartyPosition);
+			%gem.setScale(%gem._nonPartyScale);
 			%gem._nonPartyDatablock = "";
 			%gem.onInspectApply();
 		}
