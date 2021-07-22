@@ -195,7 +195,7 @@ function updateTrailEmitters() {
 		%snoreTimeout = 10;
 
 		//Snore emitter requires you to be still
-		if (%speed < %snoreThreshold && %follow.lastMovement !$= "") {
+		if (%speed < %snoreThreshold && %follow.lastMovement !$= "" && $Game::State $= "Go") {
 			%show["Snore"] = $pref::Snore && (($Sim::Time - %follow.lastMovement) > %snoreTimeout);
 		} else {
 			%follow.lastMovement = $Sim::Time;
