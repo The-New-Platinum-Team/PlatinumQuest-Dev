@@ -59,6 +59,22 @@ function MP_PQ_CubeIsleHunt_LoadMission() {
 	return
 new SimGroup(MissionGroup) {
 
+	new SimGroup(PathNodeGroup) {
+
+		new StaticShape(CameraPath1) {
+			position = "53.375 -58.5606 335.35";
+			rotation = "0.643586 0.0971563 -0.759182 22.4927";
+			scale = "1 1 1";
+			dataBlock = "PathNode";
+				nextNode = "CameraPath1";
+				timeToNext = "13000";
+				usePosition = "1";
+				useRotation = "1";
+				useScale = "0";
+				reverseRotation = "0";
+				placed = "1";
+		};
+	};
 	new Trigger(Bounds) {
 		position = "-32.6992 -89.6766 318.5";
 		rotation = "1 0 0 0";
