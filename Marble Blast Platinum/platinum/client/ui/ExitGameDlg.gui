@@ -470,6 +470,8 @@ function ExitGameDlg::onWake(%this) {
 	ExitGameInfoTitle.setText(%title);
 	%text = "<shadow:1:1><shadowcolor:000000bf><font:32>";
 
+	ExitGameMarbleSelect.setPosition((getWord(PlayGui.getExtent(), 0)/2) - 23 SPC 450 - $pref::Player::defaultFov);
+
 	%completion = Unlock::getMissionCompletion(%info);
 	%showAwesome = ((%completion & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll;
 	%showEgg = ((%completion & $Completion::EasterEgg) == $Completion::EasterEgg) || $Unlock::DisplayAll;
