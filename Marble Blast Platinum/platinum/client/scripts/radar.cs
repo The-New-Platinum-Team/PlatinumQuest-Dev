@@ -233,7 +233,17 @@ function Radar::setDot(%dot, %pos, %extent, %bitmap, %reset) {
 		%dot.setVisible(true);
 	}
 	%dot.setPosition(%pos);
-	%dot.setExtent(%extent);
+	if (%bitmap $= "platinum/client/ui/mp/radar/Pointer.png") {
+		%distance = 80 / VectorDist($MP::MyMarble.getTransform(), %dot._gamePosition); // Twenty times reciprocal - farther should be smaller
+		if (%distance > 1) {
+			%distance = 1;
+		} else if (%distance < 0.5) {
+			%distance = 0.5;
+		}
+		%dot.setExtent(VectorScale(%extent, %distance));
+	} else {
+		%dot.setExtent(%extent);
+	}
 	%dot.setBitmap(%bitmap);
 }
 
@@ -519,6 +529,7 @@ function Radar::AddDot(%object, %bitmap) {
 		skin = %skin;
 	};
 	%dot.setVisible($Game::RadarMode > 0);
+	%dot._gamePosition = %object.position;
 	PlayGuiContent.add(%dot);
 	return %dot;
 }
