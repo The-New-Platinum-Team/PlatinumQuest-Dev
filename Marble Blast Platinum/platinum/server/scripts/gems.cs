@@ -41,6 +41,9 @@ $GemSkinColors[7] = "green";
 $GemSkinColors[8] = "turquoise";
 $GemSkinColors[9] = "black";
 $GemSkinColors[10] = "platinum";
+$GemSkinColors[11] = "specialpurple";
+$GemSkinColors[12] = "specialyellow";
+$GemSkinColors[13] = "specialplatinum";
 
 function Gem::onAdd(%this,%obj) {
 	if (%this.skin !$= "") {
@@ -263,6 +266,30 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	customField[0, "field"] = "";
 };
 
+datablock ItemData(GemItemPurpleSpecial: GemItem) {
+	skin = "specialpurple";
+	huntExtraValue = 9; //10 pts
+	spawnChance = 0.90;
+	messageColor = "cc44ff";
+	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemYellowSpecial: GemItem) {
+	skin = "specialyellow";
+	huntExtraValue = 19; //20 pts
+	spawnChance = 0.65;
+	messageColor = "ffff66";
+	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemPlatinumSpecial: GemItem) {
+	skin = "specialplatinum";
+	huntExtraValue = 49; //50 pts
+	spawnChance = 0.35;
+	messageColor = "dddddd";
+	customField[0, "field"] = "";
+};
+
 datablock ItemData(GemItem_PQ : GemItem) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Gems/gem.dts";
 	pickupName = "a gem!";
@@ -346,6 +373,30 @@ datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
+datablock ItemData(GemItemPurpleSpecial_PQ: GemItem_PQ) {
+	skin = "specialpurple";
+	huntExtraValue = 9; //10 pts
+	spawnChance = 0.90;
+	messageColor = "cc44ff";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(GemItemYellowSpecial_PQ: GemItem_PQ) {
+	skin = "specialyellow";
+	huntExtraValue = 19; //20 pts
+	spawnChance = 0.65;
+	messageColor = "ffff99";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
+	skin = "platinum";
+	huntExtraValue = 49; //50 pts
+	spawnChance = 0.35;
+	messageColor = "cccccc";
+	customField[1, "disable"] = 1;
+};
+
 datablock ItemData(FancyGemItem_PQ : GemItem) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Gems/gem_fancy.dts";
 	skin[0] = "base";
@@ -359,6 +410,9 @@ datablock ItemData(FancyGemItem_PQ : GemItem) {
 	skin[8] = "orange";
 	skin[9] = "black";
 	skin[10] = "platinum";
+	skin[11] = "specialpurple";
+	skin[12] = "specialyellow";
+	skin[13] = "specialplatinum";
 
 	pickupName = "a gem!";
 	pq = true; // for GemFX
@@ -436,6 +490,30 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 	skin = "platinum";
 	huntExtraValue = 9; //10 pts
 	spawnChance = 0.18;
+	messageColor = "cccccc";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemPurpleSpecial_PQ: FancyGemItem_PQ) {
+	skin = "red";
+	huntExtraValue = 9; //10 pt
+	spawnChance = 0.90;
+	messageColor = "cc44ff";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemYellowSpecial_PQ: FancyGemItem_PQ) {
+	skin = "specialyellow";
+	huntExtraValue = 19; //20 pts
+	spawnChance = 0.65;
+	messageColor = "ffff99";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemPlatinumSpecial_PQ: FancyGemItem_PQ) {
+	skin = "specialplatinum";
+	huntExtraValue = 49; //50 pts
+	spawnChance = 0.35;
 	messageColor = "cccccc";
 	customField[1, "disable"] = 1;
 };
