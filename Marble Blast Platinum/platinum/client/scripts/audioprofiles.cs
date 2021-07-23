@@ -231,13 +231,7 @@ function playPitchedSound(%sound, %key) {
 
 	%music = fileBase($currentMusicBase);
 
-	if (%sound $= "gotDiamond1") {
-		%sfxName = "gotDiamond";
-	} else if (%sound $= "gotDiamond2") {
-		%sfxName = "gotDiamond";
-	} else if (%sound $= "gotDiamond5") {
-		%sfxName = "gotDiamond";
-	} else if (%sound $= "gotDiamond10") {
+	if (getSubStr(%sound, 0, 10) $= "gotDiamond") {
 		%sfxName = "gotDiamond";
 	} else {
 		%sfxName = %sound;
@@ -270,6 +264,17 @@ function playPitchedSound(%sound, %key) {
 	} else {
 		%key = $Key[%music] $= "" ? $KeyDefault : $Key[%music];
 		%pitch = %key.getFieldValue(%sound);
+	}
+	if (%pitch $= "" && %sfxName $= "gotDiamond") {
+		// Modify the sound to conform to standard four pitches
+		%pitchNum = getSubStr(%sound, 10, 15);
+		if (%pitchNum == 3 || %pitchNum == 4) {
+			%pitch = %key.getFieldValue("gotDiamond2");
+		} else if (%pitchNum >= 8) {
+			%pitch = %key.getFieldValue("gotDiamond10");
+		} else {
+			%pitch = %key.getFieldValue("gotDiamond5");
+		}
 	}
 
 	%sfx = $SoundProfile[%sfxName, %pitch];
