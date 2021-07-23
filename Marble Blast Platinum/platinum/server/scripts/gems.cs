@@ -696,7 +696,49 @@ if (!$pref::LegacyItems) {
 		spawnChance = 0.18;
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
-	};		
+	};
+    datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
+	    skin = "base";
+	    huntExtraValue = 0;
+	    spawnChance = 0.1;
+    	messageColor = "ff66ff";
+	    customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
+	    skin = "purple";
+	    huntExtraValue = 5; //6 pts
+	    spawnChance = 0.1;
+	    messageColor = "cc44ff";
+	    customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
+	    skin = "Green";
+	    huntExtraValue = 3; //4 pts
+	    spawnChance = 0.3;
+	    messageColor = "66ff66";
+	    customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
+    	skin = "Turquoise";
+    	huntExtraValue = 6; //7
+    	spawnChance = 0.1;
+    	messageColor = "55ffff";
+    	customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
+    	skin = "orange";
+    	huntExtraValue = 2; //3 pts
+    	spawnChance = 0.45;
+    	messageColor = "ffaa33";
+    	customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
+    	skin = "black";
+    	huntExtraValue = -2; //-1 pts
+    	spawnChance = 0.45;
+    	messageColor = "000000";
+    	customField[0, "field"] = "";
+    };		
 } else {
 	datablock ItemData(GemItem_MBU : GemItem) {
 		shapeFile = "~/data/shapes/items/gem.dts";
@@ -736,5 +778,47 @@ if (!$pref::LegacyItems) {
 		spawnChance = 0.18;
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
-	};						
+	};		
+    datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
+	    skin = "base";
+	    huntExtraValue = 0;
+	    spawnChance = 0.1;
+    	messageColor = "ff66ff";
+	    customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
+	    skin = "purple";
+	    huntExtraValue = 5; //6 pts
+	    spawnChance = 0.1;
+	    messageColor = "cc44ff";
+	    customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
+	    skin = "Green";
+	    huntExtraValue = 3; //4 pts
+	    spawnChance = 0.3;
+	    messageColor = "66ff66";
+	    customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
+    	skin = "Turquoise";
+    	huntExtraValue = 6; //7
+    	spawnChance = 0.1;
+    	messageColor = "55ffff";
+    	customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
+    	skin = "orange";
+    	huntExtraValue = 2; //3 pts
+    	spawnChance = 0.45;
+    	messageColor = "ffaa33";
+    	customField[0, "field"] = "";
+    };
+    datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
+    	skin = "black";
+    	huntExtraValue = -2; //-1 pts
+    	spawnChance = 0.45;
+    	messageColor = "000000";
+    	customField[0, "field"] = "";
+    };				
 }
