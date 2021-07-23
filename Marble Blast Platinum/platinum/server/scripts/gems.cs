@@ -187,7 +187,7 @@ datablock ItemData(GemItemBlue: GemItem) {
 	skin = "blue";
 	huntExtraValue = 4; //1 less because you get 1 point for collecting it
 	spawnChance = 0.35;
-	messageColor = "9999ff";
+	messageColor = "6666ff";
 	customField[0, "field"] = "";
 };
 
@@ -195,7 +195,7 @@ datablock ItemData(GemItemRed: GemItem) {
 	skin = "red";
 	huntExtraValue = 0; //1 pt
 	spawnChance = 0.90;
-	messageColor = "ff9999";
+	messageColor = "ff6666";
 	customField[0, "field"] = "";
 };
 
@@ -203,37 +203,55 @@ datablock ItemData(GemItemYellow: GemItem) {
 	skin = "yellow";
 	huntExtraValue = 1; //2 pts
 	spawnChance = 0.65;
-	messageColor = "ffff99";
+	messageColor = "ffff66";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemPink: GemItem) {
 	skin = "base";
+	huntExtraValue = 0;
+	spawnChance = 0.1;
+	messageColor = "ff66ff";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemPurple: GemItem) {
 	skin = "purple";
+	huntExtraValue = 5; //6 pts
+	spawnChance = 0.1;
+	messageColor = "cc44ff";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemGreen: GemItem) {
 	skin = "Green";
+	huntExtraValue = 3; //4 pts
+	spawnChance = 0.3;
+	messageColor = "66ff66";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemTurquoise: GemItem) {
 	skin = "Turquoise";
+	huntExtraValue = 6; //7
+	spawnChance = 0.1;
+	messageColor = "55ffff";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemOrange: GemItem) {
 	skin = "orange";
+	huntExtraValue = 2; //3 pts
+	spawnChance = 0.45;
+	messageColor = "ffaa33";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemBlack: GemItem) {
 	skin = "black";
+	huntExtraValue = -2; //-1 pts
+	spawnChance = 0.45;
+	messageColor = "000000";
 	customField[0, "field"] = "";
 };
 
@@ -241,7 +259,7 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	skin = "platinum";
 	huntExtraValue = 9; //10 pts
 	spawnChance = 0.18;
-	messageColor = "cccccc";
+	messageColor = "dddddd";
 	customField[0, "field"] = "";
 };
 
