@@ -58,6 +58,12 @@ datablock StaticShapeData(StartPad_PQ : StartPad) {
 	customField[0, "default"] = "";
 };
 
+datablock StaticShapeData(StartPad_MBG : StartPad) {
+	shapeFile = "~/data/shapes/pads/MBGPads/startArea.dts";
+
+	playAnimation = true;
+};
+
 datablock StaticShapeData(StartPad_PQ_Construction : StartPad) {
 	shapeFile = "~/data/shapes_pq/Gameplay/pads/startpadconst.dts";
 
@@ -117,6 +123,12 @@ datablock StaticShapeData(EndPad_PQ : EndPad) {
 	customField[0, "name"   ] = "Skin Name";
 	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
 	customField[0, "default"] = "";
+};
+
+datablock StaticShapeData(EndPad_MBG : EndPad) {
+	shapeFile = "~/data/shapes/pads/MBGPads/endarea.dts";
+
+	playAnimation = true;
 };
 
 datablock StaticShapeData(EndPad_PQ_Construction : EndPad) {
