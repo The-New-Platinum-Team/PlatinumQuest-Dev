@@ -44,6 +44,7 @@ $GemSkinColors[10] = "platinum";
 $GemSkinColors[11] = "specialpurple";
 $GemSkinColors[12] = "specialyellow";
 $GemSkinColors[13] = "specialplatinum";
+$GemSkinColors[14] = "white";
 
 function Gem::onAdd(%this,%obj) {
 	if (%this.skin !$= "") {
@@ -290,6 +291,14 @@ datablock ItemData(GemItemPlatinumSpecial: GemItem) {
 	customField[0, "field"] = "";
 };
 
+datablock ItemData(GemItemWhite: GemItem) {
+	skin = "white";
+	huntExtraValue = -1; //0 pts
+	spawnChance = 0.80;
+	messageColor = "ffffff";
+	customField[0, "field"] = "";
+};
+
 datablock ItemData(GemItem_PQ : GemItem) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Gems/gem.dts";
 	pickupName = "a gem!";
@@ -394,6 +403,11 @@ datablock ItemData(GemItemPlatinumSpecial_PQ: GemItem_PQ) {
 	huntExtraValue = 49; //50 pts
 	spawnChance = 0.35;
 	messageColor = "cccccc";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(GemItemWhite_PQ: GemItem_PQ) {
+	skin = "white";
 	customField[1, "disable"] = 1;
 };
 
@@ -515,6 +529,11 @@ datablock ItemData(FancyGemItemPlatinumSpecial_PQ: FancyGemItem_PQ) {
 	huntExtraValue = 49; //50 pts
 	spawnChance = 0.35;
 	messageColor = "cccccc";
+	customField[1, "disable"] = 1;
+};
+
+datablock ItemData(FancyGemItemWhite_PQ: FancyGemItem_PQ) {
+	skin = "white";
 	customField[1, "disable"] = 1;
 };
 
@@ -817,6 +836,13 @@ if (!$pref::LegacyItems) {
     	messageColor = "000000";
     	customField[0, "field"] = "";
     };		
+    datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
+    	skin = "white";
+    	huntExtraValue = -1; //0 pts
+    	spawnChance = 0.80;
+    	messageColor = "000000";
+    	customField[0, "field"] = "";
+    };
 } else {
 	datablock ItemData(GemItem_MBU : GemItem) {
 		shapeFile = "~/data/shapes/items/gem.dts";
@@ -896,6 +922,13 @@ if (!$pref::LegacyItems) {
     	skin = "black";
     	huntExtraValue = -2; //-1 pts
     	spawnChance = 0.45;
+    	messageColor = "000000";
+    	customField[0, "field"] = "";
+    };	
+    datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
+    	skin = "white";
+    	huntExtraValue = -1; //0 pts
+    	spawnChance = 0.80;
     	messageColor = "000000";
     	customField[0, "field"] = "";
     };				
