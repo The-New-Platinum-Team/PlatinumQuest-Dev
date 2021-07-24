@@ -389,8 +389,8 @@ datablock ItemData(GemItemYellowSpecial_PQ: GemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
-	skin = "platinum";
+datablock ItemData(GemItemPlatinumSpecial_PQ: GemItem_PQ) {
+	skin = "specialplatinum";
 	huntExtraValue = 49; //50 pts
 	spawnChance = 0.35;
 	messageColor = "cccccc";
