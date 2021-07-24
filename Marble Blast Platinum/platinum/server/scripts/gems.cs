@@ -510,7 +510,7 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 
 datablock ItemData(FancyGemItemPurpleSpecial_PQ: FancyGemItem_PQ) {
 	skin = "red";
-	huntExtraValue = 9; //10 pt
+	huntExtraValue = 9; //10 pts
 	spawnChance = 0.90;
 	messageColor = "cc44ff";
 	customField[1, "disable"] = 1;
