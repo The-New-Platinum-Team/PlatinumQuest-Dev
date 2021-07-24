@@ -384,25 +384,16 @@ datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
 
 datablock ItemData(GemItemPurpleSpecial_PQ: GemItem_PQ) {
 	skin = "specialpurple";
-	huntExtraValue = 9; //10 pts
-	spawnChance = 0.90;
-	messageColor = "cc44ff";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemYellowSpecial_PQ: GemItem_PQ) {
 	skin = "specialyellow";
-	huntExtraValue = 19; //20 pts
-	spawnChance = 0.65;
-	messageColor = "ffff99";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemPlatinumSpecial_PQ: GemItem_PQ) {
 	skin = "specialplatinum";
-	huntExtraValue = 49; //50 pts
-	spawnChance = 0.35;
-	messageColor = "cccccc";
 	customField[1, "disable"] = 1;
 };
 
@@ -509,26 +500,17 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 };
 
 datablock ItemData(FancyGemItemPurpleSpecial_PQ: FancyGemItem_PQ) {
-	skin = "red";
-	huntExtraValue = 9; //10 pts
-	spawnChance = 0.90;
-	messageColor = "cc44ff";
+	skin = "specialpurple";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemYellowSpecial_PQ: FancyGemItem_PQ) {
 	skin = "specialyellow";
-	huntExtraValue = 19; //20 pts
-	spawnChance = 0.65;
-	messageColor = "ffff99";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemPlatinumSpecial_PQ: FancyGemItem_PQ) {
 	skin = "specialplatinum";
-	huntExtraValue = 49; //50 pts
-	spawnChance = 0.35;
-	messageColor = "cccccc";
 	customField[1, "disable"] = 1;
 };
 
