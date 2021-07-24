@@ -267,7 +267,7 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemPurpleSpecial: GemItem) {
+datablock ItemData(GemItemSpecialPurple: GemItem) {
 	skin = "specialpurple";
 	huntExtraValue = 9; //10 pts
 	spawnChance = 0.90;
@@ -275,7 +275,7 @@ datablock ItemData(GemItemPurpleSpecial: GemItem) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemYellowSpecial: GemItem) {
+datablock ItemData(GemItemSpecialYellow: GemItem) {
 	skin = "specialyellow";
 	huntExtraValue = 19; //20 pts
 	spawnChance = 0.65;
@@ -283,7 +283,7 @@ datablock ItemData(GemItemYellowSpecial: GemItem) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemPlatinumSpecial: GemItem) {
+datablock ItemData(GemItemSpecialPlatinum: GemItem) {
 	skin = "specialplatinum";
 	huntExtraValue = 49; //50 pts
 	spawnChance = 0.35;
@@ -382,17 +382,17 @@ datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(GemItemPurpleSpecial_PQ: GemItem_PQ) {
+datablock ItemData(GemItemSpecialPurple_PQ: GemItem_PQ) {
 	skin = "specialpurple";
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(GemItemYellowSpecial_PQ: GemItem_PQ) {
+datablock ItemData(GemItemSpecialYellow_PQ: GemItem_PQ) {
 	skin = "specialyellow";
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(GemItemPlatinumSpecial_PQ: GemItem_PQ) {
+datablock ItemData(GemItemSpecialPlatinum_PQ: GemItem_PQ) {
 	skin = "specialplatinum";
 	customField[1, "disable"] = 1;
 };
@@ -499,17 +499,17 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(FancyGemItemPurpleSpecial_PQ: FancyGemItem_PQ) {
+datablock ItemData(FancyGemItemSpecialPurple_PQ: FancyGemItem_PQ) {
 	skin = "specialpurple";
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(FancyGemItemYellowSpecial_PQ: FancyGemItem_PQ) {
+datablock ItemData(FancyGemItemSpecialYellow_PQ: FancyGemItem_PQ) {
 	skin = "specialyellow";
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(FancyGemItemPlatinumSpecial_PQ: FancyGemItem_PQ) {
+datablock ItemData(FancyGemItemSpecialPlatinum_PQ: FancyGemItem_PQ) {
 	skin = "specialplatinum";
 	customField[1, "disable"] = 1;
 };
