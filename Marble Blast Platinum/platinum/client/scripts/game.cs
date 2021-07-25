@@ -698,7 +698,8 @@ function reformatGameEndText() {
 	// Grab the times from the preferences file
 	// -------------------------------------------------------------------------------
 
-	%scoreText = "<bold:32><color:000000><shadow:1:1><shadowColor:7777777F><just:center>Top " @ $Game::HighscoreCount @ " Scores";
+	%levelName = MissionInfo.name;
+	%scoreText = "<bold:28><color:000000><shadow:1:1><shadowColor:7777777F><just:center>" @ %levelName @ ", Top " @ $Game::HighscoreCount;
 
 	for (%i = 0; %i < $Game::HighscoreCount; %i ++) {
 		%type = getField($hs[%i], 0);
