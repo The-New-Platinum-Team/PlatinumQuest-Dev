@@ -57,6 +57,12 @@ function clientCmdGoSpectateNow() {
 	$SpectateMode = true;
 	setSpectateFlying(true);
 
+	HUD_ShowPowerUp.setVisible(false);
+	HUD_PowerupBackground.setVisible(false);
+	PG_TopLeftCounterContainer.setVisible(false);
+
+	PG_SpectatorMenu.setVisible(!$pref::minimalSpectateUI);
+
 	PlayGui.updateBlastBar();
 	commandToServer('GoSpectateAck');
 }
@@ -64,6 +70,11 @@ function clientCmdGoSpectateNow() {
 // when we finish spectating
 function clientCmdFinishSpectating() {
 	$SpectateMode = false;
+	HUD_ShowPowerUp.setVisible(true);
+	HUD_PowerupBackground.setVisible(true);
+	PG_TopLeftCounterContainer.setVisible(true);
+	PG_SpectatorMenu.setVisible(false);
+
 	PlayGui.updateBlastBar();
 }
 
