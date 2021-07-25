@@ -433,6 +433,9 @@ $Options::Type    ["Gameplay", 9] = "boolean";
 $Options::Name    ["Gameplay", 10] = "powerupTimers";
 $Options::Title   ["Gameplay", 10] = "Powerup Timers";
 $Options::Type    ["Gameplay", 10] = "boolean";
+$Options::Name    ["Gameplay", 11] = "minimalSpectateUI";
+$Options::Title   ["Gameplay", 11] = "(Online) Minimal Spectate UI";
+$Options::Type    ["Gameplay", 11] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -1164,6 +1167,24 @@ function Opt_powerupTimers_decrease() {
 
 function Opt_powerupTimers_increase() {
 	$pref::powerupTimers = !$pref::powerupTimers;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_minimalSpectateUI_getDisplay() {
+	return $pref::minimalSpectateUI ? "Enabled" : "Disabled";
+}
+
+function Opt_minimalSpectateUI_getValue() {
+	return $pref::minimalSpectateUI;
+}
+
+function Opt_minimalSpectateUI_decrease() {
+	$pref::minimalSpectateUI = !$pref::minimalSpectateUI;
+}
+
+function Opt_minimalSpectateUI_increase() {
+	$pref::minimalSpectateUI = !$pref::minimalSpectateUI;
 }
 
 //-----------------------------------------------------------------------------
