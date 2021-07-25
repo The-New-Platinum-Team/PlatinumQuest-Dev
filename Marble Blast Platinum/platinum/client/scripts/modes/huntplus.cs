@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Hunt - Get Past the Post mode
+// Hunt - Plus mode
 //
 // Copyright (c) 2021 The Platinum Team
 //
@@ -22,20 +22,20 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-ModeInfoGroup.add(new ScriptObject(ModeInfo_getpastthepost) {
-	class = "ModeInfo_getpastthepost";
+ModeInfoGroup.add(new ScriptObject(ModeInfo_huntplus) {
+	class = "ModeInfo_huntplus";
 	superclass = "ModeInfo";
 
-	identifier = "getpastthepost";
-	file = "getpastthepost";
+	identifier = "huntplus";
+	file = "huntplus";
 
-	name = "Hunt - Get Past the Post";
-	desc = "How quickly can you get the required amount of points?";
+	name = "Hunt - Plus";
+	desc = "Something different that youre not used to might happen after a spawn is cleared out!";
 
 	teams = 0;
 });
 
 
-function ClientMode_getpastthepost::onLoad(%this) {
+function ClientMode_huntplus::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }

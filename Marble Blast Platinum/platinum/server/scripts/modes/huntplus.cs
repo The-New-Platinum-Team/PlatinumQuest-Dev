@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Hunt - Get Past the Post mode
+// Hunt - Plus mode
 //
 // Copyright (c) 2021 The Platinum Team
 //
@@ -22,20 +22,43 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-ModeInfoGroup.add(new ScriptObject(ModeInfo_getpastthepost) {
-	class = "ModeInfo_getpastthepost";
-	superclass = "ModeInfo";
+function Mode_huntplus::onLoad(%this) {
+	%this.registerCallback("onHuntGemSpawn");
+	echo("[Mode" SPC %this.name @ "]: Loaded!");
+}
 
-	identifier = "getpastthepost";
-	file = "getpastthepost";
-
-	name = "Hunt - Get Past the Post";
-	desc = "How quickly can you get the required amount of points?";
-
-	teams = 0;
+function Mode_huntplus::onHuntGemSpawn(%this, %object) {
+ClientAudioGroup.add(new AudioProfile(TimeTickSfx) {
+	filename    = "~/data/sound/TimeTravelActive.wav";
+	description = "ClientAudio2D";
+	preload = true;
 });
 
+    if (missioninfo.additionaltime != "") {      //Bonus Time upon New Spawn - Modifier 1
+		if ($Game::FirstSpawn) {
+            return;
+		} else {
+            %additionalhunttime = missioninfo.additionaltime / 1000;
 
-function ClientMode_getpastthepost::onLoad(%this) {
-	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+    	    Time::set($Time::CurrentTime + missioninfo.additionaltime);
+            alxPlay("TimeTickSfx");
+
+			if (missioninfo.additionaltime < 0) {
+	            PlayGui.displayGemMessage(%additionalhunttime @ "s", "ff8888"); 
+			} else {
+		        PlayGui.displayGemMessage("+" @ %additionalhunttime @ "s", "88ff88");
+			}
+		}
+	}
+	
+	if (missioninfo.ragingbull) {                //Ragingbull - SS and SJ upon new spawn - Modifier 2
+		if ($Game::FirstSpawn) {
+			return;
+		} else {
+			MPGetMyMarble().doPowerUp(1);
+			alxPlay(doSuperJumpSfx);
+			MPGetMyMarble().doPowerup(2);
+			alxPlay(doSuperSpeedSfx);
+		}
+	}
 }

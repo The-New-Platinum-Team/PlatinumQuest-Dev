@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
-// Hunt training mode
+// Hunt - Get Past the Post mode
 //
-// Copyright (c) 2017 The Platinum Team
+// Copyright (c) 2021 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
