@@ -1,18 +1,19 @@
 // Rep. by Perishingflames and Pablo
 //--- OBJECT WRITE BEGIN ---
-new SimGroup(MissionGroup) {
-
-   new ScriptObject(MissionInfo) {
+function MP_PQ_GymHunt_GetMissionInfo() {
+   return
+new ScriptObject(MissionInfo) {
          name = "Gym";
          music = "Seaside Revisited.ogg";
          desc = "Use your marble skills to find all the diamonds!";
          startHelpText = "Don\'t forget your towel!";
          radiusFromGem = "15";
          gameMode = "Hunt";
-         level = "6";
+         level = "30";
          type = "Intermediate";
          time = "240000";
          maxGemsPerSpawn = "7";
+         basename = "Gym_Hunt";
          alarmStartTime = "20";
          game = "Platinum";
          artist = "Ian";
@@ -23,7 +24,33 @@ new SimGroup(MissionGroup) {
          platinumScore[1] = "85";
          ultimateScore[0] = "110";
          ultimateScore[1] = "150";
-   };
+};
+}
+//--- INFO END ---
+//--- UNLOCK BEGIN ---
+//In the event that you want this mission to be locked by a function, here's
+// where you should put that. Just uncomment this function and fill it out:
+//function unlock_MissionNameHere(%mission) { //%mission is the MissionInfo
+// return true; //True if the mission is unlocked
+//}
+//--- UNLOCK END ---
+//Don't continue loading if this just wants the mission info
+if ($loadingMissionInfo) return;
+//--- CLIENT SCRIPTS BEGIN ---
+//Put any scripts that will be loaded on all clients (in MP / SP) here.
+// Note: these will be loaded by dedicated servers too, so be sure to test for
+// $Server::Dedicated before creating any GUI.
+
+//--- CLIENT SCRIPTS END ---
+//Don't continue loading if this is a client (non-server)
+if (!$Server::Hosting || $Server::_Dedicated) return;
+//--- SERVER PREMISSION SCRIPTS BEGIN ---
+//DO NOT DELETE THIS LINE Gym
+//--- SERVER PREMISSION SCRIPTS END ---
+//--- MISSION BEGIN ---
+function MP_PQ_GymHunt_LoadMission() {
+   return
+new SimGroup(MissionGroup) {
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
       flightCeiling = "300";
@@ -49,7 +76,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "0 0 0";
       fogVolume2 = "0 0 0";
       fogVolume3 = "0 0 0";
-      materialList = "~/data/skies/intermediate/intermediate_sky.dml";
+      materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
       windVelocity = "1 1 0";
       windEffectPrecipitation = "1";
       noRenderBans = "1";
@@ -1746,4 +1773,9 @@ new SimGroup(MissionGroup) {
       preload = "0";
    };
 };
-//--- OBJECT WRITE END ---
+}
+//--- MISSION END ---
+//--- SERVER POSTMISSION SCRIPTS BEGIN ---
+//Put any scripts that will be loaded after the mission is loaded here
+
+//--- SERVER POSTMISSION SCRIPTS END ---
