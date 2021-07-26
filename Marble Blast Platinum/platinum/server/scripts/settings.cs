@@ -182,6 +182,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					%client = ClientGroup.getObject(%i);
 					%client.addBubbleLine("Competitive Mode is on. Gems autorespawn after 25 seconds, and spawns can happen with up to 2 points left behind.");
+				$MP::ScoreSendingDisabled = true;
 				}
 			} else {
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -190,6 +191,13 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				}
 				cancel($HuntCompetitiveLoop);
 				commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
+				$MP::ScoreSendingDisabled = false;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
 			}
 		case "StealMode":
 			if (%value) {
@@ -199,9 +207,37 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			}
 		case "TrainingMode":
 			if (%value) {
-				activateMode("training");
+				if ($Game::isMode["hunt"]) {
+					activateMode("training");
+					$MP::ScoreSendingDisabled = true;
+				}
 			} else {
-				deactivateMode("training");
+				if ($Game::isMode["hunt"]) {
+					deactivateMode("training"); // Training overlaps some of the callbacks that Hunt has, so have to re-enable Hunt
+					deactivateMode("hunt");
+					activateMode("hunt");
+					$MP::ScoreSendingDisabled = false;
+					for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+						if (ClientGroup.getObject(%i).getGemCount() != 0) {
+							$MP::ScoreSendingDisabled = true;
+							break;
+						}
+					}
+				}
+			}
+		case "PartySpawns":
+			if (%value) {
+				$MP::ScoreSendingDisabled = true;
+			} else {
+				$MP::ScoreSendingDisabled = false;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+				hideGems();
+				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
 	}
 }
