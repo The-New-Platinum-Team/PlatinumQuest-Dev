@@ -125,8 +125,12 @@ function setSpectateFlying(%flying) {
 
 	if (%flying) {
 		Physics::popLayerName("spectateFollow");
+		HUD_ShowPowerUp.setVisible(false);
+		HUD_PowerupBackground.setVisible(false);
 	} else {
 		Physics::pushLayerName("spectateFollow");
+		HUD_ShowPowerUp.setVisible(true); // See their powerup
+		HUD_PowerupBackground.setVisible(true);
 	}
 
 	// display the spectator menu to the clients via the PlayGui
