@@ -440,8 +440,7 @@ function MPshouldSendScores() {
 	if (!$MPPref::Server::SubmitScores) {
 		return false;
 	}
-	//This disables score sending currently
-	if ($MPPref::Server::DoubleSpawnGroups) {
+	if ($MP::ScoreSendingDisabled) { // If Double Spawns are turned on
 		return false;
 	}
 
