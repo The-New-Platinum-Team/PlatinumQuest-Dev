@@ -56,7 +56,8 @@ function Bumper::onCollision(%this, %obj, %col) {
 //-----------------------------------------------------------------------------
 
 datablock StaticShapeData(TriangleBumper) {
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	className = "Bumper";
 	shapeFile = "~/data/shapes/bumpers/pball_tri.dts";
 	scopeAlways = true;
@@ -64,7 +65,8 @@ datablock StaticShapeData(TriangleBumper) {
 };
 
 datablock StaticShapeData(RoundBumper) {
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	className = "Bumper";
 	shapeFile = "~/data/shapes/bumpers/pball_round.dts";
 	scopeAlways = true;
@@ -72,18 +74,24 @@ datablock StaticShapeData(RoundBumper) {
 };
 
 datablock StaticShapeData(TriangleBumper_PQ : TriangleBumper) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/bumpers/tribumper.dts";
 	pqTriangle = true;
 };
 
 datablock StaticShapeData(RoundBumper_PQ : RoundBumper) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/bumpers/roundbumper.dts";
 };
 
 datablock StaticShapeData(RoundBumper_MBU)
 {
-   category = "Hazards";
-   className = "Bumper";
+   superCategory = "Hazards";
+   category = "Marble_Blast_Ultra/Mobile";	
    shapeFile = "~/data/shapes_mbu/bumpers/pball_round.dts";
    scopeAlways = true;
    sound = BumperDing;

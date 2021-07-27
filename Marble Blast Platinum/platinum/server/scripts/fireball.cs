@@ -42,7 +42,8 @@ datablock AudioProfile(PuFireballBlastSfx) {
 
 datablock ItemData(FireballItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
 	className = "PowerUp";
 
 	activeAudio = DoFireballSfx;

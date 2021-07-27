@@ -158,7 +158,9 @@ datablock StaticShapeData(StaticGem) {
 
 datablock ItemData(GemItem) {
 	// Mission editor category
-	category = "Gems";
+	superCategory = "gems";
+	category = "Marble Blast Gold/Platinum";
+
 	className = "Gem";
 
 	// Basic Item properties
@@ -300,6 +302,9 @@ datablock ItemData(GemItemWhite: GemItem) {
 };
 
 datablock ItemData(GemItem_PQ : GemItem) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Gems/gem.dts";
 	pickupName = "a gem!";
 	pq = true; // for gemFX
@@ -321,6 +326,9 @@ datablock ItemData(GemItem_PQ : GemItem) {
 };
 
 datablock ItemData(GemItemBlue_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "blue";
 	huntExtraValue = 4; //1 less because you get 1 point for collecting it
 	spawnChance = 0.35;
@@ -329,6 +337,9 @@ datablock ItemData(GemItemBlue_PQ: GemItem_PQ) {
 };
 
 datablock ItemData(GemItemRed_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "red";
 	huntExtraValue = 0; //1 pt
 	spawnChance = 0.90;
@@ -337,6 +348,9 @@ datablock ItemData(GemItemRed_PQ: GemItem_PQ) {
 };
 
 datablock ItemData(GemItemYellow_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "yellow";
 	huntExtraValue = 1; //2 pts
 	spawnChance = 0.65;
@@ -345,36 +359,57 @@ datablock ItemData(GemItemYellow_PQ: GemItem_PQ) {
 };
 
 datablock ItemData(GemItemPink_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "base";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemPurple_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "purple";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemGreen_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "Green";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemTurquoise_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "Turquoise";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemOrange_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "orange";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemBlack_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "black";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "platinum";
 	huntExtraValue = 9; //10 pts
 	spawnChance = 0.18;
@@ -383,26 +418,41 @@ datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
 };
 
 datablock ItemData(GemItemSpecialPurple_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "specialpurple";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemSpecialYellow_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "specialyellow";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemSpecialPlatinum_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "specialplatinum";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(GemItemWhite_PQ: GemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "white";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItem_PQ : GemItem) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Gems/gem_fancy.dts";
 	skin[0] = "base";
 	skin[1] = "red";
@@ -438,6 +488,9 @@ datablock ItemData(FancyGemItem_PQ : GemItem) {
 };
 
 datablock ItemData(FancyGemItemBlue_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "blue";
 	huntExtraValue = 4; //1 less because you get 1 point for collecting it
 	spawnChance = 0.35;
@@ -446,6 +499,9 @@ datablock ItemData(FancyGemItemBlue_PQ: FancyGemItem_PQ) {
 };
 
 datablock ItemData(FancyGemItemRed_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "red";
 	huntExtraValue = 0; //1 pt
 	spawnChance = 0.90;
@@ -454,6 +510,9 @@ datablock ItemData(FancyGemItemRed_PQ: FancyGemItem_PQ) {
 };
 
 datablock ItemData(FancyGemItemYellow_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "yellow";
 	huntExtraValue = 1; //2 pts
 	spawnChance = 0.65;
@@ -462,36 +521,57 @@ datablock ItemData(FancyGemItemYellow_PQ: FancyGemItem_PQ) {
 };
 
 datablock ItemData(FancyGemItemPink_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "base";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemPurple_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "purple";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemGreen_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "Green";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemTurquoise_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "Turquoise";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemOrange_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "orange";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemBlack_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "black";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "platinum";
 	huntExtraValue = 9; //10 pts
 	spawnChance = 0.18;
@@ -500,21 +580,33 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 };
 
 datablock ItemData(FancyGemItemSpecialPurple_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "specialpurple";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemSpecialYellow_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "specialyellow";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemSpecialPlatinum_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "specialplatinum";
 	customField[1, "disable"] = 1;
 };
 
 datablock ItemData(FancyGemItemWhite_PQ: FancyGemItem_PQ) {
+	superCategory = "gems";
+	category = "PlatinumQuest";
+
 	skin = "white";
 	customField[1, "disable"] = 1;
 };
@@ -738,6 +830,9 @@ datablock ParticleEmitterData(GemEmitterTurquoise : GemEmitterBase) {
 
 if (!$pref::LegacyItems) {
 	datablock ItemData(GemItem_MBU : GemItem) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		shapeFile = "~/data/shapes_mbu/items/gem.dts";
 
 		pickupName = "a gem!";
@@ -749,6 +844,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "default"] = "";
 	};
 	datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "red";
 		huntExtraValue = 0; //1 pt
 		spawnChance = 0.90;
@@ -756,6 +854,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};
 	datablock ItemData(GemItemYellow_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "yellow";
 		huntExtraValue = 1; //2 pts
 		spawnChance = 0.65;
@@ -763,6 +864,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};
 	datablock ItemData(GemItemBlue_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "blue";
 		huntExtraValue = 4; //1 less because you get 1 point for collecting it
 		spawnChance = 0.35;
@@ -770,6 +874,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};
 	datablock ItemData(GemItemPlatinum_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "platinum";
 		huntExtraValue = 9; //10 pts
 		spawnChance = 0.18;
@@ -777,6 +884,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};
     datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 	    skin = "base";
 	    huntExtraValue = 0;
 	    spawnChance = 0.1;
@@ -784,6 +894,9 @@ if (!$pref::LegacyItems) {
 	    customField[0, "field"] = "";
     };
     datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 	    skin = "purple";
 	    huntExtraValue = 5; //6 pts
 	    spawnChance = 0.1;
@@ -791,6 +904,9 @@ if (!$pref::LegacyItems) {
 	    customField[0, "field"] = "";
     };
     datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 	    skin = "Green";
 	    huntExtraValue = 3; //4 pts
 	    spawnChance = 0.3;
@@ -798,6 +914,9 @@ if (!$pref::LegacyItems) {
 	    customField[0, "field"] = "";
     };
     datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "Turquoise";
     	huntExtraValue = 6; //7
     	spawnChance = 0.1;
@@ -805,6 +924,9 @@ if (!$pref::LegacyItems) {
     	customField[0, "field"] = "";
     };
     datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "orange";
     	huntExtraValue = 2; //3 pts
     	spawnChance = 0.45;
@@ -812,6 +934,9 @@ if (!$pref::LegacyItems) {
     	customField[0, "field"] = "";
     };
     datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "black";
     	huntExtraValue = -2; //-1 pts
     	spawnChance = 0.45;
@@ -819,6 +944,9 @@ if (!$pref::LegacyItems) {
     	customField[0, "field"] = "";
     };		
     datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "white";
     	huntExtraValue = -1; //0 pts
     	spawnChance = 0.80;
@@ -827,6 +955,9 @@ if (!$pref::LegacyItems) {
     };
 } else {
 	datablock ItemData(GemItem_MBU : GemItem) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		shapeFile = "~/data/shapes/items/gem.dts";
 
 		pickupName = "a gem!";
@@ -838,6 +969,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "default"] = "";
 	};
 	datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "red";
 		huntExtraValue = 0; //1 pt
 		spawnChance = 0.90;
@@ -845,6 +979,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};
 	datablock ItemData(GemItemYellow_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "yellow";
 		huntExtraValue = 1; //2 pts
 		spawnChance = 0.65;
@@ -852,6 +989,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};
 	datablock ItemData(GemItemBlue_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "blue";
 		huntExtraValue = 4; //1 less because you get 1 point for collecting it
 		spawnChance = 0.35;
@@ -859,6 +999,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};
 	datablock ItemData(GemItemPlatinum_MBU : GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 		skin = "platinum";
 		huntExtraValue = 9; //10 pts
 		spawnChance = 0.18;
@@ -866,6 +1009,9 @@ if (!$pref::LegacyItems) {
 		customField[0, "field"] = "";
 	};		
     datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 	    skin = "base";
 	    huntExtraValue = 0;
 	    spawnChance = 0.1;
@@ -873,6 +1019,9 @@ if (!$pref::LegacyItems) {
 	    customField[0, "field"] = "";
     };
     datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 	    skin = "purple";
 	    huntExtraValue = 5; //6 pts
 	    spawnChance = 0.1;
@@ -880,6 +1029,9 @@ if (!$pref::LegacyItems) {
 	    customField[0, "field"] = "";
     };
     datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
 	    skin = "Green";
 	    huntExtraValue = 3; //4 pts
 	    spawnChance = 0.3;
@@ -887,6 +1039,9 @@ if (!$pref::LegacyItems) {
 	    customField[0, "field"] = "";
     };
     datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "Turquoise";
     	huntExtraValue = 6; //7
     	spawnChance = 0.1;
@@ -894,6 +1049,9 @@ if (!$pref::LegacyItems) {
     	customField[0, "field"] = "";
     };
     datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "orange";
     	huntExtraValue = 2; //3 pts
     	spawnChance = 0.45;
@@ -901,6 +1059,9 @@ if (!$pref::LegacyItems) {
     	customField[0, "field"] = "";
     };
     datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "black";
     	huntExtraValue = -2; //-1 pts
     	spawnChance = 0.45;
@@ -908,6 +1069,9 @@ if (!$pref::LegacyItems) {
     	customField[0, "field"] = "";
     };	
     datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
+		superCategory = "gems";
+		category = "Marble Blast Ultra";
+
     	skin = "white";
     	huntExtraValue = -1; //0 pts
     	spawnChance = 0.80;
