@@ -619,10 +619,12 @@ function ExitGameDlg::onWake(%this) {
 
 
 	if (%showEgg) {
-		ExitGameInfoPersonalBestModeTitle.setText("<just:center><font:24>" @ %pbEggTitle);
-		ExitGameInfoPersonalBestModeTime.setText("<just:center><font:32>" @ %pbEggLabel);
-		ExitGameInfoPersonalBestModeTitle.setVisible(true);
-		ExitGameInfoPersonalBestModeTime.setVisible(true);
+		if (getSubStr(%pbEggLabel, 0, 5) !$= "99:59") {
+			ExitGameInfoPersonalBestModeTitle.setText("<just:center><font:24>" @ %pbEggTitle);
+			ExitGameInfoPersonalBestModeTime.setText("<just:center><font:32>" @ %pbEggLabel);
+			ExitGameInfoPersonalBestModeTitle.setVisible(true);
+			ExitGameInfoPersonalBestModeTime.setVisible(true);
+		}
 		if (lb()) {
 			ExitGameInfoRecordModeTitle.setText("<just:center><font:24>" @ %eggThemeColor @ %eggRecordTitle);
 			ExitGameInfoRecordModeTime.setText("<just:center><font:32>" @ %eggRecordLabel);
