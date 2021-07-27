@@ -42,6 +42,7 @@ function ClientMode_collection::onLoad(%this) {
 	%this.registerCallback("radarShouldShowObject");
 	%this.registerCallback("onEndGameSetup");
 	%this.registerCallback("shouldGhostFollow");
+	%this.registerCallback("getDefaultScore");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_collection::timeMultiplier(%this) {
@@ -58,6 +59,9 @@ function ClientMode_collection::onEndGameSetup(%this) {
 }
 function ClientMode_collection::shouldGhostFollow(%this, %object) {
 	return true;
+}
+function ClientMode_collection::getDefaultScore(%this) {
+	return $ScoreType::Score TAB 0 TAB "Matan W.";
 }
 
 function clientCmdSetCollectionColor(%color) {

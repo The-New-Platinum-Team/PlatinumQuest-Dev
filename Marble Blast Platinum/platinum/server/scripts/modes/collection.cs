@@ -38,6 +38,9 @@ function Mode_collection::onLoad(%this) {
 	%this.registerCallback("getStartTime");
 	%this.registerCallback("onUpdateGhost");
 	%this.registerCallback("timeMultiplier");
+	%this.registerCallback("onTimeExpire");
+	%this.registerCallback("getScoreType");
+	%this.registerCallback("getFinalScore");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_collection::shouldIgnoreGem(%this, %object) {
@@ -164,6 +167,10 @@ function Mode_collection::checkWin(%this, %client) {
 		}
 	}
 	//We win!
+	%this.gotAllGems = true;
+	commandToClient(%this, 'UseTimeScore', true);
+	Time::stop();
+	Time::set(MissionInfo.time - $Time::CurrentTime);
 	endGameSetup();
 }
 function Mode_collection::getColors(%this) {
@@ -273,6 +280,21 @@ function Mode_collection::randomizeColors(%this) {
 		%gems = removeWord(%gems, 0);
 	}
 }
+function Mode_collection::onTimeExpire(%this) {
+	%this.gotAllGems = false;
+	commandToAll('UseTimeScore', false);
+}
+function Mode_collection::getScoreType(%this) {
+	if (%this.gotAllGems) {
+		return $ScoreType::Time;
+	}
+	return $ScoreType::Score;
+}
+function Mode_collection::getFinalScore(%this, %object) {
+	if (%this.gotAllGems) {
+		return $ScoreType::Time TAB $Time::CurrentTime;
+	}
+	return $ScoreType::Score TAB %object.client.getGemCount();
 
 datablock StaticShapeData(CollectionRing) {
 	shapeFile = "~/data/shapes/images/ring.dts";
