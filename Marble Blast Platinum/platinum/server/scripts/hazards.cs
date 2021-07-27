@@ -52,7 +52,8 @@ datablock AudioProfile(TrapDoorOpenMbuSfx) {
 
 datablock StaticShapeData(TrapDoor) {
 	className = "TrapDoorClass";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	shapeFile = "~/data/shapes/hazards/trapdoor.dts";
 	resetTime = 5000;
 	scopeAlways = true;
@@ -80,6 +81,9 @@ datablock StaticShapeData(TrapDoor) {
 };
 
 datablock StaticShapeData(TrapDoor_PQ : TrapDoor) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/hazards/trapdoor.dts";
 };
 
@@ -186,7 +190,8 @@ datablock AudioProfile(DuctFanSfx) {
 
 datablock StaticShapeData(DuctFan) {
 	className = "Fan";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	shapeFile = "~/data/shapes/hazards/ductfan.dts";
 	scopeAlways = true;
 
@@ -202,7 +207,8 @@ datablock StaticShapeData(DuctFan) {
 
 datablock StaticShapeData(SmallDuctFan) {
 	className = "Fan";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	shapeFile = "~/data/shapes/hazards/ductfan.dts";
 	scopeAlways = true;
 
@@ -221,21 +227,33 @@ datablock StaticShapeData(SmallDuctFan) {
 
 
 datablock StaticShapeData(DuctFan_PQ : DuctFan) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	compile = "pls";
 	shapeFile = "~/data/shapes_pq/Gameplay/hazards/ductfan.dts";
 };
 datablock StaticShapeData(SmallDuctFan_PQ : SmallDuctFan) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	compile = "pls";
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/ductfan.dts";
 };
-// datablock StaticShapeData(DuctFan_MBU : DuctFan) {
-// 	compile = "pls";
-// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
-// };
-// datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
-// 	compile = "pls";
-// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
-// };
+datablock StaticShapeData(DuctFan_MBU_OriginalHitbox : DuctFan) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
+		
+	compile = "pls";
+	shapeFile = "~/data/shapes_mbu/hazards/mbu-hitboxes/ductfan.dts";
+};
+datablock StaticShapeData(SmallDuctFan_MBU_OriginalHitbox : SmallDuctFan) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
+		
+	compile = "pls";
+	shapeFile = "~/data/shapes_mbu/mbu-hitboxes/hazards/ductfan.dts";
+};
 
 // datablock StaticShapeData(DuctFan_MBM : DuctFan) {
 // 	compile = "pls";
@@ -247,6 +265,9 @@ datablock StaticShapeData(SmallDuctFan_PQ : SmallDuctFan) {
 // };
 
 datablock StaticShapeData(NomeshDuctFan_PQ : DuctFan) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	compile = "pls";
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/ductfannomesh.dts";
 };
@@ -287,7 +308,9 @@ datablock AudioProfile(TornadoSfx) {
 };
 
 datablock StaticShapeData(Tornado) {
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
+
 	shapeFile = "~/data/shapes/hazards/tornado.dts";
 	scopeAlways = true;
 
@@ -322,12 +345,22 @@ function Tornado::onMissionReset(%this, %obj) {
 }
 
 datablock StaticShapeData(Tornado_MBM : Tornado) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
+
 	shapeFile = "~/data/shapes_mbu/hazards/tornado.dts";
+	
+	// Field to shoot the marble up
+	forceType[2] = Field;
+	forceVector[2] = "0 0 1";
+	forceStrength[2] = 350;
+	forceRadius[2] = 3;
 };
 
 //-----------------------------------------------------------------------------
 datablock StaticShapeData(OilSlick) {
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	shapeFile = "~/data/shapes/hazards/oilslick.dts";
 	scopeAlways = true;
 
@@ -519,7 +552,8 @@ datablock ExplosionData(LandMineExplosion) {
 
 datablock StaticShapeData(LandMine) {
 	className = "LandMineClass";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	shapeFile = "~/data/shapes/hazards/landmine.dts";
 	explosion = LandMineExplosion;
 	renderWhenDestroyed = false;
@@ -527,11 +561,17 @@ datablock StaticShapeData(LandMine) {
 };
 
 datablock StaticShapeData(LandMine_PQ : LandMine) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Mine/landmine.dts";
 	skin = "base";
 };
 
 datablock StaticShapeData(LandMine_MBM : LandMine) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
+
 	shapeFile = "~/data/shapes_mbu/hazards/landmine.dts";
 	skin = "base";
 };
@@ -568,7 +608,8 @@ datablock AudioProfile(MagnetSfx) {
 };
 
 datablock StaticShapeData(Magnet) {
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	shapeFile = "~/data/shapes/hazards/Magnet/magnet.dts";
 	scopeAlways = true;
 	forceType[0] = Cone;
@@ -779,7 +820,8 @@ datablock ExplosionData(NukeExplosion) {
 
 datablock StaticShapeData(Nuke) {
 	className = "NukeClass";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "Marble Blast Gold/Platinum";
 	shapeFile = "~/data/shapes/hazards/Nuke/nuke.dts";
 
 	explosion = NukeExplosion;
@@ -794,6 +836,9 @@ datablock StaticShapeData(Nuke) {
 };
 
 datablock StaticShapeData(Nuke_PQ : Nuke) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Mine/landmine.dts";
 	skin = "nuke";
 };
@@ -829,6 +874,9 @@ function NukeClass::onCollision(%this, %obj, %col) {
 //-----------------------------------------------------------------------------
 
 datablock StaticShapeData(Tornado_PQ : Tornado) {
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/hazards/tornado.dts";
 
 	fxEmitter[0] = "GustEmitter";
@@ -1159,7 +1207,9 @@ function PropellerClass::onAdd(%this, %obj) {
 
 datablock StaticShapeData(IceSlick1) {
 	className = "Hazard";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/IceSlick1.dts";
 
 	emap = true;
@@ -1206,7 +1256,9 @@ datablock AudioProfile(IceShardSmashSfx) {
 
 datablock StaticShapeData(IceShard1) {
 	className = "IceShard";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Ice_Shard.dts";
 	renderWhenDestroyed = false;
 	emap = true;
@@ -1222,7 +1274,8 @@ datablock StaticShapeData(IceShard2 : IceShard1) {
 datablock StaticShapeData(IceChunkData) {
 	className = "IceChunk";
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/ice.dts";
-	category = "Hazards";
+	superCategory = "Hazards";
+	category = "PlatinumQuest";
 	emap = true;
 };
 
@@ -1354,27 +1407,45 @@ function IceShard::unfreeze(%this, %ice, %marble, %cancel) {
 
 if (!$pref::LegacyItems) {
 	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";
+	
 		shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
 	};
 
 	datablock StaticShapeData(DuctFan_MBU : DuctFan) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";
+
 		compile = "pls";
 		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
 	};
 	datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";
+		
 		compile = "pls";
 		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
 	};
 } else {
 	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";
+		
 		shapeFile = "~/data/shapes/hazards/trapdoor.dts";
 	};
 
 	datablock StaticShapeData(DuctFan_MBU : DuctFan) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";
+		
 		compile = "pls";
 		shapeFile = "~/data/shapes/hazards/ductfan.dts";
 	};
 	datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";
+		
 		compile = "pls";
 		shapeFile = "~/data/shapes/hazards/ductfan.dts";
 	};

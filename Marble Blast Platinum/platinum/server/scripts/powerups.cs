@@ -128,7 +128,8 @@ datablock AudioProfile(PuSuperJumpVoiceSfx) {
 
 datablock ItemData(SuperJumpItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 	powerUpId = 1;
 
@@ -156,6 +157,9 @@ datablock ItemData(SuperJumpItem) {
 };
 
 datablock ItemData(SuperJumpItem_PQ : SuperJumpItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superjump.dts";
 };
 
@@ -173,7 +177,8 @@ datablock AudioProfile(PuSuperBounceVoiceSfx) {
 
 datablock ItemData(SuperBounceItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 	powerUpId = 3;
 
@@ -221,6 +226,9 @@ datablock ShapeBaseImageData(SuperBounceImage) {
 };
 
 datablock ItemData(SuperBounceItem_PQ : SuperBounceItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superbounce.dts";
 	image = SuperBounceImage_PQ;
 };
@@ -245,8 +253,10 @@ datablock AudioProfile(PuSuperSpeedVoiceSfx) {
 
 datablock ItemData(SuperSpeedItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
+	
 	powerUpId = 2;
 
 	activeAudio = DoSuperSpeedSfx;
@@ -273,12 +283,11 @@ datablock ItemData(SuperSpeedItem) {
 };
 
 datablock ItemData(SuperSpeedItem_PQ : SuperSpeedItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superspeed.dts";
 };
-
-// datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
-// 	shapeFile = "~/data/shapes_mbu/items/superspeed.dts";
-// };
 
 //-----------------------------------------------------------------------------
 
@@ -290,7 +299,8 @@ datablock AudioProfile(PuShockAbsorberVoiceSfx) {
 
 datablock ItemData(ShockAbsorberItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 	powerUpId = 4;
 
@@ -339,6 +349,9 @@ datablock ShapeBaseImageData(ShockAbsorberImage) {
 };
 
 datablock ItemData(ShockAbsorberItem_PQ : ShockAbsorberItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/pillow.dts";
 	image = ShockAbsorberImage_PQ;
 };
@@ -364,7 +377,8 @@ datablock AudioProfile(PuGyrocopterVoiceSfx) {
 
 datablock ItemData(HelicopterItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 	powerUpId = 5;
 
@@ -428,19 +442,19 @@ datablock ShapeBaseImageData(MegaHelicopterImage : ActualHelicopterImage) {
 };
 
 datablock ItemData(HelicopterItem_PQ : HelicopterItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/gyrocopter.dts";
 	image = HelicopterImage_PQ;
 };
 
 datablock ShapeBaseImageData(HelicopterImage_PQ : ActualHelicopterImage) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/gyrocopter.dts";
 };
-
-// datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
-// 	shapeFile = "~/data/shapes_mbu/images/helicopter.dts";
-// 	image = HelicopterImage_MBU;
-// 	ultraImage = HelicopterImage_MBUBall;
-// };
 
 // datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
 // 	shapeFile = "~/data/shapes_mbu/images/helicopter_image.dts";
@@ -465,8 +479,8 @@ datablock AudioProfile(PuRandomVoiceSfx) {
 
 datablock ItemData(RandomPowerUpItem) {
 	// Mission editor category
-	category = "PowerUps";
-	className = "PowerUp";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 
 	// Basic Item properties
 	pickupAudio = PuTimeTravelVoiceSfx;
@@ -539,7 +553,8 @@ datablock AudioProfile(PuTimeTravelVoiceSfx) {
 
 datablock ItemData(TimeTravelItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 
 	// Basic Item properties
@@ -577,6 +592,9 @@ datablock ItemData(TimeTravelItem) {
 };
 
 datablock ItemData(TimeTravelItem_PQ : TimeTravelItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/timetravel.dts";
 
 	//For ::timeCheck() to replace if the time is negative
@@ -591,6 +609,9 @@ datablock ItemData(TimeTravelItem_PQ : TimeTravelItem) {
 // };
 
 datablock ItemData(SundialItem_PQ : TimeTravelItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	// Basic Item properties
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/sundial.dts";
 
@@ -689,6 +710,9 @@ datablock ItemData(TimePenaltyItem : TimeTravelItem) {
 };
 
 datablock ItemData(TimePenaltyItem_PQ : TimeTravelItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	//pickupAudio = TimePenaltySfx;
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/timepenalty.dts";
 
@@ -764,12 +788,18 @@ datablock ItemData(RespawningTimePenaltyItem : TimePenaltyItem) {
 };
 
 datablock ItemData(RespawningTimeTravelItem_PQ : TimeTravelItem_PQ) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	noRespawn = false;
 	//For ::timeCheck() to replace if the time is negative
 	replacement = "RespawningTimePenaltyItem_PQ";
 };
 
 datablock ItemData(RespawningTimePenaltyItem_PQ : TimePenaltyItem_PQ) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	noRespawn = false;
 	//For ::timeCheck() to replace if the time is negative
 	replacement = "RespawningTimeTravelItem_PQ";
@@ -896,7 +926,8 @@ datablock AudioProfile(PuAntiGravityVoiceSfx) {
 
 datablock ItemData(AntiGravityItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 
 	pickupAudio = PuAntiGravityVoiceSfx;
@@ -915,6 +946,9 @@ datablock ItemData(AntiGravityItem) {
 };
 
 datablock ItemData(AntiGravityItem_PQ : AntiGravityItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/GravMod.dts";
 
 	pickupName = "a Gravity Modifier!";
@@ -970,8 +1004,8 @@ function AntiGravityItem_MBU::onPickup(%this, %obj, %user, %amount) {
 
 datablock ItemData(EasterEgg) {
 	// Mission editor category
-	category = "PowerUps";
-	className = "PowerUp";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 
 	shapeFile = "~/data/shapes/items/easteregg.dts";
 	mass = 1;
@@ -1055,8 +1089,10 @@ datablock AudioProfile(NestEggFoundSfx) {
 
 datablock ItemData(NestEgg_PQ) {
 	// Mission editor category
-	category = "Powerups";	// This should be put in a new category
 	className = "PowerUp";	// Ditto
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	// category: NestEggs	className: Egg
 
 	// Basic Item properties
@@ -1126,7 +1162,8 @@ function EasterEgg_MBU::onPickup(%this,%obj,%user,%amount) {
 
 datablock ItemData(NoRespawnAntiGravityItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 
 	pickupAudio = PuAntiGravityVoiceSfx;
@@ -1164,6 +1201,9 @@ function NoRespawnAntiGravityItem::onPickup(%this,%obj,%user,%amount) {
 }
 
 datablock ItemData(NoRespawnAntiGravityItem_PQ : NoRespawnAntiGravityItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/GravMod.dts";
 
 	pickupName = "a Gravity Modifier!";
@@ -1200,8 +1240,9 @@ datablock AudioProfile(PuBlastVoiceSfx) {
 };
 
 datablock ItemData(BlastItem) {
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
-	category = "PowerUps";
 
 	pickupAudio = PuBlastVoiceSfx;
 	shapeFile = "~/data/shapes/items/blast.dts";
@@ -1273,7 +1314,8 @@ datablock AudioProfile(PuMegaMarbleVoiceSfx) {
 
 datablock ItemData(MegaMarbleItem) {
 	// Mission editor category
-	category = "PowerUps";
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";
 	className = "PowerUp";
 	powerUpId = 6;
 
@@ -1306,12 +1348,6 @@ datablock ItemData(MegaMarbleItem) {
 	customField[1, "default"] = "10000";
 };
 
-// datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {
-// 	shapeFile = "~/data/shapes_mbu/images/megamarble.dts";
-
-// 	fxEmitter[0] = "MegaMarbleMBUEmitter";
-// };
-
 function MegaMarbleItem::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 }
@@ -1322,6 +1358,9 @@ function MegaMarbleItem_MBU::onAdd(%this, %obj) {
 	// load particles
 	%this.schedule(1000, "initFX", %obj);
 }
+
+//God I fucking love TorqueScript, having to use hacky solutions to make this shit WORK! - daniel
+
 function MegaMarbleItem_MBU::onPickup(%this,%obj,%user,%amount) {
 	return MegaMarbleItem::onPickup(%this, %obj, %user, %amount);
 }
@@ -1387,8 +1426,10 @@ datablock AudioProfile(DoTeleportItemSfx) {
 
 datablock ItemData(TeleportItem) {
 	// Mission editor category
-	category = "Powerups";
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
 	className = "PowerUp";
+	
 	powerUpId = 7;
 
 	activeAudio = DoTeleportItemSfx;
@@ -1540,8 +1581,10 @@ datablock AudioProfile(DoAnvilSfx) {
 
 datablock ItemData(AnvilItem) {
 	// Mission editor category
-	category = "Powerups";
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
 	className = "PowerUp";
+	
 	powerUpId = 8;
 
 	activeAudio = DoAnvilSfx;
@@ -1610,8 +1653,10 @@ datablock ShapeBaseImageData(BubbleImage) {
 
 datablock ItemData(BubbleItem) {
 	// Mission editor category
-	category = "Powerups";
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
 	className = "PowerUp";
+	
 
 	activeAudio = DoBubbleSfx;
 	pickupAudio = PuBubbleVoiceSfx;
@@ -1697,6 +1742,9 @@ function serverCmdBubbleTime(%client, %time) {
 //-----------------------------------------------------------------------------
 
 datablock ItemData(CustomSuperJumpItem_PQ : SuperJumpItem) {
+	superCategory = "PowerUps";
+	category = "PlatinumQuest";
+	
 	// TODO: get a new DTS shape for weak super jump
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superjump.dts";
 	powerUpId = 9;
@@ -1733,34 +1781,50 @@ function CustomSuperJumpItem_PQ::getData(%this, %obj) {
 
 if (!$pref::LegacyItems) {
 	datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/images/megamarble.dts";
 
 		fxEmitter[0] = "MegaMarbleMBUEmitter";
 	};
 
 	datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/items/superjump.dts";
 	};
 
 	datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/images/helicopter.dts";
 		image = HelicopterImage_MBU;
 		ultraImage = HelicopterImage_MBUBall;
 	};
 
 	datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/items/superspeed.dts";
 	};
 
 	datablock ItemData(BlastItem_MBU : BlastItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/images/blast.dts";
 
 		fxEmitter[0] = "BlastMBUEmitter";
 	};
 
 	datablock ItemData(EasterEgg_MBU) {
-		category = "Powerups";	// This should be put in a new category
 		className = "PowerUp";	// Ditto
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
 
 		// Basic Item properties
 		shapeFile = "~/data/shapes_mbu/items/egg.dts";
@@ -1778,18 +1842,27 @@ if (!$pref::LegacyItems) {
 	};
 
 	datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
 
 		pickupName = "a Gravity Modifier!";
 	};
 
 	datablock ItemData(AntiGravityItem_MBU : AntiGravityItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
 
 		pickupName = "a Gravity Modifier!";
 	};
 	
 	datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
 
 		//For ::timeCheck() to replace if the time is negative
@@ -1797,6 +1870,9 @@ if (!$pref::LegacyItems) {
 	};
 
 	datablock ItemData(TimePenaltyItem_MBU : TimeTravelItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		//pickupAudio = TimePenaltySfx;
 		shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
 
@@ -1816,30 +1892,46 @@ if (!$pref::LegacyItems) {
 	};
 } else {
 	datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/items/MegaMarble.dts";
 	};
 
 	datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/items/superjump.dts";
 	};
 
 	datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/images/helicopter.dts";
 		image = HelicopterImage_MBU;
 		ultraImage = HelicopterImage_MBUBall;
 	};
 
 	datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/items/superspeed.dts";
 	};
 
 	datablock ItemData(BlastItem_MBU : BlastItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/items/blast.dts";
 	};
 
 	datablock ItemData(EasterEgg_MBU) {
-		category = "Powerups";	// This should be put in a new category
 		className = "PowerUp";	// Ditto
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
 
 		// Basic Item properties
 		shapeFile = "~/data/shapes/items/easteregg.dts";
@@ -1857,18 +1949,27 @@ if (!$pref::LegacyItems) {
 	};
 
 	datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/items/antiGravity.dts";
 
 		pickupName = "a Gravity Modifier!";
 	};
 
 	datablock ItemData(AntiGravityItem_MBU : AntiGravityItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/items/antiGravity.dts";
 
 		pickupName = "a Gravity Modifier!";
 	};
 	
 	datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		shapeFile = "~/data/shapes/items/timetravel.dts";
 
 		//For ::timeCheck() to replace if the time is negative
@@ -1876,6 +1977,9 @@ if (!$pref::LegacyItems) {
 	};
 
 	datablock ItemData(TimePenaltyItem_MBU : TimeTravelItem) {
+		superCategory = "PowerUps";
+		category = "Marble_Blast_Ultra";
+
 		//pickupAudio = TimePenaltySfx;
 		shapeFile = "~/data/shapes/items/timetravel.dts";
 

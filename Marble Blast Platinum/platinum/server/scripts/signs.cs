@@ -452,3 +452,59 @@ datablock StaticShapeData(NatureFinishlinesignDark) {
 	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
 	customField[0, "default"] = "";
 };
+
+//MBU Signs Below.
+
+datablock StaticShapeData(ArrowUp)
+{
+   // Mission editor category
+	superCategory = "Scenery";
+	category = "Signs MBU";
+
+   // Basic Item properties
+   shapeFile = "~/data/shapes_mbu/signs/arrowsign_up.dts";
+   mass = 1;
+   friction = 1;
+   elasticity = 0.3;
+};
+
+function ArrowUp::onAdd(%this,%obj)
+{
+   %obj.playThread(0,"ambient");
+}
+
+datablock StaticShapeData(ArrowSide)
+{
+   // Mission editor category
+	superCategory = "Scenery";
+	category = "Signs MBU";
+
+   // Basic Item properties
+   shapeFile = "~/data/shapes_mbu/signs/arrowsign_side.dts";
+   mass = 1;
+   friction = 1;
+   elasticity = 0.3;
+};
+
+function ArrowSide::onAdd(%this,%obj)
+{
+   %obj.playThread(0,"ambient");
+}
+
+datablock StaticShapeData(ArrowDown)
+{
+   // Mission editor category
+	superCategory = "Scenery";
+	category = "Signs MBU";
+
+   // Basic Item properties
+   shapeFile = "~/data/shapes_mbu/signs/arrowsign_down.dts";
+   mass = 1;
+   friction = 1;
+   elasticity = 0.3;
+};
+
+function ArrowDown::onAdd(%this,%obj)
+{
+   %obj.playThread(0,"ambient");
+}
