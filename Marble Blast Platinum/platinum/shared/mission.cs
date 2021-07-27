@@ -392,6 +392,8 @@ function resolveMissionGameModes(%mission) {
 			%modes = %modes SPC "ghosts";
 		if ($MP::Server::SnowballsOnly && $MP::CurrentModeInfo.identifier $= "snowball")
 			%modes = %modes SPC "snowballsonly";
+		if (findWord(%modes, "hunt") != -1 && findWord(%modes, "coop") == -1 && findWord(%modes, "training") == -1 && ($MPPref::Server::TrainingMode || $MP::Client::ServerSetting["TrainingMode"])) // If it's hunt, not co-op, and not already training, and server's training mode is on, add it on!
+			%modes = %modes SPC "training";
 		if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
 			%modes = %modes SPC "steal";
 	}
