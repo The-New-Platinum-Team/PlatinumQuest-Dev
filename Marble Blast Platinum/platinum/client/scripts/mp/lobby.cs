@@ -470,6 +470,8 @@ function clientCmdValidMission(%file) {
 
 function clientCmdCloseLobby() {
 	$Server::Lobby = false;
+	PG_LBChatEntry.setValue(""); // Clear ingame chat
+	LBSetChatMessage("", PG_LBChatEntry);
 }
 
 function clientCmdDifficultyListStart() {
