@@ -440,16 +440,7 @@ function MPshouldSendScores() {
 	if (!$MPPref::Server::SubmitScores) {
 		return false;
 	}
-	if ($Game::isMode["hunt"] && $MP::ScoreSendingDisabled) { // If Double Spawns are turned on
-		return false;
-	}
-	if ($MPPref::Server::CompetitiveMode) {
-		return false;
-	}
-	if ($MPPref::Server::TrainingMode) {
-		return false;
-	}
-	if ($MPPref::Server::PartySpawns) {
+	if ($Game::isMode["hunt"] && $MP::ScoreSendingDisabled) { // If Double Spawns, etc., are turned on
 		return false;
 	}
 
