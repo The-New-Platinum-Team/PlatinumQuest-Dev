@@ -275,49 +275,16 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 function getCenterGems(%groups, %exclude, %count) {
 	%spawnCount = (MissionInfo.maxGemsPerSpawn ? MissionInfo.maxGemsPerSpawn : $Hunt::MaxGemsPerSpawn);
 	%spawnRadius = (MissionInfo.radiusFromGem ? MissionInfo.radiusFromGem : $Hunt::RadiusFromGem);
-	%spawnBlock = (MissionInfo.spawnBlock ? MissionInfo.spawnBlock : %spawnRadius * 2);
-
-	//Somewhere far enough away that every gem is a valid spawn
-	%blockPos = "-9999999 -9999999 -9999999";
+	%spawnBlock = (MissionInfo.spawnBlock ? MissionInfo.spawnBlock : 25);
 
 	if (mp() && getPlayingPlayerCount() > 1) {
-		//On MP, instead of blocking around the last gem, block around the player
-		// currently in the lead. This should create closer games and discourage
-		// camping for gems.
-
-		//Find the leader
-		%leader = -1;
-		%loser = -1;
-		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-			%client = ClientGroup.getObject(%i);
-			if (%client.spectating)
-				continue;
-			//If we have more, we're the leader
-			if (%leader == -1 || %client.gemCount > %leader.gemCount)
-				%leader = %client;
-			//If we have fewe, we're the loser
-			if (%loser == -1 || %client.gemCount < %loser.gemCount)
-				%loser = %client;
-		}
-
-		//Difference in points determines spawn block multiplier. Range is [0, 3]x original size.
-		// If you have the same score, then the block radius is nearly zero.
-		// If you have twice the score then the radius is twice as large, etc
-		%ratio = mClamp(((%leader.gemCount / max(%loser.gemCount, 1)) - 1) * 2, 0, 3);
-
-		%blockCenter = %leader.player.getPosition();
-		%spawnBlock *= %radius;
+		// Do nothing.
 	} else {
-		%lastSpawn = $Game::LastGemSpawner;
-		devecho("Last spawn is" SPC %lastSpawn);
-		if (isObject(%lastSpawn)) {
-			%blockCenter = getWords(%lastSpawn.getTransform(), 0, 2);
-			devecho("Won't spawn any gems inside the radius of " @ %spawnBlock @ " from the last gem");
-			devecho("Last pos is" SPC %blockCenter);
-		}
+		// Pretty much just limits the spawnBlock to the last gem collected (radius 1 around the player).
+		%spawnBlock = 1;
 	}
 	%furthest = 0;
-	%furthestDist = 0;
+	%furthestMinimumDistance = 0;
 
 	// Fuck getRandomSeed. Fuck it. Fuck. This is the most confusing thing
 	// ever. It resets every time you call getRandom, unless it is 0, but then it
@@ -332,7 +299,7 @@ function getCenterGems(%groups, %exclude, %count) {
 	// Find a bunch of gems that could be the center, then pick a random one below
 	%validCenters = Array(HuntValidCentersArray);
 
-	for (%i = 0; %i < 10; %i ++) {
+	for (%i = 0; %i < 20; %i ++) {
 		%gem = $Gems[getRandom(0, $GemsCount - 1)];
 		if (!isObject(%gem))
 			continue;
@@ -341,28 +308,41 @@ function getCenterGems(%groups, %exclude, %count) {
 		if (isObject(%lastSpawn) && %lastSpawn.getClassName() $= "Item") {
 			// Compare positions
 			%gemPos = getWords(%gem.getTransform(), 0, 3);
-			%dist = VectorDist(%gemPos, %blockCenter) + %gem._spawnWeight;
+			%minimumDistance = 999999; // If multiplayer, we track each player's distance to the gem, and find one which has the farthest distance from all players. If we can't spawn any gems due to spawnBlock being too high, we use this gem.
+			// High dummy number, meant to get overwritten by the first distance.
 
-			// OK I JUST FIGURED THIS OUT
-			// APPARENTLY I'M SMARTER THAN MYSELF.... WHY?!
+			for (%ii = 0; %ii < ClientGroup.getCount(); %ii ++) { // Should loop only once if it's singleplayer anyway.
 
-			// If the gem is not a candidate for spawning, store it in
-			// case we can't spawn any. If it is the furthest of the bad spawns,
-			// we'll spawn it.
-			if (%dist < %spawnBlock) {
-				// Store furthest group out of all in case no gem can
-				// be found to spawn.
-				if (%validCenters.getSize() == 0 && %dist > %furthestDist) {
-					%furthestDist = %dist - %gem._spawnWeight;
-					%furthest = %gem;
-					devecho("Tested gem " @ %gem @ " is too close (but the furthest we've found so far): " @ %dist);
+				%client = ClientGroup.getObject(%ii);
+				%blockCenter = %client.player.getPosition();
+				%dist = VectorDist(%gemPos, %blockCenter) + %gem._spawnWeight;
+
+				if (%dist < %spawnBlock) {
+					if (%dist < %minimumDistance) {
+						%minimumDistance = %dist;
+					}
+				} else {
+					devecho("Tested gem " @ %gem @ " is far enough: " @ %dist @ " > " @ %spawnBlock);
+					// If this gem works as a spawn center, USE IT, but we have to check against the other players if they exist
+					%validCenters.addEntry(%gem);
+					%completelyBreakOut = true;
+					break;
 				}
-				continue;
-			} else {
-				devecho("Tested gem " @ %gem @ " is far enough: " @ %dist @ " > " @ %spawnBlock);
-				// If this gem works as a spawn center, USE IT USE IT
-				%validCenters.addEntry(%gem);
 			}
+
+			// Store the gem 
+			if (%validCenters.getSize() == 0) {
+				devecho("This gem's min. distance from players is" SPC %minimumDistance @ ", furthest before is" SPC %furthestMinimumDistance);
+				if (%minimumDistance > %furthestMinimumDistance) {
+					%furthestMinimumDistance = %minimumDistance;
+					%furthest = %gem;
+				}
+			}
+
+			if (%completelyBreakOut) {
+				break;
+			}
+
 		} else {
 			devecho("No lastSpawn, so we're just going with the first thing we got");
 			// If lastSpawn is not a Gem, then any spawn should work
@@ -370,7 +350,11 @@ function getCenterGems(%groups, %exclude, %count) {
 		}
 	}
 	if (%furthest) {
+		devecho("No gems could spawn, we're picking the one furthest from all players (gem id" SPC %furthest SPC "at distance" SPC %furthestMinimumDistance @ ")" );
 		%validCenters.addEntry(%furthest);
+	}
+	if (%validCenters.getSize() == 0) {
+		echo("WHY???");
 	}
 	if (getHuntSpawnType() > 0) {
 		//MAX POINTS (menu only)
