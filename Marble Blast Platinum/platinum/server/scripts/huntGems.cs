@@ -281,7 +281,14 @@ function getCenterGems(%groups, %exclude, %count) {
 		// Do nothing.
 	} else {
 		// Pretty much just limits the spawnBlock to the last gem collected (radius 1 around the player).
-		%spawnBlock = 1;
+		%spawnBlock = %spawnRadius * 2;
+	}
+	%lastSpawn = $Game::LastGemSpawner; // Honestly don't know why we need a "lastSpawn" when player position is effectively equal to it in singleplayer
+	devecho("Last spawn is" SPC %lastSpawn);
+	if (isObject(%lastSpawn)) {
+		//%blockCenter = getWords(%lastSpawn.getTransform(), 0, 2);
+		devecho("Won't spawn any gems inside the radius of " @ %spawnBlock @ " from the last gem");
+		devecho("Last pos is" SPC %blockCenter);
 	}
 	%furthest = 0;
 	%furthestMinimumDistance = 0;
@@ -299,7 +306,8 @@ function getCenterGems(%groups, %exclude, %count) {
 	// Find a bunch of gems that could be the center, then pick a random one below
 	%validCenters = Array(HuntValidCentersArray);
 
-	for (%i = 0; %i < 20; %i ++) {
+	%searchGemsCount = (mp() && getPlayingPlayerCount() > 1)? 20 : 10; // (I think) In singleplayer, you can get a lucky doublespawn if every iteration of this loop picks a close gem and defies the spawnBlock. This means a higher number here, while better for balance in MP, will be differing in SP.
+	for (%i = 0; %i < %searchGemsCount; %i ++) {
 		%gem = $Gems[getRandom(0, $GemsCount - 1)];
 		if (!isObject(%gem))
 			continue;
@@ -347,6 +355,7 @@ function getCenterGems(%groups, %exclude, %count) {
 			devecho("No lastSpawn, so we're just going with the first thing we got");
 			// If lastSpawn is not a Gem, then any spawn should work
 			%validCenters.addEntry(%gem);
+			break;
 		}
 	}
 	if (%furthest) {
