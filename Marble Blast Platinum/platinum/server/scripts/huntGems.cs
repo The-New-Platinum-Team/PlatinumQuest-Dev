@@ -141,7 +141,7 @@ function doSpawnHuntGemGroup(%exclude) {
 		// We can do a gemGroup spawn here!
 		%count = 0;
 
-		while ($Hunt::CurrentGemCount == 0 && (%count ++) < 20) {
+		while ((%count ++) < 20) {
 			%groupCount = GemGroups.getCount();
 			%spawnables = new ScriptObject() {
 				count = 0;
