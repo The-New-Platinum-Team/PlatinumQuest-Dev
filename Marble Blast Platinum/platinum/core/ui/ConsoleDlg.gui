@@ -274,7 +274,11 @@ function toggleConsole2(%make) {
 
 // adding console binding here
 // The GUI editor binding is in GuiEditorGui, so I've done similar for the console
-GlobalActionMap.bind(keyboard, tilde, toggleConsole);
+if ($pref::AltTildeForConsole) {
+	GlobalActionMap.bind(keyboard, "alt tilde", toggleConsole);
+} else {
+	GlobalActionMap.bind(keyboard, tilde, toggleConsole);
+}
 
 // readding this because tilde support is gone on windows 7
 GlobalActionMap.bind(keyboard, pageUp, toggleConsole2);
