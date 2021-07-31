@@ -46,9 +46,9 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 			};
 			//if (getEventTimeLeft(MPGetMyMarble().megaSchedule) < %duration) {
 				// getEventTimeLeft must've been removed, sigh
-			if (!isEventPending(MPGetMyMarble().megaSchedule)) {
-				MegaMarbleItem.onUse(%x, MPGetMyMarble());
-			}
+			//if (!isEventPending(MPGetMyMarble().megaSchedule)) {
+			MegaMarbleItem.onUse(%x, MPGetMyMarble());
+			//}
 		case 5:
 		case 6:
 			commandToClient(%object.client, 'doPowerUp', 2);
