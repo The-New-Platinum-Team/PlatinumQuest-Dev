@@ -213,9 +213,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				}
 			} else {
 				if ($Game::isMode["hunt"]) {
-					deactivateMode("training"); // Training overlaps some of the callbacks that Hunt has, so have to re-enable Hunt
-					deactivateMode("hunt");
-					onNextFrame(activateMode, "hunt"); // If it's not on next frame, I think there are issues where Hunt manages to get deactivated completely and the game becomes bugged as hell. This is why this is there.
+					deactivateMode("training");
 					onNextFrame(hideGems);
 					onNextFrame(spawnHuntGemGroup);
 					$MP::ScoreSendingDisabled = false;
