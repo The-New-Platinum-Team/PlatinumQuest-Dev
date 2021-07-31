@@ -650,7 +650,11 @@ function spawnGem(%gem) {
 		%gem.setDataBlock(GemItemRed);
 		%gem.setSkinName("red");
 	}
-	if ($MPPref::Server::PartySpawns && mp() && !$Game::isMode["coop"]) {
+	if ($MPPref::Server::PartySpawns && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+		if ($MP::nonPartyGemsPerSpawn != MissionInfo.maxGemsPerSpawn - 3) { // Going to not be accurate if someone switches from one party map, to another that has the same maxGemsPerSpawn as the last, oh well
+			$MP::nonPartyGemsPerSpawn = MissionInfo.maxGemsPerSpawn;
+			MissionInfo.maxGemsPerSpawn = $MP::nonPartyGemsPerSpawn + 3;
+		}
 		if (%gem._nonPartyDatablock $= "") {
 			%gem._nonPartyDatablock = %gem.getDataBlock().getName();
 			%gem._nonPartySkin = %gem.getDataBlock().skin;
@@ -658,19 +662,34 @@ function spawnGem(%gem) {
 			%gem._nonPartyPosition = %gem.position;
 			%gem._nonPartyScale = %gem.scale;
 		}
-		%chosen = getRandom(0, 12);
+		%chosen = getRandom(0, 13);
 		%gem.setTransform(%gem._nonPartyPosition);
 		%gem.setScale(VectorScale(%gem._nonPartyScale, 2));
 		if (%chosen <= 4 && %gem._nonPartySkin $= "red") { // Don't downgrade a higher value gem to red. For maps like Bowl and such.
 			%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
 			%gem.setSkinName("red");
-		} else if (%chosen <= 9) {
+		} else if (%chosen <= 8) {
 			%gem.setDataBlock("GemItemYellow" @ %gem._nonPartySuffix);
 			%gem.setSkinName("yellow");
+		} else if (%chosen <= 9) {
+			%gem.setDataBlock("GemItemOrange" @ %gem._nonPartySuffix);
+			%gem.setSkinName("orange");
+		} else if (%chosen <= 10) {
+			%gem.setDataBlock("GemItemGreen" @ %gem._nonPartySuffix);
+			%gem.setSkinName("green");
 		} else if (%chosen <= 11) {
 			%gem.setDataBlock("GemItemBlue" @ %gem._nonPartySuffix);
 			%gem.setSkinName("blue");
-		} else if (%chosen == 12) { // No "else", fall through because the first 'if' can fail
+		} else if (%chosen <= 12) {
+			%gem.setDataBlock("GemItemPurple" @ %gem._nonPartySuffix);
+			%gem.setSkinName("purple");
+		//} else if (%chosen <= 13) {
+		//	%gem.setDataBlock("GemItemTurquoise" @ %gem._nonPartySuffix;
+		//	%gem.setSkinName("turquoise");
+		//} else if (%chosen <= 13) {
+		//	%gem.setDataBlock("GemItemBlack" @ %gem._nonPartySuffix);
+		//	%gem.setSkinName("black");
+		} else if (%chosen == 13) { // No "else", fall through because the first 'if' can fail
 			%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
 			%gem.setSkinName("platinum");
 			if (getRandom(0, 1) == 0) { // Up high!
@@ -680,6 +699,7 @@ function spawnGem(%gem) {
 		}
 		%gem.onInspectApply();
 	} else {
+		MissionInfo.maxGemsPerSpawn = $MP::nonPartyGemsPerSpawn;
 		if (%gem._nonPartyDatablock !$= "") {
 			%gem.setDataBlock(%gem._nonPartyDatablock);
 			%gem.setSkinName(%gem._nonPartySkin);

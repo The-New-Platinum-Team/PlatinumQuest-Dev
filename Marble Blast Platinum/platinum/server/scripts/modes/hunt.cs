@@ -60,7 +60,7 @@ function huntStoreGem(%client, %huntExtraValue, %color) {
 		%client.gemsFound[1] ++;
 
 	//Show a message
-	%client.displayGemMessage("+" @ (%huntExtraValue + 1), %color);
+	%client.displayGemMessage((%huntExtraValue+1 >= 0? "+":"") @ (%huntExtraValue + 1), %color);
 }
 
 function Mode_hunt::shouldStoreGem(%this, %object) {

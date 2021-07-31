@@ -396,6 +396,8 @@ function resolveMissionGameModes(%mission) {
 			%modes = %modes SPC "training";
 		if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
 			%modes = %modes SPC "steal";
+		if ($MPPref::Server::PartySpawns || $MP::Client::ServerSetting["PartySpawns"])
+			%modes = %modes SPC "partyspawns";
 	}
 
 	return strlwr(%modes);
