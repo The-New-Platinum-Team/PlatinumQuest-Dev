@@ -227,8 +227,10 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			}
 		case "PartySpawns":
 			if (%value) {
+				activateMode("partyspawns");
 				$MP::ScoreSendingDisabled = true;
 			} else {
+				deactivateMode("partyspawns");
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					if (ClientGroup.getObject(%i).getGemCount() != 0) {
