@@ -26,6 +26,7 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("onActivate");
 	%this.registerCallback("shouldStoreGem");
 	%this.registerCallback("onMissionReset");
+	%this.registerCallback("onMissionEnded");
 	%this.registerCallback("shouldResetGem");
 	%this.registerCallback("shouldResetTime");
 	%this.registerCallback("shouldRestartOnOOB");
@@ -123,6 +124,9 @@ function Mode_hunt::onMissionReset(%this, %object) {
 			%client.addBubbleLine("Competitive Mode is on. Gems autorespawn after 25 seconds, and spawns can happen with up to 2 points left behind.");
 		}
 	}
+}
+function Mode_hunt::onMissionEnded(%this) {
+	$MP::nonPartyGemsPerSpawn = false;
 }
 function Mode_hunt::onHuntGemSpawn(%this) {
 	if ($MPPref::Server::CompetitiveMode) {
