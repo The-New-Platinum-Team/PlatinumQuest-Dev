@@ -56,8 +56,12 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 			commandToClient(%object.client, 'doPowerUp', 4);
 			ShockAbsorberItem.onUse(%trigger, MPGetMyMarble());
 		case 7:
-			//commandToClient(%object.client, 'doPowerUp', 4);
-			//ShockAbsorberItem.onUse(%trigger, MPGetMyMarble());
+			//commandToClient(%object.client, 'doPowerUp', 1);
+			//SuperJumpItem.onUse(%trigger, MPGetMyMarble());
+			commandToClient(%object.client, 'doPowerUp', 2);
+			SuperSpeedItem.onUse(%trigger, MPGetMyMarble());
+			commandToClient(%object.client, 'doPowerUp', 2);
+			SuperSpeedItem.onUse(%trigger, MPGetMyMarble());
 		case 10:
 			//commandToClient(%object.client, 'doPowerUp', 5);
 			//HelicopterItem.onUse(%trigger, MPGetMyMarble());
@@ -66,13 +70,11 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 			//commandToClient(%object.client, 'doPowerUp', 4);
 			//ShockAbsorberItem.onUse(%trigger, MPGetMyMarble());
 		case -1:
-			// Black gem: Everyone falls now!
-			commandToAll(%object.client, 'doPowerUp', 8);
-			AnvilItem.onUse(%trigger, MPGetMyMarble());
-			%duration = 20000;
-			%x = new ScriptObject(LowTimeout) {
-				timeout = %duration;
-			};
+			// Black gem: Mega/Fireball/SB
 			MegaMarbleItem.onUse(%x, MPGetMyMarble());
+			GameConnection::fireballInit(%object.client, 10000);
+			FireballItem.onUse(%trigger, %object);
+			commandToClient(%object.client, 'doPowerUp', 3);
+			SuperBounceItem.onUse(%trigger, MPGetMyMarble());
 	}
 }
