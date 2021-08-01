@@ -744,7 +744,9 @@ function spawnGem(%gem) {
 		}
 		%gem.onInspectApply();
 	} else {
-		MissionInfo.maxGemsPerSpawn = $MP::nonPartyGemsPerSpawn;
+		if ($MP::nonPartyGemsPerSpawn) {
+			MissionInfo.maxGemsPerSpawn = $MP::nonPartyGemsPerSpawn;
+		}
 		if (%gem._nonPartyDatablock !$= "") {
 			%gem.setDataBlock(%gem._nonPartyDatablock);
 			%gem.setSkinName(%gem._nonPartySkin);
