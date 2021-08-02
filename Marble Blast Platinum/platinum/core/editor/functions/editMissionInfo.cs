@@ -192,6 +192,16 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addTextEditField("EMI_Snowball_PointsPerHit", "Points per Hit:", MissionInfo.pointsPerHit, 100, -1);
 		LargeFunctionDlg.addCheckBox("EMI_Snowball_NoAchShard", "No Achievement Ice Shard:", MissionInfo.noAchShard, 0);
 		LargeFunctionDlg.addCheckBox("EMI_Snowball_SnowGravity", "Gravity-less Snow:", MissionInfo.snowGravity, 0);
+	} if (%use["getpastthepost"]) {
+		LargeFunctionDlg.addNote("\c4----------- Get Past the Post -----------");
+		LargeFunctionDlg.addTextEditField("EMI_Getpastthepost_markerpost", "Score to hit:", MissionInfo.markerpost, 100, -1);
+		LargeFunctionDlg.addTimeEditField("EMI_PlatinumTime", "Platinum time:", MissionInfo.platinumTime, 100, -1);
+		LargeFunctionDlg.addTimeEditField("EMI_UltimateTime", "Ultimate time:", MissionInfo.ultimateTime, 100, -1);
+		LargeFunctionDlg.addTimeEditField("EMI_AwesomeTime", "Awesome time:", MissionInfo.awesomeTime, 100, -1);
+	} if (%use["huntplus"]) {
+		LargeFunctionDlg.addNote("\c4----------- Hunt Plus -----------");
+		LargeFunctionDlg.addTextEditField("EMI_Hunt_TimeBonus", "Time Bonus after spawn (Blank for normal hunt):", MissionInfo.additionaltime, 100, -1);
+	    LargeFunctionDlg.addCheckBox("EMI_Hunt_RagingBull", "SS and SJ upon new spawn (Uncheck for normal hunt)", MissionInfo.ragingbull, 0);
 	}
 
 	LargeFunctionDlg.addNote("\c4----------- Radar -----------");
@@ -343,6 +353,9 @@ function editMissionInfo(%gui) {
 	miAssign(blueSpawnChance, EMI_Hunt_BGSC, $Game::isMode["hunt"]);
 	miAssign(platinumSpawnChance, EMI_Hunt_PGSC, $Game::isMode["hunt"]);
 
+	miAssign(additionaltime, EMI_Hunt_TimeBonus, $Game::isMode["huntplus"]);
+	miAssign(ragingbull, EMI_Hunt_RagingBull, $Game::isMode["huntplus"]);
+
 	miAssign(score, EMI_ParScore, !%useTime);
 	miAssign(platinumScore, EMI_PlatinumScore, !%useTime);
 	miAssign(ultimateScore, EMI_UltimateScore, !%useTime);
@@ -375,6 +388,8 @@ function editMissionInfo(%gui) {
 	miAssign(pointsPerHit, EMI_Snowball_PointsPerHit, $Game::isMode["snowball"]);
 	miAssign(noAchShard, EMI_Snowball_NoAchShard, $Game::isMode["snowball"]);
 	miAssign(snowGravity, EMI_Snowball_SnowGravity, $Game::isMode["snowball"]);
+	
+	miAssign(markerpost, EMI_Getpastthepost_markerpost, $Game::isMode["getpastthepost"]);
 
 	miAssign(radar, EMI_Radar);
 	miAssign(hideRadar, EMI_HideRadar);

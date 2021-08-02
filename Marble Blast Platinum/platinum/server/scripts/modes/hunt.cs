@@ -40,6 +40,7 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("shouldRestorePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
+	%this.registerCallback("onHuntGemSpawn");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_hunt::onActivate(%this) {
