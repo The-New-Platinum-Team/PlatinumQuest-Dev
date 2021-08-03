@@ -402,7 +402,7 @@ function GemChangeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 		}
 	} else {
 		%obj.client.gemCount += %trigger.gemBonus;
-		%obj.client.setGemCount(%obj.client.gemCount + %trigger.gemBonus);
+		%obj.client.setGemCount(%obj.client.gemCount);
 
 	}
 
