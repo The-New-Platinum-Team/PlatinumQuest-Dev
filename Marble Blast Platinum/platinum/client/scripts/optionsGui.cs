@@ -388,6 +388,9 @@ $Options::JoyTicks["Audio", 1] = 20; //Every 5
 $Options::Name    ["Audio", 2] = "audioPack";
 $Options::Title   ["Audio", 2] = "Audio Pack";
 $Options::Type    ["Audio", 2] = "value";
+$Options::Name    ["Audio", 3] = "automaticAudio";
+$Options::Title   ["Audio", 3] = "Automatic Audio Swap";
+$Options::Type    ["Audio", 3] = "boolean";
 
 //-----------------------------------------------------------------------------
 // Gameplay
@@ -1203,6 +1206,24 @@ function Opt_helptriggers_decrease() {
 
 function Opt_helptriggers_increase() {
 	$pref::HelpTriggers = !$pref::HelpTriggers;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_automaticaudio_getDisplay() {
+	return $pref::AutomaticAudio ? "Enabled" : "Disabled";
+}
+
+function Opt_automaticaudio_getValue() {
+	return $pref::AutomaticAudio;
+}
+
+function Opt_automaticaudio_decrease() {
+	$pref::AutomaticAudio = !$pref::AutomaticAudio;
+}
+
+function Opt_automaticaudio_increase() {
+	$pref::AutomaticAudio = !$pref::AutomaticAudio;
 }
 
 //-----------------------------------------------------------------------------

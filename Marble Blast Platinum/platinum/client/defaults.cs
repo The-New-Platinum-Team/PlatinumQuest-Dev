@@ -99,6 +99,7 @@ $pref::Audio::channelVolume6 = 0.5;
 $pref::Audio::channelVolume7 = 0.5;
 $pref::Audio::channelVolume8 = 0.5;
 $pref::OOBVoice = 1;
+$pref::Audio::AutomaticAudio = true;
 $pref::Audio::AudioPack = "";
 
 $Pref::EnableDirectInput = true;

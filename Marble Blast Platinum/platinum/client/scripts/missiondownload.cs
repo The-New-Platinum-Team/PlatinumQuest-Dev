@@ -124,7 +124,17 @@ function onPhase3Complete() {
 	setLoadProgress(3, 1, 1);
 
 	//Safe to do this here, should cover SP as well as MP
-	loadAudioPack($pref::Audio::AudioPack);
+	if (($pref::AutomaticAudio) && (Sky.materialList $= "platinum/data/skies/sky_day.dml")) { 
+		loadAudioPack(mbg);
+	} else if 
+		(($pref::AutomaticAudio) && ((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra"))) {
+		 loadAudioPack(mbu);
+	} else if 
+		(($pref::AutomaticAudio) && ((Sky.materialList $= "platinum/data/skies/Beginner/Beginner_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Intermediate/Intermediate_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Advanced/Advanced_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Expert/Expert_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Bonus/Bonus_Sky.dml"))) {
+		 loadAudioPack(mbp);
+	} else {
+		loadAudioPack($pref::Audio::AudioPack); //I should probably use a case statement for this... - daniel
+	}
 }
 
 //----------------------------------------------------------------------------
