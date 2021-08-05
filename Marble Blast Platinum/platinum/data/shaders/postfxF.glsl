@@ -438,50 +438,41 @@ int checkGlowColor(vec3 color) {
     return 0;
 }
 
+vec4 illuminate(vec4 color) {
+    if(checkGlowColor(color.rgb) == 1) {
+        return color * 6;
+    }
+    return vec4(0, 0, 0, 0);
+}
+
+vec4 blur13(sampler2D texture, vec2 uv, vec2 resolution) {
+
+    const int blurSize = 16;
+    const float blurStep = 1;
+    int counter = 0;
+    vec4 avgcolor = vec4(0.0, 0.0, 0.0, 0.0);
+    for(int i = 0; i < blurSize; i++) {
+        for(int j = 0; j < blurSize; j++) {
+            vec2 offset = vec2(float(i * blurStep), float(j * blurStep));
+            vec2 centre = vec2(blurSize * blurStep / 2, blurSize * blurStep / 2);
+            vec4 illumColor = illuminate(texture2D(texture, (uv + offset - centre) / resolution));
+            avgcolor += illumColor;
+            counter++;
+        }
+    }
+    avgcolor /= counter;
+
+    vec4 color = avgcolor;
+    return color;
+}
+
 void main() {
     vec2 pixel = (UV * screenSize);
 
     vec4 color = (texture2D(textureSampler, pixel / screenSize));
 
-    const int BLOCK_SIZE = 8;
-
-    const float RADIUS_OFFSET = 1.5;
-
-    // Calc luminance for 8x8 pixel block 
-    vec4 lumVector[BLOCK_SIZE * BLOCK_SIZE];
-
-    int count;
-    for(int i = 0; i < BLOCK_SIZE; i++) {
-        for(int j = 0; j < BLOCK_SIZE; j++) {
-
-            vec2 offset = vec2(float(i * RADIUS_OFFSET), float(j * RADIUS_OFFSET));
-            vec2 centre = vec2(BLOCK_SIZE * RADIUS_OFFSET / 2, BLOCK_SIZE * RADIUS_OFFSET / 2);
-
-            vec4 c = texture2D(textureSampler, (pixel + offset - centre) / screenSize);
-
-            float luminance = 0;
-
-            if(checkGlowColor(c.rgb) == 1) {
-                luminance = 1;
-            }
-            vec4 brightColor = c * 2;
-
-            brightColor.xyz *= sign(luminance);
-            brightColor.a = 1.0;
-
-            lumVector[i * BLOCK_SIZE + j] = brightColor;
-            count++;
-        }
-    }
-
-    vec4 avgLum = vec4(0, 0, 0, 0);
-    for(int i = 0; i < BLOCK_SIZE; i++) {
-        for(int j = 0; j < BLOCK_SIZE; j++) {
-            avgLum += lumVector[i * BLOCK_SIZE + j];
-        }
-    }
-    avgLum /= count;
+    vec4 lumColor = blur13(textureSampler, pixel, screenSize);
 
     // Invert colors
-    gl_FragColor = color + avgLum;
+    gl_FragColor = color + lumColor;
 }
