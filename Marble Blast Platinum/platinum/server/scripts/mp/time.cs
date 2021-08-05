@@ -174,7 +174,25 @@ function GameConnection::syncClock(%client, %time, %bonus, %total) {
 }
 
 
-function syncClients() {
+function syncClients(%comingFromTimeSync) {
+	if (%comingFromTimeSync == 101010 && $SpectateMode) { // Don't trust the host on this one, they might be tabbed out and induce a higher time value
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			// Just find one that isn't spectating
+			%client = ClientGroup.getObject(%i);
+			if (!%client.spectating) {
+				// Steal their clocks
+				if (%time $= "")
+					$Time::CurrentTime;
+				if (%bonus $= "")
+					$Time::BonusTime = %client.bonusTime;
+				if (%total $= "")
+					$Time::TotalTime;
+				// ...where does the client store its times? Guess I have to put this on hold for now
+			}
+			break;
+		}
+
+	}
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
 		%client.syncClock();

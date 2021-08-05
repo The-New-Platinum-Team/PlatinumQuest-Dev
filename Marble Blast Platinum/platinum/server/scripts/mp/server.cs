@@ -537,7 +537,7 @@ function MPSyncClocks() {
 		return;
 
 	cancel($MP::Schedule::ClockSync);
-	syncClients();
+	syncClients(101010);
 	$MP::Schedule::ClockSync = schedule(5000, 0, MPSyncClocks);
 }
 
