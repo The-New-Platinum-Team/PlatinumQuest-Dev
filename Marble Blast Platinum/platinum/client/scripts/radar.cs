@@ -519,7 +519,7 @@ function Radar::AddDot(%object, %bitmap) {
 		skin = %skin;
 	};
 	%dot.setVisible($Game::RadarMode > 0);
-	PlayGuiContent.add(%dot);
+	PG_RadarContent.add(%dot);
 	return %dot;
 }
 
