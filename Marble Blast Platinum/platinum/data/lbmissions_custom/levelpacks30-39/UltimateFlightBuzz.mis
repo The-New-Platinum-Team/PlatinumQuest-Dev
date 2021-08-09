@@ -1,10 +1,16 @@
-new MaterialProperty(DefaultMaterial)
+new MaterialProperty(UltimateFlight_Bounce)
 {
 friction = 1;
 restitution = 0;
 force = 50;
 };
-addMaterialMapping( "pattern_neutral1" , DefaultMaterial);
+
+function clientCbOnMissionLoaded () {
+   addMaterialMapping( "pattern_neutral1" , UltimateFlight_Bounce);
+}
+function clientCbOnMissionEnded () {
+   addMaterialMapping( "pattern_neutral1" , DefaultMaterial);
+}
 
 
 //--- OBJECT WRITE BEGIN ---
