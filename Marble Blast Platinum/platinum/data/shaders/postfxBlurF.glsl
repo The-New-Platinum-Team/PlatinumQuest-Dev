@@ -26,6 +26,16 @@ uniform sampler2D depthSampler;
 uniform sampler2D bloomDepthSampler;
 uniform vec2 screenSize;
 
+const float zNear = 0.01f;
+const float zFar = 500.f;
+
+// http://stackoverflow.com/a/6657284/214063
+float linearize(float z_b) {
+    float z_n = 2.0 * z_b - 1.0;
+    float z_e = 2.0 * zNear * zFar / (zFar + zNear - z_n * (zFar - zNear));
+    return z_e;
+}
+
 float roundN(float x, float y) {
     return floor(x / y + 0.5) * y;
 }
@@ -56,7 +66,7 @@ vec4 blur13(sampler2D texture, vec2 uv, vec2 resolution) {
             float pivotY = min(float(abs(float(j - 3))), float(abs(float(j - 4))));
             float coeff = (coeffs[int(3 - pivotX)]) * (coeffs[int(3 - pivotY)]);
 
-            if(pixdepth.z < bloomdepth.z) {
+            if(linearize(bloomdepth.z) - linearize(pixdepth.z) > 0.01) {
                 continue;
             }
 
@@ -79,7 +89,7 @@ void main() {
 
     vec4 pixdepth = (texture2D(depthSampler, pixel / screenSize));
     vec4 bloomdepth = (texture2D(bloomDepthSampler, pixel / screenSize));
-    if(pixdepth.z < bloomdepth.z) {
+    if(linearize(bloomdepth.z) - linearize(pixdepth.z) > 0.01) {
         color = vec4(0, 0, 0, 0);
     }
 
