@@ -30,9 +30,9 @@ void main() {
     vec2 pixel = (UV * screenSize);
 
     vec4 color = (texture2D(textureSampler, pixel / screenSize));
-	
-	vec4 color2 = (texture2D(bloomSampler, pixel / screenSize));
-	
+
+    vec4 color2 = (texture2D(bloomSampler, pixel / screenSize));
+
     // Invert colors
     gl_FragColor = color + color2;
 }

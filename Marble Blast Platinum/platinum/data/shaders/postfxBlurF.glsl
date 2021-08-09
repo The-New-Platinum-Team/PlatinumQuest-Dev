@@ -41,8 +41,9 @@ float S(float n) {
 vec4 blur13(sampler2D texture, vec2 uv, vec2 resolution) {
 
     const int blurSize = 8;
-    const float blurStep = 1;
-    float cosum = 0;
+    const float blurStep = 2.5;
+    const float coeffs[4] = float[] (1, 7, 21, 35);
+    float cosum = 16384;
     vec4 avgcolor = vec4(0.0, 0.0, 0.0, 0.0);
     for(int i = 0; i < blurSize; i++) {
         for(int j = 0; j < blurSize; j++) {
@@ -53,16 +54,14 @@ vec4 blur13(sampler2D texture, vec2 uv, vec2 resolution) {
 
             float pivotX = min(float(abs(float(i - 3))), float(abs(float(i - 4))));
             float pivotY = min(float(abs(float(j - 3))), float(abs(float(j - 4))));
-            float coeff = (10 - S(pivotX)) * (10 - S(pivotY));
+            float coeff = (coeffs[int(3 - pivotX)]) * (coeffs[int(3 - pivotY)]);
 
             if(pixdepth.z < bloomdepth.z) {
-                cosum += coeff;
                 continue;
             }
 
             vec4 illumColor = illuminate(texture2D(texture, (uv + offset - centre) / resolution)) * coeff;
             avgcolor += illumColor;
-            cosum += coeff;
         }
     }
     avgcolor /= cosum;
