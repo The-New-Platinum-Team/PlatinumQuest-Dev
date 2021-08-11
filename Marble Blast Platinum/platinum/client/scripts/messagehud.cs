@@ -100,10 +100,11 @@ function PlayGui::positionMessageHud(%this) {
 function PlayGui::updateMessageHud(%this) {
 	showSpectatorMenu($SpectateMode);
 
+	%lb = lb();
 	//Sizing variables
 	%w             = getWord(%this.getExtent(), 0);
 	%h             = getWord(%this.getExtent(), 1);
-	%mp            = (lb() || ($PlayingDemo && $demoLB)) && $Server::ServerType $= "Multiplayer";
+	%mp            = (%lb || ($PlayingDemo && $demoLB)) && $Server::ServerType $= "Multiplayer";
 	%ultra         = MissionInfo.game $= "Ultra";
 	%isEndGame     = (isObject(EndGameDlg.getGroup()) && EndGameDlg.getGroup().getName() $= "Canvas");
 	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
@@ -122,32 +123,36 @@ function PlayGui::updateMessageHud(%this) {
 	}
 
 	//Resize the FPS meter
-	%fps_w = (lb() && !%hideChat ? 118 : 96);
+	%fps_w = (%lb && !%hideChat ? 118 : 96);
 	%fps_h = 32;
 
-	if (lb() && !%hideChat)
+	if (%lb && !%hideChat)
 		FPSMetreCtrl.resize(%w - %fps_w, %h - %fps_h - %chatHeight, %fps_w, %fps_h);
 	else
 		FPSMetreCtrl.resize(%w - %fps_w, %h - %fps_h, %fps_w, %fps_h);
 
 	//Fix the bitmap
-	%bmp = lb() && !%hideChat ? ($usermods @ "/client/ui/lb/play/pc_trans/fps") : ($usermods @ "/client/ui/game/transparency_fps-flipped");
+	%bmp = %lb && !%hideChat ? ($usermods @ "/client/ui/lb/play/pc_trans/fps") : ($usermods @ "/client/ui/game/transparency_fps-flipped");
 	if (FPSMetreBitmap.bitmap !$= %bmp)
 		FPSMetreBitmap.setBitmap(%bmp);
 
 	FPSMetreBitmap.resize(0, 0, %fps_w, %fps_h);
-	FPSMetreText.resize(lb() && !%mp && !%hideChat ? 20 : 10, lb() && !%mp && !%hideChat ? 10 : 3, 106, 28);
 
 	//Width of individual chat scrolls
 	%chatboxWidth = %chatWidth;
-	if (%mp) {
-		if ($MP::TeamMode)
-			%chatboxWidth /= 3;
-		else
-			%chatboxWidth /= 2;
-	}
-
-	if (lb()) {
+	if (%lb) {
+		if (%mp) {
+			// The original line is:
+			// FPSMetreText.resize(%lb && !%mp && !%hideChat ? 20 : 10, %lb && !%mp && !%hideChat ? 10 : 3, 106, 28);
+			FPSMetreText.resize(10, 3, 106, 28); // Because %mp is on
+			if ($MP::TeamMode) {
+				%chatboxWidth /= 3;
+			} else {
+				%chatboxWidth /= 2;
+			}
+		} else {
+			FPSMetreText.resize(!%hideChat ? 20 : 10, !%hideChat ? 10 : 3, 106, 28);
+		}
 		%shadowStart = 0;
 		if ($SpectateMode)
 			%shadowStart = 302;
@@ -155,16 +160,16 @@ function PlayGui::updateMessageHud(%this) {
 		PG_SpectatorMenu.resize(0, (%h - %height) - 90, 302, 150);
 		PG_SpectatorWindow.resize(0, 0, 302, 150);
 
-		if ($pref::showFPSCounter)
+		if ($pref::showFPSCounter) {
 			PG_LBTopShadow.resize(%shadowStart, 52, ($chathud ? %entryStart : %chatWidth - %fps_w) - %shadowStart, 8);
-		else
+			if ($chathud) {
+				PG_LBChatEntryContainer.resize(%entryStart, 15, %chatWidth -%fps_w - %entryStart, 45);
+			}
+		} else {
 			PG_LBTopShadow.resize(%shadowStart, 52, ($chathud ? %entryStart : %chatWidth - %entryStart) - %shadowStart, 8);
-
-		if ($chathud) {
-			if ($pref::showFPSCounter)
-				PG_LBChatEntryContainer.resize(%entryStart, 15, %chatWidth - %fps_w - %entryStart, 45);
-			else
+			if ($chathud) {
 				PG_LBChatEntryContainer.resize(%entryStart, 15, %chatWidth - %start, 45);
+			}
 		}
 
 		LBScrollChat();
@@ -192,6 +197,8 @@ function PlayGui::updateMessageHud(%this) {
 		case "team":
 			PG_SelectedChatHighlight.resize(%pos2, 60, %pos3 - %pos2 + 1, getWord(PG_LBChatScroll.getExtent(), 1) + 1);
 		}
+	} else {
+		FPSMetreText.resize(10, 3, 106, 28); // Because %lb is off
 	}
 }
 
