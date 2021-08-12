@@ -302,7 +302,12 @@ function onMissionReset() {
 	Mode::callback("onMissionReset", "");
 
 	//For pathed stuff in PQ
-	resetMovingObjects();
+	if (lb() || $CurrentGame !$= "Custom") {
+		// LB levels and offline official levels do not have parenting mid-level, so this function doesn't need to reset parenting
+		resetMovingObjectsFast();
+	} else {
+		resetMovingObjects();
+	}
 	MissionStartup();
 
 	//Stop replays
