@@ -35,46 +35,45 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 		case 3:
 			//commandToClient(%object.client, 'FireballInit', 20000);
 			GameConnection::fireballInit(%object.client, 20000);
-			FireballItem.onUse(%trigger, %object);
-			commandToClient(%object.client);
+			FireballItem.onUse(%trigger, %object.client.player);
 		case 4:
 			//commandToClient(%object.client, 'doPowerUp', 3);
-			//SuperBounceItem.onUse(%trigger, MPGetMyMarble());
+			//SuperBounceItem.onUse(%trigger, %object.client);
 			%duration = 5000;
 			%x = new ScriptObject(LowTimeout) {
 				timeout = %duration;
 			};
-			//if (getEventTimeLeft(MPGetMyMarble().megaSchedule) < %duration) {
+			//if (getEventTimeLeft(%object.client.megaSchedule) < %duration) {
 				// getEventTimeLeft must've been removed, sigh
-			//if (!isEventPending(MPGetMyMarble().megaSchedule)) {
-			MegaMarbleItem.onUse(%x, MPGetMyMarble());
+			//if (!isEventPending(%object.client.megaSchedule)) {
+			MegaMarbleItem.onUse(%x, %object.client.player);
 			//}
 		case 5:
 		case 6:
 			commandToClient(%object.client, 'doPowerUp', 2);
-			SuperSpeedItem.onUse(%trigger, MPGetMyMarble());
+			SuperSpeedItem.onUse(%trigger, %object.client.player);
 			commandToClient(%object.client, 'doPowerUp', 4);
-			ShockAbsorberItem.onUse(%trigger, MPGetMyMarble());
+			ShockAbsorberItem.onUse(%trigger, %object.client.player);
 		case 7:
 			//commandToClient(%object.client, 'doPowerUp', 1);
-			//SuperJumpItem.onUse(%trigger, MPGetMyMarble());
+			//SuperJumpItem.onUse(%trigger, %object.client);
 			commandToClient(%object.client, 'doPowerUp', 2);
-			SuperSpeedItem.onUse(%trigger, MPGetMyMarble());
+			SuperSpeedItem.onUse(%trigger, %object.client.player);
 			commandToClient(%object.client, 'doPowerUp', 2);
-			SuperSpeedItem.onUse(%trigger, MPGetMyMarble());
+			SuperSpeedItem.onUse(%trigger, %object.client.player);
 		case 10:
 			//commandToClient(%object.client, 'doPowerUp', 5);
-			//HelicopterItem.onUse(%trigger, MPGetMyMarble());
+			//HelicopterItem.onUse(%trigger, %object.client);
 			//commandToClient(%object.client, 'doPowerUp', 8);
-			//AnvilItem.onUse(%trigger, MPGetMyMarble());
+			//AnvilItem.onUse(%trigger, %object.client);
 			//commandToClient(%object.client, 'doPowerUp', 4);
-			//ShockAbsorberItem.onUse(%trigger, MPGetMyMarble());
+			//ShockAbsorberItem.onUse(%trigger, %object.client);
 		case -1:
 			// Black gem: Mega/Fireball/SB
-			MegaMarbleItem.onUse(%x, MPGetMyMarble());
-			GameConnection::fireballInit(%object.client, 10000);
+			MegaMarbleItem.onUse(%x, %object.client.player);
+			GameConnection::fireballInit(%object.client.player, 10000);
 			FireballItem.onUse(%trigger, %object);
-			commandToClient(%object.client, 'doPowerUp', 3);
-			SuperBounceItem.onUse(%trigger, MPGetMyMarble());
+			commandToClient(%object.client.player, 'doPowerUp', 3);
+			SuperBounceItem.onUse(%trigger, %object.client.player);
 	}
 }
