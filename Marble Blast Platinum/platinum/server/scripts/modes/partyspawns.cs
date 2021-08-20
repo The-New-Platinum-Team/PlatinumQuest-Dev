@@ -33,11 +33,11 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 		case 1:
 			switch$ (MissionInfo.modification) {
 				case "PlatinumQuest":
-					%object.client.player.setPowerup(SuperSpeedItem_PQ, true);
+					%object.client.player.setPowerup(SuperSpeedItem_PQ, false);
 				case "Ultra":
-					%object.client.player.setPowerup(SuperSpeedItem_MBU, true);
+					%object.client.player.setPowerup(SuperSpeedItem_MBU, false);
 				default:
-					%object.client.player.setPowerup(SuperSpeedItem, true);
+					%object.client.player.setPowerup(SuperSpeedItem, false);
 			}
 			commandToClient(%object.client, 'AddHelpLine', "You picked up a Super Speed PowerUp!");
 		case 2:
