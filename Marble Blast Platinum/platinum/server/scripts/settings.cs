@@ -189,7 +189,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 					%client = ClientGroup.getObject(%i);
 					%client.addBubbleLine("Competitive Mode is now off.");
 				}
-				cancel($HuntCompetitiveLoop);
+				cancel($Hunt_CompetitiveAutorespawn);
 				commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {

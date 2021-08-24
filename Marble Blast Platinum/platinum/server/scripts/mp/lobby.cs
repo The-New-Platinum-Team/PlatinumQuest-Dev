@@ -271,7 +271,6 @@ function lobbyRestart() {
 	pruneFakeClients();
 
 	hideGems();
-	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
 	spawnHuntGemGroup();
 	$Server::Started = false;
 	setGameState("waiting");
@@ -896,7 +895,6 @@ function serverEnterGame() {
 
 	Time::reset();
 	hideGems();
-	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
 	spawnHuntGemGroup();
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
