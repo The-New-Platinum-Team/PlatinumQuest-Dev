@@ -175,6 +175,8 @@ function onPostServerVariableSet(%id, %previous, %value) {
 						break;
 					}
 				}
+				hideGems();
+				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
 		case "CompetitiveMode":
 			if (%value) {
@@ -197,6 +199,8 @@ function onPostServerVariableSet(%id, %previous, %value) {
 						break;
 					}
 				}
+				hideGems();
+				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
 		case "StealMode":
 			if (%value) {
