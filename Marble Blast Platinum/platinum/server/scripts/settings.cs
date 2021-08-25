@@ -181,7 +181,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				Mode_hunt::respawnTimerLoop();
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					%client = ClientGroup.getObject(%i);
-					%client.addBubbleLine("Competitive Mode is on. Gems autorespawn after 25 seconds, and spawns can happen with up to 2 points left behind.");
+					%client.addBubbleLine("Competitive Mode is on. Gems autorespawn after 25 seconds, and that time drops if 3 or less gems remain. No quickspawn.");
 				$MP::ScoreSendingDisabled = true;
 				}
 			} else {
@@ -189,8 +189,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 					%client = ClientGroup.getObject(%i);
 					%client.addBubbleLine("Competitive Mode is now off.");
 				}
-				cancel($Hunt_CompetitiveAutorespawn);
-				commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
+				Hunt_CompetitiveClearTimer();
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					if (ClientGroup.getObject(%i).getGemCount() != 0) {

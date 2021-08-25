@@ -864,12 +864,14 @@ function Hunt_CompetitiveSetTimer(%time) {
 	commandToAll('SetHuntCompetitiveTimer', %time);
 }
 function Hunt_CompetitiveSetTimerDownTo(%time) { // Only sets it if it would be lower.
-	if (%time < PlayGui.countdownLeftTime) { // Yes, really. You see, getEventTimeLeft() which is supposed to be in Torque, does not work, so it's probably from a newer version. That means we gotta get it from PlayGui.
+	if (%time < PlayGui.countdownLeftTime) { // Yes, really, we get it from PlayGui. You see, getEventTimeLeft() which is supposed to be in Torque, does not work.
 		Hunt_CompetitiveSetTimer(%time);
 	}
 }
 function Hunt_CompetitiveAddToTimer(%time) {
-	Hunt_CompetitiveSetTimer(PlayGui.countdownLeftTime + %time);
+	if (PlayGui.countdownLeftTime > 0) { // Timer has to be there, of course
+		Hunt_CompetitiveSetTimer(PlayGui.countdownLeftTime + %time);
+	}
 }
 function Hunt_CompetitiveClearTimer() {
 	cancel($Hunt_CompetitiveAutorespawn);
@@ -884,8 +886,8 @@ $Hunt::Competitive_Leftbehind_1Point = -1; // placeholders if you wanna switch t
 $Hunt::Competitive_Leftbehind_2Point = -1;
 $Hunt::Competitive_Leftbehind_3Point = -1;
 
-$Hunt::Competitive_AutorespawnTime = 25000;
-$Hunt::Competitive_TimerWaitsForFirstGem = 0;
+$Hunt::Competitive_AutorespawnTime = 20000;
+$Hunt::Competitive_TimerWaitsForFirstGem = 1;
 $Hunt::Competitive_TimerIncrementOnLeftbehindPickup = 1000; // To allow people to collect leftbehind stuff without the main spawn waiting
 
 $Hunt::Competitive_AutorespawnLeftbehindAction = 1;
@@ -903,7 +905,7 @@ function unspawnGem(%gem, %nocheck) {
 		SpawnedSet.remove(%gem);
 	if ($Hunt::CurrentGemCount > 0)
 		$Hunt::CurrentGemCount --;
-	if (%gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
+	if ($MPPref::Server::CompetitiveMode && %gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
 	// actually I think "FirstSpawn" is never actually on, lol
 		$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
 		$Hunt::CurrentCompetitiveGemsLeftBehind -= 1;
@@ -911,7 +913,7 @@ function unspawnGem(%gem, %nocheck) {
 			Hunt_CompetitiveAddToTimer($Hunt::Competitive_TimerIncrementOnLeftbehindPickup);
 		}
 	}
-	if (!%gem._leftBehind && $Hunt::Competitive_TimerWaitsForFirstGem && !$Hunt::Competitive_FirstGemOfSpawnCollected && !$Game::FirstSpawn && !%nocheck) {
+	if ($MPPref::Server::CompetitiveMode && !%gem._leftBehind && $Hunt::Competitive_TimerWaitsForFirstGem && !$Hunt::Competitive_FirstGemOfSpawnCollected && !$Game::FirstSpawn && !%nocheck) {
 		Hunt_CompetitiveSetTimer($Hunt::Competitive_AutorespawnTime);
 		$Hunt::Competitive_FirstGemOfSpawnCollected = true;
 	}
