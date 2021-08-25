@@ -1022,6 +1022,7 @@ function PlayGui::updateCountdownLeft(%this, %delta) {
 	%leftOffset = -290;
 	%offsetIfThousandths = $pref::Thousandths? -5:0;
 	if (%secondsLeft < 10) {
+		%leftOffset = -275;
 		PGCountdownLeftFirstDigit.setNumberColor(%one, %color);
 		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(%tenths, %color);
 		PGCountdownLeftThirdDigitOrDecimal.setPosition("397" + %leftOffset + %offsetIfThousandths SPC "0");
