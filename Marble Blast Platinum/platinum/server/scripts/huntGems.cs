@@ -815,6 +815,7 @@ function getLeftBehindGems() {
 function Hunt_CompetitiveMarkGemAsLeftbehind(%gem) {
 	%gem._leftBehind = true;
 	%gem._light.setSkinName("black");
+	%gem._light.setScale("0.2 0.2 1");
 	$Hunt::CurrentCompetitivePointsLeftBehind += %gem._huntDatablock.huntExtraValue + 1;
 	$Hunt::CurrentCompetitiveGemsLeftBehind += 1;
 }
