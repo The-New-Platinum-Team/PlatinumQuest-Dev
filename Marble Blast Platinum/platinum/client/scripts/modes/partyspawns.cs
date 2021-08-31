@@ -30,7 +30,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_partyspawns) {
 	file = "partyspawns";
 
 	name = "Party Spawns";
-	desc = "Randomized gem values and bonus gem effects!";
+	desc = "Extra gem types and increased gem variety!";
 
 	teams = 1;
 });
