@@ -870,21 +870,27 @@ function Hunt_CompetitiveAutorespawn() {
 }
 function Hunt_CompetitiveSetTimer(%time) {
 	// "CountdownLeft" refers to the countdown on the left of the timer, not another definition of the word "left".
+	$Hunt::Competitive_AutorespawnSetTime = getSimTime();
+	$Hunt::Competitive_AutorespawnSetDuration = %time;
+	$Hunt::Competitive_AutorespawnSetTimeout = $Hunt::Competitive_AutorespawnSetTime + $Hunt::Competitive_AutorespawnSetDuration;
 	commandToAll('SetHuntCompetitiveTimer', %time);
 }
 function Hunt_CompetitiveSetTimerDownTo(%time) { // Only sets it if it would be lower.
-	if (%time < PlayGui.countdownLeftTime) { // Yes, really, we get it from PlayGui. You see, getEventTimeLeft() which is supposed to be in Torque, does not work.
+	if (getSimTime() < $Hunt::Competitive_AutorespawnSetTimeout - %time) {
 		Hunt_CompetitiveSetTimer(%time);
 	}
 }
 function Hunt_CompetitiveAddToTimer(%time) {
-	if (PlayGui.countdownLeftTime > 0) { // Timer has to be there, of course
-		Hunt_CompetitiveSetTimer(PlayGui.countdownLeftTime + %time);
+	if (getSimTime() < $Hunt::Competitive_AutorespawnSetTimeout) { // Timer has to be there, of course
+		Hunt_CompetitiveSetTimer($Hunt::Competitive_AutorespawnSetTimeout - getSimTime() + %time);
 	}
 }
 function Hunt_CompetitiveClearTimer() {
 	cancel($Hunt_CompetitiveAutorespawn);
 	commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
+	$Hunt::Competitive_AutorespawnSetTime = 0;
+	$Hunt::Competitive_AutorespawnSetDuration = 0;
+	$Hunt::Competitive_AutorespawnSetTimeout = 0;
 }
 
 $Hunt::CurrentCompetitivePointsLeftBehind = 0;
