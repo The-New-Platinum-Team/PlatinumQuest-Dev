@@ -400,28 +400,34 @@ function clientCmdGameEnd() {
 		else
 			%msgIn = " fifth";
 
-		if (ControllerGui.isJoystick()) {
-			ControllerGui.selectControl(%awesomeMessage ? EnterNameAwesomeClose : EnterNameAcceptButton);
+		if ($pref::DisableHighScoreNamePopup) {
+			EnterNameDlg.setVisible(false);
+			EnterNameEdit.makeFirstResponder(false);
+		} else {
+			if (ControllerGui.isJoystick()) {
+				ControllerGui.selectControl(%awesomeMessage ? EnterNameAwesomeClose : EnterNameAcceptButton);
+			}
+
+			// fix the system for "nil" entries.
+			EnterNameAcceptButton.setActive($pref::HighScoreName !$= "");
+
+			EnterNameText.setText("<just:center><bold:32>Enter your name!");
+			EnterNameDlg.setVisible(true);
+			$highScoreAccept = false;
+			EnterNameEdit.setSelectionRange(0, 100000);
+			EnterNameEdit.makeFirstResponder(true);
+
+			//Callout for awesome times
+			EnterNameBox.setVisible(!%awesomeMessage);
+			EnterNameAwesomeBox.setVisible(%awesomeMessage);
+			EnterNameAwesomeText.setText("<just:center><bold:30>You beat an <spush><color:FF4444>Awesome " @ (%useLess ? "Time" : "Score") @ "<spop>!" NL
+				"<font:19>Every PlatinumQuest level has an Awesome Time or Score" SPC
+				"that requires plenty of skill to beat. They are based on the staff's best," SPC
+				"aimed for the hardcore players, and made to be pretty difficult." @
+				"<font:Arial:9>\n\n<font:19><just:center>Are you prepared for the <spush><color:200000>awesome<spop> quest awaiting you?");
+			highScoreNameChanged();
 		}
 
-		// fix the system for "nil" entries.
-		EnterNameAcceptButton.setActive($pref::HighScoreName !$= "");
-
-		EnterNameText.setText("<just:center><bold:32>Enter your name!");
-		EnterNameDlg.setVisible(true);
-		$highScoreAccept = false;
-		EnterNameEdit.setSelectionRange(0, 100000);
-		EnterNameEdit.makeFirstResponder(true);
-
-		//Callout for awesome times
-		EnterNameBox.setVisible(!%awesomeMessage);
-		EnterNameAwesomeBox.setVisible(%awesomeMessage);
-		EnterNameAwesomeText.setText("<just:center><bold:30>You beat an <spush><color:FF4444>Awesome " @ (%useLess ? "Time" : "Score") @ "<spop>!" NL
-			"<font:19>Every PlatinumQuest level has an Awesome Time or Score" SPC
-			"that requires plenty of skill to beat. They are based on the staff's best," SPC
-			"aimed for the hardcore players, and made to be pretty difficult." @
-			"<font:Arial:9>\n\n<font:19><just:center>Are you prepared for the <spush><color:200000>awesome<spop> quest awaiting you?");
-		highScoreNameChanged();
 	} else {
 		EnterNameDlg.setVisible(false);
 		EnterNameEdit.makeFirstResponder(false);
