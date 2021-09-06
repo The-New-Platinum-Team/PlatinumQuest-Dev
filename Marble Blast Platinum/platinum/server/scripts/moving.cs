@@ -244,6 +244,21 @@ function resetMovingObjects() {
 	ServerGroup.findParentedObjects();
 }
 
+function resetMovingObjectsFast() {
+	for (%i = 0; %i < ServerMovingObjectSet.getCount(); %i ++) {
+		%object = ServerMovingObjectSet.getObject(%i);
+
+		if (isObject(%object)) {
+			%object.resetPath();
+			%object.setSync("cancelMoving");
+		}
+	}
+	ServerMovingObjectSet.clear();
+
+	ServerGroup.findMovingObjects();
+
+}
+
 function SimGroup::findMovingObjects(%this) {
 	%count = %this.getCount();
 	for (%i = 0; %i < %count; %i ++) {
