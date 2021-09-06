@@ -20,19 +20,30 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-varying vec2 UV;
-uniform sampler2D textureSampler;
-uniform sampler2D bloomSampler;
-uniform sampler2D depthSampler;
-uniform vec2 screenSize;
+varying vec2 uv;
+varying vec3 vert_position;
+varying vec3 normal_vector;
+
+attribute vec2 uv_shader;
+attribute vec3 normal;
+
+uniform mat4 model_mat;
+uniform mat4 inverse_model_mat;
+uniform mat4 rot_from_torque_mat;
+uniform mat4 rot_to_torque_mat;
+uniform vec3 model_position;
 
 void main() {
-    vec2 pixel = (UV * screenSize);
+    // Actual vertex position has this super ancient but helpful function for us
+    gl_Position = ftransform();
 
-    vec4 color = (texture2D(textureSampler, pixel / screenSize));
+    // UV coordinates are also provided
+    // uv = gl_MultiTexCoord0.st;
+    uv = uv_shader;
 
-    vec4 color2 = (texture2D(bloomSampler, pixel / screenSize));
+    // Normal relative to worldspace, make sure to account for the model rotation
+    normal_vector = mat3(inverse_model_mat) * normal;
 
-    // Invert colors
-    gl_FragColor = color + color2;
+    // Worldspace position of the vertex
+    vert_position = model_position + (inverse_model_mat * gl_Vertex).xyz;
 }
