@@ -55,10 +55,13 @@ ClientAudioGroup.add(new AudioProfile(TimeTickSfx) {
 		if ($Game::FirstSpawn) {
 			return;
 		} else {
-			MPGetMyMarble().doPowerUp(1);
-			alxPlay(doSuperJumpSfx);
-			MPGetMyMarble().doPowerup(2);
-			alxPlay(doSuperSpeedSfx);
+			commandToAll('doPowerUp', 1);
+			commandToAll('doPowerUp', 2);
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%client = ClientGroup.getObject(%i);
+				SuperJumpItem.onUse(%trigger, %client.player);
+				SuperSpeedItem.onUse(%trigger, %client.player);
+			}
 		}
 	}
 }

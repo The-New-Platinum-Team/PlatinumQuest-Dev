@@ -319,7 +319,12 @@ function devecho(%text) {
 }
 
 function lb() {
-	return $LB::LoggedIn || $Server::Dedicated;
+	%ret = $LB::LoggedIn || $Server::Dedicated;
+	if (%ret && $platform $= "windows")
+	{
+		anticheatDetect(); // This shit aint exist on mac lmaoo
+	}
+	return %ret;
 }
 
 function mp() {

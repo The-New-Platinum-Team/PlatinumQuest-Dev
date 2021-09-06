@@ -252,6 +252,20 @@ function PlayGui::lockPowerup(%this, %locked) {
 
 //-----------------------------------------------------------------------------
 
+function quotaCompleteParty() { // code half taken from \platinum\client\ui\MainMenuGui.gui
+	cancel($quotacompleteparty);
+	$hue++;
+	GemsFoundHundred.setNumberColor(PlayGui.GemsFoundHundredTracked, HSVtoRGB($hue+90, 1, 1));
+	GemsFoundTen.setNumberColor(PlayGui.GemsFoundTenTracked, HSVtoRGB($hue+75, 1, 1));
+	GemsFoundOne.setNumberColor(PlayGui.GemsFoundOneTracked, HSVtoRGB($hue+60, 1, 1));
+	GemsSlash.setNumberColor("slash", HSVtoRGB($hue+45, 1, 1));
+	GemsTotalHundred.setNumberColor(PlayGui.GemsTotalHundredTracked, HSVtoRGB($hue+30, 1, 1));
+	GemsTotalTen.setNumberColor(PlayGui.GemsTotalTenTracked, HSVtoRGB($hue+15, 1, 1));
+	GemsTotalOne.setNumberColor(PlayGui.GemsTotalOneTracked, HSVtoRGB($hue, 1, 1));
+
+	$quotacompleteparty = schedule(10, 0, quotaCompleteParty);
+}
+
 function PlayGui::setMaxGems(%this,%count) {
 	%this.maxGems = %count;
 	%this.updateGems();
@@ -309,11 +323,19 @@ function PlayGui::updateGems(%this, %updateMax) {
 	if (!%max)
 		return;
 
+	if (%this.gemRainbow && %count > %max) {
+		quotaCompleteParty();
+		%max = %this.gemRainbowNewMax; // example: on 100%, gem counter goes from 40/20 to 40/40.
+	} else {
+		%this.gemRainbow = false;
+		cancel($quotacompleteparty);
+	}
+
 	%color = (%this.gemGreen ? $TimeColor["stopped"] : $TimeColor["normal"]);
 	GemsSlash.setNumberColor("slash", %color);
 
 
-	%maxNeedsToUpdate = (%this.GemsTotalTracked != %this.maxGems || %this.ColorTracked != %color || %updateMax);
+	%maxNeedsToUpdate = (%this.GemsTotalTracked != %this.maxGems || %this.ColorTracked != %color || %this.gemRainbow || %updateMax);
 	%this.GemsTotalTracked = %max;
 	%this.ColorTracked = %color;
 
@@ -360,6 +382,9 @@ function PlayGui::updateGems(%this, %updateMax) {
 			GemsTotalHundred.setNumberColor(%hun, %color);
 			GemsTotalTen.setNumberColor(%ten, %color);
 			GemsTotalOne.setNumberColor(%one, %color);
+			%this.GemsTotalHundredTracked = %hun;
+			%this.GemsTotalTenTracked = %ten;
+			%this.GemsTotalOneTracked = %one;
 			GemsQuota.setPosition("205 28");
 			GemsTotalTen.setVisible(true);
 			GemsTotalOne.setVisible(true);
@@ -368,13 +393,19 @@ function PlayGui::updateGems(%this, %updateMax) {
 
 		if (%max < 10) {
 			GemsTotalHundred.setNumberColor(%one, %color);
+			%this.GemsTotalHundredTracked = %one;
 		} else if (%max < 100) {
 			GemsTotalHundred.setNumberColor(%ten, %color);
+			%this.GemsTotalHundredTracked = %ten;
 			GemsTotalTen.setNumberColor(%one, %color);
+			%this.GemsTotalTenTracked = %one;
 		} else {
 			GemsTotalHundred.setNumberColor(%hun, %color);
 			GemsTotalTen.setNumberColor(%ten, %color);
 			GemsTotalOne.setNumberColor(%one, %color);
+			%this.GemsTotalHundredTracked = %hun;
+			%this.GemsTotalTenTracked = %ten;
+			%this.GemsTotalOneTracked = %one;
 		}
 		GemsTotalTen.setVisible(%ten != 0 || %hun != 0); // 0X0 or X00 where X is not 0
 		GemsTotalOne.setVisible(%hun != 0);
@@ -661,6 +692,7 @@ function PlayGui::resetTimer(%this,%dt) {
 	%this.stopCountdown();
 	%this.updateCountdown();
 	%this.updateTimeTravelCountdown(); // main_gi v4.2.3
+	%this.updateCountdownLeft();
 	%this.updateControls();
 	%this.stopTimer();
 }
@@ -915,6 +947,7 @@ function PlayGui::updateTimer(%this, %timeInc) {
 
 	//Countdown isn't affected by time travels so do it first
 	%this.updateCountdown(%timeInc);
+	%this.updateCountdownLeft(%timeInc);
 
 	if (%this.bonusTime) {
 		if (%this.bonusTime > %timeInc) {
@@ -1002,6 +1035,55 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 
 	PGCountdownTTSecondDigit.setVisible(%secondsLeft >= 10);
 	PGCountdownTT.setVisible(%this.bonusTime);
+}
+
+function PlayGui::updateCountdownLeft(%this, %delta) {
+	%this.countdownLeftTime = sub64_int(%this.countdownLeftTime, %delta);
+
+	%timeUsed = %this.countdownLeftTime + 99; // If the timer is say 30s, display 30.0 for its full amount instead of 29.9. Turns out adding 99 actually works perfectly here.
+	%secondsLeft = mFloor(%timeUsed/1000);
+	%tenths = mFloor(%timeUsed/100) % 10;
+
+	%one = mFloor(%secondsLeft) % 10;
+	%ten = mFloor(%secondsLeft / 10) % 10;
+	%hun = mFloor(%secondsLeft / 100);
+
+	%color = $TimeColor["danger"];
+
+	%leftOffset = -290;
+	%offsetIfThousandths = $pref::Thousandths? -5:0;
+	if (%secondsLeft < 10) {
+		%leftOffset = -275;
+		PGCountdownLeftFirstDigit.setNumberColor(%one, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(%tenths, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("397" + %leftOffset + %offsetIfThousandths SPC "0");
+	} else if (%secondsLeft < 100) {
+		PGCountdownLeftFirstDigit.setNumberColor(%ten, %color);
+		PGCountdownLeftSecondDigit.setNumberColor(%one, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(%tenths, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("413" + %leftOffset + %offsetIfThousandths SPC "0");
+	} else if (%secondsLeft < 999) {
+		PGCountdownLeftFirstDigit.setNumberColor(%hun, %color);
+		PGCountdownLeftSecondDigit.setNumberColor(%ten, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(%one, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("407" + %leftOffset + %offsetIfThousandths SPC "0");
+	} else {
+		PGCountdownLeftFirstDigit.setNumberColor(9, %color);
+		PGCountdownLeftSecondDigit.setNumberColor(9, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(9, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("407" + %leftOffset + %offsetIfThousandths SPC "0");
+	}
+	
+	PGCountdownLeftImage.setPosition("344" + %leftOffset + %offsetIfThousandths SPC "3"); // 348 - 4 for this one.
+	PGCountdownLeftFirstDigit.setPosition("375" + %leftOffset + %offsetIfThousandths SPC "0");
+	PGCountdownLeftSecondDigit.setPosition("391" + %leftOffset + %offsetIfThousandths SPC "0");
+
+	PGCountdownLeftPoint.setNumberColor("point", %color);
+	PGCountdownLeftPoint.setVisible(!(%secondsLeft >= 100));
+	PGCountdownLeftPoint.setPosition((%secondsLeft >= 10 ? "403" : "388") + %leftOffset + %offsetIfThousandths SPC "0");
+
+	PGCountdownLeftSecondDigit.setVisible(%secondsLeft >= 10);
+	PGCountdownLeft.setVisible(%this.countdownLeftTime > 0);
 }
 
 function PlayGui::updateControls(%this) {
@@ -1251,4 +1333,10 @@ function PlayGui::updateCountdown(%this, %delta) {
 			PGCountdownMinSecPoint.setNumberColor("point", %color);
 		}
 	}
+}
+
+
+function PlayGui::startCountdownLeft(%this, %time, %image) {
+	PGCountdownLeftImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
+	%this.countdownLeftTime = %time;
 }

@@ -242,6 +242,9 @@ function loadTexturePackFields(%pack) {
 	if (%pack.invert_text_colors !$= "") {
 		$TexturePack::InvertTextColors = %pack.invert_text_colors;
 	}
+	if (%pack.mbg_help_ui !$= "") {
+		$TexturePack::MBGHelpUI = %pack.mbg_help_ui;
+	}
 	if (%pack.fonts) {
 		// Save existing fonts first, for restoring later
 		if ($TexturePack::OldFont $= "") {

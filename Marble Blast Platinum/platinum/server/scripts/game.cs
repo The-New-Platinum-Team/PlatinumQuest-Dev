@@ -277,7 +277,7 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups) {
+	if (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::TrainingMode || $MPPref::Server::PartySpawns)) {
 		$MP::ScoreSendingDisabled = true;
 	}
 
@@ -302,7 +302,12 @@ function onMissionReset() {
 	Mode::callback("onMissionReset", "");
 
 	//For pathed stuff in PQ
-	resetMovingObjects();
+	if (lb() || $CurrentGame !$= "Custom") {
+		// LB levels and offline official levels do not have parenting mid-level, so this function doesn't need to reset parenting
+		resetMovingObjectsFast();
+	} else {
+		resetMovingObjects();
+	}
 	MissionStartup();
 
 	//Stop replays
