@@ -197,9 +197,10 @@ function Mode_hunt::shouldPlayRespawnSound(%this) {
 	return false;
 }
 function Mode_hunt::onClientLeaveGame(%this) {
-	if ($MPPref::Server::CompetitiveMode) {
+	if ($MPPref::Server::CompetitiveMode && $Game::Running) {
 		RootGui.pushDialog(MPExitGameDlg);
 		$gamePaused = true;
+		$Competitive_GamePaused = true;
 		MPExitTitle.setText("<color:ff0000><bold:28><just:center>PAUSED - Player Disconnected");
 		MPExitDisconnect.setText($Server::Hosting ? "Level Select" : "Disconnect");
 		MPExitReturn.setText("Unpause");
@@ -208,5 +209,6 @@ function Mode_hunt::onClientLeaveGame(%this) {
 		MPExitRestart1.setVisible(false);
 		MPExitRestart2.setVisible(false);
 		MPExitQuickspawn.setVisible(false);
+		Physics::pushLayerName("frozen");
 	}
 }
