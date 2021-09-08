@@ -43,6 +43,7 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("shouldRestorePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
 	%this.registerCallback("onHuntGemSpawn");
+	%this.registerCallback("onClientLeaveGame");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_hunt::onActivate(%this) {
@@ -194,4 +195,18 @@ function Mode_hunt::updateWinner(%this, %winners) {
 function Mode_hunt::shouldPlayRespawnSound(%this) {
 	// Hunt mode should not play respawn sound when player respawns from OOB
 	return false;
+}
+function Mode_hunt::onClientLeaveGame(%this) {
+	if ($MPPref::Server::CompetitiveMode) {
+		RootGui.pushDialog(MPExitGameDlg);
+		$gamePaused = true;
+		MPExitTitle.setText("<color:ff0000><bold:28><just:center>PAUSED - Player Disconnected");
+		MPExitDisconnect.setText($Server::Hosting ? "Level Select" : "Disconnect");
+		MPExitReturn.setText("Unpause");
+		MPExitReturn.setVisible($Server::Hosting);
+		MPExitDisconnect.setVisible(false);
+		MPExitRestart1.setVisible(false);
+		MPExitRestart2.setVisible(false);
+		MPExitQuickspawn.setVisible(false);
+	}
 }

@@ -300,6 +300,12 @@ function MPExitGameDlg::updateActive(%this) {
 	MPExitServer.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();");
 
 	MPExitDisconnect.setText($Server::Hosting ? "Level Select" : "Disconnect");
+	MPExitReturn.setText("Close");
+	MPExitReturn.setVisible(true);
+	MPExitDisconnect.setVisible(true);
+	MPExitRestart1.setVisible(true);
+	MPExitRestart2.setVisible(true);
+	MPExitQuickspawn.setVisible(true);
 	cancel(%this.textSch);
 }
 
