@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         type = "LBCustom";
-         startHelpText = "Roll forward, and hold down the powerup button!";
-         desc = "Blast beyond heaven!";
          artist = "Ian";
-         name = "Ramp Launch";
+         desc = "Blast beyond heaven!";
+         goldTime = "40000";
          level = "24";
          music = "Grudge.ogg";
-         goldTime = "40000";
-         UltimateTime = "34000";
+         name = "Ramp Launch";
+         startHelpText = "Roll forward, and hold down the powerup button!";
+         type = "LBCustom";
+         ultimateTime = "34000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -524,16 +524,99 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-5.45096 -9.53852 32.3389";
+         rotation = "-0.369742 0.06929 0.926547 22.8685";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-5.45096 -9.53852 32.3389";
+         rotation = "-0.960029 0.179911 0.214423 82.3055";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-13.3738 112.709 1298.57";
+         rotation = "0.971901 -0.1513 0.180324 81.6081";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-35.203 44.2957 1705.68";
+         rotation = "0.635574 -0.0731263 0.768569 17.0281";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-12.3757 154.388 1679.89";
+         rotation = "-0.841194 0.0671469 0.536549 16.9239";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "5000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Item() {
       position = "-0.849918 104.991 178.296";
       rotation = "1 0 0 0";
       scale = "1 1 1.2";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
