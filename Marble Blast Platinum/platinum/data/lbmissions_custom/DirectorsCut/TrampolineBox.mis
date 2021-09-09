@@ -3,15 +3,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         desc = "Collect the diamonds in this box as fast as you can!";
+         Time = "50000";
          artist = "Andrew";
-         name = "Trampoline Box";
-         level = "26";
-         type = "LBCustom";
-         music = "Pianoforte.ogg";
-         time = "50000";
+         desc = "Collect the diamonds in this box as fast as you can!";
          goldTime = "27500";
-         UltimateTime = "17000";
+         level = "27";
+         music = "Pianoforte.ogg";
+         name = "Trampoline Box";
+         type = "LBCustom";
+         ultimateTime = "17000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -160,10 +160,60 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Rising Temper.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-4.37811 -23.5502 15.9815";
+         rotation = "-0.421477 0.0721346 0.903966 21.4417";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-4.37811 -23.5502 15.9815";
+         rotation = "-0.356029 -0.205493 -0.911601 64.6801";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-4.37811 -23.5502 15.9815";
+         rotation = "-0.279797 0.123965 0.952022 49.9128";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-4.37811 -23.5502 15.9815";
+         rotation = "-0.9992 0.0256985 0.0306282 80.0417";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new InteriorInstance() {
       position = "-3.73523 -18.6109 15.3463";

@@ -2,16 +2,16 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         startHelpText = "Get to the finish as fast as you can!";
-         name = "Mini Marble Golf - DC";
-         desc = "A mini marble golf level which wasn\'t good for me...";
-         level = "20";
-         type = "LBCustom";
+         Time = "100000";
          artist = "Matan";
-         music = "Pianoforte.ogg";
-         time = "100000";
+         desc = "A mini marble golf level which wasn\'t good for me...";
          goldTime = "60000";
-         UltimateTime = "30000";
+         level = "20";
+         music = "Pianoforte.ogg";
+         name = "Mini Marble Golf - DC";
+         startHelpText = "Get to the finish as fast as you can!";
+         type = "LBCustom";
+         ultimateTime = "30000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -52,9 +52,9 @@ new SimGroup(MissionGroup) {
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
          locked = "true";
-         scale = "1 1 1";
          position = "0 0 0";
          rotation = "1 0 0 0";
+         scale = "1 1 1";
    };
    new SimGroup(CheckPoints) {
 
@@ -138,7 +138,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 9.99997";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/addon/pinball0.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/addon/pinball0.dif";
          interiorIndex = "0";
          basePosition = "-3 -33 -7.5";
          baseRotation = "1 0 0 9.99997";
@@ -909,7 +909,7 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_mbp/water_3x3.dif";
       showTerrainInside = "0";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1028.97 1007.1 0.630002";
       rotation = "1 0 0 0";
       scale = "6 5.4 0.1";
@@ -958,7 +958,7 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_mbp/mmg_sand_3x3.dif";
       showTerrainInside = "0";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "993.564 1004.71 0.630002";
       rotation = "1 0 0 0";
       scale = "7.8 3 0.1";
@@ -1112,14 +1112,14 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_mbp/MMGjellyfish_1x1.dif";
       showTerrainInside = "0";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1034.97 1007.7 0.630002";
       rotation = "1 0 0 0";
       scale = "5.4 6 0.1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "985.788 1009.53 0.630002";
       rotation = "1 0 0 0";
       scale = "7.8 3.3 0.1";
@@ -1372,12 +1372,12 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new ScriptObject() {
-         powerUp = "0";
-         time = "0";
-         gemCount = "0";
-         Pad = "2042";
+         Time = "0";
          bonusTime = "0";
+         gemCount = "0";
+         pad = "2042";
          penaltyTime = "0";
+         powerup = "0";
    };
    new InteriorInstance() {
       position = "161.8 129.2 0";
@@ -1443,6 +1443,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "1143.51 1037.61 4.3";
@@ -1451,12 +1453,12 @@ new SimGroup(MissionGroup) {
       dataBlock = "SignFinish";
    };
    new ScriptObject() {
-         powerUp = "0";
-         time = "0";
-         gemCount = "0";
-         Pad = "1829";
+         Time = "0";
          bonusTime = "0";
+         gemCount = "0";
+         pad = "1829";
          penaltyTime = "0";
+         powerup = "0";
    };
    new Item() {
       position = "108.9 77.3 0.2";
@@ -1467,7 +1469,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new Trigger(wateroob) {
+   new Trigger(waterOOB) {
       position = "105 73.2228 0";
       rotation = "1 0 0 0";
       scale = "7.8 23 0.1";
@@ -1931,7 +1933,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1087.67 949.726 0.680001";
       rotation = "1 0 0 0";
       scale = "38 15.6 0.1";
@@ -1944,6 +1946,8 @@ new SimGroup(MissionGroup) {
       scale = "16 1 5";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "These are the Park World flowers. They are most likely to have a Time Modifier on the top or somewhere else on them, hidden from view.";
    };
    new Trigger(end1) {
@@ -1952,14 +1956,18 @@ new SimGroup(MissionGroup) {
       scale = "25 33 5";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "When you finish a hole you shall be teleported to the next one.";
    };
-   new Trigger(ramp) {
+   new Trigger(Ramp) {
       position = "21.1397 68.6388 -0.0999999";
       rotation = "1 0 0 0";
       scale = "16 1 5";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "These ramps are here to slow you down!";
    };
    new Trigger(sand) {
@@ -1968,6 +1976,8 @@ new SimGroup(MissionGroup) {
       scale = "1 10 5";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "The sand is of higher friction than the grass so you\'re slowed down a bit in here.";
    };
    new Trigger(water) {
@@ -1976,6 +1986,8 @@ new SimGroup(MissionGroup) {
       scale = "16 1 5";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Watch out for the water! You may not go on them! Use this Jump Boost to get above this obstacle!";
    };
    new Item() {
@@ -1986,6 +1998,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "12500";
    };
    new Item() {
@@ -1996,6 +2009,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "6000";
    };
    new Trigger() {
@@ -2013,7 +2027,7 @@ new SimGroup(MissionGroup) {
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "977.988 1017.33 0.630002";
       rotation = "1 0 0 0";
       scale = "23.4 7.8 0.1";
@@ -2026,42 +2040,42 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "EndPad";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1043.71 1017.31 0.630002";
       rotation = "1 0 0 0";
       scale = "7.8 9.6 0.1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1020.53 1017.32 0.630002";
       rotation = "1 0 0 0";
       scale = "12 7.8 0.1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1009.17 1009.5 0.630002";
       rotation = "1 0 0 0";
       scale = "7.8 7.8 0.1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1051.51 1017.31 0.630002";
       rotation = "1 0 0 0";
       scale = "7.8 7.8 0.1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1059.31 1017.31 0.630002";
       rotation = "1 0 0 0";
       scale = "4.4 10.8 0.1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(wateroob2) {
+   new Trigger(waterOOB2) {
       position = "1016.97 1006.5 0.630002";
       rotation = "1 0 0 0";
       scale = "12 4.8 0.1";
@@ -2074,19 +2088,169 @@ new SimGroup(MissionGroup) {
       scale = "16 1 5";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Don\'t touch the water or the jellyfish!";
    };
-   new Trigger(stayhere) {
+   new Trigger(StayHere) {
       position = "-37.5053 1061.27 -5.92837";
       rotation = "1 0 0 0";
       scale = "1200 1100 100";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-5.2001 -5.12474 6.73102";
+         rotation = "0.52641 -0.208236 0.824336 51.2702";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-5.85034 109.573 20.5379";
+         rotation = "0.0821466 -0.217226 0.972659 139.611";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "122.725 112.59 20.5379";
+         rotation = "-0.0856616 -0.250956 0.964201 216.435";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "146.769 104.493 15.2361";
+         rotation = "0.75202 -0.1929 0.630282 44.2901";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "158.108 124.335 12.8136";
+         rotation = "0.765572 -0.382144 0.517557 87.9267";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "1000";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "940.485 926.907 25.6505";
+         rotation = "0.418783 -0.237104 0.876586 65.7154";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "959.956 1019.6 25.6505";
+         rotation = "0.135263 -0.280093 0.950396 130.693";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "1085.64 1027.78 25.6505";
+         rotation = "-0.116432 -0.306783 0.944631 219.447";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath9";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath9) {
+         position = "1117.96 1030.92 25.6505";
+         rotation = "0.114508 -0.320948 0.940149 142.915";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath10";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath10) {
+         position = "1139.69 1028.72 10.0416";
+         rotation = "0.937663 -0.133349 0.320946 47.7972";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "5000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

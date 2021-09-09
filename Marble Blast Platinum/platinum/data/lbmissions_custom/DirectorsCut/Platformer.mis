@@ -3,14 +3,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "22";
-         name = "Platformer";
          artist = "Ian";
-         type = "LBCustom";
          desc = "Climb to the top of the 2-D world!";
-         music = "The Race.ogg";
          goldTime = "50000";
-         UltimateTime = "30000";
+         level = "22";
+         music = "The Race.ogg";
+         name = "Platformer";
+         type = "LBCustom";
+         ultimateTime = "30000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -50,10 +50,10 @@ new SimGroup(MissionGroup) {
       direction = "0.481726 0.481726 -0.732038";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         scale = "1 1 1";
          locked = "true";
          position = "0 0 0";
          rotation = "1 0 0 0";
+         scale = "1 1 1";
    };
    new SimGroup(CheckPoints) {
 
@@ -159,7 +159,7 @@ new SimGroup(MissionGroup) {
       position = "0.213607 -0.596454 527.5";
       rotation = "1 0 0 0";
       scale = "1 1 1.2";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -171,10 +171,60 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_mbp/Platformer.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-16.7174 -12.724 506.35";
+         rotation = "0.209893 -0.211003 0.954685 92.9579";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-16.7174 -12.724 506.35";
+         rotation = "-0.287848 0.28937 0.912912 95.5143";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-16.7174 -12.724 506.35";
+         rotation = "-0.0456573 0.0820021 0.995586 121.999";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-16.7174 -12.724 506.35";
+         rotation = "-0.11 0.0815895 0.990577 73.6503";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

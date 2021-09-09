@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         artist = "Andrew";
+         desc = "Learn to use the anti-recoil to make falling easier.";
+         goldTime = "5000";
          level = "16";
+         music = "Grudge.ogg";
          name = "Learning the Anti-Recoil";
          startHelpText = "Use the Anti-Recoil PowerUp to avoid bouncing off when you land!";
-         desc = "Learn to use the anti-recoil to make falling easier.";
-         artist = "Andrew";
          type = "LBCustom";
-         music = "Grudge.ogg";
-         goldTime = "5000";
-         UltimateTime = "4500";
+         ultimateTime = "4500";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -34,9 +34,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 -1.73483e+09 -1.73483e+09";
-      fogVolume2 = "-1 -1.73483e+09 -1.73483e+09";
-      fogVolume3 = "-1 -1.73483e+09 -1.73483e+09";
+      fogVolume1 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume2 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume3 = "-1 -1.73483e+009 -1.73483e+009";
       materialList = "~/data/skies/Bonus/Bonus_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -58,12 +58,12 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new ScriptObject() {
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
-         penaltyTime = "0";
-         time = "0";
-         powerUp = "0";
          pad = "1802";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new InteriorInstance() {
       position = "9.63131 -7.81271 -54.9864";
@@ -121,25 +121,82 @@ new SimGroup(MissionGroup) {
          showHelpOnPickup = "1";
    };
    new ScriptObject() {
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
-         penaltyTime = "0";
-         time = "0";
-         powerUp = "0";
          pad = "3502";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new ScriptObject() {
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
-         penaltyTime = "0";
-         time = "0";
-         powerUp = "0";
          pad = "2995";
+         penaltyTime = "0";
+         powerup = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Tim Trance.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-1.09146 6.12519 35.1513";
+         rotation = "-0.00495048 -0.430272 0.902686 181.19";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-1.09146 6.12519 35.1513";
+         rotation = "-0.00739341 -0.642746 0.766044 181.01";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "1000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-1.37408 6.8753 -61.731";
+         rotation = "-0.0158458 0.206705 0.978275 171.423";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "5000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
