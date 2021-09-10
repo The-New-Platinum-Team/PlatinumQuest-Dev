@@ -48,7 +48,7 @@ function SanityCheck() {
   commandToAll('setBlastValue', 0);
   $sanity_check = schedule(100, 0, SanityCheck);
 }
-function serverCbOnMissionEnded() {
+function clientCbOnMissionEnded() {
   cancel($sanity_check);
 }
 //--- SERVER PREMISSION SCRIPTS END ---
@@ -1724,7 +1724,7 @@ new SimGroup(MissionGroup) {
             useScale = "0";
       };
       new StaticShape(CameraPath1) {
-         position = "819.105 321.25 203.5";
+         position = "619.105 221.25 103.5";
          rotation = "0.0337559 0.033756 -0.99886 90.0656";
          scale = "1 1 1";
          dataBlock = "PathNode";
