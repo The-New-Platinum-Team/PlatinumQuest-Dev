@@ -1274,9 +1274,6 @@ datablock ShapeBaseImageData(BlastImage)
 
 function BlastItem_MBU::onAdd(%this, %obj) {
 	return BlastItem::onAdd(%this, %obj);
-
-	// load particles
-	%this.schedule(1000, "initFX", %obj);
 }
 function BlastItem_MBU::onPickup(%this,%obj,%user,%amount) {
 	return BlastItem::onPickup(%this, %obj, %user, %amount);
@@ -1354,9 +1351,6 @@ function MegaMarbleItem::onAdd(%this, %obj) {
 
 function MegaMarbleItem_MBU::onAdd(%this, %obj) {
 	return MegaMarbleItem::onAdd(%this, %obj);
-
-	// load particles
-	%this.schedule(1000, "initFX", %obj);
 }
 
 //God I fucking love TorqueScript, having to use hacky solutions to make this shit WORK! - daniel
