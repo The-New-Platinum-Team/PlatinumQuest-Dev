@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         Time = "120000";
          artist = "Phil";
-         time = "120000";
-         startHelpText = "Merry Christmas!";
          desc = "Go around the room, searching for the gems!";
-         type = "LBCustom";
-         name = "Deck the Halls!";
-         level = "15";
          goldTime = "50000";
+         level = "15";
          music = "Pianoforte.ogg";
+         name = "Deck the Halls!";
+         startHelpText = "Merry Christmas!";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -182,6 +182,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "10000";
    };
    new Item() {
@@ -228,6 +229,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "20000";
    };
    new Trigger() {
@@ -237,10 +239,21 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "40.1472 -0.00456084 9.45926";
+         rotation = "0.127666 0.104293 -0.986319 79.2665";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

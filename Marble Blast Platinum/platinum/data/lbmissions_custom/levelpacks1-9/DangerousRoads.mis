@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         UltimateTime = "40000";
-         type = "LBCustom";
          artist = "Brixar";
-         name = "Dangerous Roads";
          desc = "Treachery like level.";
-         level = "14";
          goldTime = "55000";
+         level = "14";
          music = "Pianoforte.ogg";
+         name = "Dangerous Roads";
+         type = "LBCustom";
+         ultimateTime = "40000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -36,7 +36,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
+      materialList = "~/data/skies/intermediate/intermediate_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -67,7 +67,7 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbp/Roads.dif";
       showTerrainInside = "0";
    };
-   new Trigger(stayhere) {
+   new Trigger(StayHere) {
       position = "-64.25 62.5 3.75";
       rotation = "1 0 0 0";
       scale = "100 100 100";
@@ -88,7 +88,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "21 -0.5 15.5";
@@ -104,7 +103,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "-4 4.5 15.5";
@@ -132,13 +130,12 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "-0.499999 1 21.5";
       rotation = "0 0 -1 90";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "3.5 -17 13.5";
@@ -148,7 +145,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "1.5 15 13";
@@ -158,7 +154,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-18.5 -19 19.5";
@@ -168,7 +163,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "-18.5 1 19.5";
@@ -178,7 +172,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new StaticShape() {
       position = "-17.5 7 12.5";
@@ -206,12 +199,14 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "-18.5 25 25.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "-12.5 25 24.5";
@@ -221,7 +216,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "2";
    };
    new Item() {
       position = "-2.5 33 22.5";
@@ -231,13 +225,12 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "2";
    };
    new Item() {
       position = "13 4 12.25";
       rotation = "1 0 0 0";
       scale = "1 1 1.25";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -250,7 +243,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "2";
    };
    new Item() {
       position = "-50.5 33 21.5";
@@ -260,7 +252,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "2";
    };
    new StaticShape() {
       position = "-2 -18.5 14.5";
@@ -318,6 +309,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-17 18.5 27.75";
@@ -327,6 +320,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-18.5 6 17.75";
@@ -336,6 +331,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "-10.5 33 24.5";
@@ -399,6 +396,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-13 -13.5 21";
@@ -408,21 +407,27 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
-   new Trigger(help1) {
+   new Trigger(Help1) {
       position = "-21 -1 19.5";
       rotation = "1 0 0 0";
       scale = "5 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Hop between the slopes to get to the gem on the other side!";
    };
-   new Trigger(help2) {
+   new Trigger(Help2) {
       position = "-19.5 3 13.5";
       rotation = "1 0 0 0";
       scale = "2 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Try to get the Time Modifiers above the bouncy platforms to get a better time!";
    };
    new StaticShape() {
@@ -431,25 +436,40 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignDownSide";
    };
-   new Trigger(help3) {
+   new Trigger(Help3) {
       position = "9 3.5 15.5";
       rotation = "1 0 0 0";
       scale = "2 5 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Don\'t take the short way around the pillar, or you\'ll miss a diamond!";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "35.6176 -16.6899 74.2267";
+         rotation = "0.468543 0.411313 -0.78185 96.6213";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
-   new Trigger(help4) {
+   new Trigger(Help4) {
       position = "-3 -9 15.5";
       rotation = "1 0 0 0";
       scale = "5 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Be careful on this slippery slope!";
    };
 };
