@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         music = "Pianoforte.ogg";
-         desc = "Bumper Gems!";
          artist = "Lance Hampton";
+         desc = "Bumper Gems!";
+         goldTime = "3500";
          level = "7";
+         music = "Pianoforte.ogg";
          name = "Bumper Gems";
          startHelpText = "Bounce through the gems!";
-         goldTime = "3500";
          type = "LBCustom";
    };
    new MissionArea(MissionArea) {
@@ -155,10 +155,21 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-17.1692 -15.8839 5.43965";
+         rotation = "0.310488 -0.218782 0.925058 74.5946";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

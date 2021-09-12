@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         goldTime = "15000";
-         type = "LBCustom";
-         name = "9 Pillars";
          artist = "marbleman";
          desc = "Climb the pillars to the finish!";
+         goldTime = "15000";
          level = "2";
          music = "Rising Temper.ogg";
+         name = "9 Pillars";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -169,6 +169,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new InteriorInstance() {
       position = "17.8657 -5.44818 15.9022";
@@ -177,10 +179,21 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "7.94868 1.23714 19.8247";
+         rotation = "0.175559 -0.364834 0.914371 132.501";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
