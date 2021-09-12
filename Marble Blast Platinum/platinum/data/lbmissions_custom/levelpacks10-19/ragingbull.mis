@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "34";
-         music = "Pianoforte.ogg";
-         startHelpText = "Hold down the Use Powerup button and roll forward!";
-         name = "Raging Bull";
          artist = "Henry";
          desc = "Double the powerup, double the power!";
          goldTime = "660";
+         level = "34";
+         music = "Pianoforte.ogg";
+         name = "Raging Bull";
+         startHelpText = "Hold down the Use Powerup button and roll forward!";
          type = "LBCustom";
    };
    new MissionArea(MissionArea) {
@@ -49,10 +49,10 @@ new SimGroup(MissionGroup) {
       direction = "0.544508 0.439467 -0.714409";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         rotation = "1 0 0 0";
          locked = "true";
-         scale = "1 1 1";
          position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
    };
    new SimGroup(CheckPoints) {
 
@@ -134,10 +134,34 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-5.59281 -6.20465 502.313";
+         rotation = "0.359422 -0.207934 0.909714 64.9075";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "19.6212 -6.70878 497.891";
+         rotation = "0.518979 -0.182109 0.835163 45.5801";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Trigger(Bounds) {
       position = "-10.1086 9.02257 490.499";
