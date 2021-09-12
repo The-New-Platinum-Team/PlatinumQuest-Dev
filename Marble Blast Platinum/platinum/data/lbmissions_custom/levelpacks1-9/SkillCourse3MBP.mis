@@ -2,16 +2,16 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         Time = "120000";
          artist = "Phil";
          desc = "The third level in the Skill Course series, remade and enhanced for Marble Blast Platinum! Are you able to pass through this mad array of challenges?";
-         level = "31";
          goldTime = "90000";
-         UltimateTime = "74000";
+         level = "31";
+         music = "Endurance.ogg";
+         name = "Skill Course 3: MBP";
          startHelpText = "Change the gravity, then carefully hop over the pieces!";
          type = "LBCustom";
-         time = "120000";
-         name = "Skill Course 3: MBP";
-         music = "Endurance.ogg";
+         ultimateTime = "74000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -90,7 +90,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "26 0.2 6.35";
@@ -109,7 +108,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "50 -66 8.05";
@@ -119,7 +117,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "19 -71.05 32.05";
@@ -129,13 +126,12 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "33 -73 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "25 -75 32.5";
@@ -145,24 +141,30 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "21 -75 21.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "17 -75 21.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new Item() {
       position = "39 -66.95 5.5";
@@ -192,7 +194,7 @@ new SimGroup(MissionGroup) {
       position = "28 -64 20";
       rotation = "0 0 1 180";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new SimGroup(MustChange_g) {
 
@@ -244,7 +246,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/SkillCourse3MBP.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/SkillCourse3MBP.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -279,6 +281,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-4.5000000 5.5000000 -0.1250000 9.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.2500000 0.0000000 -11.0000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "2000";
       };
       new Trigger(MustChange) {
@@ -287,6 +291,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-0.1250000 5.5000000 -9.0000000 0.2500000 0.0000000 0.0000000 0.0000000 0.0000000 18.0000000 0.0000000 -11.0000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new Trigger(MustChange) {
@@ -295,6 +301,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-0.1250000 5.5000000 -9.0000000 0.2500000 0.0000000 0.0000000 0.0000000 0.0000000 18.0000000 0.0000000 -11.0000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new Trigger(MustChange) {
@@ -303,6 +311,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-4.7500000 0.1250000 -9.0000000 9.5000000 0.0000000 0.0000000 0.0000000 0.0000000 18.0000000 0.0000000 -0.2500000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new Trigger(MustChange) {
@@ -311,6 +321,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-4.7500000 0.1250000 -9.0000000 9.5000000 0.0000000 0.0000000 0.0000000 0.0000000 18.0000000 0.0000000 -0.2500000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new Trigger(MustChange) {
@@ -319,6 +331,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-4.7500000 5.7500000 -0.3750000 9.5000000 0.0000000 0.0000000 0.0000000 0.0000000 0.7500000 0.0000000 -11.5000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new PathedInterior(MustChange) {
@@ -326,7 +340,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/SkillCourse3MBP.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/SkillCourse3MBP.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -364,7 +378,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "34.9 -1 10";
@@ -404,6 +417,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "4000";
    };
    new Item() {
@@ -414,6 +428,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "2000";
    };
    new Item() {
@@ -424,7 +439,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "31.25 -76.4 26.5";
@@ -434,6 +448,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "39 -73 8.05";
@@ -443,7 +459,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "33 -68.95 20.05";
@@ -453,7 +468,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "20 -63.1 23.15";
@@ -463,13 +477,12 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "8.95 -63.05 32";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "9 -58.7 30.9";
@@ -497,7 +510,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "22.95 -41.95 4.6";
@@ -516,7 +528,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "24.6 -41.1 14.5";
@@ -544,7 +555,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "35.15 -26.95 19.9";
@@ -559,7 +569,7 @@ new SimGroup(MissionGroup) {
       position = "19 -67 34.75";
       rotation = "1 0 0 0";
       scale = "0.7 0.7 1";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -572,6 +582,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "3000";
    };
    new StaticShape() {
@@ -594,7 +605,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "23.4 -86.55 26.05";
@@ -604,7 +614,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "46.95 -4.9 10.05";
@@ -614,7 +623,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "28.2536 -10.2222 10";
@@ -706,6 +714,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You have a Speed Booster and a wall. What will you do?";
    };
    new Trigger() {
@@ -714,6 +724,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Slow down, or you\'ll fly off the slope!";
    };
    new Trigger() {
@@ -722,6 +734,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Grab the Anti-Recoil by turning right, then use the left path, running up the wall!";
    };
    new Trigger() {
@@ -730,6 +744,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Watch out for the Bumpers!";
    };
    new StaticShape() {
@@ -744,6 +760,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Turn around, then run up this wall to the Diamond!";
    };
    new Trigger() {
@@ -752,6 +770,8 @@ new SimGroup(MissionGroup) {
       scale = "1 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Don\'t miss the Diamond to your left!";
    };
    new StaticShape() {
@@ -766,6 +786,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Try not to slip off the path!";
    };
    new Trigger() {
@@ -774,6 +796,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Make it around to the other side of the Bowl!";
    };
    new Trigger() {
@@ -782,6 +806,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "A Jump + Jump Boost will get you up into the tunnel above you.";
    };
    new Trigger() {
@@ -790,6 +816,8 @@ new SimGroup(MissionGroup) {
       scale = "6 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Wall-Hit or even Edge-Hit to the platform above you!";
    };
    new Trigger() {
@@ -798,6 +826,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Slow yourself down using the wall ahead!";
    };
    new Trigger() {
@@ -806,6 +836,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Can you make it across this swaying bridge?";
    };
    new Trigger() {
@@ -814,6 +846,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Bounce up to the top of the Tower!";
    };
    new Trigger() {
@@ -822,6 +856,8 @@ new SimGroup(MissionGroup) {
       scale = "1 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Now entering: Construction Zone";
    };
    new Trigger() {
@@ -830,6 +866,8 @@ new SimGroup(MissionGroup) {
       scale = "10 8 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Make sure you get a fair amount of speed here; you\'ll need it.";
    };
    new Trigger() {
@@ -838,6 +876,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Left, right, then right. That\'s the right way!";
    };
    new Trigger() {
@@ -846,6 +886,8 @@ new SimGroup(MissionGroup) {
       scale = "6 1 6";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Make sure you make it across the gap!";
    };
    new Trigger() {
@@ -854,6 +896,8 @@ new SimGroup(MissionGroup) {
       scale = "1 2 6";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Change back to normal gravity, and you should fly up and make it to the platform.";
    };
    new Trigger() {
@@ -862,6 +906,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Heard of the \"3-Trim Wall-Trick\"?";
    };
    new Trigger() {
@@ -870,12 +916,25 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Turn around, and bounce to the Finish!";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "59.7607 16.7559 76.1836";
+         rotation = "-0.102774 -0.413732 0.904579 205.329";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         desc = "show off your stuff";
-         level = "43";
-         name = "Xployt";
          artist = "Moshe Damkani";
+         desc = "show off your stuff";
          goldTime = "180000";
+         level = "43";
+         music = "Endurance.ogg";
+         name = "Xployt";
          startHelpText = "Let\'s see how good your fast start is";
          type = "LBCustom";
-         music = "Endurance.ogg";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -33,9 +33,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
       materialList = "~/data/skies/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -69,6 +69,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "10000";
    };
    new Item() {
@@ -79,6 +80,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "15000";
    };
    new Item() {
@@ -89,6 +91,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "35000";
    };
    new Item() {
@@ -143,6 +146,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "10000";
    };
    new Item() {
@@ -276,7 +280,6 @@ new SimGroup(MissionGroup) {
       scale = "0.5 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/trimtest.dif";
       showTerrainInside = "0";
-
    };
    new InteriorInstance() {
       position = "115.252 8.75237 9.3";
@@ -498,6 +501,8 @@ new SimGroup(MissionGroup) {
          scale = "0.1 0.1 0.5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "35000";
       };
       new PathedInterior(MustChange) {
@@ -505,7 +510,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.2 0.2 3";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "0";
          basePosition = "201.044 33.4166 2";
          baseRotation = "1 0 0 0";
@@ -539,6 +544,8 @@ new SimGroup(MissionGroup) {
          scale = "0.5 0.5 0.5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -546,7 +553,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 90";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "0";
          basePosition = "195.018 38.0301 -1.1";
          baseRotation = "1 0 0 90";
@@ -580,6 +587,8 @@ new SimGroup(MissionGroup) {
          scale = "0.5 0.5 0.5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -587,7 +596,7 @@ new SimGroup(MissionGroup) {
          rotation = "0 1 0 90";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "0";
          basePosition = "206.49 33.5208 -8.60001";
          baseRotation = "0 1 0 90";
@@ -621,6 +630,8 @@ new SimGroup(MissionGroup) {
          scale = "0.5 0.5 0.5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -628,7 +639,7 @@ new SimGroup(MissionGroup) {
          rotation = "-1 0 0 90";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "0";
          basePosition = "194.99 29.0163 -1.1";
          baseRotation = "-1 0 0 90";
@@ -662,6 +673,8 @@ new SimGroup(MissionGroup) {
          scale = "0.5 0.5 0.5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -669,7 +682,7 @@ new SimGroup(MissionGroup) {
          rotation = "0 -1 0 90";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "0";
          basePosition = "198.479 33.5202 6.40001";
          baseRotation = "0 -1 0 90";
@@ -804,6 +817,8 @@ new SimGroup(MissionGroup) {
          scale = "0.9 0.9 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -811,7 +826,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.8 0.8 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/selection0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/selection0.dif";
          interiorIndex = "0";
          basePosition = "276.088 43.4492 59.68";
          baseRotation = "1 0 0 0";
@@ -887,7 +902,6 @@ new SimGroup(MissionGroup) {
       scale = "0.75 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/trimtest.dif";
       showTerrainInside = "0";
-
    };
    new InteriorInstance() {
       position = "300.94 -6.9947 39.0571";
@@ -943,7 +957,6 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 40";
       scale = "1 1 1";
       dataBlock = "DuctFan";
-
    };
    new InteriorInstance() {
       position = "325.084 0.519104 73.2953";
@@ -1009,8 +1022,9 @@ new SimGroup(MissionGroup) {
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Use the 3 fans to reach the next platform";
-
    };
    new Trigger(firstvictory) {
       position = "111.224 10.6214 8.625";
@@ -1018,8 +1032,9 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "When this Time Travel expires, it will be too late!";
-
    };
    new SimGroup(MustChange_g) {
 
@@ -1048,6 +1063,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1055,7 +1072,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "2 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "377.062 6.69597 35.08";
          baseRotation = "1 0 0 0";
@@ -1089,6 +1106,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1096,7 +1115,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 3";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "370.06 3.44671 -28.92";
          baseRotation = "1 0 0 0";
@@ -1130,6 +1149,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1137,7 +1158,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "370.06 9.93532 35.08";
          baseRotation = "1 0 0 0";
@@ -1171,6 +1192,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1178,7 +1201,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "376.56 3.44671 35.08";
          baseRotation = "1 0 0 0";
@@ -1212,6 +1235,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1219,7 +1244,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "376.56 9.93532 35.08";
          baseRotation = "1 0 0 0";
@@ -1253,6 +1278,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1260,7 +1287,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 4";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "383.06 3.44671 -60.92";
          baseRotation = "1 0 0 0";
@@ -1294,6 +1321,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1301,7 +1330,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "383.06 9.93532 35.08";
          baseRotation = "1 0 0 0";
@@ -1335,6 +1364,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1342,7 +1373,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "389.56 3.44671 35.08";
          baseRotation = "1 0 0 0";
@@ -1376,6 +1407,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1383,7 +1416,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "389.56 9.93532 35.08";
          baseRotation = "1 0 0 0";
@@ -1417,6 +1450,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1424,7 +1459,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "396.06 3.44671 35.08";
          baseRotation = "1 0 0 0";
@@ -1458,6 +1493,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1465,7 +1502,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "396.06 9.93532 35.08";
          baseRotation = "1 0 0 0";
@@ -1499,6 +1536,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1506,7 +1545,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "402.56 3.44671 35.08";
          baseRotation = "1 0 0 0";
@@ -1540,6 +1579,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1547,7 +1588,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "402.56 9.93532 35.08";
          baseRotation = "1 0 0 0";
@@ -1581,6 +1622,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1588,7 +1631,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "409.06 3.44671 35.08";
          baseRotation = "1 0 0 0";
@@ -1622,6 +1665,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1629,7 +1674,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "415.56 6.69597 35.08";
          baseRotation = "1 0 0 0";
@@ -1663,6 +1708,8 @@ new SimGroup(MissionGroup) {
          scale = "2 2 5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -1670,7 +1717,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "409.06 9.93532 35.08";
          baseRotation = "1 0 0 0";
@@ -1702,7 +1749,6 @@ new SimGroup(MissionGroup) {
       scale = "1.032 0.5 2.8";
       interiorFile = "~/data/lbinteriors_custom/mbg/arrows.dif";
       showTerrainInside = "0";
-
    };
    new InteriorInstance() {
       position = "328.947 -45.8317 65.6255";
@@ -1795,6 +1841,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "338.783 12.1132 66.2996";
@@ -2032,8 +2080,10 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resetTime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -2041,8 +2091,10 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resetTime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -2050,8 +2102,10 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resetTime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -2059,8 +2113,10 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resetTime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -2068,8 +2124,10 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resetTime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -2077,8 +2135,10 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resetTime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new Item() {
@@ -2204,6 +2264,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new Item() {
       position = "440.662 11.5628 28.0832";
@@ -2213,6 +2275,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new Item() {
       position = "424.253 36.8775 51.5547";
@@ -2300,13 +2364,13 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.4 0.4 0.4";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "2";
          basePosition = "259.019 41 28.0707";
          baseRotation = "1 0 0 0";
          baseScale = "0.4 0.4 0.4";
-            initialTargetPosition = "-1";
             initialPosition = "1200";
+            initialTargetPosition = "-1";
       };
    };
    new SimGroup(MustChange_g) {
@@ -2343,13 +2407,13 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.4 0.4 0.4";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "2";
          basePosition = "269.019 35 28.0707";
          baseRotation = "1 0 0 0";
          baseScale = "0.4 0.4 0.4";
-            initialTargetPosition = "-1";
             initialPosition = "1200";
+            initialTargetPosition = "-1";
       };
    };
    new SimGroup(MustChange_g) {
@@ -2386,13 +2450,13 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.4 0.4 0.4";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "2";
          basePosition = "259.019 29 28.0707";
          baseRotation = "1 0 0 0";
          baseScale = "0.4 0.4 0.4";
-            initialTargetPosition = "-1";
             initialPosition = "1200";
+            initialTargetPosition = "-1";
       };
    };
    new SimGroup(MustChange_g) {
@@ -2429,13 +2493,13 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.4 0.4 0.4";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "2";
          basePosition = "269.019 23 28.0707";
          baseRotation = "1 0 0 0";
          baseScale = "0.4 0.4 0.4";
-            initialTargetPosition = "-1";
             initialPosition = "1200";
+            initialTargetPosition = "-1";
       };
    };
    new SimGroup(MustChange_g) {
@@ -2472,13 +2536,13 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.4 0.4 0.4";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/darwin.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/darwin.dif";
          interiorIndex = "2";
          basePosition = "259.019 16 28.0707";
          baseRotation = "1 0 0 0";
          baseScale = "0.4 0.4 0.4";
-            initialTargetPosition = "-1";
             initialPosition = "1200";
+            initialTargetPosition = "-1";
       };
    };
    new Item() {
@@ -2624,207 +2688,228 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "5000";
    };
    new Item() {
       position = "290.111 -4.39358 33.4224";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "292.581 0.149357 33.5125";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "291.628 -2.86847 37.7436";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "293.747 -3.1104 33.8532";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "292.347 1.01783 40.9437";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "294.917 1.3566 35.8025";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "290.587 -1.03136 33.1855";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "290.197 0.748531 39.9995";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "294.342 -0.017993 38.7995";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "289.387 1.9367 30.4905";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "289.11 1.60651 41.7175";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "288.824 -3.90023 37.2436";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "293.57 -2.22424 30.6431";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "294.722 0.997945 31.095";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "291.147 -4.05442 41.9734";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "294.69 -4.26718 37.307";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "293.396 -1.83169 41.6275";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "291.932 -2.0304 38.7555";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "291.584 -3.56924 30.4827";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new Item() {
       position = "291.35 -1.26355 30.5423";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-5000";
+         skin = "mbg";
+         timePenalty = "5000";
    };
    new InteriorInstance() {
       position = "476.746 3.42885 75.38";
@@ -2838,9 +2923,10 @@ new SimGroup(MissionGroup) {
       rotation = "0 1 0 180";
       scale = "1 1 1";
       dataBlock = "PushButton";
+         TriggerOnce = "0";
+         activated = "0";
          resetTime = "Default";
          triggerMesg = "true";
-         activated = "0";
    };
    new Trigger(firstvictory) {
       position = "216.504 38.6115 14.7";
@@ -2848,6 +2934,8 @@ new SimGroup(MissionGroup) {
       scale = "17 9 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Hold down the Power-Up button and climb the wall!";
    };
    new Item() {
@@ -2902,6 +2990,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "15000";
    };
    new InteriorInstance() {
@@ -2959,6 +3048,8 @@ new SimGroup(MissionGroup) {
          scale = "0.2 0.2 0.2";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -2966,7 +3057,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 10";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "474.373 6.09899 -210.277";
          baseRotation = "1 0 0 0";
@@ -3021,19 +3112,19 @@ new SimGroup(MissionGroup) {
             smoothingType = "Linear";
          };
          new Marker() {
-            position = "0 0 2";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "1000";
-            smoothingType = "Linear";
-         };
-         new Marker() {
             position = "0 0 23";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
             msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 2";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
             smoothingType = "Linear";
          };
       };
@@ -3043,6 +3134,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "35000";
       };
       new PathedInterior(MustChange) {
@@ -3050,7 +3143,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1.3 1.3 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/tree.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/tree.dif";
          interiorIndex = "0";
          basePosition = "478.136 6.1477 76.5415";
          baseRotation = "1 0 0 0";
@@ -3063,6 +3156,8 @@ new SimGroup(MissionGroup) {
       scale = "10 10 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Oh no! Negative Time Travels!";
    };
    new Trigger(firstvictory) {
@@ -3071,6 +3166,8 @@ new SimGroup(MissionGroup) {
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Make sure you have 11 gems";
    };
    new Trigger(firstvictory) {
@@ -3079,6 +3176,8 @@ new SimGroup(MissionGroup) {
       scale = "10 15 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Good Job! 10 second reward!";
    };
    new Trigger(firstvictory) {
@@ -3087,6 +3186,8 @@ new SimGroup(MissionGroup) {
       scale = "17 9 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Jump diagonally and hit the edge to fly up!";
    };
    new SimGroup(MustChange_g) {
@@ -3116,6 +3217,8 @@ new SimGroup(MissionGroup) {
          scale = "0.2 0.2 0.2";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -3123,7 +3226,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 10";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "474.373 6.09899 -210.277";
          baseRotation = "1 0 0 0";
@@ -3157,6 +3260,8 @@ new SimGroup(MissionGroup) {
          scale = "0.2 0.2 0.2";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-3.2500000 -4.0000000 1.2500000 0.0000000 8.0000000 0.0000000 6.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "30000";
       };
       new PathedInterior(MustChange) {
@@ -3164,7 +3269,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "0.5 0.5 10";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "474.373 6.09899 -210.277";
          baseRotation = "1 0 0 0";
@@ -3309,9 +3414,10 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 90";
       scale = "1 1 1";
       dataBlock = "PushButton";
+         TriggerOnce = "0";
+         activated = "0";
          resetTime = "Default";
          triggerMesg = "true";
-         activated = "0";
    };
    new Item() {
       position = "480.412 -130.996 100.11";
@@ -3429,9 +3535,10 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "PushButton";
+         TriggerOnce = "0";
+         activated = "0";
          resetTime = "Default";
          triggerMesg = "true";
-         activated = "0";
    };
    new InteriorInstance() {
       position = "480.42 54.0686 100";
@@ -3601,6 +3708,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "30000";
    };
    new Trigger(stay) {
@@ -3616,6 +3724,8 @@ new SimGroup(MissionGroup) {
       scale = "8 40 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Oh no you fell!  Maybe you should explore a bit while you are down here.";
    };
    new Trigger(firstvictory) {
@@ -3624,6 +3734,8 @@ new SimGroup(MissionGroup) {
       scale = "8 15 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "MWUHAHAHAHAHAHAHA!!!";
    };
    new Trigger(firstvictory) {
@@ -3632,6 +3744,8 @@ new SimGroup(MissionGroup) {
       scale = "8 15 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Welcome to the PowerPlex!  Test your PowerUp skills.  There is a 15 second TT hidden in this section!";
    };
    new Trigger(firstvictory) {
@@ -3640,6 +3754,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Gyro Wall Hit";
    };
    new Trigger(firstvictory) {
@@ -3648,6 +3764,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Air Hop";
    };
    new Trigger(firstvictory) {
@@ -3656,6 +3774,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Super Speed Stop";
    };
    new Trigger(firstvictory) {
@@ -3664,6 +3784,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Basic Super Jump";
    };
    new Trigger(firstvictory) {
@@ -3672,6 +3794,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Jump-Super-Jump Combo";
    };
    new Trigger(firstvictory) {
@@ -3680,6 +3804,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Bouncy Rebound";
    };
    new Trigger(firstvictory) {
@@ -3688,6 +3814,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Soar to Heaven";
    };
    new Trigger(firstvictory) {
@@ -3696,6 +3824,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Green Stairs";
    };
    new Trigger(firstvictory) {
@@ -3704,6 +3834,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Faith";
    };
    new Trigger(firstvictory) {
@@ -3712,6 +3844,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Twisted Road";
    };
    new Trigger(firstvictory) {
@@ -3720,6 +3854,8 @@ new SimGroup(MissionGroup) {
       scale = "4 8 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You\'re so close! Don\'t give up";
    };
    new Trigger(firstvictory) {
@@ -3728,6 +3864,8 @@ new SimGroup(MissionGroup) {
       scale = "5 5 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Complete the 3 challenges to unlock the Finish!";
    };
    new InteriorInstance() {
@@ -3752,6 +3890,8 @@ new SimGroup(MissionGroup) {
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "There is a gem below this platform";
    };
    new ParticleEmitterNode(poop) {
@@ -3823,6 +3963,8 @@ new SimGroup(MissionGroup) {
       scale = "5 5 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Let that other Marble lend you a hand";
    };
    new InteriorInstance() {
@@ -3839,10 +3981,230 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/constructorbar.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-20.0146 22.8432 21.7315";
+         rotation = "0.0766231 -0.144817 0.986487 124.875";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "51.3405 40.8143 28.6813";
+         rotation = "-0.0172126 -0.245392 0.969271 187.779";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "102.67 39.6517 28.6813";
+         rotation = "-0.00354401 -0.279101 0.960255 181.397";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "158.879 67.3555 30.304";
+         rotation = "0.102713 -0.193341 0.97574 125.199";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "257.856 55.2896 40.39";
+         rotation = "0.0851376 -0.193944 0.977311 133.559";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "270.436 -29.3873 58.537";
+         rotation = "0.778813 -0.167722 0.604417 39.2223";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "304.973 -36.3446 77.4444";
+         rotation = "0.670876 -0.205403 0.712555 46.5045";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "354.797 -72.4173 91.4547";
+         rotation = "0.707043 0.21611 -0.67334 48.83";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath9";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath9) {
+         position = "410.793 -45.5665 88.2647";
+         rotation = "0.873461 -0.100765 0.476354 27.2274";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath10";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath10) {
+         position = "438.129 3.1356 126.439";
+         rotation = "0.260708 -0.232765 0.936938 87.2375";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath11";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath11) {
+         position = "438.129 3.1356 126.439";
+         rotation = "0.0253353 -0.0987309 0.994792 151.359";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath12";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath12) {
+         position = "438.129 3.1356 126.439";
+         rotation = "0.418462 -0.11669 0.900707 34.4046";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath13";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath13) {
+         position = "468.807 16.881 115.255";
+         rotation = "-0.0333683 -0.303282 0.952316 191.963";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "1";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath14";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath14) {
+         position = "478.931 5.31957 115.121";
+         rotation = "0.243225 0.237031 -0.940563 92.0326";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "1";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "5000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
