@@ -748,5 +748,47 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "18.7706 -18.24192 87.96909";
+         rotation = "0.2684641 0.1163172 -0.9562413 48.7502";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "12000";
+      };
+      new StaticShape(CameraPath2) {
+         position = "18.7706 -18.24192 3.219101";
+         rotation = "0.2684641 0.1163172 -0.9562413 48.7502";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            useRotation = "1";
+            timeToNext = "5000";
+      };
+      new StaticShape(CameraPath3) {
+         position = "18.7706 -18.24192 3.219093";
+         rotation = "0.2684641 0.1163172 -0.9562413 48.7502";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath1";
+            useRotation = "1";
+            timeToNext = "0";
+      };
+   };
 };
 //--- OBJECT WRITE END ---

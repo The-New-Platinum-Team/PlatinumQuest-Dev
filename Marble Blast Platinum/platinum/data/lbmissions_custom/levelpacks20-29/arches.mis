@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         type = "LBCustom";
-         desc = "Roll over the bridges of truth!";
-         name = "Arches";
-         startHelpText = "Easy one this, don't you think?";
-         level = "3";
          artist = "marbleman";
+         desc = "Roll over the bridges of truth!";
          goldTime = "18000";
+         level = "3";
          music = "Pianoforte.ogg";
+         name = "Arches";
+         startHelpText = "Easy one this, don\'t you think?";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -137,10 +137,21 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/addon/arch_green.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "10.628 -81.0895 42.0241";
+         rotation = "0.581658 0.272924 -0.766281 62.9606";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new InteriorInstance() {
       position = "-50.2087 -57.015 -24.0413";

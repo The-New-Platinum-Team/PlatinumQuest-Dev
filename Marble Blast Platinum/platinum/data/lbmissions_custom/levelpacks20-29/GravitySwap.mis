@@ -20,19 +20,20 @@ package GravitySwap {
 activatePackage(GravitySwap);
 $canFlip = 1;
 
+//--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "16";
-         type = "LBCustom";
+         Time = "0";
          artist = "asuul714";
-         name = "Gravity Swap";
-         time = "0";
-         goldTime = "30000";
-         UltimateTime = "20000";
          desc = "Press the powerup button to flip the gravity! Keep on the lookout for hidden, and not-so-hidden, time modifiers!\n\n(Credits to whirligig for the gravity-swap code.)";
-         startHelpText = "Pay attention to the help triggers, as some of the level may be confusing.";
+         goldTime = "30000";
+         level = "16";
          music = "Astrolabe.ogg";
+         name = "Gravity Swap";
+         startHelpText = "Pay attention to the help triggers, as some of the level may be confusing.";
+         type = "LBCustom";
+         ultimateTime = "20000";
    };
    new MissionArea(MissionArea) {
       area = "0 0 0 0";
@@ -52,9 +53,9 @@ new SimGroup(MissionGroup) {
       visibleDistance = "500";
       useSkyTextures = "1";
       renderBottomTexture = "1";
-      SkySolidColor = "1 1 1 1";
+      SkySolidColor = "1.000000 1.000000 1.000000 1.000000";
       fogDistance = "0";
-      fogColor = "0 0 0 0";
+      fogColor = "0.000000 0.000000 0.000000 0.000000";
       fogVolume1 = "0 0 0";
       fogVolume2 = "0 0 0";
       fogVolume3 = "0 0 0";
@@ -62,14 +63,14 @@ new SimGroup(MissionGroup) {
       windVelocity = "0 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
-      fogVolumeColor1 = "0 0 0 0";
-      fogVolumeColor2 = "0 0 0 0";
-      fogVolumeColor3 = "0 0 0 0";
+      fogVolumeColor1 = "0.000000 0.000000 0.000000 0.000000";
+      fogVolumeColor2 = "0.000000 0.000000 0.000000 0.000000";
+      fogVolumeColor3 = "0.000000 0.000000 0.000000 0.000000";
    };
    new Sun() {
-      direction = "0.5 0.5 -0.5";
-      color = "1 1 1 1";
-      ambient = "0.5 0.5 0.5 1";
+      direction = "0.57735 0.57735 -0.57735";
+      color = "1.000000 1.000000 1.000000 1.000000";
+      ambient = "0.500000 0.500000 0.500000 1.000000";
    };
    new StaticShape(StartPoint) {
       position = "0 0 0";
@@ -124,7 +125,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/GravitySwap.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/GravitySwap.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -166,7 +167,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/GravitySwap.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/GravitySwap.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -281,15 +282,19 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "0 24.15 16.85";
-      rotation = "-1 0 0 202.5";
+      rotation = "1 0 0 157.5";
       scale = "1 1 1";
       dataBlock = "TimeTravelItem";
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "0 48 32.5";
@@ -299,6 +304,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "16 48 31.75";
@@ -308,6 +315,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "32 24 51";
@@ -317,6 +326,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "31 45 44.5";
@@ -326,12 +337,14 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "0 0 -320";
       rotation = "1 0 0 0";
       scale = "1 1 1.3";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -341,7 +354,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Press <func:bind mouseFire> to flip the gravity after you get the diamond.";
    };
    new Trigger() {
@@ -349,7 +364,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You need to get on the other side of the platform below you. Fall off and get under that platform before you flip the gravity.";
    };
    new Trigger() {
@@ -357,7 +374,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Jump off this ramp and wait about a second before flipping the gravity. You should make it to the underside of the next platform.";
    };
    new Trigger() {
@@ -365,7 +384,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Get the diamonds by using some of your skillshot moves! Then advance to the next platform, making sure you get on the top of it.";
    };
    new Trigger() {
@@ -373,7 +394,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "The diamonds are above you. Flip the gravity as many times as you want to try and collect them. Then get to the platform on top of the wall.";
    };
    new Trigger() {
@@ -381,7 +404,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Ride the moving platforms! Flip as soon as you get each diamond.";
    };
    new Trigger() {
@@ -389,7 +414,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 8 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Go into this room and stay in the teleport trigger for two seconds. That means, no touching the ground! An initial wall-hit might help.";
    };
    new Trigger() {
@@ -397,7 +424,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 7.5 6";
       dataBlock = "TeleportTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          delay = "2000";
          destination = "finish";
    };
@@ -406,7 +433,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "8 0.25 23.5";
       dataBlock = "TeleportTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          delay = "10000";
          destination = "easterEgg";
    };
@@ -415,26 +442,37 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Trigger(easterEgg) {
       position = "0 0 -320";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Trigger() {
       position = "-40 88 -80";
       rotation = "1 0 0 0";
       scale = "112 128 320";
       dataBlock = "InBoundsTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Beach Party.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-39.7074 38.9903 77.6811";
+         rotation = "0.323803 -0.306311 0.895168 93.1618";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
