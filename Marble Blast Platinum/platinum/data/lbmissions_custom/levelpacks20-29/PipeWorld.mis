@@ -3,14 +3,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         type = "LBCustom";
-         startHelpText = "Looks can be deceiving.";
+         artist = "Matan";
          desc = "Roll around the pipe but beware the gaps!\nUse the Gyrocopters if you find some parts impossible.";
          goldTime = "55000";
          level = "30";
          name = "Pipe World";
-         artist = "Matan";
-         UltimateTime = "30000";
+         startHelpText = "Looks can be deceiving.";
+         type = "LBCustom";
+         ultimateTime = "30000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -173,6 +173,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "12500";
    };
    new Item() {
@@ -195,7 +196,7 @@ new SimGroup(MissionGroup) {
    };
    new Item() {
       position = "3.85 -7 4";
-      rotation = "0.926798 0 -0.375559 180";
+      rotation = "0.926799 0 -0.375559 180";
       scale = "1 1 1";
       dataBlock = "GemItem";
       collideable = "0";
@@ -255,19 +256,31 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "12500";
    };
-   new Trigger(stayhere) {
+   new Trigger(StayHere) {
       position = "-33.6 25.6 -9";
       rotation = "1 0 0 0";
       scale = "70 100 100";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-0.556362 20.5487 -1.38294";
+         rotation = "-0.00012435 -0.00813322 0.999967 181.752";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
