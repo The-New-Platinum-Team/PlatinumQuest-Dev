@@ -10,16 +10,16 @@ addMaterialMapping( "friction_bump" , LowBounceFloorMaterial);
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         music = "Seaside Revisited.ogg";
-         startHelpText = "Don\'t give up if you didn\'t make it the first time.";
-         UltimateTime = "30500";
-         time = "45000";
-         name = "Determination Race";
+         Time = "45000";
          artist = "James Colsey";
          desc = "Race against the clock while passing the obstacles.";
-         level = "11";
          goldTime = "36000";
+         level = "11";
+         music = "Seaside Revisited.ogg";
+         name = "Determination Race";
+         startHelpText = "Don\'t give up if you didn\'t make it the first time.";
          type = "LBCustom";
+         ultimateTime = "30500";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -80,7 +80,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-1 17 0.5";
@@ -90,7 +89,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "30 16 4";
@@ -100,7 +98,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "38 22 4";
@@ -110,7 +107,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "46 16 4";
@@ -120,7 +116,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "69.5 19 4";
@@ -139,7 +134,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "61.5 -8.5 6";
@@ -221,7 +215,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "38.5 -5.5 7";
@@ -255,7 +248,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "8.75 -5.5 4.5";
@@ -265,7 +257,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "3.75 -5.5 4.5";
@@ -275,77 +266,76 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "11.25 -3.75 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "11.25 -7.25 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "11.25 -5.5 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "8.75 -3.75 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "8.75 -7.25 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "6.25 -3.75 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "6.25 -7.25 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "6.25 -5.5 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "3.75 -3.75 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "3.75 -7.25 4.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Nuke";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape(EndPoint) {
       position = "1.5 -5.5 4.5";
@@ -387,7 +377,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/DeterminationRace.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/DeterminationRace.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -429,7 +419,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/DeterminationRace.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/DeterminationRace.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -471,7 +461,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/DeterminationRace.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/DeterminationRace.dif";
          interiorIndex = "2";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -506,7 +496,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "32.6314 -6.41808 6.03872";
@@ -516,12 +505,126 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-4.82627 22.1506 16.4799";
+         rotation = "0.139171 -0.330242 0.93358 137.048";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "38.149 23.2508 16.4799";
+         rotation = "0.00646025 -0.541236 0.840846 178.85";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "71.1667 19.988 16.4799";
+         rotation = "-0.232017 -0.499701 0.834546 222.361";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "70.6822 -8.7199 16.4799";
+         rotation = "0.717764 0.387021 -0.578817 85.9413";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "47.0936 -8.46671 10.1348";
+         rotation = "0.603816 0.339386 -0.721265 75.8573";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "41.9177 -7.7423 8.27964";
+         rotation = "0.0523126 0.0506102 -0.997347 88.2568";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "26.1059 -7.45463 7.60221";
+         rotation = "0.0208486 0.0207827 -0.999567 89.8433";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "15.4739 -6.48107 6.74786";
+         rotation = "0.0657288 0.0555377 -0.996291 80.6026";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath9";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath9) {
+         position = "7.37015 -5.5186 5.76521";
+         rotation = "0.10807 0.107192 -0.988348 90.2047";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
