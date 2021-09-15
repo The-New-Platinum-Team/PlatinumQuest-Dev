@@ -240,29 +240,20 @@ datablock StaticShapeData(SmallDuctFan_PQ : SmallDuctFan) {
 	compile = "pls";
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/ductfan.dts";
 };
-datablock StaticShapeData(DuctFan_MBU_OriginalHitbox : DuctFan) {
+datablock StaticShapeData(DuctFan_MBU : DuctFan) {
 	superCategory = "Hazards";
 	category = "Marble_Blast_Ultra/Mobile";
 		
 	compile = "pls";
 	shapeFile = "~/data/shapes_mbu/hazards/mbu-hitboxes/ductfan.dts";
 };
-datablock StaticShapeData(SmallDuctFan_MBU_OriginalHitbox : SmallDuctFan) {
+datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
 	superCategory = "Hazards";
 	category = "Marble_Blast_Ultra/Mobile";
 		
 	compile = "pls";
 	shapeFile = "~/data/shapes_mbu/mbu-hitboxes/hazards/ductfan.dts";
 };
-
-// datablock StaticShapeData(DuctFan_MBM : DuctFan) {
-// 	compile = "pls";
-// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
-// };
-// datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
-// 	compile = "pls";
-// 	shapeFile = "~/data/shapes_mbu/hazards/ductfan_mbm.dts";
-// };
 
 datablock StaticShapeData(NomeshDuctFan_PQ : DuctFan) {
 	superCategory = "Hazards";
@@ -1413,7 +1404,7 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
 	};
 
-	datablock StaticShapeData(DuctFan_MBU : DuctFan) {
+	datablock StaticShapeData(Ductfan_MBM : DuctFan) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
 
@@ -1435,7 +1426,7 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes/hazards/trapdoor.dts";
 	};
 
-	datablock StaticShapeData(DuctFan_MBU : DuctFan) {
+	datablock StaticShapeData(Ductfan_MBM : DuctFan) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
 		

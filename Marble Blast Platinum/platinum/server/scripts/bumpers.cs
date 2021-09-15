@@ -121,3 +121,23 @@ function RoundBumper_MBU::onCollision( %this, %obj, %col ,%vec, %vecLen, %materi
 	  %obj.idleSch = %obj.schedule(200, playThread, 0, "idle");
    //}
 }
+
+
+if (!$pref::LegacyItems) {
+		datablock StaticShapeData(RoundBumper_Original) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";
+		className = "Bumper";
+		shapeFile = "~/data/shapes_mbu/bumpers/mbgbumperedit.dts";
+		scopeAlways = true;
+		sound = BumperDing;
+	};
+} else {
+		datablock StaticShapeData(RoundBumper_Original) {
+		superCategory = "Hazards";
+		category = "Marble_Blast_Ultra/Mobile";	
+		shapeFile = "~/data/shapes/bumpers/pball_round.dts";
+		scopeAlways = true;
+		sound = BumperDing;
+	};
+}

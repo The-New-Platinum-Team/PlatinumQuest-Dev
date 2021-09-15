@@ -307,6 +307,7 @@ addMaterialMapping("pball-round-side" , BumperMaterial);
 addMaterialMapping("pball-round-top" , BumperMaterial);
 addMaterialMapping("pball-round-bottm" , BumperMaterial);
 addMaterialMapping("bumper" , BumperMaterial);
+addMaterialMapping("sigil_glow" , BumperMaterial);
 addMaterialMapping("base.button" ,    ButtonMaterial);
 addMaterialMapping("black.button" ,   ButtonMaterial);
 addMaterialMapping("blue.button" ,    ButtonMaterial);
