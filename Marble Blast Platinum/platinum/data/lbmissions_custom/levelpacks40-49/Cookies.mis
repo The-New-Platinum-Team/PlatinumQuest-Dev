@@ -4,17 +4,16 @@ new SimGroup(MissionGroup) {
    new ScriptObject(MissionInfo) {
          artist = "WeatherWonders";
          blast = "0";
+         desc = "Many tiny courses to munch on.";
          hideRadar = "1";
          level = "2";
          menuCameraFov = "90";
          music = "Xmas Trance.ogg";
          name = "Cookies";
-         platinumTime = "75000";
+         platinumTime = "80000";
          radar = "0";
          time = "0";
          type = "Custom";
-         ultimateTime = "65000";
-         awesomeTime = "55000";
          ultimateTime = "72000";
    };
    new MissionArea(MissionArea) {
@@ -49,9 +48,9 @@ new SimGroup(MissionGroup) {
       fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
       fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
       fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
-      direction = "0.196523 0.165268 -0.96647";
+   };
    new Sun() {
-      direction = "0.1965232 0.1652685 -0.9664704";
+      direction = "0.196523 0.165268 -0.96647";
       color = "1.000000 0.800000 0.800000 1.000000";
       ambient = "0.400000 0.600000 0.600000 1.000000";
    };
@@ -65,18 +64,18 @@ new SimGroup(MissionGroup) {
       position = "0 -1260 6.25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      position = "-32.3654 150 -3";
-      scale = "481.121 1500 500";
+      dataBlock = "EndPad";
+   };
    new Trigger(Bounds) {
-      position = "-150 150 -3";
+      position = "-32.3654 150 -3";
       rotation = "1 0 0 0";
-      position = "414.089 -1034.52 15.9372";
-      rotation = "0 0 1 166.158";
+      scale = "481.121 1500 500";
+      dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new StaticShape() {
-      position = "414.0886 -1034.523 15.93724";
-      rotation = "0 0 1 166.1577";
+      position = "414.089 -1034.52 15.9372";
+      rotation = "0 0 1 166.158";
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
@@ -162,24 +161,24 @@ new SimGroup(MissionGroup) {
    new InteriorInstance() {
       position = "416 -416 0";
       rotation = "1 0 0 0";
-      rotation = "-1 0 0 90";
+      scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-9.dif";
       showTerrainInside = "0";
    };
    new StaticShape() {
       position = "-1 5 0.5";
-      rotation = "-1 0 0 89.99998";
+      rotation = "-1 0 0 90";
       scale = "1 1 1";
       dataBlock = "DuctFan";
-         delay = "10";
    };
+   new Trigger(Teleport) {
       position = "207.65 4.55 2";
       rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie3";
          delay = "10";
+         destination = "Cookie3";
    };
    new Trigger(Cookie2) {
       position = "208 -4.25 -4";
@@ -187,15 +186,15 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         delay = "10";
    };
+   new Trigger(Teleport) {
       position = "2.65 7.3 -0.5";
       rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie2";
          delay = "10";
+         destination = "Cookie2";
    };
    new Item() {
       position = "208 4.25 2.05";
@@ -228,25 +227,25 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         delay = "10";
    };
+   new Trigger(Teleport) {
       position = "415.65 6.55 2.5";
       rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie4";
          delay = "10";
+         destination = "Cookie4";
    };
    new InteriorInstance() {
-      position = "416 -2.25 -1.75";
+      position = "416 0 -56";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
       showTerrainInside = "0";
    };
    new Item() {
-      position = "416 -2.249999 -1.75";
+      position = "416 -2.25 -1.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem";
@@ -269,7 +268,7 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
       showTerrainInside = "0";
    };
-      position = "-1.19209e-007 -210 4.05";
+   new Trigger(Cookie5) {
       position = "208 -212.25 -2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -277,13 +276,13 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Item() {
-      position = "-1.192093e-007 -210 4.05";
+      position = "-1.19209e-007 -210 4.05";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
       collideable = "0";
-         delay = "10";
       static = "1";
+      rotate = "1";
    };
    new Trigger(Teleport) {
       position = "-0.35 -209.7 4";
@@ -291,15 +290,15 @@ new SimGroup(MissionGroup) {
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie5";
          delay = "10";
+         destination = "Cookie5";
    };
    new InteriorInstance() {
       position = "208 -208 -56";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-         delay = "10";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
+      showTerrainInside = "0";
    };
    new Trigger(Teleport) {
       position = "415.65 -199.45 22";
@@ -307,12 +306,12 @@ new SimGroup(MissionGroup) {
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie7";
          delay = "10";
+         destination = "Cookie7";
    };
    new Item() {
-      position = "208 -208.25 0.380788";
-      rotation = "1 0 0 1.00014";
+      position = "208 -203.75 23.05";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
       collideable = "0";
@@ -320,8 +319,8 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "208 -208.25 0.3807883";
-      rotation = "1 0 0 1.000137";
+      position = "208 -208.25 0.380788";
+      rotation = "1 0 0 1.00014";
       scale = "8 8 0.1";
       dataBlock = "SuperJumpItem";
       collideable = "0";
@@ -364,8 +363,8 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
-         delay = "10";
       collideable = "0";
+      static = "1";
       rotate = "1";
    };
    new Trigger(Teleport) {
@@ -374,8 +373,8 @@ new SimGroup(MissionGroup) {
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie6";
          delay = "10";
+         destination = "Cookie6";
    };
    new InteriorInstance() {
       position = "416 -416 -56";
@@ -394,21 +393,21 @@ new SimGroup(MissionGroup) {
    new InteriorInstance() {
       position = "0 -416 -56";
       rotation = "1 0 0 0";
-         delay = "10";
       scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
       showTerrainInside = "0";
    };
-      position = "-1.19209e-007 -409.25 3.05";
+   new Trigger(Teleport) {
       position = "-0.35 -408.95 3";
       rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie8";
          delay = "10";
+         destination = "Cookie8";
    };
    new Item() {
-      position = "-1.192093e-007 -409.25 3.05";
+      position = "-1.19209e-007 -409.25 3.05";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
@@ -425,7 +424,7 @@ new SimGroup(MissionGroup) {
    new StaticShape() {
       position = "-1.25 -412 1";
       rotation = "1 0 0 0";
-      position = "208 -404 0.55";
+      scale = "1 1 1";
       dataBlock = "RoundBumper";
    };
    new Trigger(Cookie9) {
@@ -433,25 +432,25 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
-      position = "207.65 -403.7 0.5";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Item() {
-      position = "208 -404 0.5500001";
-         delay = "10";
+      position = "208 -404 0.55";
       rotation = "1 0 0 0";
+      scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Trigger(Teleport) {
-      position = "207.65 -403.7 0.5000001";
+      position = "207.65 -403.7 0.5";
       rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
-      position = "416 -405 0.55";
+      dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie9";
          delay = "10";
+         destination = "Cookie9";
    };
    new Trigger(Cookie8) {
       position = "208 -428 -2";
@@ -461,28 +460,28 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Item() {
-         delay = "10";
-      position = "416 -405 0.5500002";
+      position = "416 -405 0.55";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
       collideable = "0";
-      rotation = "0 0 -1 112.873";
+      static = "1";
       rotate = "1";
    };
-   };
-   new Trigger(FireworkTrigger) {
-      position = "-97.25 -124.5 -61.75";
+   new Trigger(Teleport) {
+      position = "415.65 -404.7 0.5";
       rotation = "1 0 0 0";
-      scale = "188.4588 1028.041 425.3968";
-      dataBlock = "FireworksTrigger";
+      scale = "0.7 0.6 0.6";
+      dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         delay = "10";
+         destination = "Cookie10";
    };
-   new Trigger(FireworkTrigger) {
-      position = "110.113 85.32414 -61.73633";
-      rotation = "1 0 0 0";
-      scale = "195.578 1249.176 426.3528";
-      dataBlock = "FireworksTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   new StaticShape() {
+      position = "416 -410.5 -1.3";
+      rotation = "0 0 -1 112.873";
+      scale = "1 1 1";
+      dataBlock = "TriangleBumper";
    };
    new InteriorInstance() {
       position = "416 -840 0";
@@ -490,20 +489,20 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-15-2.dif";
       showTerrainInside = "0";
+   };
+   new Trigger(Cookie18) {
+      position = "416 -1042 -2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
    new InteriorInstance() {
       position = "416 -840 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-15.dif";
       showTerrainInside = "0";
-   };
-   new Trigger(TextTrigger) {
-      position = "413.6982 -615.2336 -0.4207261";
-      rotation = "1 0 0 0";
-      scale = "1.523438 6.791626 2.099405";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         text = "The firework noises might be annoying,\nbut THEY\'RE SO COOL!";
    };
    new InteriorInstance() {
       position = "212 -836 -1.25";
@@ -513,11 +512,11 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new Item() {
-         delay = "10";
       position = "421 -827 1";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TimeTravelItem";
-      position = "416 -840 -2";
+      collideable = "0";
       static = "1";
       rotate = "1";
          timeBonus = "8000";
@@ -528,11 +527,11 @@ new SimGroup(MissionGroup) {
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie16";
          delay = "10";
+         destination = "Cookie16";
    };
    new Trigger(Cookie15) {
-      position = "416 -839.9998 -2";
+      position = "416 -840 -2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
@@ -544,7 +543,7 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
       showTerrainInside = "0";
-      position = "416 -610 1.55";
+   };
    new InteriorInstance() {
       position = "0 -624 -56";
       rotation = "1 0 0 0";
@@ -560,7 +559,7 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new Item() {
-      position = "416 -609.9999 1.55";
+      position = "416 -610 1.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
@@ -578,11 +577,11 @@ new SimGroup(MissionGroup) {
    new InteriorInstance() {
       position = "208 -629.75 0";
       rotation = "1 0 0 0";
-         delay = "10";
       scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-11.dif";
       showTerrainInside = "0";
    };
-      position = "208 -623.75 4.55";
+   new InteriorInstance() {
       position = "416 -638 1";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -590,16 +589,16 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new Trigger(Teleport) {
-      position = "208 -629.75 -2";
+      position = "207.65 -623.45 4.5";
       rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         delay = "10";
          destination = "Cookie12";
-      position = "-2 -622 4.55";
    };
    new Item() {
-      position = "208 -623.7499 4.55";
+      position = "208 -623.75 4.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
@@ -608,18 +607,18 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Trigger(Cookie11) {
-      position = "208 -629.7499 -2";
-         delay = "10";
+      position = "208 -629.75 -2";
       rotation = "1 0 0 0";
+      scale = "1 1 1";
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-      position = "2 -630 -2";
+   };
    new Item() {
-      position = "-2 -621.9999 4.55";
+      position = "-2 -622 4.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
-      position = "416 -638 -1";
+      collideable = "0";
       static = "1";
       rotate = "1";
    };
@@ -629,18 +628,18 @@ new SimGroup(MissionGroup) {
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         delay = "10";
          destination = "Cookie11";
-         delay = "10";
-         delay = "10";
+   };
    new Trigger(Cookie10) {
-      position = "2 -629.9999 -2";
+      position = "2 -630 -2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Trigger(Cookie12) {
-      position = "416 -637.9999 -1";
+      position = "416 -638 -1";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
@@ -652,8 +651,8 @@ new SimGroup(MissionGroup) {
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie13";
          delay = "10";
+         destination = "Cookie13";
    };
    new InteriorInstance() {
       position = "416 -840 0";
@@ -678,7 +677,7 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "208 -832 -56";
-      position = "416 -824 0.55";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
       showTerrainInside = "0";
@@ -686,7 +685,7 @@ new SimGroup(MissionGroup) {
    new Item() {
       position = "0 -834 0.7";
       rotation = "1 0 0 0";
-      position = "204 -836 11.3";
+      scale = "1 1 1";
       dataBlock = "SuperJumpItem";
       collideable = "0";
       static = "1";
@@ -699,58 +698,58 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
       showTerrainInside = "0";
    };
-         delay = "10";
    new Item() {
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      position = "0 -838 -2";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "212 -836 -3.25";
+      position = "416 -824 0.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
       collideable = "0";
       static = "1";
-      position = "-0.35 -825.358 10.15";
-      scale = "0.7 0.94209 0.7";
+      rotate = "1";
+   };
+   new Item() {
+      position = "204 -836 11.3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemTurquoise";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
    new Trigger(Teleport) {
-         delay = "10";
       position = "203.65 -835.7 11.25";
+      rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
-      position = "0 -826 10.3";
-         destination = "Cookie15";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          delay = "10";
+         destination = "Cookie15";
    };
    new Trigger(Cookie13) {
-      position = "0 -837.9998 -2";
+      position = "0 -838 -2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Trigger(Cookie14) {
-      position = "212 -835.9998 -3.25";
+      position = "212 -836 -3.25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Trigger(Teleport) {
-      position = "-0.3499999 -825.358 10.15";
+      position = "-0.35 -825.358 10.15";
       rotation = "1 0 0 0";
-      scale = "0.7 0.9420898 0.7";
+      scale = "0.7 0.94209 0.7";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie14";
          delay = "10";
+         destination = "Cookie14";
    };
    new Item() {
-      position = "0 -825.9998 10.3";
+      position = "0 -826 10.3";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
@@ -759,7 +758,7 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new InteriorInstance() {
-      rotation = "-1 0 0 90";
+      position = "0 -1040 -56";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
@@ -767,7 +766,7 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "208 -1040 -56";
-      position = "416 -1042 1.5";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-BackgroundLarge.dif";
       showTerrainInside = "0";
@@ -781,14 +780,14 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "0 -1262 -5";
-         delay = "10";
       rotation = "1 0 0 0";
+      scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-Background.dif";
       showTerrainInside = "0";
    };
    new Item() {
       position = "206.5 -1036.25 8.25";
-      rotation = "-1 0 0 89.99998";
+      rotation = "-1 0 0 90";
       scale = "1 1 1";
       dataBlock = "AntiGravityItem";
       collideable = "0";
@@ -797,11 +796,11 @@ new SimGroup(MissionGroup) {
          respawnTime = "1000000";
    };
    new Item() {
-      position = "416.0002 -1042 1.5";
+      position = "416 -1042 1.5";
       rotation = "1 0 0 180";
       scale = "1 1 1";
       dataBlock = "AntiGravityItem";
-      position = "208 -1040 9.55";
+      collideable = "0";
       static = "1";
       rotate = "1";
          respawnTime = "1000000";
@@ -812,10 +811,10 @@ new SimGroup(MissionGroup) {
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         delay = "10";
          destination = "Cookie17";
-         delay = "10";
-         delay = "10";
    };
+   new Item() {
       position = "0 -1042 4.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -830,9 +829,9 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         delay = "10";
    };
-      position = "208 -1040 9.549999";
+   new Item() {
+      position = "208 -1040 9.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
@@ -844,11 +843,11 @@ new SimGroup(MissionGroup) {
       position = "207.65 -1039.7 9.5";
       rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
-      rotation = "0 0 -1 90";
+      dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         open = "0";
-         destination = "Cookie18";
          delay = "10";
+         destination = "Cookie18";
+   };
    new Trigger(Cookie17) {
       position = "208 -1040 9.75";
       rotation = "1 0 0 0";
@@ -858,30 +857,30 @@ new SimGroup(MissionGroup) {
    };
    new Trigger(Teleport) {
       position = "415.65 -1036.2 13";
-      position = "0 -1038.25 0.75";
+      rotation = "1 0 0 0";
       scale = "0.7 0.6 0.6";
       dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         destination = "Cookie19";
          delay = "10";
+         destination = "Cookie19";
    };
    new Item() {
       position = "416 -1036.5 13.05";
       rotation = "1 0 0 0";
-      rotation = "0 0 -1 90";
+      scale = "1 1 1";
       dataBlock = "GemItemTurquoise";
-         open = "0";
       collideable = "0";
       static = "1";
+      rotate = "1";
    };
-   new InteriorInstance(interior17) {
+   new StaticShape() {
       position = "1 -1035 0.5";
-      rotation = "0 0 -1 89.99998";
+      rotation = "0 0 -1 90";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         open = "0";
          resetTime = "Default";
          timeout = "200";
-         open = "0";
    };
    new InteriorInstance() {
       position = "0 -1042 0";
@@ -891,7 +890,7 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new Item() {
-      rotation = "0 1 0 90";
+      position = "0 -1038.25 0.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem";
@@ -902,14 +901,14 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape() {
       position = "-1 -1035 0.5";
-      rotation = "0 0 -1 89.99998";
+      rotation = "0 0 -1 90";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         open = "0";
          resetTime = "Default";
          timeout = "200";
-         open = "0";
    };
-   new InteriorInstance() {
+   new InteriorInstance(interior17) {
       position = "208 -1040 9.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -917,7 +916,7 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new Item() {
-      rotation = "1 0 0 90";
+      position = "416 -1038 0.25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem";
@@ -926,27 +925,23 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      rotation = "0 -1 0 90";
-      rotation = "0 1 0 89.99998";
+      position = "211.5 -1040 10.75";
+      rotation = "0 1 0 90";
       scale = "1 1 1";
       dataBlock = "AntiGravityItem";
       collideable = "0";
       static = "1";
       rotate = "1";
          respawnTime = "1000000";
-      position = "412.426 -1033.85 13.5895";
-      scale = "1.99359 1.19214 1.1888";
+   };
+   new InteriorInstance() {
       position = "416 -1042 0";
-         displayonce = "0";
-         persistTime = "5000";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-18.dif";
-      position = "414.374 -1033.45 13.5782";
-      scale = "1.99359 1.19214 1.1888";
+      showTerrainInside = "0";
+   };
    new Item() {
-         displayonce = "0";
-         persistTime = "5000";
       position = "208 -1038.5 6.25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -958,11 +953,58 @@ new SimGroup(MissionGroup) {
    };
    new Item() {
       position = "209.5 -1043.5 8";
-      rotation = "1 0 0 89.99998";
+      rotation = "1 0 0 90";
       scale = "1 1 1";
       dataBlock = "AntiGravityItem";
       collideable = "0";
       static = "1";
+      rotate = "1";
+         respawnTime = "1000000";
+   };
+   new Item() {
+      position = "204.5 -1041.5 8.25";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         respawnTime = "1000000";
+   };
+   new Trigger(TextTrigger) {
+      position = "412.426 -1033.85 13.5895";
+      rotation = "1 0 0 0";
+      scale = "1.99359 1.19214 1.1888";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "You came all this way to hit the sign with your head?";
+   };
+   new Trigger(TextTrigger) {
+      position = "414.374 -1033.45 13.5782";
+      rotation = "1 0 0 0";
+      scale = "1.99359 1.19214 1.1888";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "You came all this way to hit the sign with your head?";
+   };
+   new Trigger(Cookie19) {
+      position = "0 -1260 4.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "0 -1260 5.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Cookies-1-19.dif";
+      showTerrainInside = "0";
+   };
    new Trigger(OutOfBounds_17_2) {
       position = "224.801 -982.78 -7.6806";
       rotation = "1 0 0 0";
@@ -1025,10 +1067,14 @@ new SimGroup(MissionGroup) {
       scale = "123.104 62.8152 288.115";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-      dataBlock = "OutOfBoundsTrigger";
-      fileName = "~/data/sound/music/Electroforte.ogg";
    };
-   new Trigger(PointFireworks) {
+   new Trigger(OutOfBounds) {
+      position = "363.752 -242.886 1.03807";
+      rotation = "1 0 0 0";
+      scale = "127.293 43.4227 288.115";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
    new Trigger(OutOfBounds) {
       position = "119.048 -95.9707 -128.466";
       rotation = "1 0 0 0";
@@ -1118,7 +1164,7 @@ new SimGroup(MissionGroup) {
       };
       new StaticShape(CameraPath2) {
          position = "219.868 -625.736 5.14656";
-         rotation = "0.0592013 0.0548759 -0.996737 85.844";
+         rotation = "0.0592013 0.0548759 -0.996737 85.8441";
          scale = "1 5 1";
          dataBlock = "PathNode";
             CamFOV = "0";
@@ -1685,7 +1731,7 @@ new SimGroup(MissionGroup) {
       };
       new StaticShape(CameraPath23) {
          position = "3.45819 -831.659 3.99453";
-         rotation = "-0.603154 -0.343344 -0.719944 76.6657";
+         rotation = "-0.603154 -0.343344 -0.719944 76.6656";
          scale = "1 5 1";
          dataBlock = "PathNode";
             CamFOV = "0";
@@ -1874,7 +1920,7 @@ new SimGroup(MissionGroup) {
       };
       new StaticShape(CameraPath30) {
          position = "431.385 -411.63 5.10143";
-         rotation = "0.143119 0.143005 -0.97932 91.1517";
+         rotation = "0.143119 0.143005 -0.97932 91.1518";
          scale = "1 5 1";
          dataBlock = "PathNode";
             CamFOV = "0";
@@ -2009,7 +2055,7 @@ new SimGroup(MissionGroup) {
       };
       new StaticShape(CameraPath35) {
          position = "195.77 -0.730713 1.99906";
-         rotation = "0.0943278 -0.0869987 0.991733 85.8452";
+         rotation = "0.0943278 -0.0869987 0.991733 85.8453";
          scale = "1 5 1";
          dataBlock = "PathNode";
             CamFOV = "0";
@@ -2380,58 +2426,6 @@ new SimGroup(MissionGroup) {
          Path1 = "delet";
          TriggerOnce = "0";
          object1 = "OutOfBounds_5_2";
-   };
-   new Trigger(OutOfBounds) {
-      position = "363.752 -242.886 1.03807";
-      rotation = "1 0 0 0";
-      scale = "127.293 43.4227 288.115";
-      dataBlock = "OutOfBoundsTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-   };
-      position = "-26.41645 -1233.792 -5.293255";
-      rotation = "1 0 0 0";
-      scale = "52.94964 54.6955 37.27295";
-      dataBlock = "PointFireworksTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         customPosition = "-2.25 -1257.75 6.25";
-   };
-   new Trigger(PointFireworks) {
-      position = "-24.98495 -1234.68 -4.747196";
-      rotation = "1 0 0 0";
-      scale = "52.94964 54.87751 37.27295";
-      dataBlock = "PointFireworksTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         customPosition = "2.25 -1262.25 6.25";
-   };
-   new Trigger(PointFireworks) {
-      position = "-24.16645 -1233.792 -5.043255";
-      rotation = "1 0 0 0";
-      scale = "52.94964 54.6955 37.27295";
-      dataBlock = "PointFireworksTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         customPosition = "2.25 -1257.75 6.25";
-   };
-   new Trigger(PointFireworks) {
-      position = "-27.22419 -1234.52 -4.997196";
-      rotation = "1 0 0 0";
-      scale = "52.94964 54.87751 37.27295";
-      dataBlock = "PointFireworksTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         customPosition = "-2.25 -1262.25 6.25";
-   };
-   new Item() {
-      position = "413.9416 -1033.717 15.49296";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "easterEgg";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
    };
 };
 //--- OBJECT WRITE END ---

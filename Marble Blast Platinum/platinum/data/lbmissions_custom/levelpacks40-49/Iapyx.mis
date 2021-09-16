@@ -6,15 +6,15 @@ if (!isFile($skyPath))
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         UltimateTime = "37500";
+         Time = "95000";
          artist = "Oaky";
-         name = "Iapyx";
-         time = "95000";
          desc = "I am Iapyx, the son of Daedalus. Welcome to my labyrinth.";
          goldTime = "55000";
          level = "18";
+         name = "Iapyx";
          startHelpText = "Be sure not to get lost amongst my convoluted pathways...";
          type = "custom";
+         ultimateTime = "37500";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -41,7 +41,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = $skyPath;
+      materialList = "~/data/skies/Mountain Lake/majesty.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -68,12 +68,12 @@ new SimGroup(MissionGroup) {
       };
    };
    new ScriptObject() {
-         Pad = "2321";
-         gemCount = "0";
+         Time = "0";
          bonusTime = "0";
-         time = "0";
-         PowerUp = "0";
+         gemCount = "0";
+         pad = "2321";
          penaltyTime = "0";
+         powerup = "0";
    };
    new InteriorInstance() {
       position = "0 0 0";
@@ -148,7 +148,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/Iapyx.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/Iapyx.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -190,7 +190,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/Iapyx.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/Iapyx.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -206,7 +206,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "7 -3 0.5";
@@ -216,7 +215,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "21 -5 6.25";
@@ -226,7 +224,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "15 -30 2.75";
@@ -236,6 +233,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "4000";
    };
    new StaticShape(EndPoint) {
@@ -252,6 +250,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "4000";
    };
    new StaticShape() {
@@ -264,7 +263,7 @@ new SimGroup(MissionGroup) {
       position = "21 -5 2.21";
       rotation = "1 0 0 0";
       scale = "1 1 1.3";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -277,7 +276,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "36 -26 7.25";
@@ -287,7 +285,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "1 -33 2.75";
@@ -297,7 +294,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "7 -39 -4";
@@ -307,7 +303,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-11 -9 1.5";
@@ -317,7 +312,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-10.9936 -30.9644 6.75";
@@ -327,6 +321,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "6000";
    };
    new Item() {
@@ -337,7 +332,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "3 -17 6";
@@ -347,7 +341,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "9 -23 4";
@@ -357,7 +350,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "9 -26.75 -3";
@@ -367,6 +359,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "27 -29 0.5";
@@ -376,7 +370,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "19 -17 2.5";
@@ -386,7 +379,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "17 -37 3.75";
@@ -396,7 +388,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "27 -17 5.3";
@@ -406,6 +397,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "3000";
    };
    new Item() {
@@ -416,6 +408,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "3000";
    };
    new Item() {
@@ -426,6 +419,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "2000";
    };
    new Item() {
@@ -436,6 +430,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Trigger(noTM) {
       position = "20.5 -6 11.25";
@@ -443,6 +439,8 @@ new SimGroup(MissionGroup) {
       scale = "1 0.5 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "I was gonna put a TM here... kudos to you for making it up though!";
    };
    new Trigger(heheiremembered) {
@@ -460,12 +458,24 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "3000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-15.5024 3.99151 13.0536";
+         rotation = "0.0742515 -0.193316 0.978323 138.811";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
