@@ -44,6 +44,7 @@ $pref::showFPSCounter = 0;
 $pref::environmentMaps = 0;
 $pref::HelpTriggers = 1;
 $pref::ScreenshotMode = 0;
+$pref::RadarMode = 3;
 
 $pref::checkLETip = "1";
 $pref::checkTip[1] = "1";
