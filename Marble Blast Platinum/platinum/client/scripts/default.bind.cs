@@ -918,7 +918,7 @@ if (isSharedTriggers(0)) {
 setDefaultBind(mouse,    "xaxis",     yaw);
 setDefaultBind(mouse,    "yaxis",     pitch);
 setDefaultBind(mouse,    "button0",   mouseFire);
-setDefaultBind(mouse,    "button1",   useBlast1);
+setDefaultBind(mouse,    "button1",   useBlast);
 setDefaultBind(keyboard, "t",         toggleChatHUD);
 setDefaultBind(keyboard, "p",         togglePrivateChatHUD);
 setDefaultBind(keyboard, "f",         toggleTeamChatHUD);
@@ -933,7 +933,7 @@ setDefaultBind(keyboard, "down",      panDown);
 setDefaultBind(keyboard, "left",      turnLeft);
 setDefaultBind(keyboard, "right",     turnRight);
 setDefaultBind(keyboard, "backspace", forceRespawn);
-setDefaultBind(keyboard, "e",         useBlast);
+setDefaultBind(keyboard, "e",         useBlast1);
 setDefaultBind(keyboard, "q",         throwSnowball);
 setDefaultBind(keyboard, "o",         displayScoreList);
 setDefaultBind(keyboard, "tab",       radarSwitch);

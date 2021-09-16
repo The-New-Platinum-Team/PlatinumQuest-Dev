@@ -244,6 +244,8 @@ function loadTexturePackFields(%pack) {
 	}
 	if (%pack.mbg_help_ui !$= "") {
 		$TexturePack::MBGHelpUI = %pack.mbg_help_ui;
+	} else {
+		$TexturePack::MBGHelpUI = "";
 	}
 	if (%pack.fonts) {
 		// Save existing fonts first, for restoring later
