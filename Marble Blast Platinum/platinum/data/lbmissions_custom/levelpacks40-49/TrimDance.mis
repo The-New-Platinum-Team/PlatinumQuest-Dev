@@ -6,15 +6,15 @@ if (!isFile($skyPath))
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         time = "0";
-         startHelpText = "You\'ll need a bit of luck here.";
+         Time = "0";
+         artist = "Nihahhat";
          desc = "Don\'t get too annoyed.";
-         type = "Custom";
+         goldTime = "8000";
          level = "44";
          name = "The Random Dance of Annoying Trim-Pole Thingies";
-         goldTime = "8000";
+         startHelpText = "You\'ll need a bit of luck here.";
+         type = "Custom";
          ultimateTime = "4000";
-	 artist = "Nihahhat";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -41,7 +41,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = $skyPath;
+      materialList = "~/data/skies/Ice Cold/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -77,7 +77,7 @@ new SimGroup(MissionGroup) {
       position = "2 45.5 1";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Trigger(Bounds) {
       position = "-17.3001 85.047 -24.5882";
@@ -86,10 +86,21 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-2.8555 -9.11837 12.238";
+         rotation = "0.95723 -0.0861311 0.276212 36.0874";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

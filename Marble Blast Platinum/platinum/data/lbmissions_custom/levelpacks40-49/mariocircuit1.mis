@@ -3,16 +3,16 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         Time = "35000";
+         alarmStartTime = "5";
          artist = "Threefolder";
-         type = "Custom";
-         name = "SNES Mario Circuit 1";
          desc = "A classic Mario Kart track recreated in Marble Blast.";
          goldTime = "23000";
-         startHelpText = "Just imagine that Lakitu is counting down instead of Matan.";
          level = "35";
-         UltimateTime = "18000";
-		 time = "35000";
-		 AlarmStartTime = "5";
+         name = "SNES Mario Circuit 1";
+         startHelpText = "Just imagine that Lakitu is counting down instead of Matan.";
+         type = "Custom";
+         ultimateTime = "18000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -39,7 +39,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Beginner/Beginner_Sky.dml";
+      materialList = "~/data/skies/beginner/beginner_sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -98,7 +98,9 @@ new SimGroup(MissionGroup) {
       scale = "3 3 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         text = "Uh, just ignore these little pieces.\n\I don\'t really know how they got here...";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "Uh, just ignore these little pieces.\nI don\'t really know how they got here...";
    };
    new Item() {
       position = "20.3415 48.8076 1.28201";
@@ -109,7 +111,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new Trigger(dontdie) {
+   new Trigger(dontDie) {
       position = "-45.2422 63.4179 1.44673";
       rotation = "1 0 0 0";
       scale = "120 120 20";
@@ -152,7 +154,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-18.9084 -40.8542 1.35342";
@@ -171,7 +172,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-27.9487 -36.3011 1.23404";
@@ -181,7 +181,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "32.3672 -8.48233 1.23453";
@@ -191,7 +190,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "55.2047 14.2998 1.21823";
@@ -201,12 +199,22 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "13.3137 26.1376 106.077";
+         rotation = "0.00246631 -0.642761 0.766063 179.663";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
