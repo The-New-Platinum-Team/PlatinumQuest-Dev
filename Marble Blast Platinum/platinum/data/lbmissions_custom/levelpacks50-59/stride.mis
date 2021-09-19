@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         time = "0";
-         type = "Custom";
-         name = "Stride";
-         desc = "Stride: Rated PG for, um, hardness?";
-         level = "40";
+         Time = "0";
          artist = "Brixar";
+         desc = "Stride: Rated PG for, um, hardness?";
          goldTime = "27000";
-         UltimateTime = "18000";
+         level = "40";
+         name = "Stride";
+         type = "Custom";
+         ultimateTime = "18000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -90,7 +90,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/Stride.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/Stride.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -115,17 +115,19 @@ new SimGroup(MissionGroup) {
       position = "-3.75 0 0.5";
       rotation = "1 0 0 0";
       scale = "1 1 1.3";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
-   new Trigger(help2) {
+   new Trigger(Help2) {
       position = "-2.5 -2 2";
       rotation = "1 0 0 0";
       scale = "5 4 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Ram into the bouncy slope to jump to the top.";
    };
    new Item() {
@@ -136,6 +138,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "5 0 8.75";
@@ -145,7 +149,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-7.5 -7 10.5";
@@ -155,7 +158,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "-12.5 -8.25 12";
@@ -177,7 +179,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "20 -14 20";
@@ -187,7 +188,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "-1.30285e-007 8 9";
@@ -215,6 +215,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "4 -14 22.25";
@@ -224,14 +226,15 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
-   new Trigger(help1) {
+   new Trigger(Help1) {
       position = "-8.5 1 10.5";
       rotation = "1 0 0 0";
       scale = "5 3 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Use the rug to your advantage, but be careful on the ice!";
    };
    new StaticShape() {
@@ -240,28 +243,34 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignUp";
    };
-   new Trigger(help3) {
+   new Trigger(Help3) {
       position = "5 -13 16.5";
       rotation = "1 0 0 0";
       scale = "8 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Use the bouncy slope to get the gem above.";
    };
-   new Trigger(help4) {
+   new Trigger(Help4) {
       position = "17.5 -2 14";
       rotation = "1 0 0 0";
       scale = "5 6 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You know what to do...";
    };
-   new Trigger(help5) {
+   new Trigger(Help5) {
       position = "-6 -13 16.5";
       rotation = "1 0 0 0";
       scale = "6 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Now bounce to the finish!";
    };
    new StaticShape() {
@@ -285,10 +294,93 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "12.0396 -11.2215 17.0597";
+         rotation = "0.660458 0.31969 -0.679407 70.9356";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "23.0522 -20.3404 34.344";
+         rotation = "0.677138 0.3133 -0.665828 69.5909";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "500";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "23.9018 5.016 28.6861";
+         rotation = "-0.144881 -0.306707 0.940713 227.918";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "0.668442 14.1808 28.6861";
+         rotation = "0.00948712 -0.317064 0.948357 176.749";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-18.6379 3.00036 28.6861";
+         rotation = "0.141665 -0.283298 0.948511 129.249";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "500";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new StaticShape(EndPoint) {
       position = "-12 -14 22";
