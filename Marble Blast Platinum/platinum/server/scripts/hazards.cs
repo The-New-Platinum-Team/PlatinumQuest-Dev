@@ -97,9 +97,6 @@ function TrapDoorClass::onAdd(%this, %obj) {
 	// Default variables
 	if (%obj.resetTime $= "0")
 		%obj.resetTime = "Default";
-
-	if (%obj.skin $= "")
-		%obj.skin = "base";
 		
 	// Skin takes effect upon mission reset or reload
 	if (%obj.skinName !$= "") { //clean up old skinname field
@@ -112,7 +109,7 @@ function TrapDoorClass::onAdd(%this, %obj) {
 	else
 		%obj.setSkinName(%obj.skin);
 
-	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "base")) 
+	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "")) 
 		%obj.skin = "skin1";
 		%obj.setSkinName(%obj.skin);
 
