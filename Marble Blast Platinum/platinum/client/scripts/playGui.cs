@@ -556,7 +556,7 @@ function PlayGui::updateBarPositions(%this) {
 
 	if (%this.powerupTimersTrueLength >= 1) {
 		%num = %this.powerupTimersTrueIndexToFalse[0];
-		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		%timer = %this.powerupTimersDuration[%num] - mAbs($Time::TotalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_FirstTimerContainer.setVisible(true);
 		PG_FirstTimerContainer.setPosition(%x SPC %y + 60);
 		PG_FirstTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
@@ -568,7 +568,7 @@ function PlayGui::updateBarPositions(%this) {
 
 	if (%this.powerupTimersTrueLength >= 2) {
 		%num = %this.powerupTimersTrueIndexToFalse[1];
-		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		%timer = %this.powerupTimersDuration[%num] - mAbs($Time::TotalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_SecondTimerContainer.setVisible(true);
 		PG_SecondTimerContainer.setPosition(%x SPC %y + 120);
 		PG_SecondTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
@@ -579,7 +579,7 @@ function PlayGui::updateBarPositions(%this) {
 	}
 	if (%this.powerupTimersTrueLength >= 3) {
 		%num = %this.powerupTimersTrueIndexToFalse[2];
-		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		%timer = %this.powerupTimersDuration[%num] - mAbs($Time::TotalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_ThirdTimerContainer.setVisible(true);
 		PG_ThirdTimerContainer.setPosition(%x SPC %y + 180);
 		PG_ThirdTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
@@ -590,7 +590,7 @@ function PlayGui::updateBarPositions(%this) {
 	}
 	if (%this.powerupTimersTrueLength >= 4) {
 		%num = %this.powerupTimersTrueIndexToFalse[3];
-		%timer = %this.powerupTimersDuration[%num] - mAbs(getSimTime() - %this.powerupTimersTimeActivated[%num]);
+		%timer = %this.powerupTimersDuration[%num] - mAbs($Time::TotalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_FourthTimerContainer.setVisible(true);
 		PG_FourthTimerContainer.setPosition(%x SPC %y + 240);
 		PG_FourthTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
@@ -643,8 +643,8 @@ function PlayGui::pushPowerupTimer(%this, %whichpowerup, %time, %duration) {
 		cancel(%this.powerupTimersSchedules[%curIndex]);
 	}
 
-	%this.powerupTimersTimeActivated[%curIndex] = getSimTime();
-	%this.powerupTimersDuration[%curIndex] = 5000;
+	%this.powerupTimersTimeActivated[%curIndex] = $Time::TotalTime;
+	%this.powerupTimersDuration[%curIndex] = %duration;
 	%this.powerupTimersSchedules[%curIndex] = %this.schedule(%duration, popPowerupTimer, %curIndex);
 }
 
