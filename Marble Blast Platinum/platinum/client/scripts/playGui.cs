@@ -643,7 +643,7 @@ function PlayGui::pushPowerupTimer(%this, %whichpowerup, %time, %duration) {
 		cancel(%this.powerupTimersSchedules[%curIndex]);
 	}
 
-	%this.powerupTimersTimeActivated[%curIndex] = %time;
+	%this.powerupTimersTimeActivated[%curIndex] = getSimTime();
 	%this.powerupTimersDuration[%curIndex] = %duration;
 	%this.powerupTimersSchedules[%curIndex] = %this.schedule(%duration, popPowerupTimer, %curIndex);
 }
