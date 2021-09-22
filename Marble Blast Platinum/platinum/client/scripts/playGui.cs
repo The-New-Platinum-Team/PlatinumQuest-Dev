@@ -644,7 +644,7 @@ function PlayGui::pushPowerupTimer(%this, %whichpowerup, %time, %duration) {
 	}
 
 	%this.powerupTimersTimeActivated[%curIndex] = getSimTime();
-	%this.powerupTimersDuration[%curIndex] = %duration;
+	%this.powerupTimersDuration[%curIndex] = 5000;
 	%this.powerupTimersSchedules[%curIndex] = %this.schedule(%duration, popPowerupTimer, %curIndex);
 }
 
