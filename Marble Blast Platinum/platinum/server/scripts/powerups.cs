@@ -707,6 +707,9 @@ datablock ItemData(TimePenaltyItem : TimeTravelItem) {
 	customField[0, "name"   ] = "Time Penalty";
 	customField[0, "desc"   ] = "Penalty time to add to elapsed time.";
 	customField[0, "default"] = "5000";
+
+	skin[0] = "penalty";
+	skin[1] = "mbgpenalty";
 };
 
 datablock ItemData(TimePenaltyItem_PQ : TimeTravelItem) {
@@ -739,6 +742,24 @@ datablock ItemData(TimePenaltyItem_PQ : TimeTravelItem) {
 function TimePenaltyItem::onAdd(%this, %obj) {
 	if (%obj.timePenalty $= "")
 		%obj.timePenalty = "5000";
+
+	if (%obj.skin $= "")
+		%obj.skin = "penalty";
+		
+	// Skin takes effect upon mission reset or reload
+	if (%obj.skinName !$= "") { //clean up old skinname field
+		%obj.skin = %obj.skinName;
+		%obj.skinName = "";
+	}
+
+	if (%obj.skin $= "")
+		%obj.skin = %obj.getSkinName();
+	else
+		%obj.setSkinName(%obj.skin);
+
+	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "penalty")) 
+		%obj.skin = "mbgpenalty";
+		%obj.setSkinName(%obj.skin);
 
 	%this.checkTime(%obj);
 }
