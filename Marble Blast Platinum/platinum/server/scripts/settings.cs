@@ -180,6 +180,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			}
 		case "CompetitiveMode":
 			if (%value) {
+				activateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
 				Mode_hunt::respawnTimerLoop();
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					%client = ClientGroup.getObject(%i);
@@ -187,6 +188,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				$MP::ScoreSendingDisabled = true;
 				}
 			} else {
+				deactivateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					%client = ClientGroup.getObject(%i);
 					%client.addBubbleLine("Competitive Mode is now off.");

@@ -99,6 +99,9 @@ function updatePredictor() {
 function ClientMode_hunt::onClientLeaveGame(%this) {
 	cancel($updatePredictorSchedule);
 	PGScorePredictor.setVisible(false);
+
+	$MPPref::Server::CompetitiveMode = false;
+	Hunt_CompetitiveClearTimer();
 }
 
 function ClientMode_hunt::shouldUpdateGems(%this) {
