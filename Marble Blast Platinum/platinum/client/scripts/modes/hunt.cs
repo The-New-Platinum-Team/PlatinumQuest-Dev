@@ -50,7 +50,8 @@ function ClientMode_hunt::onLoad(%this) {
 
 function updatePredictor() {
 	cancel($updatePredictorSchedule);
-	if (!$Game::IsMode["hunt"]) {return;}
+	if (!$Game::IsMode["hunt"]) {PGScorePredictor.setVisible(false); return;}
+	PGScorePredictor.setVisible(true);
 	%score = PlayGui.gemCount;
 	// Code stolen from \platinum\client\scripts\mp\scores.cs
 
