@@ -53,6 +53,15 @@ function updatePredictor() {
 	if (!$Game::IsMode["hunt"]) {PGScorePredictor.setVisible(false); return;}
 	PGScorePredictor.setVisible(true);
 	%score = PlayGui.gemCount;
+	if (%score < 10) {
+		PGScorePredictor.setPosition("117 50");
+	} else if (%score < 100) {
+		PGScorePredictor.setPosition("100 50");
+	} else if (%score < 1000) {
+		PGScorePredictor.setPosition("89 50");
+	} else {
+		PGScorePredictor.setPosition("73 50");
+	}
 	// Code stolen from \platinum\client\scripts\mp\scores.cs
 
 	%platinumColor = "FFFFFF";
