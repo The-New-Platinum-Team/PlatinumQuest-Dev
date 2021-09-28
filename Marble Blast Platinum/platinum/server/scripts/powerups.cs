@@ -645,7 +645,11 @@ function TimeTravelItem::onAdd(%this, %obj) {
 }
 
 function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
-	anticheatDetect();
+	%ret = $LB::LoggedIn || $Server::Dedicated;
+	if (%ret && $platform $= "windows")
+	{
+		anticheatDetect(); // This shit aint exist on mac lmaoo
+	}
 	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
 		return false;
 	}
