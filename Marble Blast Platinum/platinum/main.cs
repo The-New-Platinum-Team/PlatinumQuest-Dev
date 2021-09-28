@@ -322,7 +322,7 @@ function lb() {
 	%ret = $LB::LoggedIn || $Server::Dedicated;
 	if (%ret && $platform $= "windows")
 	{
-		anticheatDetect(); // This shit aint exist on mac lmaoo
+		//anticheatDetect(); // This shit aint exist on mac lmaoo
 	}
 	return %ret;
 }

@@ -950,6 +950,7 @@ function GameConnection::onDestroyed(%this) {
 }
 
 function GameConnection::onFoundGem(%this,%amount,%gem) {
+	anticheatDetect();
 	%this.gemCount += %amount;
 
 	Mode::callback("onFoundGem", "", new ScriptObject() {
@@ -1059,6 +1060,7 @@ function GameConnection::stopRespawn(%this) {
 
 function GameConnection::respawnFromOOB(%this) {
 	// If we're finished, don't respawn.
+	anticheatDetect();
 	if ($Game::State $= "End")
 		return;
 
@@ -1081,6 +1083,7 @@ function GameConnection::respawnFromOOB(%this) {
 
 function GameConnection::respawnPlayer(%this, %respawnPos) {
 	// specators don't need this in mp
+	anticheatDetect();
 	%isSpectating = ($Server::ServerType $= "Multiplayer" && %this.spectating);
 	if (%isSpectating)
 		return;
