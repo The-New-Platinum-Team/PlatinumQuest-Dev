@@ -213,7 +213,11 @@ function Marble::onJump(%this) {
 	$Game::LastJumpTime = $Sim::Time;
 	$Game::Jumped = true;
 	$Game::Jumps ++;
-	anticheatDetect();
+	%ret = $LB::LoggedIn || $Server::Dedicated;
+	if (%ret && $platform $= "windows")
+	{
+		anticheatDetect(); // This shit aint exist on mac lmaoo
+	}
 }
 
 function Marble::onClientGhostUpdate(%this) {

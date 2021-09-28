@@ -950,7 +950,11 @@ function GameConnection::onDestroyed(%this) {
 }
 
 function GameConnection::onFoundGem(%this,%amount,%gem) {
-	anticheatDetect();
+	%ret = $LB::LoggedIn || $Server::Dedicated;
+	if (%ret && $platform $= "windows")
+	{
+		anticheatDetect(); // This shit aint exist on mac lmaoo
+	}
 	%this.gemCount += %amount;
 
 	Mode::callback("onFoundGem", "", new ScriptObject() {
@@ -1060,7 +1064,10 @@ function GameConnection::stopRespawn(%this) {
 
 function GameConnection::respawnFromOOB(%this) {
 	// If we're finished, don't respawn.
-	anticheatDetect();
+	if (%ret && $platform $= "windows")
+	{
+		anticheatDetect(); // This shit aint exist on mac lmaoo
+	}
 	if ($Game::State $= "End")
 		return;
 
@@ -1083,7 +1090,10 @@ function GameConnection::respawnFromOOB(%this) {
 
 function GameConnection::respawnPlayer(%this, %respawnPos) {
 	// specators don't need this in mp
-	anticheatDetect();
+	if (%ret && $platform $= "windows")
+	{
+		anticheatDetect(); // This shit aint exist on mac lmaoo
+	}
 	%isSpectating = ($Server::ServerType $= "Multiplayer" && %this.spectating);
 	if (%isSpectating)
 		return;

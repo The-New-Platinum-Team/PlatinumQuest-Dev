@@ -503,7 +503,11 @@ function GameConnection::startMission(%this) {
 
 
 function GameConnection::endMission(%this) {
-	anticheatDetect();
+	%ret = $LB::LoggedIn || $Server::Dedicated;
+	if (%ret && $platform $= "windows")
+	{
+		anticheatDetect(); // This shit aint exist on mac lmaoo
+	}
 	// Inform the client the mission is done
 	commandToClient(%this, 'MissionEnd', $missionSequence);
 }
