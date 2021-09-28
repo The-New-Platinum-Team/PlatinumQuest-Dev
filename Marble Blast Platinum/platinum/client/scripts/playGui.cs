@@ -347,7 +347,7 @@ function PlayGui::updateGems(%this, %updateMax) {
 	GemsFoundOne.setNumberColor(%one, %color);
 
 	GemsFoundHundred.setVisible(!(%hun == 0) || $pref::GemCounterAlwaysThreeDigits); 
-	GemsFoundTen.setVisible(!(%hun == 0 && %ten == 0) || $pref::GemCounterAlwaysThreeDigits); 
+	GemsFoundTen.setVisible(!(%hun == 0 && %ten == 0) || $pref::GemCounterAlwaysThreeDigits || $pref::GemCounterAlwaysTwoDigits); 
 
 	%this.GemsFoundHundredTracked = %hun;
 	%this.GemsFoundTenTracked = %ten;
@@ -388,6 +388,15 @@ function PlayGui::updateGems(%this, %updateMax) {
 			GemsQuota.setPosition("205 28");
 			GemsTotalTen.setVisible(true);
 			GemsTotalOne.setVisible(true);
+			return;
+		} else if ($pref::GemCounterAlwaysTwoDigits && %max < 100) {
+			GemsTotalHundred.setNumberColor(%ten, %color);
+			%this.GemsTotalHundredTracked = %ten;
+			GemsTotalTen.setNumberColor(%one, %color);
+			%this.GemsTotalTenTracked = %one;
+			GemsTotalHundred.setVisible(true);
+			GemsTotalTen.setVisible(true);
+			GemsTotalOne.setVisible(false);
 			return;
 		}
 
