@@ -304,6 +304,38 @@ function cheat_egg() {
 	$Game::EasterEgg = true;
 	commandToClient(LocalClientConnection, 'FoundEgg', %time);
 }
+
+function mew_effect() {
+	if ($Cheats::Mew) {
+		$Physics::DefaultMarble::AirAcceleration = 4.7;
+		$Physics::MegaMarble::AirAcceleration = 4.7;
+		clientCmdSetCameraDistance(0, 0, $Physics::Defaults::CameraDistance);
+		LocalClientConnection.player.setCollisionRadius(0.3);
+		megaScale(1.5);
+	} else {
+		$Physics::DefaultMarble::AirAcceleration = 5;
+		$Physics::MegaMarble::AirAcceleration = 5;
+		clientCmdSetCameraDistance(0, 0, $Physics::Defaults::CameraDistance);
+		LocalClientConnection.player.setCollisionRadius(0.2);
+		megaScale(1);
+	}
+}
+
+package Mew {
+	function clientCbOnRestartLevel() { // clientCbOnMissionReset does not work here.
+		mew_effect();
+	}
+	function clientCbOnMissionEnded() {
+		$Party::MegaScale = "";
+	}
+};
+$Cheats::Mew = false;
+function cheat_mew() {
+	$Cheats::Activated = true;
+	$Cheats::Mew = !$Cheats::Mew;
+	activatePackage(Mew);
+	mew_effect();
+}
 function cheat_party() {
 	//:D
 	doParty();
@@ -331,13 +363,21 @@ function cheat_0073735963() {
 function cheat_waitAreYouCheatingAtCheatingWTF() {
 	echo("Yes, I see you.");
 }
+$Cheats::joj = false;
 function cheat_joj() {
-	if (canSupportPostFX()) {
-		enablePostFX();
-		reloadPostFX();
-		setPostFXShader("platinum/data/shaders/postfxV.glsl", "platinum/data/shaders/jojF.glsl");
+	$Cheats::joj = !$Cheats::joj;
+	if ($Cheats::joj) {
+		if (canSupportPostFX()) {
+			enablePostFX();
+			reloadPostFX();
+			setPostFXShader("platinum/data/shaders/postfxV.glsl", "platinum/data/shaders/jojF.glsl");
+		} else {
+			echo("Turn on shaders and try again ;)");
+		}
 	} else {
-		echo("Turn on shaders and try again ;)");
+		%shaderV = "platinum/data/shaders/postfxV.glsl";
+		%shaderF = "platinum/data/shaders/postfxF.glsl";
+		setPostFXShader(%shaderV, %shaderF);
 	}
 }
 function cheat_sv_cheats_1() {
