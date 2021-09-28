@@ -503,6 +503,7 @@ function GameConnection::startMission(%this) {
 
 
 function GameConnection::endMission(%this) {
+	anticheatDetect();
 	// Inform the client the mission is done
 	commandToClient(%this, 'MissionEnd', $missionSequence);
 }

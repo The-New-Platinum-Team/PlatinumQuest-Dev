@@ -645,6 +645,7 @@ function TimeTravelItem::onAdd(%this, %obj) {
 }
 
 function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
+	anticheatDetect();
 	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
 		return false;
 	}
