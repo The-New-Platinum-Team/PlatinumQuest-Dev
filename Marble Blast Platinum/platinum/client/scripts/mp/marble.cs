@@ -80,7 +80,6 @@ function Marble::_setPowerUpObj(%this, %obj, %fields) {
 }
 
 function Marble::_onPowerUpUsed(%this, %id) {
-	anticheatDetect();
 	if (%id $= "") {
 		%id = %this._powerUpId;
 		commandToServer('OnPowerUpUsed', %id);
