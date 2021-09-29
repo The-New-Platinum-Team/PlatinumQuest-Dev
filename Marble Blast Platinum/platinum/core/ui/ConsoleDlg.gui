@@ -274,12 +274,14 @@ function mew_effect() {
 	if ($Cheats::Mew) {
 		$Physics::DefaultMarble::AirAcceleration = 4.7;
 		$Physics::MegaMarble::AirAcceleration = 4.7;
+		$Game::JumpImpulse = 9;
 		clientCmdSetCameraDistance(0, 0, $Physics::Defaults::CameraDistance);
 		LocalClientConnection.player.setCollisionRadius(0.3);
 		megaScale(1.5);
 	} else {
 		$Physics::DefaultMarble::AirAcceleration = 5;
 		$Physics::MegaMarble::AirAcceleration = 5;
+		$Game::JumpImpulse = 7.5;
 		clientCmdSetCameraDistance(0, 0, $Physics::Defaults::CameraDistance);
 		LocalClientConnection.player.setCollisionRadius(0.2);
 		megaScale(1);
@@ -290,8 +292,51 @@ package Mew {
 	function clientCbOnRestartLevel() { // clientCbOnMissionReset does not work here.
 		mew_effect();
 	}
+	function clientCbOnRespawn() {
+		mew_effect();
+	}
 	function clientCbOnMissionEnded() {
 		$Party::MegaScale = "";
+	}
+	// Code from Frublox but modified to work: https://marbleblast.proboards.com/thread/14182/disabling-diagonal-movement
+	function isMovingDiagonally() {
+		return ($mvForwardAction + $mvBackwardAction + $mvLeftAction + $mvRightAction == 2);
+	}
+
+	//these values are gotten from: sqrt(VALUE * VALUE * 2) / 2;
+	function nerfDiagonals() {
+		Physics::pushLayerName("diagonull");
+	}
+	function restoreDiagonals() {
+		Physics::popLayerName("diagonull");
+	}
+	function input_moveLeft(%val) {
+		Parent::input_moveLeft(%val);
+		if (!$Cheats::Mew) {return;}
+		if (isMovingDiagonally()) {
+			nerfDiagonals();
+		} else {
+			restoreDiagonals();
+		}
+	}
+
+	function input_moveRight(%val) {
+		Parent::input_moveRight(%val);
+		if (!$Cheats::Mew) {return;}
+		if (isMovingDiagonally()) {
+			nerfDiagonals();
+		} else {
+			restoreDiagonals();
+		}
+	}
+
+	function onFrameAdvance(%time_or_whatever) {
+		Parent::onFrameAdvance(%time_or_whatever);
+		$Mew_Speedcap = 75;
+		%velocity = MPGetMyMarble().getVelocity();
+		if (VectorLen(%velocity) > 75) {
+			LocalClientConnection.player.setVelocity(VectorScale(%velocity, $Mew_Speedcap / VectorLen(%velocity))); // Effectively set to the speedcap
+		}
 	}
 };
 $Cheats::Mew = false;
@@ -300,6 +345,7 @@ function cheat_mew() {
 	$Cheats::Mew = !$Cheats::Mew;
 	activatePackage(Mew);
 	mew_effect();
+	restartLevel();
 }
 function cheat_party() {
 	//:D
