@@ -433,3 +433,9 @@ Physics::registerLayer("bubble",
                        "jumpImpulse 7.5 7.5" NL
                        "minTrailSpeed 1.2 1.25"
                       );
+
+Physics::registerLayer("diagonull",
+                      "maxRollVelocity 10.6066 10.6066" NL
+                      "angularAcceleration 53.033 53.033" NL
+                      "airAcceleration 3.3234 3.3234"
+                      );
