@@ -150,6 +150,10 @@ function TeleportTrigger::checkDest(%group, %destination) {
 }
 
 function GameConnection::teleportPlayer(%this, %player, %obj, %teleTrigger) {
+	if ($Game::BlockTeleports) {
+		echo("Blocked teleport abuse");
+		return;
+	}
 	if (%teleTrigger.centerDestPoint || %obj.centerDestPoint) {
 		// FUCKING HELL. CAN'T FIGURE OUT HOW TO CENTER SHIT.
 		%pos = %obj.getWorldBoxCenter();
@@ -198,6 +202,7 @@ function TeleportTrigger::onEnterTrigger(%data, %obj, %colObj) {
 	%client = %colObj.client;
 	%destination = %obj.destination;
 	%delay = %obj.delay;
+	$Game::BlockTeleports = false;
 
 	if (%client.gemCount < %obj.GemsToActivate) {
 		if (%obj.DisplayGemsMessage) {

@@ -1106,6 +1106,8 @@ function GameConnection::respawnPlayer(%this, %respawnPos) {
 	}
 	%this.blockSpawning(300);
 
+	$Game::BlockTeleports = true; // Prevent teleport exploits unless the player actually enters one
+
 	cancel(%this.player.iceShardSchedule);
 	if (%this.player.isFrozen) {
 		%this.player.iceShard.getDatablock().unfreeze(%this.player.iceShard, %this.player, true);
