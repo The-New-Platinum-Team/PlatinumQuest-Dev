@@ -285,6 +285,7 @@ function RelativeTPTrigger::onEnterTrigger(%data, %trigger, %obj) {
 		ASSERT("Error Handler", "checkDest() returned -1. Maybe the specified destination doesn't exist.");
 		return;
 	}
+	$Game::BlockTeleports = false;
 
 	%client = %obj.client;
 
