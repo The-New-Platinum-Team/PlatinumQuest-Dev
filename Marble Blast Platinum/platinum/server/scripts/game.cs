@@ -363,7 +363,15 @@ function startGame() {
 		%client.setMessage("");
 		%client.startGame();
 	}
-	onNextFrame(setGameState, "start");
+	if ($pref::SkipReadySetGo) {
+		setGameState("start");
+		cancel(LocalClientConnection.stateSchedule);
+		onNextFrame(setGameState, "go");
+		$PlayTimerColor = $TimeColor["danger"];
+		$Cheats::Activated = true;
+	} else {
+		onNextFrame(setGameState, "start");
+	}
 	onNextFrame(activateMovingObjects, true);
 }
 
@@ -1021,7 +1029,15 @@ function restartLevel(%exitgame) {
 
 	// Reset the player back to the last checkpoint
 	onMissionReset();
-	setGameState("start");
+	if ($pref::SkipReadySetGo) {
+		setGameState("start");
+		cancel(LocalClientConnection.stateSchedule);
+		onNextFrame(setGameState, "go");
+		$PlayTimerColor = $TimeColor["danger"];
+		$Cheats::Activated = true;
+	} else {
+		setGameState("start");
+	}
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
 		%client.restartLevel();
@@ -1226,7 +1242,15 @@ function GameConnection::restartLevel(%this) {
 	}
 
 	// hack, reset gamestates to start
-	setGameState("start");
+	if ($pref::SkipReadySetGo) {
+		setGameState("start");
+		cancel(LocalClientConnection.stateSchedule);
+		onNextFrame(setGameState, "go");
+		$PlayTimerColor = $TimeColor["danger"];
+		$Cheats::Activated = true;
+	} else {
+		setGameState("start");
+	}
 }
 
 //-----------------------------------------------------------------------------
