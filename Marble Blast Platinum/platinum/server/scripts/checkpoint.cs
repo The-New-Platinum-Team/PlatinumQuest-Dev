@@ -351,6 +351,8 @@ function GameConnection::respawnOnCheckpoint(%this) {
 	}
 	%this.blockSpawning(300);
 
+	$Game::BlockTeleports = true; // Prevent teleport exploits unless the player actually enters one
+	
 	//Will happen at the start of next frame so no shame in doing it now
 	%this.sendCallback("OnRespawnOnCheckpoint");
 
