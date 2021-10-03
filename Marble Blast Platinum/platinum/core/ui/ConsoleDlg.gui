@@ -332,7 +332,7 @@ package Mew {
 
 	function onFrameAdvance(%time_or_whatever) {
 		Parent::onFrameAdvance(%time_or_whatever);
-		if (!$Cheats::Mew) {return;}
+		if (!$Cheats::Mew || !MPGetMyMarble()) {return;}
 		$Mew_Speedcap = 75;
 		%velocity = MPGetMyMarble().getVelocity();
 		if (VectorLen(%velocity) > 75) {
