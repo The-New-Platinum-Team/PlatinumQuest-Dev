@@ -1012,3 +1012,28 @@ function CountdownStopTrigger::onEnterTrigger(%this, %trigger, %user) {
 	cancel(%user.countdownSch);
 	commandToAll('StartCountdown', 0); //Lazy
 }
+
+//Sound-based triggers, pog
+
+datablock TriggerData(MusicTrigger) {
+    tickPeriodMS = 100;
+    customField[0, "field"  ] = "text";
+    customField[0, "type"   ] = "string";
+    customField[0, "name"   ] = "Music Name";
+    customField[0, "desc"   ] = "What music to play when you enter the trigger.";
+};
+
+function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
+    playMusic(%trigger.text @ ".ogg");
+}
+
+datablock TriggerData(SoundTrigger) {
+	tickPeriodMS = 100;
+    customField[0, "field"  ] = "sfx";
+    customField[0, "type"   ] = "string";
+    customField[0, "name"   ] = "AudioProfile Name";
+    customField[0, "desc"   ] = "What AudioProfile(sound) to play when you enter the trigger.";
+};
+function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
+	serverplay2d(%trigger.sfx);
+}
