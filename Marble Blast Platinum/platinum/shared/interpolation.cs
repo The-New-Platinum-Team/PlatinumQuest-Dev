@@ -258,6 +258,7 @@ function Node::getPathTransform(%obj, %node, %prev, %t) {
 
 function Node::updatePath(%obj, %node, %prev, %position) {
 	Node_updatePath(%obj, %node, %prev, %position);
+	return;
 	//Where should we be along the node's path? ( pos TAB rot TAB scale )
 	if (%node.delay != 0 && %position < %node.delay) {
 		%t = 0;
