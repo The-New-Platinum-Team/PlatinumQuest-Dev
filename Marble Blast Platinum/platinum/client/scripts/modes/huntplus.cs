@@ -30,7 +30,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_huntplus) {
 	file = "huntplus";
 
 	name = "Hunt - Plus";
-	desc = "Something special might happen after a spawn is cleared out!";
+	desc = "Something special might happen after a spawn is cleared out! Look next to the Gem Counter to figure out what modifier is active!";
 
 	teams = 0;
 });
@@ -38,4 +38,15 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_huntplus) {
 
 function ClientMode_huntplus::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+	%this.registerCallback("onShowPlayGui");
+}
+
+function ClientMode_huntplus::onShowPlayGui(%this) {
+	if (missioninfo.ragingbull) {
+	    RagingBullIcon.setVisible(true);
+	}
+
+	if (missioninfo.additionaltime != "") {
+	    TimeBonusIcon.setVisible(true);
+	}
 }
