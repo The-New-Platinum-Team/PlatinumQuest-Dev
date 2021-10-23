@@ -38,4 +38,21 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_getpastthepost) {
 
 function ClientMode_getpastthepost::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+	%this.registerCallback("onShowPlayGui");
+}
+
+function ClientMode_getpastthepost::onShowPlayGui(%this) {
+	PastThePostCount.setVisible(true);
+	PastThePostCount.setText("<font:24><color:FFFFFF>/" @ Missioninfo.markerpost);
+}
+
+function clientCmdSetPastThePostCount(%count) {
+	$Game::GemCount = %count;
+	PlayGui.setMaxGems(MissionInfo.markerpost);
+	PastThePostCount.setVisible(true);
+	PastThePostCount.setText("<font:24><color:FFFFFF>/" @ Missioninfo.markerpost);
+
+	if ($Record::Recording) {
+		recordWriteGems(RecordFO, PlayGui.gemCount, %count, MissionInfo.markerpost, (PlayGui.gemCount >= MissionInfo.markerpost));
+	}
 }

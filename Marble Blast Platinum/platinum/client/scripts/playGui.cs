@@ -80,6 +80,9 @@ function PlayGui::onWake(%this) {
 	PG_LBChatEntry.setTickable(true);
 	PGCoopView.setVisible(false);
 	GemsQuota.setVisible(false);
+	TimeBonusIcon.setVisible(false);
+	RagingBullIcon.setVisible(false);
+	PastThePostCount.setVisible(false);
 
 	//Thousands
 	PG_Timer.setVisible(!$pref::Thousandths);
