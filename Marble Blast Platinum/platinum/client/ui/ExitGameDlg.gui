@@ -428,12 +428,12 @@ new GuiControl(ExitGameDlg) {
 			repeatDecay = "1";
 			bitmap = "./menu/menu";
 		};
-		new GuiBorderButtonCtrl(ExitGameMarbleSelect) { // Hopefully it's centered on the marble, but it most likely won't lol
-			profile = "PQButtonProfile";
+		new GuiButtonBaseCtrl(ExitGameMarbleSelect) { // Hopefully it's centered on the marble, but it most likely won't lol
+			profile = "GuiDefaultProfile";
 			horizSizing = "center";
 			vertSizing = "bottom";
 			position = "0 315";
-			extent = "45 45";
+			extent = "62 62";
 			minExtent = "8 8";
 			visible = "1";
 			command = "RootGui.pushDialog(MarbleSelectDlg);";
@@ -442,8 +442,6 @@ new GuiControl(ExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/marble";
-				tooltip = "Marble Select";
 		};
 	};
 };
@@ -470,7 +468,7 @@ function ExitGameDlg::onWake(%this) {
 	ExitGameInfoTitle.setText(%title);
 	%text = "<shadow:1:1><shadowcolor:000000bf><font:32>";
 
-	ExitGameMarbleSelect.setPosition((getWord(PlayGui.getExtent(), 0)/2) - 23 SPC 450 - $pref::Player::defaultFov);
+	ExitGameMarbleSelect.setPosition((getWord(PlayGui.getExtent(), 0)/2) - 20 SPC 450 - $pref::Player::defaultFov);
 
 	%completion = Unlock::getMissionCompletion(%info);
 	%showAwesome = ((%completion & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll;
