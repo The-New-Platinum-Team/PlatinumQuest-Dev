@@ -1316,7 +1316,7 @@ function PlaybackShapeBase::apply(%this, %object, %t) {
 	for (%i = 0; %i < 8; %i ++) {
 		%image = %this.mountImage[%i];
 		%current = %object.getMountedImage(%i);
-		if (%image $= "ActualHelicopterImage" && !$pref::LegacyItems)
+		if (%image $= "ActualHelicopterImage" && !$pref::LegacyItems && MissionInfo.game $= "Ultra")
 			%image = "HelicopterImage_MBUBall";
 		if (isObject(%current)) {
 			%current = %current.getName();
