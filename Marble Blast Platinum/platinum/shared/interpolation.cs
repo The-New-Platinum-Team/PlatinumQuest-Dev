@@ -23,6 +23,8 @@
 //-----------------------------------------------------------------------------
 
 function Node::getNextNode(%obj, %node) {
+	if (%node == -1)
+		return %node;
 	return Node_getNextNode(%obj, %node);
 
 	//Where is the next node in the list? Linked list-style.
