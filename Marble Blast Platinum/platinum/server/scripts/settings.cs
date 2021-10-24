@@ -147,6 +147,7 @@ serverAddSetting("CompetitiveMode",        "Competitive Mode",       "$MPPref::S
 serverAddSetting("TrainingMode",        "1v1 Training",       "$MPPref::Server::TrainingMode", true,     "check");
 serverAddSetting("PartySpawns",        "Party Spawns",       "$MPPref::Server::PartySpawns", true,     "check");
 serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
+serverAddSetting("AlwaysSpawnReds",   "Always Spawn Reds", "$MPPref::Server::AlwaysSpawnReds", true, "check");
 
 //Called before a server variable is set
 function onPreServerVariableSet(%id, %previous, %value) {

@@ -650,6 +650,11 @@ function spawnGem(%gem) {
 		%gem.setDataBlock(GemItemRed);
 		%gem.setSkinName("red");
 	}
+	if ($MPPref::Server::AlwaysSpawnReds && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+		%gem.setDataBlock("GemItemRed");
+		%gem.setSkinName("red");
+		%gem.onInspectApply();
+	}
 	if ($MPPref::Server::PartySpawns && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
 		if ($MP::nonPartyGemsPerSpawn != MissionInfo.maxGemsPerSpawn - 3) { // Going to not be accurate if someone switches from one party map, to another that has the same maxGemsPerSpawn as the last, oh well
 			$MP::nonPartyGemsPerSpawn = MissionInfo.maxGemsPerSpawn;
