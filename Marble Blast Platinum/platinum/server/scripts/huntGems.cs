@@ -685,17 +685,26 @@ function spawnGem(%gem) {
 				%gem.setSkinName("platinum");
 				%platinum = true;
 			} else if (%chosen <= 4) {
+				%gem.setDataBlock("GemItemBlack" @ %gem._nonPartySuffix);
+				%gem.setSkinName("black");
+			} else if (%chosen <= 6) {
 				%gem.setDataBlock("GemItemBlue" @ %gem._nonPartySuffix);
 				%gem.setSkinName("blue");
-			} else if (%chosen <= 6) {
+			} else if (%chosen <= 8) {
+				%gem.setDataBlock("GemItemTurquoise" @ %gem._nonPartySuffix);
+				%gem.setSkinName("turquoise");
+			} else if (%chosen <= 15) {
 				%gem.setDataBlock("GemItemGreen" @ %gem._nonPartySuffix);
 				%gem.setSkinName("green");
-			} else if (%chosen <= 8) {
+			} else if (%chosen <= 25) {
 				%gem.setDataBlock("GemItemOrange" @ %gem._nonPartySuffix);
 				%gem.setSkinName("orange");
-			} else if (%chosen <= 30) {
+			} else if (%chosen <= 50) {
 				%gem.setDataBlock("GemItemYellow" @ %gem._nonPartySuffix);
 				%gem.setSkinName("yellow");
+			} else if (%chosen <= 70){
+				%gem.setDataBlock("GemItemWhite" @ %gem._nonPartySuffix);
+				%gem.setSkinName("white");
 			} else {
 				%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
 				%gem.setSkinName("red");
@@ -704,6 +713,9 @@ function spawnGem(%gem) {
 			if (%chosen <= 2) {
 				%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
 				%gem.setSkinName("red");
+			} else if (%chosen <= 3) {
+				%gem.setDataBlock("GemItemBlack" @ %gem._nonPartySuffix);
+				%gem.setSkinName("black");
 			} else if (%chosen <= 4) {
 				%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
 				%gem.setSkinName("platinum");
@@ -711,6 +723,9 @@ function spawnGem(%gem) {
 			} else if (%chosen <= 6) {
 				%gem.setDataBlock("GemItemPurple" @ %gem._nonPartySuffix);
 				%gem.setSkinName("purple");
+			} else if (%chosen <= 8) {
+				%gem.setDataBlock("GemItemTurquoise" @ %gem._nonPartySuffix);
+				%gem.setSkinName("turquoise");
 			} else if (%chosen <= 10) {
 				%gem.setDataBlock("GemItemBlue" @ %gem._nonPartySuffix);
 				%gem.setSkinName("blue");
@@ -720,6 +735,9 @@ function spawnGem(%gem) {
 			} else if (%chosen <= 30) {
 				%gem.setDataBlock("GemItemOrange" @ %gem._nonPartySuffix);
 				%gem.setSkinName("orange");
+			} else if (%chosen <= 55){
+				%gem.setDataBlock("GemItemWhite" @ %gem._nonPartySuffix);
+				%gem.setSkinName("white");
 			}
 			// Not leaving an "else" here. Might be interesting because it means there are higher chances of new gems, as the old party datablock never gets reset without the 'else'.
 		} else if (%gem._nonPartySkin $= "blue") {
