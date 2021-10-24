@@ -1052,6 +1052,10 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 }
 
 function PlayGui::updateCountdownLeft(%this, %delta) {
+	PGCountdownLeft.setVisible(%this.runningCountdownLeft && %this.countdownLeftTime > 0);
+	if (!%this.runningCountdownLeft) {
+		return;
+	}
 	%this.countdownLeftTime = sub64_int(%this.countdownLeftTime, %delta);
 
 	%timeUsed = %this.countdownLeftTime + 99; // If the timer is say 30s, display 30.0 for its full amount instead of 29.9. Turns out adding 99 actually works perfectly here.
@@ -1097,7 +1101,6 @@ function PlayGui::updateCountdownLeft(%this, %delta) {
 	PGCountdownLeftPoint.setPosition((%secondsLeft >= 10 ? "403" : "388") + %leftOffset + %offsetIfThousandths SPC "0");
 
 	PGCountdownLeftSecondDigit.setVisible(%secondsLeft >= 10);
-	PGCountdownLeft.setVisible(%this.countdownLeftTime > 0);
 }
 
 function PlayGui::updateControls(%this) {
@@ -1288,6 +1291,7 @@ function PlayGui::startCountdown(%this, %time, %image) {
 
 function PlayGui::stopCountdown(%this) {
 	%this.runningCountdown = false;
+	%this.runningCountdownLeft = false;
 
 	if (%this.showingEggTime) {
 		%this.updateEggTime();
@@ -1353,4 +1357,5 @@ function PlayGui::updateCountdown(%this, %delta) {
 function PlayGui::startCountdownLeft(%this, %time, %image) {
 	PGCountdownLeftImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
 	%this.countdownLeftTime = %time;
+	%this.runningCountdownLeft = true;
 }
