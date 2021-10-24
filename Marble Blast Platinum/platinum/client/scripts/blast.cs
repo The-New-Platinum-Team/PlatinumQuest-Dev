@@ -52,6 +52,8 @@ function shouldUpdateBlast() {
 }
 
 function clientUpdateBlast(%timeDelta) {
+	if ($MP::PartyTripleBlast) // Do not increment it in triple-blast mode
+		return;
 	// blast code update
 	$MP::BlastValue += (%timeDelta / $MP::BlastChargeTime);
 	if ($MP::BlastValue > 1)
@@ -63,6 +65,7 @@ function clientUpdateBlast(%timeDelta) {
 
 function performBlast() {
 	%blastValue = ($MP::SpecialBlast ? $MP::BlastRechargePower : mSqrt($MP::BlastValue));
+	if ($MP::PartyTripleBlast && !$MP::SpecialBlast) {%blastValue = mSqrt(0.2);} // 0.2's the 'minimum' blast allowed
 	//Best results found when whacked from here
 	%attack = "0 0 -1";
 

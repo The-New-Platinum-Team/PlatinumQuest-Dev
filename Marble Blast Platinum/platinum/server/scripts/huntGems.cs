@@ -684,7 +684,7 @@ function spawnGem(%gem) {
 				%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
 				%gem.setSkinName("platinum");
 				%platinum = true;
-			} else if (%chosen <= 4) {
+			} else if (%chosen <= 3) {
 				%gem.setDataBlock("GemItemBlack" @ %gem._nonPartySuffix);
 				%gem.setSkinName("black");
 			} else if (%chosen <= 6) {
@@ -702,9 +702,6 @@ function spawnGem(%gem) {
 			} else if (%chosen <= 50) {
 				%gem.setDataBlock("GemItemYellow" @ %gem._nonPartySuffix);
 				%gem.setSkinName("yellow");
-			} else if (%chosen <= 70){
-				%gem.setDataBlock("GemItemWhite" @ %gem._nonPartySuffix);
-				%gem.setSkinName("white");
 			} else {
 				%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
 				%gem.setSkinName("red");
@@ -735,7 +732,7 @@ function spawnGem(%gem) {
 			} else if (%chosen <= 30) {
 				%gem.setDataBlock("GemItemOrange" @ %gem._nonPartySuffix);
 				%gem.setSkinName("orange");
-			} else if (%chosen <= 55){
+			} else if (%chosen <= 31){
 				%gem.setDataBlock("GemItemWhite" @ %gem._nonPartySuffix);
 				%gem.setSkinName("white");
 			}
