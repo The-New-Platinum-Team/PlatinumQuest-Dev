@@ -450,6 +450,8 @@ function PlayGui::updateBlastBar(%this) {
 		%newBitmap = %newBitmap @ "green";
 	else
 		%newBitmap = %newBitmap @ "gray";
+	if ($MP::PartyTripleBlast)
+		%newBitmap = $usermods @ "/client/ui/game/blastbar_bar" @ "triple";
 	if (%oldBitmap !$= %newBitmap)
 		PG_BlastFill.setBitmap(%newBitmap);
 
