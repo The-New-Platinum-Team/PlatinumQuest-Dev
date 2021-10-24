@@ -1027,7 +1027,7 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 	}
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
-		if (%col.getDataBlock().getName() !$= %this.db)
+		if (%col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
 			continue;
 
 		if($debugreplay)echo("Hacky pickup of item at " @ %this.position);
@@ -1065,7 +1065,7 @@ function PlaybackCollisionFrame::apply(%this, %object, %t) {
 	}
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
-		if ((%col.getType() & $TypeMasks::GameBaseObjectType) && %col.getDataBlock().getName() !$= %this.db)
+		if ((%col.getType() & $TypeMasks::GameBaseObjectType) && %col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
 			continue;
 
 		if($debugreplay)echo("Hacky collision of item at " @ %this.position);
@@ -1316,6 +1316,8 @@ function PlaybackShapeBase::apply(%this, %object, %t) {
 	for (%i = 0; %i < 8; %i ++) {
 		%image = %this.mountImage[%i];
 		%current = %object.getMountedImage(%i);
+		if (%image $= "ActualHelicopterImage" && !$pref::LegacyItems)
+			%image = "HelicopterImage_MBUBall";
 		if (isObject(%current)) {
 			%current = %current.getName();
 		}
