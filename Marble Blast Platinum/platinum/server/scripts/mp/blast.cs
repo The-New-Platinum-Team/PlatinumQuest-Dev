@@ -48,6 +48,8 @@ function serverBlastUpdate() {
 		if (!%client.playing)
 			continue;
 
+		if (%client.usingPartyTripleBlast) // Do not increment it in triple-blast mode
+			continue;
 		%blastValue = %client.blastValue;
 		// Update blast value
 		%blastValue += (%timeDelta / $MP::BlastChargeTime);
@@ -73,6 +75,20 @@ function serverCmdBlast(%client, %gravity) {
 	// CANCEL THE CANNON.
 	if (%client.isInCannon()) {
 		%client.cancelCannon(true);
+		return;
+	}
+
+	if (%client.usingPartyTripleBlast) {
+		if (%client.blastValue <= 0.35) { // It should be "== 0.34", but uh, floating point nonsense
+			%client.setBlastValue(0);
+			%client.usingPartyTripleBlast = false;
+			$MP::PartyTripleBlast = false;
+		} else {
+			%client.setBlastValue(%client.blastValue - 0.33); // Sends to client
+		}
+		%client.makeBlastParticle(%gravity);
+		ServerPlay3D(blastSfx, %client.player.getWorldBoxCenter());
+		%client.setSpecialBlast(false);
 		return;
 	}
 
