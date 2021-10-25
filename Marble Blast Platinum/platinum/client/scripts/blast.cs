@@ -54,6 +54,9 @@ function shouldUpdateBlast() {
 function clientUpdateBlast(%timeDelta) {
 	if ($MP::PartyTripleBlast) // Do not increment it in triple-blast mode
 		return;
+	
+	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) //No updating the Blast Meter in Hard Mode
+	     return;		
 	// blast code update
 	$MP::BlastValue += (%timeDelta / $MP::BlastChargeTime);
 	if ($MP::BlastValue > 1)
