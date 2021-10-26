@@ -288,7 +288,14 @@ function PlayDemoGui::doDelete(%this, %id) {
 	%row = PD_DemoList.getRowTextById(%id);
 	%file = getField(%row, 1);
 
-	deleteFile(%file);
+	%fbase = fileBase(%file);
+	%rrecExistence = getFileSize("platinum/data/recordings/" @ %fbase @ ".rrec") != 0;
+	if (%rrecExistence) {
+		deleteFile(%file);
+	}
+	else {
+		deleteFile("platinum/data/recordings/" @ %fbase @ ".rrec.zip");
+	}
 	PD_DemoList.removeRowById(%id);
 
 	getSelectedDemo();
