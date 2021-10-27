@@ -25,7 +25,7 @@
 function Mode_hunthardmode::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onFoundGem");
-//	%this.registerCallback("onRespawnPlayer");
+	%this.registerCallback("shouldRestorePowerup");
 }
 
 function Mode_hunthardmode::onFoundGem(%this, %object) {
@@ -54,14 +54,6 @@ function Mode_hunthardmode::onFoundGem(%this, %object) {
 	}
 }
 
-// function Mode_hunthardmode::onRespawnPlayer(%this, %object) {
-//     schedule(1000, 0, SSonRespawn);
-// }
-
-// function SSonRespawn(%this, %object, %client, %player) {
-// 	$MP::MyMarble._setPowerUp(SuperJumpItem, true, %this);
-//	alxPlay(PuSuperJumpVoiceSfx);
-
-	//In case theres any unreachable gems.
-//}
-
+function Mode_hunthardmode::shouldRestorePowerup(%this, %object) {
+	return false; //No restoring your powerup fuck you
+}
