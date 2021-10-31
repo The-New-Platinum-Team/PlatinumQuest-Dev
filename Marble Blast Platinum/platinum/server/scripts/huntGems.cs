@@ -650,7 +650,7 @@ function spawnGem(%gem) {
 		%gem.setDataBlock(GemItemRed);
 		%gem.setSkinName("red");
 	}
-	if ($MPPref::Server::AlwaysSpawnReds && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
         if (%gem._normaldatablock $= "") {
 			%gem._normaldatablock = %gem.getDataBlock().getName();
 			%gem._normalskin = %gem.getDataBlock().skin;
@@ -661,8 +661,8 @@ function spawnGem(%gem) {
 		    %gem.setDataBlock("GemItemRed" @ %gem._gamesuffix);
 		    %gem.setSkinName("red");
 		} else if (%gem._normalskin $= "blue") {
-		    %gem.setDataBlock("GemItemRed" @ %gem._gamesuffix);
-		    %gem.setSkinName("red");
+		    %gem.setDataBlock("GemItemBlack" @ %gem._gamesuffix);
+		    %gem.setSkinName("black");
 		}
 		%gem.onInspectApply();
 	} else {
