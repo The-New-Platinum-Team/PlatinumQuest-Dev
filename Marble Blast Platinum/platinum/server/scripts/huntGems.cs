@@ -647,7 +647,8 @@ function spawnGem(%gem) {
 
 	if (%gem._huntDatablock.huntExtraValue $= "") {
 		// If it's not a red/yellow/blue gem, make it a red gem
-		%gem.setDataBlock(GemItemRed);
+		%gem._annoyingsuffix = strchr(%gem.getDataBlock().getName(), "_");
+		%gem.setDataBlock("GemItem" @ %gem._annoyingsuffix);
 		%gem.setSkinName("red");
 	}
 	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
@@ -658,10 +659,10 @@ function spawnGem(%gem) {
 		}
         
 		if (%gem._normalskin $= "yellow") {
-		    %gem.setDataBlock("GemItemRed" @ %gem._gamesuffix);
+		    %gem.setDataBlock("GemItem" @ %gem._gamesuffix);
 		    %gem.setSkinName("red");
 		} else if (%gem._normalskin $= "blue") {
-		    %gem.setDataBlock("GemItemBlack" @ %gem._gamesuffix);
+		    %gem.setDataBlock("GemItem" @ %gem._gamesuffix);
 		    %gem.setSkinName("black");
 		}
 		%gem.onInspectApply();
@@ -704,88 +705,88 @@ function spawnGem(%gem) {
 
 		if (%gem._nonPartySkin $= "red") {
 			if (%chosen <= 2) {
-				%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("platinum");
 				%platinum = true;
 			} else if (%chosen <= 3) {
-				%gem.setDataBlock("GemItemBlack" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("black");
 			} else if (%chosen <= 6) {
-				%gem.setDataBlock("GemItemBlue" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("blue");
 			} else if (%chosen <= 8) {
-				%gem.setDataBlock("GemItemTurquoise" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("turquoise");
 			} else if (%chosen <= 15) {
-				%gem.setDataBlock("GemItemGreen" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("green");
 			} else if (%chosen <= 25) {
-				%gem.setDataBlock("GemItemOrange" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("orange");
 			} else if (%chosen <= 50) {
-				%gem.setDataBlock("GemItemYellow" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("yellow");
 			} else {
-				%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("red");
 			}
 		} else if (%gem._nonPartySkin $= "yellow") {
 			if (%chosen <= 2) {
-				%gem.setDataBlock("GemItemRed" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("red");
 			} else if (%chosen <= 3) {
-				%gem.setDataBlock("GemItemBlack" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("black");
 			} else if (%chosen <= 4) {
-				%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("platinum");
 				%platinum = true;
 			} else if (%chosen <= 6) {
-				%gem.setDataBlock("GemItemPurple" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("purple");
 			} else if (%chosen <= 8) {
-				%gem.setDataBlock("GemItemTurquoise" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("turquoise");
 			} else if (%chosen <= 10) {
-				%gem.setDataBlock("GemItemBlue" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("blue");
 			} else if (%chosen <= 20) {
-				%gem.setDataBlock("GemItemGreen" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("green");
 			} else if (%chosen <= 30) {
-				%gem.setDataBlock("GemItemOrange" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("orange");
 			} else if (%chosen <= 31){
-				%gem.setDataBlock("GemItemWhite" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("white");
 			}
 			// Not leaving an "else" here. Might be interesting because it means there are higher chances of new gems, as the old party datablock never gets reset without the 'else'.
 		} else if (%gem._nonPartySkin $= "blue") {
 			%gem.setScale(VectorScale(%gem._nonPartyScale, 2));
 			if (%chosen <= 2) {
-				%gem.setDataBlock("GemItemYellow" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("yellow");
 			} else if (%chosen <= 3) {
-				%gem.setDataBlock("GemItemBlack" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("black");
 			} else if (%chosen <= 4) {
-				%gem.setDataBlock("GemItemTurquoise" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("turquoise");
 			} else if (%chosen <= 20) {
-				%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("platinum");
 				%platinum = true;
 			} else if (%chosen <= 40) {
-				%gem.setDataBlock("GemItemPurple" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("purple");
 			} else if (%chosen <= 60) {
-				%gem.setDataBlock("GemItemGreen" @ %gem._nonPartySuffix);
+				%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 				%gem.setSkinName("green");
 			}
 		}
 
 		if (%platinum) {
-			%gem.setDataBlock("GemItemPlatinum" @ %gem._nonPartySuffix);
+			%gem.setDataBlock("GemItem" @ %gem._nonPartySuffix);
 			%gem.setSkinName("platinum");
 			if (getRandom(0, 1) == 0) { // Up high!
 				%gem.setTransform(getWords(%gem._nonPartyPosition, 0, 1) SPC (getWord(%gem._nonPartyPosition, 2) + 15));
@@ -1072,9 +1073,9 @@ function addGemLight(%gem) {
 		scale = %gem.scale;
 	});
 
-	%gem._light.setSkinName(%gem.getDataBlock().skin);
+	%gem._light.setSkinName(%gem.getSkinName()); //This was needlessly complicated previously lmfao - Daniel
 	if (%gem.getDataBlock().skin $= "default" || %gem.getDataBlock().skin $= "")
-		%gem.setSkinName("red");
+		// %gem.setSkinName("red");
 	if (isServerMovingObject(%gem)) {
 		%gem._light.setParent(%gem, "0 0 0 1 0 0 0", true, "0 0 0");
 		//If this is the first spawn, this won't go through
