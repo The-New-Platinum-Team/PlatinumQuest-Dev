@@ -29,7 +29,11 @@
 
 setModPaths("platinum;packages");
 for ($file = findFirstFile("packages/*.mbpak"); $file !$= ""; $file = findNextFile("packages/*.mbpak")) {
-	loadMBPackage(fileBase($file));
+	if (!strStr($file, "marbleland"))
+		loadMBPackage(fileBase($file));
+}
+for ($file = findFirstFile("packages/marbleland/*.mbpak"); $file !$= ""; $file = findNextFile("packages/marbleland/*.mbpak")) {
+	loadMBPackage("marbleland/" @ fileBase($file));
 }
 
 //$baseMods = "platinum";
