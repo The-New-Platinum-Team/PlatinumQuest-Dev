@@ -382,6 +382,22 @@ function clientCmdGameEnd() {
 		}
 	}
 
+	// Marbleland mission LB
+	if (!$Cheats::Activated && !$Editor::Opened) {
+		if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
+			// Set rating to "Submitting..."
+			$LB::RatingPending = true;
+
+			%marblelandScoreName = "Unnamed Player";
+			if ($LB::Username !$= "")
+				%marblelandScoreName = $LB::Username;
+			else if ($pref::highScoreName !$= "")
+				%marblelandScoreName = $pref::highScoreName;
+
+			MarblelandSubmit(PlayMissionGui.getMissionInfo().file, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
+		}
+	}
+
 	RootGui.pushDialog(EndGameDlg);
 	PlayGui.positionMessageHud();
 	//Hack: why isn't this being called
