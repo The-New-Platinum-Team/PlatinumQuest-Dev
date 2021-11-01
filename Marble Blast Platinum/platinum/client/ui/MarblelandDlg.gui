@@ -401,6 +401,11 @@ function MarblelandDownloader::onDownload(%this, %path) {
 	if (isObject(%ml)) {
 		%ml.delete();
 	}
+
+	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
+		PlayMissionGui.setMissionType($MissionType);
+		PlayMissionGui.showMissionList();
+	}
 }
 
 function MarblelandDownloader::onDisconnect(%this) {
@@ -455,6 +460,11 @@ function MarblelandDlg::deleteFile(%this) {
 	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/platinum/data/missions/marbleland");
 	if (isObject(%ml)) {
 		%ml.delete();
+	}
+
+	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
+		PlayMissionGui.setMissionType($MissionType);
+		PlayMissionGui.showMissionList();
 	}
 
 	MarblelandSearchDelete.setVisible(false);
