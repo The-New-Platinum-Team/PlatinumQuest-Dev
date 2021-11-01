@@ -277,7 +277,6 @@ function OfflineMissionList::buildCustomDifficultyTree(%this) {
 
 				%pattern = %dir @ "/*";
 				for (%file = findFirstMission(%pattern); %file !$= ""; %file = findNextMission(%pattern)) {
-					echo(%file);
 					if (strpos(%file, "__MACOSX") != -1 || strpos(%file, "/._") != -1) {
 						//macOS extended attributes break things
 						continue;
