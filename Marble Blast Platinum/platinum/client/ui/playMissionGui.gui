@@ -1289,6 +1289,10 @@ function PlayMissionGui::onWake(%this) {
 		}
 	}
 
+	if (%this.isMarblelandMission()) {
+		%this.loadMarblelandScores();
+	}
+
 	if (mp()) {
 		%this.clearServerPlayerList();
 		%this.updateServerPlayerList();
@@ -1696,6 +1700,11 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 		//Do this after a delay so we don't load scores if people click too quickly)
 		cancel(%this.scoreSch);
 		%this.scoreSch = %this.schedule(500, loadOnlineScores);
+	}
+	if (%this.isMarblelandMission()) {
+		//Do this after a delay so we don't load scores if people click too quickly)
+		cancel(%this.scoreSch);
+		%this.scoreSch = %this.schedule(500, loadMarblelandScores);
 	}
 
 	if (mp()) {
@@ -2287,17 +2296,21 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 	if (%this.showGlobalScores) {
 		//Use the cache from the stats script
+		%mid = %this.getMissionInfo().id;
+		if (%this.isMarblelandMission())
+			%mid = %this.getMissionInfo().file;
+
 		if (%this.globalScoreMode $= "") {
-			%scoreList = %this.globalScoreCache[%this.getMissionInfo().id];
-			%loading = %this.globalScoreCacheLoading[%this.getMissionInfo().id];
-			%failed = %this.globalScoreCacheFailed[%this.getMissionInfo().id] || (%this.getMissionInfo().id $= "");
+			%scoreList = %this.globalScoreCache[%mid];
+			%loading = %this.globalScoreCacheLoading[%mid];
+			%failed = %this.globalScoreCacheFailed[%mid] || (%mid $= "");
 		} else {
-			%scoreList = %this.globalScoreModeCache[%this.getMissionInfo().id];
+			%scoreList = %this.globalScoreModeCache[%mid];
 			if (isObject(%scoreList)) {
 				%scoreList = %scoreList.getFieldValue(%this.globalScoreMode);
 			}
-			%loading = %this.globalScoreModeCacheLoading[%this.getMissionInfo().id];
-			%failed = %this.globalScoreModeCacheFailed[%this.getMissionInfo().id] || (%this.getMissionInfo().id $= "");
+			%loading = %this.globalScoreModeCacheLoading[%mid];
+			%failed = %this.globalScoreModeCacheFailed[%mid] || (%mid $= "");
 		}
 
 		%buttonSize = 32;
@@ -2599,7 +2612,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%text3 = addRecord(%text3, "<bold:21><just:left>" @ %minfo.name @ ": <font:21>" @ %minfo.desc);
 		}
 
-		if (lb()) {
+		if (lb() || PlayMissionGui.isMarblelandMission()) {
 			%text2 = "<just:center><font:21><a:gamelink showGlobalScores>Show Global Scores</a>";
 		} else {
 			%text2 = "<just:center><font:21>";
@@ -3326,6 +3339,8 @@ function PlayMissionGui::hideGlobalScores(%this) {
 
 function PlayMissionGui::getInitialScoresPage(%this) {
 	%id = %this.getMissionInfo().id;
+	if (%this.isMarblelandMission())
+		%id = %this.getMissionInfo().file;
 	if (%id $= "") {
 		return 0;
 	}
@@ -4066,3 +4081,40 @@ function PlayMissionGui::updateLoadProgress(%this, %delta) {
 }
 
 //-----------------------------------------------------------------------------
+// Marbleland stuff
+
+function PlayMissionGui::isMarblelandMission(%this) {
+	// This is such a hack
+	return strStr(%this.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0;
+}
+
+function PlayMissionGui::onMarblelandScoreUpdate(%this, %scores) {
+	%this.globalScoreCache[%scores.missionId] = %scores;
+	%this.globalScoreCacheLoading[%scores.missionId] = false;
+	%this.globalScoreCacheFailed[%scores.missionId] = false;
+
+	%this.globalPage = %this.getInitialScoresPage();
+	%this.updateCurrentMission();
+}
+
+function PlayMissionGui::loadMarblelandScores(%this) {
+	//Reset current scores
+	if (%this.getMissionInfo().file !$= "") {
+		%this.globalScoreCacheLoading[%this.getMissionInfo().file] = true;
+		%this.personalScoreCacheLoading[%this.getMissionInfo().file] = true;
+		%this.globalScoreCacheFailed[%this.getMissionInfo().file] = false;
+		%this.personalScoreCacheFailed[%this.getMissionInfo().file] = false;
+		%this.globalScoreModeCacheLoading[%this.getMissionInfo().file] = true;
+		%this.globalScoreModeCacheFailed[%this.getMissionInfo().file] = false;
+	}
+
+	//Get new scores
+	MarblelandGetScores(%this.getMissionInfo().file);
+}
+
+function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
+	%this.globalScoreCache[%mission] = "";
+	%this.globalScoreCacheLoading[%mission] = false;
+	%this.globalScoreCacheFailed[%mission] = true;
+	%this.updateCurrentMission();
+}

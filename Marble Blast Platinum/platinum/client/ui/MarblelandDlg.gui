@@ -262,18 +262,33 @@ function MarblelandDlg::onWake(%this) {
 	%this.buildSearch();
 }
 
-function MarblelandDlg::buildSearch(%this) {
-	%this.setStatus("Loading...", false);
-
+function MarblelandDownloadJSON() {
 	if (!isObject(MarblelandJSONDownloader)) {
 		new HTTPObject(MarblelandJSONDownloader);
+		MarblelandJSONDownloader.success = 0;
 		MarblelandJSONDownloader.get("https://marbleland.vani.ga","/api/level/list","");
 	}
+}
+
+function MarblelandDlg::buildSearch(%this) {
+	%this.setStatus("Loading...", false);
 
 	MarblelandSearchMissionList.clear();
 
 	// delete objects in search group
 	MarblelandSearchSet.clear();
+
+	if (isObject($MarblelandMissionList)) {
+		for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
+			%entry = $MarblelandMissionList.getEntry(%i);
+			getSearchMissionInfo(%entry, %entry.modification, "unknown");
+			MarblelandSearchSet.add(%entry);
+		}
+
+		MarblelandDlg.setStatus("Loaded.", true);
+		// now we will fill up the mission list
+		MarblelandDlg.search();
+	}
 }
 
 function MarblelandDlg::close(%this) {
@@ -283,20 +298,14 @@ function MarblelandDlg::close(%this) {
 function MarblelandJSONDownloader::onLine(%this, %line) {
 	echo("Loaded Marbleland MissionList");
 	$MarblelandMissionList = jsonParse(%line);
-
-	for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
-		%entry = $MarblelandMissionList.getEntry(%i);
-		getSearchMissionInfo(%entry, %entry.modification, "unknown");
-		MarblelandSearchSet.add(%entry);
-	}
-
-	MarblelandDlg.setStatus("Loaded.", true);
-	// now we will fill up the mission list
-	MarblelandDlg.search();
-
+	%this.success = 1;
 }
 
 function MarblelandJSONDownloader::onDisconnect(%this) {
+	if (!%this.success) {
+		MarblelandDlg.setStatus("Failed to load.", false);
+	}
+
 	MarblelandJSONDownloader.delete();
 }
 
@@ -365,6 +374,7 @@ function MarblelandDlg::DownloadMission(%this) {
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
 	new HTTPObject(MarblelandDownloader);
+	MarblelandDownloader.success = 0;
 	mkdir("packages/marbleland", 493);
 	chmod("packages/marbleland", 493);
 	MarblelandDownloader.setDownloadPath("packages/marbleland/" @ %mission.id @ ".mbpak");
@@ -376,7 +386,8 @@ function MarblelandDlg::DownloadMission(%this) {
 }
 
 function MarblelandDownloader::onDownload(%this, %path) {
-	MarblelandSearchPlay.setActive(true);
+	%this.success = 1;
+
 	loadMBPackage("marbleland/" @ $MarblelandDownloadId);
 	PlayMissionGui.ml.buildCustomDifficultyTree(); 
 	PlayMissionGui.buildCustomDifficultyList();
@@ -390,6 +401,18 @@ function MarblelandDownloader::onDownload(%this, %path) {
 	if (isObject(%ml)) {
 		%ml.delete();
 	}
+}
+
+function MarblelandDownloader::onDisconnect(%this) {
+	MarblelandSearchPlay.setActive(true);
+	if (%this.success) {
+		MarblelandSearchDelete.setVisible(true);
+		MarblelandSearchPlay.setVisible(false);
+	} else {
+		MarblelandSearchDelete.setVisible(false);
+		MarblelandSearchPlay.setVisible(true);
+	}
+	%this.delete();
 }
 
 
@@ -457,6 +480,7 @@ function MarblelandDlg::onSelect(%this) {
 	MarblelandLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");
 	if (!isFile("platinum/client/ui/search/marbleland/" @ %mission.id @ ".jpg")) {
 		new HTTPObject(MarblelandPreviewDownloader);
+		MarblelandPreviewDownloader.success = 0;
 		MarblelandPreviewDownloader.setDownloadPath("platinum/client/ui/search/marbleland/" @ %mission.id @ ".jpg");
 		MarblelandPreviewDownloader.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/image","");
 	} else {
@@ -492,6 +516,18 @@ function MarblelandDlg::onSelect(%this) {
 	MarblelandLevelDesc.setText(%text);
 }
 
+function MarblelandPreviewDownloader::onDownload(%this, %path) {
+	%this.success = 1;
+	MarblelandLevelImage.setBitmap(%path);
+}
+
+function MarblelandPreviewDownloader::onDisconnect(%this, %path) {
+	if (!%this.success) {
+		MarblelandLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");
+	}
+	%this.delete();
+}
+
 function capitalizeModification(%mod) {
 	if (%mod $= "gold") return "Gold";
 	if (%mod $= "platinum") return "Platinum";
@@ -505,6 +541,35 @@ function capitalizeGameType(%type) {
 	if (%type $= "multi") return "Multiplayer";
 }
 
-function MarblelandPreviewDownloader::onDownload(%this, %path) {
-	MarblelandLevelImage.setBitmap(%path);
+function MarblelandSubmit(%mission, %user, %score, %scoreType) {
+	new HTTPObject(MarblelandSubmitter);
+	MarblelandSubmitter.post("http://localhost:1337","/score", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
+}
+
+function MarblelandSubmitter::onDisconnect(%this) {
+	%this.delete();
+}
+
+function MarblelandGetScores(%mission) {
+	if (isObject(MarblelandRetriever))
+		MarblelandRetriever.cancelled = true; // Cancel existing request cause bruh
+	new HTTPObject(MarblelandRetriever);
+	MarblelandRetriever.success = 0;
+	MarblelandRetriever.mission = %mission;
+	MarblelandRetriever.get("http://localhost:1337", "/score", "mission=" @ URLEncode(%mission));
+}
+
+function MarblelandRetriever::onLine(%this, %line) {
+	if (%this.cancelled)
+		return;
+	%scoreData = jsonParse(%line);
+	PlayMissionGui.onMarblelandScoreUpdate(%scoreData);
+	%this.success = 1;
+}
+
+function MarblelandRetriever::onDisconnect(%this) {
+	if (!%this.success && !%this.cancelled) {
+		PlayMissionGui.onMarblelandScoreFailed(%this.mission);
+	}
+	%this.delete();
 }
