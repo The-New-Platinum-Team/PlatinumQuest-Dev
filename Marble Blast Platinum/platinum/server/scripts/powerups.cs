@@ -1084,24 +1084,25 @@ function serverCmdEggStatus(%client, %status, %display, %pickup) {
 	}
 }
 
-// datablock ItemData(EasterEgg_MBU) {
-// 	category = "Powerups";	// This should be put in a new category
-// 	className = "PowerUp";	// Ditto
+datablock ItemData(EasterEgg_MBG) {
+	superCategory = "PowerUps";
+	category = "Marble Blast Gold/Platinum";	// This should be put in a new category
+	className = "PowerUp";	// Ditto
 
-// 	// Basic Item properties
-// 	shapeFile = "~/data/shapes_mbu/items/egg.dts";
-// 	mass = 1;
-// 	friction = 1;
-// 	elasticity = 0.3;
-// 	emap = false;
+	// Basic Item properties
+	shapeFile = "~/data/shapes/items/egg.dts";
+	mass = 1;
+	friction = 1;
+	elasticity = 0.3;
+	emap = false;
 
-// 	displayName = "Easter Egg";
+	displayName = "Easter Egg";
 
-// 	// Dynamic properties defined by the scripts
-// 	noRespawn = true;
-// 	maxInventory = 1;
-// 	noPickupMessage = true;
-// };
+	// Dynamic properties defined by the scripts
+	noRespawn = true;
+	maxInventory = 1;
+	noPickupMessage = true;
+};
 
 //-----------------------------------------------------------------------------
 
@@ -1184,6 +1185,10 @@ function NestEgg_PQ::onPickup(%this,%obj,%user,%amount) {
 }
 
 function EasterEgg_MBU::onPickup(%this,%obj,%user,%amount) {
+	return EasterEgg::onPickup(%this, %obj, %user, %amount);
+}
+
+function EasterEgg_MBG::onPickup(%this,%obj,%user,%amount) {
 	return EasterEgg::onPickup(%this, %obj, %user, %amount);
 }
 
