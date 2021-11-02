@@ -44,6 +44,7 @@ function ClientMode_hunt::onLoad(%this) {
 	%this.registerCallback("getDefaultScore");
 	%this.registerCallback("onClientLeaveGame");
 	%this.registerCallback("onMissionLoaded");
+	%this.registerCallback("getGemColor");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
@@ -154,7 +155,9 @@ function ClientMode_hunt::shouldUpdateGems(%this) {
 function ClientMode_hunt::onMissionLoaded(%this) {
 	PGScorePredictor.setVisible(true);
 }
-
+function ClientMode_hunt::getGemColor(%this, %gem) {
+	return %gem.getSkinName();
+}
 function ClientMode_hunt::timeMultiplier(%this) {
 	return -1;
 }

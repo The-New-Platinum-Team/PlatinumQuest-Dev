@@ -269,45 +269,45 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemSpecialPurple: GemItem) {
-	skin = "specialpurple";
-	huntExtraValue = 9; //10 pts
-	spawnChance = 0.90;
-	messageColor = "d461ff";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemSpecialPurple: GemItem) {
+// 	skin = "specialpurple";
+// 	huntExtraValue = 9; //10 pts
+// 	spawnChance = 0.90;
+// 	messageColor = "d461ff";
+// 	customField[0, "field"] = "";
+// };
 
-datablock ItemData(GemItemSpecialYellow: GemItem) {
-	skin = "specialyellow";
-	huntExtraValue = 19; //20 pts
-	spawnChance = 0.65;
-	messageColor = "f0e161";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemSpecialYellow: GemItem) {
+// 	skin = "specialyellow";
+// 	huntExtraValue = 19; //20 pts
+// 	spawnChance = 0.65;
+// 	messageColor = "f0e161";
+// 	customField[0, "field"] = "";
+// };
 
-datablock ItemData(GemItemSpecialPlatinum: GemItem) {
-	skin = "specialplatinum";
-	huntExtraValue = 49; //50 pts
-	spawnChance = 0.35;
-	messageColor = "a0a0a0";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemSpecialPlatinum: GemItem) {
+// 	skin = "specialplatinum";
+// 	huntExtraValue = 49; //50 pts
+// 	spawnChance = 0.35;
+// 	messageColor = "a0a0a0";
+// 	customField[0, "field"] = "";
+// };
 
-datablock ItemData(GemItemWhite: GemItem) {
-	skin = "white";
-	huntExtraValue = -1; //0 pts
-	spawnChance = 0.80;
-	messageColor = "ffffff";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemWhite: GemItem) {
+// 	skin = "white";
+// 	huntExtraValue = -1; //0 pts
+// 	spawnChance = 0.80;
+// 	messageColor = "ffffff";
+// 	customField[0, "field"] = "";
+// };
 
-datablock ItemData(GemItemRainbow: GemItem) {
-	skin = "rainbow";
-	huntExtraValue = 8; //9 pts
-	spawnChance = 0.24;
-	messageColor = "4b0082";
-	customField[0, "field"] = "";
-};
+// datablock ItemData(GemItemRainbow: GemItem) {
+// 	skin = "rainbow";
+// 	huntExtraValue = 8; //9 pts
+// 	spawnChance = 0.24;
+// 	messageColor = "4b0082";
+// 	customField[0, "field"] = "";
+// };
 
 datablock ItemData(GemItem_PQ : GemItem) {
 	superCategory = "gems";
@@ -425,45 +425,45 @@ datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(GemItemSpecialPurple_PQ: GemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(GemItemSpecialPurple_PQ: GemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "specialpurple";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "specialpurple";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(GemItemSpecialYellow_PQ: GemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(GemItemSpecialYellow_PQ: GemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "specialyellow";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "specialyellow";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(GemItemSpecialPlatinum_PQ: GemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(GemItemSpecialPlatinum_PQ: GemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "specialplatinum";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "specialplatinum";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(GemItemWhite_PQ: GemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(GemItemWhite_PQ: GemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "white";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "white";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(GemItemRainbow_PQ: GemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(GemItemRainbow_PQ: GemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "rainbow";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "rainbow";
+// 	customField[1, "disable"] = 1;
+// };
 
 datablock ItemData(FancyGemItem_PQ : GemItem) {
 	superCategory = "gems";
@@ -536,53 +536,53 @@ datablock ItemData(FancyGemItemYellow_PQ: FancyGemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(FancyGemItemPink_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemPink_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "base";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "base";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemPurple_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemPurple_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "purple";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "purple";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemGreen_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemGreen_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "Green";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "Green";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemTurquoise_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemTurquoise_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "Turquoise";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "Turquoise";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemOrange_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemOrange_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "orange";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "orange";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemBlack_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemBlack_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "black";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "black";
+// 	customField[1, "disable"] = 1;
+// };
 
 datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 	superCategory = "gems";
@@ -595,45 +595,45 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 	customField[1, "disable"] = 1;
 };
 
-datablock ItemData(FancyGemItemSpecialPurple_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemSpecialPurple_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "specialpurple";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "specialpurple";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemSpecialYellow_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemSpecialYellow_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "specialyellow";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "specialyellow";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemSpecialPlatinum_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemSpecialPlatinum_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "specialplatinum";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "specialplatinum";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemWhite_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemWhite_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "white";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "white";
+// 	customField[1, "disable"] = 1;
+// };
 
-datablock ItemData(FancyGemItemRainbow_PQ: FancyGemItem_PQ) {
-	superCategory = "gems";
-	category = "PlatinumQuest";
+// datablock ItemData(FancyGemItemRainbow_PQ: FancyGemItem_PQ) {
+// 	superCategory = "gems";
+// 	category = "PlatinumQuest";
 
-	skin = "rainbow";
-	customField[1, "disable"] = 1;
-};
+// 	skin = "rainbow";
+// 	customField[1, "disable"] = 1;
+// };
 
 // datablock ItemData(GemItem_MBU : GemItem) {
 // 	shapeFile = "~/data/shapes_mbu/items/gem.dts";
@@ -860,6 +860,20 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/items/gem.dts";
 
 		pickupName = "a gem!";
+		skin[0] = "base";
+		skin[1] = "red";
+		skin[2] = "yellow";
+		skin[3] = "blue";
+		skin[4] = "pink";
+		skin[5] = "purple";
+		skin[6] = "green";
+		skin[7] = "turquoise";
+		skin[8] = "orange";
+		skin[9] = "black";
+		skin[10] = "platinum";
+		skin[11] = "specialpurple";
+		skin[12] = "specialyellow";
+		skin[13] = "specialplatinum";
 
 		customField[0, "field"  ] = "skin";
 		customField[0, "type"   ] = "string";
@@ -907,86 +921,86 @@ if (!$pref::LegacyItems) {
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
 	};
-    datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-	    skin = "base";
-	    huntExtraValue = 0;
-	    spawnChance = 0.1;
-    	messageColor = "ff66ff";
-	    customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+	//     skin = "base";
+	//     huntExtraValue = 0;
+	//     spawnChance = 0.1;
+    // 	messageColor = "ff66ff";
+	//     customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-	    skin = "purple";
-	    huntExtraValue = 5; //6 pts
-	    spawnChance = 0.1;
-	    messageColor = "cc44ff";
-	    customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+	//     skin = "purple";
+	//     huntExtraValue = 5; //6 pts
+	//     spawnChance = 0.1;
+	//     messageColor = "cc44ff";
+	//     customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-	    skin = "Green";
-	    huntExtraValue = 3; //4 pts
-	    spawnChance = 0.3;
-	    messageColor = "66ff66";
-	    customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+	//     skin = "Green";
+	//     huntExtraValue = 3; //4 pts
+	//     spawnChance = 0.3;
+	//     messageColor = "66ff66";
+	//     customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "Turquoise";
-    	huntExtraValue = 6; //7
-    	spawnChance = 0.1;
-    	messageColor = "55ffff";
-    	customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "Turquoise";
+    // 	huntExtraValue = 6; //7
+    // 	spawnChance = 0.1;
+    // 	messageColor = "55ffff";
+    // 	customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "orange";
-    	huntExtraValue = 2; //3 pts
-    	spawnChance = 0.45;
-    	messageColor = "ffaa33";
-    	customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "orange";
+    // 	huntExtraValue = 2; //3 pts
+    // 	spawnChance = 0.45;
+    // 	messageColor = "ffaa33";
+    // 	customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "black";
-    	huntExtraValue = -2; //-1 pts
-    	spawnChance = 0.45;
-    	messageColor = "000000";
-    	customField[0, "field"] = "";
-    };		
-    datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "black";
+    // 	huntExtraValue = -2; //-1 pts
+    // 	spawnChance = 0.45;
+    // 	messageColor = "000000";
+    // 	customField[0, "field"] = "";
+    // };		
+    // datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "white";
-    	huntExtraValue = -1; //0 pts
-    	spawnChance = 0.80;
-    	messageColor = "000000";
-    	customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemRainbow_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "white";
+    // 	huntExtraValue = -1; //0 pts
+    // 	spawnChance = 0.80;
+    // 	messageColor = "000000";
+    // 	customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemRainbow_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "rainbow";
-    	huntExtraValue = 8; //9 pts
-    	spawnChance = 0.24;
-    	messageColor = "4b0082";
-    	customField[0, "field"] = "";
-    };
+    // 	skin = "rainbow";
+    // 	huntExtraValue = 8; //9 pts
+    // 	spawnChance = 0.24;
+    // 	messageColor = "4b0082";
+    // 	customField[0, "field"] = "";
+    // };
 } else {
 	datablock ItemData(GemItem_MBU : GemItem) {
 		superCategory = "gems";
@@ -995,6 +1009,20 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes/items/gem.dts";
 
 		pickupName = "a gem!";
+		skin[0] = "base";
+		skin[1] = "red";
+		skin[2] = "yellow";
+		skin[3] = "blue";
+		skin[4] = "pink";
+		skin[5] = "purple";
+		skin[6] = "green";
+		skin[7] = "turquoise";
+		skin[8] = "orange";
+		skin[9] = "black";
+		skin[10] = "platinum";
+		skin[11] = "specialpurple";
+		skin[12] = "specialyellow";
+		skin[13] = "specialplatinum";
 
 		customField[0, "field"  ] = "skin";
 		customField[0, "type"   ] = "string";
@@ -1042,84 +1070,84 @@ if (!$pref::LegacyItems) {
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
 	};		
-    datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-	    skin = "base";
-	    huntExtraValue = 0;
-	    spawnChance = 0.1;
-    	messageColor = "ff66ff";
-	    customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+	//     skin = "base";
+	//     huntExtraValue = 0;
+	//     spawnChance = 0.1;
+    // 	messageColor = "ff66ff";
+	//     customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-	    skin = "purple";
-	    huntExtraValue = 5; //6 pts
-	    spawnChance = 0.1;
-	    messageColor = "cc44ff";
-	    customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+	//     skin = "purple";
+	//     huntExtraValue = 5; //6 pts
+	//     spawnChance = 0.1;
+	//     messageColor = "cc44ff";
+	//     customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-	    skin = "Green";
-	    huntExtraValue = 3; //4 pts
-	    spawnChance = 0.3;
-	    messageColor = "66ff66";
-	    customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+	//     skin = "Green";
+	//     huntExtraValue = 3; //4 pts
+	//     spawnChance = 0.3;
+	//     messageColor = "66ff66";
+	//     customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "Turquoise";
-    	huntExtraValue = 6; //7
-    	spawnChance = 0.1;
-    	messageColor = "55ffff";
-    	customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "Turquoise";
+    // 	huntExtraValue = 6; //7
+    // 	spawnChance = 0.1;
+    // 	messageColor = "55ffff";
+    // 	customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "orange";
-    	huntExtraValue = 2; //3 pts
-    	spawnChance = 0.45;
-    	messageColor = "ffaa33";
-    	customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "orange";
+    // 	huntExtraValue = 2; //3 pts
+    // 	spawnChance = 0.45;
+    // 	messageColor = "ffaa33";
+    // 	customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "black";
-    	huntExtraValue = -2; //-1 pts
-    	spawnChance = 0.45;
-    	messageColor = "000000";
-    	customField[0, "field"] = "";
-    };	
-    datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "black";
+    // 	huntExtraValue = -2; //-1 pts
+    // 	spawnChance = 0.45;
+    // 	messageColor = "000000";
+    // 	customField[0, "field"] = "";
+    // };	
+    // datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "white";
-    	huntExtraValue = -1; //0 pts
-    	spawnChance = 0.80;
-    	messageColor = "000000";
-    	customField[0, "field"] = "";
-    };
-    datablock ItemData(GemItemRainbow_MBU: GemItem_MBU) {
-		superCategory = "gems";
-		category = "Marble Blast Ultra";
+    // 	skin = "white";
+    // 	huntExtraValue = -1; //0 pts
+    // 	spawnChance = 0.80;
+    // 	messageColor = "000000";
+    // 	customField[0, "field"] = "";
+    // };
+    // datablock ItemData(GemItemRainbow_MBU: GemItem_MBU) {
+	// 	superCategory = "gems";
+	// 	category = "Marble Blast Ultra";
 
-    	skin = "rainbow";
-    	huntExtraValue = 8; //9 pts
-    	spawnChance = 0.24;
-    	messageColor = "4b0082";
-    	customField[0, "field"] = "";
-    };				
+    // 	skin = "rainbow";
+    // 	huntExtraValue = 8; //9 pts
+    // 	spawnChance = 0.24;
+    // 	messageColor = "4b0082";
+    // 	customField[0, "field"] = "";
+    // };				
 }
