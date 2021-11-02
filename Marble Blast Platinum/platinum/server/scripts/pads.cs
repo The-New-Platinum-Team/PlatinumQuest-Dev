@@ -71,11 +71,18 @@ datablock StaticShapeData(StartPad_PQ_Construction : StartPad) {
 	playAnimation = false;
 };
 
-// datablock StaticShapeData(StartPad_MBM : StartPad) {
-// 	shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
+datablock StaticShapeData(StartPad_MBU : StartPad) {
+	shapeFile = "~/data/shapes_mbu/pads/mbu/startarea.dts";
 
-// 	playAnimation = true;
-// };
+	playAnimation = true;
+};
+
+function StartPad_MBU::onMissionReset(%this, %obj) {
+	if (!$Game::Menu) {
+    	%obj.stopThread( 0 );
+		%obj.playThread(0, "start");
+	}
+}
 
 function StartPadClass::onAdd(%this, %obj) {
 	$Game::StartPad = %obj;
@@ -138,11 +145,11 @@ datablock StaticShapeData(EndPad_PQ_Construction : EndPad) {
 	playAnimation = false;
 };
 
-// datablock StaticShapeData(EndPad_MBM : EndPad) {
-// 	shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
+datablock StaticShapeData(EndPad_MBU : EndPad) {
+	shapeFile = "~/data/shapes_mbu/pads/mbu/endarea.dts";
 
-// 	playAnimation = true;
-// };
+	playAnimation = true;
+};
 
 function EndPadClass::onAdd(%this, %obj) {
 	$Game::EndPad = %obj;
