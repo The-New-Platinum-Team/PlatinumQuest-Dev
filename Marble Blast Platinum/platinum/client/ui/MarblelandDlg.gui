@@ -245,6 +245,23 @@ new GuiControl(MarblelandDlg) {
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 		};
+		new GuiBorderButtonCtrl(MarblelandSG_Sort) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "121 411";
+			extent = "205 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandDlg.sort();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Sort By: A-Z";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
 	};
 };
 //--- OBJECT WRITE END ---
@@ -252,13 +269,13 @@ new GuiControl(MarblelandDlg) {
 // define the search group object.  This object holds all data
 // for the searches.
 if (!isObject(MarblelandSearchSet)) {
-	new SimSet(MarblelandSearchSet);
+	Array(MarblelandSearchSet);
 	RootGroup.add(MarblelandSearchSet);
 }
 
 function MarblelandDlg::onWake(%this) {
 	MarblelandSearchHeader.setText("<bold:18><tab:200,200>Name\tAuthor");
-
+	%this.sortMode = 0;
 	%this.buildSearch();
 }
 
@@ -282,10 +299,11 @@ function MarblelandDlg::buildSearch(%this) {
 		for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
 			%entry = $MarblelandMissionList.getEntry(%i);
 			getSearchMissionInfo(%entry, %entry.modification, "unknown");
-			MarblelandSearchSet.add(%entry);
+			MarblelandSearchSet.addEntry(%entry);
 		}
 
 		MarblelandDlg.setStatus("Loaded.", true);
+		MarblelandDlg.refreshSort();
 		// now we will fill up the mission list
 		MarblelandDlg.search();
 	}
@@ -293,6 +311,56 @@ function MarblelandDlg::buildSearch(%this) {
 
 function MarblelandDlg::close(%this) {
 	
+}
+
+function SortAZ(%a, %b) {
+	return stricmp(%a.name, %b.name) < 0;
+}
+
+function SortZA(%a, %b) {
+	return stricmp(%a.name, %b.name) > 0;
+}
+
+function SortNewest(%a, %b) {
+	return %a.addedAt > %b.addedAt;
+}
+
+function SortOldest(%a, %b) {
+	return %a.addedAt < %b.addedAt;
+}
+
+function MarblelandDlg::sort(%this) {
+	%this.sortMode++;
+	// sortmodes:
+	// 0: alphabetical
+	// 1: reverse alphabetical
+	// 2: time
+	// 3: reverse time
+	if (%this.sortMode == 4) 
+		%this.sortMode = 0;
+
+	%this.refreshSort();
+}
+
+function MarblelandDlg::refreshSort(%this) {
+	if (%this.sortMode == 0) {
+		MarblelandSG_Sort.setText("Sort By: A-Z");
+		MarblelandSearchSet.sort(SortAZ);
+	}
+	if (%this.sortMode == 1) {
+		MarblelandSG_Sort.setText("Sort By: Z-A");
+		MarblelandSearchSet.sort(SortZA);
+	}
+	if (%this.sortMode == 2) {
+		MarblelandSG_Sort.setText("Sort By: Newest");
+		MarblelandSearchSet.sort(SortNewest);
+	}
+	if (%this.sortMode == 3) {
+		MarblelandSG_Sort.setText("Sort By: Oldest");
+		MarblelandSearchSet.sort(SortOldest);
+	}
+
+	MarblelandDlg.search();
 }
 
 function MarblelandJSONDownloader::onLine(%this, %line) {
@@ -330,9 +398,9 @@ function MarblelandDlg::search(%this) {
 	}
 
 	//Load all the missions
-	%count = MarblelandSearchSet.getCount();
+	%count = MarblelandSearchSet.getSize();
 	for (%i = 0; %i < %count; %i ++) {
-		%obj = MarblelandSearchSet.getObject(%i);
+		%obj = MarblelandSearchSet.getEntry(%i);
 
 		if (!testSearch(%obj, %flags, %key))
 			continue;
@@ -355,7 +423,7 @@ function MarblelandDlg::search(%this) {
 // This code is about the only thing left from the old SearchDlg
 function MarblelandDlg::finalize(%this) {
 	if (MarblelandSearchMissionList.rowCount()) {
-		MarblelandSearchMissionList.sort(0);
+		// MarblelandSearchMissionList.sort(0);
 		MarblelandSearchMissionList.setSelectedRow(0);
 		MarblelandSearchMissionList.scrollVisible(0);
 		MarblelandSearchPlay.setActive(true);
