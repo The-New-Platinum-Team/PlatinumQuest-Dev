@@ -553,7 +553,7 @@ function capitalizeGameType(%type) {
 
 function MarblelandSubmit(%mission, %user, %score, %scoreType) {
 	new HTTPObject(MarblelandSubmitter);
-	MarblelandSubmitter.post("http://localhost:1337","/score", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
+	MarblelandSubmitter.post("https://pqmarblelandlbs.vani.ga","/score", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
 }
 
 function MarblelandSubmitter::onDisconnect(%this) {
@@ -566,7 +566,7 @@ function MarblelandGetScores(%mission) {
 	new HTTPObject(MarblelandRetriever);
 	MarblelandRetriever.success = 0;
 	MarblelandRetriever.mission = %mission;
-	MarblelandRetriever.get("http://localhost:1337", "/score", "mission=" @ URLEncode(%mission));
+	MarblelandRetriever.get("https://pqmarblelandlbs.vani.ga", "/score", "mission=" @ URLEncode(%mission));
 }
 
 function MarblelandRetriever::onLine(%this, %line) {
