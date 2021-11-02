@@ -68,6 +68,22 @@ datablock StaticShapeData(Checkpoint_PQ : checkPoint) {
 	shapeFile = "~/data/shapes_pq/Gameplay/pads/checkpoint.dts";
 };
 
+datablock StaticShapeData(Checkpoint_MBU : checkPoint) {
+	shapeFile = "~/data/shapes_mbu/pads/checkpad.dts";
+};
+
+function Checkpoint_MBU::onMissionReset(%this, %obj) {
+	if (!$Game::Menu) {
+		%obj.setThreadDir(0,false);
+	}
+}
+
+function Checkpoint_MBU::onActivateCheckpoint(%this, %obj) {
+	if (!$Game::Menu) {
+		%obj.setThreadDir(0,false);
+	}
+}
+
 function Checkpoint_PQ::onAdd(%this, %obj) {
 	%rotation = %obj.getRotation();
 	%rotation = getWords(%rotation, 0, 2) SPC mRadToDeg(getWord(%rotation, 3));
@@ -171,6 +187,9 @@ function GameConnection::setCheckpointTrigger(%this, %object) {
 	%this.playPitchedSound("checkpoint");
 
 	%this.setCheckpoint(%object, %respawnPoint);
+	// %object.playThread(0, "activate");
+	%respawnPoint.playThread(0, "activate", 1);
+	%respawnPoint.setThreadDir(0,true);
 }
 
 // CALM YO BUTT
