@@ -820,7 +820,7 @@ datablock StaticShapeData(Nuke) {
 	customField[0, "type"   ] = "time";
 	customField[0, "name"   ] = "Reset Time";
 	customField[0, "desc"   ] = "How long it takes the nuke to respawn.";
-	customField[0, "default"] = "Default";
+	customField[0, "default"] = "15000";
 };
 
 datablock StaticShapeData(Nuke_PQ : Nuke) {
@@ -834,7 +834,7 @@ datablock StaticShapeData(Nuke_PQ : Nuke) {
 
 function NukeClass::onAdd(%this, %obj) {
 	if (%obj.resetTime $= "")
-		%obj.resetTime = "Default";
+		%obj.resetTime = "15000";
 
 	// PQ nuke uses a skin
 	if (%this.skin !$= "")
