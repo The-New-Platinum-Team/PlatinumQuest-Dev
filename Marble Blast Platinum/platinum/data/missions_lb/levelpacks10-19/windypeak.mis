@@ -1,0 +1,201 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "50";
+         music = "Seaside Revisited.ogg";
+         startHelpText = "Beware the wind!";
+         name = "Windy Peak";
+         artist = "Henry";
+         desc = "Air is invisible, so watch out...";
+         goldTime = "27500";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         rotation = "1 0 0 0";
+         locked = "true";
+         scale = "1 1 1";
+         position = "0 0 0";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "0.0682294 0.50582 499.153";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "-17.7569 2.1256 544.23";
+         rotation = "0 0 1 179.518";
+         scale = "1 1 1";
+         dataBlock = "EndPad";
+      };
+   };
+   new StaticShape(EndSign) {
+      position = "-19.3328 2.03532 549.26";
+      rotation = "0 0 1 160.519";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new InteriorInstance() {
+      position = "-5.86624 16.8655 499.174";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/kingofthemountain1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-5.8956 0.883715 499.056";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/kingofthemountain2.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-2.24162 57.014 511.803";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-5.8758 0.876671 498.999";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/kingofthemountain3.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-8.40582 33.2015 531.263";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "26.7864 64.4423 534.033";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-6.6758 81.8003 517.902";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-4.62021 28.8837 508.545";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-6.5304 45.3767 510.421";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-5.32518 9.28371 501.791";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-11.9472 28.1686 531.086";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-18.1339 8.06761 542.941";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "8.4813 45.801 532.465";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "2.46355 41.5667 531.824";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-3.99045 37.6214 532.33";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "tornado";
+   };
+   new InteriorInstance() {
+      position = "-15.0265 18.7436 536.555";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-16.1264 15.3206 536.705";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-40.5613 111.609 492.158";
+      rotation = "1 0 0 0";
+      scale = "100 140 90";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+};
+//--- OBJECT WRITE END ---

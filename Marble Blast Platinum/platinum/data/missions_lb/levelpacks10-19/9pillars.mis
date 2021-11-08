@@ -1,0 +1,186 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         goldTime = "15000";
+         type = "LBCustom";
+         name = "9 Pillars";
+         artist = "marbleman";
+         desc = "Climb the pillars to the finish!";
+         level = "2";
+         music = "Rising Temper.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume2 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume3 = "-1 -1.73483e+009 -1.73483e+009";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
+   };
+   new Sun() {
+      direction = "0.597177 0 -0.80211";
+      color = "0.000000 0.000000 1.000000 0.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "16.8 -3.8 5.8";
+         rotation = "0 0 1 90";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "18.0039 -5.55447 15.8";
+         rotation = "0 0 -1 105";
+         scale = "1 1 2";
+         dataBlock = "EndPad";
+      };
+   };
+   new Trigger(Bounds) {
+      position = "-58.2041 248.735 -11.6336";
+      rotation = "1 0 0 0";
+      scale = "4000 500 500";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "18.2364 -15.492 9.25225";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "16.573 -6.8206 5.85225";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "29.4247 -9.54589 7.10225";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "24.8435 -14.2079 7.85225";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "24.3243 -2.26024 15.6522";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "12.0775 -13.6592 10.0522";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "8.34311 -8.21599 10.8522";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "7.95004 -2.00951 11.4522";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "11.596 2.86797 12.2522";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "17.1831 5.25799 13.2522";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "22.8349 2.84295 14.4523";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 100";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "18.5462 -5.07492 14.6522";
+      rotation = "1 0 0 0";
+      scale = "1.8 1.8 0.3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "20.9473 -3.57619 24.5022";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "23.844 5.78196 6.45225";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "17.8657 -5.44818 15.9022";
+      rotation = "1 0 0 0";
+      scale = "0.1 0.1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

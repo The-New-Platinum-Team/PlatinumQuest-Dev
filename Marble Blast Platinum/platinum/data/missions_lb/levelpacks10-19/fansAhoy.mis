@@ -1,0 +1,513 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "14";
+         music = "Rising Temper.ogg";
+         startHelpText = "Use the fans to get higher!";
+         name = "Fans Ahoy!";
+         artist = "marbleman";
+         time = "0";
+         desc = "Thanks to the guy who invented fans!";
+         goldTime = "45000";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "-0.286096 0.524551 -0.80187";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new Trigger(Bounds) {
+      position = "-50.3026 55.0654 -0.5041";
+      rotation = "1 0 0 0";
+      scale = "100 100 100";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "0.06875 2.82188 0.4125";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+         fixedscale = "1";
+   };
+   new StaticShape() {
+      position = "10.2413 5.22507 70.9187";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape(EndPoint) {
+      position = "9.01051 4.0022 64.1465";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new InteriorInstance() {
+      position = "-3.07502 6.81691 0.51676";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "1.8749 5.46915 0.493149";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "0.105576 5.44565 0.493149";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-1.74114 5.45017 0.493148";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "-3.36693 21.4816 5.54131";
+      rotation = "1 0 0 0";
+      scale = "1.33 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-2.12514 12.8017 9.10911";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "3.2625 16.5705 5.5177";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "3.25276 18.3126 5.5177";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "3.25247 20.0889 5.5177";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "18.1291 21.4707 12.1632";
+      rotation = "0 0 1 90";
+      scale = "1.33 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "9.01483 16.3902 17.3501";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "14.9964 14.613 12.1396";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "16.7657 14.6365 12.1396";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "13.1497 14.6175 12.1396";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "10.0541 8.77517 21.0227";
+      rotation = "1 0 0 0";
+      scale = "1.33 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "11.4336 3.86407 20.9991";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "11.4235 7.38247 20.9991";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "11.4238 5.60617 20.9991";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new Item() {
+      position = "13.9357 10.4888 24.5117";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "6.78175 5.60103 30.0643";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-26.0632 33.8451 28.6721";
+      rotation = "1 0 0 0";
+      scale = "5 5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-10.4752 18.3782 42.1721";
+      rotation = "0 0 -1 90";
+      scale = "0.45 0.45 0.3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_airmove.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-10.5795 18.6326 28.6221";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-13.324 20.1906 28.5721";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "tornado";
+   };
+   new StaticShape() {
+      position = "-14.3002 16.708 28.6176";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "tornado";
+   };
+   new InteriorInstance() {
+      position = "-6.72263 15.0896 28.6221";
+      rotation = "1 0 0 90";
+      scale = "1.9 2 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-10.3301 2.61289 28.8985";
+      rotation = "1 0 0 90";
+      scale = "1 1 5";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "2.29102 24.7493 28.6226";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-25.9857 18.2615 28.6721";
+      rotation = "0 -1 0 90";
+      scale = "1 1 5";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "-1.12301 21.3311 40.9426";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "0.444314 24.7538 28.6226";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "4.06032 24.7728 28.6226";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-5.43074 18.1611 40.8922";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new InteriorInstance() {
+      position = "-6.62476 21.3039 40.9436";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-5.35736 18.1559 40.91";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "-5.43313 18.1851 40.924";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "-5.40593 18.2033 40.9381";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "-5.42686 18.168 40.9021";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "-5.4652 18.1788 40.8621";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "-18.0698 2.42875 57.0485";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-13.2317 18.4021 42.3185";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-13.232 20.1784 42.3185";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-13.2219 16.66 42.3185";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "-19.1421 22.2333 49.6376";
+      rotation = "0 0 1 90";
+      scale = "1.33 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-17.2915 18.3528 50.7265";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.2129 14.9692 49.614";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-20.4436 14.9927 49.614";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-24.0596 14.9737 49.614";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "-25.4006 7.31153 57.0721";
+      rotation = "1 0 0 0";
+      scale = "2.67 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-22.7184 9.19859 61.181";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-21.9684 9.09859 60.031";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-18.0796 4.17085 57.0485";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-18.0799 5.94715 57.0485";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "6.52775 6.53879 64.1987";
+      rotation = "1 0 0 0";
+      scale = "0.8 0.8 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-5.97707 4.05852 57.6398";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+   };
+   new StaticShape() {
+      position = "-4.00494 4.06958 57.6075";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+   };
+   new StaticShape() {
+      position = "-0.217974 4.0485 57.5591";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+   };
+   new StaticShape() {
+      position = "-2.1901 4.03745 57.5914";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+   };
+   new StaticShape() {
+      position = "-0.22457 4.04324 57.3855";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new Item() {
+      position = "-6.01997 21.3111 44.7784";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-16.2877 7.29922 63.2721";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-8.90923 21.3348 42.2855";
+      rotation = "0 1 0 20";
+      scale = "1 0.33 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-0.197411 4.04505 57.3355";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-0.218325 4.07497 57.3355";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

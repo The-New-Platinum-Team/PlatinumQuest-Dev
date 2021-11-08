@@ -1,0 +1,164 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         music = "Pianoforte.ogg";
+         desc = "Bumper Gems!";
+         artist = "Lance Hampton";
+         level = "7";
+         name = "Bumper Gems";
+         startHelpText = "Bounce through the gems!";
+         goldTime = "3500";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 -1.99514e+038 -2.02183e+038";
+      fogVolume2 = "-1 -2.14204e+038 -2.15538e+038";
+      fogVolume3 = "-1 -2.24889e+038 -2.26219e+038";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -210195007640218170000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -220880937116769280000000000000000000000.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -231561674296461850000000000000000000000.000000";
+   };
+   new Sun() {
+      direction = "0.433884 0.614021 -0.659336";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "-12.07 -13.7064 -0.060489";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+         fixedscale = "1";
+   };
+   new StaticShape(EndPoint) {
+      position = "0.210892 -9.95295 -0.065894";
+      rotation = "0 0 1 180.664";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+         fixedscale = "1";
+   };
+   new Trigger(Bounds) {
+      position = "-19.4915 19.5144 -4.17188";
+      rotation = "1 0 0 0";
+      scale = "39 39 36.3329";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "-2.89576 -14.6474 -0.058239";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemPurple";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-6.93023 -12.0664 -0.0582387";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/bumpers.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-6.91722 -13.8927 -0.0582389";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-6.19948 -10.6319 -0.058239";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlue";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-8.56044 -9.66029 -0.058239";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-0.929467 -14.8404 -0.0705188";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-5.91299 -12.392 -0.0705188";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-11.6636 -9.01436 -0.0705188";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-8.6 -12.9505 -0.0705188";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-15.9417 -11.545 -0.0705188";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-7.40363 -10.9392 -0.0705188";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "0.16066 -8.9174 6.35636";
+      rotation = "0 0 -1 19.4806";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

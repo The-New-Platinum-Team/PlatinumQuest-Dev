@@ -1,0 +1,1400 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "Technostar";
+         desc = "Lay siege to the citadel, but watch out for the Royal Guard\'s labyrinth of traps!";
+         goldTime = "150000";
+         level = "8";
+         music = "Halloween Trance.ogg";
+         name = "Citadel Castle";
+         startHelpText = "Halt, who goes there?";
+         type = "Custom";
+         ultimateTime = "135000";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      materialList = "~/data/skies/Advanced/Advanced_Sky.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "0.900000 1.200000 1.000000 1.000000";
+      ambient = "0.400000 0.400000 0.450000 1.000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "23 -0.2499996 8";
+      rotation = "0 0 -1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-146.75 100 2";
+      rotation = "1 0 0 0";
+      scale = "200 200 200";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "3.750001 -5.999999 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-37 -8.5 7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-31 -11.5 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-31 -11.5 7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-60.5 -9.5 11";
+      rotation = "-1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new InteriorInstance() {
+      position = "-3.75 -6 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.750005 6 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.750001 -5.999999 17.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.750005 6 17.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.75 -6 17.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.75 6 17.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.75 6 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "0 -6 8.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-92.5 -27 7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemOrange";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-54.5 -27 10.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-56.5 -27 10.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "ShockAbsorberItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-66.5 -27 10";
+      rotation = "0 0 1 89.99999";
+      scale = "1 1 1";
+      dataBlock = "checkPoint";
+   };
+   new InteriorInstance() {
+      position = "-1.75 -14 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.750002 -13.99999 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.750001 14 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-1.75 14 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "0 -30 8.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemOrange";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-19.2265 -22.75 6";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/castlebounce.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-21.25 -15.42225 6";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/castlebounce.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-15.75 -12.25 5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/castlebounce.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-9.75 -15 5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/castlebounce.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-1.75 -22 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.75 -22 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-1.75 -30 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.75 -30 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.75 22 11.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/BoardedWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.499999 7.152557e-07 17";
+      rotation = "0 0 -1 89.99998";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/castleshield.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-2.48622 6 16";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         open = "0";
+         resetTime = "Default";
+         timeout = "200";
+   };
+   new StaticShape() {
+      position = "-0.4862207 6.000001 17";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         open = "0";
+         resetTime = "Default";
+         timeout = "200";
+   };
+   new StaticShape() {
+      position = "1.51378 6.000001 18";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         open = "0";
+         resetTime = "Default";
+         timeout = "200";
+   };
+   new Item() {
+      position = "2.75 6 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemOrange";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-20 22 44.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemOrange";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-31.75 22 44";
+      rotation = "0 0 1 89.99998";
+      scale = "0.8 0.8 0.8";
+      dataBlock = "checkPoint";
+   };
+   new TSStatic() {
+      position = "-20 29.8125 45";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.25 1 1";
+      shapeName = "~/data/shapes/Glass/6x3.dts";
+   };
+   new InteriorInstance() {
+      position = "-30 14.25 47.75";
+      rotation = "1 0 0 0";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-22 14.25 47.75";
+      rotation = "1 0 0 0";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-30 29.75 47.75";
+      rotation = "1 0 0 0";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-22 29.75 47.75";
+      rotation = "1 0 0 0";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-18.25 18 47.75";
+      rotation = "-0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-18.25 25.99999 47.75";
+      rotation = "-0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-33.75 18.00001 47.75";
+      rotation = "-0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-33.75 26 47.75";
+      rotation = "-0 0 -1 89.99998";
+      scale = "0.75 1 0.875";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CastleWindow.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "-18.1875 16 45";
+      rotation = "1 0 0 0";
+      scale = "0.25 1 1";
+      shapeName = "~/data/shapes/Glass/6x3.dts";
+   };
+   new TSStatic() {
+      position = "-33.6875 16 45";
+      rotation = "1 0 0 0";
+      scale = "0.25 1 1";
+      shapeName = "~/data/shapes/Glass/6x3.dts";
+   };
+   new TSStatic() {
+      position = "-20 14.3125 45";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.25 1 1";
+      shapeName = "~/data/shapes/Glass/6x3.dts";
+   };
+   new StaticShape() {
+      position = "-97 4 10";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "checkPoint";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-71.75 -15.25 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-66.5 -15.25 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-71.75 -15.25 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "9";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-66.25 -17.75 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-71.75 -17.75 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-66.25 -17.75 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "8";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new Item() {
+      position = "-68.5 -7.5 29.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-37 6.5 24.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemOrange";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-30 -1.5 12.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-39.25 4.75 9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-16.25 -27 14";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-2.5 6 15.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-25 19 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-98.75 22 24";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-78.75 2.75 11.25";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-70.6 -27 6.15";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-28.75 22 46";
+      rotation = "1 0 0 0";
+      scale = "0.25 0.25 0.25";
+      dataBlock = "ShockAbsorberItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new SimGroup(PathNodeGroup) {
+   };
+   new InteriorInstance() {
+      position = "-86 -12 46";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/castleshield.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-89.5 -12 40.25";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/castleshield.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "-88.24999 -6.125 32";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.5 1 3";
+      shapeName = "~/data/shapes/Glass/9x3.dts";
+   };
+   new TSStatic() {
+      position = "-88.5 -17.625 30.75";
+      rotation = "0 0 -1 89.99998";
+      scale = "0.5 1 3";
+      shapeName = "~/data/shapes/Glass/9x3.dts";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-75.25 8 12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-75.25 -1 12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-75.25 8 12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "10";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0 0 12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 15.875";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 16";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "8 0 8";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "8 0 8";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "19.875 0 8";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "100";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "19.875 0 8";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "8 0 8";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "1";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-35 -27 19";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-35 -27 13";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-35 -27 19";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "2";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-91 4 5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "4000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-74.5 4 5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "4000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-74.5 4 5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "4000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-91 4 5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-91 4 5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "3";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-67.5 4 -5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "-67.5 4 -5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "3000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-67.5 4 15";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-67.5 4 15";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "3000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-67.5 4 -5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "4";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-10 21 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-10 23 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-10 21 4";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "5";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-66.25 -22.75 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-71.75 -22.75 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-66.25 -22.75 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "6";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-71.75 -20.25 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-66.25 -20.25 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-71.75 -20.25 10";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CitadelCastle/citadelcastle.dif";
+         interiorIndex = "7";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/CitadelCastle/CitadelMoat.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(HelpText) {
+      position = "-9.25 -1.5 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Hey, that\'s rude! When I ask you a question, I expect an answe... Wait, how did you get in there?";
+   };
+   new Trigger(HelpText) {
+      position = "-22.68659 1.150862 10.25";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Oh, I see, you just completely ignored the watery pit of doom and walked right in. Y\'know, you\'re making my job reeealll difficult here!";
+   };
+   new Trigger(HelpText) {
+      position = "-37.15903 -13.29368 18";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Ok, I admit it, I was \"blown away\" with your skills there. Just kidding! I honestly don\'t care how well you did on that challenge, I just wanted to make that pun.";
+   };
+   new Trigger(HelpText) {
+      position = "-33.03793 -9.695653 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Ok, you want a bit more of a challenge? Here, have one! I bet you won\'t be a \"fan\" of this one for very long!";
+   };
+   new StaticShape() {
+      position = "-38.25 -9.417478 18.99187";
+      rotation = "1 0 0 11.25001";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new Trigger(HelpText) {
+      position = "-94.71999 -28.90491 5.686999";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "You stubborn rascal! Now my pay is going to be cut, and it\'s all your fault!";
+   };
+   new Trigger(HelpText) {
+      position = "-38.95263 -9.545331 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "You\'ve been very cleverly working your way through the challeges so far, but can you maneuver your way around this one?";
+   };
+   new Trigger(HelpText) {
+      position = "-43.37432 2.403424 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Ok then, it looks like you can. I really should stop underestimating you.";
+   };
+   new Trigger(HelpText) {
+      position = "-54.52777 -13.46022 10";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Well, you\'ve dodged my questions in the past, but can you dodge these obstacles?";
+   };
+   new Trigger(HelpText) {
+      position = "-70.40621 -22.63702 10";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Pleasedon\'tnoticethegemtoyourrightpleasedon\'tnoticethegemtoyourright... Wait, did I just say that out loud? FORGET I SAID ANYTHING, OKAY?";
+   };
+   new Trigger(HelpText) {
+      position = "-58.40852 -29.05854 10";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Ok, I am officially through with you. Off with your head!";
+   };
+   new Trigger(HelpText) {
+      position = "-2.296814 -32.11371 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Fine, have it your way instead, but don\'t think I plan on letting you off easy in the future.";
+   };
+   new Trigger(HelpText) {
+      position = "-22.01988 -28.97634 10";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "You survived that? Well, as a reward for your tenacity, have fun on these mini-trampolines. Oh, and if you fall off, you\'re dead. Got that?";
+   };
+   new Trigger(HelpText) {
+      position = "-5.888636 -19.92649 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "What an innocent looking hallway! I would never think of searching for treasure by looking to my right! Instead, I will make the nice man\'s day much easier by heading politely to the left and back out of the castle!";
+   };
+   new Trigger(HelpText) {
+      position = "-34.02795 20.04446 43.62647";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Are you finished enjoying the view? Good. Now fall down the ramp and into the watery grave where you belong.";
+   };
+   new Trigger(HelpText) {
+      position = "-1.872392 -8.250271 7.799141";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Don\'t leap for joy just yet, you can\'t escape this tower through the force of a spring alone!";
+   };
+   new Trigger(HelpText) {
+      position = "-4.030616 4.015838 24";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Falling into this hole is a perectly safe idea, trust me!";
+   };
+   new Trigger(HelpText) {
+      position = "-3.599999 3.812013 15.92651";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Ha! Did you really expect me to keep you safe? As Admiral Ackbar said, \"It\'s a trap!\"";
+   };
+   new Trigger(HelpText) {
+      position = "-21.8373 20.01659 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "I see no reason for you to go up this tower, just head straight as early as you can and move along calmly.";
+   };
+   new Trigger(HelpText) {
+      position = "-25.8373 18.32538 17.68341";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "While you don\'t have many good virtues, at least you learn from your mistakes. 8.5/10 for effort.";
+   };
+   new Trigger(HelpText) {
+      position = "-44.69071 -10.54192 24.75";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Good. Now, from here, get me the diamond to your left, then head up the ramp to your right. Use the super speed that you hopefully collected to then boost yourself from that short ramp across the gap and right next to the throne room.";
+   };
+   new Trigger(HelpText) {
+      position = "-84.1145 16.09567 21";
+      rotation = "1 0 0 0";
+      scale = "12 12 12";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "You know, since I\'m going to lose this job now anyways and I\'m starting to like you, let\'s make a deal.";
+   };
+   new Trigger(HelpText) {
+      position = "-98.97129 16.03384 18";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "I will tell you how to get to the throne room, and in exchange, you will give me 1 of the diamonds when this is done, okay?";
+   };
+   new Trigger(HelpText) {
+      position = "-98.8962 2.07198 9.908089";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Good, now listen up. Ride these pillars to those two towers up and to the right. From there, go straight until you reach the top of the maneuvering challenge.";
+   };
+   new StaticShape(EndPoint) {
+      position = "-91 -12 33";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new Trigger(HelpText) {
+      position = "-123.7641 -34.80508 28";
+      rotation = "1 0 0 0";
+      scale = "28 16 16";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Okay, I did my part. You\'re at the throne room. Just remember, you still owe me one diamond. If you don\'t give it to me after this is over, I will make your future raids MISERABLE. ";
+   };
+   new StaticShape() {
+      position = "-3.795 -3.204999 26.25";
+      rotation = "0 0 -1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "3.704998 -2.794997 26.25";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/music/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(HelpText) {
+      position = "-36.62505 -25.65726 28.75";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Here\'s some advice: Jump and land on the ramp, then immediately use your super speed. ";
+   };
+};
+//--- OBJECT WRITE END ---

@@ -1,0 +1,220 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         time = "90000";
+         startHelpText = "Let's get rolling!";
+         desc = "Are you the king of the pipe?";
+         type = "LBCustom";
+         name = "Half Pipe Heaven";
+         level = "22";
+         goldTime = "20000";
+         artist = "marbleman";
+         music = "Astrolabe.ogg";
+         AlarmStartTime = "30";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.512126 0.512126 -0.689532";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new StaticShape() {
+      position = "65.104 -5.67601 43.738";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape(StartPoint) {
+      position = "-0.118466 5.6158 0.375264";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-121.948 112.347 -77.5082";
+      rotation = "1 0 0 0";
+      scale = "200 200 400";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(EndPoint) {
+      position = "64.7178 -5.63952 32.516";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new InteriorInstance() {
+      position = "30.6384 -11.5345 -4.51494";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "30.6203 22.491 -4.61494";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "47.604 38.7291 -6.9633";
+      rotation = "0 0 1 90";
+      scale = "0.5 0.8 1.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "74.7891 38.894 -7.1813";
+      rotation = "0 0 -1 90";
+      scale = "0.8 0.8 1.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.3721 56.9803 -24.6737";
+      rotation = "1 0 0 0";
+      scale = "2 0.1 5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "32.3649 56.9587 -4.52542";
+      rotation = "1 0 0 0";
+      scale = "1 0.1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "30.765 57.695 -4.52642";
+      rotation = "0 0 1 180";
+      scale = "1 0.1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-64.4784 11.9882 26.7722";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.8 1.2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-69.7123 41.422 -0.249243";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "65.2877 14.3166 0.700507";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-52.8613 58.7059 1.12263";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-84.4773 31.3145 25.2008";
+      rotation = "0 0 1 90";
+      scale = "0.8 0.8 1.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-70.7676 41.6442 39.5685";
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-65.8963 54.3409 33.5471";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-70.8372 41.6438 40.5435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "20000";
+   };
+   new InteriorInstance() {
+      position = "-0.091998 -3.92412 20.0024";
+      rotation = "0 0 1 180";
+      scale = "2 0.1 2.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-57.1356 19.8833 25.2222";
+      rotation = "0 0 -1 90";
+      scale = "0.8 0.8 1.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "1.03409 -7.3703 20.1014";
+      rotation = "1 0 0 0";
+      scale = "2 0.1 2.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+};
+//--- OBJECT WRITE END ---

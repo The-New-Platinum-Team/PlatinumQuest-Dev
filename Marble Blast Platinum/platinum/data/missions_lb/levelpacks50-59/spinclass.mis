@@ -1,0 +1,406 @@
+//UT Tip: lol lol lol jij jaj jej joj jvj jcj jqj joj jkj
+
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         name = "Spin Class";
+         artist = "hPerks";
+         type = "custom";
+         level = "39";
+         desc = "Master the intricacies of marble spin!";
+         startHelpText = "Control your angular momentum in the air to land these jumps!";
+         goldTime = "120000";
+         ultimateTime = "90000";
+         music = "Perspective.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0";
+      cloudSpeed2 = "0";
+      cloudSpeed3 = "0";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0 0 0 0";
+      fogDistance = "300";
+      fogColor = "0 0 0 0";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Advanced/Advanced_Sky.dml";
+      windVelocity = "0 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "0 0 0 0";
+      fogVolumeColor2 = "0 0 0 0";
+      fogVolumeColor3 = "0 0 0 0";
+   };
+   new Sun() {
+      direction = "0.5 0.5 -0.5";
+      color = "1.4 1.2 0.4 1";
+      ambient = "0.3 0.3 0.4 1";
+   };
+   new StaticShape(StartPoint) {
+      position = "0 2 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "29 -60.583 19";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new StaticShape(FinishSign) {
+      position = "28 -60.583 25";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass.dif";
+   };
+   new InteriorInstance() {
+      position = "36 -19.5 0";
+      rotation = "0 0 -1 45";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass2.dif";
+   };
+   new InteriorInstance() {
+      position = "53 -50.6 5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass3.dif";
+   };
+   new InteriorInstance() {
+      position = "25 49 0";
+      rotation = "0 0 1 45";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass4.dif";
+   };
+   new Item() {
+      position = "25 39 4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "25 23 -15";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "8 7 -30";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "25 13 -25.8225";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "25 49 -32";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-7 37 -28.8225";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-14 -4.5 -29";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "12 -20 -29.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "12 -48 -17";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "48 -42 -13.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "46 -11 -8";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "50 -11 -8";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "39 4 0.5";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "39 4 4.5";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "15.5 -7 8.187";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "28.929 -35.056 17";
+      rotation = "1 0 0 180";
+      scale = "2 2 2";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "40.95 -50.613 19";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "40.95 -60.654 19";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+
+   new StaticShape() {
+      position = "25 7 -26";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new StaticShape() {
+      position = "6 -13 -29";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new StaticShape() {
+      position = "36 -19.5 6";
+      rotation = "0 0 1 135";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+
+   new Trigger() {
+      position = "7.5 42.5 0";
+      rotation = "1 0 0 0";
+      scale = "10.5 7 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "When you hit a frictional surface, your spin is converted to speed.";
+   };
+   new Trigger() {
+      position = "21.5 36 4";
+      rotation = "1 0 0 0";
+      scale = "7 8.5 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Use forward spin to bounce from the gem below to the platform in front.";
+   };
+   new Trigger() {
+      position = "17.5 10.5 -11";
+      rotation = "1 0 0 0";
+      scale = "11 7 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Get as much backspin as you can for this next bounce!";
+   };
+   new Trigger() {
+      position = "21.5 14.5 -26";
+      rotation = "1 0 0 0";
+      scale = "7 4.5 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "The rug surface is great for emergency stops - but be careful!";
+   };
+   new Trigger() {
+      position = "-3.5 52.5 -32";
+      rotation = "1 0 0 0";
+      scale = "7 18 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Is it possible to wall-hit off of the ice?";
+   };
+   new Trigger() {
+      position = "-17.5 40.5 -29";
+      rotation = "1 0 0 0";
+      scale = "7 18 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Hmm... There's no rug to help you slow down this time... what could you use instead?";
+   };
+   new Trigger() {
+      position = "8.5 -16 -29";
+      rotation = "1 0 0 0";
+      scale = "7 7 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "You'll need to control your height from this wall-hit to make it up in time.";
+   };
+   new Trigger() {
+      position = "44.5 -38.5 -13";
+      rotation = "1 0 0 0";
+      scale = "7 6.5 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Here's a real puzzler: how can you get both those gems and still make it up in time? Hint - try an \'anti-wall-hit\'!";
+   };
+   new Trigger() {
+      position = "44.5 1 -3";
+      rotation = "1 0 0 0";
+      scale = "7 6 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Ice isn't just a hazard - you can use it to increase your spin without increasing your speed!";
+   };
+   new Trigger() {
+      position = "32.5 7.5 8";
+      rotation = "1 0 0 0";
+      scale = "6 7 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Well done! Take this super jump - you'll need it in a bit.";
+   };
+   new Trigger() {
+      position = "31.05 -19.5 6";
+      rotation = "0 0 -1 45";
+      scale = "7 6.5 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Get the gem to the right first. Just jump-superjump and let the sandy ceiling do the rest!";
+   };
+   new Trigger() {
+      position = "44.132 -14.904 6";
+      rotation = "0 0 -1 45";
+      scale = "6.5 6.5 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "The random force pushes you in the opposite direction of your spin. You'll build up a lot of backspin here - be careful!";
+   };
+   new Trigger() {
+      position = "49.5 -47 19";
+      rotation = "1 0 0 0";
+      scale = "7 7 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "The final challenge - how can you control your movement in this icy room? Hint - use your head!";
+   };
+   new Trigger() {
+      position = "25.5 -57 19";
+      rotation = "1 0 0 0";
+      scale = "7 7 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Congratulations! You've learned the ways of the spinning marble!";
+   };
+
+   new Trigger() {
+      position = "-40 70 -50";
+      rotation = "1 0 0 0";
+      scale = "140 160 200";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/music/joj.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

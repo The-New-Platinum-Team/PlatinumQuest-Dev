@@ -1,0 +1,584 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "46";
+         type = "LBCustom";
+         name = "Vertigo";
+         artist = "marbleman";
+         goldTime = "23000";
+         desc = "You\'ll need high hopes for this one!";
+         startHelpText = "Remember to line up first!";
+         music = "Seaside Revisited.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.57735 0.57735 -0.57735";
+      color = "1.400000 1.200000 0.600000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         position = "0 0 0";
+         locked = "true";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "-0.409746 -3 502.934";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "-155.65 211.756 438.6";
+         rotation = "0 0 -1 90";
+         scale = "1 1 1";
+         dataBlock = "EndPad";
+      };
+   };
+   new SimGroup(Triggers) {
+
+      new Trigger(Bounds) {
+         position = "-487.173 463.274 14.6";
+         rotation = "1 0 0 0";
+         scale = "500 500 500";
+         dataBlock = "InBoundsTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      };
+   };
+   new StaticShape() {
+      position = "-155.412 211.609 448.179";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new InteriorInstance() {
+      position = "-0.442935 -20.9785 527.986";
+      rotation = "1 0 0 0";
+      scale = "9 9 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0.456683 -35.9953 527.979";
+      rotation = "1 0 0 0";
+      scale = "1 20 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.24698 6.74798 527.924";
+      rotation = "1 0 0 0";
+      scale = "8 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-6.49476 -9.1693 527.974";
+      rotation = "1 0 0 0";
+      scale = "9 9 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-15.1514 -1.06588 524.474";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-11.4407 1.05189 526.424";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-25.5564 14.1857 524.218";
+      rotation = "1 0 0 0";
+      scale = "20 0.75 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-25.7584 1.60564 524.356";
+      rotation = "1 0 0 0";
+      scale = "20 3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-18.4764 -24.6391 524.357";
+      rotation = "1 0 0 0";
+      scale = "9 18 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-25.6577 8.3668 524.339";
+      rotation = "1 0 0 0";
+      scale = "20 1.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-27.3794 15.7176 499.891";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1000";
+   };
+   new Item() {
+      position = "-25.7471 7.60644 499.956";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1000";
+   };
+   new Item() {
+      position = "-24.7344 11.3167 499.939";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1000";
+   };
+   new Item() {
+      position = "-26.4463 11.3359 499.939";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1000";
+   };
+   new Item() {
+      position = "-23.8517 15.6315 499.758";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1000";
+   };
+   new Item() {
+      position = "-25.6031 15.6769 499.818";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1000";
+   };
+   new StaticShape() {
+      position = "0.83454 -1.07694 504.184";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new InteriorInstance() {
+      position = "-32.6667 -24.6279 524.137";
+      rotation = "1 0 0 0";
+      scale = "9 18 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32.6173 18.0988 641.856";
+      rotation = "1 0 0 30";
+      scale = "1 40 5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32.6019 -2.05462 513.758";
+      rotation = "1 0 0 0";
+      scale = "1 20 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32.6452 50.76 514.057";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32.5867 34.7416 514.313";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32.636 39.1499 514.162";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32.6418 44.2235 514.09";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-88.0003 60.9346 603.038";
+      rotation = "0 1 0 20";
+      scale = "40 1 5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32.6395 53.1127 514.101";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-32.5441 62.1778 489.498";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-34.8648 53.0642 514.035";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-72.6899 53.8242 494.89";
+      rotation = "0 1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-39.3897 53.9323 499.578";
+      rotation = "0 -1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-72.7813 53.8424 497.908";
+      rotation = "0 1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-39.7304 53.8431 496.452";
+      rotation = "0 -1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-39.455 53.8324 493.239";
+      rotation = "0 -1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-72.7552 53.7243 488.551";
+      rotation = "0 1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-39.7957 53.7432 490.113";
+      rotation = "0 -1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-72.8466 53.7425 491.569";
+      rotation = "0 1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-75.0769 -111.245 496.291";
+      rotation = "1 0 0 0";
+      scale = "1 100 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-60.4466 53.7871 494.95";
+      rotation = "1 0 0 0";
+      scale = "18 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-47.8457 53.7858 488.294";
+      rotation = "0 -1 0 45";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-70.8241 53.7855 496.4";
+      rotation = "1 0 0 0";
+      scale = "18 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-98.4058 111.477 472.566";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-79.8399 111.496 496.124";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-91.4303 111.495 490.006";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-93.8654 111.487 483.316";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-103.17 202.988 446.758";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new InteriorInstance() {
+      position = "-98.4646 111.765 472.237";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-98.4448 112.22 471.767";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-103.188 -236.003 471.742";
+      rotation = "1 0 0 0";
+      scale = "1 200 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-103.183 153.164 446.727";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-103.135 172.049 446.527";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-103.203 172.996 446.527";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-103.385 200.718 446.527";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-102.938 201.348 446.587";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-103.018 202.293 446.648";
+      rotation = "0 0 1 25";
+      scale = "1 1 1";
+      dataBlock = "TriangleBumper";
+   };
+   new InteriorInstance() {
+      position = "-107.048 193.721 471.672";
+      rotation = "1 0 0 0";
+      scale = "9 9 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-107.05 211.733 446.543";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-155.586 193.721 463.722";
+      rotation = "1 0 0 0";
+      scale = "9 9 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-34.6435 15.7166 500.328";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new InteriorInstance() {
+      position = "-75.94 107.656 496.196";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-75.8688 116.676 472.444";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new InteriorInstance() {
+      position = "-88.9962 104.499 496.374";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-89.0015 113.537 472.597";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new StaticShape() {
+      position = "-102.278 113.531 465.954";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new InteriorInstance() {
+      position = "-102.273 104.493 489.731";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-104.627 113.561 459.264";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new InteriorInstance() {
+      position = "-104.621 104.523 483.041";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-106.434 104.758 472.344";
+      rotation = "1 0 0 0";
+      scale = "4.5 4.5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-106.424 113.844 448.592";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignCautionDanger";
+   };
+   new StaticShape() {
+      position = "-57.8386 62.9467 483.744";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

@@ -1,0 +1,570 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "Andrew";
+         name = "Hazard Havoc";
+         goldTime = "120000";
+         type = "LBCustom";
+         desc = "Beware of the hazards that may impede your progress, yet utilize those that will help you complete this course!";
+         UltimateTime = "80000";
+         level = "22";
+         startHelpText = "Can you differentiate between the helpful and harmful hazards?";
+         music = "Astrolabe.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569861149077900047473967104.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160049016675429178998259712.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.481726 0.481726 -0.732038";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         locked = "true";
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+   };
+   new InteriorInstance() {
+      position = "-37.9577 -119.839 531.817";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/HazardHavoc.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         powerUp = "0";
+         bonusTime = "0";
+         time = "0";
+         gemCount = "0";
+         penaltyTime = "0";
+         Pad = "4336";
+   };
+   new ScriptObject() {
+         powerUp = "0";
+         bonusTime = "0";
+         time = "0";
+         gemCount = "0";
+         penaltyTime = "0";
+         Pad = "2709";
+   };
+   new Trigger(IBT) {
+      position = "-82.6659 -29.6458 513.016";
+      rotation = "1 0 0 0";
+      scale = "80 100 150";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "-40.6922 -116.939 529.57";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape() {
+      position = "-47.1476 -96.779 531.1";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "Tornado";
+   };
+   new StaticShape() {
+      position = "-34.7161 -96.779 531.1";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "Tornado";
+   };
+   new StaticShape() {
+      position = "-41.5172 -107.855 529.539";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-39.9727 -107.855 529.539";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-40.6898 -88.9594 537.579";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-41.4639 -66.0929 540.48";
+      rotation = "-1 0 0 33";
+      scale = "2 2 1";
+      dataBlock = "TriangleBumper";
+   };
+   new StaticShape() {
+      position = "-43.8816 -68.7675 539.04";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignUpSide";
+   };
+   new StaticShape() {
+      position = "-41.6967 -90.3399 544.568";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new Item() {
+      position = "-41.6671 -87.4617 543.57";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-41.6121 -64.1882 542.144";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-41.6671 -72.1781 545.429";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-44.0163 -85.6282 543.542";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-64.6838 -78.7141 540.209";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-66.3929 -78.3921 543.555";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignDown";
+   };
+   new Item() {
+      position = "-64.6882 -78.4409 537.213";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-67.6836 -83.4702 543.415";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignUpSide";
+   };
+   new Item() {
+      position = "-67.3808 -96.2238 546.57";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-72.6605 -94.2571 546.441";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-75.5834 -96.2273 547.306";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-75.5834 -92.2248 547.306";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-70.2732 -98.4485 546.226";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-55.734 -96.2151 549.67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         open = "0";
+         timeout = "200";
+         resetTime = "Default";
+   };
+   new Item() {
+      position = "-61.7307 -96.2455 549.794";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-46.7545 -95.9999 559.638";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new StaticShape() {
+      position = "-44.8261 -95.9336 559.56";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-58.1991 -94.3055 549.399";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignUp";
+   };
+   new StaticShape() {
+      position = "-44.146 -93.9321 559.413";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignUp";
+   };
+   new StaticShape() {
+      position = "-28.7623 -97.1951 569.301";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-26.6826 -96.9619 563.41";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignUp";
+   };
+   new Item() {
+      position = "-28.7687 -96.9749 572.429";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "0";
+   };
+   new Item() {
+      position = "-34.7147 -97.034 570.183";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-23.7343 -93.9646 571.565";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "checkPoint";
+   };
+   new StaticShape() {
+      position = "-21.7521 -97.3336 571.498";
+      rotation = "0 0 -1 45";
+      scale = "1 1 1";
+      dataBlock = "SignUp";
+   };
+   new Item() {
+      position = "-23.6821 -99.9835 577.601";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-17.7633 -93.5802 571.558";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-20.7183 -99.9541 571.565";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new Item() {
+      position = "-18.5789 -96.9759 530.596";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.2";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-9.15251 -100.114 568.164";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignDown";
+   };
+   new StaticShape() {
+      position = "-12.411 -98.798 559.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TriangleBumper";
+   };
+   new Item() {
+      position = "-12.3928 -98.789 559.525";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-67.6187 -89.9248 547.543";
+      rotation = "0 0 1 220";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new StaticShape() {
+      position = "-25.9049 -83.3918 563.479";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Item() {
+      position = "-22.7179 -96.8818 563.734";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-23.7323 -87.4198 568.41";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new Item() {
+      position = "-23.7136 -64.0322 566.622";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-23.5486 -87.1762 567.184";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-25.805 -64.3925 560.159";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-21.8605 -64.3925 560.159";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-11.7089 -50.1279 560.186";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "Tornado";
+   };
+   new StaticShape() {
+      position = "-11.7809 -56.2482 560.179";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "Tornado";
+   };
+   new Item() {
+      position = "-10.758 -53.0704 560.297";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-20.5398 -54.4549 561.413";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignCautionDanger";
+   };
+   new StaticShape() {
+      position = "-37.7752 -37.9059 562.599";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignUpSide";
+   };
+   new StaticShape() {
+      position = "-23.6818 -37.9876 562.599";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new StaticShape() {
+      position = "-39.5929 -40.0741 564.521";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         open = "0";
+         timeout = "200";
+         resetTime = "Default";
+   };
+   new Item() {
+      position = "-35.7557 -44.1156 566.751";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-39.4393 -66.8174 569.057";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignUpSide";
+   };
+   new StaticShape() {
+      position = "-40.6687 -73.2797 568.91";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "Tornado";
+   };
+   new Item() {
+      position = "-40.8235 -89.9476 577.565";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         pickUpCheckpoint = "1";
+   };
+   new StaticShape() {
+      position = "-40.8469 -93.3092 577.437";
+      rotation = "0 0 1 225";
+      scale = "1 1 1";
+      dataBlock = "SignUpSide";
+   };
+   new StaticShape() {
+      position = "-43.8755 -91.7375 578.744";
+      rotation = "0 0 1 225";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new StaticShape() {
+      position = "-40.6877 -96.9365 584.055";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "Nuke";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-41.4972 -96.5039 584.018";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignUp";
+   };
+   new StaticShape(EndPoint) {
+      position = "-40.7374 -99.9742 607.57";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new StaticShape() {
+      position = "-41.2887 -100.237 613.992";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Metropolis.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

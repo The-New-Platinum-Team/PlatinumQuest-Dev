@@ -1,0 +1,134 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "23";
+         music = "Pianoforte.ogg";
+         name = "Knock, Knock";
+         artist = "Henry";
+         desc = "Knock, knock! Who\'s there? Wood! Wood who? Wood you open the door already?!?!";
+         goldTime = "4750";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         rotation = "1 0 0 0";
+         locked = "true";
+         scale = "1 1 1";
+         position = "0 0 0";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "7.39652 9.15935 496.953";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "9.24947 -43.6983 496.83";
+         rotation = "0 0 1 179.518";
+         scale = "1 1 1";
+         dataBlock = "EndPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "9.04587 10.3785 496.891";
+      rotation = "1 0 0 180";
+      scale = "6 6 0.01";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "8.35673 -230.241 588.592";
+      rotation = "1 0 0 0";
+      scale = "0.01 100 3.6";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "9.25064 -5.15484 497.702";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         open = "0";
+         timeout = "200";
+         resetTime = "Default";
+   };
+   new TSStatic() {
+      position = "9.33591 -24.191 496.86";
+      rotation = "1 0 0 0";
+      scale = "1 20 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+   };
+   new InteriorInstance() {
+      position = "10.1619 -230.214 588.483";
+      rotation = "1 0 0 0";
+      scale = "0.01 100 3.6";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "8.98297 -230.306 515.936";
+      rotation = "1 0 0 0";
+      scale = "6 100 0.7";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "9.25737 -44.833 573.142";
+      rotation = "1 0 0 0";
+      scale = "4 0.01 3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+      showTerrainInside = "0";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-10.1798 29.0916 493.498";
+      rotation = "1 0 0 0";
+      scale = "40 80 10";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+};
+//--- OBJECT WRITE END ---

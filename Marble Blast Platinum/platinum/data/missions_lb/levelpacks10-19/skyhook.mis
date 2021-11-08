@@ -1,0 +1,610 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         desc = "Use the powerups at just the moment to get to the next level.";
+         artist = "Sparky";
+         startHelpText = "Use the powerups at just the right moment to get to the next level. Collect all the gems";
+         level = "37";
+         type = "LBCustom";
+         name = "SkyHook";
+         time = "75000";
+         goldTime = "42000";
+         music = "Rising Temper.ogg";
+         AlarmStartTime = "20";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 -2.45543e+038 -2.46872e+038";
+      fogVolume2 = "-1 -1.70141e+038 -1.7281e+038";
+      fogVolume3 = "-1 -3.33835e+038 -3.33835e+038";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -265481509622188020000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -333834609190347200000000000000000000000.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -1.000000";
+   };
+   new Sun() {
+      direction = "0.433884 0.614021 -0.659336";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new ScriptObject() {
+         powerUp = "0";
+         pad = "1641";
+         penaltyTime = "0";
+         bonusTime = "0";
+         time = "0";
+         gemCount = "0";
+   };
+   new StaticShape(StartPoint) {
+      position = "-41.716 37.9151 2.39146";
+      rotation = "0 0 1 93.9647";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "-31.6 -94.4 26.2566";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new Trigger(Bounds) {
+      position = "-86.5758 83.4138 -19";
+      rotation = "1 0 0 0";
+      scale = "161.26 188.206 83.1828";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "-31.6417 -94.4949 32.2378";
+      rotation = "0 0 1 1.1467";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new ScriptObject() {
+         powerUp = "0";
+         pad = "1507";
+         bonusTime = "0";
+         penaltyTime = "0";
+         time = "0";
+         gemCount = "0";
+   };
+   new StaticShape() {
+      position = "-40.9494 -23.3554 -2.05981";
+      rotation = "1 0 0 0";
+      scale = "1.38334 1.47827 1.39162";
+      dataBlock = "Tornado";
+   };
+   new Item() {
+      position = "-48.966 -13.9607 0.79602";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-33.1446 -11.6979 7.72634";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-42.3397 -14.5317 0.2515";
+      rotation = "1 0 0 0";
+      scale = "1.38334 1.47827 1.39162";
+      dataBlock = "Tornado";
+   };
+   new ScriptObject() {
+         powerUp = "0";
+         pad = "1733";
+         penaltyTime = "0";
+         bonusTime = "0";
+         time = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "-31.5186 -22.9784 45.663";
+      rotation = "0 0 -1 90.5273";
+      scale = "0.80349 0.855328 0.708579";
+      interiorFile = "~/data/lbinteriors_custom/mbg/ramp1mb.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "11.7803 38.5222 -11.7125";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-60.0715 37.4828 4.71958";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "3.48029 40.3256 14.9214";
+      rotation = "0 -1 0 12.0323";
+      scale = "1 1 1";
+      dataBlock = "oilslick";
+   };
+   new StaticShape() {
+      position = "3.33691 36.0559 14.9382";
+      rotation = "0 -1 0 11.4593";
+      scale = "1 1 1";
+      dataBlock = "oilslick";
+   };
+   new Item() {
+      position = "-33.06 -10.7932 3.74798";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemTurquoise";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-15.5649 35.7653 18.7321";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-15.546 37.3031 18.7315";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-15.5029 38.9752 18.7275";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-15.5054 40.5645 18.7162";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-53.9731 41.8796 25.0959";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "oilslick";
+   };
+   new StaticShape() {
+      position = "-46.8447 38.2297 25.0847";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "oilslick";
+   };
+   new StaticShape() {
+      position = "-53.463 37.566 25.0773";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "oilslick";
+   };
+   new Item() {
+      position = "-23.0719 33.8378 2.48379";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlue";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3.83273 38.3869 15.6805";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-33.1528 33.3664 19.0193";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemYellow";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-46.9585 37.9254 25.5072";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemPurple";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-55.1042 9.10601 21.811";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemGreen";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-26.0709 35.1861 18.7729";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-17.511 37.0415 18.7366";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-17.2334 38.1859 18.7253";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-17.274 34.9245 18.7406";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-17.2929 33.3867 18.7412";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-17.0093 43.0158 18.7364";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-17.0713 39.8059 18.741";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-17.0524 41.3437 18.7404";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19.4874 35.9251 18.7468";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19.5063 34.3873 18.7474";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19.4443 37.5972 18.7428";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19.4468 39.1865 18.7315";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19.2847 40.8065 18.7472";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19.2658 42.3443 18.7466";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-24.3928 42.5974 18.7974";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-24.4117 41.0596 18.798";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-24.5738 39.4396 18.7823";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-24.5713 37.8503 18.7936";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-24.6144 36.1782 18.7976";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-24.6333 34.6404 18.7982";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.4199 33.6398 18.792";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.401 35.1776 18.7914";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.3579 36.8497 18.7874";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.3604 38.439 18.7761";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.1983 40.059 18.7918";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.1794 41.5968 18.7912";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-22.1363 43.2689 18.7872";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-20.6324 40.8176 18.767";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-20.6299 39.2283 18.7783";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-20.673 37.5562 18.7823";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-20.675 36.5231 18.7829";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-30.2594 42.7589 18.7874";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-30.2783 41.2211 18.788";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-30.4404 39.6011 18.7723";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-30.4379 38.0118 18.7836";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-30.481 36.3397 18.7876";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-30.4999 34.8019 18.7882";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-28.2865 33.8013 18.782";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-28.2676 35.3391 18.7814";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-26.9778 36.6564 18.7774";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-28.227 38.6005 18.7661";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-28.1357 32.7963 18.7818";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-28.046 41.7583 18.7812";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-28.0029 43.4304 18.7772";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-26.499 40.9791 18.757";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-26.4965 39.3898 18.7683";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-26.5396 37.7177 18.7723";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---
