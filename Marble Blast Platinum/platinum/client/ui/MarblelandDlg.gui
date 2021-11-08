@@ -446,7 +446,7 @@ function MarblelandDlg::DownloadMission(%this) {
 	mkdir("packages/marbleland", 493);
 	chmod("packages/marbleland", 493);
 	MarblelandDownloader.setDownloadPath("packages/marbleland/" @ %mission.id @ ".mbpak");
-	MarblelandDownloader.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/mbpak","");
+	MarblelandDownloader.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/mbpak","assuming=none&append-id-to-mis=1");
 
 	$MarblelandDownloadId = %mission.id;
 
@@ -478,7 +478,10 @@ function MarblelandDownloader::onDownload(%this, %path) {
 
 function MarblelandDownloader::onDisconnect(%this) {
 	MarblelandSearchPlay.setActive(true);
-	if (%this.success) {
+	%id = MarblelandSearchMissionList.getSelectedId();
+	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
+
+	if (%this.success && %mission.id == $MarblelandDownloadId) {
 		MarblelandSearchDelete.setVisible(true);
 		MarblelandSearchPlay.setVisible(false);
 	} else {
