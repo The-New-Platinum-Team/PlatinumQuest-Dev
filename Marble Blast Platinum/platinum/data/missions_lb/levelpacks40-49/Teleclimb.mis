@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         goldTime = "30000";
-         time = "0";
-         desc = "Climb to the top using the teleporters!";
-         UltimateTime = "16500";
-         name = "Teleclimb";
-         level = "39";
+         Time = "0";
          artist = "Ultrablast";
+         desc = "Climb to the top using the teleporters!";
+         goldTime = "30000";
+         level = "39";
+         name = "Teleclimb";
          type = "Custom";
+         ultimateTime = "16500";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -53,7 +53,7 @@ new SimGroup(MissionGroup) {
       position = "-24.7185 10.9713 8.85454";
       rotation = "1 0 0 0";
       scale = "1 1 1.2";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -86,7 +86,7 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          destination = "destination2";
    };
-   new Trigger(teleport1) {
+   new Trigger(Teleport1) {
       position = "1.76264 6.48672 0.0699999";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -108,12 +108,12 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new ScriptObject() {
-         time = "0";
-         gemCount = "0";
+         Time = "0";
          bonusTime = "0";
-         penaltyTime = "0";
-         powerUp = "0";
+         gemCount = "0";
          pad = "1924";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new Trigger(destination3) {
       position = "-24.6559 11.9522 7.29734";
@@ -138,6 +138,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-5.66016 17.0498 -3.02348";
@@ -147,6 +149,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-7.14736 6.95394 2.65666";
@@ -158,12 +162,12 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new ScriptObject() {
-         time = "0";
-         gemCount = "0";
+         Time = "0";
          bonusTime = "0";
-         penaltyTime = "0";
-         powerUp = "0";
+         gemCount = "0";
          pad = "3523";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new Item() {
       position = "-17.6936 5.03536 2.50619";
@@ -173,7 +177,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "0.283908 12.4204 -7.49872";
@@ -183,7 +186,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-3.74556 2.45496 -3.49446";
@@ -193,7 +195,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Trigger(IBT) {
       position = "-26.7693 21.1946 -14.7187";
@@ -202,10 +203,21 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "3.64876 -2.80613 31.7195";
+         rotation = "0.76744 0.337545 -0.545068 77.8025";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Trigger(SJBottem) {
       position = "-8.23275 10.5266 16.9546";
@@ -213,6 +225,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Use the Jump Boost you used last time to get to the finish!";
    };
 };

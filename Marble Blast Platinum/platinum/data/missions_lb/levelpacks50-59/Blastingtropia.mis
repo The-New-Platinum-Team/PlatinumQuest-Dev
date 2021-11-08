@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         name = "Blastingtropia";
-         UltimateTime = "60000";
-         level = "6";
          artist = "CyberFox";
-         goldTime = "80000";
          desc = "Back and fourth will kick your balls. Slippy is shitty, keep in mind. and the EE you will find.";
+         goldTime = "80000";
+         level = "6";
+         name = "Blastingtropia";
          type = "Custom";
+         ultimateTime = "60000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -35,7 +35,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/beginner/beginner_Sky.dml";
+      materialList = "~/data/skies/Beginner/Beginner_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -89,7 +89,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -131,7 +131,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -173,7 +173,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
          interiorIndex = "2";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -215,7 +215,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
          interiorIndex = "3";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -257,7 +257,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
          interiorIndex = "4";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -299,7 +299,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
          interiorIndex = "5";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -357,7 +357,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/CFcustom/Blastingtropia.dif";
          interiorIndex = "6";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -392,6 +392,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-52.7907 30.2658 19.1968";
@@ -410,6 +412,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new TSStatic() {
       position = "-15.5 28.75 36";
@@ -421,7 +425,7 @@ new SimGroup(MissionGroup) {
       position = "-13.0169 4.98011 20.2108";
       rotation = "1 0 0 0";
       scale = "1 1 1.276";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -594,6 +598,8 @@ new SimGroup(MissionGroup) {
       scale = "1.5 0.5 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "trims are just marking";
    };
    new Trigger(Help2) {
@@ -602,6 +608,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Same here :P";
    };
    new Trigger(Help3) {
@@ -610,12 +618,64 @@ new SimGroup(MissionGroup) {
       scale = "2 12 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Lol, you could have jumped straight over :P";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "35.3017 -2.30163 69.08";
+         rotation = "0.653591 0.285864 -0.700786 63.9381";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "31.8709 86.3642 67.8014";
+         rotation = "-0.156428 -0.340917 0.926987 226.085";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-55.5894 87.4502 67.8014";
+         rotation = "0.114121 -0.361436 0.925387 147.425";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-56.0877 -18.0169 67.8014";
+         rotation = "0.609736 -0.275434 0.743208 62.583";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

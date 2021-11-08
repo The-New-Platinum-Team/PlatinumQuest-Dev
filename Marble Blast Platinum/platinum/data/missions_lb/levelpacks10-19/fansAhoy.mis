@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "14";
-         music = "Rising Temper.ogg";
-         startHelpText = "Use the fans to get higher!";
-         name = "Fans Ahoy!";
+         Time = "0";
          artist = "marbleman";
-         time = "0";
          desc = "Thanks to the guy who invented fans!";
          goldTime = "45000";
+         level = "14";
+         music = "Rising Temper.ogg";
+         name = "Fans Ahoy!";
+         startHelpText = "Use the fans to get higher!";
          type = "LBCustom";
    };
    new MissionArea(MissionArea) {
@@ -61,7 +61,7 @@ new SimGroup(MissionGroup) {
       position = "0.06875 2.82188 0.4125";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "StartPad";
+      dataBlock = "StartPad_MBG";
          fixedscale = "1";
    };
    new StaticShape() {
@@ -74,7 +74,7 @@ new SimGroup(MissionGroup) {
       position = "9.01051 4.0022 64.1465";
       rotation = "0 0 1 90";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new InteriorInstance() {
       position = "-3.07502 6.81691 0.51676";
@@ -116,6 +116,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "3.2625 16.5705 5.5177";
@@ -150,6 +152,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "14.9964 14.613 12.1396";
@@ -202,6 +206,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new Item() {
       position = "6.78175 5.60103 30.0643";
@@ -211,6 +217,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new InteriorInstance() {
       position = "-26.0632 33.8451 28.6721";
@@ -230,19 +238,19 @@ new SimGroup(MissionGroup) {
       position = "-10.5795 18.6326 28.6221";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "tornado";
+      dataBlock = "Tornado";
    };
    new StaticShape() {
       position = "-13.324 20.1906 28.5721";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "tornado";
+      dataBlock = "Tornado";
    };
    new StaticShape() {
       position = "-14.3002 16.708 28.6176";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "tornado";
+      dataBlock = "Tornado";
    };
    new InteriorInstance() {
       position = "-6.72263 15.0896 28.6221";
@@ -367,7 +375,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "LandMine";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "-22.2129 14.9692 49.614";
@@ -399,14 +407,14 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "LandMine";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "-21.9684 9.09859 60.031";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "LandMine";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "-18.0796 4.17085 57.0485";
@@ -432,8 +440,10 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resettime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -441,8 +451,10 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resettime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -450,8 +462,10 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resettime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -459,8 +473,10 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         resetTime = "Default";
+         mbuanim = "0";
          open = "0";
+         resettime = "Default";
+         skin = "skin1";
          timeout = "200";
    };
    new StaticShape() {
@@ -477,6 +493,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new InteriorInstance() {
       position = "-16.2877 7.29922 63.2721";
@@ -504,10 +522,86 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "DuctFan";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "14.4309 -7.24335 34.0087";
+         rotation = "0.790927 0.231256 -0.56653 54.5967";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-36.1586 -5.61913 47.3123";
+         rotation = "0.494284 -0.221743 0.840544 56.1794";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-32.3966 40.5594 47.1883";
+         rotation = "0.0868292 -0.232399 0.968737 140.206";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "9.66728 35.2867 47.1883";
+         rotation = "-0.118546 -0.262798 0.957541 226.723";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-24.1823 14.8192 62.9725";
+         rotation = "0.0577307 -0.0984568 0.993465 119.556";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "2.07525 7.27774 67.704";
+         rotation = "0.132523 -0.210101 0.968656 117.151";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "46";
-         type = "LBCustom";
-         name = "Vertigo";
          artist = "marbleman";
-         goldTime = "23000";
          desc = "You\'ll need high hopes for this one!";
-         startHelpText = "Remember to line up first!";
+         goldTime = "23000";
+         level = "46";
          music = "Seaside Revisited.ogg";
+         name = "Vertigo";
+         startHelpText = "Remember to line up first!";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -49,8 +49,8 @@ new SimGroup(MissionGroup) {
       direction = "0.57735 0.57735 -0.57735";
       color = "1.400000 1.200000 0.600000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         position = "0 0 0";
          locked = "true";
+         position = "0 0 0";
          rotation = "1 0 0 0";
          scale = "1 1 1";
    };
@@ -60,13 +60,13 @@ new SimGroup(MissionGroup) {
          position = "-0.409746 -3 502.934";
          rotation = "1 0 0 0";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
       new StaticShape(EndPoint) {
          position = "-155.65 211.756 438.6";
          rotation = "0 0 -1 90";
          scale = "1 1 1";
-         dataBlock = "EndPad";
+         dataBlock = "EndPad_MBG";
       };
    };
    new SimGroup(Triggers) {
@@ -163,6 +163,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "1000";
    };
    new Item() {
@@ -173,6 +174,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "1000";
    };
    new Item() {
@@ -183,6 +185,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "1000";
    };
    new Item() {
@@ -193,6 +196,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "1000";
    };
    new Item() {
@@ -203,6 +207,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "1000";
    };
    new Item() {
@@ -213,6 +218,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "1000";
    };
    new StaticShape() {
@@ -575,10 +581,21 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignPlainDown";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-11.3897 -3.58688 514.231";
+         rotation = "0.63998 0.195611 -0.743076 44.718";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

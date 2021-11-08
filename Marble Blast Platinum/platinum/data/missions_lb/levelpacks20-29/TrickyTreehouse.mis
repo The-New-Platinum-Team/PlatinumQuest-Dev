@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "44";
-         UltimateTime = "22500";
+         Time = "80000";
          artist = "Phil";
-         type = "LBCustom";
-         name = "Tricky Treehouse";
-         startHelpText = "Search for the Gems low and high!";
-         time = "80000";
          desc = "A little park with some Gems that you must search for.";
          goldTime = "50000";
+         level = "44";
+         name = "Tricky Treehouse";
+         startHelpText = "Search for the Gems low and high!";
+         type = "LBCustom";
+         ultimateTime = "22500";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -92,19 +92,20 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "4000";
    };
    new StaticShape(StartPoint) {
       position = "-10 -10 2";
       rotation = "0 0 1 45";
       scale = "1 1 1";
-      dataBlock = "StartPad";
+      dataBlock = "StartPad_MBG";
    };
    new StaticShape(EndPoint) {
       position = "-14 -14 2";
       rotation = "0 0 1 225";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new Item() {
       position = "-14.35 6.5 0.5";
@@ -179,10 +180,21 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignPlainUp";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "20.272 -17.2253 27.0329";
+         rotation = "0.64904 0.288892 -0.703767 64.6239";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

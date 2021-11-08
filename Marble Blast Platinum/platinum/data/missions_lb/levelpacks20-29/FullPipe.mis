@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "13";
-         music = "Grudge.ogg";
-         startHelpText = "Look up...";
-         name = "Full-Pipe";
          artist = "Bud";
          desc = "The Half pipe of the Future!";
          goldTime = "30000";
+         level = "13";
+         music = "Grudge.ogg";
+         name = "Full-Pipe";
+         startHelpText = "Look up...";
          type = "LBCustom";
    };
    new MissionArea(MissionArea) {
@@ -49,10 +49,10 @@ new SimGroup(MissionGroup) {
       direction = "0.544508 0.439467 -0.714409";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         rotation = "1 0 0 0";
          locked = "true";
-         scale = "1 1 1";
          position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
    };
    new SimGroup(CheckPoints) {
 
@@ -60,7 +60,7 @@ new SimGroup(MissionGroup) {
          position = "0.0682295 0.50582 499.322";
          rotation = "0 0 -1 89.9544";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
    };
    new Item() {
@@ -108,7 +108,7 @@ new SimGroup(MissionGroup) {
       position = "0.678975 -17.1261 505.371";
       rotation = "0.707388 -0.706825 0.000562971 180.065";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new Item() {
       position = "-16.3132 -15.9809 487.02";
@@ -227,10 +227,21 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-16.8516 -49.4595 499.198";
+         rotation = "-0.987891 0.00492524 0.155074 3.68265";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Trigger(Bounds) {
       position = "-59.6097 36.1747 388.259";

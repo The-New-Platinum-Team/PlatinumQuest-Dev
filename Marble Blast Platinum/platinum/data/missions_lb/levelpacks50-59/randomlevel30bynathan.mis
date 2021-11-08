@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         startHelpText = "Go over the slope.";
-         type = "custom";
+         artist = "nathan";
          desc = "Mind the bend! :P                                                                  Enjoy vanilla ice-cream trim and fudge sauce backing.";
          goldTime = "14000";
          level = "3";
          name = "Banana Split";
-         UltimateTime = "9000";
-         artist = "nathan";
+         startHelpText = "Go over the slope.";
+         type = "custom";
+         ultimateTime = "9000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -33,9 +33,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 -1.73483e+09 -1.73483e+09";
-      fogVolume2 = "-1 -1.73483e+09 -1.73483e+09";
-      fogVolume3 = "-1 -1.73483e+09 -1.73483e+09";
+      fogVolume1 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume2 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume3 = "-1 -1.73483e+009 -1.73483e+009";
       materialList = "~/data/skies/Beginner/Beginner_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -102,7 +102,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/MasteringTheMarble.dif";
+         interiorResource = "platinum/data/interiors_MBP/MasteringTheMarble.dif";
          interiorIndex = "0";
          basePosition = "6 -34 5";
          baseRotation = "1 0 0 0";
@@ -129,7 +129,7 @@ new SimGroup(MissionGroup) {
       position = "-5 1 6.5";
       rotation = "1 0 0 0";
       scale = "0.5 0.5 0.5";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Trigger(Bounds) {
       position = "-15 20 -5";
@@ -146,7 +146,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-5 13 -0.45";
@@ -156,7 +155,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Trigger(helpers) {
       position = "6 10 2";
@@ -164,6 +162,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 0.5";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "nothing here c:";
    };
    new Trigger(helpers) {
@@ -172,6 +172,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Get enough speed for a double wall-hit!";
    };
    new Trigger(helpers) {
@@ -180,6 +182,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Use the jump boost to go under the wall to the finish.";
    };
    new Trigger(helpers) {
@@ -188,12 +192,64 @@ new SimGroup(MissionGroup) {
       scale = "2 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Bounce to the next platform!";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "13.7811 21.3954 15.6342";
+         rotation = "-0.114491 -0.264806 0.957481 224.976";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "15.5323 -6.68259 15.6342";
+         rotation = "0.578711 0.229119 -0.782687 53.6641";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-13.2186 -6.40356 15.6342";
+         rotation = "0.50818 -0.235775 0.82835 58.5065";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-13.7651 21.0816 15.6342";
+         rotation = "0.0911313 -0.253467 0.963042 141.803";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

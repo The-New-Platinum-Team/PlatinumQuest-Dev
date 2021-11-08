@@ -4,16 +4,16 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         startHelpText = "Let\'s start with some simple trapdoor challenges first!";
+         Time = "0";
+         artist = "Buzzmusic100";
          desc = "Trapdoors can be used in tons of different ways! Understanding the mechanics of trapdoors is a skill you\'ll need to get all the way through this level.";
-         UltimateTime = "50000";
+         goldTime = "70000";
+         level = "2";
          music = "Astrolabe.ogg";
          name = "The Art of Trapdoors";
-         level = "2";
-         artist = "Buzzmusic100";
+         startHelpText = "Let\'s start with some simple trapdoor challenges first!";
          type = "LBCustom";
-         goldTime = "70000";
-         time = "0";
+         ultimateTime = "50000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -37,9 +37,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
       materialList = "~/data/skies/Soothing Orange/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -71,27 +71,33 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-7 -1 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-5 1 25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new Item() {
       position = "-5 1 25.1775";
@@ -107,75 +113,89 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 90";
       scale = "3 3 3";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "2 12 34";
       rotation = "0 0 1 90";
       scale = "3 3 3";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-4 12 34";
       rotation = "1 0 0 0";
       scale = "3 3 3";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-16 22 35.5";
       rotation = "0 0 1 90";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "2 0 34";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "13 32 40";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "-2.4 32 41.8";
       rotation = "0 1 0 90";
       scale = "2 2 2";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "2750";
+         resettime = "2750";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "13 44 40";
       rotation = "0 0 -1 90";
       scale = "8 3 3";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "4 55 34";
       rotation = "1 0 0 0";
       scale = "2 2 2";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "Default";
+         resettime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new Trigger(Bounds) {
       position = "-70.1714 134.003 9.2";
@@ -189,33 +209,39 @@ new SimGroup(MissionGroup) {
       rotation = "0 -1 0 90";
       scale = "2 2 2";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "Default";
+         resettime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "0.999998 73 28";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "-28.0695 67 22.2878";
       rotation = "0 -1 0 9.99997";
       scale = "1.5 1.5 1.5";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-14.7 73 25.6";
       rotation = "0 1 0 90";
       scale = "2 2 2";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new Item() {
       position = "13 43 40";
@@ -225,7 +251,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "13 55 40.5";
@@ -265,9 +290,11 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 90";
       scale = "15 3 3";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new Trigger(teleoob) {
       position = "-1.75 110.75 27";
@@ -283,9 +310,11 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "4000";
+         resettime = "4000";
+         skin = "base";
+         timeout = "200";
    };
    new Trigger(oob2) {
       position = "-7 15 35";
@@ -315,9 +344,11 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "5 5 5";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "Default";
+         resettime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new Item() {
       position = "-28 55 20.8";
@@ -333,9 +364,11 @@ new SimGroup(MissionGroup) {
       rotation = "0 -1 0 92";
       scale = "9 1.5 5";
       dataBlock = "TrapDoor";
-         timeout = "200";
+         mbuanim = "0";
          open = "0";
-         resetTime = "6000";
+         resettime = "6000";
+         skin = "base";
+         timeout = "200";
    };
    new Trigger(finaldest) {
       position = "37 43 60";
@@ -352,7 +385,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "2.60007 64.5954 34.5";
@@ -362,6 +394,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "4000";
    };
    new Item() {
@@ -372,6 +405,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "5.25 15.25 36";
@@ -381,13 +416,14 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "8000";
    };
    new Item() {
       position = "-51 43 18.9";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -400,7 +436,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "4 43 72.2";
@@ -410,7 +445,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "-51 42.75 71.6";
@@ -424,6 +458,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Don\'t touch the OOB triggers above these trapdoors!";
    };
    new Trigger(oobtriggerhelp) {
@@ -432,6 +468,8 @@ new SimGroup(MissionGroup) {
       scale = "6 1 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You\'ll need to get to the higher platform. But you won\'t be able to bounce up there without doing something else first...";
    };
    new Trigger(oobtriggerhelp) {
@@ -440,6 +478,8 @@ new SimGroup(MissionGroup) {
       scale = "1 6 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Nice job!";
    };
    new Trigger(oobtriggerhelp) {
@@ -448,6 +488,8 @@ new SimGroup(MissionGroup) {
       scale = "1 6 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "If you hit the trapdoor in front of you, it will reveal a Gravity Defier. You\'ll need to get it because there\'s a diamond in it. But remember to be careful!";
    };
    new Trigger(oobtriggerhelp) {
@@ -456,18 +498,96 @@ new SimGroup(MissionGroup) {
       scale = "6 6 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "To get teleported to the last challenge, stay inside the box surrounding the trapdoor for three seconds.";
    };
    new StaticShape() {
       position = "-10 55 42";
       rotation = "0 0 -1 90";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-16.972 -10.3386 42.7123";
+         rotation = "0.711908 -0.247871 0.657075 55.8374";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-32.6501 11.1183 51.5786";
+         rotation = "0.339116 -0.249606 0.907026 78.1181";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "22.724 18.5792 60.4285";
+         rotation = "0.619214 0.232725 -0.749942 53.2362";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "24.5452 69.8812 61.4386";
+         rotation = "-0.191239 -0.34199 0.920038 234.45";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "48.6929 58.5769 73.6995";
+         rotation = "0.112159 0.186427 -0.976046 119.156";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-39.667 55.3093 75.0809";
+         rotation = "-0.0790976 -0.193965 0.977814 223.479";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

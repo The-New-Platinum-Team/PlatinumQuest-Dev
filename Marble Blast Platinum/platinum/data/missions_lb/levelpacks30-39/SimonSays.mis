@@ -2,17 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         Time = "120000";
          artist = "Kwill15";
          desc = "Just like the game: If the helptrigger contains Simon Says, then obey. If not, do the exact opposite of what it tells you.";
+         goldTime = "60000";
+         level = "38";
          name = "Simon Says";
-         goldTime = "0";
-         UltimateTime = "0";
          startHelpText = "Simon Says: Obey the messages only if I say so!";
          type = "LBCustom";
-         time = "120000";
-         goldTime = "60000";
          ultimateTime = "30000";
-	 level = "38";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -105,7 +103,7 @@ new SimGroup(MissionGroup) {
       position = "-42 52 11.25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "-42 56 11.4275";
@@ -148,7 +146,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-10 20 5.5";
@@ -158,7 +155,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-42 100 11.5";
@@ -168,7 +164,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-10 100 11.5";
@@ -178,7 +173,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-42 132 8.5";
@@ -188,7 +182,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-14.5 0 0.687";
@@ -203,7 +196,7 @@ new SimGroup(MissionGroup) {
       position = "-14.25 23.75 -1";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -212,11 +205,12 @@ new SimGroup(MissionGroup) {
       position = "-28 20 8.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "TimePenaltyItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "-500000";
+         skin = "base";
+         timePenalty = "500000";
    };
    new Item() {
       position = "-44 112 16";
@@ -226,6 +220,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "5000";
    };
    new Item() {
@@ -236,6 +231,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "5000";
    };
    new Item() {
@@ -246,7 +242,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-26 42.5 8.45";
@@ -256,7 +251,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-24 35 8.45";
@@ -266,7 +260,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-28.5 40 8.45";
@@ -276,7 +269,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-24 39.5 8.45";
@@ -286,7 +278,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Item() {
       position = "-26.5 37.5 8.45";
@@ -296,7 +287,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-
    };
    new Trigger(Bounds) {
       position = "-275.992 260.99 -67.7";
@@ -364,6 +354,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Tsk, tsk. I didn\'t say Simon says!";
    };
    new Trigger(steps) {
@@ -372,14 +364,18 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Simon Says: climb up the steps.";
    };
-   new Trigger(WallHit) {
+   new Trigger(wallhit) {
       position = "-4.85808 -1.61781 0.458339";
       rotation = "1 0 0 0";
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Simon Says: do a wall-hit to get to the top.";
    };
    new Trigger(timetravel) {
@@ -388,14 +384,18 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Remember to grab the Time Modifier!";
    };
-   new Trigger(Bumpers) {
+   new Trigger(bumpers) {
       position = "-29.6662 31.018 8.1";
       rotation = "1 0 0 0";
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Avoid the bumpers!";
    };
    new Trigger(turnRight) {
@@ -404,6 +404,8 @@ new SimGroup(MissionGroup) {
       scale = "8 8 8";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Simon Says: Turn right and turn right again.";
    };
    new Trigger(forget) {
@@ -412,6 +414,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Simon Says: you may have forgotten something...";
    };
    new Trigger(overunder) {
@@ -420,6 +424,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Simon Says: go over the first one and under the second one.";
    };
    new Trigger(colmesh) {
@@ -428,6 +434,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Simon Says: don\'t worry, there\'s colmesh ahead of you!";
    };
    new Trigger(followsigns) {
@@ -436,6 +444,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Follow the direction of the signs.";
    };
    new Trigger(findgyro) {
@@ -444,6 +454,8 @@ new SimGroup(MissionGroup) {
       scale = "8 8 16";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "No, there\'s no teleporter down here. Simon Says: look for a gyrocopter.";
    };
    new Trigger(jumpteleport) {
@@ -452,12 +464,77 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Jump into the pit. The teleporter will save you!";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "14.9557 -17.3115 19.8944";
+         rotation = "0.512486 0.185396 -0.838443 46.6769";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-22.8429 42.8199 24.5424";
+         rotation = "0.481605 0.238181 -0.843402 60.7731";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-52.8635 93.5716 21.1444";
+         rotation = "0.435174 -0.24876 0.865299 66.8991";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-56.2698 124.388 21.1444";
+         rotation = "0.344849 -0.245824 0.905897 76.3982";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-49.1042 162.04 21.1444";
+         rotation = "0.105379 -0.258038 0.960371 137.17";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Trigger(finish) {
       position = "-38.4566 154.885 10.6698";
@@ -465,6 +542,8 @@ new SimGroup(MissionGroup) {
       scale = "6 6 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Simon Says: come again soon!";
    };
 };

@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         Time = "0";
+         artist = "Mkbul";
          desc = "Welcome to the factory!";
          goldTime = "23000";
          level = "41";
+         name = "The factory!";
          startHelpText = "Welcome to the factory!";
          type = "intermediate";
-         artist = "Mkbul";
-         time = "0";
-         name = "The factory!";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -49,8 +49,8 @@ new SimGroup(MissionGroup) {
       direction = "0.68788 0.591403 0.420789";
       color = "2.400000 2.200000 2.400000 2.000000";
       ambient = "1.000000 1.000000 1.000000 1.000000";
-         position = "0 0 0";
          locked = "true";
+         position = "0 0 0";
          rotation = "1 0 0 0";
          scale = "1 1 1";
    };
@@ -60,7 +60,7 @@ new SimGroup(MissionGroup) {
          position = "-2.2 15 -5.8";
          rotation = "1 0 0 0";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
    };
    new Item() {
@@ -314,6 +314,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-4.01549 86.8952 2.29856";
@@ -332,14 +334,16 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new ScriptObject() {
-         penaltyTime = "0";
-         powerUp = "0";
-         pad = "5534";
+         Time = "0";
          bonusTime = "0";
-         time = "0";
          gemCount = "0";
+         pad = "5534";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new Trigger() {
       position = "-66.5954 101.072 -14.5";
@@ -356,6 +360,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new Item() {
       position = "0.8154 71.023 2.29352";
@@ -379,12 +385,23 @@ new SimGroup(MissionGroup) {
       position = "-2.12857 61.6981 2.35";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "17.4581 18.0678 23.3584";
+         rotation = "0.535295 0.296834 -0.79079 70.0785";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

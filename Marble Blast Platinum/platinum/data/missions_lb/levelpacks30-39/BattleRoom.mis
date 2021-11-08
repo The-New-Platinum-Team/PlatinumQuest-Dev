@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         time = "0";
-         goldTime = "60000";
-         desc = "The enemy\'s gate is down.";
-         name = "Ender\'s Level";
-         level = "4";
-         startHelpText = "Use the stars to your advantage.";
+         Time = "0";
          artist = "Bodie";
-         type = "LBCustom";
+         desc = "The enemy\'s gate is down.";
+         goldTime = "60000";
          gravity = "0.1";
+         level = "4";
+         name = "Ender\'s Level";
+         startHelpText = "Use the stars to your advantage.";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -34,9 +34,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
       materialList = "~/data/skies/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -68,13 +68,13 @@ new SimGroup(MissionGroup) {
       position = "0 0 23.5";
       rotation = "1 0 0 180";
       scale = "0.5 0.5 0.5";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new StaticShape(StartPoint) {
       position = "0 0 6.6";
       rotation = "1 0 0 0";
       scale = "0.5 0.5 0.5";
-      dataBlock = "StartPad";
+      dataBlock = "StartPad_MBG";
    };
    new InteriorInstance() {
       position = "0 -12.5 12.5";
@@ -110,7 +110,6 @@ new SimGroup(MissionGroup) {
       scale = "0.2 0.2 0.2";
       interiorFile = "~/data/lbinteriors_custom/mbg/spaceroom.dif";
       showTerrainInside = "0";
-
    };
    new InteriorInstance() {
       position = "0.669898 6.20986 13.5429";
@@ -150,7 +149,7 @@ new SimGroup(MissionGroup) {
       position = "0 0 18.8";
       rotation = "1 0 0 180";
       scale = "0.5 0.5 0.5";
-      shapeName = "~/data/shapes/pads/endarea.dts";
+      shapeName = "~/data/shapes/pads/endArea.dts";
    };
    new InteriorInstance() {
       position = "1.0699 -6.61406 10.7104";
@@ -278,10 +277,60 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/rock.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "3.71715 5.36333 18.0403";
+         rotation = "-0.177905 -0.38086 0.907356 225.938";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-6.60397 4.57961 18.0403";
+         rotation = "0.119638 -0.33341 0.93516 142.9";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-6.69654 -5.19603 18.0403";
+         rotation = "0.659462 -0.330124 0.675373 73.0928";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "3.50104 -5.471 18.0403";
+         rotation = "0.729713 0.291048 -0.618717 65.6152";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new InteriorInstance() {
       position = "2.0699 1.33298 14.0365";

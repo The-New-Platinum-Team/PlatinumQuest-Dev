@@ -2,12 +2,12 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "21";
-         goldTime = "22500";
          artist = "Phil83";
-         startHelpText = "Go quickly once you have mastered this course!";
+         desc = "Hole 17 :: \'Be Careful!\' by Phil83\n\nYou can make mistakes pretty easily in this hole so as the name says, Be Careful!";
+         goldTime = "22500";
+         level = "21";
          name = "Marble-Mini-Golf";
-         desc = "Hole 17 :: 'Be Careful!' by Phil83\n\nYou can make mistakes pretty easily in this hole so as the name says, Be Careful!";
+         startHelpText = "Go quickly once you have mastered this course!";
          type = "custom";
    };
    new MissionArea(MissionArea) {
@@ -39,19 +39,19 @@ new SimGroup(MissionGroup) {
       windVelocity = "1 1 0";
       windEffectPrecipitation = "1";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569861149077900047473967104.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
       fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160049016675429178998259712.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
          locked = "true";
    };
    new Sun() {
       direction = "0.544508 0.439467 -0.714409";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         scale = "1 1 1";
-         position = "0 0 0";
          locked = "true";
+         position = "0 0 0";
          rotation = "1 0 0 0";
+         scale = "1 1 1";
    };
    new SimGroup(CheckPoints) {
 
@@ -59,13 +59,13 @@ new SimGroup(MissionGroup) {
          position = "0 0 -1.8";
          rotation = "0 0 1 90";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
       new StaticShape(EndPoint) {
          position = "-18.2 10.45 1.5";
          rotation = "0 0 -1 90";
          scale = "0.5 0.5 1";
-         dataBlock = "EndPad";
+         dataBlock = "EndPad_MBG";
       };
    };
    new InteriorInstance() {
@@ -84,16 +84,16 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "0";
-            msToNext = "1000";
-            smoothingType = "Linear";
+            msToNext = "2200";
+            smoothingType = "Spline";
          };
          new Marker() {
             position = "0 0 0";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "0";
-            msToNext = "2200";
-            smoothingType = "Spline";
+            msToNext = "1000";
+            smoothingType = "Linear";
          };
          new Marker() {
             position = "0 -7 4";
@@ -112,19 +112,19 @@ new SimGroup(MissionGroup) {
             smoothingType = "Spline";
          };
          new Marker() {
-            position = "0 6 5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "4";
-            msToNext = "1000000";
-            smoothingType = "Spline";
-         };
-         new Marker() {
             position = "0 7 4";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
             msToNext = "1000";
+            smoothingType = "Spline";
+         };
+         new Marker() {
+            position = "0 6 5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000000";
             smoothingType = "Spline";
          };
       };
@@ -133,7 +133,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 9.99997";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/pinball0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/pinball0.dif";
          interiorIndex = "0";
          basePosition = "-3 -33 -7.5";
          baseRotation = "1 0 0 9.99997";
@@ -161,6 +161,8 @@ new SimGroup(MissionGroup) {
       scale = "2.5 1 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Go VERY slow here!";
    };
    new StaticShape() {
@@ -186,6 +188,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
          timeBonus = "3000";
    };
    new Item() {
@@ -233,6 +236,8 @@ new SimGroup(MissionGroup) {
       scale = "8 4 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Get a good run-off to pass the fans!";
    };
    new Trigger() {
@@ -241,6 +246,8 @@ new SimGroup(MissionGroup) {
       scale = "2.25 1 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Don\'t go fast here, either!";
    };
    new Trigger() {
@@ -249,6 +256,8 @@ new SimGroup(MissionGroup) {
       scale = "2 1 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You\'re above the holes!";
    };
    new Trigger() {
@@ -258,10 +267,60 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-22.5277 36.8599 17.9701";
+         rotation = "0.114807 -0.26498 0.957395 134.942";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-19.4353 -7.35051 17.9701";
+         rotation = "0.611022 -0.235766 0.75569 54.0977";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "23.5481 -8.69315 17.9701";
+         rotation = "0.675171 0.210904 -0.706869 47.682";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "21.6484 43.6434 17.9701";
+         rotation = "-0.10424 -0.241317 0.964832 225.25";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

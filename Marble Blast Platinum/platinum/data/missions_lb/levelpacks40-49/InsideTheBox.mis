@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         goldTime = "17500";
-         ultimateTime = "10500";
-         type = "Custom";
-         time = "0";
-         music = "Tim Trance.ogg";
+         Time = "0";
          artist = "HiGuy";
-         level = "19";
-         name = "Inside the Box";
          desc = "Use your marble agility to ascend this small level.";
+         goldTime = "17500";
+         level = "19";
+         music = "Tim Trance.ogg";
+         name = "Inside the Box";
+         type = "Custom";
+         ultimateTime = "10500";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -34,9 +34,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
       materialList = "~/data/skies/Cloudy/cloudy.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -64,6 +64,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "5000";
    };
    new InteriorInstance() {
@@ -81,7 +82,7 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(EndPoint) {
       position = "8.25 6.75 15";
-      rotation = "0 0 1 89.99998";
+      rotation = "0 0 1 90";
       scale = "1 1 1";
       dataBlock = "EndPad";
    };
@@ -147,6 +148,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "5000";
    };
    new Item() {
@@ -157,6 +159,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "5000";
    };
    new Trigger(Bounds) {
@@ -165,6 +168,22 @@ new SimGroup(MissionGroup) {
       scale = "60.5 60.5 60.5";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "9.37707 -17.0331 28.4103";
+         rotation = "1 5.58794e-009 -1.49744e-008 40.9277";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

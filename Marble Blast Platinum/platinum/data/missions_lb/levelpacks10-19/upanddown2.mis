@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "48";
-         music = "Grudge.ogg";
-         startHelpText = "Take your time!";
-         name = "Part II: Down!";
          artist = "MaximumSpazz";
          desc = "Climb down the many obstacles to get to the bottom";
          goldTime = "78000";
+         level = "48";
+         music = "Grudge.ogg";
+         name = "Part II: Down!";
+         startHelpText = "Take your time!";
          type = "LBCustom";
    };
    new MissionArea(MissionArea) {
@@ -50,56 +50,56 @@ new SimGroup(MissionGroup) {
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
    new ScriptObject() {
-         Pad = "1902";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "1902";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new StaticShape(StartPoint) {
       position = "-58.8267 -152.486 361.4";
       rotation = "0 0 1 180";
       scale = "1 1 1";
-      dataBlock = "StartPad";
+      dataBlock = "StartPad_MBG";
    };
    new StaticShape(EndPoint) {
       position = "-43.2076 109.579 -23.2";
       rotation = "0 0 1 180";
       scale = "10 10 10";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new ScriptObject() {
-         Pad = "1902";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "1902";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new ScriptObject() {
-         Pad = "1526";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "1526";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new ScriptObject() {
-         Pad = "1902";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "1902";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new ScriptObject() {
-         Pad = "5055";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "5055";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new Item() {
       position = "-59.792 23.0375 71.0831";
@@ -258,7 +258,7 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "-58.9084 -48.5562 377.992";
-      rotation = "0.0897294 0.0795968 -0.992781 88.8631";
+      rotation = "0.0897293 0.0795968 -0.99278 88.8632";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall3.dif";
       showTerrainInside = "0";
@@ -311,15 +311,15 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "15 15 20";
       dataBlock = "LandMine";
-         resetTime = "Default";
+         resettime = "Default";
    };
    new ScriptObject() {
-         Pad = "2630";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "2630";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new InteriorInstance() {
       position = "-23.9495 49.9002 210.842";
@@ -561,12 +561,12 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new ScriptObject() {
-         Pad = "1908";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "1908";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new InteriorInstance() {
       position = "-64.4294 -61.163 360.486";
@@ -647,12 +647,12 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new ScriptObject() {
-         Pad = "1906";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "1906";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new InteriorInstance() {
       position = "-55.4051 76.2046 312.458";
@@ -697,6 +697,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Activate the gyrocopter right before jumping and aim for the top blue spot on the sphere";
    };
    new Trigger() {
@@ -705,6 +707,8 @@ new SimGroup(MissionGroup) {
       scale = "2 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Hold down the powerup button and fly to the top";
    };
    new Item() {
@@ -778,12 +782,12 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new ScriptObject() {
-         Pad = "5186";
-         penaltyTime = "0";
-         PowerUp = "0";
-         time = "0";
+         Time = "0";
          bonusTime = "0";
          gemCount = "0";
+         pad = "5186";
+         penaltyTime = "0";
+         powerup = "0";
    };
    new Trigger() {
       position = "-18.6319 49.5005 217.742";
@@ -791,6 +795,8 @@ new SimGroup(MissionGroup) {
       scale = "4 4 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Aim for the pad with the giant gem";
    };
    new InteriorInstance() {
@@ -814,10 +820,151 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall5.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-70.2249 -149.243 366.545";
+         rotation = "0.0530466 -0.176361 0.982895 147.061";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-96.6197 -223.56 366.506";
+         rotation = "0.0803306 -0.114596 0.990159 110.472";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-76.6365 -266.32 366.506";
+         rotation = "0.396861 -0.114613 0.910695 35.1896";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-7.9751 -259.255 366.506";
+         rotation = "0.860248 0.14566 -0.488628 38.2254";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "8.41423 -194.745 341.533";
+         rotation = "0.553502 0.201887 -0.808008 48.59";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "2.13641 1.54237 270.764";
+         rotation = "0.475972 0.16825 -0.863217 44.5383";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "1.04219 63.5629 254.315";
+         rotation = "0.328915 0.240319 -0.91327 77.3218";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "-42.3992 108.202 230.617";
+         rotation = "-0.175431 -0.350949 0.919815 229.385";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath9";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath9) {
+         position = "-52.7377 102.344 213.15";
+         rotation = "-0.424767 -0.581895 0.693521 233.701";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath10";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath10) {
+         position = "-41.236 111.301 59.0572";
+         rotation = "0.787313 -0.396298 0.47232 93.6436";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath11";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath11) {
+         position = "-47.7793 108.833 0.361898";
+         rotation = "0.0296196 -0.642481 0.765729 175.956";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         type = "Custom";
-         startHelpText = "Symmetry to the rescue, again!";
-         name = "High Beam";
-         desc = "A test of accuracy in acceleration.\n";
-         level = "17";
          artist = "Technique Puzzles by technostick";
+         desc = "A test of accuracy in acceleration.\n";
          goldTime = "10000";
+         level = "17";
+         name = "High Beam";
+         startHelpText = "Symmetry to the rescue, again!";
+         type = "Custom";
          ultimateTime = "8500";
    };
    new MissionArea(MissionArea) {
@@ -49,8 +49,8 @@ new SimGroup(MissionGroup) {
       direction = "0.544508 0.439467 -0.714409";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         position = "0 0 0";
          locked = "true";
+         position = "0 0 0";
          rotation = "1 0 0 0";
          scale = "1 1 1";
    };
@@ -60,32 +60,45 @@ new SimGroup(MissionGroup) {
          position = "-4 0 0";
          rotation = "0 0 1 90";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
       new StaticShape(EndPoint) {
          position = "4 0 0";
-         rotation = "0 0 1 -90";
+         rotation = "0 0 -1 90";
          scale = "1 1 1";
-         dataBlock = "EndPad";
+         dataBlock = "EndPad_MBG";
       };
    };
-
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "3.1875 4.3125 -1907.5";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.125 0.125 17.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/advanced/twisting.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/advanced/twisting.dif";
          interiorIndex = "20";
          basePosition = "3.1875 4.3125 -1907.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.125 0.125 17.5";
             initialTargetPosition = "0";
       };
@@ -93,39 +106,66 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "3.1875 -1.6875 -1907.5";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.125 0.125 17.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/advanced/twisting.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/advanced/twisting.dif";
          interiorIndex = "20";
          basePosition = "3.1875 -1.6875 -1907.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.125 0.125 17.5";
             initialTargetPosition = "0";
       };
    };
-
-
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "1.3 -22 10";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.26 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "7";
-         basePosition = "1.30 -22 10";
+         basePosition = "1.3 -22 10";
          baseRotation = "1 0 0 0";
          baseScale = "0.26 1 1";
             initialTargetPosition = "0";
@@ -134,15 +174,30 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
+         position = "5.25 -22.01 16.51";
+         rotation = "0 1 0 90";
+         scale = "0.25 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "7";
          basePosition = "5.25 -22.01 16.51";
          baseRotation = "0 1 0 90";
@@ -150,23 +205,36 @@ new SimGroup(MissionGroup) {
             initialTargetPosition = "0";
       };
    };
-
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "4 18 19.875";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 1 1.0526";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/battlements.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/battlements.dif";
          interiorIndex = "2";
          basePosition = "4 18 19.875";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 1 1.0526";
             initialTargetPosition = "0";
       };
@@ -174,35 +242,64 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "4 2 19.875";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 1 1.0526";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/battlements.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/battlements.dif";
          interiorIndex = "2";
          basePosition = "4 2 19.875";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 1 1.0526";
             initialTargetPosition = "0";
       };
    };
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
+         position = "-6 -8 -2.75";
+         rotation = "0 0 1 90";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-6 -8 -2.75";
          baseRotation = "0 0 1 90";
@@ -213,15 +310,30 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
+         position = "-8 -8 -2.75";
+         rotation = "0 0 1 90";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-8 -8 -2.75";
          baseRotation = "0 0 1 90";
@@ -232,15 +344,30 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
+         position = "-6 13 -2.75";
+         rotation = "0 0 1 90";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-6 13 -2.75";
          baseRotation = "0 0 1 90";
@@ -251,15 +378,30 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
+         position = "-8 13 -2.75";
+         rotation = "0 0 1 90";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-8 13 -2.75";
          baseRotation = "0 0 1 90";
@@ -270,18 +412,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-6 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-6 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -289,18 +446,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-7 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-7 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -308,18 +480,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-8 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-8 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -327,18 +514,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-9 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-9 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -346,18 +548,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-6 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-6 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -365,18 +582,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-7 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-7 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -384,18 +616,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-8 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-8 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -403,38 +650,67 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-9 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-9 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
    };
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "1 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "1 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -442,18 +718,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "2 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "2 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -461,18 +752,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "3 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "3 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -480,18 +786,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "4 -6 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "4 -6 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -499,18 +820,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "1 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "1 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -518,18 +854,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "2 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "2 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -537,18 +888,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "3 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "3 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -556,38 +922,67 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "4 -8 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "4 -8 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
    };
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "0 1 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "0 1 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -595,18 +990,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "0 -3 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "0 -3 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -614,18 +1024,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "0 -7 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "0 -7 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -633,18 +1058,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "0 -11 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "0 -11 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -652,18 +1092,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "0 -15 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "0 -15 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -671,18 +1126,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-5 1 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-5 1 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -690,18 +1160,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-5 -3 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-5 -3 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -709,18 +1194,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-5 -7 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-5 -7 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -728,18 +1228,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-5 -11 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-5 -11 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -747,39 +1262,67 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-5 -15 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-5 -15 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
    };
-
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-1 -3 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-1 -3 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -787,18 +1330,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-1 -7 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-1 -7 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -806,18 +1364,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-1 -11 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-1 -11 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -825,18 +1398,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-4 -3 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-4 -3 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -844,18 +1432,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-4 -7 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-4 -7 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -863,18 +1466,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-4 -11 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-4 -11 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -882,18 +1500,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-2 -3 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-2 -3 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -901,18 +1534,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-2 -7 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-2 -7 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -920,18 +1568,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-2 -11 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-2 -11 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -939,18 +1602,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-3 -3 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-3 -3 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -958,18 +1636,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-3 -7 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-3 -7 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
@@ -977,25 +1670,37 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-3 -11 -2.75";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.5 0.5 0.5";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/intermediate/marbletris.dif";
          interiorIndex = "10";
          basePosition = "-3 -11 -2.75";
-         baseRotation = "0 0 1 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.5 0.5 0.5";
             initialTargetPosition = "0";
       };
    };
-
-
-
    new Item() {
       position = "0 0 0.25";
       rotation = "1 0 0 0";
@@ -1014,10 +1719,6 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-
-
-
-
    new Trigger(Bounds) {
       position = "-20 30 -5";
       rotation = "1 0 0 0";
@@ -1025,10 +1726,60 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-13.4665 15.216 18.9757";
+         rotation = "0.113303 -0.29832 0.947717 140.408";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-12.9033 -14.0256 17.6177";
+         rotation = "0.595131 -0.235553 0.768332 54.51";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "12.2562 -12.7545 17.6177";
+         rotation = "0.596239 0.239136 -0.766364 55.2505";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "12.6391 16.032 17.6177";
+         rotation = "-0.104074 -0.284402 0.95304 218.453";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
