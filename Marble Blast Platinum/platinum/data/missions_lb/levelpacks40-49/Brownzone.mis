@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         UltimateTime = "50000";
-         time = "150000";
-         desc = "Try to survival in two zones!";
-         startHelpText = "Here is the first part - Filpical.";
+         Time = "150000";
          artist = "Steven\'s Product";
+         desc = "Try to survival in two zones!";
+         goldTime = "100000";
          level = "3";
          name = "Brown Zone";
-         goldTime = "100000";
+         startHelpText = "Here is the first part - Filpical.";
          type = "custom";
+         ultimateTime = "50000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -91,7 +91,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/Brownzone.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/Brownzone.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -138,7 +138,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "4.75354 80.9878 -23.1995";
@@ -157,7 +156,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "4.79948 81.0447 -11.004";
@@ -212,6 +210,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "5000";
    };
    new Item() {
@@ -222,6 +221,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "5000";
    };
    new Item() {
@@ -232,7 +232,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "2";
    };
    new Item() {
       position = "9.06175 53.0159 -7.65661";
@@ -251,7 +250,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "2";
    };
    new Trigger(destination) {
       position = "2.0008 43.2709 2.49647";
@@ -347,7 +345,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/Brownzone2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/Brownzone2.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -381,7 +379,7 @@ new SimGroup(MissionGroup) {
       position = "1.01032 81.0075 -9.99988";
       rotation = "0 0 1 90";
       scale = "0.5 0.5 0.5";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "28.9553 68.9784 -17.9502";
@@ -391,19 +389,18 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new StaticShape() {
       position = "1.96903 40.9822 1.99871";
       rotation = "0 0 1 180";
       scale = "0.5 0.5 0.5";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "1.99686 2.03728 1.99664";
       rotation = "0 0 1 90";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "12.1951 -19.4311 -1.95158";
@@ -413,7 +410,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "4";
    };
    new Item() {
       position = "14.9336 -3.08347 -9.502";
@@ -423,13 +419,14 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "15000";
    };
    new StaticShape() {
       position = "12.9575 -6.99509 -12.0016";
       rotation = "0 0 1 180";
       scale = "0.5 0.5 0.5";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new Item() {
       position = "-9.00737 -21.0013 -8.95064";
@@ -439,7 +436,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-8.97737 -32.952 -5.95022";
@@ -449,7 +445,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new StaticShape() {
       position = "14.9427 1.21856 16.0434";
@@ -461,14 +456,16 @@ new SimGroup(MissionGroup) {
       position = "19.0115 -5.02324 8.0006";
       rotation = "0 0 1 180";
       scale = "0.5 0.5 0.5";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
-   new Trigger(help2) {
+   new Trigger(Help2) {
       position = "1.9959 82.4997 -10.0012";
       rotation = "1 0 0 0";
       scale = "2 3 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Gain your full speed to go over the gap.";
    };
    new StaticShape() {
@@ -485,13 +482,12 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new StaticShape() {
       position = "9.01691 66.9978 -10.0025";
       rotation = "0 0 1 180";
       scale = "0.5 0.5 0.5";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new InteriorInstance() {
       position = "0.000302906 0.000119262 -0.000871825";
@@ -506,38 +502,48 @@ new SimGroup(MissionGroup) {
       scale = "4 4 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Here is the curved zone - Curvilization";
    };
-   new Trigger(help1) {
+   new Trigger(Help1) {
       position = "-5.99975 70.9974 -13.9984";
       rotation = "1 0 0 0";
       scale = "2 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Can you figure out how to go to the opposite side?";
    };
-   new Trigger(help3) {
+   new Trigger(Help3) {
       position = "6.00025 64.0032 -16.0023";
       rotation = "1 0 0 0";
       scale = "2 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "I believe you can do this. Go ahead.";
    };
-   new Trigger(help4) {
+   new Trigger(Help4) {
       position = "-0.000304013 54.5 -12.0029";
       rotation = "1 0 0 0";
       scale = "2 3 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Bounce onto the platform ahead.Otherwise use Phil\'s wall hit.";
    };
-   new Trigger(help5) {
+   new Trigger(Help5) {
       position = "-2.07932e-005 41.9958 2.00454";
       rotation = "1 0 0 0";
       scale = "4 2 4";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Don\'t be afraid! But jump over the gap when you arrive the sign.";
    };
    new StaticShape() {
@@ -554,12 +560,241 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "60000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-23.4904 85.765 19.9536";
+         rotation = "0.153869 -0.404174 0.901647 142.11";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "24.0918 87.9316 19.9536";
+         rotation = "-0.182574 -0.448563 0.874905 219.202";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "28.0633 53.2434 19.9536";
+         rotation = "0.627341 0.266385 -0.731767 60.2511";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-24.4536 49.197 19.9536";
+         rotation = "0.674739 -0.310269 0.669672 68.9515";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "1.32639 47.1329 5.1358";
+         rotation = "-0.000308571 -0.0449912 0.998987 180.785";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "6000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "1.79679 4.56066 4.07429";
+         rotation = "7.98101e-005 -0.00512291 0.999987 178.215";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "-20.0994 -36.7015 35.367";
+         rotation = "0.630565 -0.278177 0.724572 62.6701";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "19.1866 -37.1564 35.367";
+         rotation = "0.734427 0.331998 -0.591941 74.736";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath9";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath9) {
+         position = "18.4819 -0.221309 35.367";
+         rotation = "-0.183873 -0.502055 0.845063 214.395";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath10";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath10) {
+         position = "-19.7059 2.28612 30.9186";
+         rotation = "0.172361 -0.402923 0.898857 137.936";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

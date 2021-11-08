@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         type = "LBCustom";
-         startHelpText = "Touch the left rail to move forwards, and the right rail to move backwards.";
-         name = "Forward and Reverse";
-         desc = "Control the movement of the platforms to get all three gems!\n\nAoMP:4";
-         level = "4";
          artist = "Technostick";
+         desc = "Control the movement of the platforms to get all three gems!\n\nAoMP:4";
          goldTime = "40000";
+         level = "4";
          music = "Seaside Revisited.ogg";
+         name = "Forward and Reverse";
+         startHelpText = "Touch the left rail to move forwards, and the right rail to move backwards.";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -49,8 +49,8 @@ new SimGroup(MissionGroup) {
       direction = "0.544508 0.439467 -0.714409";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         position = "0 0 0";
          locked = "true";
+         position = "0 0 0";
          rotation = "1 0 0 0";
          scale = "1 1 1";
    };
@@ -60,30 +60,45 @@ new SimGroup(MissionGroup) {
          position = "12 5 -0.5";
          rotation = "1 0 0 0";
          scale = "0 0 0";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
       new StaticShape(EndPoint) {
          position = "16 36 0";
          rotation = "1 0 0 90";
          scale = "1 1 1";
-         dataBlock = "EndPad";
+         dataBlock = "EndPad_MBG";
       };
    };
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-46.5 -23 5.5";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "-46.5 -23 5.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "-1";
       };
@@ -91,18 +106,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-46.5 39 5.5";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "-46.5 39 5.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "-1";
       };
@@ -134,6 +164,8 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "20000";
       };
       new Trigger(MustChange) {
@@ -142,17 +174,19 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "29.125 18.5 -0.25";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/siege.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/siege.dif";
          interiorIndex = "0";
          basePosition = "29.125 18.5 -0.25";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "0";
       };
@@ -193,6 +227,8 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "20000";
       };
       new Trigger(MustChange) {
@@ -201,17 +237,19 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "29.125 20.5 -0.25";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/siege.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/siege.dif";
          interiorIndex = "0";
          basePosition = "29.125 20.5 -0.25";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "0";
       };
@@ -243,6 +281,8 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "20000";
       };
       new Trigger(MustChange) {
@@ -251,17 +291,19 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "29.125 22.5 -0.25";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/siege.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/siege.dif";
          interiorIndex = "0";
          basePosition = "29.125 22.5 -0.25";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "0";
       };
@@ -269,18 +311,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "12.415 -300 0.3";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.01 15 0.05";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "12.415 -300 0.3";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.01 15 0.05";
             initialTargetPosition = "0";
       };
@@ -288,18 +345,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "10.415 -300 0.3";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.01 15 0.05";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "10.415 -300 0.3";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.01 15 0.05";
             initialTargetPosition = "0";
       };
@@ -331,6 +403,8 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new Trigger(MustChange) {
@@ -339,17 +413,19 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "4000";
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "33.125 45.5 -0.25";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/siege.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/siege.dif";
          interiorIndex = "0";
          basePosition = "33.125 45.5 -0.25";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "0";
       };
@@ -357,18 +433,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "16.415 -63 0.3";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.01 4 0.05";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "16.415 -63 0.3";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.01 4 0.05";
             initialTargetPosition = "0";
       };
@@ -376,39 +467,67 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "14.415 -63 0.3";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.01 4 0.05";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "14.415 -63 0.3";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.01 4 0.05";
             initialTargetPosition = "0";
       };
    };
-
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-42.5 -6 5.5";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "-42.5 -6 5.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "-1";
       };
@@ -416,18 +535,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-42.5 12 5.5";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "-42.5 12 5.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "-1";
       };
@@ -468,6 +602,8 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "0";
       };
       new Trigger(MustChange) {
@@ -476,17 +612,19 @@ new SimGroup(MissionGroup) {
          scale = "0.01 100 0.3";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 -2.0000000 1.2500000 0.0000000 4.0000000 0.0000000 4.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -2.5000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "4000";
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "25.125 55.5 -0.25";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/siege.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/siege.dif";
          interiorIndex = "0";
          basePosition = "25.125 55.5 -0.25";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "0";
       };
@@ -494,18 +632,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "8.415 -53 0.3";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.01 4 0.05";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "8.415 -53 0.3";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.01 4 0.05";
             initialTargetPosition = "0";
       };
@@ -513,39 +666,67 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "6.415 -53 0.3";
          rotation = "1 0 0 0";
-         scale = "1 1 1";
+         scale = "0.01 4 0.05";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "6.415 -53 0.3";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "0.01 4 0.05";
             initialTargetPosition = "0";
       };
    };
-
-
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-50.5 4 5.5";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "-50.5 4 5.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "-1";
       };
@@ -553,18 +734,33 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "0";msToNext = "1";smoothingType = "Linear";};
-         new Marker() {position = "0 0 0";rotation = "1 0 0 0";scale = "1 1 1";seqNum = "1";msToNext = "1";smoothingType = "Linear";};
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
       };
       new PathedInterior(MustChange) {
-         position = "0 0 0";
+         position = "-50.5 22 5.5";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/ordeal0.dif";
          interiorIndex = "5";
          basePosition = "-50.5 22 5.5";
-         baseRotation = "0 1 0 0";
+         baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
             initialTargetPosition = "-1";
       };
@@ -585,10 +781,83 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "12.546 -1.43723 14.5508";
+         rotation = "0.999879 0.00747739 -0.0136491 57.4362";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "12.0194 23.3168 10.9743";
+         rotation = "0.514491 -0.519449 0.682255 111.903";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "13.0077 37.2952 10.9743";
+         rotation = "0.423245 0.460816 -0.780072 108.759";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "11.9529 56.2124 0.930285";
+         rotation = "0.999647 0.0102544 -0.024494 45.4477";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "15.8553 41.9004 1.00304";
+         rotation = "0.00221318 -0.107118 0.994244 177.646";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "5000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

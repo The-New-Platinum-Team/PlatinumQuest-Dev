@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         artist = "marbleman";
          desc = "Find your way through the maze collecting the gems and Gravity Modifiers!";
          goldTime = "70000";
-         type = "LBCustom";
-         artist = "marbleman";
          level = "19";
-         name = "Gravitational";
          music = "Endurance.ogg";
+         name = "Gravitational";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -59,7 +59,7 @@ new SimGroup(MissionGroup) {
       position = "-12.2199 -14.8755 45.2";
       rotation = "0 0 -1 88.8085";
       scale = "1 1 1";
-      dataBlock = "StartPad";
+      dataBlock = "StartPad_MBG";
    };
    new InteriorInstance() {
       position = "-12.8588 -14.8634 45.2523";
@@ -72,7 +72,7 @@ new SimGroup(MissionGroup) {
       position = "-19.8505 4.90796 71.995";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new Item() {
       position = "-19.834 -0.996523 84.7166";
@@ -285,6 +285,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-8.49115 -0.73849 51.7347";
@@ -445,10 +447,86 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "1.88374 -23.7623 61.2411";
+         rotation = "0.446168 0.210318 -0.869885 56.9061";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "1.0458 17.3331 61.2411";
+         rotation = "-0.110197 -0.197297 0.974131 237.1";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-53.0828 22.297 61.2411";
+         rotation = "0.0659161 -0.178534 0.981723 140.153";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-49.1113 -29.7048 61.2411";
+         rotation = "0.341595 -0.161241 0.925913 54.0243";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-26.1813 -4.46364 76.6291";
+         rotation = "-0.150479 0.0542983 0.987121 40.159";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-22.9349 -0.550905 75.9841";
+         rotation = "0.603706 -0.217838 0.766867 50.3969";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Item() {
       position = "-19.8163 4.29097 57.1782";

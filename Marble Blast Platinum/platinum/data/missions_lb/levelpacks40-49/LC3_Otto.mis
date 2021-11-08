@@ -2,15 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         UltimateTime = "18000";
-         time = "40000";
+         Time = "40000";
          artist = "Ottomarble";
-         startHelpText = "Get all the TMs to free that time back!";
          desc = "TIMES TO BEAT";
-         level = "42";
-         type = "custom";
          goldTime = "22000";
+         level = "42";
          name = "The Icerace";
+         startHelpText = "Get all the TMs to free that time back!";
+         type = "custom";
+         ultimateTime = "18000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -37,7 +37,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Beginner/Beginner_Sky.dml";
+      materialList = "~/data/skies/beginner/beginner_sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -368,7 +368,7 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(EndPoint) {
       position = "-540.963 56.8983 19.4581";
-      rotation = "0.0349754 0.0349953 -0.998775 90.0246";
+      rotation = "0.0349754 0.0349953 -0.998775 90.0245";
       scale = "1 1 1";
       dataBlock = "EndPad";
    };
@@ -380,6 +380,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "294.041 57.0743 77.1446";
@@ -389,6 +391,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "403.017 62.913 48.5459";
@@ -398,11 +402,125 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Metropolis.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "553.496 56.739 80.9941";
+         rotation = "0.211702 0.218048 -0.9527 94.4641";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "416.903 54.6368 58.423";
+         rotation = "0.096821 0.0997235 -0.990293 92.2508";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "282.729 56.5861 39.5848";
+         rotation = "0.0634568 0.0628034 -0.996007 89.6363";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "137.83 54.86 30.3808";
+         rotation = "0.0277914 0.0280592 -0.99922 90.5944";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-16.3767 54.9279 30.9374";
+         rotation = "-0.00439848 -0.00433154 -0.999981 89.1224";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-181.073 56.2921 32.3643";
+         rotation = "-0.00429019 -0.00433154 -0.999981 90.5507";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "-347.111 54.7974 33.8026";
+         rotation = "-0.00431163 -0.00433154 -0.999981 90.2649";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "-537.192 56.7966 22.0608";
+         rotation = "0.164666 0.164604 -0.972518 91.5747";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "5000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Item() {
       position = "13.0783 58.4934 24.6891";
@@ -412,6 +530,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-174.073 52.4834 31.341";
@@ -421,6 +541,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-375.681 56.1281 70.8783";
@@ -430,6 +552,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
 };
 //--- OBJECT WRITE END ---

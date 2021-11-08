@@ -3,13 +3,13 @@ new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
          artist = "Andrew";
-         name = "Water World";
-         goldTime = "120000";
-         startHelpText = "It\'s a hot day, isn\'t it? Why don\'t you explore the park and cool off?";
          desc = "Welcome to the water park! Play in the wave pool, explore the sand castle, and slide down the water slide. Enjoy your stay!";
+         goldTime = "120000";
          level = "49";
-         UltimateTime = "80000";
+         name = "Water World";
+         startHelpText = "It\'s a hot day, isn\'t it? Why don\'t you explore the park and cool off?";
          type = "LBCustom";
+         ultimateTime = "80000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -33,9 +33,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
       materialList = "~/data/skies/Beginner/Beginner_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -81,7 +81,7 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
-   new Trigger(IBT) {
+   new Trigger(ibt) {
       position = "-160.186 155.94 27.1807";
       rotation = "1 0 0 0";
       scale = "100 150 120";
@@ -122,6 +122,8 @@ new SimGroup(MissionGroup) {
          scale = "1.5 0.5 0.25";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-0.2500000 -0.7500000 1.5000000 0.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -3.0000000 0.0000000 1.5000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "9999999";
       };
       new PathedInterior(MP1) {
@@ -129,7 +131,7 @@ new SimGroup(MissionGroup) {
          rotation = "0 0 1 90";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WWmps.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WWmps.dif";
          interiorIndex = "0";
          basePosition = "-103.88 72.15 56.4";
          baseRotation = "0 0 1 90";
@@ -164,6 +166,8 @@ new SimGroup(MissionGroup) {
          scale = "1.5 0.5 0.25";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-0.2500000 -0.7500000 1.5000000 0.5000000 0.0000000 0.0000000 0.0000000 0.0000000 -3.0000000 0.0000000 1.5000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "999999999";
       };
       new PathedInterior(MP2) {
@@ -171,7 +175,7 @@ new SimGroup(MissionGroup) {
          rotation = "0 0 1 90";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WWmps.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WWmps.dif";
          interiorIndex = "1";
          basePosition = "-103.88 72.15 56.4";
          baseRotation = "0 0 1 90";
@@ -230,6 +234,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 0.5";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-0.7500000 0.7500000 0.7500000 0.0000000 -1.5000000 0.0000000 0.0000000 0.0000000 -1.5000000 1.5000000 0.0000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "99999999";
       };
       new PathedInterior(MP3) {
@@ -237,7 +243,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WWmps.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WWmps.dif";
          interiorIndex = "2";
          basePosition = "-53.87 91.6 56.4";
          baseRotation = "1 0 0 0";
@@ -287,7 +293,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WWmps.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WWmps.dif";
          interiorIndex = "3";
          basePosition = "-33.6424 110.888 62.9";
          baseRotation = "1 0 0 0";
@@ -295,21 +301,21 @@ new SimGroup(MissionGroup) {
             initialTargetPosition = "-1";
       };
    };
-   new Trigger(OOB2) {
+   new Trigger(oob2) {
       position = "-138.673 96.0884 50.0184";
       rotation = "1 0 0 0";
       scale = "67 16 1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(OOB1) {
+   new Trigger(oob1) {
       position = "-138.723 146.64 50.0184";
       rotation = "1 0 0 0";
       scale = "67 20 1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(OOB3) {
+   new Trigger(oob3) {
       position = "-88.1669 126.685 50.0184";
       rotation = "1 0 0 0";
       scale = "16.5 30.8 1";
@@ -327,7 +333,7 @@ new SimGroup(MissionGroup) {
       position = "-104.894 111.221 50.68";
       rotation = "1 0 0 0";
       scale = "1 1 1.2";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -336,19 +342,19 @@ new SimGroup(MissionGroup) {
       position = "-124.711 29.5452 75.38";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "-104.857 69.987 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "-120.373 113.414 65.15";
       rotation = "1 0 0 0";
       scale = "0.25 0.25 0.25";
-      dataBlock = "checkPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "-120.803 25.852 75.3479";
@@ -361,81 +367,99 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-103.863 81.135 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-105.895 83.1 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-103.863 85.1 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-105.895 87.1 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-103.863 89.1 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-103.863 91.1 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-105.895 93.1 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new StaticShape() {
       position = "-105.895 95.1 57.65";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TrapDoor";
+         mbuanim = "0";
          open = "0";
-         timeout = "200";
          resetTime = "Default";
+         skin = "base";
+         timeout = "200";
    };
    new InteriorInstance() {
       position = "-116.083 18 59.13";
@@ -473,7 +497,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new InteriorInstance() {
       position = "-143.234 24.2711 75.38";
@@ -497,6 +520,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "12000";
    };
    new StaticShape() {
@@ -513,7 +537,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-101.825 27.0611 77.8807";
@@ -523,6 +546,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new InteriorInstance() {
       position = "-107.615 65.7674 57.6281";
@@ -602,6 +627,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "8000";
    };
    new Item() {
@@ -612,6 +638,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new StaticShape() {
       position = "-97.8721 27.8498 78.23";
@@ -633,7 +661,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-109.522 45.9137 57.0441";
@@ -643,7 +670,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-108.204 125.159 71.6";
@@ -653,7 +679,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-101.8 118.541 69.7";
@@ -663,7 +688,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-101.79 118.565 72.5846";
@@ -673,6 +697,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-101.833 113.923 66.85";
@@ -700,7 +726,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-133.605 28.8803 62.76";
@@ -710,7 +735,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new InteriorInstance() {
       position = "-119.584 22.508 58.88";
@@ -761,7 +785,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WaterWorld2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WaterWorld2.dif";
          interiorIndex = "0";
          basePosition = "-131.59 22.51 56.28";
          baseRotation = "1 0 0 0";
@@ -811,7 +835,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WaterWorld2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WaterWorld2.dif";
          interiorIndex = "0";
          basePosition = "-129.59 22.51 56.28";
          baseRotation = "1 0 0 0";
@@ -861,7 +885,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WaterWorld2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WaterWorld2.dif";
          interiorIndex = "0";
          basePosition = "-127.59 22.51 56.28";
          baseRotation = "1 0 0 0";
@@ -911,7 +935,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WaterWorld2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WaterWorld2.dif";
          interiorIndex = "0";
          basePosition = "-125.59 22.51 56.28";
          baseRotation = "1 0 0 0";
@@ -961,7 +985,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WaterWorld2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WaterWorld2.dif";
          interiorIndex = "0";
          basePosition = "-123.59 22.51 56.28";
          baseRotation = "1 0 0 0";
@@ -1011,7 +1035,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WaterWorld2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WaterWorld2.dif";
          interiorIndex = "0";
          basePosition = "-121.59 22.51 56.28";
          baseRotation = "1 0 0 0";
@@ -1061,7 +1085,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/WaterWorld2.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/WaterWorld2.dif";
          interiorIndex = "0";
          basePosition = "-119.59 22.51 56.28";
          baseRotation = "1 0 0 0";
@@ -1083,7 +1107,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-113.843 106.643 70.0184";
@@ -1093,7 +1116,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-109.857 125.178 63.4391";
@@ -1103,7 +1125,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-96.004 116.359 66.7197";
@@ -1113,6 +1134,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "20000";
    };
    new Item() {
@@ -1123,7 +1145,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-86.8204 125.325 64.754";
@@ -1133,6 +1154,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "10000";
    };
    new Item() {
@@ -1143,6 +1165,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-110.136 26.3589 77.8807";
@@ -1152,6 +1176,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-104.005 125.256 73.2726";
@@ -1161,6 +1187,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Item() {
       position = "-112.592 125.105 67.36";
@@ -1170,7 +1198,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-134.373 27.3945 75.982";
@@ -1180,7 +1207,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "-131.573 31.0362 74.78";
@@ -1190,7 +1216,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "-138.373 28.9945 74.382";
@@ -1200,7 +1225,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "1";
    };
    new Item() {
       position = "-135.784 31.5885 77.38";
@@ -1210,6 +1234,7 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
          timeBonus = "9000";
    };
    new InteriorInstance() {
@@ -1332,7 +1357,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-100.725 134.719 64.58";
@@ -1342,7 +1366,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         pickUpCheckpoint = "0";
    };
    new Item() {
       position = "-127.968 133.788 67.6184";
@@ -1352,6 +1375,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
    };
    new Trigger(Pool) {
       position = "-127.609 35.7903 75.3807";
@@ -1359,6 +1384,8 @@ new SimGroup(MissionGroup) {
       scale = "7 4 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Welcome to the wave pool! Don\'t drown trying to collect the diamonds!";
    };
    new Trigger(slide) {
@@ -1367,6 +1394,8 @@ new SimGroup(MissionGroup) {
       scale = "1 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "This water slide will take you to the sand castle. Have fun, but don\'t go too fast or you\'ll fall out!";
    };
    new Trigger(ee) {
@@ -1375,6 +1404,8 @@ new SimGroup(MissionGroup) {
       scale = "1.5 1.5 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "What the...? What\'s happening?";
    };
    new Trigger(castle) {
@@ -1383,6 +1414,8 @@ new SimGroup(MissionGroup) {
       scale = "11 2 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You made it to the castle! Don\'t fall into the moat, though.";
    };
    new StaticShape() {
@@ -1412,6 +1445,8 @@ new SimGroup(MissionGroup) {
       scale = "30 30 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You fell onto the ceiling! Don\'t worry, just follow the arrow and you\'ll be teleported back to where you were.";
    };
    new Trigger(finishpath) {
@@ -1420,6 +1455,8 @@ new SimGroup(MissionGroup) {
       scale = "1 2 1";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "This path will take you to the top of the castle.";
    };
    new StaticShape() {
@@ -1434,6 +1471,8 @@ new SimGroup(MissionGroup) {
       scale = "5 1 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You made it! Enjoy the view up here, and I hope you enjoyed your stay at the water park!";
    };
    new Trigger(dungeon) {
@@ -1442,6 +1481,8 @@ new SimGroup(MissionGroup) {
       scale = "3 3 3";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "You fell in the dungeon. All you can do is restart from your last save point, sucker. =P";
    };
    new Trigger(Pool) {
@@ -1457,12 +1498,25 @@ new SimGroup(MissionGroup) {
       scale = "5 5 2";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Wait for the moving platform to come down, and then enter the tower!";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-71.8449 2.51482 113.046";
+         rotation = "0.696209 0.235786 -0.67801 53.085";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

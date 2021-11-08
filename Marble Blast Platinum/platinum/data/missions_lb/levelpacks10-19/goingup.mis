@@ -2,14 +2,14 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "18";
+         Time = "0";
          artist = "marbleman";
-         type = "LBCustom";
-         name = "Going Up?";
-         time = "0";
          desc = "Ride the elevator up to the top then use the stairs back down!";
          goldTime = "95000";
+         level = "18";
          music = "Seaside Revisited.ogg";
+         name = "Going Up?";
+         type = "LBCustom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -55,13 +55,13 @@ new SimGroup(MissionGroup) {
          position = "-131.8 -3.03984e-006 -2.38419e-007";
          rotation = "0 0 1 90";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
       new StaticShape(EndPoint) {
          position = "-100.184 -0.011808 15.6";
          rotation = "0 0 -1 90";
          scale = "1 1 1";
-         dataBlock = "EndPad";
+         dataBlock = "EndPad_MBG";
       };
    };
    new Trigger(Bounds) {
@@ -104,6 +104,8 @@ new SimGroup(MissionGroup) {
          scale = "1 1 1";
          dataBlock = "TriggerGotoTarget";
          polyhedron = "-2.0000000 8.0000000 5.3750000 0.0000000 -16.0000000 0.0000000 0.0000000 0.0000000 -10.7500000 4.0000000 0.0000000 0.0000000";
+            IContinueToTTime = "0";
+            instant = "0";
             targetTime = "50000";
       };
       new PathedInterior(MustChange) {
@@ -111,7 +113,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/advanced/survival.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/advanced/survival.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -371,6 +373,8 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+         skin = "mbg";
+         timeBonus = "5000";
    };
    new InteriorInstance() {
       position = "-48.3283 2.3044 151.604";
@@ -617,10 +621,99 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/beginner/training_time.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-142.415 -17.7011 14.0412";
+         rotation = "0.307273 -0.184474 0.93357 65.4885";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-114.245 -11.2994 214.024";
+         rotation = "0.209632 -0.118093 0.970623 60.2603";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-40.3675 -32.9781 201.485";
+         rotation = "0.751306 0.211056 -0.625295 48.3848";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-34.2428 -33.8725 114.518";
+         rotation = "0.664835 0.224909 -0.712327 50.8072";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-56.8149 -3.50226 45.6657";
+         rotation = "0.80582 0.290636 -0.51593 69.9122";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-68.468 8.39985 36.6541";
+         rotation = "-0.156811 -0.316307 0.935607 229.766";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "-92.7503 11.1234 26.1543";
+         rotation = "-0.100955 -0.30922 0.945617 214.314";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Item() {
       position = "-53.4068 0.968232 193.858";

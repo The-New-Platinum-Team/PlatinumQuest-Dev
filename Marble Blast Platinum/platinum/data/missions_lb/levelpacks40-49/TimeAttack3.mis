@@ -3,15 +3,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "46";
-         desc = "Difficulty: 2\n\nReach the finish in 30 seconds or less.";
-         ultimateTime = "20000";
-         goldTime = "24000";
-         type = "Custom";
-         name = "Time Attack 3";
-         time = "30000";
+         Time = "30000";
          artist = "James Colsey";
+         desc = "Difficulty: 2\n\nReach the finish in 30 seconds or less.";
+         goldTime = "24000";
+         level = "46";
          music = "Tim Trance.ogg";
+         name = "Time Attack 3";
+         type = "Custom";
+         ultimateTime = "20000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -53,7 +53,7 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(EndPoint) {
       position = "-14 8 23.5";
-      rotation = "0 0 -1 89.99998";
+      rotation = "0 0 -1 90";
       scale = "1 1 1";
       dataBlock = "EndPad";
    };
@@ -83,10 +83,77 @@ new SimGroup(MissionGroup) {
       scale = "10000 10000 10000";
       dataBlock = "clear";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-12.3187 11.8291 13.7862";
+         rotation = "0.329983 0.169123 -0.928714 57.7851";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "6000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-10.6561 13.0954 21.759";
+         rotation = "0.203714 -0.0811505 0.975661 44.4198";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "6000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-9.0608 14.4689 34.2758";
+         rotation = "-0.10671 -0.466396 0.878116 202.72";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "5000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

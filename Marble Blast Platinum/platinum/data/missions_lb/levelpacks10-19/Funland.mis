@@ -2,12 +2,12 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         level = "16";
-         music = "Astrolabe.ogg";
-         name = "FUNLAND!!!";
          artist = "Henry";
          desc = "The end is right next to you... so why is this level so hard???";
          goldTime = "35000";
+         level = "16";
+         music = "Astrolabe.ogg";
+         name = "FUNLAND!!!";
          type = "LBCustom";
    };
    new MissionArea(MissionArea) {
@@ -55,22 +55,85 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-105.477 11.3998 38.8846";
+         rotation = "0.0776684 -0.126672 0.988899 117.54";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-5.2766 18.0721 42.1171";
+         rotation = "0.0737615 -0.203257 0.976343 140.98";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "50.0573 17.9457 36.2934";
+         rotation = "-0.0472999 -0.179146 0.982685 209.09";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "25.8658 -5.81665 34.889";
+         rotation = "-0.00694898 -0.0156585 0.999853 227.856";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-96.6766 -15.846 30.1699";
+         rotation = "-0.0533686 -0.132476 0.989748 223.477";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new StaticShape(StartPoint) {
       position = "-101.174 7.51552 33.5616";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "StartPad";
+      dataBlock = "StartPad_MBG";
    };
    new StaticShape(EndPoint) {
       position = "-99.547 -19.221 29.2839";
       rotation = "1 0 0 90";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new StaticShape() {
       position = "-98.397 6.45684 33.3494";
@@ -83,6 +146,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "2 2 2";
       dataBlock = "oilslick";
+         skin = "base";
    };
    new Item() {
       position = "-80.5474 6.2953 33.1575";

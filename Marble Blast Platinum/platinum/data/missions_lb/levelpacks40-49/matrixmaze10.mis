@@ -2,12 +2,12 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         artist = "CyberFox";
          desc = "10th maze in the matrix maze series";
          goldTime = "40000";
          level = "23";
-         type = "Custom";
          name = "Matrix Maze 10";
-         artist = "CyberFox";
+         type = "Custom";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -47,8 +47,8 @@ new SimGroup(MissionGroup) {
       direction = "0.4686 0.634363 -0.614815";
       color = "0.800000 0.800000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
-         position = "0 0 0";
          locked = "true";
+         position = "0 0 0";
          rotation = "1 0 0 0";
          scale = "1 1 1";
    };
@@ -58,14 +58,14 @@ new SimGroup(MissionGroup) {
          position = "0 0 1";
          rotation = "0 0 1 90";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
    };
    new StaticShape(EndPoint) {
       position = "0 0 9";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new InteriorInstance() {
       position = "0 0 0";
@@ -228,10 +228,21 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-6.99967 -31.3072 27.945";
+         rotation = "0.965119 -0.106621 0.239118 49.5945";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

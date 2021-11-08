@@ -2,13 +2,13 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         desc = "It\'s pitch-black in the pipes!";
-         name = "Sewer";
          artist = "marbleman";
+         desc = "It\'s pitch-black in the pipes!";
+         goldTime = "12500";
          level = "36";
          music = "Seaside Revisited.ogg";
+         name = "Sewer";
          type = "LBCustom";
-         goldTime = "12500";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -54,6 +54,8 @@ new SimGroup(MissionGroup) {
       scale = "5.41862 8.33884 2.60553";
       dataBlock = "HelpTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Swim in the bubbly toxic waste to find gems!";
    };
    new SimGroup(MustChange_g) {
@@ -98,7 +100,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/addon/acrobat1.dif";
+         interiorResource = "platinum/data/lbinteriors_custom/mbg/addon/acrobat1.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -117,7 +119,7 @@ new SimGroup(MissionGroup) {
       position = "6 -101.4 5.8";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "StartPad";
+      dataBlock = "StartPad_MBG";
    };
    new InteriorInstance() {
       position = "2.73821 -100.118 10.2267";
@@ -236,7 +238,7 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_long.dif";
       showTerrainInside = "0";
    };
-   new ParticleEmitterNode(S) {
+   new ParticleEmitterNode(s) {
       position = "-65.4861 -86.2877 8.22228";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -251,10 +253,60 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_long.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "7.10231 -100.992 10.0186";
+         rotation = "0.541508 0.119474 -0.832163 29.6986";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "6.8103 -87.081 9.66625";
+         rotation = "0.0619134 0.0775106 -0.995067 103.042";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "3.53892 -87.2556 9.26931";
+         rotation = "0.0570302 0.0601542 -0.996559 93.2513";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-60.4226 -86.4007 8.95773";
+         rotation = "0.106216 0.101905 -0.989107 88.2538";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new InteriorInstance() {
       position = "-65.9861 -71.5509 4.66732";
@@ -267,7 +319,7 @@ new SimGroup(MissionGroup) {
       position = "-65.4861 -86.2876 6.58799";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "EndPad";
+      dataBlock = "EndPad_MBG";
    };
    new Item() {
       position = "-33.706 -90.0852 4.50501";
@@ -336,7 +388,7 @@ new SimGroup(MissionGroup) {
       position = "-18.8524 -88.4169 12.6532";
       rotation = "1 0 0 0";
       scale = "1 1 1.25";
-      dataBlock = "EasterEgg";
+      dataBlock = "easterEgg";
       collideable = "0";
       static = "1";
       rotate = "1";

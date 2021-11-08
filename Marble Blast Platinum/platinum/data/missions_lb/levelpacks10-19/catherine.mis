@@ -4,12 +4,12 @@ new SimGroup(MissionGroup) {
    new ScriptObject(MissionInfo) {
          artist = "tubaboi";
          desc = "Short and Sweet";
-         name = "Catherine\'s Level";
          goldTime = "66000";
          level = "9";
+         music = "Seaside Revisited.ogg";
+         name = "Catherine\'s Level";
          startHelpText = "Have fun!";
          type = "LBCustom";
-         music = "Seaside Revisited.ogg";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -33,9 +33,9 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 -1.73483e+09 -1.73483e+09";
-      fogVolume2 = "-1 -1.73483e+09 -1.73483e+09";
-      fogVolume3 = "-1 -1.73483e+09 -1.73483e+09";
+      fogVolume1 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume2 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume3 = "-1 -1.73483e+009 -1.73483e+009";
       materialList = "~/data/skies/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
@@ -55,13 +55,13 @@ new SimGroup(MissionGroup) {
          position = "-0.108602 -1.59467 496.74";
          rotation = "0 0 1 90";
          scale = "1 1 1";
-         dataBlock = "StartPad";
+         dataBlock = "StartPad_MBG";
       };
       new StaticShape(EndPoint) {
          position = "20 -1.70312 496.74";
          rotation = "0 0 1 90";
          scale = "1 1 1";
-         dataBlock = "EndPad";
+         dataBlock = "EndPad_MBG";
       };
    };
    new InteriorInstance() {
@@ -594,7 +594,7 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "95.0631 39.6054 515.376";
-      rotation = "-0.162216 -0.162216 0.97333 91.7542";
+      rotation = "-0.162216 -0.162216 0.97333 91.7541";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
       showTerrainInside = "0";
@@ -610,14 +610,14 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "95.2377 86.8932 531.62";
-      rotation = "-0.162216 -0.162216 0.97333 91.7542";
+      rotation = "-0.162216 -0.162216 0.97333 91.7541";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
       showTerrainInside = "0";
    };
    new InteriorInstance() {
       position = "95.1504 63.2493 523.498";
-      rotation = "-0.162216 -0.162216 0.97333 91.7542";
+      rotation = "-0.162216 -0.162216 0.97333 91.7541";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
       showTerrainInside = "0";
@@ -1453,10 +1453,47 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/Shell.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-3.63071 11.5426 516.26";
+         rotation = "0.132601 -0.267091 0.954505 129.29";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "43.4811 19.3738 519.608";
+         rotation = "0.0592726 -0.17974 0.981927 144.116";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "90.7644 27.6602 524.652";
+         rotation = "-0.0248925 -0.22117 0.974918 192.524";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---

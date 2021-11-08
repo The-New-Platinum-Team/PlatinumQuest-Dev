@@ -4,15 +4,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         name = "Spin Class";
          artist = "hPerks";
-         type = "custom";
-         level = "39";
          desc = "Master the intricacies of marble spin!";
-         startHelpText = "Control your angular momentum in the air to land these jumps!";
          goldTime = "120000";
-         ultimateTime = "90000";
+         level = "39";
          music = "Perspective.ogg";
+         name = "Spin Class";
+         startHelpText = "Control your angular momentum in the air to land these jumps!";
+         type = "custom";
+         ultimateTime = "90000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -33,9 +33,9 @@ new SimGroup(MissionGroup) {
       visibleDistance = "500";
       useSkyTextures = "1";
       renderBottomTexture = "1";
-      SkySolidColor = "0 0 0 0";
+      SkySolidColor = "0.000000 0.000000 0.000000 0.000000";
       fogDistance = "300";
-      fogColor = "0 0 0 0";
+      fogColor = "0.000000 0.000000 0.000000 0.000000";
       fogVolume1 = "0 0 0";
       fogVolume2 = "0 0 0";
       fogVolume3 = "0 0 0";
@@ -43,14 +43,14 @@ new SimGroup(MissionGroup) {
       windVelocity = "0 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
-      fogVolumeColor1 = "0 0 0 0";
-      fogVolumeColor2 = "0 0 0 0";
-      fogVolumeColor3 = "0 0 0 0";
+      fogVolumeColor1 = "0.000000 0.000000 0.000000 0.000000";
+      fogVolumeColor2 = "0.000000 0.000000 0.000000 0.000000";
+      fogVolumeColor3 = "0.000000 0.000000 0.000000 0.000000";
    };
    new Sun() {
-      direction = "0.5 0.5 -0.5";
-      color = "1.4 1.2 0.4 1";
-      ambient = "0.3 0.3 0.4 1";
+      direction = "0.57735 0.57735 -0.57735";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
    };
    new StaticShape(StartPoint) {
       position = "0 2 0";
@@ -74,25 +74,29 @@ new SimGroup(MissionGroup) {
       position = "0 0 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass.dif";
+      interiorFile = "~/data/lbinteriors_custom/mbp/spinclass.dif";
+      showTerrainInside = "0";
    };
    new InteriorInstance() {
       position = "36 -19.5 0";
       rotation = "0 0 -1 45";
       scale = "1 1 1";
-      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass2.dif";
+      interiorFile = "~/data/lbinteriors_custom/mbp/spinclass2.dif";
+      showTerrainInside = "0";
    };
    new InteriorInstance() {
       position = "53 -50.6 5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass3.dif";
+      interiorFile = "~/data/lbinteriors_custom/mbp/spinclass3.dif";
+      showTerrainInside = "0";
    };
    new InteriorInstance() {
       position = "25 49 0";
       rotation = "0 0 1 45";
       scale = "1 1 1";
-      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/spinclass4.dif";
+      interiorFile = "~/data/lbinteriors_custom/mbp/spinclass4.dif";
+      showTerrainInside = "0";
    };
    new Item() {
       position = "25 39 4";
@@ -256,32 +260,32 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-
    new StaticShape() {
       position = "25 7 -26";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "CheckPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "6 -13 -29";
       rotation = "0 0 1 90";
       scale = "1 1 1";
-      dataBlock = "CheckPoint";
+      dataBlock = "checkpoint";
    };
    new StaticShape() {
       position = "36 -19.5 6";
       rotation = "0 0 1 135";
       scale = "1 1 1";
-      dataBlock = "CheckPoint";
+      dataBlock = "checkpoint";
    };
-
    new Trigger() {
       position = "7.5 42.5 0";
       rotation = "1 0 0 0";
       scale = "10.5 7 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "When you hit a frictional surface, your spin is converted to speed.";
    };
    new Trigger() {
@@ -289,7 +293,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "7 8.5 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Use forward spin to bounce from the gem below to the platform in front.";
    };
    new Trigger() {
@@ -297,7 +303,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "11 7 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Get as much backspin as you can for this next bounce!";
    };
    new Trigger() {
@@ -305,7 +313,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "7 4.5 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "The rug surface is great for emergency stops - but be careful!";
    };
    new Trigger() {
@@ -313,7 +323,9 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "7 18 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Is it possible to wall-hit off of the ice?";
    };
    new Trigger() {
@@ -321,47 +333,59 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "7 18 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-         text = "Hmm... There's no rug to help you slow down this time... what could you use instead?";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "Hmm... There\'s no rug to help you slow down this time... what could you use instead?";
    };
    new Trigger() {
       position = "8.5 -16 -29";
       rotation = "1 0 0 0";
       scale = "7 7 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-         text = "You'll need to control your height from this wall-hit to make it up in time.";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "You\'ll need to control your height from this wall-hit to make it up in time.";
    };
    new Trigger() {
       position = "44.5 -38.5 -13";
       rotation = "1 0 0 0";
       scale = "7 6.5 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-         text = "Here's a real puzzler: how can you get both those gems and still make it up in time? Hint - try an \'anti-wall-hit\'!";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "Here\'s a real puzzler: how can you get both those gems and still make it up in time? Hint - try an \'anti-wall-hit\'!";
    };
    new Trigger() {
       position = "44.5 1 -3";
       rotation = "1 0 0 0";
       scale = "7 6 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-         text = "Ice isn't just a hazard - you can use it to increase your spin without increasing your speed!";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "Ice isn\'t just a hazard - you can use it to increase your spin without increasing your speed!";
    };
    new Trigger() {
       position = "32.5 7.5 8";
       rotation = "1 0 0 0";
       scale = "6 7 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-         text = "Well done! Take this super jump - you'll need it in a bit.";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "Well done! Take this super jump - you\'ll need it in a bit.";
    };
    new Trigger() {
       position = "31.05 -19.5 6";
       rotation = "0 0 -1 45";
       scale = "7 6.5 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "Get the gem to the right first. Just jump-superjump and let the sandy ceiling do the rest!";
    };
    new Trigger() {
@@ -369,15 +393,19 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 -1 45";
       scale = "6.5 6.5 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-         text = "The random force pushes you in the opposite direction of your spin. You'll build up a lot of backspin here - be careful!";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "The random force pushes you in the opposite direction of your spin. You\'ll build up a lot of backspin here - be careful!";
    };
    new Trigger() {
       position = "49.5 -47 19";
       rotation = "1 0 0 0";
       scale = "7 7 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
          text = "The final challenge - how can you control your movement in this icy room? Hint - use your head!";
    };
    new Trigger() {
@@ -385,22 +413,193 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "7 7 2";
       dataBlock = "HelpTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-         text = "Congratulations! You've learned the ways of the spinning marble!";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         persistTime = "5000";
+         text = "Congratulations! You\'ve learned the ways of the spinning marble!";
    };
-
    new Trigger() {
       position = "-40 70 -50";
       rotation = "1 0 0 0";
       scale = "140 160 200";
       dataBlock = "InBoundsTrigger";
-      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
+   new SimGroup(PathNodeGroup) {
 
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/joj.ogg";
-      description = "AudioMusic";
-      preload = "0";
+      new StaticShape(CameraPath1) {
+         position = "-19.6275 -0.661279 9.63982";
+         rotation = "0.249378 -0.185359 0.950501 76.0505";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-16.7692 32.7499 9.63982";
+         rotation = "0.114663 -0.190144 0.975037 119.091";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "19.3271 52.3913 9.63982";
+         rotation = "-0.00667135 -0.198736 0.98003 183.769";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "500";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "17.4056 65.7062 -19.2514";
+         rotation = "-0.0324103 -0.227657 0.973202 195.776";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-26.7084 48.4637 -19.2514";
+         rotation = "0.0735822 -0.151517 0.985712 128.839";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-43.6023 13.093 -19.2514";
+         rotation = "0.11664 -0.131287 0.984459 97.6527";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "-43.512 -19.9517 -19.2514";
+         rotation = "0.121857 -0.114018 0.985977 87.0008";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "500";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "70.3689 -1.07843 30.2224";
+         rotation = "-0.119063 -0.28424 0.951332 223.454";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath9";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath9) {
+         position = "87.8117 -32.4658 30.2224";
+         rotation = "0.191371 0.231393 -0.953852 103.462";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath10";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath10) {
+         position = "75.9421 -66.5249 30.2224";
+         rotation = "0.495509 0.217375 -0.840963 55.0978";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath11";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath11) {
+         position = "58.0851 -76.7447 30.2224";
+         rotation = "0.838448 0.132437 -0.528645 33.2714";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "500";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
