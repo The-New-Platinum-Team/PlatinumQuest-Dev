@@ -1,0 +1,487 @@
+// Added UT for 1.50 Leaderboards - 1st Jan 2014
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         name = "Six Fold Race";
+         level = "1";
+         goldTime = "150000";
+         startHelpText = "Welcome to Six Fold Race. Start by going back and don\'t mind the sign. Enjoy searching for the gems and use the power-ups to your advantage";
+         artist = "Matan";
+         type = "LBCustom";
+         time = "210000";
+         desc = "Race against the clock on this maze, but who knows what does this mysterious maze holds.";
+         UltimateTime = "60000";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume2 = "-1 -1.73483e+009 -1.73483e+009";
+      fogVolume3 = "-1 -1.73483e+009 -1.73483e+009";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
+   };
+   new Sun() {
+      direction = "-0.57735 -0.57735 -0.57735";
+      color = "1.000000 1.000000 1.000000 1.000000";
+      ambient = "0.700000 0.700000 0.700000 1.000000";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "12.2 12 16";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_mbg/advanced/escher.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(helpsjstart) {
+      position = "11.2032 5.37424 16.0279";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go forwards and jump on the incline here. Then press jump and super jump above. Then go forwards and drop. The gem is next to the wall.";
+   };
+   new Item() {
+      position = "-5.62255 -16.2327 23.9385";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "12.1047 4.3068 16.2434";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(helpgmto2ndgem) {
+      position = "3.96976 57.4548 -10.8226";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Drop down somewhere here and get the gem and the super jump.";
+   };
+   new Item() {
+      position = "4.90467 57.1158 -9.7781";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "24.8671 24.1429 0.207571";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-12.6745 -6.05363 -1.5534";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-11.3953 -29.362 -16.7041";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-18.6796 -56.8947 -14.2783";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-59.4005 15.5721 -14.7491";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-58.4619 16.2762 -10.8738";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(helpgyrotogm) {
+      position = "-59.9333 16.4696 -12.0932";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go forwards as much as possible and get the Gravity Modifier.";
+   };
+   new Item() {
+      position = "15.9881 -27.5375 -11.3462";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "23.5021 25.0536 2.003";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-22.6728 12.972 -1.9553";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "15.6736 19.345 -12.1463";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "15.697 21.433 -12.367";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "12.0767 0.900653 -14.7511";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "7.62302 -22.417 -12.2127";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape(EndPoint) {
+      position = "11.0244 -32.0779 -11.2443";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new Trigger(oobfinish) {
+      position = "9.0066 -31.4056 -12.9339";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(helpsjend) {
+      position = "6.26698 -21.7691 -12.8563";
+      rotation = "1 0 0 0";
+      scale = "1.6 1.6 1.6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "The finish is behind that wall! use the super jump if you want to.";
+   };
+   new Trigger(helpendtwist) {
+      position = "8.59832 -31.7883 -12.9961";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Congratulations! You\'ve finished Six Fold Race! I hoped you enjoyed my end twist.";
+   };
+   new Trigger(helpsjalmostend) {
+      position = "14.1979 22.2024 -12.7938";
+      rotation = "1 0 0 0";
+      scale = "1.6 1.6 1.6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go up here. The finish is near!";
+   };
+   new Trigger(helpanothersign) {
+      position = "-6.38349 -15.1943 23.5885";
+      rotation = "1 0 0 0";
+      scale = "1.6 1.6 1.6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Follow the signs to the next Gravity Modifier!";
+   };
+   new StaticShape() {
+      position = "9.86716 -20.3531 -7.9797";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "SignPlainUp";
+   };
+   new StaticShape() {
+      position = "2.70331 -16.0986 24.8091";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "22.1175 6.21572 -14.5168";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainUp";
+   };
+   new StaticShape() {
+      position = "16.5782 6.77102 1.06215";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainUp";
+   };
+   new StaticShape() {
+      position = "2.5836 33.5122 -6.2836";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "11.822 28.0248 18.1178";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new StaticShape() {
+      position = "4.57134 57.0978 -6.5551";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new Trigger(helpmakesure) {
+      position = "5.22031 5.14421 -21.1117";
+      rotation = "1 0 0 0";
+      scale = "3 5 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "If you have all 6 gems, then continue to the super jump, otherwise fall down here to the gravity modifier and start all over.";
+   };
+   new Trigger(helpsjtogm) {
+      position = "22.3076 25.4655 1.01936";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go right and activate the super jump to help you to get to the next Gravity Modifier.";
+   };
+   new Trigger(helpup) {
+      position = "-15.0687 -1.65256 20.0431";
+      rotation = "1 0 0 0";
+      scale = "6 6 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go up as high as you can on the incline.";
+   };
+   new Trigger(helpclosetogem) {
+      position = "16.2881 7.60853 -26.0351";
+      rotation = "1 0 0 0";
+      scale = "8 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "You\'re closing in on the gem. It\'s on the zig zag road to the left.";
+   };
+   new Trigger(helptoanothergm) {
+      position = "-12.2323 -28.6114 -17.1741";
+      rotation = "1 0 0 0";
+      scale = "1.6 1.6 1.6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Follow the sign to the next Gravity Modifier!";
+   };
+   new StaticShape() {
+      position = "-16.6028 -58.2333 -16.9286";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainDown";
+   };
+   new Trigger(helpgemtogm) {
+      position = "-20.2358 -55.4873 -15.5357";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go forwards and then left and fall down on the long road to get to the gem and gyrocopter.";
+   };
+   new Item() {
+      position = "-1.90142 30.7385 -12.6744";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(helpgmtointersection) {
+      position = "-4.40823 32.1125 -14.0094";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Infromation on the gem is in the intersection to the left below you.";
+   };
+   new Trigger(helpintersectiontogem) {
+      position = "-24.6557 15.7409 -20.2197";
+      rotation = "1 0 0 0";
+      scale = "3 7 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go up here, go right and go up again, turn left and go up and you got the gem.";
+   };
+   new Trigger(helpgemtogm) {
+      position = "15.1744 -26.1989 -12.9738";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Go back from where you came. The last Gravity Modifier is to the left of the intersection.";
+   };
+   new Trigger(helpgemtogm) {
+      position = "-23.894 15.9649 -5.84039";
+      rotation = "1 0 0 0";
+      scale = "3 8 8";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Do you have 5 gems? if not, don\'t touch this gravity modifier. Otherwise touch it.";
+   };
+   new Trigger(ibt) {
+      position = "-80.3733 71.9411 -54.6237";
+      rotation = "1 0 0 0";
+      scale = "150 150 115";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "-7.14471 13.0365 -165.804";
+      rotation = "1 0 0 0";
+      scale = "100 100 100";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "179.775 2.58076 -4.67789";
+      rotation = "0 1 0 90";
+      scale = "100 100 100";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-200 9.90891 -7.26844";
+      rotation = "0 -1 0 90";
+      scale = "100 100 100";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-6.60673 3.3622 153.911";
+      rotation = "1 0 0 180";
+      scale = "100 100 100";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-19.8029 -193.625 -18.363";
+      rotation = "1 0 0 90";
+      scale = "100 100 100";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-11.8708 193.564 -14.0722";
+      rotation = "-1 0 0 90";
+      scale = "100 100 100";
+      dataBlock = "AntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/groovepolice.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

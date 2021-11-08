@@ -1,0 +1,823 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "48";
+         music = "Grudge.ogg";
+         startHelpText = "Take your time!";
+         name = "Part II: Down!";
+         artist = "MaximumSpazz";
+         desc = "Climb down the many obstacles to get to the bottom";
+         goldTime = "78000";
+         type = "LBCustom";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 -1 1";
+      fogVolume2 = "-1 -1 1";
+      fogVolume3 = "-1 -1 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -1.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -1.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -1.000000";
+   };
+   new Sun() {
+      direction = "0.465861 0.62724 -0.624134";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new ScriptObject() {
+         Pad = "1902";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new StaticShape(StartPoint) {
+      position = "-58.8267 -152.486 361.4";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "-43.2076 109.579 -23.2";
+      rotation = "0 0 1 180";
+      scale = "10 10 10";
+      dataBlock = "EndPad";
+   };
+   new ScriptObject() {
+         Pad = "1902";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new ScriptObject() {
+         Pad = "1526";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new ScriptObject() {
+         Pad = "1902";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new ScriptObject() {
+         Pad = "5055";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Item() {
+      position = "-59.792 23.0375 71.0831";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-8.51925 -13.019 -91.4148";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/skyscraper.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-9.05 1.94381 2.24734";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/aroundtheworld.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.6448 -3.11154 101.232";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "18.7557 -2.98058 97.8949";
+      rotation = "0.981997 -0.00392814 -0.188857 177.66";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "32.8586 -0.924383 93.973";
+      rotation = "0.977959 0.205292 -0.0381116 204.519";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "43.8945 4.94225 93.3894";
+      rotation = "0.919041 0.379673 0.105886 209.87";
+      scale = "1 2 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "49.9876 19.1155 92.4902";
+      rotation = "0.594238 0.796613 0.110852 203.434";
+      scale = "2 3 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "33.4858 44.6351 87.4206";
+      rotation = "0 0 -1 14.8969";
+      scale = "2 4 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.36893 28.0472 79.3126";
+      rotation = "0 1 0 10.3132";
+      scale = "5 5 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59.5595 37.9999 68.8352";
+      rotation = "0 0 -1 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/acrobat1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-50.3274 35.0825 72.0352";
+      rotation = "1 0 0 0";
+      scale = "1 2 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-59.6883 30.9317 71.0691";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-59.6871 29.9585 70.9075";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-59.7146 29.1556 70.9943";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-55.7924 -21.5025 354.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-58.7139 -236.602 356.754";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.4141 -41.1586 400.185";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall5.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-44.5461 -54.5068 389.694";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-38.7799 -52.0108 356.968";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-43.011 -55.154 357.896";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-58.9084 -48.5562 377.992";
+      rotation = "0.0897294 0.0795968 -0.992781 88.8631";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-62.0822 -43.1544 355.681";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59.0641 4.4156 354.754";
+      rotation = "1 0 0 5.72969";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-76.333 -115.217 356.36";
+      rotation = "0 0 1 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-64.3806 -125.334 356.33";
+      rotation = "0 0 -1 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/half-pipe1.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-59.0848 -88.5325 361.56";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-60.0672 -162.993 357.188";
+      rotation = "-0.577504 -0.577503 -0.577044 119.947";
+      scale = "15 7 13";
+      dataBlock = "TriangleBumper";
+   };
+   new StaticShape() {
+      position = "-60.684 -182.282 353.297";
+      rotation = "1 0 0 0";
+      scale = "15 15 20";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new ScriptObject() {
+         Pad = "2630";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "-23.9495 49.9002 210.842";
+      rotation = "1 0 0 0";
+      scale = "2 2 1.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-34.711 -215.686 356.376";
+      rotation = "0.970132 0.242555 0.00344539 178.421";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-12.7078 -202.497 348.334";
+      rotation = "0.95941 0.249997 0.130516 176.021";
+      scale = "1 2 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-35.239 -216.56 335.154";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-24.6013 -100.018 297.935";
+      rotation = "0.968002 0.0387407 0.247935 18.339";
+      scale = "0.2 50 0.2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/smallplatform.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-16.7897 28.563 258.447";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-4.11235 1.15492 247.081";
+      rotation = "0.814968 -0.553593 -0.171353 163.01";
+      scale = "3 0.2 0.3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.76921 -1.761 226.427";
+      rotation = "0.556032 0.82522 -0.0991997 198.772";
+      scale = "5 0.6 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/shimmy.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-47.1451 -51.7155 354.904";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-145.986 49.7656 193.8";
+      rotation = "1 0 0 0";
+      scale = "200 400 5";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "-6.17436 -48.9008 91.3902";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-6.82964 -4.57421 20.5276";
+      rotation = "1 0 0 0";
+      scale = "1 1 25";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.67021 6.95063 28.4609";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.06977 7.05218 29.5944";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "23.2725 -9.6311 -2.73071";
+      rotation = "0 0 1 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/intermediate/upward4.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-2.47605 -13.1231 8.93753";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-2.64351 -8.34475 20.962";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-11.785 0.0716019 34.7599";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-11.786 0.136707 36.0234";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-11.4586 -6.6324 60.8481";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-10.3589 -50.7749 85.3855";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-6.58192 7.13991 30.3263";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-56.0088 84.4143 300.751";
+      rotation = "0 0 1 67.609";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-43.0612 105.783 95.0791";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-57.7042 82.8213 357.224";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.5564 99.2828 191.955";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall5.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-51.3306 88.7985 286.792";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall4.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-54.9401 84.26 393.621";
+      rotation = "1 0 0 0";
+      scale = "10 10 10";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-58.4784 100.358 182.394";
+      rotation = "1 0 0 0";
+      scale = "10 10 10";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-55.7484 75.8769 297.928";
+      rotation = "1 0 0 0";
+      scale = "10 10 10";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-40.6516 107.441 103.537";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall1.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         Pad = "1908";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "-64.4294 -61.163 360.486";
+      rotation = "0.179147 -0.931507 0.316547 62.562";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall1.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-17.0134 47.4974 216.131";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-64.0844 -78.159 386.971";
+      rotation = "-1 0 0 52.7121";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall5.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-72.8453 -39.7505 387.573";
+      rotation = "0.754984 -0.133488 -0.642012 30.7949";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-83.9562 -34.5876 375.254";
+      rotation = "0.711172 0.665085 -0.227808 51.4341";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall3.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-17.0522 47.6373 212.424";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-17.1516 47.626 213.824";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-17.055 47.6156 215.224";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-51.744 59.6948 452.235";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-54.485 85.0874 408.417";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         Pad = "1906";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "-55.4051 76.2046 312.458";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-57.8056 100.726 196.923";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-43.688 108.848 56.1075";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall0.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-50.3227 70.9595 452.106";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-57.3112 10.661 67.2415";
+      rotation = "1 0 0 89.3814";
+      scale = "10 10 3";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/trapdoor.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-7.9035 -48.6279 91.4193";
+      rotation = "1 0 0 0";
+      scale = "4 4 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Activate the gyrocopter right before jumping and aim for the top blue spot on the sphere";
+   };
+   new Trigger() {
+      position = "-60.4318 34.7559 70.6981";
+      rotation = "1 0 0 0";
+      scale = "2 2 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Hold down the powerup button and fly to the top";
+   };
+   new Item() {
+      position = "-51.4996 58.8904 452.235";
+      rotation = "1 0 0 0";
+      scale = "10 10 10";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-1479.08 1458.41 -51.569";
+      rotation = "1 0 0 0";
+      scale = "3000 3000 5";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "-43.8121 108.617 43.9075";
+      rotation = "1 0 0 0";
+      scale = "15 15 15";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-58.8271 100.535 188.723";
+      rotation = "1 0 0 0";
+      scale = "15 15 15";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-55.7873 76.0664 304.831";
+      rotation = "1 0 0 0";
+      scale = "15 15 15";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-54.24 85.0572 402.231";
+      rotation = "1 0 0 0";
+      scale = "15 15 15";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-11.6484 -201.475 348.604";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "6.52948 -23.9933 236.426";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new ScriptObject() {
+         Pad = "5186";
+         penaltyTime = "0";
+         PowerUp = "0";
+         time = "0";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Trigger() {
+      position = "-18.6319 49.5005 217.742";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Aim for the pad with the giant gem";
+   };
+   new InteriorInstance() {
+      position = "-51.047 78.2227 414.045";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-42.1542 70.9545 332.779";
+      rotation = "-0.317837 0.773222 0.548732 73.6737";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-49.8139 93.9312 266.025";
+      rotation = "0.116017 -0.506902 0.854161 30.0005";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/addon/freefall5.dif";
+      showTerrainInside = "0";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

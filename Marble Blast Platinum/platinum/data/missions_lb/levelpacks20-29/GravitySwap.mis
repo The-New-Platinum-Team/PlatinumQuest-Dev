@@ -1,0 +1,440 @@
+package GravitySwap {
+	function mouseFire( %val )
+	{
+		if ($canFlip) {
+			LocalClientConnection.setGravityDir("1 0 0 0" SPC -getWords(getGravityDir(), 2) SPC "0 0 0" SPC -getWords(getGravityDir(), 2));
+			$canFlip = 0;
+			schedule(300,0,"flipAgain");
+		}
+	}
+	function flipAgain() {
+		$canFlip = 1;
+	}
+	function GameConnection::onClientLeaveGame(%this)
+	{
+		Parent::onClientLeaveGame(%this);
+		deactivatePackage(GravitySwap);
+	}
+};
+
+activatePackage(GravitySwap);
+$canFlip = 1;
+
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "16";
+         type = "LBCustom";
+         artist = "asuul714";
+         name = "Gravity Swap";
+         time = "0";
+         goldTime = "30000";
+         UltimateTime = "20000";
+         desc = "Press the powerup button to flip the gravity! Keep on the lookout for hidden, and not-so-hidden, time modifiers!\n\n(Credits to whirligig for the gravity-swap code.)";
+         startHelpText = "Pay attention to the help triggers, as some of the level may be confusing.";
+         music = "Astrolabe.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "0 0 0 0";
+      flightCeiling = "0";
+      flightCeilingRange = "0";
+   };
+   new Sky(Sky) {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0";
+      cloudSpeed2 = "0";
+      cloudSpeed3 = "0";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "1 1 1 1";
+      fogDistance = "0";
+      fogColor = "0 0 0 0";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Bonus/Bonus_Sky.dml";
+      windVelocity = "0 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "0 0 0 0";
+      fogVolumeColor2 = "0 0 0 0";
+      fogVolumeColor3 = "0 0 0 0";
+   };
+   new Sun() {
+      direction = "0.5 0.5 -0.5";
+      color = "1 1 1 1";
+      ambient = "0.5 0.5 0.5 1";
+   };
+   new StaticShape(StartPoint) {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "0 0 160";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/GravitySwap.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "8000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0 -16 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "8000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/GravitySwap.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "8000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0 -16 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "8000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/GravitySwap.dif";
+         interiorIndex = "1";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new Item() {
+      position = "0 8 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 16 7.5";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 23.9 18.1";
+      rotation = "-1 0 0 22.5";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 48 31.5";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "8 48 31.5";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "24 48 31.5";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "30 50 44";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "35 49 44";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "32 32 52";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "32 24 60";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "32 16 52";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 0 8.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 24.15 16.85";
+      rotation = "-1 0 0 202.5";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 48 32.5";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "16 48 31.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "32 24 51";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "31 45 44.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 0 -320";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.3";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-4 12 0";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Press <func:bind mouseFire> to flip the gravity after you get the diamond.";
+   };
+   new Trigger() {
+      position = "-4 20 5.5";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "You need to get on the other side of the platform below you. Fall off and get under that platform before you flip the gravity.";
+   };
+   new Trigger() {
+      position = "-4 20 16";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Jump off this ramp and wait about a second before flipping the gravity. You should make it to the underside of the next platform.";
+   };
+   new Trigger() {
+      position = "-4 52 29.5";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Get the diamonds by using some of your skillshot moves! Then advance to the next platform, making sure you get on the top of it.";
+   };
+   new Trigger() {
+      position = "28 52 32";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "The diamonds are above you. Flip the gravity as many times as you want to try and collect them. Then get to the platform on top of the wall.";
+   };
+   new Trigger() {
+      position = "28 44 56";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Ride the moving platforms! Flip as soon as you get each diamond.";
+   };
+   new Trigger() {
+      position = "28 12 60";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Go into this room and stay in the teleport trigger for two seconds. That means, no touching the ground! An initial wall-hit might help.";
+   };
+   new Trigger() {
+      position = "28 3.75 57.5";
+      rotation = "1 0 0 0";
+      scale = "8 7.5 6";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         delay = "2000";
+         destination = "finish";
+   };
+   new Trigger() {
+      position = "28 52.75 32";
+      rotation = "1 0 0 0";
+      scale = "8 0.25 23.5";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         delay = "10000";
+         destination = "easterEgg";
+   };
+   new Trigger(finish) {
+      position = "0 0 160";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new Trigger(easterEgg) {
+      position = "0 0 -320";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new Trigger() {
+      position = "-40 88 -80";
+      rotation = "1 0 0 0";
+      scale = "112 128 320";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Beach Party.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

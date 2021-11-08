@@ -1,0 +1,191 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "CyberFox";
+         desc = "Climb your way to the top of the tower";
+         type = "Custom";
+         level = "47";
+         name = "Tower Climb";
+         goldTime = "60000";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "-0.403459 -0.325629 -0.855094";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         rotation = "1 0 0 0";
+         locked = "true";
+         scale = "1 1 1";
+         position = "0 0 0";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "8.80165 -7.02245 -4.88592";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+   };
+   new StaticShape(EndPoint) {
+      position = "8.88226 -5.69953 62.8482";
+      rotation = "0 0 1 45.2637";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new InteriorInstance(skyscraperinside) {
+      position = "8.84321 -5.68884 -7.1321";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/towerclimb.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         penaltyTime = "0";
+         powerUp = "0";
+         time = "0";
+         pad = "3087";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new ScriptObject() {
+         penaltyTime = "0";
+         powerUp = "0";
+         time = "0";
+         pad = "1740";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new ScriptObject() {
+         penaltyTime = "0";
+         powerUp = "0";
+         time = "0";
+         pad = "1740";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance(skyscraper12) {
+      position = "-128.269 -65.2277 -5.28961";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper06) {
+      position = "38.4959 -111.188 -14.8965";
+      rotation = "0 0 1 180.091";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper07) {
+      position = "-26.4606 -84.4999 -73.8561";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper01) {
+      position = "153.207 -152.23 -36.4745";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper02) {
+      position = "145.838 -65.2747 8.66904";
+      rotation = "0 0 1 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper03) {
+      position = "147.007 18.755 -18.5073";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper04) {
+      position = "60.8388 107.299 -54.4747";
+      rotation = "0 0 -1 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper10) {
+      position = "-5.54758 66.7256 -3.50652";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper09) {
+      position = "-66.5041 26.3735 -77.4756";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper08) {
+      position = "-56.5396 -36.6868 -53.2257";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper05) {
+      position = "65.8755 15.242 -64.7139";
+      rotation = "0 0 1 89.9544";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(skyscraper11) {
+      position = "-138.351 31.5673 -3.85062";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/building.dif";
+      showTerrainInside = "0";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

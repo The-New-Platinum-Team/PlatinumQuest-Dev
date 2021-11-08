@@ -1,0 +1,1856 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "Solo Hans";
+         name = "CactusMath TM";
+         desc = "Where 2 X 2 doesn\'t always add up to 4";
+         startHelpText = "Are you a math whiz?";
+         level = "8";
+         type = "LBCustom";
+         goldTime = "75000";
+         music = "Seaside Revisited.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569861149077900047473967104.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160049016675429178998259712.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         scale = "1 1 1";
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         locked = "true";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "-1.16331 0.0577706 495.153";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "3097";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new StaticShape() {
+      position = "-3.33119 11.5698 496.074";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignCautionCaution";
+   };
+   new InteriorInstance() {
+      position = "-2.25788 -0.0392208 495.077";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.97981 -15.642 501.219";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/cactus.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new Trigger() {
+      position = "-2.79947 11.6664 494.971";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Welcome to CactusMath partner!";
+   };
+   new Trigger() {
+      position = "-2.78192 18.4114 494.522";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Ok, hombre, what is  does 4 + 4 = ?";
+   };
+   new Trigger() {
+      position = "-2.71026 27.4086 494.739";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "5                                       6                                         8";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "2823";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Trigger() {
+      position = "-0.441273 42.4018 494.52";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "That\'s right!  Now drop!";
+   };
+   new Trigger() {
+      position = "-2.8103 44.2133 494.944";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Try again or drop!";
+   };
+   new Trigger() {
+      position = "-5.31909 41.2856 494.944";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Try again or drop!";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1698";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.7131 44.8752 481.915";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1698";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "2.91681 28.8885 488.071";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/cactus.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new Marble() {
+      position = "-2.71422 96.6929 468.967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1715";
+         locked = "false";
+   };
+   new Trigger() {
+      position = "-6.38209 85.4161 481.796";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Yeah!   That\'s right!";
+   };
+   new Trigger() {
+      position = "-3.87331 88.7438 481.796";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Nope!  Drop or try again!";
+   };
+   new Trigger() {
+      position = "-1.50428 86.9323 481.372";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Nope!  Try again or drop!";
+   };
+   new Trigger() {
+      position = "-3.77326 71.9391 481.591";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "4                                       8                                        16";
+   };
+   new Trigger() {
+      position = "-4.05572 104.554 474.653";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "What is 3 times 3?";
+   };
+   new Trigger() {
+      position = "-3.90083 116.472 474.427";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "9                       15                                               6";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "6036";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new TSStatic() {
+      position = "-14.4557 141.9 471.929";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new InteriorInstance() {
+      position = "-3.62604 89.4635 474.902";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new StaticShape() {
+      position = "-0.0475982 139.826 471.938";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+         locked = "false";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1899";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new StaticShape() {
+      position = "-0.0540083 141.814 471.974";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+         locked = "false";
+   };
+   new Trigger() {
+      position = "-6.51425 130.627 474.653";
+      rotation = "1 0 0 0";
+      scale = "6 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "If you trust your answer, hop on the trapdoor path";
+   };
+   new Trigger() {
+      position = "-4.04959 57.0556 481.326";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "What does 2 X 2 = ?";
+   };
+   new Trigger() {
+      position = "-12.7274 49.2741 481.213";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Let\'s try a tougher one!";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1698";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new StaticShape() {
+      position = "-4.74283 139.729 473.429";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-14.4638 140.026 471.884";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new StaticShape() {
+      position = "-4.74924 141.717 473.466";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "7.01769 143.75 472.026";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new InteriorInstance() {
+      position = "2.82013 73.8003 481.128";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/cactus.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "12.8279 143.749 472.026";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1825";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new TSStatic() {
+      position = "16.739 143.736 472.038";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "8.9353 143.738 472.027";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-14.4874 132.113 474.896";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new InteriorInstance() {
+      position = "27.3046 138.078 471.902";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-2.80807 143.839 471.967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-12.6474 143.873 471.946";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "10.8942 143.749 472.02";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-14.4881 130.139 474.927";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "14.7925 143.727 472.027";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "5.04388 143.749 472.018";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "3.07215 143.778 472.007";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "1.12282 143.812 471.986";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new StaticShape() {
+      position = "-4.73003 137.847 473.431";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+         locked = "false";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1698";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new TSStatic() {
+      position = "-14.4793 134.107 473.401";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-0.0532306 133.864 475.032";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new StaticShape() {
+      position = "-0.0212635 135.803 473.474";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-4.75181 135.9 474.988";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-4.75251 133.926 475.019";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-14.4607 138.129 471.884";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-14.4688 136.255 471.839";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-14.4746 143.881 471.935";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new StaticShape() {
+      position = "-0.034798 137.944 471.94";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-0.826249 143.805 471.966";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new Trigger() {
+      position = "-16.352 547.449 271.494";
+      rotation = "1 0 0 0";
+      scale = "300 600 600";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new SimGroup(math) {
+   };
+   new InteriorInstance() {
+      position = "33.264 210.954 457.937";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/cactus.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1698";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "34.4236 121.512 478.028";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/cactus.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "25.687 33.9281 615.544";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new Trigger() {
+      position = "27.7336 164.562 471.548";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "156                                 12                                       11";
+   };
+   new Trigger() {
+      position = "30.0026 179.555 471.329";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "I thought you were a math whiz?";
+   };
+   new Trigger() {
+      position = "27.6335 181.367 471.753";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "\'at\'s it!";
+   };
+   new Trigger() {
+      position = "25.1247 178.639 471.753";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Naw!";
+   };
+   new InteriorInstance() {
+      position = "27.7307 182.029 458.724";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new Trigger() {
+      position = "23.9296 267.781 451.462";
+      rotation = "1 0 0 0";
+      scale = "6 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "If you trust your answer, hop on the pipe";
+   };
+   new InteriorInstance() {
+      position = "33.3606 166.042 464.88";
+      rotation = "1 0 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/cactus.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new Marble() {
+      position = "27.7296 233.847 445.776";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1715";
+         locked = "false";
+   };
+   new Trigger() {
+      position = "24.0617 222.97 458.605";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Sore-ry!";
+   };
+   new Trigger() {
+      position = "26.5705 225.897 458.605";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Nope!  Drop or try again!";
+   };
+   new Trigger() {
+      position = "28.9396 224.086 458.181";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Yep!";
+   };
+   new Trigger() {
+      position = "26.6706 209.093 458.4";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "7                                       21                                              49";
+   };
+   new Trigger() {
+      position = "26.3942 194.209 458.135";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "What is the square root of 7?";
+   };
+   new Trigger() {
+      position = "26.3881 241.708 451.462";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "What is 3 times 5?";
+   };
+   new Trigger() {
+      position = "26.543 253.626 451.236";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "27                               14                                    15";
+   };
+   new InteriorInstance() {
+      position = "14.4074 286.331 454.353";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_lintersect.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "29.0011 328.887 450.099";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "17.7164 186.428 458.022";
+      rotation = "1 0 0 0";
+      scale = "20 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Let\'s try a tougher one!";
+   };
+   new InteriorInstance() {
+      position = "26.8178 226.617 451.711";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle.dif";
+      showTerrainInside = "0";
+         locked = "false";
+   };
+   new InteriorInstance() {
+      position = "30.675 270.522 454.362";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_turn.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "22.043 280.341 454.39";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_turn.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "39.8619 270.966 454.431";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_turn.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "12.7082 279.666 454.553";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_turn.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "8.4396 273.731 451.348";
+      rotation = "1 0 0 0";
+      scale = "21 1 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Wrong!";
+   };
+   new Trigger() {
+      position = "41.4057 272.72 452.511";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "This is the correct tunnel!";
+   };
+   new Trigger() {
+      position = "24.819 302.591 451.253";
+      rotation = "1 0 0 0";
+      scale = "4 3 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "What 7 X 8 = ?";
+   };
+   new InteriorInstance() {
+      position = "26.7825 312.369 454.357";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/tubes/tube_long.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0.4 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "350";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 -8 17";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "350";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0.8 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "350";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "25 325 450";
+         rotation = "1 0 0 0";
+         scale = "0.2 0.85 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-7.5000000 2.0000000 0.5000000 0.0000000 -4.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 15.0000000 0.0000000 0.0000000";
+            targetTime = "3000";
+      };
+      new Trigger(MustChange) {
+         position = "25 350 500";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-63.7500000 63.2500000 0.2500000 0.0000000 -126.5000000 0.0000000 0.0000000 0.0000000 -0.5000000 127.5000000 0.0000000 0.0000000";
+            targetTime = "0";
+      };
+      new PathedInterior(MustChange) {
+         position = "25 332 464";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_elevator.dif";
+         interiorIndex = "0";
+         basePosition = "25 332 464";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+      };
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1698";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "69.0853 359.771 778.017";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1698";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "240000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "120000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "360000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "120000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "86.4027 419.34 746.017";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorIndex = "0";
+         basePosition = "86.4027 419.34 746.017";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "320000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "160000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "480000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "160000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "86.4027 405.34 746.017";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorIndex = "0";
+         basePosition = "86.4027 405.34 746.017";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(CheckPoints) {
+   };
+   new SimGroup(CheckPoints) {
+   };
+   new SimGroup(CheckPoints) {
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "160000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "80000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "240000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "80000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "86.4027 391.34 746.017";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorIndex = "0";
+         basePosition = "86.4027 391.34 746.017";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "160000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "80000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "240000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "80000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "86.4027 433.34 746.017";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorIndex = "0";
+         basePosition = "86.4027 433.34 746.017";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "240000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "120000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "22 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "360000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "120000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-9 6.5 31.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "86.4027 447.34 746.017";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_platform.dif";
+         interiorIndex = "0";
+         basePosition = "86.4027 447.34 746.017";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new Trigger() {
+      position = "-104.713 442.343 548.273";
+      rotation = "1 0 0 0";
+      scale = "250 250 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Whoopie!";
+   };
+   new InteriorInstance() {
+      position = "68.8796 479.068 778.067";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/advanced/platform_circle_huge.dif";
+      showTerrainInside = "0";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1831";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Marble() {
+      position = "66.1325 477.673 784.522";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "66.1062 477.763 786.373";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "65.9325 477.873 784.522";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new StaticShape() {
+      position = "66.3628 477.927 784.064";
+      rotation = "1 0 0 180";
+      scale = "6 6 6";
+      dataBlock = "LandMine";
+         resetTime = "Default";
+   };
+   new Marble() {
+      position = "67.3416 478.55 784.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "67.1325 478.473 784.522";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Item() {
+      position = "66.4304 482.508 778.049";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new TSStatic() {
+      position = "-12.511 130.147 474.931";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1833";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "5189";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Item() {
+      position = "66.3966 477.9 783.467";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlue";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "6147";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Item() {
+      position = "67.2826 472.068 778.049";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "71.718 478.298 778.049";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "61.8167 478.47 778.049";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new TSStatic() {
+      position = "65.8006 478.243 783.864";
+      rotation = "1 0 0 45";
+      scale = "5 4 4";
+      shapeName = "~/data/shapes/markers/octahedron.dts";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "10626";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "72.6601 479.637 775.167";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare2.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "64.3934 479.567 777.567";
+      rotation = "1 0 0 0";
+      scale = "5 5 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "Just for giggles try to break the pinata!";
+   };
+   new Marble() {
+      position = "66.7416 478.55 784.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "66.9325 478.673 784.522";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new StaticShape() {
+      position = "66.6113 477.954 784.235";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+         resetTime = "Default";
+         open = "0";
+         timeout = "200";
+   };
+   new Marble() {
+      position = "66.7443 477.115 784.235";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "66.7416 477.75 784.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "66.1416 477.15 784.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "65.9416 477.75 784.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "65.9416 478.55 784.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new Marble() {
+      position = "67.3416 477.55 784.435";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DefaultMarble";
+      Controllable = "1";
+         powerUpData = "0";
+         client = "1864";
+   };
+   new TSStatic() {
+      position = "-0.0317194 131.895 475.039";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-8.69023 143.865 471.928";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-6.74116 143.872 471.948";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-4.79183 143.838 471.969";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-10.672 143.899 471.93";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-10.5292 130.113 474.93";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-8.58011 130.12 474.95";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new TSStatic() {
+      position = "-6.63078 130.086 474.971";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/trapdoor.dts";
+         locked = "false";
+   };
+   new Item() {
+      position = "26.8556 138.67 471.922";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemOrange";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0.4 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "350";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 -8 17";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "350";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0.8 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "350";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "25 335 450";
+         rotation = "1 0 0 0";
+         scale = "0.2 0.85 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-7.5000000 2.0000000 0.5000000 0.0000000 -4.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 15.0000000 0.0000000 0.0000000";
+            targetTime = "3000";
+      };
+      new Trigger(MustChange) {
+         position = "25 350 500";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-63.7500000 63.2500000 0.2500000 0.0000000 -126.5000000 0.0000000 0.0000000 0.0000000 -0.5000000 127.5000000 0.0000000 0.0000000";
+            targetTime = "0";
+      };
+      new PathedInterior(MustChange) {
+         position = "25 342 464";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_elevator.dif";
+         interiorIndex = "0";
+         basePosition = "25 342 464";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0.4 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "400";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 -8 17";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "400";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0.8 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "400";
+            smoothingType = "Linear";
+         };
+         new Marker() {
+            position = "0 -8 -14.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1";
+            smoothingType = "Linear";
+         };
+      };
+      new Trigger(MustChange) {
+         position = "25 345 450";
+         rotation = "1 0 0 0";
+         scale = "0.2 0.85 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-7.5000000 2.0000000 0.5000000 0.0000000 -4.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 15.0000000 0.0000000 0.0000000";
+            targetTime = "3000";
+      };
+      new Trigger(MustChange) {
+         position = "25 350 500";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-63.7500000 63.2500000 0.2500000 0.0000000 -126.5000000 0.0000000 0.0000000 0.0000000 -0.5000000 127.5000000 0.0000000 0.0000000";
+            targetTime = "0";
+      };
+      new PathedInterior(MustChange) {
+         position = "25 352 464";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbg/beginner/training_elevator.dif";
+         interiorIndex = "0";
+         basePosition = "25 352 464";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+      };
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1702";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new InteriorInstance() {
+      position = "30.7074 346.855 447.199";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "30.7628 336.879 447.199";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "30.9628 326.679 447.199";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare2.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "21.9381 346.914 445.599";
+      rotation = "1 0 0 0";
+      scale = "5 5 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "56?  Step aboard!";
+   };
+   new Trigger() {
+      position = "22.6339 326.758 445.399";
+      rotation = "1 0 0 0";
+      scale = "5 5 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "57?  Step aboard!";
+   };
+   new Trigger() {
+      position = "22.6339 337.158 445.399";
+      rotation = "1 0 0 0";
+      scale = "5 5 5";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         locked = "false";
+         text = "64?  Step aboard!  ::)";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "3320";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Item() {
+      position = "71.1565 382.602 777.817";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "23.4558 221.496 457.304";
+      rotation = "1 0 0 0";
+      scale = "8 14 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-6.06331 39.8516 493.744";
+      rotation = "1 0 0 0";
+      scale = "8 14 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-7.48421 84.0017 480.596";
+      rotation = "1 0 0 0";
+      scale = "8 14 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "24.1634 176.79 470.236";
+      rotation = "1 0 0 0";
+      scale = "8 14 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new ScriptObject() {
+         time = "0";
+         penaltyTime = "0";
+         powerUp = "0";
+         pad = "1702";
+         bonusTime = "0";
+         gemCount = "0";
+   };
+   new Trigger() {
+      position = "-5.87778 46.1219 493.544";
+      rotation = "1 0 0 0";
+      scale = "4 6 1";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "27.6967 150.379 471.754";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Divide 12 from 144 Tex!";
+   };
+   new StaticShape(EndPoint) {
+      position = "72.1398 485.815 777.967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new StaticShape() {
+      position = "71.3408 485.758 785.487";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape() {
+      position = "26.8779 317.319 451.14";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new InteriorInstance() {
+      position = "31.6782 321.577 453.599";
+      rotation = "-1 0 0 90";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/smallsquare2.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "9.84943 319.477 449.599";
+      rotation = "1 0 0 0";
+      scale = "14 1 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Hint approach chosen pad from the front, then fly like a buzzard to the next level!";
+   };
+   new Trigger() {
+      position = "5.8378 277.495 451.653";
+      rotation = "1 0 0 0";
+      scale = "25 1 5";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/Shell.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

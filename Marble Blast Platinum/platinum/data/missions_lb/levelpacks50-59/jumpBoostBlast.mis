@@ -1,0 +1,995 @@
+//MP pathnodes
+//wallHole1: 3 186.25 28, 3 186.25 30.5
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "Threefolder";
+         desc = "Shoot down the hallway, using the Jump Boosts at high speeds to overcome the challenges.";
+         goldTime = "23000";
+         level = "19";
+         music = "Challenge.ogg";
+         name = "Jump Boost Blast";
+         startHelpText = "Quick reflexes will be required here.\nDon\'t go too fast!";
+         type = "custom";
+         ultimateTime = "18000";
+		 game = "Platinum";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "1200";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      materialList = "~/data/skies/Expert/Expert_Sky.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "0.700000 0.700000 0.700000 1.000000";
+      ambient = "0.100000 0.100000 0.200000 1.000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "3 -7 26.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/threefolder_jumpBoostBlast.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbp/threefolder_jumpBoostBlastMP.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "3 15 21.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-4 110 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "-0.5393053 0.7338353 27.45284";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "SignDownSide";
+   };
+   new StaticShape() {
+      position = "6.554331 0.7254273 27.45284";
+      rotation = "0 0 -1 90.00026";
+      scale = "1 1 1";
+      dataBlock = "SignDownSide";
+   };
+   new StaticShape() {
+      position = "-4 4 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 25 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1.2916 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 0.9999977 27.5";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_3shape";
+   };
+   new StaticShape() {
+      position = "4 1 27.5";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_3shape";
+   };
+   new StaticShape() {
+      position = "-4 4 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 4 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 4 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 25 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1.2916 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 -17 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 -17 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 -17 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 -17 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new Trigger(NO) {
+      position = "-13 495 34";
+      rotation = "1 0 0 0";
+      scale = "30 492 20";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "3 40.75 25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1500";
+   };
+   new Item() {
+      position = "3 67 25.25";
+      rotation = "1 0 0 0";
+      scale = "1.2 1.2 1.2";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "7.75 100.75 28";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "2000";
+   };
+   new StaticShape() {
+      position = "7.973718 131.4749 24.96218";
+      rotation = "-0.09754997 0.09754965 0.9904383 90.55017";
+      scale = "1 1 1";
+      dataBlock = "SignSide";
+   };
+   new Trigger(NO) {
+      position = "-13 776 1";
+      rotation = "1 0 0 0";
+      scale = "30 950 20";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "-4 103.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 103.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new Item() {
+      position = "3 147 23.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-4 138 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 110 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "10.5 110 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 110 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 132 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 157 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 163.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 0.5825";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 163 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 0.666";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 138 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "3 186.25 28";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2580";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "3 186.25 30.5";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2580";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "3 186.25 28";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/mbp/threefolder_jumpBoostBlastMP.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new StaticShape() {
+      position = "-4 94.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 43.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 79.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 88.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 79.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 64.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 43.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 58.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new Trigger(SpeedUp) {
+      position = "0 190.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "2 4 1";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Get yourself back up to speed!";
+   };
+   new TSStatic(check1) {
+      position = "1 187.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      shapeName = "~/data/shapes/buttons/checkPoint.dts";
+         add = "0 0 0.5";
+   };
+   new Trigger(check1triggerA) {
+      position = "2 190.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "2 4 1";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         add = "0 0 0.5";
+         respawnPoint = "check1";
+   };
+   new Trigger(check1triggerB) {
+      position = "-1 196 26";
+      rotation = "1 0 0 0";
+      scale = "8 1 7.5";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         add = "0 0 0.5";
+         respawnPoint = "check1";
+   };
+   new Item() {
+      position = "3 226 21.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3 316 21.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3 358.75 26.75";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3 406.25 25.25";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3 406.25 30.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "3000";
+   };
+   new StaticShape() {
+      position = "-3 488.625 23.5";
+      rotation = "0 0 1 89.99998";
+      scale = "0.5 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new Item() {
+      position = "3 470 21.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3 538 30.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "5 586.5 23";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1500";
+   };
+   new Item() {
+      position = "3 622.5 22.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3 662.25 28.5";
+      rotation = "1 0 0 0";
+      scale = "1.2 1.2 1.2";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "2.75 662.25 22.75";
+      rotation = "1 0 0 0";
+      scale = "1.2 1.2 1.2";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(check2trigger) {
+      position = "0 530.5 30.5";
+      rotation = "1 0 0 0";
+      scale = "6 0.5 5";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         respawnPoint = "check2";
+   };
+   new TSStatic(check2) {
+      position = "3 497.5 34.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/buttons/checkPoint.dts";
+   };
+   new Item() {
+      position = "3.25 662.25 23.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "1000";
+   };
+   new Trigger(NO) {
+      position = "-13 776 34";
+      rotation = "1 0 0 0";
+      scale = "30 245.5 20";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "10.5 576.25 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 576.25 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new Trigger(stayHere) {
+      position = "-13 778 -500";
+      rotation = "1 0 0 0";
+      scale = "30 1000 1000";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(EndPoint) {
+      position = "3 754.5 22.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new StaticShape() {
+      position = "3.729279 754.4226 31";
+      rotation = "0 0 1 11.24987";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape() {
+      position = "10.5 369.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "10.5 215 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 191 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 291 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 327 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 342 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 212 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 227 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 236 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 251 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 360.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 396.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 396.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 360.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 321 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 291 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 191 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 245 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 268.5 24.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 268.5 24.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 300 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 330 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 306 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 230 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 206 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 369.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "-4 369.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "10.5 369.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new Trigger(useDiag) {
+      position = "1 499.5 34.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Use diagonal movement to gain back speed...";
+   };
+   new StaticShape() {
+      position = "-4 662.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 406.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 457.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 472.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 442.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 472.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 406.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 421.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 451.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 421.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 442.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 489 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 489 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 502 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 553 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 505 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 517 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 553 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 562 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 496 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 526 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "-4 526 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "-4 635.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_12shape";
+   };
+   new StaticShape() {
+      position = "10.5 593.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 623.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 677.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 0.8333";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 677.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 0.8333";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 590.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "10.5 602.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_9shape";
+   };
+   new StaticShape() {
+      position = "-4 611.5 33.5";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 620.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 620.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 632.5 21.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 647.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 662.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "10.5 685.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new StaticShape() {
+      position = "-4 685.5 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "glass_6shape";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/music/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---

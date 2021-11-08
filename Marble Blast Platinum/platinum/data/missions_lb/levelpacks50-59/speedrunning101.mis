@@ -1,0 +1,1579 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         name = "Speedrunning 101";
+         artist = "hPerks";
+         type = "custom";
+         level = "37";
+         desc = "Learn some of the many skills and techniques involved in speedrunning Marble Blast!";
+         startHelpText = "Once you enter a blue zone, you're on the clock. Good luck!";
+         game = "Platinum";
+         goldTime = "120000";
+         UltimateTime = "60000";
+         music = "Pulse.ogg";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0";
+      cloudSpeed2 = "0";
+      cloudSpeed3 = "0";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0 0 0 0";
+      fogDistance = "300";
+      fogColor = "0 0 0 0";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
+      windVelocity = "0 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "0 0 0 0";
+      fogVolumeColor2 = "0 0 0 0";
+      fogVolumeColor3 = "0 0 0 0";
+   };
+   new Sun() {
+      direction = "0.5 0.5 -0.5";
+      color = "1.4 1.2 0.4 1";
+      ambient = "0.3 0.3 0.4 1";
+   };
+   new StaticShape() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_a.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_b.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(IBT) {
+      position = "-40 65 -1999";
+      rotation = "1 0 0 0";
+      scale = "80 80 2200";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new Trigger(OOBT) {
+      position = "-40 65 -990";
+      rotation = "1 0 0 0";
+      scale = "80 80 980";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new Trigger(OOBT2) {
+      position = "-40 65 -1790";
+      rotation = "1 0 0 0";
+      scale = "80 80 791";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new InteriorInstance() {
+      position = "0 0 -1000";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_oob.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-100 0 -992.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(OOB) {
+      position = "0 0 -1000";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new Trigger() {
+      position = "-0.5 0.5 -1000";
+      rotation = "1 0 0 0";
+      scale = "1 1 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Oops! You were too slow. Press <func:bind mousefire> or <func:bind forceRespawn> to try again!";
+   };
+   new Trigger() {
+      position = "-0.5 0.5 -2000";
+      rotation = "1 0 0 0";
+      scale = "1 1 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "You didn't think it would be that easy, did you?";
+   };
+
+
+
+   new Trigger(challenge1) {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new InteriorInstance() {
+      position = "-100 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-2 4 0";
+      rotation = "1 0 0 0";
+      scale = "4 2 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Use diagonal movement with jumping for maximum speed. (2.5s)";
+   };
+   new Trigger() {
+      position = "-4 37.5 0";
+      rotation = "1 0 0 0";
+      scale = "8 33 6.75";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "2400";
+   };
+   new Item() {
+      position = "2.625 28 2.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "3000";
+   };
+   new Trigger() {
+      position = "-4 46 3.25";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Nice work! Hop in this hole to go to the next challenge.";
+   };
+   new Trigger() {
+      position = "-2 44 2.25";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge2";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-100 42 3.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge2) {
+      position = "22 24 8";
+      rotation = "0 0 -1 90";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "22 24 8";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-78 24 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "20 26 8";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Cutting corners can shave off valuable time. (2.5s)";
+   };
+   new Trigger() {
+      position = "-13.5 28 8";
+      rotation = "1 0 0 0";
+      scale = "31 18 6";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "2500";
+   };
+   new Item() {
+      position = "0 19 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-10 19 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-22 18 8";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Awesome, keep it up!";
+   };
+   new Trigger() {
+      position = "-20 16 7";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge3";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-118 14 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge3) {
+      position = "0 42 15.75";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "0 42 15.75";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-100 42 15.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-2 44 15.75";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Bounce off the walls in this room to quickly change direction. (5s)";
+   };
+   new Trigger() {
+      position = "4.5 46 15.75";
+      rotation = "1 0 0 0";
+      scale = "21.5 17.5 10";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "5000";
+   };
+   new Item() {
+      position = "22 40 15.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "14 36 15.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "11.75 39.75 20.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "8000";
+   };
+   new Trigger() {
+      position = "18 28 15.75";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Great job! Did you get both gems?";
+   };
+   new Trigger() {
+      position = "20 26 14.75";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge4";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-78 24 15.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge4) {
+      position = "-18 14 20";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "-18 14 20";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-118 14 20";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-20 16 20";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Try not to waste any bounces climbing these steps! (5s)";
+   };
+   new Trigger() {
+      position = "-22 9.5 20";
+      rotation = "1 0 0 0";
+      scale = "17.5 13.5 12";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "5000";
+   };
+   new Item() {
+      position = "-19 -1 22.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new Trigger() {
+      position = "-4 4 27";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Wicked jumps, dude!";
+   };
+   new Trigger() {
+      position = "-2 2 26";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge5";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-100 0 27";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge5) {
+      position = "22 24 28";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "22 24 28";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-78 24 28";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "20 26 28";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Aim for the gems as you fall! (7s)";
+   };
+   new Trigger() {
+      position = "4.5 20 11";
+      rotation = "1 0 0 0";
+      scale = "22 24.5 19";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "7500";
+   };
+   new StaticShape() {
+      position = "24 16.25 28";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignDown";
+   };
+   new StaticShape() {
+      position = "20 16.25 28";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignDown";
+   };
+   new Item() {
+      position = "22 13 20";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "26 13 20.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "6000";
+   };
+   new StaticShape() {
+      position = "24 2.25 21";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignDown";
+   };
+   new StaticShape() {
+      position = "20 2.25 21";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "SignDown";
+   };
+   new Item() {
+      position = "22 0 15";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "18 0 11";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-4 4 15.25";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Sweet skillshots! You should have 6 gems now.";
+   };
+   new Trigger() {
+      position = "-2 2 14.25";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge6";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-100 0 15.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge6) {
+      position = "-18 14 32";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "-18 14 32";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-118 14 32";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-20 16 32";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Using the super jump while falling will reduce your height. (5s)";
+   };
+   new Trigger() {
+      position = "-22 46 29.5";
+      rotation = "1 0 0 0";
+      scale = "17.5 27.5 22.5";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "5000";
+   };
+   new Item() {
+      position = "-18 20 32.1775";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-18 38 32";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-18 42 32.1775";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-10 42 38";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-4 46 38";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "You're halfway there, keep going!";
+   };
+   new Trigger() {
+      position = "-2 44 37";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge7";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-100 42 38";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge7) {
+      position = "0 42 62";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "0 42 62";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-100 42 62";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-2 44 62";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "This platform is way too slow to ride all the way. (2.5s)";
+   };
+   new Item() {
+      position = "-3.75 45.75 62.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "4500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0 -26 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "4500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "0 0 0";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_b.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new Trigger() {
+      position = "-6 38 62";
+      rotation = "1 0 0 0";
+      scale = "12 34 7";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "2600";
+   };
+   new Item() {
+      position = "0 21 62";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-4 4 62";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Nice timing!";
+   };
+   new Trigger() {
+      position = "-2 2 61";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge8";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-100 0 62";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge8) {
+      position = "22 24 52";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "22 24 52";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-78 24 52";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "20 26 52";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Use the super speed to quickly change direction. (2.5s)";
+   };
+   new Trigger() {
+      position = "-13.5 34 49";
+      rotation = "1 0 0 0";
+      scale = "31 24 12";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "2600";
+   };
+   new Item() {
+      position = "17 24 52.1875";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "6 30 49";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-22 18 56";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Great work! Who says I can't do smooth curves?";
+   };
+   new Trigger() {
+      position = "-20 16 55";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge9";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-118 14 56";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge9) {
+      position = "0 0 74";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "0 0 74";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-100 0 74";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-2 2 74";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Don't waste too much time in the air here! Natural bounces will help. (5.5s)";
+   };
+   new Trigger() {
+      position = "4.5 19.5 71";
+      rotation = "1 0 0 0";
+      scale = "27.5 31.5 43";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "5500";
+   };
+   new Item() {
+      position = "5 0 73.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "19 0 74";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "22 3 74";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "22 16 80.0625";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "22 13 79.0625";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "18 28 80.125";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Nice job! It's gonna get a bit harder from here.";
+   };
+   new Trigger() {
+      position = "20 26 80.8125";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge10";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-78 24 81.8125";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge10) {
+      position = "-18 14 70";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "-18 14 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-118 14 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-20 16 70";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Aim for the triangle bumper! (2s)";
+   };
+   new Trigger() {
+      position = "-22 46 70";
+      rotation = "1 0 0 0";
+      scale = "17.5 27.5 10";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "2100";
+   };
+   new Item() {
+      position = "-18 28 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-18.5 29.875 70.1875";
+      rotation = "0 0 1 -75";
+      scale = "1 1 1";
+      dataBlock = "TriangleBumper";
+   };
+   new StaticShape() {
+      position = "-17.75 21.5 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-17 23.25 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-19.5 24.5 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-19 27 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-17 27.75 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-15.25 30.25 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-16.5 32.5 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-11.5 32.5 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new StaticShape() {
+      position = "-14.25 34.25 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper";
+   };
+   new Item() {
+      position = "-15.25 30.25 74";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "9000";
+   };
+   new Trigger() {
+      position = "-4 46 69";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "I really think triangle bumpers are underrated, don't you?";
+   };
+   new Trigger() {
+      position = "-2 44 69";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge11";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-100 42 70";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge11) {
+      position = "0 0 86";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "0 0 86";
+      rotation = "0 0 -1 90";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-100 0 86";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-2 2 86";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Trapdoors take a while to open. (5s)";
+   };
+   new Trigger() {
+      position = "-22 9.5 82";
+      rotation = "1 0 0 0";
+      scale = "17.5 13.5 16";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "4900";
+   };
+   new StaticShape() {
+      position = "-11.5 0 87";
+      rotation = "0 -1 0 90";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+   };
+   new Item() {
+      position = "-10 1 86";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-10 -1 86";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-17 1 86";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TrapDoor";
+   };
+   new Item() {
+      position = "-18 5 86";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-22 18 82";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Sneaky stuff! You have 17 gems now, right?";
+   };
+   new Trigger() {
+      position = "-20 16 81";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge12";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-118 14 82";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge12) {
+      position = "0 42 80";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "0 42 80";
+      rotation = "0 0 1 90";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-100 42 80";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-2 44 80";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "You're almost there! Ram into the far mine to shoot upward! (7.5s)";
+   };
+   new Trigger() {
+      position = "4.5 46 80";
+      rotation = "1 0 0 0";
+      scale = "21.5 17.5 30";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "7500";
+   };
+   new StaticShape() {
+      position = "19 42 80";
+      rotation = "1 0 0 0";
+      scale = "1.25 1.25 1.5";
+      dataBlock = "LandMine";
+   };
+   new StaticShape() {
+      position = "16 43 80";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+   };
+   new StaticShape() {
+      position = "14.5 41 80";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+   };
+   new StaticShape() {
+      position = "13.75 42.25 80";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine";
+   };
+   new Item() {
+      position = "16 42 80";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "18 28 90";
+      rotation = "1 0 0 0";
+      scale = "8 8 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "\"Who puts a mine hit at the end of a level?\" -hPerks, Feb. 2016";
+   };
+   new Trigger() {
+      position = "20 26 89";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "challenge13";
+         delay = "1000";
+   };
+   new InteriorInstance() {
+      position = "-78 24 90";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+
+
+
+   new Trigger(challenge13) {
+      position = "0 0 102";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "0 0 102";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-100 0 102";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-2 2 102";
+      rotation = "1 0 0 0";
+      scale = "4 4 2";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "The final challenge! Test your marble movement skills in this room. (12.5s)";
+   };
+   new Trigger() {
+      position = "-14.5 38 102";
+      rotation = "1 0 0 0";
+      scale = "19 34 8";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "12500";
+   };
+   new Item() {
+      position = "-6.5 19 102";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-3.5 19 102";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-9 31 102.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-7 31 103";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-5 31 102.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-9 33 103";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-7 33 103.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-5 33 103";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "3 25 102.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "10000";
+   };
+   new TSStatic() {
+      position = "-5 21 110.05";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.6";
+      shapeName = $usermods @ "/data/shapes/items/easteregg.dts";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-6 22 110.5";
+      rotation = "1 0 0 0";
+      scale = "2 2 1";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB2";
+         delay = "1";
+   };
+
+
+
+   new StaticShape(EndPoint) {
+      position = "0 42 94";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new StaticShape() {
+      position = "0 42 104";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new InteriorInstance() {
+      position = "-100 42 94";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-4 46 94";
+      rotation = "1 0 0 0";
+      scale = "8 8 16";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         text = "Congratulations! You've learned the art of speedrunning!";
+   };
+
+
+
+   new InteriorInstance() {
+      position = "0 0 -2000";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_oob2.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(OOB2) {
+      position = "0 0 -2000";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new Trigger() {
+      position = "-2 -10 -2001";
+      rotation = "1 0 0 0";
+      scale = "4 4 0.9";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB3";
+         delay = "500";
+   };
+
+
+
+   new Trigger(OOB3) {
+      position = "0 0 -1992.25";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+   };
+   new StaticShape() {
+      position = "0 0 -1992.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "CheckPoint";
+   };
+   new InteriorInstance() {
+      position = "-100 0 -1992.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = $usermods @ "/data/lbinteriors_custom/mbp/speedrunning101_archcurves.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-4.5 38 -1992.25";
+      rotation = "1 0 0 0";
+      scale = "9 34 8";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+         destination = "OOB";
+         delay = "750";
+   };
+   new Item() {
+      position = "0 7 -1992.0725";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 42 -1993.15";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.2";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+};
+//--- OBJECT WRITE END ---
