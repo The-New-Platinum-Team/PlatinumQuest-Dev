@@ -518,6 +518,7 @@ function MarblelandDlg::deleteFile(%this) {
 		return;
 	}
 
+	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 	MarblelandPackages.removeMatching(%mission.id);
 	unloadMBPackage("marbleland/" @ %mission.id);
 	deletePackage("marbleland/" @ %mission.id);
@@ -552,6 +553,11 @@ function MarblelandDlg::onSelect(%this) {
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
 	if (isLoadedMBPackage("marbleland/" @ %mission.id)) {
+		if (strStr($Menu::CurrentlyLoadedMission, "_" @ %mission.id @ ".mis") != -1) { // Such a hack
+			MarblelandSearchDelete.setActive(false);
+		} else {
+			MarblelandSearchDelete.setActive(true);
+		}
 		MarblelandSearchDelete.setVisible(true);
 		MarblelandSearchPlay.setVisible(false);
 	} else {
