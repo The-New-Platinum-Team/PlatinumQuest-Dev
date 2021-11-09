@@ -456,9 +456,9 @@ function MarblelandDlg::DownloadMission(%this) {
 function MarblelandDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 
+	MarblelandPackages.addEntry($MarblelandDownloadId);
 	loadMBPackage("marbleland/" @ $MarblelandDownloadId);
-	PlayMissionGui.ml.buildCustomDifficultyTree(); 
-	PlayMissionGui.buildCustomDifficultyList();
+	PlayMissionGui.ml.buildCustomDifficultyTree();
 
 	// Refresh "Custom" and "custom/marbleland" difficulties
 	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/");
@@ -470,7 +470,8 @@ function MarblelandDownloader::onDownload(%this, %path) {
 		%ml.delete();
 	}
 
-	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
+	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") { 
+		PlayMissionGui.buildCustomDifficultyList();
 		PlayMissionGui.setMissionType($MissionType);
 		PlayMissionGui.showMissionList();
 	}
@@ -517,7 +518,7 @@ function MarblelandDlg::deleteFile(%this) {
 		return;
 	}
 
-	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
+	MarblelandPackages.removeMatching(%mission.id);
 	unloadMBPackage("marbleland/" @ %mission.id);
 	deletePackage("marbleland/" @ %mission.id);
 	PlayMissionGui.ml.buildCustomDifficultyTree(); 

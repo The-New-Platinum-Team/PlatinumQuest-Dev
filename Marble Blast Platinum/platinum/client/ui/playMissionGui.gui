@@ -1239,6 +1239,16 @@ function PlayMissionGui::init(%this) {
 }
 
 function PlayMissionGui::onWake(%this) {
+	// Reload marbleland packages
+	echo("Reloading Marbleland");
+	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+		%pakName = MarblelandPackages.getEntry(%i);
+		if (!isLoadedMBPackage("marbleland/" @ %pakName)) {
+			loadMBPackage("marbleland/" @ %pakName);
+		}
+	}
+
+
 	Unlock::updateCaches();
 	RootGui.resetDisplay();
 
@@ -2920,6 +2930,29 @@ function PlayMissionGui::play(%this) {
 			commandToServer('LoadMission', %this.getMissionInfo().file);
 		}
 	} else {
+
+		// Unload marbleland missions EXCEPT the one that is gonna be played
+		if (%this.isMarblelandMission()) {
+			%file = PlayMissionGui.getMissionInfo().file;
+			%marblelandId = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
+			// Get the ids of the rest of the marbleland missions and unload them
+			for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+				%pakName = MarblelandPackages.getEntry(%i);
+				if (%pakName != %marblelandId) {
+					if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+						unloadMBPackage("marbleland/" @ %pakName);
+					}
+				}
+			}
+		} else {
+			for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+					%pakName = MarblelandPackages.getEntry(%i);
+					if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+						unloadMBPackage("marbleland/" @ %pakName);
+				}
+			}
+		}
+
 		//Thanks, controller support
 		if (!Unlock::canPlayMission(%this.getMissionInfo())) {
 			return;

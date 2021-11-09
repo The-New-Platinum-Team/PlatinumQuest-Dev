@@ -413,3 +413,13 @@ function normalizeAngle(%angle) {
 		%angle += $tau;
 	return %angle;
 }
+
+function strrpos(%haystack, %needle) {
+	%index = strpos(%haystack, %needle);
+	%testindex = strpos(%haystack, %needle, %index + 1);
+	while (%testindex != -1) {
+		%index = %testindex;
+		%testindex = strpos(%haystack, %needle, %index + 1);
+	}
+	return %index;
+}
