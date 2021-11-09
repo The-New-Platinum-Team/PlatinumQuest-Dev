@@ -32,8 +32,13 @@ for ($file = findFirstFile("packages/*.mbpak"); $file !$= ""; $file = findNextFi
 	if (!strStr($file, "marbleland"))
 		loadMBPackage(fileBase($file));
 }
+
+if (!isObject(MarblelandPackages))
+	Array(MarblelandPackages);
+
 for ($file = findFirstFile("packages/marbleland/*.mbpak"); $file !$= ""; $file = findNextFile("packages/marbleland/*.mbpak")) {
 	loadMBPackage("marbleland/" @ fileBase($file));
+	MarblelandPackages.addEntry(fileBase($file));
 }
 
 //$baseMods = "platinum";
