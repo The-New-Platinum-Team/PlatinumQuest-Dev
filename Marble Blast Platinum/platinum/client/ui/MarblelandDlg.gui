@@ -228,6 +228,22 @@ new GuiControl(MarblelandDlg) {
 			repeatDecay = "1";
 				borderColor = "255 153 153 255";
 		};
+		new GuiBorderButtonCtrl(MarblelandSearchStart) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "428 411";
+			extent = "252 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandDlg.Start();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
 		new GuiBorderButtonCtrl(MarblelandSG_Cancel) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
@@ -429,6 +445,7 @@ function MarblelandDlg::finalize(%this) {
 		MarblelandSearchPlay.setActive(true);
 	} else {
 		MarblelandSearchPlay.setActive(false);
+		MarblelandSearchStart.setActive(false);
 	}
 }
 
@@ -485,11 +502,24 @@ function MarblelandDownloader::onDisconnect(%this) {
 	if (%this.success && %mission.id == $MarblelandDownloadId) {
 		MarblelandSearchDelete.setVisible(true);
 		MarblelandSearchPlay.setVisible(false);
+		MarblelandSearchStart.setActive(true);
 	} else {
 		MarblelandSearchDelete.setVisible(false);
 		MarblelandSearchPlay.setVisible(true);
+		MarblelandSearchStart.setActive(false);
 	}
 	%this.delete();
+}
+
+function MarblelandDlg::start(%this) {
+	%id = MarblelandSearchMissionList.getSelectedId();
+	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
+
+	%missionId = %mission.id;
+	%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
+	%mission.file = "platinum/data/missions/marbleland/" @ %misname;
+	PlayMissionGui.setSelectedMission(%mission, "Custom", "Custom/");
+	menuLoadStartMission(%mission.file);
 }
 
 
@@ -509,6 +539,7 @@ function MarblelandDlg::setStatus(%this, %status, %active) {
 	MarblelandSearchEdit.setVisible(%active);
 	MarblelandSearchEdit.makeFirstResponder(%active);
 	MarblelandSearchPlay.setActive(%active);
+	MarblelandSearchStart.setActive(%active);
 	Canvas.repaint();
 }
 
@@ -560,9 +591,11 @@ function MarblelandDlg::onSelect(%this) {
 		}
 		MarblelandSearchDelete.setVisible(true);
 		MarblelandSearchPlay.setVisible(false);
+		MarblelandSearchStart.setActive(true);
 	} else {
 		MarblelandSearchDelete.setVisible(false);
 		MarblelandSearchPlay.setVisible(true);
+		MarblelandSearchStart.setActive(false);
 	}
 
 	MarblelandLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");
