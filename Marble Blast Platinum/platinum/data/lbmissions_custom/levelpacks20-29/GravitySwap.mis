@@ -7,9 +7,15 @@ package GravitySwap {
 			schedule(300,0,"flipAgain");
 		}
 	}
+
+   function joyMouseFire(%val) {
+	   mouseFire(joyConvertButtonOrAxis(%val));
+   }
+
 	function flipAgain() {
 		$canFlip = 1;
 	}
+
 	function GameConnection::onClientLeaveGame(%this)
 	{
 		Parent::onClientLeaveGame(%this);
