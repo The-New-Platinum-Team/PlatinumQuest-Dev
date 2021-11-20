@@ -256,13 +256,15 @@ function CompleteDemoDlg::dosave(%this) {
 
 	%file = $Record::File;
 	%final = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec";
+	%finalzip = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec.zip";
 
 	// If it's a file, we need to append a number to it.
 	%num = 0;
-	while (isFile(%final)) {
+	while (isFile(%final) || isFile(%finalzip)) {
 		%num++;
 		%baseName = alphaNum(%name) @ "(" @ %num @ ")";
 		%final = "platinum/data/recordings/" @ %baseName @ ".rrec";
+		%finalzip = "platinum/data/recordings/" @ %baseName @ ".rrec.zip";
 	}
 	if (%num > 0) {
 		// If we have had to append a new name, let's put a number in the name as well.
