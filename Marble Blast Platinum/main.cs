@@ -29,7 +29,7 @@
 
 setModPaths("platinum;packages");
 for ($file = findFirstFile("packages/*.mbpak"); $file !$= ""; $file = findNextFile("packages/*.mbpak")) {
-	if (!strStr($file, "marbleland"))
+	if (strStr($file, "marbleland") == -1)
 		loadMBPackage(fileBase($file));
 }
 
