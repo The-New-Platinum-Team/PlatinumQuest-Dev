@@ -29,6 +29,15 @@
 
 // core function for loading leaderboards
 function initLeaderboards() {
+
+	// Unload all marbleland packages or else bruh shit happens
+	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+			%pakName = MarblelandPackages.getEntry(%i);
+			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+				unloadMBPackage("marbleland/" @ %pakName);
+		}
+	}
+
 	// delete old leaderboard stuff before making a new one
 	doCloseLeaderboards();
 
@@ -135,6 +144,15 @@ function initLBConstants() {
 function closeLeaderboards() {
 	// Schedule this on the next frame to prevent memory corruption from the gui being deleted (#631)
 	onNextFrame(doCloseLeaderboards);
+
+	// Reload Marbleland cause bruh
+	echo("Reloading Marbleland");
+	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+		%pakName = MarblelandPackages.getEntry(%i);
+		if (!isLoadedMBPackage("marbleland/" @ %pakName)) {
+			loadMBPackage("marbleland/" @ %pakName);
+		}
+	}
 }
 
 function doCloseLeaderboards() {
