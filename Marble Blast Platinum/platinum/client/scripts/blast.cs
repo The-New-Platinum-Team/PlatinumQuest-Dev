@@ -46,6 +46,10 @@ function shouldEnableBlast() {
 }
 
 function shouldUpdateBlast() {
+	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {  //I hope this works now
+		return false;
+	}
+
 	return (shouldEnableBlast() && $PlayTimerActive) || //Only let them use blast when the time is running
 	       ($Game::State !$= "End" && MissionInfo.game $= "Ultra" && $Server::ServerType $= "SinglePlayer") || //Unless they're in a MBU level
 	       ClientMode::callback("shouldUpdateBlast", false); //Modes can say if they should update blast too
@@ -55,8 +59,6 @@ function clientUpdateBlast(%timeDelta) {
 	if ($MP::PartyTripleBlast) // Do not increment it in triple-blast mode
 		return;
 	
-	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) //No updating the Blast Meter in Hard Mode
-	     return;		
 	// blast code update
 	$MP::BlastValue += (%timeDelta / $MP::BlastChargeTime);
 	if ($MP::BlastValue > 1)
