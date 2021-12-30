@@ -1037,3 +1037,34 @@ datablock TriggerData(SoundTrigger) {
 function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	serverplay2d(%trigger.sfx);
 }
+
+//-----------------------------------------------------------------------------
+// I'm interested to see how or if people will use this ~ Connie
+
+datablock TriggerData(ChangeMarbleSizeTrigger) {
+	tickPeriodMS = 100;
+    customField[0, "field"  ] = "mbsize";
+    customField[0, "type"   ] = "float";
+    customField[0, "name"   ] = "Size";
+    customField[0, "desc"   ] = "0.6666 for Mega Scale, 0.2 for Gold Scale, 0.3 for Ultra Scale, 0.18975 for Normal Scale";
+	customField[0, "default"] = 0.18975;
+};
+function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
+
+    if (%trigger.mbsize != "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
+
+        if (%trigger.mbsize < 0.18975) {
+		    addHelpLine("Your Marble is now smaller. Its scale is " @ %trigger.mbsize @ ".");
+	    } else if (%trigger.mbsize > 0.189751) {
+            addHelpLine("Your Marble is now bigger. Its scale is " @ %trigger.mbsize @ ".");
+	    } else if (%trigger.mbsize = 0.18975) {
+	    	addHelpLine("Your Marble is at its normal size. Its scale is " @ %trigger.mbsize @ ".");
+	    }
+
+		%obj.setCollisionRadius(%trigger.mbsize);
+
+	} else {
+	    addHelpLine("Your Marble is at it's normal size. It's scale is 0.18975.");
+		%obj.setCollisionRadius(0.18975);
+	}
+}
