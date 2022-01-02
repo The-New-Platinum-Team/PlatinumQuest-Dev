@@ -277,7 +277,7 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::TrainingMode || $MPPref::Server::PartySpawns)) {
+	if (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::TrainingMode || $MPPref::Server::PartySpawns || $MPPref::Server::HuntHardMode)) {
 		$MP::ScoreSendingDisabled = true;
 	}
 
