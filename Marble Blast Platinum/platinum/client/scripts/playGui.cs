@@ -31,6 +31,7 @@ function PlayGui::onWake(%this) {
 	// Turn off any shell sounds...
 	// alxStop( ... );
 
+    $PlayGuiTimeTravel = true;
 	$PlayGuiGem = true;
 	$InPlayGUI = true;
 	resetCameraFov();
@@ -1039,7 +1040,7 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		PGCountdownTTThirdDigitOrDecimal.setPosition("407" + %offsetIfThousandths SPC "0");
 	}
 	
-	PGCountdownTTImage.setPosition("348" + %offsetIfThousandths SPC "3");
+	HUD_ShowTimeTravel.setPosition("348" + %offsetIfThousandths SPC "3");
 	PGCountdownTTFirstDigit.setPosition("375" + %offsetIfThousandths SPC "0");
 	PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
 
@@ -1049,6 +1050,25 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 
 	PGCountdownTTSecondDigit.setVisible(%secondsLeft >= 10);
 	PGCountdownTT.setVisible(%this.bonusTime);
+
+	if ($PlayGuiTimeTravel) {
+		if ($currentGame $= "PlatinumQuest") {
+			%dts = $usermods @ "/data/shapes_pq/Gameplay/Powerups/timetravel.dts";
+			%skin = "base";
+		} else if ($currentGame $= "Ultra") {
+			%dts = $usermods @ "/data/shapes_mbu/items/timetravel.dts";
+			%skin = "base";
+		} else if ($currentGame $= "Gold") {
+			%dts = $usermods @ "/data/shapes/items/timetravel.dts";
+			%skin = "mbg";
+		} else {
+			%dts = $usermods @ "/data/shapes/items/timetravel.dts";
+			%skin = "base";
+        }
+
+		HUD_ShowTimeTravel.setModel(%dts, %skin);
+		$PlayGuiTimeTravel = false;
+	}
 }
 
 function PlayGui::updateCountdownLeft(%this, %delta) {
