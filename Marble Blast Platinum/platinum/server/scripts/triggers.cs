@@ -1048,22 +1048,36 @@ datablock TriggerData(ChangeMarbleSizeTrigger) {
     customField[0, "name"   ] = "Size";
     customField[0, "desc"   ] = "0.6666 for Mega Scale, 0.2 for Gold Scale, 0.3 for Ultra Scale, 0.18975 for Normal Scale";
 	customField[0, "default"] = 0.18975;
+	customField[1, "field"  ] = "indicator";
+	customField[1, "type"   ] = "boolean";
+	customField[1, "name"   ] = "Disable help text & SFX?";
+	customField[1, "desc"   ] = "If ticked then the help text & SFX won't play.";
+	customField[1, "default"] = "0";
 };
 function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
-    if (%trigger.mbsize != "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
+    if (%trigger.mbsize !$= "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
 
         if (%trigger.mbsize < 0.18975) {
 		    //addHelpLine("Oh dear, your marble has shrunk by " @ (%trigger.mbsize * 100) @ "%...");
-		    addHelpLine("Oh dear, your marble has shrunk...");
-			serverplay2d(DoAnvilSfx);
+		    if (%trigger.indicator == 0) 
+			{
+				addHelpLine("Oh dear, your marble has shrunk...");
+				serverplay2d(DoAnvilSfx); 
+			}
 	    } else if (%trigger.mbsize > 0.189751) {
             //addHelpLine("Oh my, your marble has grown by " @ (%trigger.mbsize * 100) @ "%!");
+			if (%trigger.indicator == 0) 
+			{
             addHelpLine("Oh my, your marble has grown!");
 			serverplay2d(DoMegaMarbleSfx);
-	    } else if (%trigger.mbsize = 0.18975) {
+			}
+	    } else if (%trigger.mbsize == 0.18975) {
+			if (%trigger.indicator == 0) 
+			{
 	    	addHelpLine("Your marble has returned to normal.");
 			alxPlay(BubblePopSfx);
+			}
 	    }
 
 		%obj.setCollisionRadius(%trigger.mbsize);
