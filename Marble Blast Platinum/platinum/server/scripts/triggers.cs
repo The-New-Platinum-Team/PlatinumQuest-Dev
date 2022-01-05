@@ -1054,17 +1054,23 @@ function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
     if (%trigger.mbsize != "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
 
         if (%trigger.mbsize < 0.18975) {
-		    addHelpLine("Your Marble is now smaller. Its scale is " @ %trigger.mbsize @ ".");
+		    //addHelpLine("Oh dear, your marble has shrunk by " @ (%trigger.mbsize * 100) @ "%...");
+		    addHelpLine("Oh dear, your marble has shrunk...");
+			serverplay2d(DoAnvilSfx);
 	    } else if (%trigger.mbsize > 0.189751) {
-            addHelpLine("Your Marble is now bigger. Its scale is " @ %trigger.mbsize @ ".");
+            //addHelpLine("Oh my, your marble has grown by " @ (%trigger.mbsize * 100) @ "%!");
+            addHelpLine("Oh my, your marble has grown!");
+			serverplay2d(DoMegaMarbleSfx);
 	    } else if (%trigger.mbsize = 0.18975) {
-	    	addHelpLine("Your Marble is at its normal size. Its scale is " @ %trigger.mbsize @ ".");
+	    	addHelpLine("Your marble has returned to normal.");
+			alxPlay(BubblePopSfx);
 	    }
 
 		%obj.setCollisionRadius(%trigger.mbsize);
 
 	} else {
-	    addHelpLine("Your Marble is at it's normal size. It's scale is 0.18975.");
+	    addHelpLine("Your marble has returned to normal.");
 		%obj.setCollisionRadius(0.18975);
+		alxPlay(BubblePopSfx);
 	}
 }
