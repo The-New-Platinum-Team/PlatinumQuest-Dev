@@ -32,6 +32,7 @@ function PlayGui::onWake(%this) {
 	// alxStop( ... );
 
 	$PlayGuiGem = true;
+	$PlayGuiTT = true;
 	$InPlayGUI = true;
 	resetCameraFov();
 
@@ -323,6 +324,33 @@ function PlayGui::updateGems(%this, %updateMax) {
 		HUD_ShowGem.setModel(%dts, %skin);
 		Hunt_ShowGem.setModel(%dts, %skin);
 		$PlayGuiGem = false;
+	}
+
+
+	if ($PlayGuiTT) {
+		// PQ gets its own TT
+		if ($currentGame $= "PlatinumQuest") {
+			%skins = "base";
+			%dts = $usermods @ "/data/shapes_pq/gameplay/powerups/timetravel.dts";
+		} else if
+		   ($currentGame $= "Ultra") {
+			%skins = "base";
+			%dts = $usermods @ "/data/shapes_mbu/items/timetravel.dts";
+		} else if
+		   (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+			%skins = "mbg";
+			%dts = $usermods @ "/data/shapes/items/timetravel.dts";
+		} else {
+			%skins = "base";
+			%dts = $usermods @ "/data/shapes/items/timetravel.dts";
+		}
+
+		// choose it
+		%skin = getWord(%skins, getRandom(0, getWordCount(%skins) - 1));
+		echo("Setting the PlayGUI TT to" SPC %skin);
+
+		PGCountdownTTImage.setModel(%dts, %skin);
+		$PlayGuiTT = false;
 	}
 
 	if (!ClientMode::callback("shouldUpdateGems", true))
