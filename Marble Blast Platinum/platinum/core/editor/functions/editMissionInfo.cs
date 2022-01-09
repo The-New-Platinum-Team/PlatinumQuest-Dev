@@ -104,6 +104,7 @@ function emibutton(%revert) {
 	LargeFunctionDlg.addNote("\c4----------- Challenge Times and Scores -----------");
 	if (%useTime) {
 		LargeFunctionDlg.addTimeEditField("EMI_ParTime", "Qualify (par) time | 0 = unlimited:", MissionInfo.time, 100, -1);
+		LargeFunctionDlg.addTimeEditField("EMI_GoldTime", "Gold Time:", MissionInfo.goldTime, 100, -1);
 		LargeFunctionDlg.addTimeEditField("EMI_PlatinumTime", "Platinum time:", MissionInfo.platinumTime, 100, -1);
 		LargeFunctionDlg.addTimeEditField("EMI_UltimateTime", "Ultimate time:", MissionInfo.ultimateTime, 100, -1);
 		LargeFunctionDlg.addTimeEditField("EMI_AwesomeTime", "Awesome time:", MissionInfo.awesomeTime, 100, -1);
@@ -113,12 +114,14 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addTextEditField("EMI_AlarmStartTime", "Time limit warning (seconds before zero):", MissionInfo.alarmStartTime, 100, -1);
 		LargeFunctionDlg.addNote("\c5-- Challenge Scores --");
 		LargeFunctionDlg.addTextEditField("EMI_ParScore", "Minimum score to qualify:", MissionInfo.score, 100, -1);
+		LargeFunctionDlg.addTextEditField("EMI_GoldScore", "Gold Score:", MissionInfo.goldScore, 100, -1);
 		LargeFunctionDlg.addTextEditField("EMI_PlatinumScore", "Platinum score:", MissionInfo.platinumScore, 100, -1);
 		LargeFunctionDlg.addTextEditField("EMI_UltimateScore", "Ultimate score:", MissionInfo.ultimateScore, 100, -1);
 		LargeFunctionDlg.addTextEditField("EMI_AwesomeScore", "Awesome score:", MissionInfo.awesomeScore, 100, -1);
 		if (%use["gemmadness"]) {
 			LargeFunctionDlg.addNote("\c5-- Challenge Times --");
 			LargeFunctionDlg.addNote("These apply only if their corresponding score is blank");
+			LargeFunctionDlg.addTextEditField("EMI_GoldTime", "Gold Time:", MissionInfo.goldTime, 100, -1);
 			LargeFunctionDlg.addTextEditField("EMI_PlatinumTime", "Platinum time:", MissionInfo.platinumTime, 100, -1);
 			LargeFunctionDlg.addTextEditField("EMI_UltimateTime", "Ultimate time:", MissionInfo.ultimateTime, 100, -1);
 			LargeFunctionDlg.addTextEditField("EMI_AwesomeTime", "Awesome time:", MissionInfo.awesomeTime, 100, -1);
@@ -195,6 +198,7 @@ function emibutton(%revert) {
 	} if (%use["getpastthepost"]) {
 		LargeFunctionDlg.addNote("\c4----------- Get Past the Post -----------");
 		LargeFunctionDlg.addTextEditField("EMI_Getpastthepost_markerpost", "Score to hit:", MissionInfo.markerpost, 100, -1);
+		LargeFunctionDlg.addTimeEditField("EMI_GoldTime", "Gold time:", MissionInfo.goldTime, 100, -1);
 		LargeFunctionDlg.addTimeEditField("EMI_PlatinumTime", "Platinum time:", MissionInfo.platinumTime, 100, -1);
 		LargeFunctionDlg.addTimeEditField("EMI_UltimateTime", "Ultimate time:", MissionInfo.ultimateTime, 100, -1);
 		LargeFunctionDlg.addTimeEditField("EMI_AwesomeTime", "Awesome time:", MissionInfo.awesomeTime, 100, -1);
@@ -338,6 +342,7 @@ function editMissionInfo(%gui) {
 	}
 
 	miAssign(platinumTime, EMI_PlatinumTime);
+	miAssign(goldTime, EMI_GoldTime);
 	miAssign(ultimateTime, EMI_UltimateTime);
 	miAssign(awesomeTime, EMI_AwesomeTime);
 	miAssign(alarmStartTime, EMI_AlarmStartTime);
