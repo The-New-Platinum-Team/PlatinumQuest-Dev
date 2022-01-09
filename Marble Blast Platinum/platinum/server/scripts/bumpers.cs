@@ -102,6 +102,13 @@ function RoundBumper_MBU::onAdd( %this, %obj )
    %obj.playThread( 0, "idle" );
 }
 
+function RoundBumper_Original::onAdd( %this, %obj )
+{
+   if ($pref::spchanges && %obj.isTemperable $= "1")
+	%obj.setDataBlock("RoundBumper_MBU");
+    %obj.playThread( 0, "idle" );
+}
+
 // function RoundBumper_MBU::onEndSequence( %this, %obj, %slot )
 // {
 //    // This means the activate sequence is done, so put back to idle

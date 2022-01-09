@@ -439,6 +439,9 @@ $Options::Type    ["Gameplay", 10] = "boolean";
 $Options::Name    ["Gameplay", 11] = "minimalSpectateUI";
 $Options::Title   ["Gameplay", 11] = "(Online) Minimal Spectate UI";
 $Options::Type    ["Gameplay", 11] = "boolean";
+$Options::Name    ["Gameplay", 12] = "spchanges";
+$Options::Title   ["Gameplay", 12] = "Ultra Violet";
+$Options::Type    ["Gameplay", 12] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -1316,6 +1319,31 @@ function Opt_mouseSpeed_increase(%size) {
 function Opt_mouseSpeed_setValue(%value) {
 	$pref::Input::MouseSensitivity = %value;
 }
+
+//-----------------------------------------------------------------------------
+
+function Opt_spChanges_getDisplay() {
+	return $pref::spchanges ? "Enabled" : "Disabled";
+}
+
+function Opt_spChanges_getValue() {
+	return $pref::spchanges;
+}
+
+function Opt_spChanges_decrease() {
+	$pref::spchanges = !$pref::spchanges;
+	if ($pref::spchanges)
+		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
+}
+
+function Opt_spChanges_increase() {
+	$pref::spchanges = !$pref::spchanges;
+	if ($pref::spchanges)
+		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
+	
+}
+
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 

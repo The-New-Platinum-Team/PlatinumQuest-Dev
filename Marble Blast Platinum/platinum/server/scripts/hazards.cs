@@ -145,7 +145,7 @@ function TrapdoorClass::open(%this, %obj) {
 function TrapDoor_MBU::open(%this, %obj) {
 	%obj.setThreadDir(0,true);
 
-	if ((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU"))  {
+	if (((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU")) || ($pref::spchanges && %obj.isTemperable $= "1"))  {
 	%obj.playThread(0,"mbuFall",1);
 	%obj.playAudio(0,TrapDoorOpenMbuSfx);
 
@@ -169,7 +169,7 @@ function TrapdoorClass::close(%this, %obj) {
 function TrapDoor_MBU::close(%this, %obj) {
 	%obj.setThreadDir(0,false);
 
-	if ((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU")) 
+	if (((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU")) || ($pref::spchanges && %obj.isTemperable $= "1")) 
 	%obj.playAudio(0,TrapDoorOpenMbuSfx);
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 
@@ -286,6 +286,11 @@ function Fan::onMissionReset(%this, %obj) {
 	}
 }
 
+function Ductfan_MBM::onAdd(%this,%obj) {
+   if ($pref::spchanges && %obj.isTemperable $= "1")
+	%obj.setDataBlock("Ductfan_MBU");
+	return Fan::onAdd(%this, %obj);
+}
 //-----------------------------------------------------------------------------
 
 
@@ -1408,7 +1413,7 @@ if (!$pref::LegacyItems) {
 		compile = "pls";
 		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
 	};
-	datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
+	datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
 		
@@ -1430,7 +1435,7 @@ if (!$pref::LegacyItems) {
 		compile = "pls";
 		shapeFile = "~/data/shapes/hazards/ductfan.dts";
 	};
-	datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
+	datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
 		

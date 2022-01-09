@@ -167,3 +167,6 @@ $pref::Video::defaultPostFXShaderV = "platinum/data/shaders/postfxV.glsl";
 $pref::Video::defaultPostFXShaderF = "platinum/data/shaders/postfxF.glsl";
 //Texture packs
 $pref::Video::TexturePack[0] = "default";
+
+//Bonus
+$pref::spchanges = false;
