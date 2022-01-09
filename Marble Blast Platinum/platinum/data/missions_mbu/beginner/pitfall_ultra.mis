@@ -74,6 +74,7 @@ useUltraMarble = "1";
          rotation = "0 0 1 180.091";
          scale = "1 1 1";
          dataBlock = "StartPad_MBM";
+         isTemperable = "1";
       };
    };
    new StaticShape(EndPoint) {
@@ -81,6 +82,7 @@ useUltraMarble = "1";
       rotation = "0 0 1 180.091";
       scale = "1 1 1";
       dataBlock = "EndPad_MBM";
+      isTemperable = "1";
    };
    new Trigger(Bounds) {
       position = "-67 67 -4";
@@ -306,11 +308,13 @@ useUltraMarble = "1";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          respawnPoint = "check1";
       };
-      new TSStatic(check1) {
+      new StaticShape(check1) {
          position = "-8.99401 44.9997 20.0061";
          rotation = "0 0 1 179.909";
          scale = "0.5 0.5 0.5";
-         shapename = "~/data/shapes/buttons/checkpoint.dts";
+         dataBlock = "checkPoint";
+         isTemperable = "1";
+chkcollide = "0";
       };
    };
    new SimGroup(PathNodeGroup) {

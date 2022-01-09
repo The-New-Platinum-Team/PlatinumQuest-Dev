@@ -62,6 +62,11 @@ datablock StaticShapeData(checkPoint) {
 	customField[2, "name"   ] = "Use Gravity";
 	customField[2, "desc"   ] = "If true, the checkpoint will spawn the player with gravity relative to the its rotation on respawn.";
 	customField[2, "default"] = "0";
+	customField[3, "field"  ] = "chkcollide";
+	customField[3, "type"   ] = "boolean";
+	customField[3, "name"   ] = "Checkpoint on Collision?";
+	customField[3, "desc"   ] = "If ticked off then you won't get a checkpoint on collision, this is recommended to be used in conjunction with Checkpoint Trigger.";
+	customField[3, "default"] = "1";
 };
 
 datablock StaticShapeData(Checkpoint_PQ : checkPoint) {
@@ -108,6 +113,9 @@ function Checkpoint_PQ::onAdd(%this, %obj) {
 	%temp.setParent(%obj, "0 0 0 1 0 0 0", true, "0 0 0");
 	%obj._glass = %temp;
 	MissionCleanup.add(%temp);
+	
+   if (%obj.chkcollide $= "")
+	%obj.chkcollide = "1";
 }
 
 datablock StaticShapeData(SillyGlass : checkPoint) {
@@ -152,9 +160,20 @@ function CheckPointClass::onCollision(%this,%obj,%col,%vec, %vecLen, %material) 
 	//   echo("ERROR!!! No checkpointNum specified.");
 
 	%player = %col.client;
-	if (%obj != %col.client.curCheckpoint) {
+	if (%obj != %col.client.curCheckpoint && %obj.chkcollide $= "1") {
 		%col.client.setCheckpointButton(%obj);
 	}
+}
+
+function CheckPointClass::onAdd( %this, %obj )
+{
+   if (%obj.chkcollide $= "")
+	%obj.chkcollide = "1";
+
+   if ($pref::spchanges && %obj.isTemperable $= "1") {
+	%obj.setDataBlock("Checkpoint_MBU");
+	%obj.setScale("1 1 1");
+   }
 }
 
 function GameConnection::setCheckpointButton(%this, %object) {

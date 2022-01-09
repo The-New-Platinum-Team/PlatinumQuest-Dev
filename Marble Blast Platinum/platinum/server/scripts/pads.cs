@@ -84,6 +84,18 @@ function StartPad_MBU::onMissionReset(%this, %obj) {
 	}
 }
 
+function StartPad_MBM::onAdd(%this,%obj) {
+   if ($pref::spchanges && %obj.isTemperable $= "1")
+	%obj.setDataBlock("StartPad_MBU");
+	return StartPadClass::onAdd(%this, %obj);
+}
+
+function EndPad_MBM::onAdd(%this,%obj) {
+   if ($pref::spchanges && %obj.isTemperable $= "1")
+	%obj.setDataBlock("EndPad_MBU");
+	return EndPadClass::onAdd(%this, %obj);
+}
+
 function StartPadClass::onAdd(%this, %obj) {
 	$Game::StartPad = %obj;
 	%obj.setName("StartPoint");
