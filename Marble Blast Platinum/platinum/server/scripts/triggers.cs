@@ -1058,33 +1058,43 @@ function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
     if (%trigger.mbsize !$= "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
 
-        if (%trigger.mbsize < 0.18975) {
+        if (%trigger.mbsize < %obj.getCollisionRadius()) { //I think it would be better if the player knew exactly when exactly their marble shrunk, grown, or stayed the same  ~ Connie
 		    //addHelpLine("Oh dear, your marble has shrunk by " @ (%trigger.mbsize * 100) @ "%...");
-		    if (%trigger.indicator == 0) 
-			{
-				addHelpLine("Oh dear, your marble has shrunk...");
-				serverplay2d(DoAnvilSfx); 
+		    if (%trigger.indicator == 0) {
+				if (%trigger.mbsize == 0.18975) {
+		    	    addHelpLine("Your marble has returned to normal.");
+			        alxPlay(BubblePopSfx);
+				} else {
+			        addHelpLine("Oh dear, your marble has shrunk...");
+			        serverplay2d(DoAnvilSfx); 		
+				}
 			}
-	    } else if (%trigger.mbsize > 0.189751) {
+	    } else if (%trigger.mbsize > %obj.getCollisionRadius()) { //Same here ^^ ~ Connie
             //addHelpLine("Oh my, your marble has grown by " @ (%trigger.mbsize * 100) @ "%!");
-			if (%trigger.indicator == 0) 
-			{
-            addHelpLine("Oh my, your marble has grown!");
-			serverplay2d(DoMegaMarbleSfx);
+			if (%trigger.indicator == 0) {
+				if (%trigger.mbsize == 0.18975) {
+		    	    addHelpLine("Your marble has returned to normal.");
+			        alxPlay(BubblePopSfx);
+				} else {
+                    addHelpLine("Oh my, your marble has grown!"); 
+			        serverplay2d(DoMegaMarbleSfx);
+				}
 			}
-	    } else if (%trigger.mbsize == 0.18975) {
-			if (%trigger.indicator == 0) 
-			{
-	    	addHelpLine("Your marble has returned to normal.");
-			alxPlay(BubblePopSfx);
+	    } else if (%trigger.mbsize == %obj.getCollisionRadius()) { //Same here ^^ ~ Connie
+			if (%trigger.indicator == 0) {
+               addHelpLine("Your marble has not changed at all!");
+			   alxPlay(BubblePopSfx);
 			}
-	    }
+		}
 
 		%obj.setCollisionRadius(%trigger.mbsize);
 
 	} else {
-	    addHelpLine("Your marble has returned to normal.");
+		if (%trigger.indicator == 0) {
+	        addHelpLine("Your marble has returned to normal.");
+		    alxPlay(BubblePopSfx);
+		}
+
 		%obj.setCollisionRadius(0.18975);
-		alxPlay(BubblePopSfx);
 	}
 }
