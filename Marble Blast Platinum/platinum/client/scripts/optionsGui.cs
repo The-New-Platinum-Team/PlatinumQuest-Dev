@@ -321,6 +321,9 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
+$Options::Name    ["Graphics", $i++] = "particleSystem";
+$Options::Title   ["Graphics", $i  ] = "Particle System";
+$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "particles";
 $Options::Title   ["Graphics", $i  ] = "Particles";
 $Options::Ctrl    ["Graphics", $i  ] = "slider";
@@ -367,6 +370,11 @@ MaxFPSArray.addEntry("60"        TAB  60);
 MaxFPSArray.addEntry("75"        TAB  75);
 MaxFPSArray.addEntry("120"       TAB 120);
 MaxFPSArray.addEntry("200"       TAB 200);
+
+Array(ParticleSystemArray);
+ParticleSystemArray.addEntry("PlatinumQuest"    TAB 0);
+ParticleSystemArray.addEntry("Marble Blast Gold" TAB 1);
+ParticleSystemArray.addEntry("Marble Blast Ultra"   TAB 2);
 
 //-----------------------------------------------------------------------------
 // Audio
@@ -725,10 +733,20 @@ function Opt_legacyItems_getValue() {
 
 function Opt_legacyItems_decrease() {
 	$pref::legacyItems = !$pref::legacyItems;
+
+	if (!$aaAssert) {
+		$aaAssert = true;
+		MessageBoxOK("Notice", "This option requires you to restart them game.");
+	}
 }
 
 function Opt_legacyItems_increase() {
 	$pref::legacyItems = !$pref::legacyItems;
+
+	if (!$aaAssert) {
+		$aaAssert = true;
+		MessageBoxOK("Notice", "This option requires you to restart them game.");
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -816,6 +834,51 @@ function Opt_maxFPS_increase() {
 			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
 }
+
+
+//-----------------------------------------------------------------------------
+
+function Opt_particleSystem_getDisplay() {
+	%entry = ParticleSystemArray.getEntryByField($pref::Video::particleSystem, 1);
+	if (%entry $= "") {
+		return $pref::Video::particleSystem;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_particleSystem_getValue() {
+	return $pref::Video::particleSystem;
+}
+
+function Opt_particleSystem_decrease() {
+	%index = ParticleSystemArray.getIndexByField($pref::Video::particleSystem, 1);
+	%index --;
+	if (%index < 0) {
+		%index = ParticleSystemArray.getSize() - 1;
+	}
+	$pref::Video::particleSystem = getField(ParticleSystemArray.getEntry(%index), 1);
+
+	if (!$aaAssert) {
+		$aaAssert = true;
+		MessageBoxOK("Notice", "This option requires you to restart them game.");
+	}
+}
+
+function Opt_particleSystem_increase() {
+	%index = ParticleSystemArray.getIndexByField($pref::Video::particleSystem, 1);
+	%index ++;
+	if (%index >= ParticleSystemArray.getSize()) {
+		%index = 0;
+	}
+	$pref::Video::particleSystem = getField(ParticleSystemArray.getEntry(%index), 1);
+
+	if (!$aaAssert) {
+		$aaAssert = true;
+		MessageBoxOK("Notice", "This option requires you to restart them game.");
+	}
+}
+
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 
