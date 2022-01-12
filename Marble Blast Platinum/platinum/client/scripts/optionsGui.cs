@@ -321,6 +321,9 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
+$Options::Name    ["Graphics", $i++] = "automaticUI";
+$Options::Title   ["Graphics", $i  ] = "Automatic UI Swap";
+$Options::Type    ["Graphics", $i  ] = "boolean";
 $Options::Name    ["Graphics", $i++] = "particleSystem";
 $Options::Title   ["Graphics", $i  ] = "Particle System";
 $Options::Type    ["Graphics", $i  ] = "value";
@@ -734,8 +737,8 @@ function Opt_legacyItems_getValue() {
 function Opt_legacyItems_decrease() {
 	$pref::legacyItems = !$pref::legacyItems;
 
-	if (!$aaAssert) {
-		$aaAssert = true;
+	if (!$liAssert) {
+		$liAssert = true;
 		MessageBoxOK("Notice", "This option requires you to restart them game.");
 	}
 }
@@ -743,8 +746,8 @@ function Opt_legacyItems_decrease() {
 function Opt_legacyItems_increase() {
 	$pref::legacyItems = !$pref::legacyItems;
 
-	if (!$aaAssert) {
-		$aaAssert = true;
+	if (!$liAssert) {
+		$liAssert = true;
 		MessageBoxOK("Notice", "This option requires you to restart them game.");
 	}
 }
@@ -858,8 +861,8 @@ function Opt_particleSystem_decrease() {
 	}
 	$pref::Video::particleSystem = getField(ParticleSystemArray.getEntry(%index), 1);
 
-	if (!$aaAssert) {
-		$aaAssert = true;
+	if (!$psAssert) {
+		$psAssert = true;
 		MessageBoxOK("Notice", "This option requires you to restart them game.");
 	}
 }
@@ -872,8 +875,8 @@ function Opt_particleSystem_increase() {
 	}
 	$pref::Video::particleSystem = getField(ParticleSystemArray.getEntry(%index), 1);
 
-	if (!$aaAssert) {
-		$aaAssert = true;
+	if (!$psAssert) {
+		$psAssert = true;
 		MessageBoxOK("Notice", "This option requires you to restart them game.");
 	}
 }
@@ -885,6 +888,34 @@ function Opt_particleSystem_increase() {
 function Opt_texturePack_edit() {
 	// Dialog does all the config for us (and sets $Options::TexturePackDirty)
 	RootGui.pushDialog(OptionsTexturePackDlg);
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_automaticUI_getDisplay() {
+	return $pref::AutomaticUI ? "Enabled" : "Disabled";
+}
+
+function Opt_automaticUI_getValue() {
+	return $pref::AutomaticUI;
+}
+
+function Opt_automaticUI_decrease() {
+	$pref::AutomaticUI = !$pref::AutomaticUI;
+
+	if (!$psAssert) {
+		$psAssert = true;
+		MessageBoxOK("Warning", "Enabling this option does increase loading time if you swap Games too frequently.");
+	}
+}
+
+function Opt_automaticUI_increase() {
+	$pref::AutomaticUI = !$pref::AutomaticUI;
+
+	if (!$psAssert) {
+		$psAssert = true;
+		MessageBoxOK("Warning", "Enabling this option does increase loading time if you swap Games too frequently.");
+	}
 }
 
 //-----------------------------------------------------------------------------
