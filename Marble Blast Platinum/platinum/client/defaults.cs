@@ -127,6 +127,7 @@ $pref::Music::Songs["Game"]   = "*";
 //Graphics
 $pref::Snore = true;
 $pref::AnimatePreviews = true;
+$pref::AutomaticUI = false;
 $pref::LegacyItems = false;
 $pref::ProfanityFilter = 2;
 $pref::DefaultSkybox = "platinum/data/skies_pq/Blender3/blender3.dml";
