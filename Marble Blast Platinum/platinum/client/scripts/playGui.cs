@@ -655,7 +655,7 @@ function PlayGui::clearPowerupTimers(%this) {
 }
 function PlayGui::pushPowerupTimer(%this, %whichpowerup, %time, %duration) {
 	if (!$pref::powerupTimers)
-		return
+		return;
 	%powerupAlreadyQueued = false;
 	%powerupAlreadyQueuedIndex = 0;
 	for (%i = 0; %i < %this.powerupTimersLength; %i ++) { // No duplicate IDs.

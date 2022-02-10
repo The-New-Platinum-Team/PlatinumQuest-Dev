@@ -328,7 +328,7 @@ package dcon {
 			case "info":
 				$Pref::Server::Info = %value;
 			case "teams":
-				$MP:Teammode = %value;
+				$MP::Teammode = %value;
 				updateTeamMode();
 			case "password":
 				$MPPref::Server::Password = %value;
