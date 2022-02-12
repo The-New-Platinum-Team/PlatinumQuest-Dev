@@ -271,7 +271,7 @@ function testSearch(%mission, %flags, %query) {
 
 function getSearchRow(%obj) {
 	return trim(%obj.trimName)
-	       TAB trim(%obj.artist)
+	       TAB expandEscape(trim(%obj.artist))
 	       TAB trim(%obj.searchName)
 	       TAB %obj;
 }
