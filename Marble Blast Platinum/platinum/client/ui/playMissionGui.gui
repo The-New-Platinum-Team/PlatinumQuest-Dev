@@ -1628,7 +1628,7 @@ function PlayMissionGui::setGame(%this, %game) {
 	}
 	if (!lb()) {
 		%this.setBarButtonActive(PM_MissionAchievements, $CurrentGame $= "PlatinumQuest");
-		%this.setBarButtonActive(PM_MissionStatistics, $CurrentGame !$= "Custom");
+		%this.setBarButtonActive(PM_MissionStatistics, ($CurrentGame !$= "Custom" && $CurrentGame !$= "Hunt"));
 	}
 }
 

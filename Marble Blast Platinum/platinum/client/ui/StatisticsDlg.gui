@@ -145,7 +145,16 @@ function StatisticsDlg::display(%this) {
 	%prog["Advanced"]     = Unlock::getDifficultyCompletionCount("Advanced");
 	%prog["Expert"]       = Unlock::getDifficultyCompletionCount("Expert");
 	%prog["Bonus"]        = Unlock::getDifficultyCompletionCount("Bonus");
-	%prog["Total"]        = %prog["Tutorial"] + %prog["Beginner"] + %prog["Intermediate"] + %prog["Advanced"] + %prog["Expert"];
+
+	%prog["Packs 1-9"]    = Unlock::getDifficultyCompletionCount("Packs 1-9");
+	%prog["Packs 10-19"]  = Unlock::getDifficultyCompletionCount("Packs 10-19");
+	%prog["Packs 20-29"]  = Unlock::getDifficultyCompletionCount("Packs 20-29");
+	%prog["Packs 30-39"]  = Unlock::getDifficultyCompletionCount("Packs 30-39");
+	%prog["Packs 40-49"]  = Unlock::getDifficultyCompletionCount("Packs 40-49");
+	%prog["Packs 50-59"]  = Unlock::getDifficultyCompletionCount("Packs 50-59");
+	%prog["Packs 60-69"]  = Unlock::getDifficultyCompletionCount("Packs 60-69");
+
+	%prog["Total"]        = %prog["Tutorial"] + %prog["Beginner"] + %prog["Intermediate"] + %prog["Advanced"] + %prog["Expert"] + %prog["Packs 1-9"] + %prog["Packs 10-19"] + %prog["Packs 20-29"] + %prog["Packs 30-39"] + %prog["Packs 40-49"] + %prog["Packs 50-59"] + %prog["Packs 60-69"];
 	%prog["Grand"]        = %prog["Total"] + %prog["Bonus"];
 
 	%total["Tutorial"]     = Unlock::getDifficultyLevelCount("Tutorial");
@@ -154,7 +163,16 @@ function StatisticsDlg::display(%this) {
 	%total["Advanced"]     = Unlock::getDifficultyLevelCount("Advanced");
 	%total["Expert"]       = Unlock::getDifficultyLevelCount("Expert");
 	%total["Bonus"]        = Unlock::getDifficultyLevelCount("Bonus");
-	%total["Total"]        = %total["Tutorial"] + %total["Beginner"] + %total["Intermediate"] + %total["Advanced"] + %total["Expert"];
+
+	%total["Packs 1-9"]    = Unlock::getDifficultyLevelCount("Packs 1-9");
+	%total["Packs 10-19"]  = Unlock::getDifficultyLevelCount("Packs 10-19");
+	%total["Packs 20-29"]  = Unlock::getDifficultyLevelCount("Packs 20-29");
+	%total["Packs 30-39"]  = Unlock::getDifficultyLevelCount("Packs 30-39");
+	%total["Packs 40-49"]  = Unlock::getDifficultyLevelCount("Packs 40-49");
+	%total["Packs 50-59"]  = Unlock::getDifficultyLevelCount("Packs 50-59");
+	%total["Packs 60-69"]  = Unlock::getDifficultyLevelCount("Packs 60-69");
+
+	%total["Total"]        = %total["Tutorial"] + %total["Beginner"] + %total["Intermediate"] + %total["Advanced"] + %total["Expert"] + %total["Packs 1-9"] + %total["Packs 10-19"] + %total["Packs 20-29"] + %total["Packs 30-39"] + %total["Packs 40-49"] + %total["Packs 50-59"] + %total["Packs 60-69"];
 	%total["Grand"]        = %total["Bonus"] + %total["Total"];
 
 	%perc["Tutorial"]     = mRound(100 * %prog["Tutorial"]     / %total["Tutorial"]) @ "%";
@@ -166,6 +184,14 @@ function StatisticsDlg::display(%this) {
 	%perc["Total"]        = mRound(100 * %prog["Total"]        / %total["Total"]) @ "%";
 	%perc["Grand"]        = mRound(100 * %prog["Grand"]        / %total["Grand"]) @ "%";
 
+	%perc["Packs 1-9"]    = mRound(100 * %prog["Packs 1-9"]    / %total["Packs 1-9"]) @ "%";
+	%perc["Packs 10-19"]  = mRound(100 * %prog["Packs 10-19"]  / %total["Packs 10-19"]) @ "%";
+	%perc["Packs 20-29"]  = mRound(100 * %prog["Packs 20-29"]  / %total["Packs 20-29"]) @ "%";
+	%perc["Packs 30-39"]  = mRound(100 * %prog["Packs 30-39"]  / %total["Packs 30-39"]) @ "%";
+	%perc["Packs 40-49"]  = mRound(100 * %prog["Packs 40-49"]  / %total["Packs 40-49"]) @ "%";
+	%perc["Packs 50-59"]  = mRound(100 * %prog["Packs 50-59"]  / %total["Packs 50-59"]) @ "%";
+	%perc["Packs 60-69"]  = mRound(100 * %prog["Packs 60-69"]  / %total["Packs 60-69"]) @ "%";
+
 	%has["Tutorial"]     = (%total["Tutorial"]     !$= "");
 	%has["Beginner"]     = (%total["Beginner"]     !$= "");
 	%has["Intermediate"] = (%total["Intermediate"] !$= "");
@@ -173,6 +199,14 @@ function StatisticsDlg::display(%this) {
 	%has["Expert"]       = (%total["Expert"]       !$= "");
 	%has["Bonus"]        = (%total["Bonus"]        !$= "");
 	%has["Total"]        = (%total["Total"]        !$= "");
+
+	%has["Packs 1-9"]    = (%total["Packs 1-9"]    !$= "");
+	%has["Packs 10-19"]  = (%total["Packs 10-19"]  !$= "");
+	%has["Packs 20-29"]  = (%total["Packs 20-29"]  !$= "");
+	%has["Packs 30-39"]  = (%total["Packs 30-39"]  !$= "");
+	%has["Packs 40-49"]  = (%total["Packs 40-49"]  !$= "");
+	%has["Packs 50-59"]  = (%total["Packs 50-59"]  !$= "");
+	%has["Packs 60-69"]  = (%total["Packs 60-69"]  !$= "");
 
 	%unlocked["Bonus"] = Unlock::getDifficultyUnlockedLevelCount("Bonus");
 
@@ -192,8 +226,14 @@ function StatisticsDlg::display(%this) {
 	        (%has["Intermediate"] ? (%big @ %l @ "Intermediate:" @ %small @ %r @ %prog["Intermediate"] @ "/" @ %total["Intermediate"] @ " (" @ %perc["Intermediate"]) @ ")\n" : "") @
 	        (%has["Advanced"]     ? (%big @ %l @ "Advanced:"     @ %small @ %r @ %prog["Advanced"]     @ "/" @ %total["Advanced"]     @ " (" @ %perc["Advanced"])     @ ")\n" : "") @
 	        (%has["Expert"]       ? (%big @ %l @ "Expert:"       @ %small @ %r @ %prog["Expert"]       @ "/" @ %total["Expert"]       @ " (" @ %perc["Expert"])       @ ")\n" : "") @
+	        (%has["Packs 1-9"]    ? (%big @ %l @ "Packs 1-9:"    @ %small @ %r @ %prog["Packs 1-9"]    @ "/" @ %total["Packs 1-9"]    @ " (" @ %perc["Packs 1-9"])    @ ")\n" : "") @
+	        (%has["Packs 10-19"]  ? (%big @ %l @ "Packs 10-19:"  @ %small @ %r @ %prog["Packs 10-19"]  @ "/" @ %total["Packs 10-19"]  @ " (" @ %perc["Packs 10-19"])  @ ")\n" : "") @
+	        (%has["Packs 20-29"]  ? (%big @ %l @ "Packs 20-29:"  @ %small @ %r @ %prog["Packs 20-29"]  @ "/" @ %total["Packs 20-29"]  @ " (" @ %perc["Packs 20-29"])  @ ")\n" : "") @
+	        (%has["Packs 30-39"]  ? (%big @ %l @ "Packs 30-39:"  @ %small @ %r @ %prog["Packs 30-39"]  @ "/" @ %total["Packs 30-39"]  @ " (" @ %perc["Packs 30-39"])  @ ")\n" : "") @
+	        (%has["Packs 40-49"]  ? (%big @ %l @ "Packs 40-49:"  @ %small @ %r @ %prog["Packs 40-49"]  @ "/" @ %total["Packs 40-49"]  @ " (" @ %perc["Packs 40-49"])  @ ")\n" : "") @
+	        (%has["Packs 50-59"]  ? (%big @ %l @ "Packs 50-59:"  @ %small @ %r @ %prog["Packs 50-59"]  @ "/" @ %total["Packs 50-59"]  @ " (" @ %perc["Packs 50-59"])  @ ")\n" : "") @
 	        (%has["Total"]        ? (%big @ %l @ "Total:"                 @ %r @ %prog["Total"]        @ "/" @ %total["Total"]        @ " (" @ %perc["Total"])        @ ")\n" : "") @
-	        %big @ (%has["Tutorial"] ? "" : "\n") @(%has["Expert"] ? "" : "\n");
+	        %big @ (($CurrentGame !$= "Leaderboards") ? ((%has["Tutorial"] ? "" : "\n") @ (%has["Expert"] ? "" : "\n")) : "");
 
 	//Bonus stats for PQ
 	if (%has["Bonus"]) {
@@ -201,9 +241,12 @@ function StatisticsDlg::display(%this) {
 		        %big @ %l @ "Bonus:" @ %small @ %r @ %prog["Bonus"] @ " / " @ %total["Bonus"] @ " (" @ %perc["Bonus"] @ ")" NL
 		        "(Unlocked " @ %unlocked["Bonus"] @ "/" @ %total["Bonus"] @ ")";
 	} else {
-		%left = %left NL
-		        %l @ %big @ " " NL
-		        %r @ %small @ " ";
+		if ($CurrentGame !$= "Leaderboards")
+			%left = %left NL
+					%l @ %big @ " " NL
+					%r @ %small @ " ";
+		else
+			%left = %left;
 	}
 
 	//Grand total
@@ -290,6 +333,17 @@ function StatisticsDlg::display(%this) {
 		}
 		%right = %right NL
 		         %l @ %big @ "Nest Eggs:"      @ %r @ %small @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")";
+
+	case "Leaderboards":
+		%right = %right NL
+				 %l @ %big @ "Platinum Times:" @ %r @ %small @ %comp["Platinum"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Platinum"]  @ ")" NL
+				 %l @ %big @ "Ultimate Times:" @ %r @ %small @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")";
+		if ($pref::ShowAwesomeHints) {
+			%right = %right NL
+		         %l @ %big @ "Awesome Times:"  @ %r @ %small @ %comp["Awesome"]   @ "/" @ %total["Grand"]     @ " (" @ %perc["Awesome"]   @ ")";
+		}
+		%right = %right NL
+		         %l @ %big @ "Easter Eggs:"      @ %r @ %small @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")";
 	}
 
 	%right = %right NL "<font:Arial:8>";
