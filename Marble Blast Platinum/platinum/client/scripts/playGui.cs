@@ -78,6 +78,14 @@ function PlayGui::onWake(%this) {
 	LagIcon.setVisible(false);
 	showSpectatorMenu(false);
 
+    if ($Game::Record && !mp() && !$playingDemo && $pref::showrecordingIndicator) {
+		PG_RecordingIndicator.setVisible(true);
+        RecordingIndicatorIcon.setVisible(true);
+	} else {
+	    PG_RecordingIndicator.setVisible(false);
+		RecordingIndicatorIcon.setVisible(false);	
+	}
+
 	PG_LBChatEntry.setTickable(true);
 	PGCoopView.setVisible(false);
 	GemsQuota.setVisible(false);
