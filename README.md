@@ -2,7 +2,7 @@
 
 This is the main repository for the public release of the game data and scripts for PQ ([old repository here](https://github.com/PlatinumTeam/PlatinumQuest)).
 
-See [MBExtender](https://github.com/The-New-Platinum-Team/MBExtender-Dev) for the C++ engine modification source code ([old repository here](https://github.com/PlatinumTeam/MBExtender)).
+See [MBExtender](https://github.com/RandomityGuy/MBExtender) for the C++ engine modification source code ([old repository here](https://github.com/PlatinumTeam/MBExtender)).
 
 For new developers this should *not* be downloaded from the GitHub website, but cloned with git (or a git client such as VSCode or GitHub Desktop), which has an interface that lets you easily update it and sync your local files to this repository.
 
