@@ -78,6 +78,9 @@ function getMissionInfo(%file, %partial) {
 		%info.setName("");
 		%info.file = %file;
 	} else {
+
+		%fileHash = getMissionHash(%file);
+
 		//Super fast caching so we don't have to read the file again
 		%info = $Mission::Info[%file];
 		if (isObject(%info)) {
@@ -110,9 +113,16 @@ function getMissionInfo(%file, %partial) {
 			};
 		}
 
-		if (isFile(%file)) {
+		%generateCache = false;
+
+		%openFile = %file;
+
+		if (!isFile(%file @ ".cache")) {
+			%generateCache = true;
+		} else {
+			// Check if cache needs to be updated
 			%fo = new FileObject();
-			if (%fo.openForRead(%file)) {
+			if (%fo.openForRead(%file @ ".cache")) {
 				while (!%fo.isEOF()) {
 					%line = %fo.readLine();
 					//Cut off any comments in the mission (because they can throw us off)
@@ -131,17 +141,12 @@ function getMissionInfo(%file, %partial) {
 					if (%line $= "")
 						continue;
 
-					if ((!%inInfoBlock) && (stristr(%line, "new ScriptObject(MissionInfo) {") != -1)) {
+					if ((!%inInfoBlock) && (stristr(%line, "new ScriptObject() {") != -1)) {
 						%inInfoBlock = true;
 						continue;
 					} else if (%inInfoBlock && (stristr(%line, "};") != -1)) {
 						%inInfoBlock = false;
-						//For partial missions we don't care about finding if it has an egg or interiors
-						if (%partial) {
-							break;
-						} else {
-							continue;
-						}
+						break;
 					} else if (%inInfoBlock) {
 						if (stripos(%line, "=") != -1) {
 							//First part
@@ -154,52 +159,22 @@ function getMissionInfo(%file, %partial) {
 
 								//Check if it's a basic quoted string
 								%basic =
-								    (getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
-								    (getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
-								    (stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
+									(getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
+									(getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
+									(stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
 
 								if (%basic) {
 									//Quotes
 									%value = collapseEscape(getSubStr(%value, 1, strlen(%value) - 2));
 								} else {
 									//It's a variable or an expression
-									devecho("getMissionInfo() :: eval: " @ %value);
+									echo("getMissionInfo() :: eval: " @ %value);
 									%value = eval("return " @ %value @ ";");
 								}
 								%info.setFieldValue(%key, %value);
 							}
 						}
 						continue;
-					} else {
-						//Check for interiors
-						if (stripos(%line, "interiorFile") != -1 || stripos(%line, "interiorResource") != -1) {
-							//interiorFile --> normal interior filename
-							//interiorResource --> moving platform
-
-							//= "interiorname.dif";
-							%interior = getSubStr(%line, stripos(%line, "="), strlen(%line));
-							//interiorname.dif";
-							%interior = getSubStr(%interior, stripos(%interior, "\"") + 1, strlen(%interior));
-							//interiorname.dif
-							%interior = getSubStr(%interior, 0, strrpos(%interior, "\""));
-
-							//Make sure it doesn't already have the interior
-							%found = false;
-							for (%i = 0; %i < %info.interiors; %i ++) {
-								if (%info.interior[%i] $= %interior) {
-									%found = true;
-									break;
-								}
-							}
-							if (!%found) {
-								%info.interior[%info.interiors] = %interior;
-								%info.interiors ++;
-							}
-						}
-						if ((stristr(%line, "easteregg") != -1) || (stristr(%line, "nestegg_pq") != -1)) // easter egg!
-							%info.easterEgg = true;
-						else if (stristr(%line, "gemitem") != -1) // gems!
-							%info.gems ++;
 					}
 				}
 				%fo.close();
@@ -207,6 +182,116 @@ function getMissionInfo(%file, %partial) {
 				error("Can't open mission file " @ %file);
 			}
 			%fo.delete();
+
+			if (%info.hash !$= %fileHash) {
+				devecho("Generating MissionInfo cache for" SPC %file SPC "(" @ %fileHash @ " != " @ %info.hash @ ")");
+				%generateCache = true;
+			} else {
+				devecho("Using MissionInfo cache for" SPC %file);
+			}
+		}
+
+		if (isFile(%file)) {
+			if (%generateCache || %partial) {
+				%fo = new FileObject();
+				if (%fo.openForRead(%file)) {
+					while (!%fo.isEOF()) {
+						%line = %fo.readLine();
+						//Cut off any comments in the mission (because they can throw us off)
+						%comment = strPos(%line, "//");
+						if (%comment != -1) {
+							//In case a string has // inside it, check to see if there is a quote
+							// after the // and then assume it's not a comment.
+							%quote = strrpos(%line, "\"");
+							if (%quote != -1 && %quote < %comment) {
+								%line = getSubStr(%line, 0, %comment);
+							}
+						}
+						//Trim extra space
+						%line = trim(%line);
+						//There's no point in processing empty lines
+						if (%line $= "")
+							continue;
+
+						if ((!%inInfoBlock) && (stristr(%line, "new ScriptObject(MissionInfo) {") != -1)) {
+							%inInfoBlock = true;
+							continue;
+						} else if (%inInfoBlock && (stristr(%line, "};") != -1)) {
+							%inInfoBlock = false;
+							//For partial missions we don't care about finding if it has an egg or interiors
+							if (%partial) {
+								break;
+							} else {
+								continue;
+							}
+						} else if (%inInfoBlock) {
+							if (stripos(%line, "=") != -1) {
+								//First part
+								%key = trim(getSubStr(%line, 0, stripos(%line, "=")));
+								%value = trim(getSubStr(%line, stripos(%line, "=") + 1, strlen(%line)));
+
+								if (%key !$= "" && %value !$= "") {
+									//Strip semicolon
+									%value = getSubStr(%value, 0, strlen(%value) - 1);
+
+									//Check if it's a basic quoted string
+									%basic =
+										(getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
+										(getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
+										(stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
+
+									if (%basic) {
+										//Quotes
+										%value = collapseEscape(getSubStr(%value, 1, strlen(%value) - 2));
+									} else {
+										//It's a variable or an expression
+										devecho("getMissionInfo() :: eval: " @ %value);
+										%value = eval("return " @ %value @ ";");
+									}
+									%info.setFieldValue(%key, %value);
+								}
+							}
+							continue;
+						} else {
+							if (!%isCacheFile) {
+								//Check for interiors
+								if (stripos(%line, "interiorFile") != -1 || stripos(%line, "interiorResource") != -1) {
+									//interiorFile --> normal interior filename
+									//interiorResource --> moving platform
+
+									//= "interiorname.dif";
+									%interior = getSubStr(%line, stripos(%line, "="), strlen(%line));
+									//interiorname.dif";
+									%interior = getSubStr(%interior, stripos(%interior, "\"") + 1, strlen(%interior));
+									//interiorname.dif
+									%interior = getSubStr(%interior, 0, strrpos(%interior, "\""));
+
+									//Make sure it doesn't already have the interior
+									%found = false;
+									for (%i = 0; %i < %info.interiors; %i ++) {
+										if (%info.interior[%i] $= %interior) {
+											%found = true;
+											break;
+										}
+									}
+									if (!%found) {
+										%info.interior[%info.interiors] = %interior;
+										%info.interiors ++;
+									}
+								}
+								if ((stristr(%line, "easteregg") != -1) || (stristr(%line, "nestegg_pq") != -1)) // easter egg!
+									%info.easterEgg = true;
+								else if (stristr(%line, "gemitem") != -1) // gems!
+									%info.gems ++;
+							}
+						}
+					}
+					%fo.close();
+				} else {
+					error("Can't open mission file " @ %file);
+				}
+				%fo.delete();
+			}
 		} else {
 			error("Mission file does not exist: " @ %file);
 		}
@@ -222,6 +307,11 @@ function getMissionInfo(%file, %partial) {
 	%info.game = resolveMissionGame(%info);
 	%info.type = resolveMissionType(%info);
 	%info.modification = resolveMissionModification(%info);
+
+	if (%generateCache && !%partial) {
+		%info.hash = %fileHash;
+		%info.save(%file @ ".cache");
+	}
 
 	return %info.getId();
 }
