@@ -31,20 +31,21 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 	%trigger = %object.gem;
 	switch (%object.gem._huntDatablock.huntExtraValue + 1) {
 		case 1:
-			switch$ (MissionInfo.modification) {
-				case "PlatinumQuest":
-					%object.client.player.setPowerup(SuperSpeedItem_PQ, false);
-				case "Ultra":
-					%object.client.player.setPowerup(SuperSpeedItem_MBU, false);
-				default:
-					%object.client.player.setPowerup(SuperSpeedItem, false);
+			if (%object.client.player.heldPowerup == 0) {
+				switch$ (MissionInfo.modification) {
+					case "PlatinumQuest":
+						%object.client.player.setPowerup(SuperSpeedItem_PQ, false);
+					case "Ultra":
+						%object.client.player.setPowerup(SuperSpeedItem_MBU, false);
+					default:
+						%object.client.player.setPowerup(SuperSpeedItem, false);
+				}
+				commandToClient(%object.client, 'AddHelpLine', "You got a red gem, get a Super Speed!");
 			}
-			commandToClient(%object.client, 'AddHelpLine', "You picked up a Super Speed PowerUp!");
-			alxPlay(PuSuperSpeedVoiceSfx);
 		case 2:
 		case 3:
 			//commandToClient(%object.client, 'FireballInit', 20000);
-			GameConnection::fireballInit(%object.client, 20000);
+			GameConnection::fireballInit(%object.client, 5000);
 			FireballItem.onUse(%trigger, %object.client.player);
 			alxPlay(PuFireballVoiceSfx);
 		case 4:
@@ -70,9 +71,9 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 			%object.client.usingPartyTripleBlast = true;
 			%object.client.setBlastValue(1);
 			$MP::PartyTripleBlast = true;
-			alxPlay(PuBlastVoiceSfx);
-			schedule(100, 0, alxPlay, PuBlastVoiceSfx);
-			schedule(200, 0, alxPlay, PuBlastVoiceSfx); // This will play "Ultra Ultra Ultra Blast" in MBU soundpack but I don't care
+			//alxPlay(PuBlastVoiceSfx);
+			//schedule(100, 0, alxPlay, PuBlastVoiceSfx);
+			//schedule(200, 0, alxPlay, PuBlastVoiceSfx); // This will play "Ultra Ultra Ultra Blast" in MBU soundpack but I don't care
 		case 10:
 			//commandToClient(%object.client, 'doPowerUp', 5);
 			//HelicopterItem.onUse(%trigger, %object.client);
