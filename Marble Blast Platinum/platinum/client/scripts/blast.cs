@@ -46,7 +46,7 @@ function shouldEnableBlast() {
 }
 
 function shouldUpdateBlast() {
-	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {  //I hope this works now
+	if ($Game::isMode["hunthardmode"] && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {  //I hope this works now
 		return false;
 	}
 
