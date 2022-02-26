@@ -46,7 +46,7 @@ function shouldEnableBlast() {
 }
 
 function shouldUpdateBlast() {
-	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {  //I hope this works now
+	if ($Game::isMode["hunthardmode"] && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {  //I hope this works now
 		return false;
 	}
 
@@ -70,7 +70,7 @@ function clientUpdateBlast(%timeDelta) {
 
 function performBlast() {
 	%blastValue = ($MP::SpecialBlast ? $MP::BlastRechargePower : mSqrt($MP::BlastValue));
-	if ($MP::PartyTripleBlast && !$MP::SpecialBlast) {%blastValue = mSqrt(0.2);} // 0.2's the 'minimum' blast allowed
+	if ($MP::PartyTripleBlast && !$MP::SpecialBlast) {%blastValue = mSqrt(0.25);} // 0.2's the 'minimum' blast allowed, but 0.25 feels more like the min
 	//Best results found when whacked from here
 	%attack = "0 0 -1";
 
