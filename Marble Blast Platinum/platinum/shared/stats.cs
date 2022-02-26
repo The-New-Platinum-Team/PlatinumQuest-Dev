@@ -1026,7 +1026,7 @@ function statsRecordMatch(%mission) {
 		%data = %data @ "&scores[host][]=" @ !!%player.isHost();
 		%data = %data @ "&scores[guest][]=" @ !!%player.isGuest();
 		%data = %data @ "&scores[marble][]=" @ %skin;
-		%data = %data @ "&scores[timePercent][]=" @ (%player.spawnTime / %total);
+		%data = %data @ "&scores[timePercent][]=" @ 1;
 		%data = %data @ "&scores[disconnect][]=" @ !!%player.fake;
 		%data = %data @ "&scores[gemCount][]=" @ mFloor(%player.gemsFoundTotal);
 		%data = %data @ "&scores[gems1][]=" @ mFloor(%player.gemsFound[1]);
