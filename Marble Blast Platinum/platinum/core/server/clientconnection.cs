@@ -446,6 +446,10 @@ function GameConnection::isAdmin(%this) {
 	return %this.isAdmin || %this.isSuperAdmin;
 }
 
+function FakeGameConnection::isAdmin(%this) {
+	return false;
+}
+
 function FakeGameConnection::isAIControlled(%this) {
 	return true; //Makes a lot of things shut up
 }

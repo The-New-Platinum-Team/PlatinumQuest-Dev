@@ -22,6 +22,7 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+deleteVariables("$MP::Server::Setting*");
 $MP::Server::Settings = 0;
 
 //Add a server setting to the list of those modifyable by the user
@@ -53,63 +54,83 @@ function serverAddSetting(%id, %name, %variable, %public, %type, %min, %max) {
 }
 
 function serverCmdServerSetting(%client, %setting, %value) {
+	%id = $MP::Server::Setting[%setting];
+	if (%id $= "") {
+		return;
+	}
+	%name = $MP::Server::Setting[%id, "name"];
+
 	if (%client.isHost()) {
-		%id = $MP::Server::Setting[%setting];
-		if (%id !$= "") {
-			%name     = $MP::Server::Setting[%id, "name"];
-			%type     = $MP::Server::Setting[%id, "type"];
-			%variable = $MP::Server::Setting[%id, "variable"];
+		%printValue = serverSetSetting(%setting, %value);
 
-			%printValue = %value;
+		//Should we announce the change (don't do this for passwords)
+		if (%printValue !$= "") {
+			serverSendChat(LBChatColor("notification") @ "The Host has changed the " @ %name @ " setting to " @ %printValue @ ".");
+		}
+	} else if (%client.isAdmin()) {
+		%printValue = serverSetSetting(%setting, %value);
 
-			//Number variables can be subjected to minimums and maximums
-			switch$ (%type) {
-			case "number":
-				//Make sure the values exist before trying to enforce them
-				if ($MP::Server::Setting[%id, "max"] !$= "" && %value > $MP::Server::Setting[%id, "max"])
-					%value = $MP::Server::Setting[%id, "max"];
-				if ($MP::Server::Setting[%id, "min"] !$= "" && %value < $MP::Server::Setting[%id, "min"])
-					%value = $MP::Server::Setting[%id, "min"];
-			case "check":
-				//Checkboxes should be true/false instead of 0/1
-				%printValue = (%value ? "True" : "False");
-			case "text":
-				//Strings have quotes because reasons
-				%printValue = "\"" @ %value @ "\"";
-			case "password":
-				//Don't show password updates
-				%printValue = "";
-			}
-
-			//If the changed the value of the setting
-			%previous = getVariable(%variable);
-			if (%previous !$= %value) {
-
-				//Send a variable set callback and see if we get a cancel
-				if (!call("onPreServerVariableSet", %setting, %previous, %value)) {
-					//Don't set
-					return;
-				}
-
-				//Now actually set the variable
-				setVariable(%variable, %value);
-
-				//Send a set callback
-				call("onPostServerVariableSet", %setting, %previous, %value);
-
-				//Should we announce the change (don't do this for passwords)
-				if (%printValue !$= "") {
-					//Let people know
-					serverSendChat(LBChatColor("notification") @ "The Host has changed the " @ %name @ " setting to " @ %printValue @ ".");
-
-					for (%i = 0; %i < ClientGroup.getCount(); %i ++)
-						ClientGroup.getObject(%i).sendSettings();
-				}
-
-				startHeartbeat();
-			}
+		//Should we announce the change (don't do this for passwords)
+		if (%printValue !$= "") {
+			serverSendChat(LBChatColor("notification") @ "An Admin has changed the " @ %name @ " setting to " @ %printValue @ ".");
 		}
 	}
+}
+
+function serverSetSetting(%setting, %value) {
+	%id = $MP::Server::Setting[%setting];
+	if (%id !$= "") {
+		%name     = $MP::Server::Setting[%id, "name"];
+		%type     = $MP::Server::Setting[%id, "type"];
+		%variable = $MP::Server::Setting[%id, "variable"];
+
+		%printValue = %value;
+
+		//Number variables can be subjected to minimums and maximums
+		switch$ (%type) {
+		case "number":
+			//Make sure the values exist before trying to enforce them
+			if ($MP::Server::Setting[%id, "max"] !$= "" && %value > $MP::Server::Setting[%id, "max"])
+				%value = $MP::Server::Setting[%id, "max"];
+			if ($MP::Server::Setting[%id, "min"] !$= "" && %value < $MP::Server::Setting[%id, "min"])
+				%value = $MP::Server::Setting[%id, "min"];
+		case "check":
+			//Checkboxes should be true/false instead of 0/1
+			%printValue = (%value ? "True" : "False");
+		case "text":
+			//Strings have quotes because reasons
+			%printValue = "\"" @ %value @ "\"";
+		case "password":
+			//Don't show password updates
+			%printValue = "";
+		}
+
+		//If the changed the value of the setting
+		%previous = getVariable(%variable);
+		if (%previous !$= %value) {
+
+			//Send a variable set callback and see if we get a cancel
+			if (!call("onPreServerVariableSet", %setting, %previous, %value)) {
+				//Don't set
+				return;
+			}
+
+			//Now actually set the variable
+			setVariable(%variable, %value);
+
+			//Send a set callback
+			call("onPostServerVariableSet", %setting, %previous, %value);
+
+			if (%printValue !$= "") {
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++)
+					ClientGroup.getObject(%i).sendSettings();
+			}
+
+			startHeartbeat();
+			return %printValue;
+		}
+	}
+	return "";
 }
 
 function GameConnection::sendSettingsList(%this) {
@@ -140,7 +161,7 @@ serverAddSetting("Password",            "Password",            "$MPPref::Server:
 serverAddSetting("MaxPlayers",          "Max Players",         "$pref::Server::MaxPlayers",    true,      "number", $MP::PlayerMinimum,    $MP::PlayerMaximum);
 serverAddSetting("ForceSpectators",     "Force Spectators",    "$MPPref::ForceSpectators",     true,      "check");
 serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQuickRespawn",   true,      "check");
-serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts", true,      "check");
+serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts", false,      "check");
 serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests", false,     "check");
 serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,     "check");
 serverAddSetting("CompetitiveMode",        "Competitive Mode",       "$MPPref::Server::CompetitiveMode", true,     "check");
@@ -151,8 +172,12 @@ serverAddSetting("HuntHardMode",   "Hunt - Hard Mode", "$MPPref::Server::HuntHar
 
 //Called before a server variable is set
 function onPreServerVariableSet(%id, %previous, %value) {
-	//Allow the variable to be set
-	return true;
+	//Ask the game mode what they think
+	return Mode::callback("onPreServerVariableSet", true, new ScriptObject() {
+		id = %id;
+		previous = %previous;
+		value = %value;
+	});
 }
 
 //Called after a server variable is set
@@ -269,4 +294,10 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				spawnHuntGemGroup();
 			}
 	}
+
+	Mode::callback("onPostServerVariableSet", "", new ScriptObject() {
+		id = %id;
+		previous = %previous;
+		value = %value;
+	});
 }

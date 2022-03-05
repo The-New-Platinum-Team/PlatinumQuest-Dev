@@ -92,6 +92,8 @@ function Mode_null::onLoad(%this) {
 	%this.registerCallback("onActivateCheckpoint");
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
+	%this.registerCallback("onPreServerVariableSet");
+	%this.registerCallback("onPostServerVariableSet");
 
 	//Don't kill our CPU, but this is how you'd do it
 	//%this.registerCallback("onFrameAdvance");
@@ -715,4 +717,24 @@ function Mode_null::getFinalScore(%this, %object) {
 	// ScoreType TAB time
 
 	return $ScoreType::Time TAB $Time::CurrentTime;
+}
+function Mode_null::onPreServerVariableSet(%this, %object) {
+	//Description:
+	// Called to determine if a server variable update should be allowed
+	//Parameters:
+	// id - string: Variable identifier
+	// previous - string: Previous value of variable
+	// value - string: New value to set
+	//Returns:
+	// true/false
+
+	return true;
+}
+function Mode_null::onPostServerVariableSet(%this, %object) {
+	//Description:
+	// Called after a server variable update has happened
+	//Parameters:
+	// id - string: Variable identifier
+	// previous - string: Previous value of variable
+	// value - string: New value of variable
 }
