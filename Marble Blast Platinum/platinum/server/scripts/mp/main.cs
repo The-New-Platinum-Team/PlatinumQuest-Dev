@@ -81,6 +81,8 @@ function initDedicatedServer() {
 	// WHOOOO
 	// So we need to replicate an actual server starting up
 
+	enableWinConsole(true);
+
 	// Dedicated things
 	exec("./dcon.cs");
 	exec("./dsupport.cs");
