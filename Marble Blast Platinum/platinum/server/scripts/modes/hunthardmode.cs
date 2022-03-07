@@ -59,3 +59,7 @@ function Mode_hunthardmode::onFoundGem(%this, %object) {
 function Mode_hunthardmode::shouldRestorePowerup(%this, %object) {
 	return false; //No restoring your powerup fuck you
 }
+
+function Mode_hunthardmode::modifyScoreData(%this, %object) {
+	return %object.data @ "&extraModes[]=hunthardmode";
+}
