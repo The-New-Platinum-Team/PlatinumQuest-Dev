@@ -30,7 +30,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_hunthardmode) {
 	file = "hunthardmode";
 
 	name = "Hunt - Hard Mode";
-	desc = "No PowerUps, No Blasting, No Yellows or Blues. Black Gems will give you a random Powerup.";
+	desc = "No PowerUps, and No Yellows or Blues. Black Gems will give you a random Powerup. Gems reset your Blast Meter.";
 
 	teams = 1;
 });

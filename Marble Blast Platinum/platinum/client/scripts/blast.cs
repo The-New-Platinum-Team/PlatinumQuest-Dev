@@ -46,9 +46,6 @@ function shouldEnableBlast() {
 }
 
 function shouldUpdateBlast() {
-	if ($Game::isMode["hunthardmode"] && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {  //I hope this works now
-		return false;
-	}
 
 	return (shouldEnableBlast() && $PlayTimerActive) || //Only let them use blast when the time is running
 	       ($Game::State !$= "End" && MissionInfo.game $= "Ultra" && $Server::ServerType $= "SinglePlayer") || //Unless they're in a MBU level
