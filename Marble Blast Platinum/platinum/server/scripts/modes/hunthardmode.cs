@@ -52,6 +52,8 @@ function Mode_hunthardmode::onFoundGem(%this, %object) {
 			    alxPlay(PuMegaMarbleVoiceSfx);
 		}
 	}
+
+	%object.client.setBlastValue(0);
 }
 
 function Mode_hunthardmode::shouldRestorePowerup(%this, %object) {
