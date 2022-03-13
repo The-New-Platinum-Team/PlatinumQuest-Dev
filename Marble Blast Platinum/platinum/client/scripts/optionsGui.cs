@@ -453,9 +453,6 @@ $Options::Type    ["Gameplay", 11] = "boolean";
 $Options::Name    ["Gameplay", 12] = "spchanges";
 $Options::Title   ["Gameplay", 12] = "Ultra Violet";
 $Options::Type    ["Gameplay", 12] = "boolean";
-$Options::Name    ["Gameplay", 13] = "recordingIndicator";
-$Options::Title   ["Gameplay", 13] = "Recording Indicator";
-$Options::Type    ["Gameplay", 13] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -1152,24 +1149,6 @@ function Opt_fpsCounter_decrease() {
 function Opt_fpsCounter_increase() {
 	$pref::showFPSCounter = !$pref::showFPSCounter;
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
-}
-
-//-----------------------------------------------------------------------------
-
-function Opt_recordingIndicator_getDisplay() {
-	return $pref::showrecordingIndicator ? "Enabled" : "Disabled";
-}
-
-function Opt_recordingIndicator_getValue() {
-	return $pref::showrecordingIndicator;
-}
-
-function Opt_recordingIndicator_decrease() {
-	$pref::showrecordingIndicator = !$pref::showrecordingIndicator;
-}
-
-function Opt_recordingIndicator_increase() {
-	$pref::showrecordingIndicator = !$pref::showrecordingIndicator;
 }
 
 //-----------------------------------------------------------------------------
