@@ -78,7 +78,7 @@ function PlayGui::onWake(%this) {
 	LagIcon.setVisible(false);
 	showSpectatorMenu(false);
 
-    if ($Game::Record && !mp() && !$playingDemo && $pref::showrecordingIndicator) {
+    if ($Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
         RecordingIndicatorIcon.setVisible(true);
 	} else {
