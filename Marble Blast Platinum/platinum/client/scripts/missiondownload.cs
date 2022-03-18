@@ -125,49 +125,6 @@ function onPhase3Complete() {
 
 	//Safe to do this here, should cover SP as well as MP
 
-	//Automatic UI
-	if ($pref::AutomaticUI) {
-		if (!$mbguiauto && (Sky.materialList $= "platinum/data/skies/sky_day.dml")) {
-			$mbguiauto = true;
-			$mbpuiauto = false;
-			$mbuuiauto = false;
-			$defaultuiauto = false;
-			deactivateTexturePack("mbpui");
-			activateTexturePack("mbgui");
-			reloadTexturePacks(); 
-		} else if 
-			(!$mbuuiauto && ((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra"))) {
-			$mbuuiauto = true;
-			$mbguiauto = false;
-			$mbpuiauto = false;
-			$defaultuiauto = false;
-			deactivateTexturePack("mbgui", "mbpui");
-			reloadTexturePacks();
-		} else if 
-			(!$mbpuiauto && ((Sky.materialList $= "platinum/data/skies/Beginner/Beginner_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Intermediate/Intermediate_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Advanced/Advanced_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Expert/Expert_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Bonus/Bonus_Sky.dml"))) {
-			$mbpuiauto = true;
-			$mbguiauto = false;
-			$mbuuiauto = false;
-			$defaultuiauto = false;
-			deactivateTexturePack("mbgui");
-			activateTexturePack("mbpui");
-			reloadTexturePacks();
-		} else if
-			(!$defaultuiauto && ($CurentGame $= "PlatinumQuest" || (MissionInfo.game $= "PlatinumQuest"))) {
-			$defaultuiauto = true;
-			$mbguiauto = false;
-			$mbpuiauto = false;
-			$mbuuiauto = false;
-			deactivateTexturePack("mbgui", "mbpui");
-			reloadShaders();
-			reloadPostFX();
-			clearTextureHolds();
-			purgeResources();
-			flushTextureCache();
-			PlayGui.updateGems(true);
-		}
- 	}
-
 	//Automatic Audio
 	if ($pref::AutomaticAudio) {
 		$optimizedaudio = false;
