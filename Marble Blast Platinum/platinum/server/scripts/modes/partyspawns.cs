@@ -25,6 +25,7 @@
 function Mode_partyspawns::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onFoundGem");
+	%this.registerCallback("modifyScoreData");
 }
 
 function Mode_partyspawns::onFoundGem(%this, %object) {
