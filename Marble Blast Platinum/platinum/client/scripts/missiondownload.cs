@@ -134,8 +134,11 @@ function onPhase3Complete() {
 			((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra")) {
 			loadAudioPack(mbu);
 		} else if 
-			((Sky.materialList $= "platinum/data/skies/Beginner/Beginner_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Intermediate/Intermediate_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Advanced/Advanced_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Expert/Expert_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Bonus/Bonus_Sky.dml")) {
+			((MissionInfo.game $= "Platinum") || ((Sky.materialList $= "platinum/data/skies/Beginner/Beginner_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Intermediate/Intermediate_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Advanced/Advanced_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Expert/Expert_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Bonus/Bonus_Sky.dml"))) {
 			loadAudioPack(mbp);
+		} else if 
+			((MissionInfo.game $= "PlatinumQuest") || (MissionInfo.modification $= "PlatinumQuest")) {
+			loadAudioPack($pref::Audio::AudioPack);
 		}
     } else if (!$optimizedaudio) {
 		$optimizedaudio = true;
