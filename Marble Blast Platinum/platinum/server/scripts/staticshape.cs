@@ -16,6 +16,10 @@ function StaticShapeData::create(%data) {
 	return %obj;
 }
 
+function StaticShapeData::onInspectApply(%this, %obj) {
+	// Force that shit.
+	%obj.setSkinName(%obj.skin);
+}
 
 //-----------------------------------------------------------------------------
 
