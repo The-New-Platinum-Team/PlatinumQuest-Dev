@@ -247,6 +247,7 @@ function emibutton(%revert) {
 	LargeFunctionDlg.addTextEditField("EMI_FanStrength", "Default Fan Strength", MissionInfo.fanStrength, 100, -1);
 	LargeFunctionDlg.addTextEditField("EMI_Gravity", "Default Gravity", MissionInfo.gravity, 100, -1);
 	LargeFunctionDlg.addTextEditField("EMI_JumpImpulse", "Default Jump Impulse", MissionInfo.jumpImpulse, 100, -1);
+	LargeFunctionDlg.addCheckBox("EMI_MPFriction", "Disable Moving Platform Friction:", MissionInfo.NoMPFriction, 0);
 	LargeFunctionDlg.addNote("");
 	%compiled = (fileExt($Server::MissionFile) $= ".mcs") || $pref::WriteMCS;
 	if (%compiled) {
@@ -427,6 +428,8 @@ function editMissionInfo(%gui) {
 	miAssign(fanStrength, EMI_FanStrength);
 	miAssign(gravity, EMI_Gravity);
 	miAssign(jumpImpulse, EMI_JumpImpulse);
+	miAssign(NoMPFriction, EMI_MPFriction);
+
 	%compiled = (fileExt($Server::MissionFile) $= ".mcs") || $pref::WriteMCS;
 	if (%compiled) {
 		miAssign(requirements, EMI_Requirements);
