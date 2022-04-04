@@ -274,6 +274,8 @@ function onMissionReset() {
 	$Game::TimeStoppedClients = 0;
 	cancel($Game::StateSchedule);
 
+	$NoMovingPlatformFrictions = (MissionInfo.NoMPFriction $= "1") ? 1 : 0;
+
 	endFireWorks();
 	resetCannons();
 
