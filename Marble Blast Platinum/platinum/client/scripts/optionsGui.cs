@@ -736,7 +736,7 @@ function Opt_legacyItems_decrease() {
 
 	if (!$liAssert) {
 		$liAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
@@ -745,7 +745,7 @@ function Opt_legacyItems_increase() {
 
 	if (!$liAssert) {
 		$liAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
@@ -860,7 +860,7 @@ function Opt_particleSystem_decrease() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
@@ -874,7 +874,7 @@ function Opt_particleSystem_increase() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
