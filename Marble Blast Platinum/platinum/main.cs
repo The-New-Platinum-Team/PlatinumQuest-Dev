@@ -33,6 +33,8 @@ setPrintTime(true);
 // Must be called so we can get dedicated support
 parseArgs();
 
+deleteFile(expandFilename("./core/ui/cache/.backup.gui"));
+deleteFile(expandFilename("./core/ui/cache/.backup.gui.dso"));
 
 // Dedicated servers require external console usage. Don't worry. We
 // disable all LB stuff if they're on a dedicated ;)
