@@ -281,8 +281,6 @@ function onMissionReset() {
 
 	if (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::TrainingMode || $MPPref::Server::PartySpawns || $MPPref::Server::HuntHardMode)) {
 		$MP::ScoreSendingDisabled = true;
-	} else {
-		$MP::ScoreSendingDisabled = false;
 	}
 
 	// Reset the players and inform them we're starting
