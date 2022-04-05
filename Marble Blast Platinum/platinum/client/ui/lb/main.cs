@@ -150,7 +150,7 @@ function closeLeaderboards() {
 	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
 		%pakName = MarblelandPackages.getEntry(%i);
 		if (!isLoadedMBPackage("marbleland/" @ %pakName)) {
-			loadMBPackage("marbleland/" @ %pakName);
+			loadMBPackageMis("marbleland/" @ %pakName);
 		}
 	}
 }

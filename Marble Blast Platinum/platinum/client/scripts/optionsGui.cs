@@ -167,6 +167,10 @@ function OptionsGui::apply(%this) {
 			              $pref::Video::fullScreen);
 		}
 	}
+	if ($pref::Video::PostProcessing) {
+		reloadPostFX();
+	}
+
 	if ($Options::TexturePackDirty) {
 		//Unload everything first
 		for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {

@@ -426,7 +426,7 @@ function loadMainMenu() {
 
 	//Show the loaded level before doing anything slow
 	PlayMissionGui.init();
-	if ($pref::AnimatePreviews && $pref::Introduced) {
+	if ($pref::AnimatePreviews && $pref::Introduced && !PlayMissionGui.isMarblelandMission()) {
 		PlayMissionGui.loadMission();
 	}
 	Canvas.repaint();
@@ -435,7 +435,7 @@ function loadMainMenu() {
 	Unlock::updateCaches(true);
 
 	//Go straight to the main menu if we're not loading a mission
-	if (!$pref::AnimatePreviews && $pref::Introduced) {
+	if ((!$pref::AnimatePreviews && $pref::Introduced) || PlayMissionGui.isMarblelandMission()) {
 		RootGui.setContent(MainMenuGui);
 	}
 

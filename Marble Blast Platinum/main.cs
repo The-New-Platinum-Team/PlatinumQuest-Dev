@@ -37,7 +37,7 @@ if (!isObject(MarblelandPackages))
 	Array(MarblelandPackages);
 
 for ($file = findFirstFile("packages/marbleland/*.mbpak"); $file !$= ""; $file = findNextFile("packages/marbleland/*.mbpak")) {
-	loadMBPackage("marbleland/" @ fileBase($file));
+	loadMBPackageMis("marbleland/" @ fileBase($file));
 	MarblelandPackages.addEntry(fileBase($file));
 }
 
