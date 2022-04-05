@@ -110,6 +110,10 @@ function StartPadClass::onAdd(%this, %obj) {
 		%obj.setSkinName(%obj.skin);
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
+
+    if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+  		%obj.setDataBlock("StartPad_MBG");
+   }
 }
 
 //-----------------------------------------------------------------------------
@@ -176,6 +180,10 @@ function EndPadClass::onAdd(%this, %obj) {
 		%obj.setSkinName(%obj.skin);
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
+
+    if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+  		%obj.setDataBlock("EndPad_MBG");
+   }
 }
 
 //MBM Datablocks down below.
@@ -183,12 +191,28 @@ function EndPadClass::onAdd(%this, %obj) {
 if (!$pref::LegacyItems) {
 	datablock StaticShapeData(EndPad_MBM : EndPad) {
 		shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
+		skin[0] = "base";
+		skin[1] = "mbm";
+		
+		customField[0, "field"  ] = "skin";
+		customField[0, "type"   ] = "string";
+		customField[0, "name"   ] = "Skin Name";
+		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+		customField[0, "default"] = "base";
 
 		playAnimation = true;
 	};
 
 	datablock StaticShapeData(StartPad_MBM : StartPad) {
 		shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
+		skin[0] = "base";
+		skin[1] = "mbm";
+
+		customField[0, "field"  ] = "skin";
+		customField[0, "type"   ] = "string";
+		customField[0, "name"   ] = "Skin Name";
+		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+		customField[0, "default"] = "base";
 
 		playAnimation = true;
 	};
