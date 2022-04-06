@@ -133,6 +133,10 @@ function OptionsGui::apply(%this) {
 	%newRes = ($pref::Video::resolution !$= getResolution());
 
 	if (%newDisplay) {
+		disablePostFX();
+		disableBlur();
+		disableShaders();
+		reloadDts();
 		setDisplayDevice($pref::Video::displayDevice,
 		                 firstWord($pref::Video::resolution),
 		                 getWord($pref::Video::resolution, 1),
@@ -140,11 +144,19 @@ function OptionsGui::apply(%this) {
 		                 $pref::Video::fullScreen);
 		//OptionsGui::deviceDependent( %this );
 	} else if (%newRes) {
+		disablePostFX();
+		disableBlur();
+		disableShaders();
+		reloadDts();
 		setScreenMode(firstWord($pref::Video::resolution),
 		              getWord($pref::Video::resolution, 1),
 		              getWord($pref::Video::resolution, 2),
 		              $pref::Video::fullScreen);
 	} else if ($pref::Video::fullScreen != isFullScreen()) {
+		disablePostFX();
+		disableBlur();
+		disableShaders();
+		reloadDts();
 		toggleFullScreen();
 	}
 	if ($pref::Video::AntiAliasing != $OldConfig::Video::AntiAliasing) {
@@ -166,9 +178,6 @@ function OptionsGui::apply(%this) {
 			              %oldBits,
 			              $pref::Video::fullScreen);
 		}
-	}
-	if ($pref::Video::PostProcessing) {
-		reloadPostFX();
 	}
 
 	if ($Options::TexturePackDirty) {
