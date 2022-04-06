@@ -963,6 +963,9 @@ function statsGetReplayLine(%line) {
 		%parsed.delete();
 
 		playReplay(%path);
+	} else {
+		MessageBoxOk("Cannot play replay", %parsed.error);
+		%parsed.delete();
 	}
 }
 

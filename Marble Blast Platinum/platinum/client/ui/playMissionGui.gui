@@ -556,6 +556,20 @@ new GuiControl(PlayMissionGui) {
 					repeatDecay = "1";
 					bitmap = "./play/scoreModes/dd";
 				};
+				new GuiMLTextCtrl(PM_ScoreReplayWatch) {
+					profile = "PMGMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "332 0";
+					extent = "186 28";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					text = "<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
 			};
 		};
 		new GuiMLTextCtrl(PM_MissionTitle) {
@@ -2723,6 +2737,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	PM_InfoBox.setExtent(%width SPC %height);
 
 	PM_ScoreModeButtons.setVisible(lb() && %this.showGlobalScores);
+	PM_ScoreReplayWatch.setText("");
 	if (lb()) {
 		//Align mode button panel to bottom
 		PM_ScoreModeButtons.resize(0, getWord(PM_MissionInfoPanel.getExtent(), 1) - %modeButtonsHeight, getWord(PM_MissionInfoPanel.getExtent(), 0), %modeButtonsHeight);
@@ -2748,6 +2763,12 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		PM_ScoreModeLap.setValue(%this.globalScoreMode $= "lap");
 		PM_ScoreModeQuota100.setValue(%this.globalScoreMode $= "quota100");
 		PM_ScoreModeDD.setValue(%this.globalScoreMode $= "dd");
+
+		if (%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "") {
+			PM_ScoreReplayWatch.setText("<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>");
+		} else {
+			PM_ScoreReplayWatch.setText("");
+		}
 	}
 
 	if (mp()) {
@@ -2790,6 +2811,10 @@ function PM_MissionScoresTitle::onURL(%this, %url) {
 	PM_MissionInfo::onURL(%this, %url);
 }
 
+function PM_ScoreReplayWatch::onURL(%this, %url) {
+	PM_MissionInfo::onURL(%this, %url);
+}
+
 function PlayMissionGui::prevGlobalPage(%this) {
 	%this.globalPage --;
 	%this.updateMissionInfo();
@@ -2798,6 +2823,10 @@ function PlayMissionGui::prevGlobalPage(%this) {
 function PlayMissionGui::nextGlobalPage(%this) {
 	%this.globalPage ++;
 	%this.updateMissionInfo();
+}
+
+function PlayMissionGui::watchLBReplay(%this) {
+	statsGetReplay(PlayMissionGui.getMissionInfo(), (%this.globalScoreMode $= "egg") ? "Egg" : "Replay");
 }
 
 function PlayMissionGui::onTick(%this, %delta) {
