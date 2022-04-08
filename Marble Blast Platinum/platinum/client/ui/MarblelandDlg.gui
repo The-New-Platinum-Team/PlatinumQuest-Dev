@@ -602,6 +602,11 @@ function MarblelandDlg::onSelect(%this) {
 	} else {
 		MarblelandSearchDelete.setVisible(false);
 		MarblelandSearchPlay.setVisible(true);
+		MarblelandSearchStart.setActive(true);
+	}
+
+	if (isObject(MarblelandDownloader))
+	{
 		MarblelandSearchStart.setActive(false);
 	}
 
