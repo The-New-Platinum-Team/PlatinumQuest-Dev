@@ -41,6 +41,11 @@ function shouldEnableBlast() {
 			return true;
 		}
 
+		if ($Game::IsMode["challenge"]) {
+			if ($CurrentWeeklyChallenge.blast)
+				return true;
+		}
+
 		return false; //SP no blast by default
 	}
 }
