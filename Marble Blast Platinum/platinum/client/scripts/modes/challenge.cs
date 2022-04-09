@@ -383,7 +383,6 @@ function activateChallenge(%challengeName) {
 	activateClientMode("challenge");
 	for (%i = 0; %i < WeeklyChallengeTemplates.getCount(); %i++) {
 		%challenge = WeeklyChallengeTemplates.getObject(%i);
-		echo(%challenge.name @ "==" @ %challengeName);
 		if (%challenge.name $= %challengeName) {
 			$CurrentWeeklyChallenge = %challenge;
 			break;
