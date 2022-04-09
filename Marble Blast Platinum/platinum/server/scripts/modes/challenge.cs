@@ -12,6 +12,7 @@ function Mode_challenge::onLoad(%this) {
 	%this.registerCallback("onMissionEnded");
 	%this.registerCallback("onMissionReset");
 	%this.registerCallback("shouldPickupGem");
+	%this.registerCallback("shouldIgnoreGem");
 	%this.registerCallback("shouldDisablePowerup");
 	%this.registerCallback("shouldPickupPowerup");
 	%this.registerCallback("getMarbleSize");
@@ -26,10 +27,7 @@ function Mode_challenge::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_challenge::onMissionLoaded(%this, %object) {
-	//Description:
-	// Called from onMissionLoaded.
-	//Parameters:
-	// none
+	if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
 }
 function Mode_challenge::onMissionEnded(%this, %object) {
 	//Description:
@@ -38,14 +36,15 @@ function Mode_challenge::onMissionEnded(%this, %object) {
 	// none
 }
 function Mode_challenge::onMissionReset(%this, %object) {
-	//Description:
-	// Called from onMissionReset.
-	//Parameters:
-	// none
+	if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
 }
 function Mode_challenge::shouldPickupGem(%this, %object) {
 	if ($CurrentWeeklyChallenge.noGems) return false;
 	return true;
+}
+function Mode_challenge::shouldIgnoreGem(%this, %object) {
+	if ($CurrentWeeklyChallenge.noGems) return true;
+	return false;
 }
 function Mode_challenge::shouldDisablePowerup(%this, %object) {
 	return $CurrentWeeklyChallenge.noPowerups $= "1";
