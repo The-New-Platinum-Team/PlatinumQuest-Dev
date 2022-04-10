@@ -137,14 +137,11 @@ WeeklyChallengeTemplates.add(
 	{
 		name = "blastclub";
 		description = "Blast Club";
-		blast = "1";
-		paramDesc = "Bounce Force: 200%" NL "Jump Force: 0%" NL "Blast";
+		tripleBlast = "1";
+		paramDesc = "Triple Blast";
 	}
 );
-Physics::registerLayer("blastclub",
-                       "bounceRestitution 1.005 1.005" NL
-					   "jumpImpulse 0 0"
-                      );
+Physics::registerLayer("blastclub","");
 
 WeeklyChallengeTemplates.add(
 	new ScriptObject(ChallengeTemplate)
@@ -238,7 +235,8 @@ WeeklyChallengeTemplates.add(
 		name = "landlocked";
 		description = "Land Locked";
 		noPowerups = "1";
-		paramDesc = "Jump Impulse: 25%" NL "No Powerups";
+		noBlast = "1";
+		paramDesc = "Jump Impulse: 25%" NL "No Powerups" NL "No Blast";
 	}
 );
 Physics::registerLayer("landlocked",

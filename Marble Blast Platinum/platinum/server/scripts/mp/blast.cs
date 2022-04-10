@@ -78,11 +78,14 @@ function serverCmdBlast(%client, %gravity) {
 		return;
 	}
 
-	if (%client.usingPartyTripleBlast) {
+	if (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || %client.usingPartyTripleBlast) {
 		if (%client.blastValue <= 0.35) { // It should be "== 0.34", but uh, floating point nonsense
 			%client.setBlastValue(0);
-			%client.usingPartyTripleBlast = false;
-			$MP::PartyTripleBlast = false;
+			if (%client.usingPartyTripleBlast)
+			{
+				%client.usingPartyTripleBlast = false;
+				$MP::PartyTripleBlast = false;
+			}
 		} else {
 			%client.setBlastValue(%client.blastValue - 0.33); // Sends to client
 		}
