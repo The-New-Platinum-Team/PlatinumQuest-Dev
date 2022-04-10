@@ -146,21 +146,6 @@ Physics::registerLayer("blastclub","");
 WeeklyChallengeTemplates.add(
 	new ScriptObject(ChallengeTemplate)
 	{
-		name = "ricochet";
-		description = "Ricochet";
-		paramDesc = "Friction Force: 15%" NL "Air Force: 0%";
-	}
-);
-Physics::registerLayer("ricochet",
-					   "staticFriction 0.165 0.165" NL
-					   "kineticFriction 0.21 0.21" NL
-					   "bounceKineticFriction 0.03 0.03" NL
-					   "airAcceleration 0 0"
-                      );
-
-WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
 		name = "tortoise";
 		description = "Tortoise";
 		paramDesc = "Roll Force: 50%" NL "Air Force: 50%" NL "Friction Force: 200%";
@@ -206,21 +191,6 @@ Physics::registerLayer("groundcontrol",
 WeeklyChallengeTemplates.add(
 	new ScriptObject(ChallengeTemplate)
 	{
-		name = "fastforward";
-		description = "Fast Forward";
-		paramDesc = "Roll Force: 400%" NL "Air Force: 400%" NL "Gravity: 400%" NL "Jump Force: 400%";
-	}
-);
-Physics::registerLayer("fastforward",
-                       "airAcceleration 20 20" NL
-					   "maxRollVelocity 60 60" NL
-					   "gravity 80 80" NL
-                       "jumpImpulse 30 30"
-                      );
-
-WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
 		name = "offroad";
 		description = "Offroad";
 		noGems = "1";
@@ -240,18 +210,6 @@ WeeklyChallengeTemplates.add(
 	}
 );
 Physics::registerLayer("landlocked",
-					   "jumpImpulse 1.875 1.875"
-                      );
-
-WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
-		name = "grounded";
-		description = "Grounded";
-		paramDesc = "Jump Impulse: 25%";
-	}
-);
-Physics::registerLayer("grounded",
 					   "jumpImpulse 1.875 1.875"
                       );
 

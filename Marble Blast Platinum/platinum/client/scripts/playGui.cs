@@ -446,7 +446,10 @@ function PlayGui::updateBlastBar(%this) {
 	//Partial: 5 5 (total * 110) 17
 	PG_BlastFill.resize(5, 5, %this.blastValue * 110, 17);
 	%oldBitmap = PG_BlastFrame.bitmap;
-	%newBitmap = $usermods @ "/client/ui/game/blastbar";
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast))
+		%newBitmap = $usermods @ "/client/ui/game/blastbar_triple";
+	else
+		%newBitmap = $usermods @ "/client/ui/game/blastbar";
 	if ($MP::SpecialBlast)
 		%newBitmap = %newBitmap @ "_charged";
 	if (%oldBitmap !$= %newBitmap)
@@ -454,7 +457,7 @@ function PlayGui::updateBlastBar(%this) {
 
 	%oldBitmap = PG_BlastFill.bitmap;
 	%newBitmap = $usermods @ "/client/ui/game/blastbar_bar";
-	if (%this.blastValue >= $MP::BlastRequiredAmount)
+	if (%this.blastValue >= (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) ? 0.33 : $MP::BlastRequiredAmount))
 		%newBitmap = %newBitmap @ "green";
 	else
 		%newBitmap = %newBitmap @ "gray";

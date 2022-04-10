@@ -52,7 +52,10 @@ function serverBlastUpdate() {
 			continue;
 		%blastValue = %client.blastValue;
 		// Update blast value
-		%blastValue += (%timeDelta / $MP::BlastChargeTime);
+		if ($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast)
+			%blastValue += (%timeDelta / 12000);
+		else
+			%blastValue += (%timeDelta / $MP::BlastChargeTime);
 		// Normalize blast value
 		//Keep it 0 < value < 1
 		if (%client.usingSpecialBlast)
