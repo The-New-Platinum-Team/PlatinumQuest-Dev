@@ -65,7 +65,10 @@ function clientUpdateBlast(%timeDelta) {
 		return;
 	
 	// blast code update
-	$MP::BlastValue += (%timeDelta / $MP::BlastChargeTime);
+	if ($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast)
+		$MP::BlastValue += (%timeDelta / 12000);
+	else
+		$MP::BlastValue += (%timeDelta / $MP::BlastChargeTime);
 	if ($MP::BlastValue > 1)
 		$MP::BlastValue = 1;
 	if ($MP::BlastValue < 0)

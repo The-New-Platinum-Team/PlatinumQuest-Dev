@@ -384,7 +384,7 @@ function input_useBlast(%val) {
 		return;
 
 	if (%val) {
-		if ($MP::BlastValue >= $MP::BlastRequiredAmount && MPMyMarbleExists() != -1) {
+		if ($MP::BlastValue >= (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) ? 0.33 : $MP::BlastRequiredAmount) && MPMyMarbleExists() != -1) {
 			performBlast();
 		}
 	}
