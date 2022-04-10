@@ -24,6 +24,14 @@
 //-----------------------------------------------------------------------------
 
 function shouldEnableBlast() {
+
+	if ($Game::IsMode["challenge"]) {
+		if ($CurrentWeeklyChallenge.blast || $CurrentWeeklyChallenge.tripleBlast)
+			return true;
+		if ($CurrentWeeklyChallenge.noBlast)
+			return false;
+	}
+
 	if (MissionInfo.noBlast) { //Allow missions to disable blast in MP
 		return false;
 	}
@@ -39,11 +47,6 @@ function shouldEnableBlast() {
 	} else {
 		if (MissionInfo.game $= "Ultra") { //All ultra missions should have blast
 			return true;
-		}
-
-		if ($Game::IsMode["challenge"]) {
-			if ($CurrentWeeklyChallenge.blast)
-				return true;
 		}
 
 		return false; //SP no blast by default
@@ -72,7 +75,7 @@ function clientUpdateBlast(%timeDelta) {
 
 function performBlast() {
 	%blastValue = ($MP::SpecialBlast ? $MP::BlastRechargePower : mSqrt($MP::BlastValue));
-	if ($MP::PartyTripleBlast && !$MP::SpecialBlast) {%blastValue = mSqrt(0.25);} // 0.2's the 'minimum' blast allowed, but 0.25 feels more like the min
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast) && !$MP::SpecialBlast) {%blastValue = mSqrt(0.25);} // 0.2's the 'minimum' blast allowed, but 0.25 feels more like the min
 	//Best results found when whacked from here
 	%attack = "0 0 -1";
 
