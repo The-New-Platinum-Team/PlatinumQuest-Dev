@@ -158,7 +158,7 @@ function TrapDoor_MBU::open(%this, %obj) {
 }
 
 function TrapdoorClass::close(%this, %obj) {
-	if ((%obj.mbuanim $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
+	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
 	%obj.playAudio(0,TrapDoorOpenMbgSfx);
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 
