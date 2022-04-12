@@ -38,6 +38,7 @@ uniform mat4 rot_to_torque_mat;
 uniform vec4 ambient_color;
 uniform vec4 sun_color;
 uniform vec3 sun_direction;
+uniform float alphaMultiplier;
 
 float tanh(float x) {
     return (exp(2.0 * x) - 1.0) / (exp(2.0 * x) + 1.0);
@@ -62,6 +63,6 @@ void main() {
     // Texture values
     vec4 material_color = texture2D(textureSampler, scaled_uv);
 
-    gl_FragColor = vec4(material_color.rgb, 1);
+    gl_FragColor = vec4(material_color.rgb, material_color.a * alphaMultiplier);
     // gl_FragColor = vec4((1+normal_model)/2, 0);
 }
