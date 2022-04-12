@@ -69,3 +69,77 @@ if ($pref::UseLowResGlass) {
 		shapeFile = "~/data/shapes/Glass/Col/18x3.dts";
 	};
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//This whole ass .cs is barren and I'm going to make fucking use of it with Marble Blast XP shapes. - Daniel
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+datablock StaticShapeData(Empty) {
+	shapeFile = "~/data/shapes_mbxp/empty.dts";
+	className = "LevelParts";
+	category = "Other";
+};
+datablock StaticShapeData(ForceFieldPost) {
+	className = "ForceFieldClass";
+	shapeFile = "~/data/shapes_mbxp/bumpers/post_only2.dts";
+	playAnimation = true;
+};
+datablock StaticShapeData(ForceFieldBumper : ForceFieldPost) {
+	shapeFile = "~/data/shapes_mbxp/bumpers/rail2.dts";
+	playAnimation = true;
+};
+
+function Empty::onAdd(%this, %obj) {
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost") {
+	%obj.setDataBlock("ForceFieldPost");
+	%obj.playThread(0,"ambient_ifl");
+   }
+
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldBumper") {
+	%obj.setDataBlock("ForceFieldBumper");
+	%obj.playThread(0,"ambient_ifl");
+   }
+}	
+
+function ForceFieldClass::onAdd(%this, %obj) {
+	if (%this.playAnimation)
+		%obj.playThread(0,"ambient_ifl");
+}	
+
+datablock StaticShapeData(EndPad_MBXP : EndPad) {
+	shapeFile = "~/data/shapes_mbxp/pads/endarea.dts";
+
+	playAnimation = true;
+};
+
+datablock StaticShapeData(StartPad_MBXP : StartPad) {
+	shapeFile = "~/data/shapes_mbxp/pads/startarea.dts";
+
+	playAnimation = true;
+};
+
+function EndPad_MBXP::onAdd(%this, %obj) {
+	%obj.playThread(0,"ambient_ifl");
+	%obj.playThread(1,"effect_loop");
+	%obj.playThread(2, "effect_vis");
+}
+
+function StartPad_MBXP::onAdd(%this, %obj) {
+	%obj.playThread(0,"ambient_ifl");
+}
+
+// function StartPad_MBXP::onMissionReset(%this, %obj) {
+// 	if (!$Game::Menu) {
+// 		if ($Game::State $= "Ready"){
+// 			%obj.setThreadDir(%i, false);
+// 		}
+
+// 		for (%i = 2; %i < 4; %i++) {
+// 			%obj.setThreadDir(%i, true);
+// 			%obj.idleSch0 = %obj.schedule(50, "playThread", 2, "effect_vis");
+// 			%obj.idleSch1 = %obj.schedule(250, "playThread", 3, "ring_vis");
+// 			%obj.idleSch2 = %obj.schedule(2250, "setThreadDir", 3, false);
+// 			%obj.idleSch3 = %obj.schedule(2800, "setThreadDir", 2, false);
+// 		}
+// 	}
+// }

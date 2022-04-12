@@ -113,6 +113,11 @@ function StartPadClass::onAdd(%this, %obj) {
 
     if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
   		%obj.setDataBlock("StartPad_MBG");
+
+		if ($TexturePack::MBXP) {
+			%obj.setDataBlock("StartPad_MBXP");
+		  	%obj.playThread(0,"ambient_ifl");
+		}
    }
 }
 
@@ -183,6 +188,13 @@ function EndPadClass::onAdd(%this, %obj) {
 
     if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
   		%obj.setDataBlock("EndPad_MBG");
+
+		if ($TexturePack::MBXP) {
+			%obj.setDataBlock("EndPad_MBXP");
+		  	%obj.playThread(0,"ambient_ifl");
+		  	%obj.playThread(1,"effect_loop");
+			%obj.playThread(2, "effect_vis");
+		}
    }
 }
 
