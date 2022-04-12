@@ -247,6 +247,11 @@ function loadTexturePackFields(%pack) {
 	} else {
 		$TexturePack::MBGHelpUI = "";
 	}
+	if (%pack.mbxp_setskip !$= "") {
+		$TexturePack::MBXP = %pack.mbxp_setskip;
+	} else {
+		$TexturePack::MBXP = "";
+	}
 	if (%pack.fonts) {
 		// Save existing fonts first, for restoring later
 		if ($TexturePack::OldFont $= "") {
