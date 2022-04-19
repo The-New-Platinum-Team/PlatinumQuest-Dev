@@ -122,6 +122,7 @@ $LBPref::ShowRecords = false;
 
 $pref::Music::Songs["LB"]     = "Comforting Mystery.ogg";
 $pref::Music::Songs["Menu"]   = "Pianoforte.ogg";
+$pref::Music::Songs["XP"]   = "shellXP.ogg";
 $pref::Music::Songs["Game"]   = "*";
 
 //Graphics
