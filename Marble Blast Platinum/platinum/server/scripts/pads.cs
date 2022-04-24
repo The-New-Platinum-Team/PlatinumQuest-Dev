@@ -91,9 +91,11 @@ function StartPad_MBM::onAdd(%this,%obj) {
 }
 
 function EndPad_MBM::onAdd(%this,%obj) {
-   if ($pref::spchanges && %obj.isTemperable $= "1")
+   if ($pref::spchanges && %obj.isTemperable $= "1") {
 	%obj.setDataBlock("EndPad_MBU");
 	return EndPad_MBU::onAdd(%this, %obj);
+   } else
+	return EndPadClass::onAdd(%this, %obj);
 }
 
 function StartPadClass::onAdd(%this, %obj) {
