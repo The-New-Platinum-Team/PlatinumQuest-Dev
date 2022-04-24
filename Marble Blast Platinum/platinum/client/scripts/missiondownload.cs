@@ -125,6 +125,17 @@ function onPhase3Complete() {
 
 	//Safe to do this here, should cover SP as well as MP
 
+	//MBG Customs Textures Patch
+	if (!$pref::FastMode) {
+		if (!$skyMBG && Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+			mbgTexPatchActivate();
+			$skyMBG = true;
+		} else if ($skyMBG && Sky.materialList !$= "platinum/data/skies/sky_day.dml") {
+			mbgTexPatchDeactivate();
+			$skyMBG = false;
+		}
+	}
+	
 	//Automatic Audio
 	if ($pref::AutomaticAudio) {
 		$optimizedaudio = false;
@@ -145,6 +156,20 @@ function onPhase3Complete() {
 		loadAudioPack($pref::Audio::AudioPack);
 	}
 }
+
+// Start of MBG Custom Textures Patch
+
+function mbgTexPatchActivate() {
+	activateTexturePack("mbgcustomspatch");
+	reloadTexturePacks();
+}
+
+function mbgTexPatchDeactivate() {
+	deactivateTexturePack("mbgcustomspatch");
+	reloadTexturePacks();
+}
+
+// End of MBG Custom Textures Patch
 
 //----------------------------------------------------------------------------
 
