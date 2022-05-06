@@ -1454,7 +1454,7 @@ function PlayMissionGui::buildDifficultyList(%this) {
 		%name = getField(%entry, 0);
 		%display = getField(%entry, 1);
 
-		if (!%this.ml.hasMissionList($CurrentGame, %name)) {
+		if (!%this.ml.hasMissionList($CurrentGame, %name) && $CurrentGame !$= "challenge") {
 			//No files in this difficulty, scrap it and go to the next one
 			continue;
 		}
@@ -1609,6 +1609,11 @@ function PlayMissionGui::setGame(%this, %game) {
 	}
 
 	$CurrentGame = %game;
+	%mode = %this.ml.getGameMode(%game);
+
+	if (%mode $= "challenge") {
+		setWeeklyChallenge(%gameObj.challenge);
+	}
 
 	%this.buildDifficultyList();
 
@@ -2123,7 +2128,10 @@ function PlayMissionGui::showMissionIcon(%this, %frame) {
 
 	%unlocked = Unlock::canPlayMission(%level);
 	if (%frame.icon.levelBitmap $= "") {
-		%bitmap = expandFilename(%this.getBitmapDirectory($CurrentGame, $MissionType) @ "/" @ fileBase(%level.file));
+		if (%level.bitmap_directory !$= "") {
+			%bitmap = expandFilename(%level.bitmap_directory @ "/" @ fileBase(%level.file));
+		} else
+			%bitmap = expandFilename(%this.getBitmapDirectory($CurrentGame, $MissionType) @ "/" @ fileBase(%level.file));
 		if (!isBitmap(%bitmap)) {
 			%bitmap = resolveMissionBitmap(%level);
 		}
@@ -2325,9 +2333,15 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%mid = %this.getMissionInfo().file;
 
 		if (%this.globalScoreMode $= "") {
-			%scoreList = %this.globalScoreCache[%mid];
-			%loading = %this.globalScoreCacheLoading[%mid];
-			%failed = %this.globalScoreCacheFailed[%mid] || (%mid $= "");
+			if ($CurrentGame $= "challenge") {
+				%scoreList = %this.globalChallengeScoreCache[%mid];
+				%loading = %this.globalChallengeScoreCacheLoading[%mid];
+				%failed = %this.globalChallengeScoreCacheFailed[%mid] || (%mid $= "");
+			} else {
+				%scoreList = %this.globalScoreCache[%mid];
+				%loading = %this.globalScoreCacheLoading[%mid];
+				%failed = %this.globalScoreCacheFailed[%mid] || (%mid $= "");
+			} 
 		} else {
 			%scoreList = %this.globalScoreModeCache[%mid];
 			if (isObject(%scoreList)) {
@@ -3369,19 +3383,34 @@ function PlayMissionGui::loadOnlineScores(%this) {
 	//Reset current scores
 	if (%this.getMissionInfo().id !$= "") {
 		%this.globalScoreCacheLoading[%this.getMissionInfo().id] = true;
-		%this.personalScoreCacheLoading[%this.getMissionInfo().id] = true;
+		%this.globalChallengeScoreCacheLoading[%this.getMissionInfo().id] = true;
 		%this.globalScoreCacheFailed[%this.getMissionInfo().id] = false;
-		%this.personalScoreCacheFailed[%this.getMissionInfo().id] = false;
+		%this.globalChallengeScoreCacheFailed[%this.getMissionInfo().id] = false;
 		%this.globalScoreModeCacheLoading[%this.getMissionInfo().id] = true;
 		%this.globalScoreModeCacheFailed[%this.getMissionInfo().id] = false;
+
+		if ($CurrentGame $= "challenge") {
+			%this.personalScoreCacheLoading[%this.getMissionInfo().id, 1] = true;
+			%this.personalScoreCacheFailed[%this.getMissionInfo().id, 1] = false;
+		} else {
+			%this.personalScoreCacheLoading[%this.getMissionInfo().id] = true;
+			%this.personalScoreCacheFailed[%this.getMissionInfo().id] = false;
+		}
 	}
 
 	//Get new scores
 	statsGetGlobalTopScores(%this.getMissionInfo());
+	// TODO
+	if (%this.ml.lookupGame["challenge"] !$= "") {
+		statsGetGlobalChallengeTopScores(%this.getMissionInfo(), %this.ml.lookupGame["challenge"].challenge);
+	}
 	statsGetTopScoreModes(%this.getMissionInfo());
 
 	if (!$LB::Guest) {
-		statsGetPersonalTopScores(%this.getMissionInfo());
+		if ($CurrentGame $= "challenge") {
+			statsGetPersonalTopScores(%this.getMissionInfo(), %this.ml.lookupGame["challenge"].challenge);
+		} else
+			statsGetPersonalTopScores(%this.getMissionInfo());
 	}
 }
 
@@ -3411,7 +3440,9 @@ function PlayMissionGui::getInitialScoresPage(%this) {
 	}
 
 	//Find which page is ours
-	if (%this.globalScoreMode $= "") {
+	if ($CurrentGame $= "challenge") {
+		%scores = %this.globalChallengeScoreCache[%id];
+	} else if (%this.globalScoreMode $= "") {
 		%scores = %this.globalScoreCache[%id];
 	} else {
 		%scores = %this.globalScoreModeCache[%id].getFieldValue(%this.globalScoreMode);
@@ -3460,6 +3491,38 @@ function PlayMissionGui::onOnlineScoreUpdate(%this, %scores) {
 	}
 }
 
+function PlayMissionGui::onOnlineChallengeScoreUpdate(%this, %scores) {
+	%this.globalChallengeScoreCache[%scores.missionId] = %scores;
+	%this.globalChallengeScoreCacheLoading[%scores.missionId] = false;
+	%this.globalChallengeScoreCacheFailed[%scores.missionId] = false;
+
+	//Update WR flags for this mission
+	// if (%scores.scores.getSize() > 0) {
+	// 	%had = %this.personalScoreListCache.record.containsEntry(%scores.missionId);
+	// 	//Get entry for ourselves to see if we're first
+	// 	%has = false;
+	// 	for (%i = 0; %i < %scores.scores.getSize(); %i ++) {
+	// 		if (%scores.scores.getEntry(%i).username $= $LB::Username) {
+	// 			echo("Our new placement on this level is " @ %scores.scores.getEntry(%i).placement);
+	// 			%has = %scores.scores.getEntry(%i).placement == 1;
+	// 		}
+	// 	}
+	// 	if (%had && !%has) {
+	// 		%this.personalScoreListCache.record.removeMatching(%scores.missionId);
+	// 	} else if (%has && !%had) {
+	// 		%this.personalScoreListCache.record.addEntry(%scores.missionId);
+	// 	}
+	// }
+
+	%this.globalPage = %this.getInitialScoresPage();
+	%this.updateCurrentMission();
+
+	// Update endgame just in case WR updated
+	if (EndGameDlg.isAwake()) {
+		reformatGameEndText();
+	}
+}
+
 function PlayMissionGui::onOnlineScoreFailed(%this, %mission) {
 	if (%mission.id !$= "") {
 		%this.globalScoreCache[%mission.id] = "";
@@ -3469,18 +3532,39 @@ function PlayMissionGui::onOnlineScoreFailed(%this, %mission) {
 	%this.updateCurrentMission();
 }
 
-function PlayMissionGui::onPersonalScoreUpdate(%this, %scores) {
-	%this.personalScoreCache[%scores.missionId] = %scores;
-	%this.personalScoreCacheLoading[%scores.missionId] = false;
-	%this.personalScoreCacheFailed[%scores.missionId] = false;
+function PlayMissionGui::onOnlineChallengeScoreFailed(%this, %mission) {
+	if (%mission.id !$= "") {
+		%this.globalChallengeScoreCache[%mission.id] = "";
+		%this.globalChallengeScoreCacheLoading[%mission.id] = false;
+		%this.globalChallengeScoreCacheFailed[%mission.id] = true;
+	}
 	%this.updateCurrentMission();
 }
 
-function PlayMissionGui::onPersonalScoreFailed(%this, %mission) {
+function PlayMissionGui::onPersonalScoreUpdate(%this, %scores, %challenge) {
+	if (%challenge) {
+		%this.personalScoreCache[%scores.missionId, %challenge] = %scores;
+		%this.personalScoreCacheLoading[%scores.missionId, %challenge] = false;
+		%this.personalScoreCacheFailed[%scores.missionId, %challenge] = false;
+	} else {
+		%this.personalScoreCache[%scores.missionId] = %scores;
+		%this.personalScoreCacheLoading[%scores.missionId] = false;
+		%this.personalScoreCacheFailed[%scores.missionId] = false;
+	}
+	%this.updateCurrentMission();
+}
+
+function PlayMissionGui::onPersonalScoreFailed(%this, %mission, %challenge) {
 	if (%mission.id !$= "") {
-		%this.personalScoreCache[%mission.id] = "";
-		%this.personalScoreCacheLoading[%mission.id] = false;
-		%this.personalScoreCacheFailed[%mission.id] = true;
+		if (%challenge) {
+			%this.personalScoreCache[%mission.id, %challenge] = "";
+			%this.personalScoreCacheLoading[%mission.id, %challenge] = false;
+			%this.personalScoreCacheFailed[%mission.id, %challenge] = true;
+		} else {
+			%this.personalScoreCache[%mission.id] = "";
+			%this.personalScoreCacheLoading[%mission.id] = false;
+			%this.personalScoreCacheFailed[%mission.id] = true;
+		}
 	}
 	%this.updateCurrentMission();
 }
@@ -3629,6 +3713,10 @@ function PlayMissionGui::clearOnlineCache(%this) {
 				if (isObject(%this.personalScoreCache[%mission.id])) {
 					%this.personalScoreCache[%mission.id].recurseDelete();
 					%this.personalScoreCache[%mission.id] = "";
+				}
+				if (isObject(%this.globalChallengeScoreCache[%mission.id])) {
+					%this.globalChallengeScoreCache[%mission.id].recurseDelete();
+					%this.globalChallengeScoreCache[%mission.id] = "";
 				}
 			}
 		}

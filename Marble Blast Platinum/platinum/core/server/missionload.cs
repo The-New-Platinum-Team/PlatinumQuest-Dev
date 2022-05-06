@@ -38,6 +38,12 @@ $MissionLoadPause = 3000;
 //-----------------------------------------------------------------------------
 
 function loadMission(%missionName, %isFirstMission) {
+
+	%isChallenge = strPos(%missionName, "challenge") != -1;
+	if (%isChallenge) {
+		%missionName = strReplace(%missionName, "challenge/data", "platinum/data");
+	}
+
 	if ($loadingMission) {
 		error("Already loading a mission! Please cancel the previous load first");
 		return;
