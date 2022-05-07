@@ -2052,8 +2052,12 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 
 		//Check if we have WR for the WR frame
 		if (lb()) {
-			if (isObject(%this.personalScoreListCache) && isObject(%this.personalScoreListCache.record)
-				&& %this.personalScoreListCache.record.containsEntry(%level.id)) {
+			%recordcache = %this.personalScoreListCache.record;
+			if ($CurrentGame $= "challenge") {
+				%recordcache = %this.personalScoreListCache.challengerecord;
+			}
+			if (isObject(%this.personalScoreListCache) && isObject(%recordcache)
+				&& %recordcache.containsEntry(%level.id)) {
 				//Oh cool, we do
 				%frameImage = "./play/frame_record";
 			}
@@ -2649,6 +2653,9 @@ function PlayMissionGui::updateMissionInfo(%this) {
 				continue;
 			%text3 = addRecord(%text3, "<bold:21><just:left>" @ %minfo.name @ ": <font:21>" @ %minfo.desc);
 		}
+		if ($CurrentGame $= "challenge") {
+			%text3 = addRecord(%text3, "<bold:21><just:left>Duration: <font:21>" @ %this.ml.lookupGame["challenge"].duration);
+		}
 
 		if (lb() || PlayMissionGui.isMarblelandMission()) {
 			%text2 = "<just:center><font:21><a:gamelink showGlobalScores>Show Global Scores</a>";
@@ -2667,8 +2674,12 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 			%placement = 0;
 			//Same logic as updateMissionFrame, mark as world record if we have the record
-			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%this.personalScoreListCache.record)
-				&& %this.personalScoreListCache.record.containsEntry(%info.id)) {
+			%recordcache = %this.personalScoreListCache.record;
+			if ($CurrentGame $= "challenge") {
+				%recordcache = %this.personalScoreListCache.challengerecord;
+			}
+			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache)
+				&& %recordcache.containsEntry(%info.id)) {
 				%placement = 1;
 			}
 
@@ -3497,22 +3508,22 @@ function PlayMissionGui::onOnlineChallengeScoreUpdate(%this, %scores) {
 	%this.globalChallengeScoreCacheFailed[%scores.missionId] = false;
 
 	//Update WR flags for this mission
-	// if (%scores.scores.getSize() > 0) {
-	// 	%had = %this.personalScoreListCache.record.containsEntry(%scores.missionId);
-	// 	//Get entry for ourselves to see if we're first
-	// 	%has = false;
-	// 	for (%i = 0; %i < %scores.scores.getSize(); %i ++) {
-	// 		if (%scores.scores.getEntry(%i).username $= $LB::Username) {
-	// 			echo("Our new placement on this level is " @ %scores.scores.getEntry(%i).placement);
-	// 			%has = %scores.scores.getEntry(%i).placement == 1;
-	// 		}
-	// 	}
-	// 	if (%had && !%has) {
-	// 		%this.personalScoreListCache.record.removeMatching(%scores.missionId);
-	// 	} else if (%has && !%had) {
-	// 		%this.personalScoreListCache.record.addEntry(%scores.missionId);
-	// 	}
-	// }
+	if (%scores.scores.getSize() > 0) {
+		%had = %this.personalScoreListCache.challengerecord.containsEntry(%scores.missionId);
+		//Get entry for ourselves to see if we're first
+		%has = false;
+		for (%i = 0; %i < %scores.scores.getSize(); %i ++) {
+			if (%scores.scores.getEntry(%i).username $= $LB::Username) {
+				echo("Our new placement on this level is " @ %scores.scores.getEntry(%i).placement);
+				%has = %scores.scores.getEntry(%i).placement == 1;
+			}
+		}
+		if (%had && !%has) {
+			%this.personalScoreListCache.challengerecord.removeMatching(%scores.missionId);
+		} else if (%has && !%had) {
+			%this.personalScoreListCache.challengerecord.addEntry(%scores.missionId);
+		}
+	}
 
 	%this.globalPage = %this.getInitialScoresPage();
 	%this.updateCurrentMission();
