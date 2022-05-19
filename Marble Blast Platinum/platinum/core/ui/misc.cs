@@ -77,7 +77,7 @@ function GuiControl::cursorLowestMember(%this, %offset) {
 		%obj = %this.getObject(%i);
 		if (!%obj.isVisible())
 			continue;
-		if (%obj.isCursorOn(%offset)) {
+		if (%obj.isCursorOn()) {
 			//The cursor is over this child gui,
 			//and it has no children of its own; stop here.
 			if (%obj.getCount() == 0) {
@@ -96,7 +96,7 @@ function GuiControl::cursorLowestMember(%this, %offset) {
 		}
 	}
 	//The cursor isn't over any of this gui's children
-	if (%this.isCursorOn(%offset) && %this.profile.modal)
+	if (%this.isCursorOn() && %this.profile.modal)
 		return %this;
 	//This gui is non-modal
 	return -1;
@@ -114,60 +114,61 @@ $_offdecaymax = 2000;
 
 // Check whether the cursor is within the boundaries of a specific GUI
 
-function GuiControl::isCursorOn(%this, %offset, %extent) {
-	if (%offset $= "") {
-		if ($_offdecay[%this] && getRealTime() - $_offdecay[%this] > $_offdecaymax) {
-			$_off[%this] = "";
-			$_offdecay[%this] = 0;
-		}
-		if ($_off[%this] !$= "")
-			%offset = $_off[%this];
-		else {
-			%obj = %this;
-			while (true) {
-				%group = %obj.getGroup();
-				if (%group == -1) {
-					warn(%this @ ".isCursorOn() - Gui is not active");
-					return 0;
-				}
-				if (%group == Canvas.getID())
-					break;
-				%offset = vectorAdd(%offset, %group.position);
-				%obj = %group;
-			}
+// function GuiControl::isCursorOn(%this, %offset, %extent) {
+// 	if (%offset $= "") {
+// 		if ($_offdecay[%this] && getRealTime() - $_offdecay[%this] > $_offdecaymax) {
+// 			$_off[%this] = "";
+// 			$_offdecay[%this] = 0;
+// 		}
+// 		if ($_off[%this] !$= "")
+// 			%offset = $_off[%this];
+// 		else {
+// 			%obj = %this;
+// 			while (true) {
+// 				%group = %obj.getGroup();
+// 				if (%group == -1) {
+// 					warn(%this @ ".isCursorOn() - Gui is not active");
+// 					return 0;
+// 				}
+// 				if (%group == Canvas.getID())
+// 					break;
+// 				%offset = vectorAdd(%offset, %group.position);
+// 				%obj = %group;
+// 			}
 
-			$_off[%this] = %offset;
-			$_offdecay[%this] = getRealTime();
-		}
-	}
-	if (%extent $= "")
-		%extent = %this.extent;
-	if (getWord(%extent, 0) $= "-")
-		%extent = setWord(%extent, 0, getWord(%this.extent, 0));
-	if (getWord(%extent, 1) $= "-")
-		%extent = setWord(%extent, 1, getWord(%this.extent, 1));
+// 			$_off[%this] = %offset;
+// 			$_offdecay[%this] = getRealTime();
+// 		}
+// 	}
+// 	if (%extent $= "")
+// 		%extent = %this.extent;
+// 	if (getWord(%extent, 0) $= "-")
+// 		%extent = setWord(%extent, 0, getWord(%this.extent, 0));
+// 	if (getWord(%extent, 1) $= "-")
+// 		%extent = setWord(%extent, 1, getWord(%this.extent, 1));
 
-	%cursorPos = vectorAdd(Canvas.getCursorPos(), Canvas.getCursor().hotspot);
-	%lowBound = vectorAdd(%this.position, %offset);
-	%highBound = vectorAdd(%lowBound, %this.extent);
-	%subtract = vectorSub(%this.extent, %extent);
+// 	%cursorPos = vectorAdd(Canvas.getCursorPos(), Canvas.getCursor().hotspot);
+// 	%lowBound = vectorAdd(%this.position, %offset);
+// 	%highBound = vectorAdd(%lowBound, %this.extent);
+// 	%subtract = vectorSub(%this.extent, %extent);
 
-	%cursorPosX = getWord(%cursorPos, 0);
-	%cursorPosY = getWord(%cursorPos, 1);
-	%lowBoundX = getWord(%lowBound, 0);
-	%lowBoundY = getWord(%lowBound, 1);
-	%highBoundX = getWord(%highBound, 0) - getWord(%subtract, 0);
-	%highBoundY = getWord(%highBound, 1) - getWord(%subtract, 1);
+// 	%cursorPosX = getWord(%cursorPos, 0);
+// 	%cursorPosY = getWord(%cursorPos, 1);
+// 	%lowBoundX = getWord(%lowBound, 0);
+// 	%lowBoundY = getWord(%lowBound, 1);
+// 	%highBoundX = getWord(%highBound, 0) - getWord(%subtract, 0);
+// 	%highBoundY = getWord(%highBound, 1) - getWord(%subtract, 1);
 
-	return (%cursorPosX >  %lowBoundX  &&
-	        %cursorPosX <= %highBoundX &&
-	        %cursorPosY >  %lowBoundY  &&
-	        %cursorPosY <= %highBoundY);
-}
+// 	return (%cursorPosX >  %lowBoundX  &&
+// 	        %cursorPosX <= %highBoundX &&
+// 	        %cursorPosY >  %lowBoundY  &&
+// 	        %cursorPosY <= %highBoundY);
+// }
 
 package CanvasHover {
 	function onFrameAdvance(%delta) {
 		Parent::onFrameAdvance(%delta);
+		Canvas._cursorContent2 = Canvas.getMouseControl();
 		Canvas._cursorContent = Canvas.getCursorContent();
 	}
 };
@@ -187,63 +188,63 @@ function GuiControl::getAbsolutePosition(%this) {
 	return vectorAdd(%this.position, %this.getGroup().getAbsolutePosition());
 }
 
-function GuiControl::getX(%gui) {
-	return getWord(%gui.position, 0);
-}
+// function GuiControl::getX(%gui) {
+// 	return getWord(%gui.position, 0);
+// }
 
-function GuiControl::getY(%gui) {
-	return getWord(%gui.position, 1);
-}
+// function GuiControl::getY(%gui) {
+// 	return getWord(%gui.position, 1);
+// }
 
-function GuiControl::getWidth(%gui) {
-	return getWord(%gui.extent, 0);
-}
+// function GuiControl::getWidth(%gui) {
+// 	return getWord(%gui.extent, 0);
+// }
 
-function GuiControl::getHeight(%gui) {
-	return getWord(%gui.extent, 1);
-}
+// function GuiControl::getHeight(%gui) {
+// 	return getWord(%gui.extent, 1);
+// }
 
-function GuiControl::setExtent(%gui, %extent) {
-	if (%gui.extent $= %extent)
-		return;
-	%p1 = getWord(%gui.position, 0);
-	%p2 = getWord(%gui.position, 1);
-	%e1 = getWord(%extent, 0);
-	%e2 = getWord(%extent, 1);
+// function GuiControl::setExtent(%gui, %extent) {
+// 	if (%gui.extent $= %extent)
+// 		return;
+// 	%p1 = getWord(%gui.position, 0);
+// 	%p2 = getWord(%gui.position, 1);
+// 	%e1 = getWord(%extent, 0);
+// 	%e2 = getWord(%extent, 1);
 
-	%gui.resize(%p1, %p2, %e1, %e2);
-}
+// 	%gui.resize(%p1, %p2, %e1, %e2);
+// }
 
-function GuiControl::setWidth(%gui, %width) {
-	if (getWord(%gui.extent, 0) $= %width)
-		return;
-	%p1 = getWord(%gui.position, 0);
-	%p2 = getWord(%gui.position, 1);
-	%e1 = %width;
-	%e2 = getWord(%gui.extent, 1);
+// function GuiControl::setWidth(%gui, %width) {
+// 	if (getWord(%gui.extent, 0) $= %width)
+// 		return;
+// 	%p1 = getWord(%gui.position, 0);
+// 	%p2 = getWord(%gui.position, 1);
+// 	%e1 = %width;
+// 	%e2 = getWord(%gui.extent, 1);
 
-	%gui.resize(%p1, %p2, %e1, %e2);
-}
+// 	%gui.resize(%p1, %p2, %e1, %e2);
+// }
 
-function GuiControl::setHeight(%gui, %height) {
-	if (getWord(%gui.extent, 1) $= %height)
-		return;
-	%p1 = getWord(%gui.position, 0);
-	%p2 = getWord(%gui.position, 1);
-	%e1 = getWord(%gui.extent, 0);
-	%e2 = %height;
+// function GuiControl::setHeight(%gui, %height) {
+// 	if (getWord(%gui.extent, 1) $= %height)
+// 		return;
+// 	%p1 = getWord(%gui.position, 0);
+// 	%p2 = getWord(%gui.position, 1);
+// 	%e1 = getWord(%gui.extent, 0);
+// 	%e2 = %height;
 
-	%gui.resize(%p1, %p2, %e1, %e2);
-}
+// 	%gui.resize(%p1, %p2, %e1, %e2);
+// }
 
-function GuiControl::setPosition(%gui, %position) {
-	if (%gui.position $= %position)
-		return;
+// function GuiControl::setPosition(%gui, %position) {
+// 	if (%gui.position $= %position)
+// 		return;
 
-	%p1 = getWord(%position, 0);
-	%p2 = getWord(%position, 1);
-	%e1 = getWord(%gui.extent, 0);
-	%e2 = getWord(%gui.extent, 1);
+// 	%p1 = getWord(%position, 0);
+// 	%p2 = getWord(%position, 1);
+// 	%e1 = getWord(%gui.extent, 0);
+// 	%e2 = getWord(%gui.extent, 1);
 
-	%gui.resize(%p1, %p2, %e1, %e2);
-}
+// 	%gui.resize(%p1, %p2, %e1, %e2);
+// }

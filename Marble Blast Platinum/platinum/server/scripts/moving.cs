@@ -418,55 +418,55 @@ function updateServerParentedObjects(%delta) {
 	}
 }
 
-function SceneObject::updateParenting(%this, %delta) {
-	//Make sure this object is actually parented
-	%parent = %this.parent;
-	if (!isObject(%parent)) {
-		return;
-	}
+// function SceneObject::updateParenting(%this, %delta) {
+// 	//Make sure this object is actually parented
+// 	%parent = %this.parent;
+// 	if (!isObject(%parent)) {
+// 		return;
+// 	}
 
-	//Parenting variables from the object
-	%simple    = %this.parentSimple;
-	%transform = %this._parentTransform;
-	%offset    = %this.parentOffset;
-	%noRot     = %this.parentNoRot;
+// 	//Parenting variables from the object
+// 	%simple    = %this.parentSimple;
+// 	%transform = %this._parentTransform;
+// 	%offset    = %this.parentOffset;
+// 	%noRot     = %this.parentNoRot;
 
-	%trans = %parent.getTransform();
-	if (%noRot)
-		%trans = MatrixPos(%trans) SPC "1 0 0 ";
+// 	%trans = %parent.getTransform();
+// 	if (%noRot)
+// 		%trans = MatrixPos(%trans) SPC "1 0 0 ";
 
-	if (%simple) {
-		//Simple parenting is just taking the transform from the parent
-		%final = %trans;
-	} else {
-		//If we don't currently have a parent transform calculated for this object
-		// then just use this handy function
-		if (%transform $= "") {
-			%transform = calcParentModTrans(%this, %parent);
-			//Look how nice that was
-			%this._parentTransform = %transform;
-		}
-		//Parenting is super crazy simple
-		%final = MatrixMultiply(%trans, %transform);
-	}
+// 	if (%simple) {
+// 		//Simple parenting is just taking the transform from the parent
+// 		%final = %trans;
+// 	} else {
+// 		//If we don't currently have a parent transform calculated for this object
+// 		// then just use this handy function
+// 		if (%transform $= "") {
+// 			%transform = calcParentModTrans(%this, %parent);
+// 			//Look how nice that was
+// 			%this._parentTransform = %transform;
+// 		}
+// 		//Parenting is super crazy simple
+// 		%final = MatrixMultiply(%trans, %transform);
+// 	}
 
-	//Apply an offset if requested
-	%final = MatrixMultiply(%final, %offset SPC "1 0 0 0");
-	//And set the transform
-	%this.setTransform(%final);
-}
+// 	//Apply an offset if requested
+// 	%final = MatrixMultiply(%final, %offset SPC "1 0 0 0");
+// 	//And set the transform
+// 	%this.setTransform(%final);
+// }
 
-function calcParentModTrans(%object, %parent) {
-	// Compute a transform to move this object to its current
-	// position relative to the parent.
-	%ptrans = getWords(%parent.getTransform(), 3);
-	%ttrans = getWords(%object.getTransform(), 3);
-	%ptrans = setWord(%ptrans, 3, "-" @ getWord(%ptrans, 3));
-	%rotation = matrixMultiply("0 0 0" SPC %ttrans, "0 0 0" SPC %ptrans);
-	%translation = vectorSub(%object.getPosition(), %parent.getPosition());
-	%transform = %translation SPC getWords(%rotation, 3);
-	return %transform;
-}
+// function calcParentModTrans(%object, %parent) {
+// 	// Compute a transform to move this object to its current
+// 	// position relative to the parent.
+// 	%ptrans = getWords(%parent.getTransform(), 3);
+// 	%ttrans = getWords(%object.getTransform(), 3);
+// 	%ptrans = setWord(%ptrans, 3, "-" @ getWord(%ptrans, 3));
+// 	%rotation = matrixMultiply("0 0 0" SPC %ttrans, "0 0 0" SPC %ptrans);
+// 	%translation = vectorSub(%object.getPosition(), %parent.getPosition());
+// 	%transform = %translation SPC getWords(%rotation, 3);
+// 	return %transform;
+// }
 
 
 //----------------------------------------

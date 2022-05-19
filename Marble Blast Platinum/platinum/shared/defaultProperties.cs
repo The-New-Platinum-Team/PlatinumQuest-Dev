@@ -105,34 +105,52 @@ if (!isObject(MarbleDatablockAttributesArray)) {
 
 /// Also keep some info for all attributes
 /// {
+
+function addMarbleAttributeInfo(%attributeStr) {
+	%internalName = getField(%attributeStr, 0);
+	%type = getField(%attributeStr, 1);
+	%variable = getField(%attributeStr, 2);
+	%displayName = getField(%attributeStr, 3);
+	if (isObject(MarbleAttributeInfoArray)) {
+		%obj = new ScriptObject(MarbleAttributeInfo) {
+			internalName = %internalName;
+			type = %type;
+			variable = %variable;
+			displayName = %displayName;
+		};
+		MarbleAttributeInfoArray.addEntry(%obj);
+		MarbleAttributeInfoArray.setFieldValue(%internalName, %obj);
+	}
+}
+
 if (!isObject(MarbleAttributeInfoArray)) {
 	Array(MarbleAttributeInfoArray);
 	//                                internal name                             type            variable                                                      display name
-	MarbleAttributeInfoArray.addEntry("maxRollVelocity"                     TAB "datablock" TAB "$Physics::##::MaxRollVelocity"                           TAB "Max Roll Velocity");
-	MarbleAttributeInfoArray.addEntry("angularAcceleration"                 TAB "datablock" TAB "$Physics::##::AngularAcceleration"                       TAB "Angular Acceleration");
-	MarbleAttributeInfoArray.addEntry("brakingAcceleration"                 TAB "datablock" TAB "$Physics::##::BrakingAcceleration"                       TAB "Braking Acceleration");
-	MarbleAttributeInfoArray.addEntry("airAcceleration"                     TAB "datablock" TAB "$Physics::##::AirAcceleration"                           TAB "Air Acceleration");
-	MarbleAttributeInfoArray.addEntry("gravity"                             TAB "datablock" TAB "$Game::Gravity"                                          TAB "Gravity");
-	MarbleAttributeInfoArray.addEntry("staticFriction"                      TAB "datablock" TAB "$Physics::##::StaticFriction"                            TAB "Static Friction");
-	MarbleAttributeInfoArray.addEntry("kineticFriction"                     TAB "datablock" TAB "$Physics::##::KineticFriction"                           TAB "Kinetic Friction");
-	MarbleAttributeInfoArray.addEntry("bounceKineticFriction"               TAB "datablock" TAB "$Physics::##::BounceKineticFriction"                     TAB "Bounce Kinetic Friction");
-	MarbleAttributeInfoArray.addEntry("maxDotSlide"                         TAB "datablock" TAB "$Physics::##::MaxDotSlide"                               TAB "Max Dot Slide");
-	MarbleAttributeInfoArray.addEntry("bounceRestitution"                   TAB "datablock" TAB "$Physics::##::BounceRestitution"                         TAB "Bounce Restitution");
-	MarbleAttributeInfoArray.addEntry("jumpImpulse"                         TAB "datablock" TAB "$Game::JumpImpulse"                                      TAB "Jump Impulse");
-	MarbleAttributeInfoArray.addEntry("maxForceRadius"                      TAB "datablock" TAB "$Physics::##::MaxForceRadius"                            TAB "Max Force Radius");
-	MarbleAttributeInfoArray.addEntry("minBounceVel"                        TAB "datablock" TAB "$Physics::##::MinBounceVel"                              TAB "Minimum Bounce Velocity");
-	MarbleAttributeInfoArray.addEntry("mass"                                TAB "datablock" TAB "$Physics::##::Mass"                                      TAB "Mass");
-	MarbleAttributeInfoArray.addEntry("powerUpTime[3]"                      TAB "datablock" TAB "$Physics::##::PowerUpTime3"                              TAB "Super Bounce Duration");
-	MarbleAttributeInfoArray.addEntry("powerUpTime[4]"                      TAB "datablock" TAB "$Physics::##::PowerUpTime4"                              TAB "Shock Absorber Duration");
-	MarbleAttributeInfoArray.addEntry("powerUpTime[5]"                      TAB "datablock" TAB "$Physics::##::PowerUpTime5"                              TAB "Helicopter Duration");
-	MarbleAttributeInfoArray.addEntry("cameraSpeedMultiplier"               TAB "global"    TAB "$Physics::Defaults::CameraSpeedMultiplier"               TAB "Camera Speed Multiplier");
-	MarbleAttributeInfoArray.addEntry("movementSpeedMultiplier"             TAB "global"    TAB "$Physics::Defaults::MovementSpeedMultiplier"             TAB "Movement Speed Multiplier");
-	MarbleAttributeInfoArray.addEntry("timeScale"                           TAB "global"    TAB "$Physics::Defaults::TimeScale"                           TAB "Time Scale");
-	MarbleAttributeInfoArray.addEntry("superJumpVelocity"                   TAB "global"    TAB "$Physics::Defaults::SuperJumpVelocity"                   TAB "Super Jump Velocity");
-	MarbleAttributeInfoArray.addEntry("superSpeedVelocity"                  TAB "global"    TAB "$Physics::Defaults::SuperSpeedVelocity"                  TAB "Super Speed Velocity");
-	MarbleAttributeInfoArray.addEntry("superBounceRestitution"              TAB "global"    TAB "$Physics::Defaults::SuperBounceRestitution"              TAB "Super Bounce Restitution");
-	MarbleAttributeInfoArray.addEntry("shockAbsorberRestitution"            TAB "global"    TAB "$Physics::Defaults::ShockAbsorberRestitution"            TAB "Shock Absorber Restitution");
-	MarbleAttributeInfoArray.addEntry("helicopterGravityMultiplier"         TAB "global"    TAB "$Physics::Defaults::HelicopterGravityMultiplier"         TAB "Gyrocopter Gravity Multiplier");
-	MarbleAttributeInfoArray.addEntry("helicopterAirAccelerationMultiplier" TAB "global"    TAB "$Physics::Defaults::HelicopterAirAccelerationMultiplier" TAB "Gyrocopter Air Acceleration Multiplier");
+	addMarbleAttributeInfo("maxRollVelocity"                     TAB "datablock" TAB "$Physics::##::MaxRollVelocity"                           TAB "Max Roll Velocity");
+	addMarbleAttributeInfo("angularAcceleration"                 TAB "datablock" TAB "$Physics::##::AngularAcceleration"                       TAB "Angular Acceleration");
+	addMarbleAttributeInfo("brakingAcceleration"                 TAB "datablock" TAB "$Physics::##::BrakingAcceleration"                       TAB "Braking Acceleration");
+	addMarbleAttributeInfo("airAcceleration"                     TAB "datablock" TAB "$Physics::##::AirAcceleration"                           TAB "Air Acceleration");
+	addMarbleAttributeInfo("gravity"                             TAB "datablock" TAB "$Game::Gravity"                                          TAB "Gravity");
+	addMarbleAttributeInfo("staticFriction"                      TAB "datablock" TAB "$Physics::##::StaticFriction"                            TAB "Static Friction");
+	addMarbleAttributeInfo("kineticFriction"                     TAB "datablock" TAB "$Physics::##::KineticFriction"                           TAB "Kinetic Friction");
+	addMarbleAttributeInfo("bounceKineticFriction"               TAB "datablock" TAB "$Physics::##::BounceKineticFriction"                     TAB "Bounce Kinetic Friction");
+	addMarbleAttributeInfo("maxDotSlide"                         TAB "datablock" TAB "$Physics::##::MaxDotSlide"                               TAB "Max Dot Slide");
+	addMarbleAttributeInfo("bounceRestitution"                   TAB "datablock" TAB "$Physics::##::BounceRestitution"                         TAB "Bounce Restitution");
+	addMarbleAttributeInfo("jumpImpulse"                         TAB "datablock" TAB "$Game::JumpImpulse"                                      TAB "Jump Impulse");
+	addMarbleAttributeInfo("maxForceRadius"                      TAB "datablock" TAB "$Physics::##::MaxForceRadius"                            TAB "Max Force Radius");
+	addMarbleAttributeInfo("minBounceVel"                        TAB "datablock" TAB "$Physics::##::MinBounceVel"                              TAB "Minimum Bounce Velocity");
+	addMarbleAttributeInfo("mass"                                TAB "datablock" TAB "$Physics::##::Mass"                                      TAB "Mass");
+	addMarbleAttributeInfo("powerUpTime[3]"                      TAB "datablock" TAB "$Physics::##::PowerUpTime3"                              TAB "Super Bounce Duration");
+	addMarbleAttributeInfo("powerUpTime[4]"                      TAB "datablock" TAB "$Physics::##::PowerUpTime4"                              TAB "Shock Absorber Duration");
+	addMarbleAttributeInfo("powerUpTime[5]"                      TAB "datablock" TAB "$Physics::##::PowerUpTime5"                              TAB "Helicopter Duration");
+	addMarbleAttributeInfo("cameraSpeedMultiplier"               TAB "global"    TAB "$Physics::Defaults::CameraSpeedMultiplier"               TAB "Camera Speed Multiplier");
+	addMarbleAttributeInfo("movementSpeedMultiplier"             TAB "global"    TAB "$Physics::Defaults::MovementSpeedMultiplier"             TAB "Movement Speed Multiplier");
+	addMarbleAttributeInfo("timeScale"                           TAB "global"    TAB "$Physics::Defaults::TimeScale"                           TAB "Time Scale");
+	addMarbleAttributeInfo("superJumpVelocity"                   TAB "global"    TAB "$Physics::Defaults::SuperJumpVelocity"                   TAB "Super Jump Velocity");
+	addMarbleAttributeInfo("superSpeedVelocity"                  TAB "global"    TAB "$Physics::Defaults::SuperSpeedVelocity"                  TAB "Super Speed Velocity");
+	addMarbleAttributeInfo("superBounceRestitution"              TAB "global"    TAB "$Physics::Defaults::SuperBounceRestitution"              TAB "Super Bounce Restitution");
+	addMarbleAttributeInfo("shockAbsorberRestitution"            TAB "global"    TAB "$Physics::Defaults::ShockAbsorberRestitution"            TAB "Shock Absorber Restitution");
+	addMarbleAttributeInfo("helicopterGravityMultiplier"         TAB "global"    TAB "$Physics::Defaults::HelicopterGravityMultiplier"         TAB "Gyrocopter Gravity Multiplier");
+	addMarbleAttributeInfo("helicopterAirAccelerationMultiplier" TAB "global"    TAB "$Physics::Defaults::HelicopterAirAccelerationMultiplier" TAB "Gyrocopter Air Acceleration Multiplier");
 }
 /// }

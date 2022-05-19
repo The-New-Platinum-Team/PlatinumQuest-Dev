@@ -95,6 +95,8 @@ function reloadTexturePacks() {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		loadTexturePack(%pack);
 	}
+
+	unloadTimerTextures();
 	reloadShaders();
 	reloadPostFX();
 	clearTextureHolds();
@@ -119,6 +121,8 @@ function unloadTexturePacks() {
 		unloadTexturePack(%pack);
 	}
 	ActiveTexturePacks.clear();
+	
+	unloadTimerTextures();
 	reloadShaders();
 	reloadPostFX();
 	clearTextureHolds();
