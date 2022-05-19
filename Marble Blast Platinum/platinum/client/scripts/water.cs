@@ -313,7 +313,7 @@ function BubbleLoop(%delta) {
 		return;
 	}
 	%mouse = ($mvTriggerCount0 % 2 == 1);
-	%using = ((%mouse && !isCannonActive()) || $Game::ForceBubble);
+	%using = ((%mouse && !$Client::ColCannon) || $Game::ForceBubble);
 
 	if ($Game::BubbleActive) {
 		//Let go of the mouse (or whatever): pops

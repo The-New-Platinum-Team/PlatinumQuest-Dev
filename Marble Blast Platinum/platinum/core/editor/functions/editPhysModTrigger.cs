@@ -36,13 +36,13 @@ function epmtbutton(%obj) {
 	LargeFunctionDlg.addNote("Marble Settings:", 0);
 	for (%i = 0; %i < MarbleAttributeInfoArray.getSize(); %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%type      = getField(%attribute, 1);
+		%type      = %attribute.type;
 		if (%type !$= "datablock")
 			continue;
 
-		%field     = getField(%attribute, 0);
-		%variable  = getField(%attribute, 2);
-		%name      = getField(%attribute, 3);
+		%field     = %attribute.internalField;
+		%variable  = %attribute.variable;
+		%name      = %attribute.displayName;
 		%value     = %customDefault[%field];
 		%default   = getVariable(strReplace(%variable, "##", "DefaultMarble"));
 		%value     = %value $= "" ? %default : %value;
@@ -57,13 +57,13 @@ function epmtbutton(%obj) {
 	}
 	for (%i = 0; %i < MarbleAttributeInfoArray.getSize(); %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%type      = getField(%attribute, 1);
+		%type      = %attribute.type;
 		if (%type !$= "datablock")
 			continue;
 
-		%field     = getField(%attribute, 0);
-		%variable  = getField(%attribute, 2);
-		%name      = getField(%attribute, 3);
+		%field     = %attribute.internalField;
+		%variable  = %attribute.variable;
+		%name      = %attribute.displayName;
 		%value     = %customMega[%field];
 		%default   = getVariable(strReplace(%variable, "##", "MegaMarble"));
 		%value     = %value $= "" ? %default : %value;
@@ -80,13 +80,13 @@ function epmtbutton(%obj) {
 	LargeFunctionDlg.addNote("Game Settings:", 0);
 	for (%i = 0; %i < MarbleAttributeInfoArray.getSize(); %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%type      = getField(%attribute, 1);
+		%type      = %attribute.type;
 		if (%type !$= "global")
 			continue;
 
-		%field     = getField(%attribute, 0);
-		%variable  = getField(%attribute, 2);
-		%name      = getField(%attribute, 3);
+		%field     = %attribute.internalField;
+		%variable  = %attribute.variable;
+		%name      = %attribute.displayName;
 		%value     = %customDefault[%field];
 		%default   = getVariable(strReplace(%variable, "##", "DefaultMarble"));
 		%value     = %value $= "" ? %default : %value;
@@ -169,8 +169,8 @@ function editPhysModTrigger(%gui) {
 	%changes = 0;
 	for (%i = 0; %i < MarbleAttributeInfoArray.getSize(); %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%field     = getField(%attribute, 0);
-		%variable  = getField(%attribute, 2);
+		%field     = %attribute.internalField;
+		%variable  = %attribute.variable;
 
 		%defaultDefault = getVariable(strReplace(%variable, "##", "DefaultMarble"));
 		%defaultMega    = getVariable(strReplace(%variable, "##", "MegaMarble"));

@@ -27,6 +27,9 @@ function csbbutton(%revert) {
 	%skies = "";
 	for (%file = findFirstFile($usermods @ "*.dml"); %file !$= ""; %file = findNextFile($usermods @ "*.dml")) {
 		%name = fileBase(filePath(%file));
+		if (strstr(%file, "skies_mbu") >= 0) {
+			%name = %name SPC "(MBU)";
+		}
 		%skies = addRecord(%skies, %file TAB %name);
 	}
 
