@@ -1,0 +1,207 @@
+// Rep. by Pablo
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         Time = "30000";
+         artist = "Technostick";
+         desc = "Warning:  EXCESSIVE EXPOSURE CAN CAUSE DISORIENTATION AND HEADACHES.";
+         goldTime = "10000";
+         level = "9";
+         music = "The Race.ogg";
+         name = "Gravity Shaker";
+         type = "LBCustom";
+         ultimateTime = "7500";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Bonus/Bonus_Sky.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
+   };
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         locked = "true";
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+   };
+   new SimGroup(CheckPoints) {
+
+      new StaticShape(StartPoint) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "StartPad";
+      };
+      new StaticShape(EndPoint) {
+         position = "0 0 20";
+         rotation = "0 1 0 180";
+         scale = "1 1 1";
+         dataBlock = "EndPad";
+      };
+   };
+   new InteriorInstance() {
+      position = "0.130441 -0.138468 11.7";
+      rotation = "1 0 0 0";
+      scale = "1.1 1.1 0.9";
+      interiorFile = "~/data/lbinteriors_mbp/GravityShaker.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-0.00652701 -0.460637 18.1957";
+      rotation = "1 0 0 225";
+      scale = "0.1 0.1 0.1";
+      dataBlock = "SignFinish";
+   };
+   new Item() {
+      position = "-1.4 0 17";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "NoRespawnAntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 0 20";
+      rotation = "1 0 0 180";
+      scale = "2 2 2";
+      dataBlock = "NoRespawnAntiGravityItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-0.00956592 1.44874 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1.4 0 5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 -1.4 7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-1.40642 0.00249334 9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0.000384331 1.39637 11";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1.4 0 13";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 -1.4 15";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemBlack";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-0.155337 -0.0544483 2.23711";
+         rotation = "-0.561936 0.531681 0.633674 112.377";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "0.563322 -0.184472 18.4765";
+         rotation = "0.595972 0.516143 -0.615154 109.228";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
