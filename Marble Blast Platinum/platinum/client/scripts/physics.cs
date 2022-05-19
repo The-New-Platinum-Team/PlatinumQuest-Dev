@@ -49,8 +49,8 @@ function Physics::resetToDefaultMarble() {
 	//Get all attributes' default values (from defaultProperties.cs) and apply them
 	for (%i = 0; %i < MarbleAttributeInfoArray.getSize(); %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%field     = getField(%attribute, 0);
-		%variable  = getField(%attribute, 2);
+		%field     = %attribute.internalName;
+		%variable  = %attribute.variable;
 		%value     = getVariable(strReplace(%variable, "##", "DefaultMarble"));
 		%megaValue = getVariable(strReplace(%variable, "##", "MegaMarble"));
 		Physics::setProperty(%field, %value, %megaValue);
@@ -60,8 +60,8 @@ function Physics::resetToDefaultMarble() {
 /// Get the value of a physics property
 /// @arg field The attribute to apply to the marbles.
 function Physics::getProperty(%field) {
-	%attribute = MarbleAttributeInfoArray.getEntryByField(%field, 0);
-	%type = getField(%attribute, 1);
+	%attribute = MarbleAttributeInfoArray.getFieldValue(%field);
+	%type = %attribute.type;
 	//These are all global variables set by ::setProperty.
 	// Probably could use datablock field getting, but that's way too much
 	// effort and might not even be as accurate. So this will work.
@@ -101,8 +101,8 @@ function Physics::getProperty(%field) {
 /// @arg value The value of the attribute for regular marbles.
 /// @arg megaValue The value of the attribute for mega marbles.
 function Physics::setProperty(%field, %value, %megaValue) {
-	%attribute = MarbleAttributeInfoArray.getEntryByField(%field, 0);
-	%type = getField(%attribute, 1);
+	%attribute = MarbleAttributeInfoArray.getFieldValue(%field);
+	%type = %attribute.type;
 	devecho("Set " @ %type @ " physics property \"" @ %field @ "\" to " @ %value @ " (mega: " @ %megaValue @ ")");
 	switch$ (%type) {
 	case "datablock":

@@ -203,6 +203,9 @@ function Radar::RemoveTarget(%object) {
 }
 
 function Radar::ClearTargets() {
+	RadarClearTargets();
+	$Radar::NumDots = 0;
+	return;
 	if (isObject(TargetGroup)) {
 		while (TargetGroup.getCount() > 0) {
 			%script = TargetGroup.getObject(0);
@@ -237,15 +240,15 @@ function Radar::setDot(%dot, %pos, %extent, %bitmap, %reset) {
 	%dot.setBitmap(%bitmap);
 }
 
-function SceneObject::SetRadarTarget(%this, %bitmap) {
-	if (!shouldShowRadar())
-		return;
-	Radar::AddTarget(%this, %bitmap);
-}
+// function SceneObject::SetRadarTarget(%this, %bitmap) {
+// 	if (!shouldShowRadar())
+// 		return;
+// 	Radar::AddTarget(%this, %bitmap);
+// }
 
-function SceneObject::RemoveRadarTarget(%this) {
-	Radar::RemoveTarget(%this);
-}
+// function SceneObject::RemoveRadarTarget(%this) {
+// 	Radar::RemoveTarget(%this);
+// }
 
 function RadarLoop() {
 	// don't call every frame, don't waste CPU

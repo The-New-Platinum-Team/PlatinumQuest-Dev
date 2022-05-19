@@ -1169,20 +1169,32 @@ function PlayGui::updateControls(%this) {
 
 //-----------------------------------------------------------------------------
 
-function GuiBitmapCtrl::setNumber(%this,%number) {
-	%dir = $userMods @ "/client/ui/game/numbers/";
-	%this.setBitmap(%dir @ %number @ ".png");
-}
-function GuiBitmapCtrl::setTimeNumber(%this,%number) {
-	%dir = $userMods @ "/client/ui/game/numbers/";
-	%this.setBitmap(%dir @ %number @ ".png");
-	%this.bitmapColor = $PlayTimerColor;
-}
-function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
-	%dir = $userMods @ "/client/ui/game/numbers/";
-	%this.setBitmap(%dir @ %number @ ".png");
-	%this.bitmapColor = %color;
-}
+$numberPaths[0] = $userMods @ "/client/ui/game/numbers/0.png";
+$numberPaths[1] = $userMods @ "/client/ui/game/numbers/1.png";
+$numberPaths[2] = $userMods @ "/client/ui/game/numbers/2.png";
+$numberPaths[3] = $userMods @ "/client/ui/game/numbers/3.png";
+$numberPaths[4] = $userMods @ "/client/ui/game/numbers/4.png";
+$numberPaths[5] = $userMods @ "/client/ui/game/numbers/5.png";
+$numberPaths[6] = $userMods @ "/client/ui/game/numbers/6.png";
+$numberPaths[7] = $userMods @ "/client/ui/game/numbers/7.png";
+$numberPaths[8] = $userMods @ "/client/ui/game/numbers/8.png";
+$numberPaths[9] = $userMods @ "/client/ui/game/numbers/9.png";
+$numberPaths["point"] = $userMods @ "/client/ui/game/numbers/point.png";
+$numberPaths["colon"] = $userMods @ "/client/ui/game/numbers/colon.png";
+$numberPaths["dash"] = $userMods @ "/client/ui/game/numbers/dash.png";
+$numberPaths["slash"] = $userMods @ "/client/ui/game/numbers/slash.png";
+
+// function GuiBitmapCtrl::setNumber(%this,%number) {
+// 	%this.setBitmap($numberPaths[%number]);
+// }
+// function GuiBitmapCtrl::setTimeNumber(%this,%number) {
+// 	%this.setBitmap($numberPaths[%number]);
+// 	%this.bitmapColor = $PlayTimerColor;
+// }
+// function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
+// 	%this.setBitmap($numberPaths[%number]);
+// 	%this.bitmapColor = %color;
+// }
 
 //-----------------------------------------------------------------------------
 

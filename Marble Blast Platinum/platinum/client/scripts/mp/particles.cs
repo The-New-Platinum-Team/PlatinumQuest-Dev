@@ -203,7 +203,7 @@ function updateTrailEmitters() {
 		}
 
 		//Stop getting in my face
-		if (isCannonActive() || $Game::State $= "End") {
+		if ($Client::ColCannon || $Game::State $= "End") {
 			%show["Trail"] = false;
 			%show["WhiteTrail"] = false;
 			%show["Snore"] = false;
