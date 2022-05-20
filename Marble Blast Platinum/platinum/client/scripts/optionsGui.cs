@@ -313,6 +313,9 @@ if (canSupportPostFX()) { //No point supporting reflections if you don't support
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
+	$Options::Name    ["Graphics", $i++] = "bloom";
+	$Options::Title   ["Graphics", $i  ] = "Bloom";
+	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";
@@ -360,6 +363,12 @@ Array(MarbleReflectionQualityArray);
 MarbleReflectionQualityArray.addEntry("Disabled" TAB 0 TAB 32);
 MarbleReflectionQualityArray.addEntry("Basic"    TAB 1 TAB 64);
 MarbleReflectionQualityArray.addEntry("Advanced" TAB 2 TAB 128);
+
+Array(BloomQualityArray);
+BloomQualityArray.addEntry("Disabled" TAB 0);
+BloomQualityArray.addEntry("Basic"    TAB 1);
+BloomQualityArray.addEntry("High" TAB 2);
+BloomQualityArray.addEntry("Ultra" TAB 3);
 
 Array(InteriorShadersQualityArray);
 InteriorShadersQualityArray.addEntry("Legacy" TAB -1);
@@ -682,6 +691,38 @@ function Opt_postprocessing_decrease() {
 
 function Opt_postprocessing_increase() {
 	$pref::Video::PostProcessing = !$pref::Video::PostProcessing;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_bloom_getDisplay() {
+	%entry = BloomQualityArray.getEntryByField($pref::Video::ShapeBloomQuality, 1);
+	if (%entry $= "") {
+		return $pref::Video::ShapeBloomQuality;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_bloom_getValue() {
+	return $pref::Video::ShapeBloomQuality;
+}
+
+function Opt_bloom_decrease() {
+	%index = BloomQualityArray.getIndexByField($pref::Video::ShapeBloomQuality, 1);
+	%index --;
+	if (%index < 0) {
+		%index = BloomQualityArray.getSize() - 1;
+	}
+	$pref::Video::ShapeBloomQuality = getField(BloomQualityArray.getEntry(%index), 1);
+}
+
+function Opt_bloom_increase() {
+	%index = BloomQualityArray.getIndexByField($pref::Video::ShapeBloomQuality, 1);
+	%index ++;
+	if (%index >= BloomQualityArray.getSize()) {
+		%index = 0;
+	}
+	$pref::Video::ShapeBloomQuality = getField(BloomQualityArray.getEntry(%index), 1);
 }
 
 //-----------------------------------------------------------------------------

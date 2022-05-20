@@ -25,6 +25,11 @@ uniform sampler2D textureSampler;
 uniform sampler2D depthSampler;
 uniform sampler2D bloomDepthSampler;
 uniform vec2 screenSize;
+uniform bool compareDepth;
+uniform int bloomQuality;
+uniform float offsetMultiplier;
+uniform bool horizontalDir;
+uniform int passNum;
 
 const float zNear = 0.01f;
 const float zFar = 500.f;
@@ -80,17 +85,83 @@ vec4 blur13(sampler2D texture, vec2 uv, vec2 resolution) {
     return color;
 }
 
+vec4 blur14(sampler2D image, vec2 uv, vec2 resolution, bool horizontal) {
+    vec4 color = vec4(0.0);
+    float weight[5] = float[] (0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216);
+
+    vec2 tex_offset = 5.0 / resolution; // gets size of single texel
+    vec3 result = texture2D(image, uv).rgb * weight[0]; // current fragment's contribution
+    if(horizontal)
+    {
+        for(int i = 1; i < 5; ++i)
+        {
+            result += texture2D(image, uv + vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
+            result += texture2D(image, uv - vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
+        }
+    }
+    else
+    {
+        for(int i = 1; i < 5; ++i)
+        {
+            result += texture2D(image, uv + vec2(0.0, tex_offset.y * i)).rgb * weight[i];
+            result += texture2D(image, uv - vec2(0.0, tex_offset.y * i)).rgb * weight[i];
+        }
+    }
+    return vec4(result * 1.4, texture2D(image, uv).a);
+}
+
+vec4 blurUltra(sampler2D image, vec2 uv, bool horizontal, vec2 resolution) {
+    float kernel[4] = float[] (0.175, 0.275, 0.375, 0.475);
+    float offset[4] = float[] (3.5, 2.5, 1.5, 0.5);
+
+    vec2 tex_offset = 5.0 / resolution; // gets size of single texel
+
+    vec4 accumColor = vec4(0);
+    if (horizontal) {
+        accumColor += texture2D(image, uv + vec2(offset[0] * offsetMultiplier * tex_offset.x, 0)) * kernel[0];
+        accumColor += texture2D(image, uv + vec2(offset[1] * offsetMultiplier * tex_offset.x, 0)) * kernel[1];
+        accumColor += texture2D(image, uv + vec2(offset[2] * offsetMultiplier * tex_offset.x, 0)) * kernel[2];
+        accumColor += texture2D(image, uv + vec2(offset[3] * offsetMultiplier * tex_offset.x, 0)) * kernel[3];
+    } else {
+        accumColor += texture2D(image, uv + vec2(0, offset[0] * offsetMultiplier * tex_offset.y)) * kernel[0];
+        accumColor += texture2D(image, uv + vec2(0, offset[1] * offsetMultiplier * tex_offset.y)) * kernel[1];
+        accumColor += texture2D(image, uv + vec2(0, offset[2] * offsetMultiplier * tex_offset.y)) * kernel[2];
+        accumColor += texture2D(image, uv + vec2(0, offset[3] * offsetMultiplier * tex_offset.y)) * kernel[3];
+    }
+
+    vec4 outColor = accumColor / 1.25;
+    outColor.a = outColor.x + outColor.y + outColor.z / 3;
+    outColor.xyz *= 1.25;
+    return outColor;
+}
+
 void main() {
+
+    if (passNum == 5 && bloomQuality == 3) {
+        gl_FragColor = texture2D(textureSampler, UV);
+        return;
+    }
+
     vec2 pixel = (UV * screenSize);
 
-    vec4 color = (texture2D(textureSampler, pixel / screenSize));
+    vec4 color;
+    if (bloomQuality == 2)
+        color = (blur14(textureSampler, pixel / screenSize, screenSize, true) + blur14(textureSampler, pixel / screenSize, screenSize, false)) / 2;
+    else if (bloomQuality == 3) {
+        color = (blurUltra(textureSampler, pixel / screenSize, true, screenSize) + blurUltra(textureSampler, pixel / screenSize, false, screenSize)) / 2;
+    } else 
+        color = (texture2D(textureSampler, pixel / screenSize));
 
-    vec4 lumColor = blur13(textureSampler, pixel, screenSize);
+    vec4 lumColor = vec4(0, 0, 0, 0);
+    if (bloomQuality == 1)
+        lumColor = blur13(textureSampler, pixel, screenSize);
 
     vec4 pixdepth = (texture2D(depthSampler, pixel / screenSize));
     vec4 bloomdepth = (texture2D(bloomDepthSampler, pixel / screenSize));
-    if(linearize(bloomdepth.z) - linearize(pixdepth.z) > 0.01) {
-        color = vec4(0, 0, 0, 0);
+    if (compareDepth) {
+        if(bloomdepth.z - pixdepth.z > 0) {
+            color = vec4(0, 0, 0, 0);
+        }
     }
 
     // Invert colors
