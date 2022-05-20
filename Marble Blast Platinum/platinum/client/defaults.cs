@@ -141,6 +141,7 @@ $pref::Video::ParticleMaxDistance = 50;
 $pref::Video::ParticlesPercent = 1;
 $pref::Video::PostProcessing = 1;
 $pref::Video::TextureQuality = 2;
+$pref::Video::ShapeBloomQuality = 3;
 //Marble reflection settings
 $pref::Video::MarbleReflectionQuality = 1;
 $pref::Video::MarbleCubemapExtent = 64;

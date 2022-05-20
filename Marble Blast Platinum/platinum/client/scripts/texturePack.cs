@@ -98,6 +98,7 @@ function reloadTexturePacks() {
 
 	unloadTimerTextures();
 	reloadShaders();
+	reloadGlowShaders();
 	reloadPostFX();
 	clearTextureHolds();
 	purgeResources();
@@ -124,6 +125,7 @@ function unloadTexturePacks() {
 	
 	unloadTimerTextures();
 	reloadShaders();
+	reloadGlowShaders();
 	reloadPostFX();
 	clearTextureHolds();
 	purgeResources();
@@ -208,6 +210,17 @@ function loadTexturePack(%pack) {
 				// Just set a variable and die inside
 				$TexturePack::SwapTextures[%field] = %real;
 			}
+		}
+	}
+	if (isObject(%pack.glow_materials)) {
+		%fields = %pack.glow_materials.getDynamicFieldList();
+		%count = getFieldCount(%fields);
+		for (%i = 0; %i < %count; %i ++) {
+			%field = getField(%fields, %i);
+			%value = %pack.glow_materials.getFieldValue(%field);
+			registerGlowMaterial(%field, %value);
+
+			devecho("Glow Material: " @ %field);
 		}
 	}
 	loadTexturePackFields(%pack);
@@ -338,6 +351,16 @@ function unloadTexturePack(%pack) {
 
 			devecho("Unreplace material: " @ %field);
 			replaceMaterials(%field);
+		}
+	}
+	if (isObject(%pack.glow_materials)) {
+		%fields = %pack.glow_materials.getDynamicFieldList();
+		%count = getFieldCount(%fields);
+		for (%i = 0; %i < %count; %i ++) {
+			%field = getField(%fields, %i);
+			unregisterGlowMaterial(%field);
+
+			devecho("Unglow Material: " @ %field);
 		}
 	}
 	if (isObject(%pack.color_swaps)) {

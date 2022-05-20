@@ -242,7 +242,7 @@ function SceneObject::getSurfaceVelocity(%this, %marble, %point, %distance) {
 	//1 turn / 18s
 	//6.28m * r / 18s
 
-	%prev = getClientSyncObject(%obj._pathPrevSyncId);
+	%prev = getClientSyncObject(%this._pathPrevSyncId);
 	%node = getClientSyncObject(%this._pathSyncId);
 	%next = Node::getNextNode(%this, %node);
 
@@ -267,8 +267,8 @@ function SceneObject::getSurfaceVelocity(%this, %marble, %point, %distance) {
 		//Todo: Continuous derivative?
 		%startRot = MatrixRot(%next.getTransform());
 		%endRot   = MatrixRot(%node.getTransform());
-		%mat0 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %obj, %t));
-		%mat1 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %obj, %t + 0.001));
+		%mat0 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %node, %t));
+		%mat1 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %node, %t + 0.001));
 
 		%div = MatrixDivide(%mat1, %mat0);
 

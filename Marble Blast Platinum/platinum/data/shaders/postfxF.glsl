@@ -25,13 +25,15 @@ uniform sampler2D textureSampler;
 uniform sampler2D bloomSampler;
 uniform sampler2D depthSampler;
 uniform vec2 screenSize;
+uniform bool useBloom;
 
 void main() {
     vec2 pixel = (UV * screenSize);
 
     vec4 color = (texture2D(textureSampler, pixel / screenSize));
 
-    vec4 color2 = (texture2D(bloomSampler, pixel / screenSize));
+    vec4 color2 = vec4(0, 0, 0, 0);
+    color2 = (texture2D(bloomSampler, pixel / screenSize));
 
     // Invert colors
     gl_FragColor = color + color2;
