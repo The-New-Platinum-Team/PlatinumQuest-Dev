@@ -12,6 +12,7 @@ function Mode_challenge::onLoad(%this) {
 	%this.registerCallback("onMissionEnded");
 	%this.registerCallback("onMissionReset");
 	%this.registerCallback("shouldPickupGem");
+	%this.registerCallback("shouldPickupItem");
 	%this.registerCallback("shouldIgnoreGem");
 	%this.registerCallback("shouldDisablePowerup");
 	%this.registerCallback("shouldPickupPowerup");
@@ -49,6 +50,13 @@ function Mode_challenge::shouldDisablePowerup(%this, %object) {
 }
 function Mode_challenge::shouldPickupPowerup(%this, %object) {
 	return $CurrentWeeklyChallenge.noPowerups !$= "1";
+}
+function Mode_challenge::shouldPickupItem(%this, %object) {
+	switch$ (%object.obj.getDataBlock().getName()) {
+		case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
+			return false;
+	}
+	return true;
 }
 function Mode_challenge::getMarbleSize(%this, %object) {
 

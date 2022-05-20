@@ -159,6 +159,7 @@ function applyGraphicsQuality() {
 	} else {
 		enableShaders();
 		reloadShaders();
+		reloadGlowShaders();
 	}
 
 	if ($pref::Video::PostProcessing) {
