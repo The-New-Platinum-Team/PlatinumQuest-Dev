@@ -246,6 +246,7 @@ function initClient() {
 	addDirectoryOverride("platinum/data/interiors/", "platinum/data/interiors_mbp/");
 	//Anything else we probably can't save, but why not try?
 	addDirectoryOverride("marble/data/", "platinum/data/");
+	addDirectoryOverride("challenge/data/", "platinum/data/");
 
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.
@@ -336,6 +337,7 @@ function doInteriorTest(%interiorName) {
 
 
 function isScriptFile(%file) {
+	%file = strReplace(%file, "challenge/data", "platinum/data");
 	if (isFile(%file) || isFile(%file @ ".dso"))
 		return true;
 	return false;

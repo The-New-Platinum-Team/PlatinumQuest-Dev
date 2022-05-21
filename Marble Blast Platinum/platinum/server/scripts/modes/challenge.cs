@@ -17,8 +17,6 @@ function Mode_challenge::onLoad(%this) {
 	%this.registerCallback("shouldPickupPowerup");
 	%this.registerCallback("getMarbleSize");
 	%this.registerCallback("getUltraMarbleSize");
-	%this.registerCallback("modifyPlayerScoreData");
-	%this.registerCallback("modifyScoreData");
 	%this.registerCallback("canFinish");
 
 	//Don't kill our CPU, but this is how you'd do it
@@ -69,29 +67,6 @@ function Mode_challenge::getUltraMarbleSize(%this, %object) {
 		%marbleSizeMult = $CurrentWeeklyChallenge.marbleSizeMult;
 
 	return %object.client.player.getDataBlock().ultraScale * %marbleSizeMult;
-}
-function Mode_challenge::modifyPlayerScoreData(%this, %object) {
-	//Description:
-	// Called when sending scores; allows modes to modify the data sent to
-	// the server. Return the updated data string for that player.
-	//Parameters:
-	// client - GameConnection
-	// data - string
-	//Returns:
-	// string
-
-	return %object.data;
-}
-function Mode_challenge::modifyScoreData(%this, %object) {
-	//Description:
-	// Called when sending scores; allows modes to modify the data sent to
-	// the server.
-	//Parameters:
-	// data - string
-	//Returns:
-	// string
-
-	return %object.data;
 }
 function Mode_challenge::canFinish(%this, %object) {
 	//Description:

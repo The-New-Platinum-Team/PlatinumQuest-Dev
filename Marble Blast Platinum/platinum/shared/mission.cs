@@ -24,6 +24,14 @@
 
 // grab mission info
 function getMissionInfo(%file, %partial) {
+
+	%origfile = %file;
+
+	%isChallenge = strPos(%file, "challenge") != -1;
+	if (%isChallenge) {
+		%file = strReplace(%file, "challenge/data", "platinum/data");
+	}
+
 	if (!isScriptFile(%file))
 		%file = resolveMissionFile(%file);
 
@@ -31,8 +39,8 @@ function getMissionInfo(%file, %partial) {
 
 	if (fileExt(%file) $= ".mcs") {
 		//Super fast caching so we don't have to read the file again
-		if (isObject($Mission::Info[%file]))
-			return $Mission::Info[%file];
+		if (isObject($Mission::Info[%origfile]))
+			return $Mission::Info[%origfile];
 
 		//MCS has a convenient function for getting the mission info
 		%fn = "PQ_" @ alphaNum(fileBase(%file)) @ "_GetMissionInfo";
@@ -80,9 +88,9 @@ function getMissionInfo(%file, %partial) {
 	} else {
 
 		%fileHash = getMissionHash(%file);
-
 		//Super fast caching so we don't have to read the file again
-		%info = $Mission::Info[%file];
+		%info = $Mission::Info[%origfile];
+		echo(isObject(%info) SPC $Mission::Info[%origfile] SPC %origfile);
 		if (isObject(%info)) {
 			if (%partial) {
 				//Partial won't care whether or not it's fully loaded
@@ -183,7 +191,7 @@ function getMissionInfo(%file, %partial) {
 			}
 			%fo.delete();
 
-			if (%info.hash !$= %fileHash) {
+			if (%info.hash !$= %fileHash && !%isChallenge) {
 				devecho("Generating MissionInfo cache for" SPC %file SPC "(" @ %fileHash @ " != " @ %info.hash @ ")");
 				%generateCache = true;
 			} else {
@@ -301,7 +309,7 @@ function getMissionInfo(%file, %partial) {
 		RootGroup.add(new SimGroup(MissionInfoGroup));
 
 	MissionInfoGroup.add(%info);
-	$Mission::Info[%file] = %info;
+	$Mission::Info[%origfile] = %info;
 
 	//Update these
 	%info.game = resolveMissionGame(%info);
@@ -444,6 +452,10 @@ function resolveMissionGameModes(%mission) {
 
 	if ($Event::Modes !$= "") {
 		%modes = addWord(%modes, $Event::Modes);
+	}
+
+	if ($CurrentGame $= "challenge" && strPos(%modes, "challenge") == -1) {
+		%modes = addWord(%modes, "challenge");
 	}
 
 	%complete = false;

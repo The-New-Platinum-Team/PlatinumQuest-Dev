@@ -241,7 +241,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_challenge) {
 	file = "challenge";
 
 	//The mode's display name is what will be shown in the mode selector.
-	name = "Weekly Challenge";
+	name = "Challenge";
 	//Description is optional, and not shown anywhere currently.
 	desc = "";
 
@@ -289,6 +289,7 @@ function ClientMode_challenge::onActivate(%this, %object) {
 		//Probably correct but it probably doesn't matter
 		%currentMis = MissionInfo;
 	}
+	ModeInfo_challenge.name = $CurrentWeeklyChallenge.description;
 	ModeInfo_challenge.desc = $CurrentWeeklyChallenge.paramDesc;
 }
 
@@ -317,14 +318,7 @@ function ClientMode_challenge::shouldUpdateBlast(%this) {
 	return $CurrentWeeklyChallenge.blast;
 }
 function ClientMode_challenge::getScoreFields(%this) {
-	//Description:
-	// Called when submitting scores to the LBs so modes can add extra parameters
-	// to the score query.
-	//Parameters:
-	// none
-	//Returns:
-	// string
-	return "";
+	return "&challenge=" @ $CurrentWeeklyChallenge.name;
 }
 
 function listChallenges() {
@@ -337,6 +331,16 @@ function listChallenges() {
 function activateChallenge(%challengeName) {
 	activateMode("challenge");
 	activateClientMode("challenge");
+	for (%i = 0; %i < WeeklyChallengeTemplates.getCount(); %i++) {
+		%challenge = WeeklyChallengeTemplates.getObject(%i);
+		if (%challenge.name $= %challengeName) {
+			$CurrentWeeklyChallenge = %challenge;
+			break;
+		}
+	}
+}
+
+function setWeeklyChallenge(%challengeName) {
 	for (%i = 0; %i < WeeklyChallengeTemplates.getCount(); %i++) {
 		%challenge = WeeklyChallengeTemplates.getObject(%i);
 		if (%challenge.name $= %challengeName) {
