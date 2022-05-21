@@ -115,15 +115,25 @@ function getBestTimes(%info) {
 				//Level has no id, has no scores or something
 				devecho("Mission has no id for getting scores. Using offline scores instead.");
 			} else {
-				%scores = PlayMissionGui.personalScoreCache[%missionId].scores;
+				if (%info.gameMode $= "challenge") {
+					%scores = PlayMissionGui.personalScoreCache[%missionId, 1].scores;
+				} else 
+					%scores = PlayMissionGui.personalScoreCache[%missionId].scores;
 
 				//Find out how many scores we can get from the online cache
 				%count = 0;
 				if (!isObject(%scores)) {
-					if (isObject(PlayMissionGui.personalScoreListCache)) {
+					%scoreCache = 0;
+					if (%info.gameMode $= "challenge") {
+						%scoreCache = PlayMissionGui.personalScoreListCache.challenge;
+					} else {
+						%scoreCache = PlayMissionGui.personalScoreListCache;
+					}
+
+					if (isObject(%scoreCache)) {
 						devecho("Didn't find best times but have cache for mission id " @ %missionId);
 						//Grab the best time we have
-						%best = PlayMissionGui.personalScoreListCache.getFieldValue(%missionId);
+						%best = %scoreCache.getFieldValue(%missionId);
 						if (isObject(%best)) {
 							%count = 1;
 							%type = (%best.score_type $= "time" ? $ScoreType::Time : $ScoreType::Score);
@@ -344,39 +354,45 @@ function clientCmdGameEnd() {
 
 	if (lb()) {
 		// Set rating to "Submitting..."
-		$LB::RatingPending = true;
+		if ($Game::isMode["challenge"]) {
+			$LB::RatingPending = false;
+			statsRecordChallengeScore(PlayMissionGui.getMissionInfo());
+		} else {
+			$LB::RatingPending = true;
 
-		statsRecordScore(PlayMissionGui.getMissionInfo());
-		if ($highScoreIndex !$= "") {
-			//Hack: update the top score as quick as we can
-			%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
-			if (%scores.getSize() == 0) {
-				JSONGroup.add(%dummy = new ScriptObject() {
-					score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
-					score = getField(%score, 1);
-				});
-				%scores.addEntry(%dummy);
-			} else {
-				for (%i = min(%scores.getSize(), $Game::HighscoreCount - 1); %i > $highScoreIndex; %i--) {
-					if (%scores.getSize() == %i) {
-						JSONGroup.add(%dummy = new ScriptObject() {
-							score_type = %scores.getEntry(%i).score_type;
-							score = %scores.getEntry(%i).score;
-						});
-						%scores.addEntry(%dummy);
-					}
-					%scores.getEntry(%i).score_type = %scores.getEntry(%i - 1).score_type;
-					%scores.getEntry(%i).score = %scores.getEntry(%i - 1).score;
-				}
-				if (%scores.getSize() == $highScoreIndex) {
+			statsRecordScore(PlayMissionGui.getMissionInfo());
+	
+			if ($highScoreIndex !$= "") {
+				//Hack: update the top score as quick as we can
+				%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
+				if (%scores.getSize() == 0) {
 					JSONGroup.add(%dummy = new ScriptObject() {
 						score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
 						score = getField(%score, 1);
 					});
 					%scores.addEntry(%dummy);
 				} else {
-					%scores.getEntry($highScoreIndex).score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
-					%scores.getEntry($highScoreIndex).score = getField(%score, 1);
+					for (%i = min(%scores.getSize(), $Game::HighscoreCount - 1); %i > $highScoreIndex; %i--) {
+						if (%scores.getSize() == %i) {
+							JSONGroup.add(%dummy = new ScriptObject() {
+								score_type = %scores.getEntry(%i).score_type;
+								score = %scores.getEntry(%i).score;
+							});
+							%scores.addEntry(%dummy);
+						}
+						%scores.getEntry(%i).score_type = %scores.getEntry(%i - 1).score_type;
+						%scores.getEntry(%i).score = %scores.getEntry(%i - 1).score;
+					}
+					if (%scores.getSize() == $highScoreIndex) {
+						JSONGroup.add(%dummy = new ScriptObject() {
+							score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
+							score = getField(%score, 1);
+						});
+						%scores.addEntry(%dummy);
+					} else {
+						%scores.getEntry($highScoreIndex).score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
+						%scores.getEntry($highScoreIndex).score = getField(%score, 1);
+					}
 				}
 			}
 		}
@@ -707,8 +723,10 @@ function reformatGameEndText() {
 		if ($LB::RatingDelta > 0) {
 			%rating = "<color:00ff00>(+" @ formatRating($LB::RatingDelta) @ ")<color:000000> " @ %rating;
 		}
-		%text = %text @ "<just:left>Rating:<just:right>" @ ($LB::RatingPending ? "..." : %rating) @ "\n";
-		%text = %text @ "<just:left>General Rating:<just:right>" @ formatRating($LB::TotalRating) @ "\n";
+		if (!$Game::isMode["challenge"]) {
+			%text = %text @ "<just:left>Rating:<just:right>" @ ($LB::RatingPending ? "..." : %rating) @ "\n";
+			%text = %text @ "<just:left>General Rating:<just:right>" @ formatRating($LB::TotalRating) @ "\n";
+		}
 		%text = %text @ "<just:left>Global Level Rank:<just:right>" @ ($LB::RatingPending ? "..." : $LB::LevelPosition);
 
 		EG_Rating.setText(%text);
