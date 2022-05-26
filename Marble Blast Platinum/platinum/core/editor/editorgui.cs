@@ -230,6 +230,7 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItemConf("Create", "Gem Group", 15, "", 1);
 	EditorMenuBar.addMenuItemConf("Create", "Camera Marker", 16, "M", 1);
 	EditorMenuBar.addMenuItemConf("Create", "PathNode at Selection", 17, "", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Marble Dummy", 21, "N", 1);
 
 	EditorMenuBar.addMenu("Special", 8);
 	EditorMenuBar.addMenuItem("Special", "Make GemGroup", 1);
@@ -873,6 +874,15 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 	case "Super Jump":
 		%obj = new Item() {
 			dataBlock = "SuperJumpItem";
+			rotate = 1;
+			static = 1;
+		};
+	case "Marble Dummy":
+		%obj = new Marble("MarbleDummy") {
+			dataBlock = "DefaultMarble";
+            Controllable = "0";
+            client = "1";
+            powerUpData = "0";
 			rotate = 1;
 			static = 1;
 		};
