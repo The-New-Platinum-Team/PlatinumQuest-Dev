@@ -206,20 +206,30 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItem("World", "Drop to Ground", 6, "Alt 4", 1);
 
 	EditorMenuBar.addMenu("Create", 7);
+	EditorMenuBar.addMenuItem("Create", "- Gems -", 0);
 	EditorMenuBar.addMenuItemConf("Create", "Red Gem", 1, "1", 1);
 	EditorMenuBar.addMenuItemConf("Create", "Yellow Gem", 2, "2", 1);
 	EditorMenuBar.addMenuItemConf("Create", "Blue Gem", 3, "3", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Platinum Gem", 13, "", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Spawn Trigger", 4, "4", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Super Jump", 5, "5", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Super Speed", 6, "6", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Gyrocopter", 7, "7", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Mega Marble", 8, "8", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Ultra Blast", 9, "9", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Bounds Trigger", 10, "", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Gem Group", 11, "", 1);
-	EditorMenuBar.addMenuItemConf("Create", "Camera Marker", 12, "M", 1);
-	EditorMenuBar.addMenuItemConf("Create", "PathNode at Selection", 13, "", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Platinum Gem", 18, "", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Random Color Gem", 19, "", 1);
+	EditorMenuBar.addMenuItem("Create", "- Powerups -", 0);
+	EditorMenuBar.addMenuItemConf("Create", "Super Jump", 4, "4", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Super Speed", 5, "5", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Gyrocopter", 6, "6", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Super Bounce", 7, "7", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Shock Absorber", 20, "8", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Time Travel", 8, "9", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Time Penalty", 9, "0", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Mega Marble", 10, "-", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Ultra Blast", 11, "=", 1);
+    EditorMenuBar.addMenuItemConf("Create", "Teleporter", 12, "", 1);
+	EditorMenuBar.addMenuItem("Create", "- Triggers -", 0);
+    EditorMenuBar.addMenuItemConf("Create", "Spawn Trigger", 13, "", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Bounds Trigger", 14, "", 1);
+	EditorMenuBar.addMenuItem("Create", "- Others -", 0);
+	EditorMenuBar.addMenuItemConf("Create", "Gem Group", 15, "", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Camera Marker", 16, "M", 1);
+	EditorMenuBar.addMenuItemConf("Create", "PathNode at Selection", 17, "", 1);
 
 	EditorMenuBar.addMenu("Special", 8);
 	EditorMenuBar.addMenuItem("Special", "Make GemGroup", 1);
@@ -827,6 +837,33 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				static = 1;
 			};
 		}
+	case "Random Color Gem":
+		switch$ (EWorldEditor.gemType) {
+		case "pq":
+			%obj = new Item() {
+				dataBlock = "GemItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "fancy":
+			%obj = new Item() {
+				dataBlock = "FancyGemItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "mbu":
+			%obj = new Item() {
+				dataBlock = "GemItemRed_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "GemItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
 	case "Spawn Trigger":
 		%obj = new Trigger() {
 			dataBlock = "SpawnTrigger";
@@ -842,6 +879,36 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 	case "Super Speed":
 		%obj = new Item() {
 			dataBlock = "SuperSpeedItem";
+			rotate = 1;
+			static = 1;
+		};
+	case "Teleporter":
+		%obj = new Item() {
+			dataBlock = "TeleportItem";
+			rotate = 1;
+			static = 1;
+		};
+	case "Super Bounce":
+		%obj = new Item() {
+			dataBlock = "SuperBounceItem";
+			rotate = 1;
+			static = 1;
+		};
+	case "Time Travel":
+		%obj = new Item() {
+			dataBlock = "TimeTravelItem";
+			rotate = 1;
+			static = 1;
+		};
+	case "Time Penalty":
+		%obj = new Item() {
+			dataBlock = "TimePenaltyItem";
+			rotate = 1;
+			static = 1;
+		};
+	case "Shock Absorber":
+		%obj = new Item() {
+			dataBlock = "ShockAbsorberItem";
 			rotate = 1;
 			static = 1;
 		};
