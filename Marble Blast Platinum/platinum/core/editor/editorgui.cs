@@ -206,6 +206,9 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItem("World", "Drop to Ground", 6, "Alt 4", 1);
 
 	EditorMenuBar.addMenu("Create", 7);
+	EditorMenuBar.addMenuItem("Create", "- Pads -", 0);
+	EditorMenuBar.addMenuItemConf("Create", "Start Pad", 23, "", 1);
+	EditorMenuBar.addMenuItemConf("Create", "End Pad", 24, "", 1);
 	EditorMenuBar.addMenuItem("Create", "- Gems -", 0);
 	EditorMenuBar.addMenuItemConf("Create", "Red Gem", 1, "1", 1);
 	EditorMenuBar.addMenuItemConf("Create", "Yellow Gem", 2, "2", 1);
@@ -226,6 +229,7 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItem("Create", "- Triggers -", 0);
     EditorMenuBar.addMenuItemConf("Create", "Spawn Trigger", 13, "", 1);
 	EditorMenuBar.addMenuItemConf("Create", "Bounds Trigger", 14, "", 1);
+	EditorMenuBar.addMenuItemConf("Create", "Help Text Trigger", 22, "", 1);
 	EditorMenuBar.addMenuItem("Create", "- Others -", 0);
 	EditorMenuBar.addMenuItemConf("Create", "Gem Group", 15, "", 1);
 	EditorMenuBar.addMenuItemConf("Create", "Camera Marker", 16, "M", 1);
@@ -727,21 +731,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 	%obj = -1;
 	switch$ (%item) {
 	case "Red Gem":
-		switch$ (EWorldEditor.gemType) {
-		case "pq":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
 			%obj = new Item() {
 				dataBlock = "GemItemRed_PQ";
 				rotate = 1;
 				static = 1;
 			};
-		case "fancy":
-			%obj = new Item() {
-				dataBlock = "FancyGemItem_PQ";
-				rotate = 1;
-				static = 1;
-				skin = "red";
-			};
-		case "mbu":
+		case "Ultra":
 			%obj = new Item() {
 				dataBlock = "GemItemRed_MBU";
 				rotate = 1;
@@ -755,21 +752,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 			};
 		}
 	case "Yellow Gem":
-		switch$ (EWorldEditor.gemType) {
-		case "pq":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
 			%obj = new Item() {
 				dataBlock = "GemItemYellow_PQ";
 				rotate = 1;
 				static = 1;
 			};
-		case "fancy":
-			%obj = new Item() {
-				dataBlock = "FancyGemItem_PQ";
-				rotate = 1;
-				static = 1;
-				skin = "yellow";
-			};
-		case "mbu":
+		case "Ultra":
 			%obj = new Item() {
 				dataBlock = "GemItemYellow_MBU";
 				rotate = 1;
@@ -783,21 +773,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 			};
 		}
 	case "Blue Gem":
-		switch$ (EWorldEditor.gemType) {
-		case "pq":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
 			%obj = new Item() {
 				dataBlock = "GemItemBlue_PQ";
 				rotate = 1;
 				static = 1;
 			};
-		case "fancy":
-			%obj = new Item() {
-				dataBlock = "FancyGemItem_PQ";
-				rotate = 1;
-				static = 1;
-				skin = "blue";
-			};
-		case "mbu":
+		case "Ultra":
 			%obj = new Item() {
 				dataBlock = "GemItemBlue_MBU";
 				rotate = 1;
@@ -811,21 +794,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 			};
 		}
 	case "Platinum Gem":
-		switch$ (EWorldEditor.gemType) {
-		case "pq":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
 			%obj = new Item() {
 				dataBlock = "GemItemPlatinum_PQ";
 				rotate = 1;
 				static = 1;
 			};
-		case "fancy":
-			%obj = new Item() {
-				dataBlock = "FancyGemItem_PQ";
-				rotate = 1;
-				static = 1;
-				skin = "platinum";
-			};
-		case "mbu":
+		case "Ultra":
 			%obj = new Item() {
 				dataBlock = "GemItemPlatinum_MBU";
 				rotate = 1;
@@ -839,20 +815,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 			};
 		}
 	case "Random Color Gem":
-		switch$ (EWorldEditor.gemType) {
-		case "pq":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
 			%obj = new Item() {
 				dataBlock = "GemItem_PQ";
 				rotate = 1;
 				static = 1;
 			};
-		case "fancy":
-			%obj = new Item() {
-				dataBlock = "FancyGemItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "mbu":
+		case "Ultra":
 			%obj = new Item() {
 				dataBlock = "GemItemRed_MBU";
 				rotate = 1;
@@ -865,17 +835,228 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				static = 1;
 			};
 		}
+	case "Super Jump":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "SuperJumpItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "SuperJumpItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "SuperJumpItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
+	case "Super Speed":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "SuperSpeedItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "SuperSpeedItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "SuperSpeedItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
+	case "Super Bounce":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "SuperBounceItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "SuperBounceItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "SuperBounceItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
+	case "Time Travel":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "TimeTravelItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "TimeTravelItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		case "Gold":
+			%obj = new Item() {
+				dataBlock = "TimeTravelItem";
+				rotate = 1;
+				static = 1;
+				skin = "mbg";
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "TimeTravelItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
+	case "Time Penalty":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "TimePenaltyItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Gold":
+			%obj = new Item() {
+				dataBlock = "TimePenaltyItem";
+				rotate = 1;
+				static = 1;
+				skin = "mbgpenalty";
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "TimePenaltyItem";
+				rotate = 1;
+				static = 1;
+				skin = "penalty";
+			};
+		}
+	case "Shock Absorber":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "ShockAbsorberItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "ShockAbsorberItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "ShockAbsorberItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
+	case "Gyrocopter":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "HelicopterItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "HelicopterItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "HelicopterItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
+	case "Start Pad":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new StaticShape() {
+				dataBlock = "StartPad_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new StaticShape() {
+				dataBlock = "StartPad_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		case "Gold":
+			%obj = new StaticShape() {
+				dataBlock = "StartPad_MBG";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new StaticShape() {
+				dataBlock = "StartPad";
+				rotate = 1;
+				static = 1;
+			};
+		}
+	case "End Pad":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new StaticShape() {
+				dataBlock = "EndPad_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new StaticShape() {
+				dataBlock = "EndPad_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		case "Gold":
+			%obj = new StaticShape() {
+				dataBlock = "EndPad_MBG";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new StaticShape() {
+				dataBlock = "EndPad";
+				rotate = 1;
+				static = 1;
+			};
+		}
 	case "Spawn Trigger":
 		%obj = new Trigger() {
 			dataBlock = "SpawnTrigger";
 			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
 			center = "1";
 		};
-	case "Super Jump":
-		%obj = new Item() {
-			dataBlock = "SuperJumpItem";
-			rotate = 1;
-			static = 1;
+	case "Help Text Trigger":
+		%obj = new Trigger() {
+			dataBlock = "HelpTrigger";
+			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+			center = "1";
+			text = "Help Text";
 		};
 	case "Marble Dummy":
 		%obj = new Marble("MarbleDummy") {
@@ -886,45 +1067,9 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 			rotate = 1;
 			static = 1;
 		};
-	case "Super Speed":
-		%obj = new Item() {
-			dataBlock = "SuperSpeedItem";
-			rotate = 1;
-			static = 1;
-		};
 	case "Teleporter":
 		%obj = new Item() {
 			dataBlock = "TeleportItem";
-			rotate = 1;
-			static = 1;
-		};
-	case "Super Bounce":
-		%obj = new Item() {
-			dataBlock = "SuperBounceItem";
-			rotate = 1;
-			static = 1;
-		};
-	case "Time Travel":
-		%obj = new Item() {
-			dataBlock = "TimeTravelItem";
-			rotate = 1;
-			static = 1;
-		};
-	case "Time Penalty":
-		%obj = new Item() {
-			dataBlock = "TimePenaltyItem";
-			rotate = 1;
-			static = 1;
-		};
-	case "Shock Absorber":
-		%obj = new Item() {
-			dataBlock = "ShockAbsorberItem";
-			rotate = 1;
-			static = 1;
-		};
-	case "Gyrocopter":
-		%obj = new Item() {
-			dataBlock = "HelicopterItem";
 			rotate = 1;
 			static = 1;
 		};
