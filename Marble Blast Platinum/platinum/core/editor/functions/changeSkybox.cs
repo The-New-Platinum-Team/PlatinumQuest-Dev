@@ -34,7 +34,16 @@ function csbbutton(%revert) {
 	}
 
 	%current = Sky.materialList;
-	LargeFunctionDlg.addDropMenu("CSB_Sky", "Skybox:", 5, %skies, %current);
+
+    LargeFunctionDlg.addNote("\c4----------- Main Game Skyboxes -----------");
+	LargeFunctionDlg.addDropMenu("MainGameSkyboxes", "Main Game Skyboxes:", 5, "skies\tGold\nBeginner\tPlatinum Beginner\nIntermediate\tPlatinum Intermediate\nAdvanced\tPlatinum Advanced\nExpert\tPlatinum Expert\nSpaceStation\tPlatinum Space\nBlender1\tPQ One\nBlender2\tPQ Two\nBlender3\tPQ Three\nBlender4\tPQ Four\nbeginner (mbu)\tUltra Beginner\nintermediate (mbu)\tUltra Intermediate\nadvanced (mbu)\tUltra Advanced");
+	LargeFunctionDlg.addButton("SelectMainGameSkybox", "Select Skybox", 9);
+	LargeFunctionDlg.addNote("\c4----------- All Skyboxes -----------");
+	LargeFunctionDlg.addDropMenu("CSB_Sky", "Selected Skybox:", 5, %skies, %current);
+}
+
+function SelectMainGameSkybox::onPressed(%this, %gui) {
+	CSB_Sky.setValue(MainGameSkyboxes.getValue());
 }
 
 function applyDML() {
