@@ -145,9 +145,14 @@ function CheckpointTrigger::onEnterTrigger(%this,%obj,%col) {
 
 	//if(!%obj.checkpointNum)
 	//   echo("ERROR!!! No checkpointNum specified.");
-	if (%obj != %player.curCheckpoint) {
+	if (%obj != %player.curCheckpoint && %obj.unusable !$= "1") {
 		%col.client.setCheckpointTrigger(%obj);
 	}
+}
+
+function CheckpointTrigger::onMissionReset(%this, %obj) {
+	if (%obj.unusable $= "1" && $TexturePack::MBXP)
+		%obj.unusable = 0;
 }
 
 function CheckPointClass::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {

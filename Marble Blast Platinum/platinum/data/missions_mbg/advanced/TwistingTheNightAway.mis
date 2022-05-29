@@ -1561,6 +1561,50 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+
+   new SimGroup(two) {
+
+      new Trigger(check2) {
+         position = "-32.5673 5.90743 108.535";
+         rotation = "1 0 0 0";
+         scale = "13.6312 5 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape2";
+      };
+      new StaticShape(CheckPointShape2) {
+         position = "-25.6599 3.48037 109.065";
+         rotation = "0 0 1 178.763";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+   };
+   new SimGroup(one) {
+
+      new Trigger(check1) {
+         position = "-13.3426 41.3059 108.535";
+         rotation = "1 0 0 0";
+         scale = "5 12.5953 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+      new StaticShape(CheckPointShape1) {
+         position = "-12.0329 35.5033 109.065";
+         rotation = "0 0 -1 90.5273";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {
