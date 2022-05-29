@@ -215,6 +215,71 @@ new SimGroup(MissionGroup) {
       scale = "0.4 0.4 0.4";
       dataBlock = "SignFinish";
    };
+
+   new SimGroup(three) {
+
+      new Trigger(check3) {
+         position = "49.9041 -5.98234 116.401";
+         rotation = "1 0 0 0";
+         scale = "6.28456 5 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape3";
+      };
+      new StaticShape(CheckPointShape3) {
+         position = "52.8275 -10.4189 117.068";
+         rotation = "0.0149685 0.000986301 0.999887 181.627";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+   };
+   new SimGroup(two) {
+
+      new StaticShape(CheckPointShape2) {
+         position = "32.0464 -34.8 88.09";
+         rotation = "0 0 1 89.3814";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check2) {
+         position = "30.9148 -25.3744 87.6967";
+         rotation = "1 0 0 0";
+         scale = "5 9.32682 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape2";
+      };
+   };
+   new SimGroup(one) {
+
+      new StaticShape(CheckPointShape1) {
+         position = "-11.3681 8.99063 63.073";
+         rotation = "0 0 -1 90.5273";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check1) {
+         position = "-11.8741 12.2388 62.5353";
+         rotation = "1 0 0 0";
+         scale = "5 6.0455 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {

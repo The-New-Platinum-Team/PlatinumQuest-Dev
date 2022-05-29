@@ -99,6 +99,10 @@ function Empty::onAdd(%this, %obj) {
 	%obj.setDataBlock("ForceFieldBumper");
 	%obj.playThread(0,"ambient_ifl");
    }
+
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "Checkpoint_MBXP") {
+	%obj.setDataBlock("Checkpoint_MBXP");
+   }
 }	
 
 function ForceFieldClass::onAdd(%this, %obj) {

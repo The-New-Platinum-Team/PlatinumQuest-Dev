@@ -701,6 +701,70 @@ new SimGroup(MissionGroup) {
       rotate = "1";
          timeBonus = "5000";
    };
+   new SimGroup(three) {
+
+      new StaticShape(CheckPointShape3) {
+         position = "-7.76902 -0.39307 160.05";
+         rotation = "0 0 1 91.6733";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check3) {
+         position = "-8.90808 16.2382 159.803";
+         rotation = "1 0 0 0";
+         scale = "5 30.2692 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape3";
+      };
+   };
+   new SimGroup(two) {
+
+      new Trigger(check2) {
+         position = "-59.5984 17.0608 95.8823";
+         rotation = "1 0 0 0";
+         scale = "5 15.8558 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape2";
+      };
+      new StaticShape(CheckPointShape2) {
+         position = "-57.167 5.8847 96.12";
+         rotation = "0 0 -1 0.176939";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+   };
+   new SimGroup(one) {
+
+      new Trigger(check1) {
+         position = "-36.009 8.87234 45.1151";
+         rotation = "1 0 0 0";
+         scale = "5 14.8081 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+      new StaticShape(CheckPointShape1) {
+         position = "-34.038 0.683807 46.0445";
+         rotation = "0 0 1 181.055";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {
