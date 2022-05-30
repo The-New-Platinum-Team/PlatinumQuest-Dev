@@ -95,7 +95,10 @@ function reloadTexturePacks() {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		loadTexturePack(%pack);
 	}
+
+	unloadTimerTextures();
 	reloadShaders();
+	reloadGlowShaders();
 	reloadPostFX();
 	clearTextureHolds();
 	purgeResources();
@@ -119,7 +122,10 @@ function unloadTexturePacks() {
 		unloadTexturePack(%pack);
 	}
 	ActiveTexturePacks.clear();
+	
+	unloadTimerTextures();
 	reloadShaders();
+	reloadGlowShaders();
 	reloadPostFX();
 	clearTextureHolds();
 	purgeResources();
@@ -206,6 +212,17 @@ function loadTexturePack(%pack) {
 			}
 		}
 	}
+	if (isObject(%pack.glow_materials)) {
+		%fields = %pack.glow_materials.getDynamicFieldList();
+		%count = getFieldCount(%fields);
+		for (%i = 0; %i < %count; %i ++) {
+			%field = getField(%fields, %i);
+			%value = %pack.glow_materials.getFieldValue(%field);
+			registerGlowMaterial(%field, %value);
+
+			devecho("Glow Material: " @ %field);
+		}
+	}
 	loadTexturePackFields(%pack);
 }
 
@@ -247,10 +264,15 @@ function loadTexturePackFields(%pack) {
 	} else {
 		$TexturePack::MBGHelpUI = "";
 	}
-	if (%pack.mbu_help_ui !$= "") {
+  if (%pack.mbu_help_ui !$= "") {
 		$TexturePack::MBUHelpUI = %pack.mbu_help_ui;
 	} else {
 		$TexturePack::MBUHelpUI = "";
+  }
+	if (%pack.mbxp_setskip !$= "") {
+		$TexturePack::MBXP = %pack.mbxp_setskip;
+	} else {
+		$TexturePack::MBXP = "";
 	}
 	if (%pack.fonts) {
 		// Save existing fonts first, for restoring later
@@ -334,6 +356,16 @@ function unloadTexturePack(%pack) {
 
 			devecho("Unreplace material: " @ %field);
 			replaceMaterials(%field);
+		}
+	}
+	if (isObject(%pack.glow_materials)) {
+		%fields = %pack.glow_materials.getDynamicFieldList();
+		%count = getFieldCount(%fields);
+		for (%i = 0; %i < %count; %i ++) {
+			%field = getField(%fields, %i);
+			unregisterGlowMaterial(%field);
+
+			devecho("Unglow Material: " @ %field);
 		}
 	}
 	if (isObject(%pack.color_swaps)) {

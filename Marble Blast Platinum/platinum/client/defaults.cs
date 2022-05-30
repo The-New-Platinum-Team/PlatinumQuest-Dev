@@ -122,12 +122,12 @@ $LBPref::ShowRecords = false;
 
 $pref::Music::Songs["LB"]     = "Comforting Mystery.ogg";
 $pref::Music::Songs["Menu"]   = "Pianoforte.ogg";
+$pref::Music::Songs["XP"]   = "shellXP.ogg";
 $pref::Music::Songs["Game"]   = "*";
 
 //Graphics
 $pref::Snore = true;
 $pref::AnimatePreviews = true;
-$pref::AutomaticUI = false;
 $pref::LegacyItems = false;
 $pref::ProfanityFilter = 2;
 $pref::DefaultSkybox = "platinum/data/skies_pq/Blender3/blender3.dml";
@@ -141,6 +141,7 @@ $pref::Video::ParticleMaxDistance = 50;
 $pref::Video::ParticlesPercent = 1;
 $pref::Video::PostProcessing = 1;
 $pref::Video::TextureQuality = 2;
+$pref::Video::ShapeBloomQuality = 3;
 //Marble reflection settings
 $pref::Video::MarbleReflectionQuality = 1;
 $pref::Video::MarbleCubemapExtent = 64;

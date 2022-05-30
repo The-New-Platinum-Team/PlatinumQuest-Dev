@@ -234,9 +234,11 @@ function onPostServerVariableSet(%id, %previous, %value) {
 		case "PartySpawns":
 			if (%value) {
 				activateMode("partyspawns");
+				restartLevel();
 				$MP::ScoreSendingDisabled = true;
 			} else {
 				deactivateMode("partyspawns");
+				restartLevel();
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					if (ClientGroup.getObject(%i).getGemCount() != 0) {
@@ -251,9 +253,11 @@ function onPostServerVariableSet(%id, %previous, %value) {
 		case "HuntHardMode":
 		    if (%value) {
 				activateMode("hunthardmode");
+				restartLevel();
 				$MP::ScoreSendingDisabled = true;
 			} else {
 				deactivateMode("hunthardmode");
+				restartLevel();
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					if (ClientGroup.getObject(%i).getGemCount() != 0) {

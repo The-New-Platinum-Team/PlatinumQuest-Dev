@@ -91,8 +91,10 @@ function StartPad_MBM::onAdd(%this,%obj) {
 }
 
 function EndPad_MBM::onAdd(%this,%obj) {
-   if ($pref::spchanges && %obj.isTemperable $= "1")
+   if ($pref::spchanges && %obj.isTemperable $= "1") {
 	%obj.setDataBlock("EndPad_MBU");
+	return EndPad_MBU::onAdd(%this, %obj);
+   } else
 	return EndPadClass::onAdd(%this, %obj);
 }
 
@@ -110,6 +112,15 @@ function StartPadClass::onAdd(%this, %obj) {
 		%obj.setSkinName(%obj.skin);
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
+
+    if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+  		%obj.setDataBlock("StartPad_MBG");
+
+		if ($TexturePack::MBXP && !lb()) {
+			%obj.setDataBlock("StartPad_MBXP");
+		  	%obj.playThread(0,"ambient_ifl");
+		}
+   }
 }
 
 //-----------------------------------------------------------------------------
@@ -163,6 +174,36 @@ datablock StaticShapeData(EndPad_MBU : EndPad) {
 	playAnimation = true;
 };
 
+datablock StaticShapeData(MBU_LightBeam : EndPad) {
+	className = "";
+	shapefile = "~/data/shapes_mbu/pads/mbu/lightbeam.dts";
+};
+
+function EndPad_MBU::onAdd(%this, %obj) {
+	$Game::EndPad = %obj;
+	%obj.setName("EndPoint");
+
+	%temp = new StaticShape() {
+		datablock = MBU_LightBeam;
+		position = %obj.getPosition();
+		rotation = %rotation;
+		scale = %obj.getScale();
+	};
+	%temp.setParent(%obj, "0 0 0 1 0 0 0", true, "0 0 0");
+	%obj._mbulightbeam = %temp;
+	MissionCleanup.add(%temp);
+}
+
+function EndPad_MBU::onEditorDrag(%this, %obj) {
+	%obj._mbulightbeam.setTransform(%obj.getTransform());
+	%obj._mbulightbeam.setScale(%obj.getScale());
+}
+
+function EndPad_MBU::onInspectApply(%this, %obj) {
+	%obj._mbulightbeam.setTransform(%obj.getTransform());
+	%obj._mbulightbeam.setScale(%obj.getScale());
+}
+
 function EndPadClass::onAdd(%this, %obj) {
 	$Game::EndPad = %obj;
 	%obj.setName("EndPoint");
@@ -176,6 +217,17 @@ function EndPadClass::onAdd(%this, %obj) {
 		%obj.setSkinName(%obj.skin);
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
+
+    if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+  		%obj.setDataBlock("EndPad_MBG");
+
+		if ($TexturePack::MBXP && !lb()) {
+			%obj.setDataBlock("EndPad_MBXP");
+		  	%obj.playThread(0,"ambient_ifl");
+		  	%obj.playThread(1,"effect_loop");
+			%obj.playThread(2, "effect_vis");
+		}
+   }
 }
 
 //MBM Datablocks down below.
@@ -183,12 +235,28 @@ function EndPadClass::onAdd(%this, %obj) {
 if (!$pref::LegacyItems) {
 	datablock StaticShapeData(EndPad_MBM : EndPad) {
 		shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
+		skin[0] = "base";
+		skin[1] = "mbm";
+		
+		customField[0, "field"  ] = "skin";
+		customField[0, "type"   ] = "string";
+		customField[0, "name"   ] = "Skin Name";
+		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+		customField[0, "default"] = "base";
 
 		playAnimation = true;
 	};
 
 	datablock StaticShapeData(StartPad_MBM : StartPad) {
 		shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
+		skin[0] = "base";
+		skin[1] = "mbm";
+
+		customField[0, "field"  ] = "skin";
+		customField[0, "type"   ] = "string";
+		customField[0, "name"   ] = "Skin Name";
+		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+		customField[0, "default"] = "base";
 
 		playAnimation = true;
 	};

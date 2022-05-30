@@ -24,6 +24,14 @@
 //-----------------------------------------------------------------------------
 
 function shouldEnableBlast() {
+
+	if ($Game::IsMode["challenge"]) {
+		if ($CurrentWeeklyChallenge.blast || $CurrentWeeklyChallenge.tripleBlast)
+			return true;
+		if ($CurrentWeeklyChallenge.noBlast)
+			return false;
+	}
+
 	if (MissionInfo.noBlast) { //Allow missions to disable blast in MP
 		return false;
 	}
@@ -46,9 +54,6 @@ function shouldEnableBlast() {
 }
 
 function shouldUpdateBlast() {
-	if ($Game::isMode["hunthardmode"] && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {  //I hope this works now
-		return false;
-	}
 
 	return (shouldEnableBlast() && $PlayTimerActive) || //Only let them use blast when the time is running
 	       ($Game::State !$= "End" && MissionInfo.game $= "Ultra" && $Server::ServerType $= "SinglePlayer") || //Unless they're in a MBU level
@@ -60,7 +65,10 @@ function clientUpdateBlast(%timeDelta) {
 		return;
 	
 	// blast code update
-	$MP::BlastValue += (%timeDelta / $MP::BlastChargeTime);
+	if ($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast)
+		$MP::BlastValue += (%timeDelta / 12000);
+	else
+		$MP::BlastValue += (%timeDelta / $MP::BlastChargeTime);
 	if ($MP::BlastValue > 1)
 		$MP::BlastValue = 1;
 	if ($MP::BlastValue < 0)
@@ -70,7 +78,7 @@ function clientUpdateBlast(%timeDelta) {
 
 function performBlast() {
 	%blastValue = ($MP::SpecialBlast ? $MP::BlastRechargePower : mSqrt($MP::BlastValue));
-	if ($MP::PartyTripleBlast && !$MP::SpecialBlast) {%blastValue = mSqrt(0.25);} // 0.2's the 'minimum' blast allowed, but 0.25 feels more like the min
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast) && !$MP::SpecialBlast) {%blastValue = mSqrt(0.25);} // 0.2's the 'minimum' blast allowed, but 0.25 feels more like the min
 	//Best results found when whacked from here
 	%attack = "0 0 -1";
 

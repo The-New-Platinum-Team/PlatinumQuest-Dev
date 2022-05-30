@@ -133,6 +133,10 @@ function OptionsGui::apply(%this) {
 	%newRes = ($pref::Video::resolution !$= getResolution());
 
 	if (%newDisplay) {
+		disablePostFX();
+		disableBlur();
+		disableShaders();
+		reloadDts();
 		setDisplayDevice($pref::Video::displayDevice,
 		                 firstWord($pref::Video::resolution),
 		                 getWord($pref::Video::resolution, 1),
@@ -140,11 +144,19 @@ function OptionsGui::apply(%this) {
 		                 $pref::Video::fullScreen);
 		//OptionsGui::deviceDependent( %this );
 	} else if (%newRes) {
+		disablePostFX();
+		disableBlur();
+		disableShaders();
+		reloadDts();
 		setScreenMode(firstWord($pref::Video::resolution),
 		              getWord($pref::Video::resolution, 1),
 		              getWord($pref::Video::resolution, 2),
 		              $pref::Video::fullScreen);
 	} else if ($pref::Video::fullScreen != isFullScreen()) {
+		disablePostFX();
+		disableBlur();
+		disableShaders();
+		reloadDts();
 		toggleFullScreen();
 	}
 	if ($pref::Video::AntiAliasing != $OldConfig::Video::AntiAliasing) {
@@ -167,6 +179,7 @@ function OptionsGui::apply(%this) {
 			              $pref::Video::fullScreen);
 		}
 	}
+
 	if ($Options::TexturePackDirty) {
 		//Unload everything first
 		for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
@@ -300,6 +313,9 @@ if (canSupportPostFX()) { //No point supporting reflections if you don't support
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
+	$Options::Name    ["Graphics", $i++] = "bloom";
+	$Options::Title   ["Graphics", $i  ] = "Bloom";
+	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";
@@ -321,9 +337,6 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
-$Options::Name    ["Graphics", $i++] = "automaticUI";
-$Options::Title   ["Graphics", $i  ] = "Automatic UI Swap";
-$Options::Type    ["Graphics", $i  ] = "boolean";
 $Options::Name    ["Graphics", $i++] = "particleSystem";
 $Options::Title   ["Graphics", $i  ] = "Particle System";
 $Options::Type    ["Graphics", $i  ] = "value";
@@ -350,6 +363,12 @@ Array(MarbleReflectionQualityArray);
 MarbleReflectionQualityArray.addEntry("Disabled" TAB 0 TAB 32);
 MarbleReflectionQualityArray.addEntry("Basic"    TAB 1 TAB 64);
 MarbleReflectionQualityArray.addEntry("Advanced" TAB 2 TAB 128);
+
+Array(BloomQualityArray);
+BloomQualityArray.addEntry("Disabled" TAB 0);
+BloomQualityArray.addEntry("Basic"    TAB 1);
+BloomQualityArray.addEntry("High" TAB 2);
+BloomQualityArray.addEntry("Ultra" TAB 3);
 
 Array(InteriorShadersQualityArray);
 InteriorShadersQualityArray.addEntry("Legacy" TAB -1);
@@ -453,9 +472,6 @@ $Options::Type    ["Gameplay", 11] = "boolean";
 $Options::Name    ["Gameplay", 12] = "spchanges";
 $Options::Title   ["Gameplay", 12] = "Ultra Violet";
 $Options::Type    ["Gameplay", 12] = "boolean";
-$Options::Name    ["Gameplay", 13] = "recordingIndicator";
-$Options::Title   ["Gameplay", 13] = "Recording Indicator";
-$Options::Type    ["Gameplay", 13] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -679,6 +695,38 @@ function Opt_postprocessing_increase() {
 
 //-----------------------------------------------------------------------------
 
+function Opt_bloom_getDisplay() {
+	%entry = BloomQualityArray.getEntryByField($pref::Video::ShapeBloomQuality, 1);
+	if (%entry $= "") {
+		return $pref::Video::ShapeBloomQuality;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_bloom_getValue() {
+	return $pref::Video::ShapeBloomQuality;
+}
+
+function Opt_bloom_decrease() {
+	%index = BloomQualityArray.getIndexByField($pref::Video::ShapeBloomQuality, 1);
+	%index --;
+	if (%index < 0) {
+		%index = BloomQualityArray.getSize() - 1;
+	}
+	$pref::Video::ShapeBloomQuality = getField(BloomQualityArray.getEntry(%index), 1);
+}
+
+function Opt_bloom_increase() {
+	%index = BloomQualityArray.getIndexByField($pref::Video::ShapeBloomQuality, 1);
+	%index ++;
+	if (%index >= BloomQualityArray.getSize()) {
+		%index = 0;
+	}
+	$pref::Video::ShapeBloomQuality = getField(BloomQualityArray.getEntry(%index), 1);
+}
+
+//-----------------------------------------------------------------------------
+
 function Opt_interiorShaders_getDisplay() {
 	%entry = InteriorShadersQualityArray.getEntryByField($pref::Video::InteriorShaderQuality, 1);
 	if (%entry $= "") {
@@ -742,7 +790,7 @@ function Opt_legacyItems_decrease() {
 
 	if (!$liAssert) {
 		$liAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
@@ -751,7 +799,7 @@ function Opt_legacyItems_increase() {
 
 	if (!$liAssert) {
 		$liAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
@@ -866,7 +914,7 @@ function Opt_particleSystem_decrease() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
@@ -880,7 +928,7 @@ function Opt_particleSystem_increase() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart them game.");
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
 	}
 }
 
@@ -891,34 +939,6 @@ function Opt_particleSystem_increase() {
 function Opt_texturePack_edit() {
 	// Dialog does all the config for us (and sets $Options::TexturePackDirty)
 	RootGui.pushDialog(OptionsTexturePackDlg);
-}
-
-//-----------------------------------------------------------------------------
-
-function Opt_automaticUI_getDisplay() {
-	return $pref::AutomaticUI ? "Enabled" : "Disabled";
-}
-
-function Opt_automaticUI_getValue() {
-	return $pref::AutomaticUI;
-}
-
-function Opt_automaticUI_decrease() {
-	$pref::AutomaticUI = !$pref::AutomaticUI;
-
-	if (!$psAssert) {
-		$psAssert = true;
-		MessageBoxOK("Warning", "Enabling this option does increase loading time if you swap Games too frequently.");
-	}
-}
-
-function Opt_automaticUI_increase() {
-	$pref::AutomaticUI = !$pref::AutomaticUI;
-
-	if (!$psAssert) {
-		$psAssert = true;
-		MessageBoxOK("Warning", "Enabling this option does increase loading time if you swap Games too frequently.");
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1152,24 +1172,6 @@ function Opt_fpsCounter_decrease() {
 function Opt_fpsCounter_increase() {
 	$pref::showFPSCounter = !$pref::showFPSCounter;
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
-}
-
-//-----------------------------------------------------------------------------
-
-function Opt_recordingIndicator_getDisplay() {
-	return $pref::showrecordingIndicator ? "Enabled" : "Disabled";
-}
-
-function Opt_recordingIndicator_getValue() {
-	return $pref::showrecordingIndicator;
-}
-
-function Opt_recordingIndicator_decrease() {
-	$pref::showrecordingIndicator = !$pref::showrecordingIndicator;
-}
-
-function Opt_recordingIndicator_increase() {
-	$pref::showrecordingIndicator = !$pref::showrecordingIndicator;
 }
 
 //-----------------------------------------------------------------------------

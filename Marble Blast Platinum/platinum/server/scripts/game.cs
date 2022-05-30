@@ -274,6 +274,8 @@ function onMissionReset() {
 	$Game::TimeStoppedClients = 0;
 	cancel($Game::StateSchedule);
 
+	$NoMovingPlatformFrictions = (MissionInfo.NoMPFriction $= "1") ? 1 : 0;
+
 	endFireWorks();
 	resetCannons();
 
@@ -510,7 +512,11 @@ function serverStateWaiting() {
 function serverStateStart() {
 	Time::reset();
 	Time::set(Mode::callback("getStartTime", 0));
-	$Game::StateSchedule = schedule(3500, 0, setGameState, "go");
+	if (!$TexturePack::MBXP || lb()) {
+		$Game::StateSchedule = schedule(3500, 0, setGameState, "go");
+	} else { 
+		$Game::StateSchedule = schedule(2000, 0, setGameState, "go");
+	}
 }
 
 function serverStateGo() {
@@ -554,7 +560,13 @@ function GameConnection::stateReady(%this) {
 	%this.spawnTime = $Time::CurrentTime;
 	%this.play2d(ReadyVoiceSfx);
 	%this.setMessage("ready");
-	%this.stateSchedule = %this.schedule(1500, "setGameState", "set");
+	if (!$TexturePack::MBXP || lb()) {
+		%this.stateSchedule = %this.schedule(1500, "setGameState", "set");
+	} else { 
+		if ($Game::State !$= "Start")
+			%this.stateSchedule = %this.schedule(1500, "setGameState", "Go");
+	}
+	
 }
 
 function GameConnection::stateSet(%this) {

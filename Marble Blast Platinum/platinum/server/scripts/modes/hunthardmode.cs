@@ -26,6 +26,8 @@ function Mode_hunthardmode::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onFoundGem");
 	%this.registerCallback("shouldRestorePowerup");
+	%this.registerCallback("shouldSendScores");
+	%this.registerCallback("modifyScoreData");
 }
 
 function Mode_hunthardmode::onFoundGem(%this, %object) {
@@ -52,8 +54,22 @@ function Mode_hunthardmode::onFoundGem(%this, %object) {
 			    alxPlay(PuMegaMarbleVoiceSfx);
 		}
 	}
+
+	%object.client.setBlastValue(0);
 }
 
 function Mode_hunthardmode::shouldRestorePowerup(%this, %object) {
 	return false; //No restoring your powerup fuck you
+}
+
+function Mode_hunthardmode::shouldSendScores(%this) {
+	if ($MPPref::Server::HuntHardMode && !$MPPref::Server::PartySpawns)
+		return true;
+	else
+		return false;
+}
+
+function Mode_hunthardmode::modifyScoreData(%this, %object) {
+	if (!$MPPref::Server::PartySpawns)
+		return %object.data @ "&extraModes[]=hunthardmode";
 }

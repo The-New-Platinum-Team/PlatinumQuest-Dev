@@ -77,7 +77,7 @@ function PlayGui::onWake(%this) {
 	LagIcon.setVisible(false);
 	showSpectatorMenu(false);
 
-    if ($Game::Record && !mp() && !$playingDemo && $pref::showrecordingIndicator) {
+    if ($Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
         RecordingIndicatorIcon.setVisible(true);
 	} else {
@@ -446,7 +446,10 @@ function PlayGui::updateBlastBar(%this) {
 	//Partial: 5 5 (total * 110) 17
 	PG_BlastFill.resize(5, 5, %this.blastValue * 110, 17);
 	%oldBitmap = PG_BlastFrame.bitmap;
-	%newBitmap = $usermods @ "/client/ui/game/blastbar";
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast))
+		%newBitmap = $usermods @ "/client/ui/game/blastbar_triple";
+	else
+		%newBitmap = $usermods @ "/client/ui/game/blastbar";
 	if ($MP::SpecialBlast)
 		%newBitmap = %newBitmap @ "_charged";
 	if (%oldBitmap !$= %newBitmap)
@@ -454,11 +457,11 @@ function PlayGui::updateBlastBar(%this) {
 
 	%oldBitmap = PG_BlastFill.bitmap;
 	%newBitmap = $usermods @ "/client/ui/game/blastbar_bar";
-	if (%this.blastValue >= $MP::BlastRequiredAmount)
+	if (%this.blastValue >= (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) ? 0.33 : $MP::BlastRequiredAmount))
 		%newBitmap = %newBitmap @ "green";
 	else
 		%newBitmap = %newBitmap @ "gray";
-	if ($MP::PartyTripleBlast)
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast))
 		%newBitmap = $usermods @ "/client/ui/game/blastbar_bar" @ "triple";
 	if (%oldBitmap !$= %newBitmap)
 		PG_BlastFill.setBitmap(%newBitmap);
@@ -1166,20 +1169,32 @@ function PlayGui::updateControls(%this) {
 
 //-----------------------------------------------------------------------------
 
-function GuiBitmapCtrl::setNumber(%this,%number) {
-	%dir = $userMods @ "/client/ui/game/numbers/";
-	%this.setBitmap(%dir @ %number @ ".png");
-}
-function GuiBitmapCtrl::setTimeNumber(%this,%number) {
-	%dir = $userMods @ "/client/ui/game/numbers/";
-	%this.setBitmap(%dir @ %number @ ".png");
-	%this.bitmapColor = $PlayTimerColor;
-}
-function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
-	%dir = $userMods @ "/client/ui/game/numbers/";
-	%this.setBitmap(%dir @ %number @ ".png");
-	%this.bitmapColor = %color;
-}
+$numberPaths[0] = $userMods @ "/client/ui/game/numbers/0.png";
+$numberPaths[1] = $userMods @ "/client/ui/game/numbers/1.png";
+$numberPaths[2] = $userMods @ "/client/ui/game/numbers/2.png";
+$numberPaths[3] = $userMods @ "/client/ui/game/numbers/3.png";
+$numberPaths[4] = $userMods @ "/client/ui/game/numbers/4.png";
+$numberPaths[5] = $userMods @ "/client/ui/game/numbers/5.png";
+$numberPaths[6] = $userMods @ "/client/ui/game/numbers/6.png";
+$numberPaths[7] = $userMods @ "/client/ui/game/numbers/7.png";
+$numberPaths[8] = $userMods @ "/client/ui/game/numbers/8.png";
+$numberPaths[9] = $userMods @ "/client/ui/game/numbers/9.png";
+$numberPaths["point"] = $userMods @ "/client/ui/game/numbers/point.png";
+$numberPaths["colon"] = $userMods @ "/client/ui/game/numbers/colon.png";
+$numberPaths["dash"] = $userMods @ "/client/ui/game/numbers/dash.png";
+$numberPaths["slash"] = $userMods @ "/client/ui/game/numbers/slash.png";
+
+// function GuiBitmapCtrl::setNumber(%this,%number) {
+// 	%this.setBitmap($numberPaths[%number]);
+// }
+// function GuiBitmapCtrl::setTimeNumber(%this,%number) {
+// 	%this.setBitmap($numberPaths[%number]);
+// 	%this.bitmapColor = $PlayTimerColor;
+// }
+// function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
+// 	%this.setBitmap($numberPaths[%number]);
+// 	%this.bitmapColor = %color;
+// }
 
 //-----------------------------------------------------------------------------
 

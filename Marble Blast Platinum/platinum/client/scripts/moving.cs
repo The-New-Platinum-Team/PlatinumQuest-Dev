@@ -153,57 +153,57 @@ function stopParenting(%objId) {
 	ClientParentedObjects.removeMatching(%objId);
 }
 
-function updateClientParentedObjects(%delta) {
-	%count = ClientParentedObjects.getSize();
-	for (%i = 0; %i < %count; %i++) {
-		%id = ClientParentedObjects.getEntry(%i);
-		%obj = getClientSyncObject(%id);
-		if (!isObject(%obj)) {
-			continue;
-		}
+// function updateClientParentedObjects(%delta) {
+// 	%count = ClientParentedObjects.getSize();
+// 	for (%i = 0; %i < %count; %i++) {
+// 		%id = ClientParentedObjects.getEntry(%i);
+// 		%obj = getClientSyncObject(%id);
+// 		if (!isObject(%obj)) {
+// 			continue;
+// 		}
 
-		//Resolve our parent
-		%parent = getClientSyncObject(%obj._parentId);
-		if (!isObject(%parent)) {
-			continue;
-		}
+// 		//Resolve our parent
+// 		%parent = getClientSyncObject(%obj._parentId);
+// 		if (!isObject(%parent)) {
+// 			continue;
+// 		}
 
-		//Get each of the variables that we need
-		%simple    = %obj.parentSimple;
-		%transform = %obj._parentTransform;
-		%offset    = %obj.parentOffset;
-		%noRot     = %obj.parentNoRot;
+// 		//Get each of the variables that we need
+// 		%simple    = %obj.parentSimple;
+// 		%transform = %obj._parentTransform;
+// 		%offset    = %obj.parentOffset;
+// 		%noRot     = %obj.parentNoRot;
 
-		%trans = %parent.getTransform();
-		if (%noRot)
-			%trans = MatrixPos(%trans) SPC "1 0 0 ";
+// 		%trans = %parent.getTransform();
+// 		if (%noRot)
+// 			%trans = MatrixPos(%trans) SPC "1 0 0 ";
 
-		if (%simple) {
-			//Simple parenting is just taking the transform from the parent
-			%final = %trans;
-		} else {
-			//If we don't currently have a parent transform calculated then we
-			// can't really parent, as the server controls this.
-			if (%transform $= "") {
-				continue;
-			}
-			//Parenting is super crazy simple
-			%final = MatrixMultiply(%trans, %transform);
-		}
+// 		if (%simple) {
+// 			//Simple parenting is just taking the transform from the parent
+// 			%final = %trans;
+// 		} else {
+// 			//If we don't currently have a parent transform calculated then we
+// 			// can't really parent, as the server controls this.
+// 			if (%transform $= "") {
+// 				continue;
+// 			}
+// 			//Parenting is super crazy simple
+// 			%final = MatrixMultiply(%trans, %transform);
+// 		}
 
-		//Apply an offset if requested
-		%final = MatrixMultiply(%final, %offset SPC "1 0 0 0");
-		if (%obj.getClassName() $= "Item") {
-			//Simulate item rotation because constant setTransform() breaks the
-			// engine rotation.
-			// Period = 1 full turn / 3 seconds (hardcoded in engine)
-			// Always on Z axis too
-			%final = MatrixMultiply(%final, "0 0 0 0 0 1" SPC($Sim::Time * ($pi * 2) / 3));
-		}
-		//And set the transform
-		%obj.setTransform(%final);
-	}
-}
+// 		//Apply an offset if requested
+// 		%final = MatrixMultiply(%final, %offset SPC "1 0 0 0");
+// 		if (%obj.getClassName() $= "Item") {
+// 			//Simulate item rotation because constant setTransform() breaks the
+// 			// engine rotation.
+// 			// Period = 1 full turn / 3 seconds (hardcoded in engine)
+// 			// Always on Z axis too
+// 			%final = MatrixMultiply(%final, "0 0 0 0 0 1" SPC($Sim::Time * ($pi * 2) / 3));
+// 		}
+// 		//And set the transform
+// 		%obj.setTransform(%final);
+// 	}
+// }
 
 //Magic constant for ice shard "bounciness". Found by mutual argument.
 //0 = full bounce, 1 = go straight through. This value made the least salt.
@@ -242,7 +242,7 @@ function SceneObject::getSurfaceVelocity(%this, %marble, %point, %distance) {
 	//1 turn / 18s
 	//6.28m * r / 18s
 
-	%prev = getClientSyncObject(%obj._pathPrevSyncId);
+	%prev = getClientSyncObject(%this._pathPrevSyncId);
 	%node = getClientSyncObject(%this._pathSyncId);
 	%next = Node::getNextNode(%this, %node);
 
@@ -267,8 +267,8 @@ function SceneObject::getSurfaceVelocity(%this, %marble, %point, %distance) {
 		//Todo: Continuous derivative?
 		%startRot = MatrixRot(%next.getTransform());
 		%endRot   = MatrixRot(%node.getTransform());
-		%mat0 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %obj, %t));
-		%mat1 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %obj, %t + 0.001));
+		%mat0 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %node, %t));
+		%mat1 = "0 0 0" SPC RotInterpolate(%startRot, %endRot, Node::getAdjustedProgress(%this, %node, %t + 0.001));
 
 		%div = MatrixDivide(%mat1, %mat0);
 

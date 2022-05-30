@@ -183,6 +183,24 @@ new GuiControl(LBChatGui) {
 					controlLeft = "LBChatSinglePlayer";
 					controlRight = "LBChatLeaderboards";
 			};
+			new GuiBorderButtonCtrl(LBChatChallenges) {
+				profile = "PQButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "400 0";
+				extent = "131 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "$CurrentGame=\"challenge\";$MissionType=\"challengegold\";$LBPref::ChallengeOpened=1;PlayMissionGui.open();PlayMissionGui.setGame(\"challenge\");PlayMissionGui.setMissionType(\"challengegold\");";
+				helpTag = "0";
+				text = "Challenges";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+					controlLeft = "LBChatSinglePlayer";
+					controlRight = "LBChatLeaderboards";
+			};
 			new GuiControl() {
 				profile = "PQWindowProfile";
 				horizSizing = "left";
@@ -433,6 +451,25 @@ function LBChatGui::onWake(%this) {
 	onNextFrame(LBSetMode, 0);
 
 	setDiscordStatus("In Global Lobby");
+
+	// Rotate color of challenge button
+	if (!$LBPref::ChallengeOpened)
+		LBRotateChallengeColor();
+}
+
+function LBRotateChallengeColor() {
+	cancel(LBChatGui.challengeButtonSch);
+	if (LBChatGui.colorRot $= "") {
+		LBChatGui.colorRot = 0;
+	}
+	if ($LBPref::ChallengeOpened) {
+		LBChatChallenges.borderColor = "";
+	}
+	if (isObject(LBChatChallenges) && !$LBPref::ChallengeOpened) {
+		LBChatChallenges.borderColor = HSVtoRGB(LBChatGui.colorRot, 1, 1);
+		LBChatGui.colorRot++;
+		LBChatGui.challengeButtonSch = schedule(10, 0, LBRotateChallengeColor);
+	}
 }
 
 // show welcome message

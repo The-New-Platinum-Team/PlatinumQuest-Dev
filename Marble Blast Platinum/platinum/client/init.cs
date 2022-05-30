@@ -246,6 +246,7 @@ function initClient() {
 	addDirectoryOverride("platinum/data/interiors/", "platinum/data/interiors_mbp/");
 	//Anything else we probably can't save, but why not try?
 	addDirectoryOverride("marble/data/", "platinum/data/");
+	addDirectoryOverride("challenge/data/", "platinum/data/");
 
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.
@@ -336,6 +337,7 @@ function doInteriorTest(%interiorName) {
 
 
 function isScriptFile(%file) {
+	%file = strReplace(%file, "challenge/data", "platinum/data");
 	if (isFile(%file) || isFile(%file @ ".dso"))
 		return true;
 	return false;
@@ -426,7 +428,7 @@ function loadMainMenu() {
 
 	//Show the loaded level before doing anything slow
 	PlayMissionGui.init();
-	if ($pref::AnimatePreviews && $pref::Introduced) {
+	if ($pref::AnimatePreviews && $pref::Introduced && !PlayMissionGui.isMarblelandMission()) {
 		PlayMissionGui.loadMission();
 	}
 	Canvas.repaint();
@@ -435,7 +437,7 @@ function loadMainMenu() {
 	Unlock::updateCaches(true);
 
 	//Go straight to the main menu if we're not loading a mission
-	if (!$pref::AnimatePreviews && $pref::Introduced) {
+	if ((!$pref::AnimatePreviews && $pref::Introduced) || PlayMissionGui.isMarblelandMission()) {
 		RootGui.setContent(MainMenuGui);
 	}
 

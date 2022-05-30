@@ -474,7 +474,7 @@ function MarblelandDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 
 	MarblelandPackages.addEntry($MarblelandDownloadId);
-	loadMBPackage("marbleland/" @ $MarblelandDownloadId);
+	loadMBPackageMis("marbleland/" @ $MarblelandDownloadId);
 	PlayMissionGui.ml.buildCustomDifficultyTree();
 
 	// Refresh "Custom" and "custom/marbleland" difficulties
@@ -519,14 +519,23 @@ function MarblelandDlg::start(%this) {
 	%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
 	%mission.file = "platinum/data/missions/marbleland/" @ %misname;
 	PlayMissionGui.setSelectedMission(%mission, "Custom", "Custom/");
+
+	%marblelandId = getSubStr(%mission.file, strrpos(%mission.file, "_") + 1, strrpos(%mission.file, ".") - strrpos(%mission.file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
+	// Get the ids of the rest of the marbleland missions and unload them
+	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+		%pakName = MarblelandPackages.getEntry(%i);
+		if (%pakName != %marblelandId) {
+			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+				unloadMBPackage("marbleland/" @ %pakName);
+				loadMBPackageMis("marbleland/" @ %pakName);
+			}
+		}
+	}
+
+	// Reload the one which is gonna be played
+	loadMBPackage("marbleland/" @ %marblelandId);
+
 	menuLoadStartMission(%mission.file);
-}
-
-
-// quick start when the enter key is pressed
-function MarblelandDlg::entryStart(%this) {
-	if (MarblelandSearchMissionList.getSelectedId() != -1)
-		%this.StartMission();
 }
 
 function MarblelandDlg::clearSearch(%this) {
@@ -593,6 +602,12 @@ function MarblelandDlg::onSelect(%this) {
 	} else {
 		MarblelandSearchDelete.setVisible(false);
 		MarblelandSearchPlay.setVisible(true);
+		MarblelandSearchStart.setActive(false);
+	}
+
+	if (isObject(MarblelandDownloader))
+	{
+		MarblelandSearchPlay.setActive(false);
 		MarblelandSearchStart.setActive(false);
 	}
 

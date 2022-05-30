@@ -317,7 +317,10 @@ function playMusic(%musicFileBase) {
 }
 
 function playShellMusic() {
-	playMusic(getMusicFile("Menu"));
+	if (!$TexturePack::MBXP) 
+		playMusic(getMusicFile("Menu"));
+	else
+		playMusic(getMusicFile("XP"));
 }
 
 function playLBMusic() {
@@ -366,6 +369,7 @@ function buildMusicList() {
 
 $Music::Songs["LB"]     = "Comforting Mystery.ogg";
 $Music::Songs["Menu"]   = "Pianoforte.ogg";
+$Music::Songs["XP"]   = "ShellXP.ogg";
 $Music::Songs["Game"]   = "*";
 
 function getMusicFile(%location) {

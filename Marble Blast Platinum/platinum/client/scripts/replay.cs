@@ -266,7 +266,7 @@ function recordWritePhysics(%stream) {
 	%count = MarbleAttributeInfoArray.getSize();
 	for (%i = 0; %i < %count; %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%field = getField(%attribute, 0);
+		%field = %attribute.internalField;
 		%value = Physics::getProperty(%field);
 
 		if (%stream._lastPhysics[%field] !$= %value) {
@@ -284,7 +284,7 @@ function recordWritePhysics(%stream) {
 	%stream.writeRawU8(%total);
 	for (%i = 0; %i < %count; %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%field = getField(%attribute, 0);
+		%field = %attribute.internalField;
 		%value = Physics::getProperty(%field);
 
 		if (%stream._lastPhysics[%field] !$= %value) {
@@ -302,7 +302,7 @@ function recordCheckPhysicsUpdate(%stream) {
 	%count = MarbleAttributeInfoArray.getSize();
 	for (%i = 0; %i < %count; %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%field = getField(%attribute, 0);
+		%field = %attribute.internalField;
 		%value = Physics::getProperty(%field);
 
 		if (%stream._lastPhysics[%field] !$= %value) {

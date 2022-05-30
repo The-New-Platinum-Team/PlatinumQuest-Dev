@@ -344,6 +344,41 @@ function statsRecordScoreLine(%line) {
 	}
 }
 
+function statsRecordChallengeScore(%mission) {
+	%score = $Game::FinalScore;
+
+	//Extract the parts of the score and make them pretty
+	%score = removeScientificNotation(getField(%score, 1));
+
+	//Major hack
+	%client = LocalClientConnection;
+
+	%modeFields = ClientMode::callbackForMission(%mission, "getScoreFields", "");
+
+	statsPost("api/Score/RecordChallengeScore.php",
+		statsGetMissionIdentifier(%mission) @
+		"&score=" @ %score @
+		%modeFields);
+}
+function statsRecordChallengeScoreLine(%line) {
+	%command = firstWord(%line);
+	switch$ (%command) {
+	case "SUCCESS":
+		echo("Stats: Score recorded");
+		if (!$LB::Guest) {
+			statsGetPersonalTopScores(getMissionInfo($Client::MissionFile)); // TODO
+		}
+		statsGetGlobalChallengeTopScores(getMissionInfo($Client::MissionFile), $CurrentWeeklyChallenge.name);
+	case "FAILURE":
+		echo("Stats: Score record failure");
+	case "POSITION":
+		%position = restWords(%line);
+		echo("Stats: Score position is " @ %position);
+		$LB::LevelPosition = %position;
+		reformatGameEndText();
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 function statsRecordEgg(%mission, %time) {
@@ -467,6 +502,37 @@ function statsGetGlobalTopScoresLine(%line, %req) {
 	}
 }
 
+function statsGetGlobalChallengeTopScores(%mission, %challenge) {
+	%missionData = statsGetMissionIdentifier(%mission);
+
+	if (%challenge !$= "") {
+		%missionData = addParam(%missionData, "challenge", %challenge);
+	}
+
+	%req = statsPost("api/Score/GetGlobalChallengeTopScores.php", %missionData);
+	%req.mission = %mission;
+}
+function statsGetGlobalChallengeTopScoresLine(%line, %req) {
+	if (firstWord(%line) $= "ARGUMENT") {
+		//Nope
+		PlayMissionGui.onOnlineChallengeScoreFailed(%req.mission);
+		return;
+	}
+	fwrite("platinum/json/globalChallengeTopScores.json", %line);
+
+	//Json data
+	%parsed = jsonParse(%line);
+	if (isObject(%parsed)) {
+		if (%req.mission.is_custom) {
+			devecho("Found custom mission id " @ %parsed.missionId @ " for mission " @ %req.mission.file);
+			%req.mission.id = %parsed.missionId;
+		}
+		PlayMissionGui.onOnlineChallengeScoreUpdate(%parsed);
+	} else {
+		PlayMissionGui.onOnlineChallengeScoreFailed(%req.mission);
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 function statsGetTopScoreModes(%mission, %modifiers) {
@@ -503,16 +569,29 @@ function statsGetTopScoreModesLine(%line, %req) {
 
 //-----------------------------------------------------------------------------
 
-function statsGetPersonalTopScores(%mission) {
+function statsGetPersonalTopScores(%mission, %challenge) {
 	%missionData = statsGetMissionIdentifier(%mission);
+
+	if (%challenge !$= "") {
+		%missionData = addParam(%missionData, "challenge", %challenge);
+	}
 
 	%req = statsPost("api/Score/GetPersonalTopScores.php", %missionData);
 	%req.mission = %mission;
+
+	if (%challenge !$= "") {
+		%req.challenge = true;
+	}
 }
 function statsGetPersonalTopScoresLine(%line, %req) {
+
+	%challenge = 0;
+	if (%req.challenge)
+		%challenge = 1;
+
 	if (firstWord(%line) $= "ARGUMENT") {
 		//Nope
-		PlayMissionGui.onPersonalScoreFailed(%req.mission);
+		PlayMissionGui.onPersonalScoreFailed(%req.mission, %challenge);
 		return;
 	}
 	fwrite("platinum/json/personalTopScores.json", %line);
@@ -524,9 +603,9 @@ function statsGetPersonalTopScoresLine(%line, %req) {
 			devecho("Found custom mission id " @ %parsed.missionId @ " for mission " @ %req.mission.file);
 			%req.mission.id = %parsed.missionId;
 		}
-		PlayMissionGui.onPersonalScoreUpdate(%parsed);
+		PlayMissionGui.onPersonalScoreUpdate(%parsed, %challenge);
 	} else {
-		PlayMissionGui.onPersonalScoreFailed(%req.mission);
+		PlayMissionGui.onPersonalScoreFailed(%req.mission, %challenge);
 	}
 }
 
@@ -563,14 +642,14 @@ function statsGetEasterEggsLine(%line) {
 //-----------------------------------------------------------------------------
 
 function statsGetMissionList(%gameType) {
-	%req = statsPost("api/Mission/GetMissionList.php", "gameType=" @ %gameType);
+	%req = statsPost("api/Mission/GetMissionListChallenge.php", "gameType=" @ %gameType);
 	%req.gameType = %gameType;
 	if (!$Server::Dedicated) {
 		LBAddLoadProgress();
 	}
 }
 
-function statsGetMissionListLine(%line, %req) {
+function statsGetMissionListChallengeLine(%line, %req) {
 	fwrite("platinum/json/missionList-" @ %req.gameType @ ".json", %line);
 
 	%update = false;
@@ -963,6 +1042,9 @@ function statsGetReplayLine(%line) {
 		%parsed.delete();
 
 		playReplay(%path);
+	} else {
+		MessageBoxOk("Cannot play replay", %parsed.error);
+		%parsed.delete();
 	}
 }
 

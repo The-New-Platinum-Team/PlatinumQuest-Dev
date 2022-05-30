@@ -105,7 +105,10 @@ function MissionList::getMission(%this, %game, %difficulty, %file) {
 
 function MissionList::getMissionPreview(%this, %game, %difficulty, %mission) {
 	%file = %mission.file;
-	%dir = expandFilename(%this.getPreviewDirectory(%game, %difficulty));
+	if (%mission.previews_directory !$= "") {
+			%dir = expandFilename(%mission.previews_directory);
+	} else
+		%dir = expandFilename(%this.getPreviewDirectory(%game, %difficulty));
 
 	%prev = %dir @ "/" @ fileBase(%file) @ ".prev";
 	//Old style that's easier to ship
@@ -490,9 +493,15 @@ function OnlineMissionList::buildMissionLookup(%this) {
 			%missions = %difficulty.missions;
 			for (%k = 0; %k < %missions.getSize(); %k ++) {
 				%mission = %missions.getEntry(%k);
-				%this.lookupMission[%mission.basename] = %mission;
-				%this.lookupMission[%mission.id] = %mission;
-				%this.lookupMission[%mission.file] = %mission;
+				if (%game.name !$= "challenge") {
+					%this.lookupMission[%mission.basename] = %mission;
+					%this.lookupMission[%mission.id] = %mission;
+					%this.lookupMission[%mission.file] = %mission;
+				} else {
+					%this.lookupMission[%mission.basename, "challenge"] = %mission;
+					%this.lookupMission[%mission.id] = %mission;
+					%this.lookupMission[%mission.file, "challenge"] = %mission;
+				}
 				%mission.difficultyId = %difficultyId;
 				%mission.gameId = %gameId;
 			}
@@ -695,8 +704,12 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 					easterEgg = %missionObj.has_egg;
 					id = %missionObj.id;
 
+					previews_directory = %missionObj.previews_directory;
+					bitmap_directory = %missionObj.bitmap_directory;
+					
 					file = %file;
 					downloaded = false;
+					partial = true;
 				});
 				$Mission::Info[%file] = %info;
 			}
@@ -722,6 +735,9 @@ function OnlineMissionList::getGameMode(%this, %game) {
 	}
 	%gameObj = %this.lookupGame[%game];
 	%mode = %gameObj.force_gamemode;
+	if (%mode $= "challenge") {
+		setWeeklyChallenge(%gameObj.challenge);
+	}
 	return %mode;
 }
 

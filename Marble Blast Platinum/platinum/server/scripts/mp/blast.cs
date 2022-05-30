@@ -52,7 +52,10 @@ function serverBlastUpdate() {
 			continue;
 		%blastValue = %client.blastValue;
 		// Update blast value
-		%blastValue += (%timeDelta / $MP::BlastChargeTime);
+		if ($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast)
+			%blastValue += (%timeDelta / 12000);
+		else
+			%blastValue += (%timeDelta / $MP::BlastChargeTime);
 		// Normalize blast value
 		//Keep it 0 < value < 1
 		if (%client.usingSpecialBlast)
@@ -78,11 +81,14 @@ function serverCmdBlast(%client, %gravity) {
 		return;
 	}
 
-	if (%client.usingPartyTripleBlast) {
+	if (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || %client.usingPartyTripleBlast) {
 		if (%client.blastValue <= 0.35) { // It should be "== 0.34", but uh, floating point nonsense
 			%client.setBlastValue(0);
-			%client.usingPartyTripleBlast = false;
-			$MP::PartyTripleBlast = false;
+			if (%client.usingPartyTripleBlast)
+			{
+				%client.usingPartyTripleBlast = false;
+				$MP::PartyTripleBlast = false;
+			}
 		} else {
 			%client.setBlastValue(%client.blastValue - 0.33); // Sends to client
 		}
@@ -310,8 +316,8 @@ function GameConnection::makeBlastParticle(%this, %gravity) {
 
 	// get the blast particles
 	if (((Sky.materialList $= "platinum/data/skies_mbu/beginner/sky_beginner.dml") || (Sky.materialList $= "platinum/data/skies_mbu/intermediate/sky_intermediate.dml") || (Sky.materialList $= "platinum/data/skies_mbu/advanced/sky_advanced.dml")) && !$pref::LegacyItems) {
-		%this.player.mountImage(BlastImage, 0);
-		%this.mountSch = %this.player.schedule(400, "unmountImage", 0);
+		%this.player.unmountImage(0);
+		%this.mountSch = %this.player.schedule(25, "mountImage", BlastImage, 0); //This is so fucking scuffed but it works. - Daniel
 		%emitter = (%this.usingSpecialBlast ? MBUUltraBlastEmitter : MBUBlastEmitter);
 		%this.transferParticles(%emitter, false, %gravity);
 	} else {

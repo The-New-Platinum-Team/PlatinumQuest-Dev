@@ -556,6 +556,20 @@ new GuiControl(PlayMissionGui) {
 					repeatDecay = "1";
 					bitmap = "./play/scoreModes/dd";
 				};
+				new GuiMLTextCtrl(PM_ScoreReplayWatch) {
+					profile = "PMGMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "332 0";
+					extent = "186 28";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					text = "<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
 			};
 		};
 		new GuiMLTextCtrl(PM_MissionTitle) {
@@ -1244,7 +1258,7 @@ function PlayMissionGui::onWake(%this) {
 	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
 		%pakName = MarblelandPackages.getEntry(%i);
 		if (!isLoadedMBPackage("marbleland/" @ %pakName)) {
-			loadMBPackage("marbleland/" @ %pakName);
+			loadMBPackageMis("marbleland/" @ %pakName);
 		}
 	}
 
@@ -1440,7 +1454,7 @@ function PlayMissionGui::buildDifficultyList(%this) {
 		%name = getField(%entry, 0);
 		%display = getField(%entry, 1);
 
-		if (!%this.ml.hasMissionList($CurrentGame, %name)) {
+		if (!%this.ml.hasMissionList($CurrentGame, %name) && $CurrentGame !$= "challenge") {
 			//No files in this difficulty, scrap it and go to the next one
 			continue;
 		}
@@ -1595,6 +1609,11 @@ function PlayMissionGui::setGame(%this, %game) {
 	}
 
 	$CurrentGame = %game;
+	%mode = %this.ml.getGameMode(%game);
+
+	if (%mode $= "challenge") {
+		setWeeklyChallenge(%gameObj.challenge);
+	}
 
 	%this.buildDifficultyList();
 
@@ -2033,8 +2052,12 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 
 		//Check if we have WR for the WR frame
 		if (lb()) {
-			if (isObject(%this.personalScoreListCache) && isObject(%this.personalScoreListCache.record)
-				&& %this.personalScoreListCache.record.containsEntry(%level.id)) {
+			%recordcache = %this.personalScoreListCache.record;
+			if ($CurrentGame $= "challenge") {
+				%recordcache = %this.personalScoreListCache.challengerecord;
+			}
+			if (isObject(%this.personalScoreListCache) && isObject(%recordcache)
+				&& %recordcache.containsEntry(%level.id)) {
 				//Oh cool, we do
 				%frameImage = "./play/frame_record";
 			}
@@ -2109,7 +2132,10 @@ function PlayMissionGui::showMissionIcon(%this, %frame) {
 
 	%unlocked = Unlock::canPlayMission(%level);
 	if (%frame.icon.levelBitmap $= "") {
-		%bitmap = expandFilename(%this.getBitmapDirectory($CurrentGame, $MissionType) @ "/" @ fileBase(%level.file));
+		if (%level.bitmap_directory !$= "") {
+			%bitmap = expandFilename(%level.bitmap_directory @ "/" @ fileBase(%level.file));
+		} else
+			%bitmap = expandFilename(%this.getBitmapDirectory($CurrentGame, $MissionType) @ "/" @ fileBase(%level.file));
 		if (!isBitmap(%bitmap)) {
 			%bitmap = resolveMissionBitmap(%level);
 		}
@@ -2311,9 +2337,15 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%mid = %this.getMissionInfo().file;
 
 		if (%this.globalScoreMode $= "") {
-			%scoreList = %this.globalScoreCache[%mid];
-			%loading = %this.globalScoreCacheLoading[%mid];
-			%failed = %this.globalScoreCacheFailed[%mid] || (%mid $= "");
+			if ($CurrentGame $= "challenge") {
+				%scoreList = %this.globalChallengeScoreCache[%mid];
+				%loading = %this.globalChallengeScoreCacheLoading[%mid];
+				%failed = %this.globalChallengeScoreCacheFailed[%mid] || (%mid $= "");
+			} else {
+				%scoreList = %this.globalScoreCache[%mid];
+				%loading = %this.globalScoreCacheLoading[%mid];
+				%failed = %this.globalScoreCacheFailed[%mid] || (%mid $= "");
+			} 
 		} else {
 			%scoreList = %this.globalScoreModeCache[%mid];
 			if (isObject(%scoreList)) {
@@ -2621,6 +2653,9 @@ function PlayMissionGui::updateMissionInfo(%this) {
 				continue;
 			%text3 = addRecord(%text3, "<bold:21><just:left>" @ %minfo.name @ ": <font:21>" @ %minfo.desc);
 		}
+		if ($CurrentGame $= "challenge") {
+			%text3 = addRecord(%text3, "<bold:21><just:left>Time Remaining: <font:21>" @ %this.ml.lookupGame["challenge"].duration);
+		}
 
 		if (lb() || PlayMissionGui.isMarblelandMission()) {
 			%text2 = "<just:center><font:21><a:gamelink showGlobalScores>Show Global Scores</a>";
@@ -2639,8 +2674,12 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 			%placement = 0;
 			//Same logic as updateMissionFrame, mark as world record if we have the record
-			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%this.personalScoreListCache.record)
-				&& %this.personalScoreListCache.record.containsEntry(%info.id)) {
+			%recordcache = %this.personalScoreListCache.record;
+			if ($CurrentGame $= "challenge") {
+				%recordcache = %this.personalScoreListCache.challengerecord;
+			}
+			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache)
+				&& %recordcache.containsEntry(%info.id)) {
 				%placement = 1;
 			}
 
@@ -2723,6 +2762,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	PM_InfoBox.setExtent(%width SPC %height);
 
 	PM_ScoreModeButtons.setVisible(lb() && %this.showGlobalScores);
+	PM_ScoreReplayWatch.setText("");
 	if (lb()) {
 		//Align mode button panel to bottom
 		PM_ScoreModeButtons.resize(0, getWord(PM_MissionInfoPanel.getExtent(), 1) - %modeButtonsHeight, getWord(PM_MissionInfoPanel.getExtent(), 0), %modeButtonsHeight);
@@ -2748,6 +2788,12 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		PM_ScoreModeLap.setValue(%this.globalScoreMode $= "lap");
 		PM_ScoreModeQuota100.setValue(%this.globalScoreMode $= "quota100");
 		PM_ScoreModeDD.setValue(%this.globalScoreMode $= "dd");
+
+		if (%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "") {
+			PM_ScoreReplayWatch.setText("<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>");
+		} else {
+			PM_ScoreReplayWatch.setText("");
+		}
 	}
 
 	if (mp()) {
@@ -2790,6 +2836,10 @@ function PM_MissionScoresTitle::onURL(%this, %url) {
 	PM_MissionInfo::onURL(%this, %url);
 }
 
+function PM_ScoreReplayWatch::onURL(%this, %url) {
+	PM_MissionInfo::onURL(%this, %url);
+}
+
 function PlayMissionGui::prevGlobalPage(%this) {
 	%this.globalPage --;
 	%this.updateMissionInfo();
@@ -2798,6 +2848,10 @@ function PlayMissionGui::prevGlobalPage(%this) {
 function PlayMissionGui::nextGlobalPage(%this) {
 	%this.globalPage ++;
 	%this.updateMissionInfo();
+}
+
+function PlayMissionGui::watchLBReplay(%this) {
+	statsGetReplay(PlayMissionGui.getMissionInfo(), (%this.globalScoreMode $= "egg") ? "Egg" : "Replay");
 }
 
 function PlayMissionGui::onTick(%this, %delta) {
@@ -2853,6 +2907,32 @@ function PlayMissionGui::hideBody(%this) {
 function PlayMissionGui::loadMission(%this) {
 	%list = %this.getMissionList($CurrentGame, $MissionType);
 	%file = %this.getMissionInfo().file;
+
+	// Unload marbleland missions EXCEPT the one that is gonna be played
+	if (%this.isMarblelandMission()) {
+		%marblelandId = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
+		// Get the ids of the rest of the marbleland missions and unload them
+		for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+			%pakName = MarblelandPackages.getEntry(%i);
+			if (%pakName != %marblelandId) {
+				if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+					unloadMBPackage("marbleland/" @ %pakName);
+					loadMBPackageMis("marbleland/" @ %pakName);
+				}
+			}
+		}
+
+		// Reload the one which is gonna be played
+		loadMBPackage("marbleland/" @ %marblelandId);
+	} else {
+		for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+			%pakName = MarblelandPackages.getEntry(%i);
+			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+				unloadMBPackage("marbleland/" @ %pakName);
+				loadMBPackageMis("marbleland/" @ %pakName);
+			}
+		}
+	}
 
 	//So we can't load two at a time
 	%this.deactivateMissionList();
@@ -2930,29 +3010,6 @@ function PlayMissionGui::play(%this) {
 			commandToServer('LoadMission', %this.getMissionInfo().file);
 		}
 	} else {
-
-		// Unload marbleland missions EXCEPT the one that is gonna be played
-		if (%this.isMarblelandMission()) {
-			%file = PlayMissionGui.getMissionInfo().file;
-			%marblelandId = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
-			// Get the ids of the rest of the marbleland missions and unload them
-			for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-				%pakName = MarblelandPackages.getEntry(%i);
-				if (%pakName != %marblelandId) {
-					if (isLoadedMBPackage("marbleland/" @ %pakName)) {
-						unloadMBPackage("marbleland/" @ %pakName);
-					}
-				}
-			}
-		} else {
-			for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-					%pakName = MarblelandPackages.getEntry(%i);
-					if (isLoadedMBPackage("marbleland/" @ %pakName)) {
-						unloadMBPackage("marbleland/" @ %pakName);
-				}
-			}
-		}
-
 		//Thanks, controller support
 		if (!Unlock::canPlayMission(%this.getMissionInfo())) {
 			return;
@@ -3337,19 +3394,34 @@ function PlayMissionGui::loadOnlineScores(%this) {
 	//Reset current scores
 	if (%this.getMissionInfo().id !$= "") {
 		%this.globalScoreCacheLoading[%this.getMissionInfo().id] = true;
-		%this.personalScoreCacheLoading[%this.getMissionInfo().id] = true;
+		%this.globalChallengeScoreCacheLoading[%this.getMissionInfo().id] = true;
 		%this.globalScoreCacheFailed[%this.getMissionInfo().id] = false;
-		%this.personalScoreCacheFailed[%this.getMissionInfo().id] = false;
+		%this.globalChallengeScoreCacheFailed[%this.getMissionInfo().id] = false;
 		%this.globalScoreModeCacheLoading[%this.getMissionInfo().id] = true;
 		%this.globalScoreModeCacheFailed[%this.getMissionInfo().id] = false;
+
+		if ($CurrentGame $= "challenge") {
+			%this.personalScoreCacheLoading[%this.getMissionInfo().id, 1] = true;
+			%this.personalScoreCacheFailed[%this.getMissionInfo().id, 1] = false;
+		} else {
+			%this.personalScoreCacheLoading[%this.getMissionInfo().id] = true;
+			%this.personalScoreCacheFailed[%this.getMissionInfo().id] = false;
+		}
 	}
 
 	//Get new scores
 	statsGetGlobalTopScores(%this.getMissionInfo());
+	// TODO
+	if (%this.ml.lookupGame["challenge"] !$= "") {
+		statsGetGlobalChallengeTopScores(%this.getMissionInfo(), %this.ml.lookupGame["challenge"].challenge);
+	}
 	statsGetTopScoreModes(%this.getMissionInfo());
 
 	if (!$LB::Guest) {
-		statsGetPersonalTopScores(%this.getMissionInfo());
+		if ($CurrentGame $= "challenge") {
+			statsGetPersonalTopScores(%this.getMissionInfo(), %this.ml.lookupGame["challenge"].challenge);
+		} else
+			statsGetPersonalTopScores(%this.getMissionInfo());
 	}
 }
 
@@ -3379,7 +3451,9 @@ function PlayMissionGui::getInitialScoresPage(%this) {
 	}
 
 	//Find which page is ours
-	if (%this.globalScoreMode $= "") {
+	if ($CurrentGame $= "challenge") {
+		%scores = %this.globalChallengeScoreCache[%id];
+	} else if (%this.globalScoreMode $= "") {
 		%scores = %this.globalScoreCache[%id];
 	} else {
 		%scores = %this.globalScoreModeCache[%id].getFieldValue(%this.globalScoreMode);
@@ -3428,6 +3502,38 @@ function PlayMissionGui::onOnlineScoreUpdate(%this, %scores) {
 	}
 }
 
+function PlayMissionGui::onOnlineChallengeScoreUpdate(%this, %scores) {
+	%this.globalChallengeScoreCache[%scores.missionId] = %scores;
+	%this.globalChallengeScoreCacheLoading[%scores.missionId] = false;
+	%this.globalChallengeScoreCacheFailed[%scores.missionId] = false;
+
+	//Update WR flags for this mission
+	if (%scores.scores.getSize() > 0) {
+		%had = %this.personalScoreListCache.challengerecord.containsEntry(%scores.missionId);
+		//Get entry for ourselves to see if we're first
+		%has = false;
+		for (%i = 0; %i < %scores.scores.getSize(); %i ++) {
+			if (%scores.scores.getEntry(%i).username $= $LB::Username) {
+				echo("Our new placement on this level is " @ %scores.scores.getEntry(%i).placement);
+				%has = %scores.scores.getEntry(%i).placement == 1;
+			}
+		}
+		if (%had && !%has) {
+			%this.personalScoreListCache.challengerecord.removeMatching(%scores.missionId);
+		} else if (%has && !%had) {
+			%this.personalScoreListCache.challengerecord.addEntry(%scores.missionId);
+		}
+	}
+
+	%this.globalPage = %this.getInitialScoresPage();
+	%this.updateCurrentMission();
+
+	// Update endgame just in case WR updated
+	if (EndGameDlg.isAwake()) {
+		reformatGameEndText();
+	}
+}
+
 function PlayMissionGui::onOnlineScoreFailed(%this, %mission) {
 	if (%mission.id !$= "") {
 		%this.globalScoreCache[%mission.id] = "";
@@ -3437,18 +3543,39 @@ function PlayMissionGui::onOnlineScoreFailed(%this, %mission) {
 	%this.updateCurrentMission();
 }
 
-function PlayMissionGui::onPersonalScoreUpdate(%this, %scores) {
-	%this.personalScoreCache[%scores.missionId] = %scores;
-	%this.personalScoreCacheLoading[%scores.missionId] = false;
-	%this.personalScoreCacheFailed[%scores.missionId] = false;
+function PlayMissionGui::onOnlineChallengeScoreFailed(%this, %mission) {
+	if (%mission.id !$= "") {
+		%this.globalChallengeScoreCache[%mission.id] = "";
+		%this.globalChallengeScoreCacheLoading[%mission.id] = false;
+		%this.globalChallengeScoreCacheFailed[%mission.id] = true;
+	}
 	%this.updateCurrentMission();
 }
 
-function PlayMissionGui::onPersonalScoreFailed(%this, %mission) {
+function PlayMissionGui::onPersonalScoreUpdate(%this, %scores, %challenge) {
+	if (%challenge) {
+		%this.personalScoreCache[%scores.missionId, %challenge] = %scores;
+		%this.personalScoreCacheLoading[%scores.missionId, %challenge] = false;
+		%this.personalScoreCacheFailed[%scores.missionId, %challenge] = false;
+	} else {
+		%this.personalScoreCache[%scores.missionId] = %scores;
+		%this.personalScoreCacheLoading[%scores.missionId] = false;
+		%this.personalScoreCacheFailed[%scores.missionId] = false;
+	}
+	%this.updateCurrentMission();
+}
+
+function PlayMissionGui::onPersonalScoreFailed(%this, %mission, %challenge) {
 	if (%mission.id !$= "") {
-		%this.personalScoreCache[%mission.id] = "";
-		%this.personalScoreCacheLoading[%mission.id] = false;
-		%this.personalScoreCacheFailed[%mission.id] = true;
+		if (%challenge) {
+			%this.personalScoreCache[%mission.id, %challenge] = "";
+			%this.personalScoreCacheLoading[%mission.id, %challenge] = false;
+			%this.personalScoreCacheFailed[%mission.id, %challenge] = true;
+		} else {
+			%this.personalScoreCache[%mission.id] = "";
+			%this.personalScoreCacheLoading[%mission.id] = false;
+			%this.personalScoreCacheFailed[%mission.id] = true;
+		}
 	}
 	%this.updateCurrentMission();
 }
@@ -3597,6 +3724,10 @@ function PlayMissionGui::clearOnlineCache(%this) {
 				if (isObject(%this.personalScoreCache[%mission.id])) {
 					%this.personalScoreCache[%mission.id].recurseDelete();
 					%this.personalScoreCache[%mission.id] = "";
+				}
+				if (isObject(%this.globalChallengeScoreCache[%mission.id])) {
+					%this.globalChallengeScoreCache[%mission.id].recurseDelete();
+					%this.globalChallengeScoreCache[%mission.id] = "";
 				}
 			}
 		}

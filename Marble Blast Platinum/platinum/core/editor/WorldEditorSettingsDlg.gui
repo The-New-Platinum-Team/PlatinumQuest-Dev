@@ -620,35 +620,35 @@ new GuiControl(WorldEditorSettingsDlg) {
 				text = "Move Scale";
 				maxLength = "255";
 			};
-			new GuiTextCtrl() {
-				profile = "GuiTextProfile";
-				horizSizing = "right";
-				vertSizing = "bottom";
-				position = "12 110";
-				extent = "84 18";
-				minExtent = "8 8";
-				visible = "1";
-				helpTag = "0";
-				text = "Create Gem Type";
-				maxLength = "255";
-			};
-			new GuiPopUpMenuCtrl(WESD_GemType) {
-				profile = "GuiPopUpMenuProfile";
-				horizSizing = "right";
-				vertSizing = "bottom";
-				position = "101 110";
-				extent = "107 18";
-				minExtent = "8 8";
-				visible = "1";
-				variable = "EWorldEditor.gemType";
-				command = "EWorldEditor.gemType = WESD_GemType.getValue();";
-				helpTag = "0";
-				maxLength = "255";
-				maxPopupHeight = "200";
-					_value0 = "normal";
-					_value1 = "pq";
-					_value2 = "fancy";
-			};
+			// new GuiTextCtrl() {           //These are not needed anymore, seeing as, when creating the gems, "MissionInfo.game" will be taken into account instead. ~Connie
+			// 	profile = "GuiTextProfile";
+			//	horizSizing = "right";
+			//	vertSizing = "bottom";
+			//	position = "12 110";
+			//	extent = "84 18";
+			//	minExtent = "8 8"; 
+			//	visible = "1";
+			//	helpTag = "0";
+			//	text = "Create Gem Type";
+			//	maxLength = "255";
+			// };
+			// new GuiPopUpMenuCtrl(WESD_GemType) {
+			//	profile = "GuiPopUpMenuProfile";
+			//	horizSizing = "right";
+			//	vertSizing = "bottom";
+			//	position = "101 110";
+			//	extent = "107 18";
+			//	minExtent = "8 8";
+			//	visible = "1";
+			//	variable = "EWorldEditor.gemType";
+			//	command = "EWorldEditor.gemType = WESD_GemType.getValue();";
+			//	helpTag = "0";
+			//	maxLength = "255";
+			//	maxPopupHeight = "200";
+			//		_value0 = "normal";
+			//		_value1 = "pq";
+			//		_value2 = "fancy";
+			// };
 			new GuiCheckBoxCtrl() {
 				profile = "GuiCheckBoxProfile";
 				horizSizing = "right";

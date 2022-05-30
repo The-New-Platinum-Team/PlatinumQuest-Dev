@@ -109,9 +109,14 @@ function TrapDoorClass::onAdd(%this, %obj) {
 	else
 		%obj.setSkinName(%obj.skin);
 
-	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "")) 
+	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "")) {
 		%obj.skin = "skin1";
 		%obj.setSkinName(%obj.skin);
+		if ($TexturePack::MBXP) {
+			%obj.skin = "skin0";
+			%obj.setSkinName(%obj.skin);
+		}
+	}
 
 	if (%obj.mbuanim $= "")
 		%obj.mbuanim = "0";
@@ -158,7 +163,7 @@ function TrapDoor_MBU::open(%this, %obj) {
 }
 
 function TrapdoorClass::close(%this, %obj) {
-	if ((%obj.mbuanim $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
+	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
 	%obj.playAudio(0,TrapDoorOpenMbgSfx);
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 

@@ -39,6 +39,11 @@ function EndGameDlg::onWake(%this) {
 
 	EG_Next.setVisible(!$Game::Introduction && !$Game::RunCredits);
 
+	if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
+		EG_Next.setVisible(false);
+	}
+	
+
 	%height = (getWord(EndGameDlg.extent, 1) + 25);
 	if (ControllerGui.isJoystick()) {
 		%height -= 25;
