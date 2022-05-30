@@ -36,6 +36,9 @@ function addHelpLine(%message, %playBeep) {
 		if ($TexturePack::MBGHelpUI) {
 			addDownYellowMBG(%message);
 			return;
+		} else if ($TexturePack::MBUHelpUI) {
+			addDownWhiteMBU(%message);
+			return;
 		}
 		$ChatHudMessageId ++;
 		%text = "<bold:23>" @ %message;
@@ -184,6 +187,15 @@ function fadeCenterWhiteMBG(%fade){ // Old helptext rendering from MBG
 }
 function addCenterWhiteMBG(%message) {
 	%text = "<just:center><font:DomCasualD:32>" @ %message;
+	WhiteCenterMBGShadow.setText("<color:000000>" @ %text);
+	WhiteCenterMBGText.setText("<color:FFFFFF>" @ %text);
+	cancel($CenterWhiteFadeTimer);
+	WhiteCenterMBGText.setAlpha(1.0);
+	WhiteCenterMBGShadow.setAlpha(1.0);
+	$CenterWhiteFadeTimer = schedule(3000, 0, fadeCenterWhiteMBG, 1.0);
+}
+function addCenterWhiteMBU(%message) {
+	%text = "<just:center><font:Arial Bold:30>" @ %message;
 	WhiteCenterMBGShadow.setText("<color:000000>" @ %text);
 	WhiteCenterMBGText.setText("<color:FFFFFF>" @ %text);
 	cancel($CenterWhiteFadeTimer);
@@ -355,6 +367,9 @@ function addBubbleLine(%message, %help, %time, %isAHelpLine) {
 	if ($TexturePack::MBGHelpUI) {
 		addCenterWhiteMBG(%message);
 		return;
+	} else if ($TexturePack::MBUHelpUI) {
+		addCenterWhiteMBU(%message);
+		return;
 	}
 
 	//Move the help bubble inwards
@@ -517,6 +532,25 @@ function addDownYellowMBG(%message,%color){
 	if (%color $= "")
 		%color = "ffff00";
 		%text = "<just:center><font:DomCasualD:32>" @ %message;
+		DownYellowMBGShadow.setText("<color:000000>" @ %text);
+		DownYellowMBGText.setText("<color:" @ %color @ ">" @ %text);
+		cancel($DownYellowFadeTimer);
+		DownYellowMBGText.setAlpha(0.8);
+		DownYellowMBGShadow.setAlpha(1.0);
+		$DownYellowFadeTimer = schedule(3000, 0, fadeDownYellowMBG, 1.0);
+		if (lb()) {
+			%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
+			if (!%hideChat) {
+				DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), 0 SPC 62 + (20 * ($LBPref::ChatMessageSize))), 1)); // Change position based on height of chat, if visible
+			}
+		} else {
+			DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), "0 62"), 1));
+		}
+}
+function addDownWhiteMBU(%message,%color){
+	if (%color $= "")
+		%color = "ffffff";
+		%text = "<just:center><font:Arial Bold:30>" @ %message;
 		DownYellowMBGShadow.setText("<color:000000>" @ %text);
 		DownYellowMBGText.setText("<color:" @ %color @ ">" @ %text);
 		cancel($DownYellowFadeTimer);
