@@ -136,7 +136,7 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addNote("\c4----------- Hunt -----------");
 		LargeFunctionDlg.addTextEditField("EMI_Hunt_GemSpawnRadius", "Gem spawn radius:", MissionInfo.radiusFromGem, 100, -1);
 		LargeFunctionDlg.addTextEditField("EMI_Hunt_MaxGemsPerSpawn", "Maximum gems per spawn:", MissionInfo.maxGemsPerSpawn, 100, -1);
-		LargeFunctionDlg.addDropMenu("EMI_Hunt_GemGroups", "Use Gem Groups:", MissionInfo.gemGroups, 0, "0\tNo\n1\tSpawn Whole Group\n2\tRandom Spawn in Group");
+		LargeFunctionDlg.addDropMenu("EMI_Hunt_GemGroups", "Use Gem Groups:", 0, "0\tNo\n1\tSpawn Whole Group\n2\tRandom Spawn in Group", MissionInfo.gemGroups);
 		LargeFunctionDlg.addTextEditField("EMI_Hunt_SpawnBlock", "Minimum Next Spawn Distance (= 2 * spawn radius):", MissionInfo.spawnBlock, 100, -1);
 		LargeFunctionDlg.addNote("\c5-- Gem spawn chances --", 0);
 		LargeFunctionDlg.addSlider("EMI_Hunt_RGSC", "Red gem chance:", "0 1", MissionInfo.redSpawnChance, 1, 0);

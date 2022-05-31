@@ -239,26 +239,24 @@ function EditorGui::init(%this) {
     EditorMenuBar.addMenuItemConf("Quick Create", "Spawn Trigger", 13, "", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Bounds Trigger", 14, "", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Help Text Trigger", 22, "", 1);
+	EditorMenuBar.addMenuItemConf("Quick Create", "Out of Bounds Trigger", 23, "", 1);
 	EditorMenuBar.addMenuItem("Quick Create", "- Others -", 0);
-	EditorMenuBar.addMenuItemConf("Quick Create", "Gem Group", 15, "", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Camera Marker", 16, "M", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "PathNode at Selection", 17, "", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Marble Dummy", 21, "N", 1);
 
 	EditorMenuBar.addMenu("Special", 8);
+	EditorMenuBar.addMenuItem("Special", "- Gem Groups -", 0);
 	EditorMenuBar.addMenuItem("Special", "Make GemGroup", 1);
 	EditorMenuBar.addMenuItem("Special", "Destroy GemGroups", 2);
-	EditorMenuBar.addMenuItem("Special", "-", 0);
+	EditorMenuBar.addMenuItem("Special", "Spawn GemGroup", 9);
+	EditorMenuBar.addMenuItem("Special", "- Other Gem Settings -", 0);
 	EditorMenuBar.addMenuItem("Special", "Show all Gems", 3);
 	EditorMenuBar.addMenuItem("Special", "Hide all Gems", 8);
-	EditorMenuBar.addMenuItem("Special", "Spawn GemGroup", 9);
-	EditorMenuBar.addMenuItem("Special", "-", 0);
-	EditorMenuBar.addMenuItem("Special", "Drop at Ground", 4);
+	EditorMenuBar.addMenuItem("Special", "- Others -", 0);
 	EditorMenuBar.addMenuItem("Special", "Round Coordinates", 5);
 	EditorMenuBar.addMenuItem("Special", "Drop + Round", 6);
-	EditorMenuBar.addMenuItem("Special", "-", 0);
 	EditorMenuBar.addMenuItem("Special", "Random Offset", 7);
-	EditorMenuBar.addMenuItem("Special", "Skin Selector", 8);
 
 	EditorMenuBar.addMenu("Window", 2);
 	EditorMenuBar.addMenuItem("Window", "World Editor", 2, "F2", 1);
@@ -582,9 +580,9 @@ function EditorMenuBar::onMenuSelect(%this, %menuId, %menu) {
 		EditorMenuBar.setMenuItemEnable("World", "Delete Selection", %selSize > 0 && %lockCount == 0);
 	} else if (%menu $= "Special") {
 		// the item needs to be only 1 and it needs to be skinable.
-		%hasSkins = (EWorldEditor.getSelectionSize() == 1) && (EWorldEditor.getSelectedObject(0).getDatablock().skin[0] !$= "");
+		// %hasSkins = (EWorldEditor.getSelectionSize() == 1) && (EWorldEditor.getSelectedObject(0).getDatablock().skin[0] !$= ""); --- This isn't needed anymore. ~Connie
 
-		EditorMenuBar.setMenuItemEnable("Special", "Skin Selector", %hasSkins);
+		// EditorMenuBar.setMenuItemEnable("Special", "Skin Selector", %hasSkins);
 	}
 }
 
@@ -1213,6 +1211,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
 			center = "1";
 			text = "Help Text";
+		};
+	case "Out of Bounds Trigger":
+		%obj = new Trigger() {
+			dataBlock = "OutofBoundsTrigger";
+			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+			center = "1";
 		};
 	case "Marble Dummy":
 		%obj = new Marble("MarbleDummy") {
