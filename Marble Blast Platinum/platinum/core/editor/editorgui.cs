@@ -222,10 +222,10 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItemConf("Quick Create", "Super Bounce", 7, "7", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Shock Absorber", 20, "8", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Time Travel", 8, "9", 1);
+    EditorMenuBar.addMenuItemConf("Quick Create", "Anti Gravity Item", 12, "", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Time Penalty", 9, "0", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Mega Marble", 10, "-", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Ultra Blast", 11, "=", 1);
-    EditorMenuBar.addMenuItemConf("Quick Create", "Teleporter", 12, "", 1);
 	EditorMenuBar.addMenuItem("Quick Create", "- Hazards -", 0);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Tornado", 25, "", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Mine", 26, "", 1);
@@ -998,6 +998,27 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				static = 1;
 			};
 		}
+	case "Anti Gravity Item":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new Item() {
+				dataBlock = "AntiGravityItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "AntiGravityItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
+		default:
+			%obj = new Item() {
+				dataBlock = "AntiGravityItem";
+				rotate = 1;
+				static = 1;
+			};
+		}
 	case "Start Pad":
 		switch$ (MissionInfo.game) {
 		case "PlatinumQuest":
@@ -1224,12 +1245,6 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
             Controllable = "0";
             client = "1";
             powerUpData = "0";
-			rotate = 1;
-			static = 1;
-		};
-	case "Teleporter":
-		%obj = new Item() {
-			dataBlock = "TeleportItem";
 			rotate = 1;
 			static = 1;
 		};
