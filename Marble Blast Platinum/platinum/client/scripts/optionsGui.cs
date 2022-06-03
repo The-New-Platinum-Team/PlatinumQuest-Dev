@@ -313,9 +313,11 @@ if (canSupportPostFX()) { //No point supporting reflections if you don't support
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
-	$Options::Name    ["Graphics", $i++] = "bloom";
-	$Options::Title   ["Graphics", $i  ] = "Bloom";
-	$Options::Type    ["Graphics", $i  ] = "value";
+	if ($platform !$= "macos") {
+		$Options::Name    ["Graphics", $i++] = "bloom";
+		$Options::Title   ["Graphics", $i  ] = "Bloom";
+		$Options::Type    ["Graphics", $i  ] = "value";
+	}
 }
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";

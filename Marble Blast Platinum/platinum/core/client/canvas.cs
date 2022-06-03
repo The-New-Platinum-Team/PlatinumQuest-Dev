@@ -99,9 +99,14 @@ function checkGraphicsQuality() {
 	}
 	if ($pref::Video::PostProcessing >= 0 && !canSupportPostFX()) {
 		$pref::Video::PostProcessing = 0;
+		$pref::Video::ShapeBloomQuality = 0;
 		$pref::Video::MarbleReflectionQuality = 0;
 		warn("Graphics cannot support post processing");
 		warn("Graphics cannot support marble shaders");
+	}
+	if ($platform $= "macos") {
+		$pref::Video::ShapeBloomQuality = 0;
+		warn("Graphics cannot support shape bloom");
 	}
 	if ($pref::Video::AntiAliasing >= 0 && !canSupportAntiAliasing()) {
 		$pref::Video::AntiAliasing = 0;
