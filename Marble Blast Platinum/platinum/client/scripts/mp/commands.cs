@@ -557,7 +557,7 @@ function clientCmdCheckCRC() {
 }
 
 function clientCmdCRCError(%error) {
-	devecho("\c2There was a CRC error:" SPC %error);
+	MessageBoxOK("CRC ERROR", "\c2There was a CRC error:" SPC %error);
 }
 
 

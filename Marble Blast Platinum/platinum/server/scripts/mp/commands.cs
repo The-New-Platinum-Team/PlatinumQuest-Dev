@@ -254,7 +254,7 @@ function serverCmdFinishCRC(%client, %cFiles) {
 	for (%i = 0; %i < $MP::ServerFiles; %i ++) {
 		%file = $MP::ServerFile[%i];
 		if (%client.crcSuccess[%file] $= "" && $fileExec[%file] !$= "") {
-			devecho("\c2" @ %client._name SPC "missing file" SPC %file @ "!");
+			MessageBoxOK("CRC ERROR", "\c2" @ %client._name SPC "missing file" SPC %file @ "!");
 			// Caught you! Thought you could get away without that one pesky
 			// file that we needed. Get off my server, damned kids.
 			if (!%client.isSuperAdmin) {
@@ -274,7 +274,7 @@ function serverCmdFinishCRC(%client, %cFiles) {
 	if ($MP::ServerFiles != %cFiles) {
 		// Well, I guess you get to sit and think about what you just did
 		// in the naughty corner of NOPE!
-		devecho("\c2" @ %client._name SPC "invalid file count! (" @ %cFiles SPC "!=" SPC $MP::ServerFiles @ ")");
+		MessageBoxOK("CRC ERROR", "\c2" @ %client._name SPC "invalid file count! (" @ %cFiles SPC "!=" SPC $MP::ServerFiles @ ")");
 		if (!%client.isSuperAdmin) {
 			if ($CRC_NOPE) {
 				%client.delete("CRC_NOPE");
