@@ -2789,7 +2789,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		PM_ScoreModeQuota100.setValue(%this.globalScoreMode $= "quota100");
 		PM_ScoreModeDD.setValue(%this.globalScoreMode $= "dd");
 
-		if (%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "") {
+		if (%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "" && $CurrentGame !$= "challenge") {
 			PM_ScoreReplayWatch.setText("<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>");
 		} else {
 			PM_ScoreReplayWatch.setText("");
@@ -3401,8 +3401,8 @@ function PlayMissionGui::loadOnlineScores(%this) {
 		%this.globalScoreModeCacheFailed[%this.getMissionInfo().id] = false;
 
 		if ($CurrentGame $= "challenge") {
-			%this.personalScoreCacheLoading[%this.getMissionInfo().id, 1] = true;
-			%this.personalScoreCacheFailed[%this.getMissionInfo().id, 1] = false;
+			%this.personalScoreCacheLoading[%this.getMissionInfo().id, "challenge"] = true;
+			%this.personalScoreCacheFailed[%this.getMissionInfo().id, "challenge"] = false;
 		} else {
 			%this.personalScoreCacheLoading[%this.getMissionInfo().id] = true;
 			%this.personalScoreCacheFailed[%this.getMissionInfo().id] = false;
@@ -3568,9 +3568,9 @@ function PlayMissionGui::onPersonalScoreUpdate(%this, %scores, %challenge) {
 function PlayMissionGui::onPersonalScoreFailed(%this, %mission, %challenge) {
 	if (%mission.id !$= "") {
 		if (%challenge) {
-			%this.personalScoreCache[%mission.id, %challenge] = "";
-			%this.personalScoreCacheLoading[%mission.id, %challenge] = false;
-			%this.personalScoreCacheFailed[%mission.id, %challenge] = true;
+			%this.personalScoreCache[%mission.id, %challenge ? "challenge" : ""] = "";
+			%this.personalScoreCacheLoading[%mission.id, %challenge ? "challenge" : ""] = false;
+			%this.personalScoreCacheFailed[%mission.id, %challenge ? "challenge" : ""] = true;
 		} else {
 			%this.personalScoreCache[%mission.id] = "";
 			%this.personalScoreCacheLoading[%mission.id] = false;
