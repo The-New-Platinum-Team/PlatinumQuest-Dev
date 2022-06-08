@@ -437,7 +437,7 @@ function loadMainMenu() {
 	Unlock::updateCaches(true);
 
 	//Go straight to the main menu if we're not loading a mission
-	if ((!$pref::AnimatePreviews && $pref::Introduced) || PlayMissionGui.isMarblelandMission()) {
+	if ((!$pref::AnimatePreviews && $pref::Introduced)) {
 		RootGui.setContent(MainMenuGui);
 	}
 
