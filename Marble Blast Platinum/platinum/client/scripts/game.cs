@@ -116,7 +116,7 @@ function getBestTimes(%info) {
 				devecho("Mission has no id for getting scores. Using offline scores instead.");
 			} else {
 				if (%info.gameMode $= "challenge") {
-					%scores = PlayMissionGui.personalScoreCache[%missionId, 1].scores;
+					%scores = PlayMissionGui.personalScoreCache[%missionId, "challenge"].scores;
 				} else 
 					%scores = PlayMissionGui.personalScoreCache[%missionId].scores;
 
@@ -365,6 +365,9 @@ function clientCmdGameEnd() {
 			if ($highScoreIndex !$= "") {
 				//Hack: update the top score as quick as we can
 				%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
+				if ($Game::isMode["challenge"]) {
+					%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id, "challenge"].scores;
+				}
 				if (%scores.getSize() == 0) {
 					JSONGroup.add(%dummy = new ScriptObject() {
 						score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
