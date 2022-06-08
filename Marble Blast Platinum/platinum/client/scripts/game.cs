@@ -625,6 +625,8 @@ function reformatGameEndText() {
 	%record = false;
 	if (lb()) {
 		%cache = PlayMissionGui.globalScoreCache[PlayMissionGui.getMissionInfo().id];
+		if ($Game::isMode["challenge"]) 
+			%cache = PlayMissionGui.globalChallengeScoreCache[PlayMissionGui.getMissionInfo().id];
 		if (isObject(%cache)) {
 			%scores = %cache.scores;
 			if (%scores.getSize()) {
