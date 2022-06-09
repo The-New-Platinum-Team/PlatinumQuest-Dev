@@ -5762,7 +5762,8 @@ package ViceEndNext {
 		if ($pref::highscores[$Server::MissionFile, 0] $= "") {
 			vv_saveState("platinum/data/state/vvFirstRun.txt");
 		} else {
-			Canvas.pushDialog(VVNameDlg);
+			if (!$playingDemo)
+				Canvas.pushDialog(VVNameDlg);
 			VVND_Name.makeFirstResponder(true);
 		}
 	}

@@ -391,7 +391,13 @@ function playReplay(%file) {
 	$demoLB = %info.lb;
 
 	//Go find it on pmg
-	PlayMissionGui.setSelectedMission(getMissionInfo(%info.missionFile));
+	%minfo = getMissionInfo(%info.missionFile);
+	if (%minfo == -1) {
+		MessageBoxOk("Error", "Error loading the replay. Check your console.");
+		$playingDemo = 0;
+		return;
+	}
+	PlayMissionGui.setSelectedMission(%minfo);
 
 	echo("Need to load mission " @ %info.missionFile @ " and replay " @ %file);
 
@@ -433,6 +439,7 @@ function Replay_MissionLoadFailed() {
 	}
 	Canvas.pushDialog(PlayDemoGui);
 	MessageBoxOk("Error", "Error loading the replay. Check your console.");
+	$playingDemo = 0;
 }
 
 function clientCmdStopReplays() {
