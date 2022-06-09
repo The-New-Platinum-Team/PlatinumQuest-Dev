@@ -188,6 +188,8 @@ function getMissionInfo(%file, %partial) {
 				%fo.close();
 			} else {
 				error("Can't open mission file " @ %file);
+				%fo.delete();
+				return -1;
 			}
 			%fo.delete();
 
@@ -297,11 +299,14 @@ function getMissionInfo(%file, %partial) {
 					%fo.close();
 				} else {
 					error("Can't open mission file " @ %file);
+					%fo.delete();
+					return -1;
 				}
 				%fo.delete();
 			}
 		} else {
 			error("Mission file does not exist: " @ %file);
+			return -1;
 		}
 	}
 
