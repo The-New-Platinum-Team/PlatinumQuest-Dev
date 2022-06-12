@@ -428,7 +428,7 @@ function loadMainMenu() {
 
 	//Show the loaded level before doing anything slow
 	PlayMissionGui.init();
-	if ($pref::AnimatePreviews && $pref::Introduced && !PlayMissionGui.isMarblelandMission()) {
+	if ($pref::AnimatePreviews && $pref::Introduced) {
 		PlayMissionGui.loadMission();
 	}
 	Canvas.repaint();

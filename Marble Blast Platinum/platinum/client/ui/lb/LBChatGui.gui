@@ -201,6 +201,19 @@ new GuiControl(LBChatGui) {
 					controlLeft = "LBChatSinglePlayer";
 					controlRight = "LBChatLeaderboards";
 			};
+			new GuiMLTextCtrl(LBChallengeDesc) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "533 9";
+				extent = "538 27";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
 			new GuiControl() {
 				profile = "PQWindowProfile";
 				horizSizing = "left";
@@ -432,6 +445,7 @@ function LBChatGui::onWake(%this) {
 	LBChatContainer.schedule(1000, scrollToBottom);
 
 	LBServerDescText.setText("<color:FFFFFF><bold:22><shadow:1:1><shadowcolor:0000007f>Leaderboards Server v8 @ " @ $LB::Server @ " - Running " @ $THIS_VERSION_NAME @ " / " @ $THIS_VERSION_SUB);
+	LBChallengeDesc.setText("<font:24>" @ $CurrentWeeklyChallenge.description SPC "Challenge: Ending in" SPC PlayMissionGui.ml.lookupGame["challenge"].duration);
 
 	LBSendChat.setTickable(true);
 
