@@ -291,7 +291,11 @@ if (!isObject(MarblelandSearchSet)) {
 
 function MarblelandDlg::onWake(%this) {
 	MarblelandSearchHeader.setText("<bold:18><tab:200,200>Name\tAuthor");
-	%this.sortMode = 0;
+	if (MarblelandUpdateMissions.getSize() > 0) {
+		%this.sortMode = 4;
+	} else {
+		%this.sortMode = 0;
+	}
 	%this.buildSearch();
 }
 
@@ -352,7 +356,11 @@ function MarblelandDlg::sort(%this) {
 	// 1: reverse alphabetical
 	// 2: time
 	// 3: reverse time
-	if (%this.sortMode == 4) 
+	// 4: update
+	if (%this.sortMode == 4 && MarblelandUpdateMissions.getSize() == 0) 
+		%this.sortMode = 0;
+
+	if (%this.sortMode == 5 && MarblelandUpdateMissions.getSize() != 0)
 		%this.sortMode = 0;
 
 	%this.refreshSort();
@@ -375,6 +383,10 @@ function MarblelandDlg::refreshSort(%this) {
 		MarblelandSG_Sort.setText("Sort By: Oldest");
 		MarblelandSearchSet.sort(SortOldest);
 	}
+	if (%this.sortMode == 4) {
+		MarblelandSG_Sort.setText("Sort By: Update");
+		MarblelandSearchSet.sort(SortNewest);
+	}
 
 	MarblelandDlg.search();
 }
@@ -383,6 +395,45 @@ function MarblelandJSONDownloader::onLine(%this, %line) {
 	echo("Loaded Marbleland MissionList");
 	$MarblelandMissionList = jsonParse(%line);
 	%this.success = 1;
+
+	// Prepare lookup
+	for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
+		%entry = $MarblelandMissionList.getEntry(%i);
+		$MarblelandMissionList.lookup[%entry.id] = %entry;
+	}
+
+	notifyMissionUpdates();
+}
+
+function notifyMissionUpdates() {
+	%missionEditText = "";
+
+if (!isObject(MarblelandUpdateMissions))
+	Array(MarblelandUpdateMissions);
+
+	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+		%entryId = MarblelandPackages.getEntry(%i);
+
+		if (!isObject($MarblelandMissionList.lookup[%entryId])) {
+			echo("MISSION NO LONGER EXISTS" SPC %entryId);
+			// MISSION NO LONGER EXISTS ON MARBLELAND
+		} else {
+			%mission_edited_at = $MarblelandMissionList.lookup[%entryId].editedAt;
+			if (%mission_edited_at $= "") %mission_edited_at = 0;
+			if ($pref::MarblelandMission[%entryId] $= "") $pref::MarblelandMission[%entryId] = 0;
+			%current_mission_edited_at = $pref::MarblelandMission[%entryId];
+			if (%mission_edited_at > %current_mission_edited_at) {
+				%mission = $MarblelandMissionList.lookup[%entryId];
+				%missionEditText = %missionEditText NL %mission.name SPC "by" SPC %mission.artist;
+				MarblelandUpdateMissions.addEntry(%entryId);
+				// MISSION HAS BEEN EDITED
+			}
+		}
+	}
+
+	// if (%missionEditText !$= "") {
+	// 	MessageBoxOK("Marbleland Mission Updates", "The following missions have been updated on Marbleland, please redownload them:" NL %missionEditText);
+	// }
 }
 
 function MarblelandJSONDownloader::onDisconnect(%this) {
@@ -418,10 +469,21 @@ function MarblelandDlg::search(%this) {
 	for (%i = 0; %i < %count; %i ++) {
 		%obj = MarblelandSearchSet.getEntry(%i);
 
-		if (!testSearch(%obj, %flags, %key))
-			continue;
+		if (%this.sortMode == 4) {
+			if (!MarblelandUpdateMissions.contains(%obj.id)) {
+				continue;
+			}
+		} else {
+			if (!testSearch(%obj, %flags, %key))
+				continue;
+		}
 
 		%row = getSearchRow(%obj);
+
+		if (MarblelandUpdateMissions.contains(%obj.id)) {
+			%row = "[Update!]" SPC %row;
+		}
+
 		%id = MarblelandSearchMissionList.rowCount();
 		MarblelandSearchMissionList.addRow(%id, %row);
 		MarblelandSearchMissionList.setRowActive(%id, (%obj.canPlay $= "" ? true : %obj.canPlay));
@@ -472,6 +534,14 @@ function MarblelandDlg::DownloadMission(%this) {
 
 function MarblelandDownloader::onDownload(%this, %path) {
 	%this.success = 1;
+
+	$pref::MarblelandMission[$MarblelandDownloadId] = $MarblelandMissionList.lookup[$MarblelandDownloadId].editedAt;
+
+	MarblelandUpdateMissions.removeMatching($MarblelandDownloadId);
+
+	if (MarblelandDlg.sortMode == 4) {
+		MarblelandDlg.search();
+	}
 
 	MarblelandPackages.addEntry($MarblelandDownloadId);
 	loadMBPackageMis("marbleland/" @ $MarblelandDownloadId);
@@ -555,6 +625,10 @@ function MarblelandDlg::deleteFile(%this) {
 	if (!MarblelandSearchMissionList.isRowActive(%id)) {
 		return;
 	}
+
+	deleteVariables("$pref::MarblelandMission" @ %id);
+
+	MarblelandUpdateMissions.removeMatching(%id);
 
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 	MarblelandPackages.removeMatching(%mission.id);
