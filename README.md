@@ -1,5 +1,7 @@
 # PlatinumQuest
 
+[![CircleCI](https://circleci.com/gh/The-New-Platinum-Team/BuildScript/tree/master.svg?style=svg&circle-token=2796eaa02014aa233f951392542a1a0ef6fd21f9)](https://circleci.com/gh/The-New-Platinum-Team/BuildScript/tree/master)
+
 This is the main repository for the public release of the game data and scripts for PQ ([old repository here](https://github.com/PlatinumTeam/PlatinumQuest)).
 
 See [MBExtender](https://github.com/The-New-Platinum-Team/MBExtender-Dev) for the C++ engine modification source code ([old repository here](https://github.com/PlatinumTeam/MBExtender)).
