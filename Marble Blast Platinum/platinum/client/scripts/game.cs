@@ -663,7 +663,7 @@ function reformatGameEndText() {
 
 	//Information text
 	%game = ($CurrentGame $= "Custom" ? resolveMissionModification(%info) : $CurrentGame);
-	if ($CurrentGame !$= "challenge") {
+	if ($CurrentGame $= "challenge") {
 		%game = PlayMissionGui.ml.lookupDifficulty["challenge", $MissionType].display;
 	}
 	switch$ (%game) {
