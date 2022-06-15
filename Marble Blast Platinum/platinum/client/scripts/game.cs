@@ -258,6 +258,9 @@ function compareScores(%a, %b) {
 // %scoreInfo is %type TAB %score TAB %name
 // Return value is the index of the score or "" if worse than all bests
 function addBestScore(%missionFile, %scoreInfo) {
+	if ($Game::isMode["challenge"]) {
+		%missionFile = strReplace(%missionFile, "platinum/data", "challenge/data");
+	}
 	getBestTimes(getMissionInfo(%missionFile));
 
 	%index = "";
@@ -301,6 +304,10 @@ function clientCmdGameEnd() {
 	if (mp()) {
 		RootGui.pushDialog(MPEndGameDlg);
 		return;
+	}
+
+	if ($Game::isMode["challenge"]) {
+		$Client::MissionFile = strReplace($Client::MissionFile, "platinum/data", "challenge/data");
 	}
 
 	getBestTimes(getMissionInfo($Client::MissionFile));
@@ -499,6 +506,10 @@ function highScoreNameChanged() {
 	else
 		EnterNameAcceptButton.setActive(true);
 
+	if ($Game::isMode["challenge"]) {
+		$Server::MissionFile = strReplace($Server::MissionFile, "platinum/data", "challenge/data");
+	}
+
 	%score = $Game::FinalScore;
 	if ($highScoreIndex !$= "") {
 		%name = ($pref::highScoreName $= "" ? " " : $pref::highScoreName);
@@ -524,6 +535,10 @@ function reformatGameEndText() {
 	// -------------------------------------------------------------------------------
 	// Final Time
 	// -------------------------------------------------------------------------------
+
+	if ($Game::isMode["challenge"]) {
+		$Client::MissionFile = strReplace($Client::MissionFile, "platinum/data", "challenge/data");
+	}
 
 	%info = getMissionInfo($Client::MissionFile);
 
@@ -648,6 +663,9 @@ function reformatGameEndText() {
 
 	//Information text
 	%game = ($CurrentGame $= "Custom" ? resolveMissionModification(%info) : $CurrentGame);
+	if ($CurrentGame !$= "challenge") {
+		%game = PlayMissionGui.ml.lookupDifficulty["challenge", $MissionType].display;
+	}
 	switch$ (%game) {
 	case "Gold":
 		//Need qualify and gold times
