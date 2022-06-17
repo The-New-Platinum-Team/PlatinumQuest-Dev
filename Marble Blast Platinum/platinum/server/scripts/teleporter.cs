@@ -74,7 +74,7 @@ datablock TriggerData(TeleportTrigger) {
 	customField[7, "field"  ] = "cameraYaw";
 	customField[7, "type"   ] = "float";
 	customField[7, "name"   ] = "Camera Yaw";
-	customField[7, "desc"   ] = "Set marble's camera yaw to this value (in radians) after teleporting.";
+	customField[7, "desc"   ] = "Set marble's camera yaw to this value (in degrees) after teleporting.";
 	customField[7, "default"] = "";
 	customField[8, "field"  ] = "GemsToActivate";
 	customField[8, "type"   ] = "int";
