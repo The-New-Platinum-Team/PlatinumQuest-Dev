@@ -2309,7 +2309,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		%this.setBarButtonActive(PM_MissionExtras, !$Menu::Loading && !$Client::Loading);
 
 		//Are there hints?
-		%hints = (%info.generalHint !$= "") || (%info.ultimateHint !$= "") || (%info.awesomeHint !$= "") || (%info.eggHint !$= "");
+		%hints = (%info.generalHint !$= "") || (%info.ultimateHint !$= "") || (%info.awesomeHint !$= "") || (%info.eggHint !$= "") || (%info.easterEggHint !$= "");
 		%this.setBarButtonActive(PM_MissionHints, %hints && %canPlay && !$Menu::Loading && !$Client::Loading);
 	}
 	if (!lb()) {

@@ -196,4 +196,5 @@ $Editor::Fields["MissionInfo"] =
 	"ultimateHint" SPC
 	"awesomeHint" SPC
 	"eggHint" SPC
+	"eastereggHint" SPC
 	"CustomRadarRule";

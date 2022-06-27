@@ -69,6 +69,7 @@ function emibutton(%revert) {
 	LargeFunctionDlg.addTextEditField("EMI_UltimateHint", "Ultimate hint:", strReplace(MissionInfo.ultimateHint, "\n", "\\n"), 350, -1);
 	LargeFunctionDlg.addTextEditField("EMI_AwesomeHint", "Awesome hint:", strReplace(MissionInfo.awesomeHint, "\n", "\\n"), 350, -1);
 	LargeFunctionDlg.addTextEditField("EMI_EggHint", "NestEgg hint:", strReplace(MissionInfo.eggHint, "\n", "\\n"), 350, -1);
+	LargeFunctionDlg.addTextEditField("EMI_EasterEggHint", "EasterEgg hint:", strReplace(MissionInfo.eastereggHint, "\n", "\\n"), 350, -1);
 	LargeFunctionDlg.addTextEditField("EMI_Trivia", "Trivia:", strReplace(MissionInfo.trivia, "\n", "\\n"), 350, -1);
 	LargeFunctionDlg.addNote("");
 
@@ -328,6 +329,7 @@ function editMissionInfo(%gui) {
 	MissionInfo.UltimateHint = strReplace(EMI_UltimateHint.getValue(), "\\n", "\n");
 	MissionInfo.AwesomeHint = strReplace(EMI_AwesomeHint.getValue(), "\\n", "\n");
 	MissionInfo.EggHint = strReplace(EMI_EggHint.getValue(), "\\n", "\n");
+	MissionInfo.EasterEggHint = strReplace(EMI_EasterEggHint.getValue(), "\\n", "\n");
 	MissionInfo.trivia = strReplace(EMI_Trivia.getValue(), "\\n", "\n");
 	MissionInfo.startHelpText = strReplace(EMI_StartHelpText.getValue(), "\\n", "\n");
 	MissionInfo.game = EMI_Game.getValue();
