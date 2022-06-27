@@ -162,7 +162,7 @@ function HintsDlg::onWake(%this) {
 
 	%this.completion = Unlock::getMissionCompletion(%mission);
 
-	if (%mission.generalHint $= "" && %mission.trivia $= "" && %mission.ultimateHint $= "" && %mission.awesomeHint $= "" && %mission.eggHint $= "") { // No hints?
+	if (%mission.generalHint $= "" && %mission.trivia $= "" && %mission.ultimateHint $= "" && %mission.awesomeHint $= "" && %mission.eggHint $= "" && %mission.eastereggHint $= "") { // No hints?
 		%text = "No information or hints exist for " @ %mission.name @ ".";
 	} else {
 		if (%mission.generalHint !$= "") {
@@ -179,6 +179,10 @@ function HintsDlg::onWake(%this) {
 		if (%mission.eggHint !$= "" && %this.shouldShowEgg(%mission)) {
 			%text = %text @ "<condensed:24>Nest Egg Hint\n<font:17>" @ %mission.eggHint @ "\n\n";
 		}
+		if (%mission.eastereggHint !$= "" && %this.shouldShowEasterEgg(%mission)) {
+			%text = %text @ "<condensed:24>Easter Egg Hint\n<font:17>" @ %mission.eastereggHint @ "\n\n";
+		}
+		
 
 		//Trivia at the end
 
@@ -204,5 +208,10 @@ function HintsDlg::shouldShowAwesome(%this, %mission) {
 
 function HintsDlg::shouldShowEgg(%this, %mission) {
 	//If you beat the par then you can see the egg hint
+	return %this.completion & $Completion::Par;
+}
+
+function HintsDlg::shouldShowEasterEgg(%this, %mission) {
+	//If you beat the par then you can see the easter egg hint
 	return %this.completion & $Completion::Par;
 }
