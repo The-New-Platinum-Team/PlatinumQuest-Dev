@@ -163,13 +163,6 @@ function serverCmdItemCollision(%client, %position, %cid) {
 	}
 }
 
-function serverCmdMarblelandDownloadStatus(%client, %id, %success) {
-	if (%client.marblelandCallback[%id] !$= "") {
-		call(%client.marblelandCallback[%id], %client, %id, %success);
-	}
-}
-
-
 //-----------------------------------------------------------------------------
 // CRC check
 // CRC validation will check to ensure that clients are not cheating.

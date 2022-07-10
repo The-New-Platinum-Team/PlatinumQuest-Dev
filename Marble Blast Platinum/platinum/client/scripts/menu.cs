@@ -91,14 +91,6 @@ function menuLoadMission(%file) {
 	menuSetMission(%file);
 	menuStartLoading();
 
-	// Unload marbleland missions EXCEPT the one that is gonna be played
-	if (strpos(expandFilename(%file), "platinum/data/missions/marbleland/") != -1) {
-		%marblelandId = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
-		marblelandLoad(%marblelandId);
-	} else {
-		marblelandLoad(-1);
-	}
-
 	$Menu::CurrentlyLoadedMission = %file;
 	$Menu::FirstLoad = false;
 	//If we need to start a server first, do so here

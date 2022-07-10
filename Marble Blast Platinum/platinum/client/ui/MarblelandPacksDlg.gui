@@ -485,7 +485,7 @@ function MarblelandPacksDlg::DownloadPack(%this) {
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
 
-		if (!marblelandHaveMission(%levelId)) {
+		if (!marblelandHasMission(%levelId)) {
 			%this.downloadQueue.addEntry(%levelId);
 		} else {
 			echo("Already got " @ %levelId @ ".mbpak");
@@ -518,7 +518,7 @@ function MarblelandPacksDlg::checkFinish(%this) {
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
 
-		if (!marblelandHaveMission(%levelId)) {
+		if (!marblelandHasMission(%levelId)) {
 			echo("Still need " @ %levelId @ ".mbpak");
 			%this.startDownload();
 			return;
@@ -639,7 +639,7 @@ function MarblelandPacksDlg::onSelect(%this) {
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
 
-		if (!marblelandHaveMission(%levelId)) {
+		if (!marblelandHasMission(%levelId)) {
 			echo("Still need " @ %levelId @ ".mbpak");
 			%downloaded = false;
 			break;

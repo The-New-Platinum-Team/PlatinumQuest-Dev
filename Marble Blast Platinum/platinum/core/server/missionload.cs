@@ -49,10 +49,31 @@ function loadMission(%missionName, %isFirstMission) {
 		return;
 	}
 
+	// Unload marbleland missions EXCEPT the one that is gonna be played
+	%marblelandId = marblelandGetFileId(%missionName);
+	if (%marblelandId !$= "") {
+		marblelandLoad(%marblelandId);
+	} else {
+		marblelandLoad(-1);
+	}
+
 	if (!isScriptFile(%missionName)) {
 		error("Could not find mission " @ %missionName);
 		onMissionLoadFailed();
 		return;
+	}
+
+	// Make sure all the clients have loaded the mission package too
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.getAddress() $= "local") {
+			continue;
+		}
+		if (%marblelandId !$= "") {
+			%client.marblelandLoad(%marblelandId);
+		} else {
+			%client.marblelandLoad(-1);
+		}
 	}
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -339,6 +360,10 @@ function onMissionLoadFailed() {
 //-----------------------------------------------------------------------------
 
 function endMission(%noSend) {
+	$Server::Loaded = false;
+	$Server::Loading = false;
+	$Editor::Enabled = false;
+
 	if (!isObject(MissionGroup))
 		return;
 
@@ -358,10 +383,6 @@ function endMission(%noSend) {
 		%cl.resetGhosting();
 		%cl.clearPaths();
 	}
-
-	$Server::Loaded = false;
-	$Server::Loading = false;
-	$Editor::Enabled = false;
 
 	// Delete everything
 	while (isObject(MissionGroup))
