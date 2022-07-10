@@ -4218,8 +4218,7 @@ function PlayMissionGui::updateLoadProgress(%this, %delta) {
 // Marbleland stuff
 
 function PlayMissionGui::isMarblelandMission(%this) {
-	// This is such a hack
-	return strStr(%this.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0;
+	return marblelandGetFileId(%this.getMissionInfo().file) !$= "";
 }
 
 function PlayMissionGui::onMarblelandScoreUpdate(%this, %scores) {

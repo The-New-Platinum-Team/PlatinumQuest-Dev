@@ -519,9 +519,6 @@ function MarblelandDlg::start(%this) {
 }
 
 function MarblelandDlg::playMission(%this, %mission) {
-	%missionId = %mission.id;
-	%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
-	%mission.file = "platinum/data/missions/marbleland/" @ %misname;
 	PlayMissionGui.setSelectedMission(%mission, "Custom", "Custom/");
 	menuLoadStartMission(%mission.file);
 }

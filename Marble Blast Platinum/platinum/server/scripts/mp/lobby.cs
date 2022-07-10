@@ -295,6 +295,27 @@ function lobbyRestart() {
 
 //-----------------------------------------------------------------------------
 
+function serverCmdMarblelandPlay(%client, %id) {
+	if (%client.isHost()) {
+		if (!isObject(marblelandGetMission(%id))) {
+			%client.sendChat("<color:ff6666>Unknown Marbleland level: " @ %id);
+			return;
+		}
+
+		// Download first
+		serverMarblelandDownload(%id, SMP_downloadComplete);
+	}
+}
+
+function SMP_downloadComplete(%id, %success) {
+	if (!%success) {
+		return;
+	}
+
+	serverLoadMission(marblelandGetMission(%id).file);
+}
+
+
 function serverCmdMarblelandDownload(%client, %id) {
 	if (%client.isHost()) {
 		if (!isObject(marblelandGetMission(%id))) {
@@ -354,13 +375,6 @@ function SMD_serverDownloadComplete(%id, %success) {
 	}
 
 	SMD_checkSuccess(%id);
-}
-
-
-function serverCmdMarblelandDownloadStatus(%client, %id, %success) {
-	if (%client.marblelandCallback[%id] !$= "") {
-		call(%client.marblelandCallback[%id], %client, %id, %success);
-	}
 }
 
 function GameConnection::lobbyMarblelandDownloadComplete(%this, %id, %success) {

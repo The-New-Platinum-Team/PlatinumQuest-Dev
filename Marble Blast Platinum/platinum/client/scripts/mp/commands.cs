@@ -595,10 +595,9 @@ function clientCmdMarblelandHasMission(%id) {
 }
 
 function clientMarblelandDownloadFinished(%id, %success) {
-	marblelandRefreshMissionList();
 	commandToServer('MarblelandDownloadStatus', %id, %success);
 }
 
-function cliendCmdMarblelandLoad(%id) {
+function clientCmdMarblelandLoad(%id) {
 	marblelandLoad(%id);
 }
