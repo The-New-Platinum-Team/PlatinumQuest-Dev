@@ -485,7 +485,7 @@ function MarblelandPacksDlg::DownloadPack(%this) {
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
 
-		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
+		if (!marblelandHaveMission(%levelId)) {
 			%this.downloadQueue.addEntry(%levelId);
 		} else {
 			echo("Already got " @ %levelId @ ".mbpak");
@@ -504,26 +504,11 @@ function MarblelandPacksDlg::startDownload(%this) {
 	%levelId = %this.downloadQueue.getEntry(0);
 	%this.downloadQueue.removeEntry(0);
 	echo("Downloading " @ %levelId @ ".mbpak");
-	%http = new HTTPObject(MarblelandPacksDownloader);
-	%http.levelId = %levelId;
-	%http.setDownloadPath("packages/marbleland/" @ %levelId @ ".mbpak");
-	%http.get("https://marbleland.vani.ga","/api/level/" @ %levelId @ "/mbpak","assuming=none&append-id-to-mis=1");
+	marblelandDownload(%levelId, MPD_downloadFinished);
 }
 
-function MarblelandPacksDownloader::onDownload(%this, %path) {
-	%this.success = 1;
-	$pref::MarblelandMission[%this.levelId] = $MarblelandMissionList.lookup[%this.levelId].editedAt;
-
-	MarblelandPackages.addEntry(%this.levelId);
-	loadMBPackageMis("marbleland/" @ %this.levelId);
-
-	echo("Downloaded " @ %this.levelId @ ".mbpak");
-
+function MPD_downloadFinished(%downloadId, %success) {
 	MarblelandPacksDlg.checkFinish();
-}
-
-function MarblelandPacksDownloader::onDisconnect(%this) {
-	%this.delete();
 }
 
 function MarblelandPacksDlg::checkFinish(%this) {
@@ -533,30 +518,13 @@ function MarblelandPacksDlg::checkFinish(%this) {
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
 
-		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
+		if (!marblelandHaveMission(%levelId)) {
 			echo("Still need " @ %levelId @ ".mbpak");
 			%this.startDownload();
 			return;
 		}
 	}
-
-	PlayMissionGui.ml.buildCustomDifficultyTree();
-
-	// Refresh "Custom" and "custom/marbleland" difficulties
-	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/");
-	if (isObject(%ml)) {
-		%ml.delete();
-	}
-	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/platinum/data/missions/marbleland");
-	if (isObject(%ml)) {
-		%ml.delete();
-	}
-
-	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
-		PlayMissionGui.buildCustomDifficultyList();
-		PlayMissionGui.setMissionType($MissionType);
-		PlayMissionGui.showMissionList();
-	}
+	marblelandRefreshMissionList();
 
 	%this.schedule(100, onSelect);
 }
@@ -570,7 +538,7 @@ function MarblelandPacksDlg::play(%this) {
 	devecho("Play level pack: " @ %pack.id);
 
 	%firstMissionId = %pack.levelIds.getEntry(0);
-	%mission = $MarblelandMissionList.lookup[%firstMissionId];
+	%mission = marblelandGetMission(%firstMissionId);
 	MarblelandDlg.playMission(%mission);
 
 	activateMenuHandler(MarblelandPack);
@@ -594,7 +562,7 @@ package MarblelandPacksEnd {
 		%index = -1;
 		for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 			%levelId = %pack.levelIds.getEntry(%i);
-			%mission = $MarblelandMissionList.lookup[%levelId];
+			%mission = marblelandGetMission(%levelId);
 			%missionId = %mission.id;
 			%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
 			%mission.file = "platinum/data/missions/marbleland/" @ %misname;
@@ -619,7 +587,7 @@ package MarblelandPacksEnd {
 		}
 
 		%nextMissionId = %pack.levelIds.getEntry(%index);
-		%mission = $MarblelandMissionList.lookup[%nextMissionId];
+		%mission = marblelandGetMission(%nextMissionId);
 
 		%missionId = %mission.id;
 		%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
@@ -671,7 +639,7 @@ function MarblelandPacksDlg::onSelect(%this) {
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
 
-		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
+		if (!marblelandHaveMission(%levelId)) {
 			echo("Still need " @ %levelId @ ".mbpak");
 			%downloaded = false;
 			break;
@@ -700,7 +668,7 @@ function MarblelandPacksDlg::onSelect(%this) {
 	%text = "<bold:20>" @ %pack.name;
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
-		%text = %text NL "<font:16>" @ $MarblelandMissionList.lookup[%levelId].name;
+		%text = %text NL "<font:16>" @ marblelandGetMission(%levelId).name;
 	}
 	MarblelandPacksLevelDesc.setText(%text);
 }

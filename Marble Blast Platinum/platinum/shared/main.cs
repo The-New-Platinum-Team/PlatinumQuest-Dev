@@ -61,4 +61,5 @@ function initShared() {
 	exec("./interpolation.cs");
 	exec("./missionList.cs");
 	exec("./tree.cs");
+	exec("./marbleland.cs");
 }
