@@ -585,3 +585,11 @@ function clientCmdRecDataBlockNames(%list) {
 		devecho("Setting datablock id" SPC %obj SPC "to be named" SPC %name);
 	}
 }
+
+function clientCmdMarblelandDownload(%id) {
+	marblelandDownload(%id, clientMarblelandDownloadFinished);
+}
+
+function clientMarblelandDownloadFinished(%id, %success) {
+	commandToServer('MarblelandDownloadStatus', %id, %successs);
+}

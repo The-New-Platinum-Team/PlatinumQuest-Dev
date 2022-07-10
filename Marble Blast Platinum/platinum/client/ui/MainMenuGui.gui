@@ -346,7 +346,7 @@ function MainMenuGui::onWake(%this) {
 	}
 
 	if (!isObject($MarblelandMissionList) && !$MarblelandMissionListDownloaded) {
-		MarblelandDownloadJSON();
+		marblelandDownloadLevelList(MD_notifyMissionUpdates);
 		$MarblelandMissionListDownloaded = true;
 	}
 

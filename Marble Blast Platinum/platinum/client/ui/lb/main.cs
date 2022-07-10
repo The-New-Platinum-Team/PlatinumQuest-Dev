@@ -31,12 +31,7 @@
 function initLeaderboards() {
 
 	// Unload all marbleland packages or else bruh shit happens
-	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-			%pakName = MarblelandPackages.getEntry(%i);
-			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
-				unloadMBPackage("marbleland/" @ %pakName);
-		}
-	}
+	marblelandUnloadMissions();
 
 	// delete old leaderboard stuff before making a new one
 	doCloseLeaderboards();
@@ -146,13 +141,7 @@ function closeLeaderboards() {
 	onNextFrame(doCloseLeaderboards);
 
 	// Reload Marbleland cause bruh
-	echo("Reloading Marbleland");
-	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-		%pakName = MarblelandPackages.getEntry(%i);
-		if (!isLoadedMBPackage("marbleland/" @ %pakName)) {
-			loadMBPackageMis("marbleland/" @ %pakName);
-		}
-	}
+	marblelandReloadMissions();
 }
 
 function doCloseLeaderboards() {
