@@ -1,0 +1,704 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2022 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MarblelandPacksDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "800 600";
+		loading = "0";
+
+	new GuiControl(MarblelandPacksSG_Window) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "146 58";
+		extent = "707 483";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "22 22";
+			extent = "413 55";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiMLTextCtrl(MarblelandPacksSearchTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "16 14";
+				extent = "400 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiTextEditCtrl(MarblelandPacksSearchEdit) {
+				profile = "GuiMediumTextEditProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "81 12";
+				extent = "369 31";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandPacksDlg.search();";
+				altCommand = "MarblelandPacksDlg.entryStart();";
+				helpTag = "0";
+				maxLength = "255";
+				maxPixelWidth = "0";
+				escapeCommand = "MarblelandPacksDlg.clearSearch();";
+				historySize = "0";
+				password = "0";
+				tabComplete = "0";
+				sinkAllKeyEvents = "1";
+			};
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "22 55";
+			extent = "413 361";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiMLTextCtrl(MarblelandPacksSearchHeader) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "17 12";
+				extent = "446 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiScrollCtrl() {
+				profile = "PQScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "13 33";
+				extent = "387 315";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "dynamic";
+				vScrollBar = "alwaysOn";
+				constantThumbHeight = "0";
+				childMargin = "0 0";
+
+				new GuiTextListCtrl(MarblelandPacksSearchList) {
+					profile = "SearchProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "421 8";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandPacksDlg.onSelect();";
+					helpTag = "0";
+					enumerate = "0";
+					resizeCell = "1";
+					columns = "0 200";
+					fitParentWidth = "1";
+					clipColumnText = "0";
+				};
+			};
+		};
+
+		new GuiChunkedBitmapCtrl(MarblelandPacksLevelImage) {
+			profile = "GuiDefaultProfile";
+			visible = "1";
+			helpTag = "0";
+			wrap = "0";
+			bitmap = "platinum/client/ui/search/marbleland/loading.png";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "435 67";
+			extent = "240 170";
+			minExtent = "41 41";
+		};
+
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "423 235";
+			extent = "262 181";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+			new GuiScrollCtrl() {
+				profile = "PQScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "13 13";
+				extent = "234 152";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "alwaysOff";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "2 2";
+
+				new GuiMLTextCtrl(MarblelandPacksLevelDesc) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "2 2";
+					extent = "213 14";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+			};
+		};
+		new GuiBorderButtonCtrl(MarblelandPacksSearchDownload) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "326 411";
+			extent = "104 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandPacksDlg.DownloadPack();";
+			helpTag = "0";
+			text = "Download";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(MarblelandPacksSearchDelete) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "326 411";
+			extent = "104 45";
+			minExtent = "8 8";
+			visible = "0";
+			command = "MarblelandPacksDlg.deleteFile();";
+			helpTag = "0";
+			text = "Delete";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+				borderColor = "255 153 153 255";
+		};
+		new GuiBorderButtonCtrl(MarblelandPacksSearchPlay) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "428 411";
+			extent = "252 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandPacksDlg.play();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(MarblelandPacksSG_Cancel) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "27 411";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RootGui.popDialog(MarblelandPacksDlg); PlayMissionGui.showBody(); MarblelandPacksDlg.close();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Close";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(MarblelandPacksSG_Sort) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "121 411";
+			extent = "205 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandPacksDlg.sort();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Sort By: A-Z";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+// define the search group object.  This object holds all data
+// for the searches.
+if (!isObject(MarblelandPacksSearchSet)) {
+	Array(MarblelandPacksSearchSet);
+	RootGroup.add(MarblelandPacksSearchSet);
+}
+
+function MarblelandPacksDlg::onWake(%this) {
+	MarblelandPacksSearchHeader.setText("<bold:18><tab:200,200>Name\tAuthor");
+	%this.sortMode = 0;
+	%this.buildSearch();
+}
+
+function MarblelandPacksDownloadJSON() {
+	if (!isObject(MarblelandPacksJSONDownloader)) {
+		new HTTPObject(MarblelandPacksJSONDownloader);
+		MarblelandPacksJSONDownloader.success = 0;
+		MarblelandPacksJSONDownloader.get("https://marbleland.vani.ga","/api/pack/list","");
+	}
+}
+
+function MarblelandPacksDlg::buildSearch(%this) {
+	%this.setStatus("Loading...", false);
+
+	MarblelandPacksSearchList.clear();
+
+	// delete objects in search group
+	MarblelandPacksSearchSet.clear();
+
+	if (isObject($MarblelandPackList)) {
+		for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
+			%entry = $MarblelandPackList.getEntry(%i);
+			MarblelandPacksSearchSet.addEntry(%entry);
+		}
+
+		MarblelandPacksDlg.setStatus("Loaded.", true);
+		MarblelandPacksDlg.refreshSort();
+		// now we will fill up the mission list
+		MarblelandPacksDlg.search();
+	}
+}
+
+function MarblelandPacksDlg::close(%this) {
+
+}
+
+function MPDSortAZ(%a, %b) {
+	return stricmp(%a.name, %b.name) < 0;
+}
+
+function MPDSortDownloads(%a, %b) {
+	return %a.downloads > %b.downloads;
+}
+
+function MPDSortNewest(%a, %b) {
+	return %a.createdAt > %b.createdAt;
+}
+
+function MPDSortLength(%a, %b) {
+	return %a.levelIds.getSize() < %b.levelIds.getSize();
+}
+
+function MarblelandPacksDlg::sort(%this) {
+	%this.sortMode++;
+	// sortmodes:
+	// 0: alphabetical
+	// 1: downloads
+	// 2: time
+	// 3: length
+	if (%this.sortMode == 4)
+		%this.sortMode = 0;
+
+	%this.refreshSort();
+}
+
+function MarblelandPacksDlg::refreshSort(%this) {
+	if (%this.sortMode == 0) {
+		MarblelandPacksSG_Sort.setText("Sort By: A-Z");
+		MarblelandPacksSearchSet.sort(MPDSortAZ);
+	}
+	if (%this.sortMode == 1) {
+		MarblelandPacksSG_Sort.setText("Sort By: Downloads");
+		MarblelandPacksSearchSet.sort(MPDSortDownloads);
+	}
+	if (%this.sortMode == 2) {
+		MarblelandPacksSG_Sort.setText("Sort By: Newest");
+		MarblelandPacksSearchSet.sort(MPDSortNewest);
+	}
+	if (%this.sortMode == 3) {
+		MarblelandPacksSG_Sort.setText("Sort By: Level Count");
+		MarblelandPacksSearchSet.sort(MPDSortLength);
+	}
+
+	MarblelandPacksDlg.search();
+}
+
+function MarblelandPacksJSONDownloader::onLine(%this, %line) {
+	echo("Loaded MarblelandPacks MissionList");
+	$MarblelandPackList = jsonParse(%line);
+	%this.success = 1;
+
+	// Prepare lookup
+	for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
+		%entry = $MarblelandPackList.getEntry(%i);
+		%entry.searchName = strlwr(trim(%entry.name));
+		%entry.searchArtist = strlwr(trim(%entry.createdBy.username));
+		$MarblelandPackList.lookup[%entry.id] = %entry;
+	}
+}
+
+function MarblelandPacksJSONDownloader::onDisconnect(%this) {
+	if (!%this.success) {
+		MarblelandPacksDlg.setStatus("Failed to load.", false);
+	}
+}
+
+// this builds the search list specified by the type:
+// this is also used for keyword search
+//
+// Note: I use different for loops because that way it only
+// has to check the searchType only once.
+function MarblelandPacksDlg::search(%this) {
+	MarblelandPacksSearchList.clear();
+	%key = strlwr(trim(MarblelandPacksSearchEdit.getValue()));
+
+	//Get the flags for this search
+	%flags = "";
+	for (%i = 0; %i < getWordCount(%key); %i ++) {
+		%word = getWord(%key, %i);
+		if (getSubStr(%word, 0, 1) $= "!") {
+			%flags = addWord(%flags, %word);
+			%key = removeWord(%key, %i);
+			%i --;
+		}
+	}
+
+	//Load all the missions
+	%count = MarblelandPacksSearchSet.getSize();
+	for (%i = 0; %i < %count; %i ++) {
+		%obj = MarblelandPacksSearchSet.getEntry(%i);
+
+		if (!MPDTestSearch(%obj, %flags, %key))
+			continue;
+
+		%row = MPDGetSearchRow(%obj);
+
+		%id = MarblelandPacksSearchList.rowCount();
+		MarblelandPacksSearchList.addRow(%id, %row);
+		MarblelandPacksSearchList.setRowActive(%id, (%obj.canPlay $= "" ? true : %obj.canPlay));
+	}
+
+	%this.finalize();
+
+	%this.setStatus("Search:", true);
+}
+
+function MPDTestSearch(%obj, %flags, %query) {
+	return (strStr(%obj.searchName, %query) != -1)
+	       || (strStr(%obj.searchArtist, %query) != -1);
+}
+
+function MPDGetSearchRow(%obj) {
+	return clipPx($DefaultFont, 16, %obj.name, 200, true)
+	       TAB %obj.createdBy.username
+	       TAB %obj.name
+	       TAB %obj;
+}
+
+// this is called after a search query is processed.
+// this will activate/deactivate the play button, and it will
+// auto-select a row in the mission list, ect.
+//
+// This code is about the only thing left from the old SearchDlg
+function MarblelandPacksDlg::finalize(%this) {
+	if (MarblelandPacksSearchList.rowCount()) {
+		// MarblelandPacksSearchList.sort(0);
+		MarblelandPacksSearchList.setSelectedRow(0);
+		MarblelandPacksSearchList.scrollVisible(0);
+		MarblelandPacksSearchDownload.setActive(true);
+	} else {
+		MarblelandPacksSearchDownload.setActive(false);
+		MarblelandPacksSearchPlay.setActive(false);
+	}
+}
+
+// this function will play the selected mission.
+function MarblelandPacksDlg::DownloadPack(%this) {
+	%id = MarblelandPacksSearchList.getSelectedId();
+	if (!MarblelandPacksSearchList.isRowActive(%id)) {
+		return;
+	}
+
+	%pack = getField(MarblelandPacksSearchList.getRowTextById(%id), 3);
+	MarblelandPacksSearchDownload.setActive(false);
+	mkdir("packages/marbleland", 493);
+	chmod("packages/marbleland", 493);
+
+	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
+		%levelId = %pack.levelIds.getEntry(%i);
+
+		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
+			echo("Downloading " @ %levelId @ ".mbpak");
+			%http = new HTTPObject(MarblelandPacksDownloader);
+			%http.success = 0;
+			%http.levelId = %levelId;
+			%http.setDownloadPath("packages/marbleland/" @ %levelId @ ".mbpak");
+			%http.get("https://marbleland.vani.ga","/api/level/" @ %levelId @ "/mbpak","assuming=none&append-id-to-mis=1");
+		} else {
+			echo("Already got " @ %levelId @ ".mbpak");
+		}
+	}
+
+	$MarblelandPacksDownloadId = %id;
+}
+
+function MarblelandPacksDownloader::onDownload(%this, %path) {
+	%this.success = 1;
+	$pref::MarblelandMission[%this.levelId] = $MarblelandMissionList.lookup[%this.levelId].editedAt;
+
+	MarblelandPackages.addEntry(%this.levelId);
+	loadMBPackageMis("marbleland/" @ %this.levelId);
+
+	echo("Downloaded " @ %this.levelId @ ".mbpak");
+
+	MarblelandPacksDlg.checkFinish();
+}
+
+function MarblelandPacksDownloader::onDisconnect(%this) {
+	%this.delete();
+}
+
+function MarblelandPacksDlg::checkFinish(%this) {
+	%id = $MarblelandPacksDownloadId;
+	%pack = getField(MarblelandPacksSearchList.getRowTextById(%id), 3);
+
+	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
+		%levelId = %pack.levelIds.getEntry(%i);
+
+		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
+			echo("Still need " @ %levelId @ ".mbpak");
+			return;
+		}
+	}
+
+	PlayMissionGui.ml.buildCustomDifficultyTree();
+
+	// Refresh "Custom" and "custom/marbleland" difficulties
+	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/");
+	if (isObject(%ml)) {
+		%ml.delete();
+	}
+	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/platinum/data/missions/marbleland");
+	if (isObject(%ml)) {
+		%ml.delete();
+	}
+
+	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
+		PlayMissionGui.buildCustomDifficultyList();
+		PlayMissionGui.setMissionType($MissionType);
+		PlayMissionGui.showMissionList();
+	}
+
+	%this.schedule(100, onSelect);
+}
+
+function MarblelandPacksDlg::play(%this) {
+	%row = MarblelandPacksSearchList.getSelectedId();
+	%pack = getField(MarblelandPacksSearchList.getRowTextById(%row), 3);
+
+	if (%pack.levelIds.getSize() == 0)
+		return;
+	devecho("Play level pack: " @ %pack.id);
+
+	%firstMissionId = %pack.levelIds.getEntry(0);
+	%mission = $MarblelandMissionList.lookup[%firstMissionId];
+	MarblelandDlg.playMission(%mission);
+
+	activateMenuHandler(MarblelandPack);
+	activatePackage(MarblelandPacksEnd);
+
+	$MarblelandPacksPlayingId = %pack.id;
+	$MarblelandPacksPlayingIndex = 0;
+}
+
+package MarblelandPacksEnd {
+	function EndGameDlg::getNextLevel(%this) {
+		%id = $MarblelandPacksPlayingId;
+
+		if (%id $= "") {
+			devecho("Not playing a pack anymore");
+			MarblelandPacksDlg.endPlay();
+			return Parent::getNextLevel(%this);
+		}
+		%pack = $MarblelandPackList.lookup[%id];
+
+		%index = -1;
+		for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
+			%levelId = %pack.levelIds.getEntry(%i);
+			%mission = $MarblelandMissionList.lookup[%levelId];
+			%missionId = %mission.id;
+			%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
+			%mission.file = "platinum/data/missions/marbleland/" @ %misname;
+			if ($Client::MissionFile $= %mission.file) {
+				%index = %i;
+				break;
+			}
+		}
+
+		if (%index == -1) {
+			devecho("Can't find mission");
+			MarblelandPacksDlg.endPlay();
+			return;
+		}
+
+		%index ++;
+
+		if (%index >= %pack.levelIds.getSize()) {
+			devecho("Finished last level");
+			MarblelandPacksDlg.endPlay();
+			return;
+		}
+
+		%nextMissionId = %pack.levelIds.getEntry(%index);
+		%mission = $MarblelandMissionList.lookup[%nextMissionId];
+
+		%missionId = %mission.id;
+		%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
+		%misfile = "platinum/data/missions/marbleland/" @ %misname;
+		devecho("Found next mission in pack: " @ %misfile);
+		return getMissionInfo(%misfile, true);
+	}
+};
+
+function MarblelandPack_MissionLoad() {
+	MarblelandPacksDlg.endPlay();
+}
+
+function MarblelandPack_MissionLoadFailed() {
+	MarblelandPacksDlg.endPlay();
+}
+
+function MarblelandPack_MissionExit() {
+	MarblelandPacksDlg.endPlay();
+}
+
+function MarblelandPacksDlg::endPlay(%this) {
+	deactivatePackage(MarblelandPacksEnd);
+	deactivateMenuHandler(MarblelandPack);
+	$MarblelandPacksPlayingId = "";
+	devecho("Stopped playing pack");
+}
+
+function MarblelandPacksDlg::clearSearch(%this) {
+	MarblelandPacksSearchEdit.setValue("");
+	MarblelandPacksSearchDlg.search();
+}
+
+function MarblelandPacksDlg::setStatus(%this, %status, %active) {
+	MarblelandPacksSearchTitle.setText("<font:24><color:696969>" @ %status);
+	MarblelandPacksSearchEdit.setVisible(%active);
+	MarblelandPacksSearchEdit.makeFirstResponder(%active);
+	Canvas.repaint();
+}
+
+function MarblelandPacksDlg::onSelect(%this) {
+	%id = MarblelandPacksSearchList.getSelectedId();
+	if (!MarblelandPacksSearchList.isRowActive(%id)) {
+		return;
+	}
+
+	%pack = getField(MarblelandPacksSearchList.getRowTextById(%id), 3);
+	%downloaded = true;
+	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
+		%levelId = %pack.levelIds.getEntry(%i);
+
+		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
+			echo("Still need " @ %levelId @ ".mbpak");
+			%downloaded = false;
+			break;
+		}
+	}
+
+	MarblelandPacksSearchDownload.setVisible(!%downloaded);
+	MarblelandPacksSearchPlay.setActive(%downloaded);
+
+	if (isObject(MarblelandPacksDownloader))
+	{
+		MarblelandPacksSearchDownload.setActive(false);
+		MarblelandPacksSearchPlay.setActive(false);
+	}
+
+	MarblelandPacksLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");
+	if (!isFile("platinum/client/ui/search/marbleland/" @ %pack.id @ ".jpg")) {
+		new HTTPObject(MarblelandPacksPreviewDownloader);
+		MarblelandPacksPreviewDownloader.success = 0;
+		MarblelandPacksPreviewDownloader.setDownloadPath("platinum/client/ui/search/marblelandpacks/" @ %pack.id @ ".jpg");
+		MarblelandPacksPreviewDownloader.get("https://marbleland.vani.ga","/api/pack/" @ %pack.id @ "/image","");
+	} else {
+		MarblelandPacksLevelImage.setBitmap("platinum/client/ui/search/marblelandpacks/" @ %pack.id @ ".jpg");
+	}
+
+	%text = "<bold:20>" @ %pack.name;
+	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
+		%levelId = %pack.levelIds.getEntry(%i);
+		%text = %text NL "<font:16>" @ $MarblelandMissionList.lookup[%levelId].name;
+	}
+	MarblelandPacksLevelDesc.setText(%text);
+}
+
+function MarblelandPacksPreviewDownloader::onDownload(%this, %path) {
+	%this.success = 1;
+	MarblelandPacksLevelImage.setBitmap(%path);
+}
+
+function MarblelandPacksPreviewDownloader::onDisconnect(%this, %path) {
+	if (!%this.success) {
+		MarblelandPacksLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");
+	}
+	%this.delete();
+}
