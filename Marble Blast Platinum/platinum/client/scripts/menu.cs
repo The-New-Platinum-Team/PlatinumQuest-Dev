@@ -106,7 +106,7 @@ function menuLoadMission(%file) {
 			}
 		}
 
-		if (isObject($MarblelandMissionList.lookup[%firstMissionId])) {
+		if (isObject($MarblelandMissionList.lookup[%marblelandId])) {
 			// Reload the one which is gonna be played
 			loadMBPackage("marbleland/" @ %marblelandId);
 		}

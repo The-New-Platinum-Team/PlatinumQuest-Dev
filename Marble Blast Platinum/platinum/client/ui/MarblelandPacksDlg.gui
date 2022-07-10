@@ -473,28 +473,41 @@ function MarblelandPacksDlg::DownloadPack(%this) {
 	if (!MarblelandPacksSearchList.isRowActive(%id)) {
 		return;
 	}
+	$MarblelandPacksDownloadId = %id;
 
 	%pack = getField(MarblelandPacksSearchList.getRowTextById(%id), 3);
 	MarblelandPacksSearchDownload.setActive(false);
 	mkdir("packages/marbleland", 493);
 	chmod("packages/marbleland", 493);
 
+	%this.downloadQueue = Array(MarblelandPacksQueue);
+
 	for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 		%levelId = %pack.levelIds.getEntry(%i);
 
 		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
-			echo("Downloading " @ %levelId @ ".mbpak");
-			%http = new HTTPObject(MarblelandPacksDownloader);
-			%http.success = 0;
-			%http.levelId = %levelId;
-			%http.setDownloadPath("packages/marbleland/" @ %levelId @ ".mbpak");
-			%http.get("https://marbleland.vani.ga","/api/level/" @ %levelId @ "/mbpak","assuming=none&append-id-to-mis=1");
+			%this.downloadQueue.addEntry(%levelId);
 		} else {
 			echo("Already got " @ %levelId @ ".mbpak");
 		}
 	}
 
-	$MarblelandPacksDownloadId = %id;
+	for (%i = 0; %i < 5; %i ++) {
+		%this.startDownload();
+	}
+}
+
+function MarblelandPacksDlg::startDownload(%this) {
+	if (%this.downloadQueue.getSize() == 0)
+		return;
+
+	%levelId = %this.downloadQueue.getEntry(0);
+	%this.downloadQueue.removeEntry(0);
+	echo("Downloading " @ %levelId @ ".mbpak");
+	%http = new HTTPObject(MarblelandPacksDownloader);
+	%http.levelId = %levelId;
+	%http.setDownloadPath("packages/marbleland/" @ %levelId @ ".mbpak");
+	%http.get("https://marbleland.vani.ga","/api/level/" @ %levelId @ "/mbpak","assuming=none&append-id-to-mis=1");
 }
 
 function MarblelandPacksDownloader::onDownload(%this, %path) {
@@ -522,6 +535,7 @@ function MarblelandPacksDlg::checkFinish(%this) {
 
 		if (!isLoadedMBPackage("marbleland/" @ %levelId)) {
 			echo("Still need " @ %levelId @ ".mbpak");
+			%this.startDownload();
 			return;
 		}
 	}
