@@ -195,7 +195,7 @@ new GuiControl(MarblelandDlg) {
 				};
 			};
 		};
-		new GuiBorderButtonCtrl(MarblelandSearchPlay) {
+		new GuiBorderButtonCtrl(MarblelandSearchDownload) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
@@ -228,7 +228,7 @@ new GuiControl(MarblelandDlg) {
 			repeatDecay = "1";
 				borderColor = "255 153 153 255";
 		};
-		new GuiBorderButtonCtrl(MarblelandSearchStart) {
+		new GuiBorderButtonCtrl(MarblelandSearchPlay) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
@@ -297,14 +297,6 @@ function MarblelandDlg::onWake(%this) {
 		%this.sortMode = 0;
 	}
 	%this.buildSearch();
-}
-
-function MarblelandDownloadJSON() {
-	if (!isObject(MarblelandJSONDownloader)) {
-		new HTTPObject(MarblelandJSONDownloader);
-		MarblelandJSONDownloader.success = 0;
-		MarblelandJSONDownloader.get("https://marbleland.vani.ga","/api/level/list","");
-	}
 }
 
 function MarblelandDlg::buildSearch(%this) {
@@ -391,39 +383,29 @@ function MarblelandDlg::refreshSort(%this) {
 	MarblelandDlg.search();
 }
 
-function MarblelandJSONDownloader::onLine(%this, %line) {
-	echo("Loaded Marbleland MissionList");
-	$MarblelandMissionList = jsonParse(%line);
-	%this.success = 1;
-
-	// Prepare lookup
-	for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
-		%entry = $MarblelandMissionList.getEntry(%i);
-		$MarblelandMissionList.lookup[%entry.id] = %entry;
+function MD_notifyMissionUpdates(%success) {
+	if (!%success) {
+		MarblelandDlg.setStatus("Failed to load.", false);
 	}
 
-	notifyMissionUpdates();
-}
-
-function notifyMissionUpdates() {
 	%missionEditText = "";
 
-if (!isObject(MarblelandUpdateMissions))
-	Array(MarblelandUpdateMissions);
+	if (!isObject(MarblelandUpdateMissions))
+		Array(MarblelandUpdateMissions);
 
 	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
 		%entryId = MarblelandPackages.getEntry(%i);
 
-		if (!isObject($MarblelandMissionList.lookup[%entryId])) {
+		if (!isObject(marblelandGetMission(%entryId))) {
 			echo("MISSION NO LONGER EXISTS" SPC %entryId);
 			// MISSION NO LONGER EXISTS ON MARBLELAND
 		} else {
-			%mission_edited_at = $MarblelandMissionList.lookup[%entryId].editedAt;
+			%mission_edited_at = marblelandGetMission(%entryId).editedAt;
 			if (%mission_edited_at $= "") %mission_edited_at = 0;
 			if ($pref::MarblelandMission[%entryId] $= "") $pref::MarblelandMission[%entryId] = 0;
 			%current_mission_edited_at = $pref::MarblelandMission[%entryId];
 			if (%mission_edited_at > %current_mission_edited_at) {
-				%mission = $MarblelandMissionList.lookup[%entryId];
+				%mission = marblelandGetMission(%entryId);
 				%missionEditText = %missionEditText NL %mission.name SPC "by" SPC %mission.artist;
 				MarblelandUpdateMissions.addEntry(%entryId);
 				// MISSION HAS BEEN EDITED
@@ -434,14 +416,6 @@ if (!isObject(MarblelandUpdateMissions))
 	// if (%missionEditText !$= "") {
 	// 	MessageBoxOK("Marbleland Mission Updates", "The following missions have been updated on Marbleland, please redownload them:" NL %missionEditText);
 	// }
-}
-
-function MarblelandJSONDownloader::onDisconnect(%this) {
-	if (!%this.success) {
-		MarblelandDlg.setStatus("Failed to load.", false);
-	}
-
-	MarblelandJSONDownloader.delete();
 }
 
 // this builds the search list specified by the type:
@@ -504,10 +478,10 @@ function MarblelandDlg::finalize(%this) {
 		// MarblelandSearchMissionList.sort(0);
 		MarblelandSearchMissionList.setSelectedRow(0);
 		MarblelandSearchMissionList.scrollVisible(0);
-		MarblelandSearchPlay.setActive(true);
+		MarblelandSearchDownload.setActive(true);
 	} else {
+		MarblelandSearchDownload.setActive(false);
 		MarblelandSearchPlay.setActive(false);
-		MarblelandSearchStart.setActive(false);
 	}
 }
 
@@ -520,65 +494,30 @@ function MarblelandDlg::DownloadMission(%this) {
 
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
-	new HTTPObject(MarblelandDownloader);
-	MarblelandDownloader.success = 0;
-	mkdir("packages/marbleland", 493);
-	chmod("packages/marbleland", 493);
-	MarblelandDownloader.setDownloadPath("packages/marbleland/" @ %mission.id @ ".mbpak");
-	MarblelandDownloader.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/mbpak","assuming=none&append-id-to-mis=1");
-
-	$MarblelandDownloadId = %mission.id;
-
-	MarblelandSearchPlay.setActive(false);
+	marblelandDownload(%mission.id, MD_downloadFinished);
+	MarblelandSearchDownload.setActive(false);
 }
 
-function MarblelandDownloader::onDownload(%this, %path) {
-	%this.success = 1;
-
-	$pref::MarblelandMission[$MarblelandDownloadId] = $MarblelandMissionList.lookup[$MarblelandDownloadId].editedAt;
-
-	MarblelandUpdateMissions.removeMatching($MarblelandDownloadId);
+function MD_downloadFinished(%downloadId, %success) {
+	if (isObject(MarblelandUpdateMissions))
+		MarblelandUpdateMissions.removeMatching(%downloadId);
 
 	if (MarblelandDlg.sortMode == 4) {
 		MarblelandDlg.search();
 	}
-
-	MarblelandPackages.addEntry($MarblelandDownloadId);
-	loadMBPackageMis("marbleland/" @ $MarblelandDownloadId);
-	PlayMissionGui.ml.buildCustomDifficultyTree();
-
-	// Refresh "Custom" and "custom/marbleland" difficulties
-	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/");
-	if (isObject(%ml)) {
-		%ml.delete();
-	}
-	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/platinum/data/missions/marbleland");
-	if (isObject(%ml)) {
-		%ml.delete();
-	}
-
-	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
-		PlayMissionGui.buildCustomDifficultyList();
-		PlayMissionGui.setMissionType($MissionType);
-		PlayMissionGui.showMissionList();
-	}
-}
-
-function MarblelandDownloader::onDisconnect(%this) {
-	MarblelandSearchPlay.setActive(true);
+	MarblelandSearchDownload.setActive(true);
 	%id = MarblelandSearchMissionList.getSelectedId();
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
-	if (%this.success && %mission.id == $MarblelandDownloadId) {
+	if (%this.success && %mission.id == %downloadId) {
 		MarblelandSearchDelete.setVisible(true);
-		MarblelandSearchPlay.setVisible(false);
-		MarblelandSearchStart.setActive(true);
+		MarblelandSearchDownload.setVisible(false);
+		MarblelandSearchPlay.setActive(true);
 	} else {
 		MarblelandSearchDelete.setVisible(false);
-		MarblelandSearchPlay.setVisible(true);
-		MarblelandSearchStart.setActive(false);
+		MarblelandSearchDownload.setVisible(true);
+		MarblelandSearchPlay.setActive(false);
 	}
-	%this.delete();
 }
 
 function MarblelandDlg::start(%this) {
@@ -593,22 +532,6 @@ function MarblelandDlg::playMission(%this, %mission) {
 	%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
 	%mission.file = "platinum/data/missions/marbleland/" @ %misname;
 	PlayMissionGui.setSelectedMission(%mission, "Custom", "Custom/");
-
-	%marblelandId = getSubStr(%mission.file, strrpos(%mission.file, "_") + 1, strrpos(%mission.file, ".") - strrpos(%mission.file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
-	// Get the ids of the rest of the marbleland missions and unload them
-	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-		%pakName = MarblelandPackages.getEntry(%i);
-		if (%pakName != %marblelandId) {
-			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
-				unloadMBPackage("marbleland/" @ %pakName);
-				loadMBPackageMis("marbleland/" @ %pakName);
-			}
-		}
-	}
-
-	// Reload the one which is gonna be played
-	loadMBPackage("marbleland/" @ %marblelandId);
-
 	menuLoadStartMission(%mission.file);
 }
 
@@ -635,29 +558,11 @@ function MarblelandDlg::deleteFile(%this) {
 	MarblelandUpdateMissions.removeMatching(%id);
 
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
-	MarblelandPackages.removeMatching(%mission.id);
-	unloadMBPackage("marbleland/" @ %mission.id);
-	deletePackage("marbleland/" @ %mission.id);
-	PlayMissionGui.ml.buildCustomDifficultyTree();
-	PlayMissionGui.buildCustomDifficultyList();
-
-	// Refresh "Custom" and "custom/marbleland" difficulties
-	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/");
-	if (isObject(%ml)) {
-		%ml.delete();
-	}
-	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/platinum/data/missions/marbleland");
-	if (isObject(%ml)) {
-		%ml.delete();
-	}
-
-	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
-		PlayMissionGui.setMissionType($MissionType);
-		PlayMissionGui.showMissionList();
-	}
+	marblelandDelete(%mission.id);
+	marblelandRefreshMissionList();
 
 	MarblelandSearchDelete.setVisible(false);
-	MarblelandSearchPlay.setVisible(true);
+	MarblelandSearchDownload.setVisible(true);
 }
 
 function MarblelandDlg::onSelect(%this) {
@@ -668,25 +573,25 @@ function MarblelandDlg::onSelect(%this) {
 
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
-	if (isLoadedMBPackage("marbleland/" @ %mission.id)) {
+	if (marblelandHaveMission(%mission.id)) {
 		if (strStr($Menu::CurrentlyLoadedMission, "_" @ %mission.id @ ".mis") != -1) { // Such a hack
 			MarblelandSearchDelete.setActive(false);
 		} else {
 			MarblelandSearchDelete.setActive(true);
 		}
 		MarblelandSearchDelete.setVisible(true);
-		MarblelandSearchPlay.setVisible(false);
-		MarblelandSearchStart.setActive(true);
+		MarblelandSearchDownload.setVisible(false);
+		MarblelandSearchPlay.setActive(true);
 	} else {
 		MarblelandSearchDelete.setVisible(false);
-		MarblelandSearchPlay.setVisible(true);
-		MarblelandSearchStart.setActive(false);
+		MarblelandSearchDownload.setVisible(true);
+		MarblelandSearchPlay.setActive(false);
 	}
 
 	if (isObject(MarblelandDownloader))
 	{
+		MarblelandSearchDownload.setActive(false);
 		MarblelandSearchPlay.setActive(false);
-		MarblelandSearchStart.setActive(false);
 	}
 
 	MarblelandLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");

@@ -1254,14 +1254,7 @@ function PlayMissionGui::init(%this) {
 
 function PlayMissionGui::onWake(%this) {
 	// Reload marbleland packages
-	echo("Reloading Marbleland");
-	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-		%pakName = MarblelandPackages.getEntry(%i);
-		if (!isLoadedMBPackage("marbleland/" @ %pakName)) {
-			loadMBPackageMis("marbleland/" @ %pakName);
-		}
-	}
-
+	marblelandReloadMissions();
 
 	Unlock::updateCaches();
 	RootGui.resetDisplay();
