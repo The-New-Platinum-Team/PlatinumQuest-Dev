@@ -55,11 +55,37 @@ function GameConnection::loadMission(%this) {
 		sendLoadInfoToClient(%client);
 
 		%this.loading = true;
-		commandToClient(%this, 'ShowLoadScreen');
-		commandToClient(%this, 'MissionStartPhase1', $missionSequence,
-		                $Server::MissionFile, MissionGroup.musicTrack);
 		echo("*** Sending mission load to client: " @ $Server::MissionFile);
+
+		// Check for Marbleland mission status if necessary
+		if (marblelandIsMission($Server::MissionFile)) {
+			%this.marblelandHasMission(marblelandGetFileId($Server::MissionFile), "onMarblelandHasMission");
+		} else {
+			%this.onMarblelandDownloadComplete(true);
+		}
 	}
+}
+
+function GameConnection::onMarblelandHasMission(%this, %id, %success) {
+	if (%id !$= marblelandGetFileId($Server::MissionFile))
+		return;
+	if (%success) {
+		%this.onMarblelandDownloadComplete(true);
+		return;
+	}
+
+	%this.marblelandDownload(%id, onMarblelandDownloadComplete, %success);
+}
+
+function GameConnection::onMarblelandDownloadComplete(%this, %success) {
+	if (!%success) {
+		%this.delete("Could not download mission " @ $Server::MissionFile);
+		return;
+	}
+
+	commandToClient(%this, 'ShowLoadScreen');
+	commandToClient(%this, 'MissionStartPhase1', $missionSequence,
+	                $Server::MissionFile, MissionGroup.musicTrack);
 }
 
 function serverCmdMissionStartPhase1Ack(%client, %seq) {

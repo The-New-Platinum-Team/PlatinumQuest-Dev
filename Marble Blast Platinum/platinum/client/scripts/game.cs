@@ -117,7 +117,7 @@ function getBestTimes(%info) {
 			} else {
 				if (%info.gameMode $= "challenge") {
 					%scores = PlayMissionGui.personalScoreCache[%missionId, "challenge"].scores;
-				} else 
+				} else
 					%scores = PlayMissionGui.personalScoreCache[%missionId].scores;
 
 				//Find out how many scores we can get from the online cache
@@ -368,7 +368,7 @@ function clientCmdGameEnd() {
 			$LB::RatingPending = true;
 
 			statsRecordScore(PlayMissionGui.getMissionInfo());
-	
+
 			if ($highScoreIndex !$= "") {
 				//Hack: update the top score as quick as we can
 				%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
@@ -410,7 +410,7 @@ function clientCmdGameEnd() {
 
 	// Marbleland mission LB
 	if (!$Cheats::Activated && !$Editor::Opened) {
-		if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
+		if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
 			// Set rating to "Submitting..."
 			$LB::RatingPending = true;
 
@@ -643,7 +643,7 @@ function reformatGameEndText() {
 	%record = false;
 	if (lb()) {
 		%cache = PlayMissionGui.globalScoreCache[PlayMissionGui.getMissionInfo().id];
-		if ($Game::isMode["challenge"]) 
+		if ($Game::isMode["challenge"])
 			%cache = PlayMissionGui.globalChallengeScoreCache[PlayMissionGui.getMissionInfo().id];
 		if (isObject(%cache)) {
 			%scores = %cache.scores;
