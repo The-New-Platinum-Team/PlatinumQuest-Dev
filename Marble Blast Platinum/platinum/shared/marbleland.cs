@@ -38,6 +38,10 @@ function MarblelandJSONDownloader::onLine(%this, %line) {
 	for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
 		%entry = $MarblelandMissionList.getEntry(%i);
 		$MarblelandMissionList.lookup[%entry.id] = %entry;
+
+		%missionId = %entry.id;
+		%misname = strreplace(%entry.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
+		%entry.file = "platinum/data/missions/marbleland/" @ %misname;
 	}
 }
 
@@ -51,8 +55,13 @@ function MarblelandJSONDownloader::onDisconnect(%this) {
 //-----------------------------------------------------------------------------
 
 function marblelandDownload(%id, %callback) {
-	echo("Marbleland downloading: " @ %id);
+	echo("Marbleland downloading: " @ %id SPC %callback);
 	%mission = $MarblelandMissionList.lookup[%id];
+
+	if (!isObject(%mission)) {
+		schedule(100, 0, %callback, %id, false);
+		return;
+	}
 
 	mkdir("packages/marbleland", 493);
 	chmod("packages/marbleland", 493);
@@ -74,7 +83,7 @@ function MarblelandDownloader::onDownload(%this, %path) {
 }
 
 function MarblelandDownloader::onDisconnect(%this) {
-	echo("Marbleland download status: " @ %id @ " success: " @ %this.success);
+	echo("Marbleland download status: " @ %this.id @ " success: " @ %this.success);
 	if (%this.callback !$= "") {
 		// Get out of this stack frame
 		schedule(100, 0, %this.callback, %this.id, %this.success);

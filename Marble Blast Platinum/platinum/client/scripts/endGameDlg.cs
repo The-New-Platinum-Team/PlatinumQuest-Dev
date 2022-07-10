@@ -87,7 +87,7 @@ function EndGameDlg::restart(%this) {
 }
 
 function EndGameDlg::getNextLevel(%this) {
-	if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
+	if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
 		return;
 	}
 

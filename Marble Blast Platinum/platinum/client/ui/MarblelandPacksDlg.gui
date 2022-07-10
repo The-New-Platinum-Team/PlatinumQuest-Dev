@@ -563,9 +563,6 @@ package MarblelandPacksEnd {
 		for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
 			%levelId = %pack.levelIds.getEntry(%i);
 			%mission = marblelandGetMission(%levelId);
-			%missionId = %mission.id;
-			%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
-			%mission.file = "platinum/data/missions/marbleland/" @ %misname;
 			if ($Client::MissionFile $= %mission.file) {
 				%index = %i;
 				break;
@@ -589,11 +586,8 @@ package MarblelandPacksEnd {
 		%nextMissionId = %pack.levelIds.getEntry(%index);
 		%mission = marblelandGetMission(%nextMissionId);
 
-		%missionId = %mission.id;
-		%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
-		%misfile = "platinum/data/missions/marbleland/" @ %misname;
-		devecho("Found next mission in pack: " @ %misfile);
-		return getMissionInfo(%misfile, true);
+		devecho("Found next mission in pack: " @ %mission.file);
+		return getMissionInfo(%mission.file, true);
 	}
 };
 
