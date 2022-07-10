@@ -51,6 +51,7 @@ function MarblelandJSONDownloader::onDisconnect(%this) {
 //-----------------------------------------------------------------------------
 
 function marblelandDownload(%id, %callback) {
+	echo("Marbleland downloading: " @ %id);
 	%mission = $MarblelandMissionList.lookup[%id];
 
 	mkdir("packages/marbleland", 493);
@@ -70,13 +71,10 @@ function MarblelandDownloader::onDownload(%this, %path) {
 
 	MarblelandPackages.addEntry(%this.id);
 	loadMBPackageMis("marbleland/" @ %this.id);
-
-	if (!$Server::Dedicated) {
-		marblelandRefreshMissionList();
-	}
 }
 
 function MarblelandDownloader::onDisconnect(%this) {
+	echo("Marbleland download status: " @ %id @ " success: " @ %this.success);
 	if (%this.callback !$= "") {
 		// Get out of this stack frame
 		schedule(100, 0, %this.callback, %this.id, %this.success);
@@ -94,11 +92,28 @@ function marblelandDelete(%id) {
 
 //-----------------------------------------------------------------------------
 
+function marblelandGetFileId(%file) {
+	if (strpos(expandFilename(%file), "platinum/data/missions/marbleland/") != -1) {
+		%id = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
+		return %id;
+	} else {
+		return "";
+	}
+}
+
+function marblelandIsMission(%file) {
+	if (strpos(expandFilename(%file), "platinum/data/missions/marbleland/") != -1) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function marblelandGetMission(%id) {
 	return $MarblelandMissionList.lookup[%id];
 }
 
-function marblelandHaveMission(%id) {
+function marblelandHasMission(%id) {
 	return isLoadedMBPackage("marbleland/" @ %id);
 }
 

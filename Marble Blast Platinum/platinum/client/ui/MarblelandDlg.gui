@@ -499,6 +499,7 @@ function MarblelandDlg::DownloadMission(%this) {
 }
 
 function MD_downloadFinished(%downloadId, %success) {
+	marblelandRefreshMissionList();
 	if (isObject(MarblelandUpdateMissions))
 		MarblelandUpdateMissions.removeMatching(%downloadId);
 
@@ -506,18 +507,8 @@ function MD_downloadFinished(%downloadId, %success) {
 		MarblelandDlg.search();
 	}
 	MarblelandSearchDownload.setActive(true);
-	%id = MarblelandSearchMissionList.getSelectedId();
-	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
-	if (%this.success && %mission.id == %downloadId) {
-		MarblelandSearchDelete.setVisible(true);
-		MarblelandSearchDownload.setVisible(false);
-		MarblelandSearchPlay.setActive(true);
-	} else {
-		MarblelandSearchDelete.setVisible(false);
-		MarblelandSearchDownload.setVisible(true);
-		MarblelandSearchPlay.setActive(false);
-	}
+	MarblelandDlg.onSelect();
 }
 
 function MarblelandDlg::start(%this) {
@@ -573,7 +564,7 @@ function MarblelandDlg::onSelect(%this) {
 
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
-	if (marblelandHaveMission(%mission.id)) {
+	if (marblelandHasMission(%mission.id)) {
 		if (strStr($Menu::CurrentlyLoadedMission, "_" @ %mission.id @ ".mis") != -1) { // Such a hack
 			MarblelandSearchDelete.setActive(false);
 		} else {
