@@ -91,6 +91,35 @@ function menuLoadMission(%file) {
 	menuSetMission(%file);
 	menuStartLoading();
 
+	// Unload marbleland missions EXCEPT the one that is gonna be played
+	if (strpos(expandFilename(%file), "platinum/data/missions/marbleland/") != -1) {
+		%marblelandId = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
+
+		// Get the ids of the rest of the marbleland missions and unload them
+		for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+			%pakName = MarblelandPackages.getEntry(%i);
+			if (%pakName != %marblelandId) {
+				if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+					unloadMBPackage("marbleland/" @ %pakName);
+					loadMBPackageMis("marbleland/" @ %pakName);
+				}
+			}
+		}
+
+		if (isObject($MarblelandMissionList.lookup[%firstMissionId])) {
+			// Reload the one which is gonna be played
+			loadMBPackage("marbleland/" @ %marblelandId);
+		}
+	} else {
+		for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
+			%pakName = MarblelandPackages.getEntry(%i);
+			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
+				unloadMBPackage("marbleland/" @ %pakName);
+				loadMBPackageMis("marbleland/" @ %pakName);
+			}
+		}
+	}
+
 	$Menu::CurrentlyLoadedMission = %file;
 	$Menu::FirstLoad = false;
 	//If we need to start a server first, do so here

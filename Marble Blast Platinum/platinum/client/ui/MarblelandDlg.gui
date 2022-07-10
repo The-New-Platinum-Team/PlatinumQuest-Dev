@@ -330,7 +330,7 @@ function MarblelandDlg::buildSearch(%this) {
 }
 
 function MarblelandDlg::close(%this) {
-	
+
 }
 
 function SortAZ(%a, %b) {
@@ -357,7 +357,7 @@ function MarblelandDlg::sort(%this) {
 	// 2: time
 	// 3: reverse time
 	// 4: update
-	if (%this.sortMode == 4 && MarblelandUpdateMissions.getSize() == 0) 
+	if (%this.sortMode == 4 && MarblelandUpdateMissions.getSize() == 0)
 		%this.sortMode = 0;
 
 	if (%this.sortMode == 5 && MarblelandUpdateMissions.getSize() != 0)
@@ -557,7 +557,7 @@ function MarblelandDownloader::onDownload(%this, %path) {
 		%ml.delete();
 	}
 
-	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") { 
+	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
 		PlayMissionGui.buildCustomDifficultyList();
 		PlayMissionGui.setMissionType($MissionType);
 		PlayMissionGui.showMissionList();
@@ -585,6 +585,10 @@ function MarblelandDlg::start(%this) {
 	%id = MarblelandSearchMissionList.getSelectedId();
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
 
+	%this.playMission(%mission);
+}
+
+function MarblelandDlg::playMission(%this, %mission) {
 	%missionId = %mission.id;
 	%misname = strreplace(%mission.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
 	%mission.file = "platinum/data/missions/marbleland/" @ %misname;
@@ -634,7 +638,7 @@ function MarblelandDlg::deleteFile(%this) {
 	MarblelandPackages.removeMatching(%mission.id);
 	unloadMBPackage("marbleland/" @ %mission.id);
 	deletePackage("marbleland/" @ %mission.id);
-	PlayMissionGui.ml.buildCustomDifficultyTree(); 
+	PlayMissionGui.ml.buildCustomDifficultyTree();
 	PlayMissionGui.buildCustomDifficultyList();
 
 	// Refresh "Custom" and "custom/marbleland" difficulties

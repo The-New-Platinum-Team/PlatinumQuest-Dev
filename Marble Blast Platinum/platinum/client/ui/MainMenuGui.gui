@@ -350,6 +350,11 @@ function MainMenuGui::onWake(%this) {
 		$MarblelandMissionListDownloaded = true;
 	}
 
+	if (!isObject($MarblelandPackList) && !$MarblelandPacksMissionListDownloaded) {
+		MarblelandPacksDownloadJSON();
+		$MarblelandPacksMissionListDownloaded = true;
+	}
+
 	if (!$pref::FadeIn) {
 		$pref::FadeIn=true;
 		%bob = new GuiFadeinBitmapCtrl() {
