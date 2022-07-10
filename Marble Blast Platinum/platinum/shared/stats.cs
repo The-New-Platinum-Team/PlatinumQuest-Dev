@@ -141,7 +141,7 @@ function StatsNetwork::onDisconnect(%this) {
 }
 
 function statsGetMissionIdentifier(%mission) {
-	if (%mission.is_custom) {
+	if (%mission.is_custom || %mission.id $= "") {
 		//Need to provide these:
 		//missionFile
 		//missionName
@@ -1056,7 +1056,7 @@ function statsRecordMatch(%mission) {
 	//Grab variables for query
 	%players = getPlayingPlayerCount();
 	%port    = $pref::Server::Port;
-	%modes   = resolveMissionGameModes(MissionInfo.gameMode);
+	%modes   = URLEncode(resolveMissionGameModes(MissionInfo.gameMode));
 	%total   = Mode::callback("getStartTime", 0);
 	%type    = Mode::callback("getScoreType", $ScoreType::Time);
 	%bonus   = $Time::TotalBonus;
@@ -1080,7 +1080,7 @@ function statsRecordMatch(%mission) {
 			if (%team.getCount() == 0)
 				continue;
 			%data = %data @ "&teams[number][]=" @ %team.number;
-			%data = %data @ "&teams[name][]=" @ Team::getTeamName(%team);
+			%data = %data @ "&teams[name][]=" @ URLEncode(Team::getTeamName(%team));
 			%data = %data @ "&teams[color][]=" @ Team::getTeamColor(%team);
 		}
 	} else {
@@ -1102,12 +1102,12 @@ function statsRecordMatch(%mission) {
 		%score = getField(%score, 1);
 
 		%skin = MPMarbleList.findTextIndex(%player.skinChoice);
-		%data = %data @ "&scores[username][]=" @ %player.getUsername();
+		%data = %data @ "&scores[username][]=" @ URLEncode(%player.getUsername());
 		%data = %data @ "&scores[score][]=" @ mFloor(%score);
 		%data = %data @ "&scores[place][]=" @ GameConnection::getPlace(%player);
 		%data = %data @ "&scores[host][]=" @ !!%player.isHost();
 		%data = %data @ "&scores[guest][]=" @ !!%player.isGuest();
-		%data = %data @ "&scores[marble][]=" @ %skin;
+		%data = %data @ "&scores[marble][]=" @ URLEncode(%skin);
 		%data = %data @ "&scores[timePercent][]=" @ 1;
 		%data = %data @ "&scores[disconnect][]=" @ !!%player.fake;
 		%data = %data @ "&scores[gemCount][]=" @ mFloor(%player.gemsFoundTotal);

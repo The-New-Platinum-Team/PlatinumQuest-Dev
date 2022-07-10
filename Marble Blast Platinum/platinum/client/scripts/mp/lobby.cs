@@ -525,14 +525,14 @@ function clientCmdMissionListEnd(%gameName, %difficultyName) {
 		PlayMissionGui.init();
 	}
 	if ($Server::Lobby) {
-		//Really only need to update if we are showing this difficluty
+		//Really only need to update if we are showing this difficulty
 		%info = PlayMissionGui.getMissionInfo();
-		if ((%gameName $= resolveMissionGame(%info)) && (%difficultyName $= resolveMissionType(%info))) {
+		if (%gameName $= $CurrentGame && %difficultyName $= $MissionType) {
 			//Update to show the real mission list
 			PlayMissionGui.showMissionList();
 
 			//Select the current mission again so it doesn't deselect when the list updates
-			PlayMissionGui.setSelectedMission(%info, resolveMissionGame(%info), resolveMissionType(%info));
+			PlayMissionGui.setSelectedMission(%info, $CurrentGame, $MissionType);
 
 			//Update the play screen
 			PlayMissionGui.updateMPButtons();

@@ -108,7 +108,7 @@ function debugMetricsCallback() {
 }
 
 function marbleCallback() {
-	return $testCount @ " V: " @ $MarbleVelocity @ " A: " @ $MarbleA @ " O: " @ $MarbleO @ " AR: " @ $Marbleal;
+	return $testCount @ " V: " @ $MP::MyMarble.getVelocity() @ " VL: " @ VectorLen($MP::MyMarble.getVelocity()) @ " O: " @ $MP::MyMarble.getAngularVelocity() @ " OL: " @ VectorLen($MP::MyMarble.getAngularVelocity());
 }
 
 package Metrics {
