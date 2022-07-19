@@ -252,6 +252,24 @@ new SimGroup(MaterialGroup) {
 		friction = 2;
 		restitution = 0.75;
 	};
+
+	// Blasted
+
+	new MaterialProperty(BMRubberMaterial) {
+		friction = 2;
+		restitution = 0.5;
+	};
+
+	new MaterialProperty(BMIceMaterial) {
+		friction = 0.20;
+		restitution = 0.95;
+	};
+
+	new MaterialProperty(BMBouncyMaterial) {
+		friction = 0.2;
+		restitution = 1;
+		force = 15;
+	};
 };
 
 // YAY FOR MBP
@@ -378,6 +396,11 @@ addMaterialMapping("tribumper_tex" , PQBouncyMaterial);
 addMaterialMapping("repul_stripe_caution" , MORepulsionMaterial);
 addMaterialMapping("repul_pq_construction_concrete" , MORepulsionMaterial);
 addMaterialMapping("pq_ray_wall_combo_repul" , MOWeakRepulsionMaterial);
+
+// Blasted
+addMaterialMapping("bm_friction_high" , BMRubberMaterial);
+addMaterialMapping("bm_friction_low" , BMIceMaterial);
+addMaterialMapping("bm_friction_bounce" , BMBouncyMaterial);
 
 // Spooky texturing
 addMaterialMapping("spooky_acidwater" , SpookyWaterMaterial);
