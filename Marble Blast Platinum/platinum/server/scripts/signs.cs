@@ -286,6 +286,8 @@ datablock StaticShapeData(RoadsignYellow) {
 	skin[17] = "Dragon";
 	skin[18] = "DragonCaution";
 	skin[19] = "NoFunAllowed";
+	skin[20] = "BlastedCaution";
+	skin[21] = "BlastedDanger";
 
 	customField[0, "field"  ] = "skin";
 	customField[0, "type"   ] = "string";
