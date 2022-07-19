@@ -878,6 +878,13 @@ datablock StaticShapeData(Marblius) {
 	shapeFile = "~/data/shapes_pq/LevelParts/Marblius.dts";
 };
 
+datablock StaticShapeData(Propeller_BM_Base) {
+	className = "LevelParts";
+	superCategory = "Level Parts";
+	category = "Propeller Base";
+	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Blasted/bm_propeller_base.dts";
+};
+
 //-----------------------------------------------------------------------------
 // Other
 //-----------------------------------------------------------------------------

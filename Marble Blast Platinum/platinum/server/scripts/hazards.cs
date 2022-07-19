@@ -1094,6 +1094,8 @@ datablock StaticShapeData(PropLarge1 : Propeller) {
 	forceStrength[0] = 15;     // Force to apply
 	forceRadius[0] = 25;       // Max radius
 	forceArc[0] = 0.7;         // Cos angle
+	skin[0] = "base";
+	skin[1] = "bm";
 };
 
 datablock StaticShapeData(PropLarge2 : Propeller) {
@@ -1101,6 +1103,8 @@ datablock StaticShapeData(PropLarge2 : Propeller) {
 	forceStrength[0] = 25;
 	forceRadius[0] = 35;
 	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
 };
 
 datablock StaticShapeData(PropLarge3 : Propeller) {
@@ -1108,6 +1112,8 @@ datablock StaticShapeData(PropLarge3 : Propeller) {
 	forceStrength[0] = 35;
 	forceRadius[0] = 45;
 	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
 };
 
 datablock StaticShapeData(PropLarge4 : Propeller) {
@@ -1115,6 +1121,8 @@ datablock StaticShapeData(PropLarge4 : Propeller) {
 	forceStrength[0] = 40;
 	forceRadius[0] = 50;
 	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
 };
 
 datablock StaticShapeData(PropLarge5 : Propeller) {
@@ -1122,6 +1130,53 @@ datablock StaticShapeData(PropLarge5 : Propeller) {
 	forceStrength[0] = 45;
 	forceRadius[0] = 55;
 	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
+};
+
+datablock StaticShapeData(PropLarge1_BM : Propeller) {
+	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Blasted/Propeller_large_1.dts";
+	forceStrength[0] = 15;     // Force to apply
+	forceRadius[0] = 25;       // Max radius
+	forceArc[0] = 0.7;         // Cos angle
+	skin[0] = "base";
+	skin[1] = "bm";
+};
+
+datablock StaticShapeData(PropLarge2_BM : Propeller) {
+	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Blasted/Propeller_large_2.dts";
+	forceStrength[0] = 25;
+	forceRadius[0] = 35;
+	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
+};
+
+datablock StaticShapeData(PropLarge3_BM : Propeller) {
+	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Blasted/Propeller_large_3.dts";
+	forceStrength[0] = 35;
+	forceRadius[0] = 45;
+	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
+};
+
+datablock StaticShapeData(PropLarge4_BM : Propeller) {
+	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Blasted/Propeller_large_4.dts";
+	forceStrength[0] = 40;
+	forceRadius[0] = 50;
+	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
+};
+
+datablock StaticShapeData(PropLarge5_BM : Propeller) {
+	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Blasted/Propeller_large_5.dts";
+	forceStrength[0] = 45;
+	forceRadius[0] = 55;
+	forceArc[0] = 0.7;
+	skin[0] = "base";
+	skin[1] = "bm";
 };
 
 //-------------------------
