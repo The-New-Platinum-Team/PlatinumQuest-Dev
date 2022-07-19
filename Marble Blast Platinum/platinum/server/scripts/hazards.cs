@@ -1261,6 +1261,22 @@ datablock StaticShapeData(IceSlick4 : IceSlick1) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/IceSlick4.dts";
 };
 
+datablock StaticShapeData(IceSlick1_BM) {
+	className = "Hazard";
+	superCategory = "Hazards";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Hazards/IceSlick1_bm.dts";
+};
+
+datablock StaticShapeData(IceSlick2_BM : IceSlick1_BM) {
+	shapeFile = "~/data/shapes_bm/Hazards/IceSlick2_bm.dts";
+};
+
+datablock StaticShapeData(IceSlick3_BM : IceSlick1_BM) {
+	shapeFile = "~/data/shapes_bm/Hazards/IceSlick3_bm.dts";
+};
+
 //-----------------------------------------------------------------------------
 // Ice Shard
 //-----------------------------------------------------------------------------
