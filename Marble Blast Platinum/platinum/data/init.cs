@@ -278,17 +278,17 @@ new SimGroup(MaterialGroup) {
 	new MaterialProperty(BMHighBouncyMaterial) {
 		friction = 1;
 		restitution = 2;
-		force = 15;
+		force = 20;
 	};
 	new MaterialProperty(BMMedBouncyMaterial) {
 		friction = 1;
 		restitution = 2;
-		force = 10;
+		force = 15;
 	};
 	new MaterialProperty(BMLowBouncyMaterial) {
 		friction = 1;
 		restitution = 2;
-		force = 5;
+		force = 10;
 	};
 };
 
