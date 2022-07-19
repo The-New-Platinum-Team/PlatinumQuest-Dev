@@ -653,5 +653,23 @@ new SimGroup(MissionGroup) {
       dataBlock = "FinishTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
+   new StaticShape(check1) {
+      position = "11 2 16.51";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new Trigger(CheckP1) {
+      position = "8 5 16.5";
+      rotation = "1 0 0 0";
+      scale = "6 6 12";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "Check1";
+   };
 };
 //--- OBJECT WRITE END ---

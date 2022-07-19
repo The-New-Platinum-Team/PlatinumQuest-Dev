@@ -370,7 +370,7 @@ datablock StaticShapeData(Tornado_MBM : Tornado) {
 	forceRadius[2] = 3;
 };
 
-datablock StaticShapeData(Tornado) {
+datablock StaticShapeData(Tornado_BM : Tornado) {
 	superCategory = "Hazards";
 	category = "Blasted";
 
@@ -382,6 +382,19 @@ datablock StaticShapeData(Tornado) {
 	forceStrength[2] = 250;
 	forceRadius[2] = 3;
 };
+
+function Tornado_BM::onAdd(%this,%obj) {
+	%obj.playThread(0,"ambient");
+	%obj.playAudio(0,TornadoSfx);
+	%obj.setPoweredState(true);
+}
+
+function Tornado_BM::onMissionReset(%this, %obj) {
+	if (!$Game::Menu) {
+		%obj.stopAudio(0);
+		%obj.playAudio(0, TornadoSfx);
+	}
+}
 
 //-----------------------------------------------------------------------------
 datablock StaticShapeData(OilSlick) {

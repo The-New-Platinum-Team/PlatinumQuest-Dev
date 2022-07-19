@@ -432,7 +432,7 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new Trigger() {
-      position = "-0.5 0.5 1.375";
+      position = "-0.5 0.5 0.375";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
@@ -529,6 +529,24 @@ new SimGroup(MissionGroup) {
       scale = "2 2 6";
       dataBlock = "FinishTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(check1) {
+      position = "86 5 22.01";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new Trigger(CheckP1) {
+      position = "83 15 15.5";
+      rotation = "1 0 0 0";
+      scale = "6 12 12";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "Check1";
    };
 };
 //--- OBJECT WRITE END ---
