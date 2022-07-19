@@ -2568,7 +2568,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		%text = %text NL "<just:left>Author:<just:right>" @ %artist;
 
 		//Figure out what times/scores it needs
-		%defined = "Gold Platinum Ultra PlatinumQuest LBCustom";
+		%defined = "Gold Platinum Ultra PlatinumQuest Blasted LBCustom";
 		%game = ((findWord(%defined, $CurrentGame) == -1) ? resolveMissionModification(%info) : $CurrentGame);
 		switch$ (%game) {
 		case "Gold":
@@ -2593,6 +2593,13 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
 			%awesomeTitle = "";
 		case "PlatinumQuest":
+			//Need par / platinum / ultimate / (awesome?)
+			%parTitle = "Par";
+			%goldTitle = "";
+			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
+			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
+			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+		case "Blasted":
 			//Need par / platinum / ultimate / (awesome?)
 			%parTitle = "Par";
 			%goldTitle = "";
