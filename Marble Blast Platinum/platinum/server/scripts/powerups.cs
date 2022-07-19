@@ -663,9 +663,18 @@ datablock ItemData(TimeTravelItem_BM : TimeTravelItem) {
 	category = "Blasted";
 	
 	shapeFile = "~/data/shapes_bm/Powerups/TimeTravel_bm.dts";
+	skin[0] = "base";
+	skin[1] = "1";
+	skin[2] = "2";
+	skin[3] = "3";
+	skin[4] = "4";
+	skin[5] = "5";
+	skin[6] = "6";
+	skin[7] = "7";
+	skin[8] = "8";
+	skin[9] = "9";
+	skin[10] = "10";
 
-	//For ::timeCheck() to replace if the time is negative
-	replacement = "TimePenaltyItem_BM";
 };
 
 // datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
