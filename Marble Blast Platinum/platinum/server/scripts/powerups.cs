@@ -658,6 +658,16 @@ datablock ItemData(TimeTravelItem_PQ : TimeTravelItem) {
 	replacement = "TimePenaltyItem_PQ";
 };
 
+datablock ItemData(TimeTravelItem_BM : TimeTravelItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/TimeTravel_bm.dts";
+
+	//For ::timeCheck() to replace if the time is negative
+	replacement = "TimePenaltyItem_BM";
+};
+
 // datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
 // 	shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
 
@@ -734,6 +744,12 @@ function TimeTravelItem_PQ::onAdd(%this, %obj) {
 	return TimeTravelItem::onAdd(%this, %obj);
 }
 function TimeTravelItem_PQ::onPickup(%this,%obj,%user,%amount) {
+	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
+}
+function TimeTravelItem_BM::onAdd(%this, %obj) {
+	return TimeTravelItem::onAdd(%this, %obj);
+}
+function TimeTravelItem_BM::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
 function TimeTravelItem_MBU::onAdd(%this, %obj) {
