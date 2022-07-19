@@ -167,6 +167,13 @@ datablock ItemData(SuperJumpItem_PQ : SuperJumpItem) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superjump.dts";
 };
 
+datablock ItemData(SuperJumpItem_BM : SuperJumpItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Powerups/SuperJump_bm.dts";
+};
+
 // datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
 // 	shapeFile = "~/data/shapes_mbu/items/superjump.dts";
 // };
@@ -241,6 +248,18 @@ datablock ShapeBaseImageData(SuperBounceImage_PQ : SuperBounceImage) {
 	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
 };
 
+datablock ItemData(SuperBounceItem_BM : SuperBounceItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Powerups/SuperBounce_bm.dts";
+	image = SuperBounceImage_BM;
+};
+
+datablock ShapeBaseImageData(SuperBounceImage_BM : SuperBounceImage) {
+	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
+};
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(DoSuperSpeedSfx) {
@@ -291,6 +310,13 @@ datablock ItemData(SuperSpeedItem_PQ : SuperSpeedItem) {
 	category = "PlatinumQuest";
 	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superspeed.dts";
+};
+
+datablock ItemData(SuperSpeedItem_BM : SuperSpeedItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/SuperSpeed_bm.dts";
 };
 
 //-----------------------------------------------------------------------------
@@ -361,6 +387,18 @@ datablock ItemData(ShockAbsorberItem_PQ : ShockAbsorberItem) {
 };
 
 datablock ShapeBaseImageData(ShockAbsorberImage_PQ : ShockAbsorberImage) {
+	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
+};
+
+datablock ItemData(ShockAbsorberItem_BM : ShockAbsorberItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/ShockAbsorber_bm.dts";
+	image = ShockAbsorberImage_BM;
+};
+
+datablock ShapeBaseImageData(ShockAbsorberImage_BM : ShockAbsorberImage) {
 	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
 };
 
@@ -458,6 +496,21 @@ datablock ShapeBaseImageData(HelicopterImage_PQ : ActualHelicopterImage) {
 	category = "PlatinumQuest";
 	
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/gyrocopter.dts";
+};
+
+datablock ItemData(HelicopterItem_BM : HelicopterItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/Gyrocopter_bm.dts";
+	image = HelicopterImage_BM;
+};
+
+datablock ShapeBaseImageData(HelicopterImage_BM : ActualHelicopterImage) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes/images/helicopter.dts";
 };
 
 // datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
@@ -1645,9 +1698,14 @@ datablock ItemData(AnvilItem) {
 	customField[0, "default"] = "0";
 };
 
-function AnvilItem::getData(%this, %obj) {
-	return "";
-}
+
+
+datablock ItemData(AnvilItem_BM : AnvilItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Powerups/Anvil_bm.dts";
+};
 
 //-----------------------------------------------------------------------------
 
