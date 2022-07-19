@@ -2,14 +2,18 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         CustomRadarRule = "0";
          artist = "James C.";
-         desc = "Simply indescribable.";
+         awesomeTime = "15000";
+         desc = "Jump up the stairs and across gaps to reach the finish.";
+         game = "Blasted";
+         gameMode = "null";
          level = "2";
          name = "Learning to Jump";
-         platinumTime = "0";
-         startHelpText = "Change this text!";
+         platinumTime = "25000";
+         startHelpText = "Press <func:bind jump> to jump.";
          type = "Chapter 1";
-         ultimateTime = "0";
+         ultimateTime = "20000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -18,7 +22,7 @@ new SimGroup(MissionGroup) {
          locked = "true";
    };
    new Sky(Sky) {
-      position = "336 136 0";
+      position = "0 0 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       cloudHeightPer[0] = "0";
@@ -36,7 +40,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies_pq/Blender3/blender3.dml";
+      materialList = "~/data/skies/In the Clouds/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -501,6 +505,127 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
       dataBlock = "EndPad_BM";
+   };
+   new Trigger(Stairs) {
+      position = "-4 7 0.5";
+      rotation = "1 0 0 0";
+      scale = "8 1 6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         extended = "0";
+         persistTime = "5000";
+         text = "Jump up these stairs.";
+   };
+   new Trigger(Ramps) {
+      position = "52 41 5";
+      rotation = "1 0 0 0";
+      scale = "8 1 6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         extended = "0";
+         persistTime = "5000";
+         text = "Jumping can make rolling up relatively steep ramps easier.";
+   };
+   new Trigger(Gaps) {
+      position = "42 4 13";
+      rotation = "1 0 0 0";
+      scale = "1 8 6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         extended = "0";
+         persistTime = "5000";
+         text = "Jump across the gaps.";
+   };
+   new Trigger(LargeGap) {
+      position = "15 4 13";
+      rotation = "1 0 0 0";
+      scale = "1 8 6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         extended = "0";
+         persistTime = "5000";
+         text = "Can you jump across this large gap?";
+   };
+   new Trigger(MoreGaps) {
+      position = "-28 7 13";
+      rotation = "1 0 0 0";
+      scale = "8 1 6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         displayonce = "0";
+         extended = "0";
+         persistTime = "5000";
+         text = "You can either avoid these gaps or jump over them.";
+   };
+   new StaticShape() {
+      position = "-104 64.3 27";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
+   };
+   new StaticShape() {
+      position = "56 48 5.01";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "target";
+         skin = "checkpoint";
+   };
+   new Trigger(check1) {
+      position = "56.5 47.5 5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SpawnTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         center = "1";
+         gravity = "0";
+   };
+   new Trigger(Checkpoint1) {
+      position = "52 52 5";
+      rotation = "1 0 0 0";
+      scale = "8 8 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "check1";
+   };
+   new ScriptObject() {
+         value = "WorldEditorSettingsDlg";
+   };
+   new StaticShape() {
+      position = "-24 0 13.01";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "target";
+         skin = "checkpoint";
+   };
+   new Trigger(check2) {
+      position = "-24.5 0.5 13";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SpawnTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         center = "1";
+         gravity = "0";
+   };
+   new Trigger(Checkpoint2) {
+      position = "-28 4 13";
+      rotation = "1 0 0 0";
+      scale = "8 8 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "check2";
+   };
+   new Trigger(Bounds) {
+      position = "-123.5 -19.6117 -5";
+      rotation = "1 0 0 0";
+      scale = "199 103.112 83.9";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---
