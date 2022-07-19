@@ -439,7 +439,7 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new Trigger() {
-      position = "0.5 0.5 0.5";
+      position = "-7.5 0.500028 -0.5";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
@@ -473,7 +473,7 @@ new SimGroup(MissionGroup) {
    };
    new Item() {
       position = "-22 2 13";
-      rotation = "1 0 0 0";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_BM";
       collideable = "0";
@@ -512,34 +512,25 @@ new SimGroup(MissionGroup) {
       rotate = "1";
          noRespawn = "0";
    };
-   new Trigger(GemWarp) {
-      position = "54 5 16.5";
-      rotation = "1 0 0 0";
-      scale = "1 6 8";
-      dataBlock = "TeleportTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         DisplayGemsMessage = "1";
-         GemsToDeactivate = "3";
-         cameraYaw = "90";
-         centerDestPoint = "1";
-         delay = "0";
-         destination = "Respawn";
-         inverseVelocity = "0";
-         keepAngular = "0";
-         keepCamera = "0";
-         keepVelocity = "0";
-         silent = "0";
-   };
-   new Trigger(Respawn) {
-      position = "10.5 2.50001 16.5";
+   new InteriorInstance() {
+      position = "65 -3 15";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "DestinationTrigger";
+      interiorFile = "~/data/interiors_bm/chapter1/MinorAscentCurve2.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(CheckP1) {
+      position = "8 5 16.5";
+      rotation = "1 0 0 0";
+      scale = "6 6 12";
+      dataBlock = "CheckpointTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "Check1";
    };
    new Item() {
       position = "7.8 27.2 7.2";
-      rotation = "1 0 0 0";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "TimeTravelItem_BM";
       collideable = "0";
@@ -551,7 +542,7 @@ new SimGroup(MissionGroup) {
    };
    new Item() {
       position = "-8.1 -25.3 8.5";
-      rotation = "1 0 0 0";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "TimeTravelItem_BM";
       collideable = "0";
@@ -563,7 +554,7 @@ new SimGroup(MissionGroup) {
    };
    new Item() {
       position = "23 2 24";
-      rotation = "1 0 0 0";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "TimeTravelItem_BM";
       collideable = "0";
@@ -575,7 +566,7 @@ new SimGroup(MissionGroup) {
    };
    new Item() {
       position = "65 2 16.5";
-      rotation = "1 0 0 0";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_BM";
       collideable = "0";
@@ -662,14 +653,33 @@ new SimGroup(MissionGroup) {
          disableOOB = "0";
          gravity = "0";
    };
-   new Trigger(CheckP1) {
-      position = "8 5 16.5";
+   new InteriorInstance() {
+      position = "30 -20.5 16";
       rotation = "1 0 0 0";
-      scale = "6 6 12";
-      dataBlock = "CheckpointTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         gravity = "0";
-         respawnPoint = "Check1";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter1/MinorAscentCurve1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "52 24.5 16";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter1/MinorAscentCurve1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "18.5 13 16";
+      rotation = "0 0 1 89.9996";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter1/MinorAscentCurve1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "63.5 -9 16";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter1/MinorAscentCurve1.dif";
+      showTerrainInside = "0";
    };
 };
 //--- OBJECT WRITE END ---
