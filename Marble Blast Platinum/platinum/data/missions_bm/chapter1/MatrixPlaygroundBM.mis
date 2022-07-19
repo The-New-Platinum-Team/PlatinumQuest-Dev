@@ -2,15 +2,19 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         CustomRadarRule = "5";
          artist = "James C.";
+         awesomeTime = "32000";
          desc = "Grab all the gems in this three story playground.";
+         game = "Blasted";
+         gameMode = "null";
          level = "7";
          music = "Tim Trance.ogg";
          name = "Matrix Playground";
-         platinumTime = "0";
+         platinumTime = "60000";
          startHelpText = "Change this text!";
          type = "Custom";
-         ultimateTime = "0";
+         ultimateTime = "46000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -783,18 +787,25 @@ new SimGroup(MissionGroup) {
          noRespawn = "0";
          showHelpOnPickup = "0";
    };
-   new StaticShape(EndPoint) {
-      position = "0 0 0.50225";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "EndPad_MBG";
-   };
    new Trigger(Bounds) {
       position = "-45.5 -38.5 -24.25";
       rotation = "1 0 0 0";
       scale = "91 77 119.5";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new TSStatic() {
+      position = "0 0 0.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+   };
+   new Trigger(finish) {
+      position = "-1 1 0.5";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "FinishTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---
