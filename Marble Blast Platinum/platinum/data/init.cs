@@ -255,20 +255,40 @@ new SimGroup(MaterialGroup) {
 
 	// Blasted
 
-	new MaterialProperty(BMRubberMaterial) {
-		friction = 2;
+	new MaterialProperty(BMGrassMaterial) {
+		friction = 1.5;
+		restitution = 0.5;
+	};
+
+	new MaterialProperty(BMSandMaterial) {
+		friction = 3;
+		restitution = 0.5;
+	};
+
+	new MaterialProperty(BMMudMaterial) {
+		friction = 0.25;
 		restitution = 0.5;
 	};
 
 	new MaterialProperty(BMIceMaterial) {
-		friction = 0.20;
+		friction = 0.05;
 		restitution = 0.95;
 	};
 
-	new MaterialProperty(BMBouncyMaterial) {
-		friction = 0.2;
+	new MaterialProperty(BMHighBouncyMaterial) {
+		friction = 1;
 		restitution = 2;
 		force = 15;
+	};
+	new MaterialProperty(BMMedBouncyMaterial) {
+		friction = 1;
+		restitution = 2;
+		force = 10;
+	};
+	new MaterialProperty(BMLowBouncyMaterial) {
+		friction = 1;
+		restitution = 2;
+		force = 5;
 	};
 };
 
@@ -398,9 +418,13 @@ addMaterialMapping("repul_pq_construction_concrete" , MORepulsionMaterial);
 addMaterialMapping("pq_ray_wall_combo_repul" , MOWeakRepulsionMaterial);
 
 // Blasted
-addMaterialMapping("bm_friction_high" , BMRubberMaterial);
-addMaterialMapping("bm_friction_low" , BMIceMaterial);
-addMaterialMapping("bm_friction_bounce" , BMBouncyMaterial);
+addMaterialMapping("bm_friction_grass" , BMGrassMaterial);
+addMaterialMapping("bm_friction_sand" , BMSandMaterial);
+addMaterialMapping("bm_friction_mud" , BMMudMaterial);
+addMaterialMapping("bm_friction_ice" , BMIceMaterial);
+addMaterialMapping("bm_friction_bounce_high" , BMHighBouncyMaterial);
+addMaterialMapping("bm_friction_bounce_med" , BMMedBouncyMaterial);
+addMaterialMapping("bm_friction_bounce_low" , BMLowBouncyMaterial);
 
 // Spooky texturing
 addMaterialMapping("spooky_acidwater" , SpookyWaterMaterial);
