@@ -2,17 +2,16 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         CustomRadarRule = "1";
+         GemQuota = "10";
          artist = "James C.";
-         awesomeTime = "40000";
-         desc = "Test your mastery of the recoil PowerUps!";
+         desc = "Simply indescribable.";
          game = "Blasted";
-         gameMode = "null";
-         level = "5";
+         gameMode = "quota";
+         level = "8";
          music = "Tim Trance.ogg";
-         name = "Elite Recoil Challenge";
-         platinumTime = "55000";
+         name = "Bounding Bedlam";
          type = "Custom";
-         ultimateTime = "70000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -39,7 +38,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies_bm/Stormy/sky_day.dml";
+      materialList = "~/data/skies_bm/Altitude/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -49,8 +48,8 @@ new SimGroup(MissionGroup) {
    };
    new Sun() {
       direction = "0.638261 0.459006 -0.61801";
-      color = "0.400000 0.400000 0.400000 1.000000";
-      ambient = "0.200000 0.200000 0.300000 1.000000";
+      color = "1.000000 1.000000 1.000000 1.000000";
+      ambient = "0.400000 0.400000 0.500000 1.000000";
    };
    new SimGroup(PathNodeGroup) {
 
@@ -422,246 +421,16 @@ new SimGroup(MissionGroup) {
             useRotation = "1";
             useScale = "1";
       };
-      new StaticShape(path1a) {
-         position = "1 -31 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "Path1B";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "2000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(path1b) {
-         position = "1 -37 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "Path1A";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "2000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(Path1AA) {
-         position = "19 -37 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "Path1AB";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "2000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(Path1AB) {
-         position = "19 -31 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "Path1AA";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "2000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(path2a) {
-         position = "7 -37 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "Path2B";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "1000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(path2b) {
-         position = "7 -31 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "Path2A";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "1000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(path2AA) {
-         position = "13 -31 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "path2AB";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "1000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(path2AB) {
-         position = "13 -37 39";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "path2AA";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "1000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(SandPathA) {
-         position = "-35.986 -8.56478 3.11646";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "0";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "SandPathB";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "6000";
-            usePosition = "0";
-            useRotation = "1";
-            useScale = "0";
-      };
-      new StaticShape(SandPathB) {
-         position = "-34.2405 -9.68822 4.1151";
-         rotation = "0 0 1 180";
-         scale = "1 1 1";
-         dataBlock = "PathNode";
-            FinalRotOffset = "0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "0";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "0";
-            nextNode = "SandPathA";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "6000";
-            usePosition = "0";
-            useRotation = "1";
-            useScale = "0";
-      };
    };
    new InteriorInstance() {
       position = "0 0 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter5/EliteRecoilChallengeBM.dif";
+      interiorFile = "~/data/interiors_bm/chapter3/BoundingBedlamBM.dif";
       showTerrainInside = "0";
    };
    new Trigger() {
-      position = "-0.5 0.5 1";
+      position = "-0.5 0.5 5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
@@ -670,17 +439,46 @@ new SimGroup(MissionGroup) {
          gravity = "0";
    };
    new Item() {
-      position = "0 24 2";
+      position = "0 36 1";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "0 18 3";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "ShockAbsorberItem_BM";
+      dataBlock = "SuperBounceItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "0 25 5";
+      position = "24 66 -10.5";
       rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "12 66 -1";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "36 66 -10.5";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_BM";
       collideable = "0";
@@ -688,25 +486,124 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "-40 46 1";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "ShockAbsorberItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-48 56 3";
+      position = "60 47 13";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "ShockAbsorberItem_BM";
+      dataBlock = "SuperBounceItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "-46 34 5";
+      position = "60 24 -0.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "30 18 37.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "30 60 37.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "18 35.75 78.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "48 8 73.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "72 -14 75.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "102 22 87.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "138 46 81.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "155 46 73.5";
+      rotation = "1 0 0 0";
+      scale = "4 4 4";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "30 2 47";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "30 76 47";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "30 48 37.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_BM";
@@ -715,25 +612,16 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "-46 24 5.5";
+      position = "30 30 37.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "ShockAbsorberItem_BM";
+      dataBlock = "SuperSpeedItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "-46 0 11";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperBounceItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-32 -32 25";
+      position = "1 42 83";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "SuperBounceItem_BM";
@@ -742,16 +630,43 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "-32 -36 25";
-      rotation = "0 0 1 90.0002";
+      position = "48 22 79";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "AnvilItem_BM";
+      dataBlock = "SuperBounceItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "30 -34 51";
+      position = "60 -14 85";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "84 -14 75.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "102 5 91";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperBounceItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "121 46 83";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "SuperBounceItem_BM";
@@ -760,206 +675,91 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new StaticShape() {
-      position = "-10 -53 47.25";
+      position = "102 16 80.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "Tornado_BM";
+      dataBlock = "BMFadePlatform3x3";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
    };
-   new Item() {
-      position = "-9 -41 47";
+   new StaticShape() {
+      position = "102 28 80.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperBounceItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      dataBlock = "BMFadePlatform3x3";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
    };
-   new Item() {
-      position = "-11 -41 47";
+   new Trigger(tele1) {
+      position = "59 1 7.25";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "ShockAbsorberItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "0 12 13";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-20 46 6";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-28 42 4";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-12 -34 39";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-10 -66 57";
-      rotation = "1 0 0 90.0002";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-   };
-   new StaticShape(check1) {
-      position = "-36 44 1.01";
-      rotation = "0 0 -1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "Checkpoint_BM";
-         chkcollide = "1";
-         disableOOB = "0";
-         gravity = "0";
-   };
-   new StaticShape(check2) {
-      position = "-4 -34 39.01";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "Checkpoint_BM";
-         chkcollide = "1";
-         disableOOB = "0";
-         gravity = "0";
-   };
-   new Trigger(CheckP1) {
-      position = "-42 50 1";
-      rotation = "1 0 0 0";
-      scale = "12 12 6";
-      dataBlock = "CheckpointTrigger";
+      scale = "2 2 1";
+      dataBlock = "TeleportTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         gravity = "0";
-         respawnPoint = "Check1";
+         DisplayGemsMessage = "0";
+         centerDestPoint = "1";
+         delay = "2000";
+         destination = "Dest1";
+         inverseVelocity = "0";
+         keepAngular = "0";
+         keepCamera = "0";
+         keepVelocity = "0";
+         silent = "0";
    };
-   new Trigger(CheckP2) {
-      position = "-10 -30 39";
+   new Trigger(dest1) {
+      position = "29.5 0.5 47";
       rotation = "1 0 0 0";
-      scale = "8 8 4";
-      dataBlock = "CheckpointTrigger";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         gravity = "0";
-         respawnPoint = "Check2";
    };
-   new StaticShape() {
-      position = "1 -31 39";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "RoundBumper_BM";
-         Path = "Path1A";
-   };
-   new StaticShape() {
-      position = "7 -37 39";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "RoundBumper_BM";
-         Path = "path2A";
-   };
-   new StaticShape() {
-      position = "19 -37 39";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "RoundBumper_BM";
-         Path = "path1AA";
-   };
-   new StaticShape() {
-      position = "13 -31 39";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "RoundBumper_BM";
-         Path = "Path2AA";
-   };
-   new InteriorInstance(SandPlus) {
-      position = "-46 -12 -0.75";
+   new Trigger(tele2) {
+      position = "29 -11 49.25";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter5/EliteRecoilChallengeBMSandPlus.dif";
-      showTerrainInside = "0";
-         Path = "SandPathA";
+      scale = "2 2 1";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         DisplayGemsMessage = "0";
+         cameraYaw = "90";
+         centerDestPoint = "1";
+         delay = "2000";
+         destination = "Dest2";
+         inverseVelocity = "0";
+         keepAngular = "0";
+         keepCamera = "0";
+         keepVelocity = "0";
+         silent = "0";
    };
-   new Item() {
-      position = "-48.6475 -11.1036 -1";
-      rotation = "0 0 1 117.03";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         Parent = "SandPlus";
-         noRespawn = "0";
-         parentModTrans = "2.5 -1.25 -0.25 0 0 -1 0.96185";
-         parentOffset = "0 0 0";
-         parentSimple = "0";
-         skin = "3";
-         timeBonus = "3000";
-   };
-   new Item() {
-      position = "-43.2263 -13.5273 -1";
-      rotation = "0 0 1 232.65";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         Parent = "SandPlus";
-         noRespawn = "0";
-         parentModTrans = "-2.5388 1.8923 -0.25 0 0 1 1.0561";
-         parentOffset = "0 0 0";
-         parentSimple = "0";
-         skin = "4";
-         timeBonus = "4000";
-   };
-   new Item() {
-      position = "-22 -36.75 13";
+   new Trigger(dest2) {
+      position = "-11.5 42.5 85";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         skin = "5";
-         timeBonus = "5000";
-   };
-   new Trigger(Bounds) {
-      position = "-66.5128 -83 -6.25";
-      rotation = "1 0 0 0";
-      scale = "118.013 156.5 153";
-      dataBlock = "InBoundsTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new TSStatic() {
-      position = "-10 -28 55";
-      rotation = "1 0 0 0";
+      position = "177.5 46 79";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
    };
    new Trigger(finish) {
-      position = "-11 -27 55";
-      rotation = "1 0 0 0";
+      position = "178.5 47 79";
+      rotation = "0 0 1 90.0002";
       scale = "2 2 6";
       dataBlock = "FinishTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
