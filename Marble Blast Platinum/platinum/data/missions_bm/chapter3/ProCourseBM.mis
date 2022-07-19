@@ -6,7 +6,7 @@ new SimGroup(MissionGroup) {
          Radar = "1";
          artist = "James C.";
          awesomeTime = "10000";
-         desc = "Simply indescribable.";
+         desc = "Pass the course filled with advanced obstacles like a pro.";
          game = "Blasted";
          gameMode = "null";
          level = "4";
@@ -666,6 +666,87 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+   };
+   new StaticShape(check1) {
+      position = "0 27 6.51";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new Trigger(CheckP1) {
+      position = "-3 30 6.5";
+      rotation = "1 0 0 0";
+      scale = "6 12 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "check1";
+   };
+   new InteriorInstance() {
+      position = "-29 4.25 -5.25";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-27.25 -30.75 -5";
+      rotation = "0 0 1 213.751";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "31.25 2.75 -4.5";
+      rotation = "0 0 1 45.0001";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "32 -24 -4.75";
+      rotation = "0 0 1 135";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 32.75 5.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "72.25 27 5.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 -3.25 5.49999";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_up1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-7.88389 -4.88388 -4.5";
+      rotation = "0 0 1 225.001";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "7.88389 -4.88388 -4.5";
+      rotation = "0 0 1 135";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
+      showTerrainInside = "0";
    };
 };
 //--- OBJECT WRITE END ---
