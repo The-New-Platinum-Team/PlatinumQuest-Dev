@@ -226,7 +226,22 @@ datablock StaticShapeData(SmallDuctFan) {
 	powerOn = true;         // Default state
 };
 
+datablock StaticShapeData(DuctFan_BM : DuctFan) {
+	className = "Fan";
+	superCategory = "Hazards";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/hazards/ductfan.dts";
+	scopeAlways = true;
 
+	forceType[0] = Cone;       // Force type {Spherical, Field, Cone}
+	forceNode[0] = 0;          // Shape node transform
+	forceStrength[0] = $Game::FanStrength;     // Force to apply
+	forceStrengthModifier[0] = 1; //Modifier of forceStrength
+	forceRadius[0] = 10;       // Max radius
+	forceArc[0] = 0.7;         // Cos angle
+
+	powerOn = true;         // Default state
+};
 
 datablock StaticShapeData(DuctFan_PQ : DuctFan) {
 	superCategory = "Hazards";
@@ -352,6 +367,19 @@ datablock StaticShapeData(Tornado_MBM : Tornado) {
 	forceType[2] = Field;
 	forceVector[2] = "0 0 1";
 	forceStrength[2] = 350;
+	forceRadius[2] = 3;
+};
+
+datablock StaticShapeData(Tornado) {
+	superCategory = "Hazards";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/hazards/tornado.dts";
+	
+	// Field to shoot the marble up
+	forceType[2] = Field;
+	forceVector[2] = "0 0 1";
+	forceStrength[2] = 250;
 	forceRadius[2] = 3;
 };
 
@@ -563,6 +591,14 @@ datablock StaticShapeData(LandMine_PQ : LandMine) {
 	category = "PlatinumQuest";
 
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Mine/landmine.dts";
+	skin = "base";
+};
+
+datablock StaticShapeData(LandMine_BM : LandMine) {
+	superCategory = "Hazards";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Hazards/LandMine_bm.dts";
 	skin = "base";
 };
 
