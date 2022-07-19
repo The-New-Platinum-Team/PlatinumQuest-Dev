@@ -299,6 +299,7 @@ datablock StaticShapeData(Target) {
 	skin[2] = "red";
 	skin[3] = "blue";
 	skin[4] = "green";
+	skin[5] = "checkpoint";
 };
 
 function Target::onAdd(%this, %obj) {
