@@ -115,9 +115,25 @@ package Metrics {
 
 	function onFrameAdvance(%time) {
 		Parent::onFrameAdvance(%time);
-		if (TextOverlayControl.callback !$= "") {
-			eval("$frameVal = " @ TextOverlayControl.callback @ ";");
-			TextOverlayControl.setText($frameVal);
+		if (FrameOverlayGui.callback !$= "") {
+			eval("$frameVal = " @ FrameOverlayGui.callback @ ";");
+			%records = getRecordCount($frameVal);
+			%recordsPerScreen = mFloor((Canvas.getHeight() - 10) / 14);
+			%x = 5;
+			%ctrl = 0;
+			for (%i = 0; %i < 7; %i ++) {
+				(TextOverlayControl @ %i).setText("");
+			}
+			for (%i = 0; %i < %records; %i += %recordsPerScreen) {
+				%width = 0;
+				for (%j = %i; %j < %i + %recordsPerScreen; %j ++) {
+					%width = max(%width, textLen(getRecord($frameVal, %j), GuiTextProfile.fontType, GuiTextProfile.fontSize));
+				}
+				(TextOverlayControl @ %ctrl).setText("<color:ffffff><shadow:1:1><shadowcolor:000000ff>" @ getRecords($frameVal, %i, %i + %recordsPerScreen - 1));
+				(TextOverlayControl @ %ctrl).setPosition(%x SPC 5);
+				%x += %width + 5;
+				%ctrl ++;
+			}
 		}
 	}
 
@@ -161,7 +177,7 @@ function metrics(%expr) {
 
 	if (%cb !$= "") {
 		RootGui.pushDialog(FrameOverlayGui, 1000);
-		TextOverlayControl.callback = %cb;
+		FrameOverlayGui.callback = %cb;
 	} else {
 		GLEnableMetrics(false);
 		RootGui.popDialog(FrameOverlayGui);
