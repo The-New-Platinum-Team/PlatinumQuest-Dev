@@ -49,7 +49,7 @@ function MarblelandJSONDownloader::onDisconnect(%this) {
 	if (%this.callback !$= "") {
 		schedule(100, 0, %this.callback, %this.success);
 	}
-	%this.delete();
+	%this.destroy();
 }
 
 //-----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ function MarblelandDownloader::onDisconnect(%this) {
 		// Get out of this stack frame
 		schedule(100, 0, %this.callback, %this.id, %this.success);
 	}
-	%this.delete();
+	%this.destroy();
 }
 
 //-----------------------------------------------------------------------------
@@ -185,4 +185,50 @@ function marblelandRefreshMissionList() {
 		PlayMissionGui.setMissionType($MissionType);
 		PlayMissionGui.showMissionList();
 	}
+}
+
+//-----------------------------------------------------------------------------
+// RandomityGuy's weird fake LBs
+
+function marblelandSubmit(%mission, %user, %score, %scoreType) {
+	new HTTPObject(MarblelandSubmitter);
+	MarblelandSubmitter.post("https://pqmarblelandlbs.vani.ga","/score", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
+}
+
+function MarblelandSubmitter::onLine(%this, %line) {
+	fwrite("platinum/json/marblelandSubmit.json", %line);
+}
+
+function MarblelandSubmitter::onDisconnect(%this) {
+	%this.destroy();
+}
+
+function marblelandGetScores(%mission, %callback) {
+	if (isObject(MarblelandRetriever))
+		MarblelandRetriever.cancelled = true; // Cancel existing request cause bruh
+	new HTTPObject(MarblelandRetriever);
+	MarblelandRetriever.success = 0;
+	MarblelandRetriever.mission = %mission;
+	MarblelandRetriever.callback = %callback;
+	MarblelandRetriever.get("https://pqmarblelandlbs.vani.ga", "/score", "mission=" @ URLEncode(%mission));
+}
+
+function MarblelandRetriever::onLine(%this, %line) {
+	if (%this.cancelled)
+		return;
+	fwrite("platinum/json/marblelandScores.json", %line);
+	%scoreData = jsonParse(%line);
+	if (%this.callback !$= "") {
+		call(%this.callback, true, %this.mission, %scoreData);
+	}
+	%this.success = 1;
+}
+
+function MarblelandRetriever::onDisconnect(%this) {
+	if (!%this.success && !%this.cancelled) {
+		if (%this.callback !$= "") {
+			call(%this.callback, false, %this.mission, %scoreData);
+		}
+	}
+	%this.destroy();
 }

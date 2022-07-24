@@ -4242,7 +4242,15 @@ function PlayMissionGui::loadMarblelandScores(%this) {
 	}
 
 	//Get new scores
-	MarblelandGetScores(%this.getMissionInfo().file);
+	MarblelandGetScores(%this.getMissionInfo().file, PMG_onMarbleLandScoresLoaded);
+}
+
+function PMG_onMarbleLandScoresLoaded(%success, %mission, %scoreData) {
+	if (%success) {
+		PlayMissionGui.onMarblelandScoreUpdate(%scoreData);
+	} else {
+		PlayMissionGui.onMarblelandScoreFailed(%mission);
+	}
 }
 
 function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
