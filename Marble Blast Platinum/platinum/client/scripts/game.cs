@@ -285,27 +285,8 @@ function addBestScore(%missionFile, %scoreInfo) {
 	return %index;
 }
 
-function clientCmdGameEnd() {
-	//Don't store scores if we're in a replay
-	if ($Client::PlayingDemo) {
-		return;
-	}
-	if ($Record::Recording) {
-		//Give 3 sec at the end screen before we finish the rec
-		cancel($recordFinish);
-		$recordFinish = schedule(3000, 0, recordFinish);
-	}
-
-	if (ClientMode::callback("showEndGame", false)) {
-		return;
-	}
-
-	// Multiplayer has its own things
-	if (mp()) {
-		RootGui.pushDialog(MPEndGameDlg);
-		return;
-	}
-
+// Record current score to local and online leaderboards
+function recordScore() {
 	if ($Game::isMode["challenge"]) {
 		$Client::MissionFile = strReplace($Client::MissionFile, "platinum/data", "challenge/data");
 	}
@@ -410,7 +391,7 @@ function clientCmdGameEnd() {
 
 	// Marbleland mission LB
 	if (!$Cheats::Activated && !$Editor::Opened) {
-		if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
+		if (marblelandIsMission($Server::MissionFile)) {
 			// Set rating to "Submitting..."
 			$LB::RatingPending = true;
 
@@ -420,8 +401,33 @@ function clientCmdGameEnd() {
 			else if ($pref::highScoreName !$= "")
 				%marblelandScoreName = $pref::highScoreName;
 
-			MarblelandSubmit(PlayMissionGui.getMissionInfo().file, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
+			MarblelandSubmit($Server::MissionFile, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
 		}
+	}
+}
+
+function clientCmdGameEnd() {
+	if ($Record::Recording) {
+		//Give 3 sec at the end screen before we finish the rec
+		cancel($recordFinish);
+		$recordFinish = schedule(3000, 0, recordFinish);
+	}
+
+	if (ClientMode::callback("showEndGame", false)) {
+		return;
+	}
+
+	// Multiplayer has its own things
+	if (mp()) {
+		RootGui.pushDialog(MPEndGameDlg);
+		return;
+	}
+
+	recordScore();
+
+	if (isObject($Menu::Queue)) {
+		menuEndQueueMission();
+		return;
 	}
 
 	RootGui.pushDialog(EndGameDlg);

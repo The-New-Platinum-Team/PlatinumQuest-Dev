@@ -32,7 +32,12 @@ function LoadingGui::onWake(%this) {
 	if (isObject($Client::NextMission)) {
 		%info = $Client::NextMission;
 
-		%text = "<bold:36><just:center>" @ %info.name @ "<font:28><lmargin:70><rmargin:630>";
+		%name = %info.name;
+		if (isObject($Menu::Queue)) {
+			%name = "[" @ ($Menu::QueueIndex + 1) @ "/" @ $Menu::Queue.getMissionCount() @ "] " @ %name;
+		}
+
+		%text = "<bold:36><just:center>" @ %name @ "<font:28><lmargin:70><rmargin:630>";
 
 		%showAwesome = ((Unlock::getMissionCompletion(%info) & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll;
 

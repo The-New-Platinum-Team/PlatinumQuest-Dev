@@ -537,77 +537,69 @@ function MarblelandPacksDlg::play(%this) {
 		return;
 	devecho("Play level pack: " @ %pack.id);
 
-	%firstMissionId = %pack.levelIds.getEntry(0);
-	%mission = marblelandGetMission(%firstMissionId);
-	MarblelandDlg.playMission(%mission);
-
-	activateMenuHandler(MarblelandPack);
-	activatePackage(MarblelandPacksEnd);
-
-	$MarblelandPacksPlayingId = %pack.id;
-	$MarblelandPacksPlayingIndex = 0;
+	%queue = new ScriptObject(PackQueue) {
+		class = "MarblelandPacksMissionQueue";
+		superClass = "MissionQueue";
+		pack = %pack;
+	};
+	menuPlayQueue(%queue);
 }
 
-package MarblelandPacksEnd {
-	function EndGameDlg::getNextLevel(%this) {
-		%id = $MarblelandPacksPlayingId;
+function MarblelandPacksMissionQueue::getMissionCount(%this) {
+	return %this.pack.levelIds.getSize();
+}
 
-		if (%id $= "") {
-			devecho("Not playing a pack anymore");
-			MarblelandPacksDlg.endPlay();
-			return Parent::getNextLevel(%this);
-		}
-		%pack = $MarblelandPackList.lookup[%id];
+function MarblelandPacksMissionQueue::getMissionInfo(%this, %index) {
+	%missionId = %this.pack.levelIds.getEntry(%index);
+	%mission = marblelandGetMission(%missionId);
+	return %mission;
+}
 
-		%index = -1;
-		for (%i = 0; %i < %pack.levelIds.getSize(); %i ++) {
-			%levelId = %pack.levelIds.getEntry(%i);
-			%mission = marblelandGetMission(%levelId);
-			if ($Client::MissionFile $= %mission.file) {
-				%index = %i;
-				break;
-			}
-		}
+function MissionQueue::onPlay(%this) {
+	%this.totalScore = 0;
+	%this.totalBonus = 0;
+	%this.totalElapsed = 0;
+	%this.totalRealTime = 0;
+}
 
-		if (%index == -1) {
-			devecho("Can't find mission");
-			MarblelandPacksDlg.endPlay();
-			return;
-		}
+function MissionQueue::onPlayMission(%this, %index) {
+	%this.missionStart[%index] = getRealTime();
+}
 
-		%index ++;
+function MissionQueue::onEndMission(%this, %index, %completed) {
+	%this.missionScore[%index] = $Game::FinalScore;
+	%this.missionBonus[%index] = $Game::BonusTime;
+	%this.missionElapsed[%index] = $Game::ElapsedTime;
 
-		if (%index >= %pack.levelIds.getSize()) {
-			devecho("Finished last level");
-			MarblelandPacksDlg.endPlay();
-			return;
-		}
+	%this.missionEnd[%index] = getRealTime();
+	%this.missionRealTime[%index] = sub64_int(%this.missionEnd[%index], %this.missionStart[%index]);
 
-		%nextMissionId = %pack.levelIds.getEntry(%index);
-		%mission = marblelandGetMission(%nextMissionId);
+	%this.missionScore[%index] = $Game::FinalScore;
+	%this.missionBonus[%index] = $Game::BonusTime;
+	%this.missionElapsed[%index] = $Game::ElapsedTime;
 
-		devecho("Found next mission in pack: " @ %mission.file);
-		return getMissionInfo(%mission.file, true);
+	%this.missionEnd[%index] = getRealTime();
+	%this.missionRealTime[%index] = sub64_int(%this.missionEnd[%index], %this.missionStart[%index]);
+
+	%type = getField($Game::FinalScore, 0);
+	%score = getField($Game::FinalScore, 1);
+
+	if (%type $= $ScoreType::Time) {
+		%this.totalScore += %score;
+		%this.totalElapsed += %this.missionElapsed[%index];
 	}
-};
+	%this.totalBonus += %this.missionBonus[%index];
+	%this.totalRealTime += %this.missionRealTime[%index];
 
-function MarblelandPack_MissionLoad() {
-	MarblelandPacksDlg.endPlay();
+	%message = "Pack Progress: " @ (%index + 1) @ "/" @ %this.getMissionCount() @ "";
+	%message = %message NL "IGT: " @ formatTime(%this.totalScore);
+	%message = %message NL "RTA: " @ formatTime(%this.totalRealTime);
+
+	addHelpLine(%message);
 }
 
-function MarblelandPack_MissionLoadFailed() {
-	MarblelandPacksDlg.endPlay();
-}
-
-function MarblelandPack_MissionExit() {
-	MarblelandPacksDlg.endPlay();
-}
-
-function MarblelandPacksDlg::endPlay(%this) {
-	deactivatePackage(MarblelandPacksEnd);
-	deactivateMenuHandler(MarblelandPack);
-	$MarblelandPacksPlayingId = "";
-	devecho("Stopped playing pack");
+function MarblelandPacksMissionQueue::onEnd(%this, %completed) {
+	RootGui.pushDialog(MarblelandPacksDlg);
 }
 
 function MarblelandPacksDlg::clearSearch(%this) {
@@ -676,5 +668,5 @@ function MarblelandPacksPreviewDownloader::onDisconnect(%this, %path) {
 	if (!%this.success) {
 		MarblelandPacksLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");
 	}
-	%this.delete();
+	%this.destroy();
 }
