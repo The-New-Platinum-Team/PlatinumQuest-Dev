@@ -63,6 +63,83 @@ function getMissionList(%type) {
 }
 
 //-----------------------------------------------------------------------------
+// MissionList Interface
+//-----------------------------------------------------------------------------
+
+/// Get a newline-separated list of all available Games
+/// @return List of Games in the format (Id TAB DisplayName)
+function MissionList::getGameList(%this) {
+	error(%this.class @ "::getGameList unimplemented!");
+	return "NA" TAB "N/A";
+}
+
+/// Get a newline-separated list of all available Difficulties for a given Game
+/// @param game Id of game to list
+/// @return List of Difficulties in the format (Id TAB DisplayName)
+function MissionList::getDifficultyList(%this, %game) {
+	error(%this.class @ "::getDifficultyList unimplemented!");
+	return "NA" TAB "N/A";
+}
+
+/// Generate internal mission list structures for a given Game and Difficulty.
+/// This function will generate an object whose name is the return value of
+/// %this.getMissionList(%game, %difficulty) and whose type is an Array() whose
+/// entries are MissionInfo ScriptObjects.
+/// @param game Id of game to build
+/// @param difficulty Id of difficulty to build
+function MissionList::buildMissionList(%this, %game, %difficulty) {
+	error(%this.class @ "::buildMissionList unimplemented!");
+	%list = %this.getMissionList(%game, %difficulty);
+	Array(%list);
+}
+
+/// Get the path to the directory containing the mission files for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MissionList::getMissionDirectory(%this, %game, %difficulty) {
+	error(%this.class @ "::getMissionDirectory unimplemented!");
+	return "platinum/data/missions/custom/";
+}
+
+/// Get the path to the directory containing the icon files for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MissionList::getBitmapDirectory(%this, %game, %difficulty) {
+	error(%this.class @ "::getBitmapDirectory unimplemented!");
+	return "platinum/data/missions/custom/";
+}
+
+/// Get the path to the directory containing the preview images for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MissionList::getPreviewDirectory(%this, %game, %difficulty) {
+	error(%this.class @ "::getPreviewDirectory unimplemented!");
+	return "platinum/data/previews/custom/";
+}
+
+/// Determine if a given Game and Difficulty exists
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return True if that game/difficulty exists
+function MissionList::hasMissionList(%this, %game, %difficulty) {
+	error(%this.class @ "::hasMissionList unimplemented!");
+	return false;
+}
+
+/// Get the forced game mode for a given Game and Difficulty. It will be enabled
+/// for all levels in this regardless of if they specify it.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Space separated list of game modes
+function MissionList::getGameMode(%this, %game, %difficulty) {
+	error(%this.class @ "::getGameMode unimplemented!");
+	return "";
+}
+
+//-----------------------------------------------------------------------------
 // General functions that apply to all the mission lists
 //-----------------------------------------------------------------------------
 
@@ -706,7 +783,7 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 
 					previews_directory = %missionObj.previews_directory;
 					bitmap_directory = %missionObj.bitmap_directory;
-					
+
 					file = %file;
 					downloaded = false;
 					partial = true;

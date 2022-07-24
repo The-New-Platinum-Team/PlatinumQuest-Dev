@@ -67,6 +67,8 @@ function menuRestartClient() {
 	%conn.connectLocal();
 }
 
+//-----------------------------------------------------------------------------
+
 function menuSetMission(%file) {
 	echo("*** Menu set mission " @ %file);
 
@@ -139,6 +141,10 @@ function menuOnMissionLoaded() {
 
 		menuSendCb("MissionLoaded");
 	}
+
+	if (isObject($Menu::Queue)) {
+		$Menu::Queue.onPlayMission($Menu::QueueIndex);
+	}
 }
 
 function menuOnMissionLoadFailed() {
@@ -149,6 +155,59 @@ function menuOnMissionLoadFailed() {
 
 	menuSendCb("MissionLoadFailed");
 }
+
+//-----------------------------------------------------------------------------
+
+function menuPlayQueue(%queue) {
+	echo("*** Menu play queue: " @ %queue.class SPC %queue.getName() SPC %queue.getId());
+	$Menu::Queue = %queue;
+
+	if (%queue.getMissionCount() == 0) {
+		menuFinishQueue(false);
+		return;
+	}
+
+	$Menu::QueueIndex = 0;
+	$Menu::Queue.onPlay();
+
+	%mission = $Menu::Queue.getMissionInfo(0);
+	$Client::NextMission = %mission;
+	menuLoadStartMission(%mission.file);
+
+	menuSendCb("PlayQueue", $Menu::Queue);
+}
+
+function menuEndQueueMission() {
+	echo("*** Menu end mission in queue: " @ $Menu::QueueIndex);
+	$Menu::Queue.onEndMission($Menu::QueueIndex);
+	schedule(3000, 0, menuPlayNextQueue);
+}
+
+function menuPlayNextQueue() {
+	echo("*** Menu play next in queue: " @ $Menu::QueueIndex);
+	$Menu::QueueIndex ++;
+	if ($Menu::QueueIndex == $Menu::Queue.getMissionCount()) {
+		menuMissionExit();
+		return;
+	}
+
+	%mission = $Menu::Queue.getMissionInfo($Menu::QueueIndex);
+	$Client::NextMission = %mission;
+	menuLoadStartMission(%mission.file);
+
+	menuSendCb("PlayNextQueue", $Menu::Queue);
+}
+
+function menuFinishQueue(%completed) {
+	echo("*** Menu finish queue with completed: " @ %completed);
+	$Menu::Queue.onEnd(%completed);
+
+	menuSendCb("FinishQueue", $Menu::Queue);
+
+	$Menu::Queue = 0;
+}
+
+//-----------------------------------------------------------------------------
 
 function menuStartCameraOverview() {
 	//Major hack here to get this up and running
@@ -201,6 +260,8 @@ function menuPlay() {
 
 	menuSendCb("Play");
 }
+
+//-----------------------------------------------------------------------------
 
 function menuMissionExit() {
 	echo("*** Menu mission exit");
@@ -259,6 +320,10 @@ function menuMissionExit() {
 	}
 
 	menuSendCb("MissionExit");
+
+	if (isObject($Menu::Queue)) {
+		menuFinishQueue($Menu::QueueIndex == $Menu::Queue.getMissionCount());
+	}
 }
 
 function menuMissionEnd() {
@@ -394,6 +459,9 @@ function deactivateMenuHandler(%name) {
 // _StartLoading()
 // _MissionLoaded()
 // _MissionLoadFailed()
+// _PlayQueue()
+// _PlayNextQueue()
+// _FinishQueue()
 // _Play()
 // _MissionExit()
 // _MissionEnded()
