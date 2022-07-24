@@ -630,7 +630,7 @@ function MarblelandPreviewDownloader::onDisconnect(%this, %path) {
 	if (!%this.success) {
 		MarblelandLevelImage.setBitmap("platinum/client/ui/search/marbleland/loading.png");
 	}
-	%this.delete();
+	%this.destroy();
 }
 
 function capitalizeModification(%mod) {
@@ -644,37 +644,4 @@ function capitalizeModification(%mod) {
 function capitalizeGameType(%type) {
 	if (%type $= "single") return "SinglePlayer";
 	if (%type $= "multi") return "Multiplayer";
-}
-
-function MarblelandSubmit(%mission, %user, %score, %scoreType) {
-	new HTTPObject(MarblelandSubmitter);
-	MarblelandSubmitter.post("https://pqmarblelandlbs.vani.ga","/score", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
-}
-
-function MarblelandSubmitter::onDisconnect(%this) {
-	%this.delete();
-}
-
-function MarblelandGetScores(%mission) {
-	if (isObject(MarblelandRetriever))
-		MarblelandRetriever.cancelled = true; // Cancel existing request cause bruh
-	new HTTPObject(MarblelandRetriever);
-	MarblelandRetriever.success = 0;
-	MarblelandRetriever.mission = %mission;
-	MarblelandRetriever.get("https://pqmarblelandlbs.vani.ga", "/score", "mission=" @ URLEncode(%mission));
-}
-
-function MarblelandRetriever::onLine(%this, %line) {
-	if (%this.cancelled)
-		return;
-	%scoreData = jsonParse(%line);
-	PlayMissionGui.onMarblelandScoreUpdate(%scoreData);
-	%this.success = 1;
-}
-
-function MarblelandRetriever::onDisconnect(%this) {
-	if (!%this.success && !%this.cancelled) {
-		PlayMissionGui.onMarblelandScoreFailed(%this.mission);
-	}
-	%this.delete();
 }
