@@ -34,6 +34,8 @@ function MarblelandJSONDownloader::onLine(%this, %line) {
 	$MarblelandMissionList = jsonParse(%line);
 	%this.success = 1;
 
+	fwrite("platinum/json/marblelandList.json", %line);
+
 	// Prepare lookup
 	for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
 		%entry = $MarblelandMissionList.getEntry(%i);
