@@ -537,11 +537,11 @@ function MarblelandPacksDlg::play(%this) {
 		return;
 	devecho("Play level pack: " @ %pack.id);
 
-	%queue = new ScriptObject(PackQueue) {
+	RootGroup.add(%queue = new ScriptObject(PackQueue) {
 		class = "MarblelandPacksMissionQueue";
 		superClass = "MissionQueue";
 		pack = %pack;
-	};
+	});
 	menuPlayQueue(%queue);
 }
 
@@ -555,50 +555,8 @@ function MarblelandPacksMissionQueue::getMissionInfo(%this, %index) {
 	return %mission;
 }
 
-function MissionQueue::onPlay(%this) {
-	%this.totalScore = 0;
-	%this.totalBonus = 0;
-	%this.totalElapsed = 0;
-	%this.totalRealTime = 0;
-}
-
-function MissionQueue::onPlayMission(%this, %index) {
-	%this.missionStart[%index] = getRealTime();
-}
-
-function MissionQueue::onEndMission(%this, %index, %completed) {
-	%this.missionScore[%index] = $Game::FinalScore;
-	%this.missionBonus[%index] = $Game::BonusTime;
-	%this.missionElapsed[%index] = $Game::ElapsedTime;
-
-	%this.missionEnd[%index] = getRealTime();
-	%this.missionRealTime[%index] = sub64_int(%this.missionEnd[%index], %this.missionStart[%index]);
-
-	%this.missionScore[%index] = $Game::FinalScore;
-	%this.missionBonus[%index] = $Game::BonusTime;
-	%this.missionElapsed[%index] = $Game::ElapsedTime;
-
-	%this.missionEnd[%index] = getRealTime();
-	%this.missionRealTime[%index] = sub64_int(%this.missionEnd[%index], %this.missionStart[%index]);
-
-	%type = getField($Game::FinalScore, 0);
-	%score = getField($Game::FinalScore, 1);
-
-	if (%type $= $ScoreType::Time) {
-		%this.totalScore += %score;
-		%this.totalElapsed += %this.missionElapsed[%index];
-	}
-	%this.totalBonus += %this.missionBonus[%index];
-	%this.totalRealTime += %this.missionRealTime[%index];
-
-	%message = "Pack Progress: " @ (%index + 1) @ "/" @ %this.getMissionCount() @ "";
-	%message = %message NL "IGT: " @ formatTime(%this.totalScore);
-	%message = %message NL "RTA: " @ formatTime(%this.totalRealTime);
-
-	addHelpLine(%message);
-}
-
 function MarblelandPacksMissionQueue::onEnd(%this, %completed) {
+	MissionQueue::onEnd(%this, %completed);
 	RootGui.pushDialog(MarblelandPacksDlg);
 }
 

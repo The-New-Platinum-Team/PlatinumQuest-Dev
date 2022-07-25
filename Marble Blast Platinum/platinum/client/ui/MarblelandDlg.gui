@@ -645,3 +645,59 @@ function capitalizeGameType(%type) {
 	if (%type $= "single") return "SinglePlayer";
 	if (%type $= "multi") return "Multiplayer";
 }
+
+function startRandomMissionQueue(%count) {
+	RootGroup.add(%queue = new ScriptObject(RandomQueue) {
+		class = "MarblelandRandomMissionQueue";
+		superClass = "MissionQueue";
+		count = %count;
+	});
+
+	%possible = Array();
+	%ml = $MarblelandMissionList;
+	for (%i = 0; %i < %ml.getSize(); %i ++) {
+		%mis = %ml.getEntry(%i);
+		if (%mis.qualifyingTime >= 180000)
+			continue;
+		if (%mis.goldTime >= 180000)
+			continue;
+		if (%mis.platinumTime >= 180000)
+			continue;
+		if (%mis.gameType !$= "single")
+			continue;
+		if (%mis.gems > 99)
+			continue;
+		if (%mis.lovedCount == 0)
+			continue;
+
+		%possible.addEntry(%mis.id);
+	}
+
+	for (%i = 0; %i < %count; %i ++) {
+		%idx = getRandom(0, %possible.getSize() - 1);
+		%id = %possible.getEntry(%idx);
+		%queue.missions[%i] = %id;
+		%possible.removeEntry(%idx);
+	}
+	marblelandDownload(%queue.missions[0], "SRMQ_Complete");
+}
+
+function SRMQ_Complete(%id, %success) {
+	for (%i = 0; %i < RandomQueue.count; %i ++) {
+		if (!marblelandHasMission(RandomQueue.missions[%i])) {
+			marblelandDownload(RandomQueue.missions[%i], "SRMQ_Complete");
+			return;
+		}
+	}
+
+	menuPlayQueue(RandomQueue.getId());
+}
+
+function MarblelandRandomMissionQueue::getMissionCount(%this) {
+	return %this.count;
+}
+
+function MarblelandRandomMissionQueue::getMissionInfo(%this, %index) {
+	%mission = marblelandGetMission(%this.missions[%index]);
+	return %mission;
+}
