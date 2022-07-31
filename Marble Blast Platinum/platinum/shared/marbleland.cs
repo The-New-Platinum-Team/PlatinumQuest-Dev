@@ -130,6 +130,8 @@ function marblelandHasMission(%id) {
 
 //-----------------------------------------------------------------------------
 
+Array(MarblelandLoadedPackages);
+
 function marblelandReloadMissions() {
 	echo("Reloading Marbleland");
 	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
@@ -153,8 +155,8 @@ function marblelandUnloadMissions() {
 function marblelandLoad(%id) {
 	echo("Marbleland load " @ %id);
 	// Get the ids of the rest of the marbleland missions and unload them
-	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-		%pakName = MarblelandPackages.getEntry(%i);
+	for (%i = 0; %i < MarblelandLoadedPackages.getSize(); %i++) {
+		%pakName = MarblelandLoadedPackages.getEntry(%i);
 		if (%pakName != %id) {
 			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
 				unloadMBPackage("marbleland/" @ %pakName);
@@ -162,10 +164,12 @@ function marblelandLoad(%id) {
 			}
 		}
 	}
+	MarblelandLoadedPackages.clear();
 
 	if (isObject($MarblelandMissionList.lookup[%id])) {
 		// Reload the one which is gonna be played
 		loadMBPackage("marbleland/" @ %id);
+		MarblelandLoadedPackages.addEntry(%id);
 	}
 }
 
