@@ -43,9 +43,9 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	if (isObject(%user.powerUpData) && %user.powerUpData.getId() == %this.getId())
 		return false;
 
-	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
-		return false;
-	}
+//	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+//		return false;
+//	}
 
 	%disable = Mode::callback("shouldDisablePowerup", false, new ScriptObject() {
 		this = %this;
