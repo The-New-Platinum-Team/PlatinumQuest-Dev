@@ -101,13 +101,13 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 }
 
 function Mode_partyspawns::shouldSendScores(%this) {
-	if ($MPPref::Server::PartySpawns && !$MPPref::Server::HuntHardMode)
+	if ($MPPref::Server::PartySpawns && !$MPPref::Server::GravitexHP)
 		return true;
 	else
 		return false;
 }
 
 function Mode_partyspawns::modifyScoreData(%this, %object) {
-	if (!$MPPref::Server::HuntHardMode)
+	if (!$MPPref::Server::GravitexHP)
 		return %object.data @ "&extraModes[]=partyspawns";
 }

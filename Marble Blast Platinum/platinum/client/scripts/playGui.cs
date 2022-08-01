@@ -91,6 +91,7 @@ function PlayGui::onWake(%this) {
 	GemsQuota.setVisible(false);
 	TimeBonusIcon.setVisible(false);
 	RagingBullIcon.setVisible(false);
+	GravitexIcon.setVisible(false);
 	PastThePostCount.setVisible(false);
 
 	//Thousands

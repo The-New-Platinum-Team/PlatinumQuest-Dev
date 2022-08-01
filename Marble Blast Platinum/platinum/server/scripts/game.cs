@@ -279,7 +279,7 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::TrainingMode || $MPPref::Server::PartySpawns || $MPPref::Server::HuntHardMode)) {
+	if (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::TrainingMode || $MPPref::Server::PartySpawns || $MPPref::Server::GravitexHP)) {
 		$MP::ScoreSendingDisabled = true;
 	}
 
@@ -541,6 +541,8 @@ function GameConnection::stateStart(%this) {
 	%this.setBlastValue(0);
 	%this.usingPartyTripleBlast = false;
 	$MP::PartyTripleBlast = false;
+	$MP::HuntPlusGravitex1 = false;
+	$MP::HuntPlusGravitex0 = false;
 	%this.playing = (MissionInfo.game $= "Ultra");
 
 	//Let everyone know who we are
@@ -1155,7 +1157,13 @@ function GameConnection::respawnPlayer(%this, %respawnPos) {
 	%ortho = VectorOrthoBasis(getField(%respawnPos, 1));
 	%ortho = VectorRemoveNotation(%ortho);
 
-	%this.setGravityDir(%ortho, true, getField(%respawnPos, 1));
+    if ($MP::HuntPlusGravitex0 && missioninfo.gravitex || $MPPref::Server::GravitexHP && $MP::HuntPlusGravitex0 && mp()) {
+		%this.setGravityDir("-0.965925 0 0.258822 0 1 0 -0.258822 0 -0.965925", true, getField(%respawnPos, 1));
+	} else if ($MP::HuntPlusGravitex1 && missioninfo.gravitex || $MPPref::Server::GravitexHP && $MP::HuntPlusGravitex1 && mp()) {
+		%this.setGravityDir("-0.965926 0 -0.258817 0 1 0 0.258817 0 -0.965926", true, getField(%respawnPos, 1));
+	} else {
+		%this.setGravityDir(%ortho, true, getField(%respawnPos, 1));
+	}
 
 	if ($Server::ServerType $= "MultiPlayer") {
 		for (%i = 0; %i < 3; %i ++) {

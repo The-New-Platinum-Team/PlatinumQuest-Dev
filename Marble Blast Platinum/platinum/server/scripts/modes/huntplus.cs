@@ -23,7 +23,9 @@
 //-----------------------------------------------------------------------------
 
 function Mode_huntplus::onLoad(%this) {
+	%this.registerCallback("onRestartLevel");
 	%this.registerCallback("onHuntGemSpawn");
+	%this.registerCallback("modifyScoreData");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 
@@ -64,4 +66,36 @@ ClientAudioGroup.add(new AudioProfile(TimeTickSfx) {
 			}
 		}
 	}
+
+    if (missioninfo.gravitex && !$Game::FirstSpawn || $MPPref::Server::GravitexHP && !$Game::FirstSpawn && mp()) {              //Gravitex - Switch Gravity upon new spawn - Modifier 3
+		if (%this.gravityswitchhp == 1) {
+		    %this.gravityswitchhp = 0;
+		    commandtoAll('setGravityDir', "-0.965925 0 0.258822 0 1 0 -0.258822 0 -0.965925");
+			commandtoAll('AddHelpLine', "Gravity Switched!");
+			alxPlay(PuAntiGravityVoiceSfx);
+			$MP::HuntPlusGravitex1 = false;
+			$MP::HuntPlusGravitex0 = true;
+	    } else if (%this.gravityswitchhp == 0 || %this.gravityswitchhp == 2) {
+		    %this.gravityswitchhp = 1;
+		    commandtoAll('setGravityDir', "-0.965926 0 -0.258817 0 1 0 0.258817 0 -0.965926");
+			commandtoAll('AddHelpLine', "Gravity Switched!");
+			alxPlay(PuAntiGravityVoiceSfx);
+			$MP::HuntPlusGravitex1 = true;
+			$MP::HuntPlusGravitex0 = false;
+		}
+	}
+
+	if ($Game::FirstSpawn) {
+		%this.gravityswitchhp = 2;
+	}
+}
+
+function Mode_huntplus::onRestartLevel(%this, %object) {
+    $MP::HuntPlusGravitex1 = false;
+	$MP::HuntPlusGravitex0 = false;
+}
+
+function Mode_huntplus::modifyScoreData(%this, %object) {
+	if (!$MPPref::Server::PartySpawns && $MPPref::Server::GravitexHP)
+		return %object.data @ "&extraModes[]=gravitex";
 }
