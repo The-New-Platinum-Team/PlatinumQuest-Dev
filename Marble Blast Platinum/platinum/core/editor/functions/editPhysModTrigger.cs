@@ -40,7 +40,7 @@ function epmtbutton(%obj) {
 		if (%type !$= "datablock")
 			continue;
 
-		%field     = %attribute.internalField;
+		%field     = %attribute.internalName;
 		%variable  = %attribute.variable;
 		%name      = %attribute.displayName;
 		%value     = %customDefault[%field];
@@ -61,7 +61,7 @@ function epmtbutton(%obj) {
 		if (%type !$= "datablock")
 			continue;
 
-		%field     = %attribute.internalField;
+		%field     = %attribute.internalName;
 		%variable  = %attribute.variable;
 		%name      = %attribute.displayName;
 		%value     = %customMega[%field];
