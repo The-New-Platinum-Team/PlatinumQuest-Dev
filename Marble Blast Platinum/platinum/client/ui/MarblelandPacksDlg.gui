@@ -545,6 +545,10 @@ function MarblelandPacksDlg::play(%this) {
 	menuPlayQueue(%queue);
 }
 
+function MarblelandPacksMissionQueue::getQueueName(%this) {
+	return %this.pack.name;
+}
+
 function MarblelandPacksMissionQueue::getMissionCount(%this) {
 	return %this.pack.levelIds.getSize();
 }

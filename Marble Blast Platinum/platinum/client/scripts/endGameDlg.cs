@@ -188,5 +188,13 @@ function NextLevel_MissionLoaded() {
 
 function NextLevel_MissionLoadFailed() {
 	deactivateMenuHandler(NextLevel);
+
+	//Oh no we're hosed
+	menuMissionEnd();
+	if (lb()) {
+		RootGui.setContent(LBChatGui);
+	} else {
+		RootGui.setContent(MainMenuGui);
+	}
 }
 

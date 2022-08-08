@@ -167,6 +167,8 @@ function menuPlayQueue(%queue) {
 		return;
 	}
 
+	%queue.export("platinum/json/queue.json");
+
 	$Menu::QueueIndex = 0;
 	$Menu::Queue.onPlay();
 
@@ -180,6 +182,7 @@ function menuPlayQueue(%queue) {
 function menuEndQueueMission() {
 	echo("*** Menu end mission in queue: " @ $Menu::QueueIndex);
 	$Menu::Queue.onEndMission($Menu::QueueIndex);
+	$Menu::Queue.export("platinum/json/queue.json");
 	schedule(3000, 0, menuPlayNextQueue);
 }
 

@@ -657,17 +657,17 @@ function startRandomMissionQueue(%count) {
 	%ml = $MarblelandMissionList;
 	for (%i = 0; %i < %ml.getSize(); %i ++) {
 		%mis = %ml.getEntry(%i);
-		if (%mis.qualifyingTime >= 180000)
+		if (%mis.qualifyingTime >= 60000)
 			continue;
-		if (%mis.goldTime >= 180000)
+		if (%mis.goldTime >= 60000)
 			continue;
-		if (%mis.platinumTime >= 180000)
+		if (%mis.platinumTime >= 60000)
+			continue;
+		if (%mis.goldTime $= "" && %mis.platinumTime $= "")
 			continue;
 		if (%mis.gameType !$= "single")
 			continue;
 		if (%mis.gems > 99)
-			continue;
-		if (%mis.lovedCount == 0)
 			continue;
 
 		%possible.addEntry(%mis.id);
@@ -693,6 +693,10 @@ function SRMQ_Complete(%id, %success) {
 	menuPlayQueue(RandomQueue.getId());
 }
 
+function MarblelandRandomMissionQueue::getQueueName(%this) {
+	return %this.count @ " Random Levels";
+}
+
 function MarblelandRandomMissionQueue::getMissionCount(%this) {
 	return %this.count;
 }
@@ -700,4 +704,8 @@ function MarblelandRandomMissionQueue::getMissionCount(%this) {
 function MarblelandRandomMissionQueue::getMissionInfo(%this, %index) {
 	%mission = marblelandGetMission(%this.missions[%index]);
 	return %mission;
+}
+
+function MarblelandRandomMissionQueue::isUpcomingHidden(%this) {
+	return true;
 }
