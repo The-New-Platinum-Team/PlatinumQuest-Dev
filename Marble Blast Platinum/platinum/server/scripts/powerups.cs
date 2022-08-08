@@ -1438,7 +1438,14 @@ function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 
 	if (%user.powerupActive[HelicopterItem.powerUpId]) {
 		%user.client.unmountPlayerImage(HelicopterItem.imageSlot);
-		%user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
+
+		if ((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra")) {
+            %user.client.mountPlayerImage(HelicopterItem_MBU, HelicopterItem.imageSlot);
+		} else if ((MissionInfo.game $= "PlatinumQuest") || (MissionInfo.modification $= "PlatinumQuest")) {
+            %user.client.mountPlayerImage(HelicopterItem_PQ, HelicopterItem.imageSlot);
+		} else {
+            %user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
+		}
 	}
 }
 
