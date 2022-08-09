@@ -29,10 +29,10 @@ function LoadingGui::onAdd(%this) {
 function LoadingGui::onWake(%this) {
 	$Game::Loading = true;
 	if (isObject($Menu::Queue)) {
-		%text = "<just:center>" @ shrinkToFit($Menu::Queue.getQueueName(), $DefaultFont["Bold"], 36, 24, 560) @ "<font:28><lmargin:70><rmargin:630>";
+		%qtext = "<just:center>" @ shrinkToFit($Menu::Queue.getQueueName(), $DefaultFont["Bold"], 36, 24, 560) @ "<font:28><lmargin:70><rmargin:630>";
 
-		%text = "<shadow:1:1><shadowcolor:000000bf><font:32><tab:460,550>";
-		%text = %text @ "Level\tScore\tTotal<font:22>";
+		%qtext = "<shadow:1:1><shadowcolor:000000bf><font:32><tab:460,550>";
+		%qtext = %qtext @ "Level\tScore\tTotal<font:22>";
 
 		// Show missions 1, (n-3) -> n if we're on n
 		%firstVisible = $Menu::QueueIndex - 2;
@@ -46,29 +46,33 @@ function LoadingGui::onWake(%this) {
 		for (%i = %firstVisible; %i < %lastVisible; %i ++) {
 			%mis = $Menu::Queue.getMissionInfo(%i);
 			if (%i == $Menu::QueueIndex) {
-				%text = %text @ "<color:00cc00>";
+				%qtext = %qtext @ "<color:00cc00>";
 			}
 			if (%i > $Menu::QueueIndex && $Menu::Queue.isUpcomingHidden()) {
 				%name = (%i + 1) @ ". ???";
 			} else {
 				%name = clipPx($DefaultFont, 22, (%i + 1) @ ". " @ %mis.name, 460, true);
 			}
-			%text = %text @ "\n" @ %name @ "\t";
+			%qtext = %qtext @ "\n" @ %name @ "\t";
 
-			%scoreInfo = $Menu::Queue.missionScore[%i];
-			%type = getField(%scoreInfo, 0);
-			%score = getField(%scoreInfo, 1);
+			if ($Menu::Queue.missionCompleted[%i] || %i >= $Menu::QueueIndex) {
+				%scoreInfo = $Menu::Queue.missionScore[%i];
+				%type = getField(%scoreInfo, 0);
+				%score = getField(%scoreInfo, 1);
 
-			if (%type $= $ScoreType::Time) {
-				%text = %text @ formatTime(%score) @ "\t";
+				if (%type $= $ScoreType::Time) {
+					%qtext = %qtext @ formatTime(%score) @ "\t";
+				} else {
+					%qtext = %qtext @ formatScore(%score) @ "\t";
+				}
 			} else {
-				%text = %text @ formatScore(%score) @ "\t";
+				%qtext = %qtext @ "<skipped>\t";
 			}
-			%text = %text @ formatTime($Menu::Queue.missionTotalTimeScore[%i]);
+			%qtext = %qtext @ formatTime($Menu::Queue.missionTotalTimeScore[%i]);
 			if ($Menu::Queue.missionTotalScoreScore[%i] > 0) {
-				%text = %text @ " + " @ formatScore($Menu::Queue.missionTotalScoreScore[%i]);
+				%qtext = %qtext @ " + " @ formatScore($Menu::Queue.missionTotalScoreScore[%i]);
 			}
-			%text = %text @ "<color:000000>";
+			%qtext = %qtext @ "<color:000000>";
 		}
 
 		if (%lastVisible != $Menu::Queue.getMissionCount()) {
@@ -77,16 +81,16 @@ function LoadingGui::onWake(%this) {
 			} else {
 				%name = $Menu::Queue.getMissionInfo($Menu::Queue.getMissionCount() - 1).name;
 			}
-			%text = %text @ "\n" @ clipPx($DefaultFont, 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 250, true);
-			%text = %text @ "\t\t" @ formatTime(0);
+			%qtext = %qtext @ "\n" @ clipPx($DefaultFont, 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 250, true);
+			%qtext = %qtext @ "\t\t" @ formatTime(0);
 		}
-		%text = %text @ "\n" @ "Total:\t\t" @ formatTime($Menu::Queue.totalTimeScore);
+		%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime($Menu::Queue.totalTimeScore);
 		if ($Menu::Queue.totalScoreScore > 0) {
-			%text = %text @ " + " @ formatScore($Menu::Queue.totalScoreScore);
+			%qtext = %qtext @ " + " @ formatScore($Menu::Queue.totalScoreScore);
 		}
-		%text = %text @ "\n" @ "Real Time:\t\t" @ formatTime($Menu::Queue.totalRealTime);
+		%qtext = %qtext @ "\n" @ "Real Time:\t\t" @ formatTime($Menu::Queue.totalRealTime);
 
-		LoadingMessage.setText(%text);
+		LoadingMessage.setText(%qtext);
 	} else if (isObject($Client::NextMission)) {
 		%info = $Client::NextMission;
 		%name = %info.name;

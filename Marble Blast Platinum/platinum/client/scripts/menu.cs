@@ -181,9 +181,16 @@ function menuPlayQueue(%queue) {
 
 function menuEndQueueMission() {
 	echo("*** Menu end mission in queue: " @ $Menu::QueueIndex);
-	$Menu::Queue.onEndMission($Menu::QueueIndex);
+	$Menu::Queue.onEndMission($Menu::QueueIndex, true);
 	$Menu::Queue.export("platinum/json/queue.json");
 	schedule(3000, 0, menuPlayNextQueue);
+}
+
+function menuSkipNextQueue() {
+	echo("*** Menu skipping next in queue: " @ $Menu::QueueIndex);
+	$Menu::Queue.onEndMission($Menu::QueueIndex, false);
+	$Menu::Queue.export("platinum/json/queue.json");
+	menuPlayNextQueue();
 }
 
 function menuPlayNextQueue() {
