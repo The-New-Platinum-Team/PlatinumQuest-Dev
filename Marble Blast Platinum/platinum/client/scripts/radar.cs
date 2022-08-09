@@ -99,13 +99,13 @@ function Radar::Init() {
 	}
 
 	if (MissionInfo.CustomRadarRule !$= "") {
-		$Radar::SearchRule = MissionInfo.CustomRadarRule;
+		$Radar::SearchRule = MissionInfo.CustomRadarRule | $Radar::Flags::Gems | $Radar::Flags::EndPad;
 	} else {
 		$Radar::SearchRule = $Radar::Flags::Gems | $Radar::Flags::EndPad;
 	}
 	$Game::RD = MissionInfo.RadarDistance !$= "" ? MissionInfo.RadarDistance : 50;
 	//Only applies to gems and (somehow) the finish pad
-	$Game::GemRD = MissionInfo.RadarGemDistance !$= "" ? MissionInfo.RadarGemDistance : 500;
+	$Game::GemRD = MissionInfo.RadarGemDistance !$= "" ? MissionInfo.RadarGemDistance : 50000;
 
 	RadarBuildSearch();
 	RadarLoop();
@@ -571,7 +571,7 @@ function shouldShowRadar() {
 		return false;
 	}
 	//Nothing to show
-	if (MissionInfo.CustomRadarRule !$= "" && MissionInfo.CustomRadarRule == $Radar::Flags::None) {
+	if ($Radar::SearchRule !$= "" && $Radar::SearchRule == $Radar::Flags::None) {
 		return false;
 	}
 	return true;
