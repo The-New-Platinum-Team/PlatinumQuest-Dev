@@ -209,6 +209,7 @@ function exitGame(%force) {
 }
 
 function disconnect(%auto) {
+	resumeGame();
 	if ($Game::UseMenu && (!$Game::Menu && !$Game::Introduction)) {
 		//For the PQ level select, we have our own method of this
 		menuMissionExit();

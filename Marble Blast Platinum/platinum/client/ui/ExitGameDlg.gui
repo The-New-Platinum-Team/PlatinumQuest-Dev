@@ -820,14 +820,18 @@ function ExitGameDlg::onWake(%this) {
 			}
 			%qtext = %qtext @ "\n" @ %name @ "\t";
 
-			%scoreInfo = $Menu::Queue.missionScore[%i];
-			%type = getField(%scoreInfo, 0);
-			%score = getField(%scoreInfo, 1);
+			if ($Menu::Queue.missionCompleted[%i] || %i >= $Menu::QueueIndex) {
+				%scoreInfo = $Menu::Queue.missionScore[%i];
+				%type = getField(%scoreInfo, 0);
+				%score = getField(%scoreInfo, 1);
 
-			if (%type $= $ScoreType::Time) {
-				%qtext = %qtext @ formatTime(%score) @ "\t";
+				if (%type $= $ScoreType::Time) {
+					%qtext = %qtext @ formatTime(%score) @ "\t";
+				} else {
+					%qtext = %qtext @ formatScore(%score) @ "\t";
+				}
 			} else {
-				%qtext = %qtext @ formatScore(%score) @ "\t";
+				%qtext = %qtext @ "<skipped>\t";
 			}
 			%qtext = %qtext @ formatTime($Menu::Queue.missionTotalTimeScore[%i]);
 			if ($Menu::Queue.missionTotalScoreScore[%i] > 0) {

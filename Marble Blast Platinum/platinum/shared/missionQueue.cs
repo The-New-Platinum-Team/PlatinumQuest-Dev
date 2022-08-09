@@ -90,34 +90,35 @@ function MissionQueue::onEndMission(%this, %index, %completed) {
 	// You probably want to put this at the start of your override:
 	// MissionQueue::onEndMission(%this, %index, %completed);
 
-	%this.missionScore[%index] = $Game::FinalScore;
-	%this.missionBonus[%index] = $Game::BonusTime;
-	%this.missionElapsed[%index] = $Game::ElapsedTime;
+	%this.missionCompleted[%index] = %completed;
 
 	%this.missionEnd[%index] = getRealTime();
 	%this.missionRealTime[%index] = sub64_int(%this.missionEnd[%index], %this.missionStart[%index]);
-
-	%this.missionScore[%index] = $Game::FinalScore;
-	%this.missionBonus[%index] = $Game::BonusTime;
-	%this.missionElapsed[%index] = $Game::ElapsedTime;
-
-	%this.missionEnd[%index] = getRealTime();
-	%this.missionRealTime[%index] = sub64_int(%this.missionEnd[%index], %this.missionStart[%index]);
-
-	%type = getField($Game::FinalScore, 0);
-	%score = getField($Game::FinalScore, 1);
-
-	if (%type $= $ScoreType::Time) {
-		%this.totalTimeScore = add64_int(%this.totalTimeScore, %score);
-		%this.totalElapsed = add64_int(%this.totalElapsed, %this.missionElapsed[%index]);
-		%this.missionTotalTimeScore[%index] = %this.totalTimeScore;
-		%this.missionTotalElapsed[%index] = %this.totalElapsed;
-	} else {
-		%this.totalScoreScore = add64_int(%this.totalScoreScore, %score);
-		%this.missionTotalScoreScore[%index] = %this.totalScoreScore;
-	}
-	%this.totalBonus = add64_int(%this.totalBonus, %this.missionBonus[%index]);
 	%this.totalRealTime = add64_int(%this.totalRealTime, %this.missionRealTime[%index]);
+
+	if (%completed) {
+		%this.missionScore[%index] = $Game::FinalScore;
+		%this.missionBonus[%index] = $Game::BonusTime;
+		%this.missionElapsed[%index] = $Game::ElapsedTime;
+
+		%this.missionScore[%index] = $Game::FinalScore;
+		%this.missionBonus[%index] = $Game::BonusTime;
+		%this.missionElapsed[%index] = $Game::ElapsedTime;
+
+		%type = getField($Game::FinalScore, 0);
+		%score = getField($Game::FinalScore, 1);
+
+		if (%type $= $ScoreType::Time) {
+			%this.totalTimeScore = add64_int(%this.totalTimeScore, %score);
+			%this.totalElapsed = add64_int(%this.totalElapsed, %this.missionElapsed[%index]);
+		} else {
+			%this.totalScoreScore = add64_int(%this.totalScoreScore, %score);
+		}
+		%this.totalBonus = add64_int(%this.totalBonus, %this.missionBonus[%index]);
+	}
+	%this.missionTotalElapsed[%index] = %this.totalElapsed;
+	%this.missionTotalTimeScore[%index] = %this.totalTimeScore;
+	%this.missionTotalScoreScore[%index] = %this.totalScoreScore;
 }
 
 //-----------------------------------------------------------------------------
@@ -142,6 +143,7 @@ function MissionQueue::export(%this, %path) {
 	%j.totalRealTime = %this.totalRealTime;
 
 	%j.missionFile = Array(MissionQueueExportFiles);
+	%j.missionCompleted = Array(MissionQueueExportMissionCompleted);
 	%j.missionStart = Array(MissionQueueExportMissionStart);
 	%j.missionScore = Array(MissionQueueExportMissionScore);
 	%j.missionBonus = Array(MissionQueueExportMissionBonus);
@@ -154,6 +156,7 @@ function MissionQueue::export(%this, %path) {
 
 	for (%i = 0; %i < %j.missionCount; %i ++) {
 		%j.missionFile.addEntry(%this.getMissionFile(%i));
+		%j.missionCompleted.addEntry(%this.missionCompleted[%i]);
 		%j.missionStart.addEntry(%this.missionStart[%i]);
 		%j.missionScore.addEntry(%this.missionScore[%i]);
 		%j.missionBonus.addEntry(%this.missionBonus[%i]);
@@ -167,6 +170,7 @@ function MissionQueue::export(%this, %path) {
 
 	fwrite(%path, jsonPrint(%j));
 	%j.missionFile.delete();
+	%j.missionCompleted.delete();
 	%j.missionStart.delete();
 	%j.missionScore.delete();
 	%j.missionBonus.delete();
@@ -195,8 +199,8 @@ function MissionQueue::import(%path) {
 	%q.totalElapsed = %q.data.totalElapsed;
 	%q.totalRealTime = %q.data.totalRealTime;
 
-
 	for (%i = 0; %i < %q.missionCount; %i ++) {
+		%q.missionCompleted[%i] = %q.data.missionCompleted.getEntry(%i);
 		%q.missionStart[%i] = %q.data.missionStart.getEntry(%i);
 		%q.missionScore[%i] = %q.data.missionScore.getEntry(%i);
 		%q.missionBonus[%i] = %q.data.missionBonus.getEntry(%i);
