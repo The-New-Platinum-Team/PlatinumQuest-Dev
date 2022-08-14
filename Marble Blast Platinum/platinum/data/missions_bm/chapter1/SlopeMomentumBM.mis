@@ -462,11 +462,12 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/chapter1/SlopeMomentum_BMCurve3.dif";
       showTerrainInside = "0";
    };
-   new StaticShape(EndPoint) {
-      position = "40 74 34.5023";
-      rotation = "0 0 -1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "EndPad_MBG";
+   new Trigger(Bounds) {
+      position = "-50.7678 -52.2678 -5.125";
+      rotation = "1 0 0 0";
+      scale = "157.518 146.036 93.625";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new InteriorInstance() {
       position = "0 53.25 1.5";
@@ -517,12 +518,18 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
       showTerrainInside = "0";
    };
-   new Trigger(Bounds) {
-      position = "-50.7678 -52.2678 -5.125";
+   new TSStatic() {
+      position = "40 74 34.5";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+   };
+   new Trigger(finish) {
+      position = "39 75 34.5";
       rotation = "1 0 0 0";
-      scale = "157.518 146.036 93.625";
-      dataBlock = "InBoundsTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      scale = "2 2 6";
+      dataBlock = "FinishTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---

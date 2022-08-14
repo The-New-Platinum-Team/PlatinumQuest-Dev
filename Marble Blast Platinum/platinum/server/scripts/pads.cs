@@ -144,10 +144,9 @@ datablock StaticShapeData(EndPad) {
 };
 
 datablock StaticShapeData(EndPad_BM : EndPad) {
-	shapeFile = "~/data/shapes_bm/pads/endArea.dts";
+	shapeFile = "~/data/shapes_bm/pads/endarea.dts";
 	
 	skinCount = 0;
-	playAnimation = true;
 };
 
 datablock StaticShapeData(EndPad_PQ : EndPad) {
