@@ -679,6 +679,33 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 // 	customField[0, "field"] = "";
 // };
 
+datablock ItemData(GemItem_BM : GemItem) {
+	superCategory = "gems";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Gems/Gem_BM.dts";
+	pickupName = "a gem!";
+
+	customField[0, "field"  ] = "noParticles";
+	customField[0, "type"   ] = "boolean";
+	customField[0, "name"   ] = "Disable Particles";
+	customField[0, "desc"   ] = "If the gem should not spawn a particle emitter.";
+	customField[0, "default"] = "0";
+	customField[1, "field"  ] = "skin";
+	customField[1, "type"   ] = "string";
+	customField[1, "name"   ] = "Skin Name";
+	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[1, "default"] = "";
+};
+
+datablock ItemData(GemItemPurple_BM : GemItem_BM) {
+	superCategory = "gems";
+	category = "Blasted";
+
+ 	skin = "purple";
+	customField[0, "field"] = "";
+};
+
 //-----------------------------------------------------------------------------
 
 datablock ItemData(BackupGem) {
