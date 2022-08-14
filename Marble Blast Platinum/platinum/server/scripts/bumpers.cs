@@ -88,6 +88,15 @@ datablock StaticShapeData(RoundBumper_PQ : RoundBumper) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/bumpers/roundbumper.dts";
 };
 
+datablock StaticShapeData(RoundBumper_BM : RoundBumper) {
+	superCategory = "Hazards";
+	category = "Blasted";
+	className = "Bumper";
+	shapeFile = "~/data/shapes_bm/hazards/RoundBumper_bm.dts";
+	scopeAlways = true;
+	sound = BumperDing;
+};
+
 datablock StaticShapeData(RoundBumper_MBU)
 {
    superCategory = "Hazards";
