@@ -842,6 +842,11 @@ datablock StaticShapeData(Window04O_3x3_light : Window01) {
 	shapeFile = "~/data/shapes_pq/Scenery/Windows/Window04O_3x3_light.dts";
 };
 
+//Blasted
+datablock StaticShapeData(Glass_BM : Window01) {
+	shapeFile = "~/data/shapes_bm/scenery/bm_glass.dts";
+};
+
 
 //-----------------------------------------------------------------------
 //----------------END OF WINDOWS-----------------------------------------

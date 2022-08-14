@@ -143,6 +143,123 @@ datablock StaticShapeData(FadePlatform2_5x5 : FadePlatform) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/FadePlatform/FadePlatform2_5x5.dts";
 };
 
+datablock StaticShapeData(BMFadePlatform : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform1x2 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform1x2.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform1x3 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform1x3.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform1x4 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform1x4.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform1x5 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform1x5.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform2x1 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform2x1.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform3x1 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform3x1.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform4x1 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform4x1.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform5x1 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform5x1.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform2x2 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform2x2.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform3x3 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform3x3.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform4x4 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform4x4.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
+datablock StaticShapeData(BMFadePlatform5x5 : FadePlatform) {
+	shapeFile = "~/data/shapes_bm/Hazards/FadePlatform/BMFadePlatform5x5.dts";
+	skin[0] = "base";
+	skin[1] = "skin0";
+	skin[2] = "skin1";
+	skin[3] = "skin2";
+	skin[4] = "skin3";
+};
+
 // These fade platforms cannot have the above's code as they don't use any other skin besides the one given to them
 
 datablock StaticShapeData(FadePlatformConcrete : FadePlatform) {
