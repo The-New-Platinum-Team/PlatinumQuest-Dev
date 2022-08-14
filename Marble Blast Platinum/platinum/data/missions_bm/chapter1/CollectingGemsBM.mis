@@ -2,20 +2,20 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         CustomRadarRule = "4";
+         CustomRadarRule = "5";
          Radar = "1";
          artist = "James C.";
-         awesomeTime = "10000";
-         desc = "Learn the basic movement controls of the game and how to turn the camera.";
+         awesomeTime = "15000";
+         desc = "If a level has gems, you must collect all of them before finishing.";
          game = "Blasted";
          gameMode = "null";
-         level = "1";
-         music = "Classic Vibe.ogg";
-         name = "Learning to Roll";
-         platinumTime = "20000";
-         startHelpText = "Press <func:bind moveforward> to roll the marble forward.";
+         level = "3";
+         music = "Groove Police.ogg";
+         name = "Collecting Gems";
+         platinumTime = "25000";
+         startHelpText = "Use the radar to pinpoint the gems\' locations. Press <func:bind radarSwitch>.";
          type = "Chapter 1";
-         ultimateTime = "15000";
+         ultimateTime = "20000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -430,189 +430,138 @@ new SimGroup(MissionGroup) {
       position = "0 0 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter1/LearningToRollBM.dif";
+      interiorFile = "~/data/interiors_bm/chapter1/CollectingGemsBM.dif";
       showTerrainInside = "0";
+         skin = "checkpoint";
    };
    new StaticShape(StartPoint) {
-      position = "0 0 0.50225";
-      rotation = "1 0 0 0";
+      position = "-2 2 0.50225";
+      rotation = "0 0 1 45";
       scale = "1 1 1";
       dataBlock = "StartPad_BM";
    };
-   new StaticShape() {
-      position = "0 27.75 1.75";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SignPlainLeft";
-   };
-   new StaticShape() {
-      position = "-8 51.75 1.75";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SignPlainRight";
-   };
-   new StaticShape() {
-      position = "0 75.75 1.75";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SignPlainRight";
-   };
-   new StaticShape() {
-      position = "32 52.25 -4.25";
-      rotation = "0 0 1 180";
-      scale = "1 1 1";
-      dataBlock = "SignPlainRight";
-   };
-   new StaticShape() {
-      position = "12.25 56 -4.25";
-      rotation = "0 0 -1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "SignPlainLeft";
-   };
-   new StaticShape() {
-      position = "16 36.25 -4.25";
-      rotation = "0 0 1 180";
-      scale = "1 1 1";
-      dataBlock = "SignPlainRight";
-   };
-   new StaticShape() {
-      position = "-35.75 40 -4.25";
-      rotation = "0 0 -1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "SignPlainRight";
-   };
-   new StaticShape() {
-      position = "-32 59.75 -4.25";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SignPlainLeft";
-   };
-   new StaticShape() {
-      position = "-51.75 56 -4.25";
-      rotation = "0 0 -1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "SignPlainRight";
-   };
    new StaticShape(EndPoint) {
-      position = "-48 112 0.50225";
-      rotation = "1 0 0 0";
+      position = "24 12 0.50225";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "EndPad_BM";
    };
-   new Trigger(left) {
-      position = "-4 20 0.5";
+   new Item() {
+      position = "8 10 0.55";
       rotation = "1 0 0 0";
-      scale = "8 1 6";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         displayonce = "0";
-         extended = "0";
-         persistTime = "5000";
-         text = "Press <func:bind moveleft> to roll the marble to the left.";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
    };
-   new Trigger(right) {
-      position = "-12 44 0.5";
+   new Item() {
+      position = "-8 16 10.55";
       rotation = "1 0 0 0";
-      scale = "8 1 6";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         displayonce = "0";
-         extended = "0";
-         persistTime = "5000";
-         text = "Press <func:bind moveright> to roll the marble to the right.";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
    };
-   new Trigger(Slope) {
-      position = "-4 68 0.5";
+   new Item() {
+      position = "32 -8 6.55";
       rotation = "1 0 0 0";
-      scale = "8 1 6";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         displayonce = "0";
-         extended = "0";
-         persistTime = "5000";
-         text = "Roll down the slope.";
-   };
-   new Trigger(backward) {
-      position = "27 76 -5.5";
-      rotation = "1 0 0 0";
-      scale = "1 8 6";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         displayonce = "0";
-         extended = "0";
-         persistTime = "5000";
-         text = "Press <func:bind movebackward> to roll the marble backwards.";
-   };
-   new Trigger(Camera) {
-      position = "28 61 -5.5";
-      rotation = "1 0 0 0";
-      scale = "8 1 6";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         displayonce = "0";
-         extended = "0";
-         persistTime = "5000";
-         text = "Use the mouse or the direction keys to turn the camera.";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
    };
    new StaticShape() {
-      position = "-8 40 -5.49";
-      rotation = "1 0 0 0";
+      position = "-16 24 6.51";
+      rotation = "0 0 1 45";
       scale = "1 1 1";
       dataBlock = "target";
          skin = "checkpoint";
    };
-   new Trigger(checkpoint) {
-      position = "-8.5 39.5 -5.5";
-      rotation = "0 0 -1 90.0002";
+   new Trigger(check1) {
+      position = "-15.2929 24 6.5";
+      rotation = "0 0 1 135";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          center = "1";
          gravity = "0";
    };
-   new Trigger(check) {
-      position = "-12 44 -5.5";
+   new Trigger(Checkpoint1) {
+      position = "-20 28 6.5";
       rotation = "1 0 0 0";
-      scale = "8 8 4";
+      scale = "8 8 6";
       dataBlock = "CheckpointTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          gravity = "0";
-         respawnPoint = "checkpoint";
-   };
-   new Trigger(checkpointinfo) {
-      position = "3 44 -5.5";
-      rotation = "1 0 0 0";
-      scale = "1 8 4";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         displayonce = "0";
-         extended = "0";
-         persistTime = "5000";
-         text = "A checkpoint saves your progress in a level. Press <func:bind forceRespawn> or go out of bounds to respawn to the target.";
-   };
-   new Trigger(finish) {
-      position = "-52 68 -5.5";
-      rotation = "1 0 0 0";
-      scale = "8 1 6";
-      dataBlock = "HelpTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         displayonce = "0";
-         extended = "0";
-         persistTime = "5000";
-         text = "Roll up the ramps to reach the finish pad.";
+         respawnPoint = "check1";
    };
    new StaticShape() {
-      position = "-47.75 112 7";
+      position = "24 0 10.51";
+      rotation = "0 0 1 45";
+      scale = "1 1 1";
+      dataBlock = "target";
+         skin = "checkpoint";
+   };
+   new Trigger(check2) {
+      position = "23.2929 -1.35793e-006 10.5";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "SpawnTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         center = "1";
+         gravity = "0";
+   };
+   new Trigger(Checkpoint2) {
+      position = "20 4 10.5";
+      rotation = "1 0 0 0";
+      scale = "8 8 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "check2";
+   };
+   new StaticShape() {
+      position = "18 8.25 9.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SignFinish";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "28.25 6 11.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-2 7.75 9.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-12.25 10 11.75";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
    };
    new Trigger(Bounds) {
-      position = "-67.5 -19.5 -11";
+      position = "-35.5 -27.5 -2.25";
       rotation = "1 0 0 0";
-      scale = "119 151 69.9";
+      scale = "87 71 75.66";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "24 12.25 7.5";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignFinish";
    };
 };
 //--- OBJECT WRITE END ---

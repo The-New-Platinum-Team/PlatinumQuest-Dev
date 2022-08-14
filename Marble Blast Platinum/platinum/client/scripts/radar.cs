@@ -488,6 +488,7 @@ function Radar::AddDot(%object, %bitmap) {
 			%name = strReplace(%name, "_MBU", "");
 			%name = strReplace(%name, "_MBM", "");
 			%name = strReplace(%name, "_MBXP", "");
+			%name = strReplace(%name, "_BM", "");
 			%skin = %object.getSkinName();
 			%bitmap = $userMods @ "/client/ui/mp/radar/" @ %name @ ".png";
 
