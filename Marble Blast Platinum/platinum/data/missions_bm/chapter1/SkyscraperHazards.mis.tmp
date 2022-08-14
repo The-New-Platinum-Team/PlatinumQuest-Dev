@@ -2,19 +2,16 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         CustomRadarRule = "5";
-         Radar = "1";
          artist = "James C.";
-         awesomeTime = "14000";
-         desc = "Test your skills with moving platforms.";
+         desc = "Simply indescribable.";
          game = "Blasted";
          gameMode = "null";
-         level = "11";
+         level = "9";
          music = "Tim Trance.ogg";
-         name = "Strategy Helix";
-         platinumTime = "30000";
+         name = "Skyscraper Hazards";
+         platinumTime = "0";
          type = "Custom";
-         ultimateTime = "22000";
+         ultimateTime = "0";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -41,7 +38,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Sunsetting/sky_day.dml";
+      materialList = "~/data/skies_bm/Altitude/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -51,8 +48,8 @@ new SimGroup(MissionGroup) {
    };
    new Sun() {
       direction = "0.638261 0.459006 -0.61801";
-      color = "1.000000 1.000000 0.900000 1.000000";
-      ambient = "0.200000 0.200000 0.190000 1.000000";
+      color = "1.000000 1.000000 1.000000 1.000000";
+      ambient = "0.400000 0.400000 0.500000 1.000000";
    };
    new SimGroup(PathNodeGroup) {
 
@@ -429,394 +426,20 @@ new SimGroup(MissionGroup) {
       position = "0 0 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter1/StrategyHelixBM.dif";
+      interiorFile = "~/data/interiors_bm/chapter1/SkyscraperHazards.dif";
       showTerrainInside = "0";
    };
-   new SimGroup(MustChange_g) {
-
-      new Path() {
-
-         new Marker() {
-            position = "0 18 2.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "0";
-            msToNext = "6000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "0 58 2.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "5000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "24 58 8.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "2";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-      };
-      new Trigger(MustChange) {
-         position = "0 18 2.75";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "TriggerGotoTarget";
-         polyhedron = "-3.0000000 -3.0000000 0.2500000 0.0000000 6.0000000 0.0000000 6.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -0.5000000";
-            IContinueToTTime = "0";
-            instant = "0";
-            targetTime = "99999";
-      };
-      new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/interiors_bm/chapter1/StrategyHelixMP1.dif";
-         interiorIndex = "0";
-         basePosition = "0 0 0";
-         baseRotation = "1 0 0 0";
-         baseScale = "1 1 1";
-            initialTargetPosition = "0";
-      };
-   };
    new Trigger() {
-      position = "-0.5 0.5 0.5";
-      rotation = "1 0 0 0";
+      position = "-1.6 -1.4 0.5";
+      rotation = "0 0 1 78.7502";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          center = "1";
          gravity = "0";
    };
-   new SimGroup(MustChange_g) {
-
-      new Path() {
-
-         new Marker() {
-            position = "41 38 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "0";
-            msToNext = "2000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "35 38 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "2000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "41 38 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "2";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-      };
-      new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/interiors_bm/chapter1/StrategyHelixMP2.dif";
-         interiorIndex = "2";
-         basePosition = "0 0 0";
-         baseRotation = "1 0 0 0";
-         baseScale = "1 1 1";
-            initialTargetPosition = "-1";
-      };
-   };
-   new SimGroup(MustChange_g) {
-
-      new Path() {
-
-         new Marker() {
-            position = "41 46 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "0";
-            msToNext = "2000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "35 46 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "2000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "41 46 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "2";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-      };
-      new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/interiors_bm/chapter1/StrategyHelixMP2.dif";
-         interiorIndex = "0";
-         basePosition = "0 0 0";
-         baseRotation = "1 0 0 0";
-         baseScale = "1 1 1";
-            initialTargetPosition = "-1";
-      };
-   };
-   new SimGroup(MustChange_g) {
-
-      new Path() {
-
-         new Marker() {
-            position = "35 42 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "0";
-            msToNext = "2000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "41 42 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "2000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "35 42 16.25";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "2";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-      };
-      new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/interiors_bm/chapter1/StrategyHelixMP2.dif";
-         interiorIndex = "1";
-         basePosition = "0 0 0";
-         baseRotation = "1 0 0 0";
-         baseScale = "1 1 1";
-            initialTargetPosition = "-1";
-      };
-   };
-   new SimGroup(MustChange_g) {
-
-      new Path() {
-
-         new Marker() {
-            position = "16 52 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "0";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "16 52 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "0 52 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "2";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "0 52 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "3";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "16 52 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "4";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-      };
-      new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/interiors_bm/chapter1/StrategyHelixMP3.dif";
-         interiorIndex = "2";
-         basePosition = "0 0 0";
-         baseRotation = "1 0 0 0";
-         baseScale = "1 1 1";
-            initialTargetPosition = "-1";
-      };
-   };
-   new SimGroup(MustChange_g) {
-
-      new Path() {
-
-         new Marker() {
-            position = "16 40 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "0";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "16 40 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "0 40 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "2";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "0 40 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "3";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "16 40 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "4";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-      };
-      new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/interiors_bm/chapter1/StrategyHelixMP3.dif";
-         interiorIndex = "0";
-         basePosition = "0 0 0";
-         baseRotation = "1 0 0 0";
-         baseScale = "1 1 1";
-            initialTargetPosition = "-1";
-      };
-   };
-   new SimGroup(MustChange_g) {
-
-      new Path() {
-
-         new Marker() {
-            position = "0 46 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "0";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "0 46 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "1";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "16 46 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "2";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "16 46 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "3";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-         new Marker() {
-            position = "0 46 17.5";
-            rotation = "1 0 0 0";
-            scale = "1 1 1";
-            seqNum = "4";
-            msToNext = "1000";
-            smoothingType = "Accelerate";
-         };
-      };
-      new PathedInterior(MustChange) {
-         position = "0 0 0";
-         rotation = "1 0 0 0";
-         scale = "1 1 1";
-         dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/interiors_bm/chapter1/StrategyHelixMP3.dif";
-         interiorIndex = "1";
-         basePosition = "0 0 0";
-         baseRotation = "1 0 0 0";
-         baseScale = "1 1 1";
-            initialTargetPosition = "-1";
-      };
-   };
-   new Item() {
-      position = "23 -13 22.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperSpeedItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new TSStatic() {
-      position = "-14 106 32.5";
-      rotation = "0 0 -1 90.0002";
-      scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
-   };
-   new Trigger(finish) {
-      position = "-15 107 32.5";
-      rotation = "1 0 0 0";
-      scale = "2 2 6";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-   };
    new StaticShape() {
-      position = "10 36 16";
+      position = "-10 20 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -825,13 +448,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 36 16";
+      position = "-8 20 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -840,13 +463,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 36 16";
+      position = "-6 20 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -855,13 +478,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 38 16";
+      position = "-10 18 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -870,13 +493,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 38 16";
+      position = "-8 18 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -885,13 +508,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 38 16";
+      position = "-6 18 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -900,13 +523,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 40 16";
+      position = "-10 16 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -915,13 +538,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 40 16";
+      position = "-8 16 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -930,13 +553,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 40 16";
+      position = "-6 16 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -945,13 +568,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 44 16";
+      position = "-10 14 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -960,13 +583,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 44 16";
+      position = "-8 14 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -975,13 +598,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 44 16";
+      position = "-6 14 24";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -990,13 +613,28 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 42 16";
+      position = "23 20 63";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "4000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "1000";
+   };
+   new StaticShape() {
+      position = "2 2 25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1005,13 +643,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 42 16";
+      position = "0 2 25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1020,13 +658,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 42 16";
+      position = "2 4 25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1035,13 +673,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 48 16";
+      position = "0 4 25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1050,13 +688,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 48 16";
+      position = "2 6 25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1065,13 +703,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 48 16";
+      position = "0 6 25";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1080,13 +718,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 46 16";
+      position = "6 2 26";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1095,13 +733,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 46 16";
+      position = "4 2 26";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1110,13 +748,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 46 16";
+      position = "6 4 26";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1125,13 +763,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 56 16";
+      position = "4 4 26";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1140,13 +778,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 56 16";
+      position = "6 6 26";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1155,13 +793,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 56 16";
+      position = "4 6 26";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1170,13 +808,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 54 16";
+      position = "10 2 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1185,13 +823,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 54 16";
+      position = "8 2 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1200,13 +838,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 54 16";
+      position = "10 4 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1215,13 +853,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 52 16";
+      position = "8 4 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1230,13 +868,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "6 50 16";
+      position = "10 6 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1245,13 +883,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 50 16";
+      position = "8 6 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1260,13 +898,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "8 52 16";
+      position = "10 -4 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1275,13 +913,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 52 16";
+      position = "8 -4 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1290,13 +928,13 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "10 50 16";
+      position = "10 -2 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BMFadePlatform";
@@ -1305,190 +943,275 @@ new SimGroup(MissionGroup) {
          fadeinTime = "500";
          fadeoutTime = "500";
          functionality = "trapdoor";
-         invisibleTime = "3000";
+         invisibleTime = "2000";
          permanent = "0";
          skin = "base";
          visibleTime = "500";
    };
    new StaticShape() {
-      position = "17.25 57 7";
+      position = "8 -2 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resettime = "Default";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
    };
    new StaticShape() {
-      position = "13.5 59.75 5.75";
+      position = "10 0 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resettime = "Default";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
    };
    new StaticShape() {
-      position = "8.84138 57.7128 4.59535";
+      position = "8 0 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resettime = "Default";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
    };
    new StaticShape() {
-      position = "5.11311 58.7486 3.61745";
+      position = "49 22 62";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resettime = "Default";
-   };
-   new Item() {
-      position = "0 38 3.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+      dataBlock = "BMFadePlatform4x1";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
          skin = "base";
-         timeBonus = "3000";
+         visibleTime = "2000";
    };
-   new Item() {
-      position = "0 38 2.5";
+   new StaticShape() {
+      position = "49 20 62";
       rotation = "1 0 0 0";
-      scale = "0.3 0.3 0.3";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform4x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
          skin = "base";
-         timeBonus = "6000";
+         visibleTime = "2000";
    };
-   new Item() {
-      position = "42 42 16.5";
+   new StaticShape() {
+      position = "33 21 62";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+      dataBlock = "BMFadePlatform2x2";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         initialState = "0";
+         invisibleTime = "2000";
+         level = "5";
+         permanent = "0";
          skin = "base";
-         timeBonus = "2000";
+         state = "1";
+         visibleTime = "500";
    };
-   new Item() {
-      position = "10 46 16.5";
+   new StaticShape() {
+      position = "28 20 62";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+      dataBlock = "BMFadePlatform3x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         initialState = "0";
+         invisibleTime = "2000";
+         level = "5";
+         permanent = "0";
          skin = "base";
-         timeBonus = "2000";
+         state = "1";
+         visibleTime = "500";
    };
-   new Item() {
-      position = "23 -27 27.25";
+   new StaticShape() {
+      position = "25 18 62";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         initialState = "0";
+         invisibleTime = "2000";
+         level = "5";
+         permanent = "0";
          skin = "base";
-         timeBonus = "8000";
+         state = "1";
+         visibleTime = "500";
    };
-   new Trigger(Bounds) {
-      position = "-32.5 -44.5 -3.75";
-      rotation = "1 0 0 0";
-      scale = "93 175 103.5";
-      dataBlock = "InBoundsTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-   };
-   new InteriorInstance() {
-      position = "0 64.25 1.25";
+   new StaticShape() {
+      position = "25 16 62";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         initialState = "0";
+         invisibleTime = "2000";
+         level = "5";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
    };
-   new InteriorInstance() {
-      position = "47.5 58 7";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "41 17 15.25";
-      rotation = "0 0 1 123.75";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "16.25 18.25 14.75";
-      rotation = "0 0 1 56.2501";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "6.25 80 15.5";
-      rotation = "0 0 -1 45.0001";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "14.25 118.25 19.5";
+   new StaticShape() {
+      position = "21 18 62";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         initialState = "0";
+         invisibleTime = "2000";
+         level = "5";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
    };
-   new InteriorInstance() {
-      position = "28 101 23.25";
-      rotation = "0 0 1 180";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
-   };
-   new StaticShape(check1) {
-      position = "38 58 16.51";
-      rotation = "0 0 1 180";
-      scale = "1 1 1";
-      dataBlock = "Checkpoint_BM";
-         chkcollide = "1";
-         disableOOB = "0";
-         gravity = "0";
-   };
-   new Trigger(CheckP1) {
-      position = "35 67 12.5";
-      rotation = "1 0 0 0";
-      scale = "6 12 10";
-      dataBlock = "CheckpointTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         gravity = "0";
-         respawnPoint = "Check1";
-   };
-   new StaticShape(check2) {
-      position = "11 75 16.51";
+   new StaticShape() {
+      position = "21 16 62";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "Checkpoint_BM";
-         chkcollide = "1";
-         disableOOB = "0";
-         gravity = "0";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         initialState = "0";
+         invisibleTime = "2000";
+         level = "5";
+         permanent = "0";
+         skin = "base";
+         state = "1";
+         visibleTime = "500";
    };
-   new Trigger(CheckP2) {
-      position = "5 77 16.5";
+   new StaticShape() {
+      position = "29 23 62";
       rotation = "1 0 0 0";
-      scale = "12 20 6";
-      dataBlock = "CheckpointTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         gravity = "0";
-         respawnPoint = "Check2";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "30 17 62";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "5 17 62";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform4x4";
+         StartOffset = "0";
+         fadeStyle = "cloak";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         initialState = "0";
+         invisibleTime = "500";
+         level = "8";
+         permanent = "0";
+         skin = "base";
+         state = "1";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "70 4 41.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "82 14 46.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "72 20 50.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "70 20 50.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "70 22 50.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "72 22 50.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
    };
 };
 //--- OBJECT WRITE END ---
