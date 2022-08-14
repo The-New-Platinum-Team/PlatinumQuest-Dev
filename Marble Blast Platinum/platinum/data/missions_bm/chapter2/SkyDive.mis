@@ -5,15 +5,16 @@ new SimGroup(MissionGroup) {
          CustomRadarRule = "5";
          Radar = "1";
          artist = "James C.";
+         awesomeTime = "24000";
          desc = "Test your worth for the anvil.";
          game = "Blasted";
          gameMode = "null";
          level = "10";
          music = "Tim Trance.ogg";
          name = "Sky Dive";
-         platinumTime = "0";
+         platinumTime = "36000";
          type = "Custom";
-         ultimateTime = "0";
+         ultimateTime = "30000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -564,6 +565,28 @@ new SimGroup(MissionGroup) {
             instant = "0";
             targetTime = "99999";
       };
+      new Trigger(MustChange) {
+         position = "0 68 30.75";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-3.0000000 -3.0000000 0.2500000 0.0000000 6.0000000 0.0000000 6.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -0.5000000";
+            IContinueToTTime = "0";
+            delayTargetTime = "0";
+            instant = "0";
+            targetTime = "0";
+      };
+      new Trigger(MustChange) {
+         position = "0 68 50.75";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "TriggerGotoTarget";
+         polyhedron = "-3.0000000 -3.0000000 0.2500000 0.0000000 6.0000000 0.0000000 6.0000000 0.0000000 0.0000000 0.0000000 0.0000000 -0.5000000";
+            IContinueToTTime = "0";
+            delayTargetTime = "0";
+            instant = "0";
+            targetTime = "0";
+      };
       new PathedInterior(MustChange) {
          position = "0 0 0";
          rotation = "1 0 0 0";
@@ -574,7 +597,8 @@ new SimGroup(MissionGroup) {
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
          baseScale = "1 1 1";
-            InitialTargetPosition = "0";
+            delayTargetTime = "0";
+            initialTargetPosition = "0";
       };
    };
    new StaticShape() {
@@ -673,6 +697,118 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 90.0002";
       scale = "1 1 1";
       dataBlock = "DuctFan_BM";
+   };
+   new Trigger(Bounds) {
+      position = "-71.5 -24.5 -19";
+      rotation = "1 0 0 0";
+      scale = "102 120.5 209";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "0 12 91.8361";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EasterEgg_MBG";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(tele1) {
+      position = "-1 39 0.75";
+      rotation = "1 0 0 0";
+      scale = "2 2 1";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         DisplayGemsMessage = "0";
+         cameraYaw = "-90";
+         centerDestPoint = "1";
+         delay = "1000";
+         destination = "dest1";
+         inverseVelocity = "0";
+         keepAngular = "0";
+         keepCamera = "0";
+         keepVelocity = "0";
+         silent = "0";
+   };
+   new Trigger(dest1) {
+      position = "11.5 23.5 12.5";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(check1) {
+      position = "0 -6 -11.49";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new Trigger(CheckP1) {
+      position = "-3 5 -11.5";
+      rotation = "1 0 0 0";
+      scale = "6 14 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "check1";
+   };
+   new StaticShape(check2) {
+      position = "0 12 24.51";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new Trigger(CheckP2) {
+      position = "-19 15 22";
+      rotation = "1 0 0 0";
+      scale = "22 6 8";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "check2";
+   };
+   new Item() {
+      position = "0 22 3";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-28.75 8.75 23";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "3000";
+   };
+   new TSStatic() {
+      position = "0 12 48.5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+   };
+   new Trigger(finish) {
+      position = "-1 13 48.5";
+      rotation = "1 0 0 0";
+      scale = "2 2 6";
+      dataBlock = "FinishTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---
