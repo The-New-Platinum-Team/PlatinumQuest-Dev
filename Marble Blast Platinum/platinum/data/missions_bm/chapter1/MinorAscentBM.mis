@@ -2,19 +2,19 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         CustomRadarRule = "4";
+         CustomRadarRule = "0";
          artist = "James C.";
-         awesomeTime = "20000";
-         desc = "Gain some momentum to roll up certain slopes in this level.";
+         awesomeTime = "18000";
+         desc = "Climb up the course and collect the gems.";
          game = "Blasted";
          gameMode = "null";
-         level = "2";
+         level = "3";
          music = "Tim Trance.ogg";
-         name = "Slope Momentum";
-         platinumTime = "40000";
+         name = "Minor Ascent";
+         platinumTime = "30000";
          startHelpText = "Change this text!";
          type = "Custom";
-         ultimateTime = "30000";
+         ultimateTime = "24000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -429,98 +429,172 @@ new SimGroup(MissionGroup) {
       position = "0 0 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter1/SlopeMomentum_BM.dif";
+      interiorFile = "~/data/interiors_bm/chapter1/MinorAscent_BM.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-42 -80.85 -10.2568";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter1/MinorAscent_BMCurves.dif";
       showTerrainInside = "0";
    };
    new Trigger() {
-      position = "-0.5 0.5 1.375";
-      rotation = "1 0 0 0";
+      position = "0.5 0.5 0.5";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          center = "1";
          gravity = "0";
    };
-   new InteriorInstance() {
-      position = "-35.5665 -52.5003 -8.50425";
+   new Trigger(Repulsion) {
+      position = "12 4 0.5";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter1/SlopeMomentum_BMCurve1.dif";
-      showTerrainInside = "0";
+      scale = "4 8 0.5";
+      dataBlock = "MarblePhysModTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         marbleAttribute0 = "bounceRestitution";
+         marbleAttribute1 = "jumpImpulse";
+         noEmitters = "1";
+         value0 = "1";
+         value1 = "20";
    };
-   new InteriorInstance() {
-      position = "-90.5 -37.2735 -29.875";
+   new Trigger(Repulsion) {
+      position = "-20 -4 7";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter1/SlopeMomentum_BMCurve2.dif";
-      showTerrainInside = "0";
+      scale = "4 4 0.5";
+      dataBlock = "MarblePhysModTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         marbleAttribute0 = "bounceRestitution";
+         marbleAttribute1 = "jumpImpulse";
+         noEmitters = "1";
+         value0 = "1";
+         value1 = "20";
    };
-   new InteriorInstance() {
-      position = "-71.8912 -77.8835 -36.9092";
+   new Item() {
+      position = "-22 2 13.187";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter1/SlopeMomentum_BMCurve3.dif";
-      showTerrainInside = "0";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "0 0 7.05";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemPurple";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "41 -22 16.55";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemPurple";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "41 26 16.55";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemPurple";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Trigger(GemWarp) {
+      position = "54 5 16.5";
+      rotation = "1 0 0 0";
+      scale = "1 6 8";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         DisplayGemsMessage = "1";
+         GemsToDeactivate = "3";
+         cameraYaw = "90";
+         centerDestPoint = "1";
+         delay = "0";
+         destination = "Respawn";
+         inverseVelocity = "0";
+         keepAngular = "0";
+         keepCamera = "0";
+         keepVelocity = "0";
+         silent = "0";
+   };
+   new Trigger(Respawn) {
+      position = "10.5 2.50001 16.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "7.8 27.2 7.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "mbg";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-8.1 -25.3 9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "mbg";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "23 2 24.5003";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "mbg";
+         timeBonus = "8000";
+   };
+   new Item() {
+      position = "65 2 16.687";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
    new StaticShape(EndPoint) {
-      position = "40 74 34.5023";
+      position = "35 2 33.0023";
       rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
       dataBlock = "EndPad_MBG";
    };
-   new InteriorInstance() {
-      position = "0 53.25 1.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "-34 47.5 3";
-      rotation = "0 0 -1 45.0001";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "-31 28 4.5";
-      rotation = "0 0 1 225";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "91.25 30 14.5";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "86 -35 24";
-      rotation = "0 0 1 135";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "67.5 -35.5 26.5";
-      rotation = "0 0 1 225.001";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "71 77 34";
-      rotation = "0 0 1 45.0001";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
-   };
    new Trigger(Bounds) {
-      position = "-50.7678 -52.2678 -5.125";
+      position = "-39.5 -53.9539 -3.25";
       rotation = "1 0 0 0";
-      scale = "157.518 146.036 93.625";
+      scale = "136.5 109.849 95.7046";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
