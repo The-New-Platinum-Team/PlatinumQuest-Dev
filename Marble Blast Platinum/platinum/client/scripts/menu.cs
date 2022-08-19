@@ -187,6 +187,7 @@ function menuEndQueueMission() {
 }
 
 function menuSkipNextQueue() {
+	resumeGame();
 	echo("*** Menu skipping next in queue: " @ $Menu::QueueIndex);
 	$Menu::Queue.onEndMission($Menu::QueueIndex, false);
 	$Menu::Queue.export("platinum/json/queue.json");

@@ -81,7 +81,7 @@ function LoadingGui::onWake(%this) {
 			} else {
 				%name = $Menu::Queue.getMissionInfo($Menu::Queue.getMissionCount() - 1).name;
 			}
-			%qtext = %qtext @ "\n" @ clipPx($DefaultFont, 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 250, true);
+			%qtext = %qtext @ "\n" @ clipPx($DefaultFont, 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 460, true);
 			%qtext = %qtext @ "\t\t" @ formatTime(0);
 		}
 		%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime($Menu::Queue.totalTimeScore);
