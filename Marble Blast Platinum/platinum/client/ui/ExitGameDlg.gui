@@ -796,7 +796,7 @@ function ExitGameDlg::onWake(%this) {
 		%qtitle = "<shadow:1:1><shadowcolor:000000bf><just:center>";
 		%qtitle = %qtitle @ shrinkToFit($Menu::Queue.getQueueName(), $DefaultFont["Bold"], 42, 24, getWord(ExitGameInfo.getExtent(), 0));
 
-		%qtext = "<shadow:1:1><shadowcolor:000000bf><font:32><tab:320,410>";
+		%qtext = "<shadow:1:1><shadowcolor:000000bf><font:32><tab:270,360>";
 		%qtext = %qtext @ "Level\tScore\tTotal<font:22>";
 
 		// Show missions 1, (n-3) -> n if we're on n
@@ -816,7 +816,7 @@ function ExitGameDlg::onWake(%this) {
 			if (%i > $Menu::QueueIndex && $Menu::Queue.isUpcomingHidden()) {
 				%name = (%i + 1) @ ". ???";
 			} else {
-				%name = clipPx($DefaultFont, 22, (%i + 1) @ ". " @ %mis.name, 250, true);
+				%name = clipPx($DefaultFont, 22, (%i + 1) @ ". " @ %mis.name, 270, true);
 			}
 			%qtext = %qtext @ "\n" @ %name @ "\t";
 
@@ -846,7 +846,7 @@ function ExitGameDlg::onWake(%this) {
 			} else {
 				%name = $Menu::Queue.getMissionInfo($Menu::Queue.getMissionCount() - 1).name;
 			}
-			%qtext = %qtext @ "\n" @ clipPx($DefaultFont, 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 250, true);
+			%qtext = %qtext @ "\n" @ clipPx($DefaultFont, 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 270, true);
 			%qtext = %qtext @ "\t\t" @ formatTime(0);
 		}
 		%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime($Menu::Queue.totalTimeScore);
