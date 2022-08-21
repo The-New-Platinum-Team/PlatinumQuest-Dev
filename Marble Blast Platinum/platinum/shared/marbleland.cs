@@ -307,3 +307,79 @@ function MarblelandRetriever::onDisconnect(%this) {
 	}
 	%this.destroy();
 }
+
+//-----------------------------------------------------------------------------
+
+function MarblelandPacksMissionQueue::getQueueName(%this) {
+	return %this.pack.name;
+}
+
+function MarblelandPacksMissionQueue::getMissionCount(%this) {
+	return %this.pack.levelIds.getSize();
+}
+
+function MarblelandPacksMissionQueue::getMissionInfo(%this, %index) {
+	%missionId = %this.pack.levelIds.getEntry(%index);
+	%mission = marblelandGetMission(%missionId);
+	return %mission;
+}
+
+function MarblelandPacksMissionQueue::onEnd(%this, %completed) {
+	MissionQueue::onEnd(%this, %completed);
+}
+
+//-----------------------------------------------------------------------------
+
+function startRandomMissionQueue(%count) {
+	RootGroup.add(%queue = new ScriptObject(RandomQueue) {
+		class = "MarblelandRandomMissionQueue";
+		superClass = "MissionQueue";
+		count = %count;
+	});
+
+	%possible = Array();
+	%ml = $MarblelandMissionList;
+	for (%i = 0; %i < %ml.getSize(); %i ++) {
+		%mis = %ml.getEntry(%i);
+		if (%mis.qualifyingTime >= 60000)
+			continue;
+		if (%mis.goldTime >= 60000)
+			continue;
+		if (%mis.platinumTime >= 60000)
+			continue;
+		if (%mis.goldTime $= "" && %mis.platinumTime $= "")
+			continue;
+		if (%mis.gameType !$= "single")
+			continue;
+		if (%mis.gems > 99)
+			continue;
+
+		%possible.addEntry(%mis.id);
+	}
+
+	for (%i = 0; %i < %count; %i ++) {
+		%idx = getRandom(0, %possible.getSize() - 1);
+		%id = %possible.getEntry(%idx);
+		%queue.missions[%i] = %id;
+		%possible.removeEntry(%idx);
+	}
+	menuPlayQueue(%queue.getId());
+}
+
+function MarblelandRandomMissionQueue::getQueueName(%this) {
+	return %this.count @ " Random Levels";
+}
+
+function MarblelandRandomMissionQueue::getMissionCount(%this) {
+	return %this.count;
+}
+
+function MarblelandRandomMissionQueue::getMissionInfo(%this, %index) {
+	%mission = marblelandGetMission(%this.missions[%index]);
+	return %mission;
+}
+
+function MarblelandRandomMissionQueue::isUpcomingHidden(%this) {
+	return true;
+}
+

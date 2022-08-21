@@ -152,3 +152,13 @@ function sortNameOrArray(%a, %b) {
 	}
 	return stricmp(%a, %b) < 0;
 }
+
+function sortIndexOrArray(%a, %b) {
+	%aArray = isObject(%a) && (%a.class $= "Array");
+	%bArray = isObject(%b) && (%b.class $= "Array");
+	//Arrays sort first
+	if (%aArray != %bArray) {
+		return %aArray && !%bArray;
+	}
+	return false;
+}
