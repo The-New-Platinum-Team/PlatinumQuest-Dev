@@ -136,8 +136,6 @@ function initClient() {
 	exec("./ui/CompleteDemoDlg.gui");
 	exec("./ui/AchievementsDlg.gui");
 	exec("./ui/SearchDlg.gui");
-	exec("./ui/MarblelandDlg.gui");
-	exec("./ui/MarblelandPacksDlg.gui");
 	exec("./ui/VersionDlg.gui");
 	exec("./ui/JukeboxDlg.gui");
 	exec("./ui/RenameFileDlg.gui");
@@ -251,8 +249,8 @@ function initClient() {
 
 	// Download marbleland levels so they're ready in case we search
 	// Hopefully the lagspike from loading the list happens during the already super long initial loading screen
-	marblelandDownloadMissionList(MD_notifyMissionUpdates);
-	marblelandDownloadPackList(MPD_notifyPackUpdates);
+	marblelandDownloadMissionList();
+	marblelandDownloadPackList();
 
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.

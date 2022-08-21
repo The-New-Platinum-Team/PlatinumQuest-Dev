@@ -627,7 +627,7 @@ function ExitGameDlg::onWake(%this) {
 
 		%cache = PlayMissionGui.globalScoreCache[PlayMissionGui.getMissionInfo().id];
 		if ($Game::isMode["challenge"])
-			%cache = PlayMissionGui.globalChallengeScoreCache[PlatMissionGui.getMissionInfo().id];
+			%cache = PlayMissionGui.globalChallengeScoreCache[PlayMissionGui.getMissionInfo().id];
 		if (isObject(%cache)) {
 			%scores = %cache.scores;
 			if (%scores.getSize()) {
