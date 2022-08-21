@@ -1055,3 +1055,9 @@ function MissionSortLevel(%a, %b) {
 function MissionSortName(%a, %b) {
 	return stricmp(%a.name, %b.name) < 0;
 }
+function MissionSortSearchName(%a, %b) {
+	return stricmp(%a.searchName, %b.searchName) < 0;
+}
+function PackSortSearchName(%a, %b) {
+	return stricmp(%a.searchName, %b.searchName) < 0;
+}
