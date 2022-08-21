@@ -251,8 +251,8 @@ function initClient() {
 
 	// Download marbleland levels so they're ready in case we search
 	// Hopefully the lagspike from loading the list happens during the already super long initial loading screen
-	marblelandDownloadLevelList(MD_notifyMissionUpdates);
-	MarblelandPacksDownloadJSON();
+	marblelandDownloadMissionList(MD_notifyMissionUpdates);
+	marblelandDownloadPackList(MPD_notifyPackUpdates);
 
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.

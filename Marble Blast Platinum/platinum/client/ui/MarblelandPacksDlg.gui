@@ -295,14 +295,6 @@ function MarblelandPacksDlg::onWake(%this) {
 	%this.buildSearch();
 }
 
-function MarblelandPacksDownloadJSON() {
-	if (!isObject(MarblelandPacksJSONDownloader)) {
-		new HTTPObject(MarblelandPacksJSONDownloader);
-		MarblelandPacksJSONDownloader.success = 0;
-		MarblelandPacksJSONDownloader.get("https://marbleland.vani.ga","/api/pack/list","");
-	}
-}
-
 function MarblelandPacksDlg::buildSearch(%this) {
 	%this.setStatus("Loading...", false);
 
@@ -378,22 +370,8 @@ function MarblelandPacksDlg::refreshSort(%this) {
 	MarblelandPacksDlg.search();
 }
 
-function MarblelandPacksJSONDownloader::onLine(%this, %line) {
-	echo("Loaded MarblelandPacks MissionList");
-	$MarblelandPackList = jsonParse(%line);
-	%this.success = 1;
-
-	// Prepare lookup
-	for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
-		%entry = $MarblelandPackList.getEntry(%i);
-		%entry.searchName = strlwr(trim(%entry.name));
-		%entry.searchArtist = strlwr(trim(%entry.createdBy.username));
-		$MarblelandPackList.lookup[%entry.id] = %entry;
-	}
-}
-
-function MarblelandPacksJSONDownloader::onDisconnect(%this) {
-	if (!%this.success) {
+function MPD_notifyPackUpdates(%success) {
+	if (!%success) {
 		MarblelandPacksDlg.setStatus("Failed to load.", false);
 	}
 }
