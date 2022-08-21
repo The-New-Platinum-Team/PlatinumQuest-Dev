@@ -107,7 +107,7 @@ function initDedicatedServer() {
 
 	//Load mission list
 	statsGetMissionList("Multiplayer");
-	marblelandDownloadLevelList();
+	marblelandDownloadMissionList();
 
 	// Initialize the connection
 	allowConnections(true);

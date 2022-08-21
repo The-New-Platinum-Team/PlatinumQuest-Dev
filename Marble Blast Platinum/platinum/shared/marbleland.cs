@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function marblelandDownloadLevelList(%callback) {
-	if (!isObject(MarblelandJSONDownloader)) {
-		%dl = new HTTPObject(MarblelandJSONDownloader);
-		%dl.success = 0;
-		%dl.callback = %callback;
-		%dl.get("https://marbleland.vani.ga","/api/level/list","");
-	}
+/// Download the list of missions from Marbleland
+/// @param callback void(%success) Function to call upon completion
+function marblelandDownloadMissionList(%callback) {
+	%dl = new HTTPObject(MarblelandJSONDownloader);
+	%dl.success = 0;
+	%dl.callback = %callback;
+	%dl.get("https://marbleland.vani.ga","/api/level/list","");
 }
 
 function MarblelandJSONDownloader::onLine(%this, %line) {
@@ -34,7 +34,7 @@ function MarblelandJSONDownloader::onLine(%this, %line) {
 	$MarblelandMissionList = jsonParse(%line);
 	%this.success = 1;
 
-	fwrite("platinum/json/marblelandList.json", %line);
+	fwrite("platinum/json/marblelandLevels.json", %line);
 
 	// Prepare lookup
 	for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
@@ -56,6 +56,43 @@ function MarblelandJSONDownloader::onDisconnect(%this) {
 
 //-----------------------------------------------------------------------------
 
+/// Download the list of packs from Marbleland
+/// @param callback void(%success) Function to call upon completion
+function marblelandDownloadPackList(%callback) {
+	%dl = new HTTPObject(MarblelandPacksJSONDownloader);
+	%dl.success = 0;
+	%dl.callback = %callback;
+	%dl.get("https://marbleland.vani.ga","/api/pack/list","");
+}
+
+function MarblelandPacksJSONDownloader::onLine(%this, %line) {
+	echo("Loaded MarblelandPacks MissionList");
+	$MarblelandPackList = jsonParse(%line);
+	%this.success = 1;
+
+	fwrite("platinum/json/marblelandPacks.json", %line);
+
+	// Prepare lookup
+	for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
+		%entry = $MarblelandPackList.getEntry(%i);
+		%entry.searchName = strlwr(trim(%entry.name));
+		%entry.searchArtist = strlwr(trim(%entry.createdBy.username));
+		$MarblelandPackList.lookup[%entry.id] = %entry;
+	}
+}
+
+function MarblelandPacksJSONDownloader::onDisconnect(%this) {
+	if (%this.callback !$= "") {
+		schedule(100, 0, %this.callback, %this.success);
+	}
+	%this.destroy();
+}
+
+//-----------------------------------------------------------------------------
+
+/// Download a specific level's mbpak
+/// @param id Level ID
+/// @param callback void(%id, %success) Function to call upon completion
 function marblelandDownload(%id, %callback) {
 	echo("Marbleland downloading: " @ %id SPC %callback);
 	%mission = $MarblelandMissionList.lookup[%id];
@@ -95,6 +132,8 @@ function MarblelandDownloader::onDisconnect(%this) {
 
 //-----------------------------------------------------------------------------
 
+/// Delete a level's mbpak
+/// @param id Level ID
 function marblelandDelete(%id) {
 	MarblelandPackages.removeMatching(%id);
 	unloadMBPackage("marbleland/" @ %id);
@@ -103,6 +142,9 @@ function marblelandDelete(%id) {
 
 //-----------------------------------------------------------------------------
 
+/// Get the marbleland ID for a mission file (if it is valid)
+/// @param file Mission file path
+/// @return Marbleland ID, or empty string if not a marbleland mission
 function marblelandGetFileId(%file) {
 	if (strpos(expandFilename(%file), "platinum/data/missions/marbleland/") != -1) {
 		%id = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
@@ -112,6 +154,9 @@ function marblelandGetFileId(%file) {
 	}
 }
 
+/// Determine if a mission file is a marbleland mission
+/// @param file Mission file path
+/// @return True if it is a marbleland mission
 function marblelandIsMission(%file) {
 	if (strpos(expandFilename(%file), "platinum/data/missions/marbleland/") != -1) {
 		return true;
@@ -120,10 +165,16 @@ function marblelandIsMission(%file) {
 	}
 }
 
+/// Get the marbleland mission info structure for a mission
+/// @param id Mission ID
+/// @return Info structure from the marbleland mission list
 function marblelandGetMission(%id) {
 	return $MarblelandMissionList.lookup[%id];
 }
 
+/// Determine if a given marbleland mission is downloaded
+/// @param id Mission ID
+/// @return True if that mission is downloaded
 function marblelandHasMission(%id) {
 	return isLoadedMBPackage("marbleland/" @ %id);
 }
@@ -132,6 +183,7 @@ function marblelandHasMission(%id) {
 
 Array(MarblelandLoadedPackages);
 
+/// Reload all download marbleland mission packages
 function marblelandReloadMissions() {
 	echo("Reloading Marbleland");
 	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
@@ -142,6 +194,7 @@ function marblelandReloadMissions() {
 	}
 }
 
+/// Unload all marbleland mission packages
 function marblelandUnloadMissions() {
 	echo("Unloading Marbleland");
 	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
@@ -152,6 +205,10 @@ function marblelandUnloadMissions() {
 	}
 }
 
+/// Load (for playing) a given marbleland mission (if exists). Only 1 mission can be
+/// loaded at a time, so this will also unload any previously loaded marbleland mission.
+/// @param id Mission ID
+/// @return True if loading was successful
 function marblelandLoad(%id) {
 	echo("Marbleland load " @ %id);
 	// Get the ids of the rest of the marbleland missions and unload them
@@ -170,10 +227,13 @@ function marblelandLoad(%id) {
 		// Reload the one which is gonna be played
 		loadMBPackage("marbleland/" @ %id);
 		MarblelandLoadedPackages.addEntry(%id);
+		return true;
 	}
+	return false;
 }
 
-// Client only!
+/// Refresh the UI and mission list structures for marbleland
+/// Only for use on a client
 function marblelandRefreshMissionList() {
 	// Refresh "Custom" and "custom/marbleland" difficulties
 	getMissionList("offline").buildCustomDifficultyTree();
@@ -196,6 +256,11 @@ function marblelandRefreshMissionList() {
 //-----------------------------------------------------------------------------
 // RandomityGuy's weird fake LBs
 
+/// Submit a score time to the marbleland leaderboards
+/// @param mission Bro idk some bullshit like file path
+/// @param user Username of player
+/// @param score Score value
+/// @param scoreType Score type
 function marblelandSubmit(%mission, %user, %score, %scoreType) {
 	new HTTPObject(MarblelandSubmitter);
 	MarblelandSubmitter.post("https://pqmarblelandlbs.vani.ga","/score", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
@@ -209,6 +274,9 @@ function MarblelandSubmitter::onDisconnect(%this) {
 	%this.destroy();
 }
 
+/// Get a marbleland mission's leaderboards
+/// @param mission Bro idk some bullshit like file path
+/// @param callback void(%mission, %scoreData) Callback to call upon completion
 function marblelandGetScores(%mission, %callback) {
 	if (isObject(MarblelandRetriever))
 		MarblelandRetriever.cancelled = true; // Cancel existing request cause bruh
