@@ -40,7 +40,20 @@
 //------------------------------------------------------------------------------
 function sendLoadInfoToClient(%client) {
 	echo("You just lost the game");
-	%info = getMissionInfo($Server::MissionFile);
+
+	if (isScriptFile($Server::MissionFile)) {
+		%info = getMissionInfo($Server::MissionFile);
+	} else {
+		// We don't have this mission... yet we're here?
+		// It could be a marbleland mission we haven't downloaded yet.
+		%marblelandId = marblelandGetFileId($Server::MissionFile);
+		if (%marblelandId !$= "") {
+			// Yep, stupid
+			%info = marblelandGetMission(%marblelandId);
+		}
+	}
+
+
 	traceGuard();
 		%missionInfo = dumpObject(%info);
 	traceGuardEnd();
