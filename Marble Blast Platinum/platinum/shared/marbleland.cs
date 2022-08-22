@@ -310,6 +310,15 @@ function MarblelandRetriever::onDisconnect(%this) {
 
 //-----------------------------------------------------------------------------
 
+function MarblelandPacksMissionQueue::create(%pack) {
+	RootGroup.add(%queue = new ScriptObject(PackQueue) {
+		class = "MarblelandPacksMissionQueue";
+		superClass = "MissionQueue";
+		pack = %pack;
+	});
+	return %queue;
+}
+
 function MarblelandPacksMissionQueue::getQueueName(%this) {
 	return %this.pack.name;
 }
@@ -330,7 +339,12 @@ function MarblelandPacksMissionQueue::onEnd(%this, %completed) {
 
 //-----------------------------------------------------------------------------
 
-function startRandomMissionQueue(%count) {
+function startRandomMissionList(%count) {
+	%queue = MarblelandRandomMissionQueue::create(%count);
+	menuPlayQueue(%queue.getId());
+}
+
+function MarblelandRandomMissionQueue::create(%count) {
 	RootGroup.add(%queue = new ScriptObject(RandomQueue) {
 		class = "MarblelandRandomMissionQueue";
 		superClass = "MissionQueue";
@@ -363,7 +377,7 @@ function startRandomMissionQueue(%count) {
 		%queue.missions[%i] = %id;
 		%possible.removeEntry(%idx);
 	}
-	menuPlayQueue(%queue.getId());
+	return %queue;
 }
 
 function MarblelandRandomMissionQueue::getQueueName(%this) {

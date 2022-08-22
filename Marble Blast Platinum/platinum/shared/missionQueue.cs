@@ -143,16 +143,27 @@ function MissionQueue::export(%this, %path) {
 	%j.totalRealTime = %this.totalRealTime;
 
 	%j.missionFile = Array(MissionQueueExportFiles);
+	%j.__obj["missionFile"] = true;
 	%j.missionCompleted = Array(MissionQueueExportMissionCompleted);
+	%j.__obj["missionCompleted"] = true;
 	%j.missionStart = Array(MissionQueueExportMissionStart);
+	%j.__obj["missionStart"] = true;
 	%j.missionScore = Array(MissionQueueExportMissionScore);
+	%j.__obj["missionScore"] = true;
 	%j.missionBonus = Array(MissionQueueExportMissionBonus);
+	%j.__obj["missionBonus"] = true;
 	%j.missionElapsed = Array(MissionQueueExportMissionElapsed);
+	%j.__obj["missionElapsed"] = true;
 	%j.missionEnd = Array(MissionQueueExportMissionEnd);
+	%j.__obj["missionEnd"] = true;
 	%j.missionRealTime = Array(MissionQueueExportMissionRealTime);
+	%j.__obj["missionRealTime"] = true;
 	%j.missionTotalTimeScore = Array(MissionQueueExportMissionTotalTimeScore);
+	%j.__obj["missionTotalTimeScore"] = true;
 	%j.missionTotalElapsed = Array(MissionQueueExportMissionTotalElapsed);
+	%j.__obj["missionTotalElapsed"] = true;
 	%j.missionTotalScoreScore = Array(MissionQueueExportMissionTotalScoreScore);
+	%j.__obj["missionTotalScoreScore"] = true;
 
 	for (%i = 0; %i < %j.missionCount; %i ++) {
 		%j.missionFile.addEntry(%this.getMissionFile(%i));
@@ -229,4 +240,33 @@ function ImportedMissionQueue::getMissionInfo(%this, %index) {
 
 function ImportedMissionQueue::isUpcomingHidden(%this) {
 	return %this.data.upcomingHidden;
+}
+
+//-----------------------------------------------------------------------------
+
+function DifficultyMissionQueue::create(%ml, %game, %difficulty) {
+	RootGroup.add(%queue = new ScriptObject(DifficultyQueue) {
+		class = "DifficultyMissionQueue";
+		superClass = "MissionQueue";
+		ml = %ml;
+		game = %game;
+		difficulty = %difficulty;
+	});
+	return %queue;
+}
+
+function DifficultyMissionQueue::getQueueName(%this) {
+	return %this.ml.getGameName(%this.game) @ " - " @ %this.ml.getDifficultyName(%this.game, %this.difficulty);
+}
+
+function DifficultyMissionQueue::getMissionCount(%this) {
+	return %this.ml.getMissionList(%this.game, %this.difficulty).getSize();
+}
+
+function DifficultyMissionQueue::getMissionInfo(%this, %index) {
+	return %this.ml.getMissionList(%this.game, %this.difficulty).getEntry(%index);
+}
+
+function DifficultyMissionQueue::isUpcomingHidden(%this) {
+	return false;
 }

@@ -3079,17 +3079,7 @@ function PlayMissionGui::playPack(%this) {
 	if ($Menu::Loading || $Client::Loading)
 		return;
 
-	%pack = TreeGet(%this.ml.getDifficultyTree($CurrentGame), $MissionType).pack;
-
-	if (%pack.levelIds.getSize() == 0)
-		return;
-	devecho("Play level pack: " @ %pack.id);
-
-	RootGroup.add(%queue = new ScriptObject(PackQueue) {
-		class = "MarblelandPacksMissionQueue";
-		superClass = "MissionQueue";
-		pack = %pack;
-	});
+	%queue = DifficultyMissionQueue::create(%this.ml, $CurrentGame, $MissionType);
 	menuPlayQueue(%queue);
 }
 

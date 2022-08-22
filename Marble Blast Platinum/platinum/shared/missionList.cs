@@ -161,6 +161,34 @@ function MissionList::getMissionList(%this, %game, %difficulty) {
 	return "ML_" @ %this.getId() @ "_" @ alphaNum(%game) @ "_" @ alphaNum(%difficulty);
 }
 
+function MissionList::getGameName(%this, %search) {
+	%games = %this.getGameList();
+	%gcount = getRecordCount(%games);
+	for (%i = 0; %i < %gcount; %i ++) {
+		%game = getRecord(%games, %i);
+		%gameName = getField(%game, 0);
+		%gameDisplay = getField(%game, 1);
+		if (%gameName $= %search) {
+			return %gameDisplay;
+		}
+	}
+	return "";
+}
+
+function MissionList::getDifficultyName(%this, %game, %search) {
+	%difficulties = %this.getDifficultyList(%game);
+	%dcount = getRecordCount(%difficulties);
+	for (%i = 0; %i < %dcount; %i ++) {
+		%difficulty = getRecord(%difficulties, %i);
+		%difficultyName = getField(%difficulty, 0);
+		%difficultyDisplay = getField(%difficulty, 1);
+		if (%difficultyName $= %search) {
+			return %difficultyDisplay;
+		}
+	}
+	return "";
+}
+
 function MissionList::getMission(%this, %game, %difficulty, %file) {
 	if (%game $= "") {
 		error("getMission: blank game");
