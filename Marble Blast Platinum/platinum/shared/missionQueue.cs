@@ -251,7 +251,17 @@ function DifficultyMissionQueue::create(%ml, %game, %difficulty) {
 		ml = %ml;
 		game = %game;
 		difficulty = %difficulty;
+		missions = Array();
 	});
+
+	%misCount = %queue.ml.getMissionList(%queue.game, %queue.difficulty).getSize();
+	for (%i = 0; %i < %misCount; %i ++) {
+		%level = %queue.ml.getMissionList(%queue.game, %queue.difficulty).getEntry(%i);
+		if (Unlock::canDisplayMission(%level)) {
+			%queue.missions.addEntry(%level);
+		}
+	}
+
 	return %queue;
 }
 
@@ -260,11 +270,11 @@ function DifficultyMissionQueue::getQueueName(%this) {
 }
 
 function DifficultyMissionQueue::getMissionCount(%this) {
-	return %this.ml.getMissionList(%this.game, %this.difficulty).getSize();
+	return %this.missions.getSize();
 }
 
 function DifficultyMissionQueue::getMissionInfo(%this, %index) {
-	return %this.ml.getMissionList(%this.game, %this.difficulty).getEntry(%index);
+	return %this.missions.getEntry(%index);
 }
 
 function DifficultyMissionQueue::isUpcomingHidden(%this) {
