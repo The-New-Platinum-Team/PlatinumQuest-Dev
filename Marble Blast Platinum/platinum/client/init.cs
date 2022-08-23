@@ -143,6 +143,7 @@ function initClient() {
 	exec("./ui/HintsDlg.gui");
 	exec("./ui/EditorOrNewDlg.gui");
 	exec("./ui/ControllerGui.gui");
+	exec("./ui/QueueResultsDlg.gui");
 
 	// Gui Scripts
 	exec("./scripts/EndGameDlg.cs");
