@@ -2203,7 +2203,11 @@ function PlayMissionGui::showMissionIcon(%this, %frame) {
 		//If they can't play, show a different image
 		%bitmap = %bitmap @ ".locked";
 	}
-	%frame.icon.setBitmap(%bitmap);
+	if (isBitmap(%bitmap)) {
+		%frame.icon.setBitmap(%bitmap);
+	} else {
+		%frame.icon.setBitmap(expandFilename("./play/missingicon"));
+	}
 	%frame.icon.showingIcon = true;
 	PM_MissionListScrolling.add(%frame);
 }
@@ -3012,6 +3016,10 @@ function PMMenu_StartLoading() {
 function PMMenu_LoadProgress(%progress) {
 	if (PlayMissionGui.isAwake())
 		PlayMissionGui.onLoadProgress(%progress);
+}
+
+function PMMenu_FinishQueue(%queue) {
+	QueueResultsDlg.open(%queue);
 }
 
 function PlayMissionGui::onMissionLoaded(%this) {

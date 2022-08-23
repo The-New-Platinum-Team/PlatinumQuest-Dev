@@ -1,0 +1,183 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2021 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(QueueResultsDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "800 600";
+		defaultControl = "QueueResultsScroll";
+		commandSelect = "RootGui.popDialog(QueueResultsDlg);";
+		commandCancel = "RootGui.popDialog(QueueResultsDlg);";
+		commandNameSelect = "Close";
+
+		wrap = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "800 600";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./exit/black";
+		wrap = "0";
+	};
+	new GuiControl() {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "100 100";
+		extent = "600 400";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiMLTextCtrl(QueueResultsInfoTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "50 20";
+			extent = "500 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "22 52";
+			extent = "556 281";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiScrollCtrl(QueueResultsScroll) {
+				profile = "PQScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "12 12";
+				extent = "532 257";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "alwaysOff";
+				vScrollBar = "alwaysOn";
+				constantThumbHeight = "0";
+				childMargin = "2 2";
+
+				new GuiMLTextCtrl(QueueResultsInfo) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "2 2";
+					extent = "512 570";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+						wrap = "0";
+				};
+			};
+		};
+		new GuiBorderButtonCtrl(QueueResultsClose) {
+			profile = "PQButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "253 328";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			text = "Close";
+			command = "RootGui.popDialog(QueueResultsDlg);";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function QueueResultsDlg::open(%this, %queue) {
+	%this.queue = %queue;
+	RootGui.pushDialog(%this);
+}
+
+function QueueResultsDlg::onWake(%this) {
+	%qtitle = "<shadow:1:1><shadowcolor:000000bf><just:center>";
+	%qtitle = %qtitle @ shrinkToFit("Results: " @ %this.queue.getQueueName(), $DefaultFont["Bold"], 28, 24, getWord(ExitGameInfo.getExtent(), 0));
+
+	%qtext = "<shadow:1:1><shadowcolor:000000bf><bold:22><tab:320,400>";
+	%qtext = %qtext @ "Level\tScore\tTotal<font:18>";
+
+	for (%i = 0; %i < %this.queue.getMissionCount(); %i ++) {
+		%mis = %this.queue.getMissionInfo(%i);
+		%name = clipPx($DefaultFont, 22, (%i + 1) @ ". " @ %mis.name, 320, true);
+		%qtext = %qtext @ "\n" @ %name @ "\t";
+
+		if (%this.queue.missionCompleted[%i]) {
+			%scoreInfo = %this.queue.missionScore[%i];
+			%type = getField(%scoreInfo, 0);
+			%score = getField(%scoreInfo, 1);
+
+			if (%type $= $ScoreType::Time) {
+				%qtext = %qtext @ formatTime(%score) @ "\t";
+			} else {
+				%qtext = %qtext @ formatScore(%score) @ "\t";
+			}
+		} else {
+			%qtext = %qtext @ "<skipped>\t";
+		}
+		%qtext = %qtext @ formatTime(%this.queue.missionTotalTimeScore[%i]);
+		if (%this.queue.missionTotalScoreScore[%i] > 0) {
+			%qtext = %qtext @ " + " @ formatScore(%this.queue.missionTotalScoreScore[%i]);
+		}
+		%qtext = %qtext @ "<color:000000>";
+	}
+
+	%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime(%this.queue.totalTimeScore);
+	if (%this.queue.totalScoreScore > 0) {
+		%qtext = %qtext @ " + " @ formatScore(%this.queue.totalScoreScore);
+	}
+	%qtext = %qtext @ "\n" @ "Real Time:\t\t" @ formatTime(%this.queue.totalRealTime);
+
+	QueueResultsInfoTitle.setText(%qtitle);
+	QueueResultsInfo.setText(%qtext);
+}
