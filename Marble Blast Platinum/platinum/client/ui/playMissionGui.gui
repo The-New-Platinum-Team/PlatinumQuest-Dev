@@ -3087,7 +3087,7 @@ function PlayMissionGui::playPack(%this) {
 	if ($Menu::Loading || $Client::Loading)
 		return;
 
-	%queue = DifficultyMissionQueue::create(%this.ml, $CurrentGame, $MissionType);
+	%queue = createDifficultyMissionQueue(%this.ml, $CurrentGame, $MissionType);
 	menuPlayQueue(%queue);
 }
 

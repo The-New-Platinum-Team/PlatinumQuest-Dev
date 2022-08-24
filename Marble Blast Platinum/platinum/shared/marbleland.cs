@@ -310,7 +310,7 @@ function MarblelandRetriever::onDisconnect(%this) {
 
 //-----------------------------------------------------------------------------
 
-function MarblelandPacksMissionQueue::create(%pack) {
+function createMarblelandPacksMissionQueue(%pack) {
 	RootGroup.add(%queue = new ScriptObject(PackQueue) {
 		class = "MarblelandPacksMissionQueue";
 		superClass = "MissionQueue";
@@ -340,16 +340,17 @@ function MarblelandPacksMissionQueue::onEnd(%this, %completed) {
 //-----------------------------------------------------------------------------
 
 function startRandomMissionList(%count) {
-	%queue = MarblelandRandomMissionQueue::create(%count);
+	%queue = createMarblelandRandomMissionQueue(%count);
 	menuPlayQueue(%queue.getId());
 }
 
-function MarblelandRandomMissionQueue::create(%count) {
-	RootGroup.add(%queue = new ScriptObject(RandomQueue) {
+function createMarblelandRandomMissionQueue(%count) {
+	%queue = new ScriptObject(MarblelandRandomMissionQueue) {
 		class = "MarblelandRandomMissionQueue";
 		superClass = "MissionQueue";
 		count = %count;
-	});
+	};
+	RootGroup.add(%queue);
 
 	%possible = Array();
 	%ml = $MarblelandMissionList;
@@ -365,7 +366,7 @@ function MarblelandRandomMissionQueue::create(%count) {
 			continue;
 		if (%mis.gameType !$= "single")
 			continue;
-		if (%mis.gems > 99)
+		if (%mis.gems > 50)
 			continue;
 
 		%possible.addEntry(%mis.id);
