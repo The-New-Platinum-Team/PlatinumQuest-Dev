@@ -481,7 +481,9 @@ function clientCmdGameEnd() {
 		EnterNameEdit.makeFirstResponder(false);
 
 		//If we don't show scores, we can't accept score so make sure to check achievements anyway
-		checkEndgameAchievements();
+		if (PlayMissionGui.ml.shouldCheckAchievements($CurrentGame)) {
+			checkEndgameAchievements();
+		}
 	}
 
 	reformatGameEndText();
@@ -498,7 +500,9 @@ function highScoreNameAccept() {
 	// Save prefs
 	savePrefs();
 
-	checkEndgameAchievements();
+	if (PlayMissionGui.ml.shouldCheckAchievements($CurrentGame)) {
+		checkEndgameAchievements();
+	}
 }
 
 function highScoreNameChanged() {
