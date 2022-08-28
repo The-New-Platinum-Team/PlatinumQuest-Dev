@@ -362,6 +362,10 @@ function createMarblelandRandomMissionQueue(%count) {
 			continue;
 		if (%mis.platinumTime >= 60000)
 			continue;
+		if (%mis.goldTime !$= "" && %mis.goldTime < 10000)
+			continue;
+		if (%mis.platinumTime !$= "" && %mis.platinumTime < 10000)
+			continue;
 		if (%mis.goldTime $= "" && %mis.platinumTime $= "")
 			continue;
 		if (%mis.gameType !$= "single")

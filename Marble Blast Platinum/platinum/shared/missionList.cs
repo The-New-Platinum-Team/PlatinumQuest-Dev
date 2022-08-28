@@ -144,6 +144,15 @@ function MissionList::getGameMode(%this, %game, %difficulty) {
 	return "";
 }
 
+/// Determine if achievements exist for this game, and therefore, if logic to update
+/// them should be run.
+/// @param game Id of game
+/// @return True if achievements should be checked
+function MissionList::shouldCheckAchievements(%this, %game) {
+	error(%this.class @ "::shouldCheckAchievements unimplemented!");
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // General functions that apply to all the mission lists
 //-----------------------------------------------------------------------------
@@ -565,6 +574,11 @@ function OfflineMissionList::getGameMode(%this, %game) {
 	return "";
 }
 
+function OfflineMissionList::shouldCheckAchievements(%this, %game) {
+	// Everything but custom
+	return (%game !$= "Custom");
+}
+
 //-----------------------------------------------------------------------------
 // Server-controlled game, difficulty, and mission lists
 //-----------------------------------------------------------------------------
@@ -925,6 +939,11 @@ function OnlineMissionList::clearOnlineCache(%this) {
 	%this.recurseDelete();
 }
 
+function OnlineMissionList::shouldCheckAchievements(%this, %game) {
+	return true;
+}
+
+
 //-----------------------------------------------------------------------------
 // Multiplayer Mission List is a little weirder
 //-----------------------------------------------------------------------------
@@ -1090,22 +1109,22 @@ function ServerMissionList::buildMissionList(%this, %gameName, %difficultyName) 
 	}
 }
 
+function ServerMissionList::shouldCheckAchievements(%this, %game) {
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 
-/// Get a newline-separated list of all available Games
-/// @return List of Games in the format (Id TAB DisplayName)
 function MarblelandMissionList::getGameList(%this) {
 	return "Levels\tLevels" NL
 	       "Packs\tPacks";
 }
 
-/// Get a newline-separated list of all available Difficulties for a given Game
-/// @param game Id of game to list
-/// @return List of Difficulties in the format (Id TAB DisplayName)
 function MarblelandMissionList::getDifficultyList(%this, %game) {
 	switch$ (%game) {
 	case "Levels":
-		return "All\tAll Levels";
+		return "All\tAlphabetical" NL
+		       "Newest\tNewest First";
 	case "Packs":
 		%diffTree = %this.getDifficultyTree(%game);
 		%this.difficultyTreeList = "";
@@ -1139,15 +1158,13 @@ function MarblelandMissionList::getDifficultyTree(%this, %game) {
 	}
 }
 
-/// Determine if a given Game and Difficulty exists
-/// @param game Id of game
-/// @param difficulty Id of difficulty
-/// @return True if that game/difficulty exists
 function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 	switch$ (%game) {
 	case "Levels":
 		switch$ (%difficulty) {
 		case "All":
+			return true;
+		case "Newest":
 			return true;
 		default:
 			return false;
@@ -1159,26 +1176,24 @@ function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 	}
 }
 
-/// Generate internal mission list structures for a given Game and Difficulty.
-/// This function will generate an object whose name is the return value of
-/// %this.getMissionList(%game, %difficulty) and whose type is an Array() whose
-/// entries are MissionInfo ScriptObjects.
-/// @param game Id of game to build
-/// @param difficulty Id of difficulty to build
 function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 	%list = %this.getMissionList(%game, %difficulty);
 	Array(%list);
 
-	%sort = true;
+	%sort = MissionSortSearchName;
 	switch$ (%game) {
 	case "Levels":
 		switch$ (%difficulty) {
 		case "All":
 			%ml = $MarblelandMissionList;
+			%sort = MissionSortSearchName;
+		case "Newest":
+			%ml = $MarblelandMissionList;
+			%sort = MissionSortNewest;
 		}
 	case "Packs":
 		%ml = %this.getDifficultyTreeNode(%game, %difficulty);
-		%sort = false;
+		%sort = MissionSortLevel;
 	}
 
 	for (%i = 0; %i < %ml.getSize(); %i ++) {
@@ -1213,16 +1228,13 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 
 			file = %mis.file;
 			searchName = %mis.searchName;
+			addedAt = %mis.addedAt;
 			downloaded = false;
 			partial = true;
 		});
 		%list.addEntry(%info);
 	}
-	if (%sort) {
-		%list.sort(MissionSortSearchName);
-	} else {
-		%list.sort(MissionSortLevel);
-	}
+	%list.sort(%sort);
 
 	//Fix level numbers
 	%count = %list.getSize();
@@ -1231,45 +1243,28 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 }
 
-/// Determine if a given Game should show the Tree view for difficulties
-/// You probably want this to be false
-/// @param game Id of game
-/// @return True if it should use the tree view
 function MarblelandMissionList::shouldUseDifficultyTree(%this, %game) {
 	return %game $= "Packs";
 }
 
-/// Get the path to the directory containing the mission files for a given Game and Difficulty.
-/// @param game Id of game
-/// @param difficulty Id of difficulty
-/// @return Path of directory
 function MarblelandMissionList::getMissionDirectory(%this, %game, %difficulty) {
 	return "platinum/data/missions/marbleland/";
 }
 
-/// Get the path to the directory containing the icon files for a given Game and Difficulty.
-/// @param game Id of game
-/// @param difficulty Id of difficulty
-/// @return Path of directory
 function MarblelandMissionList::getBitmapDirectory(%this, %game, %difficulty) {
 	return "platinum/data/missions/marbleland/";
 }
 
-/// Get the path to the directory containing the preview images for a given Game and Difficulty.
-/// @param game Id of game
-/// @param difficulty Id of difficulty
-/// @return Path of directory
 function MarblelandMissionList::getPreviewDirectory(%this, %game, %difficulty) {
 	return "platinum/data/missions/marbleland/";
 }
 
-/// Get the forced game mode for a given Game and Difficulty. It will be enabled
-/// for all levels in this regardless of if they specify it.
-/// @param game Id of game
-/// @param difficulty Id of difficulty
-/// @return Space separated list of game modes
 function MarblelandMissionList::getGameMode(%this, %game, %difficulty) {
 	return "";
+}
+
+function MarblelandMissionList::shouldCheckAchievements(%this, %game) {
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -1284,6 +1279,9 @@ function MissionSortName(%a, %b) {
 }
 function MissionSortSearchName(%a, %b) {
 	return stricmp(%a.searchName, %b.searchName) < 0;
+}
+function MissionSortNewest(%a, %b) {
+	return %a.addedAt > %b.addedAt;
 }
 function PackSortSearchName(%a, %b) {
 	return stricmp(%a.searchName, %b.searchName) < 0;

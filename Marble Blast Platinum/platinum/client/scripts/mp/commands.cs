@@ -144,8 +144,10 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 		} else {
 			commandToServer('EggStatus', %first, %eggName, %eggPickup);
 		}
-		Unlock::updateCaches();
-		checkNestEggAchievements();
+		if (PlayMissionGui.ml.shouldCheckAchievements($CurrentGame)) {
+			checkNestEggAchievements();
+			Unlock::updateCaches();
+		}
 		savePrefs();
 	}
 }
