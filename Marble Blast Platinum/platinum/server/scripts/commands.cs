@@ -35,7 +35,7 @@
 
 function serverCmdToggleCamera(%client) {
 	// we want spectating now.
-	if ($Editor::Opened || $Server::ServerType $= "SinglePlayer" || %client.spectating) {
+	if ($Editor::Opened || $Server::ServerType $= "SinglePlayer" || %client.spectating || $playingDemo) {
 		// Moved to camera.cs
 		%client.toggleCamera();
 	}

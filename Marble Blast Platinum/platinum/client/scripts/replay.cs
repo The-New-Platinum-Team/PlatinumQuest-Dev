@@ -433,7 +433,7 @@ function Replay_MissionLoadFailed() {
 	//Oh no we're hosed
 	menuMissionEnd();
 	if (lb()) {
-		RootGui.setContent(LBChatGui);
+		RootGui.setContent(PlayMissionGui);
 	} else {
 		RootGui.setContent(MainMenuGui);
 	}
@@ -500,7 +500,7 @@ function onDemoPlayDone() {
 
 	//Back to where we started
 	if (lb()) {
-		RootGui.setContent(LBChatGui);
+		RootGui.setContent(PlayMissionGui);
 	} else {
 		RootGui.setContent(MainMenuGui);
 	}
@@ -544,6 +544,34 @@ function PlaybackInfo::start(%this) {
 
 			initSprng(%this.sprngSeed);
 		}
+	}
+}
+
+function replayToggleCamera(%input) {
+	if (%input) {
+		if (LocalClientConnection.getControlObject() != LocalClientConnection.camera) {
+			$mvLeftAction = 0;
+			$mvRightAction = 0;
+			$mvForwardAction = 0;
+			$mvBackwardAction = 0;
+			usePowerup(0);
+			jump(0);
+			mouseFire(0);
+			useBlast(0);
+
+			Physics::popLayerName("noInput");
+			MoveMap.push();
+			JoystickMap.push();
+			DemoMap.pop();
+		} else {
+
+			Physics::pushLayerName("noInput");
+			MoveMap.pop();
+			JoystickMap.pop();
+			DemoMap.push();
+		}
+
+		commandToServer('ToggleCamera');
 	}
 }
 
@@ -1197,6 +1225,8 @@ function PlaybackInfo::readMovement(%this) {
 }
 
 function PlaybackMovementFrame::apply(%this, %object, %t) {
+	if (LocalClientConnection.getControlObject() == LocalClientConnection.camera)
+		return;
 	$mvLeftAction = %this.left;
 	$mvRightAction = %this.right;
 	$mvForwardAction = %this.forward;
@@ -1354,13 +1384,15 @@ function PlaybackMarble::apply(%this, %object, %t) {
 	%object.setVelocity(%velocity);
 	%object.setAngularVelocity(VectorLerp(%this.lastFrame.angular, %this.angular, %t));
 	%object.setCollisionRadius(%this.radius);
-	if (%object == $MP::MyMarble) {
-		setMarbleCamYaw(cinterpolate(%this.lastFrame.cameraYaw, %this.cameraYaw, %t, $pi * 2));
-		setMarbleCamPitch(cinterpolate(%this.lastFrame.cameraPitch, %this.cameraPitch, %t, $pi * 2));
-		%this.applyInput();
-	} else {
-		%object.setCameraYaw(cinterpolate(%this.lastFrame.cameraYaw, %this.cameraYaw, %t, $pi * 2));
-		%object.setCameraPitch(cinterpolate(%this.lastFrame.cameraPitch, %this.cameraPitch, %t, $pi * 2));
+	if (LocalClientConnection.getControlObject() != LocalClientConnection.camera) {
+		if (%object == $MP::MyMarble) {
+			setMarbleCamYaw(cinterpolate(%this.lastFrame.cameraYaw, %this.cameraYaw, %t, $pi * 2));
+			setMarbleCamPitch(cinterpolate(%this.lastFrame.cameraPitch, %this.cameraPitch, %t, $pi * 2));
+			%this.applyInput();
+		} else {
+			%object.setCameraYaw(cinterpolate(%this.lastFrame.cameraYaw, %this.cameraYaw, %t, $pi * 2));
+			%object.setCameraPitch(cinterpolate(%this.lastFrame.cameraPitch, %this.cameraPitch, %t, $pi * 2));
+		}
 	}
 }
 
