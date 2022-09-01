@@ -39,6 +39,7 @@ if (isObject(demoMap))
 new ActionMap(demoMap);
 
 demoMap.bindCmd(keyboard, "escape", "", "playbackCancel();");
+demoMap.bind(keyboard, "alt c", replayToggleCamera);
 
 
 $Controller::ValidAxes = "xaxis yaxis zaxis rxaxis ryaxis rzaxis";
@@ -231,6 +232,11 @@ function checkDefaultBinds() {
 function input_escapeFromGame(%val) {
 	if ($Game::State $= "End" || (%val !$= "" && !%val))
 		return;
+
+	if ($playingDemo) {
+		playbackCancel();
+		return;
+	}
 
 	if (ControllerGui.isJoystick()) {
 		showControllerUI();
@@ -478,6 +484,14 @@ function input_toggleCoopView(%val) {
 function input_toggleCamera(%val) {
 	if ($Server::ServerType $= "Multiplayer" && %val && (!$MP::SpectateFull || $SpectateMode))
 		commandToServer('Spectate');
+
+	if ($playingDemo) {
+		if (LocalClientConnection.getControlObject() == LocalClientConnection.camera) {
+			replayToggleCamera(%val);
+		}
+		return;
+	}
+
 	if ($LB::LoggedIn)
 		return;
 	if (!$Editor::Opened)

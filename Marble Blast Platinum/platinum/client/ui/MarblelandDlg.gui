@@ -228,6 +228,22 @@ new GuiControl(MarblelandDlg) {
 			repeatDecay = "1";
 				borderColor = "255 153 153 255";
 		};
+		new GuiBorderButtonCtrl(MarblelandSearchUpdate) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "326 411";
+			extent = "104 45";
+			minExtent = "8 8";
+			visible = "0";
+			command = "MarblelandDlg.updateFile();";
+			helpTag = "0";
+			text = "Update";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
 		new GuiBorderButtonCtrl(MarblelandSearchStart) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
@@ -386,6 +402,7 @@ function MarblelandDlg::refreshSort(%this) {
 	if (%this.sortMode == 4) {
 		MarblelandSG_Sort.setText("Sort By: Update");
 		MarblelandSearchSet.sort(SortNewest);
+		MarblelandSearchUpdate.setVisible(true);
 	}
 
 	MarblelandDlg.search();
@@ -511,6 +528,55 @@ function MarblelandDlg::finalize(%this) {
 	}
 }
 
+function MarblelandDlg::updateFile(%this) {
+	%id = MarblelandSearchMissionList.getSelectedId();
+	if (!MarblelandSearchMissionList.isRowActive(%id)) {
+		return;
+	}
+
+	deleteVariables("$pref::MarblelandMission" @ %id);
+
+	MarblelandUpdateMissions.removeMatching(%id);
+
+	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
+	MarblelandPackages.removeMatching(%mission.id);
+	unloadMBPackage("marbleland/" @ %mission.id);
+	deletePackage("marbleland/" @ %mission.id);
+	PlayMissionGui.ml.buildCustomDifficultyTree(); 
+	PlayMissionGui.buildCustomDifficultyList();
+
+	// Refresh "Custom" and "custom/marbleland" difficulties
+	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/");
+	if (isObject(%ml)) {
+		%ml.delete();
+	}
+	%ml = PlayMissionGui.ml.getMissionList("Custom", "Custom/platinum/data/missions/marbleland");
+	if (isObject(%ml)) {
+		%ml.delete();
+	}
+
+	if ($MissionType $= "Custom/" || $MissionType $= "Custom/platinum/data/missions/marbleland/") {
+		PlayMissionGui.setMissionType($MissionType);
+		PlayMissionGui.showMissionList();
+	}
+
+	MarblelandSearchDelete.setVisible(false);
+	MarblelandSearchPlay.setVisible(true);
+
+	new HTTPObject(MarblelandDownloader);
+	MarblelandDownloader.success = 0;
+	mkdir("packages/marbleland", 493);
+	chmod("packages/marbleland", 493);
+	MarblelandDownloader.setDownloadPath("packages/marbleland/" @ %mission.id @ ".mbpak");
+	MarblelandDownloader.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/mbpak","assuming=none&append-id-to-mis=1");
+
+	$MarblelandDownloadId = %mission.id;
+
+	deleteFile("platinum/data/missions/marbleland/" @ %mission.file @ ".cache");
+
+	MarblelandSearchPlay.setActive(false);
+}
+
 // this function will play the selected mission.
 function MarblelandDlg::DownloadMission(%this) {
 	%id = MarblelandSearchMissionList.getSelectedId();
@@ -631,6 +697,9 @@ function MarblelandDlg::deleteFile(%this) {
 	MarblelandUpdateMissions.removeMatching(%id);
 
 	%mission = getField(MarblelandSearchMissionList.getRowTextById(%id), 3);
+
+	deleteFile("platinum/data/missions/marbleland/" @ %mission.file @ ".cache");
+
 	MarblelandPackages.removeMatching(%mission.id);
 	unloadMBPackage("marbleland/" @ %mission.id);
 	deletePackage("marbleland/" @ %mission.id);
@@ -689,7 +758,7 @@ function MarblelandDlg::onSelect(%this) {
 	if (!isFile("platinum/client/ui/search/marbleland/" @ %mission.id @ ".jpg")) {
 		new HTTPObject(MarblelandPreviewDownloader);
 		MarblelandPreviewDownloader.success = 0;
-		MarblelandPreviewDownloader.setDownloadPath("platinum/client/ui/search/marbleland/" @ %mission.id @ ".jpg");
+		MarblelandPreviewDownloader.setDownloadPath("vfs://marbleland/" @ %mission.id @ ".jpg");
 		MarblelandPreviewDownloader.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/image","");
 	} else {
 		MarblelandLevelImage.setBitmap("platinum/client/ui/search/marbleland/" @ %mission.id @ ".jpg");
