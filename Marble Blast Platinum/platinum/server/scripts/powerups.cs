@@ -43,9 +43,9 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	if (isObject(%user.powerUpData) && %user.powerUpData.getId() == %this.getId())
 		return false;
 
-	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
-		return false;
-	}
+//	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+//		return false;
+//	}
 
 	%disable = Mode::callback("shouldDisablePowerup", false, new ScriptObject() {
 		this = %this;
@@ -1441,7 +1441,14 @@ function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 
 	if (%user.powerupActive[HelicopterItem.powerUpId]) {
 		%user.client.unmountPlayerImage(HelicopterItem.imageSlot);
-		%user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
+
+		if ((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra")) {
+            %user.client.mountPlayerImage(HelicopterItem_MBU, HelicopterItem.imageSlot);
+		} else if ((MissionInfo.game $= "PlatinumQuest") || (MissionInfo.modification $= "PlatinumQuest")) {
+            %user.client.mountPlayerImage(HelicopterItem_PQ, HelicopterItem.imageSlot);
+		} else {
+            %user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
+		}
 	}
 }
 

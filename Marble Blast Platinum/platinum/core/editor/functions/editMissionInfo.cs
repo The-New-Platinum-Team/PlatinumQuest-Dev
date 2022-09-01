@@ -207,6 +207,7 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addNote("\c4----------- Hunt Plus -----------");
 		LargeFunctionDlg.addTextEditField("EMI_Hunt_TimeBonus", "Time Bonus after spawn (Blank for normal hunt):", MissionInfo.additionaltime, 100, -1);
 	    LargeFunctionDlg.addCheckBox("EMI_Hunt_RagingBull", "SS and SJ upon new spawn (Uncheck for normal hunt)", MissionInfo.ragingbull, 0);
+		LargeFunctionDlg.addCheckBox("EMI_Hunt_Gravitex", "Gravity Switch upon new spawn", MissionInfo.gravitex, 0);
 	}
 
 	LargeFunctionDlg.addNote("\c4----------- Radar -----------");
@@ -363,6 +364,7 @@ function editMissionInfo(%gui) {
 
 	miAssign(additionaltime, EMI_Hunt_TimeBonus, $Game::isMode["huntplus"]);
 	miAssign(ragingbull, EMI_Hunt_RagingBull, $Game::isMode["huntplus"]);
+	miAssign(gravitex, EMI_Hunt_Gravitex, $Game::isMode["huntplus"]);
 
 	miAssign(score, EMI_ParScore, !%useTime);
 	miAssign(platinumScore, EMI_PlatinumScore, !%useTime);

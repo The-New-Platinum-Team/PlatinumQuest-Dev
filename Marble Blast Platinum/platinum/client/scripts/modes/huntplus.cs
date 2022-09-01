@@ -37,8 +37,8 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_huntplus) {
 
 
 function ClientMode_huntplus::onLoad(%this) {
-	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("onShowPlayGui");
+	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
 function ClientMode_huntplus::onShowPlayGui(%this) {
@@ -48,5 +48,9 @@ function ClientMode_huntplus::onShowPlayGui(%this) {
 
 	if (missioninfo.additionaltime != "") {
 	    TimeBonusIcon.setVisible(true);
+	}
+
+	if (missioninfo.gravitex || $MPPref::Server::GravitexHP && mp()) {
+		GravitexIcon.setVisible(true);
 	}
 }
