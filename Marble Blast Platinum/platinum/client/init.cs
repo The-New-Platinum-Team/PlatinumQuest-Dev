@@ -131,6 +131,7 @@ function initClient() {
 	exec("./ui/MarbleSelectDlg.gui");
 	exec("./ui/StatisticsDlg.gui");
 	exec("./ui/PlayDemoGui.gui");
+	exec("./ui/EditDemoDlg.gui");
 	exec("./ui/ReminderDlg.gui");
 	exec("./ui/ErrorHandlerDlg.gui");
 	exec("./ui/CompleteDemoDlg.gui");

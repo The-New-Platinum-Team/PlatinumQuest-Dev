@@ -185,6 +185,25 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			repeatDecay = "1";
 				borderColor = "255 153 153 255";
 				controlLeft = "PD_close";
+				controlRight = "PD_Edit";
+				controlUp = "PD_DemoList";
+		};
+		new GuiBorderButtonCtrl(PD_Edit) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "215 412";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "PlayDemoGui.editFile();";
+			helpTag = "0";
+			text = "Edit";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+				controlLeft = "PD_Delete";
 				controlRight = "PD_play";
 				controlUp = "PD_DemoList";
 		};
@@ -338,6 +357,15 @@ function PlayDemoGui::deleteFile(%this) {
 	MessageBoxYesNo("Delete Recording?", "Do you want to delete the recording \"" @ %name @ "\"?", "PlayDemoGui.doDelete(" @ %id @ ");", "");
 }
 
+function PlayDemoGui::editFile(%this) {
+	%id = PD_DemoList.getSelectedId();
+	%row = PD_DemoList.getRowTextById(%id);
+	%demo = getField(%row, 1);
+
+	%info = getReplayInfo(%demo);
+	EditDemoDlg.open(%info, "PlayDemoGui.buildDemoList();");
+}
+
 function PlayDemoGui::doDelete(%this, %id) {
 	%row = PD_DemoList.getRowTextById(%id);
 	%file = getField(%row, 1);
@@ -364,9 +392,6 @@ function startSelectedDemo() {
 }
 
 function getReplayInfo(%file) {
-	
-	echo(playbackReadAll(%file));
-
 	%fo = new FileObject();
 	if (!%fo.openForRead(%file)) {
 		%fo.close();
