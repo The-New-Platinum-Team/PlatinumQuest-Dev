@@ -294,6 +294,120 @@ function lobbyRestart() {
 }
 
 //-----------------------------------------------------------------------------
+
+function serverCmdMarblelandPlay(%client, %id) {
+	if (%client.isHost()) {
+		if (!isObject(marblelandGetMission(%id))) {
+			%client.sendChat("<color:ff6666>Unknown Marbleland level: " @ %id);
+			return;
+		}
+
+		// Download first
+		serverMarblelandDownload(%id, SMP_downloadComplete);
+	}
+}
+
+function SMP_downloadComplete(%id, %success) {
+	if (!%success) {
+		return;
+	}
+
+	serverLoadMission(marblelandGetMission(%id).file);
+}
+
+
+function serverCmdMarblelandDownload(%client, %id) {
+	if (%client.isHost()) {
+		if (!isObject(marblelandGetMission(%id))) {
+			%client.sendChat("<color:ff6666>Unknown Marbleland level: " @ %id);
+			return;
+		}
+		serverSendChat("<color:66ff66>Downloading Marbleland level: " @ destroyTorqueML(marblelandGetMission(%id).name));
+		serverMarblelandDownload(%id, SMD_complete);
+	}
+}
+
+function serverCmdMarblelandDownloadStatus(%client, %id, %success) {
+	if (%client.marblelandDownloadCallback[%id] !$= "") {
+		%client.call(%client.marblelandDownloadCallback[%id], %id, %success);
+	}
+}
+
+function serverCmdMarblelandHasMissionStatus(%client, %id, %success) {
+	if (%client.marblelandHasMissionCallback[%id] !$= "") {
+		%client.call(%client.marblelandHasMissionCallback[%id], %id, %success);
+	}
+}
+
+function SMD_complete(%id, %success) {
+	if (%success) {
+		serverSendChat("<color:66ff66>Downloaded successfully: " @ destroyTorqueML(marblelandGetMission(%id).name));
+	} else {
+		serverSendChat("<color:ff6666>Downloaded failed: " @ destroyTorqueML(marblelandGetMission(%id).name));
+	}
+
+	commandToAll('MarblelandDownloadStatus', %id, %success);
+}
+
+function serverMarblelandDownload(%id, %callback) {
+	// First, make sure the server can download it
+	$Server::MarblelandCallback[%id] = %callback;
+	marblelandDownload(%id, SMD_serverDownloadComplete);
+}
+
+function SMD_serverDownloadComplete(%id, %success) {
+	if (!%success) {
+		if ($Server::MarblelandCallback[%id] !$= "") {
+			schedule(100, 0, $Server::MarblelandCallback[%id], %id, false);
+		}
+		return;
+	}
+
+	// Once the server has it, tell all the clients to download it too
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.getAddress() $= "local") {
+			%client.marblelandSuccess[%id] = true;
+			continue;
+		}
+		%client.marblelandSuccess[%id] = "";
+		%client.marblelandDownload(%id, lobbyMarblelandDownloadComplete);
+	}
+
+	SMD_checkSuccess(%id);
+}
+
+function GameConnection::lobbyMarblelandDownloadComplete(%this, %id, %success) {
+	echo(%this.getDisplayName() @ " downloaded " @ %id @ " with success: " @ %success);
+	%this.marblelandSuccess[%id] = %success;
+	SMD_checkSuccess(%id);
+}
+
+function SMD_checkSuccess(%id) {
+	%allDone = true;
+	%allSuccess = true;
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.marblelandSuccess[%id] $= "") {
+			%allDone = false;
+			break;
+		}
+		if (%client.marblelandSuccess[%id] == 0) {
+			%allSuccess = false;
+			break;
+		}
+	}
+
+	if (!%allDone) {
+		return;
+	}
+
+	if ($Server::MarblelandCallback[%id] !$= "") {
+		schedule(100, 0, $Server::MarblelandCallback[%id], %id, %allSuccess);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Player list
 //-----------------------------------------------------------------------------
 

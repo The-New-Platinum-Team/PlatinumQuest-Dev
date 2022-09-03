@@ -39,10 +39,9 @@ function EndGameDlg::onWake(%this) {
 
 	EG_Next.setVisible(!$Game::Introduction && !$Game::RunCredits);
 
-	if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
+	if (!isObject(%this.getNextLevel())) {
 		EG_Next.setVisible(false);
 	}
-	
 
 	%height = (getWord(EndGameDlg.extent, 1) + 25);
 	if (ControllerGui.isJoystick()) {
@@ -87,23 +86,17 @@ function EndGameDlg::restart(%this) {
 		hideControllerUI();
 }
 
-
-function EndGameDlg::next(%this) {
-	//If we're waiting to end a recording, do that before anything else
-	if (recordEnd("EndGameDlg.next();")) {
-		return;
-	}
-
-	//Apparently you can call this from the intro
-	if ($Game::Introduction) {
-		menuOnPostIntroduction();
+function EndGameDlg::getNextLevel(%this) {
+	if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
 		return;
 	}
 
 	//Load next
 	%pmg = PlayMissionGui;
+	%attempts = 0;
+	while (%attempts < 10000) {
+		%attempts++;
 
-	while (true) {
 		%list = %pmg.getMissionList($CurrentGame, $MissionType);
 		%pmg.selectedIndex ++;
 
@@ -122,13 +115,11 @@ function EndGameDlg::next(%this) {
 			if (!%found) {
 				//Unknown difficulty?
 				devecho("Next: Can't find difficulty");
-				%this.end();
 				return;
 			}
 			%next = getField(getRecord(%diffs, %i + 1), 0);
 			if (%next $= "") {
 				devecho("Next: Out of missions");
-				%this.end();
 				return;
 			}
 
@@ -148,6 +139,24 @@ function EndGameDlg::next(%this) {
 			break;
 	}
 	devecho("Next: Final choice is " @ %mission.name);
+
+	return %mission;
+}
+
+
+function EndGameDlg::next(%this) {
+	//If we're waiting to end a recording, do that before anything else
+	if (recordEnd("EndGameDlg.next();")) {
+		return;
+	}
+
+	//Apparently you can call this from the intro
+	if ($Game::Introduction) {
+		menuOnPostIntroduction();
+		return;
+	}
+
+	%mission = %this.getNextLevel();
 	if (isObject(%mission)) {
 		$Client::NextMission = %mission;
 
@@ -160,6 +169,8 @@ function EndGameDlg::next(%this) {
 		if (lb()) {
 			statsGetPersonalTopScores(%mission);
 		}
+	} else {
+		%this.end();
 	}
 }
 
@@ -177,5 +188,13 @@ function NextLevel_MissionLoaded() {
 
 function NextLevel_MissionLoadFailed() {
 	deactivateMenuHandler(NextLevel);
+
+	//Oh no we're hosed
+	menuMissionEnd();
+	if (lb()) {
+		RootGui.setContent(LBChatGui);
+	} else {
+		RootGui.setContent(MainMenuGui);
+	}
 }
 

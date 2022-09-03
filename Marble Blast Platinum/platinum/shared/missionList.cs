@@ -51,6 +51,11 @@ function getMissionList(%type) {
 			superClass = "MissionList";
 		};
 		%list.addNamespace("ServerMissionList");
+	case "marbleland":
+		%list = new ScriptObject() {
+			class = "MarblelandMissionList";
+			superClass = "MissionList";
+		};
 	default:
 		%list = new ScriptObject() {
 			class = "OfflineMissionList";
@@ -60,6 +65,83 @@ function getMissionList(%type) {
 	MissionListGroup.add(%list);
 	$Mission::List[%type] = %list;
 	return %list;
+}
+
+//-----------------------------------------------------------------------------
+// MissionList Interface
+//-----------------------------------------------------------------------------
+
+/// Get a newline-separated list of all available Games
+/// @return List of Games in the format (Id TAB DisplayName)
+function MissionList::getGameList(%this) {
+	error(%this.class @ "::getGameList unimplemented!");
+	return "NA" TAB "N/A";
+}
+
+/// Get a newline-separated list of all available Difficulties for a given Game
+/// @param game Id of game to list
+/// @return List of Difficulties in the format (Id TAB DisplayName)
+function MissionList::getDifficultyList(%this, %game) {
+	error(%this.class @ "::getDifficultyList unimplemented!");
+	return "NA" TAB "N/A";
+}
+
+/// Determine if a given Game and Difficulty exists
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return True if that game/difficulty exists
+function MissionList::hasMissionList(%this, %game, %difficulty) {
+	error(%this.class @ "::hasMissionList unimplemented!");
+	return false;
+}
+
+/// Generate internal mission list structures for a given Game and Difficulty.
+/// This function will generate an object whose name is the return value of
+/// %this.getMissionList(%game, %difficulty) and whose type is an Array() whose
+/// entries are MissionInfo ScriptObjects.
+/// @param game Id of game to build
+/// @param difficulty Id of difficulty to build
+function MissionList::buildMissionList(%this, %game, %difficulty) {
+	error(%this.class @ "::buildMissionList unimplemented!");
+	%list = %this.getMissionList(%game, %difficulty);
+	Array(%list);
+}
+
+/// Get the path to the directory containing the mission files for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MissionList::getMissionDirectory(%this, %game, %difficulty) {
+	error(%this.class @ "::getMissionDirectory unimplemented!");
+	return "platinum/data/missions/custom/";
+}
+
+/// Get the path to the directory containing the icon files for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MissionList::getBitmapDirectory(%this, %game, %difficulty) {
+	error(%this.class @ "::getBitmapDirectory unimplemented!");
+	return "platinum/data/missions/custom/";
+}
+
+/// Get the path to the directory containing the preview images for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MissionList::getPreviewDirectory(%this, %game, %difficulty) {
+	error(%this.class @ "::getPreviewDirectory unimplemented!");
+	return "platinum/data/previews/custom/";
+}
+
+/// Get the forced game mode for a given Game and Difficulty. It will be enabled
+/// for all levels in this regardless of if they specify it.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Space separated list of game modes
+function MissionList::getGameMode(%this, %game, %difficulty) {
+	error(%this.class @ "::getGameMode unimplemented!");
+	return "";
 }
 
 //-----------------------------------------------------------------------------
@@ -77,6 +159,34 @@ function MissionList::getMissionList(%this, %game, %difficulty) {
 		%difficulty = $MissionType;
 	}
 	return "ML_" @ %this.getId() @ "_" @ alphaNum(%game) @ "_" @ alphaNum(%difficulty);
+}
+
+function MissionList::getGameName(%this, %search) {
+	%games = %this.getGameList();
+	%gcount = getRecordCount(%games);
+	for (%i = 0; %i < %gcount; %i ++) {
+		%game = getRecord(%games, %i);
+		%gameName = getField(%game, 0);
+		%gameDisplay = getField(%game, 1);
+		if (%gameName $= %search) {
+			return %gameDisplay;
+		}
+	}
+	return "";
+}
+
+function MissionList::getDifficultyName(%this, %game, %search) {
+	%difficulties = %this.getDifficultyList(%game);
+	%dcount = getRecordCount(%difficulties);
+	for (%i = 0; %i < %dcount; %i ++) {
+		%difficulty = getRecord(%difficulties, %i);
+		%difficultyName = getField(%difficulty, 0);
+		%difficultyDisplay = getField(%difficulty, 1);
+		if (%difficultyName $= %search) {
+			return %difficultyDisplay;
+		}
+	}
+	return "";
 }
 
 function MissionList::getMission(%this, %game, %difficulty, %file) {
@@ -117,6 +227,26 @@ function MissionList::getMissionPreview(%this, %game, %difficulty, %mission) {
 	}
 
 	return %prev;
+}
+
+function MissionList::getDifficultyTreeNode(%this, %game, %path) {
+	return TreeGet(%this.getDifficultyTree(%game), %path);
+}
+
+function MissionList::buildDifficultyTreeRecurse(%this, %root, %array) {
+	%count = %array.getSize();
+	//This will have missions if the last item is not an array
+	if (%count > 0 && (%array.getEntry(%count - 1).class !$= "Array")) {
+		%title = (%array.title $= "" ? %array.name : %array.title);
+		%this.difficultyTreeList = addRecord(%this.difficultyTreeList, TreePath(%root, %array) TAB %title);
+	}
+
+	for (%i = 0; %i < %count; %i ++) {
+		%obj = %array.getEntry(%i);
+		if (isObject(%obj) && (%obj.class $= "Array")) {
+			%this.buildDifficultyTreeRecurse(%root, %obj);
+		}
+	}
 }
 
 function MissionList::dumpMissions(%this) {
@@ -204,32 +334,20 @@ function OfflineMissionList::getDifficultyList(%this, %game) {
 	}
 
 	if (%this.game[%game].custom) {
-		%diffTree = %this.getCustomDifficultyTree();
-		%this.customDifficultyList = "";
-		%this.customRecurseAdd(%diffTree);
-		return %this.customDifficultyList;
+		%diffTree = %this.getDifficultyTree(%game);
+		%this.difficultyTreeList = "";
+		%this.buildDifficultyTreeRecurse(%diffTree, %diffTree);
+		return %this.difficultyTreeList;
 	}
 
 	return %this.difficultyList[%game];
 }
 
-function OfflineMissionList::customRecurseAdd(%this, %array) {
-	%count = %array.getSize();
-	//This will have missions if the last item is not an array
-	if (%count > 0 && (%array.getEntry(%count - 1).class !$= "Array")) {
-		%title = (%array.title $= "" ? %array.name : %array.title);
-		%this.customDifficultyList = addRecord(%this.customDifficultyList, TreePath(%this.customDifficultyTree, %array) TAB %title);
-	}
-
-	for (%i = 0; %i < %count; %i ++) {
-		%obj = %array.getEntry(%i);
-		if (isObject(%obj) && (%obj.class $= "Array")) {
-			%this.customRecurseAdd(%obj);
-		}
-	}
+function OfflineMissionList::shouldUseDifficultyTree(%this, %game) {
+	return %game $= "Custom";
 }
 
-function OfflineMissionList::getCustomDifficultyTree(%this) {
+function OfflineMissionList::getDifficultyTree(%this, %game) {
 	if (!isObject(%this.customDifficultyTree)) {
 		return %this.buildCustomDifficultyTree();
 	}
@@ -310,10 +428,6 @@ function OfflineMissionList::buildCustomDifficultyTree(%this) {
 	return %this.customDifficultyTree;
 }
 
-function OfflineMissionList::getCustomDifficultyTreeNode(%this, %path) {
-	return TreeGet(%this.customDifficultyTree, %path);
-}
-
 function OfflineMissionList::getMissionDirectory(%this, %game, %difficulty) {
 	if (%game $= "") {
 		error("getMissionDirectory: blank game");
@@ -324,7 +438,7 @@ function OfflineMissionList::getMissionDirectory(%this, %game, %difficulty) {
 		%difficulty = $MissionType;
 	}
 	if (%this.game[%game].custom) {
-		%node = %this.getCustomDifficultyTreeNode(%difficulty);
+		%node = %this.getDifficultyTreeNode(%game, %difficulty);
 		return %node.dir;
 	}
 	return %this.difficulty[%game, %difficulty].missionDirectory;
@@ -340,7 +454,7 @@ function OfflineMissionList::getBitmapDirectory(%this, %game, %difficulty) {
 		%difficulty = $MissionType;
 	}
 	if (%this.game[%game].custom) {
-		%node = %this.getCustomDifficultyTreeNode(%difficulty);
+		%node = %this.getDifficultyTreeNode(%game, %difficulty);
 		return %node.dir;
 	}
 	return %this.difficulty[%game, %difficulty].bitmapDirectory;
@@ -356,7 +470,7 @@ function OfflineMissionList::getPreviewDirectory(%this, %game, %difficulty) {
 		%difficulty = $MissionType;
 	}
 	if (%this.game[%game].custom) {
-		%node = %this.getCustomDifficultyTreeNode(%difficulty);
+		%node = %this.getDifficultyTreeNode(%game, %difficulty);
 		return %node.dir;
 	}
 	return %this.difficulty[%game, %difficulty].previewDirectory;
@@ -384,7 +498,7 @@ function OfflineMissionList::buildMissionList(%this, %game, %difficulty) {
 	MissionListGroup.add(%list);
 
 	if (%this.game[%game].custom) {
-		%node = %this.getCustomDifficultyTreeNode(%difficulty);
+		%node = %this.getDifficultyTreeNode(%game, %difficulty);
 		%count = %node.getSize();
 		for (%i = 0; %i < %count; %i ++) {
 			%entry = %node.getEntry(%i);
@@ -435,7 +549,7 @@ function OfflineMissionList::buildMissionList(%this, %game, %difficulty) {
 
 function OfflineMissionList::hasMissionList(%this, %game, %difficulty) {
 	if (%this.game[%game].custom) {
-		%node = %this.getCustomDifficultyTreeNode(%difficulty);
+		%node = %this.getDifficultyTreeNode(%game, %difficulty);
 		if (!isObject(%node)) {
 			return false;
 		}
@@ -507,6 +621,10 @@ function OnlineMissionList::buildMissionLookup(%this) {
 			}
 		}
 	}
+}
+
+function OnlineMissionList::shouldUseDifficultyTree(%this, %game) {
+	return false;
 }
 
 function OnlineMissionList::getGameList(%this) {
@@ -706,7 +824,7 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 
 					previews_directory = %missionObj.previews_directory;
 					bitmap_directory = %missionObj.bitmap_directory;
-					
+
 					file = %file;
 					downloaded = false;
 					partial = true;
@@ -877,6 +995,10 @@ function ServerMissionList::getGameList(%this) {
 	return %this.gameList;
 }
 
+function ServerMissionList::shouldUseDifficultyTree(%this, %game) {
+	return false;
+}
+
 function ServerMissionList::getDifficultyList(%this, %gameName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -969,6 +1091,188 @@ function ServerMissionList::buildMissionList(%this, %gameName, %difficultyName) 
 }
 
 //-----------------------------------------------------------------------------
+
+/// Get a newline-separated list of all available Games
+/// @return List of Games in the format (Id TAB DisplayName)
+function MarblelandMissionList::getGameList(%this) {
+	return "Levels\tLevels" NL
+	       "Packs\tPacks";
+}
+
+/// Get a newline-separated list of all available Difficulties for a given Game
+/// @param game Id of game to list
+/// @return List of Difficulties in the format (Id TAB DisplayName)
+function MarblelandMissionList::getDifficultyList(%this, %game) {
+	switch$ (%game) {
+	case "Levels":
+		return "All\tAll Levels";
+	case "Packs":
+		%diffTree = %this.getDifficultyTree(%game);
+		%this.difficultyTreeList = "";
+		%this.buildDifficultyTreeRecurse(%diffTree, %diffTree);
+		return %this.difficultyTreeList;
+	}
+}
+
+function MarblelandMissionList::getDifficultyTree(%this, %game) {
+	switch$ (%game) {
+	case "Packs":
+		if (!isObject(%this.packsTree)) {
+			%this.packsTree = TreeNode();
+
+			%packs = Array();
+			for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
+				%pack = $MarblelandPackList.getEntry(%i);
+				%node = TreeBuild(%this.packsTree, %pack.name);
+				%node.pack = %pack;
+				%node.id = %pack.id;
+
+				for (%j = 0; %j < %pack.levelIds.getSize(); %j ++) {
+					%levelId = %pack.levelIds.getEntry(%j);
+					%node.addEntry(marblelandGetMission(%levelId));
+				}
+			}
+			recurseSort(%this.packsTree, sortIndexOrArray);
+			%this.packsTree.sort(sortNameOrArray);
+		}
+		return %this.packsTree;
+	}
+}
+
+/// Determine if a given Game and Difficulty exists
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return True if that game/difficulty exists
+function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
+	switch$ (%game) {
+	case "Levels":
+		switch$ (%difficulty) {
+		case "All":
+			return true;
+		default:
+			return false;
+		}
+	case "Packs":
+		return isObject(%this.getDifficultyTreeNode(%game, %difficulty));
+	default:
+		return false;
+	}
+}
+
+/// Generate internal mission list structures for a given Game and Difficulty.
+/// This function will generate an object whose name is the return value of
+/// %this.getMissionList(%game, %difficulty) and whose type is an Array() whose
+/// entries are MissionInfo ScriptObjects.
+/// @param game Id of game to build
+/// @param difficulty Id of difficulty to build
+function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
+	%list = %this.getMissionList(%game, %difficulty);
+	Array(%list);
+
+	%sort = true;
+	switch$ (%game) {
+	case "Levels":
+		switch$ (%difficulty) {
+		case "All":
+			%ml = $MarblelandMissionList;
+		}
+	case "Packs":
+		%ml = %this.getDifficultyTreeNode(%game, %difficulty);
+		%sort = false;
+	}
+
+	for (%i = 0; %i < %ml.getSize(); %i ++) {
+		%mis = %ml.getEntry(%i);
+		if (%mis.class $= "Array") {
+			continue;
+		}
+
+		MissionInfoGroup.add(%info = new ScriptObject() {
+			name = %mis.name;
+			level = %i;
+			game = %mis.modification;
+			type = "Custom";
+			desc = %mis.desc;
+			artist = %mis.artist;
+			gameMode = %mis.gameMode;
+
+			// I was going to complain about this but actually it's pretty smart
+			goldTime = %mis.goldTime;
+			platinumTime = %mis.platinumTime;
+			ultimateTime = %mis.ultimateTime;
+			awesomeTime = %mis.awesomeTime;
+			goldScore = %mis.goldScore;
+			platinumScore = %mis.platinumScore;
+			ultimateScore = %mis.ultimateScore;
+			awesomeScore = %mis.awesomeScore;
+
+			gems = %mis.gems;
+
+			easterEgg = %mis.hasEasterEgg;
+			id = %mis.id;
+
+			file = %mis.file;
+			searchName = %mis.searchName;
+			downloaded = false;
+			partial = true;
+		});
+		%list.addEntry(%info);
+	}
+	if (%sort) {
+		%list.sort(MissionSortSearchName);
+	} else {
+		%list.sort(MissionSortLevel);
+	}
+
+	//Fix level numbers
+	%count = %list.getSize();
+	for (%i = 0; %i < %count; %i ++) {
+		%list.getEntry(%i).level = %i + 1;
+	}
+}
+
+/// Determine if a given Game should show the Tree view for difficulties
+/// You probably want this to be false
+/// @param game Id of game
+/// @return True if it should use the tree view
+function MarblelandMissionList::shouldUseDifficultyTree(%this, %game) {
+	return %game $= "Packs";
+}
+
+/// Get the path to the directory containing the mission files for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MarblelandMissionList::getMissionDirectory(%this, %game, %difficulty) {
+	return "platinum/data/missions/marbleland/";
+}
+
+/// Get the path to the directory containing the icon files for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MarblelandMissionList::getBitmapDirectory(%this, %game, %difficulty) {
+	return "platinum/data/missions/marbleland/";
+}
+
+/// Get the path to the directory containing the preview images for a given Game and Difficulty.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Path of directory
+function MarblelandMissionList::getPreviewDirectory(%this, %game, %difficulty) {
+	return "platinum/data/missions/marbleland/";
+}
+
+/// Get the forced game mode for a given Game and Difficulty. It will be enabled
+/// for all levels in this regardless of if they specify it.
+/// @param game Id of game
+/// @param difficulty Id of difficulty
+/// @return Space separated list of game modes
+function MarblelandMissionList::getGameMode(%this, %game, %difficulty) {
+	return "";
+}
+
+//-----------------------------------------------------------------------------
 // Helpers
 //-----------------------------------------------------------------------------
 
@@ -977,4 +1281,10 @@ function MissionSortLevel(%a, %b) {
 }
 function MissionSortName(%a, %b) {
 	return stricmp(%a.name, %b.name) < 0;
+}
+function MissionSortSearchName(%a, %b) {
+	return stricmp(%a.searchName, %b.searchName) < 0;
+}
+function PackSortSearchName(%a, %b) {
+	return stricmp(%a.searchName, %b.searchName) < 0;
 }

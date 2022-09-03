@@ -49,10 +49,54 @@ function loadMission(%missionName, %isFirstMission) {
 		return;
 	}
 
-	if (!isScriptFile(%missionName)) {
-		error("Could not find mission " @ %missionName);
-		onMissionLoadFailed();
+	// Unload marbleland missions EXCEPT the one that is gonna be played
+	%marblelandId = marblelandGetFileId(%missionName);
+	if (%marblelandId !$= "") {
+		if (marblelandHasMission(%marblelandId)) {
+			if (!marblelandLoad(%marblelandId)) {
+				error("Could not load mission from marbleland: " @ %missionName);
+				onMissionLoadFailed();
+				return;
+			}
+			if (!isScriptFile(%missionName)) {
+				error("Could not find mission " @ %missionName);
+				onMissionLoadFailed();
+				return;
+			}
+		} else {
+			// Don't have this one yet... download it later in stage 1
+		}
+	} else {
+		marblelandLoad(-1);
+
+		if (!isScriptFile(%missionName)) {
+			error("Could not find mission " @ %missionName);
+			onMissionLoadFailed();
+			return;
+		}
+	}
+
+	%isChallenge = strPos(%missionName, "challenge") != -1;
+	if (%isChallenge) {
+		%missionName = strReplace(%missionName, "challenge/data", "platinum/data");
+	}
+
+	if ($loadingMission) {
+		error("Already loading a mission! Please cancel the previous load first");
 		return;
+	}
+
+	// Make sure all the clients have loaded the mission package too
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.getAddress() $= "local") {
+			continue;
+		}
+		if (%marblelandId !$= "") {
+			%client.marblelandLoad(%marblelandId);
+		} else {
+			%client.marblelandLoad(-1);
+		}
 	}
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -88,12 +132,48 @@ function loadMission(%missionName, %isFirstMission) {
 		commandToClient(%client, 'ShowLoadScreen');
 	}
 
+	// Now that everyone knows they're loading, make sure we have the level from marbleland
+	%marblelandId = marblelandGetFileId(%missionName);
+	if (%marblelandId !$= "" && !marblelandHasMission(%marblelandId)) {
+		marblelandDownload(%marblelandId, LMS1_downloadFinished);
+		return;
+	}
+
+	// Sanity
+	if (!isScriptFile(%missionName)) {
+		error("Could not find mission " @ %missionName);
+		onMissionLoadFailed();
+		return;
+	}
+
 	// if this isn't the first mission, allow some time for the server
 	// to transmit information to the clients:
 	if (%isFirstMission || $Server::ServerType $= "SinglePlayer")
 		loadMissionStage2();
 	else
 		$LoadStage2 = schedule($MissionLoadPause, ServerGroup, loadMissionStage2);
+}
+
+function LMS1_downloadFinished(%id, %success) {
+	echo("*** Stage 1 Marbleland Download " @ %id @ " finished: " @ %success);
+	if (!%success) {
+		error("Could not download marbleland mission " @ %id);
+		onMissionLoadFailed();
+		return;
+	}
+	if (!marblelandLoad(%id)) {
+		error("Could not load mission from marbleland after download: " @ $Server::MissionFile);
+		onMissionLoadFailed();
+		return;
+	}
+	if (!isScriptFile($Server::MissionFile)) {
+		error("Could not find mission after download: " @ $Server::MissionFile);
+		onMissionLoadFailed();
+		return;
+	}
+
+	// We don't need to delay, the download should have done that for us :)
+	loadMissionStage2();
 }
 
 //-----------------------------------------------------------------------------
@@ -316,6 +396,7 @@ function applyGravity() {
 
 function onMissionLoadFailed() {
 	$instantGroup = RootGroup;
+	$MissionRunning = false;
 
 	//Load failed!
 	if ($Menu::Startup) {
@@ -339,6 +420,10 @@ function onMissionLoadFailed() {
 //-----------------------------------------------------------------------------
 
 function endMission(%noSend) {
+	$Server::Loaded = false;
+	$Server::Loading = false;
+	$Editor::Enabled = false;
+
 	if (!isObject(MissionGroup))
 		return;
 
@@ -358,10 +443,6 @@ function endMission(%noSend) {
 		%cl.resetGhosting();
 		%cl.clearPaths();
 	}
-
-	$Server::Loaded = false;
-	$Server::Loading = false;
-	$Editor::Enabled = false;
 
 	// Delete everything
 	while (isObject(MissionGroup))

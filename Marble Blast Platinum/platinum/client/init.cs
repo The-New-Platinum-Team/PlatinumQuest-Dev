@@ -137,7 +137,6 @@ function initClient() {
 	exec("./ui/CompleteDemoDlg.gui");
 	exec("./ui/AchievementsDlg.gui");
 	exec("./ui/SearchDlg.gui");
-	exec("./ui/MarblelandDlg.gui");
 	exec("./ui/VersionDlg.gui");
 	exec("./ui/JukeboxDlg.gui");
 	exec("./ui/RenameFileDlg.gui");
@@ -145,6 +144,7 @@ function initClient() {
 	exec("./ui/HintsDlg.gui");
 	exec("./ui/EditorOrNewDlg.gui");
 	exec("./ui/ControllerGui.gui");
+	exec("./ui/QueueResultsDlg.gui");
 
 	// Gui Scripts
 	exec("./scripts/EndGameDlg.cs");
@@ -248,6 +248,11 @@ function initClient() {
 	//Anything else we probably can't save, but why not try?
 	addDirectoryOverride("marble/data/", "platinum/data/");
 	addDirectoryOverride("challenge/data/", "platinum/data/");
+
+	// Download marbleland levels so they're ready in case we search
+	// Hopefully the lagspike from loading the list happens during the already super long initial loading screen
+	marblelandDownloadMissionList();
+	marblelandDownloadPackList();
 
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.

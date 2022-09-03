@@ -1134,7 +1134,11 @@ function PlayMissionGui::init(%this) {
 		%type = ($LBPref::MissionType $= "" ? %defaultType : $LBPref::MissionType);
 		%level = ($LBPref::SelectedMissionIndex $= "" ? 0 : $LBPref::SelectedMissionIndex);
 	} else {
-		%this.ml = getMissionList("offline");
+		if ($marbleland) {
+			%this.ml = getMissionList("marbleland");
+		} else {
+			%this.ml = getMissionList("offline");
+		}
 
 		//Default mission list
 		%defaultGame = "PlatinumQuest";
@@ -1254,14 +1258,7 @@ function PlayMissionGui::init(%this) {
 
 function PlayMissionGui::onWake(%this) {
 	// Reload marbleland packages
-	echo("Reloading Marbleland");
-	for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-		%pakName = MarblelandPackages.getEntry(%i);
-		if (!isLoadedMBPackage("marbleland/" @ %pakName)) {
-			loadMBPackageMis("marbleland/" @ %pakName);
-		}
-	}
-
+	marblelandReloadMissions();
 
 	Unlock::updateCaches();
 	RootGui.resetDisplay();
@@ -1340,7 +1337,11 @@ function PlayMissionGui::initInterface(%this) {
 		%this.buildButtonBar("BottomLB");
 		%this.buildButtonBar("ExtraLB");
 	} else {
-		%this.buildButtonBar("Bottom");
+		if ($marbleland && $CurrentGame $= "Packs") {
+			%this.buildButtonBar("BottomPacks");
+		} else {
+			%this.buildButtonBar("Bottom");
+		}
 		%this.buildButtonBar("Extra");
 	}
 
@@ -1501,6 +1502,7 @@ function PlayMissionGui::buildCustomDifficultyList(%this) {
 	%diffs = %this.getDifficultyList($CurrentGame);
 
 	PM_CustomDifficultyScroll.clear();
+	%tree = %this.ml.getDifficultyTree($CurrentGame);
 
 	for (%i = 0; %i < getRecordCount(%diffs); %i ++) {
 		%entry = getRecord(%diffs, %i);
@@ -1511,9 +1513,9 @@ function PlayMissionGui::buildCustomDifficultyList(%this) {
 			continue;
 		}
 
-		%node = %this.ml.getCustomDifficultyTreeNode(%name);
-		%depth = TreeCollapseDepth(%this.ml.customDifficultyTree, %node);
-		%path = TreeCollapsePath(%this.ml.customDifficultyTree, %node);
+		%node = %this.ml.getDifficultyTreeNode($CurrentGame, %name);
+		%depth = TreeCollapseDepth(%tree, %node);
+		%path = TreeCollapsePath(%tree, %node);
 		%path = getSubStr(%path, 0, strlen(%path) - 1); // Remove trailing /
 
 		%indent = "";
@@ -1534,7 +1536,7 @@ function PlayMissionGui::selectCustomDifficulty(%this) {
 }
 
 function PlayMissionGui::useCustomDifficultyList(%this) {
-	return !lb() && ($CurrentGame $= "Custom");
+	return %this.ml.shouldUseDifficultyTree($CurrentGame);
 }
 
 function PlayMissionGui::showGames(%this) {
@@ -1598,14 +1600,14 @@ function PlayMissionGui::setGame(%this, %game) {
 	for (%i = 0; %i < getRecordCount(%games); %i ++) {
 		%record = getRecord(%games, %i);
 		if (getField(%record, 0) $= %game) {
-			PM_GameSelector.setText(getField(%record, 1) @ "   ");
+			PM_GameSelector.setText(clipPx($DefaultFont["Bold"], 26, getField(%record, 1), 140, true) @ "   ");
 			%found = true;
 			break;
 		}
 	}
 	if (!%found) {
 		//Unknown game?? Just display the identifier I guess
-		PM_GameSelector.setText(%game @ "   ");
+		PM_GameSelector.setText(clipPx($DefaultFont["Bold"], 26, %type, 140, true) @ "   ");
 	}
 
 	$CurrentGame = %game;
@@ -1659,19 +1661,27 @@ function PlayMissionGui::setMissionType(%this, %type) {
 	for (%i = 0; %i < getRecordCount(%difficulties); %i ++) {
 		%record = getRecord(%difficulties, %i);
 		if (getField(%record, 0) $= %type) {
-			PM_DifficultySelector.setText(getField(%record, 1) @ "   ");
+			PM_DifficultySelector.setText(clipPx($DefaultFont["Bold"], 26, getField(%record, 1), 140, true) @ "   ");
 			%found = true;
 			break;
 		}
 	}
 	if (!%found) {
 		//Unknown difficulty?? Just display the identifier I guess
-		PM_DifficultySelector.setText(%type @ "   ");
+		PM_DifficultySelector.setText(clipPx($DefaultFont["Bold"], 26, %type, 140, true) @ "   ");
 	}
 
 	$MissionType = %type;
 
 	%this.missionList = %this.getMissionList($CurrentGame, %type);
+
+	if ($marbleland) {
+		if ($CurrentGame $= "Packs") {
+			%this.buildButtonBar("BottomPacks");
+		} else {
+			%this.buildButtonBar("Bottom");
+		}
+	}
 }
 
 function PlayMissionGui::setSelectedMission(%this, %mission, %game, %type) {
@@ -1779,7 +1789,7 @@ function PlayMissionGui::showMissionList(%this) {
 	}
 
 	//Store how many we've shown so we don't have gaps for missions that are invisible
-	%shown = 0;
+	%positionIndex = 0;
 
 	if (isObject(PM_MissionListButtons)) {
 		PM_MissionListButtons.delete();
@@ -1787,6 +1797,13 @@ function PlayMissionGui::showMissionList(%this) {
 	}
 	RootGroup.add(%group = new SimGroup(PM_MissionListButtons));
 	%this.buttonFrameList = Array(PM_ButtonFrameListArray);
+
+	%firstPositionIndex = -1;
+	%firstIndex = -1;
+	%firstMission = -1;
+	%lastPositionIndex = -1;
+	%lastIndex = -1;
+	%lastMission = -1;
 
 	//Create all the missions
 	for (%i = 0; %i < %list.getSize(); %i ++) {
@@ -1796,13 +1813,38 @@ function PlayMissionGui::showMissionList(%this) {
 		if (!Unlock::canDisplayMission(%level))
 			continue;
 
-		//Create the interface objects
-		%group.add(%frame = %this.createMissionListFrame(%level, %i, %shown));
-		%this.buttonFrameList.addEntry(%frame);
-		%this.buttonFrameList.frame[%i] = %frame;
-		%shown ++;
+		%this.buttonFramePositionIndex[%i] = %positionIndex;
+		%this.buttonFrameIndex[%positionIndex] = %i;
+
+		// Store first visible so we can display *something*
+		if (%firstPositionIndex == -1) {
+			%firstPositionIndex = %positionIndex;
+			%firstIndex = %i;
+			%firstMission = %level;
+		}
+
+		// Store last visible so we know how long the list is
+		%lastPositionIndex = %positionIndex;
+		%lastIndex = %i;
+		%lastMission = %level;
+		%positionIndex ++;
 	}
-	PM_MissionListScrolling.setHeight(%this.missionListHeight);
+
+	// The controller bindings will probably get mad if we don't have anything to focus
+	if (%firstPositionIndex != -1) {
+		%group.add(%frame = %this.createMissionListFrame(%firstMission, %firstIndex, %firstPositionIndex));
+		%this.buttonFrameList.addEntry(%frame);
+		%this.buttonFrameList.frame[%firstIndex] = %frame;
+	}
+
+	%this.buttonFrameCount = %positionIndex;
+
+	if (%lastPositionIndex == -1) {
+		%bounds = %this.getMissionFrameBounds(0);
+	} else {
+		%bounds = %this.getMissionFrameBounds(%lastPositionIndex);
+	}
+	PM_MissionListScrolling.setHeight(getWord(%bounds, 1) + getWord(%bounds, 3));
 
 	%bump = getWord(PM_MissionListScrolling.getExtent(), 1) > getWord(PM_MissionScroll.getExtent(), 1);
 	PM_MissionScroll.setPosition(VectorAdd("1 75", (%bump ? "0 0" : "5 0")));
@@ -1832,13 +1874,10 @@ function PlayMissionGui::showMissionList(%this) {
 	}
 }
 
-function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %position) {
+function PlayMissionGui::getMissionFrameBounds(%this, %positionIndex) {
 	//(340px - 22px) / 3 == 106px
 	%width = 340;
 	%height = 40;
-
-	%padInsideX = 5;
-	%padInsideY = 5;
 
 	%padBetweenX = 0;
 	%padBetweenY = 0;
@@ -1846,12 +1885,37 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %position) 
 	%padOuterX = 0;
 	%padOuterY = 0;
 
+	%extent = %width SPC %height;
+
+	//How many items can we fit per row?
+	%rowSize = mFloor((getWord(PM_MissionListScrolling.getExtent(), 0) - %padOuterX + %padBetweenX) / (%width + %padBetweenX));
+
+	//Where will this one go?
+	%x = (%positionIndex % %rowSize);
+	%y = mFloor(%positionIndex / %rowSize);
+
+	%guiPosition = (%padOuterX + (%x * (%width + %padBetweenX))) SPC (%padOuterY + (%y * (%height + %padBetweenY)));
+
+	return %guiPosition SPC %extent;
+}
+
+function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %positionIndex) {
+	devecho("PlayMissionGui::createMissionListFrame(" @ %this @ ", " @ %level @ ", " @ %idx @ ", " @ %positionIndex @ ")");
+	%padInsideX = 5;
+	%padInsideY = 5;
+
 	%eggWidth = 18;
 	%eggHeight = 24;
 
 	%textHeight = 28;
 
-	%extent = %width SPC %height;
+	%bounds = %this.getMissionFrameBounds(%positionIndex);
+	%guiPosition = getWords(%bounds, 0, 1);
+	%extent = getWords(%bounds, 2, 3);
+
+	%width = getWord(%extent, 0);
+	%height = getWord(%extent, 1);
+
 	%pad = %padInsideX SPC %padInsideY;
 
 	%icon = mFloor(%height * (116 / 90)) SPC %height;
@@ -1866,17 +1930,6 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %position) 
 	%eggX = %width - 2 - %eggWidth;
 	%eggY = getWord(%textPos, 1) + (%textHeight - %eggHeight) / 2;
 
-	//How many items can we fit per row?
-	%rowSize = mFloor((getWord(PM_MissionListScrolling.getExtent(), 0) - %padOuterX + %padBetweenX) / (%width + %padBetweenX));
-
-	//Where will this one go?
-	%x = (%position % %rowSize);
-	%y = mFloor(%position / %rowSize);
-
-	%guiPosition = (%padOuterX + (%x * (%width + %padBetweenX))) SPC (%padOuterY + (%y * (%height + %padBetweenY)));
-
-	%this.missionListHeight = getWord(%guiPosition, 1) + %height + %padOuterY;
-
 	//Name for the button
 	%buttonName = "PM_MissionButton_" @ %level;
 	%iconFrameName = "PM_MissionIconFrame_" @ %level;
@@ -1884,9 +1937,9 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %position) 
 	%iconName = "PM_MissionIcon_" @ %level;
 	%eggName = "PM_MissionEgg_" @ %level;
 
-	%frameName = "PM_MissionFrame_" @ %position;
-	%frameNameU = "PM_MissionFrame_" @ (%position - 1);
-	%frameNameD = "PM_MissionFrame_" @ (%position + 1);
+	%frameName = "PM_MissionFrame_" @ %positionIndex;
+	%frameNameU = "PM_MissionFrame_" @ (%positionIndex - 1);
+	%frameNameD = "PM_MissionFrame_" @ (%positionIndex + 1);
 
 	//Create the control on the list
 	new GuiControl(%frameName) {
@@ -1908,7 +1961,7 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %position) 
 			commandSelect = "PlayMissionGui.trySetMissionByIndex(" @ %idx @ ");";
 			commandUp     = "PlayMissionGui.controllerHighlightMission(" @ %frameNameU @ ");";
 			commandDown   = "PlayMissionGui.controllerHighlightMission(" @ %frameNameD @ ");";
-			commandRight  = "PM_MissionPlay.controlLeftPosition = \"" @ %position @ "\"; ControllerGui.selectControl(PM_MissionPlay);";
+			commandRight  = "PM_MissionPlay.controlLeftPosition = \"" @ %positionIndex @ "\"; ControllerGui.selectControl(PM_MissionPlay);";
 			commandRepeatUp   = true;
 			commandRepeatDown = true;
 			commandRepeatRight = true;
@@ -2150,7 +2203,11 @@ function PlayMissionGui::showMissionIcon(%this, %frame) {
 		//If they can't play, show a different image
 		%bitmap = %bitmap @ ".locked";
 	}
-	%frame.icon.setBitmap(%bitmap);
+	if (isBitmap(%bitmap)) {
+		%frame.icon.setBitmap(%bitmap);
+	} else {
+		%frame.icon.setBitmap(expandFilename("./play/missingicon"));
+	}
 	%frame.icon.showingIcon = true;
 	PM_MissionListScrolling.add(%frame);
 }
@@ -2165,6 +2222,7 @@ function PlayMissionGui::updateMissionIcons(%this) {
 	%yStart = -getWord(PM_MissionListScrolling.position, 1);
 	%yEnd = %yStart + getWord(PM_MissionScroll.extent, 1);
 
+	// Hide any frames that don't need to be visible
 	for (%i = 0; %i < PM_MissionListScrolling.getCount(); %i ++) {
 		%frame = PM_MissionListScrolling.getObject(%i);
 		%start = getWord(%frame.position, 1);
@@ -2179,12 +2237,18 @@ function PlayMissionGui::updateMissionIcons(%this) {
 		%this.hideMissionIcon(%frame);
 	}
 
-	//Just iterate and update them all
-	for (%i = 0; %i < %this.buttonFrameList.getSize(); %i ++) {
-		//Check if the button is visible
-		%frame = %this.buttonFrameList.getEntry(%i);
-		%start = getWord(%frame.position, 1);
-		%end = getWord(%frame.position, 1) + getWord(%frame.extent, 1);
+	%list = %this.getMissionList($CurrentGame, $MissionType);
+
+	%frameHeight = getWord(%this.getMissionFrameBounds(0), 3);
+	%positionIndexStart = mFloor(%yStart / %frameHeight);
+
+	// Create and show frames that should be visible
+	for (%positionIndex = %positionIndexStart; %positionIndex < %this.buttonFrameCount; %positionIndex ++) {
+		//Check if the button exists / is visible
+		%bounds = %this.getMissionFrameBounds(%positionIndex);
+
+		%start = getWord(%bounds, 1);
+		%end = getWord(%bounds, 1) + getWord(%bounds, 3);
 
 		if (%end < %yStart)
 			continue;
@@ -2192,6 +2256,17 @@ function PlayMissionGui::updateMissionIcons(%this) {
 			//Nothing after here is before since they're in order
 			break;
 		}
+
+		%missionIndex = %this.buttonFrameIndex[%positionIndex];
+		%frame = %this.buttonFrameList.frame[%missionIndex];
+		if (!isObject(%frame)) {
+			// Create frame
+			%mission = %list.getEntry(%missionIndex);
+			PM_MissionListButtons.add(%frame = %this.createMissionListFrame(%mission, %missionIndex, %positionIndex));
+			%this.buttonFrameList.addEntry(%frame);
+			%this.buttonFrameList.frame[%missionIndex] = %frame;
+		}
+
 		if (%frame.icon.showingIcon)
 			continue;
 
@@ -2294,7 +2369,11 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 	//Mission info
 	%info = %this.getMissionInfo();
-	%info = getMissionInfo(%info.file); //Non-partial
+	%fullInfo = getMissionInfo(%info.file); //Non-partial
+	if (isObject(%fullInfo)) {
+		// If the mission doesn't exist, just go with whatever the missionlist gives us
+		%info = %fullInfo;
+	}
 
 	//Can we play this mission?
 	%canPlay = Unlock::canPlayMission(%info);
@@ -2311,6 +2390,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		//Are there hints?
 		%hints = (%info.generalHint !$= "") || (%info.ultimateHint !$= "") || (%info.awesomeHint !$= "") || (%info.eggHint !$= "") || (%info.easterEggHint !$= "");
 		%this.setBarButtonActive(PM_MissionHints, %hints && %canPlay && !$Menu::Loading && !$Client::Loading);
+		%this.setBarButtonActive(PM_MissionPlayAll, !$Menu::Loading && !$Client::Loading);
 	}
 	if (!lb()) {
 		%this.setBarButtonActive(PM_MissionAchievements, $CurrentGame $= "PlatinumQuest");
@@ -2348,7 +2428,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 				%scoreList = %this.globalScoreCache[%mid];
 				%loading = %this.globalScoreCacheLoading[%mid];
 				%failed = %this.globalScoreCacheFailed[%mid] || (%mid $= "");
-			} 
+			}
 		} else {
 			%scoreList = %this.globalScoreModeCache[%mid];
 			if (isObject(%scoreList)) {
@@ -2911,32 +2991,6 @@ function PlayMissionGui::loadMission(%this) {
 	%list = %this.getMissionList($CurrentGame, $MissionType);
 	%file = %this.getMissionInfo().file;
 
-	// Unload marbleland missions EXCEPT the one that is gonna be played
-	if (%this.isMarblelandMission()) {
-		%marblelandId = getSubStr(%file, strrpos(%file, "_") + 1, strrpos(%file, ".") - strrpos(%file, "_") - 1); // Thanks, Vani for this super convenient way to retrieve Ids
-		// Get the ids of the rest of the marbleland missions and unload them
-		for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-			%pakName = MarblelandPackages.getEntry(%i);
-			if (%pakName != %marblelandId) {
-				if (isLoadedMBPackage("marbleland/" @ %pakName)) {
-					unloadMBPackage("marbleland/" @ %pakName);
-					loadMBPackageMis("marbleland/" @ %pakName);
-				}
-			}
-		}
-
-		// Reload the one which is gonna be played
-		loadMBPackage("marbleland/" @ %marblelandId);
-	} else {
-		for (%i = 0; %i < MarblelandPackages.getSize(); %i++) {
-			%pakName = MarblelandPackages.getEntry(%i);
-			if (isLoadedMBPackage("marbleland/" @ %pakName)) {
-				unloadMBPackage("marbleland/" @ %pakName);
-				loadMBPackageMis("marbleland/" @ %pakName);
-			}
-		}
-	}
-
 	//So we can't load two at a time
 	%this.deactivateMissionList();
 
@@ -2962,6 +3016,10 @@ function PMMenu_StartLoading() {
 function PMMenu_LoadProgress(%progress) {
 	if (PlayMissionGui.isAwake())
 		PlayMissionGui.onLoadProgress(%progress);
+}
+
+function PMMenu_FinishQueue(%queue) {
+	QueueResultsDlg.open(%queue);
 }
 
 function PlayMissionGui::onMissionLoaded(%this) {
@@ -3025,6 +3083,16 @@ function PlayMissionGui::play(%this) {
 	}
 }
 
+function PlayMissionGui::playPack(%this) {
+	if ($Menu::Loading || $Client::Loading)
+		return;
+
+	%queue = DifficultyMissionQueue::create(%this.ml, $CurrentGame, $MissionType);
+	menuPlayQueue(%queue);
+}
+
+//-----------------------------------------------------------------------------
+
 function PlayMissionGui::exit(%this) {
 	if (mp()) {
 		%this.stopServer();
@@ -3051,7 +3119,6 @@ function PlayMissionGui::onGuiEditorPreSave(%this) {
 	%this.builtBar["Extra"] = "";
 	%this.buttonFrameList = "";
 	%this.chatPanel = "";
-	%this.missionListHeight = "";
 	%this.ml = "";
 	%this.showGlobalScores = "";
 }
@@ -3069,27 +3136,24 @@ $PMG::BarButton["Extra", "Bitmap",     0] = "platinum/client/ui/play/buttons/mar
 $PMG::BarButton["Extra", "Name",       1] = "PM_MissionSearch";
 $PMG::BarButton["Extra", "Command",    1] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(SearchDlg);";
 $PMG::BarButton["Extra", "Bitmap",     1] = "platinum/client/ui/play/buttons/search.png";
-$PMG::BarButton["Extra", "Name",       2] = "PM_MissionMarbleland";
-$PMG::BarButton["Extra", "Command",    2] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(MarblelandDlg);";
-$PMG::BarButton["Extra", "Bitmap",     2] = "platinum/client/ui/play/buttons/marbleland.png";
-$PMG::BarButton["Extra", "Name",       3] = "PM_MissionAchievements";
-$PMG::BarButton["Extra", "Command",    3] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.showAchievements();";
-$PMG::BarButton["Extra", "Bitmap",     3] = "platinum/client/ui/play/buttons/achievements.png";
-$PMG::BarButton["Extra", "Name",       4] = "PM_MissionStatistics";
-$PMG::BarButton["Extra", "Command",    4] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.showStatistics();";
-$PMG::BarButton["Extra", "Bitmap",     4] = "platinum/client/ui/play/buttons/statistics.png";
-$PMG::BarButton["Extra", "Name",       5] = "PM_MissionEditor";
-$PMG::BarButton["Extra", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(EditorOrNewDlg);";
-$PMG::BarButton["Extra", "Bitmap",     5] = "platinum/client/ui/play/buttons/editor.png";
-$PMG::BarButton["Extra", "Name",       6] = "PM_MissionReplay";
-$PMG::BarButton["Extra", "Command",    6] = "if ($ControllerEvent) {$Game::Record = !$Game::Record; $ThisControl.setValue($Game::Record); }"; //Hack for controllers
-$PMG::BarButton["Extra", "Variable",   6] = "$Game::Record";
-$PMG::BarButton["Extra", "ButtonType", 6] = "ToggleButton";
-$PMG::BarButton["Extra", "Bitmap",     6] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["Extra", "Name",       7] = "PM_MissionCredits";
-$PMG::BarButton["Extra", "Command",    7] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
-$PMG::BarButton["Extra", "Bitmap",     7] = "platinum/client/ui/play/buttons/credits.png";
-$PMG::BarButton["Extra", "Count"] = 7; //Increases to 7 after showing the credits
+$PMG::BarButton["Extra", "Name",       2] = "PM_MissionAchievements";
+$PMG::BarButton["Extra", "Command",    2] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.showAchievements();";
+$PMG::BarButton["Extra", "Bitmap",     2] = "platinum/client/ui/play/buttons/achievements.png";
+$PMG::BarButton["Extra", "Name",       3] = "PM_MissionStatistics";
+$PMG::BarButton["Extra", "Command",    3] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.showStatistics();";
+$PMG::BarButton["Extra", "Bitmap",     3] = "platinum/client/ui/play/buttons/statistics.png";
+$PMG::BarButton["Extra", "Name",       4] = "PM_MissionEditor";
+$PMG::BarButton["Extra", "Command",    4] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(EditorOrNewDlg);";
+$PMG::BarButton["Extra", "Bitmap",     4] = "platinum/client/ui/play/buttons/editor.png";
+$PMG::BarButton["Extra", "Name",       5] = "PM_MissionReplay";
+$PMG::BarButton["Extra", "Command",    5] = "if ($ControllerEvent) {$Game::Record = !$Game::Record; $ThisControl.setValue($Game::Record); }"; //Hack for controllers
+$PMG::BarButton["Extra", "Variable",   5] = "$Game::Record";
+$PMG::BarButton["Extra", "ButtonType", 5] = "ToggleButton";
+$PMG::BarButton["Extra", "Bitmap",     5] = "platinum/client/ui/play/buttons/record.png";
+$PMG::BarButton["Extra", "Name",       6] = "PM_MissionCredits";
+$PMG::BarButton["Extra", "Command",    6] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
+$PMG::BarButton["Extra", "Bitmap",     6] = "platinum/client/ui/play/buttons/credits.png";
+$PMG::BarButton["Extra", "Count"] = 6; //Increases to 7 after showing the credits
 $PMG::BarButton["Extra", "HaveTab"] = true;
 $PMG::BarButton["Extra", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["Extra", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -3109,6 +3173,21 @@ $PMG::BarButton["Bottom", "Command", 3] = "PlayMissionGui.hideSelectors(); PlayM
 $PMG::BarButton["Bottom", "Bitmap",  3] = "platinum/client/ui/play/buttons/back.png";
 $PMG::BarButton["Bottom", "Count"] = 4;
 $PMG::BarButton["Bottom", "Control"] = "PM_ButtonBox";
+
+$PMG::BarButton["BottomPacks", "Name",    0] = "PM_MissionPlay";
+$PMG::BarButton["BottomPacks", "Command", 0] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
+$PMG::BarButton["BottomPacks", "Bitmap",  0] = "platinum/client/ui/play/buttons/play.png";
+$PMG::BarButton["BottomPacks", "Name",    1] = "PM_MissionPlayAll";
+$PMG::BarButton["BottomPacks", "Command", 1] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.playPack();";
+$PMG::BarButton["BottomPacks", "Bitmap",  1] = "platinum/client/ui/play/buttons/playall.png";
+$PMG::BarButton["BottomPacks", "Name",    2] = "PM_MissionExtras";
+$PMG::BarButton["BottomPacks", "Command", 2] = "PlayMissionGui.hideSelectors(); PlayMissionGui.toggleExtras();";
+$PMG::BarButton["BottomPacks", "Bitmap",  2] = "platinum/client/ui/play/buttons/menu.png";
+$PMG::BarButton["BottomPacks", "Name",    3] = "PM_MissionExit";
+$PMG::BarButton["BottomPacks", "Command", 3] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.exit();";
+$PMG::BarButton["BottomPacks", "Bitmap",  3] = "platinum/client/ui/play/buttons/back.png";
+$PMG::BarButton["BottomPacks", "Count"] = 4;
+$PMG::BarButton["BottomPacks", "Control"] = "PM_ButtonBox";
 
 //-----------------------------------------------------------------------------
 
@@ -3318,8 +3397,10 @@ function PlayMissionGui::showStatistics(%this) {
 }
 
 function PlayMissionGui::setBarButtonActive(%this, %button, %active) {
-	%button.setActive(%active);
-	%button.bitmapColor = (%active ? %button.profile.fillColor : %button.profile.fillColorNA);
+	if (isObject(%button)) {
+		%button.setActive(%active);
+		%button.bitmapColor = (%active ? %button.profile.fillColor : %button.profile.fillColorNA);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -4251,8 +4332,7 @@ function PlayMissionGui::updateLoadProgress(%this, %delta) {
 // Marbleland stuff
 
 function PlayMissionGui::isMarblelandMission(%this) {
-	// This is such a hack
-	return strStr(%this.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0;
+	return marblelandGetFileId(%this.getMissionInfo().file) !$= "";
 }
 
 function PlayMissionGui::onMarblelandScoreUpdate(%this, %scores) {
@@ -4276,7 +4356,15 @@ function PlayMissionGui::loadMarblelandScores(%this) {
 	}
 
 	//Get new scores
-	MarblelandGetScores(%this.getMissionInfo().file);
+	MarblelandGetScores(%this.getMissionInfo().file, PMG_onMarbleLandScoresLoaded);
+}
+
+function PMG_onMarbleLandScoresLoaded(%success, %mission, %scoreData) {
+	if (%success) {
+		PlayMissionGui.onMarblelandScoreUpdate(%scoreData);
+	} else {
+		PlayMissionGui.onMarblelandScoreFailed(%mission);
+	}
 }
 
 function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {

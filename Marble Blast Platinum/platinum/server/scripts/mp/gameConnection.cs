@@ -405,3 +405,19 @@ function transformToNearestGem(%gravity, %pos, %highestValue) {
 
 	return %angle TAB %pitch;
 }
+
+//-----------------------------------------------------------------------------
+
+function GameConnection::marblelandHasMission(%this, %id, %callback) {
+	%this.marblelandHasMissionCallback[%id] = %callback;
+	commandToClient(%this, 'MarblelandHasMission', %id);
+}
+
+function GameConnection::marblelandDownload(%this, %id, %callback) {
+	%this.marblelandDownloadCallback[%id] = %callback;
+	commandToClient(%this, 'MarblelandDownload', %id);
+}
+
+function GameConnection::marblelandLoad(%this, %id) {
+	commandToClient(%this, 'MarblelandLoad', %id);
+}

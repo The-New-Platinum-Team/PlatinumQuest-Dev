@@ -117,7 +117,7 @@ function getBestTimes(%info) {
 			} else {
 				if (%info.gameMode $= "challenge") {
 					%scores = PlayMissionGui.personalScoreCache[%missionId, "challenge"].scores;
-				} else 
+				} else
 					%scores = PlayMissionGui.personalScoreCache[%missionId].scores;
 
 				//Find out how many scores we can get from the online cache
@@ -285,27 +285,8 @@ function addBestScore(%missionFile, %scoreInfo) {
 	return %index;
 }
 
-function clientCmdGameEnd() {
-	//Don't store scores if we're in a replay
-	if ($Client::PlayingDemo) {
-		return;
-	}
-	if ($Record::Recording) {
-		//Give 3 sec at the end screen before we finish the rec
-		cancel($recordFinish);
-		$recordFinish = schedule(3000, 0, recordFinish);
-	}
-
-	if (ClientMode::callback("showEndGame", false)) {
-		return;
-	}
-
-	// Multiplayer has its own things
-	if (mp()) {
-		RootGui.pushDialog(MPEndGameDlg);
-		return;
-	}
-
+// Record current score to local and online leaderboards
+function recordScore() {
 	if ($Game::isMode["challenge"]) {
 		$Client::MissionFile = strReplace($Client::MissionFile, "platinum/data", "challenge/data");
 	}
@@ -368,7 +349,7 @@ function clientCmdGameEnd() {
 			$LB::RatingPending = true;
 
 			statsRecordScore(PlayMissionGui.getMissionInfo());
-	
+
 			if ($highScoreIndex !$= "") {
 				//Hack: update the top score as quick as we can
 				%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
@@ -408,6 +389,47 @@ function clientCmdGameEnd() {
 		}
 	}
 
+	// Marbleland mission LB
+	if (!$Cheats::Activated && !$Editor::Opened) {
+		if (marblelandIsMission($Server::MissionFile)) {
+			// Set rating to "Submitting..."
+			$LB::RatingPending = true;
+
+			%marblelandScoreName = "Unnamed Player";
+			if ($LB::Username !$= "")
+				%marblelandScoreName = $LB::Username;
+			else if ($pref::highScoreName !$= "")
+				%marblelandScoreName = $pref::highScoreName;
+
+			MarblelandSubmit($Server::MissionFile, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
+		}
+	}
+}
+
+function clientCmdGameEnd() {
+	if ($Record::Recording) {
+		//Give 3 sec at the end screen before we finish the rec
+		cancel($recordFinish);
+		$recordFinish = schedule(3000, 0, recordFinish);
+	}
+
+	if (ClientMode::callback("showEndGame", false)) {
+		return;
+	}
+
+	// Multiplayer has its own things
+	if (mp()) {
+		RootGui.pushDialog(MPEndGameDlg);
+		return;
+	}
+
+	recordScore();
+
+	if (isObject($Menu::Queue)) {
+		menuEndQueueMission();
+		return;
+	}
+
 	RootGui.pushDialog(EndGameDlg);
 	PlayGui.positionMessageHud();
 	//Hack: why isn't this being called
@@ -429,21 +451,6 @@ function clientCmdGameEnd() {
 		if ($pref::DisableHighScoreNamePopup) {
 			EnterNameDlg.setVisible(false);
 			EnterNameEdit.makeFirstResponder(false);
-			// Marbleland mission LB
-			if (!$Cheats::Activated && !$Editor::Opened) {
-				if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
-					// Set rating to "Submitting..."
-					$LB::RatingPending = true;
-
-					%marblelandScoreName = "Unnamed Player";
-					if ($LB::Username !$= "")
-						%marblelandScoreName = $LB::Username;
-					else if ($pref::highScoreName !$= "")
-						%marblelandScoreName = $pref::highScoreName;
-
-					MarblelandSubmit(PlayMissionGui.getMissionInfo().file, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
-				}
-			}
 		} else {
 			if (ControllerGui.isJoystick()) {
 				ControllerGui.selectControl(%awesomeMessage ? EnterNameAwesomeClose : EnterNameAcceptButton);
@@ -473,22 +480,6 @@ function clientCmdGameEnd() {
 		EnterNameDlg.setVisible(false);
 		EnterNameEdit.makeFirstResponder(false);
 
-		// Marbleland mission LB
-		if (!$Cheats::Activated && !$Editor::Opened) {
-			if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
-				// Set rating to "Submitting..."
-				$LB::RatingPending = true;
-
-				%marblelandScoreName = "Unnamed Player";
-				if ($LB::Username !$= "")
-					%marblelandScoreName = $LB::Username;
-				else if ($pref::highScoreName !$= "")
-					%marblelandScoreName = $pref::highScoreName;
-
-				MarblelandSubmit(PlayMissionGui.getMissionInfo().file, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
-			}
-		}
-
 		//If we don't show scores, we can't accept score so make sure to check achievements anyway
 		checkEndgameAchievements();
 	}
@@ -506,22 +497,6 @@ function highScoreNameAccept() {
 	$highScoreAccept = true;
 	// Save prefs
 	savePrefs();
-
-	// Marbleland mission LB
-	if (!$Cheats::Activated && !$Editor::Opened) {
-		if (strStr(PlayMissionGui.getMissionInfo().file, "platinum/data/missions/marbleland/") == 0) {
-			// Set rating to "Submitting..."
-			$LB::RatingPending = true;
-
-			%marblelandScoreName = "Unnamed Player";
-			if ($LB::Username !$= "")
-				%marblelandScoreName = $LB::Username;
-			else if ($pref::highScoreName !$= "")
-				%marblelandScoreName = $pref::highScoreName;
-
-			MarblelandSubmit(PlayMissionGui.getMissionInfo().file, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
-		}
-	}
 
 	checkEndgameAchievements();
 }
@@ -674,7 +649,7 @@ function reformatGameEndText() {
 	%record = false;
 	if (lb()) {
 		%cache = PlayMissionGui.globalScoreCache[PlayMissionGui.getMissionInfo().id];
-		if ($Game::isMode["challenge"]) 
+		if ($Game::isMode["challenge"])
 			%cache = PlayMissionGui.globalChallengeScoreCache[PlayMissionGui.getMissionInfo().id];
 		if (isObject(%cache)) {
 			%scores = %cache.scores;

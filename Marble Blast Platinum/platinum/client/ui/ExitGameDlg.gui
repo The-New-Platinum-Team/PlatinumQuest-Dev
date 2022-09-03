@@ -341,6 +341,58 @@ new GuiControl(ExitGameDlg) {
 				};
 			};
 		};
+		new GuiControl(ExitGameQueue) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "400 316";
+			extent = "800 264";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "center";
+				vertSizing = "height";
+				position = "100 0";
+				extent = "600 264";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./loading/loading_main_text";
+				wrap = "0";
+
+				new GuiMLTextCtrl(ExitGameQueueInfoTitle) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "center";
+					vertSizing = "bottom";
+					position = "50 0";
+					extent = "500 14";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+						wrap = "0";
+				};
+				new GuiMLTextCtrl(ExitGameQueueInfo) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "center";
+					vertSizing = "bottom";
+					position = "50 45";
+					extent = "500 14";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+						wrap = "0";
+				};
+			};
+		};
 		new GuiBitmapButtonTextCtrl(ExitGameYes) {
 			profile = "MenuButtonProfile";
 			horizSizing = "right";
@@ -470,7 +522,6 @@ function ExitGameDlg::onWake(%this) {
 	ExitGameInfoTitle.setText(%title);
 	%text = "<shadow:1:1><shadowcolor:000000bf><font:32>";
 
-	
 	%completion = Unlock::getMissionCompletion(%info);
 	%showAwesome = ((%completion & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll;
 	%showEgg = ((%completion & $Completion::EasterEgg) == $Completion::EasterEgg) || $Unlock::DisplayAll;
@@ -575,8 +626,8 @@ function ExitGameDlg::onWake(%this) {
 	if (lb()) {
 
 		%cache = PlayMissionGui.globalScoreCache[PlayMissionGui.getMissionInfo().id];
-		if ($Game::isMode["challenge"]) 
-			%cache = PlayMissionGui.globalChallengeScoreCache[PlatMissionGui.getMissionInfo().id];
+		if ($Game::isMode["challenge"])
+			%cache = PlayMissionGui.globalChallengeScoreCache[PlayMissionGui.getMissionInfo().id];
 		if (isObject(%cache)) {
 			%scores = %cache.scores;
 			if (%scores.getSize()) {
@@ -727,8 +778,6 @@ function ExitGameDlg::onWake(%this) {
 	ExitGameInfoRightcenterChallengeTitle.setVisible(%challengeLength == 2 || %challengeLength >= 4);
 	ExitGameInfoRightcenterChallengeTime.setVisible(%challengeLength == 2 || %challengeLength >= 4);
 
-
-
 	%text = %text NL "";
 
 	//Game modes display
@@ -741,6 +790,74 @@ function ExitGameDlg::onWake(%this) {
 	}
 
 	ExitGameInfo.setText(%text);
+
+	ExitGameQueue.setVisible(isObject($Menu::Queue));
+	if (isObject($Menu::Queue)) {
+		%qtitle = "<shadow:1:1><shadowcolor:000000bf><just:center>";
+		%qtitle = %qtitle @ shrinkToFit($Menu::Queue.getQueueName(), $DefaultFont["Bold"], 42, 24, getWord(ExitGameInfo.getExtent(), 0));
+
+		%qtext = "<shadow:1:1><shadowcolor:000000bf><font:32><tab:270,360>";
+		%qtext = %qtext @ "Level\tScore\tTotal<font:22>";
+
+		// Show missions 1, (n-3) -> n if we're on n
+		%firstVisible = $Menu::QueueIndex - 2;
+		if (%firstVisible < 0)
+			%firstVisible = 0;
+		%lastVisible = min(%firstVisible + 4, $Menu::Queue.getMissionCount());
+		if (%lastVisible == $Menu::Queue.getMissionCount()) {
+			%firstVisible = max(0, %lastVisible - 5);
+		}
+
+		for (%i = %firstVisible; %i < %lastVisible; %i ++) {
+			%mis = $Menu::Queue.getMissionInfo(%i);
+			if (%i == $Menu::QueueIndex) {
+				%qtext = %qtext @ "<color:00cc00>";
+			}
+			if (%i > $Menu::QueueIndex && $Menu::Queue.isUpcomingHidden()) {
+				%name = (%i + 1) @ ". ???";
+			} else {
+				%name = clipPx($DefaultFont, 22, (%i + 1) @ ". " @ %mis.name, 270, true);
+			}
+			%qtext = %qtext @ "\n" @ %name @ "\t";
+
+			if ($Menu::Queue.missionCompleted[%i] || %i >= $Menu::QueueIndex) {
+				%scoreInfo = $Menu::Queue.missionScore[%i];
+				%type = getField(%scoreInfo, 0);
+				%score = getField(%scoreInfo, 1);
+
+				if (%type $= $ScoreType::Time) {
+					%qtext = %qtext @ formatTime(%score) @ "\t";
+				} else {
+					%qtext = %qtext @ formatScore(%score) @ "\t";
+				}
+			} else {
+				%qtext = %qtext @ "<skipped>\t";
+			}
+			%qtext = %qtext @ formatTime($Menu::Queue.missionTotalTimeScore[%i]);
+			if ($Menu::Queue.missionTotalScoreScore[%i] > 0) {
+				%qtext = %qtext @ " + " @ formatScore($Menu::Queue.missionTotalScoreScore[%i]);
+			}
+			%qtext = %qtext @ "<color:000000>";
+		}
+
+		if (%lastVisible != $Menu::Queue.getMissionCount()) {
+			if ($Menu::Queue.isUpcomingHidden()) {
+				%name = "???";
+			} else {
+				%name = $Menu::Queue.getMissionInfo($Menu::Queue.getMissionCount() - 1).name;
+			}
+			%qtext = %qtext @ "\n" @ clipPx($DefaultFont, 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 270, true);
+			%qtext = %qtext @ "\t\t" @ formatTime(0);
+		}
+		%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime($Menu::Queue.totalTimeScore);
+		if ($Menu::Queue.totalScoreScore > 0) {
+			%qtext = %qtext @ " + " @ formatScore($Menu::Queue.totalScoreScore);
+		}
+		%qtext = %qtext @ "\n" @ "Real Time:\t\t" @ formatTime($Menu::Queue.totalRealTime);
+
+		ExitGameQueueInfoTitle.setText(%qtitle);
+		ExitGameQueueInfo.setText(%qtext);
+	}
 }
 
 function ExitGameDlg::onSleep(%this) {
