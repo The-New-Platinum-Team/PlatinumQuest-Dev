@@ -133,6 +133,78 @@ function MarblelandDownloader::onDisconnect(%this) {
 
 //-----------------------------------------------------------------------------
 
+/// Download the icon for a specific level
+/// @param id Level ID
+/// @param callback void(%id, %success, %bmp) Function to call upon completion
+/// @param bmp The bitmap object
+function marblelandDownloadIcon(%id, %callback, %bmp) {
+	echo("Marbleland icon: " @ %id SPC %callback);
+	%mission = $MarblelandMissionList.lookup[%id];
+
+	if (!isObject(%mission)) {
+		schedule(100, 0, %callback, %id, false);
+		return;
+	}
+
+	%dl = new HTTPObject(MarblelandIconDownloader);
+	%dl.callback = %callback;
+	%dl.id = %mission.id;
+	%dl.success = 0;
+	%dl.bmp = %bmp;
+	%dl.setDownloadPath("vfs://marbleland/" @ %mission.id @ ".jpg");
+	%dl.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/image","");
+}
+
+function MarblelandIconDownloader::onDownload(%this, %path) {
+	%this.success = 1;
+}
+
+function MarblelandIconDownloader::onDisconnect(%this) {
+	echo("Marbleland icon download status: " @ %this.id @ " success: " @ %this.success);
+	if (%this.callback !$= "") {
+		// Get out of this stack frame
+		schedule(100, 0, %this.callback, %this.id, %this.success, %this.bmp);
+	}
+	%this.destroy();
+}
+
+/// Download the preview for a specific level
+/// @param id Level ID
+/// @param callback void(%id, %success, %bmp) Function to call upon completion
+/// @param bmp The bitmap object
+function marblelandDownloadPreview(%id, %callback, %bmp) {
+	echo("Marbleland preview: " @ %id SPC %callback);
+	%mission = $MarblelandMissionList.lookup[%id];
+
+	if (!isObject(%mission)) {
+		schedule(100, 0, %callback, %id, false);
+		return;
+	}
+
+	%dl = new HTTPObject(MarblelandPreviewDownloader);
+	%dl.callback = %callback;
+	%dl.id = %mission.id;
+	%dl.success = 0;
+	%dl.bmp = %bmp;
+	%dl.setDownloadPath("vfs://marbleland/prev-" @ %mission.id @ ".jpg");
+	%dl.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/prev-image","width=" @ getWord(getResolution(), 0) @ "&height=" @ getWord(getResolution(), 1));
+}
+
+function MarblelandPreviewDownloader::onDownload(%this, %path) {
+	%this.success = 1;
+}
+
+function MarblelandPreviewDownloader::onDisconnect(%this) {
+	echo("Marbleland preview download status: " @ %this.id @ " success: " @ %this.success);
+	if (%this.callback !$= "") {
+		// Get out of this stack frame
+		schedule(100, 0, %this.callback, %this.id, %this.success, %this.bmp);
+	}
+	%this.destroy();
+}
+
+//-----------------------------------------------------------------------------
+
 /// Delete a level's mbpak
 /// @param id Level ID
 function marblelandDelete(%id) {
