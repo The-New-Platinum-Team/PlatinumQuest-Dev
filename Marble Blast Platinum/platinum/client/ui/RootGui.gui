@@ -186,6 +186,16 @@ function RootGui::showPreviewImage(%this, %show) {
 		PM_MissionImage.setBitmap(%prev);
 		PG_GameCtrl.setVisible(false);
 		copyBlurImage(%prev);
+
+		if (marblelandIsMission(%file)) {
+			cancel(%this.prevDownloadSch);
+			if (!isBitmap("vfs://marbleland/prev-" @ %id @ ".jpg")) {
+				%this.prevDownloadSch = schedule(500, 0, "marblelandDownloadPreview", marblelandGetFileId(%file), onMarblelandPreviewDownloaded, PM_MissionImage);
+			} else {
+				PM_MissionImage.setBitmap("vfs://marbleland/prev-" @ %id @ ".jpg");
+				copyBlurImage("vfs://marbleland/prev-" @ %id @ ".jpg");
+			}
+		}
 	} else {
 		PG_GameCtrl.setVisible(true);
 
@@ -193,6 +203,13 @@ function RootGui::showPreviewImage(%this, %show) {
 			//Disable extra shadery things so the images work correctly
 			%this.resetDisplay();
 		}
+	}
+}
+
+function onMarblelandPreviewDownloaded(%id, %success, %bmp) {
+	if (%success) {
+		%bmp.setBitmap("vfs://marbleland/prev-" @ %id @ ".jpg");
+		copyBlurImage("vfs://marbleland/prev-" @ %id @ ".jpg");
 	}
 }
 

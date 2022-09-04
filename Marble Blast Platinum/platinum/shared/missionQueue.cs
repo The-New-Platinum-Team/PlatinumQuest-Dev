@@ -244,16 +244,17 @@ function ImportedMissionQueue::isUpcomingHidden(%this) {
 
 //-----------------------------------------------------------------------------
 
-function DifficultyMissionQueue::create(%ml, %game, %difficulty) {
-	RootGroup.add(%queue = new ScriptObject(DifficultyQueue) {
+function createDifficultyMissionQueue(%ml, %game, %difficulty) {
+	%queue = new ScriptObject(DifficultyQueue) {
 		class = "DifficultyMissionQueue";
 		superClass = "MissionQueue";
 		ml = %ml;
 		game = %game;
 		difficulty = %difficulty;
-		missions = Array();
-	});
+	};
+	RootGroup.add(%queue);
 
+	%queue.missions = Array();
 	%misCount = %queue.ml.getMissionList(%queue.game, %queue.difficulty).getSize();
 	for (%i = 0; %i < %misCount; %i ++) {
 		%level = %queue.ml.getMissionList(%queue.game, %queue.difficulty).getEntry(%i);
