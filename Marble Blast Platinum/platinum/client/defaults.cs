@@ -46,6 +46,8 @@ $pref::HelpTriggers = 1;
 $pref::ScreenshotMode = 0;
 $pref::RadarMode = 3;
 
+$pref::parTimeAlarm = true;
+
 $pref::checkLETip = "1";
 $pref::checkTip[1] = "1";
 $pref::FirstRun[$THIS_VERSION] = true;
