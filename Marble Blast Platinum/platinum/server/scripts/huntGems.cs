@@ -28,7 +28,7 @@ $Hunt::MaxGemsPerSpawn = 7;
 
 $Hunt::MinPointsPerSpawn = 5;
 $Hunt::MinGemsPerSpawn = 3;
-$Hunt::MaxSpawnSearchLoops = 5;
+$Hunt::MaxSpawnSearchLoops = 15;
 
 $Hunt::CurrentGemCount = 0;
 
