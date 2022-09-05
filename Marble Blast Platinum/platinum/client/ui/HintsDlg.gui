@@ -157,6 +157,10 @@ function HintsDlg::close(%this) {
 function HintsDlg::onWake(%this) {
 	%mission = PlayMissionGui.getMissionInfo();
 
+	if (%mission.partial) {
+		%mission = getMissionInfo(%mission.file, false); // Get the proper missioninfo with the hints and etc		
+	}
+
 	%title = "<bold:28>" @ %mission.name @ ":";
 	%text = "<font:17>";
 
