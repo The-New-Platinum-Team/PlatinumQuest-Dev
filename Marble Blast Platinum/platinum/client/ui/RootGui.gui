@@ -189,11 +189,14 @@ function RootGui::showPreviewImage(%this, %show) {
 
 		if (marblelandIsMission(%file)) {
 			cancel(%this.prevDownloadSch);
-			if (!isBitmap("vfs://marbleland/prev-" @ %id @ ".jpg")) {
-				%this.prevDownloadSch = schedule(500, 0, "marblelandDownloadPreview", marblelandGetFileId(%file), onMarblelandPreviewDownloaded, PM_MissionImage);
-			} else {
-				PM_MissionImage.setBitmap("vfs://marbleland/prev-" @ %id @ ".jpg");
-				copyBlurImage("vfs://marbleland/prev-" @ %id @ ".jpg");
+			if (!isBitmap(%prev)) {
+				%id = marblelandGetFileId(%file);
+				if (!isBitmap("vfs://marbleland/prev-" @ %id @ ".jpg")) {
+					%this.prevDownloadSch = schedule(500, 0, "marblelandDownloadPreview", %id, onMarblelandPreviewDownloaded, PM_MissionImage);
+				} else {
+					PM_MissionImage.setBitmap("vfs://marbleland/prev-" @ %id @ ".jpg");
+					copyBlurImage("vfs://marbleland/prev-" @ %id @ ".jpg");
+				}
 			}
 		}
 	} else {
