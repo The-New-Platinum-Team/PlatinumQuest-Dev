@@ -427,53 +427,74 @@ $Options::Type    ["Audio", 3] = "boolean";
 //-----------------------------------------------------------------------------
 // Gameplay
 
-$Options::Name    ["Gameplay", 0] = "fpsCounter";
-$Options::Title   ["Gameplay", 0] = "FPS Counter";
-$Options::Type    ["Gameplay", 0] = "boolean";
-$Options::Name    ["Gameplay", 1] = "freelook";
-$Options::Title   ["Gameplay", 1] = "Free-Look";
-$Options::Type    ["Gameplay", 1] = "boolean";
-$Options::Name    ["Gameplay", 2] = "oobInsults";
-$Options::Title   ["Gameplay", 2] = "OOB Insults";
-$Options::Type    ["Gameplay", 2] = "boolean";
-$Options::Name    ["Gameplay", 3] = "thousandths";
-$Options::Title   ["Gameplay", 3] = "Thousandths";
-$Options::Type    ["Gameplay", 3] = "boolean";
-$Options::Name    ["Gameplay", 4] = "helptriggers";
-$Options::Title   ["Gameplay", 4] = "Help Triggers";
-$Options::Type    ["Gameplay", 4] = "boolean";
-$Options::Name    ["Gameplay", 5] = "screenshotMode";
-$Options::Title   ["Gameplay", 5] = "Show/Hide HUD";
-$Options::Type    ["Gameplay", 5] = "boolean";
-$Options::Name    ["Gameplay", 6] = "fov";
-$Options::Title   ["Gameplay", 6] = "FOV";
-$Options::Ctrl    ["Gameplay", 6] = "slider";
-$Options::Min     ["Gameplay", 6] = 60;
-$Options::Max     ["Gameplay", 6] = 140;
-$Options::Ticks   ["Gameplay", 6] = 80; //Every 1
-$Options::JoyTicks["Gameplay", 6] = 16; //Every 5
-$Options::Name    ["Gameplay", 7] = "maxRadarItems";
-$Options::Title   ["Gameplay", 7] = "Max Radar Items";
-$Options::Ctrl    ["Gameplay", 7] = "slider";
-$Options::Min     ["Gameplay", 7] = 5;
-$Options::Max     ["Gameplay", 7] = 85;
-$Options::Ticks   ["Gameplay", 7] = 80; //Every 1
-$Options::JoyTicks["Gameplay", 7] = 16; //Every 5
-$Options::Name    ["Gameplay", 8] = "alwaysShowSpeedometer";
-$Options::Title   ["Gameplay", 8] = "Always Show Speedometer";
-$Options::Type    ["Gameplay", 8] = "boolean";
-$Options::Name    ["Gameplay", 9] = "powerupsAlwaysOnRadar";
-$Options::Title   ["Gameplay", 9] = "Powerups Always on Radar";
-$Options::Type    ["Gameplay", 9] = "boolean";
-$Options::Name    ["Gameplay", 10] = "powerupTimers";
-$Options::Title   ["Gameplay", 10] = "Powerup Timers";
-$Options::Type    ["Gameplay", 10] = "boolean";
-$Options::Name    ["Gameplay", 11] = "minimalSpectateUI";
-$Options::Title   ["Gameplay", 11] = "(Online) Minimal Spectate UI";
-$Options::Type    ["Gameplay", 11] = "boolean";
-$Options::Name    ["Gameplay", 12] = "spchanges";
-$Options::Title   ["Gameplay", 12] = "Ultra Violet";
-$Options::Type    ["Gameplay", 12] = "boolean";
+$i = -1;
+
+$Options::Name    ["Gameplay", $i++] = "fpsCounter";
+$Options::Title   ["Gameplay", $i] = "FPS Counter";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "freelook";
+$Options::Title   ["Gameplay", $i] = "Free-Look";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "oobInsults";
+$Options::Title   ["Gameplay", $i] = "OOB Insults";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "thousandths";
+$Options::Title   ["Gameplay", $i] = "Thousandths";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "helptriggers";
+$Options::Title   ["Gameplay", $i] = "Help Triggers";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "screenshotMode";
+$Options::Title   ["Gameplay", $i] = "Show/Hide HUD";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+
+$Options::Name    ["Gameplay", $i++] = "fov";
+$Options::Title   ["Gameplay", $i] = "FOV";
+$Options::Ctrl    ["Gameplay", $i] = "slider";
+$Options::Min     ["Gameplay", $i] = 60;
+$Options::Max     ["Gameplay", $i] = 140;
+$Options::Ticks   ["Gameplay", $i] = 80; //Every 1
+$Options::JoyTicks["Gameplay", $i] = 16; //Every 5
+
+
+$Options::Name    ["Gameplay", $i++] = "maxRadarItems";
+$Options::Title   ["Gameplay", $i] = "Max Radar Items";
+$Options::Ctrl    ["Gameplay", $i] = "slider";
+$Options::Min     ["Gameplay", $i] = 5;
+$Options::Max     ["Gameplay", $i] = 85;
+$Options::Ticks   ["Gameplay", $i] = 80; //Every 1
+$Options::JoyTicks["Gameplay", $i] = 16; //Every 5
+
+
+$Options::Name    ["Gameplay", $i++] = "alwaysShowSpeedometer";
+$Options::Title   ["Gameplay", $i] = "Always Show Speedometer";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "powerupsAlwaysOnRadar";
+$Options::Title   ["Gameplay", $i] = "Powerups Always on Radar";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "powerupTimers";
+$Options::Title   ["Gameplay", $i] = "Powerup Timers";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
+$Options::Title   ["Gameplay", $i] = "(Online) Minimal Spectate UI";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "spchanges";
+$Options::Title   ["Gameplay", $i] = "Ultra Violet";
+$Options::Type    ["Gameplay", $i] = "boolean";
+
+$Options::Name    ["Gameplay", $i++] = "parTimeAlarm";
+$Options::Title   ["Gameplay", $i] = "Par Time Alarm";
+$Options::Type    ["Gameplay", $i] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -1459,10 +1480,36 @@ function Opt_spChanges_increase() {
 	$pref::spchanges = !$pref::spchanges;
 	if ($pref::spchanges)
 		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
-	
 }
 
 //-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+function Opt_parTimeAlarm_getDisplay() {
+	return $pref::parTimeAlarm ? "Enabled" : "Disabled";
+}
+
+function Opt_parTimeAlarm_getValue() {
+	return $pref::parTimeAlarm;
+}
+
+function Opt_parTimeAlarm_decrease() {
+	$pref::parTimeAlarm = !$pref::parTimeAlarm;
+	if ($pref::parTimeAlarm)
+		MessageBoxOK("Stop Ringing!", "With this feature disabled, the game will no longer remind the player if they are about to miss the par time for a level.");
+}
+
+function Opt_parTimeAlarm_increase() {
+	$pref::parTimeAlarm = !$pref::parTimeAlarm;
+	if ($pref::parTimeAlarm)
+		MessageBoxOK("Stop Ringing!", "With this feature disabled, the game will no longer remind the player if they are about to miss the par time for a level.");
+}
+
+//-----------------------------------------------------------------------------
+
+
 
 //-----------------------------------------------------------------------------
 

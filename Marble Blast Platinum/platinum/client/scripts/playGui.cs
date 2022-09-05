@@ -743,6 +743,11 @@ function PlayGui::addBonusTime(%this, %dt) {
 }
 
 function PlayGui::refreshRed(%this) {
+
+	//Do not 'refresh red' or play the alarm if the player has disabled the alarm option.
+	if (!$pref::parTimeAlarm)
+		return;
+
 	if ($PlayTimerActive && $InPlayGUI) {
 		if (%this.bonusTime || $Editor::Opened || %this.stopped)
 			$PlayTimerColor = $TimeColor["stopped"];
