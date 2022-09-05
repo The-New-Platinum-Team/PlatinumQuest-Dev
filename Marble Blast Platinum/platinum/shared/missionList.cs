@@ -1124,7 +1124,8 @@ function MarblelandMissionList::getDifficultyList(%this, %game) {
 	switch$ (%game) {
 	case "Levels":
 		return "All\tAlphabetical" NL
-		       "Newest\tNewest First";
+		       "Newest\tNewest First" NL
+			   "Installed\tInstalled Only";
 	case "Packs":
 		%diffTree = %this.getDifficultyTree(%game);
 		%this.difficultyTreeList = "";
@@ -1166,6 +1167,8 @@ function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 			return true;
 		case "Newest":
 			return true;
+		case "Installed":
+			return true;
 		default:
 			return false;
 		}
@@ -1190,6 +1193,8 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 		case "Newest":
 			%ml = $MarblelandMissionList;
 			%sort = MissionSortNewest;
+		case "Installed":
+			%ml = MarblelandPackages;
 		}
 	case "Packs":
 		%ml = %this.getDifficultyTreeNode(%game, %difficulty);
@@ -1198,6 +1203,11 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 
 	for (%i = 0; %i < %ml.getSize(); %i ++) {
 		%mis = %ml.getEntry(%i);
+
+		if (%game $= "Levels" && %difficulty $= "Installed") {
+			%mis = marblelandGetMission(%mis); // MarblelandPackages has an id
+		}
+
 		if (%mis.class $= "Array") {
 			continue;
 		}
