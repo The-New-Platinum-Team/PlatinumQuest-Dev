@@ -60,7 +60,7 @@ new GuiControl(ExitGameDlg) {
 		horizSizing = "width";
 		vertSizing = "center";
 		position = "0 84";
-		extent = "1024 600";
+		extent = "1024 800";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -404,7 +404,7 @@ new GuiControl(ExitGameDlg) {
 			command = "ExitGameDlg.close(); ExitGameDlg.end();";
 			accelerator = "return";
 			helpTag = "0";
-			text = "           Exit";
+			text = "           Exit Level";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -491,6 +491,23 @@ new GuiControl(ExitGameDlg) {
 			command = "RootGui.pushDialog(JukeboxDlg);";
 			helpTag = "0";
 			text = "           Music";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+		};
+		new GuiBitmapButtonTextCtrl(ExitGameQuit) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 586";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "quit();";
+			helpTag = "0";
+			text = "           Quit Game";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
