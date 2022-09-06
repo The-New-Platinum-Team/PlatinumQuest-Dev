@@ -78,13 +78,7 @@ function PlayGui::onWake(%this) {
 	LagIcon.setVisible(false);
 	showSpectatorMenu(false);
 
-    if ($Game::Record && !mp() && !$playingDemo) {
-		PG_RecordingIndicator.setVisible(true);
-        RecordingIndicatorIcon.setVisible(true);
-	} else {
-	    PG_RecordingIndicator.setVisible(false);
-		RecordingIndicatorIcon.setVisible(false);	
-	}
+	%this.updateRecordingIndicator();
 
 	PG_LBChatEntry.setTickable(true);
 	PGCoopView.setVisible(false);
@@ -205,6 +199,16 @@ function PlayGui::onSleep(%this) {
 
 	if (ControllerGui.isJoystick())
 		showControllerUI();
+}
+
+function PlayGui::updateRecordingIndicator(%this) {
+    if ($Game::Record && !mp() && !$playingDemo) {
+		PG_RecordingIndicator.setVisible(true);
+        RecordingIndicatorIcon.setVisible(true);
+	} else {
+	    PG_RecordingIndicator.setVisible(false);
+		RecordingIndicatorIcon.setVisible(false);	
+	}
 }
 
 // The FPS counter only updates per second now - there is no need to repeatedly be setting

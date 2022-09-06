@@ -878,7 +878,7 @@ $EGD::BarButton["Extra", "Name",       0] = "EGD_MissionMarble";
 $EGD::BarButton["Extra", "Command",    0] = "ExitGameDlg.hideExtras(); RootGui.pushDialog(MarbleSelectDlg);";
 $EGD::BarButton["Extra", "Bitmap",     0] = "platinum/client/ui/play/buttons/marble.png";
 $EGD::BarButton["Extra", "Name",       1] = "EGD_MissionReplay";
-$EGD::BarButton["Extra", "Command",    1] = "if ($ControllerEvent) {$Game::Record = !$Game::Record; $ThisControl.setValue($Game::Record); }"; //Hack for controllers
+$EGD::BarButton["Extra", "Command",    1] = "if ($ControllerEvent) {$Game::Record = !$Game::Record; $ThisControl.setValue($Game::Record); } ExitGameDlg.doMidGameRecord();"; //Hack for controllers
 $EGD::BarButton["Extra", "Variable",   1] = "$Game::Record";
 $EGD::BarButton["Extra", "ButtonType", 1] = "ToggleButton";
 $EGD::BarButton["Extra", "Bitmap",     1] = "platinum/client/ui/play/buttons/record.png";
@@ -1001,4 +1001,16 @@ function ExitGameDlg::onSleep(%this) {
 
 function ExitGameDlg::close(%this) {
 	RootGui.popDialog(%this);
+}
+
+function ExitGameDlg::doMidGameRecord(%this) {
+	if ($Game::Record) {
+		if (!%this.hasShownRecordingWarning) {
+			%this.hasShownRecordingWarning = true;
+			MessageBoxOK("Notice", "Recording of the game will start upon the next restart");
+		}
+	} else {
+		recordEnd("");
+	}
+	PlayGui.updateRecordingIndicator();
 }
