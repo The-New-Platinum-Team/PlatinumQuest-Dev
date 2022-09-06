@@ -116,7 +116,11 @@ function marblelandDownload(%id, %callback) {
 function MarblelandDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 
+	%mission = $MarblelandMissionList.lookup[%this.id];
+
 	$pref::MarblelandMission[%this.id] = $MarblelandMissionList.lookup[%this.id].editedAt;
+
+	deleteFile("platinum/data/missions/marbleland/" @ %mission.file @ ".cache");
 
 	MarblelandPackages.addEntry(%this.id);
 	loadMBPackageMis("marbleland/" @ %this.id);
@@ -250,6 +254,16 @@ function marblelandGetMission(%id) {
 /// @return True if that mission is downloaded
 function marblelandHasMission(%id) {
 	return isLoadedMBPackage("marbleland/" @ %id);
+}
+
+/// Check if a given marbleland mission needs an update
+/// @param id Mission ID
+/// @return True if that mission needs an update
+function marblelandMissionNeedsUpdate(%id) {
+	if ($pref::MarblelandMission[%id] $= "") {
+		return false;
+	}
+	return $pref::MarblelandMission[%id] < $MarblelandMissionList.lookup[%id].editedAt;
 }
 
 //-----------------------------------------------------------------------------
