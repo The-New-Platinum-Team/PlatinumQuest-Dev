@@ -42,7 +42,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "33 24";
-		extent = "574 434";
+		extent = "574 484";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -51,7 +51,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "453 362";
+			position = "453 412";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -68,7 +68,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "27 362";
+			position = "27 412";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -87,7 +87,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			profile = "PQPanelProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "22 62";
+			position = "22 112";
 			extent = "281 306";
 			minExtent = "41 41";
 			visible = "1";
@@ -132,7 +132,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			profile = "PQPanelProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "292 62";
+			position = "292 112";
 			extent = "260 306";
 			minExtent = "41 41";
 			visible = "1";
@@ -172,7 +172,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "121 362";
+			position = "121 412";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -185,8 +185,70 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			repeatDecay = "1";
 				borderColor = "255 153 153 255";
 				controlLeft = "PD_close";
+				controlRight = "PD_Edit";
+				controlUp = "PD_DemoList";
+		};
+		new GuiBorderButtonCtrl(PD_Edit) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "215 412";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "PlayDemoGui.editFile();";
+			helpTag = "0";
+			text = "Edit";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+				controlLeft = "PD_Delete";
 				controlRight = "PD_play";
 				controlUp = "PD_DemoList";
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "22 72";
+			extent = "530 55";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiMLTextCtrl(PDSearchTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "16 14";
+				extent = "400 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiTextEditCtrl(PDSearchEdit) {
+				profile = "GuiMediumTextEditProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "81 12";
+				extent = "369 31";
+				minExtent = "8 8";
+				visible = "1";
+				command = "PlayDemoGui.search();";
+				altCommand = "PlayDemoGui.entryStart();";
+				helpTag = "0";
+				maxLength = "255";
+				maxPixelWidth = "0";
+				escapeCommand = "PlayDemoGui.clearSearch();";
+				historySize = "0";
+				password = "0";
+				tabComplete = "0";
+				sinkAllKeyEvents = "1";
+			};
 		};
 		new GuiMLTextCtrl() {
 			profile = "GuiMLTextProfile";
@@ -216,9 +278,18 @@ function PlayDemoGui::onWake(%this) {
 	PD_Delete.setActive(0);
 	PD_DescriptionText.setText("");
 	PD_play.setActive(0);
+	%this.setStatus("Search:", true);
 }
 
 function PlayDemoGui::buildDemoList(%this) {
+
+	if (!isObject(ReplaySearchSet)) {
+		Array(ReplaySearchSet);
+		RootGroup.add(ReplaySearchSet);
+	}
+
+	ReplaySearchSet.clear();
+
 	PD_DemoList.clear();
 
 	for (%file = findFirstFile($usermods @ "/data/recordings/*.rrec");
@@ -237,6 +308,8 @@ function PlayDemoGui::buildDemoList(%this) {
 		if (%this.isLB && !%info.lb) {
 			continue;
 		}
+
+		ReplaySearchSet.addEntry(%info);
 
 		%tagText = (%info.mp ? "[MP] " : (%info.lb ? "[LB] " : ""));
 
@@ -282,6 +355,15 @@ function PlayDemoGui::deleteFile(%this) {
 	%name = %info.name;
 
 	MessageBoxYesNo("Delete Recording?", "Do you want to delete the recording \"" @ %name @ "\"?", "PlayDemoGui.doDelete(" @ %id @ ");", "");
+}
+
+function PlayDemoGui::editFile(%this) {
+	%id = PD_DemoList.getSelectedId();
+	%row = PD_DemoList.getRowTextById(%id);
+	%demo = getField(%row, 1);
+
+	%info = getReplayInfo(%demo);
+	EditDemoDlg.open(%info, "PlayDemoGui.buildDemoList();");
 }
 
 function PlayDemoGui::doDelete(%this, %id) {
@@ -349,4 +431,70 @@ function getReplayInfo(%file) {
 	}
 
 	return %obj;
+}
+
+// Search
+
+function PlayDemoGui::clearSearch(%this) {
+	PDSearchEdit.setValue("");
+	PlayDemoGui.search();
+}
+
+function PlayDemoGui::setStatus(%this, %status, %active) {
+	PDSearchTitle.setText("<font:24><color:696969>" @ %status);
+	PDSearchEdit.setVisible(%active);
+	PDSearchEdit.makeFirstResponder(%active);
+	Canvas.repaint();
+}
+
+function testReplaySearch(%info, %flags, %query) {
+	return (strStr(%info.name, %query) != -1)
+	       || (strStr(%info.author, %query) != -1)
+	       || (strStr(%info.file, %query) != -1)
+	       || (strStr(%info.missionFile, %query) != -1);
+}
+
+function PlayDemoGui::search(%this) {
+	PD_DemoList.clear();
+	%key = strlwr(trim(PDSearchEdit.getValue()));
+
+	//Get the flags for this search
+	%flags = "";
+	for (%i = 0; %i < getWordCount(%key); %i ++) {
+		%word = getWord(%key, %i);
+		if (getSubStr(%word, 0, 1) $= "!") {
+			%flags = addWord(%flags, %word);
+			%key = removeWord(%key, %i);
+			%i --;
+		}
+	}
+
+	//Load all the missions
+	%count = ReplaySearchSet.getSize();
+	for (%i = 0; %i < %count; %i ++) {
+		%info = ReplaySearchSet.getEntry(%i);
+
+		if (!testReplaySearch(%info, %flags, %key))
+			continue;
+
+		%tagText = (%info.mp ? "[MP] " : (%info.lb ? "[LB] " : ""));
+		%name = %info.name;
+
+		PD_DemoList.addRow(PD_DemoList.rowCount(), %tagText @ %name TAB %info.file TAB %name);
+	}
+
+	%this.finalize();
+
+	%this.setStatus("Search:", true);
+}
+
+// this is called after a search query is processed.
+// this will activate/deactivate the play button, and it will
+// auto-select a row in the mission list, ect.
+//
+// This code is about the only thing left from the old SearchDlg
+function PlayDemoGui::finalize(%this) {
+	PD_Delete.setActive(0);
+	PD_DescriptionText.setText("");
+	PD_play.setActive(0);
 }

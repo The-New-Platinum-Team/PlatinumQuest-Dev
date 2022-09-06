@@ -52,7 +52,7 @@ function loadMission(%missionName, %isFirstMission) {
 	// Unload marbleland missions EXCEPT the one that is gonna be played
 	%marblelandId = marblelandGetFileId(%missionName);
 	if (%marblelandId !$= "") {
-		if (marblelandHasMission(%marblelandId)) {
+		if (marblelandHasMission(%marblelandId) && !marblelandMissionNeedsUpdate(%marblelandId)) {
 			if (!marblelandLoad(%marblelandId)) {
 				error("Could not load mission from marbleland: " @ %missionName);
 				onMissionLoadFailed();
@@ -134,7 +134,7 @@ function loadMission(%missionName, %isFirstMission) {
 
 	// Now that everyone knows they're loading, make sure we have the level from marbleland
 	%marblelandId = marblelandGetFileId(%missionName);
-	if (%marblelandId !$= "" && !marblelandHasMission(%marblelandId)) {
+	if (%marblelandId !$= "" && (!marblelandHasMission(%marblelandId) || marblelandMissionNeedsUpdate(%marblelandId))) {
 		marblelandDownload(%marblelandId, LMS1_downloadFinished);
 		return;
 	}

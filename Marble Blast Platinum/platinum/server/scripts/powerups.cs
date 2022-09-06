@@ -1064,6 +1064,9 @@ function EasterEgg::onPickup(%this,%obj,%user,%amount) {
 		return false;
 	}
 
+	if ($playingDemo)
+		return true;
+
 	$Game::EasterEgg = true;
 
 	//Save time for easter egg races

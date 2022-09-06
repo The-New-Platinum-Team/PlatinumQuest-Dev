@@ -1,0 +1,293 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2021 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(EditDemoDlg) {
+	profile = "GuiDialogProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "640 480";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "640 480";
+
+	new GuiControl() {
+		profile = "PQPanelProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "91 91";
+		extent = "487 316";
+		minExtent = "41 41";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "101 41";
+			extent = "363 56";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "101 76";
+			extent = "363 56";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "22 141";
+			extent = "442 108";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+		};
+		new GuiBorderButtonCtrl() {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "365 244";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "EditDemoDlg.dosave();";
+			helpTag = "0";
+			text = "Save";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiMLTextCtrl() {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "29 15";
+			extent = "429 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<just:center><bold:28>Recording Options";
+		};
+		new GuiMLTextCtrl() {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "34 57";
+			extent = "76 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<bold:24>Name:";
+		};
+		new GuiMLTextCtrl() {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "34 92";
+			extent = "76 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<bold:24>Author:";
+		};
+		new GuiMLTextCtrl() {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "192 123";
+			extent = "103 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<bold:24>Description:";
+		};
+		new GuiTextEditCtrl(EditEnterDemoFileEdit) {
+			profile = "GuiMediumTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "114 54";
+			extent = "335 31";
+			minExtent = "8 8";
+			visible = "1";
+			altCommand = "EditDemoDlg.save();";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiTextEditCtrl(EditEnterDemoAuthor) {
+			profile = "GuiMediumTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "114 89";
+			extent = "335 31";
+			minExtent = "8 8";
+			visible = "1";
+			altCommand = "EditDemoDlg.save();";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiScrollCtrl() {
+			profile = "PQScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "35 154";
+			extent = "416 82";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextEditCtrl(EditEnterDemoDescription) {
+				profile = "PQTextboxSmallProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "402 82";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiBorderButtonCtrl() {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "27 244";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "EditDemoDlg.cancel();";
+			helpTag = "0";
+			text = "Cancel";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+// AWESOME GUI
+
+function EditDemoDlg::open(%this, %recordfile, %callback) {
+	error("Opening EditDemoDlg");
+
+	Canvas.pushDialog(%this);
+
+	// Autofill these
+	EditEnterDemoAuthor.setValue(%recordfile.author);
+	EditEnterDemoFileEdit.setValue(%recordfile.name);
+	EditEnterDemoDescription.setValue(%recordfile.desc);
+
+	%this.recordfile = %recordfile;
+	%this.callback = %callback;
+}
+
+function EditDemoDlg::dosave(%this) {
+	%author = EditEnterDemoAuthor.getValue();
+	%name = EditEnterDemoFileEdit.getValue();
+	%desc = EditEnterDemoDescription.getText();
+
+	%record = %this.recordfile;
+
+	%filepath = %record.file;
+
+	editRREC(%filepath, "platinum/data/recordings/tempedit.rrec", %name, %author, %desc); // Edit the rrec
+	%fb = fileBase(%filepath);
+	%zipfilepath = "platinum/data/recordings/" @ %fb @ ".rrec/" @ %fb @ ".rrec";
+	if (%zipfilepath $= %filepath) { // Our rrec is in a zip
+		deleteFile("platinum/data/recordings/" @ %fb @ ".rrec.zip"); // Delete the zip
+		if (isFile("platinum/data/recordings/" @ %fb @ ".rrec")) {
+			// Rename the existing unzipped file of same name to something else
+			moveFile("platinum/data/recordings/" @ %fb @ ".rrec", "platinum/data/recordings/" @ %fb @ "0.rrec");
+		}
+	} else {
+		deleteFile("platinum/data/recordings/" @ %fb @ ".rrec"); // Delete the existing
+	}
+	moveFile("platinum/data/recordings/tempedit.rrec","platinum/data/recordings/" @ %fb @ ".rrec"); // Rename rrec
+	zip("platinum/data/recordings/" @ %fb @ ".rrec"); // Zip the thing
+	deleteFile("platinum/data/recordings/" @ %fb @ ".rrec"); // Delete the unzipped
+
+	%final = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec";
+	%finalzip = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec.zip";
+
+	// If it's a file, we need to append a number to it.
+	%num = 0;
+	while (isFile(%final) || isFile(%finalzip)) {
+		%num++;
+		%baseName = alphaNum(%name) @ "(" @ %num @ ")";
+		%final = "platinum/data/recordings/" @ %baseName @ ".rrec";
+		%finalzip = "platinum/data/recordings/" @ %baseName @ ".rrec.zip";
+	}
+	if (%num > 0) {
+		// If we have had to append a new name, let's put a number in the name as well.
+		%name = %name SPC "(" @ %num @ ")";
+	}
+
+	setModPaths($modPath);
+	eval(%this.callback);
+	RootGui.popDialog(%this);
+}
+
+function EditDemoDlg::cancel(%this) {
+	RootGui.popDialog(%this);
+}

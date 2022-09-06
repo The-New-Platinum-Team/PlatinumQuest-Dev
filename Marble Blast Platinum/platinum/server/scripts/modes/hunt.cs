@@ -121,7 +121,7 @@ function Mode_hunt::onMissionReset(%this, %object) {
 		}
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 			%client = ClientGroup.getObject(%i);
-			%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or less gems remain. No quickspawn.");
+			%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or fewer gems remain. No quickspawn.");
 		}
 	}
 }

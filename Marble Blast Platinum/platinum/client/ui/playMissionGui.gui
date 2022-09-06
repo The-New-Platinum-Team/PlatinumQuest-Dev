@@ -56,6 +56,20 @@ new GuiControlProfile(PMBarButtonTabProfile : PQButtonProfile) {
 	bitmap = "./play/barbuttontab.png";
 	hasBitmapArray = true;
 };
+new GuiControlProfile(PMBarButtonLeftTabProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonlefttab.png";
+	hasBitmapArray = true;
+};
+new GuiControlProfile(PMBarButtonRightTabProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonrighttab.png";
+	hasBitmapArray = true;
+};
 new GuiControlProfile(PMLevelNameBorderProfile) {
 	fillColor = "255 255 255 128";
 	bitmap = "./play/levelnameborder.png";
@@ -2207,6 +2221,15 @@ function PlayMissionGui::showMissionIcon(%this, %frame) {
 		%frame.icon.setBitmap(%bitmap);
 	} else {
 		%frame.icon.setBitmap(expandFilename("./play/missingicon"));
+
+		if (marblelandIsMission(%level.file)) {
+			if (isBitmap("vfs://marbleland/" @ %level.id @ ".jpg")) {
+				%frame.icon.setBitmap("vfs://marbleland/" @ %level.id @ ".jpg");
+			} else {
+				// Queue up a request to download the image if it's a marbleland mission
+				%frame.downloadSchedule = schedule(1000, 0, "marblelandDownloadIcon", %level.id, "onDownloadIcon", %frame.icon);
+			}
+		}
 	}
 	%frame.icon.showingIcon = true;
 	PM_MissionListScrolling.add(%frame);
@@ -2216,6 +2239,16 @@ function PlayMissionGui::hideMissionIcon(%this, %frame) {
 	//Offscreen, remove it
 	PM_MissionListButtons.add(%frame);
 	%frame.icon.showingIcon = false;
+	if (marblelandIsMission(%frame.mission.file)) {
+		// Cancel the download schedule
+		cancel(%frame.downloadSchedule);
+	}
+}
+
+function onDownloadIcon(%id, %success, %bmp) {
+	if (%success) {
+		%bmp.setBitmap("vfs://marbleland/" @ %id @ ".jpg");
+	}
 }
 
 function PlayMissionGui::updateMissionIcons(%this) {
@@ -3317,6 +3350,12 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 		}
 		if (%i == 3 && $PMG::BarButton[%which, "HaveTab"]) {
 			%profile = "PMBarButtonTabProfile";
+		}
+		if (%i == 0 && $PMG::BarButton[%which, "HaveTab", %i]) {
+			%profile = "PMBarButtonLeftTabProfile";
+		}
+		if (%i == %count - 1 && $PMG::BarButton[%which, "HaveTab", %i]) {
+			%profile = "PMBarButtonRightTabProfile";
 		}
 
 		%bar.add(new GuiBorderButtonCtrl($PMG::BarButton[%which, "Name", %i]) {
