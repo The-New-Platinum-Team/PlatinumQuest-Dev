@@ -56,6 +56,20 @@ new GuiControlProfile(PMBarButtonTabProfile : PQButtonProfile) {
 	bitmap = "./play/barbuttontab.png";
 	hasBitmapArray = true;
 };
+new GuiControlProfile(PMBarButtonLeftTabProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonlefttab.png";
+	hasBitmapArray = true;
+};
+new GuiControlProfile(PMBarButtonRightTabProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonrighttab.png";
+	hasBitmapArray = true;
+};
 new GuiControlProfile(PMLevelNameBorderProfile) {
 	fillColor = "255 255 255 128";
 	bitmap = "./play/levelnameborder.png";
@@ -3336,6 +3350,12 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 		}
 		if (%i == 3 && $PMG::BarButton[%which, "HaveTab"]) {
 			%profile = "PMBarButtonTabProfile";
+		}
+		if (%i == 0 && $PMG::BarButton[%which, "HaveTab", %i]) {
+			%profile = "PMBarButtonLeftTabProfile";
+		}
+		if (%i == %count - 1 && $PMG::BarButton[%which, "HaveTab", %i]) {
+			%profile = "PMBarButtonRightTabProfile";
 		}
 
 		%bar.add(new GuiBorderButtonCtrl($PMG::BarButton[%which, "Name", %i]) {
