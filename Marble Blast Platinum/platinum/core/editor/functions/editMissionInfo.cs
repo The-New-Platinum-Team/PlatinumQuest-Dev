@@ -26,7 +26,7 @@ function emibutton(%revert) {
 	%pos = LFDWScroll.getPosition();
 	LargeFunctionDlg.init("editMissionInfo", "Edit MissionInfo", 1);
 
-	%gm = strlwr(resolveMissionGameModes(MissionInfo.gamemode));
+	%gm = strlwr(resolveMissionGameModes(MissionInfo, MissionInfo.gamemode));
 
 	%modes = Array(EMI_ModesArray);
 	for (%i = 0; %i < ModeInfoGroup.getCount(); %i ++) {
@@ -318,7 +318,7 @@ function editMissionInfo(%gui) {
 	}
 
 	MissionInfo.GameMode = %gm;
-	%gm = resolveMissionGameModes(%gm);
+	%gm = resolveMissionGameModes(%MissionInfo, gm);
 	setGameModes(%gm);
 
 	MissionInfo.name = EMI_LevelName.getValue();

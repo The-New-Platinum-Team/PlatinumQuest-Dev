@@ -439,15 +439,27 @@ function isBitmap(%file) {
 // Get Game Modes for a Mission
 //------------------------------------------------------------------------------
 
-function resolveMissionGameModes(%mission) {
+function resolveMissionGameModes(%mission, %inputmodes) {
 	if (isObject(%mission)) {
 		%info = %mission;
 		%modes = %info.gameMode;
+		for (%i = 0; %i < getWordCount(%inputmodes); %i++) {
+			%mode = getWord(%inputmodes, %i);
+			if (strPos(%modes, %mode) == -1) {
+				%modes = trim(%modes SPC %mode);
+			}
+		}
 	} else if (isScriptFile(%mission)) {
 		%info = getMissionInfo($Server::MissionFile);
 		%modes = %info.gameMode;
+		for (%i = 0; %i < getWordCount(%inputmodes); %i++) {
+			%mode = getWord(%inputmodes, %i);
+			if (strPos(%modes, %mode) == -1) {
+				%modes = trim(%modes SPC %mode);
+			}
+		}
 	} else {
-		%modes = %mission;
+		%modes = %inputmodes;
 	}
 
 	if ($Server::ServerType $= "MultiPlayer" && $MP::CurrentModeInfo.force) {
@@ -458,7 +470,11 @@ function resolveMissionGameModes(%mission) {
 		%modes = addWord(%modes, $Event::Modes);
 	}
 
-	if ($CurrentGame $= "challenge" && strPos(%modes, "challenge") == -1) {
+	echo(%mission, %mission.file);
+
+	%isChallenge = strPos(%info.file, "challenge") != -1;
+
+	if (%isChallenge && strPos(%modes, "challenge") == -1) {
 		%modes = addWord(%modes, "challenge");
 	}
 

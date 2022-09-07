@@ -1768,7 +1768,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 
 	//Set up game modes
 	%file = %info.file;
-	%modes = resolveMissionGameModes(%info.gameMode);
+	%modes = resolveMissionGameModes(%info, %info.gameMode);
 	setClientGameModes(%modes);
 
 	if ($MissionType !$= "Custom" && $CurrentGame !$= "Custom") {
@@ -2759,7 +2759,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		%text3 = "";
 
 		//Game modes display
-		%modes = resolveMissionGameModes(%info.gameMode);
+		%modes = resolveMissionGameModes(%info, %info.gameMode);
 		%modes = formatGameModes(%modes);
 		for (%i = 0; %i < getWordCount(%modes); %i ++) {
 			%mode = getWord(%modes, %i);

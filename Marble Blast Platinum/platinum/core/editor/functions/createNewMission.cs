@@ -245,7 +245,7 @@ function CNM_replaceGameModes(%newMode, %on) {
 		%mode = strReplace(%mode, %newMode, "");
 	}
 	%mode = trim(%mode);
-	%mode = resolveMissionGameModes(%mode);
+	%mode = resolveMissionGameModes("", %mode);
 	$CNM::GameMode = %mode;
 
 	for (%i = 0; %i < ModeInfoGroup.getCount(); %i ++) {
