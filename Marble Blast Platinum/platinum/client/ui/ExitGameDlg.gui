@@ -393,122 +393,188 @@ new GuiControl(ExitGameDlg) {
 				};
 			};
 		};
-		new GuiBitmapButtonTextCtrl(ExitGameYes) {
-			profile = "MenuButtonProfile";
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = "75 316";
-			extent = "500 84";
-			minExtent = "8 8";
-			visible = "1";
-			command = "ExitGameDlg.close(); ExitGameDlg.end();";
-			accelerator = "return";
-			helpTag = "0";
-			text = "           Exit Level";
-			groupNum = "-1";
-			buttonType = "PushButton";
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-			bitmap = "./menu/menu";
-		};
-		new GuiBitmapButtonTextCtrl(ExitGameNo) {
-			profile = "MenuButtonProfile";
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = "75 46";
-			extent = "500 84";
-			minExtent = "8 8";
-			visible = "1";
-			command = "hideControllerUI(); ExitGameDlg.close(); resumeGame();";
-			accelerator = "escape";
-			helpTag = "0";
-			text = "           Resume";
-			groupNum = "-1";
-			buttonType = "PushButton";
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-			bitmap = "./menu/menu";
-		};
-		new GuiBitmapButtonTextCtrl(ExitGameRestart) {
-			profile = "MenuButtonProfile";
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = "75 136";
-			extent = "500 84";
-			minExtent = "8 8";
-			visible = "1";
-			command = "hideControllerUI(); ExitGameDlg.close(); resumeGame(); restartLevel(true);";
-			helpTag = "0";
-			text = "           Restart";
-			groupNum = "-1";
-			buttonType = "PushButton";
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-			bitmap = "./menu/menu";
-		};
-		new GuiBitmapButtonTextCtrl(ExitGameOptions) {
-			profile = "MenuButtonProfile";
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = "75 226";
-			extent = "500 84";
-			minExtent = "8 8";
-			visible = "1";
-			command = "OptionsGui.show(\"exit\");";
-			helpTag = "0";
-			text = "           Options";
-			groupNum = "-1";
-			buttonType = "PushButton";
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-			bitmap = "./menu/menu";
-		};
-	};
 
-	new GuiBorderButtonCtrl() {
-		profile = "PQButtonPlainProfile";
-		horizSizing = "left";
-		vertSizing = "top";
-		position = "874 693";
-		extent = "140 65";
-		minExtent = "8 8";
-		visible = "1";
-		command = "RootGui.pushDialog(JukeboxDlg);";
-		helpTag = "0";
-		text = "Jukebox";
-		groupNum = "-1";
-		buttonType = "PushButton";
-		repeatPeriod = "1000";
-		repeatDecay = "1";
-	};
+		new GuiControl(ExitGameMainButtons) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 0";
+			extent = "1024 800";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
 
-	new GuiBorderButtonCtrl(EGD_MissionExtras) {
-		profile = "PQButtonPlainProfile";
-		horizSizing = "left";
-		vertSizing = "top";
-		position = "734 693";
-		extent = "140 65";
-		minExtent = "8 8";
-		visible = "1";
-		command = "ExitGameDlg.toggleExtras();";
-		helpTag = "0";
-		text = "Extras";
-		groupNum = "-1";
-		buttonType = "PushButton";
-		repeatPeriod = "1000";
-		repeatDecay = "1";
-	};
+			new GuiBitmapButtonTextCtrl(ExitGameYes) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 406";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "ExitGameDlg.close(); ExitGameDlg.end();";
+				accelerator = "return";
+				helpTag = "0";
+				text = "           Exit Level";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+			new GuiBitmapButtonTextCtrl(ExitGameExtras) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 316";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "ExitGameDlg.toggleExtras();";
+				helpTag = "0";
+				text = "           Extras";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+			new GuiBitmapButtonTextCtrl(ExitGameNo) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 46";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "hideControllerUI(); ExitGameDlg.close(); resumeGame();";
+				accelerator = "escape";
+				helpTag = "0";
+				text = "           Resume";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+			new GuiBitmapButtonTextCtrl(ExitGameRestart) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 136";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "hideControllerUI(); ExitGameDlg.close(); resumeGame(); restartLevel(true);";
+				helpTag = "0";
+				text = "           Restart";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+			new GuiBitmapButtonTextCtrl(ExitGameOptions) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 226";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OptionsGui.show(\"exit\");";
+				helpTag = "0";
+				text = "           Options";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+		};
 
-	new GuiControl(EGD_ExtrasBox) {
-		profile = "GuiDefaultProfile";
-		horizSizing = "left";
-		vertSizing = "top";
-		position = "714 594";
-		extent = "238 97";
-		minExtent = "8 8";
-		visible = "0";
-		helpTag = "0";
-		wrap = "0";
+		new GuiControl(ExitGameExtraButtons) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 0";
+			extent = "1024 800";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+
+			new GuiBitmapButtonTextCtrl(ExitGameBack) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 316";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "ExitGameDlg.toggleExtras();";
+				accelerator = "return";
+				helpTag = "0";
+				text = "           Back";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+			new GuiBitmapButtonTextCtrl(ExitGameJukebox) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 46";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "RootGui.pushDialog(JukeboxDlg);";
+				accelerator = "escape";
+				helpTag = "0";
+				text = "           Music";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+			new GuiBitmapButtonTextCtrl(ExitGameMarbleSelect) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 136";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "RootGui.pushDialog(MarbleSelectDlg);";
+				helpTag = "0";
+				text = "           Marbles";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+			new GuiBitmapButtonTextCtrl(ExitGameRecord) {
+				profile = "MenuButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "75 226";
+				extent = "500 84";
+				minExtent = "8 8";
+				visible = "1";
+				command = "if ($ControllerEvent) {$Game::Record = !$Game::Record; $ThisControl.setValue($Game::Record); } ExitGameDlg.doMidGameRecord();";
+				helpTag = "0";
+				text = "           Record";
+				variable = "$Game::Record";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./menu/menu";
+			};
+		};
 	};
 };
 //--- OBJECT WRITE END ---
@@ -528,8 +594,6 @@ function ExitGameDlg::end() {
 }
 
 function ExitGameDlg::onWake(%this) {
-	%this.buildButtonBar("Extra");
-
 	%info = getMissionInfo($Client::MissionFile);
 
 	%title = "<shadow:1:1><shadowcolor:000000bf><just:center>" @ shrinkToFit(%info.name, $DefaultFont["Bold"], 42, 24, getWord(ExitGameInfo.getExtent(), 0));
@@ -874,118 +938,22 @@ function ExitGameDlg::onWake(%this) {
 	}
 }
 
-$EGD::BarButton["Extra", "Name",       0] = "EGD_MissionMarble";
-$EGD::BarButton["Extra", "Command",    0] = "ExitGameDlg.hideExtras(); RootGui.pushDialog(MarbleSelectDlg);";
-$EGD::BarButton["Extra", "Bitmap",     0] = "platinum/client/ui/play/buttons/marble.png";
-$EGD::BarButton["Extra", "Name",       1] = "EGD_MissionReplay";
-$EGD::BarButton["Extra", "Command",    1] = "if ($ControllerEvent) {$Game::Record = !$Game::Record; $ThisControl.setValue($Game::Record); } ExitGameDlg.doMidGameRecord();"; //Hack for controllers
-$EGD::BarButton["Extra", "Variable",   1] = "$Game::Record";
-$EGD::BarButton["Extra", "ButtonType", 1] = "ToggleButton";
-$EGD::BarButton["Extra", "Bitmap",     1] = "platinum/client/ui/play/buttons/record.png";
-$EGD::BarButton["Extra", "Count"] = 2; //Increases to 7 after showing the credits
-$EGD::BarButton["Extra", "HaveTab", 0] = true;
-$EGD::BarButton["Extra", "Control"] = "EGD_ExtrasBox";
-$EGD::BarButton["Extra", "CommandCancel"] = "ExitGameDlg.hideExtras(); ControllerGui.selectControl(EGD_MissionExtras);";
-$EGD::BarButton["Extra", "CommandNameCancel"] = "Close";
-
-function ExitGameDlg::buildButtonBar(%this, %which) {
-	%bar = $EGD::BarButton[%which, "Control"];
-	%bar.clear();
-
-	%count = $EGD::BarButton[%which, "Count"];
-
-	%bar.add(new GuiControl() {
-		profile = "GuiDefaultProfile";
-		horizSizing = "width";
-		vertSizing = "height";
-		position = "26 12";
-		extent = ((%count * 95) + 2) SPC "79";
-		minExtent = "8 8";
-		visible = "1";
-		helpTag = "0";
-		blur = "1";
-	});
-	for (%i = 0; %i < %count; %i ++) {
-		%profile = "PMBarButtonProfile";
-		if (%i == 0) {
-			%profile = "PMBarButtonLeftProfile";
-			%posX = 3;
-			%extentX = 119;
-			%offset = "12 0";
-			%controlOffset = "24 11";
-		} else {
-			%posX = 122 + 95 * (%i - 1);
-			%extentX = 95;
-			%offset = "0 0";
-			%controlOffset = "0 11";
-		}
-		if (%i == %count - 1) {
-			%profile = "PMBarButtonRightProfile";
-			%extentX = 119;
-			%offset = "-12 0";
-			%controlOffset = "0 11";
-		}
-		if (%i == 3 && $EGD::BarButton[%which, "HaveTab"]) {
-			%profile = "PMBarButtonTabProfile";
-		}
-		if (%i == 0 && $EGD::BarButton[%which, "HaveTab", %i]) {
-			%profile = "PMBarButtonLeftTabProfile";
-		}
-		if (%i == %count - 1 && $EGD::BarButton[%which, "HaveTab", %i]) {
-			%profile = "PMBarButtonRightTabProfile";
-		}
-
-		%bar.add(new GuiBorderButtonCtrl($EGD::BarButton[%which, "Name", %i]) {
-			profile = %profile;
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = %posX SPC 0;
-			extent = %extentX SPC 128;
-			minExtent = "8 8";
-			visible = "1";
-			command = $EGD::BarButton[%which, "Command", %i];
-			variable = $EGD::BarButton[%which, "Variable", %i];
-			helpTag = "0";
-			groupNum = "-1";
-			buttonType = ($EGD::BarButton[%which, "ButtonType", %i] $= "" ? "PushButton" : $EGD::BarButton[%which, "ButtonType", %i]);
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-				bitmap = $EGD::BarButton[%which, "Bitmap", %i];
-				bitmapOffset = %offset;
-				bitmapColor = %profile.fillColor;
-				originalBitmap = $EGD::BarButton[%which, "Bitmap", %i];
-				originalBitmapOffset = %offset;
-				originalBitmapColor = %profile.fillColor;
-				controlLeft = $EGD::BarButton[%which, "Name", %i - 1];
-				controlRight = $EGD::BarButton[%which, "Name", %i + 1];
-				commandCancel = $EGD::BarButton[%which, "CommandCancel"];
-				commandNameCancel = $EGD::BarButton[%which, "CommandNameCancel"];
-				commandDown = "ExitGameDlg.hideExtras(); ControllerGui.selectControl(EGD_MissionExtras);";
-				controlOffset = %controlOffset;
-				controlExtent = "95 80";
-		});
-	}
-
-	%this.builtBar[%which] = true;
-}
-
 function ExitGameDlg::showExtras(%this) {
-	EGD_ExtrasBox.setVisible(1);
-	EGD_MissionExtras.setValue(1);
+	ExitGameExtraButtons.setVisible(1);
+	ExitGameMainButtons.setVisible(0);
 	if (ControllerGui.isJoystick()) {
-		//First object is a bitmap so second is the first button
-		%first = EGD_ExtrasBox.getObject(1).getName();
+		%first = ExitGameExtras.getObject(0).getName();
 		ControllerGui.selectControl(%first);
 	}
 }
 
 function ExitGameDlg::hideExtras(%this) {
-	EGD_ExtrasBox.setVisible(0);
-	EGD_MissionExtras.setValue(0);
+	ExitGameExtraButtons.setVisible(0);
+	ExitGameMainButtons.setVisible(1);
 }
 
 function ExitGameDlg::toggleExtras(%this) {
-	if (EGD_ExtrasBox.isVisible())
+	if (ExitGameExtraButtons.isVisible())
 		%this.hideExtras();
 	else
 		%this.showExtras();
