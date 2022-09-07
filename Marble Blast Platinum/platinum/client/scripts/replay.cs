@@ -1062,8 +1062,11 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 	}
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
-		if (%col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
-			continue;
+		
+		if (strStr(%this.db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1) {
+			if (%col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
+				continue;
+		}
 
 		if($debugreplay)echo("Hacky pickup of item at " @ %this.position);
 		//Hack
@@ -1100,8 +1103,13 @@ function PlaybackCollisionFrame::apply(%this, %object, %t) {
 	}
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
-		if ((%col.getType() & $TypeMasks::GameBaseObjectType) && %col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
-			continue;
+
+		if (strStr(%this.db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1) {
+			if ((%col.getType() & $TypeMasks::GameBaseObjectType) && %col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
+				continue;
+		}
+
+		%this.db = %col.getDataBlock().getName();
 
 		if($debugreplay)echo("Hacky collision of item at " @ %this.position);
 		//Hack
