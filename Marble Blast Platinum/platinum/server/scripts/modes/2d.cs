@@ -156,7 +156,7 @@ function TDTrigger::onAdd(%this, %obj) {
 		%obj.targetPitch = "NoChange";  //Set to "NoChange" to keep current pitch.
 
 	if (!$Game::isMode["2d"]) {
-		%modes = resolveMissionGameModes($Server::MissionFile);
+		%modes = resolveMissionGameModes($Server::MissionFile, "");
 		%modes = addWord(%modes, "2d");
 		MissionInfo.gameMode = %modes;
 		setGameModes(%modes);

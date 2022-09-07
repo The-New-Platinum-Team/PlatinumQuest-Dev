@@ -369,7 +369,7 @@ function getSearchMissionInfo(%info, %game, %type) {
 	if (%info.searchName $= "")         %info.searchName         = strlwr(%info.name);
 	if (%info.searchArtist $= "")       %info.searchArtist       = strlwr(%info.artist);
 	if (%info.searchFile $= "")         %info.searchFile         = strlwr(%missionFile);
-	if (%info.searchGameModes $= "")    %info.searchGameModes    = strlwr(resolveMissionGameModes(%info.gameMode));
+	if (%info.searchGameModes $= "")    %info.searchGameModes    = strlwr(resolveMissionGameModes(%info, %info.gameMode));
 	if (%info.searchGameType $= "")     %info.searchGameType     = (strpos(%missionFile, "multiplayer/") != -1) ? "multiplayer" : "singleplayer";
 	if (%info.searchModification $= "") %info.searchModification = strlwr(resolveMissionModification(%info));
 	if (%info.searchDifficulty $= "")   %info.searchDifficulty   = "unknown";

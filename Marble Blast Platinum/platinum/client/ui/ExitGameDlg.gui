@@ -415,7 +415,7 @@ new GuiControl(ExitGameDlg) {
 				command = "ExitGameDlg.close(); ExitGameDlg.end();";
 				accelerator = "return";
 				helpTag = "0";
-				text = "           Exit Level";
+				text = "           Exit";
 				groupNum = "-1";
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
@@ -859,7 +859,7 @@ function ExitGameDlg::onWake(%this) {
 	%text = %text NL "";
 
 	//Game modes display
-	%modes = resolveMissionGameModes(%info.gameMode);
+	%modes = resolveMissionGameModes(%info, %info.gameMode);
 	%modes = formatGameModes(%modes);
 	for (%i = 0; %i < getWordCount(%modes); %i ++) {
 		%mode = getWord(%modes, %i);

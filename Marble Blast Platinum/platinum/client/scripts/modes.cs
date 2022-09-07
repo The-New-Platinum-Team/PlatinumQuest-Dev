@@ -298,7 +298,7 @@ function ClientMode::callbackModeList(%modes, %callback, %default, %object) {
 }
 
 function ClientMode::callbackForMission(%mission, %callback, %default, %object) {
-	%modes = resolveMissionGameModes(%mission.gameMode);
+	%modes = resolveMissionGameModes(%mission, %mission.gameMode);
 	return ClientMode::callbackModeList(%modes, %callback, %default, %object);
 }
 

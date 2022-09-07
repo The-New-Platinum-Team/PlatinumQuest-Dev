@@ -528,7 +528,7 @@ function Unlock::updateCaches(%firstLoad) {
 				$Unlock::GameMissionTotal[%game] ++;
 				$Unlock::DifficultyMissionTotal[%game, %difficulty] ++;
 
-				%modes = resolveMissionGameModes(%info.gameMode);
+				%modes = resolveMissionGameModes(%info, %info.gameMode);
 				%count = getWordCount(%modes);
 				for (%mi = 0; %mi < %count; %mi ++) {
 					%mode = getWord(%modes, %mi);

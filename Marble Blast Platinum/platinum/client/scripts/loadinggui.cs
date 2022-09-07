@@ -223,7 +223,7 @@ function LoadingGui::onWake(%this) {
 		%text = %text NL "";
 
 		//Game modes display
-		%modes = resolveMissionGameModes(%info.gameMode);
+		%modes = resolveMissionGameModes(%info, %info.gameMode);
 		%modes = formatGameModes(%modes);
 		for (%i = 0; %i < getWordCount(%modes); %i ++) {
 			%mode = getWord(%modes, %i);

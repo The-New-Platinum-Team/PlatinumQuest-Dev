@@ -151,7 +151,7 @@ function statsGetMissionIdentifier(%mission) {
 		%missionData =  "missionFile="     @ URLEncode(%mission.file) @
 		               "&missionName="     @ URLEncode(%mission.name) @
 		               "&missionHash="     @ URLEncode(getMissionHash(%mission)) @
-		               "&missionGamemode=" @ URLEncode(resolveMissionGameModes(%mission)) @
+		               "&missionGamemode=" @ URLEncode(resolveMissionGameModes(%mission, "")) @
 		               "&difficultyId="    @ URLEncode(%mission.difficultyId) ;
 	} else {
 		return "missionId=" @ %mission.id;
@@ -1056,7 +1056,7 @@ function statsRecordMatch(%mission) {
 	//Grab variables for query
 	%players = getPlayingPlayerCount();
 	%port    = $pref::Server::Port;
-	%modes   = URLEncode(resolveMissionGameModes(MissionInfo.gameMode));
+	%modes   = URLEncode(resolveMissionGameModes(MissionInfo, MissionInfo.gameMode));
 	%total   = Mode::callback("getStartTime", 0);
 	%type    = Mode::callback("getScoreType", $ScoreType::Time);
 	%bonus   = $Time::TotalBonus;
