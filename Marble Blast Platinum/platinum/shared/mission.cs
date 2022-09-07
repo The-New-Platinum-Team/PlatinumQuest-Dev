@@ -470,8 +470,6 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 		%modes = addWord(%modes, $Event::Modes);
 	}
 
-	echo(%mission, %mission.file);
-
 	%isChallenge = strPos(%info.file, "challenge") != -1;
 
 	if (%isChallenge && strPos(%modes, "challenge") == -1) {

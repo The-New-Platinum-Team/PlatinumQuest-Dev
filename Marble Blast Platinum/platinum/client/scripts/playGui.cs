@@ -283,8 +283,9 @@ function quotaCompleteParty() { // code half taken from \platinum\client\ui\Main
 }
 
 function PlayGui::setMaxGems(%this,%count) {
+	%prevMax = %this.maxGems;
 	%this.maxGems = %count;
-	%this.updateGems();
+	%this.updateGems(%prevMax == %this.maxGems);
 }
 
 function PlayGui::setGemCount(%this,%count,%green) {
