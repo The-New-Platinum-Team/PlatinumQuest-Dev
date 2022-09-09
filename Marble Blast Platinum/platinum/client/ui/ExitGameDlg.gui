@@ -942,7 +942,7 @@ function ExitGameDlg::showExtras(%this) {
 	ExitGameExtraButtons.setVisible(1);
 	ExitGameMainButtons.setVisible(0);
 	if (ControllerGui.isJoystick()) {
-		%first = ExitGameExtras.getObject(0).getName();
+		%first = ExitGameExtraButtons.getObject(0).getName();
 		ControllerGui.selectControl(%first);
 	}
 }
@@ -950,6 +950,10 @@ function ExitGameDlg::showExtras(%this) {
 function ExitGameDlg::hideExtras(%this) {
 	ExitGameExtraButtons.setVisible(0);
 	ExitGameMainButtons.setVisible(1);
+	if (ControllerGui.isJoystick()) {
+		%first = ExitGameMainButtons.getObject(0).getName();
+		ControllerGui.selectControl(%first);
+	}
 }
 
 function ExitGameDlg::toggleExtras(%this) {

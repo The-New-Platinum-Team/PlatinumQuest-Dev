@@ -69,63 +69,6 @@ new GuiControl(MainMenuGui) {
 		bitmap = "./menu/bgcircle-small.png";
 		wrap = "0";
 	};
-	new GuiBitmapButtonTextCtrl(MenuOnlineButton) {
-		profile = "MenuButtonProfile";
-		horizSizing = "right";
-		vertSizing = "bottom";
-		position = "75 268";
-		extent = "500 84";
-		minExtent = "8 8";
-		visible = "1";
-		command = "initLeaderboards();";
-		helpTag = "0";
-		text = "           Online";
-		groupNum = "-1";
-		buttonType = "PushButton";
-		repeatPeriod = "1000";
-		repeatDecay = "1";
-		bitmap = "./menu/menu";
-			controlUp = "MenuPlayButton";
-			controlDown = "MenuOptionsButton";
-	};
-	new GuiBitmapButtonTextCtrl(MenuQuitButton) {
-		profile = "MenuButtonProfile";
-		horizSizing = "right";
-		vertSizing = "bottom";
-		position = "75 538";
-		extent = "500 85";
-		minExtent = "8 8";
-		visible = "1";
-		command = "quit();";
-		accelerator = "escape";
-		helpTag = "0";
-		text = "           Quit";
-		groupNum = "-1";
-		buttonType = "PushButton";
-		repeatPeriod = "1000";
-		repeatDecay = "1";
-		bitmap = "./menu/menu";
-			controlUp = "MenuReplaysButton";
-	};
-	new GuiBitmapButtonTextCtrl(MenuPlayButton) {
-		profile = "MenuButtonProfile";
-		horizSizing = "right";
-		vertSizing = "bottom";
-		position = "75 178";
-		extent = "500 84";
-		minExtent = "8 8";
-		visible = "1";
-		command = "MainMenuGui.play();";
-		accelerator = "enter";
-		helpTag = "0";
-		text = "           Play";
-		groupNum = "-1";
-		buttonType = "PushButton";
-		repeatPeriod = "1000";
-		repeatDecay = "1";
-		bitmap = "./menu/menu";
-			controlDown = "MenuOnlineButton";
-	};
 	new GuiBitmapCtrl(MenuTitle) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "right";
@@ -166,43 +109,252 @@ new GuiControl(MainMenuGui) {
 		maxChars = "-1";
 			noInvert = "1";
 	};
-	new GuiBitmapButtonTextCtrl(MenuOptionsButton) {
-		profile = "MenuButtonProfile";
-		horizSizing = "right";
-		vertSizing = "bottom";
-		position = "75 358";
-		extent = "500 84";
+	new GuiControl(MenuMainButtons) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "800 600";
 		minExtent = "8 8";
 		visible = "1";
-		command = "OptionsGui.show(\"menu\");";
 		helpTag = "0";
-		text = "           Options";
-		groupNum = "-1";
-		buttonType = "PushButton";
-		repeatPeriod = "1000";
-		repeatDecay = "1";
-		bitmap = "./menu/menu";
-			controlUp = "MenuOnlineButton";
-			controlDown = "MenuReplaysButton";
+			_guiSize = "800 600";
+			defaultControl = "MenuPlayButton";
+			tile = "0";
+			useVariable = "0";
+
+		new GuiBitmapButtonTextCtrl(MenuCommunityButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 268";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MainMenuGui.toggleExtras();";
+			helpTag = "0";
+			text = "           Community";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuPlayButton";
+				controlDown = "MenuOptionsButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuQuitButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 538";
+			extent = "500 85";
+			minExtent = "8 8";
+			visible = "1";
+			command = "quit();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "           Quit";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuReplaysButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuPlayButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 178";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MainMenuGui.play();";
+			accelerator = "enter";
+			helpTag = "0";
+			text = "           Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlDown = "MenuCommunityButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuOptionsButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 358";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OptionsGui.show(\"menu\");";
+			helpTag = "0";
+			text = "           Options";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuOnlineButton";
+				controlDown = "MenuReplaysButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuReplaysButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 448";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "PlayDemoGui.open(0);";
+			helpTag = "0";
+			text = "           Replays";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuOptionsButton";
+				controlDown = "MenuQuitButton";
+		};
 	};
-	new GuiBitmapButtonTextCtrl(MenuReplaysButton) {
-		profile = "MenuButtonProfile";
-		horizSizing = "right";
-		vertSizing = "bottom";
-		position = "75 448";
-		extent = "500 84";
+	new GuiControl(MenuCommunityButtons) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "800 600";
 		minExtent = "8 8";
-		visible = "1";
-		command = "PlayDemoGui.open(0);";
+		visible = "0";
 		helpTag = "0";
-		text = "           Replays";
-		groupNum = "-1";
-		buttonType = "PushButton";
-		repeatPeriod = "1000";
-		repeatDecay = "1";
-		bitmap = "./menu/menu";
-			controlUp = "MenuOptionsButton";
-			controlDown = "MenuQuitButton";
+			_guiSize = "800 600";
+			defaultControl = "MenuOnlineButton";
+			tile = "0";
+			useVariable = "0";
+
+		new GuiBitmapCtrl(MenuCommunityBg) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 178";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./menu/menu_n";
+			wrap = "0";
+		};
+		new GuiMLTextCtrl(MenuCommunityText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 190";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<font:HelveticaNeueLTStd-BdCnO:60><just:center>Community";
+				unformattedText = "<font:HelveticaNeueLTStd-BdCnO:60><just:center>Community";
+		};
+		new GuiBitmapButtonTextCtrl(MenuOnlineButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 288";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "initLeaderboards();";
+			helpTag = "0";
+			text = "           Online";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlDown = "MenuMarblelandButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuMarblelandButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 378";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "	PlayMissionGui.open(true);";
+			accelerator = "enter";
+			helpTag = "0";
+			text = "           Custom Levels";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuOnlineButton";
+				controlDown = "MenuForumsButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuForumsButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 468";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MenuOpenUrl(\"https://marbleblast.com\");";
+			helpTag = "0";
+			text = "           Forums";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuMarblelandButton";
+				controlDown = "MenuDiscordButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuDiscordButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 558";
+			extent = "500 85";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MenuOpenUrl(\"https://discord.gg/UEkTDwg\");";
+			helpTag = "0";
+			text = "           Discord";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuForumsButton";
+				controlDown = "MenuBackButton";
+		};
+		new GuiBitmapButtonTextCtrl(MenuBackButton) {
+			profile = "MenuButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "75 648";
+			extent = "500 84";
+			minExtent = "8 8";
+			visible = "1";
+			accelerator = "escape";
+			command = "MainMenuGui.toggleExtras();";
+			helpTag = "0";
+			text = "           Back";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./menu/menu";
+				controlUp = "MenuDiscordButton";
+		};
 	};
 	new GuiTextEditCtrl(MenuPartyEdit) {
 		profile = "GuiTextEditProfile";
@@ -340,6 +492,8 @@ new GuiControl(MainMenuGui) {
 function MainMenuGui::onWake(%this) {
 	%this.schedule(10, fixSizing);
 
+	%this.hideExtras();
+
 	if (!$pref::noVersionCheck && !$madeVersionCheck) {
 		statsGetServerVersion();
 		$madeVersionCheck = true;
@@ -432,6 +586,34 @@ function MainMenuGui::play(%this) {
 	} else {
 		justPlayAlready();
 	}
+}
+
+function MainMenuGui::showExtras(%this) {
+	MenuCommunityButtons.setVisible(1);
+	MenuMainButtons.setVisible(0);
+	if (ControllerGui.isJoystick()) {
+		%first = ExitGameExtras.getObject(0).getName();
+		ControllerGui.selectControl(%first);
+	}
+}
+
+function MainMenuGui::hideExtras(%this) {
+	MenuCommunityButtons.setVisible(0);
+	MenuMainButtons.setVisible(1);
+}
+
+function MainMenuGui::toggleExtras(%this) {
+	if (MenuCommunityButtons.isVisible())
+		%this.hideExtras();
+	else
+		%this.showExtras();
+}
+
+function MenuOpenURL(%url) {
+	%pre = %url;
+	if (strPos(%url, "://") == -1)
+		%url = "http://" @ %url;
+	MessageBoxYesNo("Go to Web Page?", "Do you want to go to the web page \"" @ %pre @ "\"?", "gotoWebPage(\"" @ %url @ "\");", "");
 }
 
 function justPlayAlready() {
