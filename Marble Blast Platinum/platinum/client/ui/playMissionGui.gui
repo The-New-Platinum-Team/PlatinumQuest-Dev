@@ -1116,7 +1116,19 @@ new GuiControl(PlayMissionGui) {
 //-----------------------------------------------------------------------------
 // UI lifecycle
 
-function PlayMissionGui::open(%this) {
+function PlayMissionGui::open(%this, %marbleland) {
+	if (%marbleland) {
+		if (!$marbleland) {
+			$marbleland = 1;
+			PlayMissionGui.init();
+		}
+	} else {
+		if ($marbleland) {
+			$marbleland = 0;
+			PlayMissionGui.init();
+		}
+	}
+
 	RootGui.setContent(%this);
 }
 
