@@ -1181,6 +1181,9 @@ function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 
 function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 	%list = %this.getMissionList(%game, %difficulty);
+	if (isObject(%list)) {
+		%list.delete();
+	}
 	Array(%list);
 
 	%sort = MissionSortSearchName;
