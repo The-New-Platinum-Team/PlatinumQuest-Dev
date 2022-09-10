@@ -1030,12 +1030,77 @@ function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
 datablock TriggerData(SoundTrigger) {
 	tickPeriodMS = 100;
     customField[0, "field"  ] = "sfx";
-    customField[0, "type"   ] = "string";
+    customField[0, "type"   ] = "enum";
     customField[0, "name"   ] = "AudioProfile Name";
     customField[0, "desc"   ] = "What AudioProfile(sound) to play when you enter the trigger.";
+	customEnum["sfx", 0, "value"] = "DoSuperJumpSfx";            //There's gotta be a better way to just get all of the sounds in here without doing *this*. ~ Connie
+	customEnum["sfx", 0, "name" ] = "DoSuperJumpSfx";
+	customEnum["sfx", 1, "value"] = "DoSuperSpeedSfx";
+	customEnum["sfx", 1, "name" ] = "DoSuperSpeedSfx";
+	customEnum["sfx", 2, "value"] = "GotAwesomeSfx";
+	customEnum["sfx", 2, "name" ] = "GotAwesomeSfx";
+	customEnum["sfx", 3, "value" ] = "TrapDoorOpenSfx";
+	customEnum["sfx", 3, "name" ] = "TrapDoorOpenSfx";
+	customEnum["sfx", 4, "value" ] = "ExplodeSfx";
+	customEnum["sfx", 4, "name" ] = "ExplodeSfx";
+	customEnum["sfx", 5, "value" ] = "IceShardFreezeSfx";
+	customEnum["sfx", 5, "name" ] = "IceShardFreezeSfx";
+	customEnum["sfx", 6, "value" ] = "IceShardCrackSfx";
+	customEnum["sfx", 6, "name" ] = "IceShardCrackSfx";
+	customEnum["sfx", 7, "value" ] = "quietLightningSfx";
+	customEnum["sfx", 7, "name" ] = "quietLightningSfx";
+	customEnum["sfx", 8, "value" ] = "lightningSfx";
+	customEnum["sfx", 8, "name" ] = "lightningSfx";
+	customEnum["sfx", 9, "value" ] = "blastSfx";
+	customEnum["sfx", 9, "name" ] = "blastSfx";
+	customEnum["sfx", 10, "value" ] = "CannonExplodeSfx";
+	customEnum["sfx", 10, "name" ] = "CannonExplodeSfx";
+	customEnum["sfx", 11, "value" ] = "CannonExplodeForceSfx";
+	customEnum["sfx", 11, "name" ] = "CannonExplodeForceSfx";
+	customField[1, "field"  ] = "TriggerOnce";
+	customField[1, "type"   ] = "boolean";
+	customField[1, "name"   ] = "Only Trigger Once";
+	customField[1, "desc"   ] = "If the trigger only activates one time.";
+	customField[1, "default"] = "1";
 };
+
 function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
-	serverplay2d(%trigger.sfx);
+
+    switch (%trigger.triggeronce) {
+		case 1:
+
+            switch (%trigger._hasBeenInOnce[%marble]) {
+				case true:
+				    return;
+				case false:
+				    serverplay2d(%trigger.sfx);
+
+                    if (%trigger.sfx == GotAwesomeSfx) {
+						alxplay(%trigger.sfx);
+					}
+
+		            %trigger._hasBeenInOnce[%marble] = true;
+			}
+
+		case 0:
+		    serverplay2d(%trigger.sfx);
+
+		    if (%trigger.sfx == GotAwesomeSfx) {
+				alxplay(%trigger.sfx);
+			}
+	}
+}
+
+function SoundTrigger::onAdd(%this,%trigger,%obj) {
+	if (%obj.triggerOnce $= "") {
+		%obj.triggerOnce = "0";
+	}
+
+	%trigger._hasBeenInOnce[%marble] = false;
+}
+
+function SoundTrigger::onMissionReset(%this, %trigger, %obj) {
+    %trigger._hasBeenInOnce[%marble] = false;
 }
 
 //-----------------------------------------------------------------------------
