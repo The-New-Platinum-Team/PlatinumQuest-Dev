@@ -1064,6 +1064,7 @@ datablock TriggerData(SoundTrigger) {
 	customField[1, "default"] = "1";
 };
 
+// Not multiplayer compatible
 function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
     switch (%trigger.triggeronce) {
@@ -1079,7 +1080,7 @@ function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
 						alxplay(%trigger.sfx);
 					}
 
-		            %trigger._hasBeenInOnce[%marble] = true;
+		            %trigger._hasBeenInOnce = true;
 			}
 
 		case 0:
@@ -1096,11 +1097,11 @@ function SoundTrigger::onAdd(%this,%trigger,%obj) {
 		%obj.triggerOnce = "0";
 	}
 
-	%trigger._hasBeenInOnce[%marble] = false;
+	%trigger._hasBeenInOnce = false;
 }
 
 function SoundTrigger::onMissionReset(%this, %trigger, %obj) {
-    %trigger._hasBeenInOnce[%marble] = false;
+    %trigger._hasBeenInOnce = false;
 }
 
 //-----------------------------------------------------------------------------
