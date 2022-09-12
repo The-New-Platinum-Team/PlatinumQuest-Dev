@@ -1118,14 +1118,14 @@ new GuiControl(PlayMissionGui) {
 
 function PlayMissionGui::open(%this, %marbleland) {
 	if (%marbleland) {
-		if (!$marbleland) {
-			$marbleland = 1;
-			PlayMissionGui.init();
+		if (!%this.marbleland) {
+			%this.marbleland = 1;
+			%this.init();
 		}
 	} else {
-		if ($marbleland) {
-			$marbleland = 0;
-			PlayMissionGui.init();
+		if (%this.marbleland) {
+			%this.marbleland = 0;
+			%this.init();
 		}
 	}
 
@@ -1160,7 +1160,7 @@ function PlayMissionGui::init(%this) {
 		%type = ($LBPref::MissionType $= "" ? %defaultType : $LBPref::MissionType);
 		%level = ($LBPref::SelectedMissionIndex $= "" ? 0 : $LBPref::SelectedMissionIndex);
 	} else {
-		if ($marbleland) {
+		if (%this.marbleland) {
 			%this.ml = getMissionList("marbleland");
 		} else {
 			%this.ml = getMissionList("offline");
@@ -1363,12 +1363,12 @@ function PlayMissionGui::initInterface(%this) {
 		%this.buildButtonBar("BottomLB");
 		%this.buildButtonBar("ExtraLB");
 	} else {
-		if ($marbleland && $CurrentGame $= "Packs") {
+		if (%this.marbleland && $CurrentGame $= "Packs") {
 			%this.buildButtonBar("BottomPacks");
 		} else {
 			%this.buildButtonBar("Bottom");
 		}
-		if ($marbleland) {
+		if (%this.marbleland) {
 			%this.buildButtonBar("ExtraMarbleland");
 		} else {
 			%this.buildButtonBar("Extra");
@@ -1705,7 +1705,7 @@ function PlayMissionGui::setMissionType(%this, %type) {
 
 	%this.missionList = %this.getMissionList($CurrentGame, %type);
 
-	if ($marbleland) {
+	if (%this.marbleland) {
 		if ($CurrentGame $= "Packs") {
 			%this.buildButtonBar("BottomPacks");
 		} else {
@@ -1782,7 +1782,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 		commandToServer('SetMission', %info.file, $CurrentGame, $MissionType, %this.ml.getGameMode($CurrentGame));
 	}
 
-	if ($marbleland) {
+	if (%this.marbleland) {
 		if (marblelandHasMission(%info.id)) {
 			%this.setBarButtonActive(PM_MissionDelete, true);
 		} else {
