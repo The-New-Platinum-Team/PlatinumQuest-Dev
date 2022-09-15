@@ -28,6 +28,9 @@
 
 //Helper function to check if we can play a mission. Called from PlayMissionGui
 function Unlock::canPlayMission(%mission) {
+	if (marblelandUsesCustomCode(%mission) && lb())
+		return false;
+
 	%unlockFunc = %mission.unlockFunc;
 	if (%unlockFunc $= "")
 		return true;

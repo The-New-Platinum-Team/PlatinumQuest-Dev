@@ -151,7 +151,7 @@ new GuiControl(LBChatGui) {
 				profile = "PQButtonProfile";
 				horizSizing = "right";
 				vertSizing = "bottom";
-				position = "257 0";
+				position = "370 0";
 				extent = "148 45";
 				minExtent = "8 8";
 				visible = "1";
@@ -181,13 +181,31 @@ new GuiControl(LBChatGui) {
 				repeatPeriod = "1000";
 				repeatDecay = "1";
 					controlLeft = "LBChatSinglePlayer";
+					controlRight = "LBChatMarbleland";
+			};
+			new GuiBorderButtonCtrl(LBChatMarbleland) {
+				profile = "PQButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "257 0";
+				extent = "118 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "PlayMissionGui.open(true);";
+				helpTag = "0";
+				text = "Customs";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+					controlLeft = "LBChatMultiplayer";
 					controlRight = "LBChatLeaderboards";
 			};
 			new GuiBorderButtonCtrl(LBChatChallenges) {
 				profile = "PQButtonProfile";
 				horizSizing = "right";
 				vertSizing = "bottom";
-				position = "400 0";
+				position = "512 0";
 				extent = "131 45";
 				minExtent = "8 8";
 				visible = "1";
@@ -205,7 +223,7 @@ new GuiControl(LBChatGui) {
 				profile = "GuiMLTextProfile";
 				horizSizing = "right";
 				vertSizing = "bottom";
-				position = "533 9";
+				position = "643 9";
 				extent = "538 27";
 				minExtent = "8 8";
 				visible = "1";
@@ -445,7 +463,10 @@ function LBChatGui::onWake(%this) {
 	LBChatContainer.schedule(1000, scrollToBottom);
 
 	LBServerDescText.setText("<color:FFFFFF><bold:22><shadow:1:1><shadowcolor:0000007f>Leaderboards Server v8 @ " @ $LB::Server @ " - Running " @ $THIS_VERSION_NAME @ " / " @ $THIS_VERSION_SUB);
-	LBChallengeDesc.setText("<font:24>" @ $CurrentWeeklyChallenge.description SPC "Challenge: Ending in" SPC PlayMissionGui.ml.lookupGame["challenge"].duration);
+	
+	if (getWord($pref::Video::resolution, 0) >= 1280) {
+		LBChallengeDesc.setText("<font:24>" @ $CurrentWeeklyChallenge.description SPC "Challenge: Ending in" SPC PlayMissionGui.ml.lookupGame["challenge"].duration);
+	}
 
 	LBSendChat.setTickable(true);
 

@@ -1148,7 +1148,7 @@ function PlayMissionGui::init(%this) {
 		%game = ($MPPref::CurrentGame $= "" ? %defaultGame : $MPPref::CurrentGame);
 		%type = ($MPPref::MissionType $= "" ? %defaultType : $MPPref::MissionType);
 		%level = ($MPPref::SelectedMissionIndex $= "" ? 0 : $MPPref::SelectedMissionIndex);
-	} else if (lb()) {
+	} else if (lb() && !%this.marbleland) {
 		%this.ml = getMissionList("lb");
 
 		//Default mission list
@@ -1320,7 +1320,7 @@ function PlayMissionGui::onWake(%this) {
 	%this.initInterface();
 
 	//Reload scores if we're opening this after a level (or for the first time)
-	if (lb()) {
+	if (lb() && !%this.marbleland) {
 		LBUpdateChat();
 		%this.loadOnlineScores();
 		devecho("Scores1");
@@ -1754,7 +1754,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 		$MPPref::SelectedMissionIndex = %idx;
 		$MPPref::MissionType = $MissionType;
 		$MPPref::CurrentGame = $CurrentGame;
-	} else if (lb()) {
+	} else if (lb() && !%this.marbleland) {
 		$LBPref::SelectedMissionIndex = %idx;
 		$LBPref::MissionType = $MissionType;
 		$LBPref::CurrentGame = $CurrentGame;
@@ -1765,7 +1765,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 	}
 
 	//Update ids if we're online
-	if (lb()) {
+	if (lb()&& !%this.marbleland) {
 		//Do this after a delay so we don't load scores if people click too quickly)
 		cancel(%this.scoreSch);
 		%this.scoreSch = %this.schedule(500, loadOnlineScores);
@@ -2142,7 +2142,7 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 		else                                    %frameImage = "./play/frame_unlocked";
 
 		//Check if we have WR for the WR frame
-		if (lb()) {
+		if (lb() && !%this.marbleland) {
 			%recordcache = %this.personalScoreListCache.record;
 			if ($CurrentGame $= "challenge") {
 				%recordcache = %this.personalScoreListCache.challengerecord;
@@ -2903,7 +2903,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 	PM_ScoreModeButtons.setVisible(lb() && %this.showGlobalScores);
 	PM_ScoreReplayWatch.setText("");
-	if (lb()) {
+	if (lb() && !%this.marbleland) {
 		//Align mode button panel to bottom
 		PM_ScoreModeButtons.resize(0, getWord(PM_MissionInfoPanel.getExtent(), 1) - %modeButtonsHeight, getWord(PM_MissionInfoPanel.getExtent(), 0), %modeButtonsHeight);
 
