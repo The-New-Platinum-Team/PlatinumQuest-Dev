@@ -28,8 +28,10 @@
 
 //Helper function to check if we can play a mission. Called from PlayMissionGui
 function Unlock::canPlayMission(%mission) {
-	if (marblelandUsesCustomCode(%mission) && lb())
+	if (marblelandUsesCustomCode(%mission) && lb()) {
+		%mission.requirements = "Play the level Offline as it uses custom code.";
 		return false;
+	}
 
 	%unlockFunc = %mission.unlockFunc;
 	if (%unlockFunc $= "")
