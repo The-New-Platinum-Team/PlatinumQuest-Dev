@@ -1239,6 +1239,9 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 			easterEgg = %mis.hasEasterEgg;
 			id = %mis.id;
 
+			hasCustomCode = marblelandUsesCustomCode(%mis);
+			requirements = (marblelandUsesCustomCode(%mis) ? "Play the level Offline as it uses custom code.": "");
+
 			file = %mis.file;
 			searchName = %mis.searchName;
 			addedAt = %mis.addedAt;

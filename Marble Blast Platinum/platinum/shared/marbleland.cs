@@ -266,6 +266,22 @@ function marblelandMissionNeedsUpdate(%id) {
 	return $pref::MarblelandMission[%id] < $MarblelandMissionList.lookup[%id].editedAt;
 }
 
+function marblelandUsesCustomCode(%mission) {
+
+	if (%mission.file !$= "") {
+		if (marblelandIsMission(%mission.file)) {
+			%missionId = marblelandGetFileId(%mission.file);
+		}
+	} else {
+		%missionId = %mission.id;
+	}
+	if (marblelandGetMission(%missionId) !$= "") {
+		return $MarblelandMissionList.lookup[%missionId].hasCustomCode;
+	} else {
+		return false;
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 Array(MarblelandLoadedPackages);

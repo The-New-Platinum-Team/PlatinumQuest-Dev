@@ -1027,6 +1027,8 @@ function statsGetReplay(%mission, %type) {
 }
 
 function statsGetReplayLine(%line) {
+	fwrite("platinum/json/getReplay.json", %line);
+
 	%parsed = jsonParse(%line);
 
 	if (%parsed.error $= "") {
