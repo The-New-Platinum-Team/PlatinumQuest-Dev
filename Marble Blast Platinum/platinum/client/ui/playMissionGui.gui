@@ -2818,7 +2818,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			if ($CurrentGame $= "challenge") {
 				%recordcache = %this.personalScoreListCache.challengerecord;
 			}
-			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache)
+			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache) && !%this.marbleland
 				&& %recordcache.containsEntry(%info.id)) {
 				%placement = 1;
 			}
@@ -2901,7 +2901,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	PM_InfoBox.setPosition(%x SPC %y);
 	PM_InfoBox.setExtent(%width SPC %height);
 
-	PM_ScoreModeButtons.setVisible(lb() && %this.showGlobalScores);
+	PM_ScoreModeButtons.setVisible(lb() && %this.showGlobalScores && !%this.marbleland);
 	PM_ScoreReplayWatch.setText("");
 	if (lb() && !%this.marbleland) {
 		//Align mode button panel to bottom
