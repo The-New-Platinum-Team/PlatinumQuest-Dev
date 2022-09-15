@@ -97,7 +97,9 @@ function getBestTimes(%info) {
 	}
 	%default = ClientMode::callbackForMission(%info, "getDefaultScore", $ScoreType::Time TAB 5999999 TAB "Matan W.");
 
-	if (lb()) {
+	%isMarbleland = marblelandIsMission(%file);
+
+	if (lb() && !%isMarbleland) {
 		if (%info.id $= "") {
 			%info = getMissionInfo(%info.file, true);
 		}
@@ -291,6 +293,8 @@ function recordScore() {
 		$Client::MissionFile = strReplace($Client::MissionFile, "platinum/data", "challenge/data");
 	}
 
+	%isMarbleland = marblelandIsMission($Client::MissionFile);
+
 	getBestTimes(getMissionInfo($Client::MissionFile));
 
 	%score = $Game::FinalScore;
@@ -340,7 +344,7 @@ function recordScore() {
 		}
 	}
 
-	if (lb()) {
+	if (lb() && !%isMarbleland) {
 		// Set rating to "Submitting..."
 		if ($Game::isMode["challenge"]) {
 			$LB::RatingPending = false;
@@ -396,8 +400,12 @@ function recordScore() {
 			$LB::RatingPending = true;
 
 			%marblelandScoreName = "Unnamed Player";
-			if ($LB::Username !$= "")
-				%marblelandScoreName = $LB::Username;
+			if ($LB::Username !$= "") {
+				if ($LB::DisplayName !$= "")
+					%marblelandScoreName = $LB::DisplayName;
+				else
+					%marblelandScoreName = $LB::Username;
+			}
 			else if ($pref::highScoreName !$= "")
 				%marblelandScoreName = $pref::highScoreName;
 
@@ -423,7 +431,8 @@ function clientCmdGameEnd() {
 		return;
 	}
 
-	recordScore();
+	if (!$playingDemo)
+		recordScore();
 
 	if (isObject($Menu::Queue)) {
 		menuEndQueueMission();
@@ -650,8 +659,11 @@ function reformatGameEndText() {
 	%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Score" : "Time");
 
 	//Get the world record
-	%record = false;
-	if (lb()) {
+	%record = false; 
+
+	%isMarbleland = marblelandIsMission($Client::MissionFile);
+
+	if (lb() && !%isMarbleland) {
 		%cache = PlayMissionGui.globalScoreCache[PlayMissionGui.getMissionInfo().id];
 		if ($Game::isMode["challenge"])
 			%cache = PlayMissionGui.globalChallengeScoreCache[PlayMissionGui.getMissionInfo().id];
@@ -749,8 +761,10 @@ function reformatGameEndText() {
 	// Display the score info
 	EG_Description.setText(%text);
 
+	%isMarbleland = marblelandIsMission($Client::MissionFile);
+
 	// you can't be a guest to get rating.
-	if (lb() && !$LB::Guest) {
+	if (lb() && !$LB::Guest && !%isMarbleland) {
 		%text = "<color:000000><font:26><shadowcolor:7777777F><shadow:1:1>";
 		%rating = formatRating($LB::Rating);
 		if ($LB::RatingDelta > 0) {

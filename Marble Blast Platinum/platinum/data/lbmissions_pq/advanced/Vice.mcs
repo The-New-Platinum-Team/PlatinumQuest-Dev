@@ -5740,7 +5740,7 @@ package ViceEndNext {
 			deactivatePackage(ViceEndNext);
 			return;
 		}
-		if ($pref::highscores[$Server::MissionFile, 0] $= "") {
+		if (!$playingDemo && $pref::highscores[$Server::MissionFile, 0] $= "") {
 			if ($VVNextOldCommand $= "") {
 				$VVNextOldCommand = EG_Next.command;
 				EG_Next.command = "Canvas.popDialog(EndGameDlg); vv_next();";
@@ -5759,7 +5759,7 @@ package ViceEndNext {
 			return;
 		}
 
-		if ($pref::highscores[$Server::MissionFile, 0] $= "") {
+		if (!$playingDemo && $pref::highscores[$Server::MissionFile, 0] $= "") {
 			vv_saveState($usermods @ "/data/state/vvFirstRun.txt");
 		} else {
 			if (!$playingDemo)
