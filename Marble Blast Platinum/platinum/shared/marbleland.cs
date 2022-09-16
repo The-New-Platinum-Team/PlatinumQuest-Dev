@@ -360,13 +360,13 @@ function marblelandRefreshMissionList() {
 // RandomityGuy's weird fake LBs
 
 /// Submit a score time to the marbleland leaderboards
-/// @param mission Bro idk some bullshit like file path
+/// @param mission file path
 /// @param user Username of player
 /// @param score Score value
 /// @param scoreType Score type
 function marblelandSubmit(%mission, %user, %score, %scoreType) {
 	new HTTPObject(MarblelandSubmitter);
-	MarblelandSubmitter.post("https://pqmarblelandlbs.vani.ga","/score", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
+	MarblelandSubmitter.post("https://marbleblast.com","/pq/leader/api/Score/RecordMarblelandScore.php", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
 }
 
 function MarblelandSubmitter::onLine(%this, %line) {
@@ -378,7 +378,7 @@ function MarblelandSubmitter::onDisconnect(%this) {
 }
 
 /// Get a marbleland mission's leaderboards
-/// @param mission Bro idk some bullshit like file path
+/// @param mission file path
 /// @param callback void(%mission, %scoreData) Callback to call upon completion
 function marblelandGetScores(%mission, %callback) {
 	if (isObject(MarblelandRetriever))
@@ -387,12 +387,13 @@ function marblelandGetScores(%mission, %callback) {
 	MarblelandRetriever.success = 0;
 	MarblelandRetriever.mission = %mission;
 	MarblelandRetriever.callback = %callback;
-	MarblelandRetriever.get("https://pqmarblelandlbs.vani.ga", "/score", "mission=" @ URLEncode(%mission));
+	MarblelandRetriever.get("https://marbleblast.com", "/pq/leader/api/Score/GetMarblelandScores.php", "mission=" @ URLEncode(%mission));
 }
 
 function MarblelandRetriever::onLine(%this, %line) {
 	if (%this.cancelled)
 		return;
+	%line = restWords(restWords(%line));
 	fwrite("platinum/json/marblelandScores.json", %line);
 	%scoreData = jsonParse(%line);
 	if (%this.callback !$= "") {
