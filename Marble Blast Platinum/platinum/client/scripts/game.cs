@@ -414,6 +414,10 @@ function recordScore() {
 }
 
 function clientCmdGameEnd() {
+	if ($Client::PlayingDemo) {
+		return;
+	}
+
 	if ($Record::Recording) {
 		//Give 3 sec at the end screen before we finish the rec
 		cancel($recordFinish);
@@ -430,8 +434,7 @@ function clientCmdGameEnd() {
 		return;
 	}
 
-	if (!$playingDemo)
-		recordScore();
+	recordScore();
 
 	if (isObject($Menu::Queue)) {
 		menuEndQueueMission();
