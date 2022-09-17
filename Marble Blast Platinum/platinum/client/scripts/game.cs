@@ -351,65 +351,64 @@ function recordScore() {
 			statsRecordChallengeScore(PlayMissionGui.getMissionInfo());
 		} else {
 			$LB::RatingPending = true;
-
 			statsRecordScore(PlayMissionGui.getMissionInfo());
+		}
+	}
 
-			if ($highScoreIndex !$= "") {
-				//Hack: update the top score as quick as we can
-				%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
-				if ($Game::isMode["challenge"]) {
-					%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id, "challenge"].scores;
+	// Marbleland mission LB
+	if (!$Cheats::Activated && !$Editor::Opened && %isMarbleland) {
+		// Set rating to "Submitting..."
+		$LB::RatingPending = true;
+
+		%marblelandScoreName = "Unnamed Player";
+		if ($LB::Username !$= "") {
+			if ($LB::DisplayName !$= "")
+				%marblelandScoreName = $LB::DisplayName;
+			else
+				%marblelandScoreName = $LB::Username;
+		}
+		else if ($pref::highScoreName !$= "")
+			%marblelandScoreName = $pref::highScoreName;
+
+		MarblelandSubmit($Server::MissionFile, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
+	}
+
+	if (lb()) {
+		if ($highScoreIndex !$= "") {
+			//Hack: update the top score as quick as we can
+			%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
+			if ($Game::isMode["challenge"]) {
+				%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id, "challenge"].scores;
+			}
+			if (%scores.getSize() == 0) {
+				JSONGroup.add(%dummy = new ScriptObject() {
+					score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
+					score = getField(%score, 1);
+				});
+				%scores.addEntry(%dummy);
+			} else {
+				for (%i = min(%scores.getSize(), $Game::HighscoreCount - 1); %i > $highScoreIndex; %i--) {
+					if (%scores.getSize() == %i) {
+						JSONGroup.add(%dummy = new ScriptObject() {
+							score_type = %scores.getEntry(%i).score_type;
+							score = %scores.getEntry(%i).score;
+						});
+						%scores.addEntry(%dummy);
+					}
+					%scores.getEntry(%i).score_type = %scores.getEntry(%i - 1).score_type;
+					%scores.getEntry(%i).score = %scores.getEntry(%i - 1).score;
 				}
-				if (%scores.getSize() == 0) {
+				if (%scores.getSize() == $highScoreIndex) {
 					JSONGroup.add(%dummy = new ScriptObject() {
 						score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
 						score = getField(%score, 1);
 					});
 					%scores.addEntry(%dummy);
 				} else {
-					for (%i = min(%scores.getSize(), $Game::HighscoreCount - 1); %i > $highScoreIndex; %i--) {
-						if (%scores.getSize() == %i) {
-							JSONGroup.add(%dummy = new ScriptObject() {
-								score_type = %scores.getEntry(%i).score_type;
-								score = %scores.getEntry(%i).score;
-							});
-							%scores.addEntry(%dummy);
-						}
-						%scores.getEntry(%i).score_type = %scores.getEntry(%i - 1).score_type;
-						%scores.getEntry(%i).score = %scores.getEntry(%i - 1).score;
-					}
-					if (%scores.getSize() == $highScoreIndex) {
-						JSONGroup.add(%dummy = new ScriptObject() {
-							score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
-							score = getField(%score, 1);
-						});
-						%scores.addEntry(%dummy);
-					} else {
-						%scores.getEntry($highScoreIndex).score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
-						%scores.getEntry($highScoreIndex).score = getField(%score, 1);
-					}
+					%scores.getEntry($highScoreIndex).score_type = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
+					%scores.getEntry($highScoreIndex).score = getField(%score, 1);
 				}
 			}
-		}
-	}
-
-	// Marbleland mission LB
-	if (!$Cheats::Activated && !$Editor::Opened) {
-		if (marblelandIsMission($Server::MissionFile)) {
-			// Set rating to "Submitting..."
-			$LB::RatingPending = true;
-
-			%marblelandScoreName = "Unnamed Player";
-			if ($LB::Username !$= "") {
-				if ($LB::DisplayName !$= "")
-					%marblelandScoreName = $LB::DisplayName;
-				else
-					%marblelandScoreName = $LB::Username;
-			}
-			else if ($pref::highScoreName !$= "")
-				%marblelandScoreName = $pref::highScoreName;
-
-			MarblelandSubmit($Server::MissionFile, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
 		}
 	}
 }
