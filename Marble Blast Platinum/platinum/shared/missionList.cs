@@ -1149,7 +1149,43 @@ function MarblelandMissionList::getDifficultyTree(%this, %game) {
 
 				for (%j = 0; %j < %pack.levelIds.getSize(); %j ++) {
 					%levelId = %pack.levelIds.getEntry(%j);
-					%node.addEntry(marblelandGetMission(%levelId));
+
+					%mis = marblelandGetMission(%levelId);
+
+					MissionInfoGroup.add(%info = new ScriptObject() {
+						name = %mis.name;
+						level = %i;
+						game = %mis.modification;
+						type = "Custom";
+						desc = %mis.desc;
+						artist = %mis.artist;
+						gameMode = %mis.gameMode;
+
+						// I was going to complain about this but actually it's pretty smart
+						goldTime = %mis.goldTime;
+						platinumTime = %mis.platinumTime;
+						ultimateTime = %mis.ultimateTime;
+						awesomeTime = %mis.awesomeTime;
+						goldScore = %mis.goldScore;
+						platinumScore = %mis.platinumScore;
+						ultimateScore = %mis.ultimateScore;
+						awesomeScore = %mis.awesomeScore;
+
+						gems = %mis.gems;
+
+						easterEgg = %mis.hasEasterEgg;
+						id = %mis.id;
+
+						hasCustomCode = marblelandUsesCustomCode(%mis);
+						requirements = (marblelandUsesCustomCode(%mis) ? "Play the level Offline as it uses custom code.": "");
+
+						file = %mis.file;
+						searchName = %mis.searchName;
+						addedAt = %mis.addedAt;
+						downloaded = false;
+						partial = true;
+					});
+					%node.addEntry(%info);
 				}
 			}
 			recurseSort(%this.packsTree, sortIndexOrArray);

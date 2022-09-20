@@ -258,7 +258,7 @@ function createDifficultyMissionQueue(%ml, %game, %difficulty) {
 	%misCount = %queue.ml.getMissionList(%queue.game, %queue.difficulty).getSize();
 	for (%i = 0; %i < %misCount; %i ++) {
 		%level = %queue.ml.getMissionList(%queue.game, %queue.difficulty).getEntry(%i);
-		if (Unlock::canDisplayMission(%level)) {
+		if (Unlock::canDisplayMission(%level) && Unlock::canPlayMission(%level)) {
 			%queue.missions.addEntry(%level);
 		}
 	}
