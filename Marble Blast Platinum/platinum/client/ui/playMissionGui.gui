@@ -1118,6 +1118,10 @@ new GuiControl(PlayMissionGui) {
 
 function PlayMissionGui::open(%this, %marbleland) {
 	if (%marbleland) {
+		if ($MarblelandMissionList $= "") {
+			MessageBoxOk("Please wait", "The custom level list has not been loaded yet, please wait...");
+			return;
+		}
 		if (!%this.marbleland) {
 			%this.marbleland = 1;
 			%this.init();
