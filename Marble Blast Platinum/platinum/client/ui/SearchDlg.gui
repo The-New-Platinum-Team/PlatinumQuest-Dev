@@ -231,13 +231,11 @@ function SearchDlg::buildSearch(%this) {
 	// iterate through each difficulty
 	%ml = PlayMissionGui.ml;
 	%difficulties = %ml.getDifficultyList($CurrentGame);
-	for (%i = 0; %i < getRecordCount(%difficulties); %i ++) {
-		%difficultyInfo = getRecord(%difficulties, %i);
-		%difficulty = getField(%difficultyInfo, 0);
+	if (PlayMissionGui.marbleland) {
 
-		%list = %ml.getMissionList($CurrentGame, %difficulty);
+		%list = %ml.getMissionList($CurrentGame, $MissionType);
 		if (!isObject(%list)) {
-			%ml.buildMissionList($CurrentGame, %difficulty);
+			%ml.buildMissionList($CurrentGame, $MissionType);
 		}
 		for (%j = 0; %j < %list.getSize(); %j ++) {
 			//Get the file's info
@@ -248,9 +246,32 @@ function SearchDlg::buildSearch(%this) {
 				%info.canDisplay = false;
 				continue;
 			}
-			getSearchMissionInfo(%info, $CurrentGame, %difficulty);
+			getSearchMissionInfo(%info, $CurrentGame, $MissionType);
 
 			SearchSet.add(%info);
+		}
+	} else {
+		for (%i = 0; %i < getRecordCount(%difficulties); %i ++) {
+			%difficultyInfo = getRecord(%difficulties, %i);
+			%difficulty = getField(%difficultyInfo, 0);
+
+			%list = %ml.getMissionList($CurrentGame, %difficulty);
+			if (!isObject(%list)) {
+				%ml.buildMissionList($CurrentGame, %difficulty);
+			}
+			for (%j = 0; %j < %list.getSize(); %j ++) {
+				//Get the file's info
+				%info = %list.getEntry(%j);
+
+				//Don't count missions we can't see
+				if (!Unlock::canDisplayMission(%info)) {
+					%info.canDisplay = false;
+					continue;
+				}
+				getSearchMissionInfo(%info, $CurrentGame, %difficulty);
+
+				SearchSet.add(%info);
+			}
 		}
 	}
 
