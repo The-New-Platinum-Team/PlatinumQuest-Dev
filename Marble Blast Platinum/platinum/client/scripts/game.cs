@@ -170,7 +170,11 @@ function getBestTimes(%info) {
 				}
 
 				//Get our egg time
-				$hs["egg"] = PlayMissionGui.onlineEasterEggCache.getFieldValue(%surrogateId);
+				if (isObject(PlayMissionGui.onlineEasterEggCache)) {
+					$hs["egg"] = PlayMissionGui.onlineEasterEggCache.getFieldValue(%surrogateId);
+				} else {
+					$hs["egg"] = "";
+				}
 				$hs["eggFound"] = true;
 				if ($hs["egg"] $= "") {
 					$hs["egg"] = 5999999; //Default for no egg score

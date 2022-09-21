@@ -39,7 +39,7 @@ function EndGameDlg::onWake(%this) {
 
 	EG_Next.setVisible(!$Game::Introduction && !$Game::RunCredits);
 
-	if (!isObject(%this.getNextLevel())) {
+	if (!isObject(getWord(%this.getNextLevel(), 0))) {
 		EG_Next.setVisible(false);
 	}
 
@@ -94,13 +94,16 @@ function EndGameDlg::getNextLevel(%this) {
 	//Load next
 	%pmg = PlayMissionGui;
 	%attempts = 0;
+	%pmSelectedIndex = %pmg.selectedIndex;
 	while (%attempts < 10000) {
 		%attempts++;
 
-		%list = %pmg.getMissionList($CurrentGame, $MissionType);
-		%pmg.selectedIndex ++;
+		devecho("Current Selected Index: ", %pmSelectedIndex);
 
-		if (%pmg.selectedIndex >= %list.getSize()) {
+		%list = %pmg.getMissionList($CurrentGame, $MissionType);
+		%pmSelectedIndex ++;
+
+		if (%pmSelectedIndex >= %list.getSize()) {
 			devecho("Next: End of list " @ $MissionType);
 			//Next list
 			%diffs = %pmg.getDifficultyList($CurrentGame);
@@ -125,12 +128,12 @@ function EndGameDlg::getNextLevel(%this) {
 
 			//Select the next difficulty
 			%pmg.setMissionType(%next);
-			%pmg.selectedIndex = 0;
+			%pmSelectedIndex = 0;
 			devecho("Next: Trying list " @ $MissionType);
 			%list = %pmg.getMissionList($CurrentGame, %next);
 		}
 
-		%mission = %list.getEntry(%pmg.selectedIndex);
+		%mission = %list.getEntry(%pmSelectedIndex);
 		devecho("Next: Found mission " @ %mission.name);
 		devecho("Next: Can display: " @ Unlock::canDisplayMission(%mission));
 		devecho("Next: Can play: " @ Unlock::canPlayMission(%mission));
@@ -140,7 +143,7 @@ function EndGameDlg::getNextLevel(%this) {
 	}
 	devecho("Next: Final choice is " @ %mission.name);
 
-	return %mission;
+	return %mission SPC %pmSelectedIndex;
 }
 
 
@@ -156,12 +159,13 @@ function EndGameDlg::next(%this) {
 		return;
 	}
 
-	%mission = %this.getNextLevel();
+	%missionMissionIndex = %this.getNextLevel();
+	%mission = getWord(%missionMissionIndex, 0);
+	%missionIndex = getWord(%missionMissionIndex, 1);
 	if (isObject(%mission)) {
 		$Client::NextMission = %mission;
-
 		%file = %mission.file;
-		%pmg.setMissionByIndex(%pmg.selectedIndex);
+		PlayMissionGui.setMissionByIndex(%missionIndex);
 		activateMenuHandler(NextLevel);
 		menuLoadStartMission(%file);
 
