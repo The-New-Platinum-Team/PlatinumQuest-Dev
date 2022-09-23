@@ -47,7 +47,7 @@ new GuiControl(SearchDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "146 58";
-		extent = "507 483";
+		extent = "707 483";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -57,7 +57,7 @@ new GuiControl(SearchDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "22 22";
-			extent = "463 55";
+			extent = "413 55";
 			minExtent = "41 41";
 			visible = "1";
 			helpTag = "0";
@@ -100,7 +100,7 @@ new GuiControl(SearchDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "22 55";
-			extent = "463 361";
+			extent = "413 361";
 			minExtent = "41 41";
 			visible = "1";
 			helpTag = "0";
@@ -123,7 +123,7 @@ new GuiControl(SearchDlg) {
 				horizSizing = "width";
 				vertSizing = "height";
 				position = "13 33";
-				extent = "437 315";
+				extent = "387 315";
 				minExtent = "8 8";
 				visible = "1";
 				helpTag = "0";
@@ -151,6 +151,60 @@ new GuiControl(SearchDlg) {
 				};
 			};
 		};
+
+		new GuiBitmapCtrl(SearchLevelImage) {
+			profile = "GuiDefaultProfile";
+			visible = "1";
+			helpTag = "0";
+			wrap = "0";
+			bitmap = "platinum/client/ui/play/missingicon.png";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "435 67";
+			extent = "240 170";
+			minExtent = "41 41";
+		};
+
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "423 235";
+			extent = "262 181";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+			new GuiScrollCtrl() {
+				profile = "PQScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "13 13";
+				extent = "234 152";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "alwaysOff";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "2 2";
+
+				new GuiMLTextCtrl(SearchLevelDesc) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "2 2";
+					extent = "213 14";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+			};
+		};
+
 		new GuiBorderButtonCtrl(SearchRandom) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
@@ -171,8 +225,8 @@ new GuiControl(SearchDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "386 411";
-			extent = "94 45";
+			position = "428 411";
+			extent = "252 45";
 			minExtent = "8 8";
 			visible = "1";
 			command = "SearchDlg.StartMission();";
@@ -422,12 +476,93 @@ function SearchDlg::setStatus(%this, %status, %active) {
 	Canvas.repaint();
 }
 
-function SearchDlg::onSelect(%this) {
+function capitalizeModification(%mod) {
+	if (%mod $= "gold") return "Gold";
+	if (%mod $= "platinum") return "Platinum";
+	if (%mod $= "fubar") return "Fubar";
+	if (%mod $= "ultra") return "Ultra";
+	if (%mod $= "platinumquest") return "PlatinumQuest";
+}
 
+function capitalizeGameType(%type) {
+	if (%type $= "single") return "SinglePlayer";
+	if (%type $= "multi") return "Multiplayer";
+}
+
+function onSearchPreviewDownloaded(%id, %success, %bmp) {
+	if (%success) {
+		%bmp.setBitmap("vfs://marbleland/" @ %id);
+	}
+}
+
+function SearchDlg::onSelect(%this) {
+	%id = SearchMissionList.getSelectedId();
+	if (!SearchMissionList.isRowActive(%id)) {
+		return;
+	}
+
+	%mission = getField(SearchMissionList.getRowTextById(%id), 3);
+
+	if (PlayMissionGui.marbleland) {
+		if (isBitmap("vfs://marbleland/" @ %mission.id)) {
+			SearchLevelImage.setBitmap("vfs://marbleland/" @ %mission.id);
+		} else {
+			SearchLevelImage.setBitmap("platinum/client/ui/play/loadingicon.png");
+
+			// Download
+			marblelandDownloadIcon(%mission.id, onSearchPreviewDownloaded, SearchLevelImage);
+		}
+	} else {
+		%bitmap = PlayMissionGui.ml.getMissionPreview(%mission.searchGame, %mission.searchType, %mission);
+
+		if (!isBitmap(%bitmap)) {
+			if (%mission.bitmap_directory !$= "") {
+				%bitmap = expandFilename(%mission.bitmap_directory @ "/" @ fileBase(%mission.file));
+			} else
+				%bitmap = expandFilename(PlayMissionGui.getBitmapDirectory(%mission.searchGame, %mission.searchType) @ "/" @ fileBase(%mission.file));
+			if (!isBitmap(%mission)) {
+				%bitmap = resolveMissionBitmap(%mission);
+			}
+		}
+		if (isBitmap(%bitmap)) {
+			SearchLevelImage.setBitmap(%bitmap);
+		} else {
+			SearchLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
+		}
+	}
+
+	%text = "<bold:20>" @ %mission.name;
+	%text = %text NL "<bold:18>Author:<font:18> " @ %mission.artist;
+	%text = %text NL "<bold:18>Description:";
+	%text = %text NL "<font:16>" @ %mission.desc;
+	%text = %text NL "<bold:18>Has Easter Egg: <font:18>" @ (%mission.easterEgg ? "Yes" : "No");
+	if (%mission.qualifyingTime !$= "")
+		%text = %text NL "<bold:18>Qualifying Time: <font:18>" @ formatTime(%mission.qualifyingTime);
+	if (%mission.goldTime !$= "")
+		%text = %text NL "<bold:18>Gold Time: <font:18>" @ formatTime(%mission.goldTime);
+	if (%mission.platinumTime !$= "")
+		%text = %text NL "<bold:18>Platinum Time: <font:18>" @ formatTime(%mission.platinumTime);
+	if (%mission.ultimateTime !$= "")
+		%text = %text NL "<bold:18>Ultimate Time: <font:18>" @ formatTime(%mission.ultimateTime);
+
+	if (%mission.qualifyingScore !$= "")
+		%text = %text NL "<bold:18>Qualifying Score: <font:18>" @ %mission.qualifyingScore;
+	if (%mission.goldScore !$= "")
+		%text = %text NL "<bold:18>Gold Score: <font:18>" @ %mission.goldScore;
+	if (%mission.platinumScore !$= "")
+		%text = %text NL "<bold:18>Platinum Score: <font:18>" @ %mission.platinumScore;
+	if (%mission.ultimateScore !$= "")
+		%text = %text NL "<bold:18>Ultimate Score: <font:18>" @ %mission.ultimateScore;
+
+	SearchLevelDesc.setText(%text);
 }
 
 function smis() {
 	%id = SearchMissionList.getSelectedId();
+	if (!SearchMissionList.isRowActive(%id)) {
+		return;
+	}
+
 	%mission = getField(SearchMissionList.getRowTextById(%id), 3);
 
 	return %mission;
