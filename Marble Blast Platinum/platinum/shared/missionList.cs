@@ -1295,6 +1295,53 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 }
 
+function MarblelandMissionList::addInstalledMission(%this, %mis) {
+	%list = %this.getMissionList("Levels", "Installed");
+	if (isObject(%list)) {
+		MissionInfoGroup.add(%info = new ScriptObject() {
+			name = %mis.name;
+			level = %list.getSize();
+			game = %mis.modification;
+			type = "Custom";
+			desc = %mis.desc;
+			artist = %mis.artist;
+			gameMode = %mis.gameMode;
+
+			// I was going to complain about this but actually it's pretty smart
+			goldTime = %mis.goldTime;
+			platinumTime = %mis.platinumTime;
+			ultimateTime = %mis.ultimateTime;
+			awesomeTime = %mis.awesomeTime;
+			goldScore = %mis.goldScore;
+			platinumScore = %mis.platinumScore;
+			ultimateScore = %mis.ultimateScore;
+			awesomeScore = %mis.awesomeScore;
+
+			gems = %mis.gems;
+
+			easterEgg = %mis.hasEasterEgg;
+			id = %mis.id;
+
+			hasCustomCode = marblelandUsesCustomCode(%mis);
+			requirements = (marblelandUsesCustomCode(%mis) ? "Play the level Offline as it uses custom code.": "");
+
+			file = %mis.file;
+			searchName = %mis.searchName;
+			addedAt = %mis.addedAt;
+			downloaded = false;
+			partial = true;
+		});
+		%list.addEntry(%info);
+		%list.sort(MissionSortSearchName);
+		
+		//Fix level numbers
+		%count = %list.getSize();
+		for (%i = 0; %i < %count; %i ++) {
+			%list.getEntry(%i).level = %i + 1;
+		}
+	}
+}
+
 function MarblelandMissionList::shouldUseDifficultyTree(%this, %game) {
 	return %game $= "Packs";
 }

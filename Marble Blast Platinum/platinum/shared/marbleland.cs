@@ -124,6 +124,8 @@ function MarblelandDownloader::onDownload(%this, %path) {
 
 	MarblelandPackages.addEntry(%this.id);
 	loadMBPackageMis("marbleland/" @ %this.id);
+
+	getMissionList("marbleland").addInstalledMission(%mission);
 }
 
 function MarblelandDownloader::onDisconnect(%this) {
