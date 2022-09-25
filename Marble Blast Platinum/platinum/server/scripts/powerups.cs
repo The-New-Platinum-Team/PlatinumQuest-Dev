@@ -1534,17 +1534,25 @@ function TeleportItem::onInspectApply(%this, %obj) {
 }
 
 function TeleportItem::onUse(%this, %obj, %user) {
-	if (%user.teleporterFireNum == %user.client.fireNum)
-		return false;
-	if (%user.teleporterLocationSet) {
-		//Activate teleporter
-		%this.performTeleport(%obj, %user);
-		return Parent::onUse(%this, %obj, %user);
+	if ($powerupLocked) {
+		    %this.heldPowerup = %item;
+		    %this.powerUpData = "";
+		    %this.setPowerUpId("0", %reset);
+		    return;
 	} else {
-		//Set location
-		%this.setLocation(%obj, %user);
-		return false;
+	    if (%user.teleporterFireNum == %user.client.fireNum)
+		    return false;
+	    if (%user.teleporterLocationSet) {
+		    //Activate teleporter
+		    %this.performTeleport(%obj, %user);
+		    return Parent::onUse(%this, %obj, %user);
+	    } else {
+		    //Set location
+		    %this.setLocation(%obj, %user);
+		    return false;
+	    }
 	}
+
 }
 
 function TeleportItem::getPickupName(%this, %obj) {
