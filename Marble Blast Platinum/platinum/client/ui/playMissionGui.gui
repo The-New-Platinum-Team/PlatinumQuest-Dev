@@ -4423,12 +4423,16 @@ function PlayMissionGui::updateLoadProgress(%this, %delta) {
 
 function PlayMissionGui::deleteMission(%this) {
 	if (%this.isMarblelandMission()) {
-		marblelandDelete(%this.getMissionInfo().id);
+		if ($Menu::CurrentlyLoadedMission $= %this.getMissionInfo().file) {
+			MessageBoxOK("Cannot Delete Mission", "You cannot delete a mission that is currently in use!");
+		} else {
+			marblelandDelete(%this.getMissionInfo().id);
 
-		if ($MissionType $= "Installed") {
-			PlayMissionGui.ml.buildMissionList("Levels", "Installed");
-			PlayMissionGui.setMissionType($MissionType);
-			PlayMissionGui.showMissionList();
+			if ($MissionType $= "Installed") {
+				PlayMissionGui.ml.buildMissionList("Levels", "Installed");
+				PlayMissionGui.setMissionType($MissionType);
+				PlayMissionGui.showMissionList();
+			}
 		}
 	}
 }
