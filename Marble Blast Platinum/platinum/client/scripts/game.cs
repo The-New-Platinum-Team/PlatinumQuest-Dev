@@ -308,7 +308,7 @@ function recordScore() {
 	$highScoreIndex = "";
 	if (!$Cheats::Activated && !$Editor::Opened) {
 		$highScoreIndex = addBestScore($Client::MissionFile, %scoreInfo);
-		if (lb()) {
+		if (lb()  && !$Game::isMode["challenge"] && !%isMarbleland) {
 			//See if we should add it to offline too
 			%offMisFile = strReplace($Client::MissionFile, "/lbmissions", "/missions");
 			if (isScriptFile(%offMisFile)) {

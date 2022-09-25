@@ -1365,7 +1365,11 @@ function PlayMissionGui::initInterface(%this) {
 		%this.updateServerPlayerList();
 	} else if (lb()) {
 		%this.buildButtonBar("BottomLB");
-		%this.buildButtonBar("ExtraLB");
+		if (%this.marbleland) {
+			%this.buildButtonBar("ExtraMarblelandLB");
+		} else {
+			%this.buildButtonBar("ExtraLB");
+		}
 	} else {
 		if (%this.marbleland && $CurrentGame $= "Packs") {
 			%this.buildButtonBar("BottomPacks");
@@ -3176,6 +3180,8 @@ function PlayMissionGui::onGuiEditorPreSave(%this) {
 	%this.builtBar["ExtraMP"] = "";
 	%this.builtBar["BottomLB"] = "";
 	%this.builtBar["ExtraLB"] = "";
+	%this.builtBar["ExtraMarbleland"] = "";
+	%this.builtBar["ExtraMarblelandLB"] = "";
 	%this.builtBar["Bottom"] = "";
 	%this.builtBar["Extra"] = "";
 	%this.buttonFrameList = "";
@@ -3242,6 +3248,29 @@ $PMG::BarButton["ExtraMarbleland", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarbleland", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarbleland", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
 $PMG::BarButton["ExtraMarbleland", "CommandNameCancel"] = "Close";
+
+$PMG::BarButton["ExtraMarblelandLB", "Name",       0] = "PM_MissionMarble";
+$PMG::BarButton["ExtraMarblelandLB", "Command",    0] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(MarbleSelectDlg);";
+$PMG::BarButton["ExtraMarblelandLB", "Bitmap",     0] = "platinum/client/ui/play/buttons/marble.png";
+$PMG::BarButton["ExtraMarblelandLB", "Name",       1] = "PM_MissionSearch";
+$PMG::BarButton["ExtraMarblelandLB", "Command",    1] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(SearchDlg);";
+$PMG::BarButton["ExtraMarblelandLB", "Bitmap",     1] = "platinum/client/ui/play/buttons/search.png";
+$PMG::BarButton["ExtraMarblelandLB", "Name",       2] = "PM_MissionDelete";
+$PMG::BarButton["ExtraMarblelandLB", "Command",    2] = "PlayMissionGui.hideExtras(); PlayMissionGui.deleteMission();";
+$PMG::BarButton["ExtraMarblelandLB", "Bitmap",     2] = "platinum/client/ui/play/buttons/delete.png";
+$PMG::BarButton["ExtraMarblelandLB", "Name",       3] = "PM_MissionStatistics";
+$PMG::BarButton["ExtraMarblelandLB", "Command",    3] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.showStatistics();";
+$PMG::BarButton["ExtraMarblelandLB", "Bitmap",     3] = "platinum/client/ui/play/buttons/statistics.png";
+$PMG::BarButton["ExtraMarblelandLB", "Name",       4] = "PM_MissionReplay";
+$PMG::BarButton["ExtraMarblelandLB", "Command",    4] = "if ($ControllerEvent) {$Game::Record = !$Game::Record; $ThisControl.setValue($Game::Record); }"; //Hack for controllers
+$PMG::BarButton["ExtraMarblelandLB", "Variable",   4] = "$Game::Record";
+$PMG::BarButton["ExtraMarblelandLB", "ButtonType", 4] = "ToggleButton";
+$PMG::BarButton["ExtraMarblelandLB", "Bitmap",     4] = "platinum/client/ui/play/buttons/record.png";
+$PMG::BarButton["ExtraMarblelandLB", "Count"] = 5; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraMarblelandLB", "HaveTab"] = true;
+$PMG::BarButton["ExtraMarblelandLB", "Control"] = "PM_ExtrasBox";
+$PMG::BarButton["ExtraMarblelandLB", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
+$PMG::BarButton["ExtraMarblelandLB", "CommandNameCancel"] = "Close";
 
 $PMG::BarButton["Bottom", "Name",    0] = "PM_MissionPlay";
 $PMG::BarButton["Bottom", "Command", 0] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
