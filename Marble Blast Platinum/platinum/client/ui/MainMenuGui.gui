@@ -592,7 +592,7 @@ function MainMenuGui::showExtras(%this) {
 	MenuCommunityButtons.setVisible(1);
 	MenuMainButtons.setVisible(0);
 	if (ControllerGui.isJoystick()) {
-		%first = ExitGameExtras.getObject(0).getName();
+		%first = MenuCommunityButtons.getObject(2).getName();
 		ControllerGui.selectControl(%first);
 	}
 }
@@ -600,6 +600,9 @@ function MainMenuGui::showExtras(%this) {
 function MainMenuGui::hideExtras(%this) {
 	MenuCommunityButtons.setVisible(0);
 	MenuMainButtons.setVisible(1);
+	if (ControllerGui.isJoystick()) {
+		ControllerGui.selectControl(MenuCommunityButton);
+	}
 }
 
 function MainMenuGui::toggleExtras(%this) {
