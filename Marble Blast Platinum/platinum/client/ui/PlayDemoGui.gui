@@ -309,6 +309,11 @@ function PlayDemoGui::buildDemoList(%this) {
 			continue;
 		}
 
+		if (%info.searchName $= "")         %info.searchName         = strlwr(%info.name);
+		if (%info.searchAuthor $= "")       %info.searchAuthor       = strlwr(%info.author);
+		if (%info.searchFile $= "")         %info.searchFile         = strlwr(%info.file);
+		if (%info.searchMissionFile $= "")  %info.searchMissionFile  = strlwr(%info.missionFile);
+
 		ReplaySearchSet.addEntry(%info);
 
 		%tagText = (%info.mp ? "[MP] " : (%info.lb ? "[LB] " : ""));
@@ -448,10 +453,11 @@ function PlayDemoGui::setStatus(%this, %status, %active) {
 }
 
 function testReplaySearch(%info, %flags, %query) {
-	return (strStr(%info.name, %query) != -1)
-	       || (strStr(%info.author, %query) != -1)
-	       || (strStr(%info.file, %query) != -1)
-	       || (strStr(%info.missionFile, %query) != -1);
+	echo(%info SPC %flags SPC %query);
+	return (strStr(%info.searchName, %query) != -1)
+	       || (strStr(%info.searchAuthor, %query) != -1)
+	       || (strStr(%info.searchFile, %query) != -1)
+	       || (strStr(%info.searchMissionFile, %query) != -1);
 }
 
 function PlayDemoGui::search(%this) {
