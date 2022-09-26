@@ -766,8 +766,10 @@ function statsGetCurrentMarbleLine(%line) {
 
 function statsRecordMarbleSelection() {
 	%selection = MarbleSelectDlg.getOnlineMarbleId();
-
-	statsPost("api/Marble/RecordMarbleSelection.php", "marbleId=" @ %selection);
+	if ($curStatsMarbleSelection !$= %selection) {
+		statsPost("api/Marble/RecordMarbleSelection.php", "marbleId=" @ %selection);
+		$curStatsMarbleSelection = %selection;
+	}
 }
 function statsRecordMarbleSelectionLine(%line) {
 	if (%line $= "SUCCESS") {
