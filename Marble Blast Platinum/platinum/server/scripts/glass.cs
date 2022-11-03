@@ -123,12 +123,16 @@ datablock StaticShapeData(StartPad_MBXP : StartPad) {
 };
 
 function EndPad_MBXP::onAdd(%this, %obj) {
+	$Game::EndPad = %obj;
+	%obj.setName("EndPoint");
 	%obj.playThread(0,"ambient_ifl");
 	%obj.playThread(1,"effect_loop");
 	%obj.playThread(2, "effect_vis");
 }
 
 function StartPad_MBXP::onAdd(%this, %obj) {
+	$Game::StartPad = %obj;
+	%obj.setName("StartPoint");
 	%obj.playThread(0,"ambient_ifl");
 }
 
