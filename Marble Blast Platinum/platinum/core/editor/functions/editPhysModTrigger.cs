@@ -84,7 +84,7 @@ function epmtbutton(%obj) {
 		if (%type !$= "global")
 			continue;
 
-		%field     = %attribute.internalField;
+		%field     = %attribute.internalName;
 		%variable  = %attribute.variable;
 		%name      = %attribute.displayName;
 		%value     = %customDefault[%field];
@@ -169,7 +169,7 @@ function editPhysModTrigger(%gui) {
 	%changes = 0;
 	for (%i = 0; %i < MarbleAttributeInfoArray.getSize(); %i ++) {
 		%attribute = MarbleAttributeInfoArray.getEntry(%i);
-		%field     = %attribute.internalField;
+		%field     = %attribute.internalName;
 		%variable  = %attribute.variable;
 
 		%defaultDefault = getVariable(strReplace(%variable, "##", "DefaultMarble"));
