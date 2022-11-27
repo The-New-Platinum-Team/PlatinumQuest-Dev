@@ -2184,6 +2184,11 @@ function EWorldEditor::roundCoords(%this) {
 	}
 }
 
+function EWorldEditor::dropandround(%this) {
+	EWorldEditor.roundCoords();
+	EWorldEditor.dropAtGround();
+}
+
 function EWorldEditor::malign(%this) {
 	if (%this.getSelectionSize()) {
 		EWorldEditor.addUndoState();
@@ -2659,6 +2664,8 @@ function EWorldEditor::buildSpecialSingle(%this, %obj) {
 		%this.addSpecial("Change Skybox", "csbbutton();");
 	}
 	%this.addSpecial("Drop to Ground", "EWorldEditor.dropAtGround();");
+	%this.addSpecial("Round Coordinates", "EWorldEditor.roundCoords();");
+	%this.addSpecial("Drop to Ground + Round Coords", "EWorldEditor.dropandround();");
 	%this.addSpecial("Rotate", "EWorldEditor.rotateManually();");
 	%this.addSpecial("Translate", "EWorldEditor.translateManually();");
 }
@@ -2667,6 +2674,8 @@ function EWorldEditor::buildSpecialMultiple(%this, %type) {
 	%this.addSpecial("Group Items", "EWorldEditor.groupSelection();");
 	%this.addSpecial("Ungroup Items", "EWorldEditor.ungroupSelection();");
 	if (%type & $TypeMasks::GameBaseObjectType) {
+		%this.addSpecial("Drop to Ground + Round Coords", "EWorldEditor.dropandround();");
+		%this.addSpecial("Round Coordinates", "EWorldEditor.roundCoords();");
 		%this.addSpecial("Drop to Ground", "EWorldEditor.dropAtGround();");
 		%this.addSpecial("Rotate", "EWorldEditor.rotateManually();");
 		%this.addSpecial("Translate", "EWorldEditor.translateManually();");
