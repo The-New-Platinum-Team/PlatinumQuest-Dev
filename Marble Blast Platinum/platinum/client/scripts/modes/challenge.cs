@@ -295,7 +295,9 @@ function ClientMode_challenge::onActivate(%this, %object) {
 
 function updateWeeklyChallengePhysics()
 {
-	Physics::pushLayerName($CurrentWeeklyChallenge.name);
+	if (!mp()) {   // There are no MP Challenges, so challenge modifiers should not persist when playing MP. ~Connie
+       Physics::pushLayerName($CurrentWeeklyChallenge.name);
+	}
 }
 
 function ClientMode_challenge::onMissionReset(%this, %object) {
@@ -315,7 +317,9 @@ function ClientMode_challenge::onEndGameSetup(%this, %object) {
 	// none
 }
 function ClientMode_challenge::shouldUpdateBlast(%this) {
-	return $CurrentWeeklyChallenge.blast;
+	if (!mp()) {
+		return $CurrentWeeklyChallenge.blast;
+	}
 }
 function ClientMode_challenge::getScoreFields(%this) {
 	return "&challenge=" @ $CurrentWeeklyChallenge.name;
