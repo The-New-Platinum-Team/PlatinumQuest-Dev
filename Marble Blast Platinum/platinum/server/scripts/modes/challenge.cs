@@ -26,9 +26,7 @@ function Mode_challenge::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_challenge::onMissionLoaded(%this, %object) {
-	if (!mp()) {    // There are no MP Challenges, so challenge modifiers should not persist when playing MP. ~Connie
-       if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
-	}
+	if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
 }
 function Mode_challenge::onMissionEnded(%this, %object) {
 	//Description:
@@ -37,63 +35,46 @@ function Mode_challenge::onMissionEnded(%this, %object) {
 	// none
 }
 function Mode_challenge::onMissionReset(%this, %object) {
-	if (!mp()) {
-       if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
-	}
+	if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
 }
 function Mode_challenge::shouldPickupGem(%this, %object) {
-	if (!mp()) {
-		if ($CurrentWeeklyChallenge.noGems) return false;
-	    return true;
-	}
+	if ($CurrentWeeklyChallenge.noGems) return false;
+	return true;
 }
 function Mode_challenge::shouldIgnoreGem(%this, %object) {
-	if (!mp()) {
-		if ($CurrentWeeklyChallenge.noGems) return false;
-	    return true;
-	}
+	if ($CurrentWeeklyChallenge.noGems) return true;
+	return false;
 }
 function Mode_challenge::shouldDisablePowerup(%this, %object) {
-	if (!mp()) {
-	    return $CurrentWeeklyChallenge.noPowerups $= "1";
-	}
+	return $CurrentWeeklyChallenge.noPowerups $= "1";
 }
 function Mode_challenge::shouldPickupPowerup(%this, %object) {
-	if (!mp()) {
-	    return $CurrentWeeklyChallenge.noPowerups !$= "1";
-	}
+	return $CurrentWeeklyChallenge.noPowerups !$= "1";
 }
 function Mode_challenge::shouldPickupItem(%this, %object) {
-	if (!mp()) {
-	    switch$ (%object.obj.getDataBlock().getName()) {
-		    case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
-			    return false;
-	    }
-	    return true;
+	switch$ (%object.obj.getDataBlock().getName()) {
+		case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
+			return false;
 	}
+	return true;
 }
 function Mode_challenge::getMarbleSize(%this, %object) {
 
-    if (!mp()) {
-	    %marbleSizeMult = 1.0;
-	    if ($CurrentWeeklyChallenge.marbleSizeMult !$= "")
-		    %marbleSizeMult = $CurrentWeeklyChallenge.marbleSizeMult;
+	%marbleSizeMult = 1.0;
+	if ($CurrentWeeklyChallenge.marbleSizeMult !$= "")
+		%marbleSizeMult = $CurrentWeeklyChallenge.marbleSizeMult;
 
-	    if ($CurrentGame $= "Gold")
-		    return %object.client.player.getDataBlock().goldScale * %marbleSizeMult;
-	    else
-		    return %object.client.player.getDataBlock().scale * %marbleSizeMult;
-	}
+	if ($CurrentGame $= "Gold")
+		return %object.client.player.getDataBlock().goldScale * %marbleSizeMult;
+	else
+		return %object.client.player.getDataBlock().scale * %marbleSizeMult;
 }
 function Mode_challenge::getUltraMarbleSize(%this, %object) {
+	%marbleSizeMult = 1.0;
+	if ($CurrentWeeklyChallenge.marbleSizeMult !$= "")
+		%marbleSizeMult = $CurrentWeeklyChallenge.marbleSizeMult;
 
-	if (!mp()) {
-	    %marbleSizeMult = 1.0;
-	    if ($CurrentWeeklyChallenge.marbleSizeMult !$= "")
-		    %marbleSizeMult = $CurrentWeeklyChallenge.marbleSizeMult;
-
-	    return %object.client.player.getDataBlock().ultraScale * %marbleSizeMult;
-	}
+	return %object.client.player.getDataBlock().ultraScale * %marbleSizeMult;
 }
 function Mode_challenge::canFinish(%this, %object) {
 	//Description:
@@ -103,10 +84,8 @@ function Mode_challenge::canFinish(%this, %object) {
 	//Returns:
 	// true/false
 
-    if (!mp()) {
-	    if ($CurrentWeeklyChallenge.noGems)
-		    return true;
+	if ($CurrentWeeklyChallenge.noGems)
+		return true;
 
-	    return !($Game::GemCount && %object.client.getGemCount() < $Game::GemCount);
-	}
+	return !($Game::GemCount && %object.client.getGemCount() < $Game::GemCount);
 }
