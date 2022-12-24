@@ -802,6 +802,13 @@ function TimePenaltyItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
 }
 
+function TimePenaltyItem_MBU::onAdd(%this, %obj) {
+	TimePenaltyItem::onAdd(%this, %obj);
+}
+function TimePenaltyItem_MBU::onPickup(%this, %obj, %user, %amount) {
+	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
+}
+
 //-----------------------------------------------------------------------------
 // Respawning Time Travel/Penalty Items
 
