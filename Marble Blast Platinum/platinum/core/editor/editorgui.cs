@@ -942,6 +942,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				static = 1;
 				skin = "mbgpenalty";
 			};
+		case "Ultra":
+		    %obj = new Item() {
+				dataBlock = "TimePenaltyItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
 		default:
 			%obj = new Item() {
 				dataBlock = "TimePenaltyItem";
