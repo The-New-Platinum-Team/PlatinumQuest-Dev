@@ -1164,3 +1164,39 @@ function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 		%obj.setCollisionRadius(0.18975);
 	}
 }
+
+//---------------------------------------------------------------------
+//The newer triggers seem to be at the bottom of this, so I'll just slap mine down here -Yoshi
+
+datablock TriggerData(AccelerationTrigger) {
+	tickPeriodMS = 100;
+
+	customField[0, "field"  ] = "xforce";
+	customField[0, "type"   ] = "numeric";
+	customField[0, "name"   ] = "X Force";
+	customField[0, "desc"   ] = "Added velocity along the X axis in units/sec.";
+	customField[0, "default"] = "0";
+	customField[1, "field"  ] = "yforce";
+	customField[1, "type"   ] = "numeric";
+	customField[1, "name"   ] = "Y Force";
+	customField[1, "desc"   ] = "Added velocity along the Y axis in units/sec.";
+	customField[1, "default"] = "0";
+	customField[2, "field"  ] = "zforce";
+	customField[2, "type"   ] = "numeric";
+	customField[2, "name"   ] = "Z Force";
+	customField[2, "desc"   ] = "Added velocity along the Z axis in units/sec.";
+	customField[2, "default"] = "0";
+};
+
+function AccelerationTrigger::onEnterTrigger(%this,%trigger,%obj) {
+	$MP::MyMarble.applyImpulse("0 0 0", (
+		(%trigger.xforce / 100) SPC
+		(%trigger.yforce / 100) SPC
+		(%trigger.zforce / 100)
+	));
+	%this.nextFrame = %this.schedule(10, onEnterTrigger, %trigger, %obj);
+}
+
+function AccelerationTrigger::onLeaveTrigger(%this,%trigger,%obj) {
+	cancel(%this.nextFrame);
+}
