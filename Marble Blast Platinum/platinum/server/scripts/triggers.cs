@@ -727,7 +727,7 @@ datablock TriggerData(SetVelocityTrigger) {
 	customField[2, "default"] = "0";
 	customField[3, "field"  ] = "ignoreZ";
 	customField[3, "type"   ] = "boolean";
-	customField[3, "name"   ] = "Ignore X";
+	customField[3, "name"   ] = "Ignore Z";
 	customField[3, "desc"   ] = "If the trigger should not affect velocity on the z-axis.";
 	customField[3, "default"] = "0";
 };
