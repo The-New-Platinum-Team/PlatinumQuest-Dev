@@ -37,13 +37,18 @@ function csbbutton(%revert) {
 
     LargeFunctionDlg.addNote("\c4----------- Main Game Skyboxes -----------");
 	LargeFunctionDlg.addDropMenu("MainGameSkyboxes", "Main Game Skyboxes:", 5, "skies\tGold\nBeginner\tPlatinum Beginner\nIntermediate\tPlatinum Intermediate\nAdvanced\tPlatinum Advanced\nExpert\tPlatinum Expert\nSpaceStation\tPlatinum Space\nBlender1\tPQ One\nBlender2\tPQ Two\nBlender3\tPQ Three\nBlender4\tPQ Four\nbeginner (mbu)\tUltra Beginner\nintermediate (mbu)\tUltra Intermediate\nadvanced (mbu)\tUltra Advanced");
-	LargeFunctionDlg.addButton("SelectMainGameSkybox", "Select Skybox", 9);
+	MainGameSkyboxes.command = "onSelectMGSkybox();";
 	LargeFunctionDlg.addNote("\c4----------- All Skyboxes -----------");
 	LargeFunctionDlg.addDropMenu("CSB_Sky", "Selected Skybox:", 5, %skies, %current);
+	CSB_Sky.command = "UnselectMGSkybox();";
 }
 
-function SelectMainGameSkybox::onPressed(%this, %gui) {
+function onSelectMGSkybox() {
 	CSB_Sky.setValue(MainGameSkyboxes.getValue());
+}
+
+function UnselectMGSkybox() { //The reason for this is to not have one dropdown menu be inaccurate to the other, in case a person changes the skybox using the bigger dropdown menu. ~Connie
+	MainGameSkyboxes.setValue("");
 }
 
 function applyDML() {
