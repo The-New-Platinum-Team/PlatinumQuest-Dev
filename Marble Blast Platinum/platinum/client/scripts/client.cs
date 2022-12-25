@@ -117,7 +117,7 @@ function OOBCounter::check() {
 	%oobRandom[49] = "Do you ever think about the marble\'s safety when you\'re playing? Apparently not because you\'re really careless with it.";
 
 	%oobSpecial[0] = "You went Out of Bounds for 1,250 times. This program will now sit in the corner and cry about how bad you are and hope that when you open it again you won\'t repeat it. False hopes are still hopes.";
-	%oobSpecial[1] = "You went Out of Bounds for 2,500 times. If you aren\'t tired of going Out of Bounds all the time, we sure did. Stop it already!";
+	%oobSpecial[1] = "You went Out of Bounds for 2,500 times. If you aren\'t tired of going Out of Bounds all the time, we sure are. Stop it already!";
 	%oobSpecial[2] = "Another 1,250 marbles had fallen to the great sea below, and you\'ve reached the 3,750 Out of Bounds mark. You definitely suck. Ah yes, greenpeace would like to see you in court for your \"contribution\" to rising sea levels.";
 	%oobSpecial[3] = "If I had a nickel for every marble that fell Out of Bounds I\'d be rich right now and all thanks to you. However, I\'m not going to give you any money. Instead, I\'ll stick my tongue out at you and then laugh at you. Ah yes, congratulations on hitting the 5,000 Out of Bounds mark.";
 	%oobSpecial[4] = "6,750 times Out of Bounds. Let\'s assume, hypothetically, that you won\'t go Out of Bounds ever again. Actually, never mind that, you will still suck even if you don\'t go Out of Bounds again.";
