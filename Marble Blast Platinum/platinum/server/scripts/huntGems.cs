@@ -725,8 +725,10 @@ function spawnGem(%gem) {
 				%gem.setSkinName("green");
 			} else if (%chosen <= 25) {
 				%gem.setSkinName("orange");
-			} else if (%chosen <= 50) {
+			} else if (%chosen <= 45) {
 				%gem.setSkinName("yellow");
+			} else if (%chosen <= 50) {
+				%gem.setSkinName("white");
 			} else {
 				%gem.setSkinName("red");
 			}
@@ -745,9 +747,9 @@ function spawnGem(%gem) {
 				%gem.setSkinName("turquoise");
 			} else if (%chosen <= 10) {
 				%gem.setSkinName("blue");
-			} else if (%chosen <= 20) {
+			} else if (%chosen <= 19) {
 				%gem.setSkinName("green");
-			} else if (%chosen <= 30) {
+			} else if (%chosen <= 26) {
 				%gem.setSkinName("orange");
 			} else if (%chosen <= 31){
 				%gem.setSkinName("white");
@@ -767,8 +769,10 @@ function spawnGem(%gem) {
 				%platinum = true;
 			} else if (%chosen <= 40) {
 				%gem.setSkinName("purple");
-			} else if (%chosen <= 60) {
+			} else if (%chosen <= 50) {
 				%gem.setSkinName("green");
+			} else if (%chosen <= 60) {
+				%gem.setSkinName("white");
 			}
 		}
 
