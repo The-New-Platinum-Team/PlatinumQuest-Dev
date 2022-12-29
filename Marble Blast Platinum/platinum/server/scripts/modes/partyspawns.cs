@@ -97,7 +97,3 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 			alxPlay(BubblePopSfx);
 	}
 }
-
-function Mode_partyspawns::modifyScoreData(%this, %object) {
-	return %object.data @ "&extraModes[]=partyspawns";
-}
