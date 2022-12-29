@@ -26,6 +26,7 @@ function Mode_getpastthepost::onLoad(%this) {
 	%this.registerCallback("getFinalScore");
 	%this.registerCallback("onFoundGem");
 	%this.registerCallback("getScoreType");
+	%this.registerCallback("onHuntGemSpawn");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 
@@ -55,5 +56,11 @@ function Mode_getpastthepost::onFoundGem(%this, %object) {
 		//They win, hooray!!
 		$Game::FinishClient = %object.client;
 		endGameSetup();
+	}
+}
+
+function Mode_getpastthepost::onHuntGemSpawn(%this, %object) {
+	if ($Game::FirstSpawn) {
+	    addBubbleLine("Reach " @ missioninfo.markerpost @ " to win!", false, 5000);
 	}
 }
