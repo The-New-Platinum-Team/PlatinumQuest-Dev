@@ -77,9 +77,6 @@ function Mode_partyspawns::onFoundGem(%this, %object) {
 			//AnvilItem.onUse(%trigger, %object.client);
 			//commandToClient(%object.client, 'doPowerUp', 4);
 			//ShockAbsorberItem.onUse(%trigger, %object.client);
-		case 0:
-			commandToClient(%object.client, 'doPowerUp', 1);
-			SuperJumpItem.onUse(%trigger, %object.client);
 		case -1:
 			// Black gem: Mega/Fireball/SB
 			MegaMarbleItem.onUse(%x, %object.client.player);
