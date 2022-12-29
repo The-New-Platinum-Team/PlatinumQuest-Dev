@@ -272,12 +272,6 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				hideGems();
 				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
-
-		case "AlwaysSpawnReds":
-		    if (!%value) {
-                hideGems();
-				spawnHuntGemGroup();
-			}
 	}
 
 	Mode::callback("onPostServerVariableSet", "", new ScriptObject() {
