@@ -651,29 +651,29 @@ function spawnGem(%gem) {
 		%gem.setDataBlock("GemItem" @ %gem._annoyingsuffix);
 		%gem.setSkinName("red");
 	}
-//	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
-//       if (%gem._normaldatablock $= "") {
-//			%gem._normaldatablock = %gem.getDataBlock().getName();
-//			%gem._normalskin = %gem.getDataBlock().skin;
-//			%gem._gamesuffix = strchr(%gem.getDataBlock().getName(), "_");
-//		}
-//        
-//		if (%gem._normalskin $= "yellow") {
-//		    %gem.setDataBlock("GemItem" @ %gem._gamesuffix);
-//		    %gem.setSkinName("red");
-//		} else if (%gem._normalskin $= "blue") {
-//		    %gem.setDataBlock("GemItem" @ %gem._gamesuffix);
-//		    %gem.setSkinName("black");
-//		}
-//		%gem.onInspectApply();
-//	} else {
-//		if (%gem._normaldatablock !$= "") {
-//		    %gem.setDataBlock(%gem._normaldatablock);
-//		    %gem.setSkinName(%gem._normalskin);
-//			%gem._normaldatablock = "";
-//		    %gem.onInspectApply();
-//		}
-//	}
+	if ($MPPref::Server::HuntHardMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+        if (%gem._normaldatablock $= "") {
+			%gem._normaldatablock = %gem.getDataBlock().getName();
+			%gem._normalskin = %gem.getDataBlock().skin;
+			%gem._gamesuffix = strchr(%gem.getDataBlock().getName(), "_");
+		}
+        
+		if (%gem._normalskin $= "yellow") {
+		    %gem.setDataBlock("GemItem" @ %gem._gamesuffix);
+		    %gem.setSkinName("red");
+		} else if (%gem._normalskin $= "blue") {
+		    %gem.setDataBlock("GemItem" @ %gem._gamesuffix);
+		    %gem.setSkinName("black");
+		}
+		%gem.onInspectApply();
+	} else {
+		if (%gem._normaldatablock !$= "") {
+		    %gem.setDataBlock(%gem._normaldatablock);
+		    %gem.setSkinName(%gem._normalskin);
+			%gem._normaldatablock = "";
+		    %gem.onInspectApply();
+		}
+	}
 	if ($MPPref::Server::PartySpawns && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
 		if ($MP::nonPartyGemsPerSpawn != MissionInfo.maxGemsPerSpawn - 3) { // Going to not be accurate if someone switches from one party map, to another that has the same maxGemsPerSpawn as the last, oh well
 			$MP::nonPartyGemsPerSpawn = MissionInfo.maxGemsPerSpawn;

@@ -168,7 +168,7 @@ serverAddSetting("CompetitiveMode",        "Competitive Mode",       "$MPPref::S
 serverAddSetting("TrainingMode",        "1v1 Training",       "$MPPref::Server::TrainingMode", true,     "check");
 serverAddSetting("PartySpawns",        "Party Spawns",       "$MPPref::Server::PartySpawns", true,     "check");
 serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
-serverAddSetting("GravitexHP",   "Hunt Plus - Gravitex", "$MPPref::Server::GravitexHP", true, "check");
+serverAddSetting("HuntHardMode",   "Hunt - Hard Mode", "$MPPref::Server::HuntHardMode", true, "check");
 
 //Called before a server variable is set
 function onPreServerVariableSet(%id, %previous, %value) {
@@ -275,13 +275,13 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
 
-		case "GravitexHP":
+		case "HuntHardMode":
 		    if (%value) {
-				activateMode("huntplus");
+				activateMode("hunthardmode");
 				restartLevel();
 				$MP::ScoreSendingDisabled = true;
 			} else {
-				deactivateMode("huntplus");
+				deactivateMode("hunthardmode");
 				restartLevel();
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
