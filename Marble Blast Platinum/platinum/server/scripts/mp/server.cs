@@ -440,7 +440,7 @@ function MPshouldSendScores() {
 	if (!$MPPref::Server::SubmitScores) {
 		return false;
 	}
-	if ($Game::isMode["hunt"] && $MP::ScoreSendingDisabled) { // If Double Spawns are turned on
+	if ($MP::ScoreSendingDisabled) { // If Double Spawns are turned on
 		return false;
 	}
 
