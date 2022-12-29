@@ -517,8 +517,6 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 			%modes = %modes SPC "training";
 		if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
 			%modes = %modes SPC "steal";
-		if (findWord(%modes, "hunt") != -1 && findWord(%modes, "coop") == -1 && $MPPref::Server::CompetitiveMode)
-			%modes = %modes SPC "competitive";
 		if (findWord(%modes, "hunt") != -1 && findWord(%modes, "coop") == -1 && ($MPPref::Server::PartySpawns || $MP::Client::ServerSetting["PartySpawns"]))
 			%modes = %modes SPC "partyspawns";
 	}
