@@ -270,7 +270,6 @@ function lobbyRestart() {
 
 	pruneFakeClients();
 
-	hideGems();
 	spawnHuntGemGroup();
 	$Server::Started = false;
 	setGameState("waiting");
@@ -1008,7 +1007,6 @@ function serverEnterGame() {
 	$Game::Running = true;
 
 	Time::reset();
-	hideGems();
 	spawnHuntGemGroup();
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
