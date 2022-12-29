@@ -191,9 +191,6 @@ $MPPref::Server::CompetitiveMode = false;
 $MPPref::Server::TrainingMode = false;
 $MPPref::Server::PartySpawns = false;
 
-//Stuff for Hunt Hard Mode
-$MPPref::Server::HuntHardMode = false;
-
 //-----------------------------------------------------------------------------
 // Prefs
 //-----------------------------------------------------------------------------
