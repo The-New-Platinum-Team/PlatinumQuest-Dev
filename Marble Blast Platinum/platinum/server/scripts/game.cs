@@ -279,6 +279,10 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
+	if (mp() && $MPPref::Server::DoubleSpawnGroups) {
+		$MP::ScoreSendingDisabled = true;
+	}
+
 	// Reset the players and inform them we're starting
 	%count = ClientGroup.getCount();
 	for (%clientIndex = 0; %clientIndex < %count; %clientIndex++) {
