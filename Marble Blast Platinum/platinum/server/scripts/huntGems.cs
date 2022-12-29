@@ -691,22 +691,15 @@ function spawnGem(%gem) {
 		%chosen = getRandom(0, 100);
 		%platinum = false;
 		if (true) { // pretending "$MPPref::Server::PartySpawnsRamp" is always on
-			$MP::PartyAlternator += 1;
-			if ($MP::PartyAlternator > 2) {
-				$MP::PartyAlternator = 0;
-			} else if ($MP::PartyAlternator == 1) {
-				// Basically, only 1/3 of gems are boosted by party spawns ramp
-			} else {
-				%elapsedTime = $Time::ElapsedTime / Mode::callback("getStartTime", 0);
-				if (%elapsedTime > 0.9) {
-					%chosen = %chosen / 5;
-				} else if (%elapsedTime > 0.75) {
-					%chosen = %chosen / 3;
-				} else if (%elapsedTime > 0.5) {
-					%chosen = %chosen / 2;
-				} else if (%elapsedTime > 0.1 && %elapsedTime < 0.12) { // Have a small taste of increased spawns here
-					%chosen = %chosen / 5;
-				}
+			%elapsedTime = $Time::ElapsedTime / Mode::callback("getStartTime", 0);
+			if (%elapsedTime > 0.9) {
+				%chosen = %chosen / 5;
+			} else if (%elapsedTime > 0.75) {
+				%chosen = %chosen / 3;
+			} else if (%elapsedTime > 0.5) {
+				%chosen = %chosen / 2;
+			} else if (%elapsedTime > 0.1 && %elapsedTime < 0.15) { // Have a small taste of increased spawns here
+				%chosen = %chosen / 5;
 			}
 		}
 
