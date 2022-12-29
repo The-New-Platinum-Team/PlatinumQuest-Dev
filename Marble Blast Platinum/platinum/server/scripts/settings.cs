@@ -184,20 +184,6 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 				ClientGroup.getObject(%i).forceSpectate = %value;
 			}
-		// Score sending is still disabled unless you reset. or if you have 0 gems this session.
-		// (don't want to disable scores if someone realized they have it on at the start and then immediately turned it off)
-		case "DoubleSpawns":
-			if (%value) {
-				$MP::ScoreSendingDisabled = true;
-			} else {
-				$MP::ScoreSendingDisabled = false;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
-			}
 		case "StealMode":
 			if (%value) {
 				activateMode("steal");
