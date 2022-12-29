@@ -217,12 +217,7 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 	}
 
 	//Find center gem(s) to spawn group(s)
-	%scalingSpawnsNumber = mFloor((getPlayingPlayerCount() - 1) / 4) + 1;
-	// 1-8 players spawn two, 9-12 players spawn three, 13-16 players spawn four...
-	if (%scalingSpawnsNumber <= 1) {
-		%scalingSpawnsNumber = 2;
-	}
-	%centerCount = ($MPPref::Server::DoubleSpawnGroups && mp() && !$Game::isMode["coop"]) ? %scalingSpawnsNumber : 1;
+	%centerCount = ($MPPref::Server::DoubleSpawnGroups && mp() && !$Game::isMode["coop"]) ? 2 : 1;
 	%centers = getCenterGems(%groups, %exclude, %centerCount);
 
 	RootGroup.add(%spawnSet = new SimSet("SpawnSet"));
