@@ -41,7 +41,6 @@ $GemSkinColors[7] = "green";
 $GemSkinColors[8] = "turquoise";
 $GemSkinColors[9] = "black";
 $GemSkinColors[10] = "platinum";
-$GemSkinColors[11] = "white";
 
 function Gem::onAdd(%this,%obj) {
 	if (%this.skin !$= "") {
@@ -266,14 +265,6 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	customField[0, "field"] = "";
 };
 
- datablock ItemData(GemItemWhite: GemItem) {
- 	skin = "white";
- 	huntExtraValue = -1; //0 pts
- 	spawnChance = 0.80;
- 	messageColor = "ffffff";
- 	customField[0, "field"] = "";
- };
-
 datablock ItemData(GemItem_PQ : GemItem) {
 	superCategory = "gems";
 	category = "PlatinumQuest";
@@ -389,14 +380,6 @@ datablock ItemData(GemItemPlatinum_PQ: GemItem_PQ) {
 	messageColor = "cccccc";
 	customField[1, "disable"] = 1;
 };
-
- datablock ItemData(GemItemWhite_PQ: GemItem_PQ) {
- 	superCategory = "gems";
- 	category = "PlatinumQuest";
-
-	skin = "white";
- 	customField[1, "disable"] = 1;
- };
 
 datablock ItemData(FancyGemItem_PQ : GemItem) {
 	superCategory = "gems";
@@ -525,15 +508,6 @@ datablock ItemData(FancyGemItemPlatinum_PQ: FancyGemItem_PQ) {
 	messageColor = "cccccc";
 	customField[1, "disable"] = 1;
 };
-
- datablock ItemData(FancyGemItemWhite_PQ: FancyGemItem_PQ) {
- 	superCategory = "gems";
-	category = "PlatinumQuest";
-
- 	skin = "white";
- 	customField[1, "disable"] = 1;
- };
-
 
 // datablock ItemData(GemItemRed_MBU : GemItem_MBU) {
 // 	skin = "red";
@@ -807,76 +781,6 @@ if (!$pref::LegacyItems) {
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
 	};
-    // datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-	//     skin = "base";
-	//     huntExtraValue = 0;
-	//     spawnChance = 0.1;
-    // 	messageColor = "ff66ff";
-	//     customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-	//     skin = "purple";
-	//     huntExtraValue = 5; //6 pts
-	//     spawnChance = 0.1;
-	//     messageColor = "cc44ff";
-	//     customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-	//     skin = "Green";
-	//     huntExtraValue = 3; //4 pts
-	//     spawnChance = 0.3;
-	//     messageColor = "66ff66";
-	//     customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-    // 	skin = "Turquoise";
-    // 	huntExtraValue = 6; //7
-    // 	spawnChance = 0.1;
-    // 	messageColor = "55ffff";
-    // 	customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-    // 	skin = "orange";
-    // 	huntExtraValue = 2; //3 pts
-    // 	spawnChance = 0.45;
-    // 	messageColor = "ffaa33";
-    // 	customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-    // 	skin = "black";
-    // 	huntExtraValue = -2; //-1 pts
-    // 	spawnChance = 0.45;
-    // 	messageColor = "000000";
-    // 	customField[0, "field"] = "";
-    // };		
-     datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
-	 	superCategory = "gems";
-	 	category = "Marble Blast Ultra";
-
-     	skin = "white";
-     	huntExtraValue = -1; //0 pts
-    	spawnChance = 0.80;
-    	messageColor = "000000";
-     	customField[0, "field"] = "";
-     };
 } else {
 	datablock ItemData(GemItem_MBU : GemItem) {
 		superCategory = "gems";
@@ -944,74 +848,5 @@ if (!$pref::LegacyItems) {
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
 	};		
-    // datablock ItemData(GemItemPink_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-	//     skin = "base";
-	//     huntExtraValue = 0;
-	//     spawnChance = 0.1;
-    // 	messageColor = "ff66ff";
-	//     customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemPurple_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-	//     skin = "purple";
-	//     huntExtraValue = 5; //6 pts
-	//     spawnChance = 0.1;
-	//     messageColor = "cc44ff";
-	//     customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemGreen_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-	//     skin = "Green";
-	//     huntExtraValue = 3; //4 pts
-	//     spawnChance = 0.3;
-	//     messageColor = "66ff66";
-	//     customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemTurquoise_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-    // 	skin = "Turquoise";
-    // 	huntExtraValue = 6; //7
-    // 	spawnChance = 0.1;
-    // 	messageColor = "55ffff";
-    // 	customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemOrange_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-    // 	skin = "orange";
-    // 	huntExtraValue = 2; //3 pts
-    // 	spawnChance = 0.45;
-    // 	messageColor = "ffaa33";
-    // 	customField[0, "field"] = "";
-    // };
-    // datablock ItemData(GemItemBlack_MBU: GemItem_MBU) {
-	// 	superCategory = "gems";
-	// 	category = "Marble Blast Ultra";
-
-    // 	skin = "black";
-    // 	huntExtraValue = -2; //-1 pts
-    // 	spawnChance = 0.45;
-    // 	messageColor = "000000";
-    // 	customField[0, "field"] = "";
-    // };	
-     datablock ItemData(GemItemWhite_MBU: GemItem_MBU) {
-	 	superCategory = "gems";
-	 	category = "Marble Blast Ultra";
-
-     	skin = "white";
-     	huntExtraValue = -1; //0 pts
-     	spawnChance = 0.80;
-     	messageColor = "000000";
-     	customField[0, "field"] = "";
-     };				
+			
 }
