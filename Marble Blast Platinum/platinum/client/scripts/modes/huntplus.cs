@@ -30,7 +30,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_huntplus) {
 	file = "huntplus";
 
 	name = "Hunt - Plus";
-	desc = "Something special might happen after a spawn is cleared out!";
+	desc = "Something different that youre not used to might happen after a spawn is cleared out!";
 
 	teams = 0;
 });
