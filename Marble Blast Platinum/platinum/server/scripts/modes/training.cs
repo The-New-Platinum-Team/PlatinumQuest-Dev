@@ -46,7 +46,6 @@ function Mode_training::onHuntGemSpawn(%this) {
 	%this.spawnTime = getSimTime();
 
 	//If they get 100% in the time before we spawn the next then don't do it
-	cancel(%this.hideGemsSch);
 	cancel(%this.spawnSch);
 }
 
@@ -57,7 +56,6 @@ function Mode_training::onFoundGem(%this, %object) {
 	if (%score <= %this.spawnMax / 2) {
 		//You got em all
 		if (!isEventPending(%this.spawnSch)) {
-			%this.hideGemsSch = schedule(999, 0, hideGems); // Yes, this is actually necessary.
 			%this.spawnSch = schedule(1000, 0, spawnHuntGemGroup);
 			%this.waitingNotice = false;
 			commandToClient(%object.client, 'TrainingTime', sub64_int(getSimTime(), %this.spawnTime));
