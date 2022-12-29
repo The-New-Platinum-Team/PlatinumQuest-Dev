@@ -416,38 +416,6 @@ datablock ItemData(CandyItemBlue : GemItemBlue) {
 	skin = "black";
 };
 
-datablock ItemData(CandyItemActualBlue: GemItemBlue) {
-	shapeFile = "~/data/shapes/Halloween/candy_gem.dts";
-	category = "Halloween";
-	pickupName = "a pile of candy!";
-	messageColor = "6666ff";
-	skin = "blue";
-};
-
-datablock ItemData(CandyItemActualYellow : GemItemYellow) {
-	shapeFile = "~/data/shapes/Halloween/candy_gem.dts";
-	category = "Halloween";
-	pickupName = "a pile of candy!";
-	messageColor = "ffff66";
-	skin = "yellow";
-};
-
-datablock ItemData(CandyItemPink : GemItemPink) {
-	shapeFile = "~/data/shapes/Halloween/candy_gem.dts";
-	category = "Halloween";
-	pickupName = "a pile of candy!";
-	messageColor = "ff66ff";
-	skin = "pink";
-};
-
-datablock ItemData(CandyItemPlatinum : GemItemPlatinum) {
-	shapeFile = "~/data/shapes/Halloween/candy_gem.dts";
-	category = "Halloween";
-	pickupName = "a pile of candy!";
-	messageColor = "dddddd";
-	skin = "platinum";
-};
-
 function CandyItem::onAdd(%this, %obj) {
 	Gem::onAdd(%this, %obj);
 	%obj._huntDatablock = %this.getName();
