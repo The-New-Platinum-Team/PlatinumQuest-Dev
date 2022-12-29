@@ -655,14 +655,13 @@ function spawnGem(%gem) {
         if (%gem._normaldatablock $= "") {
 			%gem._normaldatablock = %gem.getDataBlock().getName();
 			%gem._normalskin = %gem.getDataBlock().skin;
-			%gem._gamesuffix = strchr(%gem.getDataBlock().getName(), "_");
 		}
         
 		if (%gem._normalskin $= "yellow") {
-		    %gem.setDataBlock("GemItem" @ %gem._gamesuffix);
+		    %gem.setDataBlock("GemItemRed");
 		    %gem.setSkinName("red");
 		} else if (%gem._normalskin $= "blue") {
-		    %gem.setDataBlock("GemItemRed" @ %gem._gamesuffix);
+		    %gem.setDataBlock("GemItemRed");
 		    %gem.setSkinName("red");
 		}
 		%gem.onInspectApply();
