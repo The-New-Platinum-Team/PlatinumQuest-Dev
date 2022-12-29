@@ -463,8 +463,6 @@ function GameConnection::respawnOnCheckpoint(%this) {
 	%this.blastValue = %this.checkpointBlast;
 	%this.setBlastValue(%this.blastValue);
 	%this.setSpecialBlast(%this.checkpointSpecialBlast);
-	%this.usingPartyTripleBlast = false;
-	$MP::PartyTripleBlast = false;
 
 	//SP only right now--
 	if ($Server::ServerType $= "SinglePlayer") {
