@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
-// Hunt - Plus mode
+// hunt hard mode mode
 //
-// Copyright (c) 2021 The Platinum Team
+// Copyright (c) 2015 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -22,31 +22,20 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-ModeInfoGroup.add(new ScriptObject(ModeInfo_huntplus) {
-	class = "ModeInfo_huntplus";
+ModeInfoGroup.add(new ScriptObject(ModeInfo_hunthardmode) {
+	class = "ModeInfo_hunthardmode";
 	superclass = "ModeInfo";
 
-	identifier = "huntplus";
-	file = "huntplus";
+	identifier = "hunthardmode";
+	file = "hunthardmode";
 
-	name = "Hunt - Plus";
-	desc = "Something special might happen after a spawn is cleared out! Look next to the Gem Counter to figure out what modifier is active!";
+	name = "Hunt - Hard Mode";
+	desc = "No PowerUps, and No Yellows or Blues. Black Gems will give you a random Powerup. Gems reset your Blast Meter.";
 
-	teams = 0;
+	teams = 1;
 });
 
 
-function ClientMode_huntplus::onLoad(%this) {
+function ClientMode_hunthardmode::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
-	%this.registerCallback("onShowPlayGui");
-}
-
-function ClientMode_huntplus::onShowPlayGui(%this) {
-	if (missioninfo.ragingbull) {
-	    RagingBullIcon.setVisible(true);
-	}
-
-	if (missioninfo.additionaltime != "") {
-	    TimeBonusIcon.setVisible(true);
-	}
 }
