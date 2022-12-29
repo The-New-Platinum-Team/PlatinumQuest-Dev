@@ -539,8 +539,6 @@ function GameConnection::stateStart(%this) {
 	%this.stateSchedule = %this.schedule(500, "setGameState", "Ready");
 	%this.setSpecialBlast(false);
 	%this.setBlastValue(0);
-	%this.usingPartyTripleBlast = false;
-	$MP::PartyTripleBlast = false;
 	%this.playing = (MissionInfo.game $= "Ultra");
 
 	//Let everyone know who we are

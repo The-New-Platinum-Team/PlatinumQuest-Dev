@@ -48,8 +48,6 @@ function serverBlastUpdate() {
 		if (!%client.playing)
 			continue;
 
-		if (%client.usingPartyTripleBlast) // Do not increment it in triple-blast mode
-			continue;
 		%blastValue = %client.blastValue;
 		// Update blast value
 		if ($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast)
