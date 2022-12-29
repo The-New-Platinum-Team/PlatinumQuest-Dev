@@ -26,7 +26,6 @@ function Mode_hunthardmode::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onFoundGem");
 	%this.registerCallback("shouldRestorePowerup");
-	%this.registerCallback("modifyScoreData");
 }
 
 function Mode_hunthardmode::onFoundGem(%this, %object) {
