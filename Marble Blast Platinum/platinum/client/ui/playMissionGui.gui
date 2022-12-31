@@ -1120,6 +1120,13 @@ function PlayMissionGui::open(%this, %marbleland) {
 	if (%marbleland) {
 		if ($MarblelandMissionList $= "") {
 			MessageBoxOk("Please wait", "The custom level list has not been loaded yet, please wait...");
+			// Redo the download again
+			if (!isObject(MarblelandJSONDownloader)) {
+				marblelandDownloadMissionList();
+			}
+			if (!isObject(MarblelandPacksJSONDownloader)) {
+				marblelandDownloadPackList();
+			}
 			return;
 		}
 		if (!%this.marbleland) {
