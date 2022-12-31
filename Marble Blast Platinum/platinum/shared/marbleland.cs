@@ -44,7 +44,7 @@ function MarblelandJSONDownloader::onLine(%this, %line) {
 		%missionId = %entry.id;
 		%misname = strreplace(%entry.baseName, ".mis", "") @ "_" @ %missionId @ ".mis";
 		%entry.file = "platinum/data/missions/marbleland/" @ %misname;
-		%entry.searchName = alphaNum(strlwr(trim(%entry.name)));
+		%entry.searchName = stripChars(strlwr(trim(%entry.name)), '\n\t');
 	}
 }
 
@@ -76,7 +76,7 @@ function MarblelandPacksJSONDownloader::onLine(%this, %line) {
 	// Prepare lookup
 	for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
 		%entry = $MarblelandPackList.getEntry(%i);
-		%entry.searchName = alphaNum(strlwr(trim(%entry.name)));
+		%entry.searchName = stripChars(strlwr(trim(%entry.name)), '\n\t');
 		%entry.searchArtist = strlwr(trim(%entry.createdBy.username));
 		$MarblelandPackList.lookup[%entry.id] = %entry;
 	}
