@@ -186,6 +186,9 @@ $MPPref::Server::PingStealFix = 250;
 //If we should spawn 2 groups of gems at once
 $MPPref::Server::DoubleSpawnGroups = false;
 
+//Steal Mode shouldn't be enabled by default
+$MPPref::Server::StealMode = false;
+
 //-----------------------------------------------------------------------------
 // Prefs
 //-----------------------------------------------------------------------------
