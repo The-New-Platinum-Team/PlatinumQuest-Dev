@@ -306,7 +306,7 @@ function editMissionInfo(%gui) {
 	}
 
 	MissionInfo.GameMode = %gm;
-	%gm = resolveMissionGameModes(%MissionInfo, gm);
+	%gm = resolveMissionGameModes(%MissionInfo, %gm);
 	setGameModes(%gm);
 
 	MissionInfo.name = EMI_LevelName.getValue();
