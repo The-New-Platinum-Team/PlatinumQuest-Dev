@@ -209,6 +209,7 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItem("Quick Create", "- Pads -", 0);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Start Pad", 23, "", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "End Pad", 24, "", 1);
+	EditorMenuBar.addMenuItemConf("Quick Create", "Checkpoint", 33, "", 1);
 	EditorMenuBar.addMenuItem("Quick Create", "- Gems -", 0);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Red Gem", 1, "1", 1);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Yellow Gem", 2, "2", 1);
@@ -1018,26 +1019,18 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "StartPad_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		case "Ultra":
 			%obj = new StaticShape() {
 				dataBlock = "StartPad_MBU";
-				rotate = 1;
-				static = 1;
 			};
 		case "Gold":
 			%obj = new StaticShape() {
 				dataBlock = "StartPad_MBG";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "StartPad";
-				rotate = 1;
-				static = 1;
 			};
 		}
 	case "End Pad":
@@ -1045,26 +1038,79 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "EndPad_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		case "Ultra":
 			%obj = new StaticShape() {
 				dataBlock = "EndPad_MBU";
-				rotate = 1;
-				static = 1;
 			};
 		case "Gold":
 			%obj = new StaticShape() {
 				dataBlock = "EndPad_MBG";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "EndPad";
-				rotate = 1;
-				static = 1;
+			};
+		}
+	case "Checkpoint":
+		switch$ (MissionInfo.game) {
+		case "PlatinumQuest":
+			%obj = new StaticShape() {
+				dataBlock = "Checkpoint_PQ";
+			};
+		case "Ultra":
+		    if ($mbuchecknum == "") {  //Because of the CheckpointTrigger, we want each newly placed Checkpoint to have a different name, so that we "don't confuse" the CheckpointTriggers. ~Connie
+				$mbuchecknum = 1;
+			} else {
+				$mbuchecknum += 1;
+			}
+
+		    %checkpointname = "UltraCheckpoint" @ $mbuchecknum;
+			%obj = new StaticShape(%checkpointname) {
+				dataBlock = "Checkpoint_MBU";
+			};
+
+		    %objchtrig = new Trigger() {           //For the MBU Checkpoint, we will need a CheckpointTrigger, seeing as touching the shape will not trigger the Checkpoint. ~Connie
+			    dataBlock = "CheckpointTrigger";
+			    polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+			    center = "1";
+				position = %obj.getPosition() + "-1 1 0";
+				scale = "2 2 1";
+				respawnPoint = "UltraCheckpoint" @ $mbuchecknum;
+		    };
+
+		    %objchtrig.setTransform("0 0 0 1 0 0 0");
+		    $InstantGroup.add(%objchtrig);
+		    EWorldEditor.clearSelection();
+		    EWorldEditor.selectObject(%objchtrig);
+		    EWorldEditor.dropSelection();
+		case "Gold":
+		    if ($mbxpchecknum == "") {     //Same story here; see MBU Checkpoint. ~Connie
+				$mbxpchecknum = 1;
+			} else {
+				$mbxpchecknum += 1;
+			}
+
+		    %checkpointname = "XPGoldCheckpoint" @ $mbxpchecknum;
+			%obj = new StaticShape(%checkpointname) {
+				dataBlock = "Checkpoint_MBXP";
+			};
+
+		    %objchtrig = new Trigger() {     //Same here; see MBU Checkpoint. ~Connie
+			    dataBlock = "CheckpointTrigger";
+			    polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+			    center = "1";
+				respawnPoint = "XPGoldCheckpoint" @ $mbxpchecknum;
+		    };
+
+		    %objchtrig.setTransform("0 0 0 1 0 0 0");
+		    $InstantGroup.add(%objchtrig);
+		    EWorldEditor.clearSelection();
+		    EWorldEditor.selectObject(%objchtrig);
+		    EWorldEditor.dropSelection();
+		default:
+			%obj = new StaticShape() {
+				dataBlock = "Checkpoint";
 			};
 		}
 	case "Tornado":
@@ -1072,20 +1118,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "Tornado_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		case "Ultra":
 			%obj = new StaticShape() {
 				dataBlock = "Tornado_MBM";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "Tornado";
-				rotate = 1;
-				static = 1;
 			};
 		}
 	case "Mine":
@@ -1093,14 +1133,10 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "LandMine_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "LandMine";
-				rotate = 1;
-				static = 1;
 			};
 		}
 	case "Nuke":
@@ -1108,14 +1144,10 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "Nuke_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "Nuke";
-				rotate = 1;
-				static = 1;
 			};
 		}
 	case "Bumper":
@@ -1123,20 +1155,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "RoundBumper_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		case "Ultra":
 			%obj = new StaticShape() {
 				dataBlock = "RoundBumper_MBU";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "RoundBumper";
-				rotate = 1;
-				static = 1;
 			};
 		}
 	case "Triangle Bumper":
@@ -1144,14 +1170,10 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "TriangleBumper_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "TriangleBumper";
-				rotate = 1;
-				static = 1;
 			};
 		}
 	case "Duct Fan":
@@ -1159,20 +1181,14 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new StaticShape() {
 				dataBlock = "DuctFan_PQ";
-				rotate = 1;
-				static = 1;
 			};
 		case "Ultra":
 			%obj = new StaticShape() {
 				dataBlock = "DuctFan_MBU";
-				rotate = 1;
-				static = 1;
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "DuctFan";
-				rotate = 1;
-				static = 1;
 			};
 		}
 	case "Trapdoor":
@@ -1181,38 +1197,28 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 			%obj = new StaticShape() {
 				dataBlock = "Trapdoor_PQ";
 				resetTime = 5000;
-				rotate = 1;
-				static = 1;
 			};
 		case "Ultra":
 			%obj = new StaticShape() {
 				dataBlock = "Trapdoor_MBU";
 				resetTime = 5000;
-				rotate = 1;
-				static = 1;
 			};
 		case "Gold":
 			%obj = new StaticShape() {
 				dataBlock = "Trapdoor";
 				resetTime = 5000;
-				rotate = 1;
-				static = 1;
 				skin = "skin1";
 			};
 		default:
 			%obj = new StaticShape() {
 				dataBlock = "Trapdoor";
 				resetTime = 5000;
-				rotate = 1;
-				static = 1;
 				skin = "base";
 			};
 		}
 	case "Oil Slick":
 		%obj = new StaticShape() {
 			dataBlock = "OilSlick";
-			rotate = 1;
-			static = 1;
 		};
 	case "Spawn Trigger":
 		%obj = new Trigger() {
@@ -1239,8 +1245,6 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
             Controllable = "0";
             client = "1";
             powerUpData = "0";
-			rotate = 1;
-			static = 1;
 		};
 	case "Mega Marble":
 		%obj = new Item() {
