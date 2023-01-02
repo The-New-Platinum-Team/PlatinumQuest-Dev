@@ -335,7 +335,7 @@ function statsRecordScoreLine(%line) {
 		reformatGameEndText();
 	case "RECORDING":
 		//The server wants our recording, let's oblige
-		statsRecordReplay(PlayMissionGui.getMissionInfo(), "Replay");
+		statsRecordReplay(getMissionInfo($Client::MissionFile), "Replay");
 	case "ACHIEVEMENT":
 		%achId = restWords(%line);
 		echo("Stats: Got achievement id" @ %achId);
