@@ -212,7 +212,7 @@ function serverCmdFileCRC(%client, %file, %crc) {
 	// or something we couldn't handle if we tried. Just kick 'em off.
 	if (!isFile(%file)) {
 		commandToClient(%client, 'CRCError', fileBase(%file) @ fileExt(%file) @ " unknown file");
-		devecho("\c2" @ %client.getUsername() SPC "unknown file" SPC %file @ "!");
+		MessageBoxOK("CRC ERROR","\c2" @ %client.getUsername() SPC "unknown file" SPC %file @ "!");
 		// Haha, sucker!
 		%client.failedCRC = true;
 		return;
@@ -221,7 +221,7 @@ function serverCmdFileCRC(%client, %file, %crc) {
 	// THOUGHT YOU COULD GET AWAY WITH IT, HUH? NOPE.
 	if ($MP::ServerCRC[%file] !$= %crc) {
 		commandToClient(%client, 'CRCError', fileBase(%file) @ fileExt(%file) @ " invalid crc (" @ %crc SPC "!=" SPC $MP::ServerCRC[%file] @ ")");
-		devecho("\c2" @ %client.getUsername() SPC "invalid file crc" SPC %file SPC "(" @ %crc SPC "!=" SPC $MP::ServerCRC[%file] @ ")");
+		MessageBoxOK("CRC ERROR", "\c2" @ %client.getUsername() SPC "invalid file crc" SPC %file SPC "(" @ %crc SPC "!=" SPC $MP::ServerCRC[%file] @ ")");
 		// Haha, sucker!
 		%client.failedCRC = true;
 		return;
@@ -240,7 +240,7 @@ $LB::ValidateSessions = true;
 
 function serverCmdFinishCRC(%client, %cFiles) {
 	if (%client.failedCRC) {
-		devecho("\c2" @ %client._name SPC "failed CRC check!");
+		MessageBoxOK("CRC ERROR","\c2" @ %client._name SPC "failed CRC check!");
 		// Hahahahahahahahahaha NO.
 		if (!%client.isSuperAdmin) {
 			if ($CRC_NOPE) {
