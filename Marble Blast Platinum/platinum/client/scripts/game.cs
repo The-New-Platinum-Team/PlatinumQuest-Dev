@@ -299,7 +299,8 @@ function recordScore() {
 
 	%isMarbleland = marblelandIsMission($Client::MissionFile);
 
-	getBestTimes(getMissionInfo($Client::MissionFile));
+	%minfo = getMissionInfo($Client::MissionFile);
+	getBestTimes(%minfo);
 
 	%score = $Game::FinalScore;
 	%flags = Unlock::getMissionScoreFlags(MissionInfo, %score);
@@ -352,10 +353,10 @@ function recordScore() {
 		// Set rating to "Submitting..."
 		if ($Game::isMode["challenge"]) {
 			$LB::RatingPending = false;
-			statsRecordChallengeScore(PlayMissionGui.getMissionInfo());
+			statsRecordChallengeScore(%minfo);
 		} else {
 			$LB::RatingPending = true;
-			statsRecordScore(PlayMissionGui.getMissionInfo());
+			statsRecordScore(%minfo);
 		}
 	}
 
@@ -380,9 +381,9 @@ function recordScore() {
 	if (lb()) {
 		if ($highScoreIndex !$= "") {
 			//Hack: update the top score as quick as we can
-			%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id].scores;
+			%scores = PlayMissionGui.personalScoreCache[%minfo.id].scores;
 			if ($Game::isMode["challenge"]) {
-				%scores = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id, "challenge"].scores;
+				%scores = PlayMissionGui.personalScoreCache[%minfo.id, "challenge"].scores;
 			}
 			if (%scores.getSize() == 0) {
 				JSONGroup.add(%dummy = new ScriptObject() {
