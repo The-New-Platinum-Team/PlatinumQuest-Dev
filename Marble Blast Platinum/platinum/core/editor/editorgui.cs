@@ -348,6 +348,7 @@ function EditorSaveMission() {
 			return false;
 		}
 
+		deleteFile($Server::MissionFile @ ".cache"); // Delete the cache
 		MissionGroup._postsave();
 		deactivatePackage(save);
 
