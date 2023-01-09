@@ -71,7 +71,12 @@ function updatePredictor() {
 	// vars to look at: MissionInfo.time, PlayGui.currentTime, PlayGui.bonusTime, PlayGui.totalTime, PlayGui.totalBonus
 	// in Hunt, currentTime is basically reversed.
 
-	if ((MissionInfo.time - PlayGui.currentTime) < 10000 || (MissionInfo.awesomeScore && %estimated > MissionInfo.awesomeScore * 2)) { // Don't show if the match hasn't been 10s long, to prevent stupid predictors
+	%predictorMax = 0;
+	if (MissionInfo.awesomeScore) {
+		%predictorMax = MissionInfo.awesomeScore * $pref::ScorePredictorMaxFactor;
+	}
+
+	if ((MissionInfo.time - PlayGui.currentTime) < 10000 || (%predictorMax > 0 && %estimated > %predictorMax)) { // Don't show if the match hasn't been 10s long, to prevent stupid predictors
 		PGScorePredictor.setText(" ");
 	} else {
 		%estimatedColor = "<shadowcolor:0000007f><shadow:1:1>";
