@@ -1965,6 +1965,7 @@ function Editor::open(%this) {
 	%this.prevContent = RootGui.getContent();
 	RootGui.setContent(EditorGui);
 
+	$Editor::InEditor = true;
 	$Editor::Opened = true;
 	commandToAll('GameStatus', $Editor::Opened);
 
@@ -1979,6 +1980,7 @@ function Editor::close(%this) {
 	if (%this.prevContent == -1 || %this.prevContent $= "")
 		%this.prevContent = "PlayGui";
 
+	$Editor::InEditor = false;
 	RootGui.setContent(%this.prevContent);
 
 	MessageHud.close();
