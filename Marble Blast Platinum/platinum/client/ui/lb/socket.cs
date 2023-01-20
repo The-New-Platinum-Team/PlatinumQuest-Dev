@@ -640,7 +640,7 @@ function LBNetwork::on_user(%this, %line) {
 		%entry.location = getWord(%data, 2);
 		%entry.display  = filterBadWords(decodeName(getWord(%data, 3)));
 		%entry.color    = getWord(%data, 4);
-		%entry.colorId  = LBRegisterChatColor(%username, getWord(%data, 4), getWord(%data, 4), getWord(%data, 4));
+		%entry.colorId  = LBRegisterChatColor(%username, getWord(%data, 4), getWord(%data, 4), getWord(%data, 4), true);
 		%entry.flair    = decodeName(getWord(%data, 5));
 		%entry.prefix   = decodeName(getWord(%data, 6));
 		%entry.suffix   = decodeName(getWord(%data, 7));
