@@ -484,10 +484,17 @@ function fixColor(%color) {
 	return %color @ strRepeat("0", 6 - %len);
 }
 
-function LBRegisterChatColor(%name, %chat, %ingame, %mp) {
+function LBRegisterChatColor(%name, %chat, %ingame, %mp, %isUser) {
 	%chat   = fixColor(%chat);
 	%ingame = fixColor(%ingame);
 	%mp     = fixColor(%mp);
+
+	if (%isUser) {
+		if ($TexturePack::InvertTextColors) {
+			if (strlwr(%chat) !$= "ffffff")
+				%chat = invertColor(%chat);
+		}
+	}
 
 	if ($LBChatColor[%name] !$= "") {
 		$LBChatColor[$LBChatColor[%name], "chat"]   = "<color:" @ %chat @ ">";
