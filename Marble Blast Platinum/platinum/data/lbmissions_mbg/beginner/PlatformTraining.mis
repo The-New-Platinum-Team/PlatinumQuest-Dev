@@ -45,7 +45,7 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
    };
    new Sun() {
-      direction = "0.4307151 0.5053171 -0.7477562";
+      direction = "0.430715 0.505317 -0.747756";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
@@ -58,13 +58,13 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(StartPoint) {
       position = "34 -1.49333e-07 32";
-      rotation = "0 0 -1 89.95439";
+      rotation = "0 0 -1 89.9544";
       scale = "1 1 1";
       dataBlock = "StartPad_MBG";
    };
    new StaticShape(EndPoint) {
       position = "-34 1.75394e-07 32";
-      rotation = "0 0 -1 89.95439";
+      rotation = "0 0 -1 89.9544";
       scale = "1 1 1";
       dataBlock = "EndPad_MBG";
    };
@@ -118,7 +118,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/beginner/training_platform.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/beginner/training_platform.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -139,6 +139,134 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+   
+   new SimGroup(Fence1) {
+
+      new StaticShape() {
+         position = "22.2886 7.72334 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3806";
+            connected = "1";
+      };
+      new StaticShape() {
+         position = "37.7368 7.72184 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3807";
+            connected = "1";
+      };
+      new StaticShape() {
+         position = "37.6989 -7.61575 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3808";
+            connected = "1";
+      };
+      new StaticShape() {
+         position = "22.2552 -7.76821 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3809";
+            connected = "1";
+      };
+      new SimGroup(Fence1_rails) {
+
+         new StaticShape() {
+            position = "22.2886 7.72334 32";
+            rotation = "1 0 0 0";
+            scale = "5.23668 1 1";
+            realDataBlock = "ForceFieldBumper";
+            dataBlock = "Empty";
+         };
+         new StaticShape() {
+            position = "37.7368 7.72184 32";
+            rotation = "0 0 1 90.1416";
+            scale = "5.19919 1 1";
+            realDataBlock = "ForceFieldBumper";
+            dataBlock = "Empty";
+         };
+         new StaticShape() {
+            position = "37.6989 -7.61575 32";
+            rotation = "0 0 1 179.434";
+            scale = "5.23542 1 1";
+            realDataBlock = "ForceFieldBumper";
+            dataBlock = "Empty";
+         };
+      };
+   };
+   new SimGroup(Fence2) {
+
+      new StaticShape() {
+         position = "-22.3064 -7.68171 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3811";
+            connected = "1";
+      };
+      new StaticShape() {
+         position = "-37.6794 -7.62933 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3812";
+            connected = "1";
+      };
+      new StaticShape() {
+         position = "-37.6652 7.66605 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3813";
+            connected = "1";
+      };
+      new StaticShape() {
+         position = "-22.3573 7.71537 32";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         realDataBlock = "ForceFieldPost";
+         dataBlock = "Empty";
+            rail = "3814";
+            connected = "1";
+      };
+      new SimGroup(Fence2_rails) {
+
+         new StaticShape() {
+            position = "-22.3064 -7.68171 32";
+            rotation = "0 0 1 180.195";
+            scale = "5.21122 1 1";
+            realDataBlock = "ForceFieldBumper";
+            dataBlock = "Empty";
+         };
+         new StaticShape() {
+            position = "-37.6794 -7.62933 32";
+            rotation = "-0 0 -1 89.9468";
+            scale = "5.18488 1 1";
+            realDataBlock = "ForceFieldBumper";
+            dataBlock = "Empty";
+         };
+         new StaticShape() {
+            position = "-37.6652 7.66605 32";
+            rotation = "-0 0 -1 0.185575";
+            scale = "5.18915 1 1";
+            realDataBlock = "ForceFieldBumper";
+            dataBlock = "Empty";
+         };
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {

@@ -45,7 +45,7 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
    };
    new Sun() {
-      direction = "0.4412779 0.4760098 -0.7607157";
+      direction = "0.441278 0.47601 -0.760716";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
@@ -118,7 +118,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/beginner/platformparty.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/beginner/platformparty.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -176,7 +176,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/beginner/platformparty.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/beginner/platformparty.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -234,7 +234,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/beginner/platformparty.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/beginner/platformparty.dif";
          interiorIndex = "2";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -251,10 +251,33 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape() {
       position = "-2.32595 42.8627 23.2222";
-      rotation = "0 0 -1 15.46979";
+      rotation = "0 0 -1 15.4698";
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+
+   new SimGroup(one) {
+
+      new StaticShape(CheckPointShape1) {
+         position = "20.7967 -42.0226 8.05";
+         rotation = "0 0 -1 89.3814";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check1) {
+         position = "19.5381 -35.975 7.2586";
+         rotation = "1 0 0 0";
+         scale = "5 12.1656 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {

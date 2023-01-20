@@ -45,7 +45,7 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
    };
    new Sun() {
-      direction = "0.34749 0.6390421 -0.6862041";
+      direction = "0.34749 0.639042 -0.686204";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
@@ -53,13 +53,13 @@ new SimGroup(MissionGroup) {
 
       new StaticShape(StartPoint) {
          position = "-14 -2.2 9.53674e-07";
-         rotation = "0 0 1 89.99999";
+         rotation = "0 0 1 90";
          scale = "1 1 1";
          dataBlock = "StartPad_MBG";
       };
       new StaticShape(EndPoint) {
          position = "-2.25417 -1.9581 27";
-         rotation = "0 0 1 89.95439";
+         rotation = "0 0 1 89.9544";
          scale = "1 1 1";
          dataBlock = "EndPad_MBG";
       };
@@ -104,10 +104,33 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape() {
       position = "-1.77277 -1.41846 34.4222";
-      rotation = "0 0 -1 44.69069";
+      rotation = "0 0 -1 44.6907";
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+
+   new SimGroup(one) {
+
+      new StaticShape(CheckPointShape1) {
+         position = "-11.9185 13.9545 14.11";
+         rotation = "0 0 -1 90.5273";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check1) {
+         position = "-14.4447 16.9571 13.5993";
+         rotation = "1 0 0 0";
+         scale = "5 5.92152 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {

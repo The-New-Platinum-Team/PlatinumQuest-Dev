@@ -40,12 +40,12 @@ new SimGroup(MissionGroup) {
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 -239463741642863751916902199679814467584.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 -248810038247503270861620484650420928512.000000";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 -255503091439841096539830109944047206400.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -239463741642863750000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -248810038247503270000000000000000000000.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -255503091439841100000000000000000000000.000000";
    };
    new Sun() {
-      direction = "0.4817261 0.4817261 -0.7320382";
+      direction = "0.481726 0.481726 -0.732038";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
@@ -58,7 +58,7 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(StartPoint) {
       position = "-29 17 5";
-      rotation = "0 0 1 89.95439";
+      rotation = "0 0 1 89.9544";
       scale = "1 1 1";
       dataBlock = "StartPad_MBG";
    };
@@ -167,6 +167,29 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
+
+   new SimGroup(check1) {
+
+      new Trigger(checkpoint1) {
+         position = "-29.8914 -3.67176 5.1";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+      new StaticShape(CheckPointShape1) {
+         position = "-29.3954 -4.12873 5.1";
+         rotation = "0 0 1 90.5273";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {
