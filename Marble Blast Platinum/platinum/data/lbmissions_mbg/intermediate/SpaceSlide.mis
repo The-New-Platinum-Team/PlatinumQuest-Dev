@@ -40,12 +40,12 @@ new SimGroup(MissionGroup) {
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 -235549196024539772221739532287110807552.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 -231551107161058351296100626166360047616.000000";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 -223539291696291094006925950594117009408.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -235549196024539770000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -231551107161058350000000000000000000000.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -223539291696291090000000000000000000000.000000";
    };
    new Sun() {
-      direction = "0.404882 -0.7340949 -0.5451379";
+      direction = "0.404882 -0.734095 -0.545138";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
@@ -58,7 +58,7 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(StartPoint) {
       position = "-52 3.87975e-08 0";
-      rotation = "0 0 1 89.99999";
+      rotation = "0 0 1 90";
       scale = "1 1 1";
       dataBlock = "StartPad_MBG";
    };
@@ -260,7 +260,7 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(EndPoint) {
       position = "78 -42 0";
-      rotation = "0 0 1 89.95439";
+      rotation = "0 0 1 89.9544";
       scale = "1 1 1";
       dataBlock = "EndPad_MBG";
    };
@@ -273,10 +273,54 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape() {
       position = "77.8238 -41.5642 6.99115";
-      rotation = "0 0 -1 59.58761";
+      rotation = "0 0 -1 59.5876";
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+
+   new SimGroup(two) {
+
+      new StaticShape(CheckPointShape2) {
+         position = "-6.83382 -41.9538 0.0687885";
+         rotation = "0 0 1 89.9544";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check2) {
+         position = "-16.3647 -39.928 -0.260609";
+         rotation = "1 0 0 0";
+         scale = "16.305 5 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape2";
+      };
+   };
+   new SimGroup(one) {
+
+      new Trigger(check1) {
+         position = "-15.1929 3.71216 -0.275653";
+         rotation = "1 0 0 0";
+         scale = "5 6.0961 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+      new StaticShape(CheckPointShape1) {
+         position = "-11.0854 0.0850978 0.0537475";
+         rotation = "0 0 1 178.763";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {

@@ -39,13 +39,13 @@ new SimGroup(MissionGroup) {
       windVelocity = "1 1 0";
       windEffectPrecipitation = "1";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569861149077900047473967104.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
       fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160049016675429178998259712.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
          locked = "true";
    };
    new Sun() {
-      direction = "0.4034692 0.6133634 -0.6789684";
+      direction = "0.403469 0.613363 -0.678968";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
          position = "0 0 0";
@@ -100,14 +100,14 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "15.3572 -31.9589 511.008";
-      rotation = "0.5211439 0.2358609 -0.8202308 57.77761";
+      rotation = "0.521144 0.235861 -0.820231 57.7776";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_mbg/parts/halftubes/halftube_long.dif";
       showTerrainInside = "0";
    };
    new InteriorInstance() {
       position = "-1.17475 -13.0404 499.723";
-      rotation = "0.210186 0.575806 0.7901071 49.5937";
+      rotation = "0.210186 0.575806 0.790107 49.5937";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_mbg/parts/halftubes/halftube_long.dif";
       showTerrainInside = "0";
@@ -121,21 +121,21 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "23.9894 -0.0140683 502.409";
-      rotation = "-0.9934652 0.01987201 0.112393 20.18272";
+      rotation = "-0.993465 0.019872 0.112393 20.1827";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_mbg/parts/halftubes/halftube_long.dif";
       showTerrainInside = "0";
    };
    new InteriorInstance() {
       position = "15 2.52571 485.381";
-      rotation = "1 0 0 32.65859";
+      rotation = "1 0 0 32.6586";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_mbg/parts/tubes/tube_lintersect.dif";
       showTerrainInside = "0";
    };
    new InteriorInstance() {
       position = "-38.7362 -1.62043 485.025";
-      rotation = "0.0504688 0.7753491 -0.629513 11.80678";
+      rotation = "0.0504688 0.775349 -0.629513 11.8068";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_mbg/parts/tubes/tube_long.dif";
       showTerrainInside = "0";
@@ -172,7 +172,7 @@ new SimGroup(MissionGroup) {
    };
    new InteriorInstance() {
       position = "-5.35315 31.2327 493.761";
-      rotation = "0.189226 0.1717971 -0.9667882 95.65137";
+      rotation = "0.189226 0.171797 -0.966788 95.6514";
       scale = "1 1 1";
       interiorFile = "~/data/lbinteriors_mbg/parts/tubes/tube_turn.dif";
       showTerrainInside = "0";
@@ -232,7 +232,7 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "-5.6 4.6 485.05";
+      position = "-5.58205 4.59868 485.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItem";
@@ -268,7 +268,7 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "0.276583 -3.84752 500.2";
+      position = "0.276583 -3.84752 500.706";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem";
@@ -277,7 +277,7 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "2.91372 0.393372 500.2";
+      position = "2.51372 0.393372 500.2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem";
@@ -291,6 +291,29 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+
+   new SimGroup(one) {
+
+      new StaticShape(CheckPointShape1) {
+         position = "0.0687977 -10.8593 485.075";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check1) {
+         position = "-3.04871 -9.66735 484.935";
+         rotation = "1 0 0 0";
+         scale = "5 5 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {

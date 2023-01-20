@@ -47,7 +47,7 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 -1.000000";
    };
    new Sun() {
-      direction = "-0.5777349 -0.3027419 -0.7580038";
+      direction = "-0.577735 -0.302742 -0.758004";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
@@ -60,13 +60,13 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape(StartPoint) {
       position = "-98 34 0";
-      rotation = "0 0 1 89.99999";
+      rotation = "0 0 1 90";
       scale = "1 1 1";
       dataBlock = "StartPad_MBG";
    };
    new StaticShape(EndPoint) {
       position = "86 -62 41.9875";
-      rotation = "0 0 1 89.95439";
+      rotation = "0 0 1 89.9544";
       scale = "1 1 1";
       dataBlock = "EndPad_MBG";
          fixedscale = "1";
@@ -150,7 +150,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/intermediate/gauntlet.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/intermediate/gauntlet.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -192,7 +192,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/intermediate/gauntlet.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/intermediate/gauntlet.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -235,7 +235,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/intermediate/gauntlet.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/intermediate/gauntlet.dif";
          interiorIndex = "2";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -278,7 +278,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/intermediate/gauntlet.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/intermediate/gauntlet.dif";
          interiorIndex = "3";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -321,7 +321,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/intermediate/gauntlet.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/intermediate/gauntlet.dif";
          interiorIndex = "4";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -363,7 +363,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/lbinteriors_mbg/intermediate/gauntlet.dif";
+         interiorResource = "platinum/data/lbinteriors_mbg/intermediate/gauntlet.dif";
          interiorIndex = "5";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -385,6 +385,50 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+
+   new SimGroup(two) {
+
+      new StaticShape(CheckPointShape2) {
+         position = "78.2123 -54.9894 12.1";
+         rotation = "0 0 1 181.055";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check2) {
+         position = "73.9053 -51.7629 11.8558";
+         rotation = "1 0 0 0";
+         scale = "8.51474 5 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape2";
+      };
+   };
+   new SimGroup(one) {
+
+      new StaticShape(CheckPointShape1) {
+         position = "93.8869 34.6498 0.11";
+         rotation = "0 0 1 177.617";
+         scale = "1 1 1";
+         dataBlock = "Empty";
+         realDataBlock = "Checkpoint_MBXP";
+            hidden = "0";
+      };
+      new Trigger(check1) {
+         position = "89.721 38.4629 -0.336903";
+         rotation = "1 0 0 0";
+         scale = "9.06464 8.78697 5";
+         dataBlock = "CheckpointTrigger";
+         unusable = "1";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            gravity = "0";
+            respawnPoint = "CheckPointShape1";
+      };
+   };
+
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {
