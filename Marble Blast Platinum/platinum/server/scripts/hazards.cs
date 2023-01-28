@@ -67,7 +67,7 @@ datablock StaticShapeData(TrapDoor) {
 	customField[0, "type"   ] = "time";
 	customField[0, "name"   ] = "Reset Time";
 	customField[0, "desc"   ] = "How long it takes the trapdoor to reopen.";
-	customField[0, "default"] = "Default";
+	customField[0, "default"] = "5000";
 	customField[1, "field"  ] = "skin";
 	customField[1, "type"   ] = "string";
 	customField[1, "name"   ] = "Skin Name";
@@ -95,8 +95,8 @@ function TrapDoorClass::onAdd(%this, %obj) {
 	%obj._open = false;
 	%obj._timeout = 200;
 	// Default variables
-	if (%obj.resetTime $= "0")
-		%obj.resetTime = "Default";
+	if (%obj.resetTime $= "0" || %obj.resetTime $= "")
+		%obj.resetTime = "5000";
 		
 	// Skin takes effect upon mission reset or reload
 	if (%obj.skinName !$= "") { //clean up old skinname field
