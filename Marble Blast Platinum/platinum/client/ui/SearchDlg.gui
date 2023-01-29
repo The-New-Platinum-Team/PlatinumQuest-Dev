@@ -345,9 +345,9 @@ function testSearch(%mission, %flags, %query) {
 }
 
 function getSearchRow(%obj) {
-	return trim(%obj.trimName)
+	return trim(stripChars(%obj.trimName, "\n\t"))
 	       TAB expandEscape(trim(%obj.artist))
-	       TAB trim(%obj.searchName)
+	       TAB stripChars(trim(%obj.searchName), "\n\t")
 	       TAB %obj;
 }
 
