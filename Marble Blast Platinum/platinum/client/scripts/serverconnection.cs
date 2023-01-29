@@ -87,6 +87,7 @@ function GameConnection::onConnectionAccepted(%this) {
 
 	// Called on the new connection object after connect() succeeds.
 	LagIcon.setVisible(false);
+	$Event::Modes = ""; // Disable this bs
 
 	clientCbOnServerJoin();
 }
