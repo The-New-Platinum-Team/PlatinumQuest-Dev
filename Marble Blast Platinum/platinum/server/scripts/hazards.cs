@@ -397,6 +397,12 @@ datablock AudioProfile(ExplodeSfx) {
 	preload = true;
 };
 
+datablock AudioProfile(ExplodeMineSfx) {
+	filename    = "~/data/sound/explode1.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
 datablock ParticleData(LandMineParticle) {
 	textureName          = "~/data/particles/smoke";
 	dragCoefficient      = 2;
@@ -514,7 +520,7 @@ datablock ExplosionData(LandMineSubExplosion2) {
 };
 
 datablock ExplosionData(LandMineExplosion) {
-	soundProfile = ExplodeSfx;
+	soundProfile = ExplodeMineSfx;
 	lifeTimeMS = 1200;
 
 	// Volume particles
