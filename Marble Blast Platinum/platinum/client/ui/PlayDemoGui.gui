@@ -318,7 +318,7 @@ function PlayDemoGui::buildDemoList(%this) {
 
 		%tagText = (%info.mp ? "[MP] " : (%info.lb ? "[LB] " : ""));
 
-		%name = %info.name;
+		%name = stripChars(%info.name, "\n\t");
 		PD_DemoList.addRow(PD_DemoList.rowCount(), %tagText @ %name TAB %file TAB %name);
 	}
 	PD_DemoList.sort(2);
@@ -484,7 +484,7 @@ function PlayDemoGui::search(%this) {
 			continue;
 
 		%tagText = (%info.mp ? "[MP] " : (%info.lb ? "[LB] " : ""));
-		%name = %info.name;
+		%name = stripChars(%info.name, "\n\t");
 
 		PD_DemoList.addRow(PD_DemoList.rowCount(), %tagText @ %name TAB %info.file TAB %name);
 	}
