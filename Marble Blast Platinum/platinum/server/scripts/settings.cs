@@ -164,7 +164,7 @@ serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQu
 serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts", false,      "check");
 serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests", false,     "check");
 serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,     "check");
-serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
+// serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
 
 //Called before a server variable is set
 function onPreServerVariableSet(%id, %previous, %value) {
@@ -198,12 +198,12 @@ function onPostServerVariableSet(%id, %previous, %value) {
 					}
 				}
 			}
-		case "StealMode":
-			if (%value) {
-				activateMode("steal");
-			} else {
-				deactivateMode("steal");
-			}
+		// case "StealMode":
+		// 	if (%value) {
+		// 		activateMode("steal");
+		// 	} else {
+		// 		deactivateMode("steal");
+		// 	}
 	}
 
 	Mode::callback("onPostServerVariableSet", "", new ScriptObject() {
