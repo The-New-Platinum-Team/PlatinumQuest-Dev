@@ -244,7 +244,7 @@ function buildResolutionList() {
 		}
 
 		//Lower Bound
-		if (firstWord(%res) < 1000 || getWord(%res, 1) < 600)
+		if (firstWord(%res) < 1024 || getWord(%res, 1) < 768)
 			continue;
 
 		// yea add only if its not thar already man.
