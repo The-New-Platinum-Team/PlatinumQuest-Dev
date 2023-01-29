@@ -972,6 +972,8 @@ function ExitGameDlg::onSleep(%this) {
 }
 
 function ExitGameDlg::close(%this) {
+	if (ExitGameExtraButtons.isVisible())
+		%this.hideExtras();
 	RootGui.popDialog(%this);
 }
 
