@@ -340,6 +340,7 @@ function menuMissionExit() {
 function menuMissionEnd() {
 	echo("*** Menu mission end");
 
+	$Event::Modes = ""; // Fuck this shit
 	//Actually clear everything
 	clientCbOnServerLeave();
 	clientCbOnMissionEnded();

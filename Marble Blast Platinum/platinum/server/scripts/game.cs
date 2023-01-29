@@ -190,6 +190,7 @@ function onServerDestroyed() {
 	// this drives me nuts, I want a server variable NOW
 	$Game::ServerRunning = false;
 	$Game::State = "";
+	$Event::Modes = ""; // Fuck this shit
 }
 
 //-----------------------------------------------------------------------------
@@ -752,6 +753,7 @@ function GameConnection::onClientLeaveGame(%this) {
 
 	%this.hideBubble();
 	%this.cancelCannon();
+	$Event::Modes = ""; // Fuck this shit
 
 	Mode::callback("onClientLeaveGame", "", new ScriptObject() {
 		client = %this;
