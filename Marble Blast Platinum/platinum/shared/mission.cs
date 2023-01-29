@@ -512,8 +512,8 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 			%modes = %modes SPC "ghosts";
 		if ($MP::Server::SnowballsOnly && $MP::CurrentModeInfo.identifier $= "snowball")
 			%modes = %modes SPC "snowballsonly";
-		if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
-			%modes = %modes SPC "steal";
+		// if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
+		// 	%modes = %modes SPC "steal";
 	}
 
 	return strlwr(%modes);
