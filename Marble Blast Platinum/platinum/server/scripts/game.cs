@@ -227,6 +227,41 @@ function onMissionLoaded() {
 	// Called by loadMission() once the mission is finished loading.
 	// Nothing special for now, just start up the game play.
 
+	// Due to the sky not properly changing back when MBXP is activated, I will use this hack instead. ~Connie
+	// (there's probably some better way to do this, but for now this will do I guess) ~Also Connie
+	if ($TexturePack::MBXP && Sky.materialList $= "platinum/data/skies/sky_day.dml") { // If the player has the MBXP pack on and the sky is MBG, set it to the MBXP one.
+	   %sky = Sky.getID();
+	   new Sky(Sky) {
+		   position = "0 0 0";
+		   rotation = "1 0 0 0";
+		   scale = "1 1 1";
+		   cloudHeightPer[0] = %sky.cloudheightper0;
+		   cloudHeightPer[1] = %sky.cloudheightper1;
+		   cloudHeightPer[2] = %sky.cloudheightper2;
+		   cloudSpeed1 = %sky.cloudspeed1;
+		   cloudSpeed2 = %sky.cloudspeed2;
+		   cloudSpeed3 = %sky.cloudspeed3;
+		   visibleDistance = %sky.visibledistance;
+		   useSkyTextures = %sky.useskytextures;
+		   renderBottomTexture = %sky.renderbottomtexture;
+		   SkySolidColor = %sky.skysolidcolor;
+		   fogDistance = %sky.fogdistance;
+		   fogColor = %sky.fogcolor;
+		   fogVolume1 = %sky.fogvolume1;
+	   	   fogVolume2 = %sky.fogvolume2;
+		   fogVolume3 = %sky.fogvolume3;
+		   materialList = "platinum/data/skies/sky_mbxp/sky_day.dml";
+		   windVelocity = %sky.windvelocity;
+		   windEffectPrecipitation = %sky.windEffectPrecipitation;
+		   noRenderBans = %sky.norenderbans;
+		   fogVolumeColor1 = %sky.fogvolumecolor1;
+		   fogVolumeColor2 = %sky.fogvolumecolor2;
+		   fogVolumeColor3 = %sky.fogvolumecolor3;
+	   };
+	   %sky.delete();
+	   MissionData.add(Sky);
+	}
+
 	$Game::GemCount = countGems(MissionGroup);
 
 	// Start the game here if multiplayer...
