@@ -94,7 +94,7 @@ new GuiControl(LBTermsDlg) {
 				};
 			};
 		};
-		new GuiBorderButtonCtrl() {
+		new GuiBorderButtonCtrl(LBTerms_Accept) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
@@ -144,6 +144,10 @@ function LBTermsDlg::decline(%this) {
 function LBTermsDlg::accept(%this) {
 	if (isObject(LBNetwork)) {
 		LBNetwork.send("ACCEPTTOS\n");
+		LBTerms_Accept.text = "Connecting"; //Guests should know that they're being connected to the LBs. ~Connie
+		LBTerms_Accept.extent = "124 45";
+		LBTerms_Accept.position = "283 381";
+		LBTerms_Accept.setActive(false); //Guests should not be able to spam this button anymore. ~Connie
 	} else {
 		LBAssert("Cannot Accept TOS", "Your game has disconnected from the leaderboards and cannot verify the TOS. Try again later.", "LBdisconnect();");
 		return;
