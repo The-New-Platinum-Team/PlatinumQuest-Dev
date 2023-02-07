@@ -27,7 +27,7 @@ function getMissionInfo(%file, %partial) {
 
 	%origfile = %file;
 
-	%isChallenge = strPos(%file, "challenge") != -1;
+	%isChallenge = strPos(%file, "challenge/data") != -1;
 	if (%isChallenge) {
 		%file = strReplace(%file, "challenge/data", "platinum/data");
 	}
@@ -124,7 +124,7 @@ function getMissionInfo(%file, %partial) {
 
 		%openFile = %file;
 
-		if (!isFile(%file @ ".cache")) {
+		if (!isFile(%file @ ".cache") && !%isChallenge) {
 			%generateCache = true;
 		} else {
 			// Check if cache needs to be updated
@@ -200,8 +200,8 @@ function getMissionInfo(%file, %partial) {
 			}
 		}
 
-		if (isFile(%file)) {
-			if (%generateCache || %partial) {
+		if (isFile(%file) ) {
+			if ((%generateCache || %partial) && !%isChallenge) {
 				%fo = new FileObject();
 				if (%fo.openForRead(%file)) {
 					while (!%fo.isEOF()) {
