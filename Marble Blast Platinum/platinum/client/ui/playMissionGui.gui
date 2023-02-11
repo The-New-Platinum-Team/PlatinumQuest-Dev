@@ -2944,7 +2944,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		PM_ScoreModeQuota100.setValue(%this.globalScoreMode $= "quota100");
 		PM_ScoreModeDD.setValue(%this.globalScoreMode $= "dd");
 
-		if ((%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "") && $CurrentGame !$= "challenge") {
+		if ((%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "") && $CurrentGame !$= "challenge" && !mp()) {
 			PM_ScoreReplayWatch.setText("<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>");
 		} else {
 			PM_ScoreReplayWatch.setText("");
