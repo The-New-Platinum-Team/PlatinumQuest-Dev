@@ -1,0 +1,2073 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         CustomRadarRule = "0";
+         artist = "Alex Swanson";
+         desc = "Complete 3 laps on Ramp Matrix while collecting the gems.";
+         gameMode = "null laps";
+         goldTime = "70000";
+	 ultimatetime = "60000";
+	 awesometime = "50000";
+         lapsNumber = "3";
+         level = "4";
+         music = "Classic Vibe.ogg";
+         name = "Tournament #1 - January 2023";
+         startHelpText = "Find 10 gems!";
+         type = "Intermediate";
+   };
+   new SimGroup(SceneryGroup) {
+
+      new StaticShape() {
+         position = "-4 -10 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-4 -6 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-4 -2 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-4 2 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2) {
+         position = "20.25 -10 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-2 4 -15";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+            Path = "ScaleLap2A";
+      };
+      new StaticShape() {
+         position = "-2 12 -15";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "2 12 -15";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1) {
+         position = "-14.25 4 -12";
+         rotation = "0 0 -1 89.9996";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1A) {
+         position = "-18.25 4 -12";
+         rotation = "0 0 -1 89.9996";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "4 2 -15";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "4 -2 -15";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "4 -6 -15";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "4 -10 -15";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "2 -12 -15";
+         rotation = "0 0 -1 89.9996";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-2 -12 -15";
+         rotation = "0 0 -1 89.9996";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2A) {
+         position = "20.25 -6 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "2 4 -15";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+            Path = "ScaleLap2A";
+      };
+      new StaticShape() {
+         position = "20.25 2 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "20.25 14 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-20.25 -16 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-20.25 -18 -10";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-4 4 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Tall";
+      };
+      new StaticShape(fence4U) {
+         position = "20.25 22.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "20.25 -14 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "20.25 -16 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Tall";
+      };
+      new StaticShape(fence4C) {
+         position = "20.25 -26.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence2B) {
+         position = "-20.25 -10 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2C) {
+         position = "-20.25 -6 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-20.25 -2 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-20.25 2 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2D) {
+         position = "-20.25 6 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2E) {
+         position = "-20.25 10 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-20.25 18 -10";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-20.25 14 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "-20.25 -14 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1B) {
+         position = "14.25 -4 -12";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1C) {
+         position = "-14.25 -4 -12";
+         rotation = "0 0 -1 89.9996";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1D) {
+         position = "-18.25 -4 -12";
+         rotation = "0 0 -1 89.9996";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1E) {
+         position = "18.25 -4 -12";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1F) {
+         position = "14.25 4 -12";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1G) {
+         position = "18.25 4 -12";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "11.75 -14.25 -6";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "11.75 -18.25 -6";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "11.75 18.25 -6";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "11.75 14.25 -6";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(Fence1H) {
+         position = "18.25 12 -12";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1I) {
+         position = "14.25 12 -12";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2F) {
+         position = "20.25 10 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2G) {
+         position = "20.25 6 -12";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence4B) {
+         position = "20.25 -22.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4V) {
+         position = "20.25 26.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4Z) {
+         position = "-20.25 22.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4AA) {
+         position = "-20.25 26.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4) {
+         position = "-20.25 -26.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4A) {
+         position = "-20.25 -22.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape() {
+         position = "20.25 -18 -10";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "20.25 18 -10";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4H) {
+         position = "34.25 -20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4G) {
+         position = "30.25 -20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4T) {
+         position = "34.25 20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4S) {
+         position = "30.25 20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4NN) {
+         position = "-30.25 -20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4OO) {
+         position = "-34.25 -20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4BB) {
+         position = "-30.25 20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4CC) {
+         position = "-34.25 20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4HH) {
+         position = "-34.25 3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4GG) {
+         position = "-30.25 3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4JJ) {
+         position = "-34.25 -3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4II) {
+         position = "-30.25 -3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4N) {
+         position = "34.25 3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape(fence4O) {
+         position = "30.25 3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4L) {
+         position = "30.25 -3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4M) {
+         position = "34.25 -3.75 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-13.75 -20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-17.75 -20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "17.75 -20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape() {
+         position = "13.75 -20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "13.75 20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "17.75 20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-13.75 20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-17.75 20.25 -6";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-11.75 18.25 -6";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-11.75 14.25 -6";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-11.75 -18.25 -6";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-11.75 -14.25 -6";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(Fence1J) {
+         position = "-18.25 12 -12";
+         rotation = "0 0 -1 89.9996";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(Fence1K) {
+         position = "-14.25 12 -12";
+         rotation = "0 0 -1 89.9996";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2H) {
+         position = "-4 6 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2I) {
+         position = "-4 10 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2J) {
+         position = "4 10 -15";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape(fence2K) {
+         position = "4 6 -15";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Start_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "20.25 -2 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_End_Fence_Tall";
+      };
+      new StaticShape() {
+         position = "4 12 -15";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Tall";
+      };
+      new StaticShape(fence3) {
+         position = "-18.25 -20.25 -9";
+         rotation = "0 0 -1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3A) {
+         position = "-14.25 -20.25 -9";
+         rotation = "0 0 -1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3C) {
+         position = "18.25 -20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3B) {
+         position = "14.25 -20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3O) {
+         position = "-18.25 20.25 -9";
+         rotation = "0 0 -1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3N) {
+         position = "-14.25 20.25 -9";
+         rotation = "0 0 -1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3L) {
+         position = "18.25 20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3M) {
+         position = "14.25 20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3Q) {
+         position = "-28.25 14.25 -9";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3P) {
+         position = "-28.25 18.25 -9";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3S) {
+         position = "-28.25 6.25 -9";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3R) {
+         position = "-28.25 10.25 -9";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-20.25 -20.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-28.25 20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape(fence3K) {
+         position = "28.25 16.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape(fence3V) {
+         position = "-28.25 -14.25 -9";
+         rotation = "0 0 1 180";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3U) {
+         position = "-28.25 -10.25 -9";
+         rotation = "0 0 1 180";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3T) {
+         position = "-28.25 -6.25 -9";
+         rotation = "0 0 1 180";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence4PP) {
+         position = "-28.25 -20.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape(fence3G) {
+         position = "28.25 -6.25 -9";
+         rotation = "0 0 1 180";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3F) {
+         position = "28.25 -10.25 -9";
+         rotation = "0 0 1 180";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3E) {
+         position = "28.25 -14.25 -9";
+         rotation = "0 0 1 180";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3D) {
+         position = "28.25 -18.25 -9";
+         rotation = "0 0 1 180";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape() {
+         position = "28.2454 -20.2543 -9.00844";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape(fence4QQ) {
+         position = "28.2454 20.2457 -9.00844";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape(fence3J) {
+         position = "28.25 14.25 -9";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3I) {
+         position = "28.25 10.25 -9";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3H) {
+         position = "28.25 6.25 -9";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "Metal_Start_Fence_Short";
+      };
+      new StaticShape(fence3W) {
+         position = "-28.25 -16.25 -9";
+         rotation = "0 0 1 90.0002";
+         scale = "0 0 0";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape() {
+         position = "-20.25 20.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape() {
+         position = "20.25 -20.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+      new StaticShape() {
+         position = "20.25 20.25 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Metal_Pole_Fence_Short";
+      };
+   };
+   new SimGroup(LapsGroup) {
+
+      new Trigger(FinishLine) {
+         position = "-0.5 -20 -12";
+         rotation = "1 0 0 0";
+         scale = "1 8.5 4";
+         dataBlock = "LapsCounterTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            customSpawnPoint = "1";
+            enableRespawning = "1";
+            spawnPoint = "-8 -24 -9 0 0 1 90";
+      };
+      new Trigger(check1) {
+         position = "12 4 -12";
+         rotation = "1 0 0 0";
+         scale = "8 8 4";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            checkpointNumber = "1";
+            customSpawnPoint = "0";
+            enableRespawning = "1";
+            spawnPoint = "16 0 -10 1 0 0 0";
+      };
+      new Trigger(check2) {
+         position = "-4 28 -12";
+         rotation = "1 0 0 0";
+         scale = "8 8 4";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            checkpointNumber = "2";
+            customSpawnPoint = "0";
+            enableRespawning = "1";
+            spawnPoint = "0 24 -10 1 0 0 0";
+      };
+      new Trigger(check3) {
+         position = "-20 4 -12";
+         rotation = "1 0 0 0";
+         scale = "8 8 4";
+         dataBlock = "LapsCheckpoint";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+            checkpointNumber = "3";
+            customSpawnPoint = "0";
+            enableRespawning = "1";
+            spawnPoint = "-16 0 -10 1 0 0 0";
+      };
+   };
+   new SimGroup(MissionData) {
+
+      new MissionArea(MissionArea) {
+         area = "-360 -648 720 1296";
+         flightCeiling = "300";
+         flightCeilingRange = "20";
+            locked = "true";
+      };
+      new Sky(Sky) {
+         position = "336 136 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         cloudHeightPer[0] = "0";
+         cloudHeightPer[1] = "0";
+         cloudHeightPer[2] = "0";
+         cloudSpeed1 = "0.0001";
+         cloudSpeed2 = "0.0002";
+         cloudSpeed3 = "0.0003";
+         visibleDistance = "500";
+         useSkyTextures = "1";
+         renderBottomTexture = "1";
+         SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+         fogDistance = "300";
+         fogColor = "0.600000 0.600000 0.600000 1.000000";
+         fogVolume1 = "-1 -1.73483e+009 -1.73483e+009";
+         fogVolume2 = "-1 -1.73483e+009 -1.73483e+009";
+         fogVolume3 = "-1 -1.73483e+009 -1.73483e+009";
+         materialList = "~/data/skies/sky_day.dml";
+         windVelocity = "1 0 0";
+         windEffectPrecipitation = "0";
+         noRenderBans = "1";
+         fogVolumeColor1 = "128.000000 128.000000 128.000000 -1734829824.000000";
+         fogVolumeColor2 = "128.000000 128.000000 128.000000 -1734829824.000000";
+         fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      };
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-33.8254 -25.5809 8.42466";
+         rotation = "0.558677 -0.233328 0.795889 55.3767";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-14.7291 -26.4807 0.815789";
+         rotation = "0.676427 -0.177073 0.714907 40.2223";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "0.730955 -20.6639 -4.62446";
+         rotation = "0.939205 0.0616339 -0.337781 21.9888";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "7.0634 -9.71157 -8.20558";
+         rotation = "0.474484 0.183839 -0.860853 48.4629";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "15.8092 17.0894 -3.11634";
+         rotation = "0.0822798 -0.220222 0.971973 140.083";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "5500";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-17.7534 15.7711 9.17927";
+         rotation = "0.150112 -0.355109 0.922694 137.384";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "-33.5156 7.35387 20.0712";
+         rotation = "0.327766 -0.397867 0.856896 109.562";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "-39.6752 -9.21494 30.5719";
+         rotation = "0.492575 -0.376307 0.784706 88.4649";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(Check1PathA) {
+         position = "12 4 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Check1PathB";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check1PathB) {
+         position = "12 4 -3";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check2PathA) {
+         position = "-4 28 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Check2PathB";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check2PathB) {
+         position = "-4 12 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check3PathA) {
+         position = "-20 4 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Check3PathB";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check3PathB) {
+         position = "-20 4 -3";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Next Node Object Name";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(ScaleLap2A) {
+         position = "27.7355 -0.59306 -9.85003";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "ScaleLap2B";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "0";
+            useRotation = "0";
+            useScale = "1";
+      };
+      new StaticShape(ScaleLap2B) {
+         position = "23.4519 -1.35306 -8.51605";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Next Node Object Name";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "0";
+            useRotation = "0";
+            useScale = "1";
+      };
+      new StaticShape(ScaleLap2X) {
+         position = "28.1264 1.11445 -6.49601";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "ScaleLap2Y";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "0";
+            useRotation = "0";
+            useScale = "1";
+      };
+      new StaticShape(ScaleLap2Y) {
+         position = "27.3446 -0.823893 -4.63366";
+         rotation = "1 0 0 0";
+         scale = "0 0 0";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Next Node Object Name";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "0";
+            useRotation = "0";
+            useScale = "1";
+      };
+      new StaticShape(TriggerPathA) {
+         position = "-12 -20 -21";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TriggerPathB";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(TriggerPathB) {
+         position = "-12 -20 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Next Node Object Name";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check1PathX) {
+         position = "12 4 -3";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Check1PathY";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check1PathY) {
+         position = "28 -4 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check2PathX) {
+         position = "-4 12 -15";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Check2PathY";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check2PathY) {
+         position = "-4 28 -12";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check3PathX) {
+         position = "-20 4 -3";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Check3PathY";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+      new StaticShape(Check3PathY) {
+         position = "-36 12 -9";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "0";
+            useScale = "0";
+      };
+   };
+   new Sun() {
+      direction = "0.441853 0.594916 -0.671447";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_mbg/intermediate/rampmatrix.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(Path3Lap1) {
+      position = "-16.5 0.5 -12";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         Path0 = "Check3PathA";
+         Path1 = "Check3PathA";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object0 = "check3";
+         object1 = "check3";
+   };
+   new Trigger(Path2Lap1) {
+      position = "-16.5 24.5 -9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         Path0 = "Check2PathA";
+         Path1 = "Check2PathA";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object0 = "check2";
+         object1 = "check2";
+   };
+   new Item() {
+      position = "16 0 -3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-16 0 -12";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0 -24 -12";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "32 -16 -9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-32 8 -9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "16 16 -6";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-16 -16 -6";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-16 24 -9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "16 24 -9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "16 0 -12";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger(Bounds) {
+      position = "-47.6789 40.7632 -19";
+      rotation = "1 0 0 0";
+      scale = "97.2822 82.6963 91.207";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-7.5 -23.5 -10.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SpawnTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         center = "1";
+         gravity = "0";
+   };
+   new Trigger(PathLap1) {
+      position = "15.5 24.5 -9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         Path0 = "Check1PathA";
+         Path1 = "Check1PathA";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object0 = "check1";
+         object1 = "check1";
+   };
+   new StaticShape(fence4F) {
+      position = "19.25 -22 -7.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape(fence4E) {
+      position = "19.25 -24 -7.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape(fence4D) {
+      position = "19.25 -26 -7.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "18 27.25 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "16 27.25 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "14 27.25 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape(fence4Y) {
+      position = "-19.25 26 -7.75";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape(Fence4X) {
+      position = "-19.25 24 -7.75";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape(fence4W) {
+      position = "-19.25 22 -7.75";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "-18 -27.25 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "-16 -27.25 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "-14 -27.25 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape(Fence1L) {
+      position = "14 -4.75 -10.75";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(Fence1M) {
+      position = "16 -4.75 -10.75";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(Fence1N) {
+      position = "18 -4.75 -10.75";
+      rotation = "1 0 0 0";
+      scale = "0 0 0";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4K) {
+      position = "34 -19.25 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4J) {
+      position = "32 -19.25 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4I) {
+      position = "30 -19.25 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "12.75 -18 -4.75";
+      rotation = "0 0 -1 89.9996";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "12.75 -16 -4.75";
+      rotation = "0 0 -1 89.9996";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "12.75 -14 -4.75";
+      rotation = "0 0 -1 89.9996";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "14 19.25 -4.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "16 19.25 -4.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "18 19.25 -4.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4R) {
+      position = "34 4.75 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4Q) {
+      position = "32 4.75 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4P) {
+      position = "30 4.75 -7.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4FF) {
+      position = "-34 19.25 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4EE) {
+      position = "-32 19.25 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4DD) {
+      position = "-30 19.25 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-12.75 18 -4.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-12.75 16 -4.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-12.75 14 -4.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-14 -19.25 -4.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-16 -19.25 -4.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-18 -19.25 -4.75";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4KK) {
+      position = "-34 -4.75 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4LL) {
+      position = "-32 -4.75 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape(fence4MM) {
+      position = "-30 -4.75 -7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "-12.75 -6 -10.75";
+      rotation = "0 0 1 90.0002";
+      scale = "0 0 0";
+      dataBlock = "SignPlainRight";
+         Path = "ScaleLap2A";
+   };
+   new StaticShape() {
+      position = "-12.75 -8 -10.75";
+      rotation = "0 0 1 90.0002";
+      scale = "0 0 0";
+      dataBlock = "SignPlainRight";
+         Path = "ScaleLap2A";
+   };
+   new StaticShape() {
+      position = "-12.75 -10 -10.75";
+      rotation = "0 0 1 90.0002";
+      scale = "0 0 0";
+      dataBlock = "SignPlainRight";
+         Path = "ScaleLap2A";
+   };
+   new Trigger(ScaleChange1A) {
+      position = "-20 -16 -10.5";
+      rotation = "1 0 0 0";
+      scale = "8 1 4";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         ActivateOnLap = "1";
+         Path1 = "ScaleLap2A";
+         Path10 = "ScaleLap2A";
+         Path11 = "ScaleLap2A";
+         Path12 = "ScaleLap2A";
+         Path13 = "ScaleLap2A";
+         Path14 = "ScaleLap2A";
+         Path15 = "ScaleLap2A";
+         Path2 = "ScaleLap2A";
+         Path3 = "ScaleLap2A";
+         Path4 = "ScaleLap2A";
+         Path5 = "ScaleLap2A";
+         Path6 = "ScaleLap2A";
+         Path7 = "ScaleLap2A";
+         Path8 = "ScaleLap2A";
+         Path9 = "ScaleLap2A";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object1 = "fence1";
+         object10 = "fence1I";
+         object11 = "fence1J";
+         object12 = "fence1K";
+         object13 = "fence1L";
+         object14 = "fence1M";
+         object15 = "fence1N";
+         object2 = "fence1A";
+         object3 = "fence1B";
+         object4 = "fence1C";
+         object5 = "fence1D";
+         object6 = "fence1E";
+         object7 = "fence1F";
+         object8 = "fence1G";
+         object9 = "fence1H";
+   };
+   new Trigger(ScaleChange1B) {
+      position = "-20 -16 -10.5";
+      rotation = "1 0 0 0";
+      scale = "8 1 4";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         ActivateOnLap = "1";
+         Path1 = "ScaleLap2X";
+         Path10 = "ScaleLap2X";
+         Path11 = "ScaleLap2X";
+         Path12 = "ScaleLap2X";
+         Path2 = "ScaleLap2X";
+         Path3 = "ScaleLap2X";
+         Path4 = "ScaleLap2X";
+         Path5 = "ScaleLap2X";
+         Path6 = "ScaleLap2X";
+         Path7 = "ScaleLap2X";
+         Path8 = "ScaleLap2X";
+         Path9 = "ScaleLap2X";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object1 = "fence2";
+         object10 = "fence2I";
+         object11 = "fence2J";
+         object12 = "fence2K";
+         object2 = "fence2A";
+         object3 = "fence2B";
+         object4 = "fence2C";
+         object5 = "fence2D";
+         object6 = "fence2E";
+         object7 = "fence2F";
+         object8 = "fence2G";
+         object9 = "fence2H";
+   };
+   new Trigger(ScaleChange2A) {
+      position = "-12 -20 -21";
+      rotation = "1 0 0 0";
+      scale = "8 8 4";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         ActivateOnLap = "2";
+         Path1 = "ScaleLap2A";
+         Path10 = "ScaleLap2A";
+         Path11 = "ScaleLap2A";
+         Path12 = "ScaleLap2A";
+         Path13 = "ScaleLap2A";
+         Path14 = "ScaleLap2A";
+         Path15 = "ScaleLap2A";
+         Path16 = "ScaleLap2A";
+         Path17 = "ScaleLap2A";
+         Path18 = "ScaleLap2A";
+         Path19 = "ScaleLap2A";
+         Path2 = "ScaleLap2A";
+         Path20 = "ScaleLap2A";
+         Path21 = "ScaleLap2A";
+         Path22 = "ScaleLap2A";
+         Path23 = "ScaleLap2A";
+         Path24 = "ScaleLap2A";
+         Path3 = "ScaleLap2A";
+         Path4 = "ScaleLap2A";
+         Path5 = "ScaleLap2A";
+         Path6 = "ScaleLap2A";
+         Path7 = "ScaleLap2A";
+         Path8 = "ScaleLap2A";
+         Path9 = "ScaleLap2A";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object1 = "fence3";
+         object10 = "fence3I";
+         object11 = "fence3J";
+         object12 = "fence3K";
+         object13 = "fence3L";
+         object14 = "fence3M";
+         object15 = "fence3N";
+         object16 = "fence3O";
+         object17 = "fence3P";
+         object18 = "fence3Q";
+         object19 = "fence3R";
+         object2 = "fence3A";
+         object20 = "fence3S";
+         object21 = "fence3T";
+         object22 = "fence3U";
+         object23 = "fence3V";
+         object24 = "fence3W";
+         object3 = "fence3B";
+         object4 = "fence3C";
+         object5 = "fence3D";
+         object6 = "fence3E";
+         object7 = "fence3F";
+         object8 = "fence3G";
+         object9 = "fence3H";
+   };
+   new Trigger(ScaleChange2B) {
+      position = "-12 -20 -21";
+      rotation = "1 0 0 0";
+      scale = "8 8 4";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         ActivateOnLap = "2";
+         Path1 = "ScaleLap2X";
+         Path10 = "ScaleLap2X";
+         Path11 = "ScaleLap2X";
+         Path12 = "ScaleLap2X";
+         Path13 = "ScaleLap2X";
+         Path14 = "ScaleLap2X";
+         Path15 = "ScaleLap2X";
+         Path16 = "ScaleLap2X";
+         Path17 = "ScaleLap2X";
+         Path18 = "ScaleLap2X";
+         Path19 = "ScaleLap2X";
+         Path2 = "ScaleLap2X";
+         Path20 = "ScaleLap2X";
+         Path21 = "ScaleLap2X";
+         Path22 = "ScaleLap2X";
+         Path23 = "ScaleLap2X";
+         Path24 = "ScaleLap2X";
+         Path25 = "ScaleLap2X";
+         Path26 = "ScaleLap2X";
+         Path27 = "ScaleLap2X";
+         Path28 = "ScaleLap2X";
+         Path29 = "ScaleLap2X";
+         Path3 = "ScaleLap2X";
+         Path30 = "ScaleLap2X";
+         Path31 = "ScaleLap2X";
+         Path32 = "ScaleLap2X";
+         Path33 = "ScaleLap2X";
+         Path34 = "ScaleLap2X";
+         Path35 = "ScaleLap2X";
+         Path36 = "ScaleLap2X";
+         Path37 = "ScaleLap2X";
+         Path38 = "ScaleLap2X";
+         Path39 = "ScaleLap2X";
+         Path4 = "ScaleLap2X";
+         Path40 = "ScaleLap2X";
+         Path41 = "ScaleLap2X";
+         Path42 = "ScaleLap2X";
+         Path43 = "ScaleLap2X";
+         Path44 = "ScaleLap2X";
+         Path5 = "ScaleLap2X";
+         Path6 = "ScaleLap2X";
+         Path7 = "ScaleLap2X";
+         Path8 = "ScaleLap2X";
+         Path9 = "ScaleLap2X";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object1 = "fence4";
+         object10 = "fence4I";
+         object11 = "fence4J";
+         object12 = "fence4K";
+         object13 = "fence4L";
+         object14 = "fence4M";
+         object15 = "fence4N";
+         object16 = "fence4O";
+         object17 = "fence4P";
+         object18 = "fence4Q";
+         object19 = "fence4R";
+         object2 = "fence4A";
+         object20 = "fence4S";
+         object21 = "fence4T";
+         object22 = "fence4U";
+         object23 = "fence4V";
+         object24 = "fence4W";
+         object25 = "fence4X";
+         object26 = "fence4Y";
+         object27 = "fence4Z";
+         object28 = "fence4AA";
+         object29 = "fence4BB";
+         object3 = "fence4B";
+         object30 = "fence4CC";
+         object31 = "fence4DD";
+         object32 = "fence4EE";
+         object33 = "fence4FF";
+         object34 = "fence4GG";
+         object35 = "fence4HH";
+         object36 = "fence4II";
+         object37 = "fence4JJ";
+         object38 = "fence4KK";
+         object39 = "fence4LL";
+         object4 = "fence4C";
+         object40 = "fence4MM";
+         object41 = "fence4NN";
+         object42 = "fence4OO";
+         object43 = "fence4PP";
+         object44 = "fence4QQ";
+         object5 = "fence4D";
+         object6 = "fence4E";
+         object7 = "fence4F";
+         object8 = "fence4G";
+         object9 = "fence4H";
+   };
+   new Trigger(PathTriggers1) {
+      position = "-16.5 -15.5 -6";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         Path1 = "TriggerPathA";
+         Path2 = "TriggerPathA";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object1 = "ScaleChange2A";
+         object2 = "ScaleChange2B";
+   };
+   new Trigger(PathLap2) {
+      position = "15.5 0.5 -3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         Path0 = "Check1PathX";
+         Path1 = "Check1PathX";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object0 = "check1";
+         object1 = "check1";
+   };
+   new Trigger(Path2Lap2) {
+      position = "-32.5 8.5 -9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         Path0 = "Check2PathX";
+         Path1 = "Check2PathX";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object0 = "check2";
+         object1 = "check2";
+   };
+   new Trigger(Path3Lap3) {
+      position = "-16.5 -15.5 -6";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "PathTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         Path0 = "Check3PathX";
+         Path1 = "Check3PathX";
+         TriggerOnce = "1";
+         initialtarget = "1000";
+         object0 = "check3";
+         object1 = "check3";
+   };
+};
+//--- OBJECT WRITE END ---
