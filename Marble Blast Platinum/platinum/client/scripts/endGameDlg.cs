@@ -95,22 +95,22 @@ function EndGameDlg::getNextLevel(%this) {
 	%pmg = PlayMissionGui;
 	%attempts = 0;
 	%pmSelectedIndex = %pmg.selectedIndex;
+	%currentMissionType = $MissionType;
 	while (%attempts < 10000) {
 		%attempts++;
 
-		devecho("Current Selected Index: ", %pmSelectedIndex);
+		devecho("Current Selected Index: " @ %pmSelectedIndex);
 
-		%list = %pmg.getMissionList($CurrentGame, $MissionType);
+		%list = %pmg.getMissionList($CurrentGame, %currentMissionType);
 		%pmSelectedIndex ++;
 
 		if (%pmSelectedIndex >= %list.getSize()) {
-			devecho("Next: End of list " @ $MissionType);
+			devecho("Next: End of list " @ %currentMissionType);
 			//Next list
 			%diffs = %pmg.getDifficultyList($CurrentGame);
-			%diff = $MissionType;
 			for (%i = 0; %i < getRecordCount(%diffs); %i ++) {
 				%record = getRecord(%diffs, %i);
-				if (getField(%record, 0) $= %diff) {
+				if (getField(%record, 0) $= %currentMissionType) {
 					%found = true;
 					break;
 				}
@@ -127,10 +127,10 @@ function EndGameDlg::getNextLevel(%this) {
 			}
 
 			//Select the next difficulty
-			%pmg.setMissionType(%next);
+			%currentMissionType = %next;
 			%pmSelectedIndex = 0;
-			devecho("Next: Trying list " @ $MissionType);
-			%list = %pmg.getMissionList($CurrentGame, %next);
+			devecho("Next: Trying list " @ %currentMissionType);
+			%list = %pmg.getMissionList($CurrentGame, %currentMissionType);
 		}
 
 		%mission = %list.getEntry(%pmSelectedIndex);
@@ -143,7 +143,7 @@ function EndGameDlg::getNextLevel(%this) {
 	}
 	devecho("Next: Final choice is " @ %mission.name);
 
-	return %mission SPC %pmSelectedIndex;
+	return %mission SPC %pmSelectedIndex SPC %currentMissionType;
 }
 
 
@@ -162,9 +162,11 @@ function EndGameDlg::next(%this) {
 	%missionMissionIndex = %this.getNextLevel();
 	%mission = getWord(%missionMissionIndex, 0);
 	%missionIndex = getWord(%missionMissionIndex, 1);
+	%missionDifficulty = getWord(%missionMissionIndex, 2);
 	if (isObject(%mission)) {
 		$Client::NextMission = %mission;
 		%file = %mission.file;
+		$MissionType = %missionDifficulty;
 		PlayMissionGui.setMissionByIndex(%missionIndex);
 		activateMenuHandler(NextLevel);
 		menuLoadStartMission(%file);
