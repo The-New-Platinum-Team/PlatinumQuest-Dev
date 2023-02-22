@@ -1352,5 +1352,5 @@ function PlayGui::updateCountdown(%this, %delta) {
 }
 
 function PlayGui::updateSpeedrunTimer(%this) {
-	SpeedrunTimer.setText("<bold:48><color:010101>" @ formatTime($Speedrun::Time));
+	SpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:1:1><shadowcolor:777777>" @ formatTime($Speedrun::Time));
 }
