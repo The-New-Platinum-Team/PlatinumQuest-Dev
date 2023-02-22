@@ -404,6 +404,12 @@ function startGame() {
 	}
 	onNextFrame(setGameState, "start");
 	onNextFrame(activateMovingObjects, true);
+
+	if ($Speedrun::IsEnabled && !$Speedrun::IsTiming) {
+		echo("Speedrun mode started!");
+		$Speedrun::IsTiming = true;
+		$Speedrun::Time = 0;
+	}
 }
 
 function endGameSetup() {
@@ -426,6 +432,13 @@ function endGameSetup() {
 	Mode::callback("onEndGameSetup", "");
 	serverCbOnEndGameSetup();
 	serverSendCallback("onEndGameSetup");
+
+	if ($Speedrun::IsTiming && $Speedrun::LastMission $= $Server::MissionFile) {
+		echo("Just finished the last level! Speedrun mode over");
+		echo("Final time:" SPC formatTime($Speedrun::Time) SPC $Speedrun::Time);
+		$Speedrun::IsEnabled = false;
+		$Speedrun::IsTiming = false;
+	}
 
 	if ($Server::ServerType $= "MultiPlayer") {
 		// update the score list
