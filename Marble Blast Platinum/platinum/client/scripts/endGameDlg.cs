@@ -143,7 +143,7 @@ function EndGameDlg::getNextLevel(%this) {
 	}
 	devecho("Next: Final choice is " @ %mission.name);
 
-	return %mission SPC %pmSelectedIndex SPC %currentMissionType;
+	return %mission NL %pmSelectedIndex NL %currentMissionType;
 }
 
 
@@ -160,9 +160,9 @@ function EndGameDlg::next(%this) {
 	}
 
 	%missionMissionIndex = %this.getNextLevel();
-	%mission = getWord(%missionMissionIndex, 0);
-	%missionIndex = getWord(%missionMissionIndex, 1);
-	%missionDifficulty = getWord(%missionMissionIndex, 2);
+	%mission = getRecord(%missionMissionIndex, 0);
+	%missionIndex = getRecord(%missionMissionIndex, 1);
+	%missionDifficulty = getRecord(%missionMissionIndex, 2);
 	if (isObject(%mission)) {
 		$Client::NextMission = %mission;
 		%file = %mission.file;
