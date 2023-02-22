@@ -34,3 +34,9 @@ package speedrunFrameAdvance {
 	}
 };
 activatePackage(speedrunFrameAdvance);
+
+function startSpeedrun() {
+	$Speedrun::IsEnabled = true;
+	$Speedrun::IsTiming = false;
+	$Speedrun::Time = 0;
+}
