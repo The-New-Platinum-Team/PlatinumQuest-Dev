@@ -1350,3 +1350,7 @@ function PlayGui::updateCountdown(%this, %delta) {
 		}
 	}
 }
+
+function PlayGui::updateSpeedrunTimer(%this) {
+	SpeedrunTimer.setText("<bold:48><color:010101>" @ formatTime($Speedrun::Time));
+}
