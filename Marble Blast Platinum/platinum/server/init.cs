@@ -75,6 +75,7 @@ function initServer() {
 	exec("./scripts/centerprint.cs");
 	exec("./scripts/game.cs");
 	exec("./scripts/settings.cs");
+	exec("./scripts/speedrun.cs");
 }
 
 

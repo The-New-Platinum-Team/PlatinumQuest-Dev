@@ -1473,3 +1473,7 @@ function PlayGui::startCountdownLeft(%this, %time, %image) {
 	%this.countdownLeftTime = %time;
 	%this.runningCountdownLeft = true;
 }
+
+function PlayGui::updateSpeedrunTimer(%this) {
+	SpeedrunTimer.setText("<bold:48><color:010101>" @ formatTime($Speedrun::Time));
+}
