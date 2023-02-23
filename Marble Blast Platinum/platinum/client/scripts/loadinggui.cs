@@ -477,3 +477,7 @@ function LoadingGui::getTip(%this) {
 	%tip = getRandom(0, $Loading::Tips[%cat]);
 	return $Loading::Tip[%cat, %tip];
 }
+
+function LoadingGui::updateRtaSpeedrunTimer(%this, %text) {
+	LG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
+}

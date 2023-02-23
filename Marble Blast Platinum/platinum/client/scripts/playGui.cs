@@ -1351,6 +1351,6 @@ function PlayGui::updateCountdown(%this, %delta) {
 	}
 }
 
-function PlayGui::updateSpeedrunTimer(%this) {
-	SpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:1:1><shadowcolor:777777>" @ formatTime($Speedrun::Time));
+function PlayGui::updateRtaSpeedrunTimer(%this, %text) {
+	PG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }

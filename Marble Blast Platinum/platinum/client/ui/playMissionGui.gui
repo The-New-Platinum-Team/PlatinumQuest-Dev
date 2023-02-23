@@ -1110,6 +1110,19 @@ new GuiControl(PlayMissionGui) {
 		repeatPeriod = "1000";
 		repeatDecay = "1";
 	};
+	new GuiMLTextCtrl(PM_RtaSpeedrunTimer) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "400 50";
+		extent = "400 100";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+	};
 };
 //--- OBJECT WRITE END ---
 
@@ -4514,4 +4527,8 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 	%this.globalScoreCacheLoading[%mission] = false;
 	%this.globalScoreCacheFailed[%mission] = true;
 	%this.updateCurrentMission();
+}
+
+function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
+	PM_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }
