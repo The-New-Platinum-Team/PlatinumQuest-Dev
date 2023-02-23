@@ -36,7 +36,7 @@ $RtaSpeedrun::MissionTypeDuration = -1;
 package rtaSpeedrunFrameAdvance {
 	function onFrameAdvance(%timeDelta) {
 		if ($RtaSpeedrun::IsTiming && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
-			$RtaSpeedrun::Time += %timeDelta;
+			$RtaSpeedrun::Time = add64_int($RtaSpeedrun::Time, %timeDelta);
 			RtaSpeedrunUpdateTimers();
 		}
 	}
@@ -44,13 +44,13 @@ package rtaSpeedrunFrameAdvance {
 activatePackage(rtaSpeedrunFrameAdvance);
 
 function RtaSpeedrunUpdateTimers() {
-	%text = formatTime($RtaSpeedrun::Time);
+	%text = formatTimeHoursMs($RtaSpeedrun::Time);
 	if ($RtaSpeedrun::IsDone)
 		%text = %text SPC "Final Time";
 	if ($RtaSpeedrun::LastSplitTime > 0)
-		%text = %text NL formatTime($RtaSpeedrun::LastSplitTime) SPC "Split";
+		%text = %text NL formatTimeHoursMs($RtaSpeedrun::LastSplitTime) SPC "Split";
 	if ($RtaSpeedrun::MissionTypeDuration > 0)
-		%text = %text NL formatTime($RtaSpeedrun::MissionTypeDuration) SPC "Category";
+		%text = %text NL formatTimeHoursMs($RtaSpeedrun::MissionTypeDuration) SPC "Category";
 	PlayGui.updateRtaSpeedrunTimer(%text);
 	PlayMissionGui.updateRtaSpeedrunTimer(%text);
 	LoadingGui.updateRtaSpeedrunTimer(%text);
@@ -111,7 +111,7 @@ function RtaSpeedrunMissionEnded() {
 	if ($RtaSpeedrun::IsDone && $RtaSpeedrun::CurrentMissionTypeBegan > 0)
 		%isEndOfMissionType = true;
 	if (%isEndOfMissionType && (!$RtaSpeedrun::IsDone || $RtaSpeedrun::CurrentMissionTypeBegan > 0))
-		$RtaSpeedrun::MissionTypeDuration = $RtaSpeedrun::Time - $RtaSpeedrun::CurrentMissionTypeBegan;
+		$RtaSpeedrun::MissionTypeDuration = sub64_int($RtaSpeedrun::Time, $RtaSpeedrun::CurrentMissionTypeBegan);
 	if (!$RtaSpeedrun::IsDone && $RtaSpeedrun::MissionTypeDuration != $RtaSpeedrun::Time)
 		$RtaSpeedrun::LastSplitTime = $RtaSpeedrun::Time;
 	RtaSpeedrunUpdateTimers();
