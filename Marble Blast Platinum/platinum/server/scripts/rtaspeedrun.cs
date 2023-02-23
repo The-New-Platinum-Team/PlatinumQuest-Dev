@@ -20,23 +20,39 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$Speedrun::IsEnabled = false;
-$Speedrun::IsTiming = false;
-$Speedrun::Time = 0;
-$Speedrun::LastMission = "";
+$RtaSpeedrun::IsEnabled = false;
+$RtaSpeedrun::IsTiming = false;
+$RtaSpeedrun::IsDone = false;
+$RtaSpeedrun::Time = 0;
+$RtaSpeedrun::EndMission = "";
 
-package speedrunFrameAdvance {
+package rtaSpeedrunFrameAdvance {
 	function onFrameAdvance(%timeDelta) {
-		if ($Speedrun::IsTiming && !$Client::Loading) {
-			$Speedrun::Time += %timeDelta;
-			PlayGui.updateSpeedrunTimer();
+		if ($RtaSpeedrun::IsTiming && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
+			$RtaSpeedrun::Time += %timeDelta;
+			RtaSpeedrunUpdateTimers();
 		}
 	}
 };
-activatePackage(speedrunFrameAdvance);
+activatePackage(rtaSpeedrunFrameAdvance);
 
-function startSpeedrun() {
-	$Speedrun::IsEnabled = true;
-	$Speedrun::IsTiming = false;
-	$Speedrun::Time = 0;
+function RtaSpeedrunUpdateTimers() {
+	%text = formatTime($RtaSpeedrun::Time);
+	if ($RtaSpeedrun::IsDone)
+		%text = %text SPC "Final Time";
+	PlayGui.updateRtaSpeedrunTimer(%text);
+	PlayMissionGui.updateRtaSpeedrunTimer(%text);
+	LoadingGui.updateRtaSpeedrunTimer(%text);
+}
+
+function RtaSpeedrunStart() {
+	$RtaSpeedrun::IsEnabled = true;
+	$RtaSpeedrun::IsTiming = false;
+	$RtaSpeedrun::IsDone = false;
+	$RtaSpeedrun::Time = 0;
+	RtaSpeedrunUpdateTimers();
+}
+
+function RtaSpeedrunSetEnd() {
+	$RtaSpeedrun::EndMission = $Server::MissionFile;
 }
