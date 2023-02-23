@@ -405,12 +405,7 @@ function startGame() {
 	onNextFrame(activateMovingObjects, true);
 
 	if ($RtaSpeedrun::IsEnabled) {
-		if (!$RtaSpeedrun::IsTiming) {
-			echo("Speedrun mode began timing!");
-			$RtaSpeedrun::IsTiming = true;
-		}
-		$RtaSpeedrun::LastSplitTime = -1;
-		RtaSpeedrunUpdateTimers();
+		RtaSpeedrunMissionStarted();
 	}
 }
 
@@ -436,17 +431,7 @@ function endGameSetup() {
 	serverSendCallback("onEndGameSetup");
 
 	if ($RtaSpeedrun::IsEnabled) {
-		if ($RtaSpeedrun::EndMission $= $Server::MissionFile) {
-			echo("Just finished the end level! Speedrun mode over");
-			echo("Final time:" SPC $RtaSpeedrun::Time);
-			$RtaSpeedrun::IsEnabled = false;
-			$RtaSpeedrun::IsTiming = false;
-			$RtaSpeedrun::IsDone = true;
-			RtaSpeedrunUpdateTimers();
-		} else {
-			$RtaSpeedrun::LastSplitTime = $RtaSpeedrun::Time;
-			RtaSpeedrunUpdateTimers();
-		}
+		RtaSpeedrunMissionEnded();
 	}
 
 	if ($Server::ServerType $= "MultiPlayer") {
