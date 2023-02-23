@@ -25,6 +25,7 @@ $RtaSpeedrun::IsTiming = false;
 $RtaSpeedrun::IsDone = false;
 $RtaSpeedrun::Time = 0;
 $RtaSpeedrun::EndMission = "";
+$RtaSpeedrun::LastSplitTime = -1;
 
 package rtaSpeedrunFrameAdvance {
 	function onFrameAdvance(%timeDelta) {
@@ -40,6 +41,8 @@ function RtaSpeedrunUpdateTimers() {
 	%text = formatTime($RtaSpeedrun::Time);
 	if ($RtaSpeedrun::IsDone)
 		%text = %text SPC "Final Time";
+	else if ($RtaSpeedrun::LastSplitTime > 0)
+		%text = %text NL formatTime($RtaSpeedrun::LastSplitTime) SPC "Split";
 	PlayGui.updateRtaSpeedrunTimer(%text);
 	PlayMissionGui.updateRtaSpeedrunTimer(%text);
 	LoadingGui.updateRtaSpeedrunTimer(%text);
@@ -50,6 +53,7 @@ function RtaSpeedrunStart() {
 	$RtaSpeedrun::IsTiming = false;
 	$RtaSpeedrun::IsDone = false;
 	$RtaSpeedrun::Time = 0;
+	$RtaSpeedrun::LastSplitTime = -1;
 	RtaSpeedrunUpdateTimers();
 }
 

@@ -404,10 +404,13 @@ function startGame() {
 	onNextFrame(setGameState, "start");
 	onNextFrame(activateMovingObjects, true);
 
-	if ($RtaSpeedrun::IsEnabled && !$RtaSpeedrun::IsTiming) {
-		echo("Speedrun mode started!");
-		$RtaSpeedrun::IsTiming = true;
-		$RtaSpeedrun::Time = 0;
+	if ($RtaSpeedrun::IsEnabled) {
+		if (!$RtaSpeedrun::IsTiming) {
+			echo("Speedrun mode began timing!");
+			$RtaSpeedrun::IsTiming = true;
+		}
+		$RtaSpeedrun::LastSplitTime = -1;
+		RtaSpeedrunUpdateTimers();
 	}
 }
 
@@ -439,6 +442,9 @@ function endGameSetup() {
 			$RtaSpeedrun::IsEnabled = false;
 			$RtaSpeedrun::IsTiming = false;
 			$RtaSpeedrun::IsDone = true;
+			RtaSpeedrunUpdateTimers();
+		} else {
+			$RtaSpeedrun::LastSplitTime = $RtaSpeedrun::Time;
 			RtaSpeedrunUpdateTimers();
 		}
 	}
