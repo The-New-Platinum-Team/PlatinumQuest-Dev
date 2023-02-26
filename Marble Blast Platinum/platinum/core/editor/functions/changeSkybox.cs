@@ -44,7 +44,9 @@ function csbbutton(%revert) {
 }
 
 function onSelectMGSkybox() {
-	CSB_Sky.setValue(MainGameSkyboxes.getValue());
+	if (MainGameSkyboxes.getValue() !$= "") { //If you don't select anything, don't have it override what you already have selected in the other dropdown menu. ~Connie
+		CSB_Sky.setValue(MainGameSkyboxes.getValue());
+	}
 }
 
 function UnselectMGSkybox() { //The reason for this is to not have one dropdown menu be inaccurate to the other, in case a person changes the skybox using the bigger dropdown menu. ~Connie
