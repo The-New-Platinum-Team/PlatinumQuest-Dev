@@ -405,8 +405,8 @@ function startGame() {
 	onNextFrame(setGameState, "start");
 	onNextFrame(activateMovingObjects, true);
 
-	if ($RtaSpeedrun::IsEnabled) {
-		RtaSpeedrunMissionStarted();
+	if (RtaSpeedrun.isEnabled) {
+		RtaSpeedrun.missionStarted();
 	}
 }
 
@@ -431,8 +431,8 @@ function endGameSetup() {
 	serverCbOnEndGameSetup();
 	serverSendCallback("onEndGameSetup");
 
-	if ($RtaSpeedrun::IsEnabled) {
-		RtaSpeedrunMissionEnded();
+	if (RtaSpeedrun.isEnabled) {
+		RtaSpeedrun.missionEnded();
 	}
 
 	if ($Server::ServerType $= "MultiPlayer") {
