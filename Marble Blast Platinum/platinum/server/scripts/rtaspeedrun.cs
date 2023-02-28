@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-%rta = new SimObject(RtaSpeedrun)
+new SimObject(RtaSpeedrun);
 
 RtaSpeedrun.isEnabled = false;
 RtaSpeedrun.endMission = "";
@@ -40,14 +40,14 @@ package RtaSpeedrunFrameAdvance {
 		Parent::onFrameAdvance(%timeDelta);
 		if (RtaSpeedrun.isTiming && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
 			RtaSpeedrun.time = add64_int(RtaSpeedrun.time, %timeDelta / getTimeScale());
-			RtaSpeedrun.updateTimers();
+			RtaSpeedrun::updateTimers();
 		}
 	}
 };
 activatePackage(RtaSpeedrunFrameAdvance);
 
 function RtaSpeedrun::updateTimers(%this) {
-	%text = formatTimeHoursMs($RtaSpeedrun::Time);
+	%text = formatTimeHoursMs(RtaSpeedrun.time);
 	if (RtaSpeedrun.isDone)
 		%text = %text SPC "Final Time";
 	if (RtaSpeedrun.lastSplitTime > 0)
@@ -69,7 +69,7 @@ function RtaSpeedrun::start(%this) {
 	RtaSpeedrun.lastSplitTime = -1;
 	RtaSpeedrun.missionTypeDuration = -1;
 
-	RtaSpeedrun.updateTimers();
+	RtaSpeedrun::updateTimers();
 
 	echo("An RTA speedrun will start when you enter a level, and end when you finish" SPC RtaSpeedrun.endMission);
 	echo("Good luck!");
@@ -91,16 +91,16 @@ function RtaSpeedrun::missionStarted(%this) {
 		RtaSpeedrun.currentMissionType = $MissionType;
 		RtaSpeedrun.currentMissionTypeBegan = RtaSpeedrun.time;
 	}
-	RtaSpeedrun.updateTimers();
+	RtaSpeedrun::updateTimers();
 }
 
 function RtaSpeedrun::missionEnded(%this) {
 	if (RtaSpeedrun.endMission $= $Server::MissionFile) {
 		echo("Just finished the end level! Speedrun mode over");
 		echo("Final time:" SPC RtaSpeedrun.time);
-		RtaSpeedrunisEnabled = false;
-		RtaSpeedrunisTiming = false;
-		RtaSpeedrunisDone = true;
+		RtaSpeedrun.isEnabled = false;
+		RtaSpeedrun.isTiming = false;
+		RtaSpeedrun.isDone = true;
 	}
 	%isEndOfMissionType = false;
 	%nextMission = EndGameDlg.getNextLevel();
@@ -117,5 +117,5 @@ function RtaSpeedrun::missionEnded(%this) {
 		RtaSpeedrun.missionTypeDuration = sub64_int(RtaSpeedrun.time, RtaSpeedrun.currentMissionTypeBegan);
 	if (!RtaSpeedrun.isDone && RtaSpeedrun.missionTypeDuration != RtaSpeedrun.time)
 		RtaSpeedrun.lastSplitTime = RtaSpeedrun.time;
-	RtaSpeedrun.updateTimers();
+	RtaSpeedrun::updateTimers();
 }
