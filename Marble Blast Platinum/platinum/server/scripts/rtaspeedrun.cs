@@ -35,8 +35,9 @@ $RtaSpeedrun::MissionTypeDuration = -1;
 
 package rtaSpeedrunFrameAdvance {
 	function onFrameAdvance(%timeDelta) {
+		Parent::onFrameAdvance(%timeDelta);
 		if ($RtaSpeedrun::IsTiming && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
-			$RtaSpeedrun::Time = add64_int($RtaSpeedrun::Time, %timeDelta);
+			$RtaSpeedrun::Time = add64_int($RtaSpeedrun::Time, %timeDelta / getTimeScale());
 			RtaSpeedrunUpdateTimers();
 		}
 	}
