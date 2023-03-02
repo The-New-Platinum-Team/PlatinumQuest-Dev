@@ -78,7 +78,7 @@ function RtaSpeedrun::start(%this) {
 }
 
 function RtaSpeedrun::setEnd(%this) {
-	RtaSpeedrun.endMission = $Server::MissionFile;
+	RtaSpeedrun.endMission = PlayMissionGui.getMissionInfo().file;
 	echo("The last level of the RTA speedrun set to" SPC RtaSpeedrun.endMission);
 }
 
