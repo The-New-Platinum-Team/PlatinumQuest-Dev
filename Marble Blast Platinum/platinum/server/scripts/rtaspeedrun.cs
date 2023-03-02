@@ -34,6 +34,7 @@ RtaSpeedrun.currentMissionTypeBegan = 0;
 
 RtaSpeedrun.lastSplitTime = -1;
 RtaSpeedrun.missionTypeDuration = -1;
+RtaSpeedrun.pauseStartedTime = -1;
 
 package RtaSpeedrunFrameAdvance {
 	function onFrameAdvance(%timeDelta) {
@@ -68,6 +69,7 @@ function RtaSpeedrun::start(%this) {
 	RtaSpeedrun.currentMissionType = "";
 	RtaSpeedrun.lastSplitTime = -1;
 	RtaSpeedrun.missionTypeDuration = -1;
+	RtaSpeedrun.pauseStartedTime = -1;
 
 	RtaSpeedrun::updateTimers();
 
