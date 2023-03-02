@@ -469,6 +469,9 @@ function endGame() {
 }
 
 function pauseGame() {
+	if (!$gamePaused && RtaSpeedrun.isEnabled) {
+		RtaSpeedrun.pauseStartedTime = getRealTime();
+	}
 	// if we are in lbs do not let them pause the game
 	if ($Server::ServerType $= "SinglePlayer") {
 		if (alxIsPlaying($PlayTimerAlarmHandle))
@@ -478,6 +481,12 @@ function pauseGame() {
 }
 
 function resumeGame() {
+	if ($gamePaused && RtaSpeedrun.isEnabled && RtaSpeedrun.pauseStartedTime > -1) {
+		%currentTime = getRealTime();
+		%diff = sub64_int(%currentTime, RtaSpeedrun.pauseStartedTime);
+		RtaSpeedrun.time = add64_int(RtaSpeedrun.time, %diff);
+		RtaSpeedrun.pauseStartedTime = -1;
+	}
 	// resume game
 	alxSetChannelVolume(1, $pref::Audio::channelVolume1); // main_gi v4.2.3: fix volume
 	$gamePaused = false;
