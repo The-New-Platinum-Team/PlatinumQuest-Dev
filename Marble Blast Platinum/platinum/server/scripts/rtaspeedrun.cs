@@ -22,10 +22,10 @@
 
 new SimObject(RtaSpeedrun);
 
-RtaSpeedrun.isEnabled = false;
+RtaSpeedrun.shouldStartRun = false;
 RtaSpeedrun.endMission = "";
 
-RtaSpeedrun.isTiming = false;
+RtaSpeedrun.isEnabled = false;
 RtaSpeedrun.isDone = false;
 RtaSpeedrun.time = 0;
 
@@ -39,7 +39,7 @@ RtaSpeedrun.pauseStartedTime = -1;
 package RtaSpeedrunFrameAdvance {
 	function onFrameAdvance(%timeDelta) {
 		Parent::onFrameAdvance(%timeDelta);
-		if (RtaSpeedrun.isTiming && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
+		if (RtaSpeedrun.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
 			RtaSpeedrun.time = add64_int(RtaSpeedrun.time, %timeDelta / getTimeScale());
 			RtaSpeedrun::updateTimers();
 		}
@@ -61,8 +61,8 @@ function RtaSpeedrun::updateTimers(%this) {
 }
 
 function RtaSpeedrun::start(%this) {
-	RtaSpeedrun.isEnabled = true;
-	RtaSpeedrun.isTiming = false;
+	RtaSpeedrun.shouldStartRun = true;
+	RtaSpeedrun.isEnabled = false;
 	RtaSpeedrun.isDone = false;
 	RtaSpeedrun.time = 0;
 
@@ -77,16 +77,26 @@ function RtaSpeedrun::start(%this) {
 	echo("Good luck!");
 }
 
+function RtaSpeedrun::stop(%this) {
+	RtaSpeedrun.isEnabled = false;
+	RtaSpeedrun.isDone = false;
+	RtaSpeedrun.time = 0;
+	RtaSpeedrun::updateTimers();
+}
+
 function RtaSpeedrun::setEnd(%this) {
 	RtaSpeedrun.endMission = PlayMissionGui.getMissionInfo().file;
 	echo("The last level of the RTA speedrun set to" SPC RtaSpeedrun.endMission);
 }
 
 function RtaSpeedrun::missionStarted(%this) {
-	if (!RtaSpeedrun.isTiming) {
+	if (RtaSpeedrun.shouldStartRun && !RtaSpeedrun.isEnabled) {
 		echo("Speedrun mode began timing!");
-		RtaSpeedrun.isTiming = true;
+		RtaSpeedrun.isEnabled = true;
+		RtaSpeedrun.shouldStartRun = false;
 	}
+	if (!RtaSpeedrun.isEnabled)
+		return;
 	RtaSpeedrun.lastSplitTime = -1;
 	RtaSpeedrun.missionTypeDuration = -1;
 	if ($MissionType !$= RtaSpeedrun.currentMissionType) {
@@ -97,11 +107,12 @@ function RtaSpeedrun::missionStarted(%this) {
 }
 
 function RtaSpeedrun::missionEnded(%this) {
+	if (!RtaSpeedrun.isEnabled)
+		return;
 	if (RtaSpeedrun.endMission $= $Server::MissionFile) {
 		echo("Just finished the end level! Speedrun mode over");
 		echo("Final time:" SPC RtaSpeedrun.time);
 		RtaSpeedrun.isEnabled = false;
-		RtaSpeedrun.isTiming = false;
 		RtaSpeedrun.isDone = true;
 	}
 	%isEndOfMissionType = false;
@@ -113,11 +124,27 @@ function RtaSpeedrun::missionEnded(%this) {
 		if (%nextMissionType !$= $MissionType)
 			%isEndOfMissionType = true;
 	}
+	RtaSpeedrun.lastSplitTime = RtaSpeedrun.time;
 	if (RtaSpeedrun.isDone && RtaSpeedrun.currentMissionTypeBegan > 0)
 		%isEndOfMissionType = true;
 	if (%isEndOfMissionType && (!RtaSpeedrun.isDone || RtaSpeedrun.currentMissionTypeBegan > 0))
 		RtaSpeedrun.missionTypeDuration = sub64_int(RtaSpeedrun.time, RtaSpeedrun.currentMissionTypeBegan);
-	if (!RtaSpeedrun.isDone && RtaSpeedrun.missionTypeDuration != RtaSpeedrun.time)
-		RtaSpeedrun.lastSplitTime = RtaSpeedrun.time;
 	RtaSpeedrun::updateTimers();
+}
+
+function RtaSpeedrun::pauseGame(%this) {
+	if (!RtaSpeedrun.isEnabled)
+		return;
+	RtaSpeedrun.pauseStartedTime = getRealTime();
+}
+
+function RtaSpeedrun::unpauseGame(%this) {
+	if (!RtaSpeedrun.isEnabled)
+		return;
+	if (RtaSpeedrun.pauseStartedTime < 0)
+		return;
+	%currentTime = getRealTime();
+	%diff = sub64_int(%currentTime, RtaSpeedrun.pauseStartedTime);
+	RtaSpeedrun.time = add64_int(RtaSpeedrun.time, %diff);
+	RtaSpeedrun.pauseStartedTime = -1;
 }
