@@ -24,27 +24,33 @@ new ScriptObject(RtaSpeedrun) {
 	class = "RtaSpeedrun";
 };
 
-RtaSpeedrun.shouldStartRun = false;
-RtaSpeedrun.endMission = "";
+function RtaSpeedrun::create(%this) {
+	%this.shouldStartRun = false;
+	%this.endMission = "";
 
-RtaSpeedrun.isEnabled = false;
-RtaSpeedrun.isDone = false;
-RtaSpeedrun.time = 0;
+	%this.isEnabled = false;
+	%this.isDone = false;
+	%this.time = 0;
 
-RtaSpeedrun.currentMissionType = "";
-RtaSpeedrun.currentMissionTypeBegan = 0;
+	%this.currentMissionType = "";
+	%this.currentMissionTypeBegan = 0;
 
-RtaSpeedrun.lastSplitTime = -1;
-RtaSpeedrun.missionTypeDuration = -1;
-RtaSpeedrun.pauseStartedTime = -1;
+	%this.lastSplitTime = -1;
+	%this.missionTypeDuration = -1;
+	%this.pauseStartedTime = -1;
+}
+
+function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
+	if (%this.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
+		%this.time = add64_int(%this.time, %timeDelta / getTimeScale());
+		%this.updateTimers();
+	}
+}
 
 package RtaSpeedrunFrameAdvance {
 	function onFrameAdvance(%timeDelta) {
 		Parent::onFrameAdvance(%timeDelta);
-		if (RtaSpeedrun.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
-			RtaSpeedrun.time = add64_int(RtaSpeedrun.time, %timeDelta / getTimeScale());
-			RtaSpeedrun.updateTimers();
-		}
+		RtaSpeedrun.onFrameAdvance(%timeDelta);
 	}
 };
 activatePackage(RtaSpeedrunFrameAdvance);
