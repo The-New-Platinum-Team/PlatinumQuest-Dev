@@ -32,13 +32,19 @@ function RtaSpeedrun::create(%this) {
 	%this.isDone = false;
 	%this.time = 0;
 
-	%this.currentMissionType = "";
-	%this.currentMissionTypeBegan = 0;
-
-	%this.lastSplitTime = -1;
-	%this.missionTypeDuration = -1;
 	%this.pauseStartedTime = -1;
+	%this.lastSplitTime = -1;
+
+	%this.missionType = "";
+	%this.missionTypeBegan = 0;
+	%this.missionTypeDuration = -1;
+	%this.currentGame = "";
+	%this.currentGameBegan = 0;
+	%this.currentGameDuration = -1;
+
+	%this.smartHideSplits = true;
 }
+RtaSpeedrun.create();
 
 function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
 	if (%this.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
@@ -56,13 +62,42 @@ package RtaSpeedrunFrameAdvance {
 activatePackage(RtaSpeedrunFrameAdvance);
 
 function RtaSpeedrun::updateTimers(%this) {
+	if (!%this.isEnabled && !%this.isDone) {
+		%this.setTimerText("");
+		return;
+	}
+	%showGame = %this.currentGameDuration > 0;
+	%showCategory = %this.missionTypeDuration > 0;
+	%showSplit = %this.lastSplitTime > 0;
+
+	if (%this.smartHideSplits) {
+		if (%this.isDone) {
+			%showSplit = false;
+			if (%this.missionTypeDuration == %this.time)
+				%showCategory = false;
+			if (%this.currentGameDuration == %this.time)
+				%showGame = false;
+		}
+		if (%this.lastSplitTime == %this.missionTypeDuration
+			|| %this.lastSplitTime == %this.currentGameDuration)
+			%showSplit = false;
+		if (%this.currentGameDuration == %this.missionTypeDuration) {
+			if (%this.isDone && %this.currentGameBegan == 0)
+				%showGame = false;
+			else
+				%showCategory = false;
+		}
+	}
+
 	%text = formatTimeHoursMs(%this.time);
 	if (%this.isDone)
 		%text = %text SPC "Final Time";
-	if (%this.lastSplitTime > 0)
-		%text = %text NL formatTimeHoursMs(%this.lastSplitTime) SPC "Split";
-	if (%this.missionTypeDuration > 0)
+	if (%showGame)
+		%text = %text NL formatTimeHoursMs(%this.currentGameDuration) SPC "Game";
+	if (%showCategory)
 		%text = %text NL formatTimeHoursMs(%this.missionTypeDuration) SPC "Category";
+	if (%showSplit)
+		%text = %text NL formatTimeHoursMs(%this.lastSplitTime) SPC "Split";
 	%this.setTimerText(%text);
 }
 
@@ -78,10 +113,15 @@ function RtaSpeedrun::start(%this) {
 	%this.isDone = false;
 	%this.time = 0;
 
-	%this.currentMissionType = "";
-	%this.lastSplitTime = -1;
-	%this.missionTypeDuration = -1;
 	%this.pauseStartedTime = -1;
+	%this.lastSplitTime = -1;
+
+	%this.missionType = "";
+	%this.missionTypeBegan = 0;
+	%this.missionTypeDuration = -1;
+	%this.currentGame = "";
+	%this.currentGameBegan = 0;
+	%this.currentGameDuration = -1;
 
 	%this.updateTimers();
 
@@ -111,9 +151,14 @@ function RtaSpeedrun::missionStarted(%this) {
 		return;
 	%this.lastSplitTime = -1;
 	%this.missionTypeDuration = -1;
-	if ($MissionType !$= %this.currentMissionType) {
-		%this.currentMissionType = $MissionType;
-		%this.currentMissionTypeBegan = %this.time;
+	%this.currentGameDuration = -1;
+	if ($MissionType !$= %this.missionType) {
+		%this.missionType = $MissionType;
+		%this.missionTypeBegan = %this.time;
+	}
+	if ($CurrentGame !$= %this.currentGame) {
+		%this.currentGame = $CurrentGame;
+		%this.currentGameBegan = %this.time;
 	}
 	%this.updateTimers();
 }
@@ -128,19 +173,26 @@ function RtaSpeedrun::missionEnded(%this) {
 		%this.isDone = true;
 	}
 	%isEndOfMissionType = false;
-	%nextMission = EndGameDlg.getNextLevel();
-	if (!isObject(getRecord(%nextMission, 0))) {
+	%isEndOfCurrentGame = false;
+	if (%this.isDone) {
 		%isEndOfMissionType = true;
+		%isEndOfCurrentGame = true;
 	} else {
-		%nextMissionType = getRecord(%nextMission, 2);
-		if (%nextMissionType !$= $MissionType)
+		%nextMission = EndGameDlg.getNextLevel();
+		if (!isObject(getRecord(%nextMission, 0))) {
 			%isEndOfMissionType = true;
+			%isEndOfCurrentGame = true;
+		} else {
+			%nextMissionType = getRecord(%nextMission, 2);
+			if (%nextMissionType !$= $MissionType)
+				%isEndOfMissionType = true;
+		}
 	}
 	%this.lastSplitTime = %this.time;
-	if (%this.isDone && %this.currentMissionTypeBegan > 0)
-		%isEndOfMissionType = true;
-	if (%isEndOfMissionType && (!%this.isDone || %this.currentMissionTypeBegan > 0))
-		%this.missionTypeDuration = sub64_int(%this.time, %this.currentMissionTypeBegan);
+	if (%isEndOfMissionType)
+		%this.missionTypeDuration = sub64_int(%this.time, %this.missionTypeBegan);
+	if (%isEndOfCurrentGame)
+		%this.currentGameDuration = sub64_int(%this.time, %this.currentGameBegan);
 	%this.updateTimers();
 }
 
