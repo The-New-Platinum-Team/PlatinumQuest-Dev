@@ -404,7 +404,7 @@ function startGame() {
 	onNextFrame(setGameState, "start");
 	onNextFrame(activateMovingObjects, true);
 
-	RtaSpeedrun::missionStarted();
+	RtaSpeedrun.missionStarted();
 }
 
 function endGameSetup() {
@@ -428,7 +428,7 @@ function endGameSetup() {
 	serverCbOnEndGameSetup();
 	serverSendCallback("onEndGameSetup");
 
-	RtaSpeedrun::missionEnded();
+	RtaSpeedrun.missionEnded();
 
 	if ($Server::ServerType $= "MultiPlayer") {
 		// update the score list
@@ -464,7 +464,7 @@ function endGame() {
 }
 
 function pauseGame() {
-	RtaSpeedrun::pauseGame();
+	RtaSpeedrun.pauseGame();
 	// if we are in lbs do not let them pause the game
 	if ($Server::ServerType $= "SinglePlayer") {
 		if (alxIsPlaying($PlayTimerAlarmHandle))
@@ -474,7 +474,7 @@ function pauseGame() {
 }
 
 function resumeGame() {
-	RtaSpeedrun::unpauseGame();
+	RtaSpeedrun.unpauseGame();
 	// resume game
 	alxSetChannelVolume(1, $pref::Audio::channelVolume1); // main_gi v4.2.3: fix volume
 	$gamePaused = false;
