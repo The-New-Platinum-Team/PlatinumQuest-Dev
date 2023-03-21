@@ -1088,7 +1088,7 @@ new GuiControl(PlayMissionGui) {
 		horizSizing = "right";
 		vertSizing = "top";
 		position = "364 593";
-		extent = "719 97";
+		extent = "814 97";
 		minExtent = "8 8";
 		visible = "0";
 		helpTag = "0";
@@ -1373,8 +1373,8 @@ function PlayMissionGui::onWake(%this) {
 function PlayMissionGui::initInterface(%this) {
 	//If we have already seen the credits, show the option to see them again
 	if ($pref::Congratulated) {
-		$PMG::BarButton["Extra", "Count"] = 7;
-		$PMG::BarButton["ExtraLB", "Count"] = 6;
+		$PMG::BarButton["Extra", "Count"] = 8;
+		$PMG::BarButton["ExtraLB", "Count"] = 7;
 	}
 
 	if (mp()) {
@@ -3244,10 +3244,13 @@ $PMG::BarButton["Extra", "Command",    5] = "if ($ControllerEvent) {$Game::Recor
 $PMG::BarButton["Extra", "Variable",   5] = "$Game::Record";
 $PMG::BarButton["Extra", "ButtonType", 5] = "ToggleButton";
 $PMG::BarButton["Extra", "Bitmap",     5] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["Extra", "Name",       6] = "PM_MissionCredits";
-$PMG::BarButton["Extra", "Command",    6] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
-$PMG::BarButton["Extra", "Bitmap",     6] = "platinum/client/ui/play/buttons/credits.png";
-$PMG::BarButton["Extra", "Count"] = 6; //Increases to 7 after showing the credits
+$PMG::BarButton["Extra", "Name",       6] = "PM_MissionRtaSpeedrun";
+$PMG::BarButton["Extra", "Command",    6] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
+$PMG::BarButton["Extra", "Bitmap",     6] = "platinum/client/ui/play/buttons/rta.png";
+$PMG::BarButton["Extra", "Name",       7] = "PM_MissionCredits";
+$PMG::BarButton["Extra", "Command",    7] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
+$PMG::BarButton["Extra", "Bitmap",     7] = "platinum/client/ui/play/buttons/credits.png";
+$PMG::BarButton["Extra", "Count"] = 7; //Increases to 8 after showing the credits
 $PMG::BarButton["Extra", "HaveTab"] = true;
 $PMG::BarButton["Extra", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["Extra", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -3270,7 +3273,10 @@ $PMG::BarButton["ExtraMarbleland", "Command",    4] = "if ($ControllerEvent) {$G
 $PMG::BarButton["ExtraMarbleland", "Variable",   4] = "$Game::Record";
 $PMG::BarButton["ExtraMarbleland", "ButtonType", 4] = "ToggleButton";
 $PMG::BarButton["ExtraMarbleland", "Bitmap",     4] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["ExtraMarbleland", "Count"] = 5; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraMarbleland", "Name",       5] = "PM_MissionRtaSpeedrun";
+$PMG::BarButton["ExtraMarbleland", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
+$PMG::BarButton["ExtraMarbleland", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
+$PMG::BarButton["ExtraMarbleland", "Count"] = 6; //Increases to 7 after showing the credits
 $PMG::BarButton["ExtraMarbleland", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarbleland", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarbleland", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -3293,7 +3299,10 @@ $PMG::BarButton["ExtraMarblelandLB", "Command",    4] = "if ($ControllerEvent) {
 $PMG::BarButton["ExtraMarblelandLB", "Variable",   4] = "$Game::Record";
 $PMG::BarButton["ExtraMarblelandLB", "ButtonType", 4] = "ToggleButton";
 $PMG::BarButton["ExtraMarblelandLB", "Bitmap",     4] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["ExtraMarblelandLB", "Count"] = 5; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraMarblelandLB", "Name",       5] = "PM_MissionRtaSpeedrun";
+$PMG::BarButton["ExtraMarblelandLB", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
+$PMG::BarButton["ExtraMarblelandLB", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
+$PMG::BarButton["ExtraMarblelandLB", "Count"] = 6; //Increases to 7 after showing the credits
 $PMG::BarButton["ExtraMarblelandLB", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarblelandLB", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarblelandLB", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
