@@ -63,7 +63,10 @@ activatePackage(RtaSpeedrunFrameAdvance);
 
 function RtaSpeedrun::updateTimers(%this) {
 	if (!%this.isEnabled && !%this.isDone) {
-		%this.setTimerText("");
+		if (%this.shouldStartRun)
+			%this.setTimerText(formatTimeHoursMs(%this.time));
+		else
+			%this.setTimerText("");
 		return;
 	}
 	%showGame = %this.currentGameDuration > 0;
@@ -130,6 +133,7 @@ function RtaSpeedrun::start(%this) {
 }
 
 function RtaSpeedrun::stop(%this) {
+	%this.shouldStartRun = false;
 	%this.isEnabled = false;
 	%this.isDone = false;
 	%this.time = 0;
