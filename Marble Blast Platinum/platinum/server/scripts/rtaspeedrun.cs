@@ -84,11 +84,8 @@ function RtaSpeedrun::updateTimers(%this) {
 		if (%this.lastSplitTime == %this.missionTypeDuration
 			|| %this.lastSplitTime == %this.currentGameDuration)
 			%showSplit = false;
-		if (%this.currentGameDuration == %this.missionTypeDuration) {
-			if (%this.isDone && %this.currentGameBegan == 0)
-				%showGame = false;
-			else
-				%showCategory = false;
+		if (%showCategory && %showGame && (%this.currentGameDuration == %this.missionTypeDuration)) {
+			%showGame = false;
 		}
 	}
 
@@ -183,7 +180,7 @@ function RtaSpeedrun::missionEnded(%this) {
 		%isEndOfCurrentGame = true;
 	} else {
 		%nextMission = EndGameDlg.getNextLevel();
-		if (!isObject(getRecord(%nextMission, 0))) {
+		if (!isObject(getRecord(%nextMission, 0)) || %this.isGameEndSpecialCase($Server::MissionFile)) {
 			%isEndOfMissionType = true;
 			%isEndOfCurrentGame = true;
 		} else {
@@ -215,4 +212,21 @@ function RtaSpeedrun::unpauseGame(%this) {
 	%diff = sub64_int(%currentTime, %this.pauseStartedTime);
 	%this.time = add64_int(%this.time, %diff);
 	%this.pauseStartedTime = -1;
+}
+
+function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
+	// Some games/categories have multiple valid places to represent the "end" of the speedrun/ We want to account for
+	// all of them, and even let the same run count towards each of the categories.
+	switch$ (%mission) {
+		case "platinum/data/missions_mbg/advanced/KingOfTheMountain.mis": return true;
+		case "platinum/data/missions_mbu/advanced/schadenfreude_ultra.mis": return true;
+		case "platinum/data/lbmissions_mbu/advanced/schadenfreude_ultra.mis": return true;
+		case "platinum/data/missions_mbu/advanced/hypercube_ultra.mis": return true;
+		case "platinum/data/missions_mbp/expert/BattlecubeFinale.mis": return true;
+		case "platinum/data/missions_pq/expert/ManicBounce.mcs": return true;
+		case "platinum/data/lbmissions_pq/expert/ManicBounce.mcs": return true;
+		case "platinum/data/missions_pq/bonus/Puzzle11Nightmare.mcs": return true;
+		case "platinum/data/lbmissions_pq/bonus/Puzzle11Nightmare.mcs": return true;
+	}
+	return false;
 }
