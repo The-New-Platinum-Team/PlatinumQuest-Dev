@@ -28,18 +28,18 @@ function RtaSpeedrun::create(%this) {
 	%this.shouldStartRun = false;
 	%this.endMission = "";
 
-	%this.isEnabled = false;
-	%this.isDone = false;
-	%this.time = 0;
+	%this.setIsEnabled(false);
+	%this.setIsDone(false);
+	%this.setTime(0);
 
 	%this.pauseStartedTime = -1;
-	%this.lastSplitTime = -1;
+	%this.setLastSplitTime(-1);
 
 	%this.missionType = "";
-	%this.missionTypeBegan = 0;
+	%this.setMissionTypeBeganTime(0);
 	%this.missionTypeDuration = -1;
 	%this.currentGame = "";
-	%this.currentGameBegan = 0;
+	%this.setCurrentGameBeganTime(0);
 	%this.currentGameDuration = -1;
 
 	%this.smartHideSplits = true;
@@ -48,7 +48,7 @@ RtaSpeedrun.create();
 
 function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
 	if (%this.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
-		%this.time = add64_int(%this.time, %timeDelta / getTimeScale());
+		%this.setTime(add64_int(%this.time, %timeDelta / getTimeScale()));
 		%this.updateTimers();
 	}
 }
@@ -109,18 +109,18 @@ function RtaSpeedrun::setTimerText(%this, %text) {
 
 function RtaSpeedrun::start(%this) {
 	%this.shouldStartRun = true;
-	%this.isEnabled = false;
-	%this.isDone = false;
-	%this.time = 0;
+	%this.setIsEnabled(false);
+	%this.setIsDone(false);
+	%this.setTime(0);
 
 	%this.pauseStartedTime = -1;
-	%this.lastSplitTime = -1;
+	%this.setLastSplitTime(-1);
 
 	%this.missionType = "";
-	%this.missionTypeBegan = 0;
+	%this.setMissionTypeBeganTime(0);
 	%this.missionTypeDuration = -1;
 	%this.currentGame = "";
-	%this.currentGameBegan = 0;
+	%this.setCurrentGameBeganTime(0);
 	%this.currentGameDuration = -1;
 
 	%this.updateTimers();
@@ -131,9 +131,8 @@ function RtaSpeedrun::start(%this) {
 
 function RtaSpeedrun::stop(%this) {
 	%this.shouldStartRun = false;
-	%this.isEnabled = false;
-	%this.isDone = false;
-	%this.time = 0;
+	%this.setIsEnabled(false);
+	%this.setIsDone(false);
 	%this.updateTimers();
 }
 
@@ -143,23 +142,24 @@ function RtaSpeedrun::setEnd(%this) {
 }
 
 function RtaSpeedrun::missionStarted(%this) {
+	RTAAS_setCurrentMission($Server::MissionFile);
 	if (%this.shouldStartRun && !%this.isEnabled) {
 		echo("Speedrun mode began timing!");
-		%this.isEnabled = true;
+		%this.setIsEnabled(true);
 		%this.shouldStartRun = false;
 	}
 	if (!%this.isEnabled)
 		return;
-	%this.lastSplitTime = -1;
+	%this.setLastSplitTime(-1);
 	%this.missionTypeDuration = -1;
 	%this.currentGameDuration = -1;
 	if ($MissionType !$= %this.missionType) {
 		%this.missionType = $MissionType;
-		%this.missionTypeBegan = %this.time;
+		%this.setMissionTypeBeganTime(%this.time);
 	}
 	if ($CurrentGame !$= %this.currentGame) {
 		%this.currentGame = $CurrentGame;
-		%this.currentGameBegan = %this.time;
+		%this.setCurrentGameBeganTime(%this.time);
 	}
 	%this.updateTimers();
 }
@@ -170,8 +170,8 @@ function RtaSpeedrun::missionEnded(%this) {
 	if (%this.endMission $= $Server::MissionFile) {
 		echo("Just finished the end level! Speedrun mode over");
 		echo("Final time:" SPC %this.time);
-		%this.isEnabled = false;
-		%this.isDone = true;
+		%this.setIsEnabled(false);
+		%this.setIsDone(true);
 	}
 	%isEndOfMissionType = false;
 	%isEndOfCurrentGame = false;
@@ -189,11 +189,11 @@ function RtaSpeedrun::missionEnded(%this) {
 				%isEndOfMissionType = true;
 		}
 	}
-	%this.lastSplitTime = %this.time;
+	%this.setLastSplitTime(%this.time);
 	if (%isEndOfMissionType)
-		%this.missionTypeDuration = sub64_int(%this.time, %this.missionTypeBegan);
+		%this.missionTypeDuration = sub64_int(%this.time, %this.missionTypeBeganTime);
 	if (%isEndOfCurrentGame)
-		%this.currentGameDuration = sub64_int(%this.time, %this.currentGameBegan);
+		%this.currentGameDuration = sub64_int(%this.time, %this.currentGameBeganTime);
 	%this.updateTimers();
 }
 
@@ -210,7 +210,7 @@ function RtaSpeedrun::unpauseGame(%this) {
 		return;
 	%currentTime = getRealTime();
 	%diff = sub64_int(%currentTime, %this.pauseStartedTime);
-	%this.time = add64_int(%this.time, %diff);
+	%this.setTime(add64_int(%this.time, %diff));
 	%this.pauseStartedTime = -1;
 }
 
@@ -229,4 +229,30 @@ function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
 		case "platinum/data/lbmissions_pq/bonus/Puzzle11Nightmare.mcs": return true;
 	}
 	return false;
+}
+
+// Setters for most properties, to update the RTAAutosplitter plugin's values as well
+function RtaSpeedrun::setIsEnabled(%this, %isEnabled) {
+	%this.isEnabled = %isEnabled;
+	RTAAS_setIsEnabled(%this.isEnabled);
+}
+function RtaSpeedrun::setIsDone(%this, %isDone) {
+	%this.isDone = %isDone;
+	RTAAS_setIsDone(%this.isDone);
+}
+function RtaSpeedrun::setTime(%this, %time) {
+	%this.time = %time;
+	RTAAS_setTime(%this.time);
+}
+function RtaSpeedrun::setLastSplitTime(%this, %time) {
+	%this.lastSplitTime = %time;
+	RTAAS_setLastSplitTime(%this.lastSplitTime);
+}
+function RtaSpeedrun::setMissionTypeBeganTime(%this, %time) {
+	%this.missionTypeBeganTime = %time;
+	RTAAS_setMissionTypeBeganTime(%this.missionTypeBeganTime);
+}
+function RtaSpeedrun::setCurrentGameBeganTime(%this, %time) {
+	%this.currentGameBeganTime = %time;
+	RTAAS_setCurrentGameBeganTime(%this.currentGameBeganTime);
 }
