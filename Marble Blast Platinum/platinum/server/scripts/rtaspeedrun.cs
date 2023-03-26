@@ -25,7 +25,7 @@ new ScriptObject(RtaSpeedrun) {
 };
 
 function RtaSpeedrun::create(%this) {
-	%this.shouldStartRun = false;
+	%this.setShouldStartRun(false);
 	%this.endMission = "";
 
 	%this.setIsEnabled(false);
@@ -108,7 +108,7 @@ function RtaSpeedrun::setTimerText(%this, %text) {
 }
 
 function RtaSpeedrun::start(%this) {
-	%this.shouldStartRun = true;
+	%this.setShouldStartRun(true);
 	%this.setIsEnabled(false);
 	%this.setIsDone(false);
 	%this.setTime(0);
@@ -130,7 +130,7 @@ function RtaSpeedrun::start(%this) {
 }
 
 function RtaSpeedrun::stop(%this) {
-	%this.shouldStartRun = false;
+	%this.setShouldStartRun(false);
 	%this.setIsEnabled(false);
 	%this.setIsDone(false);
 	%this.updateTimers();
@@ -146,7 +146,7 @@ function RtaSpeedrun::missionStarted(%this) {
 	if (%this.shouldStartRun && !%this.isEnabled) {
 		echo("Speedrun mode began timing!");
 		%this.setIsEnabled(true);
-		%this.shouldStartRun = false;
+		%this.setShouldStartRun(false);
 	}
 	if (!%this.isEnabled)
 		return;
@@ -239,6 +239,10 @@ function RtaSpeedrun::setIsEnabled(%this, %isEnabled) {
 function RtaSpeedrun::setIsDone(%this, %isDone) {
 	%this.isDone = %isDone;
 	RTAAS_setIsDone(%this.isDone);
+}
+function RtaSpeedrun::setShouldStartRun(%this, %shouldStartRun) {
+	%this.shouldStartRun = %shouldStartRun;
+	RTAAS_setShouldStartRun(%this.shouldStartRun);
 }
 function RtaSpeedrun::setTime(%this, %time) {
 	%this.time = %time;
