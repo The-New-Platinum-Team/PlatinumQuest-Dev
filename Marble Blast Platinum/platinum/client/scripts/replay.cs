@@ -1251,7 +1251,7 @@ function recordWriteInput(%stream) {
 	%flags |= $mvTriggerCount2 << 2;
 	%flags |= $mouseFire       << 3;
 	%flags |= $useBlast        << 4;
-	%flags |= $forceRespawning << 5;
+	%flags |= $forceCheckpointRespawn << 5;
 	%stream.writeRawS32(%flags);
 }
 

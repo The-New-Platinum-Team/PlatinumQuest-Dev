@@ -398,7 +398,8 @@ function input_useBlast(%val) {
 
 function input_forceRespawn(%val) {
 	cancel($respawnSchedule);
-	$forceRespawning = %val;
+	if (!%val)
+		$forceCheckpointRespawn = false;
 	if ($Client::GameRunning && %val) {
 		//Update your respawns prefs
 		$pref::LevelRespawns[strreplace($Client::MissionFile, "lbmission", "mission")] ++;
@@ -413,6 +414,7 @@ function input_forceRespawn(%val) {
 			if (LocalClientConnection.checkpointed) {
 				LocalClientConnection.respawnOnCheckpoint();
 				$respawnSchedule = schedule(1000, 0, commandToServer, 'restartLevel');
+				$forceCheckpointRespawn = true;
 			} else {
 				//Rate limit
 				if (getSimTime() - $Game::LastRespawn < 500)
