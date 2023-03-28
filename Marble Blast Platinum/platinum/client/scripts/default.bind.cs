@@ -398,6 +398,7 @@ function input_useBlast(%val) {
 
 function input_forceRespawn(%val) {
 	cancel($respawnSchedule);
+	$forceRespawning = %val;
 	if ($Client::GameRunning && %val) {
 		//Update your respawns prefs
 		$pref::LevelRespawns[strreplace($Client::MissionFile, "lbmission", "mission")] ++;

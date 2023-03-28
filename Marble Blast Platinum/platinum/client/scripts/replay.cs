@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$ReplayVersion = 25;
+$ReplayVersion = 26;
 
 $RecordTag["time"] = 1;
 $RecordTag["position"] = 2;
@@ -493,6 +493,7 @@ function onDemoPlayDone() {
 	jump(0);
 	mouseFire(0);
 	useBlast(0);
+	forceRespawn(0);
 
 	//Exit the mission
 	menuDestroyServer();
@@ -1250,6 +1251,7 @@ function recordWriteInput(%stream) {
 	%flags |= $mvTriggerCount2 << 2;
 	%flags |= $mouseFire       << 3;
 	%flags |= $useBlast        << 4;
+	%flags |= $forceRespawning << 5;
 	%stream.writeRawS32(%flags);
 }
 
@@ -1267,6 +1269,7 @@ function PlaybackFrame::applyInput(%this) {
 	if (%change & 1 << 2) jump      (!!(%flags & 1 << 2));
 	if (%change & 1 << 3) mouseFire (!!(%flags & 1 << 3));
 	if (%change & 1 << 4) useBlast  (!!(%flags & 1 << 4));
+	if (%change & 1 << 5) forceRespawn(!!(%flags & 1 << 5));
 }
 
 //-----------------------------------------------------------------------------
