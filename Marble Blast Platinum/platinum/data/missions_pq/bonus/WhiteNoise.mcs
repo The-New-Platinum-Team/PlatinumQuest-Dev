@@ -80,13 +80,11 @@ package WhiteNoise {
 		}
 	}
 
-	function SceneObject::getSurfaceVelocity(%this, %marble, %contact, %dist) {
-		if (strpos(%this.getFieldValue("interiorFile"), "Buzzsaw.dif") != -1) {
+	function Marble::onCollide(%this, %contactVert, %normal, %surfVel, %contactDist, %obj, %fric, %force, %material) {
+		if (strpos(%obj.getFieldValue("interiorFile"), "Buzzsaw.dif") != -1) {
 			//Nope
-			commandToServer('Buzzsawd', %marble.getSyncId());
-		} else {
-			return Parent::getSurfaceVelocity(%this, %marble, %contact, %dist);
-		}
+			commandToServer('Buzzsawd', %this.getSyncId());
+		} 
 	}
 };
 
