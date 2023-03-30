@@ -1064,6 +1064,8 @@ function restartLevel(%exitgame) {
 		$MP::Restarting = true;
 	}
 
+	$forceCheckpointRespawn = false;
+
 	$Game::Restarted = true;
 	$Server::SpawnGroups = true;
 	$Game::Running = true;
