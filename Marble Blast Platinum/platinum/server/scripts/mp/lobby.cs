@@ -349,6 +349,16 @@ function SMD_complete(%id, %success) {
 }
 
 function serverMarblelandDownload(%id, %callback) {
+	%mis = marblelandGetMission(%id);
+	if (!isObject(%mis)) {
+		call(%callback, %id, false);
+		return;
+	}
+	if (%mis.hasCustomCode) {
+		call(%callback, %id, false);
+		return;
+	}
+
 	// First, make sure the server can download it
 	$Server::MarblelandCallback[%id] = %callback;
 	marblelandDownload(%id, SMD_serverDownloadComplete);
