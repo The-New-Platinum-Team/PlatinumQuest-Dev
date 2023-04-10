@@ -29,6 +29,8 @@ function Mode_king::onLoad(%this) {
 	%this.registerCallback("shouldRestartOnOOB");
 	%this.registerCallback("shouldRespawnGems");
 	%this.registerCallback("timeMultiplier");
+	%this.registerCallback("getScoreType");
+	%this.registerCallback("getFinalScore");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_king::onFoundGem(%this, %object) {
@@ -45,6 +47,12 @@ function Mode_king::shouldRestartOnOOB(%this, %object) {
 }
 function Mode_king::shouldRespawnGems(%this, %object) {
 	return false;
+}
+function Mode_king::getScoreType(%this) {
+	return $ScoreType::Score;
+}
+function Mode_king::getFinalScore(%this, %object) {
+	return $ScoreType::Score TAB %object.client.getGemCount();
 }
 function Mode_king::timeMultiplier(%this) {
 	return -1;

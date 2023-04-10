@@ -41,6 +41,7 @@ function ClientMode_king::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("shouldUpdateGems");
 	%this.registerCallback("onEndGameSetup");
+	%this.registerCallback("getDefaultScore");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_king::timeMultiplier(%this) {
@@ -94,4 +95,7 @@ function ClientMode_king::shouldUpdateGems(%this) {
 }
 function ClientMode_king::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
+}
+function ClientMode_king::getDefaultScore(%this) {
+	return $ScoreType::Score TAB 0 TAB "Matan W.";
 }
