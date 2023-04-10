@@ -416,6 +416,8 @@ function input_forceRespawn(%val) {
 				$respawnSchedule = schedule(1000, 0, commandToServer, 'restartLevel');
 				$forceCheckpointRespawn = true;
 			} else {
+				if ($playingDemo)
+					return;
 				//Rate limit
 				if (getSimTime() - $Game::LastRespawn < 500)
 					return;
