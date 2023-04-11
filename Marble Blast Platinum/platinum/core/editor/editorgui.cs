@@ -514,11 +514,14 @@ function EditorTestCameraPath() {
 }
 
 function EditorIconScreenshot() {
+	$MP::MyMarble.scale = "0 0 0"; //Make the Marble practically invisible so it isn't visible in the preview. ~Connie
 	doMiniShot();
 	RootGui.setContent(EditorGui);
+	schedule(100, 0, ReturnMarbletoNormal);
 }
 
 function EditorPreviewScreenshot() {
+	$MP::MyMarble.scale = "0 0 0"; //Same here. ~Connie
 	LocalClientConnection.setToggleCamera(true);
 	schedule(100, 0, EditorDoPreviewScreenshot);
 }
@@ -540,6 +543,11 @@ function EditorDoPreviewScreenshot() {
 	Canvas.repaint();
 	screenShot(%path, getWord(getResolution(), 0), getWord(getResolution(), 1));
 	RootGui.setContent(EditorGui);
+	schedule(100, 0, ReturnMarbletoNormal);
+}
+
+function ReturnMarbletoNormal() {
+	$MP::MyMarble.scale = "1 1 1"; //When you are done taking the preview/icon picture, return the marble to it's normal size. ~Connie
 }
 
 function EditorMenuBar::onMenuSelect(%this, %menuId, %menu) {
