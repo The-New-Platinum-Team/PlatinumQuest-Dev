@@ -328,7 +328,7 @@ function playLBMusic() {
 }
 
 function playGameMusic() {
-	if (MissionInfo.music !$= "" && MissionInfo.music !$= "Pianoforte.ogg") {
+	if (MissionInfo.music !$= "") {
 		if (getSubStr(MissionInfo.music, 0, 1) $= "@")
 			%file = filePath($Client::MissionFile) @ "/" @ getSubStr(MissionInfo.music, 1, strlen(MissionInfo.music));
 		else

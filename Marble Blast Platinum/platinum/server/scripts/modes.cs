@@ -236,8 +236,8 @@ function Mode::callback(%this, %callback, %default, %object) {
 	}
 	if (isObject(%this)) {
 		if (!%this.hasCallback[%callback]) {
-			if ($DEBUG)
-				echo("[Mode" SPC %this.name @ "] Unused Callback" SPC %callback);
+			//if ($DEBUG)
+				//echo("[Mode" SPC %this.name @ "] Unused Callback" SPC %callback);
 			return %default;
 		}
 

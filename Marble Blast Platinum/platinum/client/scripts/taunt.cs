@@ -164,6 +164,10 @@ function tauntFile(%number) {
 }
 
 function playTaunt(%number) {
+	//Disable Taunts setting - The chat message will still appear, but the taunt sound will not play.
+	if ($pref::disabletaunts) 
+		return;
+
 	if (!isObject(LBTaunt @ %number)) {
 		RootGroup.add(new AudioProfile(LBTaunt @ %number) {
 			filename = tauntFile(%number);
