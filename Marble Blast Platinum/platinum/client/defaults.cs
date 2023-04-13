@@ -46,6 +46,7 @@ $pref::HelpTriggers = 1;
 $pref::ScreenshotMode = 0;
 $pref::RadarMode = 3;
 $pref::ScorePredictorMaxFactor = 2;
+$pref::StopRecordingOnMenu = false;
 
 $pref::parTimeAlarm = true;
 
