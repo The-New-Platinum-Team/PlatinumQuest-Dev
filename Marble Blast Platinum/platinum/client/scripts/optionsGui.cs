@@ -507,12 +507,15 @@ $Options::Type    ["Online", 5] = "value";
 $Options::Name    ["Online", 6] = "chatMessageSize";
 $Options::Title   ["Online", 6] = "In-Game Lines of Chat";
 $Options::Type    ["Online", 6] = "value";
-$Options::Name    ["Online", 7] = "autoLogin";
-$Options::Title   ["Online", 7] = "Auto Login";
+$Options::Name    ["Online", 7] = "disableTaunts";
+$Options::Title   ["Online", 7] = "Mute Taunts";
 $Options::Type    ["Online", 7] = "boolean";
+$Options::Name    ["Online", 8] = "autoLogin";
+$Options::Title   ["Online", 8] = "Auto Login";
+$Options::Type    ["Online", 8] = "boolean";
 
-$Options::AutoLoginUserField = 8;
-$Options::AutoLoginPassField = 9;
+$Options::AutoLoginUserField = 9;
+$Options::AutoLoginPassField = 10;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
 $Options::Title   ["Online", $Options::AutoLoginUserField] = "Username";
@@ -1762,6 +1765,25 @@ function Opt_autoLoginPassword_setValue(%value) {
 }
 
 function Opt_autoLoginPassword_validate(%value) {
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_disableTaunts_getDisplay() {
+	return $pref::disabletaunts ? "Enabled" : "Disabled";
+}
+
+function Opt_disableTaunts_getValue() {
+	return $pref::disabletaunts;
+}
+
+function Opt_disableTaunts_decrease() {
+	$pref::disabletaunts = !$pref::disabletaunts;
+}
+
+function Opt_disableTaunts_increase() {
+	$pref::disabletaunts = !$pref::disabletaunts;
+	
 }
 
 //-----------------------------------------------------------------------------
