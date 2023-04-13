@@ -62,8 +62,10 @@ function EndGameDlg::end(%this) {
 	if (recordEnd("EndGameDlg.end();")) {
 		return;
 	}
-	//Don't record the next level unless they ask
-	$Game::Record = false;
+	if ($pref::StopRecordingOnMenu) {
+		//Don't record the next level unless they ask
+		$Game::Record = false;
+	}
 
 	if ($Game::Introduction) {
 		//Show a message or something
