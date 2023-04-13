@@ -62,7 +62,7 @@ $pref::HudMessageLogSize = 40;
 $pref::ChatHudLength = 1;
 $pref::useStencilShadows = 0;
 
-$pref::disabletaunts = true;
+$pref::disabletaunts = false;
 
 $pref::Input::LinkMouseSensitivity = 1;
 // Direct Input keyboard, mouse, and joystick prefs
