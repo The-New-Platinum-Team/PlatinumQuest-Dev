@@ -45,10 +45,10 @@ function emibutton(%revert) {
 	//List of songs (literally copied from jukeboxdlg)
 	%songs = "";
 	for (%file = findFirstFile($usermods @ "/data/sound/music/*.ogg"); %file !$= ""; %file = findNextFile($usermods @ "/data/sound/music/*.ogg")) {
-		// Remove upbeat finale and good to jump to (Loop Edit)
+		// Remove upbeat finale, good to jump to (Loop Edit), and pianoforte
 		%base = fileBase(%file);
 		%name = fileBase(%file) @ ".ogg";
-		if (%name $= "Upbeat Finale" || %name $= "Good to Jump to (Loop Edit)")
+		if (%name $= "Upbeat Finale.ogg" || %name $= "Good to Jump to (Loop Edit).ogg" || %name $= "Pianoforte.ogg") //A-Game: lol this function has been broken for years and no one noticed
 			continue;
 		%songs = addRecord(%songs, %name TAB %base);
 	}

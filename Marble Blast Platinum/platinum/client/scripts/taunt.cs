@@ -121,10 +121,7 @@ function tauntText(%number) {
 }
 
 function tauntFile(%number) {
-	if ($Audio::CurrentAudioPack $= "")
-		%base = $usermods @ "/data/sound/taunts/";
-	else
-		%base = $usermods @ "/data/sound/ap_" @ $Audio::CurrentAudioPack @ "/";
+	%base = $usermods @ "/data/sound/taunts/";
 	switch (%number) {
 	case  1:
 		return %base @ "Chicken.wav";
@@ -164,6 +161,10 @@ function tauntFile(%number) {
 }
 
 function playTaunt(%number) {
+	//Disable Taunts setting - The chat message will still appear, but the taunt sound will not play.
+	if ($pref::disabletaunts) 
+		return;
+
 	if (!isObject(LBTaunt @ %number)) {
 		RootGroup.add(new AudioProfile(LBTaunt @ %number) {
 			filename = tauntFile(%number);
