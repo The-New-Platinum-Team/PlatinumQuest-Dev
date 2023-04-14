@@ -1067,15 +1067,12 @@ function EasterEgg::onPickup(%this,%obj,%user,%amount) {
 		return false;
 	}
 
-	if ($playingDemo)
-		return true;
-
-	$Game::EasterEgg = true;
+	if (!$playingDemo)
+		$Game::EasterEgg = true;
 
 	//Save time for easter egg races
 	%time = $Time::ElapsedTime;
 
-	$Game::EasterEgg = true;
 	//Client handles the everything and lets us know if this is a new egg for them
 	commandToClient(%user.client, 'FoundEgg', %time, %this.displayName, %this.getPickupName());
 

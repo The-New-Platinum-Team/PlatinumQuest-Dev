@@ -121,35 +121,39 @@ function clientCmdUpdateMarbleShape(%marble) {
 function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 	PlayGui.showEggTime(%time);
 
+	if ($playingDemo) {
+		// Just play the sound and return, using the already-found sound effect
+		commandToServer('EggStatus', false, %eggName, %eggPickup);
+		return;
+	}
+
 	//Record the egg
 	$Game::EasterEgg = true;
 
-	if (!$playingDemo) {
-		%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
-		if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
-			$pref::EasterEggTime[$Server::MissionFile] = %time;
-		} else {
-			$pref::EasterEggTime[$Server::MissionFile] = min(%time, $pref::EasterEggTime[$Server::MissionFile]);
-		}
-
-		if (lb()) {
-			%saved = PlayMissionGui.onlineEasterEggCache.getFieldValue(PlayMissionGui.getMissionInfo().id);
-
-			if (%time < %saved || %saved $= "") {
-				PlayMissionGui.onlineEasterEggCache.setFieldValue(PlayMissionGui.getMissionInfo().id, %time);
-			}
-
-			commandToServer('EggStatus', (%saved $= ""), %eggName, %eggPickup);
-			statsRecordEgg(PlayMissionGui.getMissionInfo(), %time);
-		} else {
-			commandToServer('EggStatus', %first, %eggName, %eggPickup);
-		}
-		if (PlayMissionGui.ml.shouldCheckAchievements($CurrentGame)) {
-			checkNestEggAchievements();
-			Unlock::updateCaches();
-		}
-		savePrefs();
+	%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
+	if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
+		$pref::EasterEggTime[$Server::MissionFile] = %time;
+	} else {
+		$pref::EasterEggTime[$Server::MissionFile] = min(%time, $pref::EasterEggTime[$Server::MissionFile]);
 	}
+
+	if (lb()) {
+		%saved = PlayMissionGui.onlineEasterEggCache.getFieldValue(PlayMissionGui.getMissionInfo().id);
+
+		if (%time < %saved || %saved $= "") {
+			PlayMissionGui.onlineEasterEggCache.setFieldValue(PlayMissionGui.getMissionInfo().id, %time);
+		}
+
+		commandToServer('EggStatus', (%saved $= ""), %eggName, %eggPickup);
+		statsRecordEgg(PlayMissionGui.getMissionInfo(), %time);
+	} else {
+		commandToServer('EggStatus', %first, %eggName, %eggPickup);
+	}
+	if (PlayMissionGui.ml.shouldCheckAchievements($CurrentGame)) {
+		checkNestEggAchievements();
+		Unlock::updateCaches();
+	}
+	savePrefs();
 }
 
 function clientCmdSetToggleCamera(%toggle) {
