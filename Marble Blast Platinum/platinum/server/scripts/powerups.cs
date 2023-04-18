@@ -2046,38 +2046,33 @@ if (!$pref::LegacyItems) {
 	};				
 }
 
-// ------------------------------------------------
-// The Super Stop
-// ------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------------------------
+// The Super Stop ~ Code originally made by Whirligig for "Deceleration Derby", slightly modified from the .mis file of that level by Connie.
+// --------------------------------------------------------------------------------------------------------------------------------------------
 
 datablock AudioProfile(PuSuperStopVoiceSfx)
 {
    filename    = "~/data/sound/custom/threefolder_GetSuperStop.wav";
-   description = Audio2D;
-   preload = true;
-};
-
-datablock AudioProfile(PuSuperStopVoiceSfx2)
-{
-   filename    = "~/data/sound/custom/threefolder_getOctagon.wav";
-   description = Audio2D;
+   description = AudioDefault3d;
    preload = true;
 };
 
 datablock AudioProfile(DoSuperStopSfx)
 {
    filename    = "~/data/sound/custom/threefolder_UseSuperStop.wav";
-   description = Audio2D;
+   description = AudioDefault3d;
    preload = true;
 };
 
 datablock ItemData(SuperStopItem)
 {
    // Mission editor category
-   category = "Powerups";
+   category = "PowerUps";
    className = "PowerUp";
-   powerUpId = 69;
+   
+   powerUpId = 11;
 
+   activeAudio = DoSuperStopSfx;
    pickupAudio = PuSuperStopVoiceSfx;
 
    // Basic Item properties
@@ -2093,32 +2088,11 @@ datablock ItemData(SuperStopItem)
 };
 
 function SuperStopItem::onUse(%this, %obj, %user) {
-	%user.client.play2d(DoSuperStopSfx);
-	%marble = MPgetMyMarble();
-	%marble.applyImpulse("0 0 0", VectorScale($marbleVelocity, -1));
+	$MP::MyMarble.setVelocity("0 0 0");
 	$mvTriggerCount1++;
 	schedule(30, 0, "eval", "$mvTriggerCount1++;");
 
-	return true;
+	return Parent::onUse(%this, %obj, %user);
 }
-
-package StopRightThere {
-    function onFrameAdvance(%timeDelta) {
-	    Parent::onFrameAdvance(%timeDelta);
-	
-	    %marble = MPgetMyMarble();
-	    if (!isObject(%marble))
-		    return;
-	    %pos = getWords(%marble.getTransform(), 0, 2);
-	    $marbleVelocity = VectorScale(VectorSub(%pos, $marblePrevPos), 1000/%timeDelta);
-	    $marblePrevPos = %pos;
-	    if (getRandom() > 0.9999) {
-            SuperStopItem.pickupAudio = PuSuperStopVoiceSfx2;
-            schedule(50,0,"eval","SuperStopItem.pickupAudio = PuSuperStopVoiceSfx;");
-        }
-    }
-};
-
-activatePackage(StopRightThere);
 
 // powerUpId = 10 ==> PartyItem
