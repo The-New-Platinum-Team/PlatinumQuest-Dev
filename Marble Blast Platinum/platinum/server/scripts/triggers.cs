@@ -1238,6 +1238,7 @@ function ChangeEnvironmentTrigger::onEnterTrigger(%this, %trigger, %obj) {
 }
 
 function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
+	//A-Game: These variables have to stay or the logic collapses
 	if ($SunNotedMission != $Server::MissionFile) {
 		$SunNotedValues = false;
 		$SunNotedMission = $Server::MissionFile;
@@ -1248,30 +1249,20 @@ function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
 		resetSunSky(true);
 }
 function changeSunSkyValues(%dirvalue, %colorvalue, %ambvalue, %skybox) {
-	if (!$SunNotedValues) {
-		noteSunSkyValues();
-		schedule(10, 0, changeSunSkyValues, %dirvalue, %colorvalue, %ambvalue, %skybox);
+	//A-Game: this trigger is not supported on dedicated servers
+	if ($Server::Dedicated)
 		return;
-	}
-	//A-Game: From 1.7's rave mode
-	if (!isObject(_sunFields)) {
-		new GuiInspector(_sunFields) {
-			profile = "GuiDefaultProfile";
-			visible = "false";
-			setFirstResponder = "false";
-			modal = "true";
-		};
-		RootGroup.add(_sunFields);
-	}
+
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
 		if (%obj.getClassName() $= "Sun") {
-			//A-Game: WTF part
-			_sunFields.inspect(%obj);
-			_sunFields.getObject(3).setValue(%dirvalue);
-			_sunFields.getObject(5).setValue(%colorvalue);
-			_sunFields.getObject(7).setValue(%ambvalue);
-			_sunFields.apply("");
+			if (!$SunNotedValues)
+				noteSunSkyValues();
+
+			%obj.direction = %dirvalue;
+			%obj.color = %colorvalue;
+			%obj.ambient = %ambvalue;
+			%obj.inspectPostApply();
 		}
 	}
 
@@ -1285,6 +1276,7 @@ function changeSunSkyValues(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 		rotation = "1 0 0 0";
 		scale = "1 1 1";
 		materialList = %skybox; //A-Game: The actually important part
+		notedSkybox = %sky.notedSkybox;
 
 		//A-Game: The rest is so nothing breaks
 		cloudHeightPer[0] = %sky.cloudheightper0;
@@ -1312,32 +1304,21 @@ function changeSunSkyValues(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 	%sky.delete();
 }
 
-function resetSunSky(%skyreset) {
-	if (!$SunNotedValues) {
-		noteSunSkyValues();
-		schedule(10, 0, resetSunSky, %skyreset);
+function resetSunSky(%skyreset) {	
+	//A-Game: this trigger is not supported on dedicated servers
+	if ($Server::Dedicated)
 		return;
-	}
 
-	//A-Game: From 1.7's rave mode
-	if (!isObject(_sunFields)) {
-		new GuiInspector(_sunFields) {
-			profile = "GuiDefaultProfile";
-			visible = "false";
-			setFirstResponder = "false";
-			modal = "true";
-		};
-		RootGroup.add(_sunFields);
-	}
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
 		if (%obj.getClassName() $= "Sun") {
-			//A-Game: WTF part
-			_sunFields.inspect(%obj);
-			_sunFields.getObject(3).setValue($SunDirection);
-			_sunFields.getObject(5).setValue($SunColor);
-			_sunFields.getObject(7).setValue($SunAmbient);
-			_sunFields.apply("");
+			if (!$SunNotedValues)
+				noteSunSkyValues();
+			
+			%obj.direction = %obj.noteddirection;
+			%obj.color = %obj.notedcolor;
+			%obj.ambient = %obj.notedambient;
+			%obj.inspectPostApply();
 		}
 	}
 
@@ -1346,13 +1327,14 @@ function resetSunSky(%skyreset) {
 		return;
 	//A-Game: Really don't want to do this but there's no other way to change the skybox
 	%sky = Sky.getID();
-	if (%sky.materialList $= $skybox)
+	if (%sky.materialList $= %notedskybox)
 		return;
 	new Sky(Sky) {
 		position = "0 0 0";
 		rotation = "1 0 0 0";
 		scale = "1 1 1";
-		materialList = $Skybox; //A-Game: The actually important part
+		materialList = %sky.notedskybox; //A-Game: The actually important part
+		notedSkybox = %sky.notedSkybox;
 
 		//A-Game: The rest is so nothing breaks
 		cloudHeightPer[0] = %sky.cloudheightper0;
@@ -1381,18 +1363,23 @@ function resetSunSky(%skyreset) {
 }
 
 function noteSunSkyValues() {
+	//A-Game: this trigger is not supported on dedicated servers
+	if ($Server::Dedicated)
+		return;
+
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
 		if (%obj.getClassName() $= "Sun") {
-			$SunDirection = %obj.direction;
-			$SunColor = %obj.color;
-			$SunAmbient = %obj.ambient;
+			%obj.noteddirection = %obj.direction;
+			%obj.notedcolor = %obj.color;
+			%obj.notedambient = %obj.ambient;
 		}
 	}
 
 	//A-Game: Sky is simpler to note because there's always been a unique name attached to it
 	%sky = Sky.getID();
-	$Skybox = %sky.materialList;
+	%sky.notedskybox = %sky.materialList;
+	
 
 	$SunNotedValues = true;
 }
