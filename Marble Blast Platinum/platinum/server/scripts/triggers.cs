@@ -1200,3 +1200,199 @@ function AccelerationTrigger::onEnterTrigger(%this,%trigger,%obj) {
 function AccelerationTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	cancel(%this.nextFrame);
 }
+
+//---------------------------------------------------------------------
+//A-Game: Change sun/sky trigger. Finally this exists!
+
+datablock TriggerData(ChangeEnvironmentTrigger) {
+	tickPeriodMS = 100;
+
+	customField[0, "field"  ] = "dirvalue";
+	customField[0, "type"   ] = "string";
+	customField[0, "name"   ] = "Sun Direction Value";
+	customField[0, "desc"   ] = "Which direction the sun will point towards upon entering the trigger.";
+	customField[0, "default"] = "0.638261 0.459006 -0.61801";
+
+	customField[1, "field"  ] = "colorvalue";
+	customField[1, "type"   ] = "string";
+	customField[1, "name"   ] = "Sun Color Value";
+	customField[1, "desc"   ] = "What color the sun will be upon entering the trigger.";
+	customField[1, "default"] = "1.400000 1.200000 0.400000 1.000000";
+
+	customField[2, "field"  ] = "ambvalue";
+	customField[2, "type"   ] = "string";
+	customField[2, "name"   ] = "Sun Ambient Value";
+	customField[2, "desc"   ] = "How bright the sun will be upon entering the trigger.";
+	customField[2, "default"] = "0.300000 0.300000 0.400000 1.000000";
+
+	customField[3, "field"  ] = "skybox";
+	customField[3, "type"   ] = "string";
+	customField[3, "name"   ] = "Skybox";
+	customField[3, "desc"   ] = "What skybox the level will change to upon entering the trigger. Place the file path of the skybox here.";
+	customField[3, "default"] = "";
+};
+
+
+function ChangeEnvironmentTrigger::onEnterTrigger(%this, %trigger, %obj) {
+	changeSunSkyValues(%trigger.dirvalue, %trigger.colorvalue, %trigger.ambvalue, %trigger.skybox);
+}
+
+function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
+	if ($SunNotedMission != $Server::MissionFile) {
+		$SunNotedValues = false;
+		$SunNotedMission = $Server::MissionFile;
+	}
+	if (%trigger.skybox $= "") 
+		resetSunSky(false);
+	else 
+		resetSunSky(true);
+}
+function changeSunSkyValues(%dirvalue, %colorvalue, %ambvalue, %skybox) {
+	if (!$SunNotedValues) {
+		noteSunSkyValues();
+		schedule(10, 0, changeSunSkyValues, %dirvalue, %colorvalue, %ambvalue, %skybox);
+		return;
+	}
+	//A-Game: From 1.7's rave mode
+	if (!isObject(_sunFields)) {
+		new GuiInspector(_sunFields) {
+			profile = "GuiDefaultProfile";
+			visible = "false";
+			setFirstResponder = "false";
+			modal = "true";
+		};
+		RootGroup.add(_sunFields);
+	}
+	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
+		%obj = MissionGroup.getObject(%i);
+		if (%obj.getClassName() $= "Sun") {
+			//A-Game: WTF part
+			_sunFields.inspect(%obj);
+			_sunFields.getObject(3).setValue(%dirvalue);
+			_sunFields.getObject(5).setValue(%colorvalue);
+			_sunFields.getObject(7).setValue(%ambvalue);
+			_sunFields.apply("");
+		}
+	}
+
+	//A-Game: Sky is simpler to change because there's always been a unique name attached to it
+	%sky = Sky.getID();
+	if (%skybox $= "" || %sky.materialList $= %skybox)
+		return;
+	//A-Game: Really don't want to do this but there's no other way to change the skybox
+	new Sky(Sky) {
+		position = "0 0 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		materialList = %skybox; //A-Game: The actually important part
+
+		//A-Game: The rest is so nothing breaks
+		cloudHeightPer[0] = %sky.cloudheightper0;
+		cloudHeightPer[1] = %sky.cloudheightper1;
+		cloudHeightPer[2] = %sky.cloudheightper2;
+		cloudSpeed1 = %sky.cloudspeed1;
+		cloudSpeed2 = %sky.cloudspeed2;
+		cloudSpeed3 = %sky.cloudspeed3;
+		visibleDistance = %sky.visibledistance;
+		useSkyTextures = %sky.useskytextures;
+		renderBottomTexture = %sky.renderbottomtexture;
+		SkySolidColor = %sky.skysolidcolor;
+		fogDistance = %sky.fogdistance;
+		fogColor = %sky.fogcolor;
+		fogVolume1 = %sky.fogvolume1;
+		fogVolume2 = %sky.fogvolume2;
+		fogVolume3 = %sky.fogvolume3;
+		windVelocity = %sky.windvelocity;
+		windEffectPrecipitation = %sky.windEffectPrecipitation;
+		noRenderBans = %sky.norenderbans;
+		fogVolumeColor1 = %sky.fogvolumecolor1;
+		fogVolumeColor2 = %sky.fogvolumecolor2;
+		fogVolumeColor3 = %sky.fogvolumecolor3;
+	};
+	%sky.delete();
+}
+
+function resetSunSky(%skyreset) {
+	if (!$SunNotedValues) {
+		noteSunSkyValues();
+		schedule(10, 0, resetSunSky, %skyreset);
+		return;
+	}
+
+	//A-Game: From 1.7's rave mode
+	if (!isObject(_sunFields)) {
+		new GuiInspector(_sunFields) {
+			profile = "GuiDefaultProfile";
+			visible = "false";
+			setFirstResponder = "false";
+			modal = "true";
+		};
+		RootGroup.add(_sunFields);
+	}
+	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
+		%obj = MissionGroup.getObject(%i);
+		if (%obj.getClassName() $= "Sun") {
+			//A-Game: WTF part
+			_sunFields.inspect(%obj);
+			_sunFields.getObject(3).setValue($SunDirection);
+			_sunFields.getObject(5).setValue($SunColor);
+			_sunFields.getObject(7).setValue($SunAmbient);
+			_sunFields.apply("");
+		}
+	}
+
+
+	if (!%skyreset)
+		return;
+	//A-Game: Really don't want to do this but there's no other way to change the skybox
+	%sky = Sky.getID();
+	if (%sky.materialList $= $skybox)
+		return;
+	new Sky(Sky) {
+		position = "0 0 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		materialList = $Skybox; //A-Game: The actually important part
+
+		//A-Game: The rest is so nothing breaks
+		cloudHeightPer[0] = %sky.cloudheightper0;
+		cloudHeightPer[1] = %sky.cloudheightper1;
+		cloudHeightPer[2] = %sky.cloudheightper2;
+		cloudSpeed1 = %sky.cloudspeed1;
+		cloudSpeed2 = %sky.cloudspeed2;
+		cloudSpeed3 = %sky.cloudspeed3;
+		visibleDistance = %sky.visibledistance;
+		useSkyTextures = %sky.useskytextures;
+		renderBottomTexture = %sky.renderbottomtexture;
+		SkySolidColor = %sky.skysolidcolor;
+		fogDistance = %sky.fogdistance;
+		fogColor = %sky.fogcolor;
+		fogVolume1 = %sky.fogvolume1;
+		fogVolume2 = %sky.fogvolume2;
+		fogVolume3 = %sky.fogvolume3;
+		windVelocity = %sky.windvelocity;
+		windEffectPrecipitation = %sky.windEffectPrecipitation;
+		noRenderBans = %sky.norenderbans;
+		fogVolumeColor1 = %sky.fogvolumecolor1;
+		fogVolumeColor2 = %sky.fogvolumecolor2;
+		fogVolumeColor3 = %sky.fogvolumecolor3;
+	};
+	%sky.delete();
+}
+
+function noteSunSkyValues() {
+	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
+		%obj = MissionGroup.getObject(%i);
+		if (%obj.getClassName() $= "Sun") {
+			$SunDirection = %obj.direction;
+			$SunColor = %obj.color;
+			$SunAmbient = %obj.ambient;
+		}
+	}
+
+	//A-Game: Sky is simpler to note because there's always been a unique name attached to it
+	%sky = Sky.getID();
+	$Skybox = %sky.materialList;
+
+	$SunNotedValues = true;
+}
