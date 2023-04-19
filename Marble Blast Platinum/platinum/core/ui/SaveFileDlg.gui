@@ -174,7 +174,13 @@ function getSaveFilename(%filespec, %callback, %currentFile) {
 	%i = 0;
 	%unique = 0;
 	SA_directoryList.clear();
-	for (%file = findFirstFile("platinum/data/missions/*"); %file !$= ""; %file = findNextFile("platinum/data/missions/*"))
+	if (%filespec $= "*.mis") {
+		%pathtodo = "platinum/data/missions/*";
+	} else {
+		%pathtodo = "*";
+	}
+
+	for (%file = findFirstFile(%pathtodo); %file !$= ""; %file = findNextFile(%pathtodo))
 		if (strstr(%file, "/CVS/") == -1) {
 			%path = filePath(%file);
 			if (!%unique[%path]) {
