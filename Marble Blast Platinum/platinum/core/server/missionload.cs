@@ -39,7 +39,7 @@ $MissionLoadPause = 3000;
 
 function loadMission(%missionName, %isFirstMission) {
 
-	%isChallenge = strPos(%missionName, "challenge") != -1;
+	%isChallenge = strPos(%missionName, "challenge/data") != -1;
 	if (%isChallenge) {
 		%missionName = strReplace(%missionName, "challenge/data", "platinum/data");
 		$Event::Modes = "challenge"; // This is such horrible, horrible hacks
@@ -79,7 +79,7 @@ function loadMission(%missionName, %isFirstMission) {
 		}
 	}
 
-	%isChallenge = strPos(%missionName, "challenge") != -1;
+	%isChallenge = strPos(%missionName, "challenge/data") != -1;
 	if (%isChallenge) {
 		%missionName = strReplace(%missionName, "challenge/data", "platinum/data");
 	}

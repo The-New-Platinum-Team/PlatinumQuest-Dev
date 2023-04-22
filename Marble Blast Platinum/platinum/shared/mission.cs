@@ -124,7 +124,7 @@ function getMissionInfo(%file, %partial) {
 
 		%openFile = %file;
 
-		if (!isFile(%file @ ".cache") && !%isChallenge) {
+		if (!isFile(%file @ ".cache")) {
 			%generateCache = true;
 		} else {
 			// Check if cache needs to be updated
@@ -201,7 +201,7 @@ function getMissionInfo(%file, %partial) {
 		}
 
 		if (isFile(%file) ) {
-			if ((%generateCache || %partial) && !%isChallenge) {
+			if (%generateCache || %partial) {
 				%fo = new FileObject();
 				if (%fo.openForRead(%file)) {
 					while (!%fo.isEOF()) {
@@ -470,7 +470,7 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 		%modes = addWord(%modes, $Event::Modes);
 	}
 
-	%isChallenge = strPos(%info.file, "challenge") != -1;
+	%isChallenge = strPos(%info.file, "challenge/data") != -1;
 
 	if (%isChallenge && strPos(%modes, "challenge") == -1) {
 		%modes = addWord(%modes, "challenge");
