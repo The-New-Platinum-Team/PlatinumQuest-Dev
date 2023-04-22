@@ -46,7 +46,7 @@ function ClientMode_collection::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_collection::timeMultiplier(%this) {
-	return -1;
+	return 1;
 }
 function ClientMode_collection::radarShouldShowObject(%this, %gem) {
 	return %this.getGemColor(%gem) $= $Client::CollectionColor;
