@@ -316,10 +316,18 @@ function EditorSaveMissionMenu() {
 		EditorSaveMission();
 }
 
+function isTemplateMission(%missionFile) {
+	if (%missionFile $= ($usermods @ "/data/multiplayer/hunt/custom/ExampleMission.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/GoldTemplate.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/PlatinumTemplate.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/PQTempalate.mis")) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function EditorSaveMission() {
-	if ($Server::MissionFile $= ($usermods @ "/data/multiplayer/hunt/custom/ExampleMission.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/MissionTemplate.mis")) {
+	if (isTemplateMission($Server::MissionFile)) {
 		EditorSaveMissionAs();
-		return;
+		return;		
 	}
 	// just save the mission without renaming it
 
@@ -431,7 +439,7 @@ function EditorDoNewMission(%saveFirst) {
 	if (%saveFirst)
 		EditorSaveMission();
 
-	%file = $Server::ServerType $= "MultiPlayer" ? "ExampleMission.mis" : "MissionTemplate.mis";
+	%file = $Server::ServerType $= "MultiPlayer" ? "ExampleMission.mis" : "PQTemplate.mis";  //PQ is the main game, so it should load the PQ template when you create a new mission using this thing. ~Connie
 	%mission = findFirstFile("*/" @ %file);
 	if (%mission $= "") {
 		MessageBoxOk("Error", "Missing mission template \"" @ %file @ "\".");
