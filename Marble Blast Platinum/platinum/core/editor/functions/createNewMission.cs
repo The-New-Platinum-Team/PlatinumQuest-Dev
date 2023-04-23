@@ -51,6 +51,7 @@ function createNewMission() {
 
 	%levelName = CNM_LevelName.getValue();
 	%authorName = CNM_AuthorName.getValue();
+	%missionGame = CNM_MissionGame.getValue();
 	%levelNumber = CNM_LevelNumber.getValue();
 	%levelDesc = strReplace(CNM_LevelDesc.getValue(), "\\n", "\n");
 
@@ -77,6 +78,23 @@ function createNewMission() {
 	onServerCreated(); // gotta hack here to get the datablocks loaded...
 	%missionGroup = createEmptyMission(%levelName);
 
+    if (%missionGame $= "") { //In case the player forgets to change the missionGame thing, throw em in the PQ Template level. ~Connie
+        %missionGame = "PlatinumQuest";
+	}
+	
+    switch$ (%missionGame) {
+		case "Gold":
+		%toexec = "/data/missions/templates/GoldTemplate.mis";
+		case "Platinum":
+		%toexec = "/data/missions/templates/PlatinumTemplate.mis";
+		case "Ultra":
+		%toexec = "/data/missions/templates/UltraTemplate.mis";
+		case "PlatinumQuest":
+		%toexec = "/data/missions/templates/PQTemplate.mis";
+	}
+
+	exec($usermods @ %toexec);
+
 	MissionInfo.GameMode = %gm;
 
 	if (%interiorFileName !$= "") {
@@ -93,54 +111,17 @@ function createNewMission() {
 		%interior.magicButton();
 	}
 
-	if (!isObject(StartPoint)) {
-		%pt = new StaticShape(StartPoint) {
-			position = "0 -5 100";
-			rotation = "1 0 0 0";
-			scale = "1 1 1";
-			dataBlock = "StartPad_PQ";
-		};
-		MissionGroup.add(%pt);
+	if (EndPoint.getDataBlock().getName() $= "EndPad_MBM") {
+		EndPoint.setDataBlock("EndPad_MBU");
 	}
-
-	if (!isObject(EndPoint)) {
-		%pt = new StaticShape(EndPoint) {
-			position = "0 5 100";
-			rotation = "1 0 0 0";
-			scale = "1 1 1";
-			dataBlock = "EndPad_PQ";
-		};
-		MissionGroup.add(%pt);
-	}
-	if (%interior) {
-		%box = %interior.getWorldBox();
-		%mx = getWord(%box, 0);
-		%my = getWord(%box, 1);
-		%mz = getWord(%box, 2);
-		%MMx = getWord(%box, 3);
-		%MMy = getWord(%box, 4);
-		%MMz = getWord(%box, 5);
-		%scale = ((%MMx - %mx)*2 + 25) SPC((%MMy - %my)*2 + 25) SPC((%MMz - %mz)*2 + 25);
-		%pos = %mx - 25/2 - getRadius("x", %interior)/2 SPC %MMy + 25/2 + getRadius("y", %interior)/2 SPC %mz - 25/2 - getRadius("z", %interior)/2;
-	} else {
-		%pos = "-25 25 75";
-		%scale = "50 50 50";
-	}
-	new Trigger(Bounds) {
-		position = %pos;
-		scale = %scale;
-		rotation = "1 0 0 0";
-		dataBlock = "InBoundsTrigger";
-		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-	};
-	MissionGroup.add(Bounds);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	MissionInfo.GameMode = $CNM::GameMode;
-	MissionInfo.Game = "PlatinumQuest";
+	//MissionInfo.Game = "PlatinumQuest";
 
 	MissionInfo.name = %levelName;
 	MissionInfo.artist = %authorName;
+	MissionInfo.game = %missionGame;
 	MissionInfo.level = %levelNumber;
 	MissionInfo.desc = %levelDesc;
 
@@ -161,6 +142,7 @@ function cnmbutton() {
 	LargeFunctionDlg.addTextEditField("CNM_InteriorFileName", "Interior filename for interior test [optional]:", "", 200, -1);
 	LargeFunctionDlg.addTextEditField("CNM_LevelName", "Level name (as shown in level select):", "My Level Name", 350, -1);
 	LargeFunctionDlg.addTextEditField("CNM_AuthorName", "Author name:", $pref::HighScoreName, 200, -1);
+	LargeFunctionDlg.addDropMenu("CNM_MissionGame", "Game Style:", 5, "Gold\tGold\nPlatinum\tPlatinum\nUltra\tUltra\nPlatinumQuest\tPlatinumQuest");
 	LargeFunctionDlg.addTextEditField("CNM_LevelNumber", "Level number:", "1000", 100, -1);
 	LargeFunctionDlg.addTextEditField("CNM_LevelDesc", "Level description:", "Type your level description here", 350, -1);
 	LargeFunctionDlg.addNote("Note: More options available in the in-game editor.");
@@ -214,7 +196,6 @@ function cnmbutton() {
 function createEmptyMission(%name) {
 	$Editor::Enabled = 1; // Because I don't know which var to use anymore D:
 
-	exec($usermods @ "/data/missions/MissionTemplate.mis");
 	MissionInfo.name = %name;
 
 	return MissionGroup;
