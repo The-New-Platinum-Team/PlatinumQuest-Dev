@@ -356,6 +356,7 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Pressing <func:bind forceRespawn>
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Check out https://marbleblast.vani.ga";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Check out Marble It Up! on Steam!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Check out Great Marble Adventure on Steam!";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!";
 
 
 $Loading::TipsChance[0] = 0.80;
