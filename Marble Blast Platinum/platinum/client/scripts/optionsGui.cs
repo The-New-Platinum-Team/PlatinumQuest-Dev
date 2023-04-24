@@ -467,6 +467,9 @@ $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "powerupTimers";
 $Options::Title   ["Gameplay", $i  ] = "Powerup Timers";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
+$Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
 $Options::Title   ["Gameplay", $i  ] = "(Online) Minimal Spectate UI";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
@@ -1291,6 +1294,24 @@ function Opt_powerupTimers_decrease() {
 
 function Opt_powerupTimers_increase() {
 	$pref::powerupTimers = !$pref::powerupTimers;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_timeTravelTimer_getDisplay() {
+	return $pref::timeTravelTimer ? "Enabled" : "Disabled";
+}
+
+function Opt_timeTravelTimer_getValue() {
+	return $pref::timeTravelTimer;
+}
+
+function Opt_timeTravelTimer_decrease() {
+	$pref::timeTravelTimer = !$pref::timeTravelTimer;
+}
+
+function Opt_timeTravelTimer_increase() {
+	$pref::timeTravelTimer = !$pref::timeTravelTimer;
 }
 
 //-----------------------------------------------------------------------------
