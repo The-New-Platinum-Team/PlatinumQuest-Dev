@@ -1046,9 +1046,21 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		PGCountdownTT.setVisible(false);
 		return;
 	}
-	%timeUsed = %this.bonusTime + 99; // When you pick up a 5s timer, it should start by displaying 5.0, instead of 4.9. This also prevents the TT timer from showing 0.0. But if you add 100, picking up a 5s timer can show "5.1". Turns out adding 99 actually works perfectly here.
-	%secondsLeft = mFloor(%timeUsed/1000);
-	%tenths = mFloor(%timeUsed/100) % 10;
+
+	%preciseMode = $pref::timeTravelTimer == 2;
+	%timeUsed = %this.bonusTime;
+	if (!%preciseMode)
+		%timeUsed += 99; // When you pick up a 5s timer, it should start by displaying 5.0, instead of 4.9. This also prevents the TT timer from showing 0.0. But if you add 100, picking up a 5s timer can show "5.1". Turns out adding 99 actually works perfectly here.
+	else if (!$pref::Thousandths)
+		%timeUsed += 9;
+
+	if (%timeUsed > 999999)
+		%timeUsed = 999999;
+
+	%secondsLeft = mFloor(%timeUsed / 1000);
+	%tenths = mFloor(%timeUsed / 100) % 10;
+	%hundredths = mFloor(%timeUsed / 10) % 10;
+	%thousandths = %timeUsed % 10;
 
 	%one = mFloor(%secondsLeft) % 10;
 	%ten = mFloor(%secondsLeft / 10) % 10;
@@ -1056,37 +1068,57 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 
 	%color = (%this.stopped || $PlayTimerActive == 0) ? $TimeColor["stopped"] : $TimeColor["normal"]; // can try $Game::TimeStoppedClients >= 1
 
-	%offsetIfThousandths = $pref::Thousandths? 5:0;
+	%offsetIfThousandths = $pref::Thousandths ? 5 : 0;
 	if (%secondsLeft < 10) {
 		PGCountdownTTFirstDigit.setNumberColor(%one, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%tenths, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("397" + %offsetIfThousandths SPC "0");
+		PGCountdownTTSecondDigit.setNumberColor(%tenths, %color);
+		PGCountdownTTSecondDigit.setPosition("397" + %offsetIfThousandths SPC "0");
+		PGCountdownTTThirdDigit.setNumberColor(%hundredths, %color);
+		PGCountdownTTThirdDigit.setPosition("413" + %offsetIfThousandths SPC "0");
+		PGCountdownTTFourthDigit.setNumberColor(%thousandths, %color);
+		%digits = 4;
 	} else if (%secondsLeft < 100) {
 		PGCountdownTTFirstDigit.setNumberColor(%ten, %color);
 		PGCountdownTTSecondDigit.setNumberColor(%one, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%tenths, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("413" + %offsetIfThousandths SPC "0");
-	} else if (%secondsLeft < 999) {
+		PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
+		PGCountdownTTThirdDigit.setNumberColor(%tenths, %color);
+		PGCountdownTTThirdDigit.setPosition("413" + %offsetIfThousandths SPC "0");
+		PGCountdownTTFourthDigit.setNumberColor(%hundredths, %color);
+		PGCountdownTTFifthDigit.setNumberColor(%thousandths, %color);
+		%digits = 5;
+	} else {
 		PGCountdownTTFirstDigit.setNumberColor(%hun, %color);
 		PGCountdownTTSecondDigit.setNumberColor(%ten, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%one, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("407" + %offsetIfThousandths SPC "0");
-	} else {
-		PGCountdownTTFirstDigit.setNumberColor(9, %color);
-		PGCountdownTTSecondDigit.setNumberColor(9, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(9, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("407" + %offsetIfThousandths SPC "0");
+		PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
+		PGCountdownTTThirdDigit.setNumberColor(%one, %color);
+		PGCountdownTTThirdDigit.setPosition("407" + %offsetIfThousandths SPC "0");
+		PGCountdownTTFourthDigit.setNumberColor(%tenths, %color);
+		PGCountdownTTFifthDigit.setNumberColor(%hundredths, %color);
+		PGCountdownTTSixthDigit.setNumberColor(%thousandths, %color);
+		%digits = 6;
 	}
 	
 	PGCountdownTTImage.setPosition("348" + %offsetIfThousandths SPC "3");
 	PGCountdownTTFirstDigit.setPosition("375" + %offsetIfThousandths SPC "0");
-	PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
+	PGCountdownTTFourthDigit.setPosition("429" + %offsetIfThousandths SPC "0");
+	PGCountdownTTFifthDigit.setPosition("445" + %offsetIfThousandths SPC "0");
+	PGCountdownTTSixthDigit.setPosition("461" + %offsetIfThousandths SPC "0");
 
 	PGCountdownTTPoint.setNumberColor("point", %color);
-	PGCountdownTTPoint.setVisible(!(%secondsLeft >= 100));
-	PGCountdownTTPoint.setPosition((%secondsLeft >= 10 ? "403" : "388") + %offsetIfThousandths SPC "0");
+	PGCountdownTTPoint.setPosition((%secondsLeft < 10 ? "388" : (%secondsLeft < 100 ? "404" : "420")) + %offsetIfThousandths SPC "0");
 
-	PGCountdownTTSecondDigit.setVisible(%secondsLeft >= 10);
+	if (!%preciseMode)
+		%digits -= 2;
+	else if (!$pref::Thousandths)
+		%digits -= 1;
+	
+	//PGCountdownTTFirstDigit.setVisible(%digits >= 1); // Always true
+	//PGCountdownTTSecondDigit.setVisible(%digits >= 2); // Always true
+	PGCountdownTTThirdDigit.setVisible(%digits >= 3);
+	PGCountdownTTFourthDigit.setVisible(%digits >= 4);
+	PGCountdownTTFifthDigit.setVisible(%digits >= 5);
+	PGCountdownTTSixthDigit.setVisible(%digits >= 6);
+
 	PGCountdownTT.setVisible(%this.bonusTime);
 }
 
