@@ -1019,7 +1019,7 @@ function clientCmdUpdateTimeTravelCountdown() {
 }
 
 function PlayGui::updateTimeTravelCountdown(%this) {
-	if ($pref::HideTimeTravelTimer) {
+	if (!$pref::timeTravelTimer) {
 		PGCountdownTT.setVisible(false);
 		return;
 	}
