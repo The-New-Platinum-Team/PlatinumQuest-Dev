@@ -482,6 +482,11 @@ ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
 ScreenshotModeArray.addEntry("Hide Chat Online" TAB 1);
 ScreenshotModeArray.addEntry("Hide Everything"  TAB 2);
 
+Array(TimeTravelTimerArray);
+TimeTravelTimerArray.addEntry("Disabled"  TAB 0);
+TimeTravelTimerArray.addEntry("Enabled" TAB 1);
+TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
+
 //-----------------------------------------------------------------------------
 // Online
 
@@ -1230,6 +1235,7 @@ function Opt_thousandths_decrease() {
 	PG_Timer.setVisible(!$pref::Thousandths);
 	PG_TimerThousands.setVisible($pref::Thousandths);
 	PlayGui.updateControls();
+	PlayGui.updateTimeTravelCountdown();
 }
 
 function Opt_thousandths_increase() {
@@ -1238,6 +1244,7 @@ function Opt_thousandths_increase() {
 	PG_Timer.setVisible(!$pref::Thousandths);
 	PG_TimerThousands.setVisible($pref::Thousandths);
 	PlayGui.updateControls();
+	PlayGui.updateTimeTravelCountdown();
 }
 
 //-----------------------------------------------------------------------------
@@ -1299,7 +1306,11 @@ function Opt_powerupTimers_increase() {
 //-----------------------------------------------------------------------------
 
 function Opt_timeTravelTimer_getDisplay() {
-	return $pref::timeTravelTimer ? "Enabled" : "Disabled";
+	%entry = TimeTravelTimerArray.getEntryByField($pref::timeTravelTimer, 1);
+	if (%entry $= "") {
+		return $pref::timeTravelTimer;
+	}
+	return getField(%entry, 0);
 }
 
 function Opt_timeTravelTimer_getValue() {
@@ -1307,11 +1318,23 @@ function Opt_timeTravelTimer_getValue() {
 }
 
 function Opt_timeTravelTimer_decrease() {
-	$pref::timeTravelTimer = !$pref::timeTravelTimer;
+	%index = TimeTravelTimerArray.getIndexByField($pref::timeTravelTimer, 1);
+	%index --;
+	if (%index < 0) {
+		%index = TimeTravelTimerArray.getSize() - 1;
+	}
+	$pref::timeTravelTimer = getField(TimeTravelTimerArray.getEntry(%index), 1);
+	PlayGui.updateTimeTravelCountdown();
 }
 
 function Opt_timeTravelTimer_increase() {
-	$pref::timeTravelTimer = !$pref::timeTravelTimer;
+	%index = TimeTravelTimerArray.getIndexByField($pref::timeTravelTimer, 1);
+	%index ++;
+	if (%index >= TimeTravelTimerArray.getSize()) {
+		%index = 0;
+	}
+	$pref::timeTravelTimer = getField(TimeTravelTimerArray.getEntry(%index), 1);
+	PlayGui.updateTimeTravelCountdown();
 }
 
 //-----------------------------------------------------------------------------
