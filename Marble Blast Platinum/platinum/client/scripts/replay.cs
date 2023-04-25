@@ -840,6 +840,7 @@ function PlaybackTimeFrame::apply(%this, %object, %t) {
 		PlayGui.currentTime = %current;
 		PlayGui.bonusTime = interpolate(%this.lastFrame.bonus, %this.bonus, %t);
 		PlayGui.updateControls();
+		PlayGui.updateTimeTravelCountdown();
 	}
 
 	for (%i = 0; %i < %this.frames; %i ++) {
