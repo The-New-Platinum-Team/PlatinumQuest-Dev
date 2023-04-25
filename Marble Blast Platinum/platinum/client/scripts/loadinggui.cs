@@ -413,7 +413,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: @everyone welcome UNDERTALE";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Every loading tip has a 80% chance to be a tip, a 17% chance to be trivia, or a 3% chance to be a joke. You just wasted one of your rare 3% chances on this tip.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: lol lol lol jij jaj jej joj jvj jcj jqj joj jkj";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: On a platinum quest to do my platinum best.";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "PQ crashed! (╯°□°)╯︵ ┻━┻ ...Whoops, sorry, force of habit.";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "/tableflip PQ crashed! ...Whoops, sorry, force of habit.";
 ////////////////////////////////////// = "Snooping as usual, I see!"
 
 $Loading::TipsChance[1] = 0.03;
@@ -453,7 +453,7 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: The current version of Multipl
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: The shader model in PlatinumQuest uses Flat Shading with Blinn-Phong specular highlights.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: The joystick remapping tip is hard-coded to show up when you first plug in a joystick.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: PlatinumQuest's scripts contain over 115,000 lines of code. The extender adds another 50,000 lines. That is almost 4 times as many lines of code as in Marble Blast Gold!";
-$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: It's been over 10 years and we still don't have a better version of map2dif.";
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: It's been over 15 years and we still don't have a better version of map2dif.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: PlatinumQuest was coded almost entirely in Sublime Text.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Over the course of development, PlatinumQuest has used two different gits and one subversion repository.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Most of Matan's levels have a lot of shapes and triggers data in the interior, as he didn't want to use the Level Editor for alignment purposes. That worked somewhat, but not as well as he wanted.";
@@ -476,7 +476,7 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Frightfest was developed a wee
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: PlatinumQuest used to have two dedicated servers, Tsuf and Thistle, which were named after Matan's cockatiel and HiGuy's dog, respectively.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: PlatinumQuest's Ice friction is 0.07331 in value, which is Matan's way of putting leet speek in backwards. MEMES!";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: PlatinumQuest has seen three seperate development teams throughout its existence. One from 2007 to 2012, one from 2015 to 2021, and one from 2021 to now.";
-$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Due to a bug, it used to be possible to submit a time instead of a score on Hunting Around. This would award you so much rating it hit the 32-bit integer limit. Removing this time reset your total rating to be the same as only your rating from your original Hunting Around score.";
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Due to a bug, it used to be possible to submit a time instead of a score on Hunting Around. This would award you so much rating that it hit the 32-bit integer limit. Removing this time reset your total rating to be the same as only your rating from your original Hunting Around score.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Submitting a World Record as '@everyone' on the Marble Blast Gold Web Port used to have... Unforseen consequences.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Upbeat Finale is actually part of a beta version of Upbeat Freedom. The full version has been lost to time.";
 
