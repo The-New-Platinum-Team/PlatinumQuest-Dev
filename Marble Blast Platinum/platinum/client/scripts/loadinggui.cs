@@ -353,11 +353,11 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If you're bad at this game, the O
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: PlatinumQuest is open source! Check out https://github.com/The-New-Platinum-Team/PlatinumQuest-Dev for more information!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: YOUR custom levels can be included in the game! Check out the Marble Blast Community Master sheet linked in our official Discord server for more information!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Pressing <func:bind forceRespawn> will respawn you at the last checkpoint. Holding <func:bind forceRespawn> for one second will restart the whole level from the beginning.";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Check out https://marbleblast.vani.ga";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Check out Marble It Up! on Steam!";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Check out Great Marble Adventure on Steam!";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!";
-
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Check out https://marbleblast.vani.ga!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Marble It Up!' on Steam!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Great Marble Adventure' on Steam!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Head to https://marbleland.vani.ga!";
 
 $Loading::TipsChance[0] = 0.80;
 
@@ -414,6 +414,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Every loading tip has a 80% chanc
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: lol lol lol jij jaj jej joj jvj jcj jqj joj jkj";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: On a platinum quest to do my platinum best.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "/tableflip PQ crashed! ...Whoops, sorry, force of habit.";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Trivia: She platinum on my marble 'til I blast.";
 ////////////////////////////////////// = "Snooping as usual, I see!"
 
 $Loading::TipsChance[1] = 0.03;
