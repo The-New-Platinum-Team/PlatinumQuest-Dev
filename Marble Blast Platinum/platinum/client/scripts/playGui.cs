@@ -1053,6 +1053,15 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		PGCountdownTTThirdDigit.setNumberColor(%hundredths, %color);
 		PGCountdownTTThirdDigit.setPosition("413" + %offsetIfThousandths SPC "0");
 		PGCountdownTTFourthDigit.setNumberColor(%thousandths, %color);
+		// This shenanigans with three decimal points is ridiculous and I hate it, but I couldn't find a better way to
+		// get the decimal points to layer the way they should otherwise. Our previous solution of repositioning the
+		// decimal point caused it to appear in at the wrong depth which looks very strange in the MBG texture pack. If
+		// there's a way to change the render order of it and keep just one decimal point, that'd be much better!!
+		PGCountdownTTPoint1.setVisible(true);
+		PGCountdownTTPoint1.setPosition("388" + %offsetIfThousandths SPC "0");
+		PGCountdownTTPoint1.setNumberColor("point", %color);
+		PGCountdownTTPoint2.setVisible(false);
+		PGCountdownTTPoint3.setVisible(false);
 		%digits = 4;
 	} else if (%secondsLeft < 100) {
 		PGCountdownTTFirstDigit.setNumberColor(%ten, %color);
@@ -1062,6 +1071,11 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		PGCountdownTTThirdDigit.setPosition("413" + %offsetIfThousandths SPC "0");
 		PGCountdownTTFourthDigit.setNumberColor(%hundredths, %color);
 		PGCountdownTTFifthDigit.setNumberColor(%thousandths, %color);
+		PGCountdownTTPoint1.setVisible(false);
+		PGCountdownTTPoint2.setVisible(true);
+		PGCountdownTTPoint2.setPosition("404" + %offsetIfThousandths SPC "0");
+		PGCountdownTTPoint2.setNumberColor("point", %color);
+		PGCountdownTTPoint3.setVisible(false);
 		%digits = 5;
 	} else {
 		PGCountdownTTFirstDigit.setNumberColor(%hun, %color);
@@ -1072,6 +1086,11 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		PGCountdownTTFourthDigit.setNumberColor(%tenths, %color);
 		PGCountdownTTFifthDigit.setNumberColor(%hundredths, %color);
 		PGCountdownTTSixthDigit.setNumberColor(%thousandths, %color);
+		PGCountdownTTPoint1.setVisible(false);
+		PGCountdownTTPoint2.setVisible(false);
+		PGCountdownTTPoint3.setVisible(true);
+		PGCountdownTTPoint3.setPosition("420" + %offsetIfThousandths SPC "0");
+		PGCountdownTTPoint3.setNumberColor("point", %color);
 		%digits = 6;
 	}
 	
@@ -1080,9 +1099,6 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 	PGCountdownTTFourthDigit.setPosition("429" + %offsetIfThousandths SPC "0");
 	PGCountdownTTFifthDigit.setPosition("445" + %offsetIfThousandths SPC "0");
 	PGCountdownTTSixthDigit.setPosition("461" + %offsetIfThousandths SPC "0");
-
-	PGCountdownTTPoint.setNumberColor("point", %color);
-	PGCountdownTTPoint.setPosition((%secondsLeft < 10 ? "388" : (%secondsLeft < 100 ? "404" : "420")) + %offsetIfThousandths SPC "0");
 
 	if (!%preciseMode)
 		%digits -= 2;
