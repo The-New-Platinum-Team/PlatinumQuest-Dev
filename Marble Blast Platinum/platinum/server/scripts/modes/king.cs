@@ -108,16 +108,6 @@ datablock TriggerData(KingTrigger) {
 	customField[0, "default"] = "1";
 };
 
-datablock StaticShapeData(KingTrigEmitterBase) {
-	fxDatablock[0] = "KingTrigEmitterNode";
-	fxEmitter[0] = "KingTrigEmitter";
-	fxSkin[0] = true;
-};
-
-function KingTrigEmitterBase::onAdd(%this, %obj) {
-	%this.initFX(%obj);
-}
-
 datablock ParticleData(KingTrigParticle) {
 	textureName          = "platinum/data/particles/orb";
 	dragCoefficient      = 1;
@@ -154,67 +144,57 @@ datablock ParticleEmitterNodeData(KingTrigEmitterNode) {
 	timeMultiple = 1;
 };
 
-function buildKingTrigEmitters(%group) {
-	%count = %group.getCount();
+function KingTrigger::onAdd(%this, %trigger) {	
+	%pos = %trigger.getTransform();
+	%scale = %trigger.getScale();   //buildKingTrigger() or whatever it was called in here now. ~Connie
+	%x = getWord(%pos, 0);
+	%y = getWord(%pos, 1);
+	%z = getWord(%pos, 2);
+	%sX = getWord(%scale, 0);
+	%sY = getWord(%scale, 1);
+	%sZ = getWord(%scale, 2);
 
-	for (%i = 0; %i < %count; %i++) {
-		%obj = %group.getObject(%i);
-		%class = %obj.getClassName();
-
-		if (%class $= "SimGroup")
-			buildKingTrigEmitters(%obj);
-		else if (%class $= "Trigger" &&
-		         %obj.getDataBlock().getName() $= "KingTrigger" &&
-		         !%obj.noEmitters) {
-
-			if (%obj._builtEmitters) {
-				continue;
-			}
-			%obj._builtEmitters = true;
-
-			%pos = %obj.getTransform();
-			%scale = %obj.getScale();
-			%x = getWord(%pos, 0);
-			%y = getWord(%pos, 1);
-			%z = getWord(%pos, 2);
-			%sX = getWord(%scale, 0);
-			%sY = getWord(%scale, 1);
-			%sZ = getWord(%scale, 2);
-
-			%pos[0] = %x SPC %y SPC %z;
-			%pos[1] = %x + %sX SPC %y SPC %z;
-			%pos[2] = %x SPC %y - %sY SPC %z;
-			%pos[3] = %x + %sX SPC %y - %sY SPC %z;
+	%pos[0] = %x SPC %y SPC %z;
+	%pos[1] = %x + %sX SPC %y SPC %z;
+	%pos[2] = %x SPC %y - %sY SPC %z;
+	%pos[3] = %x + %sX SPC %y - %sY SPC %z;
 		
-			%pos[4] = %x SPC %y SPC %z + %sZ;
-			%pos[5] = %x + %sX SPC %y SPC %z + %sZ;
-			%pos[6] = %x SPC %y - %sY SPC %z + %sZ;
-			%pos[7] = %x + %sX SPC %y - %sY SPC %z + %sZ;
+	%pos[4] = %x SPC %y SPC %z + %sZ;
+	%pos[5] = %x + %sX SPC %y SPC %z + %sZ;
+	%pos[6] = %x SPC %y - %sY SPC %z + %sZ;
+	%pos[7] = %x + %sX SPC %y - %sY SPC %z + %sZ;
 
-			%pos[8] = %x SPC %y - (%sY / 2) SPC %z;
-			%pos[9] = %x + %sX SPC %y - (%sY / 2) SPC %z;
+	%pos[8] = %x SPC %y - (%sY / 2) SPC %z;
+	%pos[9] = %x + %sX SPC %y - (%sY / 2) SPC %z;
 
-			%pos[10] = %x SPC %y - (%sY / 2) SPC %z + %sZ;
-			%pos[11] = %x + %sX SPC %y - (%sY / 2) SPC %z + %sZ;
+	%pos[10] = %x SPC %y - (%sY / 2) SPC %z + %sZ;
+	%pos[11] = %x + %sX SPC %y - (%sY / 2) SPC %z + %sZ;
 
-			%pos[12] = %x + (%sX / 2) SPC %y SPC %z;
-			%pos[13] = %x + (%sX / 2) SPC %y - %sY SPC %z;
+	%pos[12] = %x + (%sX / 2) SPC %y SPC %z;
+	%pos[13] = %x + (%sX / 2) SPC %y - %sY SPC %z;
 
-			%pos[14] = %x + (%sX / 2) SPC %y SPC %z + %sZ;
-			%pos[15] = %x + (%sX / 2) SPC %y - %sY SPC %z + %sZ;
+	%pos[14] = %x + (%sX / 2) SPC %y SPC %z + %sZ;
+	%pos[15] = %x + (%sX / 2) SPC %y - %sY SPC %z + %sZ;
 
-			for (%j = 0; %j < 16; %j++) {
-				%staticShape = new StaticShape() {
-					position = %pos[%j];
-					rotation = "1 0 0 0";
-					scale = "1 1 1";
-					datablock = KingTrigEmitterBase;
-				};
-				MissionCleanup.add(%staticShape);
-				$KingTrigStaticShape[%obj.getId()] = %staticShape;
-			}
-		}
+	for (%j = 0; %j < 16; %j++) {
+		%staticShape = new ParticleEmitterNode() {
+			position = %pos[%j];
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			datablock = "KingTrigEmitterNode";
+			emitter = "KingTrigEmitter";
+		};
+		MissionCleanup.add(%staticShape);
+		$KingTrigStaticShape[%trigger.getId() @ "_" @ %j] = %staticShape;
 	}
+}
+
+function KingTrigger::onInspectApply(%this, %trigger) {
+	for (%d = 0; %d < 16; %d++) {
+		$KingTrigStaticShape[%trigger.getId() @ "_" @ %d].getID().delete();   //Get rid of them all. ~Connie
+	} 
+
+	KingTrigger::onAdd(%this, %trigger);   //Then add them back. ~Connie
 }
 
 function KingTrigger::onEnterTrigger(%this, %trigger, %obj) {
