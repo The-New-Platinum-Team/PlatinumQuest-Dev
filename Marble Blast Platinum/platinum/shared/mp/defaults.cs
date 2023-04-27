@@ -80,10 +80,10 @@ $MP::BlastPower = 10;
 $MP::BlastRechargePower = 1.03;
 
 // Amount of blast bar filled (x / 1.0) required to use blast
-$MP::BlastRequiredAmount = 0.2;
+$MP::BlastRequiredAmount = 1.0;
 
 // Time required for blast to fully recharge from 0.0 - 1.0
-$MP::BlastChargeTime = 25000;
+$MP::BlastChargeTime = 8000;
 
 // Normal blast divisor Default is 1 (lower = stronger)
 $MP::NormalBlastModifier = 1.0;
