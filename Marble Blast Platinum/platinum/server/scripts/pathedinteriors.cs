@@ -20,7 +20,16 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+datablock AudioProfile(MovingBlockSustainSfx)
+{
+   filename = "~/data/sound/MovingBlockLoop.wav";
+   description = AudioClosestLooping3d;
+   preload = true;
+};
+
 datablock PathedInteriorData(PathedDefault) {
+	foo = bla;
+
 	customField[0, "field"  ] = "initialTargetPosition";
 	customField[0, "type"   ] = "int"; //Technically time but can be negative
 	customField[0, "name"   ] = "Initial Target Position";
@@ -34,6 +43,8 @@ datablock PathedInteriorData(PathedDefault) {
 };
 
 datablock PathedInteriorData(PathedMovingBlock) {
+	sustainSound = MovingBlockSustainSfx;
+
 	customField[0, "field"  ] = "initialTargetPosition";
 	customField[0, "type"   ] = "int"; //Technically time but can be negative
 	customField[0, "name"   ] = "Initial Target Position";
