@@ -41,6 +41,9 @@ $GemSkinColors[7] = "green";
 $GemSkinColors[8] = "turquoise";
 $GemSkinColors[9] = "black";
 $GemSkinColors[10] = "platinum";
+$GemSkinColors[11] = "huntpurple";
+$GemSkinColors[12] = "huntgold";
+$GemSkinColors[13] = "huntplatinum";
 
 function Gem::onAdd(%this,%obj) {
 	if (%this.skin !$= "") {
@@ -265,24 +268,24 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemSpecialPurple: GemItem) {
-	skin = "specialpurple";
+datablock ItemData(GemItemHuntPurple: GemItem) {
+	skin = "huntpurple";
  	huntExtraValue = 9; //10 pts
  	spawnChance = 0.90;
 	messageColor = "f1f2f2";
  	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemSpecialYellow: GemItem) {
- 	skin = "specialyellow";
+datablock ItemData(GemItemHuntGold: GemItem) {
+ 	skin = "huntgold";
  	huntExtraValue = 19; //20 pts
  	spawnChance = 0.65;
  	messageColor = "f1f2f2";
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemSpecialPlatinum: GemItem) {
-	skin = "specialplatinum";
+datablock ItemData(GemItemHuntPlatinum: GemItem) {
+	skin = "huntplatinum";
 	huntExtraValue = 49; //50 pts
 	spawnChance = 0.35;
  	messageColor = "f1f2f2";
@@ -586,7 +589,14 @@ datablock ItemData(GemItem_BM : GemItem) {
 	category = "Blasted";
 
 	shapeFile = "~/data/shapes_bm/Gems/Gem_BM.dts";
+	skin[0] = "base";
+	skin[1] = "purple";
+	skin[2] = "gold";
+	skin[3] = "platinum";
+	
 	pickupName = "a gem!";
+
+	fxEmitter[0] = "GemEmitter";
 
 	customField[0, "field"  ] = "skin";
 	customField[0, "type"   ] = "string";
@@ -607,15 +617,15 @@ datablock ItemData(GemItemHuntPurple_BM : GemItem_BM) {
 	superCategory = "gems";
 	category = "Blasted";
 
- 	skin = "specialpurple";
+ 	skin = "huntpurple";
 	customField[0, "field"] = "";
 };
 
-datablock ItemData(GemItemHuntYellow_BM : GemItem_BM) {
+datablock ItemData(GemItemHuntGold_BM : GemItem_BM) {
 	superCategory = "gems";
 	category = "Blasted";
 
- 	skin = "specialyellow";
+ 	skin = "huntgold";
 	customField[0, "field"] = "";
 };
 
@@ -623,7 +633,7 @@ datablock ItemData(GemItemHuntPlatinum_BM : GemItem_BM) {
 	superCategory = "gems";
 	category = "Blasted";
 
- 	skin = "specialplatinum";
+ 	skin = "huntplatinum";
 	customField[0, "field"] = "";
 };
 
@@ -756,6 +766,20 @@ datablock ParticleEmitterData(GemEmitterPlatinum : GemEmitterBase) {
 	particles = "GemParticlePlatinum";
 };
 
+datablock ParticleData(GemParticleHuntPlatinum : GemParticleBase) {
+	colors[0]     = "0.5 0.5 0.5 1.0";
+	colors[1]     = "0.7 0.7 0.7 1.0";
+	colors[2]     = "1.0 1.0 1.0 0.5";
+	colors[3]     = "1.0 1.0 1.0 0.0";
+	sizes[3] = 0.2;
+	times[2] = 0.95;
+	times[3] = 1;
+};
+
+datablock ParticleEmitterData(GemEmitterHuntPlatinum : GemEmitterBase) {
+	particles = "GemParticleHuntPlatinum";
+};
+
 datablock ParticleData(GemParticleYellow : GemParticleBase) {
 	colors[0]     = "1.0 1.0 0.2 1.0";
 	colors[1]     = "1.0 1.0 0.5 1.0";
@@ -766,6 +790,16 @@ datablock ParticleEmitterData(GemEmitterYellow : GemEmitterBase) {
 	particles = "GemParticleYellow";
 };
 
+datablock ParticleData(GemParticleHuntGold : GemParticleBase) {
+	colors[0]     = "1.0 1.0 0.2 1.0";
+	colors[1]     = "1.0 1.0 0.5 1.0";
+	colors[2]     = "1.0 1.0 0.5 0.0";
+};
+
+datablock ParticleEmitterData(GemEmitterHuntGold : GemEmitterBase) {
+	particles = "GemParticleHuntGold";
+};
+
 datablock ParticleData(GemParticlePurple : GemParticleBase) {
 	colors[0]     = "0.8 0.3 1.0 1.0";
 	colors[1]     = "0.8 0.5 1.0 1.0";
@@ -774,6 +808,16 @@ datablock ParticleData(GemParticlePurple : GemParticleBase) {
 
 datablock ParticleEmitterData(GemEmitterPurple : GemEmitterBase) {
 	particles = "GemParticlePurple";
+};
+
+datablock ParticleData(GemParticleHuntPurple : GemParticleBase) {
+	colors[0]     = "0.8 0.3 1.0 1.0";
+	colors[1]     = "0.8 0.5 1.0 1.0";
+	colors[2]     = "0.8 0.5 1.0 0.0";
+};
+
+datablock ParticleEmitterData(GemEmitterHuntPurple : GemEmitterBase) {
+	particles = "GemParticleHuntPurple";
 };
 
 datablock ParticleData(GemParticleOrange : GemParticleBase) {

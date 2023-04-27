@@ -1182,7 +1182,6 @@ function PlayGui::updateControls(%this) {
 		Sec_One.setTimeNumber(%secondsOne);
 		Sec_Tenth.setTimeNumber(%hundredthTen);
 		Sec_Hundredth.setTimeNumber(%hundredthOne);
-		PG_NegSign.setVisible(%drawNeg);
 
 		MinSec_Colon.setTimeNumber("colon");
 		MinSec_Point.setTimeNumber("point");
