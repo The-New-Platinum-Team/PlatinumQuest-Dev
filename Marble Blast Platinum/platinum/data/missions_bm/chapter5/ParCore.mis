@@ -1489,31 +1489,31 @@ new SimGroup(MissionGroup) {
    };
    new StaticShape() {
       position = "-70.25 -29.75 96.75";
-      rotation = "0.158705 -0.158704 0.974487 91.4802";
+      rotation = "0.158705 -0.158704 0.974487 91.4801";
       scale = "1 1 1";
       dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
       position = "-67.2437 -32.75 95.769";
-      rotation = "0.158705 -0.158704 0.974487 91.4801";
+      rotation = "0.158705 -0.158704 0.974487 91.48";
       scale = "1 1 1";
       dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
       position = "-63.7947 -30.5 94.6193";
-      rotation = "0.158705 -0.158704 0.974487 91.4801";
+      rotation = "0.158705 -0.158704 0.974487 91.48";
       scale = "1 1 1";
       dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
       position = "-78.395 -29.75 98.8194";
-      rotation = "0.158705 -0.158704 0.974487 91.4801";
+      rotation = "0.158705 -0.158704 0.974487 91.48";
       scale = "1 1 1";
       dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
       position = "-85.594 -32.25 101.219";
-      rotation = "0.158705 -0.158704 0.974487 91.4801";
+      rotation = "0.158705 -0.158704 0.974487 91.48";
       scale = "1 1 1";
       dataBlock = "RoundBumper_BM";
    };
@@ -1736,9 +1736,9 @@ new SimGroup(MissionGroup) {
          respawnPoint = "Check3";
    };
    new InteriorInstance() {
-      position = "-51 41 70.5";
+      position = "-53.1214 38.8787 70.25";
       rotation = "0 0 1 225.001";
-      scale = "1 1 1";
+      scale = "0.5 0.5 0.5";
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
       showTerrainInside = "0";
    };
@@ -1854,6 +1854,78 @@ new SimGroup(MissionGroup) {
       scale = "263 279.25 249.5";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "-59 27 70.25";
+      rotation = "0 0 1 135";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-65 27 70.25";
+      rotation = "0 0 1 225.001";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-62 26 69.8361";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EasterEgg_MBG";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-90.25 19.75 94";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "SuperJumpItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new InteriorInstance() {
+      position = "-61 23 112.25";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-61 29 112.25";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 0.5";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(EE1) {
+      position = "-62 28 112";
+      rotation = "1 0 0 0";
+      scale = "2 4 1";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         DisplayGemsMessage = "0";
+         cameraYaw = "180";
+         centerDestPoint = "1";
+         delay = "2000";
+         destination = "EEDest1";
+         inverseVelocity = "0";
+         keepAngular = "0";
+         keepCamera = "0";
+         keepVelocity = "0";
+         silent = "0";
+   };
+   new Trigger(EEDest1) {
+      position = "-61.5 29.5 70";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---
