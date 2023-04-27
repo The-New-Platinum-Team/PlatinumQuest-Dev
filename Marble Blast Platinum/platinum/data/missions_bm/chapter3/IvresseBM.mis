@@ -3,17 +3,18 @@ new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
          CustomRadarRule = "0";
-         artist = "Your name here";
-         desc = "Simply indescribable.";
+         artist = "James C.";
+         awesomeTime = "30000";
+         desc = "Pass the dangerous hazards without tiring yourself out.";
          fanStrength = "30";
          game = "Blasted";
          gameMode = "null";
          level = "5";
          music = "Tim Trance.ogg";
          name = "Ivresse";
-         platinumTime = "0";
+         platinumTime = "60000";
          type = "Custom";
-         ultimateTime = "0";
+         ultimateTime = "45000";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -422,6 +423,52 @@ new SimGroup(MissionGroup) {
             usePosition = "1";
             useRotation = "1";
             useScale = "1";
+      };
+      new StaticShape(Hurdle1A) {
+         position = "-4.06313 -0.21594 29.6781";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Hurdle1B";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "0";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(Hurdle1B) {
+         position = "-3.81649 -4.03655 30.2355";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Hurdle1A";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "4000";
+            usePosition = "0";
+            useRotation = "1";
+            useScale = "0";
       };
    };
    new InteriorInstance() {
@@ -1740,6 +1787,150 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new Item() {
+      position = "-4 -36 26";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "4";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "2 -24 28";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "2";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "-7 -60 28.25";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "5";
+         timeBonus = "5000";
+   };
+   new StaticShape(check1) {
+      position = "23 16 20.01";
+      rotation = "0 0 1 78.7502";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new StaticShape(check2) {
+      position = "-25 -8 18.01";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new InteriorInstance() {
+      position = "3 -5 30";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_hurdleCenter2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3 -5 30";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_hurdle2.dif";
+      showTerrainInside = "0";
+         Path = "Hurdle1A";
+   };
+   new InteriorInstance() {
+      position = "3 -5 30";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_hurdle2.dif";
+      showTerrainInside = "0";
+         Path = "Hurdle1B";
+   };
+   new StaticShape(check3) {
+      position = "-11 -33 26.01";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new Trigger(CheckP1) {
+      position = "21 22 20";
+      rotation = "1 0 0 0";
+      scale = "8 8 4";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "Check1";
+   };
+   new Trigger(CheckP2) {
+      position = "-27 -2 18";
+      rotation = "1 0 0 0";
+      scale = "16 8 4";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "Check2";
+   };
+   new Trigger(CheckP3) {
+      position = "-15 -29 26";
+      rotation = "1 0 0 0";
+      scale = "8 12 4";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "Check3";
+   };
+   new TSStatic() {
+      position = "12.75 -28.1517 18.7934";
+      rotation = "0.191481 0.191481 0.962637 92.1817";
+      scale = "0.5 0.5 0.5";
+      shapeName = "~/data/shapes_bm/signs/bm_hazardsign.dts";
+   };
+   new TSStatic() {
+      position = "23 16 23.85";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
+   };
+   new TSStatic() {
+      position = "-25 -8 21.85";
+      rotation = "0 0 1 90.0002";
+      scale = "0.7 0.7 0.7";
+      shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
+   };
+   new TSStatic() {
+      position = "-11 -33 29.85";
+      rotation = "1 0 0 0";
+      scale = "0.7 0.7 0.7";
+      shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
+   };
+   new Trigger(Bounds) {
+      position = "-60.5 -82 -3.25";
+      rotation = "1 0 0 0";
+      scale = "141 137.5 117.5";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---
