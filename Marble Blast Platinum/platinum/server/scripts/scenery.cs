@@ -1007,6 +1007,13 @@ datablock StaticShapeData(Propeller_BM_Base) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/Blasted/bm_propeller_base.dts";
 };
 
+datablock StaticShapeData(Lamp_BM) {
+	className = "LevelParts";
+	superCategory = "Level Parts";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/scenery/bm_lamp.dts";
+};
+
 datablock StaticShapeData(SanctuaryTowersWheel) {
 	className = "LevelParts";
 	superCategory = "Level Parts";

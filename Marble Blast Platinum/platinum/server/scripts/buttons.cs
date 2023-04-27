@@ -230,7 +230,7 @@ datablock StaticShapeData(PushButtonFlat_PQ : PushButton) {
 	shapeFile = "~/data/shapes_pq/Gameplay/pads/PushButtonFlat.dts";
 };
 datablock StaticShapeData(PushButton_BM : PushButton) {
-	shapeFile = "~/data/shapes_bm/pads/PushButton_bm.dts";
+	shapeFile = "~/data/shapes_bm/scenery/PushButton_bm.dts";
 };
 
 //-----------------------------------------------------------------------------
