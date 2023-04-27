@@ -262,7 +262,7 @@ new SimGroup(MaterialGroup) {
 
 	new MaterialProperty(BMSandMaterial) {
 		friction = 3;
-		restitution = 0.25;
+		restitution = 0.1;
 	};
 
 	new MaterialProperty(BMMudMaterial) {
