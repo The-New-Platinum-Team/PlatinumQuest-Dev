@@ -552,6 +552,60 @@ datablock StaticShapeData(TreeBare03) {
 	category = "Vegetation";
 	shapeFile = "~/data/shapes_pq/Scenery/Nature/TreeBare03.dts";
 };
+datablock StaticShapeData(FirTreeM01) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/FirTreeM1.dts";
+};
+datablock StaticShapeData(FirTreeM02) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/FirTreeM2.dts";
+};
+datablock StaticShapeData(FirTreeM03) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/FirTreeM3.dts";
+};
+datablock StaticShapeData(PineTreeL01) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/PineTreeL1.dts";
+};
+datablock StaticShapeData(PineTreeL02) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/PineTreeL2.dts";
+};
+datablock StaticShapeData(PineTreeL03) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/PineTreeL3.dts";
+};
+datablock StaticShapeData(PineTreeM01) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/PineTreeM1.dts";
+};
+datablock StaticShapeData(PineTreeM02) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/PineTreeM2.dts";
+};
+datablock StaticShapeData(PineTreeM03) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "TreesBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Trees/PineTreeM3.dts";
+};
 //-------------------------------------------------
 //Rocks
 
@@ -582,6 +636,60 @@ datablock StaticShapeData(Rock03 : Rock01) {
 };
 datablock StaticShapeData(Rock04 : Rock01) {
 	shapeFile = "~/data/shapes_pq/Scenery/Nature/Rock04.dts";
+};
+datablock StaticShapeData(RockRoundL01) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockRoundL1.dts";
+};
+datablock StaticShapeData(RockRoundL02) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockRoundL2.dts";
+};
+datablock StaticShapeData(RockRoundL03) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockRoundL3.dts";
+};
+datablock StaticShapeData(RockRoundL04) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockRoundL4.dts";
+};
+datablock StaticShapeData(RockRoundL05) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockRoundL5.dts";
+};
+datablock StaticShapeData(RockWall01) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockWall1.dts";
+};
+datablock StaticShapeData(RockWall02) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockWall2.dts";
+};
+datablock StaticShapeData(RockWall03) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockWall3.dts";
+};
+datablock StaticShapeData(RockWall04) {
+	className = "Scenery";
+	superCategory = "Scenery";
+	category = "RocksBM";
+	shapeFile = "~/data/shapes_bm/Scenery/Rocks/RockWall4.dts";
 };
 
 function Rock01::onAdd(%this, %obj) {
