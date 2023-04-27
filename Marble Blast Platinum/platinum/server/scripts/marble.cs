@@ -165,7 +165,7 @@ if ($pref::Video::particleSystem == 2) {
 // Reason for not using them: they aren't sexy enough.
 
 // datablock ParticleData(TrailParticle) {
-// 	textureName          = "~/data/particles/smoke";
+// 	textureName          = "~/data/particles/marble/smoke";
 // 	dragCoeffiecient     = 1.0;
 // 	gravityCoefficient   = 0;
 // 	windCoefficient      = 0;
@@ -290,7 +290,7 @@ datablock ParticleData(MarbleTrailBubbleParticle) {
 	useInvAlpha = "0";
 	animateTexture = "0";
 	framesPerSec = "1";
-	textureName = "~/data/particles/bubble";
+	textureName = "~/data/particles/marble/bubble";
 	colors[0] = "0.843137 0.833333 0.843137 1.000000";
 	colors[1] = "0.784314 0.813725 0.882353 1.000000";
 	colors[2] = "0.843137 0.862745 0.892157 1.000000";

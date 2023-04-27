@@ -23,7 +23,7 @@
 
 //--- Particle ---
 datablock ParticleData(Snow1Particle) {
-	textureName = $usermods @ "/data/particles/spark.png";
+	textureName = $usermods @ "/data/particles/powerup/spark.png";
 	dragCoefficient = 0.25;
 	gravityCoefficient = 2;
 	inheritedVelFactor = 0.25;

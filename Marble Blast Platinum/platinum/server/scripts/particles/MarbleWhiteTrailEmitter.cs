@@ -116,8 +116,8 @@ datablock ParticleEmitterData(MarbleWhiteTrailEmitter)  {
       useInvAlpha = "1";
       animateTexture = "0";
       framesPerSec = "1";
-      textureName = "platinum/data/particles/spark";
-      animTexName[0] = "platinum/data/particles/spark";
+      textureName = "platinum/data/particles/powerup/spark";
+      animTexName[0] = "platinum/data/particles/powerup/spark";
       colors[0] = "1.000000 1.000000 1.000000 0.227451";
       colors[1] = "1.000000 1.000000 1.000000 1.000000";
       colors[2] = "1.000000 1.000000 1.000000 0.000000";

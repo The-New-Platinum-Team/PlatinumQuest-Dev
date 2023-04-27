@@ -62,7 +62,7 @@ datablock ParticleEmitterData(MarbleTrailEmitter)  {
 } else if ($pref::Video::particleSystem == 1) {
 
    datablock ParticleData(TrailParticle)  {
-      textureName          = "~/data/particles/smoke";
+      textureName          = "~/data/particles/marble/smoke";
       dragCoeffiecient     = 1.0;
       gravityCoefficient   = 0;
       windCoefficient      = 0;
@@ -117,8 +117,8 @@ datablock ParticleEmitterData(MarbleTrailEmitter)  {
       useInvAlpha = "1";
       animateTexture = "0";
       framesPerSec = "1";
-      textureName = "platinum/data/particles/spark";
-      animTexName[0] = "platinum/data/particles/spark";
+      textureName = "platinum/data/particles/powerup/spark";
+      animTexName[0] = "platinum/data/particles/powerup/spark";
       colors[0] = "1.000000 1.000000 0.236220 0.227451";
       colors[1] = "1.000000 1.000000 0.740157 1.000000";
       colors[2] = "1.000000 1.000000 0.141732 0.000000";

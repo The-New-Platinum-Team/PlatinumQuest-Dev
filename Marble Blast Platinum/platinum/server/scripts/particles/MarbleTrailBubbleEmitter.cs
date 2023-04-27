@@ -36,8 +36,8 @@ datablock ParticleData(MarbleTrailBubbleParticle) {
 	useInvAlpha = "0";
 	animateTexture = "0";
 	framesPerSec = "1";
-	textureName = "platinum/data/particles/bubble";
-	animTexName[0] = "platinum/data/particles/bubble";
+	textureName = "platinum/data/particles/marble/bubble";
+	animTexName[0] = "platinum/data/particles/marble/bubble";
 	colors[0] = "0.843137 0.833333 0.843137 1.000000";
 	colors[1] = "0.784314 0.813725 0.882353 1.000000";
 	colors[2] = "0.843137 0.862745 0.892157 1.000000";
