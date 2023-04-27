@@ -170,6 +170,13 @@ datablock ItemData(SuperJumpItem_BM : SuperJumpItem) {
 	shapeFile = "~/data/shapes_bm/Powerups/SuperJump_bm.dts";
 };
 
+datablock ItemData(SuperJumpItem_BMGate : SuperJumpItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Powerups/SuperJumpGate_bm.dts";
+};
+
 // datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
 // 	shapeFile = "~/data/shapes_mbu/items/superjump.dts";
 // };
@@ -252,6 +259,14 @@ datablock ItemData(SuperBounceItem_BM : SuperBounceItem) {
 	image = SuperBounceImage_BM;
 };
 
+datablock ItemData(SuperBounceItem_BMGate : SuperBounceItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+
+	shapeFile = "~/data/shapes_bm/Powerups/SuperBounceGate_bm.dts";
+	image = SuperBounceImage_BM;
+};
+
 datablock ShapeBaseImageData(SuperBounceImage_BM : SuperBounceImage) {
 	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
 };
@@ -313,6 +328,13 @@ datablock ItemData(SuperSpeedItem_BM : SuperSpeedItem) {
 	category = "Blasted";
 	
 	shapeFile = "~/data/shapes_bm/Powerups/SuperSpeed_bm.dts";
+};
+
+datablock ItemData(SuperSpeedItem_BMGate : SuperSpeedItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/SuperSpeedGate_bm.dts";
 };
 
 //-----------------------------------------------------------------------------
@@ -391,6 +413,14 @@ datablock ItemData(ShockAbsorberItem_BM : ShockAbsorberItem) {
 	category = "Blasted";
 	
 	shapeFile = "~/data/shapes_bm/Powerups/ShockAbsorber_bm.dts";
+	image = ShockAbsorberImage_BM;
+};
+
+datablock ItemData(ShockAbsorberItem_BMGate : ShockAbsorberItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/ShockAbsorberGate_bm.dts";
 	image = ShockAbsorberImage_BM;
 };
 
@@ -499,6 +529,14 @@ datablock ItemData(HelicopterItem_BM : HelicopterItem) {
 	category = "Blasted";
 	
 	shapeFile = "~/data/shapes_bm/Powerups/Gyrocopter_bm.dts";
+	image = HelicopterImage_BM;
+};
+
+datablock ItemData(HelicopterItem_BMGate : HelicopterItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/GyrocopterGate_bm.dts";
 	image = HelicopterImage_BM;
 };
 
@@ -676,6 +714,13 @@ datablock ItemData(TimeTravelItem_BM : TimeTravelItem) {
 
 };
 
+datablock ItemData(TimeTravelItem_BMGate : TimeTravelItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/TimeTravelGate_bm.dts";
+};
+
 // datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
 // 	shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
 
@@ -758,6 +803,12 @@ function TimeTravelItem_BM::onAdd(%this, %obj) {
 	return TimeTravelItem::onAdd(%this, %obj);
 }
 function TimeTravelItem_BM::onPickup(%this,%obj,%user,%amount) {
+	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
+}
+function TimeTravelItem_BMGate::onAdd(%this, %obj) {
+	return TimeTravelItem::onAdd(%this, %obj);
+}
+function TimeTravelItem_BMGate::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
 function TimeTravelItem_MBU::onAdd(%this, %obj) {

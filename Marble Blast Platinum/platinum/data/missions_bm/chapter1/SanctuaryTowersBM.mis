@@ -508,16 +508,11 @@ new SimGroup(MissionGroup) {
       scale = "0.5 0.5 0.5";
       dataBlock = "Tornado_BM";
    };
-   new Item() {
-      position = "-50 149 58.5";
+   new TSStatic() {
+      position = "-50 168 86.5";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "ShockAbsorberItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
+      scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_uturn.dts";
    };
    new StaticShape() {
       position = "-74 131 65.5";
@@ -2608,10 +2603,27 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new TSStatic() {
-      position = "-50 168 86.5";
+      position = "-48 153 61";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-50 153 61";
       rotation = "1 0 0 0";
-      scale = "0.5 0.5 1";
-      shapeName = "~/data/shapes_bm/signs/bm_uturn.dts";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/ShockAbsorberGate_icon_bm.dts";
+   };
+   new Item() {
+      position = "-50 153 61";
+      rotation = "1 0 0 0";
+      scale = "3 1 1";
+      dataBlock = "ShockAbsorberItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
 };
 //--- OBJECT WRITE END ---

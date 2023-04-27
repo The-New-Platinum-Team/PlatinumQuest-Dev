@@ -9,12 +9,12 @@ new SimGroup(MissionGroup) {
          desc = "Test your skills with moving platforms.";
          game = "Blasted";
          gameMode = "null";
-	 generalHint = "Take a ride on the platform in the beginning of the level to reach the right section. Avoid the mines along the way. You'll have to figure out some strategies for the majority of the challenges in this level, and going for some of the Time Travels can be a bit risky.";
+         generalHint = "Take a ride on the platform in the beginning of the level to reach the right section. Avoid the mines along the way. You\'ll have to figure out some strategies for the majority of the challenges in this level, and going for some of the Time Travels can be a bit risky.";
          level = "11";
          music = "Tim Trance.ogg";
          name = "Strategy Helix";
          platinumTime = "32000";
-	 trivia = "Originally made in 2012, and was later remade in Marble Blast Platinum in 2019. This version of the level is longer than the MBG version, but not as long as the MBP version.";
+         trivia = "Originally made in 2012, and was later remade in Marble Blast Platinum in 2019. This version of the level is longer than the MBG version, but not as long as the MBP version.";
          type = "Custom";
          ultimateTime = "25000";
    };
@@ -450,14 +450,14 @@ new SimGroup(MissionGroup) {
             initialTargetPosition = "-1";
       };
    };
-   new Item() {
-      position = "23 -13 22.5";
+   new Trigger(CheckP2) {
+      position = "5 77 16.5";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperSpeedItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      scale = "12 20 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "Check2";
    };
    new TSStatic() {
       position = "-14 106 32.5";
@@ -1138,14 +1138,34 @@ new SimGroup(MissionGroup) {
          disableOOB = "0";
          gravity = "0";
    };
-   new Trigger(CheckP2) {
-      position = "5 77 16.5";
+   new TSStatic() {
+      position = "20 -13 23.25";
       rotation = "1 0 0 0";
-      scale = "12 20 6";
-      dataBlock = "CheckpointTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         gravity = "0";
-         respawnPoint = "Check2";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "26 -13 23.25";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "23.0833 -13 23.25";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new Item() {
+      position = "23 -13 23.25";
+      rotation = "1 0 0 0";
+      scale = "4 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
 };
 //--- OBJECT WRITE END ---

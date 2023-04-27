@@ -7,12 +7,12 @@ new SimGroup(MissionGroup) {
          desc = "Your Journey, Your Way.";
          game = "Blasted";
          gameMode = "null";
-	 generalHint = "The tagline says it all. You can take either path that suits you. You can find a bouncy floor, a bunch of 1 second Time Travels, or even a Gyrocopter from a curve with high friction sand.";
+         generalHint = "The tagline says it all. You can take either path that suits you. You can find a bouncy floor, a bunch of 1 second Time Travels, or even a Gyrocopter from a curve with high friction sand.";
          level = "6";
          music = "Tim Trance.ogg";
          name = "Non-Linear";
          platinumTime = "13000";
-	 trivia = "This level was originally made in 2016. The latest version present has a checkpoint, inspired by a suggestion for improvement made by someone when critiquing Braid from Marble It Up.";
+         trivia = "This level was originally made in 2016. The latest version present has a checkpoint, inspired by a suggestion for improvement made by someone when critiquing Braid from Marble It Up.";
          type = "Custom";
          ultimateTime = "9000";
    };
@@ -289,16 +289,12 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new Item() {
-      position = "13 85.25 17.6";
-      rotation = "0 0 -1 22.5001";
+   new InteriorInstance() {
+      position = "5.5 38 2";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
+      showTerrainInside = "0";
    };
    new Item() {
       position = "-2 105 11.5";
@@ -390,12 +386,34 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
       showTerrainInside = "0";
    };
-   new InteriorInstance() {
-      position = "5.5 38 2";
-      rotation = "0 0 1 90.0002";
+   new TSStatic() {
+      position = "12.9995 85.2524 18.5";
+      rotation = "0 0 -1 22.5001";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
+      shapeName = "~/data/shapes_bm/powerups/GyrocopterGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "11.1518 84.487 18.5";
+      rotation = "0 0 -1 22.5001";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "14.8473 86.0178 18.5";
+      rotation = "0 0 1 157.5";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "12.9995 85.2524 18.5";
+      rotation = "0 0 -1 22.5001";
+      scale = "3 1 1";
+      dataBlock = "HelicopterItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
 };
 //--- OBJECT WRITE END ---

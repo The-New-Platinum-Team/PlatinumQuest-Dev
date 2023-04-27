@@ -1078,15 +1078,12 @@ new SimGroup(MissionGroup) {
          skin = "3";
          timeBonus = "3000";
    };
-   new Item() {
-      position = "-16 -16 16.5";
-      rotation = "1 0 0 90.0002";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+   new Trigger(Bounds) {
+      position = "-120.824 -149.25 -7.5";
+      rotation = "1 0 0 0";
+      scale = "143.824 169.25 178.5";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Item() {
       position = "-99.5 -89.5 81";
@@ -1460,12 +1457,34 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new Trigger(Bounds) {
-      position = "-120.824 -149.25 -7.5";
-      rotation = "1 0 0 0";
-      scale = "143.824 169.25 178.5";
-      dataBlock = "InBoundsTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   new Item() {
+      position = "-16 -15 16.5";
+      rotation = "0.577352 0.57735 0.57735 120";
+      scale = "4 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "-16 -15 19.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-16 -15 13.5";
+      rotation = "0.577352 0.57735 0.577349 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-16 -15 16.5";
+      rotation = "0.577352 0.57735 0.57735 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
    };
 };
 //--- OBJECT WRITE END ---

@@ -672,14 +672,11 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "DuctFan_BM";
    };
-   new Item() {
-      position = "24 4 6.5";
-      rotation = "1 0 0 0";
+   new TSStatic() {
+      position = "26 40 8.75";
+      rotation = "0 -1 0 89.9996";
       scale = "1 1 1";
-      dataBlock = "SuperSpeedItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new Item() {
       position = "36 48 24.5";
@@ -813,15 +810,14 @@ new SimGroup(MissionGroup) {
       dataBlock = "FinishTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Item() {
-      position = "24 40 8.25";
+   new Trigger(CheckP2) {
+      position = "34 -8 -7.5";
       rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+      scale = "6 12 4";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "Check2";
    };
    new Item() {
       position = "44 48 14.5";
@@ -995,14 +991,69 @@ new SimGroup(MissionGroup) {
          disableOOB = "0";
          gravity = "0";
    };
-   new Trigger(CheckP2) {
-      position = "34 -8 -7.5";
+   new Item() {
+      position = "24 40 8.75";
       rotation = "1 0 0 0";
-      scale = "6 12 4";
-      dataBlock = "CheckpointTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         gravity = "0";
-         respawnPoint = "Check2";
+      scale = "3 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "24 40 8.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "22 40 8.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "22 40 8.75";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "26 40 8.75";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "24 4 7.5";
+      rotation = "1 0 0 0";
+      scale = "3 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new TSStatic() {
+      position = "22 4 7.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "26 4 7.5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "24.065 4 7.5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
    };
 };
 //--- OBJECT WRITE END ---

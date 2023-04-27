@@ -577,13 +577,15 @@ new SimGroup(MissionGroup) {
          timeBonus = "3000";
    };
    new Item() {
-      position = "162.5 -152.5 52.5";
+      position = "162.5 -152.5 53.5";
       rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "SuperSpeedItem_BM";
+      scale = "4 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
    new StaticShape() {
       position = "16.5 -107.5 87.5";
@@ -696,17 +698,11 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "DuctFan_BM";
    };
-   new Item() {
-      position = "78.5 2.5 11";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "4";
-         timeBonus = "4000";
+   new StaticShape() {
+      position = "-48.5 -8.5 12.5";
+      rotation = "1 0 0 0";
+      scale = "4 39 1";
+      dataBlock = "WaterPlane";
    };
    new StaticShape() {
       position = "14.5 -74.5 90.5";
@@ -802,29 +798,17 @@ new SimGroup(MissionGroup) {
          skin = "base2";
          timer = "772307";
    };
-   new Item() {
-      position = "13.5 3.5 94.5";
-      rotation = "1 0 0 0";
+   new TSStatic() {
+      position = "14.5 3.5 95.25";
+      rotation = "0 -1 0 90.0002";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "2";
-         timeBonus = "2000";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
-   new Item() {
-      position = "19.5 -38.5 95";
+   new TSStatic() {
+      position = "18.5 -38.5 96";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "4";
-         timeBonus = "4000";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new StaticShape() {
       position = "12.5 25.5 90.5";
@@ -836,15 +820,15 @@ new SimGroup(MissionGroup) {
          timer = "772308";
    };
    new Item() {
-      position = "15.5 23.5 94.5";
+      position = "15.5 23.5 95.25";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noRespawn = "0";
-         skin = "2";
+         skin = "base";
          timeBonus = "2000";
    };
    new StaticShape() {
@@ -866,49 +850,39 @@ new SimGroup(MissionGroup) {
          timer = "772310";
    };
    new Item() {
-      position = "-48.5 4.5 109";
+      position = "-48.5 4.5 110";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noRespawn = "0";
-         skin = "4";
+         skin = "base";
          timeBonus = "4000";
    };
-   new Item() {
-      position = "-44.5 35.5 105.5";
+   new TSStatic() {
+      position = "-44.5 35.5 106";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-51.5 68.5 110";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-52.5 52.5 110";
+      rotation = "1 0 0 0";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noRespawn = "0";
-         skin = "2";
-         timeBonus = "2000";
-   };
-   new Item() {
-      position = "-52.5 68.5 109";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         skin = "3";
-         timeBonus = "3000";
-   };
-   new Item() {
-      position = "-52.5 52.5 109";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         skin = "3";
+         skin = "base";
          timeBonus = "3000";
    };
    new StaticShape() {
@@ -1146,15 +1120,11 @@ new SimGroup(MissionGroup) {
       rotate = "1";
          noRespawn = "0";
    };
-   new Item() {
-      position = "14.5 57.5 74.5";
-      rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
+   new TSStatic() {
+      position = "-48.5 4.5 110";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon4_bm.dts";
    };
    new Trigger(Repulsion) {
       position = "51.5 4.5 6.5";
@@ -1439,11 +1409,250 @@ new SimGroup(MissionGroup) {
       scale = "7 2 1";
       dataBlock = "WaterPlane";
    };
-   new StaticShape() {
-      position = "-48.5 -8.5 12.5";
+   new Item() {
+      position = "78.5 2.5 12";
+      rotation = "0 0 1 90.0002";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "4000";
+   };
+   new TSStatic() {
+      position = "78.5 1.5 12";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "78.5 2.5 12";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon4_bm.dts";
+   };
+   new TSStatic() {
+      position = "162.5 -149.5 53.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "162.5 -155.5 53.5";
+      rotation = "0 0 -1 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "162.5 -152.565 53.5";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new Item() {
+      position = "19.5 -38.5 96";
       rotation = "1 0 0 0";
-      scale = "4 39 1";
-      dataBlock = "WaterPlane";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "4000";
+   };
+   new TSStatic() {
+      position = "19.5 -38.5 96";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon4_bm.dts";
+   };
+   new Item() {
+      position = "13.5 3.5 95.25";
+      rotation = "1 0 0 0";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "2000";
+   };
+   new TSStatic() {
+      position = "12.5 3.5 95.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "14.5 3.5 95.25";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "12.5 3.5 95.25";
+      rotation = "0 1 0 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "13.5 3.5 95.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon2_bm.dts";
+   };
+   new TSStatic() {
+      position = "15.5 23.5 95.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon2_bm.dts";
+   };
+   new TSStatic() {
+      position = "14.5 23.5 95.25";
+      rotation = "0 1 0 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "16.5 23.5 95.25";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "16.5 23.5 95.25";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "14.5 23.5 95.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-52.5 68.5 110";
+      rotation = "1 0 0 0";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "3000";
+   };
+   new TSStatic() {
+      position = "-53.5 68.5 110";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-52.5 68.5 110";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon3_bm.dts";
+   };
+   new TSStatic() {
+      position = "-52.5 52.5 110";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon3_bm.dts";
+   };
+   new TSStatic() {
+      position = "-51.5 52.5 110";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-53.5 52.5 110";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-43.5 35.5 106";
+      rotation = "1 0 0 0";
+      scale = "2 1 1";
+      dataBlock = "TimeTravelItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "2000";
+   };
+   new TSStatic() {
+      position = "-42.5 35.5 106";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-44.5 35.5 106";
+      rotation = "0 1 0 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-42.5 35.5 106";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-43.5 35.5 106";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon2_bm.dts";
+   };
+   new TSStatic() {
+      position = "-49.5 4.5 110";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-47.5 4.5 110";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "14.5 57.5 78.5";
+      rotation = "1 0 0 0";
+      scale = "4 1 4";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "17.5 57.5 81.5";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "11.5 57.5 81.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "14.5 57.5 78.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
    };
 };
 //--- OBJECT WRITE END ---

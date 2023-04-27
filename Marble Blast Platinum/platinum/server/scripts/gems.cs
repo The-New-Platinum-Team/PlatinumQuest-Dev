@@ -568,6 +568,14 @@ datablock ItemData(GemItemPurple_BM : GemItem_BM) {
 	customField[0, "field"] = "";
 };
 
+datablock ItemData(GemItem_BMGate : GemItem_BM) {
+	superCategory = "gems";
+	category = "Blasted";
+
+ 	skin = "purple";
+	shapeFile = "~/data/shapes_bm/Gems/GemGate_bm.dts";
+};
+
 //-----------------------------------------------------------------------------
 
 datablock ItemData(BackupGem) {
