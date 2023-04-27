@@ -6,13 +6,15 @@ new SimGroup(MissionGroup) {
          GemQuota = "4";
          Radar = "1";
          artist = "James C.";
-         desc = "Simply indescribable.";
+         desc = "It is imperative that you collect the gems, while grabbing Time Travels to get the best time.";
          game = "Blasted";
          gameMode = "quota";
+         platinumTime = "10000";
+         ultimateTime = "6000";
+         awesomeTime = "2000";
          level = "3";
          music = "Tim Trance.ogg";
          name = "Rage Against Time";
-         startHelpText = "Change this text!";
          type = "Custom";
    };
    new SimGroup(SceneryGroup) {
@@ -110,7 +112,7 @@ new SimGroup(MissionGroup) {
    };
    new Sun() {
       direction = "0.638261 0.459006 -0.61801";
-      color = "1.000000 1.000000 1.000000 1.000000";
+      color = "0.800000 0.800000 0.800000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
    new SimGroup(PathNodeGroup) {
@@ -932,6 +934,24 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
+   };
+   new StaticShape(check1) {
+      position = "0 0 9.51";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "0";
+   };
+   new Trigger(CheckP1) {
+      position = "-3 3 6.5";
+      rotation = "1 0 0 0";
+      scale = "6 12 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+         respawnPoint = "Check1";
    };
 };
 //--- OBJECT WRITE END ---
