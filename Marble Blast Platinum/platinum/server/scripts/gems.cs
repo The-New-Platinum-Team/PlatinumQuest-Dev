@@ -265,6 +265,49 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	customField[0, "field"] = "";
 };
 
+<<<<<<< HEAD
+=======
+datablock ItemData(GemItemSpecialPurple: GemItem) {
+	skin = "specialpurple";
+ 	huntExtraValue = 9; //10 pts
+ 	spawnChance = 0.90;
+	messageColor = "f1f2f2";
+ 	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemSpecialYellow: GemItem) {
+ 	skin = "specialyellow";
+ 	huntExtraValue = 19; //20 pts
+ 	spawnChance = 0.65;
+ 	messageColor = "f1f2f2";
+	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemSpecialPlatinum: GemItem) {
+	skin = "specialplatinum";
+	huntExtraValue = 49; //50 pts
+	spawnChance = 0.35;
+ 	messageColor = "f1f2f2";
+ 	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemWhite: GemItem) {
+	skin = "white";
+	huntExtraValue = -1; //0 pts
+ 	spawnChance = 0.80;
+ 	messageColor = "ffffff";
+ 	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemRainbow: GemItem) {
+	skin = "rainbow";
+	huntExtraValue = 8; //9 pts
+	spawnChance = 0.24;
+	messageColor = "4b0082";
+	customField[0, "field"] = "";
+};
+
+>>>>>>> ebfd317b (Potential BM gem hunt mode?)
 datablock ItemData(GemItem_PQ : GemItem) {
 	superCategory = "gems";
 	category = "PlatinumQuest";
@@ -548,16 +591,11 @@ datablock ItemData(GemItem_BM : GemItem) {
 	shapeFile = "~/data/shapes_bm/Gems/Gem_BM.dts";
 	pickupName = "a gem!";
 
-	customField[0, "field"  ] = "noParticles";
-	customField[0, "type"   ] = "boolean";
-	customField[0, "name"   ] = "Disable Particles";
-	customField[0, "desc"   ] = "If the gem should not spawn a particle emitter.";
-	customField[0, "default"] = "0";
-	customField[1, "field"  ] = "skin";
-	customField[1, "type"   ] = "string";
-	customField[1, "name"   ] = "Skin Name";
-	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
-	customField[1, "default"] = "";
+	customField[0, "field"  ] = "skin";
+	customField[0, "type"   ] = "string";
+	customField[0, "name"   ] = "Skin Name";
+	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[0, "default"] = "";
 };
 
 datablock ItemData(GemItemPurple_BM : GemItem_BM) {
@@ -565,6 +603,30 @@ datablock ItemData(GemItemPurple_BM : GemItem_BM) {
 	category = "Blasted";
 
  	skin = "purple";
+	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemHuntPurple_BM : GemItem_BM) {
+	superCategory = "gems";
+	category = "Blasted";
+
+ 	skin = "specialpurple";
+	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemHuntYellow_BM : GemItem_BM) {
+	superCategory = "gems";
+	category = "Blasted";
+
+ 	skin = "specialyellow";
+	customField[0, "field"] = "";
+};
+
+datablock ItemData(GemItemHuntPlatinum_BM : GemItem_BM) {
+	superCategory = "gems";
+	category = "Blasted";
+
+ 	skin = "specialplatinum";
 	customField[0, "field"] = "";
 };
 
