@@ -1712,14 +1712,9 @@ datablock ItemData(AnvilItem) {
 	customField[0, "default"] = "0";
 };
 
-
-
-datablock ItemData(AnvilItem_BM : AnvilItem) {
-	superCategory = "PowerUps";
-	category = "Blasted";
-
-	shapeFile = "~/data/shapes_bm/Powerups/Anvil_bm.dts";
-};
+function AnvilItem::getData(%this, %obj) {
+	return "";
+}
 
 //-----------------------------------------------------------------------------
 
