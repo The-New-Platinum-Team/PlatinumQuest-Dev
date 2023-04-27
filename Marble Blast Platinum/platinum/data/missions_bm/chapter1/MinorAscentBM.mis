@@ -585,11 +585,12 @@ new SimGroup(MissionGroup) {
          noRespawn = "0";
          showHelpOnPickup = "0";
    };
-   new StaticShape(EndPoint) {
-      position = "35 2 33.0023";
-      rotation = "0 0 -1 90.0002";
+   new InteriorInstance() {
+      position = "-13.5 -2.5 11.5";
+      rotation = "0 0 1 135";
       scale = "1 1 1";
-      dataBlock = "EndPad_MBG";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
+      showTerrainInside = "0";
    };
    new Trigger(Bounds) {
       position = "-39.5 -53.9539 -3.25";
@@ -640,12 +641,18 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
       showTerrainInside = "0";
    };
-   new InteriorInstance() {
-      position = "-13.5 -2.5 11.5";
-      rotation = "0 0 1 135";
+   new TSStatic() {
+      position = "35 2 33";
+      rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
-      showTerrainInside = "0";
+      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+   };
+   new Trigger(finish) {
+      position = "34 3 33";
+      rotation = "1 0 0 0";
+      scale = "2 2 10";
+      dataBlock = "FinishTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---
