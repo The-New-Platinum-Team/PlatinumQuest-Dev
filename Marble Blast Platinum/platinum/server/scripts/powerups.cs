@@ -659,6 +659,9 @@ datablock ItemData(TimeTravelItem_BM : TimeTravelItem) {
 	category = "Blasted";
 	
 	shapeFile = "~/data/shapes_bm/Powerups/TimeTravel_bm.dts";
+
+	skinCount = 11;
+
 	skin[0] = "base";
 	skin[1] = "1";
 	skin[2] = "2";
