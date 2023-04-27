@@ -1388,6 +1388,15 @@ datablock ItemData(NoRespawnAntiGravityItem_BM : NoRespawnAntiGravityItem) {
 	pickupName = "a Gravity Modifier!";
 };
 
+datablock ItemData(NoRespawnAntiGravityItem_BMGate : NoRespawnAntiGravityItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/AntiGravityGate_bm.dts";
+
+	pickupName = "a Gravity Modifier!";
+};
+
 // datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
 // 	shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
 
@@ -1415,6 +1424,14 @@ function NoRespawnAntiGravityItem_BM::onAdd(%this, %obj) {
 }
 
 function NoRespawnAntiGravityItem_BM::onPickup(%this, %obj, %user, %amount) {
+	return NoRespawnAntiGravityItem::onPickup(%this, %obj, %user, %amount);
+}
+
+function NoRespawnAntiGravityItem_BMGate::onAdd(%this, %obj) {
+	NoRespawnAntiGravityItem::onAdd(%this, %obj);
+}
+
+function NoRespawnAntiGravityItem_BMGate::onPickup(%this, %obj, %user, %amount) {
 	return NoRespawnAntiGravityItem::onPickup(%this, %obj, %user, %amount);
 }
 
