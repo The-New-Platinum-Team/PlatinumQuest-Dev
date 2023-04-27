@@ -6,15 +6,15 @@ new SimGroup(MissionGroup) {
          artist = "James C.";
          awesomeTime = "14000";
          desc = "Choose the correct or safest path.";
-	 easterEggHint = "Use the Super Jump at the end of the level to reach the roof in the middle of the grass and mud.";
+         easterEggHint = "Use the Super Jump at the end of the level to reach the roof in the middle of the grass and mud.";
          game = "Blasted";
          gameMode = "null";
-	 generalHint = "While some of the puzzles have no wrong way of solving them, they all have an ideal way to pass them. Although you can take the unideal path for rewards if you really want to.";
+         generalHint = "While some of the puzzles have no wrong way of solving them, they all have an ideal way to pass them. Although you can take the unideal path for rewards if you really want to.";
          level = "10";
          music = "Tim Trance.ogg";
          name = "Which One?";
          platinumTime = "26000";
-	 trivia = "Originally made in 2013. The new version was going to be named something else, but was dropped for unknown reasons.";
+         trivia = "Originally made in 2013. The new version was going to be named something else, but was dropped for unknown reasons.";
          type = "Custom";
          ultimateTime = "20000";
    };
@@ -415,28 +415,6 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "DuctFan_BM";
    };
-   new TSStatic() {
-      position = "128 -17 34";
-      rotation = "1 0 0 180";
-      scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
-   };
-   new Trigger(finish) {
-      position = "127 -16 30";
-      rotation = "1 0 0 0";
-      scale = "2 2 4";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-   };
-   new StaticShape(check1) {
-      position = "52 28.99 16";
-      rotation = "0.57735 0.577352 -0.57735 240";
-      scale = "1 1 1";
-      dataBlock = "Checkpoint_BM";
-         chkcollide = "1";
-         disableOOB = "0";
-         gravity = "1";
-   };
    new Trigger(CheckP1) {
       position = "38 29 20";
       rotation = "-1 0 0 90.0002";
@@ -452,6 +430,27 @@ new SimGroup(MissionGroup) {
       scale = "167 87.5 113.5";
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(check1) {
+      position = "52 28.99 16";
+      rotation = "0.57735 0.577352 -0.57735 240";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new StaticShape(EndPoint) {
+      position = "128 -17 34";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "EndPad_BM";
+   };
+   new StaticShape() {
+      position = "128 -17 34";
+      rotation = "1 0 0 180";
+      scale = "1 1 1";
+      dataBlock = "EndPadEdge_BM";
    };
 };
 //--- OBJECT WRITE END ---

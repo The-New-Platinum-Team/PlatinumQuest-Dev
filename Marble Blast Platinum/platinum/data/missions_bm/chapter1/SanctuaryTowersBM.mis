@@ -454,10 +454,10 @@ new SimGroup(MissionGroup) {
       };
    };
    new TSStatic() {
-      position = "-74 134 94.5";
-      rotation = "0 0 1 180";
+      position = "-50 153 61";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+      shapeName = "~/data/shapes_bm/powerups/ShockAbsorberGate_icon_bm.dts";
    };
    new Trigger() {
       position = "-0.499998 -0.500002 0.5";
@@ -2082,12 +2082,16 @@ new SimGroup(MissionGroup) {
       rotate = "1";
          noRespawn = "0";
    };
-   new Trigger(finish) {
-      position = "-75 135 94.5";
+   new Item() {
+      position = "-50 153 61";
       rotation = "1 0 0 0";
-      scale = "2 2 6";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      scale = "3 1 1";
+      dataBlock = "ShockAbsorberItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
    new StaticShape() {
       position = "-18.75 -18 15";
@@ -2608,22 +2612,17 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
-   new TSStatic() {
-      position = "-50 153 61";
-      rotation = "1 0 0 0";
+   new StaticShape(EndPoint) {
+      position = "-74 134 94.5";
+      rotation = "0 0 1 180";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/powerups/ShockAbsorberGate_icon_bm.dts";
+      dataBlock = "EndPad_BM";
    };
-   new Item() {
-      position = "-50 153 61";
-      rotation = "1 0 0 0";
-      scale = "3 1 1";
-      dataBlock = "ShockAbsorberItem_BMGate";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
+   new StaticShape() {
+      position = "-74 134 94.5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "EndPadEdge_BM";
    };
 };
 //--- OBJECT WRITE END ---

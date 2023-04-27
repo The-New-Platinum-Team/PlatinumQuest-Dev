@@ -8,12 +8,12 @@ new SimGroup(MissionGroup) {
          desc = "Grab all the gems in this three story playground.";
          game = "Blasted";
          gameMode = "null";
-	 generalHint = "This is a playground level. Gems are scattered across the three areas for you to collect. Fall down or go up these areas using the elevators. Be carful around the mud though. It can be a bit slippery.";
+         generalHint = "This is a playground level. Gems are scattered across the three areas for you to collect. Fall down or go up these areas using the elevators. Be carful around the mud though. It can be a bit slippery.";
          level = "7";
          music = "Tim Trance.ogg";
          name = "Matrix Playground";
          platinumTime = "60000";
-	 trivia = "The level was originally made in 2013. The version you're seeing here is visually similar to that of Ramp Matrix from Marble Blast Ultra.";
+         trivia = "The level was originally made in 2013. The version you\'re seeing here is visually similar to that of Ramp Matrix from Marble Blast Ultra.";
          type = "Custom";
          ultimateTime = "46000";
    };
@@ -450,11 +450,12 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new TSStatic() {
-      position = "0 0 0.5";
-      rotation = "1 0 0 0";
+   new InteriorInstance() {
+      position = "35.25 0 -14";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+      interiorFile = "~/data/interiors_bm/parts/bm_chevron_up1.dif";
+      showTerrainInside = "0";
    };
    new Trigger(finish) {
       position = "-1 1 0.5";
@@ -602,12 +603,17 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_up1.dif";
       showTerrainInside = "0";
    };
-   new InteriorInstance() {
-      position = "35.25 0 -14";
-      rotation = "0 0 1 90.0002";
+   new TSStatic() {
+      position = "0 0 0.5";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/parts/bm_chevron_up1.dif";
-      showTerrainInside = "0";
+      shapeName = "~/data/shapes_bm/pads/endpadcore_bm.dts";
+   };
+   new StaticShape() {
+      position = "0 0 0.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndPadEdge_BM";
    };
 };
 //--- OBJECT WRITE END ---

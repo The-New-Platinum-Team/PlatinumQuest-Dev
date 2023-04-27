@@ -284,17 +284,21 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new TSStatic() {
-      position = "35 2 33";
-      rotation = "0 0 -1 90.0002";
+      position = "64 2.05 17.5";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
    };
-   new Trigger(finish) {
-      position = "34 3 33";
-      rotation = "1 0 0 0";
-      scale = "2 2 10";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   new Item() {
+      position = "64 2 17.5";
+      rotation = "0 0 1 90.0002";
+      scale = "3 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
    new StaticShape(check1) {
       position = "11 2 16.51";
@@ -345,22 +349,42 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
-   new TSStatic() {
-      position = "64 2.05 17.5";
-      rotation = "0 0 1 90.0002";
+   new StaticShape() {
+      position = "35 -1.25 35";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+      dataBlock = "EndGatePole_BM";
    };
-   new Item() {
-      position = "64 2 17.5";
+   new StaticShape() {
+      position = "35 5.25 35";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndGatePole_BM";
+   };
+   new StaticShape() {
+      position = "35 5.25 33";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndGatePole_BM";
+   };
+   new StaticShape() {
+      position = "35 -1.25 33";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "EndGatePole_BM";
+   };
+   new Trigger(finish) {
+      position = "35 -1 33";
+      rotation = "0 0 -1 90.0002";
+      scale = "6 0 4";
+      dataBlock = "FinishTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new TSStatic() {
+      position = "35 2 35";
       rotation = "0 0 1 90.0002";
-      scale = "3 1 1";
-      dataBlock = "SuperSpeedItem_BMGate";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
+      scale = "3 1 2";
+      shapeName = "~/data/shapes_bm/pads/endgate_bm.dts";
    };
 };
 //--- OBJECT WRITE END ---

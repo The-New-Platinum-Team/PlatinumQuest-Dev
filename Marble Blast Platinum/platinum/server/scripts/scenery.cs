@@ -986,6 +986,20 @@ datablock StaticShapeData(Marblius) {
 	shapeFile = "~/data/shapes_pq/LevelParts/Marblius.dts";
 };
 
+datablock StaticShapeData(EndPadEdge_BM) {
+	className = "EndPadEdge";
+	superCategory = "Pads";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/pads/endpadedge_bm.dts";
+};
+
+datablock StaticShapeData(EndGatePole_BM) {
+	className = "EndGatePole";
+	superCategory = "Pads";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/pads/endgatepole_bm.dts";
+};
+
 datablock StaticShapeData(Propeller_BM_Base) {
 	className = "LevelParts";
 	superCategory = "Level Parts";

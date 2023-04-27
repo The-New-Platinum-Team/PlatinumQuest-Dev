@@ -321,10 +321,10 @@ new SimGroup(MissionGroup) {
          timeBonus = "5000";
    };
    new TSStatic() {
-      position = "0 118 18";
-      rotation = "0 0 1 180";
+      position = "14.8473 86.0178 18.5";
+      rotation = "0 0 1 157.5";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new Trigger(Bounds) {
       position = "-30.5 -18.5 -10.5";
@@ -333,12 +333,16 @@ new SimGroup(MissionGroup) {
       dataBlock = "InBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
-   new Trigger(finish) {
-      position = "-1 119 18";
-      rotation = "1 0 0 0";
-      scale = "2 2 12";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   new Item() {
+      position = "12.9995 85.2524 18.5";
+      rotation = "0 0 -1 22.5001";
+      scale = "3 1 1";
+      dataBlock = "HelicopterItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
    new StaticShape(check1) {
       position = "0 44 3.51";
@@ -398,22 +402,17 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
-   new TSStatic() {
-      position = "14.8473 86.0178 18.5";
-      rotation = "0 0 1 157.5";
+   new StaticShape(EndPoint) {
+      position = "0 118 18";
+      rotation = "0 0 1 180";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+      dataBlock = "EndPad_BM";
    };
-   new Item() {
-      position = "12.9995 85.2524 18.5";
-      rotation = "0 0 -1 22.5001";
-      scale = "3 1 1";
-      dataBlock = "HelicopterItem_BMGate";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
+   new StaticShape() {
+      position = "0 118 18";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "EndPadEdge_BM";
    };
 };
 //--- OBJECT WRITE END ---

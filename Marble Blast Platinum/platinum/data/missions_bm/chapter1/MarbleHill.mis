@@ -7,7 +7,7 @@ new SimGroup(MissionGroup) {
          artist = "James C.";
          awesomeTime = "24000";
          desc = "Make your way to the finish.";
-	 easterEggHint = "Try looking behind one of the signs.";
+         easterEggHint = "Try looking behind one of the signs.";
          game = "Blasted";
          gameMode = "null";
          generalHint = "This is a very simple level meant to help you get used to the main mechanics. Read the help text at the bottom of the screen to see how to control your marble.";
@@ -17,7 +17,7 @@ new SimGroup(MissionGroup) {
          persistStartHelpTextTime = "5999999";
          platinumTime = "50000";
          startHelpText = "Movement: <func:bind moveforward>, <func:bind moveleft>, <func:bind movebackward>, <func:bind moveright>\nLook: <func:bind panUp>, <func:bind panDown>, <func:bind turnLeft>, <func:bind turnRight> or Mouse\nJump: <func:bind jump>, PowerUp: <func:bind mousefire>";
-	 trivia = "The level's concept is based off of Foundation from Marble It Up Mayhem.";
+         trivia = "The level\'s concept is based off of Foundation from Marble It Up Mayhem.";
          type = "Custom";
          ultimateTime = "37000";
    };
@@ -117,12 +117,11 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new Trigger(finish) {
-      position = "49 95 27";
+   new StaticShape() {
+      position = "83 111 43";
       rotation = "1 0 0 0";
-      scale = "2 2 6";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      scale = "1 1 1";
+      dataBlock = "Propeller_BM_Base";
    };
    new Item() {
       position = "-35.65 33.35 3.85";
@@ -286,11 +285,12 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_left1.dif";
       showTerrainInside = "0";
    };
-   new TSStatic() {
-      position = "50 94 27";
-      rotation = "0 0 -1 90.0002";
-      scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+   new StaticShape() {
+      position = "83 107 43";
+      rotation = "1 0 0 180";
+      scale = "3 3 3";
+      dataBlock = "PropLarge1_BM";
+         skin = "bm";
    };
    new Item() {
       position = "26 4 11.5";
@@ -405,18 +405,17 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "Propeller_BM_Base";
    };
-   new StaticShape() {
-      position = "83 111 43";
+   new StaticShape(EndPoint) {
+      position = "50 94 27";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "Propeller_BM_Base";
+      dataBlock = "EndPad_BM";
    };
    new StaticShape() {
-      position = "83 107 43";
-      rotation = "1 0 0 180";
-      scale = "3 3 3";
-      dataBlock = "PropLarge1_BM";
-         skin = "bm";
+      position = "50 94 27";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "EndPadEdge_BM";
    };
 };
 //--- OBJECT WRITE END ---

@@ -362,17 +362,17 @@ new SimGroup(MissionGroup) {
          timeBonus = "3000";
    };
    new TSStatic() {
-      position = "0 -4 1";
-      rotation = "0 0 1 180";
-      scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
-   };
-   new Trigger(finish) {
-      position = "-1 -3 1";
+      position = "0 136 23";
       rotation = "1 0 0 0";
-      scale = "2 2 6";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      scale = "0.25 0.25 1";
+      shapeName = "~/data/shapes_bm/signs/bm_uturn.dts";
+   };
+   new Trigger(Bounds) {
+      position = "-25 -25.5 -3.25";
+      rotation = "1 0 0 0";
+      scale = "50 179 108.5";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new InteriorInstance() {
       position = "-18 5.5 5";
@@ -402,18 +402,17 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/chapter1/KeyAtTheSummitArch.dif";
       showTerrainInside = "0";
    };
-   new Trigger(Bounds) {
-      position = "-25 -25.5 -3.25";
-      rotation = "1 0 0 0";
-      scale = "50 179 108.5";
-      dataBlock = "InBoundsTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   new StaticShape(EndPoint) {
+      position = "3.69549e-006 -4 1";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "EndPad_BM";
    };
-   new TSStatic() {
-      position = "0 136 23";
+   new StaticShape() {
+      position = "1.19209e-007 -4 1";
       rotation = "1 0 0 0";
-      scale = "0.25 0.25 1";
-      shapeName = "~/data/shapes_bm/signs/bm_uturn.dts";
+      scale = "1 1 1";
+      dataBlock = "EndPadEdge_BM";
    };
 };
 //--- OBJECT WRITE END ---

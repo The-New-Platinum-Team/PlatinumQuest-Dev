@@ -241,7 +241,7 @@ datablock ParticleEmitterData(MarbleSuperJumpEmitter) {
 //-----------------------------------------------------------------------------
 
 datablock ParticleData(SuperSpeedParticle) {
-	textureName          = "~/data/particles/spark";
+	textureName          = "~/data/particles/powerup/spark";
 	dragCoefficient      = 0.25;
 	gravityCoefficient   = 0;
 	inheritedVelFactor   = 0.25;

@@ -460,17 +460,21 @@ new SimGroup(MissionGroup) {
          respawnPoint = "Check2";
    };
    new TSStatic() {
-      position = "-14 106 32.5";
-      rotation = "0 0 -1 90.0002";
+      position = "23.0833 -13 23.25";
+      rotation = "0 0 1 180";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
    };
-   new Trigger(finish) {
-      position = "-15 107 32.5";
+   new Item() {
+      position = "23 -13 23.25";
       rotation = "1 0 0 0";
-      scale = "2 2 6";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      scale = "4 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
    };
    new StaticShape() {
       position = "10 36 16";
@@ -1150,22 +1154,17 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
-   new TSStatic() {
-      position = "23.0833 -13 23.25";
-      rotation = "0 0 1 180";
+   new StaticShape(EndPoint) {
+      position = "-14 106 32.5";
+      rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+      dataBlock = "EndPad_BM";
    };
-   new Item() {
-      position = "23 -13 23.25";
-      rotation = "1 0 0 0";
-      scale = "4 1 1";
-      dataBlock = "SuperSpeedItem_BMGate";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
+   new StaticShape() {
+      position = "-14 106 32.5";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "EndPadEdge_BM";
    };
 };
 //--- OBJECT WRITE END ---

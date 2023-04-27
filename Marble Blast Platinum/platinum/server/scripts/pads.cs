@@ -144,7 +144,13 @@ datablock StaticShapeData(EndPad) {
 };
 
 datablock StaticShapeData(EndPad_BM : EndPad) {
-	shapeFile = "~/data/shapes_bm/pads/endarea.dts";
+	shapeFile = "~/data/shapes_bm/pads/endpadcore_bm.dts";
+	
+	skinCount = 0;
+};
+
+datablock StaticShapeData(EndPad_BMGate : EndPad) {
+	shapeFile = "~/data/shapes_bm/pads/endgate_bm.dts";
 	
 	skinCount = 0;
 };
