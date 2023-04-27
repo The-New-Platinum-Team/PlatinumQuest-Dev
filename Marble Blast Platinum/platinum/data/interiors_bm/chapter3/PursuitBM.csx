@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!--Torque Constructor Scene document http://www.garagegames.com-->
-<ConstructorScene version="4" creator="Torque Constructor" date="2022/10/25 22:21:11">
+<ConstructorScene version="4" creator="Torque Constructor" date="2022/10/26 08:49:37">
     <Sunlight azimuth="180" elevation="35" color="100 100 100" ambient="64 64 64" />
     <LightingOptions lightingSystem="" ineditor_defaultLightmapSize="256" ineditor_maxLightmapSize="256" ineditor_lightingPerformanceHint="0" ineditor_shadowPerformanceHint="1" ineditor_TAPCompatibility="0" ineditor_useSunlight="0" export_defaultLightmapSize="256" export_maxLightmapSize="256" export_lightingPerformanceHint="0" export_shadowPerformanceHint="1" export_TAPCompatibility="0" export_useSunlight="0" />
     <GameTypes>
@@ -18,7 +18,7 @@
             <InteriorMap brushScale="32" lightScale="8" ambientColor="0 0 0" ambientColorEmerg="0 0 0">
                 <Entities nextEntityID="9">
                     <Entity id="0" classname="worldspawn" gametype="Torque" isPointEntity="0">
-                        <Properties detail_number="0" min_pixels="250" geometry_scale="32" light_geometry_scale="8" ambient_color="0 0 0" emergency_ambient_color="0 0 0" mapversion="220" />
+                        <Properties detail_number="0" min_pixels="250" geometry_scale="32" light_geometry_scale="8" light_smoothing_scale="4.0" light_mesh_scale="1.0" ambient_color="0 0 0" emergency_ambient_color="0 0 0" mapversion="220" />
                     </Entity>
                     <Entity id="1" classname="Door_Elevator" gametype="Torque" isPointEntity="0">
                         <Properties InitialTargetPosition="0" datablock="PathedDefault" />
@@ -309,7 +309,7 @@
                         <Face id="3" plane="0 -1 0 -1" album="" material="bm_edge_white" texgens="1 0 0 640 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 768 0 -1 0 -1792 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 -3072 0 -1 0 2560 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -128 0 -1 0 -896 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -339,7 +339,7 @@
                         <Face id="3" plane="0 -1 0 -1" album="" material="bm_edge_white" texgens="1 0 0 640 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 768 0 -1 0 -1792 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 -4096 0 -1 0 2560 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -128 0 -1 0 -896 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -369,7 +369,7 @@
                         <Face id="3" plane="0 -1 0 -2" album="" material="bm_edge_white" texgens="1 0 0 640 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 768 0 -1 0 -1536 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 -3584 0 -1 0 3328 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -128 0 -1 0 -768 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -399,7 +399,7 @@
                         <Face id="3" plane="0 -1 0 -2" album="" material="bm_edge_white" texgens="1 0 0 640 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 768 0 -1 0 -1536 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 -4096 0 -1 0 3840 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -128 0 -1 0 -768 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -429,7 +429,7 @@
                         <Face id="3" plane="0 -1 0 -3" album="" material="bm_edge_white" texgens="1 0 0 640 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 768 0 -1 0 -1280 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 -3072 0 -1 0 4608 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -128 0 -1 0 -640 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -459,7 +459,7 @@
                         <Face id="3" plane="0 -1 0 -1" album="" material="bm_edge_white" texgens="1 0 0 640 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 768 0 -1 0 -1792 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 -3584 0 -1 0 4608 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -128 0 -1 0 -896 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -489,7 +489,7 @@
                         <Face id="3" plane="0 -1 0 -1" album="" material="bm_edge_white" texgens="1 0 0 640 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 768 0 -1 0 -1792 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_mud" texgens="1 0 0 -4096 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -128 0 -1 0 -896 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -627,7 +627,7 @@
                             <Vertex pos="-2.25 -6 0.25" />
                             <Vertex pos="-2.25 -6 -0.25" />
                         </Vertices>
-                        <Face id="0" plane="0.948683 -0.316228 0 -0.237172" album="" material="bm_edge_white" texgens="0 1 0 -1408 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="0" plane="0.948683 -0.316228 0 -0.237171" album="" material="bm_edge_white" texgens="0 1 0 -1408 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-0.948683 0.316228 0 -0.237171" album="" material="bm_edge_white" texgens="0 -1 0 1536 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -657,7 +657,7 @@
                             <Vertex pos="-2.25 -6 0.25" />
                             <Vertex pos="-2.25 -6 -0.25" />
                         </Vertices>
-                        <Face id="0" plane="0.948683 -0.316228 0 -0.237173" album="" material="bm_edge_white" texgens="0 1 0 -1408 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="0" plane="0.948683 -0.316228 0 -0.237171" album="" material="bm_edge_white" texgens="0 1 0 -1408 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-0.948683 0.316228 0 -0.237171" album="" material="bm_edge_white" texgens="0 -1 0 1536 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -1572,7 +1572,7 @@
                         <Face id="4" plane="-0.6 0 0.8 -0.199999" album="" material="bm_tile10_B" texgens="1 0 0 256 0 -1 0 -3328 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0.6 0 -0.8 -0.2" album="" material="bm_grid_blank4" texgens="-1 0 0 128 0 -1 0 -1664 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="0.6 0 -0.8 -0.199999" album="" material="bm_grid_blank4" texgens="-1 0 0 128 0 -1 0 -1664 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -1686,7 +1686,7 @@
                         <Face id="2" plane="0.707107 0.707107 -0 -2.12132" album="" material="bm_edge_white" texgens="-1 0 0 -2048 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
-                        <Face id="3" plane="-0.707106 -0.707107 -0 -2.12132" album="Blasted" material="bm_trim" texgens="1 0 0 2176 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="3" plane="-0.707107 -0.707107 -0 -2.12132" album="Blasted" material="bm_trim" texgens="1 0 0 2176 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
                         <Face id="4" plane="0 0 1 -0.25" album="" material="bm_tile10_B" texgens="1 0 0 2304 0 -1 0 -3584 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
@@ -1959,7 +1959,7 @@
                         <Face id="3" plane="0 -1 0 -3" album="" material="bm_edge_white" texgens="1 0 0 2176 0 0 -1 -64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.447214 0 0.894427 -0.223606" album="" material="bm_tile10_B" texgens="1 0 0 2304 0 -1 0 -2304 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="0.447214 0 0.894427 -0.223607" album="" material="bm_tile10_B" texgens="1 0 0 2304 0 -1 0 -2304 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="-0.447214 0 -0.894427 -0.223606" album="" material="bm_grid_blank4" texgens="-1 0 0 -896 0 -1 0 -1152 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -2007,7 +2007,7 @@
                             <Vertex pos="-0.249992 -3 3.24998" />
                             <Vertex pos="-0.249992 -3 -2.75005" />
                         </Vertices>
-                        <Face id="0" plane="1 -0 0 -0.249992" album="" material="bm_friction_sand" texgens="0 1 0 -3200 0 0 -1 -576.004 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="0" plane="1 -0 0 -0.249992" album="" material="bm_friction_sand" texgens="0 1 0 -8576 0 0 -1 63.9951 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-1 0 0 -0.249992" album="" material="bm_grid_blank4" texgens="0 -1 0 384 0 0 -1 415.998 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -2022,7 +2022,7 @@
                         <Face id="4" plane="-0 0 1 -3.24998" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 3328 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.707071 0 -0.707142 -2.12144" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 3328 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="-0.707069 0 -0.707145 -2.12145" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 3328 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2046,7 +2046,7 @@
                         <Face id="2" plane="0 1 -0 -0.25" album="" material="bm_edge_white" texgens="-1 0 0 576 0 0 -1 -576 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
-                        <Face id="3" plane="0 -1 3.17891e-007 -0.250001" album="" material="bm_edge_white" texgens="1 0 0 -448 0 0 -1 -576 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="3" plane="0 -1 3.32793e-007 -0.250001" album="" material="bm_edge_white" texgens="1 0 0 -448 0 0 -1 -576 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
                         <Face id="4" plane="-0 0 1 -3.25" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -2199,7 +2199,7 @@
                         <Face id="3" plane="0 -1 0 -0.5" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 32 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.242536 0.970143 -0.242535" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="0 -0.242536 0.970143 -0.242536" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0.242536 -0.970143 -0.242536" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -320 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -2262,7 +2262,7 @@
                         <Face id="4" plane="0 -0.6 0.8 -0.2" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0 0.6 -0.8 -0.2" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -320 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="0 0.599999 -0.8 -0.2" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -320 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2547,10 +2547,10 @@
                             <Vertex pos="-16 -4 4.25" />
                             <Vertex pos="-16 -4 3.75" />
                         </Vertices>
-                        <Face id="0" plane="0.707107 0.707107 0 -8.48527" album="" material="bm_edge_white" texgens="0 1 0 3968 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="0" plane="0.707106 0.707107 0 -8.48527" album="" material="bm_edge_white" texgens="0 1 0 3968 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
-                        <Face id="1" plane="-0.707107 0.707107 0 -8.48528" album="" material="bm_edge_white" texgens="0 -1 0 -3840 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="1" plane="-0.707106 0.707107 0 -8.48527" album="" material="bm_edge_white" texgens="0 -1 0 -3840 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
                         <Face id="2" plane="0 1 -0 -4" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -2559,10 +2559,10 @@
                         <Face id="3" plane="0 -1 0 -4" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0.707107 0.707107 -0.176776" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -3584 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0.707107 0.707107 -0.176777" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -3584 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0 -0.707107 -0.707107 -0.176776" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="-0 -0.707107 -0.707107 -0.176777" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2580,7 +2580,7 @@
                         <Face id="0" plane="1 -0 0 -2" album="" material="bm_edge_white" texgens="0 1 0 2688 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
-                        <Face id="1" plane="-1 -0 0 -2" album="" material="bm_edge_white" texgens="0 -1 0 -2560 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="1" plane="-1 0 0 -2" album="" material="bm_edge_white" texgens="0 -1 0 -2560 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
                         <Face id="2" plane="0 1 -0 -5" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -2589,10 +2589,10 @@
                         <Face id="3" plane="0.707107 -0.707107 0 -2.12132" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.707107 0 0.707107 -0.176786" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -2304 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="0.707107 0 0.707107 -0.176784" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -2304 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.707107 1.96685e-007 -0.707107 -0.176785" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1152 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="-0.707107 0 -0.707107 -0.176784" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1152 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2619,10 +2619,10 @@
                         <Face id="3" plane="0 -1 0 -5" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.707107 0 0.707107 -0.176786" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -3328 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="0.707107 0 0.707107 -0.176784" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -3328 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.707107 -1.96685e-007 -0.707107 -0.176786" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1664 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="-0.707107 0 -0.707107 -0.176784" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1664 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2643,16 +2643,16 @@
                         <Face id="1" plane="-1 0 0 -2" album="" material="bm_edge_white" texgens="0 -1 0 -1792 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="0.707107 0.707107 -0 -9.8995" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="2" plane="0.707107 0.707107 -0 -9.89949" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
                         <Face id="3" plane="0.707107 -0.707107 0 -9.8995" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.707107 0 0.707107 -0.176779" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -1536 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="0.707107 0 0.707107 -0.176777" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -1536 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.707107 0 -0.707107 -0.17678" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -768 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="-0.707107 0 -0.707107 -0.176777" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -768 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2679,10 +2679,10 @@
                         <Face id="3" plane="-0.707107 -0.707107 -0 -2.12132" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0.707107 -1.68587e-007 0.707107 -0.176774" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -2816 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0.707107 0 0.707107 -0.176777" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -2816 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0.707107 -6.7435e-008 -0.707107 -0.176774" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1408 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="0.707107 0 -0.707107 -0.176777" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1408 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2697,22 +2697,22 @@
                             <Vertex pos="-2 -4.99999 -1.75" />
                             <Vertex pos="-2 -4.99999 -2.25" />
                         </Vertices>
-                        <Face id="0" plane="1 0 0 -2" album="" material="bm_edge_white" texgens="0 1 0 4224 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="0" plane="1 -0 0 -2" album="" material="bm_edge_white" texgens="0 1 0 4224 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
-                        <Face id="1" plane="-1 -0 0 -2" album="" material="bm_edge_white" texgens="0 -1 0 -4096 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="1" plane="-1 0 0 -2" album="" material="bm_edge_white" texgens="0 -1 0 -4096 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="-0.707107 0.707107 0 -2.12132" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="2" plane="-0.707107 0.707106 0 -2.12132" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
                         <Face id="3" plane="0 -1 0 -4.99999" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0.707107 1.68588e-007 0.707107 -0.176774" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -3840 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0.707107 0 0.707107 -0.176777" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -3840 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0.707107 6.7435e-008 -0.707107 -0.176774" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1920 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="0.707107 0 -0.707107 -0.176777" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1920 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2733,16 +2733,16 @@
                         <Face id="1" plane="-1 0 0 -2" album="" material="bm_edge_white" texgens="0 -1 0 -2304 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="-0.707107 0.707107 0 -9.89949" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="2" plane="-0.707107 0.707107 0 -9.8995" album="" material="bm_edge_white" texgens="-1 0 0 256 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
                         <Face id="3" plane="-0.707107 -0.707107 -0 -9.89949" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1600 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0.707107 0 0.707107 -0.176779" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -2048 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0.707107 0 0.707107 -0.176777" album="" material="bm_tile10_B" texgens="1 0 0 0 0 -1 0 -2048 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0.707107 0 -0.707107 -0.176779" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1024 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="0.707107 0 -0.707107 -0.176777" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1024 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2769,10 +2769,10 @@
                         <Face id="3" plane="0 -1 0 -4" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.707107 0.707107 -0.176776" album="" material="bm_friction_sand" texgens="1 0 0 0 0 -1 0 -3584 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="0 -0.707107 0.707107 -0.176777" album="" material="bm_friction_sand" texgens="1 0 0 -20736 0 -1 0 -9088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0 0.707107 -0.707107 -0.176776" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="0 0.707107 -0.707107 -0.176777" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -2859,10 +2859,10 @@
                         <Face id="3" plane="0 -1 0 -4" album="" material="bm_edge_white" texgens="1 0 0 -128 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.707107 0.707107 -0.176778" album="" material="bm_friction_sand" texgens="1 0 0 0 0 -1 0 -3584 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="0 -0.707107 0.707107 -0.176777" album="" material="bm_friction_sand" texgens="1 0 0 -20736 0 -1 0 -11136 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0 0.707107 -0.707107 -0.176778" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="5" plane="0 0.707107 -0.707107 -0.176777" album="" material="bm_grid_blank4" texgens="-1 0 0 256 0 -1 0 -1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -3819,10 +3819,10 @@
                         <Face id="3" plane="0 -1 0 -0.25" album="" material="bm_edge_white" texgens="1 0 0 -2176 0.75 0 -1 64.0002 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0.6 0 0.8 -0.200001" album="" material="bm_edge_white" texgens="1 0 0 -1024 0 -1 0 3008 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="-0.6 0 0.8 -0.2" album="" material="bm_edge_white" texgens="1 0 0 -1024 0 -1 0 3008 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0.6 0 -0.8 -0.200001" album="" material="bm_edge_white" texgens="-1 0 0 1152 0 -1 0 3008 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="0.6 0 -0.8 -0.2" album="" material="bm_edge_white" texgens="-1 0 0 1152 0 -1 0 3008 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -4059,7 +4059,7 @@
                         <Face id="3" plane="0 -1 0 -0.25" album="" material="bm_edge_white" texgens="1 0 0 -128 -0.5 0 -1 63.9999 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.447214 0 0.894427 -0.223606" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0.447214 0 0.894427 -0.223607" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="-0.447214 0 -0.894427 -0.223606" album="" material="bm_edge_white" texgens="-1 0 0 -896 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -4089,10 +4089,10 @@
                         <Face id="3" plane="0 -1 0 -0.25" album="" material="bm_edge_white" texgens="1 0 0 -128 -0.75 0 -1 64.0013 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.600002 0 0.799998 -0.2" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0.600004 0 0.799997 -0.200002" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.6 0 -0.8 -0.200004" album="" material="bm_edge_white" texgens="-1 0 0 -896 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="-0.599999 0 -0.800001 -0.200002" album="" material="bm_edge_white" texgens="-1 0 0 -896 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -4149,7 +4149,7 @@
                         <Face id="3" plane="0 -1 0 -0.25" album="" material="bm_edge_white" texgens="1 0 0 1024 0 0 -1 -64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.447214 0 0.894427 -0.223606" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0.447214 0 0.894427 -0.223607" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="-0.447214 0 -0.894427 -0.223606" album="" material="bm_edge_white" texgens="-1 0 0 -896 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -4179,10 +4179,10 @@
                         <Face id="3" plane="0 -1 0 -0.25" album="" material="bm_edge_white" texgens="1 0 0 1024 0 0 -1 -128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.600002 0 0.799998 -0.2" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0.600004 0 0.799997 -0.200002" album="" material="bm_edge_white" texgens="1 0 0 1024 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.6 0 -0.8 -0.200004" album="" material="bm_edge_white" texgens="-1 0 0 -896 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="-0.599999 0 -0.800001 -0.200002" album="" material="bm_edge_white" texgens="-1 0 0 -896 0 -1 0 4032 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -4329,7 +4329,7 @@
                         <Face id="3" plane="0 -1 0 -0.5" album="" material="bm_edge_white" texgens="1 0 0 -448 0 0 -1 32 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.242536 0.970143 -0.242535" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0 -0.242536 0.970143 -0.242536" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0.242536 -0.970143 -0.242536" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -4392,7 +4392,7 @@
                         <Face id="4" plane="0 -0.6 0.8 -0.2" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0 0.6 -0.8 -0.2" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="0 0.599999 -0.8 -0.2" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -4449,7 +4449,7 @@
                         <Face id="3" plane="0 -1 0 -0.5" album="" material="bm_edge_white" texgens="1 0 0 -448 0 0 -1 32 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.242536 0.970143 -0.242535" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0 -0.242536 0.970143 -0.242536" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0.242536 -0.970143 -0.242536" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -4512,7 +4512,7 @@
                         <Face id="4" plane="0 -0.6 0.8 -0.2" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0 0.6 -0.8 -0.2" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="0 0.599999 -0.8 -0.2" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 5120 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -4719,10 +4719,10 @@
                         <Face id="3" plane="0 -1 0 -4" album="" material="bm_edge_white" texgens="1 0 0 -448 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.707107 0.707107 -0.176778" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0 -0.707107 0.707107 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0 0.707107 -0.707107 -0.176778" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="0 0.707107 -0.707107 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -4749,10 +4749,10 @@
                         <Face id="3" plane="0 -1 0 -4" album="" material="bm_edge_white" texgens="1 0 0 -448 0 0 -1 1088 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.707107 0.707107 -0.176778" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0 -0.707107 0.707107 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0 0.707107 -0.707107 -0.176778" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="0 0.707107 -0.707107 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -5382,7 +5382,7 @@
                         <Face id="4" plane="-0.707107 0 0.707107 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 -896 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="0.707107 0 -0.707107 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 -896 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="0.707106 0 -0.707107 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 -896 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -5469,7 +5469,7 @@
                         <Face id="3" plane="0 -1 0 -1.5" album="" material="bm_edge_white" texgens="1 0 0 -448 0 0 -1 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.707107 0 0.707107 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 -2944 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0.707106 0 0.707107 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 -448 0 -1 0 -2944 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="-0.707107 0 -0.707107 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 576 0 -1 0 -2944 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -5499,10 +5499,10 @@
                         <Face id="3" plane="0 -1 0 -0.25" album="" material="bm_edge_white" texgens="1 0 0 0 0 0 -1 576 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.707107 0 0.707107 -0.176775" album="" material="bm_edge_white" texgens="1 0 0 0 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0.707107 0 0.707107 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 0 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.707107 0 -0.707107 -0.176775" album="" material="bm_edge_white" texgens="-1 0 0 128 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="-0.707107 0 -0.707107 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 128 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -5529,10 +5529,10 @@
                         <Face id="3" plane="0 -1 0 -0.249998" album="" material="bm_edge_white" texgens="1 0 0 -384 -1 0 -1 63.9995 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0.707107 0 0.707107 -0.176775" album="" material="bm_edge_white" texgens="1 0 0 0 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="0.707107 0 0.707107 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 0 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0.707107 0 -0.707107 -0.176775" album="" material="bm_edge_white" texgens="-1 0 0 128 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="5" plane="-0.707107 0 -0.707107 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 128 0 -1 0 -2624 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -5642,28 +5642,28 @@
                         <Face id="0" plane="0.987688 0.156436 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.156438 0.987688 0 0.00566101 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="0.891006 0.453991 -0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.453991 0.891006 0 0.00483704 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="1" plane="0.891006 0.453992 -0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.453991 0.891006 0 0.00483704 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
                         <Face id="2" plane="0.707107 0.707107 -0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.707107 0.707107 0 0.00128174 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 7 6 4 5" />
                         </Face>
-                        <Face id="3" plane="0.453988 0.891008 -0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.891008 0.453988 0 0.00259399 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="3" plane="0.453987 0.891008 -0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.891008 0.453988 0 0.00259399 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 9 8 6 7" />
                         </Face>
                         <Face id="4" plane="0.156438 0.987688 -0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.987688 0.156437 0 -0.00746155 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 11 10 8 9" />
                         </Face>
-                        <Face id="5" plane="-0.156437 0.987688 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.987688 -0.156437 0 -0.00392151 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="5" plane="-0.156438 0.987688 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.987688 -0.156437 0 -0.00392151 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 13 12 10 11" />
                         </Face>
-                        <Face id="6" plane="-0.453977 0.891013 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.891011 -0.453983 0 -0.00743103 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="6" plane="-0.453979 0.891012 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.891011 -0.453983 0 -0.00743103 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 15 14 12 13" />
                         </Face>
-                        <Face id="7" plane="-0.707107 0.707107 0 -17.7785" album="" material="bm_grid_blank4" texgens="-0.707107 -0.707107 0 0 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="7" plane="-0.707107 0.707107 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.707107 -0.707107 0 0 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 17 16 14 15" />
                         </Face>
-                        <Face id="8" plane="-0.89101 0.453984 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.453988 -0.891008 0 0.0156937 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="8" plane="-0.891009 0.453987 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.453988 -0.891008 0 0.0156937 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 19 18 16 17" />
                         </Face>
                         <Face id="9" plane="-0.987688 0.156437 0 -17.7784" album="" material="bm_grid_blank4" texgens="-0.156437 -0.987688 0 0 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
@@ -5672,13 +5672,13 @@
                         <Face id="10" plane="-0.987688 -0.156438 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.156437 -0.987688 0 0.0154572 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 23 22 20 21" />
                         </Face>
-                        <Face id="11" plane="-0.891008 -0.453988 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.453989 -0.891007 0 0.000411987 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="11" plane="-0.891008 -0.453987 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.453989 -0.891007 0 0.000411987 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 25 24 22 23" />
                         </Face>
                         <Face id="12" plane="-0.707107 -0.707107 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.707107 -0.707107 0 0.000579834 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 27 26 24 25" />
                         </Face>
-                        <Face id="13" plane="-0.453991 -0.891006 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.891006 -0.453991 0 0.000289917 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="13" plane="-0.453992 -0.891006 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.891006 -0.453991 0 0.000289917 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 29 28 26 27" />
                         </Face>
                         <Face id="14" plane="-0.156437 -0.987688 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.987688 -0.156437 0 0.000457764 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
@@ -5687,22 +5687,22 @@
                         <Face id="15" plane="0.156437 -0.987688 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.987688 0.156437 0 0 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 33 32 30 31" />
                         </Face>
-                        <Face id="16" plane="0.453986 -0.891009 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.891009 0.453986 0 -0.0153961 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="16" plane="0.453987 -0.891008 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.891009 0.453986 0 -0.0153961 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 35 34 32 33" />
                         </Face>
-                        <Face id="17" plane="0.707115 -0.707098 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.707098 0.707116 0 0.0153897 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="17" plane="0.707116 -0.707098 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.707098 0.707116 0 0.0153897 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 37 36 34 35" />
                         </Face>
-                        <Face id="18" plane="0.891009 -0.453986 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.453986 0.891009 0 0.00775909 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="18" plane="0.891009 -0.453987 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.453986 0.891009 0 0.00775909 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 39 38 36 37" />
                         </Face>
-                        <Face id="19" plane="0.987687 -0.15644 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.156439 0.987688 0 -0.00428772 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
+                        <Face id="19" plane="0.987687 -0.156441 0 -17.7784" album="" material="bm_grid_blank4" texgens="0.156439 0.987688 0 -0.00428772 0 0 -1 1536 0 0.35198 0.25" texRot="0" texScale="0.35198 0.25" texDiv="256 256">
                             <Indices indices=" 39 3 2 38" />
                         </Face>
                         <Face id="20" plane="-0 0 -1 -12" album="" material="bm_grid_blank4" texgens="-1 0 0 -2048 0 -1 0 2304 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 38 2 0 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36" />
                         </Face>
-                        <Face id="21" plane="0 -0 1 -12" album="" material="bm_friction_grass" texgens="1 0 0 -1792 0 -1 0 2304 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
+                        <Face id="21" plane="0 -0 1 -12" album="" material="bm_friction_grass" texgens="1 0 0 -256 0 -1 0 -256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
                             <Indices indices=" 39 37 35 33 31 29 27 25 23 21 19 17 15 13 11 9 7 5 1 3" />
                         </Face>
                     </Brush>
@@ -5741,58 +5741,58 @@
                             <Vertex pos="12.9344 -5.35747 -14" />
                             <Vertex pos="12.9344 -5.35747 14" />
                         </Vertices>
-                        <Face id="0" plane="0.980787 0.195081 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195093 0.980785 0 -0.00830078 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="0" plane="0.980788 0.195078 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195093 0.980785 0 -0.00830078 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="0.831451 0.555598 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.555569 0.831471 0 0.00195313 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="1" plane="0.83145 0.5556 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.555569 0.831471 0 0.00195313 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
-                        <Face id="2" plane="0.555597 0.831452 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.831472 0.555566 0 0.00439453 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="2" plane="0.555601 0.831449 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.831472 0.555566 0 0.00439453 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 7 6 4 5" />
                         </Face>
-                        <Face id="3" plane="0.195082 0.980787 -0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 0.195092 0 -0.00585938 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="3" plane="0.195077 0.980788 -0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 0.195092 0 -0.00585938 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 9 8 6 7" />
                         </Face>
-                        <Face id="4" plane="-0.195076 0.980788 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 -0.195092 0 0.0020752 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="4" plane="-0.195072 0.980789 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 -0.195092 0 0.0020752 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 11 10 8 9" />
                         </Face>
-                        <Face id="5" plane="-0.555569 0.831471 0 -13.7311" album="" material="bm_grid_blank4" texgens="-0.831468 -0.555572 0 0.00743103 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="5" plane="-0.555571 0.831469 0 -13.7311" album="" material="bm_grid_blank4" texgens="-0.831468 -0.555572 0 0.00743103 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 13 12 10 11" />
                         </Face>
-                        <Face id="6" plane="-0.831477 0.555559 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.555574 -0.831467 0 0.00390625 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="6" plane="-0.831479 0.555556 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.555574 -0.831467 0 0.00390625 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 15 14 12 13" />
                         </Face>
-                        <Face id="7" plane="-0.980785 0.195093 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195092 -0.980785 0 -0.00463867 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="7" plane="-0.980784 0.195096 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195092 -0.980785 0 -0.00463867 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 17 16 14 15" />
                         </Face>
-                        <Face id="8" plane="-0.980785 -0.195093 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195092 -0.980785 0 0.000488281 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="8" plane="-0.980784 -0.195095 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195092 -0.980785 0 0.000488281 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 19 18 16 17" />
                         </Face>
-                        <Face id="9" plane="-0.831467 -0.555574 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555567 -0.831472 0 -0.00195313 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="9" plane="-0.831469 -0.555571 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555567 -0.831472 0 -0.00195313 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 21 20 18 19" />
                         </Face>
-                        <Face id="10" plane="-0.555592 -0.831455 0 -13.731" album="" material="bm_grid_blank4" texgens="0.831471 -0.555568 0 0.00341797 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="10" plane="-0.555595 -0.831453 0 -13.731" album="" material="bm_grid_blank4" texgens="0.831471 -0.555568 0 0.00341797 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 23 22 20 21" />
                         </Face>
-                        <Face id="11" plane="-0.195079 -0.980788 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 -0.195092 0 0.00585938 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="11" plane="-0.195075 -0.980788 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 -0.195092 0 0.00585938 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 25 24 22 23" />
                         </Face>
-                        <Face id="12" plane="0.195081 -0.980787 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 0.195092 0 -0.0020752 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="12" plane="0.195079 -0.980788 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 0.195092 0 -0.0020752 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 27 26 24 25" />
                         </Face>
-                        <Face id="13" plane="0.555597 -0.831452 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.831469 0.555572 0 0.000259399 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="13" plane="0.555599 -0.831451 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.831469 0.555572 0 0.000259399 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 29 28 26 27" />
                         </Face>
-                        <Face id="14" plane="0.831452 -0.555597 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555564 0.831474 0 -0.00537109 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="14" plane="0.831451 -0.555599 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555564 0.831474 0 -0.00537109 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 31 30 28 29" />
                         </Face>
-                        <Face id="15" plane="0.980787 -0.195082 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195094 0.980785 0 0.000488281 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="15" plane="0.980788 -0.195079 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195094 0.980785 0 0.000488281 0 0 -1 2816 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 31 3 2 30" />
                         </Face>
                         <Face id="16" plane="-0 0 -1 -14" album="" material="bm_grid_blank4" texgens="-1 0 0 -1536 0 -1 0 1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 30 2 0 4 6 8 10 12 14 16 18 20 22 24 26 28" />
                         </Face>
-                        <Face id="17" plane="-6.32876e-007 6.32877e-007 1 -14" album="" material="bm_friction_grass" texgens="1 0 0 -1280 0 -1 0 1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
+                        <Face id="17" plane="0 -0 1 -14" album="" material="bm_friction_grass" texgens="1 0 0 4096 0 -1 0 6400 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
                             <Indices indices=" 31 29 27 25 23 21 19 17 15 13 11 9 7 5 1 3" />
                         </Face>
                     </Brush>
@@ -5847,82 +5847,82 @@
                             <Vertex pos="23.1822 -6.21156 -12" />
                             <Vertex pos="23.1822 -6.21156 12" />
                         </Vertices>
-                        <Face id="0" plane="0.991444 0.130534 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.13053 0.991444 0 -0.00195313 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="0" plane="0.991444 0.130533 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.13053 0.991444 0 -0.00195313 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="0.923888 0.382663 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.382682 0.92388 0 0 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="1" plane="0.923889 0.38266 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.382682 0.92388 0 0 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
-                        <Face id="2" plane="0.793356 0.608758 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.608754 0.793359 0 -0.00390625 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="2" plane="0.793351 0.608764 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.608754 0.793359 0 -0.00390625 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 7 6 4 5" />
                         </Face>
-                        <Face id="3" plane="0.608758 0.793356 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.79336 0.608753 0 0.0078125 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="3" plane="0.608764 0.793351 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.79336 0.608753 0 0.0078125 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 9 8 6 7" />
                         </Face>
-                        <Face id="4" plane="0.382663 0.923888 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.923882 0.382678 0 -0.00439453 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="4" plane="0.382664 0.923887 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.923882 0.382678 0 -0.00439453 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 11 10 8 9" />
                         </Face>
-                        <Face id="5" plane="0.130533 0.991444 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.991444 0.130529 0 -0.00488281 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="5" plane="0.130531 0.991444 -0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.991444 0.130529 0 -0.00488281 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 13 12 10 11" />
                         </Face>
-                        <Face id="6" plane="-0.130527 0.991445 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.991444 -0.130529 0 -0.000488281 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="6" plane="-0.130526 0.991445 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.991444 -0.130529 0 -0.000488281 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 15 14 12 13" />
                         </Face>
-                        <Face id="7" plane="-0.382681 0.92388 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.923881 -0.38268 0 -0.00585938 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="7" plane="-0.38268 0.923881 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.923881 -0.38268 0 -0.00585938 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 17 16 14 15" />
                         </Face>
-                        <Face id="8" plane="-0.608758 0.793356 0 -23.7948" album="" material="bm_grid_blank4" texgens="-0.793352 -0.608763 0 0.00195313 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="8" plane="-0.608764 0.793351 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.793352 -0.608763 0 0.00195313 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 19 18 16 17" />
                         </Face>
-                        <Face id="9" plane="-0.793356 0.608759 0 -23.7948" album="" material="bm_grid_blank4" texgens="-0.608772 -0.793346 0 0.00512695 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="9" plane="-0.793351 0.608764 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.608772 -0.793346 0 0.00512695 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 21 20 18 19" />
                         </Face>
-                        <Face id="10" plane="-0.923881 0.38268 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.382681 -0.923881 0 0.0118103 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="10" plane="-0.923881 0.382679 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.382681 -0.923881 0 0.0118103 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 23 22 20 21" />
                         </Face>
-                        <Face id="11" plane="-0.991445 0.130526 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.130529 -0.991444 0 -0.000854492 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="11" plane="-0.991445 0.130525 0 -23.7947" album="" material="bm_grid_blank4" texgens="-0.130529 -0.991444 0 -0.000854492 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 25 24 22 23" />
                         </Face>
-                        <Face id="12" plane="-0.991445 -0.130528 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.130529 -0.991444 0 -0.000244141 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="12" plane="-0.991445 -0.130527 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.130529 -0.991444 0 -0.000244141 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 27 26 24 25" />
                         </Face>
-                        <Face id="13" plane="-0.923879 -0.382686 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.382679 -0.923881 0 -0.00439453 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="13" plane="-0.92388 -0.382682 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.382679 -0.923881 0 -0.00439453 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 29 28 26 27" />
                         </Face>
-                        <Face id="14" plane="-0.79336 -0.608753 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.608754 -0.793359 0 0.00390625 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="14" plane="-0.793351 -0.608764 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.608754 -0.793359 0 0.00390625 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 31 30 28 29" />
                         </Face>
-                        <Face id="15" plane="-0.608758 -0.793356 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.79336 -0.608753 0 -0.0078125 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="15" plane="-0.608764 -0.793352 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.79336 -0.608753 0 -0.0078125 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 33 32 30 31" />
                         </Face>
-                        <Face id="16" plane="-0.38268 -0.923881 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.92388 -0.382682 0 -0.00146484 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="16" plane="-0.382677 -0.923882 0 -23.7946" album="" material="bm_grid_blank4" texgens="0.92388 -0.382682 0 -0.00146484 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 35 34 32 33" />
                         </Face>
-                        <Face id="17" plane="-0.130528 -0.991445 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.991444 -0.130529 0 0.00488281 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="17" plane="-0.130531 -0.991444 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.991444 -0.130529 0 0.00488281 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 37 36 34 35" />
                         </Face>
-                        <Face id="18" plane="0.130528 -0.991445 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.991445 0.130529 0 0.00439453 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="18" plane="0.130531 -0.991444 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.991445 0.130529 0 0.00439453 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 39 38 36 37" />
                         </Face>
-                        <Face id="19" plane="0.38268 -0.923881 0 -23.7946" album="" material="bm_grid_blank4" texgens="0.923879 0.382684 0 -0.00244141 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="19" plane="0.382677 -0.923882 0 -23.7946" album="" material="bm_grid_blank4" texgens="0.923879 0.382684 0 -0.00244141 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 41 40 38 39" />
                         </Face>
-                        <Face id="20" plane="0.608764 -0.793351 0 -23.7946" album="" material="bm_grid_blank4" texgens="0.793352 0.608764 0 0.00390625 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="20" plane="0.608764 -0.793352 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.793352 0.608764 0 0.00390625 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 43 42 40 41" />
                         </Face>
-                        <Face id="21" plane="0.793356 -0.608758 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.608764 0.793351 0 0.00219727 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="21" plane="0.793357 -0.608756 0 -23.7946" album="" material="bm_grid_blank4" texgens="0.608764 0.793351 0 0.00219727 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 45 44 42 43" />
                         </Face>
-                        <Face id="22" plane="0.923884 -0.382672 0 -23.7946" album="" material="bm_grid_blank4" texgens="0.382669 0.923886 0 0.0153809 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="22" plane="0.923883 -0.382674 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.382669 0.923886 0 0.0153809 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 47 46 44 45" />
                         </Face>
-                        <Face id="23" plane="0.991444 -0.130534 0 -23.7946" album="" material="bm_grid_blank4" texgens="0.130531 0.991444 0 -0.00195313 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
+                        <Face id="23" plane="0.991444 -0.130531 0 -23.7947" album="" material="bm_grid_blank4" texgens="0.130531 0.991444 0 -0.00195313 0 0 -1 1536 0 0.391578 0.25" texRot="0" texScale="0.391578 0.25" texDiv="256 256">
                             <Indices indices=" 47 3 2 46" />
                         </Face>
                         <Face id="24" plane="-0 0 -1 -12" album="" material="bm_grid_blank4" texgens="-1 0 0 -2816 0 -1 0 3072 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 46 2 0 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44" />
                         </Face>
-                        <Face id="25" plane="-2.01982e-006 1.16613e-006 1 -11.9999" album="" material="bm_friction_grass" texgens="1 0 0 -2560 0 -1 0 3072 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
+                        <Face id="25" plane="0 -0 1 -12" album="" material="bm_friction_grass" texgens="1 0 0 -10624 0 -1 0 -4032 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
                             <Indices indices=" 47 45 43 41 39 37 35 33 31 29 27 25 23 21 19 17 15 13 11 9 7 5 1 3" />
                         </Face>
                     </Brush>
@@ -5991,58 +5991,58 @@
                             <Vertex pos="12.9344 -5.3575 -10" />
                             <Vertex pos="12.9344 -5.3575 10" />
                         </Vertices>
-                        <Face id="0" plane="0.980787 0.195083 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195093 0.980785 0 -0.00439453 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="0" plane="0.980788 0.195079 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195093 0.980785 0 -0.00439453 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="0.831451 0.555598 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.555569 0.831471 0 0.00219727 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="1" plane="0.831449 0.555601 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.555569 0.831471 0 0.00219727 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
-                        <Face id="2" plane="0.555601 0.831449 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.831472 0.555566 0 0.000976563 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="2" plane="0.555604 0.831447 -0 -13.7309" album="" material="bm_grid_blank4" texgens="-0.831472 0.555566 0 0.000976563 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 7 6 4 5" />
                         </Face>
-                        <Face id="3" plane="0.195082 0.980787 -0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 0.195092 0 -0.00805664 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="3" plane="0.195078 0.980788 -0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 0.195092 0 -0.00805664 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 9 8 6 7" />
                         </Face>
-                        <Face id="4" plane="-0.195082 0.980787 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 -0.195092 0 0.00488281 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="4" plane="-0.195077 0.980788 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.980785 -0.195092 0 0.00488281 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 11 10 8 9" />
                         </Face>
-                        <Face id="5" plane="-0.555554 0.83148 0 -13.7311" album="" material="bm_grid_blank4" texgens="-0.831468 -0.555572 0 0.00341797 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="5" plane="-0.555557 0.831478 0 -13.7311" album="" material="bm_grid_blank4" texgens="-0.831468 -0.555572 0 0.00341797 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 13 12 10 11" />
                         </Face>
-                        <Face id="6" plane="-0.831473 0.555566 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.555574 -0.831467 0 0.00732422 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="6" plane="-0.83147 0.55557 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.555574 -0.831467 0 0.00732422 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 15 14 12 13" />
                         </Face>
-                        <Face id="7" plane="-0.980787 0.195082 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195092 -0.980785 0 -0.00830078 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="7" plane="-0.980788 0.195077 0 -13.731" album="" material="bm_grid_blank4" texgens="-0.195092 -0.980785 0 -0.00830078 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 17 16 14 15" />
                         </Face>
-                        <Face id="8" plane="-0.980787 -0.195083 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195092 -0.980785 0 0.000244141 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="8" plane="-0.980788 -0.195078 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195092 -0.980785 0 0.000244141 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 19 18 16 17" />
                         </Face>
-                        <Face id="9" plane="-0.831452 -0.555597 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555567 -0.831472 0 -0.00127411 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="9" plane="-0.83145 -0.5556 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555567 -0.831472 0 -0.00127411 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 21 20 18 19" />
                         </Face>
-                        <Face id="10" plane="-0.555598 -0.831451 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.831471 -0.555568 0 0.000732422 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="10" plane="-0.5556 -0.83145 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.831471 -0.555568 0 0.000732422 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 23 22 20 21" />
                         </Face>
-                        <Face id="11" plane="-0.195081 -0.980787 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 -0.195092 0 0.00805664 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="11" plane="-0.195078 -0.980788 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 -0.195092 0 0.00805664 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 25 24 22 23" />
                         </Face>
-                        <Face id="12" plane="0.195082 -0.980787 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 0.195092 0 -0.00488281 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="12" plane="0.195077 -0.980788 0 -13.731" album="" material="bm_grid_blank4" texgens="0.980785 0.195092 0 -0.00488281 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 27 26 24 25" />
                         </Face>
-                        <Face id="13" plane="0.555597 -0.831452 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.831469 0.555572 0 -0.000976563 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="13" plane="0.5556 -0.83145 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.831469 0.555572 0 -0.000976563 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 29 28 26 27" />
                         </Face>
-                        <Face id="14" plane="0.831452 -0.555597 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555564 0.831474 0 -0.00390625 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="14" plane="0.831449 -0.555601 0 -13.7309" album="" material="bm_grid_blank4" texgens="0.555564 0.831474 0 -0.00390625 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 31 30 28 29" />
                         </Face>
-                        <Face id="15" plane="0.980787 -0.195082 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195094 0.980785 0 -0.00146484 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
+                        <Face id="15" plane="0.980788 -0.195077 0 -13.731" album="" material="bm_grid_blank4" texgens="0.195094 0.980785 0 -0.00146484 0 0 -1 3328 0 0.341408 0.25" texRot="0" texScale="0.341408 0.25" texDiv="256 256">
                             <Indices indices=" 31 3 2 30" />
                         </Face>
-                        <Face id="16" plane="-1.78989e-006 3.56016e-007 -1 -9.99998" album="" material="bm_grid_blank4" texgens="-1 0 0 -1536 0 -1 0 1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="16" plane="-0 0 -1 -10" album="" material="bm_grid_blank4" texgens="-1 0 0 -1536 0 -1 0 1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 30 2 0 4 6 8 10 12 14 16 18 20 22 24 26 28" />
                         </Face>
-                        <Face id="17" plane="1.26576e-006 -1.26576e-006 1 -10" album="" material="bm_friction_grass" texgens="1 0 0 -1280 0 -1 0 1792 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
+                        <Face id="17" plane="0 -0 1 -10" album="" material="bm_friction_grass" texgens="1 0 0 -5696 0 -1 0 3648 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
                             <Indices indices=" 31 29 27 25 23 21 19 17 15 13 11 9 7 5 1 3" />
                         </Face>
                     </Brush>
@@ -6069,7 +6069,7 @@
                         <Face id="3" plane="0 -1 0 -2" album="" material="bm_grid_blank4" texgens="1 0 0 512 0 0 -1 -1280 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -12" album="" material="bm_friction_grass" texgens="1 0 0 768 0 -1 0 256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -12" album="" material="bm_friction_grass" texgens="1 0 0 -5696 0 -1 0 2880 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -12" album="" material="bm_grid_blank4" texgens="-1 0 0 -256 0 -1 0 256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -6126,7 +6126,7 @@
                         <Face id="2" plane="-0.707107 0.707107 0 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 4352 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
-                        <Face id="3" plane="0.707107 -0.707107 0 -0.176779" album="" material="bm_edge_white" texgens="1 0 0 -4224 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="3" plane="0.707106 -0.707107 0 -0.176778" album="" material="bm_edge_white" texgens="1 0 0 -4224 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
                         <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_edge_white" texgens="1 0 0 -128 1 -1 0 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -6273,7 +6273,7 @@
                         <Face id="1" plane="-1 0 0 -1" album="" material="bm_edge_white" texgens="0 -1 0 2752 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="-0.707107 0.707107 0 -0.176778" album="" material="bm_edge_white" texgens="-1 0 0 4352 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="2" plane="-0.707106 0.707107 0 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 4352 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
                         <Face id="3" plane="0.707107 -0.707107 0 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 -4224 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -6402,7 +6402,7 @@
                         <Face id="4" plane="-0 0 1 -4.25" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0 -0.707106 -0.707107 -2.65165" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="5" plane="-0 -0.707107 -0.707107 -2.65165" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -6432,7 +6432,7 @@
                         <Face id="4" plane="-0 0 1 -4.25" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
-                        <Face id="5" plane="-0 -0.707106 -0.707107 -2.65165" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="5" plane="-0 -0.707107 -0.707107 -2.65165" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 3 1 5" />
                         </Face>
                     </Brush>
@@ -6513,10 +6513,10 @@
                         <Face id="1" plane="-1 0 0 -1" album="" material="bm_edge_white" texgens="0 -1 0 3776 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="-0.707107 0.707107 0 -0.176778" album="" material="bm_edge_white" texgens="-1 0 0 4352 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="2" plane="-0.707106 0.707107 0 -0.176777" album="" material="bm_edge_white" texgens="-1 0 0 4352 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
-                        <Face id="3" plane="0.707107 -0.707107 0 -0.176778" album="" material="bm_edge_white" texgens="1 0 0 -4224 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="3" plane="0.707106 -0.707107 0 -0.176777" album="" material="bm_edge_white" texgens="1 0 0 -4224 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
                         <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_edge_white" texgens="1 0 0 -128 1 -1 0 64.0005 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -6549,7 +6549,7 @@
                         <Face id="3" plane="0 -1 0 -2" album="" material="bm_grid_blank4" texgens="1 0 0 896 0 0 -1 -640 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.447214 0.894427 -5.36656" album="" material="bm_friction_grass" texgens="1 0 0 1152 0 -1 0 256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
+                        <Face id="4" plane="0 -0.447214 0.894427 -5.36656" album="" material="bm_friction_grass" texgens="1 0 0 -5312 0 -1 0 3392 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -7" album="" material="bm_grid_blank4" texgens="-1 0 0 -640 0 -1 0 256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -6567,19 +6567,19 @@
                             <Vertex pos="-2 -1 3" />
                             <Vertex pos="-2 -1 -4" />
                         </Vertices>
-                        <Face id="0" plane="0.496139 -0.868243 2.70374e-007 -0.868242" album="" material="bm_grid_blank4" texgens="0 1 0 128 0 0 -1 -256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="0" plane="0.496138 -0.868243 2.70374e-007 -0.868242" album="" material="bm_grid_blank4" texgens="0 1 0 128 0 0 -1 -256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-0.8 -0.6 0 -2.2" album="" material="bm_grid_blank4" texgens="0 -1 0 128 0 0 -1 -256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="0 1 0 -1" album="" material="bm_grid_blank4" texgens="-1 0 0 448 0 0 -1 -256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
+                        <Face id="2" plane="0 1 -0 -1" album="" material="bm_grid_blank4" texgens="-1 0 0 448 0 0 -1 -256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
                         <Face id="3" plane="0 -1 0 -1" album="" material="bm_grid_blank4" texgens="1 0 0 256 0 0 -1 -256 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="0 -0.447214 0.894427 -3.1305" album="" material="bm_friction_grass" texgens="1 0 0 1216 0 -1 0 128 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
+                        <Face id="4" plane="0 -0.447214 0.894427 -3.1305" album="" material="bm_friction_grass" texgens="1 0 0 -5760 0 -1 0 3264 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -4" album="" material="bm_grid_blank4" texgens="-1 0 0 -704 0 -1 0 128 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -6807,19 +6807,19 @@
                             <Vertex pos="-0.5 -1.43751 0.5" />
                             <Vertex pos="-0.5 -1.43751 -0.5" />
                         </Vertices>
-                        <Face id="0" plane="1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 144 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="0" plane="1 -0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 144 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="-0.6 0.8 0 -0.850005" album="" material="bm_beam" texgens="0 0 -1 127.999 1 0 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="2" plane="-0.600002 0.799998 0 -0.850005" album="" material="bm_beam" texgens="0 0 -1 127.999 1 0 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
-                        <Face id="3" plane="0.707107 -0.707107 0 -0.662917" album="" material="bm_beam" texgens="0 0 -1 128.001 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="3" plane="0.707108 -0.707105 0 -0.662917" album="" material="bm_beam" texgens="0 0 -1 128.001 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-8.41473e-008 1.12196e-007 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 144 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="4" plane="-0 0 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 144 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="-0 0 -1 -0.5" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 144 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -6837,7 +6837,7 @@
                             <Vertex pos="-4 -0.5 0.5" />
                             <Vertex pos="-4 -0.5 -0.5" />
                         </Vertices>
-                        <Face id="0" plane="0.707107 0.707107 0 -2.47488" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="0" plane="0.707107 0.707107 0 -2.47487" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-0.707107 0.707107 0 -2.47487" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -6900,7 +6900,7 @@
                         <Face id="0" plane="0.707107 -0.707107 0 -2.47487" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
-                        <Face id="1" plane="-0.707107 -0.707107 0 -2.47488" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="1" plane="-0.707107 -0.707107 0 -2.47487" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
                         <Face id="2" plane="0 1 -0 -0.5" album="" material="bm_beam" texgens="0 0 -1 127.999 1 0 0 768 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -6933,13 +6933,13 @@
                         <Face id="1" plane="-1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 144 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="0.707107 0.707107 -0 -0.66291" album="" material="bm_beam" texgens="0 0 -1 127.999 1 0 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="2" plane="0.707108 0.707105 -0 -0.66291" album="" material="bm_beam" texgens="0 0 -1 127.999 1 0 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
-                        <Face id="3" plane="-0.6 -0.8 -0 -0.849998" album="" material="bm_beam" texgens="0 0 -1 128.001 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="3" plane="-0.600001 -0.799999 -0 -0.849998" album="" material="bm_beam" texgens="0 0 -1 128.001 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-1.12197e-007 -1.12197e-007 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="4" plane="0 0 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.5" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -6955,7 +6955,7 @@
                             <Vertex pos="-0.5 -0.375 0.5" />
                             <Vertex pos="-0.5 -0.375 -0.5" />
                         </Vertices>
-                        <Face id="0" plane="0.600001 0.8 0 1.90735e-006" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="0" plane="0.600001 0.8 0 1.96695e-006" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -6980,7 +6980,7 @@
                             <Vertex pos="-0.5 0.375 0.5" />
                             <Vertex pos="-0.5 0.375 -0.5" />
                         </Vertices>
-                        <Face id="0" plane="0.600001 -0.8 0 1.90735e-006" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="0" plane="0.600001 -0.8 0 1.99676e-006" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
                         <Face id="1" plane="-1 -0 -0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -7037,7 +7037,7 @@
                             <Vertex pos="-0.5 -1.43749 0.5" />
                             <Vertex pos="-0.5 -1.43749 -0.5" />
                         </Vertices>
-                        <Face id="0" plane="1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 -112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="0" plane="1 -0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 -112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 368 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -7049,7 +7049,7 @@
                         <Face id="3" plane="-0.707107 -0.707107 -0 -1.37001" album="" material="bm_beam" texgens="0 0 -1 128.002 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="4.61457e-008 6.15277e-008 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 -112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="4" plane="0 0 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 -112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.5" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 -112 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -7109,7 +7109,7 @@
                         <Face id="3" plane="0.6 -0.8 0 -1.64999" album="" material="bm_beam" texgens="0 0 -1 128.002 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="6.15278e-008 -6.15278e-008 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 -400 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="4" plane="-0 0 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 -400 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="-0 0 -1 -0.5" album="" material="bm_beam" texgens="-1 0 0 128 0 -1 0 -400 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -7133,10 +7133,10 @@
                         <Face id="1" plane="-1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 1536 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
-                        <Face id="2" plane="0.707107 0.707107 -0 -3.8891" album="" material="bm_beam" texgens="0 0 -1 127.998 1 0 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="2" plane="0.707107 0.707107 -0 -3.88909" album="" material="bm_beam" texgens="0 0 -1 127.998 1 0 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
-                        <Face id="3" plane="0.707107 -0.707107 0 -3.8891" album="" material="bm_beam" texgens="0 0 -1 128.002 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="3" plane="0.707107 -0.707107 0 -3.88909" album="" material="bm_beam" texgens="0 0 -1 128.002 -1 0 0 640 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
                         <Face id="4" plane="0 0 1 -0.5" album="" material="bm_beam" texgens="1 0 0 128 0 -1 0 -1280 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -7158,7 +7158,7 @@
                         <Face id="0" plane="1 -0 0 -0.500008" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
-                        <Face id="1" plane="-0.599999 0.800001 0 -7.45058e-007" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="1" plane="-0.599999 0.800001 0 -7.7486e-007" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 5 1 0 4" />
                         </Face>
                         <Face id="2" plane="0 -1 0 -0.375004" album="" material="bm_beam" texgens="0 0 -1 128.002 -1 0 0 1920 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -7183,7 +7183,7 @@
                         <Face id="0" plane="1 0 0 -0.5" album="" material="bm_beam" texgens="0 0 -1 128 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="-0.600001 -0.799999 -0 -2.32458e-006" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
+                        <Face id="1" plane="-0.600001 -0.799999 -0 -2.41399e-006" album="" material="bm_beam" texgens="0 0 -1 128 0 1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
                         <Face id="2" plane="0 1 -0 -0.375004" album="" material="bm_beam" texgens="0 0 -1 127.999 1 0 0 -1152 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="256 256">
@@ -7339,7 +7339,7 @@
                         <Face id="3" plane="0 -1 0 -2" album="" material="bm_edge_white" texgens="1 0 0 1664 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_sand" texgens="1 0 0 1792 0 -1 0 -4608 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_sand" texgens="1 0 0 9856 0 -1 0 13568 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -640 0 -1 0 -2304 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -7369,7 +7369,7 @@
                         <Face id="3" plane="0 -1 0 -0.5" album="" material="bm_edge_white" texgens="1 0 0 1920 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_sand" texgens="1 0 0 2048 0 -1 0 -4224 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_sand" texgens="1 0 0 10112 0 -1 0 12928 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -768 0 -1 0 -2112 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -7390,7 +7390,7 @@
                         <Face id="0" plane="1 -0 0 -1.5" album="" material="bm_edge_white" texgens="0 1 0 4608 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
-                        <Face id="1" plane="-0.707107 0.707107 0 -0.707109" album="" material="bm_edge_white" texgens="0 -1 0 -4480 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="1" plane="-0.707108 0.707105 0 -0.70711" album="" material="bm_edge_white" texgens="0 -1 0 -4480 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 5 4 6" />
                         </Face>
                         <Face id="2" plane="0 1 -0 -0.5" album="" material="bm_edge_white" texgens="-1 0 0 -1920 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -7399,7 +7399,7 @@
                         <Face id="3" plane="0 -1 0 -0.5" album="" material="bm_edge_white" texgens="1 0 0 2048 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_sand" texgens="1 0 0 2176 0 -1 0 128 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
+                        <Face id="4" plane="-0 0 1 -0.25" album="" material="bm_friction_sand" texgens="1 0 0 10240 0 -1 0 12672 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="512 512">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.25" album="" material="bm_grid_blank4" texgens="-1 0 0 -832 0 -1 0 64 0 0.25 0.25" texRot="0" texScale="0.25 0.25" texDiv="256 256">
@@ -7417,7 +7417,7 @@
                             <Vertex pos="-1.5 -0.5 0.25" />
                             <Vertex pos="-1.5 -0.5 -0.25" />
                         </Vertices>
-                        <Face id="0" plane="0.707107 -0.707107 0 -0.707104" album="" material="bm_edge_white" texgens="0 1 0 4608 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="0" plane="0.707105 -0.707108 0 -0.707104" album="" material="bm_edge_white" texgens="0 1 0 4608 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-1 0 0 -1.5" album="" material="bm_edge_white" texgens="0 -1 0 -4480 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -7447,7 +7447,7 @@
                             <Vertex pos="-2 -0.5 0.25" />
                             <Vertex pos="-2 -0.5 -0.25" />
                         </Vertices>
-                        <Face id="0" plane="0.707107 -0.707107 0 -1.06066" album="" material="bm_edge_white" texgens="0 1 0 4608 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="0" plane="0.707105 -0.707108 0 -1.06066" album="" material="bm_edge_white" texgens="0 1 0 4608 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 3 2 0 1" />
                         </Face>
                         <Face id="1" plane="-1 0 0 -2" album="" material="bm_edge_white" texgens="0 -1 0 -4480 0 0 -1 64 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -7489,7 +7489,7 @@
                         <Face id="3" plane="0 -1 0 -1" album="" material="bm_edge_white" texgens="1 0 0 1088 0 0 -1 0 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 7 6 2 3" />
                         </Face>
-                        <Face id="4" plane="-0 0.242535 0.970143 -0.242535" album="" material="bm_edge_white" texgens="1 0 0 1088 0 -1 0 768 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
+                        <Face id="4" plane="-0 0.242536 0.970143 -0.242536" album="" material="bm_edge_white" texgens="1 0 0 1088 0 -1 0 768 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
                             <Indices indices=" 6 4 0 2" />
                         </Face>
                         <Face id="5" plane="0 0 -1 -0.5" album="" material="bm_edge_white" texgens="-1 0 0 -960 0 -1 0 768 0 0.125 0.125" texRot="0" texScale="0.125 0.125" texDiv="128 128">
@@ -7654,13 +7654,13 @@
                         <Face id="0" plane="0.980761 0.195211 0 -0.73557" album="" material="solid_bm" texgens="-0.195089 0.980786 0 4.68385 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="0.831606 0.555366 -0 -0.735528" album="" material="solid_bm" texgens="-0.555572 0.831468 0 14.044 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="1" plane="0.831608 0.555364 -0 -0.735528" album="" material="solid_bm" texgens="-0.555572 0.831468 0 14.044 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
-                        <Face id="2" plane="0.55539 0.83159 -0 -0.735532" album="" material="solid_bm" texgens="-0.831471 0.555569 0 23.4107 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="2" plane="0.555387 0.831592 -0 -0.735532" album="" material="solid_bm" texgens="-0.831471 0.555569 0 23.4107 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 7 6 4 5" />
                         </Face>
-                        <Face id="3" plane="0.195439 0.980716 -0 -0.735543" album="" material="solid_bm" texgens="-0.980786 0.195088 0 32.7749 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="3" plane="0.19544 0.980716 -0 -0.735543" album="" material="solid_bm" texgens="-0.980786 0.195088 0 32.7749 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 9 8 6 7" />
                         </Face>
                         <Face id="4" plane="-0.195438 0.980716 0 -0.735531" album="" material="solid_bm" texgens="-0.980784 -0.195095 0 42.1393 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
@@ -7672,37 +7672,37 @@
                         <Face id="6" plane="-0.831574 0.555414 0 -0.735539" album="" material="solid_bm" texgens="-0.555573 -0.831468 0 60.8666 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 15 14 12 13" />
                         </Face>
-                        <Face id="7" plane="-0.980765 0.195191 0 -0.735574" album="" material="solid_bm" texgens="-0.195092 -0.980785 0 70.2359 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="7" plane="-0.980765 0.195192 0 -0.735574" album="" material="solid_bm" texgens="-0.195092 -0.980785 0 70.2359 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 17 16 14 15" />
                         </Face>
-                        <Face id="8" plane="-0.980765 -0.19519 0 -0.735574" album="" material="solid_bm" texgens="0.195089 -0.980786 0 79.5961 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="8" plane="-0.980766 -0.19519 0 -0.735574" album="" material="solid_bm" texgens="0.195089 -0.980786 0 79.5961 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 19 18 16 17" />
                         </Face>
                         <Face id="9" plane="-0.831639 -0.555317 0 -0.735555" album="" material="solid_bm" texgens="0.555567 -0.831472 0 88.9574 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 21 20 18 19" />
                         </Face>
-                        <Face id="10" plane="-0.555317 -0.831639 0 -0.735529" album="" material="solid_bm" texgens="0.831471 -0.555569 0 98.3252 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="10" plane="-0.555315 -0.83164 0 -0.735529" album="" material="solid_bm" texgens="0.831471 -0.555569 0 98.3252 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 23 22 20 21" />
                         </Face>
-                        <Face id="11" plane="-0.195438 -0.980716 0 -0.735538" album="" material="solid_bm" texgens="0.980786 -0.195089 0 107.691 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="11" plane="-0.195438 -0.980716 0 -0.735537" album="" material="solid_bm" texgens="0.980786 -0.195089 0 107.691 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 25 24 22 23" />
                         </Face>
-                        <Face id="12" plane="0.195418 -0.98072 0 -0.73554" album="" material="solid_bm" texgens="0.980785 0.195092 0 117.055 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="12" plane="0.195416 -0.98072 0 -0.73554" album="" material="solid_bm" texgens="0.980785 0.195092 0 117.055 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 27 26 24 25" />
                         </Face>
-                        <Face id="13" plane="0.555342 -0.831622 0 -0.735541" album="" material="solid_bm" texgens="0.831468 0.555572 0 126.421 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="13" plane="0.555343 -0.831622 0 -0.735541" album="" material="solid_bm" texgens="0.831468 0.555572 0 126.421 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 29 28 26 27" />
                         </Face>
-                        <Face id="14" plane="0.831623 -0.555341 0 -0.735551" album="" material="solid_bm" texgens="0.555569 0.83147 0 135.786 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="14" plane="0.831622 -0.555342 0 -0.735551" album="" material="solid_bm" texgens="0.555569 0.83147 0 135.786 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 30 28 29" />
                         </Face>
-                        <Face id="15" plane="0.980765 -0.195192 0 -0.735574" album="" material="solid_bm" texgens="0.195087 0.980786 0 145.144 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="15" plane="0.980765 -0.195193 0 -0.735574" album="" material="solid_bm" texgens="0.195087 0.980786 0 145.144 0 0 -1 -608 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 3 2 30" />
                         </Face>
-                        <Face id="16" plane="-1.67028e-005 -3.32454e-006 -1 -19" album="" material="solid_bm" texgens="-1 0 0 0.499985 0 -1 0 0.5 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="16" plane="-0 0 -1 -19" album="" material="solid_bm" texgens="-1 0 0 0.499985 0 -1 0 0.5 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 30 2 0 4 6 8 10 12 14 16 18 20 22 24 26 28" />
                         </Face>
-                        <Face id="17" plane="-3.30327e-005 3.77289e-005 1 -19" album="" material="solid_bm" texgens="1 0 0 0.500015 0 -1 0 0.5 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="17" plane="0 -0 1 -19" album="" material="solid_bm" texgens="1 0 0 0.500015 0 -1 0 0.5 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 29 27 25 23 21 19 17 15 13 11 9 7 5 1 3" />
                         </Face>
                     </Brush>
@@ -7741,58 +7741,58 @@
                             <Vertex pos="0.692904 -0.286884 -21" />
                             <Vertex pos="0.692904 -0.286884 21" />
                         </Vertices>
-                        <Face id="0" plane="0.980765 0.195193 0 -0.735575" album="" material="solid_bm" texgens="-0.195089 0.980786 0 4.68213 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="0" plane="0.980765 0.195194 0 -0.735575" album="" material="solid_bm" texgens="-0.195089 0.980786 0 4.68213 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="0.831573 0.555416 -0 -0.735534" album="" material="solid_bm" texgens="-0.555572 0.831468 0 14.0455 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="1" plane="0.831573 0.555415 -0 -0.735534" album="" material="solid_bm" texgens="-0.555572 0.831468 0 14.0455 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
                         <Face id="2" plane="0.55554 0.83149 -0 -0.73556" album="" material="solid_bm" texgens="-0.831471 0.555569 0 23.412 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 7 6 4 5" />
                         </Face>
-                        <Face id="3" plane="0.195317 0.98074 -0 -0.735545" album="" material="solid_bm" texgens="-0.980786 0.195088 0 32.7772 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="3" plane="0.195316 0.98074 -0 -0.735545" album="" material="solid_bm" texgens="-0.980786 0.195088 0 32.7772 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 9 8 6 7" />
                         </Face>
-                        <Face id="4" plane="-0.195381 0.980727 0 -0.735556" album="" material="solid_bm" texgens="-0.980784 -0.195095 0 42.1395 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="4" plane="-0.195381 0.980728 0 -0.735556" album="" material="solid_bm" texgens="-0.980784 -0.195095 0 42.1395 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 11 10 8 9" />
                         </Face>
-                        <Face id="5" plane="-0.555642 0.831422 0 -0.735555" album="" material="solid_bm" texgens="-0.831471 -0.555568 0 51.5058 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="5" plane="-0.555643 0.831421 0 -0.735555" album="" material="solid_bm" texgens="-0.831471 -0.555568 0 51.5058 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 13 12 10 11" />
                         </Face>
-                        <Face id="6" plane="-0.831521 0.555494 0 -0.735529" album="" material="solid_bm" texgens="-0.555573 -0.831468 0 60.8665 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="6" plane="-0.831519 0.555496 0 -0.735529" album="" material="solid_bm" texgens="-0.555573 -0.831468 0 60.8665 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 15 14 12 13" />
                         </Face>
-                        <Face id="7" plane="-0.980765 0.195193 0 -0.735573" album="" material="solid_bm" texgens="-0.195092 -0.980785 0 70.2316 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="7" plane="-0.980765 0.195192 0 -0.735573" album="" material="solid_bm" texgens="-0.195092 -0.980785 0 70.2316 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 17 16 14 15" />
                         </Face>
-                        <Face id="8" plane="-0.980765 -0.195191 0 -0.735575" album="" material="solid_bm" texgens="0.195089 -0.980786 0 79.5977 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="8" plane="-0.980765 -0.195192 0 -0.735574" album="" material="solid_bm" texgens="0.195089 -0.980786 0 79.5977 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 19 18 16 17" />
                         </Face>
-                        <Face id="9" plane="-0.831671 -0.555268 0 -0.735567" album="" material="solid_bm" texgens="0.555567 -0.831472 0 88.9562 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="9" plane="-0.831673 -0.555266 0 -0.735567" album="" material="solid_bm" texgens="0.555567 -0.831472 0 88.9562 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 21 20 18 19" />
                         </Face>
                         <Face id="10" plane="-0.555248 -0.831685 0 -0.73555" album="" material="solid_bm" texgens="0.831471 -0.555569 0 98.3279 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 23 22 20 21" />
                         </Face>
-                        <Face id="11" plane="-0.195387 -0.980726 0 -0.735536" album="" material="solid_bm" texgens="0.980786 -0.195089 0 107.69 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="11" plane="-0.195386 -0.980726 0 -0.735536" album="" material="solid_bm" texgens="0.980786 -0.195089 0 107.69 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 25 24 22 23" />
                         </Face>
-                        <Face id="12" plane="0.19543 -0.980718 0 -0.735547" album="" material="solid_bm" texgens="0.980785 0.195092 0 117.055 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="12" plane="0.195431 -0.980718 0 -0.735547" album="" material="solid_bm" texgens="0.980785 0.195092 0 117.055 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 27 26 24 25" />
                         </Face>
-                        <Face id="13" plane="0.555398 -0.831585 0 -0.73555" album="" material="solid_bm" texgens="0.831468 0.555572 0 126.421 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="13" plane="0.555397 -0.831585 0 -0.73555" album="" material="solid_bm" texgens="0.831468 0.555572 0 126.421 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 29 28 26 27" />
                         </Face>
-                        <Face id="14" plane="0.831619 -0.555347 0 -0.735552" album="" material="solid_bm" texgens="0.555569 0.83147 0 135.786 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="14" plane="0.831619 -0.555346 0 -0.735552" album="" material="solid_bm" texgens="0.555569 0.83147 0 135.786 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 30 28 29" />
                         </Face>
-                        <Face id="15" plane="0.980766 -0.195189 0 -0.735573" album="" material="solid_bm" texgens="0.195087 0.980786 0 145.143 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="15" plane="0.980766 -0.195188 0 -0.735573" album="" material="solid_bm" texgens="0.195087 0.980786 0 145.143 0 0 -1 -672 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 3 2 30" />
                         </Face>
                         <Face id="16" plane="-0 0 -1 -21" album="" material="solid_bm" texgens="-1 0 0 0.5 0 -1 0 0.499878 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 30 2 0 4 6 8 10 12 14 16 18 20 22 24 26 28" />
                         </Face>
-                        <Face id="17" plane="2.83003e-005 -1.88986e-005 1 -21" album="" material="solid_bm" texgens="1 0 0 0.5 0 -1 0 0.499878 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="17" plane="0 -0 1 -21" album="" material="solid_bm" texgens="1 0 0 0.5 0 -1 0 0.499878 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 29 27 25 23 21 19 17 15 13 11 9 7 5 1 3" />
                         </Face>
                     </Brush>
@@ -7834,10 +7834,10 @@
                         <Face id="0" plane="0.980704 0.195497 0 -0.735525" album="" material="solid_bm" texgens="-0.195089 0.980786 0 4.68762 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 3 1 0 2" />
                         </Face>
-                        <Face id="1" plane="0.831709 0.555211 -0 -0.735494" album="" material="solid_bm" texgens="-0.555572 0.831468 0 14.0396 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="1" plane="0.83171 0.555211 -0 -0.735494" album="" material="solid_bm" texgens="-0.555572 0.831468 0 14.0396 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 5 4 0 1" />
                         </Face>
-                        <Face id="2" plane="0.555199 0.831717 -0 -0.735494" album="" material="solid_bm" texgens="-0.831471 0.555569 0 23.4097 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="2" plane="0.555198 0.831718 -0 -0.735494" album="" material="solid_bm" texgens="-0.831471 0.555569 0 23.4097 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 7 6 4 5" />
                         </Face>
                         <Face id="3" plane="0.195507 0.980702 -0 -0.735526" album="" material="solid_bm" texgens="-0.980786 0.195088 0 32.7791 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
@@ -7846,43 +7846,43 @@
                         <Face id="4" plane="-0.195302 0.980743 0 -0.735566" album="" material="solid_bm" texgens="-0.980784 -0.195095 0 42.1433 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 11 10 8 9" />
                         </Face>
-                        <Face id="5" plane="-0.555687 0.831391 0 -0.735592" album="" material="solid_bm" texgens="-0.831471 -0.555568 0 51.5059 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="5" plane="-0.555687 0.831392 0 -0.735592" album="" material="solid_bm" texgens="-0.831471 -0.555568 0 51.5059 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 13 12 10 11" />
                         </Face>
-                        <Face id="6" plane="-0.831721 0.555193 0 -0.735499" album="" material="solid_bm" texgens="-0.555573 -0.831468 0 60.8668 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="6" plane="-0.831721 0.555194 0 -0.735499" album="" material="solid_bm" texgens="-0.555573 -0.831468 0 60.8668 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 15 14 12 13" />
                         </Face>
-                        <Face id="7" plane="-0.9807 0.195517 0 -0.735534" album="" material="solid_bm" texgens="-0.195092 -0.980785 0 70.2361 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="7" plane="-0.9807 0.195517 0 -0.735535" album="" material="solid_bm" texgens="-0.195092 -0.980785 0 70.2361 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 17 16 14 15" />
                         </Face>
                         <Face id="8" plane="-0.980703 -0.195502 0 -0.735534" album="" material="solid_bm" texgens="0.195089 -0.980786 0 79.5923 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 19 18 16 17" />
                         </Face>
-                        <Face id="9" plane="-0.831717 -0.555199 0 -0.735502" album="" material="solid_bm" texgens="0.555567 -0.831472 0 88.9595 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="9" plane="-0.831716 -0.555201 0 -0.735502" album="" material="solid_bm" texgens="0.555567 -0.831472 0 88.9595 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 21 20 18 19" />
                         </Face>
                         <Face id="10" plane="-0.55519 -0.831723 0 -0.735497" album="" material="solid_bm" texgens="0.831471 -0.555569 0 98.3206 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 23 22 20 21" />
                         </Face>
-                        <Face id="11" plane="-0.195504 -0.980703 0 -0.735532" album="" material="solid_bm" texgens="0.980786 -0.195089 0 107.689 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="11" plane="-0.195505 -0.980703 0 -0.735532" album="" material="solid_bm" texgens="0.980786 -0.195089 0 107.689 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 25 24 22 23" />
                         </Face>
-                        <Face id="12" plane="0.195499 -0.980704 0 -0.735538" album="" material="solid_bm" texgens="0.980785 0.195092 0 117.059 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="12" plane="0.195501 -0.980703 0 -0.735538" album="" material="solid_bm" texgens="0.980785 0.195092 0 117.059 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 27 26 24 25" />
                         </Face>
-                        <Face id="13" plane="0.555196 -0.831719 0 -0.735503" album="" material="solid_bm" texgens="0.831468 0.555572 0 126.419 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="13" plane="0.555195 -0.83172 0 -0.735503" album="" material="solid_bm" texgens="0.831468 0.555572 0 126.419 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 29 28 26 27" />
                         </Face>
-                        <Face id="14" plane="0.831721 -0.555193 0 -0.735497" album="" material="solid_bm" texgens="0.555569 0.83147 0 135.786 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="14" plane="0.831721 -0.555194 0 -0.735497" album="" material="solid_bm" texgens="0.555569 0.83147 0 135.786 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 30 28 29" />
                         </Face>
-                        <Face id="15" plane="0.980704 -0.195499 0 -0.735531" album="" material="solid_bm" texgens="0.195087 0.980786 0 145.145 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="15" plane="0.980704 -0.195498 0 -0.735531" album="" material="solid_bm" texgens="0.195087 0.980786 0 145.145 0 0 -1 -864 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 3 2 30" />
                         </Face>
                         <Face id="16" plane="-0 0 -1 -27" album="" material="solid_bm" texgens="-1 0 0 0.5 0 -1 0 0.5 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 30 2 0 4 6 8 10 12 14 16 18 20 22 24 26 28" />
                         </Face>
-                        <Face id="17" plane="-1.88658e-005 2.82622e-005 1 -27" album="" material="solid_bm" texgens="1 0 0 0.5 0 -1 0 0.5 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
+                        <Face id="17" plane="0 -0 1 -27" album="" material="solid_bm" texgens="1 0 0 0.5 0 -1 0 0.5 0 1 1" texRot="0" texScale="1 1" texDiv="128 128">
                             <Indices indices=" 31 29 27 25 23 21 19 17 15 13 11 9 7 5 1 3" />
                         </Face>
                     </Brush>
