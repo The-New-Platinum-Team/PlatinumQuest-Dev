@@ -39,7 +39,7 @@ function Mode_king::onMissionReset(%this) {
 	MPupdateCollisionKing();
 }
 function Mode_king::onFoundGem(%this, %object) {
-//	%object.client.playPitchedSound("gotDiamond");
+//	%object.client.play2D("gotPoint");
 }
 function Mode_king::getStartTime(%this) {
 	return (MissionInfo.time ? MissionInfo.time : 300000);
@@ -100,6 +100,9 @@ function GameConnection::updateKingTrigger(%this) {
 
 datablock TriggerData(KingTrigger) {
 	tickPeriodMS = 100;
+	greenMessageColor = "99ff99";
+	grayMessageColor = "cccccc";
+	redMessageColor = "ff9999";
 
 	customField[0, "field"  ] = "multiplier";
 	customField[0, "type"   ] = "float";
