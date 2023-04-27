@@ -267,7 +267,7 @@ new SimGroup(MaterialGroup) {
 
 	new MaterialProperty(BMBouncyMaterial) {
 		friction = 0.2;
-		restitution = 1;
+		restitution = 2;
 		force = 15;
 	};
 };
