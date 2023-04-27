@@ -425,6 +425,10 @@ addMaterialMapping("bm_friction_ice" , BMIceMaterial);
 addMaterialMapping("bm_friction_bounce_high" , BMHighBouncyMaterial);
 addMaterialMapping("bm_friction_bounce_med" , BMMedBouncyMaterial);
 addMaterialMapping("bm_friction_bounce_low" , BMLowBouncyMaterial);
+addMaterialMapping("bm_bumper_black" , BumperMaterial);
+addMaterialMapping("bm_bumper_center" , BumperMaterial);
+addMaterialMapping("bm_bumper_gray" , BumperMaterial);
+addMaterialMapping("bm_bumper_ring" , BumperMaterial);
 
 // Spooky texturing
 addMaterialMapping("spooky_acidwater" , SpookyWaterMaterial);

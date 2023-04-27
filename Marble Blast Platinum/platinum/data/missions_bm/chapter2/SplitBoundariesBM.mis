@@ -442,95 +442,103 @@ new SimGroup(MissionGroup) {
          center = "1";
          gravity = "0";
    };
-   new StaticShape(EndPoint) {
-      position = "2 110 11.5022";
+   new Trigger(Bounds) {
+      position = "-36.5 -18.5 -6.5";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "EndPad_MBG";
+      scale = "75 147 68.2045";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new StaticShape() {
-      position = "-17.0968 27.8656 5.7";
+      position = "-17.0968 27.8656 5.625";
       rotation = "0 0 -1 22.5001";
       scale = "1 1 1";
-      dataBlock = "TriangleBumper";
+      dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
-      position = "-14.6752 33.368 5.7";
+      position = "-14.6752 33.368 5.625";
       rotation = "0 0 1 45";
       scale = "1 1 1";
-      dataBlock = "TriangleBumper";
+      dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
-      position = "-14.8983 40.5923 4.7";
+      position = "-14.8983 40.5923 4.625";
       rotation = "0 0 1 157.5";
       scale = "1 1 1";
-      dataBlock = "TriangleBumper";
+      dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
-      position = "-17.7481 44.1059 4.7";
+      position = "-17.7481 44.1059 4.625";
       rotation = "0 0 1 45.0004";
       scale = "1 1 1";
-      dataBlock = "TriangleBumper";
+      dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
-      position = "-15.1905 47.3461 4.7";
+      position = "-15.1905 47.3461 4.625";
       rotation = "0 0 1 236.25";
       scale = "1 1 1";
-      dataBlock = "TriangleBumper";
+      dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
-      position = "-14.2578 73.734 5.7";
+      position = "-14.2578 73.734 5.625";
       rotation = "0 0 1 236.25";
       scale = "1 1 1";
-      dataBlock = "TriangleBumper";
+      dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
-      position = "-17.6019 83.0418 6.7";
+      position = "-17.6019 83.0418 6.625";
       rotation = "0 0 1 11.2503";
       scale = "1 1 1";
-      dataBlock = "TriangleBumper";
+      dataBlock = "RoundBumper_BM";
    };
    new StaticShape() {
       position = "17.5235 26.9381 4.50208";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "RoundBumper";
+      dataBlock = "LandMine_BM";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "15.1893 24.2648 4.50208";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "RoundBumper";
+      dataBlock = "LandMine_BM";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "21.5164 37.5051 2.50207";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "RoundBumper";
+      dataBlock = "LandMine_BM";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "18.5364 41.0564 2.50207";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "RoundBumper";
+      dataBlock = "LandMine_BM";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "20.9726 44.561 2.50207";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "RoundBumper";
+      dataBlock = "LandMine_BM";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "20.7092 78.5651 4.50208";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "RoundBumper";
+      dataBlock = "LandMine_BM";
+         resettime = "Default";
    };
    new StaticShape() {
       position = "19.1236 83.3529 4.50208";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "RoundBumper";
+      dataBlock = "LandMine_BM";
+         resettime = "Default";
    };
    new Item() {
       position = "-16 45 4.55";
@@ -688,13 +696,13 @@ new SimGroup(MissionGroup) {
       position = "19.9995 20 6";
       rotation = "0 1 0 90.0002";
       scale = "1 1 1";
-      dataBlock = "DuctFan";
+      dataBlock = "DuctFan_BM";
    };
    new StaticShape() {
       position = "12.0005 68 8";
       rotation = "0 -1 0 90.0002";
       scale = "1 1 1";
-      dataBlock = "DuctFan";
+      dataBlock = "DuctFan_BM";
    };
    new InteriorInstance() {
       position = "-12 100 7";
@@ -717,12 +725,18 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
       showTerrainInside = "0";
    };
-   new Trigger(Bounds) {
-      position = "-36.5 -18.5 -6.5";
+   new TSStatic() {
+      position = "2 110 11.5";
       rotation = "1 0 0 0";
-      scale = "75 147 68.2045";
-      dataBlock = "InBoundsTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
+   };
+   new Trigger(finish) {
+      position = "1 111 11.5";
+      rotation = "1 0 0 0";
+      scale = "2 2 6";
+      dataBlock = "FinishTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
 };
 //--- OBJECT WRITE END ---
