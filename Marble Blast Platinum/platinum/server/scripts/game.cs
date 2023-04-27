@@ -278,7 +278,6 @@ function onMissionLoaded() {
 	MPinitLoops();
 	serverCbOnMissionLoaded();
 	buildPhysmodEmitters(MissionGroup);
-	buildKingTrigEmitters(MissionGroup);
 	serverSendCallback("OnMissionLoaded");
 	Mode::callback("onMissionLoaded", "");
 }
