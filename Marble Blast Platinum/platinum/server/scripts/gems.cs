@@ -265,8 +265,6 @@ datablock ItemData(GemItemPlatinum: GemItem) {
 	customField[0, "field"] = "";
 };
 
-<<<<<<< HEAD
-=======
 datablock ItemData(GemItemSpecialPurple: GemItem) {
 	skin = "specialpurple";
  	huntExtraValue = 9; //10 pts
@@ -307,7 +305,6 @@ datablock ItemData(GemItemRainbow: GemItem) {
 	customField[0, "field"] = "";
 };
 
->>>>>>> ebfd317b (Potential BM gem hunt mode?)
 datablock ItemData(GemItem_PQ : GemItem) {
 	superCategory = "gems";
 	category = "PlatinumQuest";
