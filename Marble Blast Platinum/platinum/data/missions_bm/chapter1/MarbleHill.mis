@@ -105,26 +105,20 @@ new SimGroup(MissionGroup) {
          gravity = "0";
    };
    new Item() {
-      position = "-45 27 3.2";
+      position = "-45 27 3";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem";
+      dataBlock = "SuperJumpItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
    };
-   new Item() {
-      position = "26 4 11.7";
+   new Trigger(finish) {
+      position = "49 95 27";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperJumpItem";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         showHelpOnPickup = "0";
+      scale = "2 2 6";
+      dataBlock = "FinishTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Item() {
       position = "-35.65 33.35 3.85";
@@ -141,6 +135,7 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 -1 45.0001";
       scale = "1 1 1";
       dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
          disableOOB = "0";
          gravity = "0";
    };
@@ -158,6 +153,7 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 1 180";
       scale = "1 1 1";
       dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
          disableOOB = "0";
          gravity = "0";
    };
@@ -175,6 +171,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
          disableOOB = "0";
          gravity = "0";
    };
@@ -291,12 +288,14 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/pads/endpad_bm.dts";
    };
-   new Trigger(finish) {
-      position = "49 95 27";
+   new Item() {
+      position = "26 4 11.5";
       rotation = "1 0 0 0";
-      scale = "2 2 6";
-      dataBlock = "FinishTrigger";
-      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
    };
 };
 //--- OBJECT WRITE END ---
