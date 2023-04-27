@@ -39,6 +39,13 @@ datablock StaticShapeData(StartPad) {
 	playAnimation = true;
 };
 
+datablock StaticShapeData(StartPad_BM : StartPad) {
+	shapeFile = "~/data/shapes_bm/pads/startArea.dts";
+
+	skinCount = 0;
+	playAnimation = true;
+};
+
 datablock StaticShapeData(StartPad_PQ : StartPad) {
 	shapeFile = "~/data/shapes_pq/Gameplay/pads/startpad.dts";
 
@@ -132,6 +139,13 @@ datablock StaticShapeData(EndPad) {
 	scopeAlways = true;
 	emap = false;
 
+	skinCount = 0;
+	playAnimation = true;
+};
+
+datablock StaticShapeData(EndPad_BM : EndPad) {
+	shapeFile = "~/data/shapes_bm/pads/endArea.dts";
+	
 	skinCount = 0;
 	playAnimation = true;
 };
