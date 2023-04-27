@@ -284,14 +284,14 @@ if (!isObject(GemCollectionMessageProfile)) {
 }
 
 new GuiControlProfile(GuiRoundBorderProfile) {
-	fillColor = "45 45 45";
+	fillColor = "79 61 56";
 	bitmap = "./game/help/round_border.png";
 	hasBitmapArray = true;
 	opaque = true;
 };
 
 new GuiControlProfile(GuiRoundBorderThinProfile) {
-	fillColor = "45 45 45";
+	fillColor = "79 61 56";
 	bitmap = "./game/help/round_border_thin.png";
 	hasBitmapArray = true;
 	opaque = true;
