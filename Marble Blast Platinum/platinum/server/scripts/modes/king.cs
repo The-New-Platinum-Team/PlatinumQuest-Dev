@@ -177,21 +177,21 @@ function KingTrigger::onAdd(%this, %trigger) {
 	%pos[15] = %x + (%sX / 2) SPC %y - %sY SPC %z + %sZ;
 
 	for (%j = 0; %j < 16; %j++) {
-		%staticShape = new ParticleEmitterNode() {
+		%emitter = new ParticleEmitterNode() {
 			position = %pos[%j];
 			rotation = "1 0 0 0";
 			scale = "1 1 1";
 			datablock = "KingTrigEmitterNode";
 			emitter = "KingTrigEmitter";
 		};
-		MissionCleanup.add(%staticShape);
-		$KingTrigStaticShape[%trigger.getId() @ "_" @ %j] = %staticShape;
+		MissionCleanup.add(%emitter);
+		%trigger.ParticleEmitter[%j] = %emitter;
 	}
 }
 
 function KingTrigger::onInspectApply(%this, %trigger) {
 	for (%d = 0; %d < 16; %d++) {
-		$KingTrigStaticShape[%trigger.getId() @ "_" @ %d].getID().delete();   //Get rid of them all. ~Connie
+		%trigger.ParticleEmitter[%d].getID().delete();   //Get rid of them all. ~Connie
 	} 
 
 	KingTrigger::onAdd(%this, %trigger);   //Then add them back. ~Connie
