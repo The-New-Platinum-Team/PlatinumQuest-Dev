@@ -152,7 +152,7 @@ function Item::onClientCollision(%this, %marble) {
 		return;
 
 	switch$ (%this.getDataBlock().getName()) {
-	case "AntiGravityItem" or "NoRespawnAntiGravityItem" or "AntiGravityItem_PQ" or "NoRespawnAntiGravityItem_PQ" or "AntiGravityItem_MBU" or "NoRespawnAntiGravityItem_MBU":
+	case "AntiGravityItem" or "NoRespawnAntiGravityItem" or "AntiGravityItem_PQ" or "NoRespawnAntiGravityItem_PQ" or "AntiGravityItem_MBU" or "NoRespawnAntiGravityItem_MBU" or "NoRespawnAntiGravityItem_BM":
 		// It's a gravity modifier
 		%rotation = getWords(%this.getTransform(),3);
 		%ortho = VectorRemoveNotation(vectorOrthoBasis(%rotation));
