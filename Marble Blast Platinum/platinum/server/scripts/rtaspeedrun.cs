@@ -25,6 +25,7 @@ new ScriptObject(RtaSpeedrun) {
 };
 
 function RtaSpeedrun::create(%this) {
+	%this.setIsValid(false);
 	%this.setShouldStartRun(false);
 	%this.endMission = "";
 
@@ -43,6 +44,7 @@ function RtaSpeedrun::create(%this) {
 	%this.currentGameDuration = -1;
 
 	%this.smartHideSplits = true;
+	%this.setIsValid(true);
 }
 RtaSpeedrun.create();
 
@@ -236,6 +238,10 @@ function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
 }
 
 // Setters for most properties, to update the RTAAutosplitter plugin's values as well
+function RtaSpeedrun::setIsValid(%this, %isValid) {
+	%this.isValid = %isValid;
+	RTAAS_setIsValid(%this.isValid);
+}
 function RtaSpeedrun::setIsEnabled(%this, %isEnabled) {
 	%this.isEnabled = %isEnabled;
 	RTAAS_setIsEnabled(%this.isEnabled);
