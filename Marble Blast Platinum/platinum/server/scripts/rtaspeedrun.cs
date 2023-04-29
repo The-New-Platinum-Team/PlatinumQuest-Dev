@@ -44,9 +44,15 @@ function RtaSpeedrun::create(%this) {
 	%this.currentGameDuration = -1;
 
 	%this.smartHideSplits = true;
+	if (%this.loadProgress()) {
+		ASSERT("RTA Speedrun Recovery", "RTA Speedrun in-progress detected!\nResume the next level to continue the speedrun.");
+		%this.setIsCrashRecoveryMode(true);
+		%this.updateTimers();
+	}
 	%this.setIsValid(true);
 }
-RtaSpeedrun.create();
+RtaSpeedrun.schedule(100, create);
+
 
 function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
 	if (%this.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
@@ -65,7 +71,7 @@ activatePackage(RtaSpeedrunFrameAdvance);
 
 function RtaSpeedrun::updateTimers(%this) {
 	if (!%this.isEnabled && !%this.isDone) {
-		if (%this.shouldStartRun)
+		if (%this.shouldStartRun || %this.isCrashRecoveryMode)
 			%this.setTimerText(formatTimeHoursMs(%this.time));
 		else
 			%this.setTimerText("");
@@ -137,7 +143,9 @@ function RtaSpeedrun::stop(%this) {
 	%this.setShouldStartRun(false);
 	%this.setIsEnabled(false);
 	%this.setIsDone(false);
+	%this.setIsCrashRecoveryMode(false);
 	%this.updateTimers();
+	%this.clearProgress();
 }
 
 function RtaSpeedrun::setEnd(%this) {
@@ -147,6 +155,11 @@ function RtaSpeedrun::setEnd(%this) {
 
 function RtaSpeedrun::missionStarted(%this) {
 	RTAAS_setCurrentMission($Server::MissionFile);
+	if (%this.isCrashRecoveryMode) {
+		echo("Crash recovery run resumed!");
+		%this.setIsCrashRecoveryMode(false);
+		%this.setIsEnabled(true);
+	}
 	if (%this.shouldStartRun && !%this.isEnabled) {
 		echo("Speedrun mode began timing!");
 		%this.setIsEnabled(true);
@@ -166,6 +179,7 @@ function RtaSpeedrun::missionStarted(%this) {
 		%this.setCurrentGameBeganTime(%this.time);
 	}
 	%this.updateTimers();
+	%this.saveProgress();
 }
 
 function RtaSpeedrun::missionEnded(%this) {
@@ -176,6 +190,7 @@ function RtaSpeedrun::missionEnded(%this) {
 		echo("Final time:" SPC %this.time);
 		%this.setIsEnabled(false);
 		%this.setIsDone(true);
+		%this.clearProgress();
 	}
 	%isEndOfMissionType = false;
 	%isEndOfCurrentGame = false;
@@ -199,6 +214,7 @@ function RtaSpeedrun::missionEnded(%this) {
 	if (%isEndOfCurrentGame)
 		%this.currentGameDuration = sub64_int(%this.time, %this.currentGameBeganTime);
 	%this.updateTimers();
+	%this.saveProgress();
 }
 
 function RtaSpeedrun::pauseGame(%this) {
@@ -237,6 +253,46 @@ function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
 	return false;
 }
 
+function RtaSpeedrun::saveProgress(%this) {
+	if (%this.isCrashRecoveryMode)
+		return;
+	if (!%this.isEnabled) {
+		%this.clearProgress();
+		return;
+	}
+	$RtaProgress::time = %this.time;
+	$RtaProgress::endMission = %this.endMission;
+	$RtaProgress::missionType = %this.missionType;
+	$RtaProgress::missionTypeBeganTime = %this.missionTypeBeganTime;
+	$RtaProgress::currentGame = %this.currentGame;
+	$RtaProgress::currentGameBeganTime = %this.currentGameBeganTime;
+	export("$RtaProgress::*", "~/client/rtaProgress.cs", False);
+}
+
+function RtaSpeedrun::loadProgress(%this) {
+	%progressFile = "platinum/client/rtaProgress.cs";
+	if (!isFile(%progressFile)) {
+		return false;
+	}
+	exec(%progressFile);
+	%this.setTime($RtaProgress::time);
+	%this.endMission = $RtaProgress::endMission;
+	%this.missionType = $RtaProgress::missionType;
+	%this.missionTypeBeganTime = $RtaProgress::missionTypeBeganTime;
+	%this.currentGame = $RtaProgress::currentGame;
+	%this.currentGameBeganTime = $RtaProgress::currentGameBeganTime;
+	echo("Loaded" SPC %progressFile @ ", RTA Speedrun in progress!!!");
+	return true;
+}
+
+function RtaSpeedrun::clearProgress(%this) {
+	%progressFile = "platinum/client/rtaProgress.cs";
+	if (isFile(%progressFile))
+		deleteFile(%progressFile);
+	if (isFile(%progressFile @ ".dso"))
+		deleteFile(%progressFile @ ".dso");
+}
+
 // Setters for most properties, to update the RTAAutosplitter plugin's values as well
 function RtaSpeedrun::setIsValid(%this, %isValid) {
 	%this.isValid = %isValid;
@@ -253,6 +309,10 @@ function RtaSpeedrun::setIsDone(%this, %isDone) {
 function RtaSpeedrun::setShouldStartRun(%this, %shouldStartRun) {
 	%this.shouldStartRun = %shouldStartRun;
 	RTAAS_setShouldStartRun(%this.shouldStartRun);
+}
+function RtaSpeedrun::setIsCrashRecoveryMode(%this, %isCrashRecoveryMode) {
+	%this.isCrashRecoveryMode = %isCrashRecoveryMode;
+	RTAAS_setIsCrashRecoveryMode(%this.isCrashRecoveryMode);
 }
 function RtaSpeedrun::setTime(%this, %time) {
 	%this.time = %time;
