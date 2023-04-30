@@ -579,6 +579,7 @@ function resolveMissionModification(%mission) {
 	if (strpos(%mission.file, "missions_mbg/") != -1) return "Gold";
 	if (strpos(%mission.file, "missions_mbp/") != -1) return "Platinum";
 	if (strpos(%mission.file, "missions_mbu/") != -1) return "Ultra";
+	if (strpos(%mission.file, "missions_bm/") != -1) return "Blasted";
 
 	if (strpos(%mission.file, "coop/pq_") != -1) return "PlatinumQuest";
 	if (strpos(%mission.file, "coop/gold_") != -1) return "Gold";
@@ -589,10 +590,13 @@ function resolveMissionModification(%mission) {
 	if (%mission.game !$= "" && %mission.game !$= "Custom") return %mission.game;
 	if (%mission.platinumTime !$= "") return "PlatinumQuest"; //Added in PQ
 	if (%mission.awesomeScore !$= "") return "PlatinumQuest";
+	if (%mission.awesomeScore !$= "") return "Blasted";
 	if (%mission.ultimateTime !$= "") return "Platinum";
 	if (%mission.ultimateScore !$= "") return "Platinum";
 	if (%mission.awesomeScore[0] !$= "") return "PlatinumQuest";
 	if (%mission.awesomeScore[1] !$= "") return "PlatinumQuest";
+	if (%mission.awesomeScore[0] !$= "") return "Blasted";
+	if (%mission.awesomeScore[1] !$= "") return "Blasted";
 	if (%mission.platinumScore[0] !$= "") return "Platinum";
 	if (%mission.platinumScore[1] !$= "") return "Platinum";
 	if (%mission.ultimateScore[0] !$= "") return "Platinum";

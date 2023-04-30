@@ -1549,7 +1549,18 @@ datablock ItemData(MegaMarbleItem) {
 	customField[1, "default"] = "10000";
 };
 
+datablock ItemData(MegaMarbleItem_BM : MegaMarbleItem) {
+	superCategory = "PowerUps";
+	category = "Blasted";
+	
+	shapeFile = "~/data/shapes_bm/Powerups/MegaMarble_bm.dts";
+};
+
 function MegaMarbleItem::onAdd(%this, %obj) {
+	%obj.playThread(0, "ambient");
+}
+
+function MegaMarbleItem_BM::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 }
 
@@ -1566,6 +1577,15 @@ function MegaMarbleItem_MBU::onUse(%this,%obj,%user,%amount) {
 	return MegaMarbleItem::onUse(%this, %obj, %user, %amount);
 }
 function MegaMarbleItem_MBU::onUnuse(%this,%obj,%user,%amount) {
+	return MegaMarbleItem::onUnuse(%this, %obj, %user, %amount);
+}
+function MegaMarbleItem_BM::onPickup(%this,%obj,%user,%amount) {
+	return MegaMarbleItem::onPickup(%this, %obj, %user, %amount);
+}
+function MegaMarbleItem_BM::onUse(%this,%obj,%user,%amount) {
+	return MegaMarbleItem::onUse(%this, %obj, %user, %amount);
+}
+function MegaMarbleItem_BM::onUnuse(%this,%obj,%user,%amount) {
 	return MegaMarbleItem::onUnuse(%this, %obj, %user, %amount);
 }
 
