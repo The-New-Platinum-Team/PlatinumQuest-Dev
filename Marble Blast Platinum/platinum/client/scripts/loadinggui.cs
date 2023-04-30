@@ -399,7 +399,6 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: HIGUY BUG CRASH";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: GO MARBLE DUDE!!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: This still isn't cannon.cs";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Just Monika.";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: hPerks will never read this.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Refer to this game as 'Marble Blast Platinum Quest' instead of just 'PlatinumQuest' to bother Matan.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: After eight years in development, hopefully PQ will have been worth the wait.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: I bet that doesn't sound good from downstairs.";
@@ -414,7 +413,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Every loading tip has a 80% chanc
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: lol lol lol jij jaj jej joj jvj jcj jqj joj jkj";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: On a platinum quest to do my platinum best.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "/tableflip PQ crashed! ...Whoops, sorry, force of habit.";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Trivia: She platinum on my marble 'til I blast.";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: She platinum on my marble 'til I blast.";
 ////////////////////////////////////// = "Snooping as usual, I see!"
 
 $Loading::TipsChance[1] = 0.03;
