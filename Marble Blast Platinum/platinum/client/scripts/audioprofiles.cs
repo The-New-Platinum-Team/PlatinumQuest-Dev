@@ -110,6 +110,18 @@ ClientAudioGroup.add(new AudioProfile(LB_Login) {
 	preload = true;
 });
 
+new AudioProfile(PlayerJoinSfx) {
+	filename = "~/data/sound/player_join.wav";
+	description = "AudioGui";
+	preload = true;
+};
+
+new AudioProfile(PlayerLeaveSfx) {
+	filename = "~/data/sound/player_leave.wav";
+	description = "AudioGui";
+	preload = true;
+};
+
 ClientAudioGroup.add(new AudioProfile(TimeTravelLoopSfx) {
 	filename    = "~/data/sound/TimeTravelActive.wav";
 	description = ClientAudioLooping2d;
