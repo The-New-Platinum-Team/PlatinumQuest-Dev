@@ -128,6 +128,12 @@ ClientAudioGroup.add(new AudioProfile(AudioButtonDown) {
 	preload = true;
 });
 
+ClientAudioGroup.add(new AudioProfile(PauseMenuSfx) {
+	filename = "~/data/sound/pause.wav";
+	description = "AudioGui";
+	preload = true;
+});
+
 ClientAudioGroup.add(new AudioProfile(TimerAlarm) {
 	filename = "~/data/sound/alarm.wav";
 	description = "LoopingAudioGui";
