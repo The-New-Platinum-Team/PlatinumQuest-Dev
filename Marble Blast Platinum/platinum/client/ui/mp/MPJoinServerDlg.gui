@@ -466,8 +466,6 @@ function MPJoinServerDlg::query(%this) {
 
 //----------------------------------------
 function MPJoinServerDlg::queryGG(%this) {
-	portInit($Pref::Server::Port);
-
 	//Use our master
 
 	if ($pref::Master[0] $= "2:master.garagegames.com:28002")
@@ -805,7 +803,7 @@ function joinServer(%ip, %username, %password) {
 	new GameConnection(ServerConnection);
 	ServerConnection.setConnectArgs(%username, %password, MarbleSelectDlg.getSelection(), "bologna");
 	ServerConnection.setJoinPassword(%password);
-	ServerConnection.connect(%ip);
+	ServerConnection.arrangeConnection(%ip);
 
 	RootGroup.add(new SimSet(MissionGroup));
 
