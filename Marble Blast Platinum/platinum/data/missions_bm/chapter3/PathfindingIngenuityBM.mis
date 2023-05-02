@@ -3,10 +3,12 @@ new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
          CustomRadarRule = "0";
+         GemQuota = "8";
          artist = "Your name here";
          desc = "Simply indescribable.";
+         fanStrength = "35";
          game = "Blasted";
-         gameMode = "null";
+         gameMode = "quota";
          level = "11";
          music = "Tim Trance.ogg";
          name = "Pathfinding Ingenuity";
@@ -14,38 +16,116 @@ new SimGroup(MissionGroup) {
          type = "Custom";
          ultimateTime = "0";
    };
-   new MissionArea(MissionArea) {
-      area = "-360 -648 720 1296";
-      flightCeiling = "300";
-      flightCeilingRange = "20";
-         locked = "true";
+   new SimGroup(SceneryGroup) {
+
+      new StaticShape() {
+         position = "-19.125 67 19";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-20.875 67 19";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-19.125 67 27";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-20.875 67 27";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-19.125 67 35";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-20.875 67 35";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-26.875 67 23";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-25.125 67 23";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-26.875 67 31";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
+      new StaticShape() {
+         position = "-25.125 67 31";
+         rotation = "0 0 1 90.0002";
+         scale = "2 1 2";
+         dataBlock = "Glass_BM";
+      };
    };
-   new Sky(Sky) {
-      position = "0 0 0";
+   new StaticShape() {
+      position = "-81 -74.25 87.5";
+      rotation = "0 0 1 180";
+      scale = "3 3 3";
+      dataBlock = "PropLarge3_BM";
+   };
+   new SimGroup(MissionData) {
+
+      new MissionArea(MissionArea) {
+         area = "-360 -648 720 1296";
+         flightCeiling = "300";
+         flightCeilingRange = "20";
+            locked = "true";
+      };
+      new Sky(Sky) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         cloudHeightPer[0] = "0";
+         cloudHeightPer[1] = "0";
+         cloudHeightPer[2] = "0";
+         cloudSpeed1 = "0.0001";
+         cloudSpeed2 = "0.0002";
+         cloudSpeed3 = "0.0003";
+         visibleDistance = "500";
+         useSkyTextures = "1";
+         renderBottomTexture = "1";
+         SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+         fogDistance = "300";
+         fogColor = "0.600000 0.600000 0.600000 1.000000";
+         fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+         fogVolume2 = "-1 1.07208e-014 8.756e-014";
+         fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+         materialList = "~/data/skies/In the Clouds/sky_day.dml";
+         windVelocity = "1 0 0";
+         windEffectPrecipitation = "0";
+         noRenderBans = "1";
+         fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+         fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+         fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+      };
+   };
+   new StaticShape() {
+      position = "-81 -70.25 87.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      cloudHeightPer[0] = "0";
-      cloudHeightPer[1] = "0";
-      cloudHeightPer[2] = "0";
-      cloudSpeed1 = "0.0001";
-      cloudSpeed2 = "0.0002";
-      cloudSpeed3 = "0.0003";
-      visibleDistance = "500";
-      useSkyTextures = "1";
-      renderBottomTexture = "1";
-      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
-      fogDistance = "300";
-      fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/In the Clouds/sky_day.dml";
-      windVelocity = "1 0 0";
-      windEffectPrecipitation = "0";
-      noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+      dataBlock = "Propeller_BM_Base";
    };
    new Sun() {
       direction = "-0.274902 0.644972 -0.71305";
@@ -422,6 +502,190 @@ new SimGroup(MissionGroup) {
             useRotation = "1";
             useScale = "1";
       };
+      new StaticShape(TTPath1A) {
+         position = "40 62 5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath1B";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "2500";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(TTPath1B) {
+         position = "40 62 5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath1C";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(TTPath1C) {
+         position = "34 60 5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath1D";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "2500";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(TTPath1D) {
+         position = "34 60 5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath1A";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(TTPath2A) {
+         position = "0 58 10.5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath2B";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "2500";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(TTPath2B) {
+         position = "0 58 10.5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath2C";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(TTPath2C) {
+         position = "6 60 9.5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath2D";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "2500";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(TTPath2D) {
+         position = "6 60 9.5";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "TTPath2A";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
    new Trigger() {
       position = "-0.5 0.5 1";
@@ -595,6 +859,2765 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       interiorFile = "~/data/interiors_bm/chapter3/PathfindingIngenuityCurve2.dif";
       showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "-77 -39 72.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform4x4";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         invisibleTime = "500";
+         level = "15";
+         permanent = "0";
+         skin = "base";
+         state = "0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-77 -47 72.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform4x4";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         invisibleTime = "500";
+         level = "15";
+         permanent = "0";
+         skin = "base";
+         state = "0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-69 -47 72.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform4x4";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "fading";
+         invisibleTime = "500";
+         level = "15";
+         permanent = "0";
+         skin = "base";
+         state = "0";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "42 58 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "41 60 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "33 58 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "39 58 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "38 61 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "40 62 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "36 59 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "42 62 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "35 62 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "34 60 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "32 61 4.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "8 61 9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "7 58 9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "6 62 9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "-1 62 10";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "6 60 9";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "4 59 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "2 61 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "4 62 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "2 58 9.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "-2 59 10";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "0 60 10";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "2500";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new StaticShape() {
+      position = "0 58 10";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "periodic";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "2000";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "27 25 -12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "27 23 -12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "27 25 -12";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-23 62 24";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "750";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-23 64 24";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "750";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-23 62 24";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "1";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-23 70 28";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "750";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-23 72 28";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "750";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-23 70 28";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "2";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-23 67 13";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "8000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-23 67 39";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "8000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-23 67 13";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "8000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "3";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-58 22 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-58 22 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-58 36 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-58 36 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-58 22 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "4";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-64 36 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-64 36 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-64 22 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-64 22 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "2000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-64 36 62";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "5";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-21 -15.5 60";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-21 -15.5 60";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-15 -15.5 60";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-15 -15.5 60";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-21 -15.5 60";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "-3 -5.5 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "6";
+         basePosition = "-3 -5.5 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-5 -18.5 56";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-5 -18.5 56";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-11 -18.5 56";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-11 -18.5 56";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-5 -18.5 56";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "3 -2.5 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "7";
+         basePosition = "3 -2.5 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-63 -89 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-63 -93 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-59 -93 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-59 -89 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-63 -89 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(NoJump1) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "8";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-63 -89 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-63 -93 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-59 -93 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-59 -89 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-63 -89 67";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(NoJump2) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "8";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialPosition = "2000";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "-75 -23 69.75";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "1500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-79 -23 69.75";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "1500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "-75 -23 69.75";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "1000";
+            smoothingType = "Accelerate";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/interiors_bm/chapter3/PathfindingIngenuityBM.dif";
+         interiorIndex = "9";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new StaticShape() {
+      position = "-44 64.0678 16.7735";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 64.0678 16.7735";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 66.0294 17.1637";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 66.0294 17.1637";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 91.5298 22.2361";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 69.9525 17.9441";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 67.9909 17.5539";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 67.9909 17.5539";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 77.7988 19.5048";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 77.7988 19.5048";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 75.8372 19.1146";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 75.8372 19.1146";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 89.5682 21.8459";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 71.9141 18.3343";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 71.9141 18.3343";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 73.8756 18.7244";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 87.6066 21.4557";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 87.6066 21.4557";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 85.6451 21.0655";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 89.5682 21.8459";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 83.6835 20.6754";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 81.7219 20.2852";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 91.5298 22.2361";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 83.6835 20.6754";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-38 71.9141 18.3343";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x3";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "2000";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-42 79.7603 19.895";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-44 79.7603 19.895";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-48 83.6835 20.6754";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x3";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "2000";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-41 69.9525 17.9441";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "1000";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-41 73.8756 18.7244";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "1000";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-45 85.6451 21.0655";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "1000";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-45 81.7219 20.2852";
+      rotation = "-1 0 0 11.25";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform2x1";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "1000";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new Item() {
+      position = "-23 85 29";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-2 6 6.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x3";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "0 8 6.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x3";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "2 10 6.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x3";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "-62 -97 78";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-60 -85 78";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "4 22 6.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "6 24 6.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "38 58 10.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "40 58 10.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "40 60 10.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "38 60 10.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "40 62 10.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new StaticShape() {
+      position = "38 62 10.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new Item() {
+      position = "0 8 7";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "35 24 7";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "57 71 9";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "-23 99 27";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "-10 42 48";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "-13 -47 63";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "-58 -88 69";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new InteriorInstance() {
+      position = "43.5 66 7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter3/PathfindingIngenuityTrimCurve1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-27 79.5 25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter3/PathfindingIngenuityTrimCurve2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "32 73 4";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "26 73 4";
+      rotation = "-0.57735 0.577352 -0.57735 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "49 73 5";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "45 73 5";
+      rotation = "-0.57735 0.577352 -0.57735 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "39 50 4";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "39 44 4";
+      rotation = "0.577352 -0.57735 -0.57735 240";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-32 60 10";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter3/PathfindingIngenuityBridgeArch.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-38 60 10";
+      rotation = "-0.57735 0.577352 -0.57735 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter3/PathfindingIngenuityBridgeArch.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-36 99 16";
+      rotation = "-0.57735 0.577352 -0.57735 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-30 99 16";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-61 27 49";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-61 31 49";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-69 31 49";
+      rotation = "0.577349 -0.57735 0.577352 240";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-69 27 49";
+      rotation = "0.577349 -0.57735 0.577352 240";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-79 7 53";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-75 7 53";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-75 -5 53";
+      rotation = "-0.57735 0.577349 0.577352 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-79 -5 53";
+      rotation = "-0.57735 0.577349 0.577352 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-29 -49 51";
+      rotation = "0.577349 -0.57735 0.577352 240";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-29 -45 51";
+      rotation = "0.577349 -0.57735 0.577352 240";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-21 -45 51";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-21 -49 51";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-53 -49 59";
+      rotation = "0.577349 -0.57735 0.577352 240";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-53 -45 59";
+      rotation = "0.577349 -0.57735 0.577352 240";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-45 -45 59";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-45 -49 59";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-63 -97 51";
+      rotation = "-0.57735 0.577349 0.577352 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59 -97 51";
+      rotation = "-0.57735 0.577349 0.577352 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-59 -85 51";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-63 -85 51";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_bridgearch6.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "3 10 2";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-3 18 2";
+      rotation = "0 -1 0 89.9996";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "16.75 5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "19.75 8.25 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "17.75 11.5 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-7 13 8";
+      rotation = "0 -1 0 89.9996";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-12 9 6.5";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-2 39.25 7.65";
+      rotation = "-1 0 0 10.9999";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-4.75 33.5 7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-6.25 44.5 9.25";
+      rotation = "-1 0 0 10.9999";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-5.25 51.55 10.8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new Item() {
+      position = "-23 67 26.5";
+      rotation = "1 0 0 0";
+      scale = "3 3 3";
+      dataBlock = "GemItemPurple_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new StaticShape() {
+      position = "-30 48 47";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-28 46 47";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-30 44 47";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-21 39 50";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19 37 50";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19 33 50";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-21 35 50";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-19 29 50";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-21 31 50";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new Item() {
+      position = "-15 23 52";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-13 -41 57";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-76 4 68";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-78 -2 68";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "4 26 6.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new Item() {
+      position = "19.25 10 3";
+      rotation = "0 0 1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "4";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-14 8 5";
+      rotation = "0 0 1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "3";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-5.75 13 7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "2";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "-2.5 40.25 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "2";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "-8 48 10.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "2";
+         timeBonus = "2000";
+   };
+   new StaticShape() {
+      position = "54.25 71.75 9";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "57.25 72.75 9";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "58 69.25 9";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new Item() {
+      position = "40 62 5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         Path = "TTPath1A";
+         noRespawn = "0";
+         skin = "4";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "6 60 9.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         Path = "TTPath2C";
+         noRespawn = "0";
+         skin = "3";
+         timeBonus = "3000";
+   };
+   new StaticShape() {
+      position = "-23 71 20.25";
+      rotation = "1 0 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-23 63 32.25";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-18 50 46";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-16 48 46";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-14 50 46";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new Item() {
+      position = "-38 71.75 18.85";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "3";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-48 83.5 21.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "3";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-25 52 46";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "4";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-21 33 50";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "5";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-65 31 61";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "4";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-75 4 69";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "2";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "-79 -2 69";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "2";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "-80 -50 73";
+      rotation = "0 0 1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "6";
+         timeBonus = "6000";
+   };
+   new Item() {
+      position = "-13 0.75 56.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "2";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "-9.5 -20 55";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "3";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-17 -15.5 59";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "3";
+         timeBonus = "3000";
+   };
+   new StaticShape() {
+      position = "-29 -47 65.5";
+      rotation = "1 0 0 90.0002";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-45 -47 69.5";
+      rotation = "-1 0 0 90.0002";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "DuctFan_BM";
+   };
+   new Item() {
+      position = "-23 81.0001 48.75";
+      rotation = "1 0 0 90.0002";
+      scale = "2 1 2";
+      dataBlock = "TimeTravelItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "5000";
+   };
+   new TSStatic() {
+      position = "-24 80 48.75";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-24 82 48.75";
+      rotation = "1 0 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-22 82 48.75";
+      rotation = "-2.48483e-006 0.707106 0.707108 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-22 80 48.75";
+      rotation = "-2.48483e-006 -0.707106 0.707108 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-23 81 48.75";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon5_bm.dts";
+   };
+   new Item() {
+      position = "-65 -97 77.5";
+      rotation = "1 0 0 0";
+      scale = "0.75 0.75 0.75";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "3";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "-28 -45 65";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "4";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-44 -49 69";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "4";
+         timeBonus = "4000";
+   };
+   new StaticShape() {
+      position = "-30.5 -49.75 66.35";
+      rotation = "-0.12097 -0.120969 -0.985258 90.8511";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-27 -48.25 65.5";
+      rotation = "-0.12097 -0.120969 -0.985258 90.8511";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-35 -46 67.5";
+      rotation = "-0.12097 -0.120969 -0.985258 90.8511";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-37.5 -47.5 68.1";
+      rotation = "-0.12097 -0.120969 -0.985258 90.8511";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-33.25 -48.75 67.05";
+      rotation = "-0.12097 -0.120969 -0.985258 90.8511";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-40.25 -44.25 68.8";
+      rotation = "-0.12097 -0.120969 -0.985258 90.8511";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-45.5 -46.25 70.1";
+      rotation = "-0.12097 -0.120969 -0.985258 90.8511";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_BM";
+   };
+   new StaticShape() {
+      position = "-77.75 11 67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-80 7.75 67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-76.75 -3.75 67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new StaticShape() {
+      position = "-75.25 -9.25 67";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+   };
+   new Trigger(NoJump) {
+      position = "-65 -79 69";
+      rotation = "1 0 0 0";
+      scale = "8 24 0.25";
+      dataBlock = "MarblePhysModTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         marbleAttribute0 = "jumpImpulse";
+         noEmitters = "1";
+         value0 = "0";
+   };
+   new StaticShape() {
+      position = "-57.75 -84.75 70";
+      rotation = "1 0 0 90.0002";
+      scale = "0.25 0.25 0.25";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-64 -97 70";
+      rotation = "-8.9182e-008 -1 -8.91823e-008 90.0002";
+      scale = "0.25 0.25 0.25";
+      dataBlock = "DuctFan_BM";
+   };
+   new Item() {
+      position = "-58 -82 69";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "5";
+         timeBonus = "5000";
+   };
+   new StaticShape() {
+      position = "49 33.75 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Propeller_BM_Base";
+   };
+   new StaticShape() {
+      position = "49 29.75 27.5";
+      rotation = "0 0 1 180";
+      scale = "3 3 3";
+      dataBlock = "PropLarge3_BM";
+   };
+   new StaticShape() {
+      position = "3 69.75 27.5";
+      rotation = "0 0 1 180";
+      scale = "3 3 3";
+      dataBlock = "PropLarge3_BM";
+   };
+   new StaticShape() {
+      position = "3 73.75 27.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Propeller_BM_Base";
+   };
+   new StaticShape() {
+      position = "-35 87.75 51.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Propeller_BM_Base";
+   };
+   new StaticShape() {
+      position = "-35 83.75 51.5";
+      rotation = "0 0 1 180";
+      scale = "3 3 3";
+      dataBlock = "PropLarge2_BM";
+   };
+   new StaticShape() {
+      position = "-31 15.75 63.5";
+      rotation = "0 0 1 180";
+      scale = "3 3 3";
+      dataBlock = "PropLarge2_BM";
+   };
+   new StaticShape() {
+      position = "-31 19.75 63.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Propeller_BM_Base";
+   };
+   new StaticShape() {
+      position = "9 -16.25 75.5";
+      rotation = "0 0 1 180";
+      scale = "3 3 3";
+      dataBlock = "PropLarge3_BM";
+   };
+   new StaticShape() {
+      position = "9 -12.25 75.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Propeller_BM_Base";
+   };
+   new Trigger(Bounds) {
+      position = "-104.962 -150.5 -7.75";
+      rotation = "1 0 0 0";
+      scale = "181.462 267 181.611";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(check1) {
+      position = "18 24 3.01";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new StaticShape(check2) {
+      position = "-16 60 17.01";
+      rotation = "0 0 -1 11.25";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new StaticShape(check3) {
+      position = "-23 61 43.01";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new StaticShape(check4) {
+      position = "-61 -47 73.01";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new StaticShape(checkA) {
+      position = "-5 29 7.01";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new StaticShape(checkB) {
+      position = "58 60 9.01";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new StaticShape(checkC) {
+      position = "-13 13 57.01";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Checkpoint_BM";
+         chkcollide = "1";
+         disableOOB = "0";
+         gravity = "1";
+   };
+   new Trigger(CheckP1) {
+      position = "9 27 1";
+      rotation = "1 0 0 0";
+      scale = "12 6 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "Check1";
+   };
+   new Trigger(CheckPA) {
+      position = "-7 31 7";
+      rotation = "1 0 0 0";
+      scale = "4 12 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "CheckA";
+   };
+   new Trigger(CheckPB) {
+      position = "55 67 9";
+      rotation = "1 0 0 0";
+      scale = "6 10 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "CheckB";
+   };
+   new Trigger(CheckP2) {
+      position = "-19 63 17";
+      rotation = "1 0 0 0";
+      scale = "12 6 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "Check2";
+   };
+   new Trigger(CheckP3) {
+      position = "-27 71 43";
+      rotation = "1 0 0 0";
+      scale = "8 14 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "Check3";
+   };
+   new Trigger(CheckPC) {
+      position = "-17 25 57";
+      rotation = "1 0 0 0";
+      scale = "8 16 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "CheckC";
+   };
+   new Trigger(CheckP4) {
+      position = "-73 -43 71";
+      rotation = "1 0 0 0";
+      scale = "24 8 6";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "1";
+         respawnPoint = "Check4";
    };
 };
 //--- OBJECT WRITE END ---
