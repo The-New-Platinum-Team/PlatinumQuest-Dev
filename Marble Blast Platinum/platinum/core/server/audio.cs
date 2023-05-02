@@ -52,6 +52,11 @@ function ServerPlay3D(%profile,%transform) {
 	}
 }
 
+//Simple function for playing sounds for other clients using commandToAll() or similar - Yoshi
+function clientCmdAlxPlay(%sound){
+	AlxPlay(%sound);
+}
+
 // No more console errors
 function FakeGameConnection::play2D(%this) {}
 function FakeGameConnection::play3D(%this) {}
