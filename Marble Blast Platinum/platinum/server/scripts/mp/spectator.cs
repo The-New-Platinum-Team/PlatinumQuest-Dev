@@ -34,7 +34,7 @@ function serverCmdSetSpectate(%client, %spectate) {
 		return;
 
 	// do not give clients a head start
-	if (%client.state !$= "play" && %client.state !$= "go" && %client.spectating && !$Game::Pregame)
+	if (%client.state !$= "play" && %client.state !$= "go" && %client.spectating && %client.state !$= "waiting")
 		return;
 
 	if (!Mode::callback("shouldSetSpectate", true, new ScriptObject() {
