@@ -803,7 +803,10 @@ function joinServer(%ip, %username, %password) {
 	new GameConnection(ServerConnection);
 	ServerConnection.setConnectArgs(%username, %password, MarbleSelectDlg.getSelection(), "bologna");
 	ServerConnection.setJoinPassword(%password);
-	ServerConnection.arrangeConnection(%ip);
+	if (isLocalAddress(%ip))
+		ServerConnection.connect(%ip);
+	else
+		ServerConnection.arrangeConnection(%ip);
 
 	RootGroup.add(new SimSet(MissionGroup));
 
