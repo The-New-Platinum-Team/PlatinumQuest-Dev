@@ -307,6 +307,7 @@ function onMissionReset() {
 	$Game::Finished = false;
 	$Game::CalculatedWinners = false;
 	$Game::EasterEgg = false;
+	$Game::EasterEggTime = -1;
 	$Game::TimeStoppedClients = 0;
 	cancel($Game::StateSchedule);
 
@@ -1060,6 +1061,12 @@ function GameConnection::startGame(%this) {
 // TODO: remove exitgame paramater
 
 function restartLevel(%exitgame) {
+	%gotEasterEgg = $Game::EasterEgg && $Game::EasterEggTime >= 0;
+	if (%gotEasterEgg && recordEnd("$Game::EasterEgg = false; resumeGame(); restartLevel(" @ %exitgame @ ");")) {
+		pauseGame();
+		return;
+	}
+
 	if ($Server::ServerType $= "MultiPlayer") {
 		$MP::Restarting = true;
 	}

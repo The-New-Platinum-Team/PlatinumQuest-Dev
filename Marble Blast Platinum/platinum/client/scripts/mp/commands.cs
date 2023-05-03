@@ -129,6 +129,7 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 
 	//Record the egg
 	$Game::EasterEgg = true;
+	$Game::EasterEggTime = %time;
 
 	%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
 	if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
