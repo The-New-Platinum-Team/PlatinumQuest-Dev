@@ -238,7 +238,13 @@ function CompleteDemoDlg::open(%this, %callback) {
 	%score = $Game::FinalScore;
 
 	if (%score $= "") {
-		%title = MissionInfo.name SPC "Unfinished Run";
+		if ($Game::EasterEgg && $Game::EasterEggTime >= 0) {
+			%eggScore = $Game::EasterEggTime;
+			%format = formatTime(%eggScore);
+			%title = MissionInfo.name SPC "Egg" SPC %format;
+		} else {
+			%title = MissionInfo.name SPC "Unfinished Run";
+		}
 	} else {
 		%format = (getField(%score, 0) == $ScoreType::Time ? formatTime(getField(%score, 1)) : formatScore(getField(%score, 1)));
 		%title = MissionInfo.name SPC %format;
