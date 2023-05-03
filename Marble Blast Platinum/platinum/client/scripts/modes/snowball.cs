@@ -191,6 +191,9 @@ function extrapolateSnowBalls() {
 	if ($Server::Hosting && !$Server::_Dedicated)
 		return;
 
+	if (!isObject(ServerConnection))
+		return;
+
 	%count = ServerConnection.getCount();
 	for (%i = 0; %i < %count; %i ++) {
 		%obj = ServerConnection.getObject(%i);
