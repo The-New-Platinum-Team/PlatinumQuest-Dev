@@ -231,6 +231,7 @@ function GameConnection::updateScores(%this) {
 					TAB %client.index
 					TAB expandEscape(%skinChoice)
 					TAB %gems
+					TAB %client.totalBonus
 				;
 
 				if (%playerList $= "")
