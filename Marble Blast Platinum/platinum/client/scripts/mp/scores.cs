@@ -124,9 +124,10 @@ function clientCmdScoreListTeamPlayer(%list) {
 			%index = getField(%record, 2);
 			%marble = collapseEscape(getField(%record, 3));
 			%gems = getField(%record, 4);
+			%bonus = getField(%record, 5);
 
 			TeamScorePlayerList.player[%index] = TeamScorePlayerList.getSize();
-			TeamScorePlayerList.addEntry(%teamName NL %name NL %score NL %index NL %marble NL %gems);
+			TeamScorePlayerList.addEntry(%teamName NL %name NL %score NL %index NL %marble NL %gems NL %bonus);
 			$MP::ScorePlayers ++;
 
 			//Add one to that team's player count
@@ -152,7 +153,7 @@ function clientCmdScoreListTeamUpdate(%name, %score, %number, %color) {
 
 function clientCmdScoreListTeamPlayerUpdate(%team, %name, %score, %index, %marble, %gems) {
 	%lookup = TeamScorePlayerList.player[%index];
-	TeamScorePlayerList.replaceEntryByIndex(%lookup, %team NL %name NL %score NL %index NL %marble NL %gems);
+	TeamScorePlayerList.replaceEntryByIndex(%lookup, %team NL %name NL %score NL %index NL %marble NL %gems NL %bonus);
 	scoreListUpdate();
 }
 

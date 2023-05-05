@@ -661,15 +661,28 @@ function MPCoopEndGameDlg::showRate(%this) {
 
 function MPCoopEndGameDlg::populate(%this) {
 	%this.clearPlayers();
-	%count = ScoreList.getSize();
-	for (%i = 0; %i < %count; %i ++) {
-		%player = ScoreList.getEntry(%i).name;
-		%score  = ScoreList.getEntry(%i).score;
-		%index  = ScoreList.getEntry(%i).index;
-		%marble = ScoreList.getEntry(%i).skin;
-		%bonus  = ScoreList.getEntry(%i).bonus;
+	if ($MP::TeamMode) {
+		%count = TeamScorePlayerList.getSize();
+		for (%i = 0; %i < %count; %i ++) {
+			%player = getRecord(TeamScorePlayerList.getEntry(%i), 1);
+			%score  = getRecord(TeamScorePlayerList.getEntry(%i), 2);
+			%index  = getRecord(TeamScorePlayerList.getEntry(%i), 3);
+			%marble = getRecord(TeamScorePlayerList.getEntry(%i), 4);
+			%bonus  = getRecord(TeamScorePlayerList.getEntry(%i), 6);
 
-		%this.addPlayer(%i, %count, %player, %score, %bonus, %marble, %index);
+			%this.addPlayer(%i, %count, %player, %score, %bonus, %marble, %index);
+		}
+	} else {
+		%count = ScoreList.getSize();
+		for (%i = 0; %i < %count; %i ++) {
+			%player = ScoreList.getEntry(%i).name;
+			%score  = ScoreList.getEntry(%i).score;
+			%index  = ScoreList.getEntry(%i).index;
+			%marble = ScoreList.getEntry(%i).skin;
+			%bonus  = ScoreList.getEntry(%i).bonus;
+
+			%this.addPlayer(%i, %count, %player, %score, %bonus, %marble, %index);
+		}
 	}
 }
 
