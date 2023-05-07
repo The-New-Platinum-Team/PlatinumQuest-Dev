@@ -1083,6 +1083,12 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 		traceGuardEnd();
 	}
 	commandToClient(%client, 'MissionListEnd', %gameName, %difficultyName);
+
+	if ($MissionType $= "Custom" && %client.loading) {
+		%info = $MP::MissionObj.getFields();
+		commandToClientLong(%client, 'LobbyMissionInfo', %info, $MP::MissionFile, $CurrentGame, $MissionType, $MP::CurrentMode);
+		sendLoadInfoToClient(%client);
+	}
 }
 
 
