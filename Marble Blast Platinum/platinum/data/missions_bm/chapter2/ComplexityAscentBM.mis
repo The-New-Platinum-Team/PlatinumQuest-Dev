@@ -71,9 +71,55 @@ new SimGroup(MissionGroup) {
    };
    new SimGroup(PathNodeGroup) {
 
+      new StaticShape(Hurdle1B) {
+         position = "16.2754 42.0362 38.6074";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Hurdle1A";
+            placed = "1";
+            reverseRotation = "1";
+            speed = "0";
+            timeToNext = "3000";
+            usePosition = "0";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(Hurdle1A) {
+         position = "15.7434 44.0595 37.8035";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "Hurdle1B";
+            placed = "1";
+            reverseRotation = "1";
+            speed = "0";
+            timeToNext = "3000";
+            usePosition = "0";
+            useRotation = "1";
+            useScale = "0";
+      };
       new StaticShape(CameraPath1) {
-         position = "-43.0804 71.7686 45.2023";
-         rotation = "0.108759 -0.252878 0.961366 135.073";
+         position = "-19.2284 80.0134 54.4585";
+         rotation = "0.0732286 -0.355477 0.931812 158.268";
          scale = "1 1 1";
          dataBlock = "PathNode";
             FinalRotOffset = "1 0 0 0";
@@ -91,7 +137,7 @@ new SimGroup(MissionGroup) {
             speed = "0";
             timeToNext = "3000";
             usePosition = "1";
-            useRotation = "1";
+            useRotation = "0";
             useScale = "0";
       };
    };
@@ -551,7 +597,7 @@ new SimGroup(MissionGroup) {
          respawnPoint = "Check2";
    };
    new Trigger(CheckP3) {
-      position = "51 33 41";
+      position = "53 33 41";
       rotation = "1 0 0 0";
       scale = "6 16 6";
       dataBlock = "CheckpointTrigger";
@@ -609,33 +655,37 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new InteriorInstance() {
-      position = "59.5 50 39.75";
+      position = "61.5 50 39.75";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
       showTerrainInside = "0";
    };
    new InteriorInstance() {
-      position = "54 14 39.75";
+      position = "56 14 39.75";
       rotation = "0 0 1 180";
       scale = "1 1 1";
       interiorFile = "~/data/interiors_bm/parts/bm_chevron_right1.dif";
       showTerrainInside = "0";
    };
    new Item() {
-      position = "17.25 49.5 37";
-      rotation = "0 0 1 90.0002";
+      position = "20.4552 50.3639 37";
+      rotation = "0 0 1 165.96";
       scale = "1 1 1";
       dataBlock = "TimeTravelItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
+         Parent = "Hurdle1";
          noRespawn = "0";
+         parentModTrans = "-1.5 0 0 1 0 0 0";
+         parentOffset = "0 0 0";
+         parentSimple = "0";
          skin = "4";
          timeBonus = "4000";
    };
    new Item() {
-      position = "52 30 41";
+      position = "54 30 41";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TimeTravelItem_BM";
@@ -665,7 +715,7 @@ new SimGroup(MissionGroup) {
          gravity = "0";
    };
    new StaticShape(check3) {
-      position = "54 20 41.01";
+      position = "56 20 41.01";
       rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
       dataBlock = "Checkpoint_BM";
@@ -683,28 +733,122 @@ new SimGroup(MissionGroup) {
          respawnPoint = "Check1";
    };
    new TSStatic() {
-      position = "-18 38 28.75";
+      position = "-18 38 28.85";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
    };
    new TSStatic() {
-      position = "0 50 40.5";
+      position = "0 50 40.85";
       rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
    };
    new TSStatic() {
-      position = "54 20 44.75";
+      position = "56 20 44.85";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
    };
    new TSStatic() {
-      position = "18 20 46.5";
+      position = "18 20 44.85";
       rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_finishsign.dts";
+   };
+   new StaticShape() {
+      position = "46 21 40.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BMFadePlatform1x2";
+         StartOffset = "0";
+         fadeStyle = "fade";
+         fadeinTime = "500";
+         fadeoutTime = "500";
+         functionality = "trapdoor";
+         invisibleTime = "2000";
+         permanent = "0";
+         skin = "base";
+         visibleTime = "500";
+   };
+   new TSStatic() {
+      position = "-18 -6.15 7";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "-18 -8.15 7";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "-18 -10.15 7";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "32.85 50 37";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "34.85 50 37";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "36.85 50 37";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new InteriorInstance() {
+      position = "22 50 30";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter3/PathfindingIngenuityBridgeArch.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "16 50 30";
+      rotation = "-0.57735 0.577352 -0.57735 120";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/chapter3/PathfindingIngenuityBridgeArch.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance(Hurdle1) {
+      position = "19 50 37";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_hurdle1.dif";
+      showTerrainInside = "0";
+         Path = "Hurdle1A";
+   };
+   new InteriorInstance() {
+      position = "19 50 37";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_hurdle1.dif";
+      showTerrainInside = "0";
+         Path = "Hurdle1B";
+   };
+   new InteriorInstance() {
+      position = "19 50 37";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/interiors_bm/parts/bm_hurdleCenter.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "-20.75 44.25 27.75";
+      rotation = "0 0 -1 22.5001";
+      scale = "0.5 0.5 0.5";
+      shapeName = "~/data/shapes_bm/signs/bm_hazardsign.dts";
    };
 };
 //--- OBJECT WRITE END ---

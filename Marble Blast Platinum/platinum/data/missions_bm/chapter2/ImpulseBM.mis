@@ -42,7 +42,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Rainy/sky_day.dml";
+      materialList = "~/data/skies_bm/Rainy/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -58,8 +58,8 @@ new SimGroup(MissionGroup) {
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {
-         position = "48.7714 -2.61428 9.16687";
-         rotation = "0.117588 -0.100164 0.987998 81.5342";
+         position = "15.6937 31.8541 99.8176";
+         rotation = "0.109189 -0.370144 0.922535 149.553";
          scale = "1 1 1";
          dataBlock = "PathNode";
             FinalRotOffset = "1 0 0 0";
@@ -77,7 +77,7 @@ new SimGroup(MissionGroup) {
             speed = "0";
             timeToNext = "3000";
             usePosition = "1";
-            useRotation = "1";
+            useRotation = "0";
             useScale = "0";
       };
    };
@@ -982,7 +982,7 @@ new SimGroup(MissionGroup) {
          center = "1";
    };
    new StaticShape() {
-      position = "21.5 -116.5 81.5";
+      position = "21.5 -116.5 83.5";
       rotation = "8.03813e-008 1 -8.03816e-008 90.0002";
       scale = "1 1 1";
       dataBlock = "DuctFan_BM";
@@ -2105,33 +2105,33 @@ new SimGroup(MissionGroup) {
       shapeName = "~/data/shapes_bm/pads/bm_goal_icon.dts";
    };
    new StaticShape() {
-      position = "21.5 -118.5 81.5";
+      position = "21.5 -118.5 83.5";
       rotation = "8.03813e-008 1 -8.03816e-008 90.0002";
       scale = "1 1 1";
       dataBlock = "DuctFan_BM";
    };
    new TSStatic() {
-      position = "182.5 -40.5 58";
+      position = "182.5 -40.5 56.35";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
    };
    new TSStatic() {
-      position = "16.5 -152.5 86";
+      position = "16.5 -152.5 84.35";
       rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
    };
    new TSStatic() {
-      position = "18.5 -124 84.5";
+      position = "18.5 -124 84.35";
       rotation = "1 0 0 0";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_hazardsign.dts";
    };
    new TSStatic() {
-      position = "-49.5 113.5 110";
+      position = "-49.5 113.5 108.35";
       rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
+      scale = "0.7 0.7 0.7";
       shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
    };
    new TSStatic() {
@@ -2198,6 +2198,216 @@ new SimGroup(MissionGroup) {
       position = "153.5 -0.5 12.25";
       rotation = "-0.57735 0.577352 0.57735 120";
       scale = "0.5 0.5 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new Item() {
+      position = "91.5 -2.5 4.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 0.5";
+      dataBlock = "TimeTravelItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "10000";
+   };
+   new TSStatic() {
+      position = "91.5 -2.5 4";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "91.5 -2.5 4.00001";
+      rotation = "0.577352 -0.57735 -0.57735 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "91.5 -2.5 4.5";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 0.5";
+      shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon10_bm.dts";
+   };
+   new TSStatic() {
+      position = "60.75 -4 9.25";
+      rotation = "0 0 1 90.0002";
+      scale = "0.5 0.5 0.5";
+      shapeName = "~/data/shapes_bm/signs/bm_hazardsign.dts";
+   };
+   new Item() {
+      position = "185.5 -95.5 60.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "5";
+         timeBonus = "5000";
+   };
+   new TSStatic() {
+      position = "63.5 3.435 8.5";
+      rotation = "0.707108 -2.58512e-006 -0.707106 180";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "63.5 1.835 8.5";
+      rotation = "0.707108 -2.58512e-006 -0.707106 180";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "93.5 -6.635 8.5";
+      rotation = "0 1 0 90.0002";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "93.5 -8.235 8.5";
+      rotation = "0 1 0 90.0002";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "93.5 -5.035 8.5";
+      rotation = "0 1 0 90.0002";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "20.435 -51.5 92.5";
+      rotation = "0.577352 -0.57735 0.57735 240";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "18.835 -51.5 92.5";
+      rotation = "0.577352 -0.57735 0.57735 240";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "-53.435 82.5 106.5";
+      rotation = "0.577352 0.57735 0.57735 120";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "-51.835 82.5 106.5";
+      rotation = "0.577352 0.57735 0.57735 120";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "-49.165 22.5 106.5";
+      rotation = "0.577354 -0.577347 -0.57735 120";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "-47.565 22.5 106.5";
+      rotation = "0.577354 -0.577347 -0.57735 120";
+      scale = "0.4 0.4 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new StaticShape() {
+      position = "9.5 81.5 95.5";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "19.5 99.5 95.5";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "17.25 78.5 94.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+         skin = "base2";
+         timer = "772306";
+   };
+   new StaticShape() {
+      position = "18 85.75 94.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+         skin = "base2";
+         timer = "772306";
+   };
+   new StaticShape() {
+      position = "13 91.25 94.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+         skin = "base2";
+         timer = "772306";
+   };
+   new StaticShape() {
+      position = "10.75 99.75 94.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "LandMine_BM";
+         resetTime = "Default";
+         skin = "base2";
+         timer = "772306";
+   };
+   new Item() {
+      position = "10.5 81.5 94.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "1";
+         timeBonus = "1000";
+   };
+   new Item() {
+      position = "18.5 99.5 94.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "1";
+         timeBonus = "1000";
+   };
+   new StaticShape() {
+      position = "-19.5 108.5 105.5";
+      rotation = "1 0 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new StaticShape() {
+      position = "-35.5 118.5 105.5";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      dataBlock = "DuctFan_BM";
+   };
+   new TSStatic() {
+      position = "14.5 62.5 92.25";
+      rotation = "2.54789e-006 0.707108 -0.707106 180";
+      scale = "0.7 0.7 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
+   };
+   new TSStatic() {
+      position = "14.5 62.5 89.75";
+      rotation = "2.54789e-006 0.707108 -0.707106 180";
+      scale = "0.7 0.7 1";
       shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
    };
 };
