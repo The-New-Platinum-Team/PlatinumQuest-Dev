@@ -34,6 +34,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_tag) {
 	complete = 1;
 
 	teams = 0;
+	hide = 1;
 });
 
 ModeInfoGroup.add(new ScriptObject(ModeInfo_keepAway) {

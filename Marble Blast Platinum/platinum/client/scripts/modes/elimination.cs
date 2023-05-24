@@ -33,6 +33,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_elimination) {
 	desc = "Feel the pressure as the lowest scoring players are removed one by one!";
 
 	teams = 1;
+	hide = 1;
 });
 
 
