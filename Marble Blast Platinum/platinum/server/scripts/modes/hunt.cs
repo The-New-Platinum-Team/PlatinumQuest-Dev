@@ -37,6 +37,7 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
 	%this.registerCallback("timeMultiplier");
+	%this.registerCallback("onHuntGemSpawn");
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("shouldRestorePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
@@ -58,7 +59,7 @@ function huntStoreGem(%client, %huntExtraValue, %color) {
 		%client.gemsFound[1] ++;
 
 	//Show a message
-	%client.displayGemMessage("+" @ (%huntExtraValue + 1), %color);
+	%client.displayGemMessage((%huntExtraValue+1 >= 0? "+":"") @ (%huntExtraValue + 1), %color);
 }
 
 function Mode_hunt::shouldStoreGem(%this, %object) {
@@ -73,8 +74,24 @@ function Mode_hunt::shouldStoreGem(%this, %object) {
 
 	return false;
 }
+
+function Mode_hunt::startCompetitiveAutorespawn(%this) {
+	cancel($Hunt_CompetitiveAutorespawn);
+	%this.respawnTimer = $Hunt::Competitive_AutorespawnTime;
+	%time = %this.respawnTimer;
+	if (PlayGui.currentTime > %time) {
+		Hunt_CompetitiveSetTimer(%time);
+	} else {
+		// The countdown is not going to trigger, don't bother showing it.
+		commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
+	}
+}
 function Mode_hunt::onMissionReset(%this, %object) {
 	resetSpawnWeights();
+	hideGems();
+
+	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
+	$Hunt::CurrentCompetitiveGemsLeftBehind = 0;
 
 	if ($Server::SpawnGroups) {
 		$Game::FirstSpawn = true;
@@ -88,6 +105,28 @@ function Mode_hunt::onMissionReset(%this, %object) {
 				%client.pointToNearestGem();
 			}
 		}
+	}
+
+	if ($MPPref::Server::CompetitiveMode) {
+		if (!mp() || $Game::isMode["coop"] || !$Game::isMode["hunt"]) {
+			$MPPref::Server::CompetitiveMode = 0;
+			Hunt_CompetitiveClearTimer();
+			return;
+		}
+		if (!$Hunt::Competitive_TimerWaitsForFirstGem) {
+			%this.schedule(3500, startCompetitiveAutorespawn);
+		} else {
+			Hunt_CompetitiveClearTimer();
+		}
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			%client = ClientGroup.getObject(%i);
+			%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or less gems remain. No quickspawn.");
+		}
+	}
+}
+function Mode_hunt::onHuntGemSpawn(%this) {
+	if ($MPPref::Server::CompetitiveMode && !$Hunt::Competitive_TimerWaitsForFirstGem) {
+		%this.startCompetitiveAutorespawn();
 	}
 }
 function Mode_hunt::onRespawnPlayer(%this, %object) {

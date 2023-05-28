@@ -97,7 +97,7 @@ function spawnHuntGemGroup(%exclude) {
 function doSpawnHuntGemGroup(%exclude) {
 	if (isObject(GemGroups) && MissionInfo.gemGroups && GemGroups.getCount()) {
 		// We need to do a gemgroups spawn
-		hideGems();
+		//hideGems();
 //		devecho("Doing a gemgroup spawn!");
 
 		if (getHuntSpawnType() > 0) {
@@ -141,7 +141,7 @@ function doSpawnHuntGemGroup(%exclude) {
 		// We can do a gemGroup spawn here!
 		%count = 0;
 
-		while ($Hunt::CurrentGemCount == 0 && (%count ++) < 20) {
+		while ((%count ++) < 20) {
 			%groupCount = GemGroups.getCount();
 			%spawnables = new ScriptObject() {
 				count = 0;
@@ -196,7 +196,7 @@ function doSpawnHuntGemGroup(%exclude) {
 
 function spawnHuntGemsInGroup(%groups, %exclude) {
 	//echo("Spawning in groups" SPC %groups);
-	hideGems();
+	//hideGems();
 
 	if (mp() && $MPPref::Server::SpawnRamp && !$Game::isMode["coop"]) {
 		//Early in the game, exclude high-value gems from being spawned
@@ -234,7 +234,9 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 
 		%set = spawnGemGroupSet(%center, %exclude);
 		for (%j = 0; %j < %set.getCount(); %j ++) {
-			%spawnSet.add(%set.getObject(%j));
+			if (%set.getObject(%j).isHidden()) {
+				%spawnSet.add(%set.getObject(%j));
+			}
 		}
 
 		//Only the first gem is the "real" center
@@ -648,6 +650,8 @@ function spawnGem(%gem) {
 		RootGroup.add(new SimSet(SpawnedSet));
 
 	SpawnedSet.add(%gem);
+	%gem._leftBehind = false; // For competitive
+	$Hunt::Competitive_FirstGemOfSpawnCollected = false; // If we spawned a gem, obviously there was a new spawn
 
 	if ($MP::FinalSpawn)
 		return true;
@@ -672,6 +676,124 @@ function spawnGem(%gem) {
 	return true;
 }
 
+function getCurrentSpawnScore() {
+	%score = 0;
+	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+		%score += 1 + SpawnedSet.getObject(%i)._huntDatablock.huntExtraValue;
+	}
+	return %score;
+}
+
+function getLeftBehindScore() {
+	%score = 0;
+	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+		if (SpawnedSet.getObject(%i)._leftBehind) {
+			%score += 1 + SpawnedSet.getObject(%i)._huntDatablock.huntExtraValue;
+		}
+	}
+	return %score;
+}
+function getLeftBehindGems() {
+	%score = 0;
+	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+		if (SpawnedSet.getObject(%i)._leftBehind) {
+			%score += 1;
+		}
+	}
+	return %score;
+}
+function Hunt_CompetitiveMarkGemAsLeftbehind(%gem) {
+	%gem._leftBehind = true;
+	%gem._light.setSkinName("black");
+	%gem._light.setScale("0.2 0.2 1");
+	$Hunt::CurrentCompetitivePointsLeftBehind += %gem._huntDatablock.huntExtraValue + 1;
+	$Hunt::CurrentCompetitiveGemsLeftBehind += 1;
+}
+function Hunt_CompetitiveRespawn(%exclude) { // A version that works with leftbehinds
+	for (%i = SpawnedSet.getCount() - 1; %i >= 0; %i --) {
+		%gem = SpawnedSet.getObject(%i);
+		if (%gem._leftBehind == true) {
+			if ($Hunt::Competitive_LeftbehindsDisappearAfterOneSpawn) {
+				unspawnGem(%gem, 1); // (, 1) so this doesn't recurse
+				%gem._leftBehind = false;
+			}
+		} else {
+			Hunt_CompetitiveMarkGemAsLeftbehind(%gem);
+		}
+	}
+	spawnHuntGemGroup(%exclude);
+	if ($Hunt::Competitive_TimerWaitsForFirstGem) {
+		Hunt_CompetitiveClearTimer();
+	} else {
+		Hunt_CompetitiveSetTimer($Hunt::Competitive_AutorespawnTime);
+	}
+}
+
+
+function Hunt_CompetitiveAutorespawn() {
+	// The autorespawn has some settings:
+	// $Hunt::Competitive_AutorespawnLeftbehindAction = Remove/keep leftbehind
+	// $Hunt::Competitive_AutorespawnCurrentSpawnAction = Remove/keep/mark-as-leftbehind current spawn
+	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {
+		%gem = SpawnedSet.getObject(%i);
+		if (%gem._leftBehind && $Hunt::Competitive_AutorespawnLeftbehindAction == 0) {
+			unspawnGem(%gem, true);
+			%gem._leftBehind = false;
+		}
+		if (!%gem._leftBehind) {
+			if ($Hunt::Competitive_AutorespawnCurrentSpawnAction == -1) { // Mark as leftbehind
+				Hunt_CompetitiveMarkGemAsLeftbehind(%gem);
+			} else if ($Hunt::Competitive_AutorespawnCurrentSpawnAction == 0) { // Remove
+				unspawnGem(%gem, true);
+			}
+		}
+	}
+	spawnHuntGemGroup();
+}
+function Hunt_CompetitiveSetTimer(%time) {
+	// "CountdownLeft" refers to the countdown on the left of the timer, not another definition of the word "left".
+	$Hunt::Competitive_AutorespawnSetTime = getSimTime();
+	$Hunt::Competitive_AutorespawnSetDuration = %time;
+	$Hunt::Competitive_AutorespawnSetTimeout = $Hunt::Competitive_AutorespawnSetTime + $Hunt::Competitive_AutorespawnSetDuration;
+	commandToAll('SetHuntCompetitiveTimer', %time);
+}
+function Hunt_CompetitiveSetTimerDownTo(%time) { // Only sets it if it would be lower.
+	if (getSimTime() < $Hunt::Competitive_AutorespawnSetTimeout - %time) {
+		Hunt_CompetitiveSetTimer(%time);
+	}
+}
+function Hunt_CompetitiveAddToTimer(%time) {
+	if (getSimTime() < $Hunt::Competitive_AutorespawnSetTimeout) { // Timer has to be there, of course
+		Hunt_CompetitiveSetTimer($Hunt::Competitive_AutorespawnSetTimeout - getSimTime() + %time);
+	}
+}
+function Hunt_CompetitiveClearTimer() {
+	cancel($Hunt_CompetitiveAutorespawn);
+	commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
+	$Hunt::Competitive_AutorespawnSetTime = 0;
+	$Hunt::Competitive_AutorespawnSetDuration = 0;
+	$Hunt::Competitive_AutorespawnSetTimeout = 0;
+}
+
+$Hunt::CurrentCompetitivePointsLeftBehind = 0;
+$Hunt::Competitive_Leftbehind_1Gem = 5 * 1000;
+$Hunt::Competitive_Leftbehind_2Gem = 10 * 1000;
+$Hunt::Competitive_Leftbehind_3Gem = 15 * 1000;
+$Hunt::Competitive_Leftbehind_1Point = -1; // placeholders if you wanna switch to points
+$Hunt::Competitive_Leftbehind_2Point = -1;
+$Hunt::Competitive_Leftbehind_3Point = -1;
+
+$Hunt::Competitive_AutorespawnTime = 20000;
+$Hunt::Competitive_TimerWaitsForFirstGem = 1;
+$Hunt::Competitive_TimerIncrementOnLeftbehindPickup = 1000; // To allow people to collect leftbehind stuff without the main spawn waiting
+
+$Hunt::Competitive_AutorespawnLeftbehindAction = 1;
+// 0 = Remove, 1 = Keep
+$Hunt::Competitive_AutorespawnCurrentSpawnAction = -1;
+// 0 = Remove, 1 = Keep, -1 = Make leftbehind
+
+$Hunt::Competitive_LeftbehindsDisappearAfterOneSpawn = 0;
+
 function unspawnGem(%gem, %nocheck) {
 	if (!isObject(%gem))
 		return;
@@ -682,8 +804,39 @@ function unspawnGem(%gem, %nocheck) {
 	if ($Hunt::CurrentGemCount > 0)
 		$Hunt::CurrentGemCount --;
 
-	if ($Hunt::CurrentGemCount <= 0 && !%nocheck)
-		spawnHuntGemGroup(%gem);
+	if ($MPPref::Server::CompetitiveMode && %gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
+	// actually I think "FirstSpawn" is never actually on, lol
+		$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
+		$Hunt::CurrentCompetitiveGemsLeftBehind -= 1;
+		if ($Hunt::Competitive_TimerIncrementOnLeftbehindPickup) {
+			Hunt_CompetitiveAddToTimer($Hunt::Competitive_TimerIncrementOnLeftbehindPickup);
+		}
+	}
+	if ($MPPref::Server::CompetitiveMode && !%gem._leftBehind && $Hunt::Competitive_TimerWaitsForFirstGem && !$Hunt::Competitive_FirstGemOfSpawnCollected && !$Game::FirstSpawn && !%nocheck) {
+		Hunt_CompetitiveSetTimer($Hunt::Competitive_AutorespawnTime);
+		$Hunt::Competitive_FirstGemOfSpawnCollected = true;
+	}
+
+	devecho("Unspawn");
+	devecho($Hunt::CurrentCompetitivePointsLeftBehind);
+	devecho($Hunt::CurrentCompetitiveGemsLeftBehind);
+	if ($MPPref::Server::CompetitiveMode && $Game::Running && !%nocheck) {
+		%remainingPoints = getCurrentSpawnScore() - $Hunt::CurrentCompetitivePointsLeftBehind;
+		%remainingGems = $Hunt::CurrentGemCount - $Hunt::CurrentCompetitiveGemsLeftBehind;
+		if (%remainingGems <= 0) {
+			Hunt_CompetitiveRespawn(%gem);
+		} else if (%remainingGems == 1) {
+			Hunt_CompetitiveSetTimerDownTo($Hunt::Competitive_Leftbehind_1Gem);
+		} else if (%remainingGems == 2) {
+			Hunt_CompetitiveSetTimerDownTo($Hunt::Competitive_Leftbehind_2Gem);
+		} else if (%remainingGems <= 3) {
+			Hunt_CompetitiveSetTimerDownTo($Hunt::Competitive_Leftbehind_3Gem);
+		}
+	} else {
+		%gem._leftBehind = false;
+		if ($Hunt::CurrentGemCount <= 0 && !%nocheck)
+			spawnHuntGemGroup(%gem);
+	}
 
 	//Nukesweeper deletes gems, causes warnings
 	if (!isObject(%gem))
