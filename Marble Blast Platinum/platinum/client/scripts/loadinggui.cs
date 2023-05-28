@@ -359,6 +359,7 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Great Marble Adventure
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Head to https://marbleland.vani.ga!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: You'll gain more height from a Super Jump, Blast, or wall hit by using them immediately after jumping, rather than at the peak of your jump.";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Typing '/cancel' in chat while hosting your own server will cancel the loading of the current mission."
 
 $Loading::TipsChance[0] = 0.80;
 
