@@ -59,7 +59,7 @@ function Mode_collection::shouldStoreGem(%this, %object) {
 	return false;
 }
 function Mode_collection::timeMultiplier(%this) {
-	return -1;
+	return 1;
 }
 function Mode_collection::shouldSetSpectate(%this, %object) {
 	return $Game::Pregame;
@@ -100,7 +100,7 @@ function Mode_collection::onGameState(%this, %object) {
 	%object.client.setMaxGems(%this.getColorCount(%object.client.collectioncolor));
 }
 function Mode_collection::getStartTime(%this) {
-	return (MissionInfo.time ? MissionInfo.time : 300000);
+	return 0;
 }
 function Mode_collection::shouldResetGem(%this, %object) {
 	return true;
