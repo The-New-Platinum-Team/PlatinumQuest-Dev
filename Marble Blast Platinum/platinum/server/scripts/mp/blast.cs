@@ -265,7 +265,11 @@ datablock ParticleEmitterData(UltraBlastEmitter) {
 	particles        = "UltraBlastSmoke";
 };
 
-function Marble::sendShockwave(%this, %strength) {
+function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
+
+	if ($MPPref::Server::CompetitiveMode && !%usingSpecialBlast) {
+		return;
+	}
 
 	echo("Marble" SPC %this SPC "sending a shockwave of strength" SPC %strength);
 	%mePos = %this.getWorldBoxCenter();
@@ -306,7 +310,7 @@ function Marble::sendShockwave(%this, %strength) {
 
 // TODO: UTALIZE THE GRAVITY (its getGravityDir() but MP friendly)
 function GameConnection::makeBlastParticle(%this, %gravity) {
-	%this.player.sendShockwave(%this.blastValue * (%this.usingSpecialBlast ? $MP::BlastRechargeShockwaveStrength : $MP::BlastShockwaveStrength));
+	%this.player.sendShockwave(%this.blastValue * (%this.usingSpecialBlast ? $MP::BlastRechargeShockwaveStrength : $MP::BlastShockwaveStrength), %this.usingSpecialBlast);
 
 	// get the blast particles
 	if (((Sky.materialList $= "platinum/data/skies_mbu/beginner/sky_beginner.dml") || (Sky.materialList $= "platinum/data/skies_mbu/intermediate/sky_intermediate.dml") || (Sky.materialList $= "platinum/data/skies_mbu/advanced/sky_advanced.dml")) && !$pref::LegacyItems) {
