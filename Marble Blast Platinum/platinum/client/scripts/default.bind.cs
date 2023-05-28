@@ -250,9 +250,11 @@ function input_escapeFromGame(%val) {
 		if ($Server::ServerType $= "Multiplayer") {
 			if (!$Server::Lobby && !$Game::Pregame)  {
 				RootGui.pushDialog(MPExitGameDlg);
+				alxPlay(PauseMenuSfx);
 			}
 		} else {
 			RootGui.pushDialog(ExitGameDlg);
+			alxPlay(PauseMenuSfx);
 			alxSetChannelVolume(1, 0); // main_gi
 		}
 	} else {

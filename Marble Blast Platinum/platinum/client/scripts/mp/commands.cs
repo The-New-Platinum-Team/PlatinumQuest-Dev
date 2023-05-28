@@ -206,6 +206,7 @@ function clientCmdActivatePowerUp(%powerUpId) {
 	}
 	//if (%powerUpId == 6)
 	//MegaRollingHardSfx.filename = RollingHardSfx.filename = "~/data/sound/mega_roll.wav";
+	//Mega Marble sounds require engine hacks
 }
 function clientCmdDeactivatePowerUp(%powerUpId) {
 	$Game::PowerupActive[%powerUpId] = false;

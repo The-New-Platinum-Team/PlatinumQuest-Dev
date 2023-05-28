@@ -225,6 +225,7 @@ function GameConnection::finishConnect(%client) {
 	if ($Server::ServerType $= "Multiplayer") {
 		%client.sendDifficultyList();
 		commandToAllExcept(%client, 'PrivateMessage', LBChatColor("notification") @ %client.getDisplayName() SPC "has joined the game.");
+		commandToAllExcept(%client, 'alxPlay', PlayerJoinSfx);
 		commandToClient(%client, 'initSprng', $Server::SprngSeed);
 	}
 
@@ -343,6 +344,7 @@ function GameConnection::onDrop(%client, %reason) {
 	removeFromServerGuidList(%client.guid);
 	if (%client.connected && %client.getDisplayName() !$= "" && $Server::ServerType $= "Multiplayer") {
 		messageAllExcept(%client, -1, 'MsgClientDrop', '\c1%1 has left the game.', %client.getDisplayName(), %client);
+		commandToAllExcept(%client, 'alxPlay', PlayerLeaveSfx);
 		commandToAllExcept(%client, 'PrivateMessage', LBChatColor("notification") @ %client.getDisplayName() SPC "has left the game.");
 	}
 
