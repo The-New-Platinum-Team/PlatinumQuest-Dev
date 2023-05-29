@@ -59,6 +59,7 @@ function clientCmdLobbyReturned() {
 	clientClearPaths();
 
 	PlayMissionGui.updateMPButtons();
+	PlayMissionGui.reactivateMissionList();
 }
 
 function clientCmdLobbyMissionInfo(%info, %file, %game, %difficulty, %mode) {
