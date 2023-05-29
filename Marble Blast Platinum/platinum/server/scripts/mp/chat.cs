@@ -225,9 +225,12 @@ function serverChatCommandBan(%client, %rest) {
 	return false;
 }
 function serverChatCommandCancel(%client, %rest) {
-	if (%client.isAdmin()) {
+	if (%client.isAdmin() || (%client.isHost() && $Server::Dedicated)) {
 		%client.sendChat(LBChatColor("help") @ "Cancelling mission load/play...");
+		echo("Force cancelled mission load/play.");
+		$loadingMission = false;
 		lobbyReturn();
+		cancel($LoadStage2);
 		return true;
 	}
 	return false;
