@@ -722,6 +722,7 @@ function spawnBackupPowerUp(%powerup) {
 		collideable = "0";
 		static = "1";
 		rotate = %powerup.rotate; //Some levels mess with this, so we will have the powerup value for "rotate" be taken from the original PU. ~Connie
+		_isBackup = "1";
 	});
 
 	%obj.schedule($MPPref::Server::PingStealFix, delete);
