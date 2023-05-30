@@ -39,6 +39,8 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("shouldRestorePowerup");
+	%this.registerCallback("shouldPickupPowerup");
+	%this.registerCallback("shouldDisablePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
@@ -73,6 +75,28 @@ function Mode_hunt::shouldStoreGem(%this, %object) {
 
 	return false;
 }
+
+function Mode_hunt::shouldPickupPowerUp(%this, %object, %user) {
+	if ($MPPref::Server::PingStealFix > 0 && mp() && !$Game::isMode["coop"]) {
+		%backup = spawnBackupPowerUp(%object.obj);
+		%backup._finder[%object.user] = true;
+	}
+
+	return true;
+}
+
+function Mode_hunt::shouldDisablePowerup(%this, %object, %user) {
+	if (mp() && !$Game::isMode["coop"]) {
+		if (!%object.obj._finder[%object.user]) {
+			return false;
+		} else {
+			return true;
+		}
+	} else {
+		return false;
+	}
+}
+
 function Mode_hunt::onMissionReset(%this, %object) {
 	resetSpawnWeights();
 

@@ -712,6 +712,22 @@ function spawnBackupGem(%gem) {
 	return %obj;
 }
 
+//Gonna have both the Ping Grace Gem and Ping Grace Powerup code here for convenience's sake. ~Connie
+function spawnBackupPowerUp(%powerup) {
+	MissionCleanup.add(%obj = new Item() {
+		position = %powerup.position;
+		rotation = %powerup.rotation;
+		scale = %powerup.scale;
+		datablock = %powerup.getDatablock().getName();
+		collideable = "0";
+		static = "1";
+		rotate = %powerup.rotate; //Some levels mess with this, so we will have the powerup value for "rotate" be taken from the original PU. ~Connie
+	});
+
+	%obj.schedule($MPPref::Server::PingStealFix, delete);
+	return %obj;
+}
+
 function BackupGem::onPickup(%this, %obj, %user, %amount) {
 	if (!%obj._finder[%user]) {
 		%obj._finder[%user] = true;
