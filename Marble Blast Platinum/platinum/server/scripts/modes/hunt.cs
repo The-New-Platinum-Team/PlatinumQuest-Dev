@@ -90,12 +90,20 @@ function Mode_hunt::startCompetitiveAutorespawn(%this) {
 }
 
 function Mode_hunt::shouldPickupPowerUp(%this, %object, %user) {
-	if ($MPPref::Server::PingStealFix > 0 && mp() && !$Game::isMode["coop"]) {
-		%backup = spawnBackupPowerUp(%object.obj);
-		%backup._finder[%object.user] = true;
-	}
+	if (mp() && !$Game::isMode["coop"]) {
+		if ($MPPref::Server::PingStealFix > 0 && !%object.obj._isBackup) {
+			%backup = spawnBackupPowerUp(%object.obj);
+			%backup._finder[%object.user] = true;
+		}
 
-	return true;
+		if (%object.obj._isBackup) {    //To prevent other Backup PU's from making other Backup PU's, leading to Powerup Duplication, which is cringle pringle. ~Connie
+			return false;      //Basically, this will still let the player pick up the powerup, but it won't remove the Backup Powerup and add another one, because Backups aren't supposed to do that. ~Connie
+		} else {
+			return true;
+		}
+	} else {
+		return true;
+	}
 }
 
 function Mode_hunt::shouldDisablePowerup(%this, %object, %user) {
