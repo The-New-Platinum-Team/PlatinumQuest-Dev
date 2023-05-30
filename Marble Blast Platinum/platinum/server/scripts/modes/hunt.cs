@@ -84,6 +84,7 @@ function Mode_hunt::shouldPickupPowerUp(%this, %object, %user) {
 		}
 
 		if (%object.obj._isBackup) {    //To prevent other Backup PU's from making other Backup PU's, leading to Powerup Duplication, which is cringle pringle. ~Connie
+			%object.obj._finder[%object.user] = true;   //In case you're picking up the Backup and haven't picked up the Original. ~Connie
 			return false;      //Basically, this will still let the player pick up the powerup, but it won't remove the Backup Powerup and add another one, because Backups aren't supposed to do that. ~Connie
 		} else {
 			return true;
