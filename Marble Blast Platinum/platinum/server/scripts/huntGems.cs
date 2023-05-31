@@ -756,6 +756,8 @@ function Hunt_CompetitiveSetTimer(%time) {
 	$Hunt::Competitive_AutorespawnSetDuration = %time;
 	$Hunt::Competitive_AutorespawnSetTimeout = $Hunt::Competitive_AutorespawnSetTime + $Hunt::Competitive_AutorespawnSetDuration;
 	commandToAll('SetHuntCompetitiveTimer', %time);
+	cancel($Hunt_CompetitiveAutorespawn);
+	$Hunt_CompetitiveAutorespawn = schedule(%time, 0, Hunt_CompetitiveAutorespawn);
 }
 function Hunt_CompetitiveSetTimerDownTo(%time) { // Only sets it if it would be lower.
 	if (getSimTime() < $Hunt::Competitive_AutorespawnSetTimeout - %time) {

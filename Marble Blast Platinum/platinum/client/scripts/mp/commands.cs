@@ -246,8 +246,6 @@ function clientCmdStartCountdownLeft(%time, %icon) {
 function clientCmdSetHuntCompetitiveTimer(%time) {
 	// I think the hunt competitive timer doesn't work in MP, because the host needs to get all info about the timer to set it. So we gotta call this to all clients and then the host will update.
 	PlayGui.startCountdownLeft(%time, "timerHuntRespawn");
-	cancel($Hunt_CompetitiveAutorespawn);
-	$Hunt_CompetitiveAutorespawn    = schedule(%time, 0, Hunt_CompetitiveAutorespawn);
 }
 
 function clientCmdIncrementOOBCounter() {
