@@ -881,6 +881,7 @@ function spawnBackupPowerUp(%powerup) {
 	});
 
 	%obj.schedule($MPPref::Server::PingStealFix, delete);
+	%obj.setFadeVal(0);
 	return %obj;
 }
 
