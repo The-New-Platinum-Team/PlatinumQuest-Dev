@@ -353,13 +353,12 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If you're bad at this game, the O
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: PlatinumQuest is open source! Check out https://github.com/The-New-Platinum-Team/PlatinumQuest-Dev for more information!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: YOUR custom levels can be included in the game! Check out the Marble Blast Community Master Sheet linked in our official Discord server for more information!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Pressing <func:bind forceRespawn> will respawn you at the last checkpoint. Holding <func:bind forceRespawn> for one second will restart the whole level from the beginning.";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Check out https://marbleblast.vani.ga!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Check out https://marbleblast.vaniverse.io/!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Marble It Up!' on Steam!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Great Marble Adventure' on Steam!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Head to https://marbleland.vani.ga!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Try out https://marbleland.vaniverse.io/ or https://marbleblast.randomityguy.me/!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: You'll gain more height from a Super Jump, Blast, or wall hit by using them immediately after jumping, rather than at the peak of your jump.";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Typing '/cancel' in chat while hosting your own server will cancel the loading of the current mission.";
 
 $Loading::TipsChance[0] = 0.80;
 
