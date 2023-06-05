@@ -317,7 +317,7 @@ function EditorSaveMissionMenu() {
 }
 
 function isTemplateMission(%missionFile) {
-	if (%missionFile $= ($usermods @ "/data/multiplayer/hunt/custom/ExampleMission.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/GoldTemplate.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/PlatinumTemplate.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") || $Server::MissionFile $= ($usermods @ "/data/missions/templates/PQTempalate.mis")) {
+	if (%missionFile $= ($usermods @ "/data/multiplayer/hunt/custom/ExampleMission.mis") || %missionFile $= ($usermods @ "/data/missions/templates/GoldTemplate.mis") || %missionFile $= ($usermods @ "/data/missions/templates/PlatinumTemplate.mis") || %missionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") || %missionFile $= ($usermods @ "/data/missions/templates/PQTempalate.mis")) {
 		return true;
 	} else {
 		return false;
