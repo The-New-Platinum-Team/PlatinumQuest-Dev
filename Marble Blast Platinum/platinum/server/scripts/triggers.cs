@@ -1235,17 +1235,25 @@ datablock TriggerData(ChangeEnvironmentTrigger) {
 function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
-		if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= ""))
+		if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= "")) {
 			noteEnvironment();
+			break;
+		}
 		
 		if (%obj.getName() $= "MissionData") {
 			for (%i = 0; %i < MissionData.getCount(); %i ++) {
 				%obj = MissionData.getObject(%i);
-				if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= ""))
+				if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= "")) {
 					noteEnvironment();
+					break;
+				}
 			}
 		}
 	}
+	
+	%sky = Sky.getID();
+	if (%sky.notedSkybox $= "")
+		noteEnvironment(true);
 }
 
 function ChangeEnvironmentTrigger::onRemove(%this, %trigger, %obj) {
@@ -1268,7 +1276,7 @@ function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 		return;
 
 	//what
-	if (%dirvalue $= "" && %colorvalue $= "" && %ambvalue $= "")
+	if (%dirvalue $= "" && %colorvalue $= "" && %ambvalue $= "" && %skybox $= "")
 		return;
 
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
@@ -1278,6 +1286,7 @@ function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 			%obj.color = %colorvalue;
 			%obj.ambient = %ambvalue;
 			%obj.inspectPostApply();
+			break;
 		}
 		if (%obj.getName() $= "MissionData") {
 			for (%i = 0; %i < MissionData.getCount(); %i ++) {
@@ -1287,12 +1296,15 @@ function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 					%obj.color = %colorvalue;
 					%obj.ambient = %ambvalue;
 					%obj.inspectPostApply();
+					break;
 				}
 			}
 		}
 	}
 
 	%sky = Sky.getID();
+	if (%sky.notedSkybox $= "")
+		noteEnvironment(true);
 	if (%skybox $= "" || %sky.materialList $= %skybox)
 		return;
 	//Really don't want to do this but there's no other way to change the skybox
@@ -1341,6 +1353,7 @@ function resetEnvironment(%skyreset) {
 			%obj.color = %obj.notedcolor;
 			%obj.ambient = %obj.notedambient;
 			%obj.inspectPostApply();
+			break;
 		}
 		if (%obj.getName() $= "MissionData") {
 			for (%i = 0; %i < MissionData.getCount(); %i ++) {
@@ -1350,6 +1363,7 @@ function resetEnvironment(%skyreset) {
 					%obj.color = %obj.notedcolor;
 					%obj.ambient = %obj.notedambient;
 					%obj.inspectPostApply();
+					break;
 				}
 			}
 		}
@@ -1360,7 +1374,9 @@ function resetEnvironment(%skyreset) {
 		return;
 	//Really don't want to do this but there's no other way to change the skybox
 	%sky = Sky.getID();
-	if (%sky.materialList $= %notedSkybox)
+	if (%sky.notedSkybox $= "")
+		noteEnvironment(true);
+	if (%sky.materialList $= %sky.notedSkybox)
 		return;
 	new Sky(Sky) {
 		position = "0 0 0";
@@ -1395,17 +1411,24 @@ function resetEnvironment(%skyreset) {
 	%sky.delete();
 }
 
-function noteEnvironment() {
+function noteEnvironment(%onlysky) {
 	//This trigger is not supported on dedicated servers
 	if ($Server::Dedicated)
 		return;
 
+	//Sky is simpler to note and modify because there's always been a unique name attached to it
+	%sky = Sky.getID();
+	%sky.notedSkybox = %sky.materialList;
+
+	if (%onlysky) //So sun doesn't get overwritten if you change the skybox
+		return;
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
 		if (%obj.getClassName() $= "Sun") {
 			%obj.noteddirection = %obj.direction;
 			%obj.notedcolor = %obj.color;
 			%obj.notedambient = %obj.ambient;
+			break;
 		}
 		if (%obj.getName() $= "MissionData") {
 			for (%i = 0; %i < MissionData.getCount(); %i ++) {
@@ -1414,12 +1437,9 @@ function noteEnvironment() {
 					%obj.noteddirection = %obj.direction;
 					%obj.notedcolor = %obj.color;
 					%obj.notedambient = %obj.ambient;
+					break;
 				}
 			}
 		}
 	}
-
-	//Sky is simpler to note and modify because there's always been a unique name attached to it
-	%sky = Sky.getID();
-	%sky.notedSkybox = %sky.materialList;
 }
