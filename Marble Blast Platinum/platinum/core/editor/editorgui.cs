@@ -317,17 +317,20 @@ function EditorSaveMissionMenu() {
 }
 
 function isTemplateMission(%missionFile) {
-	if (%missionFile $= ($usermods @ "/data/multiplayer/hunt/custom/ExampleMission.mis") || %missionFile $= ($usermods @ "/data/missions/templates/GoldTemplate.mis") || %missionFile $= ($usermods @ "/data/missions/templates/PlatinumTemplate.mis") || %missionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") || %missionFile $= ($usermods @ "/data/missions/templates/PQTempalate.mis")) {
-		return true;
-	} else {
-		return false;
+	switch$ (%missionFile) {
+		case $usermods @ "/data/multiplayer/hunt/custom/ExampleMission.mis": return true;
+		case $usermods @ "/data/missions/templates/GoldTemplate.mis": return true;
+		case $usermods @ "/data/missions/templates/PlatinumTemplate.mis": return true;
+		case $usermods @ "/data/missions/templates/UltraTemplate.mis": return true;
+		case $usermods @ "/data/missions/templates/PQTempalate.mis": return true;
 	}
+	return false;
 }
 
 function EditorSaveMission() {
 	if (isTemplateMission($Server::MissionFile)) {
 		EditorSaveMissionAs();
-		return;		
+		return;
 	}
 	// just save the mission without renaming it
 
