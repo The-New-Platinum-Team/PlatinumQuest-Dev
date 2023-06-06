@@ -381,6 +381,22 @@ function GameConnection::getRandomSpawnTrigger(%this) {
 	return SpawnPointSet.getObject(getRandom(0, %size - 1));
 }
 
+function GameConnection::getSharedSpawnTrigger(%this) {
+	if (!isObject(SpawnPointSet))
+		return -1;
+
+	%size = SpawnPointSet.getCount();
+	if (%size == 0)
+		return -1;
+
+	if (($Sim::Time - %this.lastSpawnTime) > 4)
+		%this.lastSpawnTrigger = "";
+
+	// Always gets the first available spawn trigger
+	// Would be nice for the server to randomly pick one and sync to all players, but this will work for now.
+	return SpawnPointSet.getObject(0);
+}
+
 function GameConnection::pointToNearestGem(%this) {
 	%pos = %this.player.getPosition();
 	%yp = transformToNearestGem(%this.player.getGravityRot(), %pos, true);
