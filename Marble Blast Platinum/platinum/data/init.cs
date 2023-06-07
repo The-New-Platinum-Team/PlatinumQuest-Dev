@@ -290,6 +290,10 @@ new SimGroup(MaterialGroup) {
 		restitution = 2;
 		force = 10;
 	};
+	new MaterialProperty(BMSnowMaterial) {
+		friction = 4;
+		restitution = 0.25;
+	};
 };
 
 // YAY FOR MBP
@@ -425,6 +429,7 @@ addMaterialMapping("bm_friction_ice" , BMIceMaterial);
 addMaterialMapping("bm_friction_bounce_high" , BMHighBouncyMaterial);
 addMaterialMapping("bm_friction_bounce_med" , BMMedBouncyMaterial);
 addMaterialMapping("bm_friction_bounce_low" , BMLowBouncyMaterial);
+addMaterialMapping("bm_friction_snow" , BMSnowMaterial);
 addMaterialMapping("bm_bumper_black" , BumperMaterial);
 addMaterialMapping("bm_bumper_center" , BumperMaterial);
 addMaterialMapping("bm_bumper_gray" , BumperMaterial);
