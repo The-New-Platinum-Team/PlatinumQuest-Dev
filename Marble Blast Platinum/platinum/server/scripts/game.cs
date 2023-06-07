@@ -316,7 +316,7 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups) {
+	if (mp() && $MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode) {
 		$MP::ScoreSendingDisabled = true;
 	}
 
@@ -1044,7 +1044,7 @@ function GameConnection::spawnPlayer(%this, %spawnPoint) {
 	%this.setGravityDir("1 0 0 0 -1 0 0 0 -1", true, "1 0 0 3.1415926535");
 
 	%this.unblockSpawning();
-	%this.playPitchedSound("spawn");
+	//%this.playPitchedSound("spawn");
 	Mode::callback("onSpawnPlayer", "", new ScriptObject() {
 		client = %this;
 		spawnPoint = %spawnPoint;

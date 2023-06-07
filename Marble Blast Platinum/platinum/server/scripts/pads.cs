@@ -98,11 +98,12 @@ function StartPad_MBM::onAdd(%this,%obj) {
 }
 
 function EndPad_MBM::onAdd(%this,%obj) {
-   if ($pref::spchanges && %obj.isTemperable $= "1") {
+   if (($pref::spchanges && %obj.isTemperable $= "1") || ($Server::MissionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") && %obj.tochange == 1)) {   //Because the Ultra Template level needs to have the MBM End Pad (it will crash when making a new level with the MBU Pad), there is a simple mechanism in place to switch out the MBM pad in that level with an MBU pad. ~Connie
 	%obj.setDataBlock("EndPad_MBU");
 	return EndPad_MBU::onAdd(%this, %obj);
-   } else
+   } else {
 	return EndPadClass::onAdd(%this, %obj);
+   }
 }
 
 function StartPadClass::onAdd(%this, %obj) {

@@ -37,8 +37,11 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
 	%this.registerCallback("timeMultiplier");
+	%this.registerCallback("onHuntGemSpawn");
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("shouldRestorePowerup");
+	%this.registerCallback("shouldPickupPowerup");
+	%this.registerCallback("shouldDisablePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
@@ -58,7 +61,7 @@ function huntStoreGem(%client, %huntExtraValue, %color) {
 		%client.gemsFound[1] ++;
 
 	//Show a message
-	%client.displayGemMessage("+" @ (%huntExtraValue + 1), %color);
+	%client.displayGemMessage((%huntExtraValue+1 >= 0? "+":"") @ (%huntExtraValue + 1), %color);
 }
 
 function Mode_hunt::shouldStoreGem(%this, %object) {
@@ -73,8 +76,56 @@ function Mode_hunt::shouldStoreGem(%this, %object) {
 
 	return false;
 }
+
+function Mode_hunt::startCompetitiveAutorespawn(%this) {
+	cancel($Hunt_CompetitiveAutorespawn);
+	%this.respawnTimer = $Hunt::Competitive_AutorespawnTime;
+	%time = %this.respawnTimer;
+	if (PlayGui.currentTime > %time) {
+		Hunt_CompetitiveSetTimer(%time);
+	} else {
+		// The countdown is not going to trigger, don't bother showing it.
+		commandToAll('StartCountdownLeft', 0, "timerHuntRespawn");
+	}
+}
+
+function Mode_hunt::shouldPickupPowerUp(%this, %object, %user) {
+	if (mp() && !$Game::isMode["coop"]) {
+		if ($MPPref::Server::PingStealFix > 0 && !%object.obj._isBackup) {
+			%backup = spawnBackupPowerUp(%object.obj);
+			%backup._finder[%object.user] = true;
+		}
+
+		if (%object.obj._isBackup) {    //To prevent other Backup PU's from making other Backup PU's, leading to Powerup Duplication, which is cringle pringle. ~Connie
+			%object.user.client.addHelpLine("You picked up " @ %object.obj.getDatablock().pickupName);  //Fix for the fact the lil help bubble doesn't pop up when you pick up a Backup Powerup. ~Connie
+			%object.obj._finder[%object.user] = true;   //In case you're picking up the Backup and haven't picked up the Original. ~Connie
+			return false;      //Basically, this will still let the player pick up the powerup, but it won't remove the Backup Powerup and add another one, because Backups aren't supposed to do that. ~Connie
+		} else {
+			return true;
+		}
+	} else {
+		return true;
+	}
+}
+
+function Mode_hunt::shouldDisablePowerup(%this, %object, %user) {
+	if (mp() && !$Game::isMode["coop"]) {
+		if (!%object.obj._finder[%object.user]) {
+			return false;
+		} else {
+			return true;
+		}
+	} else {
+		return false;
+	}
+}
+
 function Mode_hunt::onMissionReset(%this, %object) {
 	resetSpawnWeights();
+	hideGems();
+
+	$Hunt::CurrentCompetitivePointsLeftBehind = 0;
+	$Hunt::CurrentCompetitiveGemsLeftBehind = 0;
 
 	if ($Server::SpawnGroups) {
 		$Game::FirstSpawn = true;
@@ -88,6 +139,28 @@ function Mode_hunt::onMissionReset(%this, %object) {
 				%client.pointToNearestGem();
 			}
 		}
+	}
+
+	if ($MPPref::Server::CompetitiveMode) {
+		if (!mp() || $Game::isMode["coop"] || !$Game::isMode["hunt"]) {
+			$MPPref::Server::CompetitiveMode = 0;
+			Hunt_CompetitiveClearTimer();
+			return;
+		}
+		if (!$Hunt::Competitive_TimerWaitsForFirstGem) {
+			%this.schedule(3500, startCompetitiveAutorespawn);
+		} else {
+			Hunt_CompetitiveClearTimer();
+		}
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			%client = ClientGroup.getObject(%i);
+			%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or less gems remain. No quickspawn.");
+		}
+	}
+}
+function Mode_hunt::onHuntGemSpawn(%this) {
+	if ($MPPref::Server::CompetitiveMode && !$Hunt::Competitive_TimerWaitsForFirstGem) {
+		%this.startCompetitiveAutorespawn();
 	}
 }
 function Mode_hunt::onRespawnPlayer(%this, %object) {

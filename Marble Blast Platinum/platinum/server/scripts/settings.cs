@@ -164,6 +164,7 @@ serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQu
 serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts", false,      "check");
 serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests", false,     "check");
 serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,     "check");
+serverAddSetting("CompetitiveMode",     "Competitive Mode",    "$MPPref::Server::CompetitiveMode", true,  "check");
 // serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
 
 //Called before a server variable is set
@@ -197,6 +198,34 @@ function onPostServerVariableSet(%id, %previous, %value) {
 						break;
 					}
 				}
+				hideGems();
+				spawnHuntGemGroup(); // Get rid of the old spawns
+			}
+		case "CompetitiveMode":
+			if (%value) {
+				activateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
+				Mode_hunt::respawnTimerLoop();
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					%client = ClientGroup.getObject(%i);
+					%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or fewer gems remain. No quickspawn.");
+				$MP::ScoreSendingDisabled = true;
+				}
+			} else {
+				deactivateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					%client = ClientGroup.getObject(%i);
+					%client.addBubbleLine("Competitive Mode is now off.");
+				}
+				Hunt_CompetitiveClearTimer();
+				$MP::ScoreSendingDisabled = false;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+				hideGems();
+				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
 		// case "StealMode":
 		// 	if (%value) {

@@ -38,6 +38,9 @@ function GameBaseData::initFX(%this, %obj) {
 	if (%obj.noParticles)
 		return;
 
+	if (%obj._isBackup)
+		return;
+
 	if ((%obj.getType() & $TypeMasks::ShapeBaseObjectType) && %obj.isHidden()) {
 		return;
 	}

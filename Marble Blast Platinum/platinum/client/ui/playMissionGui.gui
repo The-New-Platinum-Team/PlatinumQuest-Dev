@@ -3135,7 +3135,7 @@ function PlayMissionGui::onLoadProgress(%this, %progress) {
 }
 
 function PlayMissionGui::play(%this) {
-	if ($Menu::Loading || $Client::Loading)
+	if ($Menu::Loading)
 		return;
 
 	if (mp()) {
@@ -3144,10 +3144,17 @@ function PlayMissionGui::play(%this) {
 			// Pretty basic, no?
 			commandToServer('EnterGame');
 		} else {
-			//So we can't load two at a time
-			%this.deactivateMissionList();
+			if ($Client::Loading) {   //Cancel Preload button replaces Preload/Play buttons while preloading in an MP Lobby. ~Connie
+				commandToServer('LobbyReturn');
+				ServerSendChat(LBChatColor("help") @ "Cancelling mission load/play...");
+				$loadingMission = false;
+				cancel($LoadStage2);
+			} else {
+				//So we can't load two at a time
+				%this.deactivateMissionList();
 
-			commandToServer('LoadMission', %this.getMissionInfo().file);
+				commandToServer('LoadMission', %this.getMissionInfo().file);
+			}
 		}
 	} else {
 		//Thanks, controller support
@@ -4214,7 +4221,7 @@ function PlayMissionGui::updateMPButtons(%this) {
 		return;
 	}
 	%this.setBarButtonActive(PM_MissionSearch, $Server::Hosting && !$Client::Loading);
-	%this.setBarButtonActive(PM_MissionPlay, $Server::Hosting && !$Client::Loading);
+	//%this.setBarButtonActive(PM_MissionPlay, $Server::Hosting && !$Client::Loading);
 	%this.setBarButtonActive(PM_MissionServer, $Server::Hosting);
 	%this.setBarButtonActive(PM_MissionPlayers, $Server::Hosting);
 	%this.setBarButtonActive(PM_MissionEnableTeams, $Server::Hosting);
@@ -4225,7 +4232,14 @@ function PlayMissionGui::updateMPButtons(%this) {
 	%this.setBarButtonActive(PM_MissionTeam, $MP::TeamMode);
 	PM_MissionEnableTeams.setValue($MP::TeamMode);
 	PM_MissionEnableTeams.bitmap = ($MP::TeamMode ? "platinum/client/ui/play/buttons/teams-disable.png" : "platinum/client/ui/play/buttons/teams-enable.png");
-	PM_MissionPlay.bitmap = ($Client::Loaded ? "platinum/client/ui/play/buttons/play.png" : "platinum/client/ui/play/buttons/preload.png");
+
+	if ($Client::Loading) {
+		PM_MissionPlay.bitmap = ("platinum/client/ui/play/buttons/cancelpreload.png");
+	} else {
+		PM_MissionPlay.bitmap = ($Client::Loaded ? "platinum/client/ui/play/buttons/play.png" : "platinum/client/ui/play/buttons/preload.png");
+	}
+
+	%this.setBarButtonActive(PM_MissionPlay, $Server::Hosting);
 }
 
 function PlayMissionGui::onMPMissionLoaded(%this) {
@@ -4338,6 +4352,10 @@ function PlayMissionGui::updateServerPlayerList(%this) {
 
 		%loader = ("PlayerListLoader" @ %i);
 
+		if (!$Client::Loading && !$Client::Loaded) {  //If you're not loading, and aren't loaded, the loadstate should be -1. This is a small fix for the cancel preload thingy not updating the load progress. ~Connie
+			%loadState = -1;
+		}
+
 		switch (%loadState) {
 		case -1: //Lobby
 			%loader.setVisible(0);
@@ -4407,6 +4425,11 @@ function PlayMissionGui::updateLoadProgress(%this, %delta) {
 			return;
 
 		%loader = ("PlayerListLoader" @ %i);
+
+		if (!$Client::Loading && !$Client::Loaded) {  //If you're not loading, and aren't loaded, the loadstate should be -1. This is a small fix for the cancel preload thingy not updating the load progress. ~Connie
+			%loadState = -1;
+		}
+
 		switch (%loadState) {
 		case -1: //Lobby
 			%loader.bitmapRotation = 0;

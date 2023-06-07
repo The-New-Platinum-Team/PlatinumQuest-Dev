@@ -763,8 +763,9 @@ function serverSelect() {
 //    IP: The IP address or DNS for the server, WITH THE PORT
 //    Username: The ingame username displayed on the server
 //    Password: The password for the server, if any
+//    Direct: Directly connect to the server, no hole punching
 
-function joinServer(%ip, %username, %password) {
+function joinServer(%ip, %username, %password, %direct) {
 //   echo("Connecting to" SPC %ip);
 
 	//Don't let us join blank servers
@@ -803,10 +804,14 @@ function joinServer(%ip, %username, %password) {
 	new GameConnection(ServerConnection);
 	ServerConnection.setConnectArgs(%username, %password, MarbleSelectDlg.getSelection(), "bologna");
 	ServerConnection.setJoinPassword(%password);
-	if (isLocalAddress(%ip))
+	if (%direct || $pref::NoHolePunching)
 		ServerConnection.connect(%ip);
-	else
-		ServerConnection.arrangeConnection(%ip);
+	else {
+		if (isLocalAddress(%ip))
+			ServerConnection.connect(%ip);
+		else
+			ServerConnection.arrangeConnection(%ip);
+	}
 
 	RootGroup.add(new SimSet(MissionGroup));
 

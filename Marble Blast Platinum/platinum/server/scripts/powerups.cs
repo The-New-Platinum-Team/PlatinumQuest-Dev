@@ -1606,6 +1606,9 @@ function MegaMarbleItem::onUse(%this, %obj, %user) {
 		}
 	}
 	%timeout = (%obj.timeout > 0 ? %obj.timeout : %this.defaultTimeout);
+	if ($MPPref::Server::CompetitiveMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+		%timeout = 5000;
+	}
 	cancel(%user.megaSchedule);
 	%user.megaSchedule = %this.schedule(%timeout, "onUnuse", %obj, %user);
 	commandToClient(%user.client, 'PushTimer', 6, getSimTime(), %timeout);

@@ -139,6 +139,6 @@ function MPDirectConnect() {
 	if (strPos(%value, ":") == -1)
 		%value = %value @ ":28000";
 	$MP::ServerPassword = "";
-	joinServer(%value, $LB::Username);
+	joinServer(%value, $LB::Username, "", true);
 	RootGui.popDialog(MPDirectConnectDlg);
 }
