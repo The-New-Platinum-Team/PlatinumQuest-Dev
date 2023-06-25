@@ -97,13 +97,22 @@ function RtaSpeedrun::updateTimers(%this) {
 		}
 	}
 
-	%text = formatTimeHoursMs(%this.time);
-	if (%this.isDone)
-		%text = %text SPC "Final Time";
-	if (%showGame)
+	%prevPrefThousandths = $pref::Thousandths; // Show the final time with ms always, for leaderboard fairness
+	if (%this.isDone) {
+		$pref::Thousandths = true;
+		%text = formatTimeHoursMs(%this.time) SPC "Final Time";
+	} else {
+		%text = formatTimeHoursMs(%this.time);
+	}
+	if (%showGame) {
+		$pref::Thousandths = true;
 		%text = %text NL formatTimeHoursMs(%this.currentGameDuration) SPC "Game";
-	if (%showCategory)
+	}
+	if (%showCategory) {
+		$pref::Thousandths = true;
 		%text = %text NL formatTimeHoursMs(%this.missionTypeDuration) SPC "Category";
+	}
+	$pref::Thousandths = %prevPrefThousandths;
 	if (%showSplit)
 		%text = %text NL formatTimeHoursMs(%this.lastSplitTime) SPC "Split";
 	%this.setTimerText(%text);
