@@ -1125,7 +1125,7 @@ function buildAudioPackArray() {
 		AudioPackArray.delete();
 	}
 	Array(AudioPackArray);
-	AudioPackArray.addEntry("None" TAB "");
+	AudioPackArray.addEntry("PlatinumQuest" TAB "");
 
 	%spec = $userMods @ "/data/sound/ap_*/*.apk";
 	for (%file = findFirstFile(%spec); %file !$= ""; %file = findNextFile(%spec)) {
