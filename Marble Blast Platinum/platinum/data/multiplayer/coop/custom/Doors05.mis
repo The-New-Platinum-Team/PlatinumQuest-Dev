@@ -8,6 +8,7 @@ new SimGroup(MissionGroup) {
          name = "Granite Grid";
          artist = "Andrew Sears";
          desc = "Find a way to access each area in this spooky array of rooms.";
+         music = "Quiet Lab.ogg";
          goldTime = "30000";
          type = "Custom";
          level = "5";
@@ -648,6 +649,55 @@ new SimGroup(MissionGroup) {
       fileName = "~/data/sound/Pianoforte.ogg";
       description = "AudioMusic";
       preload = "0";
+   };
+      new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-7 -8.5 15";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "1";
+            SmoothEnd = "1";
+            SmoothStart = "1";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "10000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "20 -8.5 15";
+         rotation = "0.0442813 -0.0431298 0.998088 88.6";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "3000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
