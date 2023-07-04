@@ -319,7 +319,7 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Help Bubbles contain useful messa
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar is available by default in PlatinumQuest, Ultra and Multiplayer levels.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Hints are available in Marble Blast Platinum, PlatinumQuest, and many Custom levels.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Online, completing a Quota level with all gems collected will award you an additional bonus in general rating points.";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Gem point values for Hunt and Gem Madness: Red = 1 point, Yellow = 2 points, Blue = 5 points, Platinum = 10 points.";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Standard gem point values for Hunt and Gem Madness:\nRed = 1 Point\nYellow = 2 Points\nBlue = 5 Points\nPlatinum = 10 Points";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: The level editor has many handy functions, including rounding nearest scale unit, dropping items to the ground and even selecting skins for some shapes!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: The level editor contains a handy particle editor. If you can figure it out you can create some really cool effects. Just watch out for the lag.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: The level editor allows you to edit the mission info in-game instead of in a text editor.";
@@ -350,14 +350,14 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Join our official Discord server 
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Ghosts are spooky! Once a ghost collides with you, you will not be attacked by any ghost for about 10-20 seconds.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If a Ghost chases you, go Out of Bounds to reset its spooky timer! It will not go after you for 10-20 seconds after this event.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If you're bad at this game, the Out of Bounds special taunt messages will make fun of you.";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: PlatinumQuest is open source! Check out https://github.com/The-New-Platinum-Team/PlatinumQuest-Dev for more information!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: PlatinumQuest is open source! Check out github.com/The-New-Platinum-Team/PlatinumQuest-Dev for more information!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: YOUR custom levels can be included in the game! Check out the Marble Blast Community Master Sheet linked in our official Discord server for more information!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Pressing <func:bind forceRespawn> will respawn you at the last checkpoint. Holding <func:bind forceRespawn> for one second will restart the whole level from the beginning.";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Try out https://marbleblast.vaniverse.io/ or https://marbleblast.randomityguy.me/!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Try out marbleblast.vaniverse.io or marbleblast.randomityguy.me!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Marble It Up!' on Steam!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Great Marble Adventure' on Steam!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Head to https://marbleland.vaniverse.io/!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Head to marbleland.vaniverse.io!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: You'll gain more height from a Super Jump, Blast, or wall hit by using them immediately after jumping, rather than at the peak of your jump.";
 
 $Loading::TipsChance[0] = 0.80;
@@ -407,7 +407,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "u";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: free jojo";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Marble Blast Instant Marble Gaming Promotion! Type marble to order a free marble courtesy of Matan's Marbles!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "I don't think you need any hints today.";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: OutOfBounds Is Defeat. FinishPad Is Win. Gem Is Power. Powered FinishPad Is Not Win. Gem On Marble Is Weak. Marble Is You.";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: OOB Is Defeat. Finish Without Gem Is Win. Gem On Marble Is Weak. Marble Is You.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Struggling to set a new best time? Have you tried going faster?";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: @everyone welcome UNDERTALE";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Every loading tip has an 80% chance to be a tip, a 17% chance to be trivia, or a 3% chance to be a joke. You just wasted one of your rare 3% chances on this tip.";
