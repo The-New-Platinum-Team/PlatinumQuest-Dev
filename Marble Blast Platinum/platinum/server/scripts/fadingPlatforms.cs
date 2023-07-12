@@ -432,7 +432,8 @@ function FadePlatformClass::onCollision(%this, %obj, %col) {
 		if (%ratio <= 0) {
 			//Completely hidden, reset the fade
 			%obj.hide(true);
-			%obj.setFadeVal(1);
+			%obj.setFadeVal(%ratio);
+			%obj._toggleSch = %this.schedule(%obj.invisibleTime, "fadeIn", %obj);
 		} else {
 			//Slightly hidden
 			%obj.hide(false);
