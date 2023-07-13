@@ -1,0 +1,2027 @@
+// You can leave the level and continue if for whatever reason you exit the level withoit quitting.
+if ($easterEggKeys[0] $= "") { $easterEggKeys[0] = false; }
+if ($easterEggKeys[1] $= "") { $easterEggKeys[1] = false; }
+if ($easterEggKeys[2] $= "") { $easterEggKeys[2] = false; }
+if ($easterEggKeys[3] $= "") { $easterEggKeys[3] = false; }
+$keysLeft = 0; // Might as well define it here just in case bug.
+
+function countKeysLeft() { // Count the number of keys left.
+	$keysLeft = 0;
+	for (%i = 0; true; %i++) { // The "true" part and the if statement with "break" is a workaround to simulate arrayName.length.
+		if ($easterEggKeys[%i] $= "") {
+			break;
+		}
+		if ($easterEggKeys[%i] $= false) {
+			$keysLeft ++;
+		}
+	}
+}
+
+function makePath() {
+	MissionGroup.add(
+	   new TSStatic(pathBeam) {
+		  position = "3.5 -134 0";
+		  rotation = "1 0 0 0";
+		  scale = "1 1 1";
+		  shapeName = "~/data/shapes/gemlights/gemlight.dts";
+	   }
+	);
+	MissionGroup.add(
+	   new TSStatic(pathShape) {
+		  position = "3.5 -134 0.5";
+		  rotation = "1 0 0 0";
+		  scale = "0.3 0.3 2";
+		  shapeName = "~/data/shapes/buttons/checkPoint.dts";
+	   }
+	);
+	MissionGroup.add(
+	   new Trigger(pathTeleporter) {
+		  position = "3 -133.5 0.5";
+		  rotation = "1 0 0 0";
+		  scale = "1 1 1";
+		  dataBlock = "TeleportTrigger";
+		  polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			 destination = "easterSpawn";
+	   }
+	);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~ AUDIO ~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+datablock AudioProfile(EasterEggKeySFX) {
+	filename = "./Audio/EasterEggKey.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+datablock AudioProfile(NewEggKeySFX) {
+	filename = "~/data/sound/getachievement.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+datablock AudioProfile(Velocity1SFX) {
+	filename = "./Audio/ClosetSlide3.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+datablock AudioProfile(Velocity2SFX) {
+	filename = "./Audio/FrequencyEffectShort.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+datablock AudioProfile(Velocity3SFX) {
+	filename = "./Audio/FlareNoise.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+datablock AudioProfile(PompSFX) {
+	filename = "~/data/sound/taunts/Pomp.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~ PARTICLES ~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+datablock ParticleData(GargantuanMarbleTrailParticle) {
+	textureName = "~/data/particles/spark";
+	dragCoeffiecient = 10;
+	gravityCoefficient = -0.2;
+	windCoefficient = 0.1;
+	inheritedVelFactor = 0.3;
+	constantAcceleration = -2;
+	lifetimeMS = 500;
+	lifetimeVarianceMS = 100;
+	useInvAlpha = false;
+	spinSpeed = 0;
+	spinRandomMin = 90;
+	spinRandomMax = 100;
+	
+	colors[0] = "1.0 1.0 0.3 1.0";
+	colors[1] = "1.0 0.5 0.0 0.7";
+	colors[2] = "1.0 0.0 0.0 0.0";
+	
+	sizes[0] = 1;
+	sizes[1] = 2.5;
+	sizes[2] = 3;
+	
+	times[0] = 0;
+	times[1] = 0.5;
+	times[2] = 1;
+};
+datablock ParticleEmitterData(GargantuanMarbleTrailEmitter) {
+	ejectionPeriodMS = 10;
+	periodVarianceMS = 0;
+	ejectionVelocity = 17;
+	velocityVariance = 1;
+	ejectionOffset	= 3.5;
+	orientParticles = false;
+	thetaMin = 0;
+	thetaMax = 180;
+	lifetimeMS = 0;
+	particles = "GargantuanMarbleTrailParticle";
+};
+
+datablock ParticleData(PortalParticle) {
+	textureName = "~/data/particles/smoke_blur32";
+	dragCoeffiecient = 0;
+	gravityCoefficient = 0;
+	windCoefficient = 0;
+	inheritedVelFactor = 0;
+	constantAcceleration = -95;
+	lifetimeMS = 2000;
+	lifetimeVarianceMS = 0;
+	useInvAlpha = true;
+	spinSpeed = 100;
+	spinRandomMin = 0;
+	spinRandomMax = 360;
+	
+	colors[0] = "0.5 0.0 1.0 0.0";
+	colors[1] = "0.7 0.0 0.9 1.0";
+	colors[2] = "0.5 0.0 1.0 1.0";
+	colors[3] = "0.5 0.0 1.0 1.0";
+	colors[4] = "0.7 0.0 0.9 1.0";
+	colors[5] = "0.5 0.0 1.0 0.0";
+	
+	sizes[0] = 0;
+	sizes[1] = 4;
+	sizes[2] = 3;
+	sizes[3] = 4;
+	sizes[4] = 3;
+	sizes[5] = 4;
+	
+	times[0] = 0;
+	times[1] = 0.1;
+	times[2] = 0.35;
+	times[3] = 0.55;
+	times[4] = 0.8;
+	times[5] = 1;
+};
+datablock ParticleEmitterData(PortalEmitter) {
+	ejectionPeriodMS = 3;
+	periodVarianceMS = 0;
+	ejectionVelocity = 0.1;
+	velocityVariance = 0;
+	ejectionOffset	= 20;
+	thetaMin = 89.9;
+	thetaMax = 90.1;
+	lifetimeMS = 0;
+	particles = "PortalParticle";
+};
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~ TRIGGERS ~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//  Seamless motion trigger from the Sandbox PowerPack for MBPU by HiGuy
+// Dynamic field: offset
+// Type in the relative position to teleport the marble to in X Y Z.
+datablock TriggerData(SeamlessMotionTrigger) {
+	tickPeriodMS = 100;
+};
+function SeamlessMotionTrigger::onEnterTrigger(%this, %trigger, %obj) {
+	%obj.noPickup = true;
+	commandToClient(%obj.client, 'MarbleTeleport', %trigger.offset);
+	%obj.schedule((%obj.client.getPing() * 2) + 100, "setFieldValue", "noPickup", false);
+}
+
+// Code trigger (from Marble Blast Powered Up) made by Whirligig231 and HiGuy
+datablock TriggerData(CodeTrigger) {
+	tickPeriodMS = 100;
+};
+function CodeTrigger::onEnterTrigger(%this,%trigger,%obj) {
+	if (%trigger.thidden)
+		return;
+	Parent::onEnterTrigger(%this,%trigger,%obj);
+	eval(%trigger.code);
+}
+
+// GravityArea trigger
+datablock TriggerData(GravityAreaTrigger) {
+	tickPeriodMS = 100;
+};
+function GravityAreaTrigger::onAdd(%this,%trigger) {
+	if (%trigger.insideGravity $= "") { %trigger.insideGravity = "Amount of G in trigger"; }
+	if (%trigger.outsideGravity $= "") { %trigger.outsideGravity = "Amount of G out of trigger"; }
+}
+function GravityAreaTrigger::onEnterTrigger(%this,%trigger,%obj) {
+	%obj.getDataBlock().gravity = %trigger.insideGravity;
+}
+function GravityAreaTrigger::onLeaveTrigger(%this,%trigger,%obj) {
+	%obj.getDataBlock().gravity = %trigger.outsideGravity;
+}
+
+// Easter egg trigger
+datablock TriggerData(EETrigger) {
+	tickPeriodMS = 100;
+};
+function EETrigger::onAdd(%this,%trigger) {
+	if (%trigger.number $= "") { %trigger.number = "Key number"; }
+	if (%trigger.shape $= "") { %trigger.shape = "Shape name"; }
+}
+function EETrigger::onEnterTrigger(%this,%trigger,%obj) {
+	
+	if ($easterEggKeys[%trigger.number] $= false & isObject(%trigger.shape)) {
+		
+		$easterEggKeys[%trigger.number] = true;
+		
+		countKeysLeft();
+		
+		%trigger.shape.delete(); // Don't really care if it comes back on reload...
+		
+		serverplay2d(EasterEggKeySFX);
+		serverplay2d(EasterEggKeySFX);
+		serverplay2d(NewEggKeySFX);
+		//serverplay2d(NewEggKeySFX);
+		
+		if ($keysLeft $= 0) {
+			makePath();
+			restartLevel();
+			messageClient(%obj.client, "", "\c0All Easter egg keys have been collected.");
+		} else {
+			//addHelpLine("<color:ff9900><font:DomCasualD:42>Easter egg key collected.\n" @ $keysLeft SPC "more to go.", false);
+			messageClient(%obj.client, "", "\c0Easter egg key collected." SPC $keysLeft SPC "more to go.");
+		}
+		
+	} else if ($easterEggKeys[%trigger.number] $= true & isObject(%trigger.shape)) {
+		//addHelpLine("<color:ff9900><font:DomCasualD:42>You already got this key.", false);
+		messageClient(%obj.client, "", "\c0You already got this key.");
+		serverplay2d(EasterEggKeySFX);
+		serverplay2d(EasterEggKeySFX);
+		%trigger.shape.delete();
+	}
+}
+
+datablock TriggerData(SoundTrigger) {
+	tickPeriodMS = 100;
+};
+function SoundTrigger::onAdd(%this,%trigger) {
+	if (%trigger.sound $= "") { %trigger.sound = "Audio profile"; }
+	if (%trigger.volume $= "") { %trigger.volume = "1 to 3 times volume"; }
+}
+function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
+	if (%trigger.volume > 3 || %trigger.volume < 1) {
+		error("Trigger" SPC %trigger.getId() @ "\'s volume is set to an invalid number. Minimum 1, Maximum 3.");
+		error(" ^ The volume dynamic field determines how many times to multiply the volume of the sound.");
+		return;
+	}
+	for (%i = 0; %i < %trigger.volume; %i++) {
+		%obj.client.play2d(%trigger.sound);
+	}
+}
+
+
+// Run after OBJECT WRITE END.
+function afterCode() {
+	countKeysLeft();
+	if ($keysLeft $= 0) {
+		makePath();
+	}
+}
+
+
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         desc = "A fast-paced level with four parts of increasing difficulty.\n\nTry to find the Easter egg for an extra challenge!";
+         music = "Tim Trance.ogg";
+         name = "Terminal Velocity 2";
+         goldTime = "80000";
+         artist = "WeatherWonders";
+         type = "Custom";
+         startHelpText = "Watch your spin and speed.";
+         level = "19";
+         ultimateTime = "60000";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "4000";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "1.000000 1.000000 1.000000 1.000000";
+      fogDistance = "100";
+      fogColor = "0.900000 0.900000 0.900000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/Cloudy/cloudy.dml";
+      windVelocity = "0 -50 -2";
+      windEffectPrecipitation = "1";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.424264 0.7071068 -0.5656855";
+      color = "1.000000 0.700000 0.300000 1.000000";
+      ambient = "0.600000 0.600000 0.700000 1.000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "0 -153 0.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new StaticShape(EndPoint) {
+      position = "0 8210 4110.5";
+      rotation = "-1 0 0 44.99999";
+      scale = "1 1 1";
+      dataBlock = "EndPad";
+   };
+   new Trigger(Bounds) {
+      position = "-800 1500 -201";
+      rotation = "1 0 0 0";
+      scale = "1600 2500 200";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape() {
+      position = "3.648253 8209.321 4120.056";
+      rotation = "-0.5179605 0.05982944 0.8533097 15.41815";
+      scale = "2 2 2";
+      dataBlock = "SignFinish";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-1-3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-1-1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-1-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "20 15.5 53";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-EE.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 363 36";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-2.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic(checkpoint2) {
+      position = "0 139 36";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/buttons/checkPoint.dts";
+   };
+   new Trigger() {
+      position = "-4 147 36.5";
+      rotation = "1 0 0 0";
+      scale = "8 8 8";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         respawnPoint = "Checkpoint2";
+   };
+   new InteriorInstance() {
+      position = "95.5 194 38";
+      rotation = "0 1 0 89.99998";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-3.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "90.5 225 6.5";
+      rotation = "1 0 0 0";
+      scale = "10 62 63";
+      dataBlock = "GravityPointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         CustomPoint = "95.5 194 38";
+         Invert = "1";
+         RadiusSize = "60";
+         UseRadius = "0";
+         UpDownLeave = "0";
+   };
+   new Trigger() {
+      position = "-5.5 571.5 45";
+      rotation = "1 0 0 0";
+      scale = "11 10 30";
+      dataBlock = "SeamlessMotionTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         offset = "95.5 -367.5 -37.5";
+   };
+   new Trigger() {
+      position = "89.5 180.5 9.5";
+      rotation = "1 0 0 0";
+      scale = "11 10 20";
+      dataBlock = "SeamlessMotionTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         offset = "-191 0 0";
+   };
+   new StaticShape() {
+      position = "99 187.5 7.888744";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "95.5 187.5 7.888744";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "97.5 187.5 7.888744";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "92.5 187.5 7.888744";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "94 187.5 7.888744";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new TSStatic() {
+      position = "95.71019 180.7413 9.819626";
+      rotation = "1 0 0 0";
+      scale = "6.757555 0.2053375 6.942076";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new InteriorInstance() {
+      position = "95.5 409.5001 38";
+      rotation = "0 1 0 89.99998";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-3.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic() {
+      position = "-95.28981 162.9556 36.18902";
+      rotation = "1 0 0 89.95438";
+      scale = "6.757555 0.2053375 6.942076";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new StaticShape() {
+      position = "-95.5 164.03 29.42886";
+      rotation = "-3.089627e-08 0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-97 164.03 29.42886";
+      rotation = "-3.089627e-08 0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-98.5 164.03 29.42886";
+      rotation = "-3.089627e-08 0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-93.5 164.03 29.42886";
+      rotation = "-3.089627e-08 0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-92 164.03 29.42886";
+      rotation = "-3.089627e-08 0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new Trigger() {
+      position = "-101.5 162.6357 36.43013";
+      rotation = "1 0 0 89.95438";
+      scale = "11 10 20";
+      dataBlock = "SeamlessMotionTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         offset = "191 215.5 0";
+   };
+   new Trigger() {
+      position = "-100.5 225 6.5";
+      rotation = "1 0 0 0";
+      scale = "10 62 63";
+      dataBlock = "GravityPointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         CustomPoint = "-95.5 194 38";
+         Invert = "1";
+         RadiusSize = "60";
+         UseRadius = "0";
+         UpDownLeave = "0";
+   };
+   new InteriorInstance() {
+      position = "-95.5 194 38";
+      rotation = "0 1 0 89.99998";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-95.5 409.5 38";
+      rotation = "0 1 0 89.99998";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-3.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-100.5 440.5 6.5";
+      rotation = "1 0 0 0";
+      scale = "10 62 63";
+      dataBlock = "GravityPointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         CustomPoint = "-95.5 409.5 38";
+         Invert = "1";
+         RadiusSize = "60";
+         UseRadius = "0";
+         UpDownLeave = "0";
+   };
+   new Trigger() {
+      position = "-101.5 441.9253 41.36103";
+      rotation = "-1 0 -0 89.95438";
+      scale = "11 10 20";
+      dataBlock = "SeamlessMotionTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         offset = "95.5 -541.5 4297.5";
+   };
+   new StaticShape() {
+      position = "-92.03996 438.671 48.35989";
+      rotation = "3.089628e-08 -0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-93.53996 438.671 48.35989";
+      rotation = "3.089628e-08 -0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-98.53996 438.671 48.35989";
+      rotation = "3.089628e-08 -0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-97.03996 438.671 48.35989";
+      rotation = "3.089628e-08 -0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "-95.53996 438.671 48.35989";
+      rotation = "3.089628e-08 -0.7068253 0.7073882 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new TSStatic() {
+      position = "-95.28981 441.6058 41.60258";
+      rotation = "-1 0 -0 89.95438";
+      scale = "6.757555 0.2053375 6.942076";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new TSStatic() {
+      position = "95.71019 407.83 69.47763";
+      rotation = "1 0 0 179.9087";
+      scale = "6.757555 0.2053375 6.942076";
+      shapeName = "~/data/shapes/colmesh.dts";
+   };
+   new StaticShape() {
+      position = "95.5 401.0681 67.89774";
+      rotation = "-4.371132e-08 0.9999997 0.0007969388 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "94 401.0681 67.89774";
+      rotation = "-4.371132e-08 0.9999997 0.0007969388 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "92.5 401.0681 67.89774";
+      rotation = "-4.371132e-08 0.9999997 0.0007969388 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "97.5 401.0681 67.89774";
+      rotation = "-4.371132e-08 0.9999997 0.0007969388 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new StaticShape() {
+      position = "99 401.0681 67.89774";
+      rotation = "-4.371132e-08 0.9999997 0.0007969388 180";
+      scale = "1 1 1";
+      dataBlock = "Magnet";
+   };
+   new Trigger() {
+      position = "89.5 408.0706 69.79747";
+      rotation = "1 0 0 179.9087";
+      scale = "11 10 20";
+      dataBlock = "SeamlessMotionTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         offset = "-191 0 0";
+   };
+   new Trigger() {
+      position = "90.5 440.5 6.5";
+      rotation = "1 0 0 0";
+      scale = "10 62 63";
+      dataBlock = "GravityPointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         CustomPoint = "95.5 409.500 38";
+         Invert = "1";
+         RadiusSize = "60";
+         UseRadius = "0";
+         UpDownLeave = "0";
+   };
+   new Trigger() {
+      position = "15.09371 612.3704 -15";
+      rotation = "1 0 0 0";
+      scale = "70.7074 536.0047 529.4203";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-87.90629 610.9085 -15";
+      rotation = "1 0 0 0";
+      scale = "70.7074 534.5428 529.4203";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new SimGroup(PathNodeGroup) {
+   };
+   new InteriorInstance() {
+      position = "0 93 4300";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-4.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-981.2769 -182.9189 -101";
+      rotation = "1 0 0 0";
+      scale = "1600 977.6658 781.5129";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(Bounds) {
+      position = "-981.2769 1585.581 -101";
+      rotation = "1 0 0 0";
+      scale = "1600 984.9708 781.5129";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-187.9063 610.9085 -15";
+      rotation = "1 0 0 0";
+      scale = "70.7074 822.8242 723.2803";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "113.0937 610.9085 -15";
+      rotation = "1 0 0 0";
+      scale = "70.7074 822.8242 723.2803";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(Bounds) {
+      position = "-800 1500 196.799";
+      rotation = "1 0 0 0";
+      scale = "1600 2500 200";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new InteriorInstance() {
+      position = "0 93 4300";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-4-1.dif";
+      showTerrainInside = "0";
+   };
+   new SimGroup(CameraPath) {
+   };
+   new InteriorInstance() {
+      position = "0 93 4300";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-4-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 93 4306.25";
+      rotation = "0.6189132 0.4969897 0.6082333 95.79789";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/Sphere1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 640 4300";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-5.dif";
+      showTerrainInside = "0";
+   };
+   new TSStatic(Checkpoint3) {
+      position = "0 143.5 4295.76";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/buttons/checkPoint.dts";
+   };
+   new Trigger() {
+      position = "-16 150 4295.85";
+      rotation = "1 0 0 0";
+      scale = "34.18066 8 83.32813";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         respawnPoint = "Checkpoint3";
+   };
+   new Item() {
+      position = "-3 398 4303";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "250";
+   };
+   new Item() {
+      position = "3 391 4298.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-1 399 4300.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-3 399 4302.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1 399.5 4305.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1 398.5 4305.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "500";
+   };
+   new Item() {
+      position = "0 554.5 4311.206";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "3000";
+   };
+   new StaticShape() {
+      position = "-6.999048 190.5763 4298.799";
+      rotation = "0.2854874 -0.9505941 0.1219341 103.6447";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-0.3725709 218.3814 4301.407";
+      rotation = "0.6810009 -0.5174568 -0.518147 217.5393";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-0.2301094 203.5074 4300.958";
+      rotation = "0.7178574 0.4259687 -0.5506646 164.2671";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-5.034318 262.3479 4301.029";
+      rotation = "0.6130665 -0.2404912 0.7525381 168.6936";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-7.231086 245.5886 4300.885";
+      rotation = "0.6487731 -0.4526314 0.6117339 140.4891";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-4.5 694.5 4311.5";
+      rotation = "0 -1 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new StaticShape() {
+      position = "-4.5 678.5 4311.5";
+      rotation = "0 -1 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "-4.5 710.5 4311.5";
+      rotation = "0 -1 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "4.5 702.5 4311.5";
+      rotation = "0 1 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "4.5 686.5 4311.5";
+      rotation = "0 1 0 89.95438";
+      scale = "1 1 1";
+      dataBlock = "DuctFan";
+   };
+   new TSStatic() {
+      position = "4.5 718.5 4311.5";
+      rotation = "-0.6363303 0.4360814 0.6363307 132.8777";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/hazards/ductfan.dts";
+   };
+   new StaticShape() {
+      position = "3 754.5 4310.5";
+      rotation = "0 0 1 180";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "Tornado";
+   };
+   new StaticShape() {
+      position = "-3 754.5 4310.5";
+      rotation = "1 0 0 0";
+      scale = "0.5 0.5 0.5";
+      dataBlock = "Tornado";
+   };
+   new StaticShape() {
+      position = "1.317166 864.5925 4310.7";
+      rotation = "0 0 -1 108.8622";
+      scale = "1 1 1";
+      dataBlock = "TriangleBumper";
+   };
+   new Trigger() {
+      position = "-9.994802 -92.22015 4302.074";
+      rotation = "1 0 0 0";
+      scale = "21.38374 77.86375 67.62842";
+      dataBlock = "GravityTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         onLeave = "0";
+         SimRotation = "1 0 0 180";
+   };
+   new Trigger() {
+      position = "-5 -108 4305";
+      rotation = "1 0 0 0";
+      scale = "10 5 6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Keep holding <func:bind moveforward>!";
+   };
+   new Trigger() {
+      position = "-5 541 45";
+      rotation = "1 0 0 0";
+      scale = "10 5 6";
+      dataBlock = "HelpTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         text = "Stay centered or you\'ll get blasted off!";
+   };
+   new ParticleEmitterNode() {
+      position = "0 93 4306.25";
+      rotation = "1 0 0 23.49129";
+      scale = "1 1 1";
+      dataBlock = "FireWorkNode";
+      emitter = "GargantuanMarbleTrailEmitter";
+      velocity = "1";
+   };
+   new ParticleEmitterNode() {
+      position = "0 955.5 4311";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "FireWorkNode";
+      emitter = "PortalEmitter";
+      velocity = "1";
+   };
+   new InteriorInstance() {
+      position = "0 955.5 4311";
+      rotation = "1 0 0 89.99998";
+      scale = "2.1 2.1 2.1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-Portal.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 956.5 4311";
+      rotation = "-1 0 0 89.99998";
+      scale = "2.1 2.1 0";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-PortalBack.dif";
+      showTerrainInside = "0";
+   };
+   new ParticleEmitterNode() {
+      position = "0 5018.5 4311";
+      rotation = "1 0 0 89.99998";
+      scale = "1 1 1";
+      dataBlock = "FireWorkNode";
+      emitter = "PortalEmitter";
+      velocity = "1";
+   };
+   new InteriorInstance() {
+      position = "0 5017.5 4311";
+      rotation = "1 -0 -0 89.99998";
+      scale = "2.1 2.1 0";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-PortalBack.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 5018.5 4311";
+      rotation = "-1 0 0 89.99998";
+      scale = "2.1 2.1 2.1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-Portal.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 5881 4113.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-16.5 960.5 4295";
+      rotation = "1 0 0 0";
+      scale = "32 5 32";
+      dataBlock = "SeamlessMotionTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         offset = "0 4063 0";
+   };
+   new TSStatic(Checkpoint4) {
+      position = "0 5382 4113.526";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes/buttons/checkPoint.dts";
+   };
+   new Trigger() {
+      position = "-16.19856 5388.542 4113.833";
+      rotation = "1 0 0 0";
+      scale = "34.18066 8 165.4756";
+      dataBlock = "CheckpointTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         respawnPoint = "Checkpoint4";
+   };
+   new Trigger() {
+      position = "-2146.546 3175.405 4030.719";
+      rotation = "1 0 0 0";
+      scale = "4149.599 4562.08 241.1528";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-1951.949 9285.316 3846.133";
+      rotation = "1 0 0 0";
+      scale = "4149.599 4562.08 252.9475";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-176.5852 314.7714 4315.581";
+      rotation = "1 0 0 0";
+      scale = "359.0219 413.2683 246.0244";
+      dataBlock = "GravityAreaTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         outsideGravity = "20";
+         insideGravity = "50";
+   };
+   new Trigger() {
+      position = "-183.2821 6215.707 4129.439";
+      rotation = "1 0 0 0";
+      scale = "359.0219 847.8469 246.0244";
+      dataBlock = "GravityAreaTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         outsideGravity = "20";
+         insideGravity = "100";
+   };
+   new InteriorInstance() {
+      position = "-6.06503 6022.488 4114";
+      rotation = "0.6944159 0.3521075 0.6275403 129.0458";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "5.457136 5855.675 4115.5";
+      rotation = "-0.5688434 -0.6837866 0.4570045 59.97984";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-6.19493 5908.618 4116.5";
+      rotation = "-0.6873736 0.5959362 -0.4151838 68.34398";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-1.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "50 -83.5 66";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "easterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "-0.01184273 6335.914 4119.917";
+      rotation = "0.5501114 -0.1999307 -0.8108053 55.87848";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-145.9588 5887.615 4010.287";
+      rotation = "0 0 1 30.93968";
+      scale = "30 30 30";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "105.2594 5926.817 4010.287";
+      rotation = "0 0 1 116.8834";
+      scale = "30 30 30";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-97.82382 6090.839 4010.287";
+      rotation = "0 0 1 93.39212";
+      scale = "30 30 30";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "125.9311 6224.356 4010.287";
+      rotation = "0 0 1 187.9301";
+      scale = "30 30 30";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6162.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6386.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.794875 6099.124 4120.025";
+      rotation = "-0.9760551 -0.0140583 -0.2170684 39.55933";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-1.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-2.5 6426.5 4115";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "2.5 6198 4115";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6279 4115";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0.5 6529 4115";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-3.400688 7743.413 4110.94";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "0 6610.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-3.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7086.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6750.5 4114.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6806.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6862.5 4114.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6918.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7030.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 6974.5 4113.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7254.5 4113.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7310.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7198.5 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7142.5 4114.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-4.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-8.56447 6641.226 4117.944";
+      rotation = "0 0 1 79.68673";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-11.82912 6690.222 4118.787";
+      rotation = "-0.5403849 -0.4383794 -0.7181976 103.0062";
+      scale = "1.233648 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-8.460108 6640.673 4117.899";
+      rotation = "-0.172799 -0.1908517 -0.9662899 97.63538";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-10.83832 6664.259 4117.867";
+      rotation = "-0.299522 -0.2480663 -0.9212761 95.56672";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "-10.97306 6674.087 4117.842";
+      rotation = "0.5572258 -0.8303276 0.007449247 84.10624";
+      scale = "3 3 3";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new InteriorInstance() {
+      position = "-4.004255 6778.503 4117.468";
+      rotation = "0.5566397 -0.5789319 0.5958106 123.3076";
+      scale = "2.239588 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.726623 6722.508 4117.479";
+      rotation = "0.5775032 0.577044 -0.5775035 119.9474";
+      scale = "2.239588 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.827619 6778.476 4116.982";
+      rotation = "0.5775032 0.577044 -0.5775035 119.9474";
+      scale = "2.241101 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "3.939797 6834.519 4117.469";
+      rotation = "0.5775032 0.577044 -0.5775035 119.9474";
+      scale = "2.239588 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.969365 6890.515 4117.478";
+      rotation = "0.5775046 -0.5770436 0.5775026 119.9472";
+      scale = "2.239588 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-3.971288 6834.549 4116.981";
+      rotation = "0.5775047 -0.5770435 0.5775025 119.9472";
+      scale = "2.241101 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "79.67577 7275.077 4195.943";
+      rotation = "0.8285416 0.4844099 0.2808309 94.25124";
+      scale = "50 50 50";
+      dataBlock = "BlastItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "5.183733 6778.895 4117";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "-54.60646 6341.286 4114.425";
+      rotation = "0.7318479 -0.03078921 0.6807721 95.69015";
+      scale = "50 50 50";
+      dataBlock = "BlastItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "57.47012 6571.854 4137.047";
+      rotation = "0.9026373 0.4170507 -0.1063705 97.81145";
+      scale = "50 50 50";
+      dataBlock = "BlastItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-19.62083 6957.164 4145.18";
+      rotation = "0.8421202 0.4377247 0.3150091 80.84802";
+      scale = "50 50 50";
+      dataBlock = "BlastItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-1.342031 7997.88 4109.467";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0.6475699 8050.454 4109.658";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "0.2214515 7281.817 4116.42";
+      rotation = "0.9132857 0.327728 -0.2418754 42.47488";
+      scale = "2 2 2";
+      dataBlock = "TriangleBumper";
+   };
+   new Item() {
+      position = "1.757383 7634.952 4109.867";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-2.85992 7831.326 4110.688";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "2.5 6661 4115";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-2.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "2.768603 6708.416 4114.875";
+      rotation = "0 0 1 89.95437";
+      scale = "2 2 2";
+      dataBlock = "TriangleBumper";
+   };
+   new StaticShape() {
+      position = "-2.924451 6819.8 4114.884";
+      rotation = "0 0 -1 65.49969";
+      scale = "2 2 2";
+      dataBlock = "TriangleBumper";
+   };
+   new StaticShape() {
+      position = "0.7197459 6906.832 4114.895";
+      rotation = "0 0 -1 76.38589";
+      scale = "2 2 2";
+      dataBlock = "TriangleBumper";
+   };
+   new Item() {
+      position = "-0.364458 8119.14 4109.504";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-1.906982 8090.17 4109.716";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1.892383 7874.419 4109.77";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-2.061732 8161.989 4109.763";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1.363601 7716.183 4109.534";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "2.806334 6982.683 4114";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "-2.416936 7038.999 4114.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new StaticShape() {
+      position = "0.5 7107 4114.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SmallDuctFan";
+   };
+   new Item() {
+      position = "0.1477738 7809.464 4109.671";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "-2.907638 7143.961 4116.509";
+      rotation = "-0.370649 0.07993473 -0.9253268 118.0821";
+      scale = "2 2 2";
+      dataBlock = "TriangleBumper";
+   };
+   new Item() {
+      position = "1.460676 8201.059 4109.467";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-0.2508117 6974.348 4114.212";
+      rotation = "0 0 1 89.95437";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1.255148 7037.076 4115.493";
+      rotation = "0 0 1 89.95437";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-3.411873 7142.55 4115.195";
+      rotation = "0 0 1 89.95437";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "1.226659 7214.125 4114.695";
+      rotation = "0 0 1 89.95437";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-0.4341145 7248.648 4114.196";
+      rotation = "0 0 1 89.95437";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0.678886 6907.169 4115.928";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "2.898287 6982.68 4115.172";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-2.716311 7035.476 4115.726";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "3.966014 7139.66 4115.563";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-3.87206 7225.444 4115.098";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new Item() {
+      position = "-0.2694914 7284.566 4115.098";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "4000";
+   };
+   new Trigger() {
+      position = "4.734692 45.81467 7.072335";
+      rotation = "1 0 0 0";
+      scale = "0.5463686 0.5480423 0.538136";
+      dataBlock = "EETrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         number = "0";
+         shape = "eek0";
+   };
+   new Item() {
+      position = "-0.750025 7775.949 4109.418";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "0 7399 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7448 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0 7546 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0 7497 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0 7742 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0 7693 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0 7595 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0 7644 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 8057.5 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 8008.5 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 8106.5 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 8155.5 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7910.5 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7959.5 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "0 7861.5 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "-0 7791 4114";
+      rotation = "0 0 -1 89.99998";
+      scale = "2 2 2";
+      interiorFile = "~/data/lbinteriors_custom/mbg/parts/halftubes/halftube_long.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "1.038489 7937.494 4109.751";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-1.847277 7901.682 4110.111";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-0.07590993 7482.369 4109.254";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "0.04216945 7528.136 4109.206";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-1.896578 7583.987 4109.728";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "4.008207 353.2274 46.53942";
+      rotation = "1 0 0 0";
+      scale = "0.5463686 0.5480423 0.538136";
+      dataBlock = "EETrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         number = "1";
+         shape = "eek1";
+   };
+   new Item() {
+      position = "50 -44 58.5";
+      rotation = "0 0 1 89.99998";
+      scale = "1 1 1";
+      dataBlock = "ShockAbsorberItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Trigger() {
+      position = "-3.952823 6101.876 4114.54";
+      rotation = "1 0 0 0";
+      scale = "0.5463686 0.5480423 0.538136";
+      dataBlock = "EETrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         number = "3";
+         shape = "eek3";
+   };
+   new TSStatic(eek0) {
+      position = "4.57238 45.62042 7.59082";
+      rotation = "-0.2237523 0.8084757 0.5443363 53.90048";
+      scale = "0.15 0.15 0.6581591";
+      shapeName = "~/data/lbinteriors_custom/mbg/tranlucent.dts";
+   };
+   new TSStatic(eek2) {
+      position = "4.851536 719.3188 4311.845";
+      rotation = "-0.2237523 0.8084757 0.5443363 53.90048";
+      scale = "0.15 0.15 0.6581591";
+      shapeName = "~/data/lbinteriors_custom/mbg/tranlucent.dts";
+   };
+   new TSStatic(eek1) {
+      position = "3.843095 353.0302 47.0808";
+      rotation = "-0.2237523 0.8084757 0.5443363 53.90048";
+      scale = "0.15 0.15 0.6581591";
+      shapeName = "~/data/lbinteriors_custom/mbg/tranlucent.dts";
+   };
+   new Trigger() {
+      position = "5.044173 719.5278 4311.331";
+      rotation = "1 0 0 0";
+      scale = "0.5463686 0.5480423 0.538136";
+      dataBlock = "EETrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         number = "2";
+         shape = "eek2";
+   };
+   new InteriorInstance() {
+      position = "5.256279 5969.263 4116";
+      rotation = "0.9666715 0.1160388 0.2282133 127.6498";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/WeatherWonders/TerminalVelocity2-6-1.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "0 5386.5 4114.222";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new TSStatic(eek3) {
+      position = "-4.121266 6101.686 4115.067";
+      rotation = "-0.2237523 0.8084757 0.5443363 53.90048";
+      scale = "0.15 0.15 0.6581591";
+      shapeName = "~/data/lbinteriors_custom/mbg/tranlucent.dts";
+   };
+   new Trigger(SoundEffect) {
+      position = "-11.90645 141.0001 5.57666";
+      rotation = "1 0 0 0";
+      scale = "19.02789 2.421844 9.710354";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "Velocity1SFX";
+   };
+   new Trigger(SoundEffect) {
+      position = "-11.81917 -99.92182 4326.948";
+      rotation = "1 0 0 0";
+      scale = "24.97808 9.602661 26.71387";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "1";
+         sound = "Velocity2SFX";
+   };
+   new Trigger(SoundEffect) {
+      position = "-30.23596 5091.497 4289";
+      rotation = "1 0 0 0";
+      scale = "56.37507 79.39844 47.77051";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "3";
+         sound = "Velocity3SFX";
+   };
+   new Trigger(SoundEffect) {
+      position = "-9.034748 8214.104 4109";
+      rotation = "1 0 0 0";
+      scale = "15.58209 7.637695 7.992188";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "NewEggKeySFX";
+   };
+   new Trigger() {
+      position = "-8.057178 960.8853 4315.839";
+      rotation = "1 0 0 0";
+      scale = "15.63612 615.4844 24.18799";
+      dataBlock = "GravityAreaTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         outsideGravity = "20";
+         insideGravity = "90";
+   };
+   new Trigger(pomp) {
+      position = "-1.9 85 0.5";
+      rotation = "1 0 0 0";
+      scale = "1.8 1 1.9";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "PompSFX";
+   };
+   new Trigger(easterSpawn) {
+      position = "22 -8.5 60";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger(pomp) {
+      position = "2.1 52 0.5";
+      rotation = "1 0 0 0";
+      scale = "1.8 1 1.9";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "PompSFX";
+   };
+   new Trigger(pomp) {
+      position = "-3.9 -45 0.5";
+      rotation = "1 0 0 0";
+      scale = "1.8 1 1.9";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "PompSFX";
+   };
+   new Trigger(pomp) {
+      position = "0.0999999 -72 0.5";
+      rotation = "1 0 0 0";
+      scale = "1.8 1 1.9";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "PompSFX";
+   };
+   new Trigger(pomp) {
+      position = "2.1 -96.5 0.5";
+      rotation = "1 0 0 0";
+      scale = "1.8 1 1.9";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "PompSFX";
+   };
+   new Trigger(pomp) {
+      position = "-1.9 -117 0.5";
+      rotation = "1 0 0 0";
+      scale = "1.8 1 1.9";
+      dataBlock = "SoundTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         volume = "2";
+         sound = "PompSFX";
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/music/Pianoforte.ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---
+
+
+afterCode();
