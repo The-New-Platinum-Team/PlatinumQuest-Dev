@@ -432,8 +432,9 @@ function FadePlatformClass::onCollision(%this, %obj, %col) {
 		if (%ratio <= 0) {
 			//Completely hidden, reset the fade
 			%obj.hide(true);
-			%obj.setFadeVal(%ratio);
-			%obj._toggleSch = %this.schedule(%obj.invisibleTime, "fadeIn", %obj);
+			%obj.setFadeVal(1);
+			%obj._toggleSch = %this.schedule(%obj.fadeOutTime + %obj.invisibleTime, "fadeIn", %obj);
+			%obj.state = %obj._initialState;
 		} else {
 			//Slightly hidden
 			%obj.hide(false);
@@ -457,6 +458,8 @@ function FadePlatformClass::onMissionReset(%this, %obj) {
 			//Completely hidden, reset the fade
 			%obj.hide(true);
 			%obj.setFadeVal(1);
+			%obj._toggleSch = %this.schedule(%obj.fadeOutTime + %obj.invisibleTime, "fadeIn", %obj);
+			%obj.state = %obj._initialState;
 		} else {
 			//Slightly hidden
 			%obj.hide(false);
