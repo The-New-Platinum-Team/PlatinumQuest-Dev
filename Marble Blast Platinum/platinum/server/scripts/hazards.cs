@@ -321,6 +321,7 @@ datablock AudioProfile(TornadoSfx) {
 };
 
 datablock StaticShapeData(Tornado) {
+	className = "Tornado";
 	superCategory = "Hazards";
 	category = "Marble Blast Gold/Platinum";
 
@@ -329,18 +330,21 @@ datablock StaticShapeData(Tornado) {
 
 	// Pull the marble in
 	forceType[0] = Spherical;  // Force type {Spherical, Field, Cone}
-	forceStrength[0] = -60;     // Force to apply
+	forceStrength[0] = $Game::TornadoStrength0;     // Force to apply
+	forceStrengthModifier[0] = 1; //Modifier of forceStrength
 	forceRadius[0] = 8;       // Max radius
 
 	// Counter sphere to slow the marble down near the center
 	forceType[1] = Spherical;
-	forceStrength[1] = 60;
+	forceStrength[1] = $Game::TornadoStrength1;
+	forceStrengthModifier[1] = 1; //Modifier of forceStrength
 	forceRadius[1] = 3;
 
 	// Field to shoot the marble up
 	forceType[2] = Field;
 	forceVector[2] = "0 0 1";
-	forceStrength[2] = 250;
+	forceStrength[2] = $Game::TornadoStrength2;
+	forceStrengthModifier[2] = 1; //Modifier of forceStrength
 	forceRadius[2] = 3;
 };
 
@@ -358,6 +362,7 @@ function Tornado::onMissionReset(%this, %obj) {
 }
 
 datablock StaticShapeData(Tornado_MBM : Tornado) {
+	className = "Tornado";
 	superCategory = "Hazards";
 	category = "Marble_Blast_Ultra/Mobile";
 
@@ -371,6 +376,7 @@ datablock StaticShapeData(Tornado_MBM : Tornado) {
 };
 
 datablock StaticShapeData(Tornado_BM : Tornado) {
+	className = "Tornado";
 	superCategory = "Hazards";
 	category = "Blasted";
 
@@ -379,7 +385,8 @@ datablock StaticShapeData(Tornado_BM : Tornado) {
 	// Field to shoot the marble up
 	forceType[2] = Field;
 	forceVector[2] = "0 0 1";
-	forceStrength[2] = 250;
+	forceStrength[2] = $Game::TornadoStrength2;
+	forceStrengthModifier[2] = 1; //Modifier of forceStrength
 	forceRadius[2] = 3;
 };
 

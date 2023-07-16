@@ -235,6 +235,9 @@ function emibutton(%revert) {
 	LargeFunctionDlg.addCheckBox("EMI_Mega", "Always Mega Marble", MissionInfo.mega, 0);
 	LargeFunctionDlg.addNote("");
 	LargeFunctionDlg.addTextEditField("EMI_FanStrength", "Default Fan Strength", MissionInfo.fanStrength, 100, -1);
+	LargeFunctionDlg.addTextEditField("EMI_TornadoStrength0", "Default Tornado Pull", MissionInfo.TornadoStrength0, 100, -1);
+	LargeFunctionDlg.addTextEditField("EMI_TornadoStrength1", "Default Tornado Force", MissionInfo.TornadoStrength1, 100, -1);
+	LargeFunctionDlg.addTextEditField("EMI_TornadoStrength2", "Default Tornado Field", MissionInfo.TornadoStrength2, 100, -1);
 	LargeFunctionDlg.addTextEditField("EMI_Gravity", "Default Gravity", MissionInfo.gravity, 100, -1);
 	LargeFunctionDlg.addTextEditField("EMI_JumpImpulse", "Default Jump Impulse", MissionInfo.jumpImpulse, 100, -1);
 	LargeFunctionDlg.addCheckBox("EMI_MPFriction", "Disable Moving Platform Friction:", MissionInfo.NoMPFriction, 0);
@@ -412,6 +415,9 @@ function editMissionInfo(%gui) {
 	miAssign(useUltraMarble, EMI_UseUltraMarble);
 	miAssign(mega, EMI_Mega);
 	miAssign(fanStrength, EMI_FanStrength);
+	miAssign(TornadoStrength0, EMI_TornadoStrength0);
+	miAssign(TornadoStrength1, EMI_TornadoStrength1);
+	miAssign(TornadoStrength2, EMI_TornadoStrength2);
 	miAssign(gravity, EMI_Gravity);
 	miAssign(jumpImpulse, EMI_JumpImpulse);
 	miAssign(NoMPFriction, EMI_MPFriction);

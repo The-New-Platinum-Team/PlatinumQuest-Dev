@@ -354,6 +354,21 @@ function applyGravity() {
 	else
 		$Game::FanStrength = MissionInfo.fanStrength;
 
+	if (MissionInfo.tornadoStrength0 $= "")
+		$Game::TornadoStrength0 = -60;
+	else
+		$Game::TornadoStrength0 = MissionInfo.tornadoStrength0;
+
+	if (MissionInfo.tornadoStrength1 $= "")
+		$Game::TornadoStrength1 = 60;
+	else
+		$Game::TornadoStrength1 = MissionInfo.tornadoStrength1;
+
+	if (MissionInfo.tornadoStrength2 $= "")
+		$Game::TornadoStrength2 = 250;
+	else
+		$Game::TornadoStrength2 = MissionInfo.tornadoStrength2;
+
 	if (MissionInfo.marbleRadius $= "")
 		$Game::MarbleRadius = 0.18975;
 	else
@@ -372,6 +387,27 @@ function applyGravity() {
 		}
 		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Fan" && !%db.nomods) {
 			%db.forceStrength[0] = $Game::FanStrength * %db.forceStrengthModifier[0];
+		}
+		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Fan" && !%db.nomods) {
+			%db.forceStrength[0] = $Game::FanStrength * %db.forceStrengthModifier[0];
+		}
+		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Tornado" && !%db.nomods) {
+			%db.forceStrength[0] = $Game::TornadoStrength0 * %db.forceStrengthModifier[0];
+		}
+		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Tornado" && !%db.nomods) {
+			%db.forceStrength[0] = $Game::TornadoStrength0 * %db.forceStrengthModifier[0];
+		}
+		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Tornado" && !%db.nomods) {
+			%db.forceStrength[1] = $Game::TornadoStrength1 * %db.forceStrengthModifier[1];
+		}
+		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Tornado" && !%db.nomods) {
+			%db.forceStrength[1] = $Game::TornadoStrength1 * %db.forceStrengthModifier[1];
+		}
+		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Tornado" && !%db.nomods) {
+			%db.forceStrength[2] = $Game::TornadoStrength2 * %db.forceStrengthModifier[2];
+		}
+		if (%db.getClassName() $= "StaticShapeData" && %db.className $= "Tornado" && !%db.nomods) {
+			%db.forceStrength[2] = $Game::TornadoStrength2 * %db.forceStrengthModifier[2];
 		}
 		if (%db.getClassName() $= "ParticleEmitterData" && (!%db.periodModified || %db.ejectionPeriodMS != %db.newPeriod || %db.periodVarianceMS != %db.newVarianceMS)) {
 			if (%db.oldPeriod $= "")
