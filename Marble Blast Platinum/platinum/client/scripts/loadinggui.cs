@@ -484,6 +484,7 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: PlatinumQuest has seen three s
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Due to a bug, it used to be possible to submit a time instead of a score on Hunting Around. This would award you so much rating that it hit the 32-bit integer limit. Removing this time reset your total rating to be the same as only your rating from your original Hunting Around score.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Submitting a World Record as '@everyone' on the Marble Blast Platinum Web Port used to have... Unforseen consequences.";
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Upbeat Finale is actually part of a beta version of Upbeat Freedom. The full version has been lost to time.";
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: A few custom levels brought officially into PlatinumQuest used to have custom music. Commonly used tracks are made by Owen Maitzen (aka hPerks) and sonata1219 (aka NaCl586).";
 
 $Loading::TipsChance[2] = 0.17;
 
