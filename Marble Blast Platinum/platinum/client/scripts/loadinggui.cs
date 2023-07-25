@@ -351,13 +351,17 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If a Ghost chases you, go Out of 
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If you're bad at this game, the Out of Bounds special taunt messages will make fun of you. This can be disabled in the Options.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: PlatinumQuest is open source! Check out github.com/The-New-Platinum-Team/PlatinumQuest-Dev for more information!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: YOUR custom levels can be included in the game! Check out the Marble Blast Community Master Sheet linked in our official Discord server for more information!";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Pressing <func:bind forceRespawn> will respawn you at the last checkpoint. Holding <func:bind forceRespawn> for one second will restart the whole level from the beginning.";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Pressing <func:bind forceRespawn> will respawn you at the last checkpoint. Holding <func:bind forceRespawn> for one second will restart the whole level from the beginning. In multiplayer, this is increased to 3 seconds, and only works as the server host.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Try out marbleblast.vaniverse.io or marbleblast.randomityguy.me!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Marble It Up!' on Steam!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Great Marble Adventure' on Steam!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Head to marbleland.vaniverse.io!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: You'll gain more height from a Super Jump, Blast, or wall hit by using them immediately after jumping, rather than at the peak of your jump.";
+$Loading::Tip[1, $Loading::Tips[0] ++] = "Tip: The Shock Absorber overrides the Super Bounce. Every time.";
+$Loading::Tip[1, $Loading::Tips[0] ++] = "Tip: In Mega Marble War, you'll get more points for ramming into people the faster you're moving when you hit them!";
+$Loading::Tip[1, $Loading::Tips[0] ++] = "Tip: In Mega Marble War, you usually won't get points for hitting your teammates. Unless you're on the Default Team, in which case, go berserk!";
+$Loading::Tip[1, $Loading::Tips[0] ++] = "Tip: If Steal Mode is enabled, you can steal points from your opponents by blasting them! You can steal from further away with more blast, and you can steal up to 5 points at once depending on how much blast you have. Doubled if you have an active Mega Marble!";
 
 $Loading::TipsChance[0] = 0.80;
 
@@ -414,7 +418,6 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: lol lol lol jij jaj jej joj jvj j
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: On a platinum quest to do my platinum best.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "/tableflip PQ crashed! ...Whoops, sorry, force of habit.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: She platinum on my marble 'til I blast.";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: The Shock Absorber overrides the Super Bounce. Every time.";
 ////////////////////////////////////// = "Snooping as usual, I see!"
 
 $Loading::TipsChance[1] = 0.03;
