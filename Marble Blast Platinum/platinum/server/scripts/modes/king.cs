@@ -35,7 +35,6 @@ function Mode_king::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_king::onMissionReset(%this) {
-	cancel($MP::Schedule::Collision);
 	MPupdateCollisionKing();
 }
 function Mode_king::onFoundGem(%this, %object) {
@@ -214,6 +213,7 @@ function KingTrigger::onLeaveTrigger(%this, %trigger, %obj) {
 
 //-----------------------------------------------------------------------------
 //Marble collision stuff
+//TODO: Make this a mode callback and a toggle for levels
 function MPupdateCollisionKing() {
 	cancel($MP::Schedule::CollisionKing);
 	if ($Server::Dedicated && getRealPlayerCount() == 0)
@@ -223,9 +223,12 @@ function MPupdateCollisionKing() {
 		return;
 
 	//just in case
-	if (!$Game::isMode["king"])
+	if (!$Game::isMode["king"]) {
+		MPupdateGhostCollision();
 		return;
+	}
 
+	cancel($MP::Schedule::Collision);
 
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -252,19 +255,9 @@ function MPupdateCollisionKing() {
 				%dist = VectorDist(%pos_p, %pos_o);
 				%d2 = %dist - ((%client.player.getCollisionRadius() - %clientJ.player.getCollisionRadius()) / 2);
 
-				//The first big change to this code
-				//This is so non-mega collisions use the regular marble size
-				if (%mega1) {
-					%dist -= %datablock1.impactRadius[%mega1];
-				} else if (!%mega1) {
-					%dist -= 0.27;
-				}
+				%dist -= %datablock1.impactRadius[%mega1];
 
-				if (%mega2) {
-					%dist -= %datablock1.impactRadius[%mega2];
-				} else if (!%mega2) {
-					%dist -= 0.27;
-				}
+				%dist -= %datablock1.impactRadius[%mega2];
 				
 				if (%dist < 0) {
 
@@ -301,48 +294,17 @@ function MPupdateCollisionKing() {
 					%client.lastColTime[%clientJ] = getRealTime();
 					%clientJ.lastColTime[%client] = getRealTime();
 
-					//Here's where all the numbers are changed
-					//Regular marble collision is supposed to be weaker than mega marble collision
-					//Values taken from marble.cs and defaults.cs
-					if (%mega1) {
-						%maximum  = %datablock1.impactMaximum[%mega1];
-					} else if (!%mega1) {
-						%maximum = 25;
-					}
-					if (%mega2) {
-						%maximum2 = %datablock2.impactMaximum[%mega2];
-					} else if (!%mega2) {
-						%maximum2 = 25;
-					}
+					%maximum  = %datablock1.impactMaximum[%mega1];
+					%maximum2 = %datablock2.impactMaximum[%mega2];
 
-					if (%mega1) {
-						%multiplier  = %datablock1.impactMultiplier[%mega1];
-					} else if (!%mega1) {
-						%multiplier = 4;
-					}
-					if (%mega2) {
-						%multiplier2 = %datablock2.impactMultiplier[%mega2];
-					} else if (!%mega2) {
-						%multiplier2 = 4;
-					}
+					%multiplier  = %datablock1.impactMultiplier[%mega1];
+					%multiplier2 = %datablock2.impactMultiplier[%mega2];
 
-					if (%mega1) {
-						%reduction  = %datablock1.impactReduction[%mega1];
-					} else if (!%mega1) {
-						%reduction = 0.25;
-					}
-					if (%mega2) {
-						%reduction2 = %datablock2.impactReduction[%mega2];
-					} else if (!%mega2) {
-						%reduction2 = 0.25;
-					}
+					%reduction  = %datablock1.impactReduction[%mega1];
+					%reduction2 = %datablock2.impactReduction[%mega2];
+					
 
-
-					if (%mega1) {
-						%bSpeed = VectorLen(%client.player.getVelocity()) + (VectorLen(%clientJ.player.getVelocity()) * %datablock1.impactBounceBack[%mega1]);
-					} else if (!%mega1) {
-						%bSpeed = VectorLen(%client.player.getVelocity()) + (VectorLen(%clientJ.player.getVelocity()) * 0.5);
-					}
+					%bSpeed = VectorLen(%client.player.getVelocity()) + (VectorLen(%clientJ.player.getVelocity()) * %datablock1.impactBounceBack[%mega1]);
 
 					%source  = VectorSub(%pos_o, %pos_p);
 					%source2 = VectorSub(%pos_p, %pos_o);
