@@ -139,8 +139,6 @@ $pref::ProfanityFilter = 2;
 $pref::DefaultSkybox = "platinum/data/skies_pq/Blender3/blender3.dml";
 $pref::FastMode = false;
 
-$pref::disabletaunts = false;
-
 //Video quality
 $pref::Video::AntiAliasing = 0;
 $pref::Video::BlurPasses = 4;
