@@ -172,6 +172,30 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			orbitDistance = "1.25";
 			autoSize = "0";
 		};
+		new GuiBitmapCtrl(MPEndGameMegaHits) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "458 65";
+			extent = "64 64";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			bitmap = "./end/mega-war-your-hits";
+			wrap = "0";
+		};
+		new GuiBitmapCtrl(MPEndGameMegaOpponentHits) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "381 65";
+			extent = "78 64";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			bitmap = "./end/mega-war-opponent-hit";
+			wrap = "0";
+		};
 	};
 	new GuiControl() {
 		profile = "GuiDefaultProfile";
@@ -398,6 +422,20 @@ function MPEndGameDlg::updateScores(%this) {
 	MPEndGameBlueGem.resize((%show10 ? 439 : 469), 65, 64, 64);
 	MPEndGamePlatinumGem.resize((%show10 ? 481 : 521), 65, 64, 64);
 
+	if ($Game::isMode["mega"]) {   //Mega War uses a different kinda end screen, Reds = Times you've been hit; Blues = Hits you got ~Connie
+		MPEndGameYellowGem.setVisible(false);
+		MPEndGameRedGem.setVisible(false);
+		MPEndGameBlueGem.setVisible(false);
+		MPEndGameMegaHits.setVisible(true);
+		MPEndGameMegaOpponentHits.setVisible(true);
+	} else {
+		MPEndGameYellowGem.setVisible(true);
+		MPEndGameRedGem.setVisible(true);
+		MPEndGameBlueGem.setVisible(true);
+		MPEndGameMegaHits.setVisible(false);
+		MPEndGameMegaOpponentHits.setVisible(false);		
+	}
+
 	if ($MP::TeamMode) {
 		%teams = $MP::ScoreTeams;
 		%face    = "<font:28>";
@@ -605,6 +643,12 @@ function MPEndGameDlg::updateScores(%this) {
 				%scoreTextY.resize((%show10 ? 380 : 400), 3, 52, 14);
 				%scoreTextB.resize((%show10 ? 422 : 452), 3, 52, 14);
 				%scoreTextP.resize((%show10 ? 464 : 504), 3, 52, 14);
+
+				if ($Game::isMode["mega"]) {  //Mega War shit here again ~Connie
+					%scoreTextR.resize(369, 3, 52, 14);
+					%scoreTextB.resize(438, 3, 52, 14);
+					%scoreTextY.setVisible(false);
+				}
 
 				%scoreTextP.setVisible(%show10);
 
@@ -820,6 +864,12 @@ function MPEndGameDlg::updateScores(%this) {
 			%scoreTextY.resize((%show10 ? 380 : 400), 3, 52, 14);
 			%scoreTextB.resize((%show10 ? 422 : 452), 3, 52, 14);
 			%scoreTextP.resize((%show10 ? 464 : 504), 3, 52, 14);
+
+			if ($Game::isMode["mega"]) {  //Mega War shit here again ~Connie
+				%scoreTextR.resize(369, 3, 52, 14);
+				%scoreTextB.resize(438, 3, 52, 14);
+				%scoreTextY.setVisible(false);
+			}
 
 			%scoreTextP.setVisible(%show10);
 
