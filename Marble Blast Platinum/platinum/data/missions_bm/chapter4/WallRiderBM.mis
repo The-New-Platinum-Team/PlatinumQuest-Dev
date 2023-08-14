@@ -7,9 +7,9 @@ new SimGroup(MissionGroup) {
          desc = "Simply indescribable.";
          game = "Blasted";
          gameMode = "null";
-         level = "9";
+         level = "5";
          music = "Tim Trance.ogg";
-         name = "Mudness";
+         name = "Wall Rider";
          platinumTime = "0";
          type = "Custom";
          ultimateTime = "0";
@@ -39,7 +39,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies_bm/Night/sky_day.dml";
+      materialList = "~/data/skies_bm/Altitude/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -48,9 +48,9 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
    };
    new Sun() {
-      direction = "0.6 0 -0.8";
-      color = "0.150000 0.150000 0.150000 1.000000";
-      ambient = "0.050000 0.050000 0.100000 1.000000";
+      direction = "0.376114 0.621561 -0.687168";
+      color = "1.000000 1.000000 1.000000 1.000000";
+      ambient = "0.400000 0.400000 0.500000 1.000000";
    };
    new SimGroup(PathNodeGroup) {
 
@@ -423,130 +423,60 @@ new SimGroup(MissionGroup) {
             useScale = "1";
       };
    };
+   new Item() {
+      position = "-32 -12 -1";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
    new InteriorInstance() {
       position = "0 0 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter4/MudnessBM.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "-42.3778 -58.5644 -28.8825";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter4/MudnessBlenderCurve.dif";
-      showTerrainInside = "0";
-   };
-   new InteriorInstance() {
-      position = "-7 0 -6.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      interiorFile = "~/data/interiors_bm/chapter4/MudnessBMCurve.dif";
+      interiorFile = "~/data/interiors_bm/chapter4/WallRiderBM.dif";
       showTerrainInside = "0";
    };
    new Trigger() {
-      position = "0.5 -0.5 0.5";
-      rotation = "0 0 1 180";
+      position = "4.25 -5 0.5";
+      rotation = "0 0 -1 45.0001";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          center = "1";
          gravity = "0";
    };
-   new TSStatic() {
-      position = "-11 -25 0.5";
-      rotation = "0 0 1 180";
-      scale = "0.2 0.2 1";
-      shapeName = "~/data/shapes_bm/signs/bm_uturn_night.dts";
-   };
-   new TSStatic() {
-      position = "0 -51 8";
-      rotation = "1 0 0 0";
-      scale = "0.4 0.4 1";
-      shapeName = "~/data/shapes_bm/signs/bm_chevron_night.dts";
-   };
-   new TSStatic() {
-      position = "0 -49.5 8";
-      rotation = "1 0 0 0";
-      scale = "0.4 0.4 1";
-      shapeName = "~/data/shapes_bm/signs/bm_chevron_night.dts";
-   };
-   new TSStatic() {
-      position = "0 -48 8";
-      rotation = "1 0 0 0";
-      scale = "0.4 0.4 1";
-      shapeName = "~/data/shapes_bm/signs/bm_chevron_night.dts";
-   };
    new Item() {
-      position = "-2 36 23";
+      position = "-51 -24 -1";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
-      dataBlock = "SuperBounceItem_BM";
+      dataBlock = "SuperSpeedItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "18 20 16";
-      rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noParticles = "0";
-   };
-   new Item() {
-      position = "8 -2 5.5";
-      rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noParticles = "0";
-   };
-   new Item() {
-      position = "4 64 5.5";
-      rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noParticles = "0";
-   };
-   new Item() {
-      position = "-18 -2 14";
-      rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noParticles = "0";
-   };
-   new Item() {
-      position = "0 -4 -5";
-      rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noParticles = "0";
-   };
-   new Item() {
-      position = "-7 31 5";
+      position = "-79 -24 -1";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem_BM";
+      dataBlock = "SuperSpeedItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "-26 17 15.5";
+      position = "-98 -12 -1";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem_BM";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-97 33 -1.5";
       rotation = "1 0 0 0";
       scale = "2 1 1";
       dataBlock = "SuperSpeedItem_BMGate";
@@ -556,17 +486,151 @@ new SimGroup(MissionGroup) {
          noRespawn = "0";
          showHelpOnPickup = "0";
    };
+   new TSStatic() {
+      position = "-98 33 -1.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-96 33 -1.5";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-97.05 33 -1.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-13 28 0.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-12 28 0.5";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-14 28 0.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
    new Item() {
-      position = "4 -4 13";
+      position = "-13 28 0.5";
+      rotation = "1 0 0 0";
+      scale = "2 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new TSStatic() {
+      position = "-17 36 0.5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-18 36 0.5";
+      rotation = "0.707108 -2.59956e-006 -0.707106 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-16 36 0.5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-17 36 0.5";
+      rotation = "0 0 1 180";
+      scale = "2 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "21 25 0.5";
+      rotation = "0 0 1 90.0002";
+      scale = "2 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new TSStatic() {
+      position = "21 26 0.5";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
-      dataBlock = "SuperJumpItem_BM";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "21 24 0.5";
+      rotation = "0.577352 0.57735 -0.57735 240";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "21 25 0.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new Item() {
+      position = "21 37 0.5";
+      rotation = "0 0 1 90.0002";
+      scale = "2 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new TSStatic() {
+      position = "21 38 0.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "21 36 0.5";
+      rotation = "0.577352 0.57735 -0.57735 240";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "21 37 0.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
+   };
+   new Item() {
+      position = "-65 25 -2.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "-11 -25 0.5";
+      position = "10 88 -3";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_BM";
@@ -575,291 +639,47 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "-18 -50 14";
-      rotation = "0 0 1 90.0002";
+      position = "-8 88 -3";
+      rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "ShockAbsorberItem_BM";
+      dataBlock = "SuperSpeedItem_BM";
       collideable = "0";
       static = "1";
       rotate = "1";
-   };
-   new StaticShape() {
-      position = "-35.1 -40.6 10";
-      rotation = "1 0 0 0";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-32.6 -42.6 10.5";
-      rotation = "1 0 0 0";
-      scale = "0.6 0.6 0.6";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-32.8 -44.9 11";
-      rotation = "1 0 0 0";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-32.4 -47.5 11.5";
-      rotation = "1 0 0 0";
-      scale = "0.6 0.6 0.6";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-30.8 -45.4 11.5";
-      rotation = "1 0 0 0";
-      scale = "0.6 0.6 0.6";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-29.8 -47.4 12";
-      rotation = "1 0 0 0";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-29 -49.6 12.5";
-      rotation = "1 0 0 0";
-      scale = "0.6 0.6 0.6";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-26.7 -49.6 13";
-      rotation = "1 0 0 0";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-25.7 -51.4 13.5";
-      rotation = "1 0 0 0";
-      scale = "0.6 0.6 0.6";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-24.5 -49.2 13.5";
-      rotation = "1 0 0 0";
-      scale = "0.6 0.6 0.6";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-34.1 -25.6 10.1";
-      rotation = "0 0 -1 33.7492";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-18.4 -18.1 10.1";
-      rotation = "0 0 1 123.75";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-17.2 -11.9 10.1";
-      rotation = "0 0 1 225.001";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "-34.4 -18.8 10.1";
-      rotation = "0 0 1 67.5002";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "RoundBumper_BM";
-   };
-   new StaticShape() {
-      position = "4 -2 6.75";
-      rotation = "1 0 0 90.0002";
-      scale = "1 1 1";
-      dataBlock = "DuctFan_BM";
-   };
-   new StaticShape() {
-      position = "12 -2 6.75";
-      rotation = "-1 0 0 90.0002";
-      scale = "1 1 1";
-      dataBlock = "DuctFan_BM";
-   };
-   new StaticShape() {
-      position = "-4.5 53.3 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "12.9 53.7 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "11 57.2 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "10.9 61.1 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "7 61.9 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "4.9 64.5 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "0.8 64.4 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "-1.6 60.2 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new StaticShape() {
-      position = "-3.7 57.3 5.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "LandMine_BM";
-         resetTime = "Default";
-   };
-   new Item() {
-      position = "-3 38 5.2";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "4";
-         timeBonus = "4000";
-   };
-   new Item() {
-      position = "-27 19.5 13.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "3";
-         timeBonus = "3000";
-   };
-   new Item() {
-      position = "1 -17 -2.3";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "4";
-         timeBonus = "4000";
-   };
-   new Item() {
-      position = "-31.5 -44.25 11";
-      rotation = "0 0 -1 33.7501";
-      scale = "0.8 0.8 0.8";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "2";
-         timeBonus = "2000";
-   };
-   new Item() {
-      position = "-28.75 -50.5 12.5";
-      rotation = "0 0 -1 67.5002";
-      scale = "0.4 0.4 0.4";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "2";
-         timeBonus = "2000";
-   };
-   new Item() {
-      position = "14.8 26 3.7";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "2";
-         timeBonus = "2000";
    };
    new TSStatic() {
-      position = "-27 17 15.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
-   };
-   new TSStatic() {
-      position = "-25 17 15.5";
-      rotation = "0 -1 0 90.0002";
-      scale = "1 1 1";
-      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
-   };
-   new TSStatic() {
-      position = "-25.95 17 15.5";
-      rotation = "0 0 1 180";
+      position = "-51 79 -1.5";
+      rotation = "0 0 -1 89.9996";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
    };
-   new Item() {
-      position = "-17 35 16";
-      rotation = "0 0 1 90.0002";
+   new TSStatic() {
+      position = "-51 80 -1.5";
+      rotation = "0.577348 -0.577354 -0.577348 120";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "3";
-         timeBonus = "3000";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-51 78 -1.5";
+      rotation = "0 0 -1 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new Item() {
-      position = "-11 37 16";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
+      position = "-51 79 -1.5";
+      rotation = "0 0 -1 89.9996";
+      scale = "2 1 1";
+      dataBlock = "SuperSpeedItem_BMGate";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noRespawn = "0";
-         skin = "2";
-         timeBonus = "2000";
+         showHelpOnPickup = "0";
    };
    new Item() {
-      position = "-31.9614 55.2181 25.5793";
-      rotation = "-0.181168 0.0365853 0.982771 77.8817";
-      scale = "1.9 1 1";
+      position = "-13 33.5 7";
+      rotation = "-1 0 0 90.0002";
+      scale = "2 1 1";
       dataBlock = "GemItem_BMGate";
       collideable = "0";
       static = "1";
@@ -868,20 +688,264 @@ new SimGroup(MissionGroup) {
          noRespawn = "0";
    };
    new TSStatic() {
-      position = "-32.1736 56.0876 25.6737";
-      rotation = "-0.181168 0.0365853 0.982771 77.8817";
+      position = "-14 33.5 7";
+      rotation = "-1 0 0 90.0002";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new TSStatic() {
-      position = "-31.7491 54.3486 25.4849";
-      rotation = "0.02924 0.144791 -0.98903 103.705";
+      position = "-12 33.5 7";
+      rotation = "0.57735 0.577349 0.577352 240";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new TSStatic() {
-      position = "-31.9614 55.2181 25.5793";
-      rotation = "-0.181168 0.0365853 0.982771 77.8817";
+      position = "-13 33.5 7";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-17 30.5 7";
+      rotation = "1 0 0 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-16 30.5 7";
+      rotation = "0.577349 -0.577355 0.577347 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-18 30.5 7";
+      rotation = "1 0 0 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-17 30.5 7";
+      rotation = "1 0 0 89.9996";
+      scale = "2 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "27.5 31 11";
+      rotation = "-0.577349 0.577352 0.57735 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "27.5 28 11";
+      rotation = "-1 2.35155e-006 3.02073e-007 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "27.5 34 11";
+      rotation = "-0.577349 0.577352 0.57735 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "27.5 31 11";
+      rotation = "-0.577349 0.577352 0.57735 120";
+      scale = "4 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "-39 -24 1";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-39 -24 2";
+      rotation = "6.41747e-006 -2.39647e-007 1 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-39 -24 0";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-39 -24 1";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "2 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "-65 -24 1";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-65 -24 2";
+      rotation = "6.41747e-006 -2.39647e-007 1 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-65 -24 0";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-65 -24 1";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "2 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "-91 -24 1";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-91 -24 2";
+      rotation = "6.41747e-006 -2.39647e-007 1 89.9996";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-91 -24 0";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-91 -24 1";
+      rotation = "0.577352 0.577352 0.577346 120";
+      scale = "2 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "-97 39.5 9";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new TSStatic() {
+      position = "-96 39.5 9";
+      rotation = "0.57735 0.577349 0.577352 240";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-98 39.5 9";
+      rotation = "-1 0 0 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new Item() {
+      position = "-97 39.5 9";
+      rotation = "-1 0 0 90.0002";
+      scale = "2 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "1 100 -1";
+      rotation = "-0.577349 0.577353 -0.577348 120";
+      scale = "2 1 1";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "1 100 -2";
+      rotation = "-0.577349 0.577353 -0.577348 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "1 100 0";
+      rotation = "2.39668e-007 6.41745e-006 -1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "1 100 -1";
+      rotation = "-0.577349 0.577353 -0.577348 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
+   };
+   new Item() {
+      position = "-65 25 15";
+      rotation = "0 0 1 90.0002";
+      scale = "2 1 3";
+      dataBlock = "GemItem_BMGate";
+      collideable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+         noRespawn = "0";
+   };
+   new TSStatic() {
+      position = "-65 26 17";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-65 24 17";
+      rotation = "0.577352 0.57735 -0.57735 240";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-65 24 13";
+      rotation = "0.707106 0.707108 2.58617e-006 180";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-65 26 13";
+      rotation = "0.577348 0.57735 0.577353 120";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
+   };
+   new TSStatic() {
+      position = "-65 25 15";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/gems/GemGate_icon_bm.dts";
    };
