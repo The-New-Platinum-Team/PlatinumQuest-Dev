@@ -87,6 +87,32 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			allowColorChars = "0";
 			maxChars = "-1";
 		};
+		new GuiMLTextCtrl(MPMMWHitsGiven) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "449 62";
+			extent = "90 68";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(MPMMWHitsTaken) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "374 62";
+			extent = "90 68";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
 		new GuiMLTextCtrl(MPEndGameTitle) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "width";
@@ -171,30 +197,6 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			cameraZRotSpeed = "0";
 			orbitDistance = "1.25";
 			autoSize = "0";
-		};
-		new GuiBitmapCtrl(MPEndGameMegaHits) {
-			profile = "GuiDefaultProfile";
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = "458 65";
-			extent = "64 64";
-			minExtent = "8 8";
-			visible = "0";
-			helpTag = "0";
-			bitmap = "./end/mega-war-your-hits";
-			wrap = "0";
-		};
-		new GuiBitmapCtrl(MPEndGameMegaOpponentHits) {
-			profile = "GuiDefaultProfile";
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = "381 65";
-			extent = "78 64";
-			minExtent = "8 8";
-			visible = "0";
-			helpTag = "0";
-			bitmap = "./end/mega-war-opponent-hit";
-			wrap = "0";
 		};
 	};
 	new GuiControl() {
@@ -426,14 +428,16 @@ function MPEndGameDlg::updateScores(%this) {
 		MPEndGameYellowGem.setVisible(false);
 		MPEndGameRedGem.setVisible(false);
 		MPEndGameBlueGem.setVisible(false);
-		MPEndGameMegaHits.setVisible(true);
-		MPEndGameMegaOpponentHits.setVisible(true);
+		MPMMWHitsGiven.setVisible(true);
+		MPMMWHitsTaken.setVisible(true);
+		MPMMWHitsTaken.setText("<bold:30><just:center><color:ff0000>Hits\nTaken");
+		MPMMWHitsGiven.setText("<bold:30><just:center><color:4040FF>Hits\nGiven");
 	} else {
 		MPEndGameYellowGem.setVisible(true);
 		MPEndGameRedGem.setVisible(true);
 		MPEndGameBlueGem.setVisible(true);
-		MPEndGameMegaHits.setVisible(false);
-		MPEndGameMegaOpponentHits.setVisible(false);		
+		MPMMWHitsGiven.setVisible(false);
+		MPMMWHitsTaken.setVisible(false);		
 	}
 
 	if ($MP::TeamMode) {
@@ -646,7 +650,7 @@ function MPEndGameDlg::updateScores(%this) {
 
 				if ($Game::isMode["mega"]) {  //Mega War shit here again ~Connie
 					%scoreTextR.resize(369, 3, 52, 14);
-					%scoreTextB.resize(438, 3, 52, 14);
+					%scoreTextB.resize(444, 3, 52, 14);
 					%scoreTextY.setVisible(false);
 				}
 
@@ -867,7 +871,7 @@ function MPEndGameDlg::updateScores(%this) {
 
 			if ($Game::isMode["mega"]) {  //Mega War shit here again ~Connie
 				%scoreTextR.resize(369, 3, 52, 14);
-				%scoreTextB.resize(438, 3, 52, 14);
+				%scoreTextB.resize(444, 3, 52, 14);
 				%scoreTextY.setVisible(false);
 			}
 
