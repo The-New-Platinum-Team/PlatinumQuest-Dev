@@ -492,6 +492,7 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Due to a bug, it used to be po
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Submitting a World Record as '@everyone' on the Marble Blast Platinum Web Port used to have... Unforseen consequences."; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Upbeat Finale is actually part of a beta version of Upbeat Freedom. The full version has been lost to time."; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: A few custom levels brought officially into PlatinumQuest used to have custom music. Commonly used tracks are made by Owen Maitzen (aka hPerks) and sonata1219 (aka NaCl586)."; //Yoshi
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: One gamemode scrapped in development was called 'Free World', and just served as an exploration gamemode with no objectives and no way to finish. Why not just explore the level anyway? Who needs a specific gamemode for it?"; //Yoshi
 
 $Loading::TipsChance[2] = 0.17;
 
