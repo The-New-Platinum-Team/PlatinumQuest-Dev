@@ -428,6 +428,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: On a platinum quest to do my plat
 $Loading::Tip[1, $Loading::Tips[1] ++] = "/tableflip PQ crashed! ...Whoops, sorry, force of habit."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: She platinum on my marble 'til I blast."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Chess Battle Advanced"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: There's a super secret setting outside of the options menu! On the main menu, if you hit the 'Quit' button one time, it toggles the game."; //Yoshi
 ////////////////////////////////////// = "Snooping as usual, I see!" //Yoshi
 
 $Loading::TipsChance[1] = 0.03;
@@ -493,6 +494,7 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Submitting a World Record as '
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Upbeat Finale is actually part of a beta version of Upbeat Freedom. The full version has been lost to time."; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: A few custom levels brought officially into PlatinumQuest used to have custom music. Commonly used tracks are made by Owen Maitzen (aka hPerks) and sonata1219 (aka NaCl586)."; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: One gamemode scrapped in development was called 'Free World', and just served as an exploration gamemode with no objectives and no way to finish. Why not just explore the level anyway? Who needs a specific gamemode for it?"; //Yoshi
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Marble Blast Gold and Platinum previously required you to unlock every level by beating the one before it. However, secret buttons existed to unlock levels automatically. In Gold, it was in the very bottom right corner of the screen, and in Platinum, it was in the hole of the P in its logo."; //Yoshi
 
 $Loading::TipsChance[2] = 0.17;
 
