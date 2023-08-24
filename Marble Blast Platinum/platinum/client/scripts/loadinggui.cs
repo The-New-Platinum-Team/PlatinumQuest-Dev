@@ -356,7 +356,7 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Pressing <func:bind forceRespawn>
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Did you know you can play Marble Blast Platinum in your browser? Try out marbleblast.vaniverse.io or marbleblast.randomityguy.me!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Marble It Up!' and 'Marble It Up! Ultra' on Steam!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Great Marble Adventure' on Steam!"; //Yoshi
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Lost Marbles' on Steam!" //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Lost Marbles' on Steam!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Check out 'Custom Levels' in the Community section of the Main Menu! You'll be able to download and play custom levels all from ingame!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Want to upload your custom levels for people to play? Head to marbleland.vaniverse.io!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: You'll gain more height from a Super Jump, Blast, or wall hit by using them immediately after jumping, rather than at the peak of your jump."; //Yoshi
@@ -366,10 +366,11 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Mega Marble War, you usually w
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If Steal Mode is enabled, you can steal points from your opponents by blasting them."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Steal Mode, you can steal points from further away the higher your Blast Meter is filled."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Steal Mode, you can steal up to 5 points from each opponent at once depending on how full your Blast Meter is. Doubled if you have an active Mega Marble!"; //Yoshi
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Time your Ultra Blast to blow opponents off the map in Multiplayer!" //Jean
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Multiplayer Gem Hunt, start collecting a gem spawn from its center for more pathfinding options as your opponents eat away at the other gems." //Jean
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Be careful when using Gyrocopters in Gem Hunt. Hovering above a spawn can give your opponents time to steal the gems from right under your nose!" //Jean
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Multiplayer Gem Hunt, greatly prioritize collecting blue gems over others. Their high point value of +5 makes them essential to victory." //Frostfire
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Time your Ultra Blast to blow opponents off the map in Multiplayer!"; //Jean
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Multiplayer Gem Hunt, start collecting a gem spawn from its center for more pathfinding options as your opponents eat away at the other gems."; //Jean
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Be careful when using Gyrocopters in Gem Hunt. Hovering above a spawn can give your opponents time to steal the gems from right under your nose!"; //Jean
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Multiplayer Gem Hunt, greatly prioritize collecting blue gems over others. Their high point value of +5 makes them essential to victory."; //Frostfire
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Every year, on Labor Day, our community hosts a massive Multiplayer event full of wacky hijinx never seen anywhere else! Make sure to attend if you can!"; //Yoshi
 
 $Loading::TipsChance[0] = 0.80;
 
