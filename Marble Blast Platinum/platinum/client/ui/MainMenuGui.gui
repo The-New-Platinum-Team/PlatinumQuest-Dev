@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 
 new GuiControlProfile(MenuButtonProfile : PQButtonProfile) {
-	fontType = "HelveticaNeueLTStd-BdCnO";
+	fontType = "Segoe UI Black";
 	fontSize = "60";
 	fontColor = "0 0 0 255";
 	fontColorNA = "108 108 108 255";
@@ -36,21 +36,33 @@ new GuiControl(MainMenuGui) {
 	horizSizing = "width";
 	vertSizing = "height";
 	position = "0 0";
-	extent = "1920 1080";
+	extent = "800 600";
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		_guiSize = "1920 1080";
+		_guiSize = "800 600";
 		defaultControl = "MenuPlayButton";
 		tile = "0";
 		useVariable = "0";
 
+	new GuiBitmapCtrl(MenuList) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "75 0";
+		extent = "500 1100";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./menu/bm_menulist.png";
+		wrap = "0";
+	};
 	new GuiBitmapCtrl(MenuCircle1) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";
 		position = "0 0";
-		extent = "175 1080";
+		extent = "116 720";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -61,8 +73,8 @@ new GuiControl(MainMenuGui) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "left";
 		vertSizing = "top";
-		position = "1555 888";
-		extent = "390 217";
+		position = "1045 600";
+		extent = "260 145";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -73,8 +85,8 @@ new GuiControl(MainMenuGui) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";
-		position = "960 57";
-		extent = "864 486";
+		position = "134 24";
+		extent = "384 216";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -85,7 +97,7 @@ new GuiControl(MainMenuGui) {
 		profile = "GuiMLTextProfile";
 		horizSizing = "left";
 		vertSizing = "top";
-		position = "1775 1044";
+		position = "655 564";
 		extent = "92 36";
 		minExtent = "8 8";
 		visible = "1";
@@ -100,7 +112,7 @@ new GuiControl(MainMenuGui) {
 		profile = "GuiMLTextProfile";
 		horizSizing = "left";
 		vertSizing = "top";
-		position = "1870 1053";
+		position = "750 573";
 		extent = "70 21";
 		minExtent = "8 8";
 		visible = "1";
@@ -116,7 +128,7 @@ new GuiControl(MainMenuGui) {
 		horizSizing = "width";
 		vertSizing = "height";
 		position = "0 0";
-		extent = "1920 1080";
+		extent = "800 600";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -129,13 +141,13 @@ new GuiControl(MainMenuGui) {
 			profile = "MenuButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "75 268";
+			position = "75 338";
 			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
 			command = "MainMenuGui.toggleExtras();";
 			helpTag = "0";
-			text = "           Community";
+			text = "       Community";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -148,14 +160,14 @@ new GuiControl(MainMenuGui) {
 			profile = "MenuButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "75 538";
+			position = "75 608";
 			extent = "500 85";
 			minExtent = "8 8";
 			visible = "1";
 			command = "quit();";
 			accelerator = "escape";
 			helpTag = "0";
-			text = "           Quit";
+			text = "       Exit Game";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -167,14 +179,14 @@ new GuiControl(MainMenuGui) {
 			profile = "MenuButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "75 178";
+			position = "75 248";
 			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
 			command = "MainMenuGui.play();";
 			accelerator = "enter";
 			helpTag = "0";
-			text = "           Play";
+			text = "       Play Game";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -186,13 +198,13 @@ new GuiControl(MainMenuGui) {
 			profile = "MenuButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "75 358";
+			position = "75 428";
 			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
 			command = "OptionsGui.show(\"menu\");";
 			helpTag = "0";
-			text = "           Options";
+			text = "       Settings";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -205,13 +217,13 @@ new GuiControl(MainMenuGui) {
 			profile = "MenuButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "75 448";
+			position = "75 518";
 			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
 			command = "PlayDemoGui.open(0);";
 			helpTag = "0";
-			text = "           Replays";
+			text = "       Replays";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -226,7 +238,7 @@ new GuiControl(MainMenuGui) {
 		horizSizing = "width";
 		vertSizing = "height";
 		position = "0 0";
-		extent = "1920 1080";
+		extent = "800 600";
 		minExtent = "8 8";
 		visible = "0";
 		helpTag = "0";
@@ -259,8 +271,8 @@ new GuiControl(MainMenuGui) {
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-				defaultText = "<font:HelveticaNeueLTStd-BdCnO:60><just:center>Community";
-				unformattedText = "<font:HelveticaNeueLTStd-BdCnO:60><just:center>Community";
+				defaultText = "<font:Segoe UI Black:60><just:center>Community";
+				unformattedText = "<font:Segoe UI Black:60><just:center>Community";
 		};
 		new GuiBitmapButtonTextCtrl(MenuOnlineButton) {
 			profile = "MenuButtonProfile";
@@ -363,7 +375,7 @@ new GuiControl(MainMenuGui) {
 		horizSizing = "right";
 		vertSizing = "bottom";
 		position = "-100 -100";
-		extent = "10 18";
+		extent = "10 10";
 		minExtent = "8 8";
 		visible = "1";
 		command = "checkParty();";
@@ -381,7 +393,7 @@ new GuiControl(MainMenuGui) {
 		horizSizing = "width";
 		vertSizing = "height";
 		position = "10000 10000";
-		extent = "1220 580";
+		extent = "100 100";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -392,7 +404,7 @@ new GuiControl(MainMenuGui) {
 			profile = "PQCheckboxProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "0 480";
+			position = "0 0";
 			extent = "100 100";
 			minExtent = "8 8";
 			visible = "1";
@@ -407,7 +419,7 @@ new GuiControl(MainMenuGui) {
 			profile = "PQCheckboxDisableProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "0 480";
+			position = "0 0";
 			extent = "100 100";
 			minExtent = "8 8";
 			visible = "1";
@@ -422,7 +434,7 @@ new GuiControl(MainMenuGui) {
 			profile = "PQCheckboxLargeProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "0 480";
+			position = "0 0";
 			extent = "100 100";
 			minExtent = "8 8";
 			visible = "1";
@@ -437,7 +449,7 @@ new GuiControl(MainMenuGui) {
 			profile = "PQCheckboxLargeDisableProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "0 480";
+			position = "0 0";
 			extent = "100 100";
 			minExtent = "8 8";
 			visible = "1";
@@ -452,7 +464,7 @@ new GuiControl(MainMenuGui) {
 			profile = "PQRadioProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "0 480";
+			position = "0 0";
 			extent = "100 100";
 			minExtent = "8 8";
 			visible = "1";
@@ -467,7 +479,7 @@ new GuiControl(MainMenuGui) {
 			profile = "PQRadioDisableProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "0 480";
+			position = "0 0";
 			extent = "100 100";
 			minExtent = "8 8";
 			visible = "1";

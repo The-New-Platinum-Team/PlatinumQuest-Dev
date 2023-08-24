@@ -113,14 +113,14 @@ function ClientMode_quota::onClientLeaveGame(%this) {
 
 function ClientMode_quota::onShowPlayGui(%this) {
 	GemsQuota.setVisible(true);
-	GemsQuota.setText("<font:24><color:FFFFFF>/" @ $Game::GemCount);
+	GemsQuota.setText("<bold:24><color:FFFFFF>/" @ $Game::GemCount);
 }
 
 function clientCmdSetGemQuota(%count, %quota) {
 	$Game::GemCount = %count;
 	PlayGui.setMaxGems(%quota);
 	GemsQuota.setVisible(true);
-	GemsQuota.setText("<font:24><color:FFFFFF>/" @ $Game::GemCount);
+	GemsQuota.setText("<bold:24><color:FFFFFF>/" @ $Game::GemCount);
 
 	if ($Record::Recording) {
 		recordWriteGems(RecordFO, PlayGui.gemCount, %count, %quota, (PlayGui.gemCount >= %quota));

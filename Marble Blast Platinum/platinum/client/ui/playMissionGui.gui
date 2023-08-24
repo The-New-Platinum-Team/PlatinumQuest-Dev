@@ -579,7 +579,7 @@ new GuiControl(PlayMissionGui) {
 					minExtent = "8 8";
 					visible = "1";
 					helpTag = "0";
-					text = "<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>";
+					text = "<just:right><bold:21><a:gamelink watchLBReplay>Watch Top Replay</a>";
 					lineSpacing = "2";
 					allowColorChars = "0";
 					maxChars = "-1";
@@ -2533,7 +2533,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		}
 
 		%scoresTitle = "<bold:36><just:center>Your Scores:";
-		%text = "<font:21><just:left>";
+		%text = "<bold:21><just:left>";
 
 		if (isObject(%scoreList)) {
 			%columns = %scoreList.columns;
@@ -2663,7 +2663,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%title = %title SPC "<spush><color:999999>Next<spop>";
 		}
 
-		%text2 = "<just:center><font:21><a:gamelink hideGlobalScores>Hide Global Scores</a>";
+		%text2 = "<just:center><bold:21><a:gamelink hideGlobalScores>Hide Global Scores</a>";
 	} else {
 		//Mission name
 		%title = shrinkToFit(%info.name, $DefaultFont["Bold"], 48, 24, getWord(PM_MissionTitle.getExtent(), 0));
@@ -2716,7 +2716,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Score" : "Time");
 
 		//Information text
-		%text = "<font:21><just:left>" @ %info.desc;
+		%text = "<bold:21><just:left>" @ %info.desc;
 		%text = %text NL "<just:left>Author:<just:right>" @ %artist;
 
 		//Figure out what times/scores it needs
@@ -2813,16 +2813,16 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			//Hack: addRecord will push a newline first if the text is blank
 			if (%minfo.name $= "")
 				continue;
-			%text3 = addRecord(%text3, "<bold:21><just:left>" @ %minfo.name @ ": <font:21>" @ %minfo.desc);
+			%text3 = addRecord(%text3, "<bold:21><just:left>" @ %minfo.name @ ": <bold:21>" @ %minfo.desc);
 		}
 		if ($CurrentGame $= "challenge") {
-			%text3 = addRecord(%text3, "<bold:21><just:left>Time Remaining: <font:21>" @ %this.ml.lookupGame["challenge"].duration);
+			%text3 = addRecord(%text3, "<bold:21><just:left>Time Remaining: <bold:21>" @ %this.ml.lookupGame["challenge"].duration);
 		}
 
 		if (lb() || PlayMissionGui.isMarblelandMission()) {
-			%text2 = "<just:center><font:21><a:gamelink showGlobalScores>Show Global Scores</a>";
+			%text2 = "<just:center><bold:21><a:gamelink showGlobalScores>Show Global Scores</a>";
 		} else {
-			%text2 = "<just:center><font:21>";
+			%text2 = "<just:center><bold:21>";
 		}
 	}
 
@@ -2952,7 +2952,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		PM_ScoreModeDD.setValue(%this.globalScoreMode $= "dd");
 
 		if ((%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "") && $CurrentGame !$= "challenge" && !mp()) {
-			PM_ScoreReplayWatch.setText("<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>");
+			PM_ScoreReplayWatch.setText("<just:right><bold:21><a:gamelink watchLBReplay>Watch Top Replay</a>");
 		} else {
 			PM_ScoreReplayWatch.setText("");
 		}
