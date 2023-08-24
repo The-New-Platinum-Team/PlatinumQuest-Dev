@@ -1,0 +1,2757 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "Connie";
+         awesomeHint = "Come up with a path that gets all of the Time Travels. Also, keep in mind this level is very cycle-based because of the Moving Platforms.";
+         awesomeTime = "31000";
+         customRadarRule = "5";
+         desc = "Let the calming ambience and feel of this mysterious land calm you down.";
+         game = "PlatinumQuest";
+         gameMode = "null";
+         generalHint = "Take notes of where the Moving Platforms are and how much time they spend not moving after going up/down. It may be important for later.";
+         level = "1000";
+         name = "True Peace";
+         platinumTime = "70000";
+         radar = "1";
+         startHelpText = "You are suddenly able to see.";
+         trivia = "This level is a remake of one of my older, worse levels. If anyone remembers it, shhh.";
+         type = "Custom";
+         ultimateHint = "Don\'t worry too much about all of the Time Travels, just remember where the Moving Platforms are and go fast.";
+         ultimateTime = "50000";
+   };
+   new SimGroup(MissionData) {
+
+      new MissionArea(MissionArea) {
+         area = "-360 -648 720 1296";
+         flightCeiling = "300";
+         flightCeilingRange = "20";
+            locked = "true";
+      };
+      new Sky(Sky) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         cloudHeightPer[0] = "0";
+         cloudHeightPer[1] = "0";
+         cloudHeightPer[2] = "0";
+         cloudSpeed1 = "0.0001";
+         cloudSpeed2 = "0.0002";
+         cloudSpeed3 = "0.0003";
+         visibleDistance = "500";
+         useSkyTextures = "1";
+         renderBottomTexture = "1";
+         SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+         fogDistance = "300";
+         fogColor = "0.600000 0.600000 0.600000 1.000000";
+         fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+         fogVolume2 = "-1 1.07208e-014 8.756e-014";
+         fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+         materialList = "~/data/skies_pq/Blender1/blender1.dml";
+         windVelocity = "1 0 0";
+         windEffectPrecipitation = "0";
+         noRenderBans = "1";
+         fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+         fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+         fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+      };
+   };
+   new SimGroup(HelpBubbleGroup) {
+
+      new StaticShape() {
+         position = "95.5723 -32.5908 21.5695";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "HelpBubble";
+            disable = "0";
+            displayonce = "0";
+            extended = "0";
+            persistTime = "2000";
+            text = " Don\'t let the fan push you off!";
+            triggerRadius = "8";
+      };
+   };
+   new SimGroup(SceneryGroup) {
+
+      new StaticShape() {
+         position = "57.4963 -50.6646 10.2493";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 2.0046 1.99186";
+         dataBlock = "Window04";
+      };
+      new StaticShape() {
+         position = "91.9638 -42.2418 -1.4072";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "FlatLargeClouds";
+      };
+      new StaticShape() {
+         position = "99.7903 -22.2613 16.2754";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "91.7834 -22.2592 16.2876";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "83.7815 -22.2848 16.275";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "77.2653 -22.2603 16.1756";
+         rotation = "1 0 0 0";
+         scale = "1.05642 1 1";
+         dataBlock = "Fence_3TilesLength";
+      };
+      new StaticShape() {
+         position = "77.2557 -24.2564 16.2214";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "69.2734 -24.2616 16.2179";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "61.2568 -24.2633 16.3026";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "53.2827 -24.3 16.2166";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.2765 -24.2667 16.2664";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.2736 -32.2564 16.2723";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.2775 -40.2549 16.255";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.2768 -48.2388 16.1917";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.2807 -56.2373 16.1744";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.281 -64.2392 16.197";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.2849 -72.2377 16.1797";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "45.2762 -76.7439 16.2255";
+         rotation = "0 0 -1 90.0002";
+         scale = "1.14269 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "53.2545 -76.7246 16.2222";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "61.2287 -76.7115 16.2741";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "69.2301 -76.7196 16.2741";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "77.2043 -76.7065 16.326";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "85.2548 -76.7094 16.2286";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "93.229 -76.6963 16.2805";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "101.23 -76.7044 16.2805";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "105.753 -76.7272 16.2839";
+         rotation = "0 0 1 180";
+         scale = "1.12076 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "105.774 -72.7352 16.2191";
+         rotation = "0 0 1 89.9998";
+         scale = "1.01832 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "109.704 -72.7399 16.2476";
+         rotation = "0 0 1 179.999";
+         scale = "0.980871 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "109.74 -68.7642 16.1778";
+         rotation = "0 0 1 89.9998";
+         scale = "1.00717 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "117.746 -68.7308 16.258";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "125.747 -68.7389 16.258";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "133.726 -68.7277 16.2708";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "107.74 -26.2743 16.2653";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "107.732 -30.2543 16.2888";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "107.757 -34.2572 16.2497";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "123.751 -34.289 16.1103";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "115.744 -34.287 16.0981";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "131.761 -34.2702 16.1731";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "133.747 -34.2805 16.279";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "133.74 -60.7451 16.2758";
+         rotation = "0 0 1 89.9994";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "133.736 -52.7466 16.2585";
+         rotation = "0 0 1 89.9994";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "133.741 -44.7512 16.2626";
+         rotation = "0 0 1 89.9994";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "133.729 -36.7473 16.2766";
+         rotation = "0 0 1 89.9994";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "133.739 -34.3186 16.1492";
+         rotation = "0 0 1 89.9994";
+         scale = "1.15399 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "39.1774 -75.9894 15.2602";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "75.6834 -96.4376 14.9732";
+         rotation = "0 0 -1 78.7502";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "117.257 -76.0097 15.4952";
+         rotation = "0 0 1 157.5";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "143.253 -41.8699 15.7741";
+         rotation = "0 0 1 56.2498";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "114.193 -27.8717 15.788";
+         rotation = "0 0 -1 22.5004";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "55.6675 -10.0871 15.9738";
+         rotation = "0 0 -1 11.2504";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "35.1941 -37.4581 14.9059";
+         rotation = "0 0 1 22.5001";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "97.1244 -84.6237 14.8293";
+         rotation = "0 0 1 225";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "54.8651 -84.6487 15.0757";
+         rotation = "0 0 -1 112.5";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "135.259 -74.9557 15.2846";
+         rotation = "0 0 1 22.4995";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "133.799 -22.4573 15.4021";
+         rotation = "0 0 1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "89.2562 -11.8979 14.815";
+         rotation = "0 0 1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "70.6485 -17.9394 15.6782";
+         rotation = "0 0 -1 101.25";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "38.5767 -56.4329 14.8936";
+         rotation = "0 0 1 168.75";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "79.2841 -82.228 15.4469";
+         rotation = "0 0 1 202.5";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "141.568 -59.2921 15.0361";
+         rotation = "0 0 1 22.4996";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "111.911 -11.4846 15.8739";
+         rotation = "0 0 1 112.5";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "40.9348 -20.0123 15.6055";
+         rotation = "0 0 1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "69.3604 -32.2983 4.18253";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "61.283 -46.6947 4.23806";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "53.2975 -46.7017 4.27179";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "69.2956 -46.7004 4.27035";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "53.309 -32.2962 4.25016";
+         rotation = "1 0 0 0";
+         scale = "1.00461 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "61.3629 -32.3001 4.26715";
+         rotation = "1 0 0 0";
+         scale = "1.00461 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "78.1022 -34.1841 4.14729";
+         rotation = "0 0 -1 112.5";
+         scale = "1 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "78.0111 -44.8841 4.28658";
+         rotation = "0 0 1 112.499";
+         scale = "1 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "53.2981 -40.2961 4.29361";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "53.2979 -46.6907 4.22503";
+         rotation = "0 0 -1 90.0002";
+         scale = "1.0594 1 1";
+         dataBlock = "Fence_3TilesLength";
+      };
+      new StaticShape() {
+         position = "73.7163 -50.7385 10.2602";
+         rotation = "1 0 0 0";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "77.259 -50.7756 10.2762";
+         rotation = "1 0 0 0";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "81.746 -50.7108 10.2586";
+         rotation = "1 0 0 0";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "85.2887 -50.7479 10.2746";
+         rotation = "1 0 0 0";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "107.242 -44.3217 10.2715";
+         rotation = "0 0 1 90.0002";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "107.279 -40.779 10.2555";
+         rotation = "0 0 1 90.0002";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "103.764 -40.7697 10.2689";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "103.727 -44.3124 10.2529";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "107.235 -62.2549 10.2526";
+         rotation = "0 0 1 90.0002";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "107.272 -58.7122 10.2366";
+         rotation = "0 0 1 90.0002";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "103.757 -58.7029 10.25";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "103.72 -62.2456 10.234";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "81.7312 -54.1359 10.2567";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "77.276 -54.1321 10.2966";
+         rotation = "0 0 -1 89.9994";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "99.2773 -64.3811 17.2898";
+         rotation = "0 0 1 90.0002";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "99.2861 -56.6842 17.2738";
+         rotation = "0 0 1 90.0002";
+         scale = "0.89693 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "99.2869 -44.3362 17.282";
+         rotation = "0 0 1 90.0002";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "99.2957 -40.807 17.266";
+         rotation = "0 0 1 90.0002";
+         scale = "0.868671 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "91.7091 -46.6721 17.2845";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "91.704 -54.3381 17.2685";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.864244 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "99.2903 -60.4236 17.284";
+         rotation = "0 0 1 90.0002";
+         scale = "0.961275 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "97.7201 -55.0267 17.2261";
+         rotation = "0 0 1 45.0001";
+         scale = "1.18268 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "99.294 -38.7163 17.2269";
+         rotation = "0 0 1 89.9994";
+         scale = "1 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "97.7992 -45.8969 17.1976";
+         rotation = "0 0 -1 45.0009";
+         scale = "1.06765 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "93.2109 -55.8917 17.235";
+         rotation = "0 0 1 225";
+         scale = "1.09237 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "91.7183 -50.7832 17.2841";
+         rotation = "0 0 -1 90.0002";
+         scale = "1.04701 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "93.2014 -45.1019 17.2351";
+         rotation = "0 0 1 134.999";
+         scale = "1.11373 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "101.257 -64.7257 24.2859";
+         rotation = "1 0 0 0";
+         scale = "0.826017 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "97.7314 -64.728 24.2699";
+         rotation = "1 0 0 0";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "97.7157 -68.1479 24.268";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.854708 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "105.293 -64.7321 24.256";
+         rotation = "0 0 1 180";
+         scale = "0.981713 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "105.277 -68.3082 24.2727";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.864261 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "101.52 -68.2896 24.233";
+         rotation = "1 0 0 0";
+         scale = "0.981713 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "85.278 -58.5008 10.2699";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.965352 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "85.2907 -60.2904 10.2562";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.906202 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "129.481 -50.9897 10.7517";
+         rotation = "-0.611584 -0.501915 0.611593 233.306";
+         scale = "1.5 1.5 1";
+         dataBlock = "Logo_Graffiti";
+      };
+      new StaticShape() {
+         position = "49.5289 -41.8541 10.1044";
+         rotation = "0.611587 0.501916 0.611589 233.305";
+         scale = "1.25 1.25 1";
+         dataBlock = "Hourglass_Graffiti";
+      };
+      new StaticShape() {
+         position = "49.5278 -34.6468 13.1833";
+         rotation = "0.700211 -0.139278 0.700218 164.141";
+         scale = "0.5 0.5 1";
+         dataBlock = "Marble_Graffiti";
+      };
+      new StaticShape() {
+         position = "85.7327 -28.5098 13.0683";
+         rotation = "0.0694785 0.705399 -0.705397 187.949";
+         scale = "1 1 1";
+         dataBlock = "GG_Graffiti";
+      };
+      new StaticShape() {
+         position = "53.3048 -58.7305 16.2927";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_5TilesLength";
+      };
+      new StaticShape() {
+         position = "49.7052 -58.7279 16.2119";
+         rotation = "1 0 0 0";
+         scale = "0.892349 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "49.7176 -66.7448 16.2133";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_4TilesLength";
+      };
+      new StaticShape() {
+         position = "49.7612 -68.3401 16.1934";
+         rotation = "0 0 -1 90.0002";
+         scale = "0.814346 1 1";
+         dataBlock = "Fence_1TilesLength";
+      };
+      new StaticShape() {
+         position = "55.284 -68.2963 16.2834";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "Fence_2TilesLength";
+      };
+      new StaticShape() {
+         position = "55.3022 -64.3018 16.2494";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Fence_3TilesLength";
+      };
+      new StaticShape() {
+         position = "61.2945 -64.2971 16.2049";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "FencePole";
+      };
+      new StaticShape() {
+         position = "102.005 -64.4929 17.6005";
+         rotation = "0.726828 -0.485652 -0.485658 107.978";
+         scale = "1 1 1";
+         dataBlock = "PQRulez_Graffiti";
+      };
+      new StaticShape() {
+         position = "68.0438 -50.4898 10.4888";
+         rotation = "0.962637 0.191481 0.191483 92.181";
+         scale = "1 1 1";
+         dataBlock = "PhilsEmpire_Graffiti";
+      };
+      new StaticShape() {
+         position = "84.3164 -48.9952 46.1182";
+         rotation = "1 0 0 0";
+         scale = "2 2 2";
+         dataBlock = "OrbitingClouds";
+            reverse = "0";
+      };
+      new StaticShape() {
+         position = "84.3164 -48.9952 37.3682";
+         rotation = "1 0 0 0";
+         scale = "3 3 3";
+         dataBlock = "OrbitingClouds";
+            reverse = "1";
+      };
+      new StaticShape() {
+         position = "72.0055 -41.5444 2.30274";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "NaturalPlant";
+      };
+      new StaticShape() {
+         position = "64.1548 -37.0613 2.26255";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "60.8154 -40.9893 2.25413";
+         rotation = "0 0 -1 112.5";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "50.7209 -42.9789 4.22337";
+         rotation = "0 0 -1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "turquoise";
+      };
+      new StaticShape() {
+         position = "57.8775 -34.8912 1.8688";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Rock03";
+      };
+      new StaticShape() {
+         position = "58.4846 -43.5497 1.9071";
+         rotation = "0 0 1 168.75";
+         scale = "1 1 1";
+         dataBlock = "Rock04";
+      };
+      new StaticShape() {
+         position = "72.8281 -43.6363 1.41499";
+         rotation = "0 0 -1 22.5001";
+         scale = "1 1 1";
+         dataBlock = "Rock02";
+      };
+      new StaticShape() {
+         position = "84.5256 -50.4046 10.2332";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "76.312 -50.3986 10.2309";
+         rotation = "0 0 -1 90.0002";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "81.4457 -50.8445 10.2514";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "77.5613 -52.6909 10.2708";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "85.5986 -53.5689 10.2348";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "85.5978 -59.2656 10.2348";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "75.7398 -49.4222 4.26255";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "70.2411 -49.4106 4.25076";
+         rotation = "0 0 -1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+      };
+      new StaticShape() {
+         position = "63.5764 -49.4247 4.30274";
+         rotation = "0 0 -1 56.2501";
+         scale = "1 1 1";
+         dataBlock = "Fern01";
+      };
+      new StaticShape() {
+         position = "54.9896 -49.5971 4.25076";
+         rotation = "0 0 -1 67.5002";
+         scale = "1 1 1";
+         dataBlock = "Dense_Tulips";
+            skin = "green";
+      };
+      new StaticShape() {
+         position = "50.4633 -49.4831 4.25";
+         rotation = "1 0 0 0";
+         scale = "0.776446 0.826141 1";
+         dataBlock = "LargeGrass";
+      };
+      new StaticShape() {
+         position = "50.4835 -29.4924 4.25";
+         rotation = "1 0 0 0";
+         scale = "0.776446 0.826141 1";
+         dataBlock = "LargeGrass";
+      };
+      new StaticShape() {
+         position = "67.7076 -42.1427 2.25076";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Scarce_tulips_3tiles";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "50.4879 -34.5619 4.26255";
+         rotation = "0 0 -1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+            skin = "light";
+      };
+      new StaticShape() {
+         position = "62.8143 -29.5929 4.24907";
+         rotation = "0 0 1 112.499";
+         scale = "1 1 1";
+         dataBlock = "Fern01";
+            skin = "dark";
+      };
+      new StaticShape() {
+         position = "75.2094 -29.5389 4.25076";
+         rotation = "0 0 -1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "purple";
+      };
+      new StaticShape() {
+         position = "70.0653 -29.7088 4.25678";
+         rotation = "0 0 -1 22.5001";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "56.1097 -29.5372 4.21214";
+         rotation = "0 0 -1 33.7501";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "blue";
+      };
+      new StaticShape() {
+         position = "80.5871 -29.4618 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "80.4685 -34.7441 4.26255";
+         rotation = "0 0 -1 33.7501";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "80.5376 -46.5638 4.23049";
+         rotation = "0 0 1 56.2493";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+      };
+      new StaticShape() {
+         position = "74.5057 -63.5151 10.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "83.4632 -58.1825 10.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "75.4299 -52.612 10.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "LargeGrass";
+      };
+      new StaticShape() {
+         position = "75.11 -56.8897 10.2508";
+         rotation = "0 0 -1 78.7502";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+      };
+      new StaticShape() {
+         position = "83.5405 -62.4193 10.3068";
+         rotation = "0 0 -1 78.7502";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "yellow";
+      };
+      new StaticShape() {
+         position = "83.4953 -52.5105 10.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "LargeGrass";
+      };
+      new StaticShape() {
+         position = "78.861 -62.5219 10.2625";
+         rotation = "0 0 -1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+            skin = "light";
+      };
+      new StaticShape() {
+         position = "80.5491 -42.204 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "80.5762 -37.7164 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "84.3164 -48.9952 37.3682";
+         rotation = "1 0 0 0";
+         scale = "4 4 4";
+         dataBlock = "OrbitingClouds";
+            reverse = "1";
+      };
+      new StaticShape() {
+         position = "25.6316 -78.852 5.02805";
+         rotation = "0 0 -1 11.25";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "38.8724 -93.1877 4.95155";
+         rotation = "0 0 -1 78.7501";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "85.1455 -101.375 -0.826353";
+         rotation = "0 0 1 213.75";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "106.034 -93.5454 -1.09497";
+         rotation = "0 0 1 101.25";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "133.211 -91.4162 7.11926";
+         rotation = "0 0 1 67.4999";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "149.321 -80.8649 7.59125";
+         rotation = "0 0 1 157.5";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "158.732 -54.8462 -0.517865";
+         rotation = "0 0 1 135";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "157.741 -38.2146 -1.2812";
+         rotation = "0 0 1 135";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "149.004 -18.6207 7.04682";
+         rotation = "0 0 -1 33.7504";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "132.409 -7.46442 6.91789";
+         rotation = "0 0 1 89.9999";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "106.246 5.96276 1.74629";
+         rotation = "0 0 1 11.2497";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "89.9078 7.13525 1.68221";
+         rotation = "0 0 1 56.2499";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "72.9087 5.1861 1.57782";
+         rotation = "0 0 1 67.5001";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "48.8799 -1.27474 6.90485";
+         rotation = "0 0 -1 101.251";
+         scale = "1 1 1";
+         dataBlock = "Tree02";
+      };
+      new StaticShape() {
+         position = "33.2073 -15.1509 6.09527";
+         rotation = "0 0 1 22.5001";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "23.419 -35.4718 -2.35732";
+         rotation = "0 0 1 168.75";
+         scale = "1 1 1";
+         dataBlock = "Tree03";
+      };
+      new StaticShape() {
+         position = "25.3585 -54.4977 -1.11227";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "Tree01";
+      };
+      new StaticShape() {
+         position = "84.5909 -30.5165 4.26255";
+         rotation = "0 0 -1 33.7501";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "91.7373 -37.5173 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "86.7374 -37.4179 4.25076";
+         rotation = "0 0 1 225";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+      };
+      new StaticShape() {
+         position = "84.4078 -35.3154 4.22349";
+         rotation = "0 0 1 236.25";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "blue";
+      };
+      new StaticShape() {
+         position = "88.4243 -33.5768 4.25076";
+         rotation = "0 0 1 225";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "92.598 -33.6198 4.26042";
+         rotation = "0 0 1 135";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "92.5565 -29.3118 4.24105";
+         rotation = "0 0 1 135";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "88.2916 -29.5578 4.22397";
+         rotation = "0 0 -1 45.0004";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "51.8469 -60.7229 16.25";
+         rotation = "1 0 0 0";
+         scale = "1.48429 1.50862 1";
+         dataBlock = "LargeGrass";
+      };
+      new StaticShape() {
+         position = "52.3333 -65.0828 16.3027";
+         rotation = "0 0 1 123.753";
+         scale = "1 1 1";
+         dataBlock = "Fern01";
+      };
+      new StaticShape() {
+         position = "57.4093 -61.7072 16.2508";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Scarce_tulips_3tiles";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "97.4136 -65.5203 24.2386";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "104.305 -64.3889 24.2295";
+         rotation = "0 0 -1 90.0006";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "105.599 -67.4768 24.2281";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "102.512 -68.6234 24.2323";
+         rotation = "0 0 1 89.999";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "107.578 -61.3626 10.2286";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "103.396 -41.7654 10.2304";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "103.398 -59.597 10.2395";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "107.597 -43.4207 10.2317";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideShort";
+      };
+      new StaticShape() {
+         position = "96.5751 -43.4558 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "108.445 -59.4066 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "108.739 -39.6907 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "96.4583 -39.8323 4.25076";
+         rotation = "0 0 1 135";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+      };
+      new StaticShape() {
+         position = "109.993 -62.7805 4.25076";
+         rotation = "0 0 1 135";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+      };
+      new StaticShape() {
+         position = "102.151 -59.5505 4.25076";
+         rotation = "0 0 1 191.25";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "purple";
+      };
+      new StaticShape() {
+         position = "114.42 -39.8546 4.25076";
+         rotation = "0 0 1 101.25";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "purple";
+      };
+      new StaticShape() {
+         position = "102.608 -39.6734 4.22849";
+         rotation = "0 0 1 56.2493";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+      };
+      new StaticShape() {
+         position = "110.424 -43.3674 4.22849";
+         rotation = "0 0 -1 33.7509";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+      };
+      new StaticShape() {
+         position = "114.705 -59.6285 4.22849";
+         rotation = "0 0 -1 78.751";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+      };
+      new StaticShape() {
+         position = "100.443 -63.0574 4.22849";
+         rotation = "0 0 -1 101.251";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+      };
+      new StaticShape() {
+         position = "101.027 -42.9214 4.26255";
+         rotation = "0 0 -1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "114.509 -43.32 4.26255";
+         rotation = "0 0 1 22.5001";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "114.336 -63.0526 4.26255";
+         rotation = "0 0 -1 22.5";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "96.4239 -59.3802 4.26255";
+         rotation = "0 0 1 22.5001";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "96.5285 -63.3048 4.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "105.563 -43.2628 10.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "105.445 -59.5601 10.25";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "Grass02Small";
+      };
+      new StaticShape() {
+         position = "105.185 -62.8315 10.2508";
+         rotation = "0 0 1 123.75";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "105.558 -39.8773 10.2508";
+         rotation = "0 0 1 236.25";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "127.576 -51.6697 4.25076";
+         rotation = "1 0 0 0";
+         scale = "0.8 0.8 1";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "128.477 -63.495 4.25";
+         rotation = "1 0 0 0";
+         scale = "0.763864 0.805367 1";
+         dataBlock = "LargeGrass";
+      };
+      new StaticShape() {
+         position = "128.48 -39.4513 4.25";
+         rotation = "1 0 0 0";
+         scale = "0.738872 0.796624 1";
+         dataBlock = "LargeGrass";
+      };
+      new StaticShape() {
+         position = "124.654 -59.4957 4.26255";
+         rotation = "0 0 -1 33.75";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "124.39 -63.0968 4.23276";
+         rotation = "0 0 -1 67.5007";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+      };
+      new StaticShape() {
+         position = "128.132 -59.4972 4.21532";
+         rotation = "0 0 1 22.4995";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "navy";
+      };
+      new StaticShape() {
+         position = "128.396 -43.7687 4.25076";
+         rotation = "0 0 1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "124.684 -43.3107 4.30274";
+         rotation = "0 0 1 236.25";
+         scale = "1 1 1";
+         dataBlock = "Fern01";
+      };
+      new StaticShape() {
+         position = "124.245 -39.8212 4.25127";
+         rotation = "0 0 -1 67.5007";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "purple";
+      };
+      new StaticShape() {
+         position = "100.984 -66.0527 24.2509";
+         rotation = "0 0 1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "100.821 -67.2889 24.2509";
+         rotation = "0 0 1 112.5";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "99.5641 -65.9429 24.2509";
+         rotation = "0 0 1 78.7502";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "99.6485 -67.2888 24.2509";
+         rotation = "0 0 1 78.7501";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "98.6278 -65.758 24.2509";
+         rotation = "0 0 -1 45.0002";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "98.6937 -67.2725 24.2509";
+         rotation = "0 0 -1 22.5001";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "98.3489 -63.4673 17.2509";
+         rotation = "0 0 1 45.0001";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "92.6326 -47.7442 17.2509";
+         rotation = "0 0 1 67.5002";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "purple";
+      };
+      new StaticShape() {
+         position = "98.0782 -39.4519 17.2509";
+         rotation = "0 0 1 157.5";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "green";
+      };
+      new StaticShape() {
+         position = "92.7146 -53.5391 17.2626";
+         rotation = "0 0 -1 78.7502";
+         scale = "1 1 1";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "98.4119 -57.6288 17.3028";
+         rotation = "0 0 -1 56.2501";
+         scale = "1 1 1";
+         dataBlock = "Fern01";
+      };
+      new StaticShape() {
+         position = "98.3215 -43.8299 17.221";
+         rotation = "0 0 -1 67.5007";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "125.978 -81.093 16.2515";
+         rotation = "0 0 -1 56.2501";
+         scale = "2 2 2";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "142.487 -51.0993 16.2515";
+         rotation = "0 0 1 202.5";
+         scale = "2 2 2";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "122.342 -20.9136 16.2516";
+         rotation = "0 0 1 135";
+         scale = "2 2 2";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "78.3984 -13.86 16.2515";
+         rotation = "0 0 1 56.2495";
+         scale = "2 2 2";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "38.5594 -47.3666 16.2515";
+         rotation = "0 0 -1 22.5006";
+         scale = "2 2 2";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "68.2499 -84.7507 16.2515";
+         rotation = "0 0 -1 67.5007";
+         scale = "2 2 2";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "141.205 -11.9409 8.25161";
+         rotation = "0 0 -1 22.5005";
+         scale = "2 2 2";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "159.382 -48.5537 0.571546";
+         rotation = "0 0 -1 22.5005";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "141.809 -89.1937 8.28255";
+         rotation = "0 0 -1 22.5005";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "96.9769 -97.7145 0.166341";
+         rotation = "0 0 -1 22.5005";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "30.9653 -85.3321 6.23695";
+         rotation = "0 0 1 224.999";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "25.213 -44.9935 0.241343";
+         rotation = "0 0 1 224.999";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "39.3838 -7.3912 8.17545";
+         rotation = "0 0 1 224.999";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "57.2845 0.0462661 8.17545";
+         rotation = "0 0 1 146.249";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "81.2995 3.62656 2.26076";
+         rotation = "0 0 1 146.249";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "113.795 5.31813 2.26084";
+         rotation = "0 0 1 11.2505";
+         scale = "1.5 1.5 1.5";
+         dataBlock = "Scarce_tulips_3tiles";
+      };
+      new StaticShape() {
+         position = "94.5416 -28.7276 20.3028";
+         rotation = "0 0 1 236.25";
+         scale = "1 1 1";
+         dataBlock = "Fern01";
+      };
+      new StaticShape() {
+         position = "84.2339 -27.6679 20.2219";
+         rotation = "0 0 -1 78.7505";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "102.303 -37.3631 20.2041";
+         rotation = "0 0 1 157.499";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "blue";
+      };
+      new StaticShape() {
+         position = "99.8282 -28.8346 20.2626";
+         rotation = "0 0 -1 45.0001";
+         scale = "2 2 2";
+         dataBlock = "Plant01";
+      };
+      new StaticShape() {
+         position = "88.2356 -27.7035 20.2509";
+         rotation = "0 0 1 135";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "102.471 -32.7141 20.2509";
+         rotation = "0 0 1 44.9995";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+            skin = "base";
+      };
+      new StaticShape() {
+         position = "98.8794 -36.6907 20.3028";
+         rotation = "0 0 1 236.25";
+         scale = "1 1 1";
+         dataBlock = "Fern01";
+      };
+      new StaticShape() {
+         position = "91.3073 -28.7116 20.2143";
+         rotation = "0 0 1 224.999";
+         scale = "1 1 1";
+         dataBlock = "Flowers";
+            skin = "navy";
+      };
+      new StaticShape() {
+         position = "91.2789 -49.9044 17.2285";
+         rotation = "0 0 1 180";
+         scale = "1 1 1";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "99.5921 -61.3136 17.229";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "99.6128 -42.4304 17.2284";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "90.1586 -2.03946 16.2444";
+         rotation = "0 0 -1 101.25";
+         scale = "2 2 2";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "141.404 -4.50226 8.2779";
+         rotation = "0 0 -1 78.7499";
+         scale = "2 2 2";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "153.782 -54.3377 16.2345";
+         rotation = "0 0 1 11.2503";
+         scale = "2 2 2";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "136.821 -96.8198 8.3119";
+         rotation = "0 0 1 67.5004";
+         scale = "2 2 2";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "70.2781 -98.9887 16.2178";
+         rotation = "0 0 1 101.25";
+         scale = "2 2 2";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "29.9371 -68.0434 16.2569";
+         rotation = "0 0 1 180";
+         scale = "2 2 2";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "38.3201 -2.48402 8.15047";
+         rotation = "0 0 1 213.75";
+         scale = "2 2 2";
+         dataBlock = "VinesWideLong";
+      };
+      new StaticShape() {
+         position = "79.2511 -55.3142 7.09239";
+         rotation = "0.69138 -0.209729 -0.69138 47.3796";
+         scale = "1 1 1";
+         dataBlock = "Scarce_Tulips";
+      };
+   };
+   new Item() {
+      position = "51.7158 -60.7136 16.6749";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "3000";
+   };
+   new Item() {
+      position = "71.52 -54.4888 16.2497";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Sun() {
+      direction = "-0.638261 -0.459006 -0.61801";
+      color = "1.200000 1.000000 1.000000 1.000000";
+      ambient = "0.200000 0.200000 0.200000 1.000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "90.5518 -31.3833 4.25";
+      rotation = "0 0 1 213.75";
+      scale = "1 1 1";
+      dataBlock = "StartPad_PQ";
+         skin = "green";
+   };
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/pq/custom/ConnieTruePeace.dif";
+      showTerrainInside = "0";
+         locked = "true";
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "102.542 -26.6356 48.6086";
+         rotation = "-0.145796 -0.484892 0.862336 209.072";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "88.2535 -22.304 46.3864";
+         rotation = "-0.0600191 -0.433808 0.899004 194.18";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath3";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath3) {
+         position = "55.4464 -25.1425 46.3864";
+         rotation = "0.111575 -0.404917 0.907521 151.92";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath4";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath4) {
+         position = "38.2807 -56.7248 46.3864";
+         rotation = "0.368292 -0.348966 0.861733 95.4296";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "500";
+            nextNode = "CameraPath5";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath5) {
+         position = "167.264 16.8082 49.2248";
+         rotation = "-0.11094 -0.27184 0.955926 222.623";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath6";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath6) {
+         position = "123.888 43.3553 49.2248";
+         rotation = "-0.0476249 -0.268425 0.962123 199.374";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath7";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath7) {
+         position = "58.1706 45.3897 49.2248";
+         rotation = "0.0263002 -0.259023 0.965513 168.802";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath8";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath8) {
+         position = "6.77685 16.9033 49.2248";
+         rotation = "0.103264 -0.245734 0.963821 135.902";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "3000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+   };
+   new StaticShape(EndPoint) {
+      position = "103.471 -66.515 24.2501";
+      rotation = "1 0 0 0";
+      scale = "0.75 0.75 0.75";
+      dataBlock = "EndPad_PQ";
+         skin = "green";
+   };
+   new StaticShape() {
+      position = "104.778 -66.0643 26.7026";
+      rotation = "-0.0348461 -0.34224 -0.938966 49.2425";
+      scale = "1 1 1";
+      dataBlock = "RegularFinishlinesign";
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "70.5003 -61.4691 13.1563";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "70.5003 -61.4691 7.16388";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "70.5003 -61.4691 7.16388";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "70.5003 -61.4691 13.1563";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "70.5003 -61.4691 13.1563";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/ConnieTruePeace.dif";
+         interiorIndex = "0";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "99.5009 -70.5003 20.2501";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "2500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "99.5009 -70.5003 12.2486";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "99.5009 -70.5003 12.2486";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "2500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "99.5009 -70.5003 20.2501";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "99.5009 -70.5003 20.2501";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/ConnieTruePeace.dif";
+         interiorIndex = "1";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "87.5084 -62.5006 12.2814";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "4500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "87.5084 -62.5006 0.283788";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "87.5084 -62.5006 0.283788";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "4500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "87.5084 -62.5006 12.2814";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "87.5084 -62.5006 12.2814";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/ConnieTruePeace.dif";
+         interiorIndex = "2";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "112.563 -62.5081 16.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "5000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "112.563 -40.5081 16.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "112.563 -40.5081 16.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "5000";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "112.563 -62.5081 16.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "112.563 -62.5081 16.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/ConnieTruePeace.dif";
+         interiorIndex = "3";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new SimGroup(MustChange_g) {
+
+      new Path() {
+
+         new Marker() {
+            position = "105.508 -46.5081 10.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "0";
+            msToNext = "3500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "105.508 -56.4925 10.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "1";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "105.508 -56.4925 10.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "2";
+            msToNext = "3500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "105.508 -46.5081 10.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "3";
+            msToNext = "500";
+            smoothingType = "Accelerate";
+         };
+         new Marker() {
+            position = "105.508 -46.5081 10.0001";
+            rotation = "1 0 0 0";
+            scale = "1 1 1";
+            seqNum = "4";
+            msToNext = "0";
+            smoothingType = "Linear";
+         };
+      };
+      new PathedInterior(MustChange) {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "PathedDefault";
+         interiorResource = "platinum/data/lbinteriors_custom/pq/custom/ConnieTruePeace.dif";
+         interiorIndex = "4";
+         basePosition = "0 0 0";
+         baseRotation = "1 0 0 0";
+         baseScale = "1 1 1";
+            initialTargetPosition = "-1";
+      };
+   };
+   new Item() {
+      position = "63.4443 -42.4384 2.24967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "60.0644 -36.9156 2.67489";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "105.497 -51.6691 10.2497";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "112.454 -51.7151 16.6749";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "83.5197 -52.4632 10.2497";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "102.566 -54.6098 2.24967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "119.257 -44.7331 2.67489";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "109.097 -48.1038 2.24967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "116.372 -52.2893 2.24967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "70.0604 -38.3828 2.24967";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "57.4988 -54.5662 10.2497";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "49.7443 -52.7665 10.6749";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "52.5569 -67.6248 10.2497";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "96.4343 -28.4879 16.2497";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new StaticShape() {
+      position = "101.499 -32.5023 18.2196";
+      rotation = "0 1 0 89.9996";
+      scale = "2 2 2";
+      dataBlock = "DuctFan_PQ";
+   };
+   new Item() {
+      position = "101.259 -34.26 16.6749";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
+   };
+   new Trigger() {
+      position = "49.5044 -50.6403 9.26292";
+      rotation = "1 0 0 0";
+      scale = "16.008 21.9076 6.70312";
+      dataBlock = "WaterPhysicsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         VelocityMultiplier = "0.5";
+   };
+   new StaticShape() {
+      position = "57.9627 -61.5259 15.9827";
+      rotation = "1 0 0 0";
+      scale = "8.50093 10.9987 0.0001";
+      dataBlock = "WaterCylinder_slow";
+   };
+   new Item() {
+      position = "66.5094 -61.4417 16.445";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BubbleItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         Time = "7000";
+         infinite = "0";
+         noParticles = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "52.5316 -73.5619 16.445";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BubbleItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         Time = "7000";
+         infinite = "0";
+         noParticles = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Trigger() {
+      position = "88.8026 -44.4139 2.13252";
+      rotation = "1 0 0 0";
+      scale = "35.3963 15.082 1.12075";
+      dataBlock = "WaterPhysicsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         VelocityMultiplier = "0.5";
+   };
+   new StaticShape() {
+      position = "108.01 -51.8509 3.24905";
+      rotation = "1 0 0 0";
+      scale = "16.9452 16.6912 0.0001";
+      dataBlock = "WaterCylinder_slow";
+   };
+   new Item() {
+      position = "88.4509 -43.4982 4.445";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BubbleItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         Time = "7000";
+         infinite = "0";
+         noParticles = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "127.397 -51.5097 4.445";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BubbleItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         Time = "7000";
+         infinite = "0";
+         noParticles = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "92.5138 -50.5079 17.2498";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "GemItemRed_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "98.5702 -60.4973 17.675";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "2000";
+   };
+   new Item() {
+      position = "98.569 -41.4534 17.675";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         skin = "base";
+         timeBonus = "2000";
+   };
+   new StaticShape() {
+      position = "91.9638 -42.2418 -1.40648";
+      rotation = "1 0 0 0";
+      scale = "1000 1000 0.0001";
+      dataBlock = "WaterCylinder_slow";
+   };
+   new Trigger(Bounds) {
+      position = "18.4742 -123.875 -2.11547";
+      rotation = "1 0 0 0";
+      scale = "150 150 104.022";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Trigger() {
+      position = "-400.454 450.478 -57.3726";
+      rotation = "1 0 0 0";
+      scale = "1000 1000 56.1675";
+      dataBlock = "WaterPhysicsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         VelocityMultiplier = "0.5";
+         skin = "navy";
+   };
+   new Item() {
+      position = "55.5424 -58.4484 10.445";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BubbleItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         Time = "3000";
+         infinite = "0";
+         noParticles = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new StaticShape() {
+      position = "57.5307 -50.6963 6.81539";
+      rotation = "1 -6.07038e-008 -3.59009e-006 89.9998";
+      scale = "3 3 0.0001";
+      dataBlock = "WaterCylinder_slow";
+   };
+   new StaticShape() {
+      position = "89.8861 -64.121 4.26072";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "73.8994 -64.1578 10.2678";
+      rotation = "0 0 -1 45";
+      scale = "1 1 1";
+      dataBlock = "Sign02";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "85.0947 -64.0588 10.2714";
+      rotation = "0 0 1 202.501";
+      scale = "1 1 1";
+      dataBlock = "Sign02";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "86.0055 -60.0221 4.26072";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "61.0724 -62.3666 16.2493";
+      rotation = "0 0 -1 101.25";
+      scale = "1 1 1";
+      dataBlock = "DetourRoadsignYellow";
+         skin = "Down";
+   };
+   new StaticShape() {
+      position = "61.1105 -60.5154 16.2493";
+      rotation = "0 0 -1 78.7502";
+      scale = "1 1 1";
+      dataBlock = "DetourRoadsignYellow";
+         skin = "Down";
+   };
+   new StaticShape() {
+      position = "51.6773 -67.7169 16.2493";
+      rotation = "0 0 -1 22.5001";
+      scale = "1 1 1";
+      dataBlock = "DetourRoadsignYellow";
+         skin = "Down";
+   };
+   new StaticShape() {
+      position = "53.442 -67.8164 16.2493";
+      rotation = "0 0 1 22.5";
+      scale = "1 1 1";
+      dataBlock = "DetourRoadsignYellow";
+         skin = "Down";
+   };
+   new StaticShape() {
+      position = "67.4584 -64.5594 16.246";
+      rotation = "0 0 1 135";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "67.4421 -58.4695 16.243";
+      rotation = "0 0 1 213.75";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "97.3688 -68.5095 16.2607";
+      rotation = "0 0 1 157.5";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "101.682 -68.8278 16.2607";
+      rotation = "0 0 1 22.4995";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_updown";
+   };
+   new StaticShape() {
+      position = "93.5978 -64.4151 17.2429";
+      rotation = "0 0 1 22.4995";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_leftright";
+   };
+   new StaticShape() {
+      position = "93.5801 -36.5963 17.2539";
+      rotation = "0 0 1 44.9995";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_leftright";
+   };
+   new StaticShape() {
+      position = "97.4655 -38.5327 17.2494";
+      rotation = "0 0 1 33.7501";
+      scale = "1 1 1";
+      dataBlock = "RoadsignYellow";
+         skin = "ActualDanger";
+   };
+   new StaticShape() {
+      position = "77.5859 -50.0323 4.28596";
+      rotation = "0 0 -1 33.7493";
+      scale = "1 1 1";
+      dataBlock = "Sign02";
+         skin = "red_leftright";
+   };
+   new StaticShape() {
+      position = "104.099 -44.1056 10.292";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "Sign02";
+         skin = "red_left";
+   };
+   new StaticShape() {
+      position = "106.85 -58.924 10.2601";
+      rotation = "0 0 1 146.25";
+      scale = "1 1 1";
+      dataBlock = "Sign02";
+         skin = "red_left";
+   };
+   new StaticShape() {
+      position = "115.525 -64.5913 16.2473";
+      rotation = "0 0 1 157.5";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_left";
+   };
+   new StaticShape() {
+      position = "109.51 -38.4326 16.2324";
+      rotation = "0 0 -1 33.7495";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_left";
+   };
+   new StaticShape() {
+      position = "105.38 -36.62 16.5292";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "Sign01";
+         skin = "red_leftright";
+   };
+   new StaticShape() {
+      position = "105.379 -28.3157 16.5292";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "Sign01";
+         skin = "red_leftright";
+   };
+   new StaticShape() {
+      position = "95.5516 -26.451 16.2607";
+      rotation = "0 0 -1 45.0001";
+      scale = "1 1 1";
+      dataBlock = "Sign01";
+         skin = "red_leftright";
+   };
+   new StaticShape() {
+      position = "97.4826 -26.4785 16.2132";
+      rotation = "0 0 1 146.25";
+      scale = "1 1 1";
+      dataBlock = "RoadsignYellow";
+         skin = "ActualDanger";
+   };
+   new StaticShape() {
+      position = "65.6187 -60.218 11.8448";
+      rotation = "0 0 1 180";
+      scale = "2 2 2";
+      dataBlock = "Sign01";
+         skin = "red_up";
+   };
+   new StaticShape() {
+      position = "65.6187 -62.968 11.8448";
+      rotation = "0 0 1 180";
+      scale = "2 2 2";
+      dataBlock = "Sign01";
+         skin = "red_up";
+   };
+   new StaticShape() {
+      position = "51.1096 -72.6231 11.6679";
+      rotation = "0 0 -1 90.0006";
+      scale = "2 2 2";
+      dataBlock = "Sign01";
+         skin = "red_up";
+   };
+   new StaticShape() {
+      position = "53.8596 -72.6231 11.6679";
+      rotation = "0 0 -1 90.0006";
+      scale = "2 2 2";
+      dataBlock = "Sign01";
+         skin = "red_up";
+   };
+   new StaticShape() {
+      position = "72.7706 -36.3046 3.03037";
+      rotation = "0.764739 -0.18704 0.616596 94.0409";
+      scale = "1 1 1";
+      dataBlock = "Rock01";
+   };
+   new Item() {
+      position = "75.501 -52.5733 10.425";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SundialItem_PQ";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         skin = "base";
+         timeBonus = "5000";
+   };
+};
+//--- OBJECT WRITE END ---

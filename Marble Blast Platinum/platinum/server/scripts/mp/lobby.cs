@@ -1086,7 +1086,7 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 	}
 	commandToClient(%client, 'MissionListEnd', %gameName, %difficultyName);
 
-	if ($MissionType $= "Custom") {
+	if ($MissionType $= "Custom" && !%client.isHost()) {
 		%client.updatePlaymission();
 		if (%client.loading)
 			sendLoadInfoToClient(%client);
