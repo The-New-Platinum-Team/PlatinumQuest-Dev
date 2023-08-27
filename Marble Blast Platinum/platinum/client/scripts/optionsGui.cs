@@ -519,9 +519,12 @@ $Options::Type    ["Online", 6] = "value";
 $Options::Name    ["Online", 7] = "autoLogin";
 $Options::Title   ["Online", 7] = "Auto Login";
 $Options::Type    ["Online", 7] = "boolean";
+$Options::Name    ["Online", 8] = "noholepunch";
+$Options::Title   ["Online", 8] = "Hole Punching";
+$Options::Type    ["Online", 8] = "boolean";
 
-$Options::AutoLoginUserField = 8;
-$Options::AutoLoginPassField = 9;
+$Options::AutoLoginUserField = 9;
+$Options::AutoLoginPassField = 10;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
 $Options::Title   ["Online", $Options::AutoLoginUserField] = "Username";
@@ -1719,6 +1722,22 @@ function Opt_chatMessageSize_increase() {
 	}
 	$LBPref::ChatMessageSize = getField(ChatMessageSizeArray.getEntry(%index), 1);
 	PlayGui.positionMessageHud();
+}
+
+function Opt_noholepunch_getDisplay() {
+	return $pref::NoHolePunching ? "Disabled" : "Enabled";
+}
+
+function Opt_noholepunch_getValue() {
+	return $pref::NoHolePunching;
+}
+
+function Opt_noholepunch_decrease() {
+	$pref::NoHolePunching = !$pref::NoHolePunching;
+}
+
+function Opt_noholepunch_increase() {
+	$pref::NoHolePunching = !$pref::NoHolePunching;
 }
 
 //-----------------------------------------------------------------------------

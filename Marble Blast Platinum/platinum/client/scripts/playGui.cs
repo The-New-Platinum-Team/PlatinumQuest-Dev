@@ -1261,17 +1261,17 @@ $numberPaths["colon"] = $userMods @ "/client/ui/game/numbers/colon.png";
 $numberPaths["dash"] = $userMods @ "/client/ui/game/numbers/dash.png";
 $numberPaths["slash"] = $userMods @ "/client/ui/game/numbers/slash.png";
 
-// function GuiBitmapCtrl::setNumber(%this,%number) {
-// 	%this.setBitmap($numberPaths[%number]);
-// }
-// function GuiBitmapCtrl::setTimeNumber(%this,%number) {
-// 	%this.setBitmap($numberPaths[%number]);
-// 	%this.bitmapColor = $PlayTimerColor;
-// }
-// function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
-// 	%this.setBitmap($numberPaths[%number]);
-// 	%this.bitmapColor = %color;
-// }
+function GuiBitmapCtrl::setNumber(%this,%number) {
+	%this.setBitmap($numberPaths[%number]);
+}
+function GuiBitmapCtrl::setTimeNumber(%this,%number) {
+	%this.setBitmap($numberPaths[%number]);
+	%this.bitmapColor = $PlayTimerColor;
+}
+function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
+	%this.setBitmap($numberPaths[%number]);
+	%this.bitmapColor = %color;
+}
 
 //-----------------------------------------------------------------------------
 
