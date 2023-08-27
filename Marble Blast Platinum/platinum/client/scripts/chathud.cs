@@ -89,7 +89,6 @@ function createHelpMessage(%id, %text, %timeout) {
 	//So we can address each component by name after creation
 	%boxName        = ("PG_Message" @ %id @ "_Box");
 	%foregroundName = ("PG_Message" @ %id @ "_TextForeground");
-	%backgroundName = ("PG_Message" @ %id @ "_TextBackground");
 
 	%width = min(getWord(PG_ChatBubbleBox.position, 0) + 20, 400);
 
@@ -125,19 +124,6 @@ function createHelpMessage(%id, %text, %timeout) {
 			visible = "1";
 			helpTag = "0";
 
-			new GuiMLTextCtrl(%backgroundName) {
-				profile = "GuiMLTextProfile";
-				horizSizing = "right";
-				vertSizing = "bottom";
-				position = "1 1";
-				extent = (%width - 24) SPC "46";
-				minExtent = "8 8";
-				visible = "1";
-				helpTag = "0";
-				lineSpacing = "2";
-				allowColorChars = "0";
-				maxChars = "-1";
-			};
 			new GuiMLTextCtrl(%foregroundName) {
 				profile = "GuiMLTextProfile";
 				horizSizing = "right";
@@ -154,7 +140,6 @@ function createHelpMessage(%id, %text, %timeout) {
 		};
 	};
 
-	%backgroundName.setText("<color:777777>" @ %text);
 	%foregroundName.setText("<color:ffffff>" @ %text);
 	PG_MessageListBox.add(%boxName);
 
@@ -241,7 +226,6 @@ function createAchievementMessage(%id, %text, %bitmap, %extent, %timeout) {
 	//So we can address each component by name after creation
 	%boxName        = ("PG_Message" @ %id @ "_Box");
 	%foregroundName = ("PG_Message" @ %id @ "_TextForeground");
-	%backgroundName = ("PG_Message" @ %id @ "_TextBackground");
 	%bitmapName     = ("PG_Message" @ %id @ "_Bitmap");
 
 	%bitmapMax = 72;
@@ -294,19 +278,6 @@ function createAchievementMessage(%id, %text, %bitmap, %extent, %timeout) {
 			visible = "1";
 			helpTag = "0";
 
-			new GuiMLTextCtrl(%backgroundName) {
-				profile = "GuiMLTextProfile";
-				horizSizing = "right";
-				vertSizing = "bottom";
-				position = "1 1";
-				extent = (%width - 24) SPC "46";
-				minExtent = "8 8";
-				visible = "1";
-				helpTag = "0";
-				lineSpacing = "2";
-				allowColorChars = "0";
-				maxChars = "-1";
-			};
 			new GuiMLTextCtrl(%foregroundName) {
 				profile = "GuiMLTextProfile";
 				horizSizing = "right";
@@ -326,7 +297,6 @@ function createAchievementMessage(%id, %text, %bitmap, %extent, %timeout) {
 	%bitmapName.setBitmap(%bitmap);
 	%text = "<lmargin:80><bold:28>Achievement Unlocked!\n<bold:25>\"" @ %text @ "\"";
 
-	%backgroundName.setText("<color:777777>" @ %text);
 	%foregroundName.setText("<color:ffffff>" @ %text);
 	PG_AchievementListBox.add(%boxName);
 
@@ -374,7 +344,6 @@ function addBubbleLine(%message, %help, %time, %isAHelpLine) {
 		%text = "<tab:20>\t" @ %text;
 
 	//Set the bubble's actual text
-	PG_ChatBubbleBackground.setText("<color:777777>" @ %text);
 	PG_ChatBubbleForeground.setText("<color:ffffff>" @ %text);
 
 	//Resize the help bubble to fit
@@ -393,7 +362,6 @@ function addBubbleLine(%message, %help, %time, %isAHelpLine) {
 		//Replace the help bubble's message with a short message to let them know
 		// to press X.
 		%text = %font @ "<just:center>Press X to read this message!";
-		PG_ChatBubbleBackground.setText("<color:777777>" @ %text);
 		PG_ChatBubbleForeground.setText("<color:ffffff>" @ %text);
 
 		//Reset the size to the minimum, which is all that we'll need

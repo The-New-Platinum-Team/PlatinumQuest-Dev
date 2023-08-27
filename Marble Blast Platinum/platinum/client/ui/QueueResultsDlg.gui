@@ -141,10 +141,10 @@ function QueueResultsDlg::open(%this, %queue) {
 }
 
 function QueueResultsDlg::onWake(%this) {
-	%qtitle = "<shadow:1:1><shadowcolor:000000bf><just:center>";
+	%qtitle = "<just:center>";
 	%qtitle = %qtitle @ shrinkToFit("Results: " @ %this.queue.getQueueName(), $DefaultFont["Bold"], 28, 24, getWord(ExitGameInfo.getExtent(), 0));
 
-	%qtext = "<shadow:1:1><shadowcolor:000000bf><bold:22><tab:320,400>";
+	%qtext = "<bold:22><tab:320,400>";
 	%qtext = %qtext @ "Level\tScore\tTotal<font:18>";
 
 	for (%i = 0; %i < %this.queue.getMissionCount(); %i ++) {

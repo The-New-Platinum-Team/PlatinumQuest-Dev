@@ -547,7 +547,7 @@ function updateCannonUI(%delta) {
 		PGChargeGui.setVisible(%cannon.useCharge && !%cannon.showAim);
 		PGCannonExitText.setVisible(true);
 
-		PGCannonExitText.setText("<font:24><color:ffffff><shadow:1:1><shadowcolor:0000007f>Press <func:bind useBlast> to exit cannon.");
+		PGCannonExitText.setText("<font:24><color:ffffff>Press <func:bind useBlast> to exit cannon.");
 
 		//updateCannonAim();
 	} else {

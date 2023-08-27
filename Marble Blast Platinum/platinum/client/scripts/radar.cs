@@ -419,15 +419,6 @@ function radarShouldShow(%object) {
 	//PowerUps and stuff
 	if (%class $= "Item") {
 		switch$ (%name) {
-		case "AntiGravityItem"
-			or "NoRespawnAntiGravityItem":
-			%rotation = getWords(%object.getTransform(),3);
-			%ortho = vectorOrthoBasis(%rotation);
-			%ortho = VectorRemoveNotation(%ortho);
-
-			if (VectorEqual(getWords($MP::MyMarble.getGravityDir(), 6, 8), getWords(%ortho, 6, 8))) { // same gravity as you
-				return false;
-			}
 		case "SuperJumpItem"
 			or "SuperBounceItem"
 			or "SuperSpeedItem"

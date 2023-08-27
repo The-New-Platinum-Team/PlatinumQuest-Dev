@@ -31,7 +31,7 @@ function LoadingGui::onWake(%this) {
 	if (isObject($Menu::Queue)) {
 		%qtext = "<just:center>" @ shrinkToFit($Menu::Queue.getQueueName(), $DefaultFont["Bold"], 36, 24, 560) @ "<font:28><lmargin:70><rmargin:630>";
 
-		%qtext = "<shadow:1:1><shadowcolor:000000bf><font:32><tab:460,550>";
+		%qtext = "<font:32><tab:460,550>";
 		%qtext = %qtext @ "Level\tScore\tTotal<font:22>";
 
 		// Show missions 1, (n-3) -> n if we're on n
@@ -72,7 +72,7 @@ function LoadingGui::onWake(%this) {
 			if ($Menu::Queue.missionTotalScoreScore[%i] > 0) {
 				%qtext = %qtext @ " + " @ formatScore($Menu::Queue.missionTotalScoreScore[%i]);
 			}
-			%qtext = %qtext @ "<color:000000>";
+			%qtext = %qtext @ "<color:f1f2f2>";
 		}
 
 		if (%lastVisible != $Menu::Queue.getMissionCount()) {
@@ -151,45 +151,45 @@ function LoadingGui::onWake(%this) {
 		case "Gold":
 			//Need qualify and gold times
 			%parTitle = "Qualify";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFFF00>Gold";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate"; // For hunt maps, just in case
+			%goldTitle = "<color:FFFF00>Gold";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate"; // For hunt maps, just in case
 			%awesomeTitle = "";
 		case "Platinum":
 			//Need par / platinum / ultimate
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
+			%goldTitle = "<color:CCCCCC>Platinum";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate";
 			%awesomeTitle = "";
 		case "Ultra":
 			//Need par / gold / ultimate
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFFF00>Gold";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
+			%goldTitle = "<color:FFFF00>Gold";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate";
 			%awesomeTitle = "";
 		case "PlatinumQuest":
 			//Need par / platinum / ultimate / (awesome?)
 			%parTitle = "Par";
 			%goldTitle = "";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+			%platinumTitle = "<color:CCCCCC>Platinum";
+			%ultimateTitle = "<color:FFCC33>Ultimate";
+			%awesomeTitle = "<color:FF4444>Awesome";
 		case "LBCustom":
 			//Not really sure with these, just assume platinum
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+			%goldTitle = "<color:CCCCCC>Platinum";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate";
+			%awesomeTitle = "<color:FF4444>Awesome";
 		default:
 			//It's custom, we're not really sure here
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFFF00>Gold";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+			%goldTitle = "<color:FFFF00>Gold";
+			%platinumTitle = "<color:CCCCCC>Platinum";
+			%ultimateTitle = "<color:FFCC33>Ultimate";
+			%awesomeTitle = "<color:FF4444>Awesome";
 		}
 
 		%parText      = %parTitle      SPC %parType;

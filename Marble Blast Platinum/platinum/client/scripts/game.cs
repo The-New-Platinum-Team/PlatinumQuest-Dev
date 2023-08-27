@@ -584,13 +584,13 @@ function reformatGameEndText() {
 	%color = getScoreFormatting(%scoreVals, %info);
 	%formatted = %color @ (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score));
 
-	EG_TitleText.setText("<bold:48><color:000000><shadow:1:1><shadowcolor:777777>Your " @ %name @ ":");
-	EG_Result.setText("<bold:48><color:000000><shadow:1:1><shadowcolor:777777><just:right>" @ %formatted);
+	EG_TitleText.setText("<bold:48><color:000000>Your " @ %name @ ":");
+	EG_Result.setText("<bold:48><color:000000><just:right>" @ %formatted);
 
 	// -------------------------------------------------------------------------------
 	// Decision on which Qualification message to display
 	// -------------------------------------------------------------------------------
-	%text = "<color:000000><shadow:1:1><shadowcolor:7777777F><just:center><bold:30>";
+	%text = "<color:000000><just:center><bold:30>";
 
 	//Times, in order of precedence:
 	// Staff/Awesome time
@@ -603,16 +603,16 @@ function reformatGameEndText() {
 	if ($Cheats::Activated) {
 		%text = %text @ "Nice Cheats!";
 	} else if ($Editor::Opened) {
-		%text = %text @ "<color:00cc00><shadow:1:1><shadowcolor:0000007f>Level Editor Opened";
+		%text = %text @ "<color:00cc00>Level Editor Opened";
 	} else {
 		if (%flags & $Completion::Awesome) {
-			%text = %text @ "Who's Awesome? <color:FF3333><shadowcolor:AA22227F>You're<color:000000><shadowcolor:7777777F> Awesome!";
+			%text = %text @ "Who's Awesome? <color:FF3333>You're<color:000000> Awesome!";
 		} else if (%flags & $Completion::Ultimate) {
-			%text = %text @ "You beat the <color:FFCC33><shadowcolor:0000007F>Ultimate<color:000000><shadowcolor:7777777F> " @ %name @ "!";
+			%text = %text @ "You beat the <color:FFCC33>Ultimate<color:000000> " @ %name @ "!";
 		} else if (%flags & $Completion::Platinum) {
-			%text = %text @ "You beat the <color:CCCCCC><shadowcolor:0000007F>Platinum<color:000000><shadowcolor:7777777F> " @ %name @ "!";
+			%text = %text @ "You beat the <color:CCCCCC>Platinum<color:000000> " @ %name @ "!";
 		} else if (%flags & $Completion::Gold) {
-			%text = %text @ "You beat the <color:FFEE11><shadowcolor:0000007F>Gold<color:000000><shadowcolor:7777777F> " @ %name @ "!";
+			%text = %text @ "You beat the <color:FFEE11>Gold<color:000000> " @ %name @ "!";
 		} else if (%flags & $Completion::Par) {
 			//No score, you just qualified
 			if ($CurrentGame $= "Gold") {
@@ -622,9 +622,9 @@ function reformatGameEndText() {
 			}
 		} else {
 			if ($CurrentGame $= "Gold") {
-				%text = %text @ "<color:f55555><shadowcolor:800000>You didn\'t pass the Qualify " @ %name @ "!";
+				%text = %text @ "<color:f55555>You didn\'t pass the Qualify " @ %name @ "!";
 			} else {
-				%text = %text @ "<color:f55555><shadowcolor:800000>You didn\'t pass the Par " @ %name @ "!";
+				%text = %text @ "<color:f55555>You didn\'t pass the Par " @ %name @ "!";
 			}
 		}
 	}
@@ -633,7 +633,7 @@ function reformatGameEndText() {
 	// Time stats from Mission
 	// -------------------------------------------------------------------------------
 
-	%text = %text @ "<font:Arial:9>\n\n<tab:208><color:000000><font:26><shadowcolor:7777777F><just:left>";
+	%text = %text @ "<font:Arial:9>\n\n<tab:208><color:000000><font:26><just:left>";
 
 	//Challenge times
 	%goldTimeLabel     = (%info.goldTime     !$= "" ? formatTime(%info.goldTime)     : "N/A");
@@ -699,40 +699,40 @@ function reformatGameEndText() {
 	case "Gold":
 		//Need qualify and gold times
 		%parTitle = "Qualify";
-		%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFEE11>Gold";
-		%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-		%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate"; // For hunt maps, just in case
-		%recordTitle = "<shadow:1:1><shadowcolor:0000007f><color:0060f0>World Record";
+		%goldTitle = "<color:FFEE11>Gold";
+		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+		%ultimateTitle = "<color:FFCC33>Ultimate"; // For hunt maps, just in case
+		%recordTitle = "<color:0060f0>World Record";
 	case "Platinum":
 		//Need par / platinum / ultimate
 		%parTitle = "Par";
-		%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-		%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-		%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-		%recordTitle = "<shadow:1:1><shadowcolor:0000007f><color:0060f0>World Record";
+		%goldTitle = "<color:CCCCCC>Platinum";
+		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+		%ultimateTitle = "<color:FFCC33>Ultimate";
+		%recordTitle = "<color:0060f0>World Record";
 	case "Ultra":
 		//Need par / gold / ultimate
 		%parTitle = "Par";
-		%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFEE11>Gold";
-		%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-		%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-		%recordTitle = "<shadow:1:1><shadowcolor:0000007f><color:0060f0>World Record";
+		%goldTitle = "<color:FFEE11>Gold";
+		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+		%ultimateTitle = "<color:FFCC33>Ultimate";
+		%recordTitle = "<color:0060f0>World Record";
 	case "PlatinumQuest":
 		//Need par / platinum / ultimate / (awesome?)
 		%parTitle = "Par";
 		%goldTitle = "";
-		%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-		%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-		%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF3333>Awesome";
-		%recordTitle = "<shadow:1:1><shadowcolor:0000007f><color:0060f0>World Record";
+		%platinumTitle = "<color:CCCCCC>Platinum";
+		%ultimateTitle = "<color:FFCC33>Ultimate";
+		%awesomeTitle = "<color:FF3333>Awesome";
+		%recordTitle = "<color:0060f0>World Record";
 	default:
 		//It's custom, we're not really sure here
 		%parTitle = "Par";
-		%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFEE11>Gold";
-		%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-		%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-		%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF3333>Awesome";
-		%recordTitle = "<shadow:1:1><shadowcolor:0000007f><color:0060f0>World Record";
+		%goldTitle = "<color:FFEE11>Gold";
+		%platinumTitle = "<color:CCCCCC>Platinum";
+		%ultimateTitle = "<color:FFCC33>Ultimate";
+		%awesomeTitle = "<color:FF3333>Awesome";
+		%recordTitle = "<color:0060f0>World Record";
 	}
 
 	//Show what we need to
@@ -750,7 +750,7 @@ function reformatGameEndText() {
 		%text = %text @ "<just:left><spush>" @ %recordTitle @ ":<just:right>" @ %recordLabel @ "<spop>\n";
 	}
 
-	%text = %text @ "<just:center><color:000000><font:26><shadowcolor:7777777F>";
+	%text = %text @ "<just:center><color:000000><font:26>";
 
 	%totalTTs = countTTs(MissionGroup);
 	if (mp() || %totalTTs == 0 || anyRespawningTTs(MissionGroup)) { // No time travels, don't bother with a message
@@ -758,7 +758,7 @@ function reformatGameEndText() {
 	} else {
 		%grabbedTTs = countInvisibleTTs(MissionGroup);
 		%plural = %totalTTs > 1? "'s" : "";
-		%textTTs = "<spush><shadow:1:1><shadowcolor:0000007f><color:00FF00>(" @ %grabbedTTs @ "/" @ %totalTTs @ " TT" @ %plural @ ")<spop> ";
+		%textTTs = "<spush><color:00FF00>(" @ %grabbedTTs @ "/" @ %totalTTs @ " TT" @ %plural @ ")<spop> ";
 	}
 
 	%text = %text @
@@ -772,7 +772,7 @@ function reformatGameEndText() {
 
 	// you can't be a guest to get rating.
 	if (lb() && !$LB::Guest && !%isMarbleland) {
-		%text = "<color:000000><font:26><shadowcolor:7777777F><shadow:1:1>";
+		%text = "<color:000000><font:26>";
 		%rating = formatRating($LB::Rating);
 		if ($LB::RatingDelta > 0) {
 			%rating = "<color:00ff00>(+" @ formatRating($LB::RatingDelta) @ ")<color:000000> " @ %rating;
@@ -793,32 +793,32 @@ function reformatGameEndText() {
 	// -------------------------------------------------------------------------------
 
 	%levelName = MissionInfo.name;
-	%scoreText = "<bold:28><color:000000><shadow:1:1><shadowColor:7777777F><just:center>" @ %levelName @ ", Top " @ $Game::HighscoreCount;
+	%scoreText = "<bold:28><color:000000><just:center>" @ %levelName @ ", Top " @ $Game::HighscoreCount;
 
 	for (%i = 0; %i < $Game::HighscoreCount; %i ++) {
 		%type = getField($hs[%i], 0);
 		%score = getField($hs[%i], 1);
 		%name = getField($hs[%i], 2);
 
-		%scoreText = %scoreText NL "<spush><shadow:1:1><font:26><just:left>";
+		%scoreText = %scoreText NL "<spush><font:26><just:left>";
 
 		%current = (%i == $highScoreIndex && $highScoreIndex !$= "");
 		if (%current) {
-			%scoreText = %scoreText @ "<color:00DD00><shadowcolor:7777777F>" @(%i + 1) @ ". ";
+			%scoreText = %scoreText @ "<color:00DD00>" @(%i + 1) @ ". ";
 		} else {
 			switch (%i) {
-			case 0: %scoreText = %scoreText @ "<color:eec884><shadowcolor:816d48>1. ";
-			case 1: %scoreText = %scoreText @ "<color:cdcdcd><shadowcolor:7e7e7e>2. ";
-			case 2: %scoreText = %scoreText @ "<color:c9afa0><shadowcolor:7f6f65>3. ";
-			case 3: %scoreText = %scoreText @ "<color:a4a4a4><shadowcolor:7e7e7e>4. ";
-			case 4: %scoreText = %scoreText @ "<color:949494><shadowcolor:7f6f65>5. ";
+			case 0: %scoreText = %scoreText @ "<color:eec884>1. ";
+			case 1: %scoreText = %scoreText @ "<color:cdcdcd>2. ";
+			case 2: %scoreText = %scoreText @ "<color:c9afa0>3. ";
+			case 3: %scoreText = %scoreText @ "<color:a4a4a4>4. ";
+			case 4: %scoreText = %scoreText @ "<color:949494>5. ";
 			}
 		}
 
 		%color = getScoreFormatting($hs[%i], %info);
 		%formatted = (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score));
 
-		%scoreText = %scoreText @ "<shadowcolor:7777777F>" @(%current ? "<color:00DD00>" : "<color:000000>")
+		%scoreText = %scoreText @(%current ? "<color:00DD00>" : "<color:000000>")
 		             @ %name @ (%current ? "" : %color) @ "\t<just:right>" @ %formatted @ "<spop>";
 	}
 
@@ -877,15 +877,15 @@ function getScoreFormatting(%score, %info, %showAwesome, %placement) {
 		%showAwesome = $pref::ShowAwesomeHints;
 
 	if (%placement == 1)
-		return "<shadow:1:1><shadowcolor:0000007F><color:0060f0>";
+		return "<color:0060f0>";
 	else if (%showAwesome && (%flags & $Completion::Awesome))
-		return "<shadow:1:1><shadowcolor:0000007F><color:FF4444>";
+		return "<color:FF4444>";
 	else if (%flags & $Completion::Ultimate)
-		return "<shadow:1:1><shadowcolor:0000007F><color:FFCC33>";
+		return "<color:FFCC33>";
 	else if (%flags & $Completion::Platinum)
-		return "<shadow:1:1><shadowcolor:0000007F><color:CCCCCC>";
+		return "<color:CCCCCC>";
 	else if (%flags & $Completion::Gold)
-		return "<shadow:1:1><shadowcolor:0000007F><color:FFEE11>";
+		return "<color:FFEE11>";
 
 	return ""; //No color-- default color
 }

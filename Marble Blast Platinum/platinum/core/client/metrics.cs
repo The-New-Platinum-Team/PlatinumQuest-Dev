@@ -129,7 +129,7 @@ package Metrics {
 				for (%j = %i; %j < %i + %recordsPerScreen; %j ++) {
 					%width = max(%width, textLen(getRecord($frameVal, %j), GuiTextProfile.fontType, GuiTextProfile.fontSize));
 				}
-				(TextOverlayControl @ %ctrl).setText("<color:ffffff><shadow:1:1><shadowcolor:000000ff>" @ getRecords($frameVal, %i, %i + %recordsPerScreen - 1));
+				(TextOverlayControl @ %ctrl).setText("<color:ffffff>" @ getRecords($frameVal, %i, %i + %recordsPerScreen - 1));
 				(TextOverlayControl @ %ctrl).setPosition(%x SPC 5);
 				%x += %width + 5;
 				%ctrl ++;

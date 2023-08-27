@@ -356,11 +356,11 @@ function menuMissionEnd() {
 //-----------------------------------------------------------------------------
 
 function menuStartIntroduction() {
-	//Hey! You! Go play Training Wheels! Don't come back until you've beaten it!
+	//Hey! You! Go play Marble Hill! Don't come back until you've beaten it!
 	$Game::Introduction = true;
 
 	//Hardcoded for victory
-	menuLoadMission("platinum/data/missions_pq/tutorial/Tut_TrainingWheels.mcs");
+	menuLoadMission("platinum/data/missions_bm/chapter1/MarbleHill.mis");
 
 	menuSendCb("StartIntroduction");
 }

@@ -22,9 +22,9 @@
 
 //This is here so the game doesn't crash when you make a new GuiBorderButtonCtrl
 if (!isObject(GuiBorderButtonProfile)) new GuiControlProfile(GuiBorderButtonProfile : GuiButtonProfile) {
-	fontColor = "0 0 0 255";
-	fontColorHL = "0 0 0 255";
-	fontColorSEL = "0 0 0 255";
+	fontColor = "241 242 242 255";
+	fontColorHL = "241 242 242 255";
+	fontColorSEL = "241 242 242 255";
 	fontColorNA = "128 128 128 255";
 	justify = "center";
 	fontType = $DefaultFont["Bold"];
@@ -32,9 +32,9 @@ if (!isObject(GuiBorderButtonProfile)) new GuiControlProfile(GuiBorderButtonProf
 	bitmap = "./button";
 };
 if (!isObject(PQButtonProfile)) new GuiControlProfile(PQButtonProfile : GuiButtonProfile) {
-	fontColor = "0 0 0 255";
-	fontColorHL = "0 0 0 255";
-	fontColorSEL = "0 0 0 255";
+	fontColor = "241 242 242 255";
+	fontColorHL = "241 242 242 255";
+	fontColorSEL = "241 242 242 255";
 	fontColorNA = "128 128 128 255";
 	justify = "center";
 	fontType = $DefaultFont;
@@ -151,8 +151,8 @@ if (!isObject(PQCheckboxProfile)) new GuiControlProfile(PQCheckboxProfile : GuiC
 	borderColor = "0 0 0";
 	fontType = $DefaultFont["Bold"];
 	fontSize = 21;
-	fontColor = "0 0 0";
-	fontColorHL = "100 100 100";
+	fontColor = "241 242 242";
+	fontColorHL = "241 242 242";
 	fixedExtent = true;
 	justify = "left";
 	bitmap = "./pqcheckbox";
@@ -184,8 +184,8 @@ if (!isObject(PQCheckboxLargeProfile)) new GuiControlProfile(PQCheckboxLargeProf
 	borderColor = "0 0 0";
 	fontType = $DefaultFont["Bold"];
 	fontSize = 24;
-	fontColor = "0 0 0";
-	fontColorHL = "100 100 100";
+	fontColor = "241 242 242";
+	fontColorHL = "241 242 242";
 	fixedExtent = true;
 	justify = "left";
 	bitmap = "./pqcheckbox45";
@@ -204,8 +204,8 @@ if (!isObject(PQCheckboxLargeDisableProfile)) new GuiControlProfile(PQCheckboxLa
 	justify = "left";
 	bitmap = "./pqcheckbox45-disable";
 	hasBitmapArray = true;
-	fontColor = "153 153 153";
-	fontColorHL = "153 153 153";
+	fontColor = "102 102 102";
+	fontColorHL = "102 102 102";
 	enableProfile = "PQCheckboxLargeProfile";
 };
 
@@ -216,8 +216,8 @@ if (!isObject(PQRadioProfile)) new GuiControlProfile(PQRadioProfile : GuiRadioPr
 	borderColor = "0 0 0";
 	fontType = $DefaultFont["Bold"];
 	fontSize = 21;
-	fontColor = "0 0 0";
-	fontColorHL = "100 100 100";
+	fontColor = "241 242 242";
+	fontColorHL = "241 242 242";
 	fixedExtent = true;
 	justify = "left";
 	bitmap = "./pqradio";
@@ -236,20 +236,20 @@ if (!isObject(PQRadioDisableProfile)) new GuiControlProfile(PQRadioDisableProfil
 	justify = "left";
 	bitmap = "./pqradio-disable";
 	hasBitmapArray = true;
-	fontColor = "153 153 153";
-	fontColorHL = "153 153 153";
+	fontColor = "102 102 102";
+	fontColorHL = "102 102 102";
 	enableProfile = "PQRadioProfile";
 };
 
 if (!isObject(PQTextboxProfile)) new GuiControlProfile(PQTextboxProfile) {
 	fontType = $DefaultFont;
 	opaque = false;
-	fillColor = "255 255 255";
+	fillColor = "241 242 242";
 	fillColorHL = "128 128 128";
 	border = false;
 	borderColor = "0 0 0";
-	fontColor = "0 0 0";
-	fontColorHL = "255 255 255";
+	fontColor = "241 242 242";
+	fontColorHL = "0 0 255";
 	fontColorNA = "128 128 128";
 	textOffset = "0 2";
 	autoSizeWidth = false;
@@ -262,12 +262,12 @@ if (!isObject(PQTextboxProfile)) new GuiControlProfile(PQTextboxProfile) {
 if (!isObject(PQTextboxSmallProfile)) new GuiControlProfile(PQTextboxSmallProfile) {
 	fontType = $DefaultFont;
 	opaque = false;
-	fillColor = "255 255 255";
+	fillColor = "241 242 242";
 	fillColorHL = "128 128 128";
 	border = false;
 	borderColor = "0 0 0";
-	fontColor = "0 0 0";
-	fontColorHL = "255 255 255";
+	fontColor = "241 242 242";
+	fontColorHL = "0 0 255";
 	fontColorNA = "128 128 128";
 	textOffset = "0 2";
 	autoSizeWidth = false;
@@ -309,7 +309,7 @@ if (!isObject(GuiPhilScrollProfile)) new GuiControlProfile(GuiPhilScrollProfile)
 new GuiControlProfile(PQTextListProfile : GuiTextListProfile) {
 	fontType = $DefaultFont;
 	fontSize = "16";
-	fontColors[0] = "0 0 0 255";
+	fontColors[0] = "241 242 242 255";
 	fontColorHL = "80 100 110 255";
 	fillColorHL = "0 0 0 51";
 	fontColorNA = "153 153 153";

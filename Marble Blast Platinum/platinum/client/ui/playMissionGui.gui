@@ -23,62 +23,62 @@
 new GuiControlProfile(PMDifficultyButtonProfile : PQButtonProfile) {
 	fontType = $DefaultFont["Bold"];
 	fontSize = "26";
-	fontColor = "0 0 0 255";
+	fontColor = "241 242 242 255";
 	justify = "center";
 	bitmap = "./play/selector.png";
 	hasBitmapArray = true;
 };
 new GuiControlProfile(PMBarButtonProfile : PQButtonProfile) {
-	fillColor = "85 85 85 255";
+	fillColor = "241 242 242 255";
 	fillColorNA = "153 153 153 255";
 	justify = "center";
 	bitmap = "./play/barbutton.png";
 	hasBitmapArray = true;
 };
 new GuiControlProfile(PMBarButtonLeftProfile : PQButtonProfile) {
-	fillColor = "85 85 85 255";
+	fillColor = "241 242 242 255";
 	fillColorNA = "153 153 153 255";
 	justify = "center";
 	bitmap = "./play/barbuttonleft.png";
 	hasBitmapArray = true;
 };
 new GuiControlProfile(PMBarButtonRightProfile : PQButtonProfile) {
-	fillColor = "85 85 85 255";
+	fillColor = "241 242 242 255";
 	fillColorNA = "153 153 153 255";
 	justify = "center";
 	bitmap = "./play/barbuttonright.png";
 	hasBitmapArray = true;
 };
 new GuiControlProfile(PMBarButtonTabProfile : PQButtonProfile) {
-	fillColor = "85 85 85 255";
+	fillColor = "241 242 242 255";
 	fillColorNA = "153 153 153 255";
 	justify = "center";
 	bitmap = "./play/barbuttontab.png";
 	hasBitmapArray = true;
 };
 new GuiControlProfile(PMBarButtonLeftTabProfile : PQButtonProfile) {
-	fillColor = "85 85 85 255";
+	fillColor = "241 242 242 255";
 	fillColorNA = "153 153 153 255";
 	justify = "center";
 	bitmap = "./play/barbuttonlefttab.png";
 	hasBitmapArray = true;
 };
 new GuiControlProfile(PMBarButtonRightTabProfile : PQButtonProfile) {
-	fillColor = "85 85 85 255";
+	fillColor = "241 242 242 255";
 	fillColorNA = "153 153 153 255";
 	justify = "center";
 	bitmap = "./play/barbuttonrighttab.png";
 	hasBitmapArray = true;
 };
 new GuiControlProfile(PMLevelNameBorderProfile) {
-	fillColor = "255 255 255 128";
+	fillColor = "241 242 242 128";
 	bitmap = "./play/levelnameborder.png";
 	hasBitmapArray = true;
 	opaque = false;
 	modal = false;
 };
 new GuiControlProfile(PMInfoBoxBorderProfile) {
-	fillColor = "255 255 255 128";
+	fillColor = "241 242 242 128";
 	bitmap = "./play/infoboxborder.png";
 	hasBitmapArray = true;
 	opaque = false;
@@ -87,8 +87,8 @@ new GuiControlProfile(PMLevelNameProfile : GuiMLTextProfile) {
 	modal = false;
 };
 new GuiControlProfile(PMGMLTextProfile : GuiMLTextProfile) {
-	fontColorLink = "53 53 204";
-	fontColorLinkHL = "0 0 150";
+	fontColorLink = "153 180 242";
+	fontColorLinkHL = "200 220 242";
 };
 new GuiControlProfile(PMCustomListProfile : PQTextListProfile) {
 	fontSize = "18";
@@ -2471,8 +2471,8 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 	if (!%canPlay) {
 		if (%requirements !$= "") {
-			%qualText = "<font:36><just:center><spush><color:FF5555><shadow:1:1><shadowcolor:0000007f>Unlock Requirements:<spop>";
-			%qualText = %qualText NL "<font:28><color:FFFFFF><shadow:1:1><shadowcolor:0000007f>" @ %requirements;
+			%qualText = "<font:36><just:center><spush><color:FF5555>Unlock Requirements:<spop>";
+			%qualText = %qualText NL "<font:28><color:FFFFFF>" @ %requirements;
 		}
 
 		PM_NotQualifiedText.setText(%qualText);
@@ -2726,52 +2726,52 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		case "Gold":
 			//Need qualify and gold times
 			%parTitle = "Qualify";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFFF00>Gold";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate"; // For hunt maps, just in case
+			%goldTitle = "<color:FFFF00>Gold";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate"; // For hunt maps, just in case
 			%awesomeTitle = "";
 		case "Platinum":
 			//Need par / platinum / ultimate
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
+			%goldTitle = "<color:CCCCCC>Platinum";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate";
 			%awesomeTitle = "";
 		case "Ultra":
 			//Need par / gold / ultimate
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFFF00>Gold";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
+			%goldTitle = "<color:FFFF00>Gold";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate";
 			%awesomeTitle = "";
 		case "PlatinumQuest":
 			//Need par / platinum / ultimate / (awesome?)
 			%parTitle = "Par";
 			%goldTitle = "";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+			%platinumTitle = "<color:CCCCCC>Platinum";
+			%ultimateTitle = "<color:FFCC33>Ultimate";
+			%awesomeTitle = "<color:FF4444>Awesome";
 		case "Blasted":
 			//Need par / platinum / ultimate / (awesome?)
 			%parTitle = "Par";
 			%goldTitle = "";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+			%platinumTitle = "<color:CCCCCC>Platinum";
+			%ultimateTitle = "<color:FFCC33>Ultimate";
+			%awesomeTitle = "<color:FF4444>Awesome";
 		case "LBCustom":
 			//Not really sure with these, just assume platinum
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; // For hunt maps, just in case
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+			%goldTitle = "<color:CCCCCC>Platinum";
+			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+			%ultimateTitle = "<color:FFCC33>Ultimate";
+			%awesomeTitle = "<color:FF4444>Awesome";
 		default:
 			//It's custom, we're not really sure here
 			%parTitle = "Par";
-			%goldTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFFF00>Gold";
-			%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-			%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
-			%awesomeTitle = "<shadow:1:1><shadowcolor:0000007f><color:FF4444>Awesome";
+			%goldTitle = "<color:FFFF00>Gold";
+			%platinumTitle = "<color:CCCCCC>Platinum";
+			%ultimateTitle = "<color:FFCC33>Ultimate";
+			%awesomeTitle = "<color:FF4444>Awesome";
 		}
 
 		%parText      = %parTitle      SPC %parType;

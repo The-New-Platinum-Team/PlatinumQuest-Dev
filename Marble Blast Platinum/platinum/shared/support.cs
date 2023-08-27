@@ -83,11 +83,11 @@ function LBAccountType(%access) {
 
 function LBSpecialColor(%number, %alt) {
 	if (%number == 1)
-		%color = "<color:DAA520><shadow:1:1><shadowcolor:0000007f>";
+		%color = "<color:DAA520>";
 	else if (%number == 2)
-		%color = "<color:E3E4E5><shadow:1:1><shadowcolor:0000007f>";
+		%color = "<color:E3E4E5>";
 	else if (%number == 3)
-		%color = "<color:A67B3D><shadow:1:1><shadowcolor:0000007f>";
+		%color = "<color:A67B3D>";
 	else if (%number <= 5 && %alt)
 		%color = "";
 	return %color;

@@ -89,9 +89,9 @@ function ClientMode_laps::updatePlayMission(%this, %location) {
 function ClientMode_laps::updateEndGame(%this) {
 	%info = PlayMissionGui.getMissionInfo();
 	if ($Game::BestCurrentLap >= 0) {
-		%text = "<shadow:1:1><font:26><just:left>Best Lap:<just:right>" @ formatTime($Game::BestCurrentLap);
+		%text = "<font:26><just:left>Best Lap:<just:right>" @ formatTime($Game::BestCurrentLap);
 	} else {
-		%text = "<shadow:1:1><font:26><just:left>Best Lap:<just:right>Nothing???";
+		%text = "<font:26><just:left>Best Lap:<just:right>Nothing???";
 	}
 
 	EG_TopTimesText.addText(%text, true);

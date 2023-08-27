@@ -596,9 +596,9 @@ function ExitGameDlg::end() {
 function ExitGameDlg::onWake(%this) {
 	%info = getMissionInfo($Client::MissionFile);
 
-	%title = "<shadow:1:1><shadowcolor:000000bf><just:center>" @ shrinkToFit(%info.name, $DefaultFont["Bold"], 42, 24, getWord(ExitGameInfo.getExtent(), 0));
+	%title = "<just:center>" @ shrinkToFit(%info.name, $DefaultFont["Bold"], 42, 24, getWord(ExitGameInfo.getExtent(), 0));
 	ExitGameInfoTitle.setText(%title);
-	%text = "<shadow:1:1><shadowcolor:000000bf><font:32>";
+	%text = "<font:32>";
 
 	%completion = Unlock::getMissionCompletion(%info);
 	%showAwesome = ((%completion & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll;
@@ -655,49 +655,49 @@ function ExitGameDlg::onWake(%this) {
 	case "Gold":
 		//Need qualify and gold times
 		%parTitle = "Qualify";
-		%goldTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFFF00>Gold";
-		%platinumTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum"; // For hunt maps, just in case
-		%ultimateTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFCC33>Ultimate"; // For hunt maps, just in case
+		%goldTitle = "<color:FFFF00>Gold";
+		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+		%ultimateTitle = "<color:FFCC33>Ultimate"; // For hunt maps, just in case
 		%awesomeTitle = "";
 	case "Platinum":
 		//Need par / platinum / ultimate
 		%parTitle = "Par";
-		%goldTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum";
-		%platinumTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum"; // For hunt maps, just in case
-		%ultimateTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFCC33>Ultimate";
+		%goldTitle = "<color:CCCCCC>Platinum";
+		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+		%ultimateTitle = "<color:FFCC33>Ultimate";
 		%awesomeTitle = "";
 	case "Ultra":
 		//Need par / gold / ultimate
 		%parTitle = "Par";
-		%goldTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFFF00>Gold";
-		%platinumTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum"; // For hunt maps, just in case
-		%ultimateTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFCC33>Ultimate";
+		%goldTitle = "<color:FFFF00>Gold";
+		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+		%ultimateTitle = "<color:FFCC33>Ultimate";
 		%awesomeTitle = "";
 	case "PlatinumQuest":
 		//Need par / platinum / ultimate / (awesome?)
 		%parTitle = "Par";
 		%goldTitle = "";
-		%platinumTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum";
-		%ultimateTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFCC33>Ultimate";
-		%awesomeTitle = "<shadow:1:1><shadowcolor:000000bf><color:FF4444>Awesome";
+		%platinumTitle = "<color:CCCCCC>Platinum";
+		%ultimateTitle = "<color:FFCC33>Ultimate";
+		%awesomeTitle = "<color:FF4444>Awesome";
 	case "LBCustom":
 		//Not really sure with these, just assume platinum
 		%parTitle = "Par";
-		%goldTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum";
-		%platinumTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum"; // For hunt maps, just in case
-		%ultimateTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFCC33>Ultimate";
-		%awesomeTitle = "<shadow:1:1><shadowcolor:000000bf><color:FF4444>Awesome";
+		%goldTitle = "<color:CCCCCC>Platinum";
+		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
+		%ultimateTitle = "<color:FFCC33>Ultimate";
+		%awesomeTitle = "<color:FF4444>Awesome";
 	default:
 		//It's custom, we're not really sure here
 		%parTitle = "Par";
-		%goldTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFFF00>Gold";
-		%platinumTitle = "<shadow:1:1><shadowcolor:000000bf><color:CCCCCC>Platinum";
-		%ultimateTitle = "<shadow:1:1><shadowcolor:000000bf><color:FFCC33>Ultimate";
-		%awesomeTitle = "<shadow:1:1><shadowcolor:000000bf><color:FF4444>Awesome";
+		%goldTitle = "<color:FFFF00>Gold";
+		%platinumTitle = "<color:CCCCCC>Platinum";
+		%ultimateTitle = "<color:FFCC33>Ultimate";
+		%awesomeTitle = "<color:FF4444>Awesome";
 	}
 
-	%recordTitle   = "<shadow:1:1><shadowcolor:000000bf><color:0060f0>Record";
-	%eggRecordTitle = "<shadow:1:1><shadowcolor:000000bf><color:0060f0>" @ %eggThemeColor @ "Egg Record";
+	%recordTitle   = "<color:0060f0>Record";
+	%eggRecordTitle = "<color:0060f0>" @ %eggThemeColor @ "Egg Record";
 
 	//Get the world record
 	%record = -1;
@@ -734,8 +734,8 @@ function ExitGameDlg::onWake(%this) {
 
 	%eggThemeColor = (%game $= "PlatinumQuest") ? "<color:cccc99>" : "<color:4580ff>";
 
-	%pbTitle = "<shadow:1:1><shadowcolor:000000bf>Personal Best";
-	%pbEggTitle = "<shadow:1:1><shadowcolor:000000bf>" @ %eggThemeColor @ "Egg Best";
+	%pbTitle = "Personal Best";
+	%pbEggTitle = "" @ %eggThemeColor @ "Egg Best";
 
 	if (getField($hs[0], 2) $= "Matan W." && (%pbType == 0 && getSubStr(%pbLabel, 0, 5) $= "99:59") || (%pbType == 1 && getField($hs[0], 1) == 0)) {
 		ExitGameInfoPersonalBestTitle.setVisible(false);
@@ -871,10 +871,10 @@ function ExitGameDlg::onWake(%this) {
 
 	ExitGameQueue.setVisible(isObject($Menu::Queue));
 	if (isObject($Menu::Queue)) {
-		%qtitle = "<shadow:1:1><shadowcolor:000000bf><just:center>";
+		%qtitle = "<just:center>";
 		%qtitle = %qtitle @ shrinkToFit($Menu::Queue.getQueueName(), $DefaultFont["Bold"], 42, 24, getWord(ExitGameInfo.getExtent(), 0));
 
-		%qtext = "<shadow:1:1><shadowcolor:000000bf><font:32><tab:270,360>";
+		%qtext = "<font:32><tab:270,360>";
 		%qtext = %qtext @ "Level\tScore\tTotal<font:22>";
 
 		// Show missions 1, (n-3) -> n if we're on n

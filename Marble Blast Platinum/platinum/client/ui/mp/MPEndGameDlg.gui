@@ -678,7 +678,7 @@ function MPEndGameDlg::updateScores(%this) {
 				if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
 				if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
 
-				%changeColor = "<shadowcolor:0000007f><shadow:1:1>";
+				%changeColor = "";
 				if (%change == 0)
 					%changeColor = %changeColor @ "<color:cccccc>";
 				else if (%change < 0)
@@ -688,7 +688,7 @@ function MPEndGameDlg::updateScores(%this) {
 
 				%change = %changeColor @ "(" @(%change >= 0 ? "+" @ %change : %change) @ ")";
 
-				%scoreColor = "<shadowcolor:0000007f><shadow:1:1>";
+				%scoreColor = "";
 				//See if we have more than one other player
 				%vs = !$Server::Hosting //Not host, so there must be someone else who is
 					|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
@@ -708,7 +708,7 @@ function MPEndGameDlg::updateScores(%this) {
 				%gems10 = "<spush><color:CCCCCC>" @ %scoreColor @ %gems10 @ "<spop>";
 
 				if (%change > 0)
-					%changeLabel = "<color:00ff00><shadow:1:1><shadowcolor:0000007f>+" @ %change;
+					%changeLabel = "<color:00ff00>+" @ %change;
 				else
 					%changeLabel = "0";
 
@@ -899,7 +899,7 @@ function MPEndGameDlg::updateScores(%this) {
 			if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
 			if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
 
-			%scoreColor = "<shadowcolor:0000007f><shadow:1:1>";
+			%scoreColor = "";
 			//See if we have more than one other player
 			%vs = !$Server::Hosting //Not host, so there must be someone else who is
 				|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
@@ -919,7 +919,7 @@ function MPEndGameDlg::updateScores(%this) {
 			%gems10 = "<spush><color:CCCCCC>" @ %scoreColor @ %gems10 @ "<spop>";
 
 			if (%change > 0)
-				%changeLabel = "<color:00ff00><shadow:1:1><shadowcolor:0000007f>+" @ %change;
+				%changeLabel = "<color:00ff00>+" @ %change;
 			else
 				%changeLabel = "0";
 
@@ -965,7 +965,7 @@ function MPEndGameDlg::updateScores(%this) {
 
 	MPEndGameHeader.setText("<bold:30><color:FFFFFF><tab:40,280,510,590,650> \tName\tScore\tMarble\tLevel\tPoints");
 
-	%text = "<bold:48><color:FFFFFF><just:center><shadowcolor:0000007f><shadow:1:1>";
+	%text = "<bold:48><color:FFFFFF><just:center>";
 	%score = PlayGui.gemCount;
 
 	//See if we have more than one other player

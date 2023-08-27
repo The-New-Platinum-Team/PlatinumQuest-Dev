@@ -33,10 +33,10 @@ $interfaceStyle = (($platform $= "macos" && $appearance !$= "windows") || $appea
 
 $Gui::fontCacheDirectory = expandFilename("./cache");
 
-$DefaultFont                = ($pref::DefaultFont                $= "" ? "Whatney"        : $pref::DefaultFont);
-$DefaultFont["Bold"]        = ($pref::DefaultFont["Bold"]        $= "" ? "Squishney"      : $pref::DefaultFont["Bold"]);
-$DefaultFont["Italic"]      = ($pref::DefaultFont["Italic"]      $= "" ? "Whatney Italic" : $pref::DefaultFont["Italic"]);
-$DefaultFont["Condensed"]   = ($pref::DefaultFont["Condensed"]   $= "" ? "Squatney"       : $pref::DefaultFont["Condensed"]);
+$DefaultFont                = ($pref::DefaultFont                $= "" ? "Roboto Bold"        : $pref::DefaultFont);
+$DefaultFont["Bold"]        = ($pref::DefaultFont["Bold"]        $= "" ? "Roboto Bold"      : $pref::DefaultFont["Bold"]);
+$DefaultFont["Italic"]      = ($pref::DefaultFont["Italic"]      $= "" ? "Roboto Bold Italic" : $pref::DefaultFont["Italic"]);
+$DefaultFont["Condensed"]   = ($pref::DefaultFont["Condensed"]   $= "" ? "Roboto Bold"       : $pref::DefaultFont["Condensed"]);
 $DefaultFont["PointPopups"] = ($pref::DefaultFont["PointPopups"] $= "" ? "Squishney"      : $pref::DefaultFont["PointPopups"]); // Gem and TT indicators
 $DefaultFont["Small"]       = ($pref::DefaultFont["Small"]       $= "" ? "Arial"          : $pref::DefaultFont["Small"]);
 $DefaultFont["SmallBold"]   = ($pref::DefaultFont["SmallBold"]   $= "" ? "Arial Bold"     : $pref::DefaultFont["SmallBold"]);
@@ -247,11 +247,11 @@ if (!isObject(GuiMediumTextProfile)) new GuiControlProfile(GuiMediumTextProfile 
 if (!isObject(GuiMediumTextEditProfile)) new GuiControlProfile(GuiMediumTextEditProfile : GuiTextProfile) {
 	fontType = $DefaultFont;
 	opaque = false;
-	fillColor = "255 255 255";
+	fillColor = "241 242 242";
 	fillColorHL = "128 128 128";
 	border = false;
 	borderColor = "0 0 0";
-	fontColor = "0 0 0";
+	fontColor = "241 242 242";
 	fontColorHL = "255 255 255";
 	fontColorNA = "128 128 128";
 	textOffset = "0 2";
@@ -395,13 +395,13 @@ if (!isObject(LoadTextProfile)) new GuiControlProfile("LoadTextProfile") {
 
 
 if (!isObject(GuiMLTextProfile)) new GuiControlProfile("GuiMLTextProfile") {
-	fontColorLink = "255 96 96";
-	fontColorLinkHL = "0 0 255";
+	fontColorLink = "241 96 96";
+	fontColorLinkHL = "241 90 90";
 };
 
 if (!isObject(GuiMLTextEditProfile)) new GuiControlProfile(GuiMLTextEditProfile) {
-	fontColorLink = "255 96 96";
-	fontColorLinkHL = "0 0 255";
+	fontColorLink = "241 96 96";
+	fontColorLinkHL = "241 90 90";
 
 	fillColor = "255 255 255";
 	fillColorHL = "128 128 128";

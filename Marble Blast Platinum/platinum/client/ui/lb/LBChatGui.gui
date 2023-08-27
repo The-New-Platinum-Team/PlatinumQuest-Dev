@@ -462,7 +462,7 @@ function LBChatGui::onWake(%this) {
 	LBChatContainer.schedule(100, scrollToBottom);
 	LBChatContainer.schedule(1000, scrollToBottom);
 
-	LBServerDescText.setText("<color:FFFFFF><bold:22><shadow:1:1><shadowcolor:0000007f>Leaderboards Server v8 @ " @ $LB::Server @ " - Running " @ $THIS_VERSION_NAME @ " / " @ $THIS_VERSION_SUB);
+	LBServerDescText.setText("<color:FFFFFF><bold:22>Leaderboards Server v8 @ " @ $LB::Server @ " - Running " @ $THIS_VERSION_NAME @ " / " @ $THIS_VERSION_SUB);
 	
 	if (getWord($pref::Video::resolution, 0) >= 1280) {
 		LBChallengeDesc.setText("<font:24>" @ $CurrentWeeklyChallenge.description SPC "Challenge: Ending in" SPC PlayMissionGui.ml.lookupGame["challenge"].duration);
@@ -852,7 +852,7 @@ function colorify(%message, %access, %shadow) {
 			if ($LB::Color[%color] !$= "")
 				%color = $LB::Color[%color];
 
-			%replacement = (%access < 1 ? "" : ("<color:" @ %color @ ">" @(%shadow ? (%color !$= "000000" ? "<shadow:1:1><shadowcolor:0000007f>" : "<shadow:0:0>") : "")));
+			%replacement = (%access < 1 ? "" : ("<color:" @ %color @ ">") : "");
 			%message = getSubStr(%message, 0, %start) @ %replacement @ getSubStr(%message, %stop + 1, strLen(%message));
 			continue;
 		}

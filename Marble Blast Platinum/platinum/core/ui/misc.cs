@@ -35,23 +35,6 @@
 if (getCompileTimeString() $= "Mar 19 2003 at 15:04:04")
 	$Version::Blaster = true;
 
-function shadow(%offset, %color) {
-	if ($Version::Blaster)
-		return "";
-	if (%offset !$= "")
-		%string = "<shadow:" @ getWord(%offset, 0) @ ":" @ getWord(%offset, 1) @ ">";
-	if (%color !$= "") {
-		%string = %string @ "<shadowcolor:" @ %color;
-		//%string = %string @ baseDecimalToHex(getWord(%color, 0))
-		//@ baseDecimalToHex(getWord(%color, 1))
-		//@ baseDecimalToHex(getWord(%color, 2));
-		//if (%alpha !$= "")
-		//%string = %string @ baseDecimalToHex(%alpha);
-		%string = %string @ ">";
-	}
-	return %string;
-}
-
 function Canvas::getCursor(%this) {
 	//return %this.activeCursor;
 	return DefaultCursor;

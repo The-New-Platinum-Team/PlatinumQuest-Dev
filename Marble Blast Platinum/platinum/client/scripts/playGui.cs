@@ -1354,7 +1354,7 @@ function PlayGui::showEggTime(%this, %time) {
 
 	PG_EggIcon.setBitmap("platinum/client/ui/play/egg" @ (%pq ? "_pq_big" : "_mbp_big"));
 	PG_EggTimeBox.setVisible(true);
-	PG_EggTimeDisplay.setText("<color:" @ (%pq ? "cccc99" : "4580ff") @ "><shadow:1:1><shadowcolor:0000007f><bold:28>" @ formatTime(%time));
+	PG_EggTimeDisplay.setText("<color:" @ (%pq ? "cccc99" : "4580ff") @ "><bold:28>" @ formatTime(%time));
 
 	%this.showingEggTime = true;
 	%this.updateEggTime();

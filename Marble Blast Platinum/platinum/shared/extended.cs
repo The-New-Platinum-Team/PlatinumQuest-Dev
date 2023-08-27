@@ -61,7 +61,7 @@ package Tickable {
 			%this.tabCompleteOn = 0;
 		}
 
-		%message = getSubStr(%message, 0, %start) @ "<shadow:1:1><shadowcolor:0000007f><color:999999>" @ %this.tabCompletion[%this.tabCompleteOn];
+		%message = getSubStr(%message, 0, %start) @ "<color:999999>" @ %this.tabCompletion[%this.tabCompleteOn];
 
 		%this.setValue(%message);
 		%this.setCursorPosition(%start - strlen("<tab:0>"));
@@ -84,7 +84,7 @@ package Tickable {
 			%start = strPos(%message, "<tab:0>");
 			if (%start == -1)
 				return %message;
-			%next = %start + strlen("<tab:0><shadow:1:1><shadowcolor:0000007f><color:999999>");
+			%next = %start + strlen("<tab:0><color:999999>");
 			return getSubStr(%message, 0, %start) @ getSubStr(%message, %next, strlen(%message));
 		} else
 			return %message;

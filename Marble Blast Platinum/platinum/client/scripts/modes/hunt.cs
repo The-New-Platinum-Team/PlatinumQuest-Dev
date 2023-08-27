@@ -79,7 +79,7 @@ function updatePredictor() {
 	if ((MissionInfo.time - PlayGui.currentTime) < 10000 || (%predictorMax > 0 && %estimated > %predictorMax)) { // Don't show if the match hasn't been 10s long, to prevent stupid predictors
 		PGScorePredictor.setText(" ");
 	} else {
-		%estimatedColor = "<shadowcolor:0000007f><shadow:1:1>";
+		%estimatedColor = "";
 		%vs = !$Server::Hosting //Not host, so there must be someone else who is
 			|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
 			|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work

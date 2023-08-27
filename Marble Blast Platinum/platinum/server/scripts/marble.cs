@@ -75,7 +75,7 @@ if ($pref::Video::particleSystem == 2) {
 } else if ($pref::Video::particleSystem == 1) {
 
 	datablock ParticleData(BounceParticle)	{
-		textureName          = "~/data/particles/star";
+		textureName          = "~/data/particles/marble/star";
 		dragCoeffiecient     = 1.0;
 		gravityCoefficient   = 0;
 		windCoefficient      = 0;
@@ -115,7 +115,7 @@ if ($pref::Video::particleSystem == 2) {
 } else {
 
 	datablock ParticleData(BounceParticle) {
-		textureName          = "~/data/particles/star";
+		textureName          = "~/data/particles/marble/star";
 		dragCoeffiecient     = 1.0;
 		gravityCoefficient   = 0;
 		windCoefficient      = 0;

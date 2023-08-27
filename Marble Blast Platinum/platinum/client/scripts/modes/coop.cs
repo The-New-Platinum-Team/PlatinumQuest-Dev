@@ -484,21 +484,21 @@ function MPCoopEndGameDlg::onWake(%this) {
 	%color = getScoreFormatting(%scoreVals, MissionInfo);
 	%formatted = %color @ (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score));
 
-	%text = "<bold:48><color:FFFFFF><just:center><shadowcolor:0000007f><shadow:1:1>";
+	%text = "<bold:48><color:FFFFFF><just:center>";
 
 	if ($Cheats::Activated) {
 		%text = %text @ "Nice Cheats!";
 	} else if ($Editor::Opened) {
-		%text = %text @ "<color:00cc00><shadow:1:1><shadowcolor:0000007f>Level Editor Opened";
+		%text = %text @ "<color:00cc00>Level Editor Opened";
 	} else {
 		if (%flags & $Completion::Awesome) {
-			%text = %text @ "Who's Awesome? <spush><color:FF3333><shadowcolor:AA22227F>You're<spop> Awesome!";
+			%text = %text @ "Who's Awesome? <spush><color:FF3333>You're<spop> Awesome!";
 		} else if (%flags & $Completion::Ultimate) {
-			%text = %text @ "You beat the <spush><color:FFCC33><shadowcolor:0000007F>Ultimate<spop> " @ %name @ "!";
+			%text = %text @ "You beat the <spush><color:FFCC33>Ultimate<spop> " @ %name @ "!";
 		} else if (%flags & $Completion::Platinum) {
-			%text = %text @ "You beat the <spush><color:CCCCCC><shadowcolor:0000007F>Platinum<spop> " @ %name @ "!";
+			%text = %text @ "You beat the <spush><color:CCCCCC>Platinum<spop> " @ %name @ "!";
 		} else if (%flags & $Completion::Gold) {
-			%text = %text @ "You beat the <spush><color:FFEE11><shadowcolor:0000007F>Gold<spop> " @ %name @ "!";
+			%text = %text @ "You beat the <spush><color:FFEE11>Gold<spop> " @ %name @ "!";
 		} else if (%flags & $Completion::Par) {
 			//No score, you just qualified
 			if ($CurrentGame $= "Gold") {
@@ -508,9 +508,9 @@ function MPCoopEndGameDlg::onWake(%this) {
 			}
 		} else {
 			if ($CurrentGame $= "Gold") {
-				%text = %text @ "<color:f55555><shadowcolor:800000>You didn\'t pass the Qualify " @ %name @ "!";
+				%text = %text @ "<color:f55555>You didn\'t pass the Qualify " @ %name @ "!";
 			} else {
-				%text = %text @ "<color:f55555><shadowcolor:800000>You didn\'t pass the Par " @ %name @ "!";
+				%text = %text @ "<color:f55555>You didn\'t pass the Par " @ %name @ "!";
 			}
 		}
 	}
@@ -539,9 +539,9 @@ function MPCoopEndGameDlg::onWake(%this) {
 	%ultimateLabel = ((%ultimateType $= "Score") ? %ultimateScoreLabel : %ultimateTimeLabel);
 
 	//Information text
-	%goldTitle     = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; //Yeah even in MBG... idc enough
-	%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
-	%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
+	%goldTitle     = "<color:CCCCCC>Platinum"; //Yeah even in MBG... idc enough
+	%platinumTitle = "<color:CCCCCC>Platinum";
+	%ultimateTitle = "<color:FFCC33>Ultimate";
 
 	%text = "";
 	//Show what we need to
