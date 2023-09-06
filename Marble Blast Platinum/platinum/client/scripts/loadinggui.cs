@@ -363,14 +363,19 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: You'll gain more height from a Su
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: The Shock Absorber overrides the Super Bounce. Every time."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Mega Marble War, you'll get more points for ramming into other players the faster you're moving when you hit them."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Mega Marble War, you usually won't get points for hitting your teammates. Unless you're on the Default Team, in which case, go berserk!"; //Yoshi
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If Steal Mode is enabled, you can steal points from your opponents by blasting them."; //Yoshi
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Steal Mode, you can steal points from further away the higher your Blast Meter is filled."; //Yoshi
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Steal Mode, you can steal up to 5 points from each opponent at once depending on how full your Blast Meter is. Doubled if you have an active Mega Marble!"; //Yoshi
+//$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If Steal Mode is enabled, you can steal points from your opponents by blasting them."; //Yoshi
+//$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Steal Mode, you can steal points from further away the higher your Blast Meter is filled."; //Yoshi
+//$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Steal Mode, you can steal up to 5 points from each opponent at once depending on how full your Blast Meter is. Doubled if you have an active Mega Marble!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Time your Ultra Blast to blow opponents off the map in Multiplayer!"; //Jean
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Multiplayer Gem Hunt, start collecting a gem spawn from its center for more pathfinding options as your opponents eat away at the other gems."; //Jean
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Multiplayer Gem Hunt, especially outside of 1v1s, start collecting a gem spawn from its center for more pathfinding options as your opponents eat away at the other gems."; //Jean
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Be careful when using Gyrocopters in Gem Hunt. Hovering above a spawn can give your opponents time to steal the gems from right under your nose!"; //Jean
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In Multiplayer Gem Hunt, greatly prioritize collecting blue gems over others. Their high point value of +5 makes them essential to victory."; //Frostfire
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Every year, on Labor Day, our community hosts a massive Multiplayer event full of wacky hijinx never seen anywhere else! Make sure to attend if you can!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, parenting objects to other objects will make them move together. Useful for more complex groups of objects!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, adding a 'respawnTime' field to a PowerUp and putting a number inside will change its respawn time to that many milliseconds. The 'RespawningTimeTravelItem_PQ' item comes with this field by default."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to make objects move on paths, add a 'Path' field to it, and put the name of the pathnode you wish for it to start on inside."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to make an object move on a path when the marble enters a certain area, fill the activation area with a PathTrigger, add an 'object1' field with its value set to the name of the object, and a 'Path1' field with its value set to the name of the pathnode for it to start on. To start multiple paths with the same trigger, add more fields with higher numbers, such as 'object2' and 'Path2', and so on."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to add water to a level, fill the space with a WaterPhysicsTrigger, then line the visible edges with WaterPlane or WaterCylinder_slow shapes."; //Yoshi
 
 $Loading::TipsChance[0] = 0.80;
 
@@ -429,6 +434,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "/tableflip PQ crashed! ...Whoops, sorr
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: She platinum on my marble 'til I blast."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Chess Battle Advanced"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: There's a super secret setting outside of the options menu! On the main menu, if you hit the 'Quit' button one time, it toggles the game."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Beat your enemies in Multiplayer."; //Connie
 ////////////////////////////////////// = "Snooping as usual, I see!" //Yoshi
 
 $Loading::TipsChance[1] = 0.03;
