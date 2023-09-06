@@ -159,6 +159,7 @@ function clientCmdSnowGlobe(%time) {
 
 	//Record the egg
 	$Game::EasterEgg = true;
+	$Game::EasterEggTime = %time;
 
 	%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
 	if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
@@ -189,6 +190,9 @@ function extrapolateSnowBalls() {
 	// like a bunch on the server side and can see it immediatly....saves performance and less
 	// lag for all!
 	if ($Server::Hosting && !$Server::_Dedicated)
+		return;
+
+	if (!isObject(ServerConnection))
 		return;
 
 	%count = ServerConnection.getCount();

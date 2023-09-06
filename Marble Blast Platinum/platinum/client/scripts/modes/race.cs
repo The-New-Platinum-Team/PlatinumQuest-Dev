@@ -42,6 +42,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_race) {
 	complete = 1;
 
 	teams = 0;
+	hide = 1;
 });
 
 

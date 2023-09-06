@@ -248,7 +248,7 @@ function Mode::callback(%this, %callback, %default, %object) {
 		} else {
 			%value = eval("return " @ %this.getName() @ "::" @ %callback @ "(" @ %this @ ");");
 		}
-		if ($DEBUG)
+		if ($DEBUG && %callback !$= "onFrameAdvance")
 			echo("[Mode" SPC %this.name @ "] Callback" SPC %callback SPC "returned" SPC %value);
 	} else {
 		//Send the callback to everyone!

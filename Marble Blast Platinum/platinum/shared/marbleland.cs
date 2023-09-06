@@ -26,7 +26,7 @@ function marblelandDownloadMissionList(%callback) {
 	%dl = new HTTPObject(MarblelandJSONDownloader);
 	%dl.success = 0;
 	%dl.callback = %callback;
-	%dl.get("https://marbleland.vani.ga","/api/level/list","");
+	%dl.get("https://marbleland.vaniverse.io","/api/level/list","");
 }
 
 function MarblelandJSONDownloader::onLine(%this, %line) {
@@ -63,7 +63,7 @@ function marblelandDownloadPackList(%callback) {
 	%dl = new HTTPObject(MarblelandPacksJSONDownloader);
 	%dl.success = 0;
 	%dl.callback = %callback;
-	%dl.get("https://marbleland.vani.ga","/api/pack/list","");
+	%dl.get("https://marbleland.vaniverse.io","/api/pack/list","");
 }
 
 function MarblelandPacksJSONDownloader::onLine(%this, %line) {
@@ -110,7 +110,7 @@ function marblelandDownload(%id, %callback) {
 	%dl.id = %mission.id;
 	%dl.success = 0;
 	%dl.setDownloadPath("packages/marbleland/" @ %mission.id @ ".mbpak");
-	%dl.get("https://marbleland.vani.ga", "/api/level/" @ %mission.id @ "/mbpak", "assuming=none&append-id-to-mis=1");
+	%dl.get("https://marbleland.vaniverse.io", "/api/level/" @ %mission.id @ "/mbpak", "assuming=none&append-id-to-mis=1");
 }
 
 function MarblelandDownloader::onDownload(%this, %path) {
@@ -158,7 +158,7 @@ function marblelandDownloadIcon(%id, %callback, %bmp) {
 	%dl.success = 0;
 	%dl.bmp = %bmp;
 	%dl.setDownloadPath("vfs://marbleland/" @ %mission.id @ ".jpg");
-	%dl.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/image","");
+	%dl.get("https://marbleland.vaniverse.io","/api/level/" @ %mission.id @ "/image","");
 }
 
 function MarblelandIconDownloader::onDownload(%this, %path) {
@@ -193,7 +193,7 @@ function marblelandDownloadPreview(%id, %callback, %bmp) {
 	%dl.success = 0;
 	%dl.bmp = %bmp;
 	%dl.setDownloadPath("vfs://marbleland/prev-" @ %mission.id @ ".jpg");
-	%dl.get("https://marbleland.vani.ga","/api/level/" @ %mission.id @ "/prev-image","width=" @ getWord(getResolution(), 0) @ "&height=" @ getWord(getResolution(), 1));
+	%dl.get("https://marbleland.vaniverse.io","/api/level/" @ %mission.id @ "/prev-image","width=" @ getWord(getResolution(), 0) @ "&height=" @ getWord(getResolution(), 1));
 }
 
 function MarblelandPreviewDownloader::onDownload(%this, %path) {

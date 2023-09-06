@@ -40,6 +40,7 @@ $pref::Thousandths = 1;
 $pref::alwaysShowSpeedometer = 0;
 $pref::powerupsAlwaysOnRadar = 0;
 $pref::powerupTimers = 1;
+$pref::timeTravelTimer = 1;
 $pref::showFPSCounter = 0;
 $pref::environmentMaps = 0;
 $pref::HelpTriggers = 1;
@@ -47,6 +48,7 @@ $pref::ScreenshotMode = 0;
 $pref::RadarMode = 3;
 $pref::ScorePredictorMaxFactor = 2;
 $pref::StopRecordingOnMenu = false;
+$pref::NoHolePunching = false;
 
 $pref::checkLETip = "1";
 $pref::checkTip[1] = "1";
@@ -134,8 +136,6 @@ $pref::LegacyItems = false;
 $pref::ProfanityFilter = 2;
 $pref::DefaultSkybox = "platinum/data/skies_pq/Blender3/blender3.dml";
 $pref::FastMode = false;
-
-$pref::disabletaunts = false;
 
 //Video quality
 $pref::Video::AntiAliasing = 0;

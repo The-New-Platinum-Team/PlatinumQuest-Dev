@@ -129,6 +129,7 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 
 	//Record the egg
 	$Game::EasterEgg = true;
+	$Game::EasterEggTime = %time;
 
 	%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
 	if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
@@ -205,6 +206,7 @@ function clientCmdActivatePowerUp(%powerUpId) {
 	}
 	//if (%powerUpId == 6)
 	//MegaRollingHardSfx.filename = RollingHardSfx.filename = "~/data/sound/mega_roll.wav";
+	//Mega Marble sounds require engine hacks
 }
 function clientCmdDeactivatePowerUp(%powerUpId) {
 	$Game::PowerupActive[%powerUpId] = false;
@@ -238,6 +240,13 @@ function clientCmdNoCollision(%item) {
 
 function clientCmdStartCountdown(%time, %icon) {
 	PlayGui.startCountdown(%time, %icon);
+}
+function clientCmdStartCountdownLeft(%time, %icon) {
+	PlayGui.startCountdownLeft(%time, %icon);
+}
+function clientCmdSetHuntCompetitiveTimer(%time) {
+	// I think the hunt competitive timer doesn't work in MP, because the host needs to get all info about the timer to set it. So we gotta call this to all clients and then the host will update.
+	PlayGui.startCountdownLeft(%time, "timerHuntRespawn");
 }
 
 function clientCmdIncrementOOBCounter() {

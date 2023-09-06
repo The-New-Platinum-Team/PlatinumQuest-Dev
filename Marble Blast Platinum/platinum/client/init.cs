@@ -115,6 +115,8 @@ function initClient() {
 		return;
 	}
 
+	setNetPort(0);
+
 	// Load up the shell GUIs
 	exec("./ui/playMissionGui.gui");
 	exec("./ui/mainMenuGui.gui");
@@ -392,6 +394,7 @@ function doCreateGame(%file) {
 		%conn.setConnectArgs($LB::Username, "", MarbleSelectDlg.getSelection(), "bologna");
 		%conn.setJoinPassword($MPPref::Server::Password);
 		%conn.connectLocal();
+		setNetPort(0);
 	} else
 		loadMission(%mission.file);
 }

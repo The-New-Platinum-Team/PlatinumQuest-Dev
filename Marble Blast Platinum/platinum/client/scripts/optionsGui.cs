@@ -425,58 +425,67 @@ $Options::Type    ["Audio", 3] = "boolean";
 //-----------------------------------------------------------------------------
 // Gameplay
 
-$Options::Name    ["Gameplay", 0] = "fpsCounter";
-$Options::Title   ["Gameplay", 0] = "FPS Counter";
-$Options::Type    ["Gameplay", 0] = "boolean";
-$Options::Name    ["Gameplay", 1] = "freelook";
-$Options::Title   ["Gameplay", 1] = "Free-Look";
-$Options::Type    ["Gameplay", 1] = "boolean";
-$Options::Name    ["Gameplay", 2] = "oobInsults";
-$Options::Title   ["Gameplay", 2] = "OOB Insults";
-$Options::Type    ["Gameplay", 2] = "boolean";
-$Options::Name    ["Gameplay", 3] = "thousandths";
-$Options::Title   ["Gameplay", 3] = "Thousandths";
-$Options::Type    ["Gameplay", 3] = "boolean";
-$Options::Name    ["Gameplay", 4] = "helptriggers";
-$Options::Title   ["Gameplay", 4] = "Help Triggers";
-$Options::Type    ["Gameplay", 4] = "boolean";
-$Options::Name    ["Gameplay", 5] = "screenshotMode";
-$Options::Title   ["Gameplay", 5] = "Show/Hide HUD";
-$Options::Type    ["Gameplay", 5] = "boolean";
-$Options::Name    ["Gameplay", 6] = "fov";
-$Options::Title   ["Gameplay", 6] = "FOV";
-$Options::Ctrl    ["Gameplay", 6] = "slider";
-$Options::Min     ["Gameplay", 6] = 60;
-$Options::Max     ["Gameplay", 6] = 140;
-$Options::Ticks   ["Gameplay", 6] = 80; //Every 1
-$Options::JoyTicks["Gameplay", 6] = 16; //Every 5
-$Options::Name    ["Gameplay", 7] = "maxRadarItems";
-$Options::Title   ["Gameplay", 7] = "Max Radar Items";
-$Options::Ctrl    ["Gameplay", 7] = "slider";
-$Options::Min     ["Gameplay", 7] = 5;
-$Options::Max     ["Gameplay", 7] = 85;
-$Options::Ticks   ["Gameplay", 7] = 80; //Every 1
-$Options::JoyTicks["Gameplay", 7] = 16; //Every 5
-$Options::Name    ["Gameplay", 8] = "alwaysShowSpeedometer";
-$Options::Title   ["Gameplay", 8] = "Always Show Speedometer";
-$Options::Type    ["Gameplay", 8] = "boolean";
-$Options::Name    ["Gameplay", 9] = "powerupsAlwaysOnRadar";
-$Options::Title   ["Gameplay", 9] = "Powerups Always on Radar";
-$Options::Type    ["Gameplay", 9] = "boolean";
-$Options::Name    ["Gameplay", 10] = "powerupTimers";
-$Options::Title   ["Gameplay", 10] = "Powerup Timers";
-$Options::Type    ["Gameplay", 10] = "boolean";
-$Options::Name    ["Gameplay", 11] = "minimalSpectateUI";
-$Options::Title   ["Gameplay", 11] = "(Online) Minimal Spectate UI";
-$Options::Type    ["Gameplay", 11] = "boolean";
-$Options::Name    ["Gameplay", 12] = "spchanges";
-$Options::Title   ["Gameplay", 12] = "Ultra Violet";
-$Options::Type    ["Gameplay", 12] = "boolean";
+$i = -1;
+$Options::Name    ["Gameplay", $i++] = "fpsCounter";
+$Options::Title   ["Gameplay", $i  ] = "FPS Counter";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "freelook";
+$Options::Title   ["Gameplay", $i  ] = "Free-Look";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "oobInsults";
+$Options::Title   ["Gameplay", $i  ] = "OOB Insults";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "thousandths";
+$Options::Title   ["Gameplay", $i  ] = "Thousandths";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "helptriggers";
+$Options::Title   ["Gameplay", $i  ] = "Help Triggers";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "screenshotMode";
+$Options::Title   ["Gameplay", $i  ] = "Show/Hide HUD";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "fov";
+$Options::Title   ["Gameplay", $i  ] = "FOV";
+$Options::Ctrl    ["Gameplay", $i  ] = "slider";
+$Options::Min     ["Gameplay", $i  ] = 60;
+$Options::Max     ["Gameplay", $i  ] = 140;
+$Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
+$Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
+$Options::Name    ["Gameplay", $i++] = "maxRadarItems";
+$Options::Title   ["Gameplay", $i  ] = "Max Radar Items";
+$Options::Ctrl    ["Gameplay", $i  ] = "slider";
+$Options::Min     ["Gameplay", $i  ] = 5;
+$Options::Max     ["Gameplay", $i  ] = 85;
+$Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
+$Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
+$Options::Name    ["Gameplay", $i++] = "alwaysShowSpeedometer";
+$Options::Title   ["Gameplay", $i  ] = "Always Show Speedometer";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "powerupsAlwaysOnRadar";
+$Options::Title   ["Gameplay", $i  ] = "Powerups Always on Radar";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "powerupTimers";
+$Options::Title   ["Gameplay", $i  ] = "Powerup Timers";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
+$Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
+$Options::Title   ["Gameplay", $i  ] = "(Online) Minimal Spectate UI";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "spchanges";
+$Options::Title   ["Gameplay", $i  ] = "Ultra Violet";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
 ScreenshotModeArray.addEntry("Hide Chat Online" TAB 1);
 ScreenshotModeArray.addEntry("Hide Everything"  TAB 2);
+
+Array(TimeTravelTimerArray);
+TimeTravelTimerArray.addEntry("Disabled"  TAB 0);
+TimeTravelTimerArray.addEntry("Enabled" TAB 1);
+TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
 
 //-----------------------------------------------------------------------------
 // Online
@@ -510,9 +519,12 @@ $Options::Type    ["Online", 6] = "value";
 $Options::Name    ["Online", 7] = "autoLogin";
 $Options::Title   ["Online", 7] = "Auto Login";
 $Options::Type    ["Online", 7] = "boolean";
+$Options::Name    ["Online", 8] = "noholepunch";
+$Options::Title   ["Online", 8] = "Hole Punching";
+$Options::Type    ["Online", 8] = "boolean";
 
-$Options::AutoLoginUserField = 8;
-$Options::AutoLoginPassField = 9;
+$Options::AutoLoginUserField = 9;
+$Options::AutoLoginPassField = 10;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
 $Options::Title   ["Online", $Options::AutoLoginUserField] = "Username";
@@ -1093,7 +1105,7 @@ function buildAudioPackArray() {
 		AudioPackArray.delete();
 	}
 	Array(AudioPackArray);
-	AudioPackArray.addEntry("None" TAB "");
+	AudioPackArray.addEntry("PlatinumQuest" TAB "");
 
 	%spec = $userMods @ "/data/sound/ap_*/*.apk";
 	for (%file = findFirstFile(%spec); %file !$= ""; %file = findNextFile(%spec)) {
@@ -1226,6 +1238,7 @@ function Opt_thousandths_decrease() {
 	PG_Timer.setVisible(!$pref::Thousandths);
 	PG_TimerThousands.setVisible($pref::Thousandths);
 	PlayGui.updateControls();
+	PlayGui.updateTimeTravelCountdown();
 }
 
 function Opt_thousandths_increase() {
@@ -1234,6 +1247,7 @@ function Opt_thousandths_increase() {
 	PG_Timer.setVisible(!$pref::Thousandths);
 	PG_TimerThousands.setVisible($pref::Thousandths);
 	PlayGui.updateControls();
+	PlayGui.updateTimeTravelCountdown();
 }
 
 //-----------------------------------------------------------------------------
@@ -1290,6 +1304,40 @@ function Opt_powerupTimers_decrease() {
 
 function Opt_powerupTimers_increase() {
 	$pref::powerupTimers = !$pref::powerupTimers;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_timeTravelTimer_getDisplay() {
+	%entry = TimeTravelTimerArray.getEntryByField($pref::timeTravelTimer, 1);
+	if (%entry $= "") {
+		return $pref::timeTravelTimer;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_timeTravelTimer_getValue() {
+	return $pref::timeTravelTimer;
+}
+
+function Opt_timeTravelTimer_decrease() {
+	%index = TimeTravelTimerArray.getIndexByField($pref::timeTravelTimer, 1);
+	%index --;
+	if (%index < 0) {
+		%index = TimeTravelTimerArray.getSize() - 1;
+	}
+	$pref::timeTravelTimer = getField(TimeTravelTimerArray.getEntry(%index), 1);
+	PlayGui.updateTimeTravelCountdown();
+}
+
+function Opt_timeTravelTimer_increase() {
+	%index = TimeTravelTimerArray.getIndexByField($pref::timeTravelTimer, 1);
+	%index ++;
+	if (%index >= TimeTravelTimerArray.getSize()) {
+		%index = 0;
+	}
+	$pref::timeTravelTimer = getField(TimeTravelTimerArray.getEntry(%index), 1);
+	PlayGui.updateTimeTravelCountdown();
 }
 
 //-----------------------------------------------------------------------------
@@ -1674,6 +1722,22 @@ function Opt_chatMessageSize_increase() {
 	}
 	$LBPref::ChatMessageSize = getField(ChatMessageSizeArray.getEntry(%index), 1);
 	PlayGui.positionMessageHud();
+}
+
+function Opt_noholepunch_getDisplay() {
+	return $pref::NoHolePunching ? "Disabled" : "Enabled";
+}
+
+function Opt_noholepunch_getValue() {
+	return $pref::NoHolePunching;
+}
+
+function Opt_noholepunch_decrease() {
+	$pref::NoHolePunching = !$pref::NoHolePunching;
+}
+
+function Opt_noholepunch_increase() {
+	$pref::NoHolePunching = !$pref::NoHolePunching;
 }
 
 //-----------------------------------------------------------------------------

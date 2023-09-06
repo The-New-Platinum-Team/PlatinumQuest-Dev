@@ -24,7 +24,6 @@
 
 function Mode_haste::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
-	%this.registerCallback("onEnterPad");
 	%this.registerCallback("canFinish");
 	%this.registerCallback("getFinishMessage");
 }

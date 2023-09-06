@@ -747,6 +747,7 @@ function PlayGui::resetTimer(%this,%dt) {
 	%this.stopCountdown();
 	%this.updateCountdown();
 	%this.updateTimeTravelCountdown(); // main_gi v4.2.3
+	%this.updateCountdownLeft();
 	%this.updateControls();
 	%this.stopTimer();
 }
@@ -1001,6 +1002,7 @@ function PlayGui::updateTimer(%this, %timeInc) {
 
 	//Countdown isn't affected by time travels so do it first
 	%this.updateCountdown(%timeInc);
+	%this.updateCountdownLeft(%timeInc);
 
 	if (%this.bonusTime) {
 		if (%this.bonusTime > %timeInc) {
@@ -1042,13 +1044,25 @@ function clientCmdUpdateTimeTravelCountdown() {
 }
 
 function PlayGui::updateTimeTravelCountdown(%this) {
-	if ($pref::HideTimeTravelTimer) {
+	if (!$pref::timeTravelTimer) {
 		PGCountdownTT.setVisible(false);
 		return;
 	}
-	%timeUsed = %this.bonusTime + 99; // When you pick up a 5s timer, it should start by displaying 5.0, instead of 4.9. This also prevents the TT timer from showing 0.0. But if you add 100, picking up a 5s timer can show "5.1". Turns out adding 99 actually works perfectly here.
-	%secondsLeft = mFloor(%timeUsed/1000);
-	%tenths = mFloor(%timeUsed/100) % 10;
+
+	%preciseMode = $pref::timeTravelTimer == 2;
+	%timeUsed = %this.bonusTime;
+	if (!%preciseMode)
+		%timeUsed += 99; // When you pick up a 5s timer, it should start by displaying 5.0, instead of 4.9. This also prevents the TT timer from showing 0.0. But if you add 100, picking up a 5s timer can show "5.1". Turns out adding 99 actually works perfectly here.
+	else if (!$pref::Thousandths)
+		%timeUsed += 9;
+
+	if (%timeUsed > 999999)
+		%timeUsed = 999999;
+
+	%secondsLeft = mFloor(%timeUsed / 1000);
+	%tenths = mFloor(%timeUsed / 100) % 10;
+	%hundredths = mFloor(%timeUsed / 10) % 10;
+	%thousandths = %timeUsed % 10;
 
 	%one = mFloor(%secondsLeft) % 10;
 	%ten = mFloor(%secondsLeft / 10) % 10;
@@ -1056,38 +1070,126 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 
 	%color = (%this.stopped || $PlayTimerActive == 0) ? $TimeColor["stopped"] : $TimeColor["normal"]; // can try $Game::TimeStoppedClients >= 1
 
-	%offsetIfThousandths = $pref::Thousandths? 5:0;
+	%offsetIfThousandths = $pref::Thousandths ? 5 : 0;
 	if (%secondsLeft < 10) {
 		PGCountdownTTFirstDigit.setNumberColor(%one, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%tenths, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("397" + %offsetIfThousandths SPC "0");
+		PGCountdownTTSecondDigit.setNumberColor(%tenths, %color);
+		PGCountdownTTSecondDigit.setPosition("397" + %offsetIfThousandths SPC "0");
+		PGCountdownTTThirdDigit.setNumberColor(%hundredths, %color);
+		PGCountdownTTThirdDigit.setPosition("413" + %offsetIfThousandths SPC "0");
+		PGCountdownTTFourthDigit.setNumberColor(%thousandths, %color);
+		// This shenanigans with three decimal points is ridiculous and I hate it, but I couldn't find a better way to
+		// get the decimal points to layer the way they should otherwise. Our previous solution of repositioning the
+		// decimal point caused it to appear in at the wrong depth which looks very strange in the MBG texture pack. If
+		// there's a way to change the render order of it and keep just one decimal point, that'd be much better!!
+		PGCountdownTTPoint1.setVisible(true);
+		PGCountdownTTPoint1.setPosition("388" + %offsetIfThousandths SPC "0");
+		PGCountdownTTPoint1.setNumberColor("point", %color);
+		PGCountdownTTPoint2.setVisible(false);
+		PGCountdownTTPoint3.setVisible(false);
+		%digits = 4;
 	} else if (%secondsLeft < 100) {
 		PGCountdownTTFirstDigit.setNumberColor(%ten, %color);
 		PGCountdownTTSecondDigit.setNumberColor(%one, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%tenths, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("413" + %offsetIfThousandths SPC "0");
-	} else if (%secondsLeft < 999) {
+		PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
+		PGCountdownTTThirdDigit.setNumberColor(%tenths, %color);
+		PGCountdownTTThirdDigit.setPosition("413" + %offsetIfThousandths SPC "0");
+		PGCountdownTTFourthDigit.setNumberColor(%hundredths, %color);
+		PGCountdownTTFifthDigit.setNumberColor(%thousandths, %color);
+		PGCountdownTTPoint1.setVisible(false);
+		PGCountdownTTPoint2.setVisible(true);
+		PGCountdownTTPoint2.setPosition("404" + %offsetIfThousandths SPC "0");
+		PGCountdownTTPoint2.setNumberColor("point", %color);
+		PGCountdownTTPoint3.setVisible(false);
+		%digits = 5;
+	} else {
 		PGCountdownTTFirstDigit.setNumberColor(%hun, %color);
 		PGCountdownTTSecondDigit.setNumberColor(%ten, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(%one, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("407" + %offsetIfThousandths SPC "0");
-	} else {
-		PGCountdownTTFirstDigit.setNumberColor(9, %color);
-		PGCountdownTTSecondDigit.setNumberColor(9, %color);
-		PGCountdownTTThirdDigitOrDecimal.setNumberColor(9, %color);
-		PGCountdownTTThirdDigitOrDecimal.setPosition("407" + %offsetIfThousandths SPC "0");
+		PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
+		PGCountdownTTThirdDigit.setNumberColor(%one, %color);
+		PGCountdownTTThirdDigit.setPosition("407" + %offsetIfThousandths SPC "0");
+		PGCountdownTTFourthDigit.setNumberColor(%tenths, %color);
+		PGCountdownTTFifthDigit.setNumberColor(%hundredths, %color);
+		PGCountdownTTSixthDigit.setNumberColor(%thousandths, %color);
+		PGCountdownTTPoint1.setVisible(false);
+		PGCountdownTTPoint2.setVisible(false);
+		PGCountdownTTPoint3.setVisible(true);
+		PGCountdownTTPoint3.setPosition("420" + %offsetIfThousandths SPC "0");
+		PGCountdownTTPoint3.setNumberColor("point", %color);
+		%digits = 6;
 	}
 	
 	PGCountdownTTImage.setPosition("348" + %offsetIfThousandths SPC "3");
 	PGCountdownTTFirstDigit.setPosition("375" + %offsetIfThousandths SPC "0");
-	PGCountdownTTSecondDigit.setPosition("391" + %offsetIfThousandths SPC "0");
+	PGCountdownTTFourthDigit.setPosition("429" + %offsetIfThousandths SPC "0");
+	PGCountdownTTFifthDigit.setPosition("445" + %offsetIfThousandths SPC "0");
+	PGCountdownTTSixthDigit.setPosition("461" + %offsetIfThousandths SPC "0");
 
-	PGCountdownTTPoint.setNumberColor("point", %color);
-	PGCountdownTTPoint.setVisible(!(%secondsLeft >= 100));
-	PGCountdownTTPoint.setPosition((%secondsLeft >= 10 ? "403" : "388") + %offsetIfThousandths SPC "0");
+	if (!%preciseMode)
+		%digits -= 2;
+	else if (!$pref::Thousandths)
+		%digits -= 1;
+	
+	//PGCountdownTTFirstDigit.setVisible(%digits >= 1); // Always true
+	//PGCountdownTTSecondDigit.setVisible(%digits >= 2); // Always true
+	PGCountdownTTThirdDigit.setVisible(%digits >= 3);
+	PGCountdownTTFourthDigit.setVisible(%digits >= 4);
+	PGCountdownTTFifthDigit.setVisible(%digits >= 5);
+	PGCountdownTTSixthDigit.setVisible(%digits >= 6);
 
-	PGCountdownTTSecondDigit.setVisible(%secondsLeft >= 10);
 	PGCountdownTT.setVisible(%this.bonusTime);
+}
+
+function PlayGui::updateCountdownLeft(%this, %delta) {
+	PGCountdownLeft.setVisible(%this.runningCountdownLeft && %this.countdownLeftTime > 0);
+	if (!%this.runningCountdownLeft) {
+		return;
+	}
+	%this.countdownLeftTime = sub64_int(%this.countdownLeftTime, %delta);
+
+	%timeUsed = %this.countdownLeftTime + 99; // If the timer is say 30s, display 30.0 for its full amount instead of 29.9. Turns out adding 99 actually works perfectly here.
+	%secondsLeft = mFloor(%timeUsed/1000);
+	%tenths = mFloor(%timeUsed/100) % 10;
+
+	%one = mFloor(%secondsLeft) % 10;
+	%ten = mFloor(%secondsLeft / 10) % 10;
+	%hun = mFloor(%secondsLeft / 100);
+
+	%color = $TimeColor["danger"];
+
+	%leftOffset = -290;
+	%offsetIfThousandths = $pref::Thousandths? -5:0;
+	if (%secondsLeft < 10) {
+		%leftOffset = -275;
+		PGCountdownLeftFirstDigit.setNumberColor(%one, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(%tenths, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("397" + %leftOffset + %offsetIfThousandths SPC "0");
+	} else if (%secondsLeft < 100) {
+		PGCountdownLeftFirstDigit.setNumberColor(%ten, %color);
+		PGCountdownLeftSecondDigit.setNumberColor(%one, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(%tenths, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("413" + %leftOffset + %offsetIfThousandths SPC "0");
+	} else if (%secondsLeft < 999) {
+		PGCountdownLeftFirstDigit.setNumberColor(%hun, %color);
+		PGCountdownLeftSecondDigit.setNumberColor(%ten, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(%one, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("407" + %leftOffset + %offsetIfThousandths SPC "0");
+	} else {
+		PGCountdownLeftFirstDigit.setNumberColor(9, %color);
+		PGCountdownLeftSecondDigit.setNumberColor(9, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(9, %color);
+		PGCountdownLeftThirdDigitOrDecimal.setPosition("407" + %leftOffset + %offsetIfThousandths SPC "0");
+	}
+	
+	PGCountdownLeftImage.setPosition("344" + %leftOffset + %offsetIfThousandths SPC "3"); // 348 - 4 for this one.
+	PGCountdownLeftFirstDigit.setPosition("375" + %leftOffset + %offsetIfThousandths SPC "0");
+	PGCountdownLeftSecondDigit.setPosition("391" + %leftOffset + %offsetIfThousandths SPC "0");
+
+	PGCountdownLeftPoint.setNumberColor("point", %color);
+	PGCountdownLeftPoint.setVisible(!(%secondsLeft >= 100));
+	PGCountdownLeftPoint.setPosition((%secondsLeft >= 10 ? "403" : "388") + %leftOffset + %offsetIfThousandths SPC "0");
+
+	PGCountdownLeftSecondDigit.setVisible(%secondsLeft >= 10);
 }
 
 function PlayGui::updateControls(%this) {
@@ -1160,17 +1262,17 @@ $numberPaths["colon"] = $userMods @ "/client/ui/game/numbers/colon.png";
 $numberPaths["dash"] = $userMods @ "/client/ui/game/numbers/dash.png";
 $numberPaths["slash"] = $userMods @ "/client/ui/game/numbers/slash.png";
 
-// function GuiBitmapCtrl::setNumber(%this,%number) {
-// 	%this.setBitmap($numberPaths[%number]);
-// }
-// function GuiBitmapCtrl::setTimeNumber(%this,%number) {
-// 	%this.setBitmap($numberPaths[%number]);
-// 	%this.bitmapColor = $PlayTimerColor;
-// }
-// function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
-// 	%this.setBitmap($numberPaths[%number]);
-// 	%this.bitmapColor = %color;
-// }
+function GuiBitmapCtrl::setNumber(%this,%number) {
+	%this.setBitmap($numberPaths[%number]);
+}
+function GuiBitmapCtrl::setTimeNumber(%this,%number) {
+	%this.setBitmap($numberPaths[%number]);
+	%this.bitmapColor = $PlayTimerColor;
+}
+function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
+	%this.setBitmap($numberPaths[%number]);
+	%this.bitmapColor = %color;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -1290,6 +1392,7 @@ function PlayGui::startCountdown(%this, %time, %image) {
 
 function PlayGui::stopCountdown(%this) {
 	%this.runningCountdown = false;
+	%this.runningCountdownLeft = false;
 
 	if (%this.showingEggTime) {
 		%this.updateEggTime();
@@ -1349,4 +1452,10 @@ function PlayGui::updateCountdown(%this, %delta) {
 			PGCountdownMinSecPoint.setNumberColor("point", %color);
 		}
 	}
+}
+
+function PlayGui::startCountdownLeft(%this, %time, %image) {
+	PGCountdownLeftImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
+	%this.countdownLeftTime = %time;
+	%this.runningCountdownLeft = true;
 }

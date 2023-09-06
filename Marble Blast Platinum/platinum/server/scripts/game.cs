@@ -307,6 +307,7 @@ function onMissionReset() {
 	$Game::Finished = false;
 	$Game::CalculatedWinners = false;
 	$Game::EasterEgg = false;
+	$Game::EasterEggTime = -1;
 	$Game::TimeStoppedClients = 0;
 	cancel($Game::StateSchedule);
 
@@ -315,7 +316,7 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups) {
+	if (mp() && $MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode) {
 		$MP::ScoreSendingDisabled = true;
 	}
 
@@ -1043,7 +1044,7 @@ function GameConnection::spawnPlayer(%this, %spawnPoint) {
 	%this.setGravityDir("1 0 0 0 -1 0 0 0 -1", true, "1 0 0 3.1415926535");
 
 	%this.unblockSpawning();
-	%this.playPitchedSound("spawn");
+	//%this.playPitchedSound("spawn");
 	Mode::callback("onSpawnPlayer", "", new ScriptObject() {
 		client = %this;
 		spawnPoint = %spawnPoint;
@@ -1054,12 +1055,20 @@ function GameConnection::spawnPlayer(%this, %spawnPoint) {
 function GameConnection::startGame(%this) {
 	// Give the client control of the player
 	%this.setControlObject(%this.player);
+	%this.restarting = true;
 	%this.respawnPlayer();
+	%this.restarting = false;
 }
 
 // TODO: remove exitgame paramater
 
 function restartLevel(%exitgame) {
+	%gotEasterEgg = $Game::EasterEgg && $Game::EasterEggTime >= 0;
+	if (%gotEasterEgg && recordEnd("$Game::EasterEgg = false; resumeGame(); restartLevel(" @ %exitgame @ ");")) {
+		pauseGame();
+		return;
+	}
+
 	if ($Server::ServerType $= "MultiPlayer") {
 		$MP::Restarting = true;
 	}

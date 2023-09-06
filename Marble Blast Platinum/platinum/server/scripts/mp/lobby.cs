@@ -270,6 +270,7 @@ function lobbyRestart() {
 
 	pruneFakeClients();
 
+	hideGems();
 	spawnHuntGemGroup();
 	$Server::Started = false;
 	setGameState("waiting");
@@ -1017,6 +1018,7 @@ function serverEnterGame() {
 	$Game::Running = true;
 
 	Time::reset();
+	hideGems();
 	spawnHuntGemGroup();
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -1083,6 +1085,12 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 		traceGuardEnd();
 	}
 	commandToClient(%client, 'MissionListEnd', %gameName, %difficultyName);
+
+	if ($MissionType $= "Custom" && !%client.isHost()) {
+		%client.updatePlaymission();
+		if (%client.loading)
+			sendLoadInfoToClient(%client);
+	}
 }
 
 

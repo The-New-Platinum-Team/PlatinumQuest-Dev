@@ -231,6 +231,7 @@ function GameConnection::updateScores(%this) {
 					TAB %client.index
 					TAB expandEscape(%skinChoice)
 					TAB %gems
+					TAB %client.totalBonus
 				;
 
 				if (%playerList $= "")
@@ -440,7 +441,7 @@ function MPshouldSendScores() {
 	if (!$MPPref::Server::SubmitScores) {
 		return false;
 	}
-	if ($MP::ScoreSendingDisabled) { // If Double Spawns are turned on
+	if ($MP::ScoreSendingDisabled) { // If Double Spawns, etc., are turned on
 		return false;
 	}
 

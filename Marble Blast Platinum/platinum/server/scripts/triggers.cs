@@ -1232,53 +1232,90 @@ datablock TriggerData(ChangeEnvironmentTrigger) {
 	customField[3, "default"] = "";
 };
 
+function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
+	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
+		%obj = MissionGroup.getObject(%i);
+		if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= "")) {
+			noteEnvironment();
+			break;
+		}
+		
+		if (%obj.getName() $= "MissionData") {
+			for (%i = 0; %i < MissionData.getCount(); %i ++) {
+				%obj = MissionData.getObject(%i);
+				if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= "")) {
+					noteEnvironment();
+					break;
+				}
+			}
+		}
+	}
+	
+	%sky = Sky.getID();
+	if (%sky.notedSkybox $= "")
+		noteEnvironment(true);
+}
+
+function ChangeEnvironmentTrigger::onRemove(%this, %trigger, %obj) {
+	resetEnvironment(true);
+}
 
 function ChangeEnvironmentTrigger::onEnterTrigger(%this, %trigger, %obj) {
-	changeSunSkyValues(%trigger.dirvalue, %trigger.colorvalue, %trigger.ambvalue, %trigger.skybox);
+	changeEnvironment(%trigger.dirvalue, %trigger.colorvalue, %trigger.ambvalue, %trigger.skybox);
 }
 
 function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
-	//A-Game: These variables have to stay or the logic collapses
-	if ($SunNotedMission != $Server::MissionFile) {
-		$SunNotedValues = false;
-		$SunNotedMission = $Server::MissionFile;
-	}
 	if (%trigger.skybox $= "") 
-		resetSunSky(false);
+		resetEnvironment(false);
 	else 
-		resetSunSky(true);
+		resetEnvironment(true);
 }
-function changeSunSkyValues(%dirvalue, %colorvalue, %ambvalue, %skybox) {
-	//A-Game: this trigger is not supported on dedicated servers
+function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
+	//This trigger is not supported on dedicated servers
 	if ($Server::Dedicated)
+		return;
+
+	//what
+	if (%dirvalue $= "" && %colorvalue $= "" && %ambvalue $= "" && %skybox $= "")
 		return;
 
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
 		if (%obj.getClassName() $= "Sun") {
-			if (!$SunNotedValues)
-				noteSunSkyValues();
-
 			%obj.direction = %dirvalue;
 			%obj.color = %colorvalue;
 			%obj.ambient = %ambvalue;
 			%obj.inspectPostApply();
+			break;
+		}
+		if (%obj.getName() $= "MissionData") {
+			for (%i = 0; %i < MissionData.getCount(); %i ++) {
+				%obj = MissionData.getObject(%i);
+				if (%obj.getClassName() $= "Sun") {
+					%obj.direction = %dirvalue;
+					%obj.color = %colorvalue;
+					%obj.ambient = %ambvalue;
+					%obj.inspectPostApply();
+					break;
+				}
+			}
 		}
 	}
 
-	//A-Game: Sky is simpler to change because there's always been a unique name attached to it
 	%sky = Sky.getID();
+	if (%sky.notedSkybox $= "")
+		noteEnvironment(true);
 	if (%skybox $= "" || %sky.materialList $= %skybox)
 		return;
-	//A-Game: Really don't want to do this but there's no other way to change the skybox
+	//Really don't want to do this but there's no other way to change the skybox
 	new Sky(Sky) {
 		position = "0 0 0";
 		rotation = "1 0 0 0";
 		scale = "1 1 1";
-		materialList = %skybox; //A-Game: The actually important part
+		materialList = %skybox; //The actually important part
 		notedSkybox = %sky.notedSkybox;
 
-		//A-Game: The rest is so nothing breaks
+		//The rest is so nothing breaks
 		cloudHeightPer[0] = %sky.cloudheightper0;
 		cloudHeightPer[1] = %sky.cloudheightper1;
 		cloudHeightPer[2] = %sky.cloudheightper2;
@@ -1304,39 +1341,51 @@ function changeSunSkyValues(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 	%sky.delete();
 }
 
-function resetSunSky(%skyreset) {	
-	//A-Game: this trigger is not supported on dedicated servers
+function resetEnvironment(%skyreset) {	
+	//This trigger is not supported on dedicated servers
 	if ($Server::Dedicated)
 		return;
 
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
 		if (%obj.getClassName() $= "Sun") {
-			if (!$SunNotedValues)
-				noteSunSkyValues();
-			
 			%obj.direction = %obj.noteddirection;
 			%obj.color = %obj.notedcolor;
 			%obj.ambient = %obj.notedambient;
 			%obj.inspectPostApply();
+			break;
+		}
+		if (%obj.getName() $= "MissionData") {
+			for (%i = 0; %i < MissionData.getCount(); %i ++) {
+				%obj = MissionData.getObject(%i);
+				if (%obj.getClassName() $= "Sun") {
+					%obj.direction = %obj.noteddirection;
+					%obj.color = %obj.notedcolor;
+					%obj.ambient = %obj.notedambient;
+					%obj.inspectPostApply();
+					break;
+				}
+			}
 		}
 	}
 
 
 	if (!%skyreset)
 		return;
-	//A-Game: Really don't want to do this but there's no other way to change the skybox
+	//Really don't want to do this but there's no other way to change the skybox
 	%sky = Sky.getID();
-	if (%sky.materialList $= %notedskybox)
+	if (%sky.notedSkybox $= "")
+		noteEnvironment(true);
+	if (%sky.materialList $= %sky.notedSkybox)
 		return;
 	new Sky(Sky) {
 		position = "0 0 0";
 		rotation = "1 0 0 0";
 		scale = "1 1 1";
-		materialList = %sky.notedskybox; //A-Game: The actually important part
+		materialList = %sky.notedSkybox; //The actually important part
 		notedSkybox = %sky.notedSkybox;
 
-		//A-Game: The rest is so nothing breaks
+		//The rest is so nothing breaks
 		cloudHeightPer[0] = %sky.cloudheightper0;
 		cloudHeightPer[1] = %sky.cloudheightper1;
 		cloudHeightPer[2] = %sky.cloudheightper2;
@@ -1362,24 +1411,35 @@ function resetSunSky(%skyreset) {
 	%sky.delete();
 }
 
-function noteSunSkyValues() {
-	//A-Game: this trigger is not supported on dedicated servers
+function noteEnvironment(%onlysky) {
+	//This trigger is not supported on dedicated servers
 	if ($Server::Dedicated)
 		return;
 
+	//Sky is simpler to note and modify because there's always been a unique name attached to it
+	%sky = Sky.getID();
+	%sky.notedSkybox = %sky.materialList;
+
+	if (%onlysky) //So sun doesn't get overwritten if you change the skybox
+		return;
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
 		if (%obj.getClassName() $= "Sun") {
 			%obj.noteddirection = %obj.direction;
 			%obj.notedcolor = %obj.color;
 			%obj.notedambient = %obj.ambient;
+			break;
+		}
+		if (%obj.getName() $= "MissionData") {
+			for (%i = 0; %i < MissionData.getCount(); %i ++) {
+				%obj = MissionData.getObject(%i);
+				if (%obj.getClassName() $= "Sun") {
+					%obj.noteddirection = %obj.direction;
+					%obj.notedcolor = %obj.color;
+					%obj.notedambient = %obj.ambient;
+					break;
+				}
+			}
 		}
 	}
-
-	//A-Game: Sky is simpler to note because there's always been a unique name attached to it
-	%sky = Sky.getID();
-	%sky.notedskybox = %sky.materialList;
-	
-
-	$SunNotedValues = true;
 }
