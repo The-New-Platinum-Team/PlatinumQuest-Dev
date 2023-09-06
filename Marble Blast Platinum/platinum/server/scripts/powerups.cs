@@ -58,7 +58,7 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	%user.client.play2d(%this.pickupAudio);
 	if (%this.powerUpId) {
 		if (%obj.showHelpOnPickup) {
-			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ %this.useName @ "!", false, 5000);
+			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ %this.useName @ "", false, 5000);
 		}
 
 		%user.client.checkpointFoundPowerup = true;
@@ -144,8 +144,8 @@ datablock ItemData(SuperJumpItem) {
 	emap = false;
 
 	// Dynamic properties defined by the scripts
-	pickupName = "a Super Jump PowerUp!";
-	useName= "Super Jump PowerUp!";
+	pickupName = "a Super Jump.";
+	useName= "Super Jump.";
 	maxInventory = 1;
 	coopClient = 1;
 
@@ -205,8 +205,8 @@ datablock ItemData(SuperBounceItem) {
 	elasticity = 0.3;
 
 	// Dynamic properties defined by the scripts
-	pickupName = "a Super Bounce PowerUp!";
-	useName = "Super Bounce PowerUp!";
+	pickupName = "a Super Bounce.";
+	useName = "Super Bounce.";
 	maxInventory = 1;
 	coopClient = 1;
 
@@ -304,8 +304,8 @@ datablock ItemData(SuperSpeedItem) {
 	emap = false;
 
 	// Dynamic properties defined by the scripts
-	pickupName = "a Super Speed PowerUp!";
-	useName = "Super Speed PowerUp!";
+	pickupName = "a Super Speed.";
+	useName = "Super Speed.";
 	maxInventory = 1;
 	coopClient = 1;
 
@@ -361,8 +361,8 @@ datablock ItemData(ShockAbsorberItem) {
 	elasticity = 0.3;
 
 	// Dynamic properties defined by the scripts
-	pickupName = "a Shock Absorber PowerUp!";
-	useName = "Shock Absorber PowerUp!";
+	pickupName = "a Shock Absorber.";
+	useName = "Shock Absorber.";
 	maxInventory = 1;
 	coopClient = 1;
 	emap = false;
@@ -461,8 +461,8 @@ datablock ItemData(HelicopterItem) {
 	elasticity = 0.3;
 
 	// Dynamic properties defined by the scripts
-	pickupName = "a Gyrocopter PowerUp!";
-	useName = "Gyrocopter PowerUp!";
+	pickupName = "an Aviator.";
+	useName = "Aviator.";
 	maxInventory = 1;
 	coopClient = 1;
 
@@ -1239,6 +1239,26 @@ datablock ItemData(EasterEgg_MBG) {
 	noPickupMessage = true;
 };
 
+datablock ItemData(LumiCube) {
+	superCategory = "PowerUps";
+	category = "Blasted";	// This should be put in a new category
+	className = "PowerUp";	// Ditto
+
+	// Basic Item properties
+	shapeFile = "~/data/shapes_bm/LumiCube/LumiCube.dts";
+	mass = 1;
+	friction = 1;
+	elasticity = 0.3;
+	emap = false;
+
+	displayName = "LumiCube";
+
+	// Dynamic properties defined by the scripts
+	noRespawn = true;
+	maxInventory = 1;
+	noPickupMessage = true;
+};
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(NestEggSfx) {
@@ -1324,6 +1344,10 @@ function EasterEgg_MBU::onPickup(%this,%obj,%user,%amount) {
 }
 
 function EasterEgg_MBG::onPickup(%this,%obj,%user,%amount) {
+	return EasterEgg::onPickup(%this, %obj, %user, %amount);
+}
+
+function LumiCube::onPickup(%this,%obj,%user,%amount) {
 	return EasterEgg::onPickup(%this, %obj, %user, %amount);
 }
 
@@ -1833,8 +1857,8 @@ datablock ItemData(AnvilItem) {
 	elasticity = 0.3;
 
 	// Dynamic properties defined by the scripts
-	pickupName = "an Anvil PowerUp!";
-	useName = "Anvil PowerUp";
+	pickupName = "an Anvil.";
+	useName = "Anvil.";
 	maxInventory = 1;
 	emap = false;
 	radar = 1;

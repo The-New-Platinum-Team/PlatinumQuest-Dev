@@ -272,7 +272,7 @@ datablock ItemData(GemItemHuntPurple: GemItem) {
 	skin = "huntpurple";
  	huntExtraValue = 0; //1 pts
  	spawnChance = 0.90;
-	messageColor = "f1f2f2";
+	messageColor = "ffffff";
  	customField[0, "field"] = "";
 };
 
@@ -280,7 +280,7 @@ datablock ItemData(GemItemHuntGold: GemItem) {
  	skin = "huntgold";
  	huntExtraValue = 1; //2 pts
  	spawnChance = 0.65;
- 	messageColor = "f1f2f2";
+ 	messageColor = "ffffff";
 	customField[0, "field"] = "";
 };
 
@@ -288,7 +288,7 @@ datablock ItemData(GemItemHuntPlatinum: GemItem) {
 	skin = "huntplatinum";
 	huntExtraValue = 4; //5 pts
 	spawnChance = 0.35;
- 	messageColor = "f1f2f2";
+ 	messageColor = "ffffff";
  	customField[0, "field"] = "";
 };
 

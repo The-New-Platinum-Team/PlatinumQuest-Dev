@@ -335,10 +335,7 @@ function playMusic(%musicFileBase) {
 }
 
 function playShellMusic() {
-	if (!$TexturePack::MBXP) 
-		playMusic(getMusicFile("Menu"));
-	else
-		playMusic(getMusicFile("XP"));
+	playMusic("Close To Water.ogg");
 }
 
 function playLBMusic() {
@@ -346,7 +343,7 @@ function playLBMusic() {
 }
 
 function playGameMusic() {
-	if (MissionInfo.music !$= "" && MissionInfo.music !$= "Pianoforte.ogg") {
+	if (MissionInfo.music !$= "" && MissionInfo.music !$= "Close To Water.ogg") {
 		if (getSubStr(MissionInfo.music, 0, 1) $= "@")
 			%file = filePath($Client::MissionFile) @ "/" @ getSubStr(MissionInfo.music, 1, strlen(MissionInfo.music));
 		else
@@ -371,7 +368,7 @@ function resumeMusic() {
 	$JukeboxDlg::isPlaying = true;
 }
 
-$Music::Exclude = "Pianoforte\tComforting Mystery\tQuiet Lab\tUpbeat Finale\tGood to Jump to (Loop Edit)\tElectroforte\tShell\tXmas Trance\tHalloween Trance\tFlanked\tMBP Old Shell\tMetropolis\tSeaside";
+$Music::Exclude = "Close To Water\tComforting Mystery\tQuiet Lab\tUpbeat Finale\tGood to Jump to (Loop Edit)\tElectroforte\tShell\tXmas Trance\tHalloween Trance\tFlanked\tMBP Old Shell\tMetropolis\tSeaside";
 function buildMusicList() {
 	if (!$musicFound) {
 		$NumMusicFiles = 0;
@@ -386,9 +383,9 @@ function buildMusicList() {
 }
 
 $Music::Songs["LB"]     = "Comforting Mystery.ogg";
-$Music::Songs["Menu"]   = "Pianoforte.ogg";
+$Music::Songs["Menu"]   = "Close To Water.ogg";
 $Music::Songs["XP"]   = "ShellXP.ogg";
-$Music::Songs["Game"]   = "*";
+$Music::Songs["Game"]   = "Close To Water.ogg";
 
 function getMusicFile(%location) {
 	//Grab the songs for the location
@@ -396,7 +393,7 @@ function getMusicFile(%location) {
 	if (%songs $= "")
 		%songs = $Music::Songs[%location];
 	if (%songs $= "")
-		return "Pianoforte.ogg";
+		return "Close To Water.ogg";
 
 	if (%songs $= "None")
 		return "";
@@ -409,7 +406,7 @@ function getMusicFile(%location) {
 		if ($NumMusicFiles)
 			return $Music[getRandom($NumMusicFiles - 1)];
 		else
-			return "Pianoforte.ogg";
+			return "Close To Water.ogg";
 	}
 
 	//Or just play one from the list they gave us

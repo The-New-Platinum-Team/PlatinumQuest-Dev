@@ -606,19 +606,19 @@ function reformatGameEndText() {
 		%text = %text @ "<color:00cc00>Level Editor Opened";
 	} else {
 		if (%flags & $Completion::Awesome) {
-			%text = %text @ "Who's Awesome? <color:FF3333>You're<color:000000> Awesome!";
+			%text = %text @ "Rank: <color:D0F6FF>S";
 		} else if (%flags & $Completion::Ultimate) {
-			%text = %text @ "You beat the <color:FFCC33>Ultimate<color:000000> " @ %name @ "!";
+			%text = %text @ "Rank: <color:FFCC33>A";
 		} else if (%flags & $Completion::Platinum) {
-			%text = %text @ "You beat the <color:CCCCCC>Platinum<color:000000> " @ %name @ "!";
+			%text = %text @ "Rank: <color:CCCCCC>B";
 		} else if (%flags & $Completion::Gold) {
-			%text = %text @ "You beat the <color:FFEE11>Gold<color:000000> " @ %name @ "!";
+			%text = %text @ "Rank: <color:967444>C";
 		} else if (%flags & $Completion::Par) {
 			//No score, you just qualified
 			if ($CurrentGame $= "Gold") {
 				%text = %text @ "You've Qualified!";
 			} else {
-				%text = %text @ "You beat the Par " @ %name @ "!";
+				%text = %text @ "Rank: D";
 			}
 		} else {
 			if ($CurrentGame $= "Gold") {
@@ -659,11 +659,11 @@ function reformatGameEndText() {
 	%platinumLabel = (%platinumTimeLabel $= "N/A" ? %platinumScoreLabel : %platinumTimeLabel);
 	%ultimateLabel = (%ultimateTimeLabel $= "N/A" ? %ultimateScoreLabel : %ultimateTimeLabel);
 	%awesomeLabel  = (%awesomeTimeLabel  $= "N/A" ? %awesomeScoreLabel  : %awesomeTimeLabel);
-	%parType      = (%parScoreLabel     $= "N/A" ? "Time" : "Score");
-	%goldType     = (%goldTimeLabel     $= "N/A" ? "Score" : "Time");
-	%platinumType = (%platinumTimeLabel $= "N/A" ? "Score" : "Time");
-	%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Score" : "Time");
-	%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Score" : "Time");
+	%parType      = (%parScoreLabel     $= "N/A" ? "Rank" : "Rank");
+	%goldType     = (%goldTimeLabel     $= "N/A" ? "Rank" : "Rank");
+	%platinumType = (%platinumTimeLabel $= "N/A" ? "Rank" : "Rank");
+	%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Rank" : "Rank");
+	%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Rank" : "Rank");
 
 	//Get the world record
 	%record = false; 
@@ -688,7 +688,7 @@ function reformatGameEndText() {
 	%parTimeLabel = (%info.time ? formatTime(%info.time) : "N/A");
 	%parScoreLabel = (%info.score !$= "" ? formatScore(%info.score) : "N/A");
 	%parLabel = ((%type == $ScoreType::Time) ? %parTimeLabel : %parScoreLabel);
-	%parType = ((%type == $ScoreType::Time) ? "Time" : "Score");
+	%parType = ((%type == $ScoreType::Time) ? "Rank" : "Rank");
 
 	//Information text
 	%game = ($CurrentGame $= "Custom" ? resolveMissionModification(%info) : $CurrentGame);
@@ -725,13 +725,20 @@ function reformatGameEndText() {
 		%ultimateTitle = "<color:FFCC33>Ultimate";
 		%awesomeTitle = "<color:FF3333>Awesome";
 		%recordTitle = "<color:0060f0>World Record";
+	case "Blasted":
+		%parTitle = "D Rank";
+		%goldTitle = "<color:967444>C Rank";
+		%platinumTitle = "<color:CCCCCC>B Rank";
+		%ultimateTitle = "<color:FFCC33>A Rank";
+		%awesomeTitle = "<color:D0F6FF>S Rank";
+		%recordTitle = "<color:0060f0>World Record";
 	default:
 		//It's custom, we're not really sure here
-		%parTitle = "Par";
-		%goldTitle = "<color:FFEE11>Gold";
-		%platinumTitle = "<color:CCCCCC>Platinum";
-		%ultimateTitle = "<color:FFCC33>Ultimate";
-		%awesomeTitle = "<color:FF3333>Awesome";
+		%parTitle = "D";
+		%goldTitle = "<color:967444>C";
+		%platinumTitle = "<color:CCCCCC>B";
+		%ultimateTitle = "<color:FFCC33>A";
+		%awesomeTitle = "<color:D0F6FF>S";
 		%recordTitle = "<color:0060f0>World Record";
 	}
 
@@ -879,13 +886,13 @@ function getScoreFormatting(%score, %info, %showAwesome, %placement) {
 	if (%placement == 1)
 		return "<color:0060f0>";
 	else if (%showAwesome && (%flags & $Completion::Awesome))
-		return "<color:FF4444>";
+		return "<color:D0F6FF>";
 	else if (%flags & $Completion::Ultimate)
 		return "<color:FFCC33>";
 	else if (%flags & $Completion::Platinum)
 		return "<color:CCCCCC>";
 	else if (%flags & $Completion::Gold)
-		return "<color:FFEE11>";
+		return "<color:967444>";
 
 	return ""; //No color-- default color
 }

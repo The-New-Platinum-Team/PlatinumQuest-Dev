@@ -249,7 +249,7 @@ if (!isObject(PQTextboxProfile)) new GuiControlProfile(PQTextboxProfile) {
 	border = false;
 	borderColor = "0 0 0";
 	fontColor = "241 242 242";
-	fontColorHL = "0 0 255";
+	fontColorHL = "241 242 242";
 	fontColorNA = "128 128 128";
 	textOffset = "0 2";
 	autoSizeWidth = false;
@@ -267,7 +267,7 @@ if (!isObject(PQTextboxSmallProfile)) new GuiControlProfile(PQTextboxSmallProfil
 	border = false;
 	borderColor = "0 0 0";
 	fontColor = "241 242 242";
-	fontColorHL = "0 0 255";
+	fontColorHL = "241 242 242";
 	fontColorNA = "128 128 128";
 	textOffset = "0 2";
 	autoSizeWidth = false;

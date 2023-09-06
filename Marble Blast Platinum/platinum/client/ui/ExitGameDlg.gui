@@ -55,6 +55,18 @@ new GuiControl(ExitGameDlg) {
 		bitmap = "./exit/black";
 		wrap = "0";
 	};
+	new GuiBitmapCtrl(MenuList) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "75 0";
+		extent = "500 1100";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./menu/bm_menulist.png";
+		wrap = "0";
+	};	
 	new GuiControl() {
 		profile = "GuiDefaultProfile";
 		horizSizing = "width";
@@ -394,7 +406,7 @@ new GuiControl(ExitGameDlg) {
 			};
 		};
 
-		new GuiControl(ExitGameMainButtons) {
+		new GuiControl(ExitGameMainButtons) { 
 			profile = "GuiDefaultProfile";
 			horizSizing = "width";
 			vertSizing = "height";
@@ -642,11 +654,11 @@ function ExitGameDlg::onWake(%this) {
 	%platinumLabel = (%platinumTimeLabel $= "N/A" ? %platinumScoreLabel : %platinumTimeLabel);
 	%ultimateLabel = (%ultimateTimeLabel $= "N/A" ? %ultimateScoreLabel : %ultimateTimeLabel);
 	%awesomeLabel  = (%awesomeTimeLabel  $= "N/A" ? %awesomeScoreLabel  : %awesomeTimeLabel);
-	%parType      = (%parScoreLabel     $= "N/A" ? "Time" : "Score");
-	%goldType     = (%goldTimeLabel     $= "N/A" ? "Score" : "Time");
-	%platinumType = (%platinumTimeLabel $= "N/A" ? "Score" : "Time");
-	%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Score" : "Time");
-	%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Score" : "Time");
+	%parType      = (%parScoreLabel     $= "N/A" ? "Rank" : "Rank");
+	%goldType     = (%goldTimeLabel     $= "N/A" ? "Rank" : "Rank");
+	%platinumType = (%platinumTimeLabel $= "N/A" ? "Rank" : "Rank");
+	%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Rank" : "Rank");
+	%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Rank" : "Rank");
 
 	//Figure out what times/scores it needs
 	%defined = "Gold Platinum Ultra PlatinumQuest LBCustom";
@@ -687,6 +699,13 @@ function ExitGameDlg::onWake(%this) {
 		%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
 		%ultimateTitle = "<color:FFCC33>Ultimate";
 		%awesomeTitle = "<color:FF4444>Awesome";
+	case "Blasted":
+		%parTitle = "D";
+		%goldTitle = "<color:967444>C";
+		%platinumTitle = "<color:CCCCCC>B";
+		%ultimateTitle = "<color:FFCC33>A";
+		%awesomeTitle = "<color:D0F6FF>S";
+		%recordTitle = "<color:0060f0>World Record";	
 	default:
 		//It's custom, we're not really sure here
 		%parTitle = "Par";
@@ -791,7 +810,7 @@ function ExitGameDlg::onWake(%this) {
 		%challengeTitles = %challengeTitles SPC "<just:center><font:24>" @ %ultimateTitle;
 		%challengeTimes  = %challengeTimes  SPC "<just:center><font:32>" @ %ultimateLabel;
 	}
-	if (%showAwesome && %awesomeTitle !$= "" && %awesomeLabel !$= "N/A") {
+	if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A") {
 		%challengeTitles = %challengeTitles SPC "<just:center><font:24>" @ %awesomeTitle;
 		%challengeTimes  = %challengeTimes  SPC "<just:center><font:32>" @ %awesomeLabel;
 	}
@@ -840,6 +859,17 @@ function ExitGameDlg::onWake(%this) {
 		ExitGameInfoLeftmostChallengeTime.setText(getWord(%challengeTimes, 0));
 		ExitGameInfoLeftcenterChallengeTitle.setText(getWord(%challengeTitles, 2));
 		ExitGameInfoLeftcenterChallengeTime.setText(getWord(%challengeTimes, 2));
+		ExitGameInfoRightcenterChallengeTitle.setText(getWord(%challengeTitles, 3));
+		ExitGameInfoRightcenterChallengeTime.setText(getWord(%challengeTimes, 3));
+		ExitGameInfoRightmostChallengeTitle.setText(getWord(%challengeTitles, 4));
+		ExitGameInfoRightmostChallengeTime.setText(getWord(%challengeTimes, 4));
+	} else if (%challengeLength >= 6) { 
+		ExitGameInfoLeftmostChallengeTitle.setText(getWord(%challengeTitles, 0));
+		ExitGameInfoLeftmostChallengeTime.setText(getWord(%challengeTimes, 0));
+		ExitGameInfoLeftcenterChallengeTitle.setText(getWord(%challengeTitles, 1));
+		ExitGameInfoLeftcenterChallengeTime.setText(getWord(%challengeTimes, 1));
+		ExitGameInfoCenterChallengeTitle.setText(getWord(%challengeTitles, 2));
+		ExitGameInfoCenterChallengeTime.setText(getWord(%challengeTimes, 2));
 		ExitGameInfoRightcenterChallengeTitle.setText(getWord(%challengeTitles, 3));
 		ExitGameInfoRightcenterChallengeTime.setText(getWord(%challengeTimes, 3));
 		ExitGameInfoRightmostChallengeTitle.setText(getWord(%challengeTitles, 4));

@@ -285,7 +285,7 @@ new GuiControl(PlayMissionGui) {
 		repeatPeriod = "1000";
 		repeatDecay = "1";
 
-		new GuiBitmapCtrl(PM_DifficultyList) {
+		new GuiControl(PM_DifficultyList) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
@@ -294,7 +294,6 @@ new GuiControl(PlayMissionGui) {
 			minExtent = "8 8";
 			visible = "0";
 			helpTag = "0";
-			bitmap = "./lb/play/pc_trans/0";
 			wrap = "0";
 
 			new GuiScrollCtrl(PM_DifficultyContainer) {
@@ -2709,11 +2708,11 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		%platinumLabel = (%platinumTimeLabel $= "N/A" ? %platinumScoreLabel : %platinumTimeLabel);
 		%ultimateLabel = (%ultimateTimeLabel $= "N/A" ? %ultimateScoreLabel : %ultimateTimeLabel);
 		%awesomeLabel  = (%awesomeTimeLabel  $= "N/A" ? %awesomeScoreLabel  : %awesomeTimeLabel);
-		%parType      = (%parScoreLabel     $= "N/A" ? "Time" : "Score");
-		%goldType     = (%goldTimeLabel     $= "N/A" ? "Score" : "Time");
-		%platinumType = (%platinumTimeLabel $= "N/A" ? "Score" : "Time");
-		%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Score" : "Time");
-		%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Score" : "Time");
+		%parType      = (%parScoreLabel     $= "N/A" ? "Rank" : "Rank");
+		%goldType     = (%goldTimeLabel     $= "N/A" ? "Rank" : "Rank");
+		%platinumType = (%platinumTimeLabel $= "N/A" ? "Rank" : "Rank");
+		%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Rank" : "Rank");
+		%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Rank" : "Rank");
 
 		//Information text
 		%text = "<bold:21><just:left>" @ %info.desc;
@@ -2752,12 +2751,12 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%ultimateTitle = "<color:FFCC33>Ultimate";
 			%awesomeTitle = "<color:FF4444>Awesome";
 		case "Blasted":
-			//Need par / platinum / ultimate / (awesome?)
-			%parTitle = "Par";
-			%goldTitle = "";
-			%platinumTitle = "<color:CCCCCC>Platinum";
-			%ultimateTitle = "<color:FFCC33>Ultimate";
-			%awesomeTitle = "<color:FF4444>Awesome";
+			%parTitle = "D";
+			%goldTitle = "<color:967444>C";
+			%platinumTitle = "<color:CCCCCC>B";
+			%ultimateTitle = "<color:FFCC33>A";
+			%awesomeTitle = "<color:D0F6FF>S";
+			%recordTitle = "<color:0060f0>World Record";
 		case "LBCustom":
 			//Not really sure with these, just assume platinum
 			%parTitle = "Par";

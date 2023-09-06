@@ -1306,7 +1306,7 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 		%color = "ffcc66";
 
 	%font = "<font:" @ $DefaultFont["PointPopups"] @ ":48>";
-	%obj.setText("<just:center>" @ %font @ "<color:" @ %color @ ">" @ shadow("1 1", "0000007f") @ %amount);
+	%obj.setText("<just:center>" @ %font @ "<color:" @ %color @ "><shadow:1:1><shadowcolor:0000007f><bold:48>" @ %amount);
 	%this.updateGemMessage(%obj);
 	%obj.schedule(700, "delete");
 }
@@ -1354,7 +1354,7 @@ function PlayGui::showEggTime(%this, %time) {
 
 	PG_EggIcon.setBitmap("platinum/client/ui/play/egg" @ (%pq ? "_pq_big" : "_mbp_big"));
 	PG_EggTimeBox.setVisible(true);
-	PG_EggTimeDisplay.setText("<color:" @ (%pq ? "cccc99" : "4580ff") @ "><bold:28>" @ formatTime(%time));
+	PG_EggTimeDisplay.setText("<color:" @ (%pq ? "cccc99" : "797979") @ "><bold:28>" @ formatTime(%time));
 
 	%this.showingEggTime = true;
 	%this.updateEggTime();

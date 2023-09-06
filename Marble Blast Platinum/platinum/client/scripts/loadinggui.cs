@@ -138,11 +138,11 @@ function LoadingGui::onWake(%this) {
 		%platinumLabel = (%platinumTimeLabel $= "N/A" ? %platinumScoreLabel : %platinumTimeLabel);
 		%ultimateLabel = (%ultimateTimeLabel $= "N/A" ? %ultimateScoreLabel : %ultimateTimeLabel);
 		%awesomeLabel  = (%awesomeTimeLabel  $= "N/A" ? %awesomeScoreLabel  : %awesomeTimeLabel);
-		%parType      = (%parScoreLabel     $= "N/A" ? "Time" : "Score");
-		%goldType     = (%goldTimeLabel     $= "N/A" ? "Score" : "Time");
-		%platinumType = (%platinumTimeLabel $= "N/A" ? "Score" : "Time");
-		%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Score" : "Time");
-		%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Score" : "Time");
+		%parType      = (%parScoreLabel     $= "N/A" ? "Rank" : "Rank");
+		%goldType     = (%goldTimeLabel     $= "N/A" ? "Rank" : "Rank");
+		%platinumType = (%platinumTimeLabel $= "N/A" ? "Rank" : "Rank");
+		%ultimateType = (%ultimateTimeLabel $= "N/A" ? "Rank" : "Rank");
+		%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Rank" : "Rank");
 
 		//Figure out what times/scores it needs
 		%defined = "Gold Platinum Ultra PlatinumQuest LBCustom";
@@ -183,6 +183,13 @@ function LoadingGui::onWake(%this) {
 			%platinumTitle = "<color:CCCCCC>Platinum"; // For hunt maps, just in case
 			%ultimateTitle = "<color:FFCC33>Ultimate";
 			%awesomeTitle = "<color:FF4444>Awesome";
+		case "Blasted":
+			%parTitle = "D";
+			%goldTitle = "<color:967444>C";
+			%platinumTitle = "<color:CCCCCC>B";
+			%ultimateTitle = "<color:FFCC33>A";
+			%awesomeTitle = "<color:D0F6FF>S";
+			%recordTitle = "<color:0060f0>World Record";
 		default:
 			//It's custom, we're not really sure here
 			%parTitle = "Par";

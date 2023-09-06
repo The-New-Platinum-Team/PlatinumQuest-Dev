@@ -223,13 +223,13 @@ function Mode_null::onFoundGem(%this, %object) {
 
 	%remaining = $Game::gemCount - %object.client.getGemCount();
 	if (%remaining <= 0) {
-		messageClient(%object.client, 'MsgHaveAllGems', "\c0You have all the gems, head for the finish!");
+		messageClient(%object.client, 'MsgHaveAllGems', "\c0Finish the level.");
 		%object.client.playPitchedSound("gotalldiamonds");
 	} else {
 		if (%remaining == 1) {
-			%msg = "\c0You picked up a gem! Only one gem to go!";
+			%msg = "\c0One gem remaining.";
 		} else {
-			%msg = "\c0You picked up a gem!  " @ %remaining @ " gems to go!";
+			%msg = "\c0" @ %remaining @ " gems remaining.";
 		}
 
 		messageClient(%object.client, 'MsgItemPickup', %msg, %remaining);

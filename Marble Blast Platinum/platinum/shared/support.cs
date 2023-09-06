@@ -491,7 +491,7 @@ function LBRegisterChatColor(%name, %chat, %ingame, %mp, %isUser) {
 
 	if (%isUser) {
 		if ($TexturePack::InvertTextColors) {
-			if (strlwr(%chat) !$= "ffffff")
+			if (strlwr(%chat) !$= "f1f2f2")
 				%chat = invertColor(%chat);
 		}
 	}

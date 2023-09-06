@@ -157,7 +157,7 @@ new GuiControlProfile(GuiBigTextEditProfile) {
 	fillColorHL = "128 128 128";
 	border = false;
 	borderColor = "0 0 0";
-	fontColor = "0 0 0";
+	fontColor = "241 242 242";
 	fontColorHL = "255 255 255";
 	fontColorNA = "128 128 128";
 	textOffset = "0 2";

@@ -37,7 +37,7 @@ $DefaultFont                = ($pref::DefaultFont                $= "" ? "Roboto
 $DefaultFont["Bold"]        = ($pref::DefaultFont["Bold"]        $= "" ? "Roboto Bold"      : $pref::DefaultFont["Bold"]);
 $DefaultFont["Italic"]      = ($pref::DefaultFont["Italic"]      $= "" ? "Roboto Bold Italic" : $pref::DefaultFont["Italic"]);
 $DefaultFont["Condensed"]   = ($pref::DefaultFont["Condensed"]   $= "" ? "Roboto Bold"       : $pref::DefaultFont["Condensed"]);
-$DefaultFont["PointPopups"] = ($pref::DefaultFont["PointPopups"] $= "" ? "Squishney"      : $pref::DefaultFont["PointPopups"]); // Gem and TT indicators
+$DefaultFont["PointPopups"] = ($pref::DefaultFont["PointPopups"] $= "" ? "Roboto Bold"      : $pref::DefaultFont["PointPopups"]); // Gem and TT indicators
 $DefaultFont["Small"]       = ($pref::DefaultFont["Small"]       $= "" ? "Arial"          : $pref::DefaultFont["Small"]);
 $DefaultFont["SmallBold"]   = ($pref::DefaultFont["SmallBold"]   $= "" ? "Arial Bold"     : $pref::DefaultFont["SmallBold"]);
 $DefaultFont["SmallItalic"] = ($pref::DefaultFont["SmallItalic"] $= "" ? "Arial Italic"   : $pref::DefaultFont["SmallItalic"]);

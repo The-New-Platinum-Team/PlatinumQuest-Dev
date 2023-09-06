@@ -925,10 +925,10 @@ function GameConnection::getFinishMessage(%this) {
 		return %message;
 
 	if ($Game::GemCount && %this.getGemCount() < $Game::GemCount) {
-		return "You may not finish without all the gems!";
+		return "You need all the gems to finish the level.";
 	}
 
-	return "Congratulations! You\'ve finished!";
+	return "Level complete.";
 }
 
 function GameConnection::onLeavePad(%this) {
