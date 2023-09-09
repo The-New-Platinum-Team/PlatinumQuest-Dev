@@ -511,7 +511,7 @@ function objectToParent(%object, %parent, %transform, %simple, %offset, %noRot) 
 
 	if (%transform $= "") {
 		//Look how nice that was
-		%transform = calcParentModTrans(%object, %parent);
+		%transform = calcParentModeTrans(%object, %parent);
 	}
 
 	if (%offset $= "") {
