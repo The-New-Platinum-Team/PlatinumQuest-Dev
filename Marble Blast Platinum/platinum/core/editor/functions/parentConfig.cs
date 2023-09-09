@@ -53,7 +53,7 @@ function PCD_LCO::onPressed(%this, %gui) {
 	%object = %gui.PCD_Object;
 	%parent = PCD_Parent.getValue();
 	if (isObject(%object) && isObject(%parent)) {
-		%transform = calcParentModTrans(%object, %parent);
+		%transform = calcParentModeTrans(%object, %parent);
 		PCD_PMT.setValue(%transform);
 	}
 }
