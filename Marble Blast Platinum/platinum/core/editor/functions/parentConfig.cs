@@ -37,7 +37,7 @@ function openParentConfigDlg(%object) {
 	LargeFunctionDlg.addCheckBox("PCD_Simple", "Simple (use only Offset, ignores any rotation)", !!%object.parentSimple);
 	LargeFunctionDlg.addNote();
 	LargeFunctionDlg.addTextEditField("PCD_Offset", "Final unit offset (after rotation):", %object.parentOffset !$= "" ? %object.parentOffset : "0 0 0", 150, -3);
-	LargeFunctionDlg.addTextEditField("PCD_PMT", "Parent-child tranform value:", %object.parentModTrans !$= "" ? %object.parentModTrans : "0 0 0 1 0 0 0", 350, -3);
+	LargeFunctionDlg.addTextEditField("PCD_PMT", "Parent-child transform value:", %object.parentModTrans !$= "" ? %object.parentModTrans : "0 0 0 1 0 0 0", 350, -3);
 	LargeFunctionDlg.addButton("PCD_LCO", "Lock Current Orientation");
 	LargeFunctionDlg.addNote();
 	LargeFunctionDlg.addNote();
@@ -53,7 +53,7 @@ function PCD_LCO::onPressed(%this, %gui) {
 	%object = %gui.PCD_Object;
 	%parent = PCD_Parent.getValue();
 	if (isObject(%object) && isObject(%parent)) {
-		%transform = calcParentModTrans(%object, %parent);
+		%transform = calcParentModeTrans(%object, %parent);
 		PCD_PMT.setValue(%transform);
 	}
 }
