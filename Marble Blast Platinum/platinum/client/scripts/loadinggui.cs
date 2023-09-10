@@ -500,6 +500,7 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Upbeat Finale is actually part
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: A few custom levels brought officially into PlatinumQuest used to have custom music. Commonly used tracks are made by Owen Maitzen (aka hPerks) and sonata1219 (aka NaCl586)."; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: One gamemode scrapped in development was called 'Free World', and just served as an exploration gamemode with no objectives and no way to finish. But why not explore levels anyway without a specific gamemode for it?"; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Marble Blast Gold and Platinum previously required you to unlock every level by beating the one before it. However, secret buttons existed to unlock levels automatically. In Gold, it was in the very bottom right corner of the screen, and in Platinum, it was in the hole of the P in its logo."; //Yoshi
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Before Time Travel timers were added for the whole game, Dependency used to have its own implementation of them using the same timer as countdown triggers."; //Yoshi
 
 $Loading::TipsChance[2] = 0.17;
 
