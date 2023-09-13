@@ -375,6 +375,9 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, adding a 're
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to make objects move on paths, add a 'Path' field to it, and put the name of the pathnode you wish for it to start on inside."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to make an object move on a path when the marble enters a certain area, fill the activation area with a PathTrigger, add an 'object1' field with its value set to the name of the object, and a 'Path1' field with its value set to the name of the pathnode for it to start on. To start multiple paths with the same trigger, add more fields with higher numbers, such as 'object2' and 'Path2', and so on."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to add water to a level, fill the space with a WaterPhysicsTrigger, then line the visible edges with WaterPlane or WaterCylinder_slow shapes."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar Mode 2 is useful for aligning yourself vertically with things."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar Mode 3 is useful for getting a decent sense of your surroundings if there's a lot going on on in a large area. This is also helpful for Hunt maps with lots of gravity changes."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, you can change how long individual time-based PowerUps last by adding a 'timeout' field to them, and entering the length in milliseconds. You can also change it for certain areas of a level using MarblePhysModTriggers."; //Yoshi
 
 $Loading::TipsChance[0] = 0.80;
 
@@ -501,6 +504,7 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: A few custom levels brought of
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: One gamemode scrapped in development was called 'Free World', and just served as an exploration gamemode with no objectives and no way to finish. But why not explore levels anyway without a specific gamemode for it?"; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Marble Blast Gold and Platinum previously required you to unlock every level by beating the one before it. However, secret buttons existed to unlock levels automatically. In Gold, it was in the very bottom right corner of the screen, and in Platinum, it was in the hole of the P in its logo."; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Before Time Travel timers were added for the whole game, Dependency used to have its own implementation of them using the same timer as countdown triggers."; //Yoshi
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Before Custom Pack 8 was implemented into the game, 20th place vote Winter Wisps by Technostar was replaced by the 51st place vote for being too laggy. Check it out on Marbleland sometime!"; //Yoshi
 
 $Loading::TipsChance[2] = 0.17;
 
