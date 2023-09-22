@@ -520,13 +520,6 @@ $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "showRecords";
 $Options::Title   ["Online", $i  ] = "Always Show World Record";
 $Options::Type    ["Online", $i  ] = "boolean";
-$Options::Name    ["Online", $i++] = "overviewSpeed";
-$Options::Title   ["Online", $i  ] = "Overview Speed";
-$Options::Ctrl    ["Online", $i  ] = "slider";
-$Options::Min     ["Online", $i  ] = 10;
-$Options::Max     ["Online", $i  ] = 200;
-$Options::Ticks   ["Online", $i  ] = 38; //Every 5
-$Options::JoyTicks["Online", $i  ] = 38; //Every 5
 $Options::Name    ["Online", $i++] = "serverPort";
 $Options::Title   ["Online", $i  ] = "Server Port";
 $Options::Ctrl    ["Online", $i  ] = "textbox";
@@ -1594,28 +1587,6 @@ function Opt_showRecords_decrease() {
 
 function Opt_showRecords_increase() {
 	$LBPref::ShowRecords = !$LBPref::ShowRecords;
-}
-
-//-----------------------------------------------------------------------------
-
-function Opt_overviewSpeed_getValue() {
-	return 210 - $MPPref::OverviewSpeed;
-}
-
-function Opt_overviewSpeed_getDisplay() {
-	return OptionsoverviewSpeedValue.getFormattedValue(10, 200);
-}
-
-function Opt_overviewSpeed_decrease(%size) {
-	Opt_overviewSpeed_setValue(Opt_overviewSpeed_getValue() - %size);
-}
-
-function Opt_overviewSpeed_increase(%size) {
-	Opt_overviewSpeed_setValue(Opt_overviewSpeed_getValue() + %size);
-}
-
-function Opt_overviewSpeed_setValue(%value) {
-	$MPPref::OverviewSpeed = 210 - %value;
 }
 
 //-----------------------------------------------------------------------------
