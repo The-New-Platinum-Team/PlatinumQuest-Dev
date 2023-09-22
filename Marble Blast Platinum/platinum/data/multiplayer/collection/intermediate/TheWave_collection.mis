@@ -1,19 +1,73 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
-         name = "The Wave";
-         time = "210000";
-         startHelpText = "Grab all the gems!";
-         artist = "Kevin Ryan";
-         level = "2";
-         type = "Intermediate";
-         music = "Beach Party.ogg";
-         game = "Gold";
-         desc = "Surf the waves to collect all the gems before time runs out!";
-         goldTime = "28000";
-         alarmStartTime = "15";
-         gameMode = "collection";
+      CustomRadarRule = "63";
+      Radar = "1";
+      artist = "Kevin Ryan";
+      blast = "1";
+      desc = "Surf the waves to collect all the gems before time runs out!";
+      game = "Gold";
+      gameMode = "collection";
+      goldTime = "28000";
+      level = "2";
+      music = "Beach Party.ogg";
+      name = "The Wave";
+      type = "Intermediate";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "13.53184 -20.75365 18.51366";
+         rotation = "0.8161136 0.1713018 -0.5519187 41.64447";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "4000";
+      };
+      new StaticShape(CameraPath2) {
+         position = "7.062985 -14.77839 13.4745";
+         rotation = "0.8782964 0.123406 -0.4619159 33.83755";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            Spline = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            useRotation = "1";
+            timeToNext = "4000";
+      };
+      new StaticShape(CameraPath3) {
+         position = "0.9584156 -7.006286 8.996531";
+         rotation = "0.9787901 0.0439468 -0.200097 25.29389";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath4";
+            useRotation = "1";
+            timeToNext = "5000";
+      };
+      new StaticShape(CameraPath4) {
+         position = "0.9584156 -7.006286 8.99653";
+         rotation = "0.9787901 0.04394681 -0.200097 25.29389";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath1";
+            useRotation = "1";
+            timeToNext = "0";
+      };
    };
    new Item() {
       position = "9 3 4";
@@ -40,25 +94,25 @@ new SimGroup(MissionGroup) {
       cloudSpeed1 = "0.0001";
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
-      visibleDistance = "10000";
+      visibleDistance = "500";
       useSkyTextures = "1";
       renderBottomTexture = "1";
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      fogVolume1 = "-1 -1.73483e+09 -1.73483e+09";
+      fogVolume2 = "-1 -1.73483e+09 -1.73483e+09";
+      fogVolume3 = "-1 -1.73483e+09 -1.73483e+09";
       materialList = "~/data/skies/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 -1734829824.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -1734829824.000000";
    };
    new Sun() {
-      direction = "0.638261 0.459006 -0.61801";
+      direction = "0.57735 0.57735 -0.57735";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
