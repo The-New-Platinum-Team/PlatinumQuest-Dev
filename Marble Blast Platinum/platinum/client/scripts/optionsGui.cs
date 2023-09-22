@@ -533,11 +533,11 @@ $Options::Type    ["Online", $i  ] = "value";
 $Options::Name    ["Online", $i++] = "chatMessageSize";
 $Options::Title   ["Online", $i  ] = "In-Game Lines of Chat";
 $Options::Type    ["Online", $i  ] = "value";
-$Options::Name    ["Online", $i++] = "autoLogin";
-$Options::Title   ["Online", $i  ] = "Auto Login";
-$Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "noholepunch";
 $Options::Title   ["Online", $i  ] = "Hole Punching";
+$Options::Type    ["Online", $i  ] = "boolean";
+$Options::Name    ["Online", $i++] = "autoLogin";
+$Options::Title   ["Online", $i  ] = "Auto Login";
 $Options::Type    ["Online", $i  ] = "boolean";
 
 $Options::AutoLoginUserField = $i++;
