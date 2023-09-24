@@ -4,9 +4,9 @@ new SimGroup(MissionGroup) {
    new ScriptObject(MissionInfo) {
          artist = "Ignas";
          awesomeHint = "From the start, you can wall-hit to the first checkpoint next to the Super Speed.";
-         awesomeTime = "27200";
+         awesomeTime = "28000";
          customRadarRule = "5";
-         desc = "A pink course containing multiple PowerUps and hazards!";
+         desc = "A pink course containing multiple Power Ups and hazards!";
          eggHint = "Simply look around the level's walls.";
          game = "PlatinumQuest";
          gameMode = "null";
@@ -73,7 +73,7 @@ new SimGroup(MissionGroup) {
             displayonce = "0";
             extended = "0";
             persistTime = "2000";
-            text = "Aim for the Super Bounce by fully going forward!";
+            text = "Aim for the Super Bounce by fully going forward.";
             triggerRadius = "3";
       };
       new StaticShape() {
@@ -85,7 +85,7 @@ new SimGroup(MissionGroup) {
             displayonce = "0";
             extended = "0";
             persistTime = "2000";
-            text = "Use the Shock Absorber to climb up the wall in front of you!";
+            text = "Use the Shock Absorber to climb up the wall in front of you.";
             triggerRadius = "3";
       };
       new StaticShape() {
@@ -97,7 +97,7 @@ new SimGroup(MissionGroup) {
             displayonce = "0";
             extended = "0";
             persistTime = "2000";
-            text = "Use the Teleporter to get the gem on the right first before moving on!";
+            text = "Use the Teleporter to get the gem on the right first before moving on.";
             triggerRadius = "3";
       };
       new StaticShape() {
@@ -127,6 +127,7 @@ new SimGroup(MissionGroup) {
       };
    };
    new SimGroup(SceneryGroup) {
+
       new StaticShape() {
          position = "20.9567 -11.0294 300.63";
          rotation = "1 0 0 0";
@@ -158,10 +159,16 @@ new SimGroup(MissionGroup) {
          dataBlock = "Window03_3x3";
       };
       new StaticShape() {
-         position = "-28.21 -10.8974 333.934";
-         rotation = "0.577355 -0.577349 0.577347 120";
+         position = "-28.285 -10.89 333.9";
+         rotation = "0.611592 -0.501915 0.611585 126.694";
          scale = "0.5 0.5 0.5";
          dataBlock = "Marble_Graffiti";
+      };
+      new StaticShape() {
+         position = "-34.299 -10.9 325";
+         rotation = "-0.63823 -0.430492 0.638232 226.583";
+         scale = "0.4 0.4 0.4";
+         dataBlock = "PQRulez_Graffiti";
       };
    };
    new StaticShape(StartPoint) {
@@ -172,7 +179,7 @@ new SimGroup(MissionGroup) {
          skin = "pepto";
    };
    new StaticShape(EndPoint) {
-      position = "-2.295 -11.1367 292.014";
+      position = "-2.3 -11.13 290.5";
       rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
       dataBlock = "EndPad_PQ";
@@ -184,6 +191,7 @@ new SimGroup(MissionGroup) {
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
    new SimGroup(PathNodeGroup) {
+
       new StaticShape(CameraPath1) {
          position = "35.8 -49.15 314";
          rotation = "0.491253 0.182719 -0.851636 47.1857";
@@ -761,7 +769,10 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-         teletime = "2000";
+         keepVelocity = "0";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+         teletime = "1000";
    };
    new Item() {
       position = "17.7094 -11.0721 300.639";
@@ -849,6 +860,7 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 -1 89.9996";
       scale = "1 1 1";
       dataBlock = "TrapDoor_PQ";
+         mbuanim = "0";
          resettime = "5000";
    };
    new Item() {
@@ -990,49 +1002,49 @@ new SimGroup(MissionGroup) {
          resettime = "Default";
    };
    new StaticShape() {
-      position = "30.6952 -45.023 291.181";
+      position = "30.6952 -45.023 291.18";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "IceShard2";
          noParticles = "0";
    };
    new StaticShape() {
-      position = "34.8495 -42.2157 291.488";
+      position = "34.8495 -42.2157 291.48";
       rotation = "1 0 0 0";
       scale = "1.5 1.5 1.5";
       dataBlock = "IceShard1";
          noParticles = "0";
    };
    new StaticShape() {
-      position = "33.8359 -38.9103 291.181";
+      position = "33.8359 -38.9103 291.17";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "IceShard2";
          noParticles = "0";
    };
    new StaticShape() {
-      position = "31.4705 -49.4992 291.771";
+      position = "31.4705 -49.4992 291.72";
       rotation = "1 0 0 0";
       scale = "2 2 2";
       dataBlock = "IceShard1";
          noParticles = "0";
    };
    new StaticShape() {
-      position = "33.4812 -46.6208 291.347";
+      position = "33.4812 -46.6208 291.34";
       rotation = "1 0 0 0";
       scale = "1.25 1.25 1.25";
       dataBlock = "IceShard1";
          noParticles = "0";
    };
    new StaticShape() {
-      position = "31.498 -41.3025 291.723";
+      position = "31.498 -41.3025 291.7";
       rotation = "1 0 0 0";
       scale = "2 2 2";
       dataBlock = "IceShard2";
          noParticles = "0";
    };
    new StaticShape() {
-      position = "30.4425 -37.3063 291.347";
+      position = "30.4425 -37.3063 291.33";
       rotation = "1 0 0 0";
       scale = "1.25 1.25 1.25";
       dataBlock = "IceShard1";
@@ -1074,22 +1086,25 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new StaticShape() {
-      position = "-2.41753 -11.0882 297.514";
-      rotation = "1 0 0 0";
+      position = "-2.29808 -10.8958 297.514";
+      rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
       dataBlock = "Checkpoint_PQ";
+         chkcollide = "1";
    };
    new StaticShape() {
-      position = "-49.274 -19.1919 296.014";
-      rotation = "1 0 0 0";
+      position = "-49.4663 -19.0724 296.014";
+      rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       dataBlock = "Checkpoint_PQ";
+         chkcollide = "1";
    };
    new StaticShape() {
-      position = "-22.3173 -11.103 320.514";
-      rotation = "1 0 0 0";
+      position = "-22.1979 -10.9106 320.514";
+      rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
       dataBlock = "Checkpoint_PQ";
+         chkcollide = "1";
    };
    new Item() {
       position = "34.7244 -19.0341 311.564";
@@ -1100,6 +1115,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
          noRespawn = "0";
+         skin = "base";
          timeBonus = "4000";
    };
    new Item() {
@@ -1111,6 +1127,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
          noRespawn = "0";
+         skin = "base";
          timeBonus = "5000";
    };
    new Item() {
@@ -1122,6 +1139,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
          noRespawn = "0";
+         skin = "base";
          timeBonus = "4000";
    };
    new Item() {
@@ -1133,6 +1151,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
          noRespawn = "0";
+         skin = "base";
          timeBonus = "5000";
    };
    new Item() {
@@ -1144,6 +1163,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
          noRespawn = "0";
+         skin = "base";
          timeBonus = "4000";
    };
    new StaticShape() {
@@ -1151,6 +1171,7 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 -1 89.9996";
       scale = "1 1 1";
       dataBlock = "TrapDoor_PQ";
+         mbuanim = "0";
          resettime = "5000";
    };
    new StaticShape() {
@@ -1158,6 +1179,7 @@ new SimGroup(MissionGroup) {
       rotation = "0 0 -1 89.9996";
       scale = "1 1 1";
       dataBlock = "TrapDoor_PQ";
+         mbuanim = "0";
          resettime = "5000";
    };
    new StaticShape() {
@@ -1284,6 +1306,12 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "ConstructonRoadsignYellow";
          skin = "Danger";
+   };
+   new TSStatic() {
+      position = "-2.3 -11.13 292";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      shapeName = "~/data/shapes_pq/Gameplay/pads/endpad.dts";
    };
 };
 //--- OBJECT WRITE END ---
