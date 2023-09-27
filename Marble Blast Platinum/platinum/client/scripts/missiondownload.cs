@@ -372,6 +372,7 @@ function handleLoadInfoMessage(%msgType, %msgString, %mapName) {
 //	RootGui.setContent("LoadingGui");
 
 	$Game::MapName = %mapName;
+	$MP::StartLoadInfo = true;
 
 	MPPreGameDlg.mapName = %mapName;
 	MPPreGameDlg.updateInfo();
@@ -417,6 +418,7 @@ function handleReadyCountMessage(%msgType, %msgString, %readyCount, %playerCount
 
 function handleLoadMissionInfoPartMessage(%msgType, %msgString, %part) {
 	// This spits out the mission info
+	if (!$MP::StartLoadInfo) return;
 	$MP::MissionInfoString = $MP::MissionInfoString @ %part;
 }
 
@@ -435,6 +437,7 @@ function handleLoadInfoDoneMessage(%msgType, %msgString) {
 	}
 //   echo($MP::MissionInfoString);
 	$MP::MissionInfoString = "";
+	$MP::StartLoadInfo = false;
 }
 
 //------------------------------------------------------------------------------
