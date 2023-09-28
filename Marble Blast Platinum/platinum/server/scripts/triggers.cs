@@ -1313,30 +1313,29 @@ function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 	if ($Server::Dedicated)
 		return;
 
-	if (%dirvalue $= "" && %colorvalue $= "" && %ambvalue $= "" && %skybox $= "")
-		return;
-
-	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
-		%obj = MissionGroup.getObject(%i);
-		if (%obj.getClassName() $= "Sun") {
-			%obj.direction = %dirvalue;
-			%obj.color = %colorvalue;
-			%obj.ambient = %ambvalue;
-			%obj.inspectPostApply();
-			break;
-		}
-		if (%obj.getName() $= "MissionData") {
-			for (%i = 0; %i < MissionData.getCount(); %i ++) {
-				%obj = MissionData.getObject(%i);
-				if (%obj.getClassName() $= "Sun") {
-					%obj.direction = %dirvalue;
-					%obj.color = %colorvalue;
-					%obj.ambient = %ambvalue;
-					%obj.inspectPostApply();
-					break;
-				}
+	if (%dirvalue !$= "" && %colorvalue !$= "" && %ambvalue !$= "") {
+		for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
+			%obj = MissionGroup.getObject(%i);
+			if (%obj.getClassName() $= "Sun") {
+				%obj.direction = %dirvalue;
+				%obj.color = %colorvalue;
+				%obj.ambient = %ambvalue;
+				%obj.inspectPostApply();
+				break;
 			}
-			break;
+			if (%obj.getName() $= "MissionData") {
+				for (%i = 0; %i < MissionData.getCount(); %i ++) {
+					%obj = MissionData.getObject(%i);
+					if (%obj.getClassName() $= "Sun") {
+						%obj.direction = %dirvalue;
+						%obj.color = %colorvalue;
+						%obj.ambient = %ambvalue;
+						%obj.inspectPostApply();
+						break;
+					}
+				}
+				break;
+			}
 		}
 	}
 
