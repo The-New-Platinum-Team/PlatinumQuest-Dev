@@ -114,38 +114,37 @@ if ($pref::Video::particleSystem == 2) {
 
 } else {
 
-	datablock ParticleData(BounceParticle) {
-		textureName          = "~/data/particles/marble/star";
-		dragCoeffiecient     = 1.0;
-		gravityCoefficient   = 0;
+	datablock ParticleData(BounceParticle)	{
+		textureName          = "~/data/particles/mbu/smoke";
+		dragCoeffiecient     = 0.5;
+		gravityCoefficient   = -0.1;
 		windCoefficient      = 0;
 		inheritedVelFactor   = 0;
 		constantAcceleration = -2;
-		lifetimeMS           = 500;
-		lifetimeVarianceMS   = 100;
-		useInvAlpha =  true;
+		lifetimeMS           = 400;
+		lifetimeVarianceMS   = 50;
+		useInvAlpha =  false;
 		spinSpeed     = 90;
 		spinRandomMin = -90.0;
 		spinRandomMax =  90.0;
 
-		colors[0]     = "0.9 0.0 0.0 1.0";
-		colors[1]     = "0.9 0.9 0.0 1.0";
-		colors[2]     = "0.9 0.9 0.0 0.0";
+		colors[0]     = "0.5 0.5 0.5 0.3";
+		colors[1]     = "0.3 0.3 0.2 0.1";
+		colors[2]     = "0.2 0.2 0.1 0.0";
 
-		sizes[0]      = 0.25;
-		sizes[1]      = 0.25;
-		sizes[2]      = 0.25;
+		sizes[0]      = 0.4;
+		sizes[1]      = 0.2;
+		sizes[2]      = 0.1;
 
 		times[0]      = 0;
 		times[1]      = 0.75;
 		times[2]      = 1.0;
 	};
 
-	datablock ParticleEmitterData(MarbleBounceEmitter) 
-	{
-		ejectionPeriodMS = 80;
+	datablock ParticleEmitterData(MarbleBounceEmitter)	{
+		ejectionPeriodMS = 10;
 		periodVarianceMS = 0;
-		ejectionVelocity = 3.0;
+		ejectionVelocity = 6.0;
 		velocityVariance = 0.25;
 		thetaMin         = 80.0;
 		thetaMax         = 90.0;

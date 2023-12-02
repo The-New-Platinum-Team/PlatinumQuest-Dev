@@ -105,7 +105,7 @@ $pref::Audio::channelVolume7 = 0.5;
 $pref::Audio::channelVolume8 = 0.5;
 $pref::OOBVoice = 1;
 $pref::Audio::AutomaticAudio = true;
-$pref::Audio::AudioPack = "";
+$pref::Audio::AudioPack = "Marble Blasted";
 
 $Pref::EnableDirectInput = true;
 $Pref::Unix::OpenALFrequency = 44100;
@@ -132,7 +132,7 @@ $pref::Music::Songs["Game"]   = "Close To Water.ogg";
 //Graphics
 $pref::Snore = true;
 $pref::AnimatePreviews = true;
-$pref::LegacyItems = false;
+$pref::LegacyItems = true;
 $pref::ProfanityFilter = 2;
 $pref::DefaultSkybox = "platinum/data/skies_pq/Blender3/blender3.dml";
 $pref::FastMode = false;

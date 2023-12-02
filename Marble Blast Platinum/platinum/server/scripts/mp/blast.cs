@@ -313,13 +313,8 @@ function GameConnection::makeBlastParticle(%this, %gravity) {
 	%this.player.sendShockwave(%this.blastValue * (%this.usingSpecialBlast ? $MP::BlastRechargeShockwaveStrength : $MP::BlastShockwaveStrength), %this.usingSpecialBlast);
 
 	// get the blast particles
-	if (((Sky.materialList $= "platinum/data/skies_mbu/beginner/sky_beginner.dml") || (Sky.materialList $= "platinum/data/skies_mbu/intermediate/sky_intermediate.dml") || (Sky.materialList $= "platinum/data/skies_mbu/advanced/sky_advanced.dml")) && !$pref::LegacyItems) {
 		%this.player.unmountImage(0);
 		%this.mountSch = %this.player.schedule(25, "mountImage", BlastImage, 0); //This is so fucking scuffed but it works. - Daniel
 		%emitter = (%this.usingSpecialBlast ? MBUUltraBlastEmitter : MBUBlastEmitter);
 		%this.transferParticles(%emitter, false, %gravity);
-	} else {
-		%emitter = (%this.usingSpecialBlast ? UltraBlastEmitter : BlastEmitter);
-		%this.transferParticles(%emitter, false, %gravity);
-	}
 }

@@ -104,20 +104,11 @@ new SimGroup(MissionGroup) {
          center = "1";
          gravity = "0";
    };
-   new StaticShape() {
-      position = "182.5 -92.5 58";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BMFadePlatform2x2";
-         StartOffset = "0";
-         fadeStyle = "fade";
-         fadeinTime = "500";
-         fadeoutTime = "500";
-         functionality = "trapdoor";
-         invisibleTime = "4000";
-         permanent = "0";
-         skin = "base";
-         visibleTime = "500";
+   new TSStatic() {
+      position = "14.5 62.5 89.75";
+      rotation = "2.54789e-006 0.707108 -0.707106 180";
+      scale = "0.7 0.7 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
    };
    new SimGroup(MustChange_g) {
 
@@ -235,7 +226,7 @@ new SimGroup(MissionGroup) {
          timeBonus = "3000";
    };
    new Item() {
-      position = "162.5 -152.5 53.5";
+      position = "162.5 -152.5 45.5";
       rotation = "0 0 1 90.0002";
       scale = "4 1 1";
       dataBlock = "SuperSpeedItem_BMGate";
@@ -768,16 +759,17 @@ new SimGroup(MissionGroup) {
          value0 = "1";
          value1 = "18";
    };
-   new Item() {
-      position = "182.5 -92.5 58.5";
+   new Trigger(Repulsion) {
+      position = "177.5 -107.5 12.5";
       rotation = "1 0 0 0";
-      scale = "3 3 3";
-      dataBlock = "GemItemPurple_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noParticles = "0";
-         noRespawn = "0";
+      scale = "10 10 10";
+      dataBlock = "MarblePhysModTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         marbleAttribute0 = "bounceRestitution";
+         marbleAttribute1 = "jumpImpulse";
+         noEmitters = "1";
+         value0 = "1";
+         value1 = "23";
    };
    new TSStatic() {
       position = "-48.5 4.5 110";
@@ -822,9 +814,9 @@ new SimGroup(MissionGroup) {
          value1 = "26";
    };
    new Trigger(Repulsion) {
-      position = "180.5 -90.5 50.5";
+      position = "177.5 -67.5 14.5";
       rotation = "1 0 0 0";
-      scale = "4 4 0.5";
+      scale = "10 10 10";
       dataBlock = "MarblePhysModTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          marbleAttribute0 = "bounceRestitution";
@@ -834,7 +826,7 @@ new SimGroup(MissionGroup) {
          value1 = "23";
    };
    new Trigger(Repulsion) {
-      position = "143.5 -147.5 52.5";
+      position = "143.5 -147.5 44.5";
       rotation = "1 0 0 0";
       scale = "4 10 0.5";
       dataBlock = "MarblePhysModTrigger";
@@ -846,7 +838,7 @@ new SimGroup(MissionGroup) {
          value1 = "23";
    };
    new Trigger(Repulsion) {
-      position = "65.5 -149.5 62.5";
+      position = "65.5 -149.5 54.5";
       rotation = "1 0 0 0";
       scale = "4 6 0.5";
       dataBlock = "MarblePhysModTrigger";
@@ -1018,15 +1010,15 @@ new SimGroup(MissionGroup) {
       dataBlock = "WaterPlane";
    };
    new StaticShape() {
-      position = "183.5 -62.5 -9.5";
+      position = "183.5 -92.5 -3.5";
       rotation = "1 0 0 0";
-      scale = "2 9 1";
+      scale = "2 5 1";
       dataBlock = "WaterPlane";
    };
    new StaticShape() {
-      position = "183.5 -122 -3.5";
+      position = "183.5 -138.5 -3.5";
       rotation = "1 0 0 0";
-      scale = "2 8.5 1";
+      scale = "2 3 1";
       dataBlock = "WaterPlane";
    };
    new StaticShape() {
@@ -1096,19 +1088,19 @@ new SimGroup(MissionGroup) {
       shapeName = "~/data/shapes_bm/powerups/TimeTravelGate_icon4_bm.dts";
    };
    new TSStatic() {
-      position = "162.5 -149.5 53.5";
+      position = "162.5 -149.5 45.5";
       rotation = "0 0 1 90.0002";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new TSStatic() {
-      position = "162.5 -155.5 53.5";
+      position = "162.5 -155.5 45.5";
       rotation = "0 0 -1 89.9996";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/GateCorner_bm.dts";
    };
    new TSStatic() {
-      position = "162.5 -152.565 53.5";
+      position = "162.5 -152.565 45.5";
       rotation = "0 0 -1 90.0002";
       scale = "1 1 1";
       shapeName = "~/data/shapes_bm/powerups/SuperSpeedGate_icon_bm.dts";
@@ -1359,15 +1351,15 @@ new SimGroup(MissionGroup) {
    new Trigger(water) {
       position = "177.5 -35.5 -15.5";
       rotation = "1 0 0 0";
-      scale = "10 53 6";
+      scale = "10 42 6";
       dataBlock = "WaterPhysicsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          VelocityMultiplier = "0.5";
    };
    new Trigger(water) {
-      position = "177.5 -96.5 -15.5";
+      position = "177.5 -77.5 -15.5";
       rotation = "1 0 0 0";
-      scale = "10 61 12";
+      scale = "10 70 12";
       dataBlock = "WaterPhysicsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          VelocityMultiplier = "0.5";
@@ -1476,9 +1468,9 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new Trigger() {
-      position = "177.5 -96.5 -4.5";
+      position = "177.5 -77.5 -4.5";
       rotation = "1 0 0 0";
-      scale = "10 61 1";
+      scale = "10 70 1";
       dataBlock = "OutOfBoundsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          center = "1";
@@ -2135,13 +2127,13 @@ new SimGroup(MissionGroup) {
       shapeName = "~/data/shapes_bm/signs/bm_checkpointsign.dts";
    };
    new TSStatic() {
-      position = "55.5 -152.5 68.5";
+      position = "55.5 -152.5 62.5";
       rotation = "0.57735 0.577352 0.57735 240";
       scale = "0.5 0.5 1";
       shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
    };
    new TSStatic() {
-      position = "55.5 -152.5 70.25";
+      position = "55.5 -152.5 64.25";
       rotation = "0.57735 0.577352 0.57735 240";
       scale = "0.5 0.5 1";
       shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
@@ -2236,17 +2228,11 @@ new SimGroup(MissionGroup) {
       scale = "0.5 0.5 0.5";
       shapeName = "~/data/shapes_bm/signs/bm_hazardsign.dts";
    };
-   new Item() {
-      position = "185.5 -95.5 60.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "TimeTravelItem_BM";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "5";
-         timeBonus = "5000";
+   new TSStatic() {
+      position = "14.5 62.5 92.25";
+      rotation = "2.54789e-006 0.707108 -0.707106 180";
+      scale = "0.7 0.7 1";
+      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
    };
    new TSStatic() {
       position = "63.5 3.435 8.5";
@@ -2397,18 +2383,6 @@ new SimGroup(MissionGroup) {
       rotation = "-1 0 0 90.0002";
       scale = "1 1 1";
       dataBlock = "DuctFan_BM";
-   };
-   new TSStatic() {
-      position = "14.5 62.5 92.25";
-      rotation = "2.54789e-006 0.707108 -0.707106 180";
-      scale = "0.7 0.7 1";
-      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
-   };
-   new TSStatic() {
-      position = "14.5 62.5 89.75";
-      rotation = "2.54789e-006 0.707108 -0.707106 180";
-      scale = "0.7 0.7 1";
-      shapeName = "~/data/shapes_bm/signs/bm_chevron.dts";
    };
 };
 //--- OBJECT WRITE END ---

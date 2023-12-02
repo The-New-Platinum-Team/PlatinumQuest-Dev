@@ -268,7 +268,7 @@ datablock ItemData(SuperBounceItem_BMGate : SuperBounceItem) {
 };
 
 datablock ShapeBaseImageData(SuperBounceImage_BM : SuperBounceImage) {
-	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
+	shapeFile = "~/data/shapes_bm/images/glow_bounce.dts";
 };
 
 //-----------------------------------------------------------------------------
@@ -425,7 +425,7 @@ datablock ItemData(ShockAbsorberItem_BMGate : ShockAbsorberItem) {
 };
 
 datablock ShapeBaseImageData(ShockAbsorberImage_BM : ShockAbsorberImage) {
-	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
+	shapeFile = "~/data/shapes_bm/images/glow_shock.dts";
 };
 
 //-----------------------------------------------------------------------------
@@ -544,7 +544,9 @@ datablock ShapeBaseImageData(HelicopterImage_BM : ActualHelicopterImage) {
 	superCategory = "PowerUps";
 	category = "Blasted";
 	
-	shapeFile = "~/data/shapes/images/helicopter.dts";
+	shapeFile = "~/data/shapes_bm/images/glow_gyro.dts";
+	mountPoint = 0;
+    offset = "0 0 0";
 };
 
 // datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
@@ -1409,7 +1411,7 @@ datablock ItemData(NoRespawnAntiGravityItem_BM : NoRespawnAntiGravityItem) {
 	
 	shapeFile = "~/data/shapes_bm/Powerups/AntiGravity_bm.dts";
 
-	pickupName = "a Gravity Modifier!";
+	pickupName = "a Gravity Modifier.";
 };
 
 datablock ItemData(NoRespawnAntiGravityItem_BMGate : NoRespawnAntiGravityItem) {
@@ -1418,7 +1420,7 @@ datablock ItemData(NoRespawnAntiGravityItem_BMGate : NoRespawnAntiGravityItem) {
 	
 	shapeFile = "~/data/shapes_bm/Powerups/AntiGravityGate_bm.dts";
 
-	pickupName = "a Gravity Modifier!";
+	pickupName = "a Gravity Modifier.";
 };
 
 // datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {

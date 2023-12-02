@@ -210,7 +210,7 @@ function GameConnection::setCheckpointButton(%this, %object) {
 	if (%this.isOOB && %object.disableOOB)
 		return;
 
-	messageClient(%this, 'MsgCheckpoint', "\c0Checkpoint reached!");
+	messageClient(%this, 'MsgCheckpoint', "\c0Checkpoint!");
 	%this.playPitchedSound("checkpoint");
 
 	%this.setCheckpoint(%object, %object);
@@ -235,7 +235,7 @@ function GameConnection::setCheckpointTrigger(%this, %object) {
 	if (%this.isOOB && %respawnPoint.disableOOB)
 		return;
 
-	messageClient(%this, 'MsgCheckpoint', "\c0Checkpoint reached!");
+	messageClient(%this, 'MsgCheckpoint', "\c0Checkpoint!");
 	%this.playPitchedSound("checkpoint");
 
 	%this.setCheckpoint(%object, %respawnPoint);
