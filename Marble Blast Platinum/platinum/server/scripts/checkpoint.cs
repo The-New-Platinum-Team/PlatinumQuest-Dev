@@ -401,6 +401,10 @@ function GameConnection::respawnOnCheckpoint(%this) {
 	// Reset the player back to the last checkpoint
 	cancel(%this.respawnSchedule);
 
+	// Don't do this if we're spectating
+	if (%this.spectating)
+		return;
+		
 	if (%this.spawningBlocked()) {
 		error("Spawning blocked for client:" SPC %this);
 		%this.respawnSchedule = %this.schedule(300, "respawnOnCheckpoint");

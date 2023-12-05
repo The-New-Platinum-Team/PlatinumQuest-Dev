@@ -1679,19 +1679,6 @@ function PlayMissionGui::setGame(%this, %game) {
 		//No? Use the first difficulty we can find
 		%this.setMissionType(getField(getRecord(%this.getDifficultyList(%game), 0), 0));
 	}
-
-	if (mp()) {
-		%mode = %this.ml.getGameMode(%game);
-		%modeInfo = getModeInfo(%mode);
-
-		$MP::CurrentMode = %mode;
-		$MP::CurrentModeInfo = %modeInfo;
-
-		if (isObject(%modeInfo) && !%modeInfo.teams && $Server::Hosting) {
-			echo("Disable teams mode because the game " @ %game @ " forces mode " @ %mode @ " that does not support it.");
-			%this.setTeamsMode(false);
-		}
-	}
 	if (!lb()) {
 		%this.setBarButtonActive(PM_MissionAchievements, $CurrentGame $= "PlatinumQuest");
 		%this.setBarButtonActive(PM_MissionStatistics, ($CurrentGame !$= "Custom" && $CurrentGame !$= "Hunt"));

@@ -1,7 +1,9 @@
 //-----------------------------------------------------------------------------
-// Free mode
+// Free World mode
 //
-// Copyright (c) 2015 The Platinum Team
+// Originally created in 2013
+//
+// Copyright (c) 2023 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -30,36 +32,31 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_free) {
 	file = "free";
 
 	name = "Free World";
-	desc = "Take your time and explore the levels, there are no gems and no timers here.";
+	desc = "Take your time and explore the level, there are no gems and no timers here.";
 	complete = 1;
-
-	teams = 0;
-	hide = 1;
 });
 
 
 function ClientMode_free::onLoad(%this) {
-	%this.registerCallback("onShowPlayGui");
 	%this.registerCallback("shouldUpdateGems");
 	%this.registerCallback("updateControls");
 	%this.registerCallback("timeMultiplier");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
-function ClientMode_free::onShowPlayGui(%this) {
-	PGScoreListContainer.setVisible(false);
-}
 function ClientMode_free::shouldUpdateGems(%this) {
+	//No timer or gem counter
 	PG_Timer.setVisible(false);
 	PG_TimerThousands.setVisible(false);
 	PG_GemCounter.setVisible(false);
 	return false;
 }
 function ClientMode_free::updateControls(%this) {
+	//No timer or gem counter
 	PG_Timer.setVisible(false);
 	PG_TimerThousands.setVisible(false);
 	PG_GemCounter.setVisible(false);
 }
 function ClientMode_free::timeMultiplier(%this) {
+	//ooooh 0x time multiplier
 	return 0;
 }
-

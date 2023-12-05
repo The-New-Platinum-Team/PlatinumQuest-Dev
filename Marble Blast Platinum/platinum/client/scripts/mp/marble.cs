@@ -266,23 +266,33 @@ function clientCmdClientPowerUp(%index, %id) {
 }
 
 function Marble::getVertexShader(%this) {
+	%datablock = %this.getDataBlock().getName();
+	if (%datablock $= "SeekerMarble" || %datablock $= "NullMarble") {
+		return "";
+	}
 	if (mp()) {
 		%player = PlayerList.getEntryByVariable("player", %this);
 		%selection = %player.marble;
 	} else {
 		%selection = MarbleSelectDlg.getSelection();
 	}
+
 	//%shapeFile TAB %marbleSkin TAB %shapeNormalSize TAB %shaderV TAB %shaderF;
 	return (getFieldCount(%selection) > 2 ? getField(%selection, 3) : "");
 }
 
 function Marble::getFragmentShader(%this) {
+	%datablock = %this.getDataBlock().getName();
+	if (%datablock $= "SeekerMarble" || %datablock $= "NullMarble") {
+		return "";
+	}
 	if (mp()) {
 		%player = PlayerList.getEntryByVariable("player", %this);
 		%selection = %player.marble;
 	} else {
 		%selection = MarbleSelectDlg.getSelection();
 	}
+
 	//%shapeFile TAB %marbleSkin TAB %shapeNormalSize TAB %shaderV TAB %shaderF;
 	return (getFieldCount(%selection) > 3 ? getField(%selection, 4) : "");
 }

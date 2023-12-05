@@ -179,13 +179,17 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addTimeEditField("EMI_Elimination_EliminationTime", "Time Before Elimination:", MissionInfo.eliminationTime, 100, -1);
 	}
 	if (%use["seek"]) {
-		LargeFunctionDlg.addNote("\c4----------- Seek -----------");
-		LargeFunctionDlg.addTimeEditField("EMI_Seek_GraceTime", "Grace Period Time:", MissionInfo.graceTime, 100, -1);
+		LargeFunctionDlg.addNote("\c4----------- Hide and Seek -----------");
 		LargeFunctionDlg.addTimeEditField("EMI_Seek_HideTime", "Hide Time:", MissionInfo.hideTime, 100, -1);
 	}
 	if (%use["tag"]) {
 		LargeFunctionDlg.addNote("\c4----------- Tag -----------");
-		LargeFunctionDlg.addTextEditField("EMI_Elimination_TagRadius", "Tag Radius:", MissionInfo.tagRadius, 100, -1);
+		LargeFunctionDlg.addCheckBox("EMI_Tag_CampMode", "Camp Mode:", MissionInfo.campMode, 0);
+	}
+	if (%use["props"]) {
+		LargeFunctionDlg.addNote("\c4----------- Prop Hunt -----------");
+		LargeFunctionDlg.addTimeEditField("EMI_Props_DisguiseTime", "Disguise Time:", MissionInfo.disguiseTime, 100, -1);
+		LargeFunctionDlg.addTextEditField("EMI_Props_DefaultProp", "Default Prop:", MissionInfo.defaultProp, 100, -1);
 	}
 	if (%use["spooky"]) {
 		LargeFunctionDlg.addNote("\c4----------- Halloween Event -----------");
@@ -279,7 +283,7 @@ function EMI_replaceGameModes(%newMode, %on) {
 	}
 	%mode = trim(%mode);
 	MissionInfo.gameMode = %mode;
-	setClientGameModes(%mode);
+	setGameModes(%mode);
 
 	for (%i = 0; %i < ModeInfoGroup.getCount(); %i ++) {
 		%info = ModeInfoGroup.getObject(%i);
@@ -372,10 +376,12 @@ function editMissionInfo(%gui) {
 
 	miAssign(eliminationTime, EMI_Elimination_EliminationTime, $Game::isMode["elimination"]);
 
-	miAssign(graceTime, EMI_Seek_GraceTime, $Game::isMode["seek"]);
 	miAssign(hideTime, EMI_Seek_HideTime, $Game::isMode["seek"]);
 
-	miAssign(tagRadius, EMI_Elimination_TagRadius, $Game::isMode["tag"]);
+	miAssign(campMode, EMI_Tag_CampMode, $Game::isMode["tag"]);
+
+	miAssign(disguiseTime, EMI_Props_DisguiseTime, $Game::isMode["props"]);
+	miAssign(defaultProp, EMI_Props_DefaultProp, $Game::isMode["props"]);
 
 	miAssign(ghostsPerPlayer, EMI_Spooky_GhostsPerPlayer, $Game::isMode["spooky"]);
 

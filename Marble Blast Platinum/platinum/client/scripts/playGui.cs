@@ -463,7 +463,7 @@ function PlayGui::updateGems(%this, %updateMax) {
 }
 
 //-----------------------------------------------------------------------------
-// Bars
+// Blast
 
 function PlayGui::setBlastValue(%this, %value) {
 	%this.blastValue = %value;
@@ -471,12 +471,12 @@ function PlayGui::setBlastValue(%this, %value) {
 }
 
 function PlayGui::updateBlastBar(%this) {
-	//Empty: 5 5 0   17
-	//Full:  5 5 110 17
-	//Partial: 5 5 (total * 110) 17
-	PG_BlastFill.resize(5, 5, %this.blastValue * 110, 17);
+	//Empty: 5 25 0   17
+	//Full:  5 25 110 17
+	//Partial: 5 25 (total * 110) 17
+	PG_BlastFill.resize(5, 25, %this.blastValue * 110, 17);
 	%oldBitmap = PG_BlastFrame.bitmap;
-	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast))
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::TripleBlast))
 		%newBitmap = $usermods @ "/client/ui/game/blastbar_triple";
 	else
 		%newBitmap = $usermods @ "/client/ui/game/blastbar";
@@ -491,14 +491,58 @@ function PlayGui::updateBlastBar(%this) {
 		%newBitmap = %newBitmap @ "green";
 	else
 		%newBitmap = %newBitmap @ "gray";
-	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast))
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::TripleBlast))
 		%newBitmap = $usermods @ "/client/ui/game/blastbar_bar" @ "triple";
 	if (%oldBitmap !$= %newBitmap)
 		PG_BlastFill.setBitmap(%newBitmap);
 
 	// Blast bar is hidden if we spectate.
-	PG_BlastBar.setVisible(!$SpectateMode && shouldEnableBlast());
+	%show = !$SpectateMode && shouldEnableBlast();
+	PG_BlastBar.setVisible(%show);
+	if (%show) 
+		%this.updateBlastIndicator();
 }
+
+function PlayGui::updateBlastIndicator(%this) {
+	if (!mp() || !isObject($MP::MyMarble) || ClientMode::callback("disableBlastIndicator", false)) {
+		PG_BlastIndicator1.setVisible(false);
+		PG_BlastIndicator2.setVisible(false);
+		PG_BlastIndicator3.setVisible(false);
+		PG_BlastIndicator4.setVisible(false);
+		PG_BlastIndicator5.setVisible(false);
+		return;
+	}
+	%inRange = 0;
+	%radius = ($MP::SpecialBlast ? $MP::BlastRechargeShockwaveStrength : ($MP::TripleBlast ? $MP::TripleBlastShockwaveStrength : $MP::BlastValue * $MP::BlastShockwaveStrength));
+	if ($Game::isMode["tag"] || $Game::isMode["steal"])
+		%radius = ($MP::SpecialBlast ? 10 : ($MP::TripleBlast ? 3 : $MP::BlastValue * 7.5));
+	if ($MP::BlastValue > $MP::BlastRequiredAmount) {
+		for (%i = 0; %i < PlayerList.getSize(); %i++) {
+			%opponent = PlayerList.getEntry(%i).player;
+			if (!isObject(%opponent) || %opponent == $MP::MyMarble)
+				continue;
+			if (vectorDist(%opponent.getWorldBoxCenter(), $MP::MyMarble.getWorldBoxCenter()) < %radius)
+				%inRange ++;
+		}
+	}
+
+	PG_BlastIndicator1.setVisible(%inRange >= 1);
+	PG_BlastIndicator2.setVisible(%inRange >= 2);
+	PG_BlastIndicator3.setVisible(%inRange >= 3);
+	PG_BlastIndicator4.setVisible(%inRange >= 4);
+	PG_BlastIndicator5.setVisible(%inRange >= 5);
+
+	if (%inRange > 0) {
+		PG_BlastIndicator1.bitmapColor = ($MP::SpecialBlast ? "255 208 71 255" : ($MP::TripleBlast ? "9 255 246 255" : "134 214 51 255"));
+		PG_BlastIndicator2.bitmapColor = ($MP::SpecialBlast ? "255 208 71 255" : ($MP::TripleBlast ? "9 255 246 255" : "134 214 51 255"));
+		PG_BlastIndicator3.bitmapColor = ($MP::SpecialBlast ? "255 208 71 255" : ($MP::TripleBlast ? "9 255 246 255" : "134 214 51 255"));
+		PG_BlastIndicator4.bitmapColor = ($MP::SpecialBlast ? "255 208 71 255" : ($MP::TripleBlast ? "9 255 246 255" : "134 214 51 255"));
+		PG_BlastIndicator5.bitmapColor = ($MP::SpecialBlast ? "255 208 71 255" : ($MP::TripleBlast ? "9 255 246 255" : "134 214 51 255"));
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Bars
 
 function PlayGui::updateBubbleBar(%this) {
 	if ($Game::BubbleInfinite) {
@@ -572,7 +616,15 @@ function specialBarFor(%id) {
 		return expandFilename("~/client/ui/game/specials/transporterbar");
 	} else if (%id == 696969) { // Teleport (not item, 696969 is dummy value)
 		return expandFilename("~/client/ui/game/specials/teleporttriggerbar");
+
+	} else if (%id == 100) { //Rainbow Gem effect
+		return expandFilename("~/client/ui/game/specials/PSrainbow");
+	} else if (%id == 101) { //Black Gem effect
+		return expandFilename("~/client/ui/game/specials/PSblack");
+	} else if (%id == 102) { //White Gem effect
+		return expandFilename("~/client/ui/game/specials/PSwhite");
 	}
+
 	return expandFilename("~/client/ui/game/specials/gray");
 }
 
@@ -787,7 +839,7 @@ function PlayGui::refreshRed(%this) {
 
 					if (!$PlayTimerAlarmText) {
 						%seconds = ($PlayTimerAlarmStartTime / 1000);
-						addBubbleLine("You have " @ %seconds SPC (%seconds == 1 ? "second" : "seconds") SPC "left.", false, 5000);
+						addBubbleLine(($SpectateMode ? "There " @ (%seconds == 1 ? "is " : "are ") : "You have ") @ %seconds SPC (%seconds == 1 ? "second" : "seconds") SPC "left.", false, 5000);
 						$PlayTimerAlarmText = true;
 					}
 
@@ -796,7 +848,7 @@ function PlayGui::refreshRed(%this) {
 					if (alxIsPlaying($PlayTimerAlarmHandle))
 						alxStop($PlayTimerAlarmHandle);
 
-					if (!$PlayTimerFailedText) {
+					if (!$PlayTimerFailedText && !$Game::isMode["race"]) {
 						addBubbleLine("The clock has passed the Par Time.", false, 5000);
 						playPitchedSound("alarm_timeout");
 						$PlayTimerFailedText = true;
@@ -811,7 +863,7 @@ function PlayGui::refreshRed(%this) {
 
 					if (!$PlayTimerAlarmText) {
 						%seconds = ($PlayTimerAlarmStartTime / 1000);
-						addBubbleLine("You have " @ %seconds SPC (%seconds == 1 ? "second" : "seconds") SPC "left.", false, 5000);
+						addBubbleLine(($SpectateMode ? "There " @ (%seconds == 1 ? "is " : "are ") : "You have ") @ %seconds SPC (%seconds == 1 ? "second" : "seconds") SPC "left.", false, 5000);
 						$PlayTimerAlarmText = true;
 					}
 					$PlayTimerColor = (((%this.currentTime / 1000) % 2) ? $TimeColor["danger"] : $TimeColor["normal"]);

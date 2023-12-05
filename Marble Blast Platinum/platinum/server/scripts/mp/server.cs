@@ -185,21 +185,36 @@ function updateScores() {
 }
 
 function dumpScores() {
-	echo("Scores Update:");
-	%count = ClientGroup.getCount();
+	if (!Mode::callback("shouldDumpScores", true))
+		return;
+		
+	if (Mode::callback("shouldUseTimeScoreboard", false)) {
+		echo("Times Update:");
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			%client = ClientGroup.getObject(%i);
+			if (isRealClient(%client) && !%client.connected)
+				continue;
+			echo(%client.getDisplayName() @ ":" SPC (%client.finalTime < 0 ? "N/A" : formatTime(%client.finalTime)));
+		}
+	} else {
+		echo("Scores Update:");
+		%count = ClientGroup.getCount();
 
-	for (%i = 0; %i < %count; %i ++) {
-		%client = ClientGroup.getObject(%i);
-		if (isRealClient(%client) && !%client.connected)
-			continue;
-		%score = %client.gemCount;
-		echo(%client.getUsername() @ ":" SPC %score SPC "(" @ %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10] @ ")");
+		for (%i = 0; %i < %count; %i ++) {
+			%client = ClientGroup.getObject(%i);
+			if (isRealClient(%client) && !%client.connected)
+				continue;
+			%score = %client.gemCount;
+			echo(%client.getDisplayName() @ ":" SPC %score SPC "(" @ %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10] @ ")");
+		}
 	}
 }
 
 function GameConnection::updateScores(%this) {
 	if ($Server::ServerType $= "SinglePlayer")
 		return;
+		
+	%timeScores = Mode::callback("shouldUseTimeScoreboard", false);
 
 	// We need to send different things if we're in different modes
 	if ($MP::TeamMode) {
@@ -214,17 +229,30 @@ function GameConnection::updateScores(%this) {
 
 			// Calculate group score from all players
 			%players = %team.getCount();
-			for (%j = 0; %j < %players; %j ++)
-				%total += %team.getObject(%j).gemCount;
+			if (%timeScores) {
+				//Find the best player
+				%total = 6000001;
+				for (%i = 0; %i < %team.getCount(); %i ++) {
+					%client = %team.getObject(%i);
+					if (%client.finalTime < %total)
+						%total = %client.finalTime;
+				}
+			} else {
+				for (%j = 0; %j < %players; %j ++)
+					%total += %team.getObject(%j).gemCount;
+			}
 
 			%playerList = "";
 
 			// Send player scores from the team
 			for (%j = 0; %j < %players; %j ++) {
 				%client = %team.getObject(%j);
-				%score = %client.gemCount;
-				%skinChoice = %client.skinChoice;
+				%score = %timeScores ? %client.finalTime : %client.gemCount;
 				%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
+				%skinChoice = Mode::callback("getPlayerListSkin", %client.skinChoice, new ScriptObject() {
+					client = %client;
+					_delete = true;			
+				});
 
 				%rec = expandEscape(%client.getUsername())
 					TAB %score
@@ -265,14 +293,18 @@ function GameConnection::updateScores(%this) {
 			%client = %set.getObject(%i);
 			if (isRealClient(%client) && !%client.connected)
 				continue;
-			%score = %client.gemCount;
+			%score = %timeScores ? %client.finalTime : %client.gemCount;
 			%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
+			%skinChoice = Mode::callback("getPlayerListSkin", %client.skinChoice, new ScriptObject() {
+				client = %client;
+				_delete = true;			
+			});
 
 			%record = expandEscape(%client.getUsername())
 				TAB %score
 				TAB %gems
 				TAB %client.index
-				TAB expandEscape(%client.skinChoice)
+				TAB expandEscape(%skinChoice)
 				TAB %client.totalBonus
 			;
 
@@ -288,6 +320,7 @@ function GameConnection::updateScores(%this) {
 }
 
 function updateSingleScore(%client) {
+	%timeScores = Mode::callback("shouldUseTimeScoreboard", false);
 	// We need to send different things if we're in different modes
 	if ($MP::TeamMode) {
 		// Send a team total, and then player scores for that team
@@ -296,20 +329,34 @@ function updateSingleScore(%client) {
 
 		// Calculate group score from all players
 		%players = %team.getCount();
-		for (%j = 0; %j < %players; %j ++)
-			%score += %team.getObject(%j).gemCount;
+		if (%timeScores) {
+			//Find the best player
+			%score = 6000001;
+			for (%i = 0; %i < %team.getCount(); %i ++) {
+				%client = %team.getObject(%i);
+				if (%client.finalTime < %score)
+					%score = %client.finalTime;
+			}
+		} else {
+			for (%j = 0; %j < %players; %j ++)
+				%score += %team.getObject(%j).gemCount;
+		}
 
 		commandToAll('ScoreListTeamUpdate', Team::getTeamName(%team), %score, %team.number, %team.color);
 
 		// Send player scores from the team
-		%score = %client.gemCount;
-		%skinChoice = %client.skinChoice;
+		%score = %timeScores ? %client.finalTime : %client.gemCount;
 		%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
+		%skinChoice = Mode::callback("getPlayerListSkin", %client.skinChoice, new ScriptObject() {
+			client = %client;
+			_delete = true;			
+		});
+
 		//echo("Skin choice is" SPC %skinChoice);
 		commandToAll('ScoreListTeamPlayerUpdate', Team::getTeamName(%team), %client.getUsername(), %score, %client.index, %skinChoice, %gems);
 		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus);
 	} else {
-		%score = %client.gemCount;
+		%score = %timeScores ? %client.finalTime : %client.gemCount;
 		%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
 		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus);
 	}
@@ -318,6 +365,64 @@ function updateSingleScore(%client) {
 // Compare everyone's scores and get a client's current place in the game
 function FakeGameConnection::getPlace(%this) {
 	%place = 1;
+
+	if (Mode::callback("shouldUseTimeScoreboard", false)) {
+		if ($MP::TeamMode) {
+			//Find the best player
+			%teamscore = 6000001;
+			for (%i = 0; %i < %this.team.getCount(); %i ++) {
+				%client = %this.team.getObject(%i);
+				if (%client.finalTime < %score)
+					%teamscore = %client.finalTime;
+			}
+			for (%j = 0; %j < %players; %j ++)
+				%totalscore += %this.team.getObject(%j).gemCount;
+			if (%teamscore == 6000001) {
+				%teamscore = %totalscore;
+				%useGemCount = true;
+			}
+			for (%i = 0; %i < TeamGroup.getCount(); %i ++) {
+				%team = TeamGroup.getObject(%i);
+				%players = %team.getCount();
+				//Find the best player
+				%score = 6000001;
+				if (%useGemCount) {
+					for (%j = 0; %j < %players; %j ++) {
+						%client = %team.getObject(%j);
+						if (%client.finalTime < 6000000) {
+							%hasTime = true;
+							break;
+						}
+						%score += %team.getObject(%j).gemCount;
+					}
+					if (%hasTime)
+						continue;
+				} else {
+					for (%j = 0; %j < %players; %j ++) {
+						%client = %team.getObject(%j);
+						if (%client.finalTime < %score)
+							%score = %client.finalTime;
+					}
+				}
+				if (%team.getId() == %this.team.getId())
+					continue;
+				if (%score > %teamscore)
+					%place ++;
+			}
+		} else {
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%player = ClientGroup.getObject(%i);
+				if (%player.getId() == %this.getId())
+					continue;
+
+				if (%player.finalTime < %this.finalTime)
+					%place ++; 	
+				else if (%player.gemCount < %this.gemCount) 
+					%place ++;
+			}
+		}
+		return %place;
+	}
 
 	if ($MP::TeamMode) {
 		// Calculate group score from all players
@@ -343,6 +448,7 @@ function FakeGameConnection::getPlace(%this) {
 			%player = ClientGroup.getObject(%i);
 			if (%player.getId() == %this.getId())
 				continue;
+
 			if (%player.gemCount > %this.gemCount)
 				%place ++;
 		}
@@ -354,6 +460,64 @@ function FakeGameConnection::getPlace(%this) {
 // Compare everyone's scores and get a client's current place in the game
 function GameConnection::getPlace(%this) {
 	%place = 1;
+
+	if (Mode::callback("shouldUseTimeScoreboard", false)) {
+		if ($MP::TeamMode) {
+			//Find the best player
+			%teamscore = 6000001;
+			for (%i = 0; %i < %this.team.getCount(); %i ++) {
+				%client = %this.team.getObject(%i);
+				if (%client.finalTime < %score)
+					%teamscore = %client.finalTime;
+			}
+			for (%j = 0; %j < %players; %j ++)
+				%totalscore += %this.team.getObject(%j).gemCount;
+			if (%teamscore == 6000001) {
+				%teamscore = %totalscore;
+				%useGemCount = true;
+			}
+			for (%i = 0; %i < TeamGroup.getCount(); %i ++) {
+				%team = TeamGroup.getObject(%i);
+				%players = %team.getCount();
+				//Find the best player
+				%score = 6000001;
+				if (%useGemCount) {
+					for (%j = 0; %j < %players; %j ++) {
+						%client = %team.getObject(%j);
+						if (%client.finalTime < 6000000) {
+							%hasTime = true;
+							break;
+						}
+						%score += %team.getObject(%j).gemCount;
+					}
+					if (%hasTime)
+						continue;
+				} else {
+					for (%j = 0; %j < %players; %j ++) {
+						%client = %team.getObject(%j);
+						if (%client.finalTime < %score)
+							%score = %client.finalTime;
+					}
+				}
+				if (%team.getId() == %this.team.getId())
+					continue;
+				if (%score > %teamscore)
+					%place ++;
+			}
+		} else {
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%player = ClientGroup.getObject(%i);
+				if (%player.getId() == %this.getId())
+					continue;
+
+				if (%player.finalTime < %this.finalTime)
+					%place ++; 	
+				else if (%player.gemCount < %this.gemCount) 
+					%place ++;
+			}
+		}
+		return %place;
+	}
 
 	if ($MP::TeamMode) {
 		return Team::getTeamPlace(%this.team);

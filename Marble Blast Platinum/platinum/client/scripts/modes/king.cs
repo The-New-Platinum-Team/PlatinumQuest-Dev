@@ -32,8 +32,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_king) {
 	name = "King of the Hill";
 	desc = "Assert your dominance and stand your ground as king of the hill!";
 	complete = 1;
-
-	teams = 1;
 });
 
 

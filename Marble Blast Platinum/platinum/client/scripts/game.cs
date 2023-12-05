@@ -892,35 +892,6 @@ function getScoreFormatting(%score, %info, %showAwesome, %placement) {
 
 //-----------------------------------------------------------------------------
 
-function formatTime(%time, %tab) {
-	%isNeg = (%tab ? "\t" : "");
-	if (%time < 0) {
-		%time = -%time;
-		%isNeg = (%tab ? "\t-" : "-");
-	}
-	%hundredth = div64_int(mod64_int(%time, 1000), 10);
-	%totalSeconds = div64_int(%time, 1000);
-	%seconds = %totalSeconds % 60;
-	%minutes = (%totalSeconds - %seconds) / 60;
-
-	%secondsOne   = %seconds % 10;
-	%secondsTen   = (%seconds - %secondsOne) / 10;
-	%minutesOne   = %minutes % 10;
-	%minutesTen   = (%minutes - %minutesOne) / 10;
-	%hundredthOne = %hundredth % 10;
-	%hundredthTen = (%hundredth - %hundredthOne) / 10;
-
-	if ($pref::Thousandths) {
-		return %isNeg @ %minutesTen @ %minutesOne @ ":" @
-		       %secondsTen @ %secondsOne @ "." @
-		       %hundredthTen @ %hundredthOne @(%time % 10);
-	} else {
-		return %isNeg @ %minutesTen @ %minutesOne @ ":" @
-		       %secondsTen @ %secondsOne @ "." @
-		       %hundredthTen @ %hundredthOne;
-	}
-}
-
 function formatTimeSeconds(%time, %tab) {
 	%isNeg = (%tab ? "\t" : "");
 	if (%time < 0) {
@@ -1015,27 +986,6 @@ function ActionMap::isPushed(%this) {
 			return true;
 	}
 	return false;
-}
-
-function formatCommas(%number) {
-	%fin = "";
-	%c = -1;
-	for (%i = strlen(%number); %i >= 0; %i --) {
-		if (strPos("0123456789", getSubStr(%number, %i, 1)) == -1) {
-			%fin = getSubStr(%number, %i, 1) @ %fin;
-			continue;
-		}
-
-		if (%c % 3 == 0 && %c > 0)
-			%fin = "," @ %fin;
-		%fin = getSubStr(%number, %i, 1) @ %fin;
-		%c ++;
-	}
-	return %fin;
-}
-
-function formatScore(%score, %tab) {
-	return (%tab ? "\t" : "") @ formatCommas(%score);
 }
 
 function formatRating(%rating) {

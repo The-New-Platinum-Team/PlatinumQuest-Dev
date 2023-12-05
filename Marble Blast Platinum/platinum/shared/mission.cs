@@ -513,8 +513,14 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 			%modes = %modes SPC "ghosts";
 		if ($MP::Server::SnowballsOnly && $MP::CurrentModeInfo.identifier $= "snowball")
 			%modes = %modes SPC "snowballsonly";
-		// if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
-		// 	%modes = %modes SPC "steal";
+		if ($MPPref::Server::PartySpawns || $MP::Client::ServerSetting["PartySpawns"])
+			%modes = %modes SPC "partyspawns";
+		if ($MPPref::Server::Gravitex || $MP::Client::ServerSetting["Gravitex"])
+			%modes = %modes SPC "gravitex";
+		if ($MPPref::Server::Elimination || $MP::Client::ServerSetting["Elimination"])
+			%modes = %modes SPC "elimination";
+		if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
+			%modes = %modes SPC "steal";
 		if (findWord(%modes, "hunt") != -1 && findWord(%modes, "coop") == -1 && $MP::Client::ServerSetting["CompetitiveMode"])
 			%modes = %modes SPC "competitive";
 	}

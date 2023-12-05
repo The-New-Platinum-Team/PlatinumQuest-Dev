@@ -31,8 +31,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_snowball) {
 
 	name = "Holiday Snow";
 	desc = "Feel the freeze and steal points by shooting other players with snowballs!";
-
-	teams = 1;
 });
 
 function ModeInfo_snowball::isAvailable(%this) {

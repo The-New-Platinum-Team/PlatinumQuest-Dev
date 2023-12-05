@@ -54,7 +54,7 @@ function Mode_GemMadness::shouldStoreGem(%this, %object) {
 	unspawnGem(%object.obj);
 	$Game::GemCount --;
 
-	%object.user.client.displayGemMessage("+" @(%object.obj._huntDatablock.huntExtraValue + 1), %object.obj._huntDatablock.messageColor);
+	%object.user.client.displayGemMessage((%object.obj._huntDatablock.huntExtraValue + 1 >= 0 ? "+" : "") @ (%object.obj._huntDatablock.huntExtraValue + 1), %object.obj._huntDatablock.messageColor);
 
 	commandToAll('UseTimeScore', ($Game::GemCount == 0));
 	if ($Game::GemCount == 0) {

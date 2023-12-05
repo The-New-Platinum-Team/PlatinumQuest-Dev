@@ -23,7 +23,6 @@
 //-----------------------------------------------------------------------------
 
 function Mode_king::onLoad(%this) {
-	%this.registerCallback("onMissionReset");
 	%this.registerCallback("onFoundGem");
 	%this.registerCallback("getStartTime");
 	%this.registerCallback("shouldResetTime");
@@ -32,10 +31,9 @@ function Mode_king::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
+	%this.registerCallback("enableMarbleCollisions");
+	%this.registerCallback("shouldRestorePowerup");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
-}
-function Mode_king::onMissionReset(%this) {
-	MPupdateCollisionKing();
 }
 function Mode_king::onFoundGem(%this, %object) {
 //	%object.client.playPitchedSound("gotDiamond");
@@ -61,6 +59,15 @@ function Mode_king::getFinalScore(%this, %object) {
 function Mode_king::timeMultiplier(%this) {
 	return -1;
 }
+function Mode_king::enableMarbleCollisions(%this) {
+	return true;
+}
+function Mode_king::shouldRestorePowerup(%this) {
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+
 function GameConnection::enterKingTrigger(%this, %trigger) {
 	%this.kingTrigger = %trigger;
 	%this.updateKingTrigger();
@@ -78,18 +85,22 @@ function GameConnection::updateKingTrigger(%this) {
 				if (%this.tempPoints > 1) {
 					%points = mFloor(%this.tempPoints);
 					%this.tempPoints -= %points;
-					%this.onFoundGem(%points);
+					%this.gemCount += %points;
+					%this.setGemCount(%this.getGemCount());
+					updateSingleScore(%this);
 				}
 			} else {
-				%this.onFoundGem(%points);
+				%this.gemCount += %points;
+				%this.setGemCount(%this.getGemCount());
+				updateSingleScore(%this);
 			}
 		} else {
-			if (%this.gemCount > 0) {
-				%this.gemCount -= 1;
-				%this.setGemCount(%this.getGemCount());
-			}
+			//if (%this.gemCount > 0) {
+				//%this.gemCount -= 1;
+				//%this.setGemCount(%this.getGemCount());
+				//updateSingleScore(%this);
+			//}
 		}
-		updateScores();
 		%this.kingSchedule = %this.schedule(1000, "updateKingTrigger");
 	}
 }
@@ -206,151 +217,4 @@ function KingTrigger::onLeaveTrigger(%this, %trigger, %obj) {
 	%obj.client.leaveKingTrigger(%trigger);
 	messageClient(%obj.client, 'MsgKTrigTwo', "You have exited the King Trigger!");
 	%obj.client.playPitchedSound("missinggems");
-}
-
-//-----------------------------------------------------------------------------
-//Marble collision stuff
-//TODO: Make this a mode callback and a toggle for levels
-function MPupdateCollisionKing() {
-	cancel($MP::Schedule::CollisionKing);
-	if ($Server::Dedicated && getRealPlayerCount() == 0)
-		return;
-
-	if (!$Server::Hosting || $Server::_Dedicated || $Server::ServerType $= "SinglePlayer")
-		return;
-
-	//just in case
-	if (!$Game::isMode["king"]) {
-		MPupdateGhostCollision();
-		return;
-	}
-
-	cancel($MP::Schedule::Collision);
-
-	%count = ClientGroup.getCount();
-	for (%i = 0; %i < %count; %i ++) {
-		%client = ClientGroup.getObject(%i);
-		if (!isObject(%client.player))
-			continue;
-		%player = %client.player;
-		if (isObject(%player)) {
-			%datablock1 = %client.player.getDatablock();
-			%pos_p = %client.player.getPosition();
-			for (%j = 0; %j < %count; %j ++) {
-				if (%j == %i)
-					continue;
-				%clientJ = ClientGroup.getObject(%j);
-				if (!isObject(%clientJ.player))
-					continue;
-
-				%datablock2 = %clientJ.player.getDatablock();
-				%pos_o = %clientJ.player.getPosition();
-
-				%mega1 = %client.isMegaMarble();
-				%mega2 = %clientJ.isMegaMarble();
-
-				%dist = VectorDist(%pos_p, %pos_o);
-				%d2 = %dist - ((%client.player.getCollisionRadius() - %clientJ.player.getCollisionRadius()) / 2);
-
-				%dist -= %datablock1.impactRadius[%mega1];
-
-				%dist -= %datablock1.impactRadius[%mega2];
-				
-				if (%dist < 0) {
-
-					if (%client.lastCollision == %clientJ)
-						continue;
-					if (%clientJ.lastCollision == %client)
-						continue;
-					if (%client.lastColTime[%clientJ] !$= "" && %client.lastColTime[%clientJ] + 1000 > getRealTime())
-						continue;
-					if (%clientJ.lastColTime[%client] !$= "" && %clientJ.lastColTime[%client] + 1000 > getRealTime())
-						continue;
-
-					//This line is what disables regular marble collisions normally
-					//if (!%mega1 && !%mega2)
-						//continue;
-
-					if ((%mega1 == %mega2 && VectorLen(%client.player.getVelocity()) < VectorLen(%clientJ.player.getVelocity())) || (%mega2 && !%mega1))
-						continue;
-
-					%skip = false;
-					if (%client.noCol) {
-						%client.noCol --;
-						%skip = true;
-					}
-					if (%clientJ.noCol) {
-						%clientJ.noCol --;
-						%skip = true;
-					}
-					if (%skip)
-						continue;
-
-					%client.lastCollision = %clientJ;
-					%clientJ.lastCollision = %client;
-					%client.lastColTime[%clientJ] = getRealTime();
-					%clientJ.lastColTime[%client] = getRealTime();
-
-					%maximum  = %datablock1.impactMaximum[%mega1];
-					%maximum2 = %datablock2.impactMaximum[%mega2];
-
-					%multiplier  = %datablock1.impactMultiplier[%mega1];
-					%multiplier2 = %datablock2.impactMultiplier[%mega2];
-
-					%reduction  = %datablock1.impactReduction[%mega1];
-					%reduction2 = %datablock2.impactReduction[%mega2];
-					
-
-					%bSpeed = VectorLen(%client.player.getVelocity()) + (VectorLen(%clientJ.player.getVelocity()) * %datablock1.impactBounceBack[%mega1]);
-
-					%source  = VectorSub(%pos_o, %pos_p);
-					%source2 = VectorSub(%pos_p, %pos_o);
-
-					%affect = %source;
-					%affect2 = %source2;
-
-					%affection  = min(%bSpeed * %multiplier,  %maximum);
-					%affection2 = min(%bSpeed * %multiplier2, %maximum2);
-
-					if ($MP::TeamMode && isObject(%clientJ.team) && isObject(%client.team)) {
-						if (%clientJ.team.getId() == %client.team.getId()) {
-							%affection  /= $MP::CollisionTeamDampen;
-							%affection2 /= $MP::CollisionTeamDampen;
-						}
-					}
-
-					%affect  = VectorScale(%affect,  %affection);
-					%affect2 = VectorScale(%affect2, %reduction2);
-
-					echo("Impulse to " @ %clientJ.namebase @ ": (" @ %source @ ") (" @ %affect @ ")");
-					echo("Impulse to " @ %client.namebase @ ": (" @ %source2 @ ") (" @ %affect2 @ ")");
-
-					if (!%client.disableCollision)
-						commandToClient(%clientJ,'applyImpulse',%source,%affect);
-					if (!%clientJ.disableCollision)
-						commandToClient(%client,'applyImpulse',%source2,%affect2);
-
-					Mode::callback("onCollision", "", new ScriptObject() {
-						client1 = %client;
-						client2 = %clientJ;
-						source1 = %source;
-						source2 = %source2;
-						affect1 = %affect;
-						affect2 = %affect2;
-						_delete = true;
-					});
-
-					if (%mega1 || %mega2) {
-						%sfx = eval("return MegaMarble.bounce" @ getRandom(1, 4) @ ";");
-						%sfx2 = eval("return MegaMarble.bounce" @ getRandom(1, 4) @ ";");
-						%client.play2d(%sfx);
-						%clientJ.play2d(%sfx);
-					}
-				} else {
-					%client.lastCollision = "";
-				}
-			}
-		}
-	}
-	$MP::Schedule::CollisionKing = schedule($MP::Collision::Delta, 0, "MPupdateCollisionKing");
 }

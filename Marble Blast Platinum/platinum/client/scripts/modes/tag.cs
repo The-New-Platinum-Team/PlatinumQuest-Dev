@@ -1,7 +1,9 @@
 //-----------------------------------------------------------------------------
 // Tag mode
 //
-// Copyright (c) 2015 The Platinum Team
+// Originally created in 2014
+//
+// Copyright (c) 2023 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -30,46 +32,33 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_tag) {
 	file = "tag";
 
 	name = "Tag";
-	desc = "Tag your opponents by blasting them; the player with the least points wins!";
+	desc = "Tag your opponents by blasting or colliding!";
 	complete = 1;
-
-	teams = 0;
-	hide = 1;
 });
-
-ModeInfoGroup.add(new ScriptObject(ModeInfo_keepAway) {
-	class = "ModeInfo_keepAway";
-	superclass = "ModeInfo";
-
-	identifier = "keepAway";
-	file = "tag";
-
-	name = "Keep Away";
-	desc = "Yes.";
-
-	hide = 1;
-	hasMissions = 0;
-});
-
-ModeInfoGroup.add(new ScriptObject(ModeInfo_stampede) {
-	class = "ModeInfo_stampede";
-	superclass = "ModeInfo";
-
-	identifier = "stampede";
-	file = "tag";
-
-	name = "Stampede";
-	desc = "Yes.";
-
-	hide = 1;
-	hasMissions = 0;
-});
-
 
 function ClientMode_tag::onLoad(%this) {
+	%this.registerCallback("onActivate");
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("onEndGameSetup");
+	%this.registerCallback("nametagRaycast");
+	%this.registerCallback("shouldUpdateGems");
+	%this.registerCallback("getDefaultScore");
+	%this.registerCallback("radarGetDotBitmap");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+}
+function ClientMode_tag::onActivate(%this) {
+	if (!$Server::Dedicated) {
+		%currentMis = PlayMissionGui.getMissionInfo();
+	} else {
+		%currentMis = MissionInfo;
+	}
+
+	//Switch the name if camp mode is on
+	if (%currentMis.campMode) {
+		ModeInfo_tag.name = "Tag - Camp";
+	} else {
+		ModeInfo_tag.name = "Tag";
+	}
 }
 function ClientMode_tag::timeMultiplier(%this) {
 	return -1;
@@ -77,11 +66,84 @@ function ClientMode_tag::timeMultiplier(%this) {
 function ClientMode_tag::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }
-
-function ClientMode_keepAway::onLoad(%this) {
-	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+function ClientMode_tag::nametagRaycast(%this) {
+	return false;
 }
 
-function ClientMode_stampede::onLoad(%this) {
-	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+//-----------------------------------------------------------------------------
+
+function ClientMode_tag::shouldUpdateGems(%this) {
+	if (MissionInfo.campMode) {
+		//Gem counter bugs out with negative gems
+		PG_GemCounter.setVisible(false);
+		PG_HuntCounter.setVisible(false);
+		return false;
+	}
+	//Borrowed from hunt.cs
+	PG_GemCounter.setVisible(false);
+	PG_HuntCounter.setVisible(true);
+
+	%count = PlayGui.gemCount;
+	%max = PlayGui.maxGems;
+
+	%one = %count % 10;
+	%ten = ((%count - %one) / 10) % 10;
+	%hundred = ((%count - %one - (%ten * 10)) / 100) % 10;
+	%thousand = ((%count - %one - (%ten * 10) - (%hundred * 100)) / 1000) % 10;
+
+	%color = ($Server::ServerType $= "Multiplayer" && PlayGui.gemGreen) ? $TimeColor["stopped"] : $TimeColor["normal"];
+
+	HuntGemsFoundOne.setVisible(true);
+	HuntGemsFoundTen.setVisible(true);
+	HuntGemsFoundHundred.setVisible(true);
+	HuntGemsFoundThousand.setVisible(true);
+
+	if (%count < 10) {
+		HuntGemsFoundTen.setVisible(false);
+		HuntGemsFoundHundred.setVisible(false);
+		HuntGemsFoundThousand.setVisible(false);
+
+		HuntGemsFoundOne.setNumberColor(%one, %color);
+	} else if (%count < 100) {
+		HuntGemsFoundHundred.setVisible(false);
+		HuntGemsFoundThousand.setVisible(false);
+
+		HuntGemsFoundOne.setNumberColor(%one, %color);
+		HuntGemsFoundTen.setNumberColor(%ten, %color);
+	} else if (%count < 1000) {
+		HuntGemsFoundThousand.setVisible(false);
+
+		HuntGemsFoundOne.setNumberColor(%one, %color);
+		HuntGemsFoundTen.setNumberColor(%ten, %color);
+		HuntGemsFoundHundred.setNumberColor(%hundred, %color);
+	} else {
+		HuntGemsFoundOne.setNumberColor(%one, %color);
+		HuntGemsFoundTen.setNumberColor(%ten, %color);
+		HuntGemsFoundHundred.setNumberColor(%hundred, %color);
+		HuntGemsFoundThousand.setNumberColor(%thousand, %color);
+	}
+	return false;
+}
+function ClientMode_tag::getDefaultScore(%this) {
+	return $ScoreType::Score TAB 0 TAB "Matan W.";
+}
+
+//-----------------------------------------------------------------------------
+
+function ClientMode_tag::radarGetDotBitmap(%this, %object) {
+	if (%object == $Tag::TaggerID && %object != $MP::MyMarble) {
+		return $userMods @ "/client/ui/mp/radar/taggermarble.png" TAB "white";
+	}
+	return "";
+}
+
+function clientCmdTaggerID(%tagger) {
+	if ($Server::Lobby)
+		return;
+	$Tag::TaggerID = getClientSyncObject(%tagger);
+	if (!isObject($Tag::TaggerID)) {
+		schedule(100, 0, clientCmdTaggerID, %tagger);
+		return;
+	}
+	radarBuildSearch();
 }

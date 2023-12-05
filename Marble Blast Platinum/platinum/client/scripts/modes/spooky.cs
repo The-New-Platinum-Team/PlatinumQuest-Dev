@@ -31,8 +31,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_spooky) {
 
 	name = "Halloween Event";
 	desc = "3spooky5me";
-
-	teams = 1;
 });
 
 function ModeInfo_Spooky::isAvailable(%this) {

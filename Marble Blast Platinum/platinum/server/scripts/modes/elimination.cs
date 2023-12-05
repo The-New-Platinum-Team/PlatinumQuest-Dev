@@ -1,7 +1,9 @@
 //-----------------------------------------------------------------------------
-// Elimination Mode
+// Elimination mode
 //
-// Copyright (c) 2015 The Platinum Team
+// Originally created in 2015
+//
+// Copyright (c) 2023 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -23,94 +25,238 @@
 //-----------------------------------------------------------------------------
 
 function Mode_elimination::onLoad(%this) {
-	%this.registerCallback("onPlayerJoin");
-	%this.registerCallback("onClientEnterGame");
 	%this.registerCallback("onMissionReset");
+	%this.registerCallback("onMissionEnded");
+	%this.registerCallback("onClientEnterGame");
+	%this.registerCallback("onClientLeaveGame");
+	%this.registerCallback("onPlayerJoin");
+	%this.registerCallback("onRestartLevel");
 	%this.registerCallback("shouldRestartOnOOB");
-	%this.registerCallback("getStartTime");
-	%this.registerCallback("onTimeExpire");
-	%this.registerCallback("shouldPickupGem");
+	%this.registerCallback("shouldResetTime");
 	%this.registerCallback("shouldSetSpectate");
+	%this.registerCallback("getStartTime");
+	%this.registerCallback("timeMultiplier");
+	%this.registerCallback("onDeactivate");
+	%this.registerCallback("onTimeExpire");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
-function Mode_elimination::onPlayerJoin(%this, %object) {
-	%object.client.eliminated = true;
+function Mode_elimination::onMissionReset(%this) {
+	%this.Tie = false;
+	cancel(%this.antiCamp);
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		%client.eliminated = (%client.spectating || %client.loading || !%client.isReal());
+	}
+}
+function Mode_elimination::onMissionEnded(%this) {
+	cancel(%this.antiCamp);
+	%this.Tie = false;
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		%client.eliminated = false;
+	}
 }
 function Mode_elimination::onClientEnterGame(%this, %object) {
-	if (%object.client.eliminated) {
-		%object.client.setToggleCamera(true);
-		%object.client.deletePlayer();
+	if (%object.client.eliminated && isGameStarted() && mp()) {
+		%object.client.setSpectating(true);
 	}
 }
-function Mode_elimination::onMissionReset(%this, %object) {
-	%count = ClientGroup.getCount();
-	for (%i = 0; %i < %count; %i ++) {
+function Mode_elimination::onClientLeaveGame(%this, %object) {
+	%object.client.eliminated = true;
+	%this.checkWin();
+}
+function Mode_elimination::onPlayerJoin(%this, %object) {
+	if (isGameStarted() && mp())
+		%object.client.eliminated = true;
+}
+function Mode_elimination::onRestartLevel(%this) {
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
-		%client.eliminated = %client.spectating;
+		if (%client.eliminated) {
+			%client.eliminated = false;
+			%client.spectating = false;
+			//%client.setSpectating(false);
+		}
 	}
 }
-function Mode_elimination::shouldRestartOnOOB(%this, %object) {
+function Mode_elimination::shouldRestartOnOOB(%this) {
+	return false;
+}
+function Mode_elimination::shouldResetTime(%this) {
 	return false;
 }
 function Mode_elimination::shouldSetSpectate(%this, %object) {
 	return !%object.client.eliminated;
 }
-function Mode_elimination::getStartTime(%this, %object) {
-	return MissionInfo.eliminationTime $= "" ? 60000 : MissionInfo.eliminationTime;
+function Mode_elimination::getStartTime(%this) {
+	return MissionInfo.eliminationTime ? MissionInfo.eliminationTime : 60000;
 }
-function Mode_elimination::onTimeExpire(%this, %object) {
+function Mode_elimination::timeMultiplier(%this) {
+	return -1;
+}
+function Mode_elimination::onDeactivate(%this) {
+	%this.onMissionEnded();
+}
+
+//-----------------------------------------------------------------------------
+
+function Mode_elimination::onTimeExpire(%this) {
+	if (!mp())
+	 	return true;
+
 	//Find the player with the least points
-	%count = ClientGroup.getCount();
-	%playing = 0;
-	%least = -1;
+	%playing = %this.getPlayers();
 	%tie = false;
 
-	for (%i = 0; %i < %count; %i ++) {
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
 
 		if (%client.eliminated)
 			continue;
 
-		%playing ++;
-		if (%least == -1 || %client.gemCount < %least.gemCount) {
+		if (%client.getElimPlace() == %playing) {
 			%least = %client;
-			%tie = false;
-		} else if (%least != -1 && %client.gemCount == %least.gemCount) {
-			%tie = true;
 		}
 	}
+	if (!isObject(%least))
+		%tie = true;
+
 	//Let people know
 	if (%tie) {
-		if (!%this.tieMode) {
+		if (!%this.Tie) {
 			serverSendChat("<color:ff6666>There\'s a tie! Sudden death!");
-			%this.tieMode = true;
+			%this.Tie = true;
+			%this.antiCamp = %this.schedule(30000, AntiCamp);
 		}
 	} else {
-		%least.setToggleCamera(true);
-		%least.deletePlayer();
-//		%least.setSpectating(true);
-		serverSendChat("<color:ff6666>" @ %least.getDisplayName() SPC "has been eliminated!");
-		%this.tieMode = false;
-		%least.eliminated = true;
+		if (%playing >= 2) {
+			//%least.spectating = true;
+			//%least.setToggleCamera(true);
+			//%least.deletePlayer();
+			%least.setSpectating(true);
+			serverSendChat("<color:ff6666>" @ %least.getDisplayName() SPC "has been eliminated!");
+			%this.Tie = false;
+			%least.eliminated = true;
+		}
 	}
 
 	//If there's no players left, then the game ends
-	if (%playing <= 2) {
-		return true;
+	if (%playing <= 2 && !%tie) {
+		%this.markWinner();
+		//endGameSetup();
 	}
 
-	if (!%this.tieMode) {
+	if (%playing > 2 && !%tie) {
 		//Reset everyone's time
-		%count = ClientGroup.getCount();
+		cancel(%this.antiCamp);
 		%time = %this.getStartTime();
-		for (%i = 0; %i < %count; %i ++) {
-			%client = ClientGroup.getObject(%i);
-
-			%client.stopTimer();
-			%client.setTime(%time);
-			%client.startTimer();
-		}
-		PlayGui.setTime(%time);
+		Time::stop();
+		Time::set(%time);
+		$Time::ElapsedTime = 0;
+		Time::start();
 	}
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+
+function Mode_elimination::checkWin(%this) {
+	//When someone leaves, check if there is only one player left, if so they win!
+	%playing = %this.getPlayers();
+
+	if (%playing <= 1) {
+		%this.markWinner();
+	}
+}
+
+function Mode_elimination::markWinner(%this) {
+	if (isGameStarted() && mp()) {
+		cancel(%this.antiCamp);
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			%client = ClientGroup.getObject(%i);
+
+			if (!%client.eliminated) {
+				serverSendChat("<color:00ff00>" @ %client.getDisplayName() SPC "is the winner!");
+				$Game::FinishClient = %client; //In case you're playing co-op elimination?
+			}
+		}
+		endGameSetup();
+	}
+}
+
+function Mode_elimination::getPlayers(%this) {
+	%players = 0;
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (!%client.eliminated) 
+			%players ++;
+	}
+	return %players;
+}
+
+
+function GameConnection::getElimPlace(%this, %tie) {
+	%place = 1;
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%player = ClientGroup.getObject(%i);
+		if (%player.eliminated)
+			continue;
+		if (%player.getId() == %this.getId())
+			continue;
+		
+		if (Mode::callback("shouldUseTimeScoreboard", false)) {
+			if (%player.finalTime < %this.finalTime && !%tie)
+				%place ++; 	
+			else if (%player.gemCount > %this.gemCount && !%tie) 
+				%place ++;
+			else if (%player.finalTime <= %this.finalTime && %tie)
+				%place ++; 	
+			else if (%player.gemCount >= %this.gemCount && %tie) 
+				%place ++;
+
+		} else {
+			if (%player.gemCount > %this.gemCount && !%tie)
+				%place ++;
+
+			else if (%player.gemCount >= %this.gemCount && %tie)
+				%place ++;
+		}
+	}
+
+	return %place;
+}
+
+//-----------------------------------------------------------------------------
+//This is so you can't stall the game indefinitely with sudden death...
+function Mode_elimination::antiCamp(%this) {
+	cancel(%this.antiCamp);
+	if (!isGameStarted())
+		return;
+	if (!$Game::isMode["elimination"])
+		return;
+	if (!mp())
+		return;
+
+	%playing = %this.getPlayers();
+	%tie = false;
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+
+		if (%client.eliminated)
+			continue;
+
+		if (%client.getElimPlace(true) == %playing) {
+			%client.setSpectating(true);
+			serverSendChat("<color:ff6666>Tiebreaker!" SPC %client.getDisplayName() SPC "has been eliminated!");
+			%client.eliminated = true;
+		}
+	}
+	
+	%time = %this.getStartTime();
+	Time::stop();
+	Time::set(%time);
+	$Time::ElapsedTime = 0;
+	Time::start();
+	%this.Tie = false;
+	%this.checkWin();
 }

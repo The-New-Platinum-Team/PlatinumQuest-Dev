@@ -47,7 +47,7 @@ activatePackage(ServerTime);
 
 function Time::advance(%delta) {
 	//Some modes run the timer backwards
-	%mult = ClientMode::callback("timeMultiplier", 1);
+	%mult = Mode::callback("timeMultiplier", 1);
 
 	//Raw total time
 	$Time::TotalTime = add64_int($Time::TotalTime, %delta);
@@ -78,7 +78,7 @@ function Time::advance(%delta) {
 			$Time::CurrentTime = 5999999;
 
 		//If the game is running, we're not restarting
-		if ($Time::CurrentTime > 0)
+		if ($Time::CurrentTime > 0 || %mult < 0)
 			$MP::Restarting = false;
 
 		//Time is over
@@ -89,9 +89,9 @@ function Time::advance(%delta) {
 			$Time::CurrentTime = 0;
 
 			//Don't call this if we're restarting; that makes an infinite loop
-			if (!$MP::Restarting) {
+			if (!$MP::Restarting && %mult != 0) {
 				//Let the mode decide if we want to do something special
-				if (Mode::callback("onTimeExpire", (%mult <= 0))) {
+				if (Mode::callback("onTimeExpire", (%mult < 0))) {
 					//Normally just end the game
 					endGameSetup();
 				}

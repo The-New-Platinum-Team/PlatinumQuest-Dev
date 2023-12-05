@@ -32,18 +32,17 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_mega) {
 	name = "Mega Marble War";
 	desc = "Earn points by hitting your opponents with Mega Marbles!";
 	complete = 1;
-
-	teams = 1;
 });
 
 
 function ClientMode_mega::onLoad(%this) {
-	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("onEndGameSetup");
 	%this.registerCallback("getDefaultScore");
 	%this.registerCallback("radarGetDotBitmap");
 	%this.registerCallback("nametagRaycast");
+	%this.registerCallback("showEndGame");
+	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_mega::timeMultiplier(%this) {
 	return -1;
@@ -62,4 +61,38 @@ function ClientMode_mega::radarGetDotBitmap(%this, %object) {
 }
 function ClientMode_mega::nametagRaycast(%this) {
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+
+function ClientMode_mega::showEndGame(%this) {
+	%this.onNextFrame(updateMegaEndGame);
+	return false;
+}
+
+function ClientMode_mega::updateMegaEndGame(%this) {
+	if (!$Game::isMode["mega"])
+		return;
+	//Mega War uses a different kinda end screen, Reds = Times you've been hit; Blues = Hits you got
+	MPEndGameRedGem.setVisible(false);
+	MPEndGameYellowGem.setVisible(false);
+	MPEndGameBlueGem.setVisible(false);
+	MPEndGamePlatinumGem.setVisible(false);
+	MPDualCategoryOne.setVisible(true);
+	MPDualCategoryTwo.setVisible(true);
+	MPDualCategoryOne.setText("<bold:30><just:center><color:FF0000>Opp.\nHits");
+	MPDualCategoryTwo.setText("<bold:30><just:center><color:4040FF>Your\nHits");
+
+	%players = ($MP::TeamMode ? TeamScorePlayerList.getSize() : ScoreList.getSize());
+	for (%i = 0; %i < %players; %i ++) {
+		%index = ($MP::TeamMode ? getRecord(TeamScorePlayerList.getEntry(%i), 3) : ScoreList.getEntry(%i).index);
+		%R = "MPEndTextR" @ %index;
+		%Y = "MPEndTextY" @ %index;
+		%B = "MPEndTextB" @ %index;
+		%P = "MPEndTextP" @ %index;
+		%R.resize(369, 3, 52, 14);
+		%Y.setVisible(false);
+		%B.resize(444, 3, 52, 14);
+		%P.setVisible(false);
+	}
 }

@@ -261,8 +261,12 @@ function TeleportTrigger::onLeaveTrigger(%data, %obj, %colObj) {
 	//echo("TeleportTrigger::onLeaveTrigger called!");
 	cancel(%client.teleSched[%obj]);
 	alxStop(%client.teleSound);
-	%client.player.setCloaked(false);
 	commandToClient(%client, 'PushTimer', 696969, getSimTime(), 0);
+
+	if ($Game::isMode["seek"] && !$Game::Seeking && ($Game::State $= "Go" || $Game::State $= "End") && !%client.seeker) return;
+
+	%client.player.setCloaked(false);
+
 }
 
 function RelativeTPTrigger::onAdd(%this, %obj) {

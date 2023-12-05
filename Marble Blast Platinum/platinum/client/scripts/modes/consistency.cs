@@ -32,8 +32,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_consistency) {
 	name = "Consistency";
 	desc = "Stay above the target speed!";
 	complete = 0;
-
-	teams = 0;
 });
 
 

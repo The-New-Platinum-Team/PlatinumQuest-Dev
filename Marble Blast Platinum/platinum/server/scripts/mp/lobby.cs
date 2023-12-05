@@ -481,14 +481,18 @@ function GameConnection::updatePlayerlist(%this) {
 		%nametag    = %client.getNameTag();
 		%specState  = (%client.isReal() ? (%client.spectating ? 2 : 1) : 0);
 		%rating     = %client.rating;
+		%skinChoice = Mode::callback("getPlayerListSkin", %client.skinChoice, new ScriptObject() {
+			client = %client;
+			_delete = true;			
+		});
 
 		%playerData =
 			    expandEscape(%client.getUsername())  // 0
 			TAB expandEscape(%client.loadState)      // 1
 			TAB expandEscape(%client.ready)          // 2
 			TAB expandEscape(%host)                  // 3
-			TAB expandEscape(%admim)                 // 4
-			TAB expandEscape(%client.skinChoice)     // 5
+			TAB expandEscape(%admin)                 // 4
+			TAB expandEscape(%skinChoice)            // 5
 			TAB expandEscape(%team)                  // 6
 			TAB expandEscape(%teamColor)             // 7
 			TAB expandEscape(%ping)                  // 8
@@ -1018,13 +1022,17 @@ function serverEnterGame() {
 	$Game::Running = true;
 
 	Time::reset();
-	hideGems();
-	spawnHuntGemGroup();
+
+	if ($Game::isMode["hunt"]) {
+		hideGems();
+		spawnHuntGemGroup();
+	}
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
 		%client.startMission();
 		%client.onClientEnterGame();
+		%client.resetStats();
 	}
 }
 

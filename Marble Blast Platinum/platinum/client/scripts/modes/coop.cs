@@ -34,8 +34,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_coop) {
 	desc = "Team up with a friend and beat levels together!";
 	complete = 0;
 	hide = 1;
-
-	teams = 0;
 });
 
 

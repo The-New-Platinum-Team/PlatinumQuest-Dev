@@ -40,7 +40,7 @@ function serverCmdSetSpectate(%client, %spectate) {
 	if (!Mode::callback("shouldSetSpectate", true, new ScriptObject() {
 	client = %client;
 	_delete = true;
-}))
+}) && %client.state !$= "waiting")
 	return;
 
 	%client.spectating = %spectate;

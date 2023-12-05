@@ -155,17 +155,21 @@ function GameConnection::sendSettingsList(%this) {
 	commandToClient(%this, 'ServerSettingsListEnd');
 }
 
-//Add settings   Identifier             Name                   Variable                        Public     Type      Minimum                Maximum
-serverAddSetting("Name",                "Server Name",         "$Pref::Server::Name",          false,     "text");
-serverAddSetting("Password",            "Password",            "$MPPref::Server::Password",    false,     "password");
-serverAddSetting("MaxPlayers",          "Max Players",         "$pref::Server::MaxPlayers",    true,      "number", $MP::PlayerMinimum,    $MP::PlayerMaximum);
-serverAddSetting("ForceSpectators",     "Force Spectators",    "$MPPref::ForceSpectators",     true,      "check");
-serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQuickRespawn",   true,      "check");
-serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts", false,      "check");
-serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests", false,     "check");
-serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,     "check");
-serverAddSetting("CompetitiveMode",     "Competitive Mode",    "$MPPref::Server::CompetitiveMode", true,  "check");
-// serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
+//Add settings   Identifier             Name                    Variable                               Public     Type          Minimum                Maximum
+serverAddSetting("Name",                "Server Name",          "$Pref::Server::Name",                 false,     "text");
+serverAddSetting("Password",            "Password",             "$MPPref::Server::Password",           false,     "password");
+serverAddSetting("MaxPlayers",          "Max Players",          "$pref::Server::MaxPlayers",           true,      "number",     $MP::PlayerMinimum,    $MP::PlayerMaximum);
+serverAddSetting("ForceSpectators",     "Force Spectators",     "$MPPref::ForceSpectators",            true,      "check");
+serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn",  "$MPPref::AllowQuickRespawn",          true,      "check");
+serverAddSetting("AllowTaunts",         "Allow Taunts",         "$MPPref::Server::AllowTaunts",        false,     "check");
+serverAddSetting("AllowGuests",         "Allow Guests",         "$MPPref::Server::AllowGuests",        false,     "check");
+serverAddSetting("CompetitiveMode",     "Competitive Mode",     "$MPPref::Server::CompetitiveMode",    true,      "check");
+serverAddSetting("DoubleSpawns",        "Double Spawns",        "$MPPref::Server::DoubleSpawnGroups",  true,      "check");
+serverAddSetting("PartySpawns",         "Party Spawns",         "$MPPref::Server::PartySpawns",        true,      "check");
+serverAddSetting("Gravitex",            "Gravitex",             "$MPPref::Server::Gravitex",           true,      "check");
+serverAddSetting("Elimination",         "Elimination",          "$MPPref::Server::Elimination",        true,      "check");
+serverAddSetting("StealMode",           "Steal Mode",           "$MPPref::Server::StealMode",          true,      "check");
+serverAddSetting("HuntRB",              "Raging Bull",          "$MPPref::Server::HuntRB",             true,      "check");
 
 //Called before a server variable is set
 function onPreServerVariableSet(%id, %previous, %value) {
@@ -187,20 +191,6 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			}
 		// Score sending is still disabled unless you reset. or if you have 0 gems this session.
 		// (don't want to disable scores if someone realized they have it on at the start and then immediately turned it off)
-		case "DoubleSpawns":
-			if (%value) {
-				$MP::ScoreSendingDisabled = true;
-			} else {
-				$MP::ScoreSendingDisabled = false;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
-				hideGems();
-				spawnHuntGemGroup(); // Get rid of the old spawns
-			}
 		case "CompetitiveMode":
 			if (%value) {
 				activateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
@@ -218,21 +208,124 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				}
 				Hunt_CompetitiveClearTimer();
 				$MP::ScoreSendingDisabled = false;
+				if (MPSettingsScoreDisable())
+					$MP::ScoreSendingDisabled = true;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					if (ClientGroup.getObject(%i).getGemCount() != 0) {
 						$MP::ScoreSendingDisabled = true;
 						break;
 					}
 				}
-				hideGems();
-				spawnHuntGemGroup(); // Get rid of the old spawns
+				if ($Game::isMode["hunt"]) {
+					hideGems();
+					spawnHuntGemGroup(); // Get rid of the old spawns
+				}
 			}
-		// case "StealMode":
-		// 	if (%value) {
-		// 		activateMode("steal");
-		// 	} else {
-		// 		deactivateMode("steal");
-		// 	}
+		case "DoubleSpawns":
+			if (%value) {
+				$MP::ScoreSendingDisabled = true;
+			} else {
+				$MP::ScoreSendingDisabled = false;
+				if (MPSettingsScoreDisable())
+					$MP::ScoreSendingDisabled = true;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+				if ($Game::isMode["hunt"]) {
+					hideGems();
+					spawnHuntGemGroup(); // Get rid of the old spawns
+				}
+			}
+		case "PartySpawns":
+			if (%value) {
+				activateMode("partyspawns");
+				$MP::ScoreSendingDisabled = true;
+			} else {
+				deactivateMode("partyspawns");
+				$MP::ScoreSendingDisabled = false;
+				if (MPSettingsScoreDisable())
+					$MP::ScoreSendingDisabled = true;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+			}
+			if ($Game::isMode["hunt"]) {
+				hideGems();
+				onNextFrame(spawnHuntGemGroup); // Get rid of the old spawns
+			}
+		case "Gravitex":
+			if (%value) {
+				activateMode("gravitex");
+				$MP::ScoreSendingDisabled = true;
+			} else {
+				deactivateMode("gravitex");
+				$MP::ScoreSendingDisabled = false;
+				if (MPSettingsScoreDisable())
+					$MP::ScoreSendingDisabled = true;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+			}
+			if (isGameStarted() && %value)
+				Mode_gravitex.onServerGo();
+		case "Elimination":
+			if (%value) {
+				activateMode("elimination");
+				$MP::ScoreSendingDisabled = true;
+			} else {
+				deactivateMode("elimination");
+				$MP::ScoreSendingDisabled = false;
+				if (MPSettingsScoreDisable())
+					$MP::ScoreSendingDisabled = true;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+			}
+			if (isGameStarted())
+				restartLevel();
+		case "StealMode":
+			if (%value) {
+				activateMode("steal");
+				$MP::ScoreSendingDisabled = true;
+			} else {
+				deactivateMode("steal");
+				$MP::ScoreSendingDisabled = false;
+				if (MPSettingsScoreDisable())
+					$MP::ScoreSendingDisabled = true;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+			}
+		case "HuntRB":
+			if (%value) {
+				$MP::ScoreSendingDisabled = true;
+			} else {
+				$MP::ScoreSendingDisabled = false;
+				if (MPSettingsScoreDisable())
+					$MP::ScoreSendingDisabled = true;
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+						$MP::ScoreSendingDisabled = true;
+						break;
+					}
+				}
+			}
+
 	}
 
 	Mode::callback("onPostServerVariableSet", "", new ScriptObject() {
@@ -240,4 +333,8 @@ function onPostServerVariableSet(%id, %previous, %value) {
 		previous = %previous;
 		value = %value;
 	});
+}
+
+function MPSettingsScoreDisable() {
+	return (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::PartySpawns || $MPPref::Server::Gravitex || $MPPref::Server::Elimination || $MPPref::Server::StealMode || $MPPref::Server::HuntRB));
 }

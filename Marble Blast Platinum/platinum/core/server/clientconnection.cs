@@ -542,6 +542,11 @@ function GameConnection::backup(%this) {
 		gemsFound[2]  = %this.gemsFound[2];
 		gemsFound[5]  = %this.gemsFound[5];
 		gemsFound[10] = %this.gemsFound[10];
+		gemsFoundTotal = %test.gemsFoundTotal;
+		bonusTime = %this.bonusTime;
+		totalBonus = %this.totalBonus;
+		finalTime = %this.finalTime;
+
 
 		team = Team::getTeamName(%this.team);
 		spectating = %this.spectating;
@@ -584,8 +589,12 @@ function GameConnection::restore(%this, %name) {
 			%this.gemsFound[2]  = %test.gemsFound[2];
 			%this.gemsFound[5]  = %test.gemsFound[5];
 			%this.gemsFound[10] = %test.gemsFound[10];
-			%this._spectating = %test.spectating;
+			%this.gemsFoundTotal = %test.gemsFoundTotal;
+			%this.bonusTime = %test.bonusTime;
+			%this.totalBonus = %test.totalBonus;
+			%this.finalTime = %test.finalTime;
 
+			%this.spectating = %test.spectating;
 			%this.wins = %test.wins;
 
 			// Restore their team

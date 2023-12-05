@@ -32,8 +32,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_haste) {
 	name = "Haste";
 	desc = "Build up speed to activate the finish!";
 	complete = 0;
-
-	teams = 0;
 });
 
 

@@ -451,6 +451,12 @@ function interpolateCamera(%delta) {
 
 // this toggles the spectator menu on the playGui
 function showSpectatorMenu(%show) {
+	if (!ClientMode::callback("showSpectatorMenu", true, new ScriptObject() {
+		show = %show;
+		_delete = true;
+	})) {
+		return;
+	}
 	if (%show) {
 		%text = "<bold:28><just:center>Spectator Info<font:14>\n" NL
 		        "<bold:22><just:left>Toggle Fly / Orbit:<just:right><func:bind toggleSpectateModeType>" NL

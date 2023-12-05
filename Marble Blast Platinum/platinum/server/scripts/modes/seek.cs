@@ -1,9 +1,9 @@
 //-----------------------------------------------------------------------------
-// Hide and "Seek" mode
+// Hide and Seek mode
 //
-// I was bored. Ok?
+// Originally created in 2015
 //
-// Copyright (c) 2015 The Platinum Team
+// Copyright (c) 2023 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -27,102 +27,135 @@
 function Mode_seek::onLoad(%this) {
 	%this.registerCallback("onMissionReset");
 	%this.registerCallback("onMissionEnded");
-	%this.registerCallback("onGameState");
 	%this.registerCallback("onTimeExpire");
 	%this.registerCallback("onCollision");
+	%this.registerCallback("enableMarbleCollisions");
+	%this.registerCallback("onServerGo");
+	%this.registerCallback("onBlast");
 	%this.registerCallback("onUpdateGhost");
-	%this.registerCallback("onPlayerLeave");
-	%this.registerCallback("onPlayerJoin");
-	%this.registerCallback("onEndGameSetup");
+	%this.registerCallback("onGameState");
+	%this.registerCallback("onClientEnterGame");
+	%this.registerCallback("onClientLeaveGame");
+	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("shouldResetTime");
 	%this.registerCallback("shouldRestartOnOOB");
+	%this.registerCallback("onEndGameSetup");
 	%this.registerCallback("updateWinner");
 	%this.registerCallback("shouldAllowTTs");
+	%this.registerCallback("onEnterPad");
+	%this.registerCallback("onOutOfBounds");
+	%this.registerCallback("onQuickRespawnPlayer");
+	%this.registerCallback("getStartTime");
+	%this.registerCallback("getScoreType");
+	%this.registerCallback("getFinalScore");
+	%this.registerCallback("shouldSetSpectate");
+	%this.registerCallback("getMaxSpectators");
+	%this.registerCallback("onFoundGem");
+	%this.registerCallback("shouldRestorePowerup");
+	%this.registerCallback("onRespawnPlayer");
+	%this.registerCallback("shouldRespawnGems");
+	%this.registerCallback("onDeactivate");
+	%this.registerCallback("onRespawnOnCheckpoint");
+	%this.registerCallback("onServerChat");
+	%this.registerCallback("getPlayerListSkin");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_seek::onMissionReset(%this) {
-	//Start up the game here
+	//Seek variable
+	$Game::Seeking = false;
+	//Cancel countdown
+	cancelSeekCountdown();
+	//Choose the seeker
 	chooseSeeker();
-	startHiding();
-	updateSeekFreeze();
-
-	//No gems in seek mode. Screw you.
+	//No gems in this mode
 	hideGems();
-
-	//Let them know when it's starting
-	cancelCountdown();
-	%time = (MissionInfo.hideTime ? MissionInfo.hideTime : 30000);
-	startCountdown(%time, "Seeking starting in %s second(s)!", startSeeking);
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
-		%client.freezeMarble(false);
+		%client.player.onNextFrame(setCloaked, false);
+		%client.hat.setCloaked(false);
 	}
-
-	%graceTime = (MissionInfo.graceTime ? MissionInfo.graceTime : 20000);
-	commandToAll('SeekGracePeriod', %graceTime);
 }
 function Mode_seek::onMissionEnded(%this) {
 	//Reset all the clients
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
-		%client.setNameTag("");
-		%client.seeker = false;
-		%client.freezeMarble(false);
-	}
-
-	cancel($Game::SeekFreeze);
-}
-function Mode_seek::onGameState(%this, %object) {
-	if (%object.state !$= "End" && %object.state !$= "Go") {
-		cancel(%object.client.stateSchedule);
-		%object.client.setGameState("Go");
-
-		if (!$Game::Seeking) {
-			%time = (MissionInfo.hideTime ? MissionInfo.hideTime : 30000);
-
-			%object.client.stopTimer();
-			%object.client.setTime(%time);
-			%object.client.startTimer();
-
-			//Don't let the seekers out if we haven't started yet!
-			if (%object.client.seeker) {
-				%object.client.player.setTransform(getField(%object.client.getCheckpointPos(), 0));
-				%object.client.player.setMode(Start);
-			}
+		%client.setSeeker(false);
+		commandToClient(%client, 'ClearSeekLayers');
+		if (isObject(%client.player)) {
+			%client.player.setCloaked(false);
+			%client.hat.setCloaked(false);
+			%client.player.setMode(Normal);
 		}
 	}
+	cancelSeekCountdown();
 }
 function Mode_seek::onTimeExpire(%this) {
-	if ($Server::Hosting && !$MP::Restarting) {
-		if ($Game::Seeking) {
-			endGameSetup();
-		} else {
-			startSeeking();
-		}
+	if ($Game::Seeking) {
+		endGameSetup();
+	} else {
+		startSeeking();
 	}
 	return false;
 }
 function Mode_seek::onCollision(%this, %object) {
-	if (!$Game::Seeking)
-		return;
-	if (%object.client1.seeker != %object.client2.seeker) {
-		//Someone got tagged
-		if (%object.client1.seeker) {
-			%object.client1.onFind(%object.client2);
-		} else {
-			%object.client2.onFind(%object.client1);
+	if ($Game::Seeking) {
+		if (%object.client1.seeker != %object.client2.seeker) {
+			//Someone got tagged
+			if (%object.client1.seeker) {
+				%object.client1.onFind(%object.client2);
+			} else {
+				%object.client2.onFind(%object.client1);
+			}
 		}
+	}
+}
+function Mode_seek::enableMarbleCollisions(%this) {
+	return true;
+}
+function Mode_seek::onServerGo(%this) {
+	startHiding();
+}
+function Mode_seek::onBlast(%this, %object) {
+	%findRadius = %object.this.client.blastValue * 3;
+	if (%object.this.client.usingTripleBlast) {
+		%findRadius = 1.2;
+	}
+	if (%object.this.client.usingSpecialBlast) {
+		%findRadius = 3;
+	}
+	if (%object.other.client.isMegaMarble()) {
+		return;
+	}
+	%mePos = %object.this.getWorldBoxCenter();
+	%theyPos = %object.other.getWorldBoxCenter();
+	if (VectorDist(%mePos, %theyPos) < %findRadius && %object.this.client.seeker && !%object.other.client.seeker) {
+		//Someone got tagged
+		%object.this.client.onFind(%object.other.client);
 	}
 }
 function Mode_seek::onUpdateGhost(%this, %object) {
 	%object.client.updateSeekerMarble();
 }
-function Mode_seek::onPlayerJoin(%this, %object) {
-	%object.client.setSeeker(true);
+function Mode_seek::onGameState(%this, %object) {
+	if (%object.state $= "go" && !$Game::Seeking && %object.client.seeker) {
+		%object.client.player.setMode(Start);
+	}
 }
-function Mode_seek::onPlayerLeave(%this) {
+function Mode_seek::onClientEnterGame(%this, %object) {
+	if (isGameStarted() && mp()) {
+		//If you join mid-game, you aren't allowed to play, to prevent cheating via spectator stuff
+		%object.client.setSpectating(true);
+	}
+	commandToClient(%object.client, 'SeekGracePeriod');
+}
+function Mode_seek::onClientLeaveGame(%this, %object) {
+	//Don't break the ongoing game if someone leaves
+	%object.client.setSeeker(false);
 	detectSeekerUpdate();
+}
+function Mode_seek::timeMultiplier(%this) {
+	return -1;
 }
 function Mode_seek::shouldResetTime(%this) {
 	return false;
@@ -139,112 +172,214 @@ function Mode_seek::updateWinner(%this, %winners) {
 function Mode_seek::shouldAllowTTs(%this) {
 	return false;
 }
+function Mode_seek::onEnterPad(%this, %object) {
+	return true;
+}
+function Mode_seek::onOutOfBounds(%this, %object) {
+	if ($Game::Seeking && !%object.client.seeker) {
+		//No going OOB as a hider
+		%object.client.setSeeker(true);
+		%object.client.addBubbleLine("No going out of bounds! Go find the other players!");
+		serverSendChat("<color:ff6666>" @ %object.client.getDisplayName() SPC "went out of bounds!");
+		commandToAll('playPitchedSound', opponentDiamond);
+		whiteAll(0.05);
+		detectSeekerUpdate();
+	}
+}
+function Mode_seek::onQuickRespawnPlayer(%this, %object) {
+	if ($Game::Seeking && !%object.client.seeker) {
+		//No quick respawning as a hider
+		%object.client.setSeeker(true);
+		%object.client.addBubbleLine("No quick respawning! Go find the other players!");
+		serverSendChat("<color:ff6666>" @ %object.client.getDisplayName() SPC "went out of bounds!");
+		commandToAll('playPitchedSound', opponentDiamond);
+		whiteAll(0.05);
+		detectSeekerUpdate();
+	}
+}
+function Mode_seek::getStartTime(%this) {
+	return MissionInfo.hideTime ? MissionInfo.hideTime : 30000;
+}
+function Mode_seek::getScoreType(%this) {
+	return $ScoreType::Score;
+}
+function Mode_seek::getFinalScore(%this, %object) {
+	return $ScoreType::Score TAB %object.client.getGemCount();
+}
+function Mode_seek::shouldSetSpectate(%this, %object) {
+	//No spectating to find the hiders
+	return false;
+}
+function Mode_seek::getMaxSpectators(%this) {
+	//Need at least two players
+	return getRealPlayerCount() - 2;
+}
+function Mode_seek::onFoundGem(%this, %object) {
+	%object.client.playPitchedSound("gotDiamond");
+}
+function Mode_seek::shouldRestorePowerup(%this) {
+	return true;
+}
+function Mode_seek::onRespawnPlayer(%this, %object) {
+	if (!$Game::Seeking && (%object.client.state $= "go" || %object.client.state $= "end") && !%object.client.seeker) { 
+		//Recloak them, as the cloak disappears on respawn
+		%object.client.player.setCloaked(true);
+	}
+}
+function Mode_seek::shouldRespawnGems(%this) {
+	return false;
+}
+function Mode_seek::onDeactivate(%this) {
+	%this.onMissionEnded();
+}
+function Mode_seek::onRespawnOnCheckpoint(%this, %object) {
+	if ($Game::Seeking && !%object.client.seeker) {
+		%object.client.setSeeker(true);
+		%object.client.addBubbleLine("No quick respawning! Go find the other players!");
+		serverSendChat("<color:ff6666>" @ %object.client.getDisplayName() SPC "went out of bounds!");
+		detectSeekerUpdate();
+	}
+	if (!$Game::Seeking && (%object.client.state $= "go" || %object.client.state $= "end") && !%object.client.seeker) {
+		%object.client.player.setCloaked(true);
+	}
+	if (!$Game::Seeking && (%object.client.state $= "go" || %object.client.state $= "end") && %object.client.seeker) {
+		%object.client.player.setMode(Start);
+	}
+}
+function Mode_seek::onServerChat(%this, %object) {
+	//Seek chat command
+	if (getWord(%object.message, 0) $= "/left") {
+		//Check how many hiders are left
+		%hiders = 0;
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			%client = ClientGroup.getObject(%i);
+			if (!%client.seeker && %client.isActive()) {
+				%hiders ++;
+			}
+		}
+		if (%hiders == 1) {
+			%object.client.sendChat("There is 1 hider left.");
+		} else {
+			%object.client.sendChat("There are" SPC %hiders SPC "hiders left.");
+		}
+		return true;
+	}
+}
+function Mode_seek::getPlayerListSkin(%this, %object) {
+	if (!$Game::Running || !$Server::Started)
+		return %object.client.skinChoice;
+	//Which skin should be displayed in the player list?
+	if (%object.client.seeker) {
+		%skinChoice = "platinum/data/shapes/balls/ball-superball.dts" TAB "skin50" TAB getField(%object.client.skinChoice, 2) TAB getField(%object.client.skinChoice, 3) TAB getField(%object.client.skinChoice, 4);
+	} else if (findField(%object.client.skinChoice, "skin50") != -1) {
+		%skinChoice = "platinum/data/shapes/balls/ball-superball.dts" TAB "base" TAB getField(%object.client.skinChoice, 2) TAB getField(%object.client.skinChoice, 3) TAB getField(%object.client.skinChoice, 4);
+	} else {
+		%skinChoice = %object.client.skinChoice;
+	}
+	return %skinChoice;
+}
 
 //--------------------------------------------------------------------------
 
 function GameConnection::onFind(%this, %client) {
 	//Let us know
-	%this.addHelpLine("You have found" SPC %client.getDisplayName() @ "!");
+	%this.addBubbleLine("You have found" SPC %client.getDisplayName() @ "!");
 	%this.onFoundGem(1);
+	%this.gemsFound[5] ++;
+
+	serverSendChat("<color:ff6666>" @ %this.getDisplayName() SPC "has found" SPC %client.getDisplayName() @ "!");
 
 	//Let them know
 	%client.setSeeker(true);
-	%client.addHelpLine("You have been found! Go find the other players!");
-	%client.updateGhostDatablock();
-	%client.freezeMarble(false);
-
-	serverSendChat("<color:ff6666>" @ %this.getDisplayName() SPC "has found" SPC %client.getDisplayName() @ "!");
+	%client.addBubbleLine("You have been found! Go find the other players!");
 
 	detectSeekerUpdate();
 }
 
 function GameConnection::setSeeker(%this, %seeker) {
 	%this.seeker = %seeker;
+	%this.updateGhostDatablock();
 	if (%seeker) {
 		%this.setNameTag("<color:ff6666>" @ %this.getDisplayName());
 	} else {
 		%this.setNameTag("");
 	}
+	updatePlayerList();
 }
 
 function GameConnection::updateSeekerMarble(%this) {
-	if ($Game::Seeking) {
-		if (%this.seeker) {
-			if (%this.isMegaMarble()) {
-				%this.player.setDatablock(SeekerMegaMarble);
-			} else {
-				%this.player.setDatablock(SeekerMarble);
-			}
-			%this.player.setSkinName("skin50");
-		} else {
-			%skinChoice = %this.skinChoice;
-			%skin = getField(%skinChoice, 2);
+	//Hider slowdown, Seeker speedup, Seeker skin, shape fixing
+	if (%this.seeker) {
+		%this.player.setSkinName("skin50");
+		%this.player.setDatablock(SeekerMarble);
+		commandToClient(%this, 'PushSeekerLayer');
+	}
+	if (!%this.seeker && $Game::Seeking) {
+		%this.checkSkinCheat();
+		commandToClient(%this, 'PushHiderLayer');
+	}
+	if (!%this.seeker && (!$Game::Seeking || !$Game::isMode["seek"])) {
+		%this.checkSkinCheat();
+		commandToClient(%this, 'ClearSeekLayers');
+	}
+	commandToClient(%this, 'ReloadReflections');
+}
 
-			if (%this.isMegaMarble()) {
-				%playerdb = $Seek::HiderMegaDatablock[getField(%skinChoice, 1)];
-			} else {
-				%playerdb = $Seek::HiderDatablock[getField(%skinChoice, 1)];
-			}
-			%this.player.setDatablock(%playerdb);
-			%this.player.setSkinName(%skin);
-		}
-	} else {
-		if (%this.seeker) {
-			if (%this.isMegaMarble()) {
-				%this.player.setDatablock(SeekerMegaMarble);
-			} else {
-				%this.player.setDatablock(SeekerMarble);
-			}
-			%this.player.setSkinName("skin50");
-		}
+function GameConnection::checkSkinCheat(%this) {
+	//No using the "hex" skin while you are a hider
+	%marble = %this.getMarbleChoice();
+	%skin = getField(%marble, 1);
+
+	if (%skin $= "skin50" && !%this.seeker) {
+		%this.player.setSkinName("base");
 	}
 }
 
 //--------------------------------------------------------------------------
 
 function detectSeekerUpdate() {
+	if (!isGameStarted())
+		return;
+	if ($Editor::Opened)
+		return;
+
 	//Check if nobody is a seeker. If that's the case, we need a new seeker!
 	//Also check if everyone is a seeker. If so, the seekers win!
-
 	%seekers = 0;
 	%hiders = 0;
 
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
-		if (%client.seeker) {
+		//Don't count disconnected people, or spectators
+		if (%client.seeker && %client.isActive()) {
 			%seekers ++;
-		} else {
+		} else if (!%client.seeker && %client.isActive()) {
 			%hiders ++;
 		}
 	}
 
 	//Choose a new seeker if we need to
 	if (%seekers == 0) {
-		//This might cause the next statement to trigger, if you only have one
-		// player left who is a hider. So we do this first.
+		//This might cause the next statement to trigger, if you only have one player left who is a hider. So we do this first.
 		%hiders --;
 		%seekers ++;
-
-		//If we aren't full of seekers yet, then pick a new one. Otherwise, we
-		// end up picking a new seeker right as the game ends
-		if (%hiders != 0) {
+		if (%hiders > 0) {
 			chooseSeeker();
+			serverSendChat(LBChatColor("notification") @ "The seekers have left! Picking a new one...");
 		}
 	}
 	//If we're all out of hiders, game over
-	if (%hiders == 0) {
-		//This hits endGame
+	if (%hiders <= 0) {
 		endGameSetup();
 	}
 }
 
-//--------------------------------------------------------------------------
 
-function chooseSeeker(%seeker) {
-	//Fuck the RNG.
+function chooseSeeker() {
 	setRandomSeed($Sim::Time);
 
-	echo("Last seeker was" SPC $Seek::LastInitial.getUsername() SPC "so we\'ll pick someone new.");
+	if (mp() && isObject($Seek::LastInitial))
+		echo("[Mode Seek]: Last seeker was" SPC $Seek::LastInitial.getDisplayName() SPC "so we\'ll pick someone new.");
 
 	//Make everyone a hider except for one seeker
 	%possible = 0;
@@ -256,132 +391,156 @@ function chooseSeeker(%seeker) {
 		if ($Seek::LastInitial.getId() == %client.getId())
 			continue;
 
+		if (!%client.isActive())
+			continue;
+
 		%clients[%possible] = %client;
 		%possible ++;
 	}
 
 	//Pick them from ClientGroup at random
-	if (!isObject(%seeker) && isObject($queuedSeeker)) {
-		%seeker = $queuedSeeker;
-		$queuedSeeker = 0;
-	}
+	%seeker = %clients[getRandom(0, %possible - 1)];
 
-
-	if (!isObject(%seeker))
-		%seeker = %clients[getRandom(0, %possible - 1)];
-
-	$Seek::LastInitial = %seeker;
+	//You are now the seeker
 	%seeker.setSeeker(true);
-	detectSeekerUpdate();
-}
+	$Seek::LastInitial = %seeker;
+	//%seeker.updateSeekerMarble();
+	%seeker.schedule(%seeker.getPing() + 350, updateGhostDatablock);
 
-function queueSeeker(%client) {
-	$queuedSeeker = %client;
-}
-
-function startHiding() {
-	//Init hiding period
-	$Game::Seeking = false;
-
-	//Stop the seeker, let the hiders go
-	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-		%client = ClientGroup.getObject(%i);
-		%client.updateGhostDatablock();
-
-		if (%client.seeker) {
-			//The seeker is anchored to the start pad
-			%client.addHelpLine("Everyone is hiding, better take notes!");
-			%client.player.setTransform(getField(%client.getCheckpointPos(), 0));
-			%client.player.setMode(Start);
-			%client.player.setCloaked(false);
-			%client.freezeMarble(false);
-		} else {
-			%client.player.setCloaked(true);
-			%client.addHelpLine("The Seeker is coming to get you! Find a place to hide!");
-			%client.freezeMarble(false);
-		}
-
-		%time = (MissionInfo.hideTime ? MissionInfo.hideTime : 30000);
-		%client.stopTimer();
-		%client.setTime(%time);
-		%client.startTimer();
+	
+	if (!$Game::Seeking && $Game::State $= "Go") {
+		//In case the seeker leaves before seeking time and a new seeker needs to be chosen, lock them in place
+		%seeker.resetCheckpoint();
+		%seeker.player.setMode(Start);
+		%seeker.player.setCloaked(false);
+		
+		//Winterfest hat support
+		%seeker.hat.setCloaked(false);
 	}
-}
-
-function updateSeekFreeze() {
-	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-		%client = ClientGroup.getObject(%i);
-		if (!%client.seeker) {
-			%client.freezeMarble($Game::Seeking);
-		} else {
-			if ($Game::Seeking) {
-				%client.player.setMode(Normal);
-			} else {
-				%client.player.setMode(Start);
-			}
-		}
-	}
-}
-
-function startSeeking() {
-	$Game::Seeking = true;
-	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-		%client = ClientGroup.getObject(%i);
-		//Hiders become slower, seekers become faster
-		%client.updateGhostDatablock();
-		%client.stopTimer();
-		%client.setTime(MissionInfo.time ? MissionInfo.time : 300000);
-		%client.startTimer();
-
-		//Start both the seeker and the hiders
-		if (%client.seeker) {
-			%client.addHelpLine("Go find them!");
-			%client.player.setMode(Normal);
-		} else {
-			%client.freezeMarble(true);
-			%client.player.setCloaked(false);
-			%client.addHelpLine("The Seeker is loose!");
-		}
+	if ($Game::State $= "Go" && $Time::ElapsedTime != 0 && mp()) {
+		%seeker.addHelpLine("You are the Seeker.");
 	}
 }
 
 //--------------------------------------------------------------------------
 
-function checkSeekVictory() {
+function startHiding() {
+	//Init hiding period
 	$Game::Seeking = false;
+	$Seek::Endmessage = false;
+	cancelSeekCountdown();
+	%time = (MissionInfo.hideTime ? MissionInfo.hideTime : 30000);
+	Time::stop();
+	Time::set(%time);
+	Time::start();
+	startSeekCountdown(%time, "Seeking starting in %s second(s)!", startSeeking);
+
+	//Stop the seeker, let the hiders go
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		//%client.updateGhostDatablock();
+
+
+		if (%client.seeker) {
+			//The seeker is anchored to the start pad
+			%client.resetCheckpoint();
+			%client.player.setMode(Start);
+			%client.player.trailEmitter[8].delete();
+			%client.addBubbleLine("Everyone is hiding, better take notes!");
+
+		} else {
+			%client.player.setCloaked(true);
+			%client.player.trailEmitter[8].delete();
+			%client.addBubbleLine("The Seeker is coming to get you! Find a place to hide!");
+
+			//Winterfest hat support
+			%client.hat.setCloaked(true);
+		}
+	}
+	detectSeekerUpdate();
+}
+
+function startSeeking() {
+	$Game::Seeking = true;
+	cancelSeekCountdown();
+	Time::stop();
+	%time = (MissionInfo.Time ? MissionInfo.Time : 300000);
+	Time::set(%time);
+	Time::start();
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		//%client.updateGhostDatablock();
+		
+
+		//Start both the seeker and the hiders
+		if (%client.seeker) {
+			%client.player.setMode(Normal);
+			%client.addBubbleLine("Go find them!");
+
+		} else {
+			%client.player.setCloaked(false);
+			//Hiders become slower
+			%client.updateSeekerMarble();
+			%client.addBubbleLine("The Seeker is loose!");
+
+			//Winterfest hat support
+			%client.hat.setCloaked(false);
+		}
+	}
+	detectSeekerUpdate();
+}
+
+//--------------------------------------------------------------------------
+
+function checkSeekVictory() {
+	cancelSeekCountdown();
+	if ($Seek::Endmessage)
+		return;
 
 	//Count the total number of hiders and seekers to see who wins
 	%seekers = 0;
 	%hiders = 0;
-
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
-		if (%client.seeker) {
+		//Don't count disconnected people, or spectators
+		if (%client.seeker && %client.isActive()) {
 			%seekers ++;
-		} else {
+		} else if (!%client.seeker && %client.isActive()) {
 			%hiders ++;
 		}
 	}
+	
+	$Seek::Endmessage = true;
 
-	if (%seekers == 0) {
+	if (%hiders != 0) {
 		serverSendChat("<color:66ff66>The hiders have won!");
 
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 			%client = ClientGroup.getObject(%i);
-			%client.winner = !%client.seeker;
+			%client.winner = (!%client.seeker && %client.isActive());
+			if (%client.winner) {
+				%client.gemsFound[2] ++;
+			}
 		}
-	} else if (%hiders == 0) {
+	} else if (%hiders == 0 && %seekers != 0) {
 		serverSendChat("<color:66ff66>The seekers have won!");
 
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 			%client = ClientGroup.getObject(%i);
-			%client.winner = %client.seeker;
+			%client.winner = (%client.seeker && %client.gemsFound[5] > 0 && %client.isActive());
 		}
 	} else {
-		//Nobody is left ...
+		//Nobody is left...
 
 		//Nobody wins!
 	}
+
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		%client.gemCount = (%client.seeker ? %client.gemsFound[5] * 15 : ((getPlayingPlayerCount() - 1) * 10) * %client.gemsFound[2]);
+		%client.setGemCount(%client.gemCount);
+	}
+	updateScores();
 }
 
 function updateSeekWinner(%winners) {
@@ -395,110 +554,50 @@ function updateSeekWinner(%winners) {
 
 //--------------------------------------------------------------------------
 
-function startCountdown(%time, %message) {
-	$countdownEvent1 = schedule(%time - 3000, 0, countdownRemaining, 3, %message);
-	$countdownEvent2 = schedule(%time - 2000, 0, countdownRemaining, 2, %message);
-	$countdownEvent3 = schedule(%time - 1000, 0, countdownRemaining, 1, %message);
+function startSeekCountdown(%time, %message, %editorCmd) {
+	$Seek::CountdownEvent1 = schedule(%time - 3000, 0, seekCountdownRemaining, 3, %message);
+	$Seek::CountdownEvent2 = schedule(%time - 2000, 0, seekCountdownRemaining, 2, %message);
+	$Seek::CountdownEvent3 = schedule(%time - 1000, 0, seekCountdownRemaining, 1, %message);
+
+	if (%editorCmd !$= "" && $Editor::Opened)
+		$Seek::CountdownEvent4 = schedule(%time, 0, %editorCmd);
 }
 
-function cancelCountdown() {
-	cancel($countdownEvent1);
-	cancel($countdownEvent2);
-	cancel($countdownEvent3);
+function cancelSeekCountdown() {
+	cancel($Seek::CountdownEvent1);
+	cancel($Seek::CountdownEvent2);
+	cancel($Seek::CountdownEvent3);
+	cancel($Seek::CountdownEvent4);
 }
 
-function countdownRemaining(%seconds, %message) {
+function seekCountdownRemaining(%seconds, %message) {
+	if (!isGameStarted())
+		return;
 	//Quick and dirty string replacement
 	%message = strreplace(%message, "%s", %seconds);
 
 	//Plurals as well
-	%message = strreplace(%message, "(s)", (%seconds == 1 ? "" : "(s)"));
+	%message = strreplace(%message, "(s)", (%seconds == 1 ? "" : "s"));
 
 	//And tell everyone
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
-		%client.addHelpLine(%message);
+		%client.addBubbleLine(%message);
 	}
 }
 
 //-----------------------------------------------------------------------------
-
+//Setting the seeker shape
 datablock MarbleData(SeekerMarble : LBDefaultMarble) {
-	maxRollVelocity = 20;
-	angularAcceleration = 85;
-	brakingAcceleration = 40;
-	airAcceleration = 7;
-
-	staticFriction = 1.4;
-	kineticFriction = 0.9;
-	bounceKineticFriction = 0.3;
+	shapeFile = "~/data/shapes/balls/ball-superball.dts";
 };
 
-datablock MarbleData(SeekerMegaMarble : MegaMarble) {
-	maxRollVelocity = 20;
-	angularAcceleration = 75;
-	brakingAcceleration = 40;
+//Returns whether or not the player is actively playing at the moment
+function GameConnection::isActive(%this) { 
+	return %this.isReal() && !%this.loading && !%this.spectating && isObject(%this.player);
+}
 
-	staticFriction = 1.4;
-	kineticFriction = 0.9;
-	bounceKineticFriction = 0.3;
-};
-
-datablock MarbleData(HiderMarble : LBDefaultMarble) {
-	maxRollVelocity = 7.5;
-	angularAcceleration = 30;
-	brakingAcceleration = 20;
-	airAcceleration = 1;
-
-	staticFriction = 1.2;
-	kineticFriction = 0.7;
-	bounceKineticFriction = 0.2;
-
-	mass = 4;
-};
-
-datablock MarbleData(HiderMegaMarble : MegaMarble) {
-	maxRollVelocity = 7.5;
-	angularAcceleration = 19;
-	brakingAcceleration = 13;
-	airAcceleration = 1;
-
-	staticFriction = 1.4;
-	kineticFriction = 0.8;
-	bounceKineticFriction = 0.2;
-
-	mass = 4;
-};
-
-//Hider needs extra DBs because they can have any skin. Seeker is forced into
-//	using the "Hex" skin
-datablock MarbleData(HiderMarble3D : HiderMarble) {
-	shapeFile = $usermods @ "/data/shapes/balls/3dMarble.dts";
-};
-datablock MarbleData(HiderMarbleMidP : HiderMarble) {
-	shapeFile = $usermods @ "/data/shapes/balls/midp.dts";
-};
-datablock MarbleData(HiderMarblePack1 : HiderMarble) {
-	shapeFile = $usermods @ "/data/shapes/balls/pack1/pack1marble.dts";
-	emap = false;
-};
-datablock MarbleData(HiderMegaMarble3D : HiderMegaMarble) {
-	shapeFile = $usermods @ "/data/shapes/balls/3dMarble.dts";
-};
-datablock MarbleData(HiderMegaMarbleMidP : HiderMegaMarble) {
-	shapeFile = $usermods @ "/data/shapes/balls/midp.dts";
-};
-datablock MarbleData(HiderMegaMarblePack1 : HiderMegaMarble) {
-	shapeFile = $usermods @ "/data/shapes/balls/pack1/pack1marble.dts";
-	emap = false;
-};
-
-//List of datablocks
-$Seek::HiderDatablock[0] = HiderMarble;
-$Seek::HiderDatablock[1] = HiderMarble3D;
-$Seek::HiderDatablock[2] = HiderMarbleMidP;
-$Seek::HiderDatablock[4] = HiderMarblePack1;
-$Seek::HiderMegaDatablock[0] = HiderMegaMarble;
-$Seek::HiderMegaDatablock[1] = HiderMegaMarble3D;
-$Seek::HiderMegaDatablock[2] = HiderMegaMarbleMidP;
-$Seek::HiderMegaDatablock[4] = HiderMegaMarblePack1;
+//Returns whether or not the game is currently "started": not in menu/lobby, not pregame, and not finished
+function isGameStarted() { 
+	return (mp() ? $Game::Running && $Server::Started : !$Game::Menu) && !$Game::Finished;
+}

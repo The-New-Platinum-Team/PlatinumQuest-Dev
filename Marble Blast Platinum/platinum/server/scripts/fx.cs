@@ -116,9 +116,21 @@ function GameBaseData::createFXEmitter(%this, %obj, %datablock, %emitter, %index
 	if (isServerMovingObject(%obj)) {
 		%emitter.setParent(%obj, "0 0 0 1 0 0 0", true, "0 0 0");
 	}
+
+	if ($Game::isMode["props"] && %obj.prop && isObject(%obj.client))
+		%obj.client.setPropFX();
+
 }
 
 function GameBaseData::clearFX(%this, %obj) {
+	// kill off the particles
+	for (%i = 0; isObject(%obj._fx[%i]); %i ++) {
+		%obj._fx[%i].delete();
+		%obj._fx[%i] = "";
+	}
+}
+
+function GameBase::clearFX(%this, %obj) {
 	// kill off the particles
 	for (%i = 0; isObject(%obj._fx[%i]); %i ++) {
 		%obj._fx[%i].delete();

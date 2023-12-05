@@ -88,6 +88,16 @@ function FireballItem::onAdd(%this, %obj) {
 }
 
 function FireballItem::onPickup(%this, %obj, %user, %amount) {
+	%disable = Mode::callback("shouldDisablePowerup", false, new ScriptObject() {
+		this = %this;
+		obj = %obj;
+		user = %user;
+		amount = %amount;
+		_delete = true;
+	});
+	if (%disable) {
+		return false;
+	}
 	echo("FIREBALLITEM::ONPICKUP: THIS ("@%this@") OBJ ("@%obj@") %user ("@%user@")");
 	if (%user._fireballTime !$= "" && %obj.activeTime < %user._fireballTime - (getSimTime() - %user._fireballStartTime))
 		return;
@@ -210,6 +220,12 @@ function GameConnection::setFireballTime(%this, %time) {
 }
 
 function GameConnection::fireballInit(%this, %time) {
+	if (%this.player.inWater) {
+		%this.play2D(fireballSizzleSfx);
+		%this.setBubbleTime(0, false);
+		%this.bubbleInfinite = false;
+		return;
+	}
 	//called when fireball is activated
 	%this.player._fireballActive = 1;
 	%this.player._fireballTime = %time;

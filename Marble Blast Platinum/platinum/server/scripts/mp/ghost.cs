@@ -24,6 +24,8 @@
 //-----------------------------------------------------------------------------
 
 function GameConnection::updateGhostDatablock(%this) {
+	if (!isObject(%this.player))
+		return;
 	%marble = %this.getMarbleChoice();
 	%db = getField(%marble, 0);
 	%skin = getField(%marble, 1);

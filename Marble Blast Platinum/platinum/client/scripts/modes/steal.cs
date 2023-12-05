@@ -30,6 +30,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_steal) {
 
 	name = "Steal";
 	desc = "Blast near opponents to steal their points!";
+	complete = 0;
 });
 
 function ClientMode_steal::onLoad(%this) {

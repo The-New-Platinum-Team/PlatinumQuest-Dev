@@ -452,6 +452,12 @@ function input_throwSnowball(%val) {
 
 function input_displayScoreList(%val) {
 	if ($Server::ServerType $= "MultiPlayer") {
+		if (ClientMode::callback("displayScoreList", false, new ScriptObject() {
+			val = %val;
+			_delete = true;
+		})) {
+			return;
+		}
 		if (%val) {
 			RootGui.pushDialog(MPScoresDlg);
 		} else {

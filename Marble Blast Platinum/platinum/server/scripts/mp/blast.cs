@@ -47,7 +47,8 @@ function serverBlastUpdate() {
 		%client = ClientGroup.getObject(%i);
 		if (!%client.playing)
 			continue;
-
+		if (%client.usingTripleBlast) // Do not increment it in triple-blast mode
+			continue;
 		%blastValue = %client.blastValue;
 		// Update blast value
 		if ($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast)
@@ -79,13 +80,11 @@ function serverCmdBlast(%client, %gravity) {
 		return;
 	}
 
-	if (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || %client.usingPartyTripleBlast) {
+	if (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || %client.usingTripleBlast) {
 		if (%client.blastValue <= 0.35) { // It should be "== 0.34", but uh, floating point nonsense
 			%client.setBlastValue(0);
-			if (%client.usingPartyTripleBlast)
-			{
-				%client.usingPartyTripleBlast = false;
-				$MP::PartyTripleBlast = false;
+			if (%client.usingTripleBlast) {
+				%client.onNextFrame(setTripleBlast, false);
 			}
 		} else {
 			%client.setBlastValue(%client.blastValue - 0.33); // Sends to client
@@ -291,6 +290,18 @@ function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
 		if (%client.player.isFrozen)
 			continue;
 
+		//Don't blast people on your team
+		if ($MP::TeamMode && isObject(%client.team) && isObject(%this.client.team) && %client.team.getId() == %this.client.team.getId())
+			continue;
+
+		if (Mode::callback("shouldDisableShockwave", false, new ScriptObject() {
+			this = %this;
+			other = %client.player;
+			strength = %strength;
+			_delete = true;
+		}))
+			return;
+
 		%theyPos = %client.player.getWorldBoxCenter();
 		%myMod = %this.getDataBlock().blastModifier;
 		%theyMod = %client.player.getDataBlock().blastModifier;
@@ -310,7 +321,10 @@ function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
 
 // TODO: UTALIZE THE GRAVITY (its getGravityDir() but MP friendly)
 function GameConnection::makeBlastParticle(%this, %gravity) {
-	%this.player.sendShockwave(%this.blastValue * (%this.usingSpecialBlast ? $MP::BlastRechargeShockwaveStrength : $MP::BlastShockwaveStrength), %this.usingSpecialBlast);
+	if (%this.usingTripleBlast)
+		%this.player.sendShockwave($MP::TripleBlastShockwaveStrength);
+	else 
+		%this.player.sendShockwave(%this.blastValue * (%this.usingSpecialBlast ? $MP::BlastRechargeShockwaveStrength : $MP::BlastShockwaveStrength));
 
 	// get the blast particles
 	if (((Sky.materialList $= "platinum/data/skies_mbu/beginner/sky_beginner.dml") || (Sky.materialList $= "platinum/data/skies_mbu/intermediate/sky_intermediate.dml") || (Sky.materialList $= "platinum/data/skies_mbu/advanced/sky_advanced.dml")) && !$pref::LegacyItems) {

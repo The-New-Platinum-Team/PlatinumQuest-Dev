@@ -316,9 +316,7 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode) {
-		$MP::ScoreSendingDisabled = true;
-	}
+	$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 
 	// Reset the players and inform them we're starting
 	%count = ClientGroup.getCount();
@@ -420,7 +418,6 @@ function endGameSetup() {
 
 	$Server::SpawnGroups = false;
 	$Game::State = "End";
-	// TODO: For the brand sexy new race mode, make this 1000 to have a 1 second pause
 	$Game::StateSchedule = schedule(2000, 0, "endGame");
 
 	Mode::callback("onEndGameSetup", "");
@@ -558,10 +555,10 @@ function serverStateStart() {
 
 function serverStateGo() {
 	//Slight hack: Don't start time if someone is in a TimeStopTrigger
-	if ($Game::TimeStoppedClients > 0)
-		return;
+	if ($Game::TimeStoppedClients <= 0)
+		Time::start();
 
-	Time::start();
+	Mode::callback("onServerGo");
 }
 
 function serverStateEnd() {
@@ -575,6 +572,7 @@ function GameConnection::stateStart(%this) {
 	%this.setMaxGems($Game::GemCount);
 	%this.stateSchedule = %this.schedule(500, "setGameState", "Ready");
 	%this.setSpecialBlast(false);
+	%this.setTripleBlast(false);
 	%this.setBlastValue(0);
 	%this.playing = (MissionInfo.game $= "Ultra");
 
@@ -585,7 +583,7 @@ function GameConnection::stateStart(%this) {
 	%this.player.setMode(Start);
 
 	//Show the StartHelpText
-	if (MissionInfo.startHelpText !$= "") {
+	if (MissionInfo.startHelpText !$= "" && !%this.player.disableStartHelpText) {
 		%this.addBubbleLine(MissionInfo.startHelpText, false, MissionInfo.persistStartHelpTextTime ? MissionInfo.persistStartHelpTextTime : 5000);
 	}
 }
@@ -733,7 +731,10 @@ function GameConnection::onClientEnterGame(%this) {
 
 				if ($MPPref::ForceSpectators) {
 					%this.forceSpectate = true;
-				} else {
+				} else if (Mode::callback("shouldSetSpectate", true, new ScriptObject() {
+					client = %this;
+					_delete = true;
+				})) {
 					schedule(2000, 0, commandToClient, %this, 'SpectateChoice');
 				}
 			}
@@ -831,12 +832,22 @@ function GameConnection::resetStats(%this) {
 	%this.bonusTime = 0;
 	%this.gemCount = 0;
 	%this.totalBonus = 0;
+	%this.finalTime = 6000000;
 
 	%this.gemsFound[1] = 0;
 	%this.gemsFound[2] = 0;
 	%this.gemsFound[5] = 0;
 	%this.gemsFound[10] = 0;
 	%this.gemsFoundTotal = 0;
+
+	%this.gemsFound[-1] = 0;
+	%this.gemsFound[0] = 0;
+	%this.gemsFound[3] = 0;
+	%this.gemsFound[4] = 0;
+	%this.gemsFound[6] = 0;
+	%this.gemsFound[7] = 0;
+	%this.gemsFound[8] = 0;
+	%this.gemsFound[20] = 0;
 
 	commandToAll('PlayerGemCount', %this.getUsername(), 0, 0, 0, 0);
 
@@ -1096,6 +1107,9 @@ function GameConnection::quickRespawnPlayer(%this) {
 	// If we're finished, don't respawn.
 	if ($Game::State $= "End")
 		return;
+	// Don't do this if we're spectating
+	if (%this.spectating)
+		return;
 
 	%this.player.oldPowerupData = %this.player.powerUpData;
 	%this.player.oldPowerupObj = %this.player.powerUpObj;
@@ -1123,12 +1137,15 @@ function GameConnection::stopRespawn(%this) {
 }
 
 function GameConnection::respawnFromOOB(%this) {
-	// If we're finished, don't respawn.
 	if (%ret && $platform $= "windows")
 	{
 		anticheatDetect(); // This shit aint exist on mac lmaoo
 	}
+	// If we're finished, don't respawn.
 	if ($Game::State $= "End")
+		return;
+	// Don't do this if we're spectating
+	if (%this.spectating)
 		return;
 
 	// If checkpointed, don't do READY, SET, GO.
@@ -1149,13 +1166,12 @@ function GameConnection::respawnFromOOB(%this) {
 }
 
 function GameConnection::respawnPlayer(%this, %respawnPos) {
-	// specators don't need this in mp
 	if (%ret && $platform $= "windows")
 	{
 		anticheatDetect(); // This shit aint exist on mac lmaoo
 	}
-	%isSpectating = ($Server::ServerType $= "Multiplayer" && %this.spectating);
-	if (%isSpectating)
+	// spectators don't need this in mp
+	if (%this.spectating)
 		return;
 
 	cancel(%this.respawnSchedule);
@@ -1546,4 +1562,25 @@ function getActivePlayerCount() {
 		%players ++;
 	}
 	return %players;
+}
+
+function SimGroup::findGems(%this) {
+	if (%this.searchingGems)
+		return;
+	%this.searchingGems = true;
+	%gems = "";
+	for (%i = 0; %i < %this.getCount(); %i ++) {
+		%object = %this.getObject(%i);
+		if (%object.getClassName() $= "SimGroup") {
+			%groupGems = %object.findGems();
+			if (%groupGems !$= "") {
+				%gems = addWord(%gems, %groupGems);
+			}
+
+		} else if (%object.getDatablock().className $= "Gem") {
+			%gems = addWord(%gems, %object.getID());
+		}
+	}
+	%this.searchingGems = false;
+	return %gems;
 }

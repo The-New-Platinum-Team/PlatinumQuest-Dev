@@ -89,6 +89,16 @@ function spawnHuntGemGroup(%exclude) {
 				SpawnedSet.getObject(%i).setSync("gemSpawnSync");
 			}
 		}
+		if ((($MPPref::Server::HuntRB && mp()) || MissionInfo.HuntRB) && !$Game::FirstSpawn) {
+			//Give everyone a Super Speed and a Super Jump
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%client = ClientGroup.getObject(%i);
+				commandToClient(%client, 'doPowerUp', 1);
+				commandToClient(%client, 'doPowerUp', 2);
+				SuperJumpItem.onUse("", %client.player);
+				SuperSpeedItem.onUse("", %client.player);
+			}
+		}
 	}
 	$Game::SpawningGems = false;
 	commandToAll('RadarBuildSearch');
@@ -208,16 +218,16 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 			//Red/Yellow: Always
 			//Blue: After 25% time
 			//Platinum: After 50% time
-			if (%gem._huntDatablock.huntExtraValue == 4 && %elapsedTime < 0.25) {
+			if (%gem._huntDatablock.huntExtraValue >= 3 && %elapsedTime < 0.25) {
 				%exclude = addWord(%exclude, %gem);
-			} else if (%gem._huntDatablock.huntExtraValue == 9 && %elapsedTime < 0.50) {
+			} else if (%gem._huntDatablock.huntExtraValue >= 6 && %elapsedTime < 0.50) {
 				%exclude = addWord(%exclude, %gem);
 			}
 		}
 	}
 
 	//Find center gem(s) to spawn group(s)
-	%centerCount = ($MPPref::Server::DoubleSpawnGroups && mp() && !$Game::isMode["coop"]) ? 2 : 1;
+	%centerCount = (($MPPref::Server::DoubleSpawnGroups && mp() && !$Game::isMode["coop"]) || MissionInfo.doubleSpawns) ? 2 : 1;
 	%centers = getCenterGems(%groups, %exclude, %centerCount);
 
 	RootGroup.add(%spawnSet = new SimSet("SpawnSet"));
@@ -590,6 +600,9 @@ function testSpawn(%gem) {
 	if (getHuntSpawnType() > 1) {
 		return true;
 	}
+	if ($Game::isMode["partyspawns"]) {
+		return true;
+	}
 	// Check for PQ-spawn mechanics
 	if (MissionInfo.game $= "PlatinumQuest") {
 		%db = %gem.getDataBlock().getName();
@@ -960,6 +973,8 @@ function makeGemGroup(%group, %reset) {
 	if (%reset) {
 		$GemsCount = 0;
 	}
+	if (!isObject(%group))
+		return;
 	// Get all gems out there are in the world
 	%count = %group.getCount();
 	for (%i = 0; %i < %count; %i++) {

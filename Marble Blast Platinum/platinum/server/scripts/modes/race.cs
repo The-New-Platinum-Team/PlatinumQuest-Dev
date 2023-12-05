@@ -1,7 +1,9 @@
 //------------------------------------------------------------------------------
-// Race Mode
+// Racing mode
 //
-// Copyright (c) 2015 The Platinum Team
+// Originally created in 2014
+//
+// Copyright (c) 2024 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -23,21 +25,217 @@
 //-----------------------------------------------------------------------------
 
 function Mode_race::onLoad(%this) {
+	%this.registerCallback("shouldUseTimeScoreboard");
+	%this.registerCallback("onEnterPad");
 	%this.registerCallback("shouldPickupGem");
-	%this.registerCallback("shouldPickupPowerUp");
-	%this.registerCallback("shouldDisablePowerup");
+	%this.registerCallback("onRespawnPlayer");
+	%this.registerCallback("onRespawnOnCheckpoint");
+	%this.registerCallback("onMissionReset");
+	%this.registerCallback("onMissionEnded");
+	%this.registerCallback("canFinish");
+	%this.registerCallback("shouldIgnoreGem");
+	%this.registerCallback("shouldRespawnGems");
+	%this.registerCallback("shouldDisablePowerUp");
+	%this.registerCallback("shouldPickupPowerup");
 	%this.registerCallback("shouldUseClientPowerups");
-	%this.registerCallback("shouldResetGem");
 	%this.registerCallback("shouldRestartOnOOB");
 	%this.registerCallback("shouldResetTime");
-	%this.registerCallback("shouldRespawnGems");
-	%this.registerCallback("onFoundGem");
 	%this.registerCallback("shouldTotalGemCount");
-	%this.registerCallback("updateWinner");
+	%this.registerCallback("shouldSetSpectate");
+	%this.registerCallback("onClientLeaveGame");
 	%this.registerCallback("getQuickRespawnTimeout");
+	%this.registerCallback("shouldAllowTTs");
+	%this.registerCallback("onFrameAdvance");
+	%this.registerCallback("getScoreType");
+	%this.registerCallback("getFinalScore");
+	%this.registerCallback("onDeactivate");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+function Mode_race::shouldUseTimeScoreboard(%this) {
+	return true;
+}
+function Mode_race::onEnterPad(%this, %object) {
+	%finisher = %object.client;
+	if (%finisher.canFinish()) {
+		%this.playersFinished ++;
+		%finisher.finalTime = $Time::CurrentTime;
+		echo("[Mode Race]:" SPC formatTime(%finisher.finalTime) SPC "is" SPC %finisher.getDisplayName() @ "\'s final time.");
+		%finisher.player.setMode(Victory);
+		//startFireWorks($Game::EndPad);
+		updateSingleScore(%finisher);
+		%finisher.isFinished = true;
+		if (%this.playersFinished == 1) {
+			//Only the first winner should see this message
+			%finisher.addHelpLine("Congratulations! You\'ve won!");
+		} else {
+			%finisher.addHelpLine("Congratulations! You\'ve finished!");
+		}
+		if (%this.playersFinished < ClientGroup.getCount()) {
+			%finisher.playPitchedSound("firewrks");
+		}
+		if (mp()) {
+			cancel(%finisher.racingWinSpectate);
+			%finisher.racingWinSpectate = %finisher.schedule(5000, racingWinSpectate);
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%client = ClientGroup.getObject(%i);
+				if (%client.getID() == %finisher.getID())
+					continue;
+				if (%this.playersFinished == 1) {
+					%client.addHelpLine(%finisher.getDisplayName() SPC "has won!");
+				} else {
+					%client.addHelpLine(%finisher.getDisplayName() SPC "has finished!");
+				}
+			}
+		}
+		%this.checkRaceEnd();
+
+	} else {
+		%finisher.addHelpLine("You may not finish without all the gems!");
+		%finisher.playPitchedSound("missinggems");
+	}
+	return true;
+}
+function Mode_race::shouldPickupGem(%this, %object) {
+	%gem = %object.obj.getID();
+	%client = %object.user.client;
+	if (!%client.raceFoundGem[%gem]) {
+		//You picked up a gem...
+		%client.raceFoundGem[%gem] = true;
+		%client.raceLookupGem[%client.gemCount] = %gem;
+		%client.raceLookupGemCP[%client.gemCount] = %client.curCheckpointNum;
+		%client.gemCount ++;
+		%client.setGemCount(%client.gemCount);
+		%remaining = $Game::gemCount - %client.gemCount;
+		if (%remaining <= 0) {
+			messageClient(%client, 'MsgHaveAllGems', "\c0You have all the gems, head for the finish!");
+			%client.playPitchedSound("gotalldiamonds");
+		} else {
+			if (%remaining == 1)
+				%msg = "\c0You picked up a gem! Only one gem to go!";
+			else
+				%msg = "\c0You picked up a gem!  " @ %remaining @ " gems to go!";
+			messageClient(%client, 'MsgItemPickup', %msg, %remaining);
+			%client.playPitchedSound("gotDiamond");
+		}
+		%fx = isObject(%gem._fx[0]) ? %gem._fx[0].getSyncID() : -1;
+		commandToClient(%client, 'GemPickup', %gem.getSyncId(), %gem.staticGem.getSyncID(), %fx, %client.curCheckpointNum);
+	}
+	return false;
+}
+function Mode_race::onRespawnPlayer(%this, %object) {
+	%client = %object.client;
+	for (%i = 0; %i < $Game::GemCount; %i ++) {
+		%gem = %client.raceLookupGem[%i];
+		%client.raceFoundGem[%gem] = false;
+		%client.raceLookupGem[%i] = "";
+		%client.raceLookupGemCP[%i] = "";
+	}
+	%client.gemCount = 0;
+	%client.setGemCount(%client.gemCount);
+	commandToClient(%client, 'RacingOnRespawn');
+}
+function Mode_race::onRespawnOnCheckpoint(%this, %object) {
+	%client = %object.client;
+	%gemCount = $Game::GemCount;
+	for (%i = 0; %i < $Game::GemCount; %i ++) {
+		%gem = %client.raceLookupGem[%i];
+		if (isObject(%gem) && %client.raceLookupGemCP[%i] >= %client.curCheckpointNum) {
+			%client.raceFoundGem[%gem] = false;
+			%client.raceLookupGem[%i] = "";
+			%gemCount --;
+		}
+	}
+	%client.gemCount = %gemCount;
+	%client.setGemCount(%client.gemCount);
+	commandToClient(%client, 'RacingOnRespawnOnCheckpoint', %client.curCheckpointNum);
+}
+function Mode_race::onMissionReset(%this) {
+	%this.playersFinished = 0;
+	%gems = MissionGroup.findGems();
+	for (%i = 0; %i < getWordCount(%gems); %i ++) {
+		%object = getWord(%gems, %i);
+		if (!isObject(%object.staticGem)) {
+			//Create a transparent, static gem
+			MissionCleanup.add(%object.staticGem = new StaticShape() {
+				position = %object.position;
+				rotation = %object.rotation;
+				scale = %object.scale;
+				datablock = "StaticGem" @ strchr(%object.getDataBlock().getName(), "_");
+			});
+			%object.staticGem.setCloaked(true);
+			%newGem = true;
+		}
+		%object.staticGem.setTransform(%object.getTransform());
+	}
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		cancel(%client.racingWinSpectate);
+		if (%client.isFinished) {
+			if (isObject(%client.player))
+				%client.player.delete();
+			%client.setSpectating(false);
+			%client.isFinished = false;
+		}
+		for (%i = 0; %i < $Game::GemCount; %i ++) {
+			%gem = %client.raceLookupGem[%i];
+			%client.raceFoundGem[%gem] = false;
+			%client.raceLookupGem[%i] = "";
+			%client.raceLookupGemCP[%i] = "";
+		}
+	}
+	updateScores();
+	commandToAll('RacingOnRespawn');
+	if (%newGem)
+		schedule(1000, 0, commandToAll, 'RacingOnRespawn');
+}
+function Mode_race::onMissionEnded(%this) {
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		cancel(%client.racingWinSpectate);
+		if (%client.isFinished) {
+			%client.setSpectating(false);
+			%client.isFinished = false;
+		}
+		for (%i = 0; %i < $Game::GemCount; %i ++) {
+			%gem = %client.raceLookupGem[%i];
+			%client.raceFoundGem[%gem] = false;
+			%client.raceLookupGem[%i] = "";
+			%client.raceLookupGemCP[%i] = "";
+		}
+	}
+	commandToAll('RacingOnRespawn');
+	updateScores();
+	%gems = MissionGroup.findGems();
+	for (%i = 0; %i < getWordCount(%gems); %i ++) {
+		%object = getWord(%gems, %i);
+		if (isObject(%object.staticGem))
+			%object.staticGem.delete();
+	}
+}
+function Mode_race::canFinish(%this, %object) {
+	return !($Game::GemCount && %object.client.gemCount < $Game::GemCount);
+}
+function Mode_race::shouldIgnoreGem(%this, %object) {
+	return true;
+}
 function Mode_race::shouldRespawnGems(%this, %object) {
+	return false;
+}
+function Mode_race::shouldDisablePowerup(%this, %object) {
+	if (!mp())
+		return false;
+	//Stuff that is handled by the client
+	return %object.this.coopClient;
+}
+function Mode_race::shouldPickupPowerup(%this, %object) {
+	if (!mp())
+		return true;
+	//Stuff that is handled by the client
+	return !%object.this.coopClient;
+}
+function Mode_race::shouldUseClientPowerups(%this) {
+	if (!mp())
+		return false;
 	return true;
 }
 function Mode_race::shouldRestartOnOOB(%this, %object) {
@@ -46,178 +244,88 @@ function Mode_race::shouldRestartOnOOB(%this, %object) {
 function Mode_race::shouldResetTime(%this, %object) {
 	return false;
 }
-function Mode_race::shouldPickupGem(%this, %object) {
-	commandToClient(%object.user.client, 'GemPickup', %object.obj.getSyncId());
-	return false;
-}
-function Mode_race::shouldDisablePowerup(%this, %object) {
-	//Stuff that is handled by the client
-	return %object.this.coopClient;
-}
-function Mode_race::shouldPickupPowerup(%this, %object) {
-	//Stuff that is handled by the client
-	return !%object.this.coopClient;
-}
-function Mode_race::shouldUseClientPowerups(%this) {
-	return true;
-}
-function Mode_race::shouldResetGem(%this, %object) {
-	if (!isObject(%object.obj.staticgem)) {
-		MissionCleanup.add(%object.obj.staticgem = new StaticShape() {
-			position = %object.obj.position;
-			rotation = %object.obj.rotation;
-			scale = VectorSub(%object.obj.scale, "0.01 0.01 0.01");
-			datablock = "StaticGem";
-		});
-		%object.obj.staticgem.setCloaked(1);
-	}
-	%object.obj.hide(false);
-	return true;
-}
-function Mode_race::onFoundGem(%this, %object) {
-	%remaining = $Game::gemCount - %object.client.getGemCount();
-	if (%remaining <= 0) {
-		messageClient(%object.client, 'MsgHaveAllGems', "\c0You have all the gems, head for the finish!");
-		%object.client.playPitchedSound("gotalldiamonds");
-	} else {
-		if (%remaining == 1)
-			%msg = "\c0You picked up a gem! Only one gem to go!";
-		else
-			%msg = "\c0You picked up a gem!  " @ %remaining @" gems to go!";
-
-		messageClient(%object.client, 'MsgItemPickup', %msg, %remaining);
-		%object.client.playPitchedSound("gotDiamond");
-	}
-}
 function Mode_race::shouldTotalGemCount(%this) {
 	return false;
 }
-function Mode_race::updateWinner(%this, %winners) {
-	//In race mode, whoever has the most gems or finishes first wins
-	if ($Game::GemCount == 0) {
-		%winner = $Game::FinishClient;
-		%winners.addEntry(%winner);
-	} else {
-		%winner = ClientGroup.getObject(0);
-		%count = ClientGroup.getCount();
-
-		//Who has the most gems?
-		for (%i = 1; %i < %count; %i ++) {
-			%client = ClientGroup.getObject(%i);
-			if (%client.gemCount > %winner.gemCount)
-				%winner = %client;
-		}
-		%winners.addEntry(%winner);
-		//Check for other winners
-		for (%i = 0; %i < %count; %i ++) {
-			%client = ClientGroup.getObject(%i);
-			if (%winner == %client)
-				continue;
-			if (%client.gemCount == %winner.gemCount)
-				%winners.addEntry(%client);
-		}
-	}
+function Mode_race::shouldSetSpectate(%this, %object) {
+	return !%object.client.isFinished;
+}
+function Mode_race::onClientLeaveGame(%this, %object) {
+	%this.checkRaceEnd();
 }
 function Mode_race::getQuickRespawnTimeout(%this, %object) {
 	//Allow them to respawn instantly
 	return 0;
 }
-
-
-// I wonder if frosty remembers this
-$sp2mp_level[0]  = "~/data/lbmissions_mbg/beginner/ThereandBackAgain.mis";
-$sp2mp_level[1]  = "~/data/lbmissions_mbg/beginner/GrandFinale.mis";
-$sp2mp_level[2]  = "~/data/lbmissions_mbg/intermediate/SkatePark.mis";
-$sp2mp_level[3]  = "~/data/lbmissions_mbg/intermediate/Half-Pipe.mis";
-$sp2mp_level[4]  = "~/data/lbmissions_mbg/intermediate/Gauntlet.mis";
-$sp2mp_level[5]  = "~/data/lbmissions_mbg/intermediate/UpwardSpiral.mis";
-$sp2mp_level[6]  = "~/data/lbmissions_mbg/advanced/ThrillRide.mis";
-$sp2mp_level[7]  = "~/data/lbmissions_mbg/advanced/FreewayCrossing.mis";
-$sp2mp_level[8]  = "~/data/lbmissions_mbg/advanced/SteppingStones.mis";
-$sp2mp_level[9]  = "~/data/lbmissions_mbg/advanced/ObstacleCourse.mis";
-$sp2mp_level[10] = "~/data/lbmissions_mbg/advanced/PointsoftheCompass.mis";
-$sp2mp_level[11] = "~/data/lbmissions_mbg/advanced/TubeTreasure.mis";
-$sp2mp_level[12] = "~/data/lbmissions_mbg/advanced/Plumber\'sPortal.mis";
-$sp2mp_level[13] = "~/data/lbmissions_mbg/advanced/SkiSlopes.mis";
-$sp2mp_level[14] = "~/data/lbmissions_mbg/advanced/Acrobat.mis";
-$sp2mp_level[15] = "~/data/lbmissions_mbg/advanced/Whirl.mis";
-$sp2mp_level[16] = "~/data/lbmissions_mbg/advanced/Mudslide.mis";
-$sp2mp_level[17] = "~/data/lbmissions_mbg/advanced/Scaffold.mis";
-$sp2mp_level[18] = "~/data/lbmissions_mbg/advanced/Airwalk.mis";
-$sp2mp_level[19] = "~/data/lbmissions_mbg/advanced/PinballWizard.mis";
-$sp2mp_level[20] = "~/data/lbmissions_mbg/advanced/EyeoftheStorm.mis";
-$sp2mp_level[21] = "~/data/lbmissions_mbg/advanced/Dive!.mis";
-$sp2mp_level[22] = "~/data/lbmissions_mbg/advanced/Tango.mis";
-$sp2mp_level[23] = "~/data/lbmissions_mbg/advanced/KingoftheMountain.mis";
-$sp2mp_level[24] = "~/data/lbmissions_mbp/beginner/KingoftheMarble.mis";
-$sp2mp_level[25] = "~/data/lbmissions_mbp/beginner/Battlecube.mis";
-$sp2mp_level[26] = "~/data/lbmissions_mbp/intermediate/LoopExits.mis";
-$sp2mp_level[27] = "~/data/lbmissions_mbp/intermediate/Technoropes.mis";
-$sp2mp_level[28] = "~/data/lbmissions_mbp/intermediate/PowerupPractice.mis";
-$sp2mp_level[29] = "~/data/lbmissions_mbp/intermediate/ByzantineHelix.mis";
-$sp2mp_level[30] = "~/data/lbmissions_mbp/intermediate/FloorClimb.mis";
-$sp2mp_level[31] = "~/data/lbmissions_mbp/intermediate/BumpyHighway.mis";
-$sp2mp_level[32] = "~/data/lbmissions_mbp/intermediate/MarbleAgilityCourse.mis";
-$sp2mp_level[33] = "~/data/lbmissions_mbp/intermediate/PuzzleOrdeal.mis";
-$sp2mp_level[34] = "~/data/lbmissions_mbp/intermediate/DraggedUp!.mis";
-$sp2mp_level[35] = "~/data/lbmissions_mbp/intermediate/Gym.mis";
-$sp2mp_level[36] = "~/data/lbmissions_mbp/intermediate/Divergence.mis";
-$sp2mp_level[37] = "~/data/lbmissions_mbp/intermediate/SkillZone.mis";
-$sp2mp_level[38] = "~/data/lbmissions_mbp/intermediate/BattlecubeRevisited.mis";
-$sp2mp_level[39] = "~/data/lbmissions_mbp/advanced/DiamondSeekingFun.mis";
-$sp2mp_level[40] = "~/data/lbmissions_mbp/advanced/GapAimer.mis";
-$sp2mp_level[41] = "~/data/lbmissions_mbp/advanced/Nukesweeper.mis";
-$sp2mp_level[42] = "~/data/lbmissions_mbp/advanced/Treachery.mis";
-$sp2mp_level[43] = "~/data/lbmissions_mbp/advanced/Swivel.mis";
-$sp2mp_level[44] = "~/data/lbmissions_mbp/advanced/NukeField.mis";
-$sp2mp_level[45] = "~/data/lbmissions_mbp/advanced/SlopeMadness.mis";
-$sp2mp_level[46] = "~/data/lbmissions_mbp/advanced/NeonTech.mis";
-$sp2mp_level[47] = "~/data/lbmissions_mbp/advanced/SlipUp.mis";
-$sp2mp_level[48] = "~/data/lbmissions_mbp/advanced/Michael\'sAdventureMBP.mis";
-$sp2mp_level[49] = "~/data/lbmissions_mbp/advanced/TreacherousPath.mis";
-$sp2mp_level[50] = "~/data/lbmissions_mbp/advanced/RollingtoEternity.mis";
-$sp2mp_level[51] = "~/data/lbmissions_mbp/advanced/RandomMayhem.mis";
-$sp2mp_level[52] = "~/data/lbmissions_mbp/advanced/FrictionalBattlecube.mis";
-$sp2mp_level[53] = "~/data/lbmissions_mbp/expert/Trigonometry.mis";
-$sp2mp_level[54] = "~/data/lbmissions_mbp/expert/NukesweeperRevisited.mis";
-$sp2mp_level[55] = "~/data/lbmissions_mbp/expert/DizzyingHeights.mis";
-$sp2mp_level[56] = "~/data/lbmissions_mbp/expert/BouncingFun.mis";
-$sp2mp_level[57] = "~/data/lbmissions_mbp/expert/Sandstorm.mis";
-$sp2mp_level[58] = "~/data/lbmissions_mbp/expert/PlatformMayhem.mis";
-$sp2mp_level[59] = "~/data/lbmissions_mbp/expert/UphillRacing.mis";
-$sp2mp_level[60] = "~/data/lbmissions_mbp/expert/ArchAcropolis.mis";
-$sp2mp_level[61] = "~/data/lbmissions_mbp/expert/Slowropes.mis";
-$sp2mp_level[62] = "~/data/lbmissions_mbp/expert/BattlecubeFinale.mis";
-$sp2mp_max = 63;
-
-function loadRandom() {
-	%levels = 0;
-	for (%i = 0; %i < $sp2mp_max; %i ++) {
-		if ($MPPref::sp2mpPicks[%i]) {
-			echo("Already picked" SPC %i);
-			continue;
-		}
-		%level[%levels] = %i;
-		%levels ++;
-	}
-
-	if (%levels == 0) {
-		for (%i = 0; %i < $sp2mp_max; %i ++) {
-			$MPPref::sp2mpPicks[%i] = false;
-			%level[%levels] = %i;
-			%levels ++;
+function Mode_race::shouldAllowTTs(%this) {
+	return false;
+}
+function Mode_race::onFrameAdvance(%this, %delta) {
+	if (MissionInfo.Time !$= "") {
+		//End the game when the Par Time has been passed
+		if ($Time::CurrentTime >= MissionInfo.Time && $Time::TimerRunning) {
+			Time::stop();
+			Time::set(MissionInfo.Time);
+			$Time::CurrentTime = MissionInfo.Time;
+			$Time::ElapsedTime = MissionInfo.Time;
+			%this.racingEndGame();
 		}
 	}
+}
+function Mode_race::getScoreType(%this) {
+	return $ScoreType::Time;
+}
+function Mode_race::getFinalScore(%this, %object) {
+	if (mp()) {
+		return $ScoreType::Time TAB min(%object.client.finalTime, 5999999);
+	} else {
+		return $ScoreType::Time TAB $Time::CurrentTime;
+	}
+}
+function Mode_race::onDeactivate(%this) {
+	%this.onMissionEnded();
+}
 
-	%num = getRandom(0, %levels - 1);
+//-----------------------------------------------------------------------------
 
-	echo("%num =" SPC %num);
-	echo("%level[%num] =" SPC %level[%num]);
-	%mission = expandFilename($sp2mp_level[%level[%num]]);
+function GameConnection::racingWinSpectate(%this) {
+	if ($Game::State $= "Waiting")
+		return;
+	%this.setSpectating(true);
+	commandToClient(%this, 'RacingOnRespawn');
+	if (mp()) {
+		serverSendScores();
+		%this.sendEndGameScores();
+		commandToClient(%this, 'GameEnd');
+		if (!$Game::Finished)
+			%this.startTimer(); //sendEndGameScores stops the timer
+	}
+}
 
-	serverSendChat("Trying to load " @ %mission);
+function Mode_race::checkRaceEnd(%this) {
+	if (!isGameStarted())
+		return;
+	//If no one is racing, the game ends
+	%left = 0;
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (!%client.isFinished && %client.isActive()) {
+			%left ++;
+		}
+	}
+	if (%left == 0) {
+		%this.racingEndGame();
+	}
+}
 
-	$MPPref::sp2mpPicks[%level[%num]] = 1;
-
-	loadMission(%mission);
+function Mode_race::racingEndGame(%this) {
+	endGameSetup();
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (!%client.isFinished) {
+			%client.addBubbleLine("Time\'s up!");
+			%client.playPitchedSound("alarm_timeout");
+		}
+	}
+	updateScores();
 }

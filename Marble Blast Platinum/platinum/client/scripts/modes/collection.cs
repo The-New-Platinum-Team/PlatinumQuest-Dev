@@ -32,8 +32,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_collection) {
 	name = "Collection";
 	desc = "Race to get all the gems of your color before anyone else can collect all of theirs.";
 	complete = 1;
-
-	teams = 0;
 });
 
 

@@ -87,7 +87,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			allowColorChars = "0";
 			maxChars = "-1";
 		};
-		new GuiMLTextCtrl(MPMMWHitsGiven) {
+		new GuiMLTextCtrl(MPDualCategoryTwo) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "width";
 			vertSizing = "bottom";
@@ -100,7 +100,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			allowColorChars = "0";
 			maxChars = "-1";
 		};
-		new GuiMLTextCtrl(MPMMWHitsTaken) {
+		new GuiMLTextCtrl(MPDualCategoryOne) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "width";
 			vertSizing = "bottom";
@@ -396,6 +396,15 @@ function MPEndGameDlg::updateScores(%this) {
 	%show10 = false;
 	%players = $MP::ScorePlayers;
 
+	MPEndGameRedGem.setVisible(true);
+	MPEndGameYellowGem.setVisible(true);
+	MPEndGameBlueGem.setVisible(true);
+	MPEndGamePlatinumGem.setVisible(true);
+
+	//To be changed by modes
+	MPDualCategoryOne.setVisible(false);
+	MPDualCategoryTwo.setVisible(false);
+
 	if (!$MP::TeamMode) {
 		for (%j = 0; %j < %players; %j ++) {
 			%gems   = ScoreList.getEntry(%j).gems;
@@ -424,20 +433,12 @@ function MPEndGameDlg::updateScores(%this) {
 	MPEndGameBlueGem.resize((%show10 ? 439 : 469), 65, 64, 64);
 	MPEndGamePlatinumGem.resize((%show10 ? 481 : 521), 65, 64, 64);
 
-	if ($Game::isMode["mega"]) {   //Mega War uses a different kinda end screen, Reds = Times you've been hit; Blues = Hits you got ~Connie
-		MPEndGameYellowGem.setVisible(false);
+	%timeScores = ClientMode::callback("shouldUseTimeScoreboard", false);
+	if (%timeScores) {
 		MPEndGameRedGem.setVisible(false);
+		MPEndGameYellowGem.setVisible(false);
 		MPEndGameBlueGem.setVisible(false);
-		MPMMWHitsGiven.setVisible(true);
-		MPMMWHitsTaken.setVisible(true);
-		MPMMWHitsTaken.setText("<bold:30><just:center><color:ff0000>Hits\nTaken");
-		MPMMWHitsGiven.setText("<bold:30><just:center><color:4040FF>Hits\nGiven");
-	} else {
-		MPEndGameYellowGem.setVisible(true);
-		MPEndGameRedGem.setVisible(true);
-		MPEndGameBlueGem.setVisible(true);
-		MPMMWHitsGiven.setVisible(false);
-		MPMMWHitsTaken.setVisible(false);		
+		MPEndGamePlatinumGem.setVisible(false);
 	}
 
 	if ($MP::TeamMode) {
@@ -451,18 +452,30 @@ function MPEndGameDlg::updateScores(%this) {
 		// Sort it!
 		%used = Array(MPEndGameUsedPlayersArray);
 		for (%i = 0; %i < %teams; %i ++) {
-			%bestScore = -9999;
-			%bestIdx = -1;
+			if (%timeScores) {
+				%bestScore = 6000001;
+			} else {
+				%bestScore = -9999;
+			}
+			%bestIdx = -9999;
 			for (%j = 0; %j < %teams; %j ++) {
 				%team  = getRecord(TeamScoreList.getEntry(%j), 0);
 				%score = getRecord(TeamScoreList.getEntry(%j), 1);
 				if (%used.containsEntry(%team))
 					continue;
-				if (%score > %bestScore) {
-					%bestScore = %score;
-					%bestIdx = %j;
-				} else
-					continue;
+				if (%timeScores) {
+					if (%score < %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				} else {
+					if (%score > %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				}
 			}
 
 			%team    = getRecord(TeamScoreList.getEntry(%bestIdx), 0);
@@ -520,7 +533,12 @@ function MPEndGameDlg::updateScores(%this) {
 			// Total row counter
 			%rowIdx ++;
 
-			%scoreText.setText(%font   @ %teamIdx @ "." TAB clipPx($DefaultFont, 28, %team, 230, true) TAB %score);
+			if (%timeScores)
+				%displayScore = (%score > 5999999 ? ($Client::GameRunning || $Game::Pregame ? "" : "N/A") : formatTime(%score));
+			else
+				%displayScore = %score;
+
+			%scoreText.setText(%font   @ %teamIdx @ "." TAB clipPx($DefaultFont, 28, %team, 230, true) TAB %displayScore);
 
 			%container.lastUpdate   = %this.scoreUpdate;
 
@@ -539,18 +557,30 @@ function MPEndGameDlg::updateScores(%this) {
 
 			// Organize team players by score
 			for (%j = 0; %j < %teamPlayerCount; %j ++) {
-				%bestScore = -9999;
+				if (%timeScores) {
+					%bestScore = 6000001;
+				} else {
+					%bestScore = -9999;
+				}
 				%bestIdx = -1;
 				for (%k = 0; %k < %teamPlayerCount; %k ++) {
 					%player = getRecord(%teamPlayers.getEntry(%k), 1);
 					%score  = getRecord(%teamPlayers.getEntry(%k), 2);
 					if (%usedPlayers.containsEntry(%player))
 						continue;
-					if (%score > %bestScore) {
-						%bestScore = %score;
-						%bestIdx = %k;
-					} else
-						continue;
+					if (%timeScores) {
+						if (%score < %bestScore) {
+							%bestScore = %score;
+							%bestIdx = %k;
+						} else
+							continue;
+					} else {
+						if (%score > %bestScore) {
+							%bestScore = %score;
+							%bestIdx = %k;
+						} else
+							continue;
+					}
 				}
 
 				%player = getRecord(%teamPlayers.getEntry(%bestIdx), 1);
@@ -648,13 +678,14 @@ function MPEndGameDlg::updateScores(%this) {
 				%scoreTextB.resize((%show10 ? 422 : 452), 3, 52, 14);
 				%scoreTextP.resize((%show10 ? 464 : 504), 3, 52, 14);
 
-				if ($Game::isMode["mega"]) {  //Mega War shit here again ~Connie
-					%scoreTextR.resize(369, 3, 52, 14);
-					%scoreTextB.resize(444, 3, 52, 14);
-					%scoreTextY.setVisible(false);
-				}
-
 				%scoreTextP.setVisible(%show10);
+
+				if (%timeScores) {
+					%scoreTextR.setVisible(false);
+					%scoreTextY.setVisible(false);
+					%scoreTextB.setVisible(false);
+					%scoreTextP.setVisible(false);
+				}
 
 				// Total row counter
 				%rowIdx ++;
@@ -695,12 +726,25 @@ function MPEndGameDlg::updateScores(%this) {
 					|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 				%scoreIdx = (%vs ? 0 : 1);
 
-				if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
-					%score = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
-				else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx])
-					%score = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
-				else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx])
-					%score = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
+				%displayScore = %score;
+				if (%timeScores) {
+					if (%index == $MP::ClientIndex)
+						%myTime = %score;
+					%displayScore = (%score > 5999999 ? ($Client::GameRunning || $Game::Pregame ? "" : "N/A") : formatTime(%score));
+					if (%score >= MissionInfo.Time && MissionInfo.Time !$= "")
+						%displayScore = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %displayScore @ "<spop>";
+					else if (%score < MissionInfo.ultimateTime && MissionInfo.ultimateTime !$= "")
+						%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %displayScore @ "<spop>";
+					else if (%score < MissionInfo.platinumTime && MissionInfo.platinumTime !$= "" || %score < MissionInfo.goldTime && MissionInfo.goldTime !$= "")
+						%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %displayScore @ "<spop>";
+				} else {
+					if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] !$= "" || %score < MissionInfo.score && MissionInfo.score !$= "")
+						%displayScore = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
+					else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] !$= "" || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore !$= "")
+						%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
+					else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] !$= "" || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore !$= "")
+						%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
+				}
 
 				%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 				%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
@@ -711,8 +755,8 @@ function MPEndGameDlg::updateScores(%this) {
 					%changeLabel = "<color:00ff00><shadow:1:1><shadowcolor:0000007f>+" @ %change;
 				else
 					%changeLabel = "0";
-
-				%scoreText.setText(%font TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 230, true) TAB %score TAB formatLevel(%rating) TAB %changeLabel);
+				
+				%scoreText.setText(%font TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 230, true) TAB %displayScore TAB formatLevel(%rating) TAB %changeLabel);
 				%scoreTextR.setText(%font @ "<just:center>" @ %gems1);
 				%scoreTextY.setText(%font @ "<just:center>" @ %gems2);
 				%scoreTextB.setText(%font @ "<just:center>" @ %gems5);
@@ -760,18 +804,30 @@ function MPEndGameDlg::updateScores(%this) {
 		// Sort it!
 		%used = Array(MPEndGameUsedPlayersArray);
 		for (%i = 0; %i < %players; %i ++) {
-			%bestScore = -9999;
+			if (%timeScores) {
+				%bestScore = 6000001;
+			} else {
+				%bestScore = -9999;
+			}
 			%bestIdx = -1;
 			for (%j = 0; %j < %players; %j ++) {
 				%player = ScoreList.getEntry(%j).name;
 				%score  = ScoreList.getEntry(%j).score;
 				if (%used.containsEntry(%player))
 					continue;
-				if (%score > %bestScore) {
-					%bestScore = %score;
-					%bestIdx = %j;
-				} else
-					continue;
+				if (%timeScores) {
+					if (%score < %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				} else {
+					if (%score > %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				}
 			}
 
 			%player = ScoreList.getEntry(%bestIdx).name;
@@ -869,13 +925,14 @@ function MPEndGameDlg::updateScores(%this) {
 			%scoreTextB.resize((%show10 ? 422 : 452), 3, 52, 14);
 			%scoreTextP.resize((%show10 ? 464 : 504), 3, 52, 14);
 
-			if ($Game::isMode["mega"]) {  //Mega War shit here again ~Connie
-				%scoreTextR.resize(369, 3, 52, 14);
-				%scoreTextB.resize(444, 3, 52, 14);
-				%scoreTextY.setVisible(false);
-			}
-
 			%scoreTextP.setVisible(%show10);
+
+			if (%timeScores) {
+				%scoreTextR.setVisible(false);
+				%scoreTextY.setVisible(false);
+				%scoreTextB.setVisible(false);
+				%scoreTextP.setVisible(false);
+			}
 
 			// Total row counter
 			%rowIdx ++;
@@ -906,12 +963,25 @@ function MPEndGameDlg::updateScores(%this) {
 				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
-			if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
-				%score = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
-			else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx])
-				%score = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
-			else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx])
-				%score = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
+			%displayScore = %score;
+			if (%timeScores) {
+				if (%index == $MP::ClientIndex)
+					%myTime = %score;
+				%displayScore = (%score > 5999999 ? ($Client::GameRunning || $Game::Pregame ? "" : "N/A") : formatTime(%score));
+				if (%score > MissionInfo.Time && MissionInfo.Time !$= "")
+					%displayScore = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %displayScore @ "<spop>";
+				else if (%score < MissionInfo.ultimateTime && MissionInfo.ultimateTime !$= "")
+					%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %displayScore @ "<spop>";
+				else if (%score < MissionInfo.platinumTime && MissionInfo.platinumTime !$= "" || %score < MissionInfo.goldTime && MissionInfo.goldTime !$= "")
+					%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %displayScore @ "<spop>";
+			} else {
+				if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] !$= "" || %score < MissionInfo.score && MissionInfo.score !$= "")
+					%displayScore = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
+				else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] !$= "" || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore !$= "")
+					%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
+				else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] !$= "" || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore !$= "")
+					%displayScore = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
+			}
 
 			%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 			%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
@@ -923,7 +993,7 @@ function MPEndGameDlg::updateScores(%this) {
 			else
 				%changeLabel = "0";
 
-			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 230, true) TAB %score TAB formatLevel(%rating) TAB %changeLabel);
+			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 230, true) TAB %displayScore TAB formatLevel(%rating) TAB %changeLabel);
 			%scoreTextR.setText(%font @ "<just:center>" @ %gems1);
 			%scoreTextY.setText(%font @ "<just:center>" @ %gems2);
 			%scoreTextB.setText(%font @ "<just:center>" @ %gems5);
@@ -963,24 +1033,37 @@ function MPEndGameDlg::updateScores(%this) {
 	%itemHeight = 44;
 	MPEndGameListContainer.setHeight(%itemHeight * MPEndGameListContainer.getCount());
 
-	MPEndGameHeader.setText("<bold:30><color:FFFFFF><tab:40,280,510,590,650> \tName\tScore\tMarble\tLevel\tPoints");
+	%headerScoreText = %timeScores ? "Time" : "Score";
+	MPEndGameHeader.setText("<bold:30><color:FFFFFF><tab:40,280,510,590,650> \tName\t" @ %headerScoreText @ "\tMarble\tLevel\tPoints");
 
 	%text = "<bold:48><color:FFFFFF><just:center><shadowcolor:0000007f><shadow:1:1>";
-	%score = PlayGui.gemCount;
+	%score = %timeScores ? %myTime : PlayGui.gemCount;
 
 	//See if we have more than one other player
 	%vs = !$Server::Hosting //Not host, so there must be someone else who is
 		|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
 		|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 	%scoreIdx = (%vs ? 0 : 1);
-	if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
-		%text = %text @ "<color:FF6666>You Didn\'t Pass the Par Score!";
-	else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx])
-		%text = %text @ "You Beat the <spush><color:" @ %ultimateColor @ ">" @ %ultimateLabel @ "<spop> Score!";
-	else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx])
-		%text = %text @ "You Beat the <spush><color:" @ %platinumColor @ ">" @ %platinumLabel @ "<spop> Score!";
-	else
-		%text = %text @ "You\'ve Qualified!";
+
+	if (%timeScores) {
+		if (%score >= MissionInfo.Time && MissionInfo.Time !$= "")
+			%text = %text @ "<color:FF6666>You Didn\'t Pass the Par Time!";
+		else if (%score < MissionInfo.ultimateTime && MissionInfo.ultimateTime !$= "")
+			%text = %text @ "You Beat the <spush><color:" @ %ultimateColor @ ">" @ %ultimateLabel @ "<spop> Time!";
+		else if (%score < MissionInfo.platinumTime && MissionInfo.platinumTime !$= "" || %score < MissionInfo.goldTime && MissionInfo.goldTime !$= "")
+			%text = %text @ "You Beat the <spush><color:" @ %platinumColor @ ">" @ %platinumLabel @ "<spop> Time!";
+		else
+			%text = %text @ "You\'ve Qualified!";
+	} else {
+		if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] !$= "" || %score < MissionInfo.score && MissionInfo.score !$= "")
+			%text = %text @ "<color:FF6666>You Didn\'t Pass the Par Score!";
+		else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] !$= "" || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore !$= "")
+			%text = %text @ "You Beat the <spush><color:" @ %ultimateColor @ ">" @ %ultimateLabel @ "<spop> Score!";
+		else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] !$= "" || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore !$= "")
+			%text = %text @ "You Beat the <spush><color:" @ %platinumColor @ ">" @ %platinumLabel @ "<spop> Score!";
+		else
+			%text = %text @ "You\'ve Qualified!";
+	}
 	MPEndGameTitle.setText(%text);
 }
 

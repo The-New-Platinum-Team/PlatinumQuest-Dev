@@ -33,15 +33,25 @@ function Mode_steal::onBlast(%this, %object) {
 		%mePos = %object.this.getWorldBoxCenter();
 		%theyPos = %object.other.getWorldBoxCenter();
 
-		%stealRad = %object.this.client.blastValue * 6;
-		%stealRad += (%object.this.client.getPing() * 0.05);
+		%stealRad = %object.this.client.blastValue * 7.5; //$MP::BlastShockwaveStrength * 1.5
+		//%stealRad += (%object.this.client.getPing() * 0.05);
+
+		%tripleBlast = %object.this.client.usingTripleBlast;
+		if (%tripleBlast) 
+			%stealRad = 3; //$MP::TripleBlastShockwaveStrength * 1.5
+
+		if (%object.this.client.usingSpecialBlast) 
+			%stealRad = 10; //$MP::BlastRechargeShockwaveStrength
 
 		if (VectorDist(%mePos, %theyPos) < %stealRad) {
 			//Steal their points
 			%steal = (%object.this.client.blastValue * 5);
-			if (%object.this.client.isMegaMarble()) {
-				%steal *= 2;
-			}
+			//if (%object.this.client.isMegaMarble()) {
+				//%steal *= 2;
+			//}
+			if (%tripleBlast) 
+				%steal = 1;
+				
 			%steal = mRound(min(%steal, %object.other.client.gemCount));
 
 			if (%steal > 0) {

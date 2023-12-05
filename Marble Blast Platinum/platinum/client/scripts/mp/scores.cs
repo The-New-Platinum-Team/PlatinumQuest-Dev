@@ -170,8 +170,8 @@ function scoreListUpdate() {
 	%snow = $Game::isMode["snowball"];
 	%spooky = $Game::isMode["spooky"];
 
-	%platinumLabel = (%spooky ? "Spooky" : (%snow ? "Platinum" : "Chilly"));
-	%ultimateLabel = (%spooky ? "Scary"  : (%snow ? "Ultimate" : "Frozen"));
+	%platinumLabel = (%spooky ? "Spooky" : (%snow ? "Chilly" : "Platinum"));
+	%ultimateLabel = (%spooky ? "Scary"  : (%snow ? "Frozen" : "Ultimate"));
 
 	%platinumColor = (%spooky ? "FF8000" : (%snow ? "EEEEEE" : "CCCCCC"));
 	%ultimateColor = (%spooky ? "CC2222" : (%snow ? "22CCFF" : "FFCC22"));
@@ -188,6 +188,8 @@ function scoreListUpdate() {
 
 	%show10 = false;
 	%players = $MP::ScorePlayers;
+
+	%timeScores = ClientMode::callback("shouldUseTimeScoreboard", false);
 
 	if (!$MP::TeamMode) {
 		for (%j = 0; %j < %players; %j ++) {
@@ -218,7 +220,19 @@ function scoreListUpdate() {
 	MPScoreBlueGem.resize((%show10 ? 482 : 512), -5, 64, 64);
 	MPScorePlatinumGem.resize((%show10 ? 524 : 564), -5, 64, 64);
 
-	MPScorePlatinumGem.setVisible(%show10);
+	if (%timeScores) {
+		PGScoreListContainer.setExtent("400 500");
+		MPScoreRedGem.setVisible(false);
+		MPScoreYellowGem.setVisible(false);
+		MPScoreBlueGem.setVisible(false);
+		MPScorePlatinumGem.setVisible(false);
+	} else {
+		PGScoreListContainer.setExtent("300 500");
+		MPScoreRedGem.setVisible(true);
+		MPScoreYellowGem.setVisible(true);
+		MPScoreBlueGem.setVisible(true);
+		MPScorePlatinumGem.setVisible(%show10);
+	}
 
 	if ($MP::TeamMode) {
 		%teams = $MP::ScoreTeams;
@@ -236,18 +250,30 @@ function scoreListUpdate() {
 		// Sort it!
 		%used = Array(ScoresUsedPlayersArray);
 		for (%i = 0; %i < %teams; %i ++) {
-			%bestScore = -9999;
+			if (%timeScores) {
+				%bestScore = 6000001;
+			} else {
+				%bestScore = -9999;
+			}
 			%bestIdx = -9999;
 			for (%j = 0; %j < %teams; %j ++) {
 				%team  = getRecord(TeamScoreList.getEntry(%j), 0);
 				%score = getRecord(TeamScoreList.getEntry(%j), 1);
 				if (%used.containsEntry(%team))
 					continue;
-				if (%score > %bestScore) {
-					%bestScore = %score;
-					%bestIdx = %j;
-				} else
-					continue;
+				if (%timeScores) {
+					if (%score < %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				} else {
+					if (%score > %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				}
 			}
 
 			%team    = getRecord(TeamScoreList.getEntry(%bestIdx), 0);
@@ -255,6 +281,9 @@ function scoreListUpdate() {
 			%players = getRecord(TeamScoreList.getEntry(%bestIdx), 2);
 			%number  = getRecord(TeamScoreList.getEntry(%bestIdx), 3);
 			%color   = getRecord(TeamScoreList.getEntry(%bestIdx), 4);
+
+			if (%timeScores)
+				%score = (%score > 5999999 ? ($Client::GameRunning || $Game::Pregame ? "" : "N/A") : formatTime(%score));
 
 			%used.addEntry(%team);
 
@@ -324,6 +353,13 @@ function scoreListUpdate() {
 			%container.resize(0, %rowIdx * %itemHeight,   500, %itemHeight);
 			%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 300, %itemHeight);
 
+			if (%timeScores) {
+				%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 400, %itemHeight);
+				%pgscoreText.setExtent("335 14");
+			} else {
+				%pgscoreText.setExtent("235 14");
+			}
+
 			%container.team = %team;
 			%pgcontainer.team = %team;
 
@@ -354,18 +390,30 @@ function scoreListUpdate() {
 
 			// Organize team players by score
 			for (%j = 0; %j < %teamPlayerCount; %j ++) {
-				%bestScore = -9999;
+				if (%timeScores) {
+					%bestScore = 6000001;
+				} else {
+					%bestScore = -9999;
+				}
 				%bestIdx = -1;
 				for (%k = 0; %k < %teamPlayerCount; %k ++) {
 					%player = getRecord(%teamPlayers.getEntry(%k), 1);
 					%score  = getRecord(%teamPlayers.getEntry(%k), 2);
 					if (%usedPlayers.containsEntry(%player))
 						continue;
-					if (%score > %bestScore) {
-						%bestScore = %score;
-						%bestIdx = %k;
-					} else
-						continue;
+					if (%timeScores) {
+						if (%score < %bestScore) {
+							%bestScore = %score;
+							%bestIdx = %j;
+						} else
+							continue;
+					} else {
+						if (%score > %bestScore) {
+							%bestScore = %score;
+							%bestIdx = %j;
+						} else
+							continue;
+					}
 				}
 
 				%player = getRecord(%teamPlayers.getEntry(%bestIdx), 1);
@@ -375,6 +423,9 @@ function scoreListUpdate() {
 				%gems   = getRecord(%teamPlayers.getEntry(%bestIdx), 5);
 				%state  = PlayerList.getEntryByVariable("name", %player).specState;
 				%ping   = PlayerList.getEntryByVariable("name", %player).ping;
+
+				if (%timeScores)
+					%score = (%score > 5999999 ? ($Client::GameRunning || $Game::Pregame ? "" : "N/A") : formatTime(%score));
 
 				// Add the display for the player
 				if ($MP::ScoreListIndex[%player] $= "" || !isObject(MPScoreContainer @ %index)) {
@@ -393,7 +444,7 @@ function scoreListUpdate() {
 						new GuiMLTextCtrl(MPScoreText @ %index) {
 							profile = "GuiMLTextProfile";
 							position = "8 3";
-							extent = "410 14";
+							extent = "438 14";
 							visible = "1";
 							lineSpacing = "2";
 							maxChars = "-1";
@@ -509,6 +560,25 @@ function scoreListUpdate() {
 
 				%scoreTextP.setVisible(%show10);
 
+			if (%timeScores) {
+				%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 400, %itemHeight);
+				%pgscoreText.setExtent("310 14");
+				%pgobjectView.setPosition("360 -2");
+				%pgpingctrl.setPosition("339 4");
+				%scoreTextR.setVisible(false);
+				%scoreTextY.setVisible(false);
+				%scoreTextB.setVisible(false);
+				%scoreTextP.setVisible(false);
+			} else {
+				%pgscoreText.setExtent("210 14");
+				%pgobjectView.setPosition("260 -2");
+				%pgpingctrl.setPosition("239 4");
+				%scoreTextR.setVisible(true);
+				%scoreTextY.setVisible(true);
+				%scoreTextB.setVisible(true);
+				%scoreTextP.setVisible(true);
+			}
+
 				// Total row counter
 				%rowIdx ++;
 
@@ -612,18 +682,30 @@ function scoreListUpdate() {
 		// Sort it!
 		%used = Array(ScoresUsedPlayersArray);
 		for (%i = 0; %i < %players; %i ++) {
-			%bestScore = -9999;
+			if (%timeScores) {
+				%bestScore = 6000001;
+			} else {
+				%bestScore = -9999;
+			}
 			%bestIdx = -1;
 			for (%j = 0; %j < %players; %j ++) {
 				%player = ScoreList.getEntry(%j).name;
 				%score  = ScoreList.getEntry(%j).score;
 				if (%used.containsEntry(%player))
 					continue;
-				if (%score > %bestScore) {
-					%bestScore = %score;
-					%bestIdx = %j;
-				} else
-					continue;
+				if (%timeScores) {
+					if (%score < %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				} else {
+					if (%score > %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				}
 			}
 
 			%player = ScoreList.getEntry(%bestIdx).name;
@@ -633,6 +715,9 @@ function scoreListUpdate() {
 			%gems   = ScoreList.getEntry(%bestIdx).gems;
 			%state  = isObject(PlayerList) ? PlayerList.getEntryByVariable("name", %player).specState : 0;
 			%ping   = isObject(PlayerList) ? PlayerList.getEntryByVariable("name", %player).ping : 0;
+
+			if (%timeScores)
+				%score = (%score > 5999999 ? ($Client::GameRunning || $Game::Pregame ? "" : "N/A") : formatTime(%score));
 
 			// Size of score rows
 			%itemHeight   = 44;
@@ -655,7 +740,7 @@ function scoreListUpdate() {
 					new GuiMLTextCtrl(MPScoreText @ %index) {
 						profile = "GuiMLTextProfile";
 						position = "8 3";
-						extent = "410 14";
+						extent = "438 14";
 						visible = "1";
 						lineSpacing = "2";
 						maxChars = "-1";
@@ -771,6 +856,25 @@ function scoreListUpdate() {
 
 			%scoreTextP.setVisible(%show10);
 
+			if (%timeScores) {
+				%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 400, %itemHeight);
+				%pgscoreText.setExtent("335 14");
+				%pgobjectView.setPosition("360 -2");
+				%pgpingctrl.setPosition("339 4");
+				%scoreTextR.setVisible(false);
+				%scoreTextY.setVisible(false);
+				%scoreTextB.setVisible(false);
+				%scoreTextP.setVisible(false);
+			} else {
+				%pgscoreText.setExtent("235 14");
+				%pgobjectView.setPosition("260 -2");
+				%pgpingctrl.setPosition("239 4");
+				%scoreTextR.setVisible(true);
+				%scoreTextY.setVisible(true);
+				%scoreTextB.setVisible(true);
+				%scoreTextP.setVisible(true);
+			}
+
 			// Total row counter
 			%rowIdx ++;
 
@@ -808,7 +912,7 @@ function scoreListUpdate() {
 				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
-			%nameWidth = 200 - (15 * strlen(%score));
+			%nameWidth = (%timeScores ? 330 : 200) - (15 * strlen(%score));
 
 			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %score);
 			%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score);

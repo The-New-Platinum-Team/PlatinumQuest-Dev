@@ -31,7 +31,7 @@ function PlayGui::positionMessageHud(%this) {
 	%mp            = (lb() || ($PlayingDemo && $demoLB)) && $Server::ServerType $= "Multiplayer";
 	%ultra         = MissionInfo.game $= "Ultra";
 	%isEndGame     = (isObject(EndGameDlg.getGroup()) && EndGameDlg.getGroup().getName() $= "Canvas");
-	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
+	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive() || !%mp;
 	%hideAll       = $pref::ScreenshotMode == 2;
 
 	%height = 60 + (20 * $LBPref::ChatMessageSize); // From 80 - 160
@@ -88,11 +88,6 @@ function PlayGui::positionMessageHud(%this) {
 	PlayGuiContent.setVisible(!(%hideAll || %isEndGame));
 	PG_RadarContent.setVisible(!(%hideAll || %isEndGame) || $pref::EnableRadarEvenIfUIOff);
 	PG_AchievementListBox.setVisible(!%hideAll);
-	PG_BlastBar.setVisible(shouldEnableBlast());
-	%blastY = getWord(VectorSub(PlayGui.getExtent(), (lb() && !%hideChat ? "0" SPC (35 + (20 * $LBPref::ChatMessageSize)) : "0 35")), 1);
-	PG_BlastBar.setPosition(6 SPC %blastY);
-
-	PG_MessageListBox.setHeight(%h - (lb() && !%hideChat ? (20 * $LBPref::ChatMessageSize) + 100 : 100) - (shouldEnableBlast() ? 34 : 0));
 
 	%this.updateMessageHud();
 }
@@ -107,7 +102,7 @@ function PlayGui::updateMessageHud(%this) {
 	%mp            = (%lb || ($PlayingDemo && $demoLB)) && $Server::ServerType $= "Multiplayer";
 	%ultra         = MissionInfo.game $= "Ultra";
 	%isEndGame     = (isObject(EndGameDlg.getGroup()) && EndGameDlg.getGroup().getName() $= "Canvas");
-	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
+	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive() || !%mp;
 
 	%height = 60 + (20 * $LBPref::ChatMessageSize); // From 80 - 160
 
@@ -138,6 +133,15 @@ function PlayGui::updateMessageHud(%this) {
 
 	FPSMetreBitmap.resize(0, 0, %fps_w, %fps_h);
 
+	PG_BlastBar.setVisible(shouldEnableBlast());
+	%spectatorY = PG_SpectatorMenu.isVisible() ? 144 : 0;
+	%blastY = getWord(VectorSub(PlayGui.getExtent(), (lb() && !%hideChat ? "0" SPC (55 + (20 * $LBPref::ChatMessageSize) + %spectatorY) : "0" SPC 55 + %spectatorY)), 1);
+	PG_BlastBar.setPosition(6 SPC %blastY);
+	PG_MessageListBox.setHeight(%h - (lb() && !%hideChat ? (20 * $LBPref::ChatMessageSize) + 100 : 100) - (shouldEnableBlast() ? 34 : 0));
+
+	PG_SpectatorMenu.resize(0, !%hideChat ? %h - %height - 90 : %h - 150, 302, 150);
+	PG_SpectatorWindow.resize(0, 0, 302, 150);
+
 	//Width of individual chat scrolls
 	%chatboxWidth = %chatWidth;
 	if (%lb) {
@@ -156,9 +160,6 @@ function PlayGui::updateMessageHud(%this) {
 		%shadowStart = 0;
 		if ($SpectateMode)
 			%shadowStart = 302;
-
-		PG_SpectatorMenu.resize(0, (%h - %height) - 90, 302, 150);
-		PG_SpectatorWindow.resize(0, 0, 302, 150);
 
 		if ($pref::showFPSCounter) {
 			PG_LBTopShadow.resize(%shadowStart, 52, ($chathud ? %entryStart : %chatWidth - %fps_w) - %shadowStart, 8);

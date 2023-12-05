@@ -41,8 +41,9 @@ function resetModes() {
 function clearModes() {
 	resetModes();
 
-	for (%i = 0; %i < $Server::Modes; %i ++) {
-		%name = $Server::Mode[%i];
+	%modes = $Server::Modes;
+	for (%i = 0; %i < %modes; %i ++) {
+		%name = $Server::Mode[0];
 
 		//Deactivate it
 		deactivateMode(%name);
@@ -236,7 +237,7 @@ function Mode::callback(%this, %callback, %default, %object) {
 	}
 	if (isObject(%this)) {
 		if (!%this.hasCallback[%callback]) {
-			if ($DEBUG && %callback !$= "onFrameAdvance")
+			if ($DEBUG && %callback !$= "onFrameAdvance" && %callback !$= "timeMultiplier" && %callback !$= "enableMarbleCollisions")
 				echo("[Mode" SPC %this.name @ "] Unused Callback" SPC %callback);
 			return %default;
 		}
@@ -248,7 +249,7 @@ function Mode::callback(%this, %callback, %default, %object) {
 		} else {
 			%value = eval("return " @ %this.getName() @ "::" @ %callback @ "(" @ %this @ ");");
 		}
-		if ($DEBUG && %callback !$= "onFrameAdvance")
+		if ($DEBUG && %callback !$= "onFrameAdvance" && %callback !$= "timeMultiplier" && %callback !$= "enableMarbleCollisions")
 			echo("[Mode" SPC %this.name @ "] Callback" SPC %callback SPC "returned" SPC %value);
 	} else {
 		//Send the callback to everyone!

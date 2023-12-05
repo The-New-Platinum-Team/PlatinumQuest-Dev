@@ -88,8 +88,14 @@ $MP::BlastChargeTime = 25000;
 // Normal blast divisor Default is 1 (lower = stronger)
 $MP::NormalBlastModifier = 1.0;
 
-// Mega blast divisor (lower values = more blasty)
+// Mega blast divisor (lower values = more blasty) - not used currently
 $MP::MegaBlastModifier = 0.7;
+
+// Triple Blast - Blast strength applied to surrounding players
+$MP::TripleBlastShockwaveStrength = 2;
+
+// Triple Blast - Blast power (equivalent to having 1/4th of the blast bar filled)
+$MP::TripleBlastPower = 0.5;
 
 //-----------------------------------------------------------------------------
 // Teams
@@ -189,8 +195,20 @@ $MPPref::Server::DoubleSpawnGroups = false;
 //20s timer and remaining gems
 $MPPref::Server::CompetitiveMode = false;
 
-//Steal Mode shouldn't be enabled by default
+//Steal mode
 $MPPref::Server::StealMode = false;
+
+//Elimination mode
+$MPPref::Server::Elimination = false;
+
+//Gravitex mode
+$MPPref::Server::Gravitex = false;
+
+//Party spawns
+$MPPref::Server::PartySpawns = false;
+
+//Raging Bull modifier
+$MPPref::Server::HuntRB = false;
 
 //-----------------------------------------------------------------------------
 // Prefs

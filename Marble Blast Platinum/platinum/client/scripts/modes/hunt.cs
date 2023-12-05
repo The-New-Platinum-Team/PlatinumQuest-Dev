@@ -32,8 +32,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_hunt) {
 	name = "Gem Hunt";
 	desc = "Collect Gems and earn as many points as you can!";
 	complete = 1;
-
-	teams = 1;
 });
 
 

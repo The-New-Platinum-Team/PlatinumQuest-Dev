@@ -1328,6 +1328,9 @@ function BlastItem::onPickup(%this, %obj, %user, %amount) {
 	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
 		return false;
 	}
+	if (%user.client.usingTripleBlast) {
+		%user.client.setTripleBlast(false);
+	}
 	%user.client.setBlastValue(1);
 	%user.client.setSpecialBlast(true);
 	return true;
@@ -1575,7 +1578,6 @@ function TeleportItem::performTeleport(%this, %obj, %user) {
 }
 
 function TeleportItem::finishTeleport(%this, %obj, %user) {
-	%user.setCloaked(false);
 
 	if (!%obj.keepVelocity) {
 		%user.setVelocity("0 0 0");
@@ -1588,6 +1590,10 @@ function TeleportItem::finishTeleport(%this, %obj, %user) {
 	%user.client.setGravityDir(%user.teleporterGravity, true, %user.teleporterGravityRot);
 
 	%user.teleporterLocationSet = false;
+
+	if ($Game::isMode["seek"] && !$Game::Seeking && ($Game::State $= "Go" || $Game::State $= "End") && !%user.client.seeker) return;
+
+	%user.setCloaked(false);
 }
 
 function TeleportItem::setLocation(%this, %obj, %user) {
@@ -1763,6 +1769,16 @@ function BubbleItem::onAdd(%this, %obj) {
 }
 
 function BubbleItem::onPickup(%this, %obj, %user, %amount) {
+	%disable = Mode::callback("shouldDisablePowerup", false, new ScriptObject() {
+		this = %this;
+		obj = %obj;
+		user = %user;
+		amount = %amount;
+		_delete = true;
+	});
+	if (%disable) {
+		return false;
+	}
 	if (%user.client.bubbleInfinite)
 		return false; //already have infinite, no sense to pick up another one
 

@@ -160,9 +160,6 @@ function ThrownSnowball::updateThrow(%this, %obj) {
 				//You hit them!
 				%points = %obj.scalar;
 
-				if ($Game::isMode["tag"])
-					%points *= -1;
-
 				//Extra push for mega marble
 				if (%client.isMegaMarble())
 					%points /= 1.5;
