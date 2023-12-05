@@ -272,6 +272,10 @@ function Marble::getVertexShader(%this) {
 	} else {
 		%selection = MarbleSelectDlg.getSelection();
 	}
+	if (%this.getDataBlock().getName() $= "SeekerMarble") {
+		return "";
+	}
+
 	//%shapeFile TAB %marbleSkin TAB %shapeNormalSize TAB %shaderV TAB %shaderF;
 	return (getFieldCount(%selection) > 2 ? getField(%selection, 3) : "");
 }
@@ -283,6 +287,10 @@ function Marble::getFragmentShader(%this) {
 	} else {
 		%selection = MarbleSelectDlg.getSelection();
 	}
+	if (%this.getDataBlock().getName() $= "SeekerMarble") {
+		return "";
+	}
+
 	//%shapeFile TAB %marbleSkin TAB %shapeNormalSize TAB %shaderV TAB %shaderF;
 	return (getFieldCount(%selection) > 3 ? getField(%selection, 4) : "");
 }

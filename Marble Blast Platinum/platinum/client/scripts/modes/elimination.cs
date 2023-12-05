@@ -1,7 +1,9 @@
 //-----------------------------------------------------------------------------
 // Elimination mode
 //
-// Copyright (c) 2015 The Platinum Team
+// Originally created in 2015
+//
+// Copyright (c) 2023 The Platinum Team
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -31,17 +33,18 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_elimination) {
 
 	name = "Elimination";
 	desc = "Feel the pressure as the lowest scoring players are removed one by one!";
-
-	teams = 1;
-	hide = 1;
+	complete = 0;
 });
 
 
 function ClientMode_elimination::onLoad(%this) {
 	%this.registerCallback("onEndGameSetup");
+	%this.registerCallback("timeMultiplier");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_elimination::onEndGameSetup(%this) {
-	PlayGui.setTime(0);
+	PlayGui.stopTimer();
 }
-
+function ClientMode_elimination::timeMultiplier(%this) {
+	return -1;
+}

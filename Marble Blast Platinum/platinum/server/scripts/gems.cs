@@ -31,7 +31,7 @@
 //-----------------------------------------------------------------------------
 
 $GemSkinColors[0] = "base";
-$GemSkinColors[1] = "base";
+$GemSkinColors[1] = "pink";
 $GemSkinColors[2] = "blue";
 $GemSkinColors[3] = "red";
 $GemSkinColors[4] = "yellow";
@@ -49,7 +49,7 @@ function Gem::onAdd(%this,%obj) {
 		%obj.setSkinName(%obj.skin);
 	} else {
 		// Random skin if none assigned
-		%obj.setSkinName($GemSkinColors[getRandom(10)]);
+		%obj.setSkinName($GemSkinColors[getRandom(1, 10)]);
 	}
 
 	if (%obj.getSkinName() $= "base") {
@@ -210,17 +210,17 @@ datablock ItemData(GemItemYellow: GemItem) {
 };
 
 datablock ItemData(GemItemPink: GemItem) {
-	skin = "base";
-	huntExtraValue = 0;
-	spawnChance = 0.1;
+	skin = "pink";
+	huntExtraValue = 5; //6 pts
+	spawnChance = 0.2;
 	messageColor = "ff66ff";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemPurple: GemItem) {
 	skin = "purple";
-	huntExtraValue = 5; //6 pts
-	spawnChance = 0.1;
+	huntExtraValue = 7; //8 pts
+	spawnChance = 0.15;
 	messageColor = "cc44ff";
 	customField[0, "field"] = "";
 };
@@ -228,15 +228,15 @@ datablock ItemData(GemItemPurple: GemItem) {
 datablock ItemData(GemItemGreen: GemItem) {
 	skin = "Green";
 	huntExtraValue = 3; //4 pts
-	spawnChance = 0.3;
+	spawnChance = 0.35;
 	messageColor = "66ff66";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemTurquoise: GemItem) {
 	skin = "Turquoise";
-	huntExtraValue = 6; //7
-	spawnChance = 0.1;
+	huntExtraValue = 6; //7 pts
+	spawnChance = 0.15;
 	messageColor = "55ffff";
 	customField[0, "field"] = "";
 };
@@ -244,15 +244,15 @@ datablock ItemData(GemItemTurquoise: GemItem) {
 datablock ItemData(GemItemOrange: GemItem) {
 	skin = "orange";
 	huntExtraValue = 2; //3 pts
-	spawnChance = 0.45;
+	spawnChance = 0.5;
 	messageColor = "ffaa33";
 	customField[0, "field"] = "";
 };
 
 datablock ItemData(GemItemBlack: GemItem) {
 	skin = "black";
-	huntExtraValue = -2; //-1 pts
-	spawnChance = 0.45;
+	huntExtraValue = -2; //-1 pt
+	spawnChance = 0.01;
 	messageColor = "000000";
 	customField[0, "field"] = "";
 };
@@ -326,7 +326,7 @@ datablock ItemData(GemItemPink_PQ: GemItem_PQ) {
 	superCategory = "gems";
 	category = "PlatinumQuest";
 
-	skin = "base";
+	skin = "pink";
 	customField[1, "disable"] = 1;
 };
 
@@ -397,7 +397,6 @@ datablock ItemData(FancyGemItem_PQ : GemItem) {
 	skin[8] = "orange";
 	skin[9] = "black";
 	skin[10] = "platinum";
-	skin[11] = "white";
 
 	pickupName = "a gem!";
 	pq = true; // for GemFX
@@ -454,7 +453,7 @@ datablock ItemData(FancyGemItemYellow_PQ: FancyGemItem_PQ) {
 // 	superCategory = "gems";
 // 	category = "PlatinumQuest";
 
-// 	skin = "base";
+// 	skin = "pink";
 // 	customField[1, "disable"] = 1;
 // };
 

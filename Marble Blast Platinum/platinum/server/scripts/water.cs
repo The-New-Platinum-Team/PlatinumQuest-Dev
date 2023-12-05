@@ -96,3 +96,10 @@ function serverCmdWaterSplash(%client, %datablock, %position) {
 	// will it crash, will it just fail and do it, or does it clean it up?
 	%particleEffect.schedule(1000, delete);
 }
+
+function WaterPhysicsTrigger::onEnterTrigger(%this, %trigger, %obj) {
+	%obj.inWater = true;
+}
+function WaterPhysicsTrigger::onLeaveTrigger(%this, %trigger, %obj) {
+	%obj.inWater = false;
+}

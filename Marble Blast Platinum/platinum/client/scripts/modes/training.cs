@@ -31,8 +31,6 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_training) {
 
 	name = "MP Training";
 	desc = "See how quickly you can get more than half of the points.";
-
-	teams = 0;
 });
 
 

@@ -179,13 +179,12 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addTimeEditField("EMI_Elimination_EliminationTime", "Time Before Elimination:", MissionInfo.eliminationTime, 100, -1);
 	}
 	if (%use["seek"]) {
-		LargeFunctionDlg.addNote("\c4----------- Seek -----------");
-		LargeFunctionDlg.addTimeEditField("EMI_Seek_GraceTime", "Grace Period Time:", MissionInfo.graceTime, 100, -1);
+		LargeFunctionDlg.addNote("\c4----------- Hide and Seek -----------");
 		LargeFunctionDlg.addTimeEditField("EMI_Seek_HideTime", "Hide Time:", MissionInfo.hideTime, 100, -1);
 	}
 	if (%use["tag"]) {
 		LargeFunctionDlg.addNote("\c4----------- Tag -----------");
-		LargeFunctionDlg.addTextEditField("EMI_Elimination_TagRadius", "Tag Radius:", MissionInfo.tagRadius, 100, -1);
+		LargeFunctionDlg.addCheckBox("EMI_Tag_CampMode", "Camp Mode:", MissionInfo.campMode, 0);
 	}
 	if (%use["spooky"]) {
 		LargeFunctionDlg.addNote("\c4----------- Halloween Event -----------");
@@ -372,10 +371,9 @@ function editMissionInfo(%gui) {
 
 	miAssign(eliminationTime, EMI_Elimination_EliminationTime, $Game::isMode["elimination"]);
 
-	miAssign(graceTime, EMI_Seek_GraceTime, $Game::isMode["seek"]);
 	miAssign(hideTime, EMI_Seek_HideTime, $Game::isMode["seek"]);
 
-	miAssign(tagRadius, EMI_Elimination_TagRadius, $Game::isMode["tag"]);
+	miAssign(campMode, EMI_Tag_CampMode, $Game::isMode["tag"]);
 
 	miAssign(ghostsPerPlayer, EMI_Spooky_GhostsPerPlayer, $Game::isMode["spooky"]);
 

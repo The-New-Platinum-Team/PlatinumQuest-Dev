@@ -87,7 +87,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			allowColorChars = "0";
 			maxChars = "-1";
 		};
-		new GuiMLTextCtrl(MPMMWHitsGiven) {
+		new GuiMLTextCtrl(MPDualCategoryTwo) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "width";
 			vertSizing = "bottom";
@@ -100,7 +100,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			allowColorChars = "0";
 			maxChars = "-1";
 		};
-		new GuiMLTextCtrl(MPMMWHitsTaken) {
+		new GuiMLTextCtrl(MPDualCategoryOne) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "width";
 			vertSizing = "bottom";
@@ -395,6 +395,15 @@ function MPEndGameDlg::updateScores(%this) {
 
 	%show10 = false;
 	%players = $MP::ScorePlayers;
+
+	MPEndGameRedGem.setVisible(true);
+	MPEndGameYellowGem.setVisible(true);
+	MPEndGameBlueGem.setVisible(true);
+	MPEndGamePlatinumGem.setVisible(true);
+
+	//To be changed by modes
+	MPDualCategoryOne.setVisible(false);
+	MPDualCategoryTwo.setVisible(false);
 
 	if (!$MP::TeamMode) {
 		for (%j = 0; %j < %players; %j ++) {
@@ -869,11 +878,6 @@ function MPEndGameDlg::updateScores(%this) {
 			%scoreTextB.resize((%show10 ? 422 : 452), 3, 52, 14);
 			%scoreTextP.resize((%show10 ? 464 : 504), 3, 52, 14);
 
-			if ($Game::isMode["mega"]) {  //Mega War shit here again ~Connie
-				%scoreTextR.resize(369, 3, 52, 14);
-				%scoreTextB.resize(444, 3, 52, 14);
-				%scoreTextY.setVisible(false);
-			}
 
 			%scoreTextP.setVisible(%show10);
 

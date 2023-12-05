@@ -210,6 +210,12 @@ function GameConnection::setFireballTime(%this, %time) {
 }
 
 function GameConnection::fireballInit(%this, %time) {
+	if (%this.player.inWater) {
+		%this.play2D(fireballSizzleSfx);
+		%this.setBubbleTime(0, false);
+		%this.bubbleInfinite = false;
+		return;
+	}
 	//called when fireball is activated
 	%this.player._fireballActive = 1;
 	%this.player._fireballTime = %time;

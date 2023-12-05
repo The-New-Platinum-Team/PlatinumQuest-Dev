@@ -89,7 +89,7 @@ function PlayGui::positionMessageHud(%this) {
 	PG_RadarContent.setVisible(!(%hideAll || %isEndGame) || $pref::EnableRadarEvenIfUIOff);
 	PG_AchievementListBox.setVisible(!%hideAll);
 	PG_BlastBar.setVisible(shouldEnableBlast());
-	%blastY = getWord(VectorSub(PlayGui.getExtent(), (lb() && !%hideChat ? "0" SPC (35 + (20 * $LBPref::ChatMessageSize)) : "0 35")), 1);
+	%blastY = getWord(VectorSub(PlayGui.getExtent(), (lb() && !%hideChat ? "0" SPC (55 + (20 * $LBPref::ChatMessageSize)) : "0 55")), 1);
 	PG_BlastBar.setPosition(6 SPC %blastY);
 
 	PG_MessageListBox.setHeight(%h - (lb() && !%hideChat ? (20 * $LBPref::ChatMessageSize) + 100 : 100) - (shouldEnableBlast() ? 34 : 0));

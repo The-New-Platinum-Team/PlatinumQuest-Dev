@@ -316,8 +316,10 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode) {
+	if (MPSettingsScoreDisable()) {
 		$MP::ScoreSendingDisabled = true;
+	} else {
+		$MP::ScoreSendingDisabled = false;
 	}
 
 	// Reset the players and inform them we're starting
@@ -558,10 +560,10 @@ function serverStateStart() {
 
 function serverStateGo() {
 	//Slight hack: Don't start time if someone is in a TimeStopTrigger
-	if ($Game::TimeStoppedClients > 0)
-		return;
+	if ($Game::TimeStoppedClients <= 0)
+		Time::start();
 
-	Time::start();
+	Mode::callback("onServerGo");
 }
 
 function serverStateEnd() {
@@ -575,6 +577,7 @@ function GameConnection::stateStart(%this) {
 	%this.setMaxGems($Game::GemCount);
 	%this.stateSchedule = %this.schedule(500, "setGameState", "Ready");
 	%this.setSpecialBlast(false);
+	%this.setTripleBlast(false);
 	%this.setBlastValue(0);
 	%this.playing = (MissionInfo.game $= "Ultra");
 
@@ -585,7 +588,7 @@ function GameConnection::stateStart(%this) {
 	%this.player.setMode(Start);
 
 	//Show the StartHelpText
-	if (MissionInfo.startHelpText !$= "") {
+	if (MissionInfo.startHelpText !$= "" && !%this.player.disableStartHelpText) {
 		%this.addBubbleLine(MissionInfo.startHelpText, false, MissionInfo.persistStartHelpTextTime ? MissionInfo.persistStartHelpTextTime : 5000);
 	}
 }
@@ -733,7 +736,10 @@ function GameConnection::onClientEnterGame(%this) {
 
 				if ($MPPref::ForceSpectators) {
 					%this.forceSpectate = true;
-				} else {
+				} else if (Mode::callback("shouldSetSpectate", true, new ScriptObject() {
+					client = %this;
+					_delete = true;
+				})) {
 					schedule(2000, 0, commandToClient, %this, 'SpectateChoice');
 				}
 			}

@@ -314,6 +314,8 @@ function disconnectedCleanup(%auto) {
 	deleteVariables("$MP::ValidMission*");
 	deleteVariables("$MP::InvalidMission*");
 
+	$Game::ClientIndex = 0;
+
 	// Dump anything we're not using
 	clearTextureHolds();
 	unloadTimerTextures();

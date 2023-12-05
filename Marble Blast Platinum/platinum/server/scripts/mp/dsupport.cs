@@ -131,6 +131,7 @@ function dedicatedUpdate() {
 		//No players left, cancel the load
 		lobbyReturn();
 		resetSettings();
+		$Game::ClientIndex = 0;
 	}
 }
 

@@ -529,6 +529,7 @@ function Radar::AddDot(%object, %bitmap) {
 }
 
 $RadarColor["base"]      = "255 51 255 255";
+$RadarColor["pink"]      = "255 51 255 255";
 $RadarColor["blue"]      = "51 51 255 255";
 $RadarColor["red"]       = "255 51 51 255";
 $RadarColor["yellow"]    = "255 255 51 255";

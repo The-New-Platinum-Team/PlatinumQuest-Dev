@@ -31,6 +31,8 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_competitive) {
 
 	name = "<spush><color:ff0000>Competitive Mode";
 	desc = "<spop><spush><color:ff7777>20 second gem autorespawn timer (decreases to 15/10/5 seconds at 3/2/1 gems remaining). 5 second Mega Marble. Only Ultra Blast pushes other players. No quickspawn. Shared starting point.<spop>";
+	complete = 0;
+	hide = 1;
 });
 
 function ClientMode_competitive::onLoad(%this) {

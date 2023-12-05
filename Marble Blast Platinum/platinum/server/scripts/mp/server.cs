@@ -185,6 +185,9 @@ function updateScores() {
 }
 
 function dumpScores() {
+	if ($Game::isMode["tag"])
+		return;
+		
 	echo("Scores Update:");
 	%count = ClientGroup.getCount();
 
@@ -223,8 +226,11 @@ function GameConnection::updateScores(%this) {
 			for (%j = 0; %j < %players; %j ++) {
 				%client = %team.getObject(%j);
 				%score = %client.gemCount;
-				%skinChoice = %client.skinChoice;
 				%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
+				%skinChoice = Mode::callback("getPlayerListSkin", %client.skinChoice, new ScriptObject() {
+					client = %client;
+					_delete = true;			
+				});
 
 				%rec = expandEscape(%client.getUsername())
 					TAB %score
@@ -267,12 +273,16 @@ function GameConnection::updateScores(%this) {
 				continue;
 			%score = %client.gemCount;
 			%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
+			%skinChoice = Mode::callback("getPlayerListSkin", %client.skinChoice, new ScriptObject() {
+				client = %client;
+				_delete = true;			
+			});
 
 			%record = expandEscape(%client.getUsername())
 				TAB %score
 				TAB %gems
 				TAB %client.index
-				TAB expandEscape(%client.skinChoice)
+				TAB expandEscape(%skinChoice)
 				TAB %client.totalBonus
 			;
 
@@ -303,8 +313,12 @@ function updateSingleScore(%client) {
 
 		// Send player scores from the team
 		%score = %client.gemCount;
-		%skinChoice = %client.skinChoice;
 		%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
+		%skinChoice = Mode::callback("getPlayerListSkin", %client.skinChoice, new ScriptObject() {
+			client = %client;
+			_delete = true;			
+		});
+
 		//echo("Skin choice is" SPC %skinChoice);
 		commandToAll('ScoreListTeamPlayerUpdate', Team::getTeamName(%team), %client.getUsername(), %score, %client.index, %skinChoice, %gems);
 		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus);
