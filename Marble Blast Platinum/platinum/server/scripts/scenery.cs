@@ -1014,6 +1014,41 @@ datablock StaticShapeData(Lamp_BM) {
 	shapeFile = "~/data/shapes_bm/scenery/bm_lamp.dts";
 };
 
+datablock StaticShapeData(SkytreeConstructionTower) {
+	className = "LevelParts";
+	superCategory = "Level Parts";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/scenery/SkytreeConstructionTower.dts";
+};
+
+datablock StaticShapeData(SkytreeConstructionTowerBottom) {
+	className = "LevelParts";
+	superCategory = "Level Parts";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/scenery/SkytreeConstructionTowerBottom.dts";
+};
+
+datablock StaticShapeData(SkytreeConstructionTowerDeck) {
+	className = "LevelParts";
+	superCategory = "Level Parts";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/scenery/SkytreeConstructionTowerDeck.dts";
+};
+
+datablock StaticShapeData(SkytreeConstructionTowerRing) {
+	className = "LevelParts";
+	superCategory = "Level Parts";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/scenery/SkytreeConstructionTowerRing.dts";
+};
+
+datablock StaticShapeData(SkytreeConstructionTowerTop) {
+	className = "LevelParts";
+	superCategory = "Level Parts";
+	category = "Blasted";
+	shapeFile = "~/data/shapes_bm/scenery/SkytreeConstructionTowerTop.dts";
+};
+
 datablock StaticShapeData(SanctuaryTowersWheel) {
 	className = "LevelParts";
 	superCategory = "Level Parts";
