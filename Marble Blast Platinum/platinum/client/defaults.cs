@@ -49,6 +49,7 @@ $pref::RadarMode = 3;
 $pref::ScorePredictorMaxFactor = 2;
 $pref::StopRecordingOnMenu = false;
 $pref::NoHolePunching = false;
+$pref::NoFadeIn = false;
 
 $pref::parTimeAlarm = true;
 
