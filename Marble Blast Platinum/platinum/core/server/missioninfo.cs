@@ -53,20 +53,21 @@ function sendLoadInfoToClient(%client) {
 		}
 	}
 
-
-	traceGuard();
-		%missionInfo = dumpObject(%info);
-	traceGuardEnd();
-
 	messageClient(%client, 'MsgLoadInfo', "", %info.name);
 	messageClient(%client, 'MsgLoadMode', "", %info.gameMode);
 	messageClient(%client, 'MsgLoadDescripition', "", %info.desc);
 	messageClient(%client, 'MsgServerDedicated', "", $Server::Dedicated);
 	messageClient(%client, 'MsgServerDescription', "", $Pref::Server::Info);
 	messageClient(%client, 'MsgServerName', "", $Pref::Server::Name);
-	%maxChars = 255;
-	for (%i = 0; %i < mCeil(strLen(%missionInfo) / %maxChars); %i ++) {
-		messageClient(%client, 'MsgLoadMissionInfoPart', "", getSubStr(%missionInfo, %maxChars * %i, %maxChars));
+	// Transmit MissionInfo securely
+	%fields = %info.getDynamicFieldList();
+	for (%i = 0; %i < getFieldCount(%fields); %i ++) {
+		%key = getField(%fields, %i);
+		%value = %info.getFieldValue(%key);
+		%maxChars = 255;
+		for (%j = 0; %j < mCeil(strLen(%value) / %maxChars); %j ++) {
+			messageClient(%client, 'MsgLoadMissionInfoPart', "", %key, getSubStr(%value, %maxChars * %j, %maxChars));
+		}
 	}
 	messageClient(%client, 'MsgLoadInfoDone');
 }

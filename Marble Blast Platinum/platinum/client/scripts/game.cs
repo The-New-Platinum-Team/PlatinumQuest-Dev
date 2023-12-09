@@ -757,7 +757,7 @@ function reformatGameEndText() {
 		%textTTs = "";
 	} else {
 		%grabbedTTs = countInvisibleTTs(MissionGroup);
-		%plural = %totalTTs > 1? "'s" : "";
+		%plural = %totalTTs > 1? "s" : "";
 		%textTTs = "<spush><shadow:1:1><shadowcolor:0000007f><color:00FF00>(" @ %grabbedTTs @ "/" @ %totalTTs @ " TT" @ %plural @ ")<spop> ";
 	}
 
