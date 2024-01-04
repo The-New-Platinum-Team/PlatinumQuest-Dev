@@ -46,6 +46,15 @@ function MarblelandJSONDownloader::onLine(%this, %line) {
 		%entry.file = "platinum/data/missions/marbleland/" @ %misname;
 		%entry.searchName = stripChars(strlwr(trim(%entry.name)), '\n\t');
 	}
+
+	if ($marblelandArg !$= "") {
+		if (marblelandGetMission($marblelandArg) !$= "") {
+			%entry = marblelandGetMission($marblelandArg);
+			RootGui.setContent(LoadingGui);
+			schedule(1000, 0, menuLoadStartMission, %entry.file);
+			$marblelandArg = "";
+		}
+	}
 }
 
 function MarblelandJSONDownloader::onDisconnect(%this) {
@@ -268,6 +277,9 @@ function marblelandMissionNeedsUpdate(%id) {
 	return $pref::MarblelandMission[%id] < $MarblelandMissionList.lookup[%id].editedAt;
 }
 
+/// Check if a given marbleland mission uses custom code
+/// @param mission Mission ID
+/// @return True if that mission uses custom code
 function marblelandUsesCustomCode(%mission) {
 
 	if (%mission.file !$= "") {
@@ -507,3 +519,29 @@ function MarblelandRandomMissionQueue::isUpcomingHidden(%this) {
 	return true;
 }
 
+// For RPC calls, currently used for marbleland
+function onRPCLine(%line)
+{
+	echo("RPC Line:" SPC %line);
+	%cmd = getWord(%line, 0);
+	echo("RPC Command:" SPC %cmd);
+	if (%cmd $= "marbleland") {
+		%level = stripChars(trim(getWord(%line, 1)), "\r");
+
+		echo("Marbleland Level:" SPC %level);
+
+		if (!$Server::Hosting)
+		{
+			%lookup = marblelandGetMission(%level);
+			if (%lookup !$= "") {
+				%entry = %lookup;
+				RootGui.setContent(LoadingGui);
+				schedule(1000, 0, menuLoadStartMission, %entry.file);
+			}
+		}
+		else
+		{
+			commandToServer('MarblelandPlay', %level);
+		}
+	}
+}
