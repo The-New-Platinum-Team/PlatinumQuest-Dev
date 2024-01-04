@@ -1292,6 +1292,8 @@ function refreshCenterTextCtrl() {
 //-----------------------------------------------------------------------------
 
 function PlayGui::displayGemMessage(%this, %amount, %color) {
+	if ($pref::ScreenshotMode == 2)
+		return;
 	%startCenter = VectorMult(%this.getExtent(), "0.5 0.5");
 	%startPos = VectorSub(%startCenter, "200 50");
 	%this.add(%obj = new GuiMLTextCtrl() {
