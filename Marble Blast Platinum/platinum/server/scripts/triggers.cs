@@ -1189,20 +1189,21 @@ datablock TriggerData(AccelerationTrigger) {
 };
 
 function AccelerationTrigger::onEnterTrigger(%this,%trigger,%obj) {
-	$MP::MyMarble.applyImpulse("0 0 0", (
+	%obj.client.applyImpulse("0 0 0", (
 		(%trigger.xforce / 100) SPC
 		(%trigger.yforce / 100) SPC
 		(%trigger.zforce / 100)
 	));
-	%this.nextFrame = %this.schedule(10, onEnterTrigger, %trigger, %obj);
+	%this.nextFrame[%obj] = %this.schedule(10, onEnterTrigger, %trigger, %obj);
 }
 
 function AccelerationTrigger::onLeaveTrigger(%this,%trigger,%obj) {
-	cancel(%this.nextFrame);
+	cancel(%this.nextFrame[%obj]);
 }
 
+
 //---------------------------------------------------------------------
-//A-Game: Change sun/sky trigger. Finally this exists!
+//Change sun/sky trigger. Finally this exists!
 
 datablock TriggerData(ChangeEnvironmentTrigger) {
 	tickPeriodMS = 100;
@@ -1222,7 +1223,7 @@ datablock TriggerData(ChangeEnvironmentTrigger) {
 	customField[2, "field"  ] = "ambvalue";
 	customField[2, "type"   ] = "string";
 	customField[2, "name"   ] = "Sun Ambient Value";
-	customField[2, "desc"   ] = "How bright the sun will be upon entering the trigger.";
+	customField[2, "desc"   ] = "What color darkness will be upon entering the trigger.";
 	customField[2, "default"] = "0.300000 0.300000 0.400000 1.000000";
 
 	customField[3, "field"  ] = "skybox";
@@ -1248,6 +1249,7 @@ function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
 					break;
 				}
 			}
+			break;
 		}
 	}
 	
@@ -1270,34 +1272,69 @@ function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
 	else 
 		resetEnvironment(true);
 }
+
+function ChangeEnvironmentTrigger::onCheckpointReset(%this, %obj) {
+	//Reset environment to last checkpoint (SP only)
+	if (!mp()) {
+		changeEnvironment(%this.checkpointsundirection, %this.checkpointsuncolor, %this.checkpointsunambient, %this.checkpointsky);
+	}
+}
+
+function ChangeEnvironmentTrigger::onActivateCheckpoint(%this, %obj) {
+	if (!mp()) {
+		for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
+			%obj = MissionGroup.getObject(%i);
+			if (%obj.getClassName() $= "Sun") {
+				%sun = %obj;
+				break;
+			}
+			if (%obj.getName() $= "MissionData") {
+				for (%i = 0; %i < MissionData.getCount(); %i ++) {
+					%obj = MissionData.getObject(%i);
+					if (%obj.getClassName() $= "Sun") {
+						%sun = %obj;
+						break;
+					}
+				}
+				break;
+			}
+		}
+		%sky = Sky.getID();
+		//"%this" for checkpoint, but noted values should be attached to sun/sky so they're easy to change in the level editor
+		%this.checkpointsundirection = %sun.direction;
+		%this.checkpointsuncolor = %sun.color;
+		%this.checkpointsunambient = %sun.ambient;
+		%this.checkpointsky = %sky.materialList;
+	}
+}
+
 function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
-	//This trigger is not supported on dedicated servers
+	//Crashes dedicated servers
 	if ($Server::Dedicated)
 		return;
 
-	//what
-	if (%dirvalue $= "" && %colorvalue $= "" && %ambvalue $= "" && %skybox $= "")
-		return;
-
-	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
-		%obj = MissionGroup.getObject(%i);
-		if (%obj.getClassName() $= "Sun") {
-			%obj.direction = %dirvalue;
-			%obj.color = %colorvalue;
-			%obj.ambient = %ambvalue;
-			%obj.inspectPostApply();
-			break;
-		}
-		if (%obj.getName() $= "MissionData") {
-			for (%i = 0; %i < MissionData.getCount(); %i ++) {
-				%obj = MissionData.getObject(%i);
-				if (%obj.getClassName() $= "Sun") {
-					%obj.direction = %dirvalue;
-					%obj.color = %colorvalue;
-					%obj.ambient = %ambvalue;
-					%obj.inspectPostApply();
-					break;
+	if (%dirvalue !$= "" && %colorvalue !$= "" && %ambvalue !$= "") {
+		for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
+			%obj = MissionGroup.getObject(%i);
+			if (%obj.getClassName() $= "Sun") {
+				%obj.direction = %dirvalue;
+				%obj.color = %colorvalue;
+				%obj.ambient = %ambvalue;
+				%obj.inspectPostApply();
+				break;
+			}
+			if (%obj.getName() $= "MissionData") {
+				for (%i = 0; %i < MissionData.getCount(); %i ++) {
+					%obj = MissionData.getObject(%i);
+					if (%obj.getClassName() $= "Sun") {
+						%obj.direction = %dirvalue;
+						%obj.color = %colorvalue;
+						%obj.ambient = %ambvalue;
+						%obj.inspectPostApply();
+						break;
+					}
 				}
+				break;
 			}
 		}
 	}
@@ -1307,7 +1344,6 @@ function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 		noteEnvironment(true);
 	if (%skybox $= "" || %sky.materialList $= %skybox)
 		return;
-	//Really don't want to do this but there's no other way to change the skybox
 	new Sky(Sky) {
 		position = "0 0 0";
 		rotation = "1 0 0 0";
@@ -1342,7 +1378,7 @@ function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 }
 
 function resetEnvironment(%skyreset) {	
-	//This trigger is not supported on dedicated servers
+	//Crashes dedicated servers
 	if ($Server::Dedicated)
 		return;
 
@@ -1366,13 +1402,12 @@ function resetEnvironment(%skyreset) {
 					break;
 				}
 			}
+			break;
 		}
 	}
 
-
 	if (!%skyreset)
 		return;
-	//Really don't want to do this but there's no other way to change the skybox
 	%sky = Sky.getID();
 	if (%sky.notedSkybox $= "")
 		noteEnvironment(true);
@@ -1412,7 +1447,7 @@ function resetEnvironment(%skyreset) {
 }
 
 function noteEnvironment(%onlysky) {
-	//This trigger is not supported on dedicated servers
+	//Crashes dedicated servers
 	if ($Server::Dedicated)
 		return;
 
@@ -1420,7 +1455,7 @@ function noteEnvironment(%onlysky) {
 	%sky = Sky.getID();
 	%sky.notedSkybox = %sky.materialList;
 
-	if (%onlysky) //So sun doesn't get overwritten if you change the skybox
+	if (%onlysky) //Changing the skybox in-game deletes and creates a new one, which leads to problems with resetting the Sun
 		return;
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
@@ -1440,6 +1475,7 @@ function noteEnvironment(%onlysky) {
 					break;
 				}
 			}
+			break;
 		}
 	}
 }

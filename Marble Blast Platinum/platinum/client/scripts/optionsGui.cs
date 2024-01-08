@@ -490,41 +490,35 @@ TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
 //-----------------------------------------------------------------------------
 // Online
 
-$Options::Name    ["Online", 0] = "scorePredictor";
-$Options::Title   ["Online", 0] = "Score Predictor";
-$Options::Type    ["Online", 0] = "boolean";
-$Options::Name    ["Online", 1] = "showRecords";
-$Options::Title   ["Online", 1] = "Always Show World Record";
-$Options::Type    ["Online", 1] = "boolean";
-$Options::Name    ["Online", 2] = "overviewSpeed";
-$Options::Title   ["Online", 2] = "Overview Speed";
-$Options::Ctrl    ["Online", 2] = "slider";
-$Options::Min     ["Online", 2] = 10;
-$Options::Max     ["Online", 2] = 200;
-$Options::Ticks   ["Online", 2] = 38; //Every 5
-$Options::JoyTicks["Online", 2] = 38; //Every 5
-$Options::Name    ["Online", 3] = "serverPort";
-$Options::Title   ["Online", 3] = "Server Port";
-$Options::Ctrl    ["Online", 3] = "textbox";
-$Options::Length  ["Online", 3] = 5;
-$Options::Name    ["Online", 4] = "profanityFilter";
-$Options::Title   ["Online", 4] = "Profanity Filter";
-$Options::Type    ["Online", 4] = "boolean";
-$Options::Name    ["Online", 5] = "globalSize";
-$Options::Title   ["Online", 5] = "Global Score Page Size";
-$Options::Type    ["Online", 5] = "value";
-$Options::Name    ["Online", 6] = "chatMessageSize";
-$Options::Title   ["Online", 6] = "In-Game Lines of Chat";
-$Options::Type    ["Online", 6] = "value";
-$Options::Name    ["Online", 7] = "autoLogin";
-$Options::Title   ["Online", 7] = "Auto Login";
-$Options::Type    ["Online", 7] = "boolean";
-$Options::Name    ["Online", 8] = "noholepunch";
-$Options::Title   ["Online", 8] = "Hole Punching";
-$Options::Type    ["Online", 8] = "boolean";
+$i = -1;
+$Options::Name    ["Online", $i++] = "scorePredictor";
+$Options::Title   ["Online", $i  ] = "Score Predictor";
+$Options::Type    ["Online", $i  ] = "boolean";
+$Options::Name    ["Online", $i++] = "showRecords";
+$Options::Title   ["Online", $i  ] = "Always Show World Record";
+$Options::Type    ["Online", $i  ] = "boolean";
+$Options::Name    ["Online", $i++] = "serverPort";
+$Options::Title   ["Online", $i  ] = "Server Port";
+$Options::Ctrl    ["Online", $i  ] = "textbox";
+$Options::Length  ["Online", $i  ] = 5;
+$Options::Name    ["Online", $i++] = "profanityFilter";
+$Options::Title   ["Online", $i  ] = "Profanity Filter";
+$Options::Type    ["Online", $i  ] = "boolean";
+$Options::Name    ["Online", $i++] = "globalSize";
+$Options::Title   ["Online", $i  ] = "Global Score Page Size";
+$Options::Type    ["Online", $i  ] = "value";
+$Options::Name    ["Online", $i++] = "chatMessageSize";
+$Options::Title   ["Online", $i  ] = "In-Game Lines of Chat";
+$Options::Type    ["Online", $i  ] = "value";
+$Options::Name    ["Online", $i++] = "noholepunch";
+$Options::Title   ["Online", $i  ] = "Hole Punching";
+$Options::Type    ["Online", $i  ] = "boolean";
+$Options::Name    ["Online", $i++] = "autoLogin";
+$Options::Title   ["Online", $i  ] = "Auto Login";
+$Options::Type    ["Online", $i  ] = "boolean";
 
-$Options::AutoLoginUserField = 9;
-$Options::AutoLoginPassField = 10;
+$Options::AutoLoginUserField = $i++;
+$Options::AutoLoginPassField = $i++;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
 $Options::Title   ["Online", $Options::AutoLoginUserField] = "Username";
@@ -1544,28 +1538,6 @@ function Opt_showRecords_decrease() {
 
 function Opt_showRecords_increase() {
 	$LBPref::ShowRecords = !$LBPref::ShowRecords;
-}
-
-//-----------------------------------------------------------------------------
-
-function Opt_overviewSpeed_getValue() {
-	return 210 - $MPPref::OverviewSpeed;
-}
-
-function Opt_overviewSpeed_getDisplay() {
-	return OptionsoverviewSpeedValue.getFormattedValue(10, 200);
-}
-
-function Opt_overviewSpeed_decrease(%size) {
-	Opt_overviewSpeed_setValue(Opt_overviewSpeed_getValue() - %size);
-}
-
-function Opt_overviewSpeed_increase(%size) {
-	Opt_overviewSpeed_setValue(Opt_overviewSpeed_getValue() + %size);
-}
-
-function Opt_overviewSpeed_setValue(%value) {
-	$MPPref::OverviewSpeed = 210 - %value;
 }
 
 //-----------------------------------------------------------------------------

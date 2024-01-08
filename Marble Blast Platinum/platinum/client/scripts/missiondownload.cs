@@ -373,6 +373,8 @@ function handleLoadInfoMessage(%msgType, %msgString, %mapName) {
 
 	$Game::MapName = %mapName;
 
+	$MP::MissionInfoPart = new ScriptObject() {};
+
 	MPPreGameDlg.mapName = %mapName;
 	MPPreGameDlg.updateInfo();
 }
@@ -415,9 +417,9 @@ function handleReadyCountMessage(%msgType, %msgString, %readyCount, %playerCount
 
 //------------------------------------------------------------------------------
 
-function handleLoadMissionInfoPartMessage(%msgType, %msgString, %part) {
+function handleLoadMissionInfoPartMessage(%msgType, %msgString, %key, %value) {
 	// This spits out the mission info
-	$MP::MissionInfoString = $MP::MissionInfoString @ %part;
+	$MP::MissionInfoPart.setFieldValue(%key, $MP::MissionInfoPart.getFieldValue(%key) @ %value);
 }
 
 //------------------------------------------------------------------------------
@@ -425,16 +427,11 @@ function handleLoadMissionInfoPartMessage(%msgType, %msgString, %part) {
 function handleLoadInfoDoneMessage(%msgType, %msgString) {
 	// This will get called after the last description line is sent.
 
-	// Only place where eval can kinda be haxed. I really don't want to
-	// use it here, but there's no alternative options. Let's just hope nobody
-	// figures out how to send this via console!
 	if ((!$Server::Hosting || $Server::_Dedicated) && $Server::ServerType $= "MultiPlayer") {
-		%missionInfo = eval("return " @ $MP::MissionInfoString);
-		%missionInfo.setName("MissionInfo");
-		%missionInfo.file = $Client::MissionFile;
+		$MP::MissionInfoPart.setName("MissionInfo");
+		$MP::MissionInfoPart.file = $Client::MissionFile;
 	}
 //   echo($MP::MissionInfoString);
-	$MP::MissionInfoString = "";
 }
 
 //------------------------------------------------------------------------------
