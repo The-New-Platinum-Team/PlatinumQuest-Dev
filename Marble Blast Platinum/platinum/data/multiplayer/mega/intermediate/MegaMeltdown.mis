@@ -4,15 +4,82 @@ new SimGroup(MissionGroup) {
    new ScriptObject(MissionInfo) {
          alarmStartTime = "25";
          artist = "Aayrl";
-         desc = "Mega competition is heard from within the meltdown arena...can you handle the mega marble?";
+         desc = "Fierce competition is heard from within the meltdown arena...can you handle the mega marble?"; //Mega competition is heard from within the meltdown arena...can you handle the mega marble?
          game = "Platinum";
          gameMode = "mega";
          level = "1";
          music = "The Race.ogg";
-         name = "Mega Meltdown";
-         noDownload = "1";
+         name = "Meltdown"; //Mega Meltdown
          time = "180000";
          type = "Intermediate";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "-45.30898 33.83479 43.72983";
+         rotation = "0.1969794 -0.3792142 0.9040994 129.688";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "7000";
+            placed = "1";
+            usePosition = "1";
+            nextNode = "CameraPath2";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-45.87669 6.95447 32.19986";
+         rotation = "0.2786461 -0.3268763 0.903055 104.8211";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "8000";
+            Spline = "1";
+            placed = "1";
+            usePosition = "1";
+            nextNode = "CameraPath3";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-29.35701 -25.71589 23.66235";
+         rotation = "0.5567024 -0.2493936 0.7923921 58.96382";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "0";
+            placed = "1";
+            usePosition = "1";
+            nextNode = "CameraPath4";
+      };
+      new StaticShape(CameraPath4) {
+         position = "46.42519 24.66643 2.967877";
+         rotation = "-0.02861425 -0.04570374 -0.9985451 115.9752";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "9000";
+            placed = "1";
+            usePosition = "1";
+            nextNode = "CameraPath5";
+      };
+      new StaticShape(CameraPath5) {
+         position = "32.91932 -22.23595 6.633934";
+         rotation = "0.04635135 0.02182734 -0.9986867 50.49056";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "0";
+            placed = "1";
+            usePosition = "1";
+            nextNode = "CameraPath1";
+      };
    };
    new SimGroup(PowerUps) {
 
