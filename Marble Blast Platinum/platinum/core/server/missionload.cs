@@ -152,7 +152,7 @@ function loadMission(%missionName, %isFirstMission) {
 	// if this isn't the first mission, allow some time for the server
 	// to transmit information to the clients:
 	if (%isFirstMission || $Server::ServerType $= "SinglePlayer")
-		loadMissionStage2(%marblelandId);
+		loadMissionStage2();
 	else
 		$LoadStage2 = schedule($MissionLoadPause, ServerGroup, loadMissionStage2);
 }
@@ -181,7 +181,7 @@ function LMS1_downloadFinished(%id, %success) {
 
 //-----------------------------------------------------------------------------
 
-function loadMissionStage2(%marblelandChecker) {
+function loadMissionStage2() {
 	$Server::_ServerType = $Server::ServerType;
 	$Server::ServerType = "SinglePlayer";
 
@@ -192,7 +192,7 @@ function loadMissionStage2(%marblelandChecker) {
 	// Make sure the mission exists
 	%file = $Server::MissionFile;
 
-	if (checkforMaliciousCode(%file, %marblelandChecker)) {
+	if (checkforMaliciousCode(%file)) {
 		loadMissionFinish(false);
 		ASSERT("Level Loading Halted!", "The level you just tried to load has Malicious Code which could be used to alter the game or destroy game files.");
 		return;
