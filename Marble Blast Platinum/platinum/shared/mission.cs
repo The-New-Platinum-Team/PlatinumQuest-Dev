@@ -356,7 +356,7 @@ function checkForMaliciousCode(%file) {
                 }
 
 				//Forbidden words. ~Connie
-                %keywords = "deletefile checkformaliciouscode exec eval";
+                %keywords = "exec eval dump call tree winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
 
                 for (%i = 0; %i < getWordCount(%keywords); %i++) {
                     %keyword = getWord(%keywords, %i);
