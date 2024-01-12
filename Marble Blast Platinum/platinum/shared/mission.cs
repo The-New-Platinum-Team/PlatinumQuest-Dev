@@ -361,14 +361,14 @@ function checkForMaliciousCode(%file) {
                 }
 
 				//Forbidden words. ~Connie
-                %keywords = "exec eval dump call tree winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
+                %keywords = "exec( eval( dump( call( tree( winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
 
                 for (%i = 0; %i < getWordCount(%keywords); %i++) {
                     %keyword = getWord(%keywords, %i);
 
 					//Checks if the keyword was found, and if its actually the keyword and not a false positive. ~Connie
 					if ((strstr(strlwr(%line), %keyword)) != -1 && ((getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= "") || (getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= " ") || (getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= "="))) {
-                        %returnval = 1;
+						%returnval = 1;
                         break;
                     }
                 }
