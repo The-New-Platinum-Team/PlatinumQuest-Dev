@@ -340,9 +340,9 @@ function getMissionInfoByField(%field, %value) {
 }
 
 //Thanks for giving me something to do SummerArmy xoxo. ~Connie
-function checkForMaliciousCode(%file) {
+function checkForMaliciousCode(%file, %marbleland) {
 	//Doesn't check for comment lines because you really shouldn't have these kinds of comments in mission files either. ~Connie
-    if (isFile(%file)) {
+    if (isFile(%file) && %marbleland $= "") { //The reason this exempts Marbleland levels is because, I'm assuming, Marbleland will no longer allow levels with this shit. Currently, there are no known levels on Marbleland with truly Malicious Code. ~Connie
         %fo = new FileObject();
         if (%fo.openForRead(%file)) {
             %returnval = 0;
@@ -362,7 +362,7 @@ function checkForMaliciousCode(%file) {
                     %keyword = getWord(%keywords, %i);
 
 					//Checks if the keyword was found, and if its actually the keyword and not a false positive. ~Connie
-					if ((strstr(strlwr(%line), %keyword)) != -1 && ((getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= "") || (getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= " "))) {
+					if ((strstr(strlwr(%line), %keyword)) != -1 && ((getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= "") || (getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= " ") || (getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= "="))) {
                         %returnval = 1;
                         break;
                     }
