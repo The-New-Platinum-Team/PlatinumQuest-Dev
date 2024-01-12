@@ -342,8 +342,13 @@ function getMissionInfoByField(%field, %value) {
 //Thanks for giving me something to do SummerArmy xoxo. ~Connie
 function checkForMaliciousCode(%file) {
 	//Doesn't exempt comment lines because you really shouldn't have these kinds of comments in mission files either.
+
 	//The reason this exempts Marbleland levels is because, I'm assuming, Marbleland will no longer allow levels with this shit. Currently, there are no known levels on Marbleland with truly Malicious Code. ~Connie
-    if (isFile(%file) && (strpos(expandFilename(%file), "platinum/data/missions/marbleland/") == -1)) {
+	if (marblelandIsMission(%file)) {
+		return 0;
+	}
+
+    if (isFile(%file)) {
         %fo = new FileObject();
         if (%fo.openForRead(%file)) {
             %returnval = 0;
