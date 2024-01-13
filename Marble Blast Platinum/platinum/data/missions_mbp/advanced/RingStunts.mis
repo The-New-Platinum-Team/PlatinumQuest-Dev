@@ -9,6 +9,7 @@ new SimGroup(MissionGroup) {
          game = "Platinum";
          ultimateTime = "37000";
          ultimateHint = "You can hit with the gyrocopter and slant and then hit the next gem and the ring instead of going normally. Then, grab all the gems on the last part and bounce twice to the finish!";
+         easterEggHint = "Whatever could you use in this level to gain more height?";
          artist = "Andrew";
          level = "19";
          startHelpText = "Be sure you have the right speed and height before going through the rings!";
@@ -256,6 +257,15 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+   new Item() {
+      position = "-12 167.4 40";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.3";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath2) {
@@ -440,6 +450,13 @@ new SimGroup(MissionGroup) {
             useScale = "0";
             nextNode = "CameraPath9";
       };
+   };
+   new Trigger(hahasuck) {
+      position = "-49 138.4 35";
+      rotation = "1 0 0 0";
+      scale = "100 1 50";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new AudioProfile(MusicProfile) {
       fileName = "~/data/sound/music/Pianoforte (Guitar Remix).ogg";
