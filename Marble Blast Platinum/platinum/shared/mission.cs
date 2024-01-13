@@ -361,14 +361,31 @@ function checkForMaliciousCode(%file) {
                     continue;
                 }
 
+				//Once it detects the first part of the mission which is not outside of the main Mission Group, it will skip everything until it gets to the end.
+				//This is done to prevent any possible false positives in help texts, descriptions, start help texts, etc. ~Connie
+				if ((!%inMainBlock) && (stristr(strlwr(%line), "new simgroup(missiongroup) {") != -1)) {
+					%inMainBlock = true;
+				} else if ((%inMainBlock) && (stristr(%line, "};") != -1) && (getSubStr(%line, strstr(%line, "};") - 1, 1) $= "")) {
+					%inMainBlock = false;
+				}
+
+				if (%inMainBlock) {
+					continue;
+				}
+
 				//Forbidden words. ~Connie
                 %keywords = "exec( eval( dump( call( tree( winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
 
                 for (%i = 0; %i < getWordCount(%keywords); %i++) {
                     %keyword = getWord(%keywords, %i);
+					%charbeforekeyword = strlwr(getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1));
 
-					//Checks if the keyword was found, and if its actually the keyword and not a false positive. ~Connie
-					if ((strstr(strlwr(%line), %keyword)) != -1 && ((getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= "") || (getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= " ") || (getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1) $= "="))) {
+					if (%charbeforekeyword $= "") {
+						%charbeforekeyword = " ";
+					}
+
+					//Checks if: 1) The Keyword was found; 2) The Keyword has a letter before it; 3) The Keyword has an equals sign before it (just in case). ~Connie
+					if ((strstr(strlwr(%line), %keyword)) != -1 && ((strPos("abcdefghijklmnopqrstuvwxyz", %charbeforekeyword) == -1) || (%charbeforekeyword $= "="))) {
 						%returnval = 1;
                         break;
                     }
