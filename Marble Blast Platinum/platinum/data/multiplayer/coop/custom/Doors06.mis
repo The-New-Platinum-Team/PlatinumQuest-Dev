@@ -11,6 +11,7 @@ new SimGroup(MissionGroup) {
          goldTime = "100000";
          type = "Custom";
          desc = "Try not to get lost in this maze of rooms!";
+         music = "Quiet Lab.ogg";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -733,6 +734,55 @@ new SimGroup(MissionGroup) {
       fileName = "~/data/sound/Pianoforte.ogg";
       description = "AudioMusic";
       preload = "0";
+   };
+      new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "-18.4242 -48.1054 315.75";
+         rotation = "0.319975 -0.129535 0.938529 46.6652";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "1";
+            SmoothEnd = "1";
+            SmoothStart = "1";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "2000";
+            nextNode = "CameraPath2";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "10000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-16.9744 -46.6082 315.163";
+         rotation = "0.319975 -0.129535 0.938529 46.6652";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "60000";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "0";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
