@@ -362,9 +362,9 @@ function checkForMaliciousCode(%file) {
 
 				//Once it detects the first part of the mission which is not outside of the main Mission Group, it will skip everything until it gets to the end.
 				//This is done to prevent any possible false positives in help texts, descriptions, start help texts, etc. ~Connie
-				if ((!%inMainBlock) && (stristr(strlwr(%line), "new simgroup(missiongroup) {") != -1)) {
+				if (stristr(%line, "//--- OBJECT WRITE BEGIN ---") != -1) {
 					%inMainBlock = true;
-				} else if ((%inMainBlock) && (stristr(%line, "};") != -1) && (getSubStr(%line, strstr(%line, "};") - 1, 1) $= "")) {
+				} else if (stristr(%line, "//--- OBJECT WRITE END ---") != -1) {
 					%inMainBlock = false;
 				}
 
