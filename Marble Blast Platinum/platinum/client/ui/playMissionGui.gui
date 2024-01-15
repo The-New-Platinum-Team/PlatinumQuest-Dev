@@ -297,6 +297,41 @@ new GuiControl(PlayMissionGui) {
 			};
 		};
 	};
+	new GuiBorderButtonCtrl(PM_HolidaySelector) {
+		profile = "PQButton26Profile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "380 3";
+		extent = "53 53";
+		minExtent = "8 8";
+		visible = "0";
+		command = "PlayMissionGui.switchHoliday();";
+		helpTag = "0";
+		text = "";
+		bitmap = "platinum/client/ui/play/buttons/hunt.png";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	};
+	new GuiTextEditCtrl(PM_HolidayCodeDetector) {
+		profile = "GuiTextEditProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "-100 -100";
+		extent = "10 10";
+		minExtent = "8 8";
+		visible = "1";
+		command = "PlayMissionGui.checkHolidaySecret();";
+		altCommand = "PlayMissionGui.checkHolidaySecret();";
+		helpTag = "0";
+		maxLength = "255";
+		maxPixelWidth = "0";
+		historySize = "0";
+		password = "0";
+		tabComplete = "0";
+		sinkAllKeyEvents = "0";
+	};
 	new GuiButtonBaseCtrl(PM_Popups) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "width";
@@ -1479,48 +1514,60 @@ function PlayMissionGui::onSleep(%this) {
 //-----------------------------------------------------------------------------
 // Dropdowns
 
-function PlayMissionGui::buildGameList(%this) {
+function PlayMissionGui::buildGameList(%this, %season) {
+	switch$(%season){
+		case "Frightfest": %nonseason1 = "Hunt"; %nonseason2 = "Winterfest"; break;
+		case "Winterfest": %nonseason1 = "Hunt"; %nonseason2 = "Frightfest"; break;
+		default:     %nonseason1 = "Frightfest"; %nonseason2 = "Winterfest";
+	}
+
 	%games = %this.getGameList();
 	%height = 35;
 	PM_GameScroll.clear();
 
-	%extent = (%height * getRecordCount(%games));
+	%extent = (%height * (getRecordCount(%games) - 2)); //-2 for the excluded versions of Hunt based on season
 	PM_GameScroll.setExtent(158 SPC %extent);
 
 	%extent = min(%extent, getWord(Canvas.getExtent(), 1) - 50);
 	PM_GameList.setExtent(158 SPC %extent);
 	PM_GameContainer.setExtent(158 SPC %extent);
 
+	%gameNumber = -1;
 	for (%i = 0; %i < getRecordCount(%games); %i ++) {
-		%entry = getRecord(%games, %i);
+		%gameNumber++;
+		%entry = getRecord(%games	, %i);
 		%name = getField(%entry, 0);
 		%display = getField(%entry, 1);
 
-		%buttonName = "PM_GameButton_" @ %i;
-		%buttonNameU = "PM_GameButton_" @ (%i - 1);
-		%buttonNameD = "PM_GameButton_" @ (%i + 1);
+		if(%name !$= %nonseason1 && %name !$= %nonseason2){
+			%buttonName = "PM_GameButton_" @ %gameNumber;
+			%buttonNameU = "PM_GameButton_" @ (%gameNumber - 1);
+			%buttonNameD = "PM_GameButton_" @ (%gameNumber + 1);
 
-		PM_GameScroll.add(new GuiBitmapButtonTextCtrl(%buttonName) {
-			profile = "PMDifficultyButtonProfile";
-			horizSizing = "left";
-			vertSizing = "bottom";
-			position = "1 " @ (%i * %height);
-			extent = "156 " @ %height;
-			minExtent = "8 8";
-			visible = "1";
-			helpTag = "0";
-			text = %display;
-			command = "PlayMissionGui.setGame(\"" @ %name @ "\"); PlayMissionGui.showMissionList();";
-			groupNum = "-1";
-			buttonType = "PushButton";
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-			bitmap = "./play/difficulty";
-				controlUp = %buttonNameU;
-				controlDown = %buttonNameD;
-				commandCancel = "PlayMissionGui.hideSelectors();";
-				commandNameCancel = "Close";
-		});
+			PM_GameScroll.add(new GuiBitmapButtonTextCtrl(%buttonName) {
+				profile = "PMDifficultyButtonProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "1 " @ (%gameNumber * %height);
+				extent = "156 " @ %height;
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				text = %display;
+				command = "PlayMissionGui.setGame(\"" @ %name @ "\"); PlayMissionGui.showMissionList();";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./play/difficulty";
+					controlUp = %buttonNameU;
+					controlDown = %buttonNameD;
+					commandCancel = "PlayMissionGui.hideSelectors();";
+					commandNameCancel = "Close";
+			});
+		}else{
+			%gameNumber--;
+		}
 	}
 
 	%this.buildDifficultyList();
@@ -4688,4 +4735,105 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 
 function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 	PM_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
+}
+
+//-----------------------------------------------------------------------------
+//Holiday chicanery
+
+$frightfest = false;
+function PlayMissionGui::enableFrightfest(%this){
+	echo("Boo! Enabling Frightfest...");
+	$frightfest = true;
+	if($currentHoliday $= "Hunt"){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";}
+	PM_HolidaySelector.setVisible(true);
+}
+
+function PlayMissionGui::disableFrightfest(%this){
+	echo("Boo! Disabling Frightfest...");
+	$frightfest = false;
+	if($currentHoliday $= "Frightfest"){PlayMissionGui.switchHoliday();}
+	if(!$winterfest){PM_HolidaySelector.setVisible(false);}
+}
+
+function PlayMissionGui::activateFrightfest(%this){
+	$currentHoliday = "Frightfest";
+	PlayMissionGui.buildGameList("Frightfest");
+	if($winterfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";}
+	else           {PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";}
+	PlayMissionGui.setGame("Frightfest");
+	PlayMissionGui.showMissionList();
+}
+
+$winterfest = false;
+function PlayMissionGui::enableWinterfest(%this){
+	echo("Ho ho ho! Enabling Winterfest...");
+	$winterfest = true;
+	if($currentHoliday $= "Frightfest" || !$frightfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";}
+	PM_HolidaySelector.setVisible(true);
+}
+
+function PlayMissionGui::disableWinterfest(%this){
+	echo("Ho ho ho! Disabling Winterfest...");
+	$winterfest = false;
+	if($currentHoliday $= "Winterfest"){PlayMissionGui.switchHoliday();}
+	if(!$frightfest){PM_HolidaySelector.setVisible(false);}
+}
+
+function PlayMissionGui::activateWinterfest(%this){
+	$currentHoliday = "Winterfest";
+	PlayMissionGui.buildGameList("Winterfest");
+	PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
+	PlayMissionGui.setGame("Winterfest");
+	PlayMissionGui.showMissionList();
+}
+
+function PlayMissionGui::deactivateHolidays(%this){
+	$currentHoliday = "Hunt";
+	PlayMissionGui.buildGameList("Hunt");
+	if     ($frightfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";}
+	else if($winterfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";}
+	else                {PM_HolidaySelector.setVisible(false);}
+	PlayMissionGui.setGame("Hunt");
+	PlayMissionGui.showMissionList();
+}
+
+$currentHoliday = "Hunt";
+function PlayMissionGui::switchHoliday(%this){
+	echo("Switching holiday! Holiday is currently " @ $currentHoliday);
+	switch$($currentHoliday){
+	case "Hunt":
+		     if($frightfest){PlayMissionGui.activateFrightfest();}
+		else if($winterfest){PlayMissionGui.activateWinterfest();}
+		break;
+	case "Frightfest":
+		     if($winterfest){PlayMissionGui.activateWinterfest();}
+		else                {PlayMissionGui.deactivateHolidays();}
+		break;
+	default:
+		PlayMissionGui.deactivateHolidays();
+	}
+}
+
+function PlayMissionGui::checkHolidaySecret(%this){
+	%typed = PM_HolidayCodeDetector.getValue();
+	switch$(%typed){
+	case "boo": 
+		if($frightfest){PlayMissionGui.disableFrightfest();}
+		else           {PlayMissionGui.enableFrightfest();}
+		break;
+	case "hohoho":
+		if($winterfest){PlayMissionGui.disableWinterfest();}
+		else           {PlayMissionGui.enableWinterfest();}
+		break;
+	}
+
+	//If a code isn't in the process of being typed, then discard it
+	if((%typed !$= "b")    &&
+	   (%typed !$= "bo")   &&
+	   (%typed !$= "h")    &&
+	   (%typed !$= "ho")   &&
+	   (%typed !$= "hoh")  && //sis
+	   (%typed !$= "hoho") &&
+	   (%typed !$= "hohoh"))
+	{PM_HolidayCodeDetector.setText("");}
 }
