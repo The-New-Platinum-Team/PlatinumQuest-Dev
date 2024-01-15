@@ -192,6 +192,12 @@ function loadMissionStage2() {
 	// Make sure the mission exists
 	%file = $Server::MissionFile;
 
+	if (checkforMaliciousCode(%file)) {
+		loadMissionFinish(false);
+		ASSERT("Level Loading Halted!", "The level you just tried to load has Malicious Code which could be used to alter the game or destroy game files.");
+		return;
+	}
+
 	if (!isScriptFile(%file)) {
 		error("Could not find mission " @ %file);
 

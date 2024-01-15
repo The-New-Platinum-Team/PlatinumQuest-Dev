@@ -339,6 +339,68 @@ function getMissionInfoByField(%field, %value) {
 	return -1;
 }
 
+//Thanks for giving me something to do SummerArmy xoxo. ~Connie
+function checkForMaliciousCode(%file) {
+	//Doesn't exempt comment lines because you really shouldn't have these kinds of comments in mission files either.
+
+	//The reason this exempts Marbleland levels is because, I'm assuming, Marbleland will no longer allow levels with this shit. Currently, there are no known levels on Marbleland with truly Malicious Code. ~Connie
+	if (marblelandIsMission(%file)) {
+		return 0;
+	}
+
+    if (isFile(%file)) {
+        %fo = new FileObject();
+        if (%fo.openForRead(%file)) {
+            %returnval = 0;
+
+            while (!%fo.isEOF()) {
+                %line = %fo.readLine();
+
+				//Entirely skip empty lines. ~Connie
+                if (%line $= "") {
+                    continue;
+                }
+
+				//Once it detects the first part of the mission which is not outside of the main Mission Group, it will skip everything until it gets to the end.
+				//This is done to prevent any possible false positives in help texts, descriptions, start help texts, etc. ~Connie
+				if (stristr(%line, "//--- OBJECT WRITE BEGIN ---") != -1) {
+					%inMainBlock = true;
+				} else if (stristr(%line, "//--- OBJECT WRITE END ---") != -1) {
+					%inMainBlock = false;
+				}
+
+				if (%inMainBlock) {
+					continue;
+				}
+
+				//Forbidden words. ~Connie
+                %keywords = "exec( eval( dump( call( tree( winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
+
+                for (%i = 0; %i < getWordCount(%keywords); %i++) {
+                    %keyword = getWord(%keywords, %i);
+					%charbeforekeyword = strlwr(getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1));
+
+					if (%charbeforekeyword $= "") {
+						%charbeforekeyword = " ";
+					}
+
+					//Checks if: 1) The Keyword was found; 2) The Keyword has a letter before it; 3) The Keyword has an equals sign before it (just in case). ~Connie
+					if ((strstr(strlwr(%line), %keyword)) != -1 && ((strPos("abcdefghijklmnopqrstuvwxyz", %charbeforekeyword) == -1) || (%charbeforekeyword $= "="))) {
+						%returnval = 1;
+                        break;
+                    }
+                }
+            }
+
+            %fo.close();
+        }
+
+        %fo.delete();
+        return %returnval;
+    }
+}
+
+
 // Mission Game: What game category it is in the mission list
 function resolveMissionGame(%mission) {
 	if (%mission.game !$= "") {

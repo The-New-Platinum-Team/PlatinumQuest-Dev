@@ -526,8 +526,13 @@ function EditorTestCameraPath() {
 
 function EditorIconScreenshot() {
 	$MP::MyMarble.scale = "0 0 0"; //Make the Marble practically invisible so it isn't visible in the preview. ~Connie
+	%gui = RootGui.getContent();
+	if (%gui == -1 || %gui $= ""){
+		%gui = "PlayGui";
+	}
+	
 	doMiniShot();
-	RootGui.setContent(EditorGui);
+	RootGui.setContent(%gui);
 	schedule(100, 0, ReturnMarbletoNormal);
 }
 
@@ -548,12 +553,16 @@ function EditorDoPreviewScreenshot() {
 		%fov = MissionInfo.menuCameraFov;
 	}
 
+	%gui = RootGui.getContent();
+	if (%gui == -1 || %gui $= ""){
+		%gui = "PlayGui";
+	}	
 	RootGui.setContent(MiniShotGui);
 	Minishotter.forceFOV = %fov;
 	Minishotter.resize(0, 0, getWord(getResolution(), 0), getWord(getResolution(), 1));
 	Canvas.repaint();
 	screenShot(%path, getWord(getResolution(), 0), getWord(getResolution(), 1));
-	RootGui.setContent(EditorGui);
+	RootGui.setContent(%gui);
 	schedule(100, 0, ReturnMarbletoNormal);
 }
 
