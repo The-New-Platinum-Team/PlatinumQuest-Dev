@@ -2959,3 +2959,146 @@ function EWorldEditor::focusOnSelection(%this) {
 	%trans = MatrixMultiply(%trans, %offset);
 	%camera.setTransform(%trans);
 }
+
+function buildDBJson() {
+	if (isObject(DBArray))
+		DBArray.delete();
+	Array(DBArray);
+	for (%i = 0; %i < DataBlockGroup.getCount(); %i++)
+	{
+		%db = DataBlockGroup.getObject(%i);
+		if (%db.shapeFile !$= "")
+		{
+			%so = new ScriptObject() { class = "JSONObject"; };
+			%so.name = %db.getName();
+			%so.type = %db.getClassName();
+			%so.category = %db.superCategory $= "" ? %db.category : (%db.superCategory @ "." @ %db.category);
+			%so.shapefile = %db.shapeFile;
+			%so.skin = %db.skin;
+
+			%fields = Array();
+			%j = 0;
+			while (true)
+			{
+				if (%db.customField[%j, "field"] $= "")
+					break;
+
+				%sofield = new ScriptObject() { class = "JSONObject"; };
+				%sofield.name = %db.customField[%j, "field"];
+				%sofield.type = %db.customField[%j, "type"];
+				%sofield.display = %db.customField[%j, "name"];
+				%sofield.desc = %db.customField[%j, "desc"];
+				%sofield.defaultValue = %db.customField[%j, "default"];
+
+				if (%sofield.type $= "enum") 
+				{
+					%enumfields = Array();
+					%k = 0;
+					while (true)
+					{
+						if (%db.customEnum[%sofield.name, %k, "value"] $= "")
+							break;
+
+						%enumDesc = new ScriptObject() { class = "JSONObject"; };
+						%enumDesc.name = %db.customEnum[%sofield.name, %k, "value"];
+						%enumDesc.display = %db.customEnum[%sofield.name, %k, "name"];
+						%enumfields.addEntry(%enumDesc);
+						%enumfields.__obj[%k] = true;
+						%k++;
+					}
+					%sofield.typeEnums = %enumfields;
+					%sofield.__obj["typeEnums"] = true;
+				}
+
+				if (%sofield.name $= "skin")
+				{
+					%skins = Array();
+					%k = 0;
+					while (true)
+					{
+						if (%db.skin[%k] $= "")
+							break;
+
+						%skinDesc = new ScriptObject() { class = "JSONObject"; };
+						%skinDesc.name = %db.skin[%k];
+						%skinDesc.display = %db.skin[%k];
+						%skins.addEntry(%skinDesc);
+						%skins.__obj[%k] = true;
+						%k++;
+					}
+					if (%skins.getSize() > 0) {
+						%sofield.typeEnums = %skins;
+						%sofield.__obj["typeEnums"] = true;
+						%sofield.type = "enum";
+					}
+				}
+
+				%fields.addEntry(%sofield);
+				%fields.__obj[%j] = true;
+				%j++;
+			}
+
+			%so.fields = %fields;
+			%so.__obj["fields"] = true;
+			DBArray.__obj[DBArray.getSize()] = true;
+			DBArray.addEntry(%so);
+		}
+	}
+	fwrite("platinum/shapedatablocks.json", jsonPrint(DBArray));
+	if (isObject(TLArray))
+		TLArray.delete();
+	Array(TLArray);
+	for (%i = 0; %i < DataBlockGroup.getCount(); %i++)
+	{
+		%db = DataBlockGroup.getObject(%i);
+		if (%db.getClassName() $= "TriggerData") {
+			%so = new ScriptObject() { class = "JSONObject"; };
+			%so.name = %db.getName();
+
+			%fields = Array();
+			%j = 0;
+			while (true)
+			{
+				if (%db.customField[%j, "field"] $= "")
+					break;
+
+				%sofield = new ScriptObject() { class = "JSONObject"; };
+				%sofield.name = %db.customField[%j, "field"];
+				%sofield.type = %db.customField[%j, "type"];
+				%sofield.display = %db.customField[%j, "name"];
+				%sofield.desc = %db.customField[%j, "desc"];
+				%sofield.defaultValue = %db.customField[%j, "default"];
+
+				if (%sofield.type $= "enum") 
+				{
+					%enumfields = Array();
+					%k = 0;
+					while (true)
+					{
+						if (%db.customEnum[%sofield.name, %k, "value"] $= "")
+							break;
+
+						%enumDesc = new ScriptObject() { class = "JSONObject"; };
+						%enumDesc.name = %db.customEnum[%sofield.name, %k, "value"];
+						%enumDesc.display = %db.customEnum[%sofield.name, %k, "name"];
+						%enumfields.addEntry(%enumDesc);
+						%enumfields.__obj[%k] = true;
+						%k++;
+					}
+					%sofield.typeEnums = %enumfields;
+					%sofield.__obj["typeEnums"] = true;
+				}
+
+				%fields.addEntry(%sofield);
+				%fields.__obj[%j] = true;
+				%j++;
+			}
+
+			%so.fields = %fields;
+			%so.__obj["fields"] = true;
+			TLArray.__obj[TLArray.getSize()] = true;
+			TLArray.addEntry(%so);
+		}
+	}
+	fwrite("platinum/triggerdatablocks.json", jsonPrint(TLArray));
+}
