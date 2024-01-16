@@ -1539,7 +1539,7 @@ function PlayMissionGui::buildGameList(%this, %season) {
 		%name = getField(%entry, 0);
 		%display = getField(%entry, 1);
 
-		if(%name !$= %nonseason1 && %name !$= %nonseason2){
+		if (%name !$= %nonseason1 && %name !$= %nonseason2){
 			%buttonName = "PM_GameButton_" @ %gameNumber;
 			%buttonNameU = "PM_GameButton_" @ (%gameNumber - 1);
 			%buttonNameD = "PM_GameButton_" @ (%gameNumber + 1);
@@ -4744,57 +4744,57 @@ $frightfest = false;
 function PlayMissionGui::enableFrightfest(%this){
 	echo("Boo! Enabling Frightfest...");
 	$frightfest = true;
-	if($currentHoliday $= "Hunt"){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";}
+	if ($currentHoliday $= "Hunt") PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
 	PM_HolidaySelector.setVisible(true);
 }
 
 function PlayMissionGui::disableFrightfest(%this){
 	echo("Boo! Disabling Frightfest...");
 	$frightfest = false;
-	if($currentHoliday $= "Frightfest"){PlayMissionGui.switchHoliday();}
-	if(!$winterfest){PM_HolidaySelector.setVisible(false);}
+	if ($currentHoliday $= "Frightfest") %this.switchHoliday();
+	if (!$winterfest) PM_HolidaySelector.setVisible(false);
 }
 
 function PlayMissionGui::activateFrightfest(%this){
 	$currentHoliday = "Frightfest";
-	PlayMissionGui.buildGameList("Frightfest");
-	if($winterfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";}
-	else           {PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";}
-	PlayMissionGui.setGame("Frightfest");
-	PlayMissionGui.showMissionList();
+	%this.buildGameList("Frightfest");
+	if ($winterfest) PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
+	else             PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
+	%this.setGame("Frightfest");
+	%this.showMissionList();
 }
 
 $winterfest = false;
 function PlayMissionGui::enableWinterfest(%this){
 	echo("Ho ho ho! Enabling Winterfest...");
 	$winterfest = true;
-	if($currentHoliday $= "Frightfest" || !$frightfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";}
+	if ($currentHoliday $= "Frightfest" || !$frightfest) PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
 	PM_HolidaySelector.setVisible(true);
 }
 
 function PlayMissionGui::disableWinterfest(%this){
 	echo("Ho ho ho! Disabling Winterfest...");
 	$winterfest = false;
-	if($currentHoliday $= "Winterfest"){PlayMissionGui.switchHoliday();}
-	if(!$frightfest){PM_HolidaySelector.setVisible(false);}
+	if ($currentHoliday $= "Winterfest") %this.switchHoliday();
+	if (!$frightfest) PM_HolidaySelector.setVisible(false);
 }
 
 function PlayMissionGui::activateWinterfest(%this){
 	$currentHoliday = "Winterfest";
-	PlayMissionGui.buildGameList("Winterfest");
+	%this.buildGameList("Winterfest");
 	PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
-	PlayMissionGui.setGame("Winterfest");
-	PlayMissionGui.showMissionList();
+	%this.setGame("Winterfest");
+	%this.showMissionList();
 }
 
 function PlayMissionGui::deactivateHolidays(%this){
 	$currentHoliday = "Hunt";
-	PlayMissionGui.buildGameList("Hunt");
-	if     ($frightfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";}
-	else if($winterfest){PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";}
-	else                {PM_HolidaySelector.setVisible(false);}
-	PlayMissionGui.setGame("Hunt");
-	PlayMissionGui.showMissionList();
+	%this.buildGameList("Hunt");
+	if      ($frightfest) PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
+	else if ($winterfest) PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
+	else                  PM_HolidaySelector.setVisible(false);
+	%this.setGame("Hunt");
+	%this.showMissionList();
 }
 
 $currentHoliday = "Hunt";
@@ -4802,15 +4802,15 @@ function PlayMissionGui::switchHoliday(%this){
 	echo("Switching holiday! Holiday is currently " @ $currentHoliday);
 	switch$($currentHoliday){
 	case "Hunt":
-		     if($frightfest){PlayMissionGui.activateFrightfest();}
-		else if($winterfest){PlayMissionGui.activateWinterfest();}
+		     if ($frightfest) %this.activateFrightfest();
+		else if ($winterfest) %this.activateWinterfest();
 		break;
 	case "Frightfest":
-		     if($winterfest){PlayMissionGui.activateWinterfest();}
-		else                {PlayMissionGui.deactivateHolidays();}
+		     if ($winterfest) %this.activateWinterfest();
+		else                  %this.deactivateHolidays();
 		break;
 	default:
-		PlayMissionGui.deactivateHolidays();
+		%this.deactivateHolidays();
 	}
 }
 
@@ -4818,22 +4818,22 @@ function PlayMissionGui::checkHolidaySecret(%this){
 	%typed = PM_HolidayCodeDetector.getValue();
 	switch$(%typed){
 	case "boo": 
-		if($frightfest){PlayMissionGui.disableFrightfest();}
-		else           {PlayMissionGui.enableFrightfest();}
+		if ($frightfest) %this.disableFrightfest();
+		else             %this.enableFrightfest();
 		break;
 	case "hohoho":
-		if($winterfest){PlayMissionGui.disableWinterfest();}
-		else           {PlayMissionGui.enableWinterfest();}
+		if ($winterfest) %this.disableWinterfest();
+		else             %this.enableWinterfest();
 		break;
 	}
 
 	//If a code isn't in the process of being typed, then discard it
-	if((%typed !$= "b")    &&
-	   (%typed !$= "bo")   &&
-	   (%typed !$= "h")    &&
-	   (%typed !$= "ho")   &&
-	   (%typed !$= "hoh")  && //sis
-	   (%typed !$= "hoho") &&
-	   (%typed !$= "hohoh"))
-	{PM_HolidayCodeDetector.setText("");}
+	if ((%typed !$= "b")    &&
+	    (%typed !$= "bo")   &&
+	    (%typed !$= "h")    &&
+	    (%typed !$= "ho")   &&
+	    (%typed !$= "hoh")  && //sis
+	    (%typed !$= "hoho") &&
+	    (%typed !$= "hohoh"))
+	PM_HolidayCodeDetector.setText("");
 }
