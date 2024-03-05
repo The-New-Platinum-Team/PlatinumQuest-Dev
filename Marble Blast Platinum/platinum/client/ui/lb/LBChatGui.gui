@@ -638,13 +638,21 @@ function LBParseNotify(%line) {
 		%level = getWord(%data, 0);
 		%time = getWord(%data, 1);
 		%name = decodeName(%level);
-		%message = LBChatColor("record") @ %display SPC "has just achieved a world record on \"" @ %name @ "\" of" SPC formatTime(%time);
+		%message = LBChatColor("record") @ %display SPC "has just achieved a world record on" SPC %name SPC "of" SPC formatTime(%time);
 		addLBChatLine(%message);
 	case "recordscore": //WR for levels with scores instead of times
 		%level = getWord(%data, 0);
 		%score = getWord(%data, 1);
 		%name = decodeName(%level);
-		%message = LBChatColor("record") @ %display SPC "has just achieved a world record on \"" @ %name @ "\" of" SPC %score;
+		%message = LBChatColor("record") @ %display SPC "has just achieved a world record on" SPC %name SPC "of" SPC %score;
+		addLBChatLine(%message);
+	case "recordegg": //WR for easter/nest eggs
+		%level = getWord(%data, 0);
+		%score = getWord(%data, 1);
+		%declarative = getWord(%data, 2);
+		%name = decodeName(%level);
+		%decl = decodeName(%declarative);
+		%message = LBChatColor("record") @ %display SPC "has just achieved" SPC %decl SPC "record on" SPC %name SPC "of" SPC formatTime(%score);
 		addLBChatLine(%message);
 	}
 }
