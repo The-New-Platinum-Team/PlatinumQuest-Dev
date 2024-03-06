@@ -721,7 +721,8 @@ function LBNetwork::on_notify(%this, %line) {
 
 function LBNetwork::on_shutdown(%this, %line) {
 	//That's never a good sign
-	LBAssert("Shutdown!","The leaderboards server has just shut down. Please reconnect later!", "LBdisconnect();");
+	LB_FinishLogout();
+	LBAssert("Shutdown!","The leaderboards server has just shut down. Please reconnect later!");
 }
 
 function LBNetwork::on_ping(%this, %line) {
