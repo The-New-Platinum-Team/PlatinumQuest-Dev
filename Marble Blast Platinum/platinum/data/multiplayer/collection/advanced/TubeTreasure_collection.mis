@@ -1,15 +1,140 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
-         level = "3";
-         name = "Tube Treasure";
-         desc = "Find all of the gems to finish the level!";
-         gameMode = "collection";
-         artist = "Alex Swanson";
-         music = "Groove Police.ogg";
-         type = "advanced";
-         time = "210000";
+      CustomRadarRule = "63";
+      Radar = "1";
+      artist = "Alex Swanson";
+      blast = "1";
+      desc = "Find all of your gems to win the match!";
+      game = "Gold";
+      gameMode = "collection";
+      goldTime = "210000";
+      level = "3";
+      music = "Groove Police.ogg";
+      name = "Tube Treasure";
+      score = "70";
+      type = "Advanced";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "68.38468 22.88088 512.311";
+         rotation = "0.1449812 0.217342 -0.9652683 114.4453";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath2) {
+         position = "48.02631 30.31274 505.5083";
+         rotation = "-0.1075449 -0.2111296 0.9715238 232.6591";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            useRotation = "1";
+            timeToNext = "2500";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath3) {
+         position = "29.65436 31.98086 500.4055";
+         rotation = "-0.06394417 -0.1704237 0.9832939 220.502";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath4";
+            useRotation = "1";
+            timeToNext = "0";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-54.43248 -0.4498056 489.0395";
+         rotation = "0.2117724 -0.2052549 0.9555223 90.81577";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath5";
+            useRotation = "1";
+            timeToNext = "2500";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-45.6107 -0.2799725 485.9803";
+         rotation = "0.09540767 -0.09386523 0.9910029 89.58395";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath6";
+            useRotation = "1";
+            timeToNext = "2500";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath6) {
+         position = "-33.07736 0.1052402 485.7592";
+         rotation = "-0.02107488 0.0202235 0.9995734 87.66241";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath7";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath7) {
+         position = "-15.33842 0.923381 488.378";
+         rotation = "0.1406848 -0.125243 0.9821008 84.3823";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            Spline = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath8";
+            useRotation = "1";
+            timeToNext = "1300";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath8) {
+         position = "-10.74689 -2.635153 487.6018";
+         rotation = "0.2300024 -0.1303254 0.9644243 60.8708";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            Spline = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath9";
+            useRotation = "1";
+            timeToNext = "1300";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath9) {
+         position = "-7.742708 -7.083769 487.901";
+         rotation = "0.530634 -0.1489892 0.8344039 37.19604";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath1";
+            useRotation = "1";
+            timeToNext = "0";
+            usePosition = "1";
+      };
    };
    new Item() {
       position = "2.91372 0.393372 500.2";
@@ -30,11 +155,11 @@ new SimGroup(MissionGroup) {
       position = "336 136 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      cloudHeightPer[0] = "0";
-      cloudHeightPer[1] = "0";
-      cloudHeightPer[2] = "0";
-      cloudSpeed1 = "0.0001";
-      cloudSpeed2 = "0.0002";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
       cloudSpeed3 = "0.0003";
       visibleDistance = "1000";
       useSkyTextures = "1";
@@ -42,21 +167,26 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
       materialList = "~/data/skies/sky_day.dml";
-      windVelocity = "1 0 0";
-      windEffectPrecipitation = "0";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
    };
    new Sun(Sun) {
-      direction = "0.638261 0.459006 -0.61801";
+      direction = "0.403469 0.613363 -0.678968";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         locked = "true";
+         scale = "1 1 1";
    };
    new Trigger(Bounds) {
       position = "-64.0383 50.5761 468.814";

@@ -1152,13 +1152,13 @@ function PlayMissionGui::init(%this) {
 		}
 
 		//Default mission list
-		%defaultGame = "Hunt";
-		%defaultType = "Beginner";
+		%defaultGame = "PlatinumQuest";
+		%defaultType = "Tutorial";
 
 		//Preferences
-		%game = ($MPPref::CurrentGame $= "" ? %defaultGame : $MPPref::CurrentGame);
-		%type = ($MPPref::MissionType $= "" ? %defaultType : $MPPref::MissionType);
-		%level = ($MPPref::SelectedMissionIndex $= "" ? 0 : $MPPref::SelectedMissionIndex);
+		%game  = ($MPPref::CurrentGame          $= "" ? %defaultGame : $MPPref::CurrentGame);
+		%type  = ($MPPref::MissionType          $= "" ? %defaultType : $MPPref::MissionType);
+		%level = ($MPPref::SelectedMissionIndex $= "" ? 0            : $MPPref::SelectedMissionIndex);
 	} else if (lb() && !%this.marbleland) {
 		%this.ml = getMissionList("lb");
 
@@ -1167,9 +1167,9 @@ function PlayMissionGui::init(%this) {
 		%defaultType = "Tutorial";
 
 		//Preferences
-		%game = ($LBPref::CurrentGame $= "" ? %defaultGame : $LBPref::CurrentGame);
-		%type = ($LBPref::MissionType $= "" ? %defaultType : $LBPref::MissionType);
-		%level = ($LBPref::SelectedMissionIndex $= "" ? 0 : $LBPref::SelectedMissionIndex);
+		%game  = ($LBPref::CurrentGame          $= "" ? %defaultGame : $LBPref::CurrentGame);
+		%type  = ($LBPref::MissionType          $= "" ? %defaultType : $LBPref::MissionType);
+		%level = ($LBPref::SelectedMissionIndex $= "" ? 0            : $LBPref::SelectedMissionIndex);
 	} else {
 		if (%this.marbleland) {
 			%this.ml = getMissionList("marbleland");
@@ -1182,9 +1182,9 @@ function PlayMissionGui::init(%this) {
 		%defaultType = "Tutorial";
 
 		//Preferences
-		%game = ($pref::CurrentGame $= "" ? %defaultGame : $pref::CurrentGame);
-		%type = ($pref::MissionType $= "" ? %defaultType : $pref::MissionType);
-		%level = ($pref::SelectedMissionIndex $= "" ? 0 : $pref::SelectedMissionIndex);
+		%game  = ($pref::CurrentGame          $= "" ? %defaultGame : $pref::CurrentGame);
+		%type  = ($pref::MissionType          $= "" ? %defaultType : $pref::MissionType);
+		%level = ($pref::SelectedMissionIndex $= "" ? 0            : $pref::SelectedMissionIndex);
 	}
 
 	//Can't find the game? Use a default
