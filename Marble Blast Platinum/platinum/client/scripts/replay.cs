@@ -501,10 +501,12 @@ function onDemoPlayDone() {
 
 	//Back to where we started
 	if (lb()) {
-		if ($replayFromWorldRecord)
+		if ($replayFromWorldRecord) {
 			RootGui.setContent(PlayMissionGui);
-		else
+			PlayMissionGui.showGlobalScores();
+		} else {
 			RootGui.setContent(LBChatGui);
+		}
 	} else {
 		RootGui.setContent(MainMenuGui);
 	}
