@@ -1045,6 +1045,7 @@ function statsGetReplayLine(%line) {
 		%fo.delete();
 		%parsed.delete();
 
+		$replayFromWorldRecord = true;
 		playReplay(%path);
 	} else {
 		MessageBoxOk("Cannot play replay", %parsed.error);
