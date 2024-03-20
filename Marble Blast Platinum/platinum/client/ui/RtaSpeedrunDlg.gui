@@ -1,0 +1,168 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2023 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(RtaSpeedrunDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "800 600";
+		defaultControl = "RtaClose";
+		commandSelect = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+		commandCancel = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+		commandNameSelect = "Close";
+
+	new GuiControl(RtaBody) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "89 100";
+		extent = "621 399";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+			wrap = "0";
+
+		new GuiBorderButtonCtrl(RtaClose) {
+			profile = "PQButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "263 327";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Return";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiMLTextCtrl(RtaTitleText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "150 16";
+			extent = "320 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<bold:28><just:center>RTA Speedrun Mode";
+		};
+		new GuiBorderButtonCtrl(RtaStartButton) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "16 100";
+			extent = "200 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RtaSpeedrun.start();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Start Speedrun";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(RtaSetEndButton) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "16 150";
+			extent = "200 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RtaSpeedrun.setEnd(); RtaSpeedrunDlg.updateEndText();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Set Final Level";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiMLTextCtrl(RtaEndText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "232 156";
+			extent = "320 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "No Ending";
+		};
+		new GuiBorderButtonCtrl(RtaStartButton) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "16 200";
+			extent = "200 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RtaSpeedrun.stop();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Stop Speedrun";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function RtaSpeedrunDlg::onWake(%this) {
+	//Try to center this GUI, but don't overlap the dropdowns
+	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(RtaBody.getExtent(), 0) / 2);
+	if (%x < 395) {
+		%x = 395;
+	}
+	RtaBody.setPosition(%x SPC getWord(RtaBody.getPosition(), 1));
+
+	%this.updateEndText();
+}
+
+
+function RtaSpeedrunDlg::updateEndText(%this) {
+	if (RtaSpeedrun.endMission $= "") {
+		RtaEndText.setText("<bold:28>No Final Level Selected");
+		return;
+	}
+	RtaEndText.setText("<bold:28>Final Level:" SPC RtaSpeedrun.endMission);
+}
