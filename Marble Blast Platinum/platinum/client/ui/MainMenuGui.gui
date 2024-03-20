@@ -560,6 +560,16 @@ function MainMenuGui::onWake(%this) {
 		$pref::OpenALWarning = true;
 	}
 
+	if (!%this.downloadedMarbleland)
+	{
+		// Download marbleland levels so they're ready in case we search
+		// Hopefully the lagspike from loading the list happens during the already super long initial loading screen
+		marblelandDownloadMissionList();
+		marblelandDownloadPackList();
+		%this.downloadedMarbleland = true;
+	}
+
+
 	MenuOnlineButton.setActive(!$Game::Offline);
 	%this.schedule(1000, checkScriptError);
 
