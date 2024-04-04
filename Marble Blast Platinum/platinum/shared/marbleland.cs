@@ -529,6 +529,7 @@ function onRPCLine(%line)
 		%level = stripChars(trim(getWord(%line, 1)), "\r");
 
 		echo("Marbleland Level:" SPC %level);
+		menuDestroyServer(); // Stop whatever is preloaded so we don't crash
 
 		if (!$Server::Hosting)
 		{
