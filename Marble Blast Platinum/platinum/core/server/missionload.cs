@@ -181,7 +181,7 @@ function LMS1_downloadFinished(%id, %success) {
 
 //-----------------------------------------------------------------------------
 
-function loadMissionStage2(%trustlevel) {
+function loadMissionStage2() {
 	$Server::_ServerType = $Server::ServerType;
 	$Server::ServerType = "SinglePlayer";
 
@@ -192,14 +192,18 @@ function loadMissionStage2(%trustlevel) {
 	// Make sure the mission exists
 	%file = $Server::MissionFile;
 
+	//In case the level has the "Always trust this level" thing ticked.
 	if ($pref::AlwaysTrust[$Server::MissionFile] == 1) {
-		%trustlevel = 1;
+		$trustlevel = 1;
 	}
 
-	if (checkforMaliciousCode(%file) && !%trustlevel) {
+	if (checkforMaliciousCode(%file) && !$trustlevel) {
 		MalcodeError("Level Loading Halted!", "The level you just tried to load might have Malicious Code, which could be used to alter game files. Please review the code detected and decide if you want to continue loading the level or not.");
 		return;
 	}
+
+	//Level checking is over, change this back for future checks.
+	$trustlevel = 0;
 
 	if (!isScriptFile(%file)) {
 		error("Could not find mission " @ %file);
