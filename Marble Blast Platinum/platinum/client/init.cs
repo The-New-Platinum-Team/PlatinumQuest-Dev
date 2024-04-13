@@ -136,6 +136,7 @@ function initClient() {
 	exec("./ui/EditDemoDlg.gui");
 	exec("./ui/ReminderDlg.gui");
 	exec("./ui/ErrorHandlerDlg.gui");
+	exec("./ui/MaliciousCodeDetectDlg.gui");
 	exec("./ui/CompleteDemoDlg.gui");
 	exec("./ui/AchievementsDlg.gui");
 	exec("./ui/SearchDlg.gui");
