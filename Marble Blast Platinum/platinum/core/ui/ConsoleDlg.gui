@@ -439,12 +439,16 @@ function cheat_sv_cheats_0() {
 	$Editor::Enabled = 0;
 }
 function cheat_boo(){
-	if ($frightfest) PlayMissionGui.disableFrightfest();
-	else             PlayMissionGui.enableFrightfest();
+	if (!%this.marbleland && !lb()) {
+		if (%PlayMissionGui.frightfest) PlayMissionGui.disableFrightfest();
+		else                            PlayMissionGui.enableFrightfest();
+	}
 }
 function cheat_hohoho(){
-	if ($winterfest) PlayMissionGui.disableWinterfest();
-	else             PlayMissionGui.enableWinterfest();
+	if (!%this.marbleland && !lb()) {
+		if (%PlayMissionGui.winterfest) PlayMissionGui.disableWinterfest();
+		else                            PlayMissionGui.enableWinterfest();
+	}
 }
 function cheat_gaster(){
 	c();
