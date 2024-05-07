@@ -592,3 +592,12 @@ function LapsCheckpoint::onEditorRender(%this, %obj, %editor, %selected, %expand
 	%editor.renderArrow(MatrixPos(%trans), VectorAdd(%trans, %forward));
 }
 
+//Draw a line from a Teleport Trigger to it's destination when selected.
+//Could be useful if a level has many teleport triggers and many destination triggers. ~Connie
+function TeleportTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
+	if (%selected $= "true") {
+		%teltrig = %obj;
+		%destination = %obj.destination.getId();
+		%editor.renderLine(%teltrig.getWorldBoxCenter(), %destination.getWorldBoxCenter(), 2);	
+	}
+}
