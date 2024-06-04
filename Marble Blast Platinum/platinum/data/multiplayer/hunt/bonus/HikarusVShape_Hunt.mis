@@ -1,0 +1,367 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         level = "2";
+         goldTime = "0";
+         gemGroupRadius = "30";
+         numgems = "1";
+         type = "Bonus";
+         time = "300000";
+         artist = "Hikaru";
+         maxGemsPerGroup = "4";
+         gameMode = "hunt";
+         game = "Ultra";
+		   music = "Tim Trance.ogg";
+         desc = "Hikaru\'s requested mission with shit quarking by Matan (good level editing).";
+         name = "Hikaru\'s V Shape";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "336 136 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "10000";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+		materialList = "~/data/skies_mbu/beginner/sky_beginner.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun(Sun) {
+      direction = "0.5732009 0.2753569 -0.7717638";
+      color = "1.000000 1.000000 0.900000 1.000000";
+      ambient = "0.400000 0.400000 0.500000 1.000000";
+   };
+	new StaticShape() {
+		position = "0 0 -600";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "astrolabe";
+	};
+   new InteriorInstance() {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/multiplayer/interiors/custom/mbu/VShape.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(Bounds) {
+      position = "-41.3023 43.7973 7.1459";
+      rotation = "1 0 0 0";
+      scale = "68.925 37.7473 33.3361";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new SimGroup(GemSpawns) {
+
+      new Item() {
+         position = "-22.7096 26.0589 16.6281";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemRed_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "-24.293 23.6833 16.4703";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemYellow_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "-12.905 16.981 12.1696";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemRed_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "-7.82642 14.0246 10.9526";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemRed_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "-17.7852 18.4793 13.7399";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemRed_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "-27.0342 29.649 18.4265";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemYellow_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "-36.8498 39.762 23.2814";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemBlue_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "-1.73613 14.4699 11.8777";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemYellow_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "5.53063 18.7909 14.6495";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemRed_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "4.03459 21.4152 14.9927";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemRed_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "13.4732 25.4567 18.322";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemYellow_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "13.7174 28.3771 18.7549";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemRed_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+      new Item() {
+         position = "24.5569 37.8522 23.482";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "GemItemBlue_MBU";
+         collideable = "0";
+         static = "1";
+         rotate = "1";
+            respawns = "0";
+      };
+   };
+   new SimGroup(SpawnPoints) {
+
+      new Trigger() {
+         position = "-10 11 14.1";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "SpawnTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      };
+      new Trigger() {
+         position = "-8 11 14.1";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "SpawnTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      };
+      new Trigger() {
+         position = "-6 11 14.1";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         dataBlock = "SpawnTrigger";
+         polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+      };
+   };
+   new StaticShape() {
+      position = "-11.7647 15.3986 11.4091";
+      rotation = "-0.7215108 -0.6912628 0.03972318 25.4742";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "-17.3289 17.7765 13.3";
+      rotation = "-0.8259072 -0.5570471 0.08704042 21.42629";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "-23.2389 22.6717 15.8";
+      rotation = "-0.8259072 -0.5570471 0.08704042 21.42629";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "-36.1312 39.0096 22.6718";
+      rotation = "-0.7213854 -0.6883484 0.07602524 17.409";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "-24.021 27.2722 17.05";
+      rotation = "-0.8259072 -0.5570471 0.08704042 21.42629";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "-25.2505 26.2772 17.08";
+      rotation = "-0.8259072 -0.5570471 0.08704042 21.42629";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "-1.09001 14.8137 12.0374";
+      rotation = "-0.5744243 0.7147784 -0.3989092 21.0594";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "4.69876 17.7235 14.05";
+      rotation = "-0.620488 0.736034 -0.270645 25.9615";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "5.09267 19.7178 14.65";
+      rotation = "-0.6134677 0.7305737 -0.2998659 22.36641";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "12.6723 26.4924 17.9777";
+      rotation = "-0.6134677 0.7305737 -0.2998659 22.36641";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "22.99 36.3711 22.7056";
+      rotation = "-0.5961001 0.6697112 -0.4428901 20.00788";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new StaticShape() {
+      position = "15.1458 29.847 19.3517";
+      rotation = "-0.6235726 0.5967847 -0.5049807 18.75823";
+      scale = "1 1 1";
+      dataBlock = "RoundBumper_MBU";
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "16.65672 0.966698 24.36616";
+         rotation = "0.584262 0.1504947 -0.7974895 35.79984";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "6000";
+            usePosition = "1";
+            nextNode = "CameraPath2";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-7.806676 -5.908823 24.36616";
+         rotation = "0.9984987 0.01029158 -0.05380001 21.69073";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "6000";
+            usePosition = "1";
+            nextNode = "CameraPath3";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-7.806676 -5.908823 24.36616";
+         rotation = "0.9984987 0.01029158 -0.05380001 21.69073";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "6000";
+            usePosition = "1";
+            nextNode = "CameraPath1";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-38.52016 6.304291 23.79239";
+         rotation = "0.4638779 -0.168617 0.8697044 45.36512";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            useScale = "0";
+            useRotation = "1";
+            reverseRotation = "0";
+            timeToNext = "6000";
+            usePosition = "1";
+            nextNode = "CameraPath4";
+      };
+   };
+   new AudioProfile(MusicProfile) {
+      fileName = "~/data/sound/music/Pianoforte (Guitar Remix).ogg";
+      description = "AudioMusic";
+      preload = "0";
+   };
+};
+//--- OBJECT WRITE END ---
