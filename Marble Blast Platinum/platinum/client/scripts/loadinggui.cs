@@ -378,6 +378,9 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to add water
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar Mode 2 is useful for aligning yourself vertically with things."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar Mode 3 is useful for getting a decent sense of your surroundings if there's a lot going on on in a large area. This is also helpful for Hunt maps with lots of gravity changes."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, you can change how long individual time-based PowerUps last by adding a 'timeout' field to them, and entering the length in milliseconds. You can also change it for certain areas of a level using MarblePhysModTriggers."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When playing in Competitive Mode, your usual Blast won't be able to knock other players around. This lets you save your Blast Meter for traversing the map, but keep in mind that Ultra Blasts still work as normal."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When playing in Competitive Mode, other players won't be able to push you around with their normal Blast power. Don't let your guard down, though. Their Ultra Blasts can still send you flying!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In multiplayer modes other than Co-op, quick respawning is placed on a 25-second cooldown. It can even be entirely disabled based on the server settings. Take extra care not to get stuck in any holes while playing custom levels!"; //Yoshi
 
 $Loading::TipsChance[0] = 0.80;
 
