@@ -2,13 +2,15 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
+         CustomRadarRule = "33";
+         Radar = "1";
+         RedSpawnChance = "0";
          Time = "240000";
          alarmStartTime = "20";
          artist = "Connie";
          blast = "1";
          blueSpawnChance = "0";
-         customRadarRule = "33";
-         desc = "How many points are you able to get in this chilly map? (Playtested by the following: Connie, Jean, Yoshi, theturk, and A-Game)";
+         desc = "How many points are you able to get in this chilly map?";
          game = "Ultra";
          gameMode = "hunt";
          gameType = "Multiplayer";
@@ -18,10 +20,9 @@ new SimGroup(MissionGroup) {
          name = "Duplex";
          platinumScore = "125";
          platinumSpawnChance = "0";
-         radar = "1";
          radiusFromGem = "20";
-         redSpawnChance = "0";
          score = "70";
+         trivia = "Playtested by the following: Connie, Jean, Yoshi, theturk, and A-Game";
          type = "Custom";
          ultimateScore = "260";
          yellowSpawnChance = "0";
@@ -160,7 +161,7 @@ new SimGroup(MissionGroup) {
       dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noParticles = "0";
    };
    new StaticShape() {
@@ -2376,7 +2377,7 @@ new SimGroup(MissionGroup) {
       dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noParticles = "0";
    };
    new Item() {
@@ -2496,7 +2497,7 @@ new SimGroup(MissionGroup) {
       dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noParticles = "0";
    };
    new StaticShape() {
@@ -2822,6 +2823,33 @@ new SimGroup(MissionGroup) {
       scale = "0.755246 1 0.716826";
       interiorFile = "~/data/lbinteriors_mbu/parts/arch_2_corner.dif";
       showTerrainInside = "0";
+   };
+   new Trigger() {
+      position = "-57.25 5.75 135";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SpawnTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         center = "1";
+         gravity = "0";
+   };
+   new Trigger() {
+      position = "-8.25 -28.25 135";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SpawnTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         center = "1";
+         gravity = "0";
+   };
+   new Trigger() {
+      position = "30.75 0.75 135";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SpawnTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         center = "1";
+         gravity = "0";
    };
 };
 //--- OBJECT WRITE END ---
