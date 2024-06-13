@@ -1461,3 +1461,7 @@ function PlayGui::startCountdownLeft(%this, %time, %image) {
 	%this.countdownLeftTime = %time;
 	%this.runningCountdownLeft = true;
 }
+
+function PlayGui::updateRtaSpeedrunTimer(%this, %text) {
+	PG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
+}
