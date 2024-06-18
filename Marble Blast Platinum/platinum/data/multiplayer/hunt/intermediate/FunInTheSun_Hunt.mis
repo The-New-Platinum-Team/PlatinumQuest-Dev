@@ -1,71 +1,62 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
     new ScriptObject(MissionInfo) {
          time = "300000";
          maxGemsPerSpawn = "7";
-		 radiusFromGem = "30";
-		 score0 = "25";
-		 platinumScore0 = "75";
-		 platinumScore1 = "50";
+		   radiusFromGem = "30";
+		   score0 = "25";
+		   platinumScore0 = "75";
+		   platinumScore1 = "50";
          ultimateScore0 = "100";
-		 ultimateScore1 = "75";
+		   ultimateScore1 = "75";
          gameMode = "Hunt";
          score1 = "20";
          startHelpText = "Welcome back to the beach!";
          artist = "Aayrl";
          level = "10";
-         type = "Custom";
+         type = "Intermediate";
          music = "Beach Party.ogg";
          desc = "It\'s about time your marble took a nice relaxing vacation to the beach, don\'t you think?";
-         game = "Custom";
-         overviewHeight = "25";
+         game = "Gold";
          alarmStartTime = "25";
          name = "Fun in the Sun";
-   };
-   new MissionArea(MissionArea) {
-      area = "-360 -648 720 1296";
-      flightCeiling = "300";
-      flightCeilingRange = "20";
-         locked = "true";
    };
    new Sky(Sky) {
       position = "336 136 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      cloudHeightPer[0] = "0";
-      cloudHeightPer[1] = "0";
-      cloudHeightPer[2] = "0";
-      cloudSpeed1 = "0.0001";
-      cloudSpeed2 = "0.0002";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
       cloudSpeed3 = "0.0003";
-      visibleDistance = "1000";
+      visibleDistance = "500";
       useSkyTextures = "1";
       renderBottomTexture = "1";
-      SkySolidColor = "1.000000 0.000000 0.000000 1.000000";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
       fogDistance = "300";
-      fogColor = "1.000000 0.000000 0.000000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
-      windVelocity = "1 0 0";
-      windEffectPrecipitation = "0";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
       noRenderBans = "1";
-      fogVolumeColor1 = "254.000000 6.000000 6.000000 0.000000";
-      fogVolumeColor2 = "254.000000 6.000000 6.000000 0.000004";
-      fogVolumeColor3 = "254.000000 6.000000 6.000000 14435505.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
    };
-   new Sun(Sun) {
-      direction = "0.638261 0.459006 -0.61801";
-      color = "1.400000 1.200000 0.400000 0.400000";
-      ambient = "0.300000 0.300000 0.400000 0.400000";
-   };
-   new StaticShape(SkySphere) {
-      position = "0 0 0";
-      rotation = "1 0 0 0";
-      scale = "1000 1000 1000";
-      dataBlock = "clear";
+   new Sun() {
+      direction = "0.544508 0.439467 -0.714409";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+         position = "0 0 0";
+         locked = "true";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
    };
    new Trigger(Bounds) {
       position = "-85.24999 103.781 -55.25";
@@ -75,12 +66,18 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new SimGroup(interiors) {
-
       new InteriorInstance() {
          position = "0 0 0";
          rotation = "1 0 0 0";
          scale = "1 1 1";
          interiorFile = "~/data/multiplayer/interiors/intermediate/FunInTheSun.dif";
+         showTerrainInside = "0";
+      };
+      new InteriorInstance() {
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
+         interiorFile = "~/data/multiplayer/interiors/intermediate/FunInTheSunSlopes.dif";
          showTerrainInside = "0";
       };
    };
