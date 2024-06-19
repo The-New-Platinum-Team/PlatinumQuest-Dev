@@ -2,33 +2,24 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         name = "Treasure Box";
-         goldTime = "0";
-         artist = "Greed rep. Kwill";
-         type = "custom";
-         level = "4";
-         desc = "Dig deep to bring home the loot!";
-         ultimateTime = "0";
-Gamemode = "Hunt";
-         game = "Evolved";
-         glassCenter = "glassCenter";
-         time = "300000";
-         MaxGemsPerSpawn = "9";
-         RadiusFromGem = "10";
-         score[0] = "75";
-         score[1] = "150";
-         platinumScore[0] = "115";
-         platinumScore[1] = "225";
-         ultimateScore[0] = "150";
-         ultimateScore[1] = "300";
+         Time = "300000";
          alarmStartTime = "25";
-
-   };
-   new MissionArea(MissionArea) {
-      area = "-360 -648 720 1296";
-      flightCeiling = "300";
-      flightCeilingRange = "20";
-         locked = "true";
+         artist = "zzGreeDzz rep. Kwill";
+         desc = "Dig deep to bring home the loot!";
+         game = "Platinum";
+         gameMode = "hunt";
+         level = "4";
+         maxGemsPerSpawn = "9";
+         music = "Rising Temper.ogg";
+         name = "Treasure Box";
+         platinumScore0 = "115";
+         platinumScore1 = "225";
+         radiusFromGem = "10";
+         score0 = "75";
+         score1 = "150";
+         type = "Advanced";
+         ultimateScore0 = "150";
+         ultimateScore1 = "300";
    };
    new Sky(Sky) {
       position = "336 136 0";
@@ -40,7 +31,7 @@ Gamemode = "Hunt";
       cloudSpeed1 = "0.0001";
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
-      visibleDistance = "500";
+      visibleDistance = "10000";
       useSkyTextures = "1";
       renderBottomTexture = "1";
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
@@ -49,7 +40,7 @@ Gamemode = "Hunt";
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
+      materialList = "~/data/skies/Advanced/advanced_sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -63,7 +54,7 @@ Gamemode = "Hunt";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
    new Trigger(Bounds) {
-      position = "-45.2322 103.4659 -23";
+      position = "-45.2322 103.466 -23";
       rotation = "1 0 0 0";
       scale = "200 200 200";
       dataBlock = "InBoundsTrigger";
@@ -88,9 +79,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "9 51 2.1175";
@@ -264,7 +254,29 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "39 -3 3.9835";
+      position = "39 -3 3.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "21 57 7.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+   };
+   new Item() {
+      position = "-3 68 3.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem";
@@ -273,7 +285,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "21 57 7.9835";
+      position = "59 -51 3.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem";
@@ -282,25 +294,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "-3 68 3.9835";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "HelicopterItem";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "59 -51 3.9835";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "HelicopterItem";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "115 49 3.9835";
+      position = "115 49 3.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem";
@@ -318,7 +312,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "27 45 8.5";
+      position = "27 45 8";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -327,7 +321,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "71 -21 4.5";
+      position = "71 -21 4";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -336,7 +330,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "51 15 2.5";
+      position = "51 15 2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -345,7 +339,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "71 15 2.5";
+      position = "71 15 2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -354,7 +348,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "53 41 4.5";
+      position = "53 41 4";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -363,7 +357,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "65 61 4.5";
+      position = "65 61 4";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -372,7 +366,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "87 27 4.5";
+      position = "87 27 4";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -381,7 +375,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "115 39 4.5";
+      position = "115 39 4";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -399,7 +393,17 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "-1 21 8.5";
+      position = "-1 21 8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BlastItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+   new Item() {
+      position = "15 57 2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
@@ -408,16 +412,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "15 57 2.5";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "39 51 2.5";
+      position = "39 51 2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -426,7 +421,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "48 -24 0.5";
+      position = "48 -24 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
@@ -435,7 +430,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "59 31 2.5";
+      position = "59 31 2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
@@ -444,7 +439,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "59 54 4.5";
+      position = "59 54 4";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
@@ -453,7 +448,7 @@ Gamemode = "Hunt";
       rotate = "1";
    };
    new Item() {
-      position = "117 -12 2.5";
+      position = "117 -12 2";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
@@ -844,9 +839,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "31 9 2.5";
@@ -1294,9 +1288,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "49 -29 2.5";
@@ -1447,9 +1440,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "63 9 2.5";
@@ -1510,9 +1502,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "61 19 2.5";
@@ -1564,9 +1555,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "59 13 4";
@@ -1636,9 +1626,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "61 17 4.5";
@@ -1654,9 +1643,8 @@ Gamemode = "Hunt";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "61 13 4.5";
@@ -3791,10 +3779,30 @@ Gamemode = "Hunt";
       static = "1";
       rotate = "1";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "114.378 -21.7983 9.84026";
+         rotation = "0.407018 0.159994 -0.899299 47.2207";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
