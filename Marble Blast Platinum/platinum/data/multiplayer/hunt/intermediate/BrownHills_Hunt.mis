@@ -2,35 +2,24 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         artist = "David rep. Kwill";
-         type = "custom";
-         level = "15";
-         desc = "Search high and low for the gems!";
-         ultimateTime = "0";
-         goldTime = "0";
-         name = "Brown Hills";
-	Gamemode = "Hunt";
-	 	game = "Evolved";
-         glassCenter = "glassCenter";
-         time = "240000";
-         MaxGemsPerSpawn = "6";
-         RadiusFromGem = "15";
-         score[0] = "45";
-         score[1] = "85";
-         platinumScore[0] = "65";
-         platinumScore[1] = "130";
-         ultimateScore[0] = "85";
-         ultimateScore[1] = "175";
+         Time = "240000";
          alarmStartTime = "20";
-
-
-
-   };
-   new MissionArea(MissionArea) {
-      area = "-360 -648 720 1296";
-      flightCeiling = "300";
-      flightCeilingRange = "20";
-         locked = "true";
+         artist = "Davive rep. Kwill";
+         desc = "Search high and low for the gems!";
+         game = "Platinum";
+         gameMode = "hunt";
+         level = "15";
+         maxGemsPerSpawn = "6";
+         music = "Astrolabe.ogg";
+         name = "Brown Hills";
+         platinumScore0 = "65";
+         platinumScore1 = "130";
+         radiusFromGem = "15";
+         score0 = "45";
+         score1 = "85";
+         type = "Intermediate";
+         ultimateScore0 = "85";
+         ultimateScore1 = "175";
    };
    new Sky(Sky) {
       position = "336 136 0";
@@ -42,7 +31,7 @@ new SimGroup(MissionGroup) {
       cloudSpeed1 = "0.0001";
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
-      visibleDistance = "500";
+      visibleDistance = "10000";
       useSkyTextures = "1";
       renderBottomTexture = "1";
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
@@ -51,7 +40,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-031 1.3684e-038";
       fogVolume2 = "-1 1.07208e-014 8.756e-014";
       fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
+      materialList = "~/data/skies/Advanced/advanced_sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -65,7 +54,7 @@ new SimGroup(MissionGroup) {
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
    new Trigger(Bounds) {
-      position = "-102.4056 186.2961 -28.8";
+      position = "-102.406 186.296 -28.8";
       rotation = "1 0 0 0";
       scale = "200 250 200";
       dataBlock = "InBoundsTrigger";
@@ -78,19 +67,13 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/multiplayer/interiors/intermediate/BrownHills.dif";
       showTerrainInside = "0";
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Pianoforte.ogg";
-      description = "AudioMusic";
-      preload = "0";
-   };
    new Trigger() {
       position = "-9 23 16";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "-15 55 8.1775";
@@ -264,7 +247,7 @@ new SimGroup(MissionGroup) {
       rotate = "1";
    };
    new Item() {
-      position = "23 67 8.299999";
+      position = "23 67 8.3";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
@@ -470,7 +453,6 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-
    new Item() {
       position = "3 3 2";
       rotation = "1 0 0 0";
@@ -584,9 +566,8 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Item() {
       position = "19 37 8";
@@ -1241,63 +1222,81 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Trigger() {
       position = "-25 71 16.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Trigger() {
       position = "-25 63 11.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Trigger() {
       position = "7 57 10.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Trigger() {
       position = "27 45 18";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Trigger() {
       position = "51 71 18";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
    };
    new Trigger() {
       position = "27 81 18";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SpawnTrigger";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         gravity = "0";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "-50.1274 20.1847 30.415";
+         rotation = "0.385265 -0.20024 0.900819 59.9675";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            FinalRotOffset = "1 0 0 0";
+            RotationMultiplier = "1";
+            Smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
+            Spline = "0";
+            bezier = "0";
+            branchNodes = " ";
+            delay = "0";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            speed = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
    };
 };
 //--- OBJECT WRITE END ---
