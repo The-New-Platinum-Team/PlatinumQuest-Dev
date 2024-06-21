@@ -1,7 +1,5 @@
-$server::servertype=multiplayer;
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
          alarmStartTime = "25";
          score1 = "25";
@@ -9,7 +7,7 @@ new SimGroup(MissionGroup) {
          level = "18";
          ultimateScore1 = "160";
          game = "Platinum";
-         type = "Bonus";
+         type = "Advanced";
          maxGemsPerSpawn = "7";
          platinumScore1 = "75";
          time = "330000";
@@ -22,56 +20,44 @@ new SimGroup(MissionGroup) {
          desc = "In the eternal tempest\nOne ascends unto\nThe ethereal gleam of fate.";
          name = "Heart of the Typhoon";
    };
-   new MissionArea(MissionArea) {
-      area = "-360 -648 720 1296";
-      flightCeiling = "300";
-      flightCeilingRange = "20";
-         locked = "true";
-   };
    new Sky(Sky) {
-      position = "336 136 0";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      cloudHeightPer[0] = "0";
-      cloudHeightPer[1] = "0";
-      cloudHeightPer[2] = "0";
-      cloudSpeed1 = "0.0001";
-      cloudSpeed2 = "0.0002";
-      cloudSpeed3 = "0.0003";
-      visibleDistance = "10000";
-      useSkyTextures = "1";
-      renderBottomTexture = "1";
-      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
-      fogDistance = "300";
-      fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
-      fogVolume2 = "-1 1.07208e-14 8.756e-14";
-      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
-      windVelocity = "1 0 0";
-      windEffectPrecipitation = "0";
-      noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
-   };
-   new Sun() {
-      direction = "0.638261 0.459006 -0.61801";
-      color = "1.400000 1.200000 0.400000 1.000000";
-      ambient = "0.300000 0.300000 0.400000 1.000000";
-   };
+		position = "336 136 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		cloudHeightPer[0] = "0";
+		cloudHeightPer[1] = "0";
+		cloudHeightPer[2] = "0";
+		cloudSpeed1 = "0.0001";
+		cloudSpeed2 = "0.0002";
+		cloudSpeed3 = "0.0003";
+		visibleDistance = "500";
+		useSkyTextures = "1";
+		renderBottomTexture = "1";
+		SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+		fogDistance = "300";
+		fogColor = "0.600000 0.600000 0.600000 1.000000";
+		fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+		fogVolume2 = "-1 1.07208e-14 8.756e-14";
+		fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+	    materialList = "~/data/skies/Intermediate/Intermediate_Sky.dml";
+		windVelocity = "1 0 0";
+		windEffectPrecipitation = "0";
+		noRenderBans = "1";
+		fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+		fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+		fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+	};
+	new Sun() {
+		direction = "0.638261 0.459006 -0.61801";
+		color = "1.400000 1.200000 0.400000 1.000000";
+		ambient = "0.300000 0.300000 0.400000 1.000000";
+	};
    new InteriorInstance() {
       position = "0 0 1";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/multiplayer/interiors/custom/Heart_of_the_Typhoon.dif";
       showTerrainInside = "0";
-   };
-   new StaticShape() {
-      position = "0 0 0";
-      rotation = "1 0 0 0";
-      scale = "10000 10000 10000";
-      dataBlock = "Dusk";
    };
    new Trigger(Bounds) {
       position = "-150 150 0";
@@ -12905,7 +12891,6 @@ new SimGroup(MissionGroup) {
          add = "0 0 1";
    };
    new SimGroup(PathNodeGroup) {
-
       new StaticShape(CameraPath1) {
          position = "-73.23185 -51.27356 45.23975";
          rotation = "0.4725089 -0.2468818 0.8460407 63.39669";
@@ -12934,11 +12919,6 @@ new SimGroup(MissionGroup) {
             usePosition = "1";
             nextNode = "CameraPath1";
       };
-   };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Pianoforte (Guitar Remix).ogg";
-      description = "AudioMusic";
-      preload = "0";
    };
 };
 //--- OBJECT WRITE END ---
