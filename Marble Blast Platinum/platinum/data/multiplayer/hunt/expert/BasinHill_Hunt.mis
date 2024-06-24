@@ -1,6 +1,5 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
          GemGroups = "0";
          alarmStartTime = "10";
@@ -10,12 +9,13 @@ new SimGroup(MissionGroup) {
          blueSpawnChance = "1";
          customRadarRule = "1";
          desc = "Soar, bounce, and climb across the rugged landscape.";
-         game = "Custom";
+         game = "Gold";
          gameMode = "hunt";
          generalHint = "Struggling with the middle blue gem? Try running up to the slope with a Super Bounce or a Shock Absorber.";
          level = "3";
          maxGemsPerSpawn = "5";
          name = "Basin Hill";
+         music = "Groove Police.ogg";
          platinumScore = "55";
          platinumSpawnChance = "1";
          radar = "1";
@@ -23,50 +23,49 @@ new SimGroup(MissionGroup) {
          redSpawnChance = "1";
          score = "30";
          startHelpText = "Wall-hits will help!";
-         time = "150000";
+         time = "240000";
          trivia = "Originally, the landscape was a complete inverse of what it is now: a mostly flat surface that had cracks and holes running through it.";
-         type = "Custom";
+         type = "Expert";
          ultimateHint = "Super Speeds used after jumping off a slope make a powerful substitute for a Super Jump.";
          ultimateScore = "85";
          yellowSpawnChance = "1";
    };
-   new MissionArea(MissionArea) {
-      area = "-360 -648 720 1296";
-      flightCeiling = "300";
-      flightCeilingRange = "20";
-         locked = "true";
-   };
    new Sky(Sky) {
-      position = "0 0 0";
+      position = "336 136 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      cloudHeightPer[0] = "0";
-      cloudHeightPer[1] = "0";
-      cloudHeightPer[2] = "0";
-      cloudSpeed1 = "0.0001";
-      cloudSpeed2 = "0.0002";
+      cloudHeightPer[0] = "0.349971";
+      cloudHeightPer[1] = "0.3";
+      cloudHeightPer[2] = "0.199973";
+      cloudSpeed1 = "0.0005";
+      cloudSpeed2 = "0.001";
       cloudSpeed3 = "0.0003";
       visibleDistance = "500";
       useSkyTextures = "1";
       renderBottomTexture = "1";
-      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      SkySolidColor = "0.900000 0.900000 0.900000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      fogVolume1 = "0 0 0";
+      fogVolume2 = "0 0 0";
+      fogVolume3 = "0 0 0";
       materialList = "~/data/skies/sky_day.dml";
-      windVelocity = "1 0 0";
-      windEffectPrecipitation = "0";
+      windVelocity = "1 1 0";
+      windEffectPrecipitation = "1";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569860000000000000000000000.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
+         locked = "true";
    };
    new Sun() {
-      direction = "0.638261 0.459006 -0.61801";
+      direction = "0.544508 0.439467 -0.714409";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
+         locked = "true";
+         position = "0 0 0";
+         rotation = "1 0 0 0";
+         scale = "1 1 1";
    };
    new Trigger() {
       position = "-15.5 1.5 1";
@@ -92,7 +91,6 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new SimGroup(PathNodeGroup) {
-
       new StaticShape(CameraPath1) {
          position = "-29.8847 27.5665 15.4215";
          rotation = "0.102492 -0.243313 0.964518 135.777";
