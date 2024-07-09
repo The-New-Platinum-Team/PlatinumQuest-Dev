@@ -51,9 +51,6 @@ function GameConnection::loadMission(%this) {
 		// Cut to the chase...
 		%this.onClientEnterGame();
 	} else {
-		// Send mission information to the client
-		sendLoadInfoToClient(%client);
-
 		%this.loading = true;
 		echo("*** Sending mission load to client: " @ $Server::MissionFile);
 

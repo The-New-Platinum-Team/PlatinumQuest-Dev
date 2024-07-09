@@ -68,6 +68,13 @@ package Mode_snowball {
 	}
 };
 
+function serverCmdEnableSnowballs(%client, %enable) {
+	if (%client.isHost()) {
+		$MP::Server::EnableSnowballs = %enable;
+		commandToAll('EnableSnowballs', %enable);
+	}
+}
+
 function serverCmdSnowballsOnly(%client, %enable) {
 	if (%client.isHost()) {
 		$MP::Server::SnowballsOnly = %enable;
@@ -263,7 +270,7 @@ function serverCmdThrowSnowball(%client, %direction, %position) {
 		return;
 	}
 
-	if (!$MPPref::EnableSnowballs)
+	if (!$MP::Server::EnableSnowballs)
 		return;
 
 	if (%client.lastSnowball $= "")

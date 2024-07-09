@@ -214,6 +214,9 @@ function LBscrollChat() {
 		PG_ServerChatScroll.scrollToBottom();
 		PG_ServerChatScroll.schedule(100, scrollToBottom);
 		PG_ServerChatScroll.schedule(1000, scrollToBottom);
+		PG_TeamChatScroll.scrollToBottom();
+		PG_TeamChatScroll.schedule(100, scrollToBottom);
+		PG_TeamChatScroll.schedule(1000, scrollToBottom);
 	}
 }
 
@@ -231,7 +234,7 @@ function PlayGui::sendChat(%this) {
 		%dest = (getWord(%line,0) $= "/whisper") ? getWord(%message,1) : "";
 		LBSendChat(%message, %dest);
 	case "team":
-		commandToServer('TeamChat', %message);
+		teamSendChat(%message);
 	}
 	PG_LBChatEntry.setValue("");
 	LBSetChatMessage("", PG_LBChatEntry);

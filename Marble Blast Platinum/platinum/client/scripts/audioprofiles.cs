@@ -423,6 +423,8 @@ function getMusicFile(%location) {
 function loadAudioPack(%packname) {
 	warn("Resetting Audio Pack...");
 	audioPackReset(RootGroup);
+	if (mp())
+		audioPackReset(ServerConnection);
 
 	%apk = $userMods @ "/data/sound/ap_" @ %packname @ "/" @ %packname @ ".apk";
 	%pack = jsonParse(fread(%apk));
@@ -438,6 +440,8 @@ function loadAudioPack(%packname) {
 
 	warn("Loading Audio Pack...");
 	audioPackIterate(RootGroup, %pack);
+	if (mp())
+		audioPackIterate(ServerConnection, %pack);
 
 	$SpawnKeyDefault = %pack.defaultSpawnKey;
 }

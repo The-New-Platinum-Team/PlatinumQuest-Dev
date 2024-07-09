@@ -203,6 +203,7 @@ function lobbyReturn() {
 
 	endMission(true);
 	$Server::Lobby = true;
+	$Server::Loading = false;
 	$Game::Running = false;
 	$missionRunning = false;
 	$Server::SpectateCount = 0;
@@ -641,7 +642,7 @@ function refreshTeams() {
 
 function serverCmdTeamLeave(%client) {
 	// You left a team, sending you back to the default team!
-	Team::removePlayer(%client.team);
+	Team::removePlayer(%client.team, %client);
 	Team::addPlayer(Team::getDefaultTeam(), %client);
 	refreshTeams();
 }
@@ -774,7 +775,7 @@ function serverCmdTeamInvite(%client, %player) {
 	if (Team::isTeamLeader(%team, %client)) {
 		// Send it to them
 		%recp = GameConnection::resolveName(%player);
-		commandToClient(%recp, 'TeamInvite', %client.getUsername(), Team::getTeamName(%team));
+		commandToClient(%recp, 'TeamInvite', %client.getDisplayName(), Team::getTeamName(%team));
 
 		// Store the invite
 		%team.invite[%recp] = true;
@@ -803,7 +804,7 @@ function serverCmdTeamInviteDecline(%client, %team) {
 	// Clear this, they only get one invite
 	%team.invite[%client] = false;
 
-	commandToClient(%team.leader, 'TeamInviteDecline', %client.getUsername());
+	commandToClient(%team.leader, 'TeamInviteDecline', %client.getDisplayName());
 }
 
 function serverCmdTeamPromote(%client, %player) {
@@ -815,7 +816,8 @@ function serverCmdTeamPromote(%client, %player) {
 		%recp = GameConnection::resolveName(%player);
 
 		// They are the new leader!
-		Team::setTeamLeader(%recp);
+		Team::setTeamLeader(%team, %recp);
+		commandToTeam(%team, 'TeamMessage', %client.getDisplayName() SPC "has promoted" SPC %recp.getDisplayName() SPC "to team leader.");
 	}
 }
 
@@ -827,7 +829,8 @@ function serverCmdTeamKick(%client, %player) {
 		%recp = GameConnection::resolveName(%player);
 
 		// Get the fuck off my team.
-		Team::removePlayer(%recp);
+		Team::removePlayer(%team, %recp);
+		commandToTeam(%team, 'TeamMessage', %client.getDisplayName() SPC "has kicked" SPC %recp.getDisplayName() SPC "off the team.");
 	}
 }
 
@@ -977,6 +980,8 @@ function GameConnection::onFinishLoading(%this) {
 }
 
 function checkAllClientsLoaded() {
+	if (!$Server::Loading)
+		return;
 	//See how many people are loaded
 	%loaded = 0;
 	%count = ClientGroup.getCount();

@@ -166,7 +166,6 @@ function MPDedicatedPlayersDlg::close(%this) {
 function MPDedicatedPlayersDlg::onWake(%this) {
 	MPDedicatedPlayersTitle.setText("<bold:28><just:center>Player List");
 	%this.updatePlayerList();
-	%this.updateButtons();
 }
 
 function MPDedicatedPlayersDlg::updatePlayerList(%this) {
@@ -184,6 +183,8 @@ function MPDedicatedPlayersDlg::updatePlayerList(%this) {
 	}
 	MPDedicatedPlayersOnlineList.sort(0, true);
 	MPDedicatedPlayersOnlineList.setSelectedRow(0);
+
+	%this.updateButtons();
 }
 
 function MPDedicatedPlayersDlg::updateButtons(%this) {

@@ -258,7 +258,6 @@ function MPPlayersDlg::onWake(%this) {
 	MPPlayersListTitle.setText("<bold:24><just:center>Online Players");
 	MPPlayersBannedTitle.setText("<bold:24><just:center>Banned Players");
 	%this.updatePlayerList();
-	%this.updateButtons();
 }
 
 function MPPlayersDlg::updatePlayerList(%this) {
@@ -298,6 +297,8 @@ function MPPlayersDlg::updatePlayerList(%this) {
 	}
 	MPPlayersBannedList.sort(0, true);
 	MPPlayersBannedList.setSelectedRow(0);
+
+	%this.updateButtons();
 }
 
 function MPPlayersDlg::updateButtons(%this) {

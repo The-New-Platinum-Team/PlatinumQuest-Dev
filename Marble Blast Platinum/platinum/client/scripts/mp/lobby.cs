@@ -36,6 +36,7 @@ function clientCmdOpenLobby() {
 	%entry.loadState = -1;
 
 	PlayMissionGui.open();
+	playLBMusic();
 }
 
 function clientCmdLobbyReturned() {
@@ -192,6 +193,11 @@ function clientCmdPlayerlistPlayer(%list, %maxIdx) {
 
 	PlayMissionGui.updateServerPlayerList();
 	MPPlayersDlg.updatePlayerList();
+		if (PlayMissionGui.isAwake()) {
+			%vs = !$Server::Hosting || (!$Server::_Dedicated && ClientGroup.getCount() > 1) || ($Server::_Dedicated && isObject(ScoreList.player[1]));
+			if (%vs != PlayMissionGui.scoreType)
+				PlayMissionGui.updateMissionInfo();
+		}
 }
 
 function clientCmdClientLoadProgress(%recordSet) {
@@ -238,11 +244,17 @@ function clientCmdTeamMode(%teamMode) {
 }
 
 function clientCmdTeamJoin(%name) {
-	addTeamChatLine("Joined team \"" @ %name @ "\".");
+	$MP::TeamChat = "";
+	updateTeamChat();
+	// addTeamChatLine("Joined team \"" @ %name @ "\".");
 }
 
 function clientCmdTeamLeave(%name) {
-	addTeamChatLine("Left team \"" @ %name @ "\".");
+	// addTeamChatLine("Left team \"" @ %name @ "\".");
+}
+
+function clientCmdNewLeader(%name) {
+	MessageBoxOk("New Leader", "You are now the leader of team" SPC %name SPC ".");
 }
 
 function clientCmdTeamStatus(%default) {
@@ -289,6 +301,8 @@ function clientCmdTeamLeader(%leader) {
 function clientCmdTeamLeaderStatus(%leaderStatus) {
 	$MP::TeamLeaderStatus = %leaderStatus;
 	PlayMissionGui.updateTeams();
+	MPTeamSelectDlg.updateTeam();
+	MPTeamOptionsDlg.updateActive();
 }
 
 function clientCmdTeamRole(%role) {
@@ -496,7 +510,7 @@ function clientCmdDifficultyListDifficulty(%gameName, %difficultyName, %difficul
 function clientCmdDifficultyListEnd() {
 	//Don't trap us at the message screen if we're not going to the lobby
 	if ($Server::Lobby) {
-		RootGui.setContent(PlayMissionGui);
+		// RootGui.setContent(PlayMissionGui);
 		//Update the play screen
 		PlayMissionGui.updateMPButtons();
 	}

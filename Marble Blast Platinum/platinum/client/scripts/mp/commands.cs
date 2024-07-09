@@ -352,6 +352,10 @@ function clientCmdTeamChat(%sender, %team, %leader, %message) {
 	onTeamChat(%sender, %team, %leader, %message);
 }
 
+function clientCmdTeamMessage(%message) {
+	addTeamChatLine(LBChatColor("notification") @ %message);
+}
+
 // if you try to somehow play when clients are not ready
 function clientCmdHostNotReady() {
 	LBAssert("Error!", "Not all clients are ready.  Please wait..");

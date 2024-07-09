@@ -437,7 +437,6 @@ function onMissionLoadFailed() {
 
 function endMission(%noSend) {
 	$Server::Loaded = false;
-	$Server::Loading = false;
 	$Editor::Enabled = false;
 
 	if (!isObject(MissionGroup))

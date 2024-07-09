@@ -470,8 +470,6 @@ $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
 $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
-$Options::Title   ["Gameplay", $i  ] = "(Online) Minimal Spectate UI";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "spchanges";
 $Options::Title   ["Gameplay", $i  ] = "Ultra Violet";
@@ -510,6 +508,12 @@ $Options::Type    ["Online", $i  ] = "value";
 $Options::Name    ["Online", $i++] = "chatMessageSize";
 $Options::Title   ["Online", $i  ] = "In-Game Lines of Chat";
 $Options::Type    ["Online", $i  ] = "value";
+$Options::Name    ["Online", $i++] = "minimalSpectateUI";
+$Options::Title   ["Online", $i  ] = "Minimal Spectate UI";
+$Options::Type    ["Online", $i  ] = "boolean";
+$Options::Name    ["Online", $i++] = "allowTaunts";
+$Options::Title   ["Online", $i  ] = "Taunts";
+$Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "noholepunch";
 $Options::Title   ["Online", $i  ] = "Hole Punching";
 $Options::Type    ["Online", $i  ] = "boolean";
@@ -1336,16 +1340,10 @@ function Opt_timeTravelTimer_increase() {
 
 //-----------------------------------------------------------------------------
 
-function Opt_minimalSpectateUI_getDisplay() {
-	return $pref::minimalSpectateUI ? "Enabled" : "Disabled";
 }
 
-function Opt_minimalSpectateUI_getValue() {
-	return $pref::minimalSpectateUI;
 }
 
-function Opt_minimalSpectateUI_decrease() {
-	$pref::minimalSpectateUI = !$pref::minimalSpectateUI;
 }
 
 function Opt_minimalSpectateUI_increase() {
@@ -1695,6 +1693,45 @@ function Opt_chatMessageSize_increase() {
 	$LBPref::ChatMessageSize = getField(ChatMessageSizeArray.getEntry(%index), 1);
 	PlayGui.positionMessageHud();
 }
+
+//-----------------------------------------------------------------------------
+
+function Opt_minimalSpectateUI_getDisplay() {
+	return $pref::minimalSpectateUI ? "Enabled" : "Disabled";
+}
+
+function Opt_minimalSpectateUI_getValue() {
+	return $pref::minimalSpectateUI;
+}
+
+function Opt_minimalSpectateUI_decrease() {
+	$pref::minimalSpectateUI = !$pref::minimalSpectateUI;
+}
+
+function Opt_minimalSpectateUI_increase() {
+	$pref::minimalSpectateUI = !$pref::minimalSpectateUI;
+}
+
+
+//-----------------------------------------------------------------------------
+
+function Opt_allowTaunts_getDisplay() {
+	return $MPPref::AllowTaunts ? "Enabled" : "Disabled";
+}
+
+function Opt_allowTaunts_getValue() {
+	return $MPPref::AllowTaunts;
+}
+
+function Opt_allowTaunts_decrease() {
+	$MPPref::AllowTaunts = !$MPPref::AllowTaunts;
+}
+
+function Opt_allowTaunts_increase() {
+	$MPPref::AllowTaunts = !$MPPref::AllowTaunts;
+}
+
+//-----------------------------------------------------------------------------
 
 function Opt_noholepunch_getDisplay() {
 	return $pref::NoHolePunching ? "Disabled" : "Enabled";

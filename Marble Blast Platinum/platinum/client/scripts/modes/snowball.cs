@@ -102,12 +102,17 @@ function ClientMode_snowball::updatePlayMission(%this, %location) {
 
 function updateSnowballButtons(%enable) {
 	if (%enable) {
-		$PMG::BarButton["BottomMP", "Name",       4] = "PM_MissionSnowballsOnly";
-		$PMG::BarButton["BottomMP", "Command",    4] = "if ($ControllerEvent) {$MPPref::SnowballsOnly = !$MPPref::SnowballsOnly; $ThisControl.setValue($MPPref::SnowballsOnly); } updateSnowballsOnlyButton(); "; //Hack for controllers
-		$PMG::BarButton["BottomMP", "Variable",   4] = "$MPPref::SnowballsOnly";
+		$PMG::BarButton["BottomMP", "Name",       4] = "PM_MissionSnowballs";
+		$PMG::BarButton["BottomMP", "Command",    4] = "if ($ControllerEvent) {$MPPref::EnableSnowballs = !$MPPref::EnableSnowballs; $ThisControl.setValue($MPPref::EnableSnowballs); } updateSnowballsButton(); "; //Hack for controllers
+		$PMG::BarButton["BottomMP", "Variable",   4] = "$MPPref::EnableSnowballs";
 		$PMG::BarButton["BottomMP", "ButtonType", 4] = "ToggleButton";
-		$PMG::BarButton["BottomMP", "Bitmap",     4] = "platinum/client/ui/play/buttons/snowballsonly.png";
-		$PMG::BarButton["BottomMP", "Count"] = 5;
+		$PMG::BarButton["BottomMP", "Bitmap",     4] = "platinum/client/ui/play/buttons/snowballs.png";
+		$PMG::BarButton["BottomMP", "Name",       5] = "PM_MissionSnowballsOnly";
+		$PMG::BarButton["BottomMP", "Command",    5] = "if ($ControllerEvent) {$MPPref::SnowballsOnly = !$MPPref::SnowballsOnly; $ThisControl.setValue($MPPref::SnowballsOnly); } updateSnowballsOnlyButton(); "; //Hack for controllers
+		$PMG::BarButton["BottomMP", "Variable",   5] = "$MPPref::SnowballsOnly";
+		$PMG::BarButton["BottomMP", "ButtonType", 5] = "ToggleButton";
+		$PMG::BarButton["BottomMP", "Bitmap",     5] = "platinum/client/ui/play/buttons/snowballsonly.png";
+		$PMG::BarButton["BottomMP", "Count"] = 6;
 
 		if (mp()) {
 			PlayMissionGui.buildButtonBar("BottomMP");
@@ -117,8 +122,9 @@ function updateSnowballButtons(%enable) {
 			PlayMissionGui.updateServerPlayerList();
 			PM_MissionSnowballsOnly.setActive($Server::Hosting);
 		}
-		PM_ButtonBox.setExtent("534 90");
+		PM_ButtonBox.setExtent("634 90");
 
+		updateSnowballsButton();
 		updateSnowballsOnlyButton();
 	} else {
 		$PMG::BarButton["BottomMP", "Count"] = 4;
@@ -135,10 +141,22 @@ function updateSnowballButtons(%enable) {
 	}
 }
 
+
+function updateSnowballsButton() {
+	if ($Server::Hosting) {
+		commandToServer('EnableSnowballs', $MPPref::EnableSnowballs);
+	}
+}
+
 function updateSnowballsOnlyButton() {
 	if ($Server::Hosting) {
 		commandToServer('SnowballsOnly', $MPPref::SnowballsOnly);
 	}
+}
+
+function clientCmdEnableSnowballs(%enable) {
+	$MPPref::EnableSnowballs = %enable;
+	$MP::Server::EnableSnowballs = %enable;
 }
 
 function clientCmdSnowballsOnly(%enable) {

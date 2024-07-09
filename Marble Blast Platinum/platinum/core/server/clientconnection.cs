@@ -92,6 +92,14 @@ function GameConnection::onConnect(%client, %name, %password, %marble, %bologna)
 			HoldGroup.add(%this);
 			return;
 		}
+		if (!$MPPref::Server::AllowGuests && isGuest(%name)) {
+			%client.schedule(1000, delete, "CR_GUEST");
+			if (!isObject(HoldGroup))
+				RootGroup.add(new SimGroup(HoldGroup));
+
+			HoldGroup.add(%this);
+			return;
+		}
 	}
 
 	%client.connected = true;
@@ -159,12 +167,6 @@ function GameConnection::finishConnect(%client) {
 	%client.guid = 0;
 	addToServerGuidList(%client.guid);
 
-	if ($MP::TeamMode) {
-		// Add them to the default team, or create it if none exists
-		%defaultTeam = Team::createDefaultTeam();
-		Team::addPlayer(%defaultTeam, %client);
-	}
-
 	// Set admin status
 	%client.isHost = false;
 	%client.isAdmin = false;
@@ -207,6 +209,12 @@ function GameConnection::finishConnect(%client) {
 	messageClient(%client, 'MsgClientIndex', "", %client.index);
 	commandToClient(%client, 'Dedicated', $Server::Dedicated);
 
+	if ($MP::TeamMode) {
+		// Add them to the default team, or create it if none exists
+		%defaultTeam = Team::createDefaultTeam();
+		Team::addPlayer(%defaultTeam, %client);
+	}
+
 	$instantGroup = ServerGroup;
 	$instantGroup = MissionCleanup;
 	echo("CADD: " @ %client @ " " @ %client.getAddress());
@@ -243,15 +251,21 @@ function GameConnection::finishConnect(%client) {
 
 	$Server::PlayerCount = getRealPlayerCount();
 
-	if ($Server::ServerType $= "MultiPlayer" && $Server::Lobby && !$missionRunning) {
+	if ($Server::ServerType $= "MultiPlayer") {
 		%client.loadLobby();
-	} else {
-		%client.updatePlaymission();
-		%client.loadMission();
 
-		// Set the loading state
+		if (!$Server::Lobby || $missionRunning) {
+			%client.updatePlaymission();
+			sendLoadInfoToClient(%client);
+			%client.loadMission();
+
+			// Set the loading state
+			%client.loading = true;
+			updatePlayerlist(); // Update the user list
+		}
+	} else {
+		%client.loadMission();
 		%client.loading = true;
-		updatePlayerlist(); // Update the user list
 	}
 
 	if ($Server::ServerType $= "MultiPlayer") {
@@ -350,10 +364,8 @@ function GameConnection::onDrop(%client, %reason) {
 
 	if ($Server::Hosting && %client.address !$= "local" && %client.connected) {
 		Team::removePlayer(%client.team, %client);
-		if ($Server::Loading) {
-			//Schedule an update to load so we don't prevent others from playing
-			schedule(100, 0, checkAllClientsLoaded);
-		}
+		//Schedule an update to load so we don't prevent others from playing
+		schedule(100, 0, checkAllClientsLoaded);
 		if ($Server::ServerType $= "MultiPlayer") {
 			// NOT SO FAST! IF YOU'RE GOING TO QUIT, YOU'RE GOING TO REGRET
 			// IT! (Unless you're Matan and winning. Screw you.)

@@ -185,6 +185,15 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 				ClientGroup.getObject(%i).forceSpectate = %value;
 			}
+		case "AllowGuests":
+			if (!%value) {
+				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+					%client = ClientGroup.getObject(%i);
+					if (%client.isGuest())
+						%client.schedule(100, delete, "CR_GUEST");
+				}
+				schedule(101, 0, checkAllClientsLoaded);
+			}
 		// Score sending is still disabled unless you reset. or if you have 0 gems this session.
 		// (don't want to disable scores if someone realized they have it on at the start and then immediately turned it off)
 		case "DoubleSpawns":

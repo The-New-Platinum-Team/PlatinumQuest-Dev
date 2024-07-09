@@ -134,6 +134,12 @@ function GameConnection::onConnectionDropped(%this, %msg) {
 		%error = "Your leaderboards session could not be validated.";
 	case "MIN_RATING":
 		%error = "Your rating is too low to play on this server.";
+	case "CR_GUEST":
+		%error = "Guests are not allowed on this server.";
+	case "CR_BAN":
+		%error = "You have been banned from this server.";
+	case "CR_KICK":
+		%error = "You have been kicked from this server.";
 	case "":
 		%error = "Connection timed out.";
 	default:
@@ -325,6 +331,9 @@ function disconnectedCleanup(%auto) {
 
 	//Back to our original selection
 	MarbleSelectDlg.loadPrefs();
+
+	PlayerList.clear();
+	PlayerObjectGroup.clear();
 
 	if (%needInit) {
 		PlayMissionGui.init();

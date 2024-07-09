@@ -695,11 +695,11 @@ function MPEndGameDlg::updateScores(%this) {
 					|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 				%scoreIdx = (%vs ? 0 : 1);
 
-				if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
+				if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] || %score < MissionInfo.score && MissionInfo.score)
 					%score = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
-				else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx])
+				else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore)
 					%score = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
-				else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx])
+				else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore)
 					%score = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
 
 				%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
@@ -906,11 +906,11 @@ function MPEndGameDlg::updateScores(%this) {
 				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
-			if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
+			if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] || %score < MissionInfo.score && MissionInfo.score)
 				%score = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
-			else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx])
+			else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore)
 				%score = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
-			else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx])
+			else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore)
 				%score = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
 
 			%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
@@ -973,11 +973,11 @@ function MPEndGameDlg::updateScores(%this) {
 		|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
 		|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 	%scoreIdx = (%vs ? 0 : 1);
-	if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
+	if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] || %score < MissionInfo.score && MissionInfo.score)
 		%text = %text @ "<color:FF6666>You Didn\'t Pass the Par Score!";
-	else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx])
+	else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore)
 		%text = %text @ "You Beat the <spush><color:" @ %ultimateColor @ ">" @ %ultimateLabel @ "<spop> Score!";
-	else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx])
+	else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore)
 		%text = %text @ "You Beat the <spush><color:" @ %platinumColor @ ">" @ %platinumLabel @ "<spop> Score!";
 	else
 		%text = %text @ "You\'ve Qualified!";

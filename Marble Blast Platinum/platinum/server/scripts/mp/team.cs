@@ -198,6 +198,7 @@ function Team::addPlayer(%newTeam, %player) {
 	%newTeam.add(%player);
 	%player.team = %newTeam.getId();
 	commandToClient(%player, 'TeamJoin', %newTeam.name);
+	commandToTeam(%newTeam, 'TeamMessage', %player.getDisplayName() SPC "has joined the team.");
 
 	// Send it out
 	updateTeams();
@@ -236,6 +237,7 @@ function Team::removePlayer(%team, %player) {
 	// Take %player out of %team, and remove %team if it has no players
 	%team.remove(%player);
 	commandToClient(%player, 'TeamLeave', %team.name);
+	commandToTeam(%newTeam, 'TeamMessage', %player.getDisplayName() SPC "has left the team.");
 
 	// Add them to the default team so we don't get any errors
 	Team::addPlayer(Team::getDefaultTeam(), %player);
@@ -403,6 +405,9 @@ function Team::setTeamName(%team, %name) {
 	// Can't set a blank name
 	if (trim(%name) $= "")
 		return false;
+
+	if (%name !$= %team.name)
+		commandToTeam(%team, 'TeamMessage', "The team name has been changed to \"" @ %name @ "\".");
 
 	// Simple set
 	%team.name = %name;
@@ -599,6 +604,9 @@ function Team::setTeamPrivate(%team, %private) {
 	if (!isObject(%team) && (%team = Team::getTeam(%team)) == -1)
 		return false;
 
+	if (%private != %team.private)
+		commandToTeam(%newTeam, 'TeamMessage', "This team is now" SPC (%private ? "private" : "public") @ ".");
+
 	// Simple set
 	%team.private = %private;
 
@@ -755,7 +763,7 @@ function Team::resolveLeader(%team) {
 		return false;
 
 	// If we already have a leader, then why are we resolving?
-	if (isObject(%team.leader))
+	if (isObject(%team.leader) && %team.leader.team == %team)
 		return false;
 
 	// The default team is owned by the local client
@@ -778,10 +786,8 @@ function Team::resolveLeader(%team) {
 	// If we found a new leader, let them rule
 	if (%newLeader != -1) {
 		Team::setTeamLeader(%team, %newLeader);
+		commandToTeam(%team, 'TeamMessage', %newLeader.getDisplayName() SPC "is the new team leader.");
 		return true;
-
-		// Send it out
-		updateTeams();
 	}
 
 	return false;

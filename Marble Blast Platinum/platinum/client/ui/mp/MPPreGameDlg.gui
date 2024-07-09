@@ -426,7 +426,12 @@ function MPPreGameDlg::override(%this) {
 function MPPreGameDlg::updateOverride(%this) {
 	%text = "Play";
 	if (!(%this.readyCount == %this.playerCount || %this.override)) {
-		%text = %text @ " (" @ mFloor((%this.overrideStart + 60000 - getRealTime()) / 1000) @ ")";
+		%time = mFloor((%this.overrideStart + 60000 - getRealTime()) / 1000);
+		if (%time <= 0) {
+			%this.override();
+			return;
+		}
+		%text = %text @ " (" @ %time @ ")";
 	}
 
 	MPPreGamePlay.setText(%text);

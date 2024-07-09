@@ -176,6 +176,7 @@ new GuiBitmapCtrl(MPTeamOptionsDlg) {
 					extent = "172 8";
 					minExtent = "8 8";
 					visible = "1";
+					command = "MPTeamOptionsDlg.updateActive();";
 					helpTag = "0";
 					enumerate = "0";
 					resizeCell = "1";
@@ -418,7 +419,6 @@ function MPTeamOptionsDlg::onWake(%this) {
 	MPTeamOptionsPrivateTitle.setText("<font:18>Private?");
 
 	%this.noUpdate = false;
-	%this.updateActive();
 	%this.updateTeam();
 	%this.updateColor();
 	%this.checkDesc();
@@ -505,6 +505,7 @@ function MPTeamOptionsDlg::updateTeam(%this) {
 	}
 
 	MPTeamOptionsPlayerList.sort(0);
+	%this.updateActive();
 }
 
 function MPTeamOptionsDlg::updateActive(%this) {

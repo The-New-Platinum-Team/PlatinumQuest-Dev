@@ -27,14 +27,11 @@ function kick(%client) {
 	messageAll('MsgAdminForce', '\c2The Host has kicked %1.', %client.getDisplayName());
 	commandToAllExcept(%client, 'PrivateMessage', LBChatColor("lagout") @ "The Host has kicked" SPC %client.getDisplayName());
 
-	// Don't kill load if we disconnect a player!
-	if ($Server::Loading) {
-		//Schedule an update to load so we don't prevent others from playing
-		schedule(100, 0, checkAllClientsLoaded);
-	}
+	//Schedule an update to load so we don't prevent others from playing
+	schedule(101, 0, checkAllClientsLoaded);
 
 	// Kick them
-	%client.delete("You have been kicked from this server");
+	%client.schedule(100, delete, "CR_KICK");
 
 	// Fix the interface
 	updatePlayerlist();
@@ -57,14 +54,11 @@ function ban(%client) {
 		saveBanlist();
 	}
 
-	// Don't kill load if we disconnect a player!
-	if ($Server::Loading) {
-		//Schedule an update to load so we don't prevent others from playing
-		schedule(100, 0, checkAllClientsLoaded);
-	}
+	//Schedule an update to load so we don't prevent others from playing
+	schedule(101, 0, checkAllClientsLoaded);
 
 	// Kick them as well :D
-	%client.delete("You have been banned from this server");
+	%client.schedule(100, delete, "CR_BAN");
 
 	// Pretty some things up
 	updatePlayerlist();

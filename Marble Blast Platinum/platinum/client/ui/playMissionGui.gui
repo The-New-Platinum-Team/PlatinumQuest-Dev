@@ -1686,11 +1686,6 @@ function PlayMissionGui::setGame(%this, %game) {
 
 		$MP::CurrentMode = %mode;
 		$MP::CurrentModeInfo = %modeInfo;
-
-		if (isObject(%modeInfo) && !%modeInfo.teams && $Server::Hosting) {
-			echo("Disable teams mode because the game " @ %game @ " forces mode " @ %mode @ " that does not support it.");
-			%this.setTeamsMode(false);
-		}
 	}
 	if (!lb()) {
 		%this.setBarButtonActive(PM_MissionAchievements, $CurrentGame $= "PlatinumQuest");
@@ -3515,7 +3510,7 @@ function PlayMissionGui::startCredits(%this) {
 
 function PlayMissionGui::showAchievements(%this) {
 	if (lb()) {
-		LBAchievementsDlg.show($LB::Username);
+		LBAchievementsDlg.show($LB::Username, (mp() ? "Multiplayer" : "Single Player"));
 	} else {
 		RootGui.pushDialog(AchievementsDlg);
 	}
