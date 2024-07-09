@@ -631,6 +631,23 @@ function applyParticleSystem() {
 }
 
 //-----------------------------------------------------------------------------
+// Legacy MBU Textures texture pack
+//-----------------------------------------------------------------------------
+
+function applyLegacyMBUSun() {
+	%sun = findSun(ServerConnection);
+	//Switch sun if it's Ultra's sun color. MissionInfo.game and Sky.materialList are too inconsistent to use
+	if ($TexturePack::LegacyMBUSun) {
+		%color = %sun.getFieldValue("color");
+		if (%color $= "1.080000 1.030000 0.900000 1.000000" || %color $= "1.000000 1.000000 0.900000 1.000000") {
+			changeEnvironment("0.638261 0.459006 -0.61801", "1.400000 1.200000 0.400000 1.000000", "0.300000 0.300000 0.400000 1.000000");
+		}
+	} else {
+		resetEnvironment();
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Helper functions
 //-----------------------------------------------------------------------------
 
@@ -640,6 +657,8 @@ function legacyApply() {
 	applyLegacyItems();
 	if ($CurrentGame $= "Hunt" || $CurrentGame $= "CustomHunt")
 		applyOldMPSky();
+	if ($TexturePack::LegacyMBUSun || mp())
+		applyLegacyMBUSun();
 }
 
 function findSky(%group) {

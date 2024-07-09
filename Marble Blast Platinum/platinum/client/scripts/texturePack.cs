@@ -278,6 +278,11 @@ function loadTexturePackFields(%pack) {
 	if (%pack.mbxp_setskip !$= "") {
 		$TexturePack::MBXP = %pack.mbxp_setskip;
 	}
+	if (%pack.mbp_mbu_sun !$= "") {
+		$TexturePack::LegacyMBUSun = %pack.mbp_mbu_sun;
+	}
+	if (isObject(ServerConnection))
+		applyLegacyMBUSun();
 	if (%pack.fonts) {
 		// Save existing fonts first, for restoring later
 		if ($TexturePack::OldFont $= "") {
@@ -475,4 +480,5 @@ function resetTexturePackSpecials() {
 	$TexturePack::MBPHelpUI = "";
 	$TexturePack::ColoredTimerImagesDir = "";
 	$TexturePack::MBXP = "";
+	$TexturePack::LegacyMBUSun = "";
 }
