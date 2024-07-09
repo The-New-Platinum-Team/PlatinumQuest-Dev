@@ -452,7 +452,9 @@ function interpolateCamera(%delta) {
 // this toggles the spectator menu on the playGui
 function showSpectatorMenu(%show) {
 	if (%show) {
-		%text = "<bold:28><just:center>Spectator Info<font:14>\n" NL
+		%text = $TexturePack::MBPHelpUI || $TexturePack::MBGHelpUI ? "<font:Marker Felt:32><just:center>Spectator Info<font:Arial:14>\n" NL "<font:Marker Felt:24><just:left>Toggle Fly / Orbit:<just:right><func:bind toggleSpectateModeType>" NL "<just:left>Exit Spectate Mode:<just:right><func:bind toggleCamera>"
+				:
+		        "<bold:28><just:center>Spectator Info<font:14>\n" NL
 		        "<bold:22><just:left>Toggle Fly / Orbit:<just:right><func:bind toggleSpectateModeType>" NL
 		        "<just:left>Exit Spectate Mode:<just:right><func:bind toggleCamera>";
 

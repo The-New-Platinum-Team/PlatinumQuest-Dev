@@ -170,8 +170,8 @@ function scoreListUpdate() {
 	%snow = $Game::isMode["snowball"];
 	%spooky = $Game::isMode["spooky"];
 
-	%platinumLabel = (%spooky ? "Spooky" : (%snow ? "Platinum" : "Chilly"));
-	%ultimateLabel = (%spooky ? "Scary"  : (%snow ? "Ultimate" : "Frozen"));
+	%platinumLabel = (%spooky ? "Spooky" : (%snow ? "Chilly" : "Platinum"));
+	%ultimateLabel = (%spooky ? "Scary"  : (%snow ? "Frozen" : "Platinum"));
 
 	%platinumColor = (%spooky ? "FF8000" : (%snow ? "EEEEEE" : "CCCCCC"));
 	%ultimateColor = (%spooky ? "CC2222" : (%snow ? "22CCFF" : "FFCC22"));
@@ -188,6 +188,8 @@ function scoreListUpdate() {
 
 	%show10 = false;
 	%players = $MP::ScorePlayers;
+
+	%old = $TexturePack::MBPHelpUI || $TexturePack::MBGHelpUI;
 
 	if (!$MP::TeamMode) {
 		for (%j = 0; %j < %players; %j ++) {
@@ -221,17 +223,31 @@ function scoreListUpdate() {
 	MPScorePlatinumGem.setVisible(%show10);
 
 	if ($MP::TeamMode) {
-		%teams = $MP::ScoreTeams;
-		%face     = "<font:28>";
-		%format   = %shadow @ "<color:ffffff>";
-		%font     = %face @ %format @ "<tab:40,350><bold>";
-		%font2    = %face @ %format @ "<color:ffffff><font:28><tab:310><bold>";
-		%pgface   = "<font:28>";
-		%pgformat = %pgshadow @ "<color:000000>";
-		%pgfont   = %pgface @ %pgformat @ "<color:ffee99><tab:25,350><bold>";
-		%pgfont2  = %pgface @ %pgformat @ "<color:ffee99><tab:310><bold>";
-		%rowIdx   = 0;
-		%teamIdx  = 0;
+		if (%old) {
+			%teams = $MP::ScoreTeams;
+			%face     = "<font:DomCasualD:36>";
+			%format   = %shadow @ "<color:ffffff>";
+			%font     = %face @ %format @ "<tab:40,350>";
+			%font2    = %face @ %format @ "<color:ffffff><font:DomCasualD:36><tab:310>";
+			%pgface   = "<font:DomCasualD:32>";
+			%pgformat = %pgshadow @ "<color:000000>";
+			%pgfont   = %pgface @ %pgformat @ "<color:ffee99><tab:25,350>";
+			%pgfont2  = %pgface @ %pgformat @ "<color:ffee99><tab:310>";
+			%rowIdx   = 0;
+			%teamIdx  = 0;
+		} else {
+			%teams = $MP::ScoreTeams;
+			%face     = "<font:28>";
+			%format   = %shadow @ "<color:ffffff>";
+			%font     = %face @ %format @ "<tab:40,350><bold>";
+			%font2    = %face @ %format @ "<color:ffffff><font:28><tab:310><bold>";
+			%pgface   = "<font:28>";
+			%pgformat = %pgshadow @ "<color:000000>";
+			%pgfont   = %pgface @ %pgformat @ "<color:ffee99><tab:25,350><bold>";
+			%pgfont2  = %pgface @ %pgformat @ "<color:ffee99><tab:310><bold>";
+			%rowIdx   = 0;
+			%teamIdx  = 0;
+		}
 
 		// Sort it!
 		%used = Array(ScoresUsedPlayersArray);
@@ -333,8 +349,13 @@ function scoreListUpdate() {
 			%nameWidth = 210 - (15 * strlen(%score));
 
 			%color = "<color:" @ getTeamColor(%color) @ ">";
-			%scoreText.setText(%font   @ %teamIdx @ "." TAB clipPx($DefaultFont, 28, %team, 300, true) TAB %score);
-			%pgscoreText.setText(%pgfont @ %color[%teamIdx] @ %teamIdx @ "." TAB %color @ clipPx($DefaultFont, 28, %team, %nameWidth, true) @ %color[%teamIdx] @ "<just:right>" @ %face @ %score);
+			if (%old) {
+								%scoreText.setText(%font   @ %teamIdx @ "." TAB clipPx("DomCasualD", 36, %team, 300, true) TAB %score);
+				%pgscoreText.setText(%pgfont @ %color[%teamIdx] @ %teamIdx @ "." TAB %color @ clipPx("DomCasualD", 32, %team, %nameWidth, true) @ %color[%teamIdx] @ "<just:right>" @ %face @ %score);
+			} else {
+				%scoreText.setText(%font   @ %teamIdx @ "." TAB clipPx($DefaultFont, 28, %team, 300, true) TAB %score);
+				%pgscoreText.setText(%pgfont @ %color[%teamIdx] @ %teamIdx @ "." TAB %color @ clipPx($DefaultFont, 28, %team, %nameWidth, true) @ %color[%teamIdx] @ "<just:right>" @ %face @ %score);
+			}
 
 			%container.lastUpdate   = $MP::ScoreUpdate;
 			%pgcontainer.lastUpdate = $MP::ScoreUpdate;
@@ -539,15 +560,24 @@ function scoreListUpdate() {
 				if (%state $= "0") %prefix = "[DC] ";
 				if (%state $= "2") %prefix = "[S] ";
 
-				%scoreText.setText(%font2   @ clipPx($DefaultFont, 28, LBResolveName(%player, true), 300, true) TAB %face @ %score);
-				%pgscoreText.setText(%pgfont2 @ "<spush>" @ %color @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), 170, true) @ "<spop><just:right>" @ %pgface @ %score);
+				if (%old) {
+					%scoreText.setText(%font2   @ clipPx("DomCasualD", 36, LBResolveName(%player, true), 300, true) TAB %face @ %score);
+					%pgscoreText.setText(%pgfont2 @ "<spush>" @ %color @ clipPx("DomCasualD", 32, %prefix @ LBResolveName(%player, true), 170, true) @ "<spop><just:right>" @ %pgface @ %score);
+				} else {
+					%scoreText.setText(%font2   @ clipPx($DefaultFont, 28, LBResolveName(%player, true), 300, true) TAB %face @ %score);
+					%pgscoreText.setText(%pgfont2 @ "<spush>" @ %color @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), 170, true) @ "<spop><just:right>" @ %pgface @ %score);
+				}
 
 				%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 				%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
 				%gems5  = "<spush><color:4040FF>" @ %scoreColor @ %gems5  @ "<spop>";
 				%gems10 = "<spush><color:CCCCCC>" @ %scoreColor @ %gems10 @ "<spop>";
 
-				%scoreText.setText(%font TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 230, true) TAB %face @ %score TAB (%rating == -1 ? "N/A" : %rating SPC %change));
+				if (%old) {
+					%scoreText.setText(%font TAB clipPx("DomCasualD", 36, LBResolveName(%player, true), 230, true) TAB %face @ %score TAB (%rating == -1 ? "N/A" : %rating SPC %change));
+				} else {
+					%scoreText.setText(%font TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 230, true) TAB %face @ %score TAB (%rating == -1 ? "N/A" : %rating SPC %change));
+				}
 				%scoreTextR.setText(%face @ "<just:center>" @ %gems1);
 				%scoreTextY.setText(%face @ "<just:center>" @ %gems2);
 				%scoreTextB.setText(%face @ "<just:center>" @ %gems5);
@@ -601,13 +631,23 @@ function scoreListUpdate() {
 			}
 		}
 	} else {
-		%face   = "<font:28>";
-		%font   = %face @ "<color:ffffff><tab:40,320><bold>";
-		%pgface  = "<font:28>";
-		%pgfont = %pgshadow @ "<color:ffee99><bold:28>";
-		%pgwinfont = %pgshadow @ "<color:88ffcc><bold:28>";
-		%players = $MP::ScorePlayers;
-		%rowIdx = 0;
+		if (%old) {
+			%face   = "<font:DomCasualD:36>";
+			%font   = %face @ "<color:ffffff><tab:40,350>";
+			%pgface  = "<font:DomCasualD:32>";
+			%pgfont = %pgshadow @ "<color:ffee99><font:DomCasualD:32>";
+			%pgwinfont = %pgshadow @ "<color:88ffcc><font:DomCasualD:32>";
+			%players = $MP::ScorePlayers;
+			%rowIdx = 0;
+		} else {
+			%face   = "<font:28>";
+			%font   = %face @ "<color:ffffff><tab:40,320><bold>";
+			%pgface  = "<font:28>";
+			%pgfont = %pgshadow @ "<color:ffee99><bold:28>";
+			%pgwinfont = %pgshadow @ "<color:88ffcc><bold:28>";
+			%players = $MP::ScorePlayers;
+			%rowIdx = 0;
+		}
 
 		// Sort it!
 		%used = Array(ScoresUsedPlayersArray);
@@ -810,8 +850,13 @@ function scoreListUpdate() {
 
 			%nameWidth = 200 - (15 * strlen(%score));
 
-			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %score);
-			%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score);
+			if (%old) {
+				%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx("DomCasualD", 36, LBResolveName(%player, true), 280, true) TAB %face @ %score);
+				%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx("DomCasualD", 32, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score);
+			} else {
+				%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %score);
+				%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score);
+			}
 
 			%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 			%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
@@ -868,7 +913,11 @@ function scoreListUpdate() {
 		}
 	}
 
-	MPScoreHeader.setText("<font:30><color:FFFFFF><tab:40,320> \tName\tScore<just:right>Marble");
+	if (%old) {
+		MPScoreHeader.setText("<font:DomCasualD:36><color:FFFFFF><tab:40,320> \tName\tScore<just:right>Marble");
+	} else {
+		MPScoreHeader.setText("<font:30><color:FFFFFF><tab:40,320> \tName\tScore<just:right>Marble");
+	}
 	// display the result
 }
 

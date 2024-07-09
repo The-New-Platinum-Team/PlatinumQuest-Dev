@@ -155,24 +155,26 @@ function createNameTag(%index) {
 		%objName.delete();
 
 	// figure out background extent
-	%len = textLen(stripMLControlChars(%name), $DefaultFont, 22) + 8;
+	%oldTags = $TexturePack::MBPHelpUI || $TexturePack::MBGHelpUI;
+	%font = %oldTags ? "Marker Felt" : $DefaultFont;
+	%len = textLen(stripMLControlChars(%name), %font, 22) + 8;
 
 	%gui = new GuiMLTextCtrl(%objName) {
 		profile = "GuiDefaultProfile";
 		position = "0 0";
-		extent = %len SPC "24";
+		extent = %len SPC (%oldTags ? "19" : "24");
 		minExtent = "8 8";
 		defaultLength = %len;
 
 		new GuiBitmapCtrl() {
 			profile = "GuiDefaultProfile";
-			position = "0 4";
+			position = "0" SPC (%oldTags ? "0" : "4");
 			extent = %len SPC "18";
 			minExtent = "8 8";
 			bitmap = $NameTag::BackGround;
 		};
 	};
-	%gui.setText("<just:center><font:22><color:ffffff>" @ %name);
+	%gui.setText("<just:center>" @ (%oldTags ? "<font:" @ %font @ ":18>" : "<font:22>") @ "<color:ffffff>" @ %name);
 	%gui.sub = %gui.getObject(0);
 	NameTagCtrl.add(%gui);
 

@@ -225,7 +225,7 @@ function PlayGui::doFPSCounter(%this) {
 	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
 	%fps = $fps::real;
 	if (%fps >= 100) %fps = mRound(%fps) @ " ";
-	FPSMetreText.setText("<bold:24><just:left>FPS:<condensed:23>" SPC %fps @ ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : ""));
+	FPSMetreText.setText(($TexturePack::MBPHelpUI || $TexturePack::MBGHelpUI ? "<just:left><font:DomCasualD:24>FPS:" SPC %fps : "<bold:24><just:left>FPS:<condensed:23>" SPC %fps) @ ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : ""));
 	cancel(%this.fpsCounterSched);
 	%this.fpsCounterSched = %this.schedule(500, doFPSCounter);
 }
@@ -516,7 +516,7 @@ function PlayGui::updateBubbleBar(%this) {
 		//Full size is 133 62
 		PG_BubbleFill.setExtent(50 + (83 * ($Game::BubbleTime / $Game::BubbleTotalTime)) SPC 62);
 		//231 241 241
-		PG_BubbleMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths($Game::BubbleTime));
+		PG_BubbleMeterText.setText("<just:center><font:" @ $DefaultFont["PowerupTimers"] @ ":24><color:000000>" @ roundToTenths($Game::BubbleTime));
 	} else {
 		PG_BubbleContainer.setVisible(false);
 	}
@@ -538,7 +538,7 @@ function PlayGui::updateFireballBar(%this) {
 		PG_FireballMeterImage.setBitmap(expandFilename("~/client/ui/game/specials/" @(%canBlast ? "fireballbar-lit" : "fireballbar-unlit")));
 		//Full size is 133 62
 		PG_FireballFill.setExtent(50 + (83 * (%time / $Client::FireballActiveTime)) SPC 62);
-		PG_FireballMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%time));
+		PG_FireballMeterText.setText("<just:center><font:" @ $DefaultFont["PowerupTimers"] @ ":24><color:000000>" @ roundToTenths(%time));
 	} else {
 		PG_FireballContainer.setVisible(false);
 	}
@@ -615,7 +615,7 @@ function PlayGui::updateBarPositions(%this) {
 		%timer = %this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_FirstTimerContainer.setVisible(true);
 		PG_FirstTimerContainer.setPosition(%x SPC %y + 60);
-		PG_FirstTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_FirstTimerMeterText.setText("<just:center><font:" @ $DefaultFont["PowerupTimers"] @ ":24><color:000000>" @ roundToTenths(%timer));
 		PG_FirstTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
 		PG_FirstTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
 	} else {
@@ -627,7 +627,7 @@ function PlayGui::updateBarPositions(%this) {
 		%timer = %this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_SecondTimerContainer.setVisible(true);
 		PG_SecondTimerContainer.setPosition(%x SPC %y + 120);
-		PG_SecondTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_SecondTimerMeterText.setText("<just:center><font:" @ $DefaultFont["PowerupTimers"] @ ":24><color:000000>" @ roundToTenths(%timer));
 		PG_SecondTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
 		PG_SecondTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
 	} else {
@@ -638,7 +638,7 @@ function PlayGui::updateBarPositions(%this) {
 		%timer = %this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_ThirdTimerContainer.setVisible(true);
 		PG_ThirdTimerContainer.setPosition(%x SPC %y + 180);
-		PG_ThirdTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_ThirdTimerMeterText.setText("<just:center><font:" @ $DefaultFont["PowerupTimers"] @ ":24><color:000000>" @ roundToTenths(%timer));
 		PG_ThirdTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
 		PG_ThirdTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
 	} else {
@@ -649,7 +649,7 @@ function PlayGui::updateBarPositions(%this) {
 		%timer = %this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num]);
 		PG_FourthTimerContainer.setVisible(true);
 		PG_FourthTimerContainer.setPosition(%x SPC %y + 240);
-		PG_FourthTimerMeterText.setText("<just:center><font:24><color:000000>" @ roundToTenths(%timer));
+		PG_FourthTimerMeterText.setText("<just:center><font:" @ $DefaultFont["PowerupTimers"] @ ":24><color:000000>" @ roundToTenths(%timer));
 		PG_FourthTimerMeterImage.setBitmap(specialBarFor(%this.powerupTimersId[%num]));
 		PG_FourthTimerFill.setExtent(50 + (83 * (mAbs(%this.powerupTimersDuration[%num] - mAbs(PlayGui.totalTime - %this.powerupTimersTimeActivated[%num])) / %this.powerupTimersDuration[%num])) SPC 62);
 	} else {
@@ -1267,12 +1267,24 @@ function GuiBitmapCtrl::setNumber(%this,%number) {
 	%this.setBitmap($numberPaths[%number]);
 }
 function GuiBitmapCtrl::setTimeNumber(%this,%number) {
-	%this.setBitmap($numberPaths[%number]);
-	%this.bitmapColor = $PlayTimerColor;
+	if ($TexturePack::ColoredTimerImagesDir !$= "") {
+		%colored = ($PlayTimerColor $= $TimeColor["normal"] ? "" : ($PlayTimerColor $= $TimeColor["stopped"] ? "_green" : ($PlayTimerColor $= $TimeColor["danger"] ? "_red" : "")));
+		%this.setBitmap($TexturePack::ColoredTimerImagesDir @ %number @ %colored);
+		%this.bitmapColor = "";
+	} else {
+		%this.setBitmap($numberPaths[%number]);
+		%this.bitmapColor = $PlayTimerColor;
+	}
 }
 function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
-	%this.setBitmap($numberPaths[%number]);
-	%this.bitmapColor = %color;
+	if ($TexturePack::ColoredTimerImagesDir !$= "") {
+		%colored = (%color $= $TimeColor["normal"] ? "" : (%color $= $TimeColor["stopped"] ? "_green" : (%color $= $TimeColor["danger"] ? "_red" : "")));
+		%this.setBitmap($TexturePack::ColoredTimerImagesDir @ %number @ %colored);
+		%this.bitmapColor = "";
+	} else {
+		%this.setBitmap($numberPaths[%number]);
+		%this.bitmapColor = %color;
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1313,6 +1325,13 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 	%obj.setText("<just:center>" @ %font @ "<color:" @ %color @ ">" @ shadow("1 1", "0000007f") @ %amount);
 	%this.updateGemMessage(%obj);
 	%obj.schedule(700, "delete");
+
+	if ($TexturePack::MBPHelpUI || $TexturePack::MBGHelpUI) {
+		//Display the time travel message
+		if (strStr(%amount, "s") != -1 && (strStr(%amount, "-") != -1 || strStr(%amount, "+") != -1) && (%color $= "99ff99" || %color $= "ff9999" || %color $= "cccccc")) {
+			addHelpLine("You picked up a" SPC stripChars(%amount, "s-+") SPC "second Time" SPC (%color $= "ff9999" ? "Penalty" : replaceNewItemNames("Travel")) @ "!");
+		}
+	}
 }
 
 function PlayGui::updateGemMessage(%this, %obj, %num) {
@@ -1358,7 +1377,7 @@ function PlayGui::showEggTime(%this, %time) {
 
 	PG_EggIcon.setBitmap("platinum/client/ui/play/egg" @ (%pq ? "_pq_big" : "_mbp_big"));
 	PG_EggTimeBox.setVisible(true);
-	PG_EggTimeDisplay.setText("<color:" @ (%pq ? "cccc99" : "4580ff") @ "><shadow:1:1><shadowcolor:0000007f><bold:28>" @ formatTime(%time));
+	PG_EggTimeDisplay.setText("<color:" @ (%pq ? "cccc99" : "4580ff") @ "><shadow:1:1><shadowcolor:0000007f><" @ ($TexturePack::MBPHelpUI || $TexturePack::MBGHelpUI ? "font:Marker Felt" : "bold") @ ":28>" @ formatTime(%time));
 
 	%this.showingEggTime = true;
 	%this.updateEggTime();

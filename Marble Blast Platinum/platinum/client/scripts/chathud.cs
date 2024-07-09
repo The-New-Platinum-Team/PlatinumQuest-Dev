@@ -33,7 +33,10 @@ function addHelpLine(%message, %playBeep) {
 		serverplay2d(HelpDingSfx);
 	}
 	if (getWordCount(%message)) {
-		if ($TexturePack::MBGHelpUI) {
+		if ($TexturePack::MBPHelpUI) {
+			addDownYellowMBP(%message);
+			return;
+		} else if ($TexturePack::MBGHelpUI) {
 			addDownYellowMBG(%message);
 			return;
 		}
@@ -45,6 +48,11 @@ function addHelpLine(%message, %playBeep) {
 
 function clearMessages() {
 	PG_MessageListBox.clear();
+	cancel($DownYellowFadeTimer);
+	DownYellowMBPText.setAlpha(0.0);
+	DownYellowMBPShadow.setAlpha(0.0);
+	DownYellowMBGText.setAlpha(0.0);
+	DownYellowMBGShadow.setAlpha(0.0);
 }
 
 function shiftMessages(%amount) {
@@ -182,14 +190,53 @@ function fadeCenterWhiteMBG(%fade){ // Old helptext rendering from MBG
       $CenterWhiteFadeTimer = schedule(32, 0, fadeCenterWhiteMBG, %nextFade);
    }
 }
-function addCenterWhiteMBG(%message) {
+function addCenterWhiteMBG(%message, %help) {
 	%text = "<just:center><font:DomCasualD:32>" @ %message;
 	WhiteCenterMBGShadow.setText("<color:000000>" @ %text);
 	WhiteCenterMBGText.setText("<color:FFFFFF>" @ %text);
+
+	if (getWord(WhiteCenterMBGText.getExtent(), 1) > 203 || %help) {
+			%text = "<just:center><font:DomCasualD:32>Press X to read this message!";
+			WhiteCenterMBGShadow.setText("<color:777777>" @ %text);
+			WhiteCenterMBGText.setText("<color:FFFFFF>" @ %text);
+			PlayGui.extendedHelp = %message;
+			PlayGui.hasExtendedHelp = true;
+	}
+
 	cancel($CenterWhiteFadeTimer);
 	WhiteCenterMBGText.setAlpha(1.0);
 	WhiteCenterMBGShadow.setAlpha(1.0);
 	$CenterWhiteFadeTimer = schedule(3000, 0, fadeCenterWhiteMBG, 1.0);
+}
+
+function fadeCenterWhiteMBP(%fade) {
+   WhiteCenterMBPText.setAlpha(1.0 * %fade);
+   WhiteCenterMBPShadow.setAlpha(%fade);
+   if(%fade > 0){
+      %nextFade = %fade - 0.03;
+      if(%nextFade < 0)
+         %nextFade = 0;
+      $CenterWhiteFadeTimer = schedule(32, 0, fadeCenterWhiteMBP, %nextFade);
+   }
+}
+function addCenterWhiteMBP(%message, %help) {
+	%text = "<just:center><font:DomCasualD:32>" @ %message;
+	WhiteCenterMBPShadow.setText("<color:777777>" @ %text);
+	WhiteCenterMBPText.setText("<color:FFFFFF>" @ %text);
+	WhiteCenterMBPText.forceReflow();
+
+	if (getWord(WhiteCenterMBPText.getExtent(), 1) > 203 || %help) {
+		%text = "<just:center><font:DomCasualD:32>Press X to read this message!";
+		WhiteCenterMBPShadow.setText("<color:777777>" @ %text);
+		WhiteCenterMBPText.setText("<color:FFFFFF>" @ %text);
+		PlayGui.extendedHelp = %message;
+		PlayGui.hasExtendedHelp = true;
+	}
+
+	cancel($CenterWhiteFadeTimer);
+	WhiteCenterMBPText.setAlpha(1.0);
+	WhiteCenterMBPShadow.setAlpha(1.0);
+	$CenterWhiteFadeTimer = schedule(3000, 0, fadeCenterWhiteMBP, 1.0);
 }
 
 //-----------------------------------------------------------------------------
@@ -352,8 +399,11 @@ function addBubbleLine(%message, %help, %time, %isAHelpLine) {
 	// Do not show help trigger messages if we have it disabled in the options.
 	if (%isAHelpLine && !$pref::HelpTriggers)
 		return;
-	if ($TexturePack::MBGHelpUI) {
-		addCenterWhiteMBG(%message);
+	if ($TexturePack::MBPHelpUI) {
+		addCenterWhiteMBP(%message, %help);
+		return;
+	} else if ($TexturePack::MBGHelpUI) {
+		addCenterWhiteMBG(%message, %help);
 		return;
 	}
 
@@ -484,6 +534,12 @@ function hideBubble(%progress) {
 	//Clear the extended help so we can't press X again
 	PlayGui.extendedHelp = "";
 	PlayGui.hasExtendedHelp = false;
+
+	cancel($CenterWhiteFadeTimer);
+	WhiteCenterMBPText.setAlpha(0.0);
+	WhiteCenterMBPShadow.setAlpha(0.0);
+	WhiteCenterMBGText.setAlpha(0.0);
+	WhiteCenterMBGShadow.setAlpha(0.0);
 }
 
 function popupExtendedHelp(%val) {
@@ -531,4 +587,28 @@ function addDownYellowMBG(%message,%color){
 		} else {
 			DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), "0 62"), 1));
 		}
+}
+
+function fadeDownYellowMBP(%fade) {
+   DownYellowMBPText.setAlpha(0.8 * %fade);
+   DownYellowMBPShadow.setAlpha(%fade);
+   if(%fade > 0) {
+      %nextFade = %fade - 0.03;
+      if(%nextFade < 0)
+         %nextFade = 0;
+      $DownYellowFadeTimer = schedule(32, 0, fadeDownYellowMBP, %nextFade);
+   }
+}
+
+function addDownYellowMBP(%message,%color) {
+	if (%color $= "")
+		%color = "ffee99";
+	%text = "<just:center><font:DomCasualD:32>" @ %message;
+	DownYellowMBPShadow.setText("<color:776622>" @ %text);
+	DownYellowMBPText.setText("<color:" @ %color @ ">" @ %text);
+	cancel($DownYellowFadeTimer);
+	DownYellowMBPText.setAlpha(0.8);
+	DownYellowMBPShadow.setAlpha(1.0);
+	$DownYellowFadeTimer = schedule(3000, 0, fadeDownYellowMBP, 1.0);
+	DownYellowMBP.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), "0 170"), 1));
 }

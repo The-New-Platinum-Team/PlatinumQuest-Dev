@@ -90,13 +90,13 @@ function reloadTexturePacks() {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		unloadTexturePack(%pack);
 	}
+	resetTexturePackSpecials();
 	//Then load everything back
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		loadTexturePack(%pack);
 	}
 
-	unloadTimerTextures();
 	reloadShaders();
 	reloadGlowShaders();
 	reloadPostFX();
@@ -104,7 +104,14 @@ function reloadTexturePacks() {
 	purgeResources();
 	flushTextureCache();
 
-	PlayGui.updateGems(true);
+	if (PlayGui.isAwake()) {
+		PlayGui.updateControls();
+		PlayGui.updateGems(true);
+		hideBubble();
+		PG_ChatBubbleBox.setVisible(false);
+		clearMessages();
+		scoreListUpdate();
+	}
 }
 
 //Faster version of reloadTexturePacks that doesn't do any of the bitmap swapping or
@@ -261,13 +268,15 @@ function loadTexturePackFields(%pack) {
 	}
 	if (%pack.mbg_help_ui !$= "") {
 		$TexturePack::MBGHelpUI = %pack.mbg_help_ui;
-	} else {
-		$TexturePack::MBGHelpUI = "";
+	}
+	if (%pack.mbp_help_ui !$= "") {
+		$TexturePack::MBPHelpUI = %pack.mbp_help_ui;
+	}
+	if (%pack.colored_timer_images !$= "") {
+		$TexturePack::ColoredTimerImagesDir = texturePackResolveFile(%pack, %pack.colored_timer_images);
 	}
 	if (%pack.mbxp_setskip !$= "") {
 		$TexturePack::MBXP = %pack.mbxp_setskip;
-	} else {
-		$TexturePack::MBXP = "";
 	}
 	if (%pack.fonts) {
 		// Save existing fonts first, for restoring later
@@ -295,6 +304,9 @@ function loadTexturePackFields(%pack) {
 		if ($TexturePack::OldFont["SmallItalic"] $= "") {
 			$TexturePack::OldFont["SmallItalic"] = $DefaultFont["SmallItalic"];
 		}
+		if ($TexturePack::OldFont["PowerupTimers"] $= "") {
+			$TexturePack::OldFont["PowerupTimers"] = $DefaultFont["PowerupTimers"];
+		}
 
 		// Then apply new fonts
 		if (%pack.fonts.font !$= "") {
@@ -320,6 +332,9 @@ function loadTexturePackFields(%pack) {
 		}
 		if (%pack.fonts.smallItalic !$= "") {
 			$DefaultFont["SmallItalic"] = %pack.fonts.smallItalic;
+		}
+		if (%pack.fonts.powerupTimers !$= "") {
+			$DefaultFont["PowerupTimers"] = %pack.fonts.powerupTimers;
 		}
 	}
 	//Find all the GuiMLTextCtrls and update their text
@@ -411,6 +426,9 @@ function unloadTexturePack(%pack) {
 		if ($TexturePack::OldFont["SmallItalic"] !$= "") {
 			$DefaultFont["SmallItalic"] = $TexturePack::OldFont["SmallItalic"];
 		}
+		if ($TexturePack::OldFont["PowerupTimers"] !$= "") {
+			$DefaultFont["PowerupTimers"] = $TexturePack::OldFont["PowerupTimers"];
+		}
 	}
 }
 
@@ -449,4 +467,12 @@ function texturePackRecurse(%group) {
 
 		texturePackRecurse(%obj);
 	}
+}
+
+function resetTexturePackSpecials() {
+	$TexturePack::InvertTextColors = "";
+	$TexturePack::MBGHelpUI = "";
+	$TexturePack::MBPHelpUI = "";
+	$TexturePack::ColoredTimerImagesDir = "";
+	$TexturePack::MBXP = "";
 }

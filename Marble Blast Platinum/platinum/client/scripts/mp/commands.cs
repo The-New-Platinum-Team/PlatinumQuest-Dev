@@ -150,6 +150,12 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 	} else {
 		commandToServer('EggStatus', %first, %eggName, %eggPickup);
 	}
+
+	//Display the easter egg message
+	if ($TexturePack::MBPHelpUI || $TexturePack::MBGHelpUI) {
+		addHelpLine("You" SPC (%first ? "found" SPC ((PlayMissionGui.getMissionInfo().game $= "PlatinumQuest") ? "a Nest Egg" : "an Easter Egg") @ "!" : "already found this" SPC ((PlayMissionGui.getMissionInfo().game $= "PlatinumQuest") ? "Nest Egg" : "Easter Egg") @ "."));
+	}
+	
 	if (PlayMissionGui.ml.shouldCheckAchievements($CurrentGame)) {
 		checkNestEggAchievements();
 		Unlock::updateCaches();

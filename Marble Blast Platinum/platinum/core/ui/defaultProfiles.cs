@@ -33,14 +33,15 @@ $interfaceStyle = (($platform $= "macos" && $appearance !$= "windows") || $appea
 
 $Gui::fontCacheDirectory = expandFilename("./cache");
 
-$DefaultFont                = ($pref::DefaultFont                $= "" ? "Whatney"        : $pref::DefaultFont);
-$DefaultFont["Bold"]        = ($pref::DefaultFont["Bold"]        $= "" ? "Squishney"      : $pref::DefaultFont["Bold"]);
-$DefaultFont["Italic"]      = ($pref::DefaultFont["Italic"]      $= "" ? "Whatney Italic" : $pref::DefaultFont["Italic"]);
-$DefaultFont["Condensed"]   = ($pref::DefaultFont["Condensed"]   $= "" ? "Squatney"       : $pref::DefaultFont["Condensed"]);
-$DefaultFont["PointPopups"] = ($pref::DefaultFont["PointPopups"] $= "" ? "Squishney"      : $pref::DefaultFont["PointPopups"]); // Gem and TT indicators
-$DefaultFont["Small"]       = ($pref::DefaultFont["Small"]       $= "" ? "Arial"          : $pref::DefaultFont["Small"]);
-$DefaultFont["SmallBold"]   = ($pref::DefaultFont["SmallBold"]   $= "" ? "Arial Bold"     : $pref::DefaultFont["SmallBold"]);
-$DefaultFont["SmallItalic"] = ($pref::DefaultFont["SmallItalic"] $= "" ? "Arial Italic"   : $pref::DefaultFont["SmallItalic"]);
+$DefaultFont                  = ($pref::DefaultFont                  $= "" ? "Whatney"        : $pref::DefaultFont);
+$DefaultFont["Bold"]          = ($pref::DefaultFont["Bold"]          $= "" ? "Squishney"      : $pref::DefaultFont["Bold"]);
+$DefaultFont["Italic"]        = ($pref::DefaultFont["Italic"]        $= "" ? "Whatney Italic" : $pref::DefaultFont["Italic"]);
+$DefaultFont["Condensed"]     = ($pref::DefaultFont["Condensed"]     $= "" ? "Squatney"       : $pref::DefaultFont["Condensed"]);
+$DefaultFont["PointPopups"]   = ($pref::DefaultFont["PointPopups"]   $= "" ? "Squishney"      : $pref::DefaultFont["PointPopups"]); // Gem and TT indicators
+$DefaultFont["Small"]         = ($pref::DefaultFont["Small"]         $= "" ? "Arial"          : $pref::DefaultFont["Small"]);
+$DefaultFont["SmallBold"]     = ($pref::DefaultFont["SmallBold"]     $= "" ? "Arial Bold"     : $pref::DefaultFont["SmallBold"]);
+$DefaultFont["SmallItalic"]   = ($pref::DefaultFont["SmallItalic"]   $= "" ? "Arial Italic"   : $pref::DefaultFont["SmallItalic"]);
+$DefaultFont["PowerupTimers"] = ($pref::DefaultFont["PowerupTimers"] $= "" ? "Whatney"        : $pref::DefaultFont["PowerupTimers"]);
 
 // GuiDefaultProfile is a special case, all other profiles are initialized
 // to the contents of this profile first then the profile specific
