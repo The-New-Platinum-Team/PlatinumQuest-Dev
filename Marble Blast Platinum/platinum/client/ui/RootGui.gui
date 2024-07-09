@@ -234,6 +234,7 @@ function RootMenu_MissionLoaded() {
 	if ($pref::AnimatePreviews) {
 		menuStartCameraOverview();
 		RootGui.schedule(500, showPreviewImage, false);
+		schedule(400, 0, legacyApply);
 	}
 }
 function RootMenu_LoadMission() {

@@ -27,136 +27,46 @@
 // Portions Copyright (c) 2001 by Sierra Online, Inc.
 //-----------------------------------------------------------------------------
 
-
-//-----------------------------------------------------------------------------
-//Start of Particle System Option
 //-----------------------------------------------------------------------------
 
-if ($pref::Video::particleSystem == 2) {
+datablock ParticleData(BounceParticle) {
+	textureName          = "~/data/particles/star";
+	dragCoeffiecient     = 1.0;
+	gravityCoefficient   = 0;
+	windCoefficient      = 0;
+	inheritedVelFactor   = 0;
+	constantAcceleration = -2;
+	lifetimeMS           = 500;
+	lifetimeVarianceMS   = 100;
+	useInvAlpha =  true;
+	spinSpeed     = 90;
+	spinRandomMin = -90.0;
+	spinRandomMax =  90.0;
 
-	datablock ParticleData(BounceParticle)	{
-		textureName          = "~/data/particles/mbu/smoke";
-		dragCoeffiecient     = 0.5;
-		gravityCoefficient   = -0.1;
-		windCoefficient      = 0;
-		inheritedVelFactor   = 0;
-		constantAcceleration = -2;
-		lifetimeMS           = 400;
-		lifetimeVarianceMS   = 50;
-		useInvAlpha =  false;
-		spinSpeed     = 90;
-		spinRandomMin = -90.0;
-		spinRandomMax =  90.0;
+	colors[0]     = "0.9 0.0 0.0 1.0";
+	colors[1]     = "0.9 0.9 0.0 1.0";
+	colors[2]     = "0.9 0.9 0.0 0.0";
 
-		colors[0]     = "0.5 0.5 0.5 0.3";
-		colors[1]     = "0.3 0.3 0.2 0.1";
-		colors[2]     = "0.2 0.2 0.1 0.0";
+	sizes[0]      = 0.25;
+	sizes[1]      = 0.25;
+	sizes[2]      = 0.25;
 
-		sizes[0]      = 0.4;
-		sizes[1]      = 0.2;
-		sizes[2]      = 0.1;
+	times[0]      = 0;
+	times[1]      = 0.75;
+	times[2]      = 1.0;
+};
 
-		times[0]      = 0;
-		times[1]      = 0.75;
-		times[2]      = 1.0;
-	};
-
-	datablock ParticleEmitterData(MarbleBounceEmitter)	{
-		ejectionPeriodMS = 10;
-		periodVarianceMS = 0;
-		ejectionVelocity = 6.0;
-		velocityVariance = 0.25;
-		thetaMin         = 80.0;
-		thetaMax         = 90.0;
-		lifetimeMS       = 250;
-		particles = "BounceParticle";
-	};
-
-} else if ($pref::Video::particleSystem == 1) {
-
-	datablock ParticleData(BounceParticle)	{
-		textureName          = "~/data/particles/star";
-		dragCoeffiecient     = 1.0;
-		gravityCoefficient   = 0;
-		windCoefficient      = 0;
-		inheritedVelFactor   = 0;
-		constantAcceleration = -2;
-		lifetimeMS           = 500;
-		lifetimeVarianceMS   = 100;
-		useInvAlpha =  true;
-		spinSpeed     = 90;
-		spinRandomMin = -90.0;
-		spinRandomMax =  90.0;
-
-		colors[0]     = "0.9 0.0 0.0 1.0";
-		colors[1]     = "0.9 0.9 0.0 1.0";
-		colors[2]     = "0.9 0.9 0.0 0.0";
-
-		sizes[0]      = 0.25;
-		sizes[1]      = 0.25;
-		sizes[2]      = 0.25;
-
-		times[0]      = 0;
-		times[1]      = 0.75;
-		times[2]      = 1.0;
-	};
-
-	datablock ParticleEmitterData(MarbleBounceEmitter)	{
-		ejectionPeriodMS = 80;
-		periodVarianceMS = 0;
-		ejectionVelocity = 3.0;
-		velocityVariance = 0.25;
-		thetaMin         = 80.0;
-		thetaMax         = 90.0;
-		lifetimeMS       = 250;
-		particles = "BounceParticle";
-	};
-
-} else {
-
-	datablock ParticleData(BounceParticle) {
-		textureName          = "~/data/particles/star";
-		dragCoeffiecient     = 1.0;
-		gravityCoefficient   = 0;
-		windCoefficient      = 0;
-		inheritedVelFactor   = 0;
-		constantAcceleration = -2;
-		lifetimeMS           = 500;
-		lifetimeVarianceMS   = 100;
-		useInvAlpha =  true;
-		spinSpeed     = 90;
-		spinRandomMin = -90.0;
-		spinRandomMax =  90.0;
-
-		colors[0]     = "0.9 0.0 0.0 1.0";
-		colors[1]     = "0.9 0.9 0.0 1.0";
-		colors[2]     = "0.9 0.9 0.0 0.0";
-
-		sizes[0]      = 0.25;
-		sizes[1]      = 0.25;
-		sizes[2]      = 0.25;
-
-		times[0]      = 0;
-		times[1]      = 0.75;
-		times[2]      = 1.0;
-	};
-
-	datablock ParticleEmitterData(MarbleBounceEmitter) 
-	{
-		ejectionPeriodMS = 80;
-		periodVarianceMS = 0;
-		ejectionVelocity = 3.0;
-		velocityVariance = 0.25;
-		thetaMin         = 80.0;
-		thetaMax         = 90.0;
-		lifetimeMS       = 250;
-		particles = "BounceParticle";
-	};
-}
-
-//-----------------------------------------------------------------------------
-//End of Particle System Option
-//-----------------------------------------------------------------------------
+datablock ParticleEmitterData(MarbleBounceEmitter) 
+{
+	ejectionPeriodMS = 80;
+	periodVarianceMS = 0;
+	ejectionVelocity = 3.0;
+	velocityVariance = 0.25;
+	thetaMin         = 80.0;
+	thetaMax         = 90.0;
+	lifetimeMS       = 250;
+	particles = "BounceParticle";
+};
 
 //-----------------------------------------------------------------------------
 // these aren't used but we are keeping them so the engine don't go
@@ -164,30 +74,30 @@ if ($pref::Video::particleSystem == 2) {
 //
 // Reason for not using them: they aren't sexy enough.
 
-// datablock ParticleData(TrailParticle) {
-// 	textureName          = "~/data/particles/smoke";
-// 	dragCoeffiecient     = 1.0;
-// 	gravityCoefficient   = 0;
-// 	windCoefficient      = 0;
-// 	inheritedVelFactor   = 1;
-// 	constantAcceleration = 0;
-// 	lifetimeMS           = 100;
-// 	lifetimeVarianceMS   = 10;
-// 	useInvAlpha =  true;
-// 	spinSpeed     = 0;
+datablock ParticleData(TrailParticle) {
+	textureName          = "~/data/particles/smoke";
+	dragCoeffiecient     = 1.0;
+	gravityCoefficient   = 0;
+	windCoefficient      = 0;
+	inheritedVelFactor   = 1;
+	constantAcceleration = 0;
+	lifetimeMS           = 100;
+	lifetimeVarianceMS   = 10;
+	useInvAlpha =  true;
+	spinSpeed     = 0;
 
-// 	colors[0]     = "1 1 0 0.0";
-// 	colors[1]     = "1 1 0 1";
-// 	colors[2]     = "1 1 1 0.0";
+	colors[0]     = "1 1 0 0.0";
+	colors[1]     = "1 1 0 1";
+	colors[2]     = "1 1 1 0.0";
 
-// 	sizes[0]      = 0.7;
-// 	sizes[1]      = 0.4;
-// 	sizes[2]      = 0.1;
+	sizes[0]      = 0.7;
+	sizes[1]      = 0.4;
+	sizes[2]      = 0.1;
 
-// 	times[0]      = 0;
-// 	times[1]      = 0.15;
-// 	times[2]      = 1.0;
-// };
+	times[0]      = 0;
+	times[1]      = 0.15;
+	times[2]      = 1.0;
+};
 
 datablock ParticleEmitterData(MarbleTrailOldEmitter) {
    ejectionPeriodMS = 5;
@@ -418,7 +328,7 @@ datablock MarbleData(DefaultMarble) {
 	// 1.50 update: changed minTrailSpeed to 20
 	// WE use our own, lets make it impossible to have!!!!
 	minTrailSpeed = 10;            // Trail threshold
-	trailEmitter = MarbleTrailOldEmitter;
+	trailEmitter = "";
 
 	minBounceSpeed = 3;           // Bounce threshold
 	bounceEmitter = MarbleBounceEmitter;

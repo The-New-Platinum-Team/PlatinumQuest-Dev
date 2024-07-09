@@ -72,6 +72,8 @@ function GameConnection::initialControlSet(%this) {
 
 		adjustFrictions();
 
+		applyParticleSystem();
+
 		//Disable marble interpolation for fast mode
 		enableInterpolation(!$pref::FastMode);
 	}

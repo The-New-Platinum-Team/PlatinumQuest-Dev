@@ -1829,225 +1829,116 @@ function CustomSuperJumpItem_PQ::getData(%this, %obj) {
 
 //MBU Datablocks down below.
 
-if (!$pref::LegacyItems) {
-	datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		shapeFile = "~/data/shapes_mbu/images/megamarble.dts";
+	shapeFile = "~/data/shapes_mbu/images/megamarble.dts";
 
-		fxEmitter[0] = "MegaMarbleMBUEmitter";
-	};
+	fxEmitter[0] = "MegaMarbleMBUEmitter";
+};
 
-	datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		shapeFile = "~/data/shapes_mbu/items/superjump.dts";
-	};
+	shapeFile = "~/data/shapes_mbu/items/superjump.dts";
+};
 
-	datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		shapeFile = "~/data/shapes_mbu/images/helicopter.dts";
-		image = HelicopterImage_MBU;
-		ultraImage = HelicopterImage_MBUBall;
-	};
+	shapeFile = "~/data/shapes_mbu/images/helicopter.dts";
+	image = HelicopterImage_MBU;
+	ultraImage = HelicopterImage_MBUBall;
+};
 
-	datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		shapeFile = "~/data/shapes_mbu/items/superspeed.dts";
-	};
+	shapeFile = "~/data/shapes_mbu/items/superspeed.dts";
+};
 
-	datablock ItemData(BlastItem_MBU : BlastItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(BlastItem_MBU : BlastItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		shapeFile = "~/data/shapes_mbu/images/blast.dts";
+	shapeFile = "~/data/shapes_mbu/images/blast.dts";
 
-		fxEmitter[0] = "BlastMBUEmitter";
-	};
+	fxEmitter[0] = "BlastMBUEmitter";
+};
 
-	datablock ItemData(EasterEgg_MBU) {
-		className = "PowerUp";	// Ditto
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(EasterEgg_MBU) {
+	className = "PowerUp";	// Ditto
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		// Basic Item properties
-		shapeFile = "~/data/shapes_mbu/items/egg.dts";
-		mass = 1;
-		friction = 1;
-		elasticity = 0.3;
-		emap = false;
+	// Basic Item properties
+	shapeFile = "~/data/shapes_mbu/items/egg.dts";
+	mass = 1;
+	friction = 1;
+	elasticity = 0.3;
+	emap = false;
 
-		displayName = "Easter Egg";
+	displayName = "Easter Egg";
 
-		// Dynamic properties defined by the scripts
-		noRespawn = true;
-		maxInventory = 1;
-		noPickupMessage = true;
-	};
+	// Dynamic properties defined by the scripts
+	noRespawn = true;
+	maxInventory = 1;
+	noPickupMessage = true;
+};
 
-	datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
+	shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
 
-		pickupName = "a Gravity Modifier!";
-	};
+	pickupName = "a Gravity Modifier!";
+};
 
-	datablock ItemData(AntiGravityItem_MBU : AntiGravityItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+datablock ItemData(AntiGravityItem_MBU : AntiGravityItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
+	shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
 
-		pickupName = "a Gravity Modifier!";
-	};
-	
-	datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+	pickupName = "a Gravity Modifier!";
+};
 
-		shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
+datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		//For ::timeCheck() to replace if the time is negative
-		replacement = "TimePenaltyItem_MBU";
-	};
+	shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
 
-	datablock ItemData(TimePenaltyItem_MBU : TimeTravelItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+	//For ::timeCheck() to replace if the time is negative
+	replacement = "TimePenaltyItem_MBU";
+};
 
-		//pickupAudio = TimePenaltySfx;
-		shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
+datablock ItemData(TimePenaltyItem_MBU : TimeTravelItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
 
-		//For ::timeCheck() to replace if the time is negative
-		replacement = "TimeTravelItem_MBU";
+	//pickupAudio = TimePenaltySfx;
+	shapeFile = "~/data/shapes_mbu/items/timetravel.dts";
 
-		//For the time message
-		messageColor = "ff9999";
-		grayMessageColor = "cccccc";
-	};
+	//For ::timeCheck() to replace if the time is negative
+	replacement = "TimeTravelItem_MBU";
 
-	datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
-		shapeFile = "~/data/shapes_mbu/images/helicopter_image.dts";
-	};
-	datablock ShapeBaseImageData(HelicopterImage_MBUBall : ActualHelicopterImage) {
-		shapeFile = "~/data/shapes_mbu/images/helicopter_image_mbu.dts";
-	};
-} else {
-	datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
+	//For the time message
+	messageColor = "ff9999";
+	grayMessageColor = "cccccc";
+};
 
-		shapeFile = "~/data/shapes/items/MegaMarble.dts";
-	};
-
-	datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		shapeFile = "~/data/shapes/items/superjump.dts";
-	};
-
-	datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		shapeFile = "~/data/shapes/images/helicopter.dts";
-		image = HelicopterImage_MBU;
-		ultraImage = HelicopterImage_MBUBall;
-	};
-
-	datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		shapeFile = "~/data/shapes/items/superspeed.dts";
-	};
-
-	datablock ItemData(BlastItem_MBU : BlastItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		shapeFile = "~/data/shapes/items/blast.dts";
-	};
-
-	datablock ItemData(EasterEgg_MBU) {
-		className = "PowerUp";	// Ditto
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		// Basic Item properties
-		shapeFile = "~/data/shapes/items/easteregg.dts";
-		mass = 1;
-		friction = 1;
-		elasticity = 0.3;
-		emap = false;
-
-		displayName = "Easter Egg";
-
-		// Dynamic properties defined by the scripts
-		noRespawn = true;
-		maxInventory = 1;
-		noPickupMessage = true;
-	};
-
-	datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		shapeFile = "~/data/shapes/items/antiGravity.dts";
-
-		pickupName = "a Gravity Modifier!";
-	};
-
-	datablock ItemData(AntiGravityItem_MBU : AntiGravityItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		shapeFile = "~/data/shapes/items/antiGravity.dts";
-
-		pickupName = "a Gravity Modifier!";
-	};
-	
-	datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		shapeFile = "~/data/shapes/items/timetravel.dts";
-
-		//For ::timeCheck() to replace if the time is negative
-		replacement = "TimePenaltyItem_MBU";
-	};
-
-	datablock ItemData(TimePenaltyItem_MBU : TimeTravelItem) {
-		superCategory = "PowerUps";
-		category = "Marble_Blast_Ultra";
-
-		//pickupAudio = TimePenaltySfx;
-		shapeFile = "~/data/shapes/items/timetravel.dts";
-
-		//For ::timeCheck() to replace if the time is negative
-		replacement = "TimeTravelItem_MBU";
-
-		//For the time message
-		messageColor = "ff9999";
-		grayMessageColor = "cccccc";
-	};
-
-	datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
-		shapeFile = "~/data/shapes/images/helicopter.dts";
-	};
-	datablock ShapeBaseImageData(HelicopterImage_MBUBall : ActualHelicopterImage) {
-		shapeFile = "~/data/shapes/images/helicopter.dts";
-	};				
-}
+datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
+	shapeFile = "~/data/shapes_mbu/images/helicopter_image.dts";
+};
+datablock ShapeBaseImageData(HelicopterImage_MBUBall : ActualHelicopterImage) {
+	shapeFile = "~/data/shapes_mbu/images/helicopter_image_mbu.dts";
+};
 
 // --------------------------------------------------------------------------------------------------------------------------------------------
 // The Super Stop ~ Code originally made by Whirligig for "Deceleration Derby", slightly modified from the .mis file of that level by Connie.

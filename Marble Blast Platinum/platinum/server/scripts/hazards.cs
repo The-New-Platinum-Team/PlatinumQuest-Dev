@@ -1409,50 +1409,24 @@ function IceShard::unfreeze(%this, %ice, %marble, %cancel) {
 
 //MBU Datablocks down below.
 
-if (!$pref::LegacyItems) {
-	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
-		superCategory = "Hazards";
-		category = "Marble_Blast_Ultra/Mobile";
+datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
+
+	shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
+};
+
+datablock StaticShapeData(Ductfan_MBM : DuctFan) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
+
+	compile = "pls";
+	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
+};
+datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
 	
-		shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
-	};
-
-	datablock StaticShapeData(Ductfan_MBM : DuctFan) {
-		superCategory = "Hazards";
-		category = "Marble_Blast_Ultra/Mobile";
-
-		compile = "pls";
-		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
-	};
-	datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
-		superCategory = "Hazards";
-		category = "Marble_Blast_Ultra/Mobile";
-		
-		compile = "pls";
-		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
-	};
-} else {
-	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
-		superCategory = "Hazards";
-		category = "Marble_Blast_Ultra/Mobile";
-		
-		shapeFile = "~/data/shapes/hazards/trapdoor.dts";
-	};
-
-	datablock StaticShapeData(Ductfan_MBM : DuctFan) {
-		superCategory = "Hazards";
-		category = "Marble_Blast_Ultra/Mobile";
-		
-		compile = "pls";
-		shapeFile = "~/data/shapes/hazards/ductfan.dts";
-	};
-	datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
-		superCategory = "Hazards";
-		category = "Marble_Blast_Ultra/Mobile";
-		
-		compile = "pls";
-		shapeFile = "~/data/shapes/hazards/ductfan.dts";
-	};
-}
-
-
+	compile = "pls";
+	shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
+};

@@ -328,7 +328,7 @@ $Options::Title   ["Graphics", $i  ] = "Preload Levels";
 $Options::Type    ["Graphics", $i  ] = "boolean";
 $Options::Name    ["Graphics", $i++] = "legacyItems";
 $Options::Title   ["Graphics", $i  ] = "Legacy Items";
-$Options::Type    ["Graphics", $i  ] = "boolean";
+$Options::Type    ["Graphics", $i  ] = "value";
 if (canSupportAntiAliasing()) { //This is not available on mac
 	$Options::Name ["Graphics", $i++] = "antiAliasing";
 	$Options::Title["Graphics", $i  ] = "Anti Aliasing";
@@ -380,6 +380,11 @@ if (canSupportShaders()) {
 	InteriorShadersQualityArray.addEntry("Medium"   TAB  1);
 	InteriorShadersQualityArray.addEntry("High"     TAB  2);
 }
+
+Array(LegacyItemsArray);
+LegacyItemsArray.addEntry("Disabled"        TAB 0);
+LegacyItemsArray.addEntry("Items"           TAB 1);
+LegacyItemsArray.addEntry("Items + Skies"   TAB 2);
 
 Array(AntiAliasingQualityArray);
 AntiAliasingQualityArray.addEntry("Disabled" TAB  0);
@@ -791,7 +796,11 @@ function Opt_animateBackground_increase() {
 //-----------------------------------------------------------------------------
 
 function Opt_legacyItems_getDisplay() {
-	return $pref::legacyItems ? "Enabled" : "Disabled";
+	%entry = LegacyItemsArray.getEntryByField($pref::legacyItems, 1);
+	if (%entry $= "") {
+		return $pref::legacyItems;
+	}
+	return getField(%entry, 0);
 }
 
 function Opt_legacyItems_getValue() {
@@ -799,20 +808,28 @@ function Opt_legacyItems_getValue() {
 }
 
 function Opt_legacyItems_decrease() {
-	$pref::legacyItems = !$pref::legacyItems;
-
-	if (!$liAssert) {
-		$liAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
+	%index = LegacyItemsArray.getIndexByField($pref::legacyItems, 1);
+	%index --;
+	if (%index < 0) {
+		%index = LegacyItemsArray.getSize() - 1;
+	}
+	$pref::LegacyItems = getField(LegacyItemsArray.getEntry(%index), 1);
+	if (isObject(ServerConnection)) {
+		applyLegacyItems();
+		applyOldMPSky();
 	}
 }
 
 function Opt_legacyItems_increase() {
-	$pref::legacyItems = !$pref::legacyItems;
-
-	if (!$liAssert) {
-		$liAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
+	%index = LegacyItemsArray.getIndexByField($pref::legacyItems, 1);
+	%index ++;
+	if (%index >= LegacyItemsArray.getSize()) {
+		%index = 0;
+	}
+	$pref::LegacyItems = getField(LegacyItemsArray.getEntry(%index), 1);
+	if (isObject(ServerConnection)) {
+		applyLegacyItems();
+		applyOldMPSky();
 	}
 }
 
@@ -924,11 +941,8 @@ function Opt_particleSystem_decrease() {
 		%index = ParticleSystemArray.getSize() - 1;
 	}
 	$pref::Video::particleSystem = getField(ParticleSystemArray.getEntry(%index), 1);
-
-	if (!$psAssert) {
-		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
-	}
+	if (isObject(BounceParticle))
+		applyParticleSystem();
 }
 
 function Opt_particleSystem_increase() {
@@ -938,11 +952,8 @@ function Opt_particleSystem_increase() {
 		%index = 0;
 	}
 	$pref::Video::particleSystem = getField(ParticleSystemArray.getEntry(%index), 1);
-
-	if (!$psAssert) {
-		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
-	}
+	if (isObject(BounceParticle))
+		applyParticleSystem();
 }
 
 //-----------------------------------------------------------------------------

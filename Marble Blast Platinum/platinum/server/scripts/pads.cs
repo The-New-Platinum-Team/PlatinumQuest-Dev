@@ -233,44 +233,30 @@ function EndPadClass::onAdd(%this, %obj) {
 
 //MBM Datablocks down below.
 
-if (!$pref::LegacyItems) {
-	datablock StaticShapeData(EndPad_MBM : EndPad) {
-		shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
-		skin[0] = "base";
-		skin[1] = "mbm";
-		
-		customField[0, "field"  ] = "skin";
-		customField[0, "type"   ] = "string";
-		customField[0, "name"   ] = "Skin Name";
-		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
-		customField[0, "default"] = "base";
+datablock StaticShapeData(EndPad_MBM : EndPad) {
+	shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
+	skin[0] = "base";
+	skin[1] = "mbm";
+	
+	customField[0, "field"  ] = "skin";
+	customField[0, "type"   ] = "string";
+	customField[0, "name"   ] = "Skin Name";
+	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[0, "default"] = "base";
 
-		playAnimation = true;
-	};
+	playAnimation = true;
+};
 
-	datablock StaticShapeData(StartPad_MBM : StartPad) {
-		shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
-		skin[0] = "base";
-		skin[1] = "mbm";
+datablock StaticShapeData(StartPad_MBM : StartPad) {
+	shapeFile = "~/data/shapes_mbu/pads/startarea.dts";
+	skin[0] = "base";
+	skin[1] = "mbm";
 
-		customField[0, "field"  ] = "skin";
-		customField[0, "type"   ] = "string";
-		customField[0, "name"   ] = "Skin Name";
-		customField[0, "desc"   ] = "Which skin to use (see skin selector).";
-		customField[0, "default"] = "base";
+	customField[0, "field"  ] = "skin";
+	customField[0, "type"   ] = "string";
+	customField[0, "name"   ] = "Skin Name";
+	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[0, "default"] = "base";
 
-		playAnimation = true;
-	};
-} else {
-	datablock StaticShapeData(EndPad_MBM : EndPad) {
-		shapeFile = "~/data/shapes/pads/endarea.dts";
-
-		playAnimation = true;
-	};
-
-	datablock StaticShapeData(StartPad_MBM : StartPad) {
-		shapeFile = "~/data/shapes/pads/startarea.dts";
-
-		playAnimation = true;
-	};
-}
+	playAnimation = true;
+};

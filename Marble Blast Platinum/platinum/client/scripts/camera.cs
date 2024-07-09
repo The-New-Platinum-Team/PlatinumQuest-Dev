@@ -286,22 +286,6 @@ function PG_SaveMyBaconCtrl::onRender(%this) {
 	}
 }
 
-function findSky(%group) {
-	%count = %group.getCount();
-	for (%i = 0; %i < %count; %i ++) {
-		%obj = %group.getObject(%i);
-		%class = %obj.getClassName();
-		if (%obj.getClassName() $= "Sky")
-			return %obj;
-		if (%class $= "SimGroup") {
-				%sub = findSky(%obj);
-				if (isObject(%sub))
-					return %sub;
-			}
-	}
-	return -1;
-}
-
 function getCameraTransform() {
 	if ($Game::ScriptCameraTransform) {
 		return getScriptCameraTransform();

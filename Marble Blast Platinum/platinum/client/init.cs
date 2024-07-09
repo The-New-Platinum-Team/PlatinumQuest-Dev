@@ -178,6 +178,7 @@ function initClient() {
 	exec("./scripts/replay.cs");
 	exec("./scripts/controllerUI.cs");
 	exec("./scripts/texturePack.cs");
+	exec("./scripts/legacyItems.cs");
 
 	// Default player key bindings
 	exec("./scripts/default.bind.cs");

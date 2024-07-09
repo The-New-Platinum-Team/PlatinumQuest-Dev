@@ -1233,249 +1233,55 @@ datablock TriggerData(ChangeEnvironmentTrigger) {
 	customField[3, "default"] = "";
 };
 
-function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
-	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
-		%obj = MissionGroup.getObject(%i);
-		if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= "")) {
-			noteEnvironment();
-			break;
+function ChangeEnvironmentTrigger::onRemove(%this, %trigger, %obj) {
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < %count; %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.envTrigger == %trigger) {
+			commandToClient(%client, 'ResetEnvironment');
+			%client.envTrigger = "";
 		}
-		
-		if (%obj.getName() $= "MissionData") {
-			for (%i = 0; %i < MissionData.getCount(); %i ++) {
-				%obj = MissionData.getObject(%i);
-				if (%obj.getClassName() $= "Sun" && (%obj.noteddirection $= "" || %obj.notedcolor $= "" || %obj.notedambient $= "")) {
-					noteEnvironment();
-					break;
-				}
-			}
-			break;
+		if (%client.checkpointEnvTrigger == %trigger) {
+			%client.checkpointEnvTrigger = "";
 		}
 	}
-	
-	%sky = Sky.getID();
-	if (%sky.notedSkybox $= "")
-		noteEnvironment(true);
-}
-
-function ChangeEnvironmentTrigger::onRemove(%this, %trigger, %obj) {
-	resetEnvironment(true);
-}
-
-function ChangeEnvironmentTrigger::onEnterTrigger(%this, %trigger, %obj) {
-	changeEnvironment(%trigger.dirvalue, %trigger.colorvalue, %trigger.ambvalue, %trigger.skybox);
 }
 
 function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
-	if (%trigger.skybox $= "") 
-		resetEnvironment(false);
-	else 
-		resetEnvironment(true);
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < %count; %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.envTrigger == %trigger) {
+			commandToClient(%client, 'ResetEnvironment');
+			%client.envTrigger = "";
+		}
+		if (%client.checkpointEnvTrigger == %trigger) {
+			%client.checkpointEnvTrigger = "";
+		}
+	}
 }
 
-function ChangeEnvironmentTrigger::onCheckpointReset(%this, %obj) {
-	//Reset environment to last checkpoint (SP only)
-	if (!mp()) {
-		changeEnvironment(%this.checkpointsundirection, %this.checkpointsuncolor, %this.checkpointsunambient, %this.checkpointsky);
+function ChangeEnvironmentTrigger::onEnterTrigger(%this, %trigger, %obj) {
+	commandToClient(%obj.client, 'ChangeEnvironment', %trigger.dirvalue, %trigger.colorvalue, %trigger.ambvalue, %trigger.skybox);
+	%obj.client.envTrigger = %trigger;
+}
+
+function ChangeEnvironmentTrigger::onCheckpointReset(%this, %trigger) {
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < %count; %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.checkpointEnvTrigger == %trigger) {
+			commandToClient(%client, 'ChangeEnvironment', %trigger.dirvalue, %trigger.colorvalue, %trigger.ambvalue, %trigger.skybox);
+		}
 	}
 }
 
-function ChangeEnvironmentTrigger::onActivateCheckpoint(%this, %obj) {
-	if (!mp()) {
-		for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
-			%obj = MissionGroup.getObject(%i);
-			if (%obj.getClassName() $= "Sun") {
-				%sun = %obj;
-				break;
-			}
-			if (%obj.getName() $= "MissionData") {
-				for (%i = 0; %i < MissionData.getCount(); %i ++) {
-					%obj = MissionData.getObject(%i);
-					if (%obj.getClassName() $= "Sun") {
-						%sun = %obj;
-						break;
-					}
-				}
-				break;
-			}
-		}
-		%sky = Sky.getID();
-		//"%this" for checkpoint, but noted values should be attached to sun/sky so they're easy to change in the level editor
-		%this.checkpointsundirection = %sun.direction;
-		%this.checkpointsuncolor = %sun.color;
-		%this.checkpointsunambient = %sun.ambient;
-		%this.checkpointsky = %sky.materialList;
-	}
-}
-
-function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
-	//Crashes dedicated servers
-	if ($Server::Dedicated)
-		return;
-
-	if (%dirvalue !$= "" && %colorvalue !$= "" && %ambvalue !$= "") {
-		for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
-			%obj = MissionGroup.getObject(%i);
-			if (%obj.getClassName() $= "Sun") {
-				%obj.direction = %dirvalue;
-				%obj.color = %colorvalue;
-				%obj.ambient = %ambvalue;
-				%obj.inspectPostApply();
-				break;
-			}
-			if (%obj.getName() $= "MissionData") {
-				for (%i = 0; %i < MissionData.getCount(); %i ++) {
-					%obj = MissionData.getObject(%i);
-					if (%obj.getClassName() $= "Sun") {
-						%obj.direction = %dirvalue;
-						%obj.color = %colorvalue;
-						%obj.ambient = %ambvalue;
-						%obj.inspectPostApply();
-						break;
-					}
-				}
-				break;
-			}
-		}
-	}
-
-	%sky = Sky.getID();
-	if (%sky.notedSkybox $= "")
-		noteEnvironment(true);
-	if (%skybox $= "" || %sky.materialList $= %skybox)
-		return;
-	new Sky(Sky) {
-		position = "0 0 0";
-		rotation = "1 0 0 0";
-		scale = "1 1 1";
-		materialList = %skybox; //The actually important part
-		notedSkybox = %sky.notedSkybox;
-
-		//The rest is so nothing breaks
-		cloudHeightPer[0] = %sky.cloudheightper0;
-		cloudHeightPer[1] = %sky.cloudheightper1;
-		cloudHeightPer[2] = %sky.cloudheightper2;
-		cloudSpeed1 = %sky.cloudspeed1;
-		cloudSpeed2 = %sky.cloudspeed2;
-		cloudSpeed3 = %sky.cloudspeed3;
-		visibleDistance = %sky.visibledistance;
-		useSkyTextures = %sky.useskytextures;
-		renderBottomTexture = %sky.renderbottomtexture;
-		SkySolidColor = %sky.skysolidcolor;
-		fogDistance = %sky.fogdistance;
-		fogColor = %sky.fogcolor;
-		fogVolume1 = %sky.fogvolume1;
-		fogVolume2 = %sky.fogvolume2;
-		fogVolume3 = %sky.fogvolume3;
-		windVelocity = %sky.windvelocity;
-		windEffectPrecipitation = %sky.windEffectPrecipitation;
-		noRenderBans = %sky.norenderbans;
-		fogVolumeColor1 = %sky.fogvolumecolor1;
-		fogVolumeColor2 = %sky.fogvolumecolor2;
-		fogVolumeColor3 = %sky.fogvolumecolor3;
-	};
-	%sky.delete();
-}
-
-function resetEnvironment(%skyreset) {	
-	//Crashes dedicated servers
-	if ($Server::Dedicated)
-		return;
-
-	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
-		%obj = MissionGroup.getObject(%i);
-		if (%obj.getClassName() $= "Sun") {
-			%obj.direction = %obj.noteddirection;
-			%obj.color = %obj.notedcolor;
-			%obj.ambient = %obj.notedambient;
-			%obj.inspectPostApply();
-			break;
-		}
-		if (%obj.getName() $= "MissionData") {
-			for (%i = 0; %i < MissionData.getCount(); %i ++) {
-				%obj = MissionData.getObject(%i);
-				if (%obj.getClassName() $= "Sun") {
-					%obj.direction = %obj.noteddirection;
-					%obj.color = %obj.notedcolor;
-					%obj.ambient = %obj.notedambient;
-					%obj.inspectPostApply();
-					break;
-				}
-			}
-			break;
-		}
-	}
-
-	if (!%skyreset)
-		return;
-	%sky = Sky.getID();
-	if (%sky.notedSkybox $= "")
-		noteEnvironment(true);
-	if (%sky.materialList $= %sky.notedSkybox)
-		return;
-	new Sky(Sky) {
-		position = "0 0 0";
-		rotation = "1 0 0 0";
-		scale = "1 1 1";
-		materialList = %sky.notedSkybox; //The actually important part
-		notedSkybox = %sky.notedSkybox;
-
-		//The rest is so nothing breaks
-		cloudHeightPer[0] = %sky.cloudheightper0;
-		cloudHeightPer[1] = %sky.cloudheightper1;
-		cloudHeightPer[2] = %sky.cloudheightper2;
-		cloudSpeed1 = %sky.cloudspeed1;
-		cloudSpeed2 = %sky.cloudspeed2;
-		cloudSpeed3 = %sky.cloudspeed3;
-		visibleDistance = %sky.visibledistance;
-		useSkyTextures = %sky.useskytextures;
-		renderBottomTexture = %sky.renderbottomtexture;
-		SkySolidColor = %sky.skysolidcolor;
-		fogDistance = %sky.fogdistance;
-		fogColor = %sky.fogcolor;
-		fogVolume1 = %sky.fogvolume1;
-		fogVolume2 = %sky.fogvolume2;
-		fogVolume3 = %sky.fogvolume3;
-		windVelocity = %sky.windvelocity;
-		windEffectPrecipitation = %sky.windEffectPrecipitation;
-		noRenderBans = %sky.norenderbans;
-		fogVolumeColor1 = %sky.fogvolumecolor1;
-		fogVolumeColor2 = %sky.fogvolumecolor2;
-		fogVolumeColor3 = %sky.fogvolumecolor3;
-	};
-	%sky.delete();
-}
-
-function noteEnvironment(%onlysky) {
-	//Crashes dedicated servers
-	if ($Server::Dedicated)
-		return;
-
-	//Sky is simpler to note and modify because there's always been a unique name attached to it
-	%sky = Sky.getID();
-	%sky.notedSkybox = %sky.materialList;
-
-	if (%onlysky) //Changing the skybox in-game deletes and creates a new one, which leads to problems with resetting the Sun
-		return;
-	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
-		%obj = MissionGroup.getObject(%i);
-		if (%obj.getClassName() $= "Sun") {
-			%obj.noteddirection = %obj.direction;
-			%obj.notedcolor = %obj.color;
-			%obj.notedambient = %obj.ambient;
-			break;
-		}
-		if (%obj.getName() $= "MissionData") {
-			for (%i = 0; %i < MissionData.getCount(); %i ++) {
-				%obj = MissionData.getObject(%i);
-				if (%obj.getClassName() $= "Sun") {
-					%obj.noteddirection = %obj.direction;
-					%obj.notedcolor = %obj.color;
-					%obj.notedambient = %obj.ambient;
-					break;
-				}
-			}
-			break;
+function ChangeEnvironmentTrigger::onActivateCheckpoint(%this, %trigger) {
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < %count; %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.envTrigger == %trigger) {
+			%client.checkpointEnvTrigger = %trigger;
 		}
 	}
 }

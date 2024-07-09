@@ -135,6 +135,10 @@ function menuOnMissionLoaded() {
 		$Menu::Loaded = true;
 		$Menu::Loading = false;
 
+		if ($Menu::Startup) {
+			onMissionLoaded();
+		}
+
 		//No fan noises
 		alxSetChannelVolume(1, 0);
 		onMissionReset();

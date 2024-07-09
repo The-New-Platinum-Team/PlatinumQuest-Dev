@@ -297,3 +297,55 @@ function BubbleUseTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	$Game::ForceBubble = false;
 	clientCmdSetBubbleTime(0, false);
 }
+
+//-----------------------------------------------------------------------------
+
+function changeEnvironment(%direction, %color, %ambient, %skybox) {
+	if (%direction !$= "" && %color !$= "" && %ambient !$= "") {
+		%sun = findSun(ServerConnection);
+		if (%sun != -1) {
+			if (%sun.getFieldValue("notedDirection") $= "" || %sun.getFieldValue("notedColor") $= "" || %sun.getFieldValue("notedAmbient") $= "") {
+				%sun.setFieldValue("notedDirection", %sun.getFieldValue("direction"));
+				%sun.setFieldValue("notedColor", %sun.getFieldValue("color"));
+				%sun.setFieldValue("notedAmbient", %sun.getFieldValue("ambient"));
+			}
+			%sun.setColor(%direction, %color, %ambient);
+		}
+	}
+	if (%skybox !$= "") {
+		%sky = findSky(ServerConnection);
+		if (%sky != -1) {
+			if (%sky.getFieldValue("notedMaterialList") $= "") {
+				%sky.setFieldValue("notedMaterialList", %sky.getFieldValue("materialList"));
+			}
+			%sky.setMaterialList(%skybox);
+		}
+	}
+}
+
+function resetEnvironment() {
+	%sun = findSun(ServerConnection);
+	if (%sun != -1) {
+		%direction = %sun.getFieldValue("notedDirection");
+		%color = %sun.getFieldValue("notedColor");
+		%ambient = %sun.getFieldValue("notedAmbient");
+		if (%direction !$= "" && %color !$= "" && %ambient !$= "") {
+			%sun.setColor(%direction, %color, %ambient);
+		}
+	}
+	%sky = findSky(ServerConnection);
+	if (%sky != -1) {
+		%skybox = %sky.getFieldValue("notedMaterialList");
+		if (%skybox !$= "") {
+			%sky.setMaterialList(%skybox);
+		}
+	}
+}
+
+function clientCmdChangeEnvironment(%direction, %color, %ambient, %skybox) {
+	changeEnvironment(%direction, %color, %ambient, %skybox);
+}
+
+function clientCmdResetEnvironment() {
+	resetEnvironment();
+}

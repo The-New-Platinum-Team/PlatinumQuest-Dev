@@ -136,6 +136,7 @@ function PlayGui::onWake(%this) {
 	RadarSetMode($Pref::RadarMode);
 	clearMessages();
 	applyGraphicsQuality();
+	legacyApply();
 
 	%this.positionMessageHud();
 	%this.onNextFrame(positionMessageHud);
@@ -309,7 +310,7 @@ function PlayGui::updateGems(%this, %updateMax) {
 			%skins = "platinum";
 			%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
 		} else if
-		   ($currentGame $= "Ultra") {
+		   ($currentGame $= "Ultra" && !$pref::legacyItems) {
 			%skins = "red";
 			%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
 		} else {
@@ -333,7 +334,7 @@ function PlayGui::updateGems(%this, %updateMax) {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_pq/gameplay/powerups/timetravel.dts";
 		} else if
-		   ($currentGame $= "Ultra") {
+		   ($currentGame $= "Ultra" && !$pref::legacyItems) {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_mbu/items/timetravel.dts";
 		} else if
