@@ -1,0 +1,1525 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldLBMarblelandPlayMissionDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	games = "0";
+	gamePos = "0 0";
+	scoresPerPage = "10";
+	isDialog = "1";
+	parentContent = "OldLBChatGui";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "64 6";
+		extent = "671 588";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./leaderboards/play/window";
+		wrap = "0";
+
+		new GuiBitmapCtrl(OldMLBMissionPreview) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "385 32";
+			extent = "248 186";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "~/data/lbmissions_mbu/beginner/halfpipe_ultra";
+			wrap = "0";
+
+			new GuiControl(OldMLBNoQualOverlay) {
+				profile = "OverlayScreenProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "248 186";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+			};
+			new GuiMLTextCtrl(OldMLBNoQualText) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 75";
+				extent = "248 186";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+
+			new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "248 186";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./leaderboards/play/level_window";
+				wrap = "0";
+
+				new GuiBitmapCtrl(OldMLBEasterEggIcon) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "top";
+					position = "220 152";
+					extent = "14 21";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./leaderboards/play/egg_nf";
+					wrap = "0";
+						oldtooltip = "Easter Egg not Found";
+				};
+				new GuiMLTextCtrl(OldMLBEasterEggTime) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "130 154";
+					extent = "90 18";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+			};
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "46 502";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBMarblelandPlayMissionDlg.back();";
+			helpTag = "0";
+			text = "Close";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/play/close";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "144 502";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBMarblelandPlayMissionDlg.pushMore();";
+			helpTag = "0";
+			text = "More";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/play/more";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "242 502";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.pushDialog(OldSearchGui);";
+			helpTag = "0";
+			text = "Search";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/play/search";
+				oldtooltip = "Search Levels";
+		};
+		new GuiBitmapButtonCtrl(OldMLBMissionNext) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "552 502";
+			extent = "75 45";
+			minExtent = "8 8";
+			visible = "1";
+			accelerator = "right";
+			helpTag = "0";
+			text = "Next";
+			groupNum = "-1";
+			buttonType = "RepeaterButton";
+			repeatPeriod = "400";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/play/next";
+		};
+		new GuiBitmapButtonCtrl(OldMLBMissionPrev) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "385 502";
+			extent = "75 45";
+			minExtent = "8 8";
+			visible = "1";
+			accelerator = "left";
+			helpTag = "0";
+			text = "Prev";
+			groupNum = "-1";
+			buttonType = "RepeaterButton";
+			repeatPeriod = "400";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/play/prev";
+		};
+		new GuiBitmapButtonCtrl(OldMLBMissionPlay) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "458 502";
+			extent = "96 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBMarblelandPlayMissionDlg.play();";
+			accelerator = "enter";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/play/play";
+		};
+		new GuiControl(OldMLBMissionTimesBox) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "32 274";
+			extent = "610 224";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiMLTextCtrl(OldMLBMissionPersonalTimes) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "10 5";
+				extent = "180 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiMLTextCtrl(OldMLBMissionGlobalTimes) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "250 5";
+				extent = "356 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(OldMLBMissionGlobalNext) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "575 0";
+				extent = "35 35";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarblelandPlayMissionDlg.nextScorePage();";
+				helpTag = "0";
+				text = "Next";
+				groupNum = "-1";
+				buttonType = "RepeaterButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.955";
+				bitmap = "./leaderboards/play/scoresnext";
+					oldtooltip = "Next 10";
+			};
+			new GuiBitmapButtonCtrl(OldMLBMissionGlobalPrev) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "540 0";
+				extent = "35 35";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarblelandPlayMissionDlg.prevScorePage();";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "-1";
+				buttonType = "RepeaterButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.955";
+				bitmap = "./leaderboards/play/scoresprev";
+					oldtooltip = "Previous 10";
+			};
+		};
+		new GuiBitmapButtonCtrl(OldMLBPM_Difficulty) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "112 27";
+			extent = "205 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBMarblelandPlayMissionDlg.pushDifficulty();";
+			helpTag = "0";
+			text = "Difficulty";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/play/diff_Beginner";
+
+			new GuiMLTextCtrl(OldMLBPM_difficultyText) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "20 10";
+				extent = "203 22";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+
+				new GuiButtonBaseCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "203 22";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldLBMarblelandPlayMissionDlg.pushDifficulty();";
+					helpTag = "0";
+					text = "";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+			};
+		};
+		new GuiScrollCtrl(OldMLBMissionScroll) {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "29 74";
+			extent = "358 120";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOn";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldMLBMissionInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "348 46";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiMLTextCtrl(OldMLBMissionTimes) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "29 217";
+			extent = "353 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMLBMissionBest) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "387 225";
+			extent = "242 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldMLBSpeed) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "289 502";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBMarblelandPlayMissionDlg.toggleSpeed();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/marbleland/speed";
+				oldtooltip = "Toggle Speed";
+		};
+		new GuiBitmapButtonCtrl(OldMLBPlayAll) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "336 502";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "0";
+			command = "OldLBMarblelandPlayMissionDlg.playPack();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/marbleland/playall";
+				oldtooltip = "Play All";
+		};
+	};
+	new GuiButtonBaseCtrl(OldMLBPM_MorePop) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "0 0";
+		extent = "800 600";
+		minExtent = "8 8";
+		visible = "0";
+		command = "OldLBMarblelandPlayMissionDlg.popMore();";
+		helpTag = "0";
+		text = "";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+
+		new GuiControl() {
+			profile = "GuiModelessDialogProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "64 6";
+			extent = "671 588";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiBitmapCtrl() {
+				profile = "GuiModelessDialogProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "3 397";
+				extent = "383 149";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./leaderboards/marbleland/moremenu";
+				wrap = "0";
+
+				new GuiBitmapButtonCtrl(OldMLBPM_Hints) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "46 32";
+					extent = "45 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "Canvas.pushDialog(OldHintsDlg);";
+					helpTag = "0";
+					text = "Marble Select";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./leaderboards/play/info";
+						oldtooltip = "Marble Select";
+				};
+				new GuiBitmapButtonCtrl(OldMLBPM_MarbleSelect) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "95 32";
+					extent = "45 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "Canvas.pushDialog(OldLBMarbleSelectionDlg);";
+					helpTag = "0";
+					text = "Marble Select";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./leaderboards/play/marble";
+						oldtooltip = "Marble Select";
+				};
+				new GuiBitmapButtonCtrl(OldMLBPM_Stats) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "144 32";
+					extent = "45 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldLBStatsDlg.show();";
+					helpTag = "0";
+					text = "Statistics";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./leaderboards/play/stats";
+						oldtooltip = "Statistics";
+				};
+				new GuiBitmapButtonCtrl(OldMLBPM_Achievements) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "193 32";
+					extent = "45 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldLBAchievementsDlg.show();";
+					helpTag = "0";
+					text = "Achievements";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./leaderboards/play/achiev";
+						oldtooltip = "Achievements";
+				};
+				new GuiBitmapButtonCtrl(OldMLBPM_DeleteLevel) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "242 32";
+					extent = "45 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldLBMarblelandPlayMissionDlg.deleteMission();";
+					helpTag = "0";
+					text = "Delete Level";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./leaderboards/marbleland/delete";
+						oldtooltip = "Delete Level";
+				};
+				new GuiBitmapButtonCtrl(OldMLBPlayDemo) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "291 32";
+					extent = "45 45";
+					minExtent = "8 8";
+					visible = "1";
+					variable = "$Game::Record";
+					helpTag = "0";
+					text = "Demo Recording";
+					groupNum = "-1";
+					buttonType = "ToggleButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./leaderboards/play/record";
+						oldtooltip = "Toggle Demo Recording";
+				};
+			};
+		};
+	};
+	new GuiButtonBaseCtrl(OldMLBPM_DifficultyPop) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "0 0";
+		extent = "800 600";
+		minExtent = "8 8";
+		visible = "0";
+		command = "OldLBMarblelandPlayMissionDlg.popDifficulty();";
+		helpTag = "0";
+		text = "";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+
+		new GuiButtonBaseCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "0 6";
+			extent = "800 588";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBMarblelandPlayMissionDlg.popDifficulty();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+
+			new GuiBitmapButtonCtrl(OldMLBPM_Difficulty2) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "176 27";
+				extent = "205 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarblelandPlayMissionDlg.popDifficulty();";
+				helpTag = "0";
+				text = "Difficulty";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/play/diff_Beginner";
+
+				new GuiMLTextCtrl(OldMLBPM_difficultyText2) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "20 10";
+					extent = "203 22";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+
+					new GuiButtonBaseCtrl() {
+						profile = "GuiDefaultProfile";
+						horizSizing = "right";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "203 22";
+						minExtent = "8 8";
+						visible = "1";
+						command = "OldLBMarblelandPlayMissionDlg.popDifficulty();";
+						helpTag = "0";
+						text = "";
+						groupNum = "-1";
+						buttonType = "PushButton";
+						repeatPeriod = "1000";
+						repeatDecay = "1";
+					};
+				};
+			};
+
+			new GuiControl(OldMLBPM_DifficultyMenu) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "3 46";
+				extent = "616 345";
+				minExtent = "29 29";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "100 0";
+					extent = "49 45";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/tl";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "bottom";
+					position = "466 0";
+					extent = "49 45";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/tr";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "top";
+					position = "100 283";
+					extent = "49 62";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/bl";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "top";
+					position = "466 283";
+					extent = "49 62";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/br";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "height";
+					position = "100 45";
+					extent = "49 238";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/l";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "height";
+					position = "466 45";
+					extent = "49 238";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/r";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "top";
+					position = "149 283";
+					extent = "317 62";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/b";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "149 45";
+					extent = "317 238";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/grey/c";
+					wrap = "0";
+				};
+				new GuiControl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "49 0";
+					extent = "518 45";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+
+					new GuiControl() {
+						profile = "GuiDefaultProfile";
+						horizSizing = "relative";
+						vertSizing = "bottom";
+						position = "100 0";
+						extent = "131 45";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+
+						new GuiBitmapCtrl() {
+							profile = "GuiDefaultProfile";
+							horizSizing = "width";
+							vertSizing = "bottom";
+							position = "0 0";
+							extent = "118 45";
+							minExtent = "8 8";
+							visible = "1";
+							helpTag = "0";
+							bitmap = "./multiplayer/menu/grey/t";
+							wrap = "1";
+						};
+						new GuiBitmapCtrl() {
+							profile = "GuiDefaultProfile";
+							horizSizing = "left";
+							vertSizing = "bottom";
+							position = "118 0";
+							extent = "25 45";
+							minExtent = "8 8";
+							visible = "1";
+							helpTag = "0";
+							bitmap = "./multiplayer/menu/grey/tabt";
+							wrap = "0";
+						};
+					};
+					new GuiControl() {
+						profile = "GuiDefaultProfile";
+						horizSizing = "relative";
+						vertSizing = "bottom";
+						position = "231 0";
+						extent = "186 45";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+
+						new GuiBitmapCtrl() {
+							profile = "GuiDefaultProfile";
+							horizSizing = "right";
+							vertSizing = "bottom";
+							position = "-13 0";
+							extent = "25 45";
+							minExtent = "8 8";
+							visible = "1";
+							helpTag = "0";
+							bitmap = "./multiplayer/menu/grey/tabt";
+							wrap = "0";
+						};
+						new GuiBitmapCtrl() {
+							profile = "GuiDefaultProfile";
+							horizSizing = "width";
+							vertSizing = "bottom";
+							position = "12 0";
+							extent = "280 45";
+							minExtent = "8 8";
+							visible = "1";
+							helpTag = "0";
+							bitmap = "./multiplayer/menu/grey/t";
+							wrap = "1";
+						};
+					};
+				};
+				new GuiButtonBaseCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "0 0";
+					extent = "620 360";
+					minExtent = "29 29";
+					visible = "1";
+					command = "OldLBMarblelandPlayMissionDlg.popDifficulty();";
+					helpTag = "0";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+						menuColor = "brown";
+				};
+			};
+			new GuiControl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "49 79";
+				extent = "522 253";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "bottom";
+					position = "406 29";
+					extent = "12 12";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/brown/divider-blue-r";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "103 29";
+					extent = "12 12";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/brown/divider-blue-l";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "115 29";
+					extent = "291 12";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./multiplayer/menu/brown/divider-blue-c";
+					wrap = "0";
+				};
+				new GuiScrollCtrl() {
+					profile = "OldGuiBacklessScrollProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "100 0";
+					extent = "321 253";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "alwaysOn";
+					vScrollBar = "alwaysOff";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiControl(OldMLBPM_DifficultyButtons) {
+						profile = "GuiDefaultProfile";
+						horizSizing = "width";
+						vertSizing = "height";
+						position = "0 0";
+						extent = "320 230";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+					};
+				};
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+//Leaderboards Marbleland level select
+
+function OldLBMarblelandPlayMissionDlg::open(%this) {
+	if ($MarblelandMissionList $= "") {
+		MessageBoxOk("Please wait", "The custom level list has not been loaded yet, please wait...");
+		if (!isObject(MarblelandJSONDownloader)) {
+			marblelandDownloadMissionList();
+		}
+		if (!isObject(MarblelandPacksJSONDownloader)) {
+			marblelandDownloadPackList();
+		}
+		return;
+	}
+	OldMLBSpeed.setValue(0);
+	%this.toggleSpeed();
+	Canvas.pushDialog(%this);
+}
+
+function OldLBMarblelandPlayMissionDlg::back(%this) {
+	$CurrentGame = "";
+	$MissionType = "";
+	%this.missionIndex = 0;
+	Canvas.popDialog(%this);
+	LBSetMode(0);
+}
+
+function OldLBMarblelandPlayMissionDlg::getMissionList(%this) {
+	//Always marbleland
+	return getMissionList("marbleland");
+}
+
+function OldLBMarblelandPlayMissionDlg::pushDifficulty(%this) {
+	OldMLBPM_DifficultyPop.setVisible(true);
+	OldMLBPM_difficulty.setVisible(false);
+}
+
+function OldLBMarblelandPlayMissionDlg::popDifficulty(%this) {
+	OldMLBPM_DifficultyPop.setVisible(false);
+	OldMLBPM_difficulty.setVisible(true);
+}
+
+function OldLBMarblelandPlayMissionDlg::pushMore(%this) {
+	OldMLBPM_MorePop.setVisible(true);
+}
+
+function OldLBMarblelandPlayMissionDlg::popMore(%this) {
+	OldMLBPM_MorePop.setVisible(false);
+}
+
+function OldLBMarblelandPlayMissionDlg::onWake(%this) {
+	$PMG::CurrentGui = %this.getName();
+	PlayMissionGui.ml = %this.getMissionList();
+	marblelandReloadMissions();
+	%this.scores = false;
+	OldMLBPM_Achievements.setActive(!$LB::Guest);
+	OldMLBPM_Stats.setActive(!$LB::Guest);
+	if (%this.games == 0 || %this.mission $= "") {
+		%this.buildDifficultySelector();
+	}
+	%this.setMissionTab(($CurrentGame !$= "" ? $CurrentGame : "Levels"), ($MissionType !$= "" ? $MissionType : "All"), (%this.missionIndex !$= "" ? %this.missionIndex : 0));
+	LBSetMode(1);
+	setDiscordStatus("In Level Select");
+	%this.setTickable(true);
+}
+
+function OldLBMarblelandPlayMissionDlg::setMissionTab(%this, %game, %cat, %index) {
+	$CurrentGame = %game;
+	$MissionType = %cat;
+	%this.missionIndex = %index;
+	%list = %this.getMissionList();
+	%ml = %list.getMissionList($CurrentGame, $MissionType);
+	if (!isObject(%ml)) {
+		%list.buildMissionList($CurrentGame, $MissionType);
+		%ml = %list.getMissionList($CurrentGame, $MissionType);	
+	}
+	if (!isObject(%ml) || %ml.getSize() == 0) {
+		%list.buildMissionList("Levels", "All");
+		%ml = %list.getMissionList("Levels", "All");
+		$CurrentGame = "Levels";
+		$MissionType = "All";
+		%this.missionIndex = 0;
+	}
+	%mission = %ml.getEntry(%index);
+	%this.mission = %mission;
+	$Menu::MissionFile = %mission.file;
+	%this.updateDisplay();
+	MarblelandGetScores(%mission.file, PMG_onMarbleLandScoresLoaded);
+}
+
+function OldLBMarblelandPlayMissionDlg::setSelected(%this, %index) {
+	%this.missionIndex = %index;
+	%this.globalPage = 0;
+	%mission = %this.getMissionList().getMissionList($CurrentGame, $MissionType).getEntry(%index);
+	%this.mission = %mission;
+	$Menu::MissionFile = %mission.file;
+	%this.updateDisplay();
+	MarblelandGetScores(%mission.file, PMG_onMarbleLandScoresLoaded);
+}
+
+function OldLBMarblelandPlayMissionDlg::getLevelNumber(%this) {
+	return $MissionType $= "Newest" ? %this.getMissionList().getMissionList($CurrentGame, $MissionType).getSize() - %this.missionIndex : %this.missionIndex + 1;
+}
+
+function OldLBMarblelandPlayMissionDlg::updateDisplay(%this) {
+	%list = %this.getMissionList();
+	%ml = %list.getMissionList($CurrentGame, $MissionType);
+	%mission = %this.mission;
+
+	//Try to use the old button bitmaps, otherwise use the text control
+	%difficultyName = %list.getDifficultyName($CurrentGame, $MissionType);
+	%button = "platinum/client/ui/packs/old/leaderboards/marbleland/" @ $MissionType;
+	if (isBitmap(%button @ "_n")) {
+		OldMLBPM_Difficulty.setBitmap(%button);
+		OldMLBPM_difficulty2.setBitmap(%button);
+		OldMLBPM_difficultyText.setText("");
+		OldMLBPM_difficultyText2.setText("");
+		OldMLBPM_difficultyText.setVisible(false);
+		OldMLBPM_difficultyText2.setVisible(false);
+	} else {
+		OldMLBPM_Difficulty.setBitmap("platinum/client/ui/packs/old/leaderboards/play/difficulty");
+		OldMLBPM_difficulty2.setBitmap("platinum/client/ui/packs/old/leaderboards/play/difficulty");
+		OldMLBPM_difficultyText.setText(shadow("1 1", "0000007f") @ "<just:left><font:Marker Felt:24><color:FFFFFF>" @ clipPx("Marker Felt", 24, %difficultyName, 145, true));
+		OldMLBPM_difficultyText2.setText(shadow("1 1", "0000007f") @ "<just:left><font:Marker Felt:24><color:FFFFFF>" @ clipPx("Marker Felt", 24, %difficultyName, 145, true));
+		OldMLBPM_difficultyText.setVisible(true);
+		OldMLBPM_difficultyText2.setVisible(true);
+		OldMLBPM_difficultyText.setExtent(1 + min(textLen(%difficultyName, "Marker Felt", 24), 149) SPC "22");
+		OldMLBPM_difficultyText2.setExtent(1 + min(textLen(%difficultyName, "Marker Felt", 24), 149) SPC "22");
+	}
+
+	//Some levels use score0 and score1 (solo and vs times), score1 is displayed outside of multiplayer
+	%score = %mission.score1 ? %mission.score1 : %mission.score;
+	%platinumScore = %mission.platinumscore1 ? %mission.platinumscore1 : (%mission.platinumScore ? %mission.platinumScore : (%mission.goldScore1 ? %mission.goldScore1 : %mission.goldScore));
+	%ultimateScore = %mission.ultimatescore1 ? %mission.ultimatescore1 : %mission.ultimateScore;
+	%awesomeScore = %mission.awesomescore1 ? %mission.awesomescore1 : %mission.awesomeScore;
+
+	%mission.modification = "";
+	%game = resolveMissionModification(getMissionInfo(%mission.file));
+	%mission.modification = %game;
+
+	%showGoldTime = (%game $= "Gold" || %game $= "Ultra") && %platinumScore $= "" && %mission.platinumTime $= "";
+	%showAwesomeTime = ((((Unlock::getMissionCompletion(%mission) & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll) && %game !$= "Gold" && %game !$= "Ultra" && %game !$= "Platinum");
+
+	%countdown = ClientMode::callbackForMission(%mission, "timeMultiplier", 1) < 0;
+
+	%par = shadow("1 1", "0000007f") @ "<font:Marker Felt:18><just:left><tab:211><color:e3f3ff>Author: <color:ffffff>" @ clipPx("Marker Felt", 18, %mission.artist, 150, true);
+
+	if (%countdown) 
+		%par = %par TAB "<color:e3f3ff>Duration: <color:ffffff>" @ formatTime(%mission.time ? %mission.time : ClientMode::callbackForMission(%mission, "getStartTime", 300000));
+
+	%par = %par @ (%countdown ? "\n<just:left>" : "\t") @ "<color:e3f3ff>" @ (%game $= "Gold" ? "Qualify" : "Par" SPC (%countdown ? "Score" : "Time")) @ ": <color:ffffff>" @ (%countdown ? (%score ? formatScore(%score) : "N/A") : (%mission.time ? formatTime(%mission.time) : "N/A"));
+
+	if (%mission.platinumTime || %mission.goldTime) {
+		%platinum = formatTime(%mission.platinumTime ? %mission.platinumTime : %mission.goldTime);
+	} else {
+		%platinum = formatScore(%platinumScore);
+	}
+	if (%platinum $= "") {
+		%platinum = "N/A";
+	}
+	%par = %par @ (%countdown ? "\t" : "\n<just:left>") @ "<color:e3f3ff>" @ (%showGoldTime ? "Gold: " : "Platinum: ") @ "<color:ffffff>" @ %platinum;
+
+
+	if (%mission.ultimateTime) {
+		%ultimate = formatTime(%mission.ultimateTime);
+	} else {
+		%ultimate = formatScore(%ultimateScore);
+	}
+	if (%ultimate $= "") {
+		%ultimate = "N/A";
+	}
+	if (%game !$= "Gold") {
+		%par = %par @ (%countdown ? "\n<just:left>" : "\t") @ "<color:e3f3ff>Ultimate: <color:ffffff>" @ %ultimate;
+	}
+
+	if (%mission.awesomeTime) {
+		%awesome = formatTime(%mission.awesomeTime);
+	} else {
+		%awesome = formatScore(%awesomeScore);
+	}
+
+	if (%showAwesomeTime) {
+		%par = %par @ (%countdown ? "\t" : "\n<just:center>") @ "<color:e3f3ff>Awesome: <color:ffffff>" @ %awesome;
+	}
+
+
+	OldMLBMissionTimes.setText(%par);
+
+	if (textLen(%mission.artist, "Marker Felt", 18) > 150) {
+		OldMLBMissionTimes.setTooltip("Author:" SPC %mission.artist);
+	} else {
+		OldMLBMissionTimes.setTooltip("");
+	}
+
+	if ((%countdown && %game !$= "Gold") || %showAwesomeTime) {
+		OldMLBMissionTimes.setPosition("29 198");
+	} else {
+		OldMLBMissionTimes.setPosition("29 217");
+	}
+
+
+	OldMLBMissionInfo.setText(shadow("1 1", "0000007f") @ "<just:center><font:Marker Felt:28><color:ffffff>#" @ %this.getLevelNumber() @ ":" SPC upperFirst(%mission.name) NL "<just:left><font:Marker Felt:18><color:cee0f4>" @ %mission.desc);
+
+	if (isBitmap("vfs://marbleland/prev-" @ %mission.id)) {
+		OldMLBMissionPreview.setBitmap("vfs://marbleland/prev-" @ %mission.id);
+	} else if (isBitmap("vfs://marbleland/" @ %mission.id)) {
+		OldMLBMissionPreview.setBitmap("vfs://marbleland/" @ %mission.id @ ".jpg");
+	} else {
+		OldMLBMissionPreview.setBitmap("platinum/client/ui/play/loadingicon.png");
+		marblelandDownloadPreview(%mission.id, onOldMarblelandPreviewDownloaded, OldMLBMissionPreview);
+		//Some levels do not have previews, so try to download the icon as well
+		marblelandDownloadIcon(%mission.id, "onOldDownloadIcon", OldMLBMissionPreview);
+	}
+
+	%next = %ml.getEntry(%this.missionIndex + 1);
+	OldMLBMissionNext.setActive(false);
+	if (%next !$= "") {
+		OldMLBMissionNext.setActive(true);
+		OldMLBMissionNext.command = "OldLBMarblelandPlayMissionDlg.setSelected(" @ %this.missionIndex + 1 @ ");";
+	}
+
+	%prev = %ml.getEntry(%this.missionIndex - 1);
+	OldMLBMissionPrev.setActive(false);
+	if (%prev !$= "") {
+		OldMLBMissionPrev.setActive(true);
+		OldMLBMissionPrev.command = "OldLBMarblelandPlayMissionDlg.setSelected(" @ %this.missionIndex - 1 @ ");";
+	}
+
+	OldMLBEasterEggIcon.setVisible(%mission.easterEgg);
+	OldMLBEasterEggTime.setVisible(false);
+	if (%game $= "PlatinumQuest") {
+		OldMLBEasterEggIcon.setBitmap("platinum/client/ui/play/egg_pq_notfound_ol");
+	} else {
+		OldMLBEasterEggIcon.setBitmap("platinum/client/ui/packs/old/leaderboards/play/egg_nf");
+	}
+
+	OldMLBMissionBest.setText("");
+	OldMLBMissionPersonalTimes.setText("");
+	OldMLBMissionGlobalTimes.setText("");
+	%this.updateMissionScores();
+
+	if (!Unlock::canPlayMission(%mission)) {
+		OldMLBNoQualOverlay.setVisible(true);
+		OldMLBNoQualText.setVisible(true);
+		OldMLBNoQualText.setText("<color:CCCCCC><font:DomCasualD:32><just:center>Uses Custom Code");
+		OldMLBMissionPlay.setActive(0);
+	} else {
+		OldMLBNoQualOverlay.setVisible(false);
+		OldMLBNoQualText.setVisible(false);
+		OldMLBMissionPlay.setActive(1);
+	}
+
+	%has = marblelandHasMission(%mission.id);
+	OldMLBPlayAll.setVisible($CurrentGame $= "Packs");
+	OldMLBPM_DeleteLevel.setActive(%has);
+
+	if (%mission.partial && %has)
+		%mission = getMissionInfo(%mission.file, false);
+	OldMLBPM_Hints.setActive(!(Unlock::canPlayMission(%this.mission) && %mission.generalHint $= "" && %mission.trivia $= "" && %mission.ultimateHint $= "" && %mission.awesomeHint $= "" && %mission.eggHint $= "" && %mission.eastereggHint $= ""));
+}
+
+function OldLBMarblelandPlayMissionDlg::updateMissionScores(%this) {
+	%mid = %this.mission.file;
+
+	%scoreList = PlayMissionGui.globalScoreCache[%mid];
+	%loading = PlayMissionGui.globalScoreCacheLoading[%mid];
+	%failed = PlayMissionGui.globalScoreCacheFailed[%mid] || (%mid $= "");
+
+	%mission = %this.mission;
+
+	%score = %mission.score1 ? %mission.score1 : %mission.score;
+	%platinumScore = %mission.platinumscore1 ? %mission.platinumscore1 : (%mission.platinumScore ? %mission.platinumScore : (%mission.goldScore1 ? %mission.goldScore1 : %mission.goldScore));
+	%ultimateScore = %mission.ultimatescore1 ? %mission.ultimatescore1 : %mission.ultimateScore;
+	%awesomeScore = %mission.awesomescore1 ? %mission.awesomescore1 : %mission.awesomeScore;
+
+	%game = resolveMissionModification(%mission);
+	%showGoldTime = (%game $= "Gold" || %game $= "Ultra") && %platinumScore $= "" && %mission.platinumTime $= "";
+	%showAwesomeTime = ((((Unlock::getMissionCompletion(%mission) & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll) && %game !$= "Gold" && %game !$= "Ultra" && %game !$= "Platinum");
+	%buttonSize = 32;
+
+	%scoresTitle = "<font:Marker Felt:24><color:e3f3ff><shadow:1:1><shadowcolor:0000007f>Global Best Times";
+
+	if (isObject(%scoreList)) {
+		%columns = %scoreList.columns;
+		%rows = %scoreList.scores;
+
+		if (%rows.getSize() == 0) {
+			%text = %scoresTitle NL "" NL "<font:Marker Felt:24><color:e3f3ff><just:center>No scores! Be the first to beat this level!";
+
+		} else {
+			%start = %this.globalPage * %this.scoresPerPage;
+			%count = min(%this.scoresPerPage, %rows.getSize() - %start);
+
+			for (%i = %start; %i < (%start + %count); %i ++) {
+				%row = %rows.getEntry(%i);
+				%score = %row.getFieldValue("score");
+				%isTime = %row.getFieldValue("score_type") $= "time" || %this.globalScoreMode !$= "";
+				%placement = %row.getFieldValue("placement");
+
+				if (%score $= "") {
+					%score = %row.getFieldValue("time");
+				}
+
+				if (!%hasTime && %isTime) {
+					%hasTime = true;
+				}
+
+				%color = "FFFFFF";
+				if (%this.globalScoreMode $= "") {
+					if (%isTime) {
+						if (%showAwesomeTime && ((%score < %mission.awesomeTime && %mission.awesomeTime) || %awesomeScore)) {
+							%color = "FF4444";
+						} else if ((%score < %mission.ultimateTime && %mission.ultimateTime) || %ultimateScore) {
+							%color = "FFCC33";
+						} else if ((%score < %mission.platinumTime && %mission.platinumTime) || (%score < %mission.goldTime && %mission.goldTime) || %platinumScore) {
+							%color = %showGoldTime ? "FFFF00" : "cccccc";
+						}
+					} else {
+						if (%showAwesomeTime && %score >= %awesomeScore && %awesomeScore) {
+							%color = "FF4444";
+						} else if (%score >= %ultimateScore && %ultimateScore) {
+							%color = "FFCC33";
+						} else if (%score >= %platinumScore && %platinumScore) {
+							%color = %showGoldTime ? "FFFF00" : "cccccc";
+						}
+					}
+				}
+				//World Record
+				if (%placement == 1) {
+					%color = "0060F0";
+				}
+				%color = "<color:" @ %color @ ">";
+
+				%text = %text NL "<tab:40,205><just:left><color:ffffff><font:Marker Felt:16><spush>" @ LBSpecialColor(%placement, true) @ %placement @ "." TAB "<font:Marker Felt:16>" @ %row.getFieldValue("username") TAB "<spop><spush>" @ %color @ (%isTime ? formatTime(%score) : formatScore(%score)) @ "<spop>";
+			}
+
+			%scoresTitle = "<font:Marker Felt:24><color:e3f3ff><shadow:1:1><shadowcolor:0000007f>Global Best" SPC (%hasTime ? "Times" : "Scores");
+
+			%text = %scoresTitle NL "<font:Arial:8>\n<tab:40,205><color:e3f3ff><font:Marker Felt:18>#:\tUsername:\t" @ (%hasTime ? "Time:" : "Score:") @ %text;
+		}
+
+	} else if (%failed) {
+		%text = %scoresTitle NL "" NL "<font:Marker Felt:24><color:e3f3ff><just:center>No scores! Be the first to beat this level!";
+	} else {
+		%text = "<just:left><font:Marker Felt:24><color:e3f3ff><shadow:1:1><shadowcolor:0000007f>Getting scores...";
+	}
+
+	OldMLBMissionGlobalTimes.setText(%text);
+
+	OldMLBMissionGlobalPrev.setActive(isObject(%scoreList) && %this.globalPage > 0);
+	OldMLBMissionGlobalNext.setActive(isObject(%scoreList) && (%this.globalPage + 1) * %this.scoresPerPage < %rows.getSize());
+	
+	if (getBestTimes(%this.mission)) {
+		for (%i = 0; %i < $Game::HighscoreCount; %i ++) {
+			%type = getField($hs[%i], 0);
+			%score = getField($hs[%i], 1);
+			%name = getField($hs[%i], 2);
+
+			%color = "FFFFFF";
+			if (%type == $ScoreType::Time) {
+				if (%showAwesomeTime && ((%score < %mission.awesomeTime && %mission.awesomeTime) || %awesomeScore)) {
+					%color = "FF4444";
+				} else if ((%score < %mission.ultimateTime && %mission.ultimateTime) || %ultimateScore) {
+					%color = "FFCC33";
+				} else if ((%score < %mission.platinumTime && %mission.platinumTime) || (%score < %mission.goldTime && %mission.goldTime) || %platinumScore) {
+					%color = %showGoldTime ? "FFFF00" : "cccccc";
+				}
+				if (!%hasTime2) {
+					%hasTime2 = true;
+				}
+			} else {
+				if (%showAwesomeTime && %score >= %awesomeScore && %awesomeScore) {
+					%color = "FF4444";
+				} else if (%score >= %ultimateScore && %ultimateScore) {
+					%color = "FFCC33";
+				} else if (%score >= %platinumScore && %platinumScore) {
+					%color = %showGoldTime ? "FFFF00" : "cccccc";
+				}
+			}
+			%color = "<color:" @ %color @ ">";
+
+			if (%i == 0) {
+				%bestColor = %color;
+			}
+
+			%text2 = %text2 NL "<just:left><color:ffffff><font:Marker Felt:16><spush>" @ LBSpecialColor(%i + 1, true) @ %i + 1 @ ".<spop><tab:30,120><spush>" TAB %color @ (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score)) @ "<spop>";
+		}
+		OldMLBMissionBest.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><just:center><font:Marker Felt:24>Best" SPC (getField($hs[0], 0) == $ScoreType::Time ? "Time:" SPC %bestColor @ formatTime(getField($hs[0], 1)) : "Score:" SPC %bestColor @ formatScore(getField($hs[0], 1))));
+		%text2 = "<font:Marker Felt:24><color:e3f3ff><shadow:1:1><shadowcolor:0000007f>Personal Scores\n<font:Arial:8>\n<tab:30,120><font:Marker Felt:18> #:\t" @ (%hasTime2 ? "Time:" : "Score:") @ %text2;
+	} else {
+		OldMLBMissionBest.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><just:center><font:Marker Felt:24>Loading Best...");
+		%text2 = "<just:left><font:Marker Felt:24><color:e3f3ff><shadow:1:1><shadowcolor:0000007f>Getting scores...";
+	}
+
+	if (%mission.easterEgg) {
+		OldMLBEasterEggIcon.setVisible(true);
+		if ($hs["eggFound"]) {
+			if (%game $= "PlatinumQuest") {
+				OldMLBEasterEggIcon.setBitmap("platinum/client/ui/play/egg_pq_get_ol");
+			} else {
+				OldMLBEasterEggIcon.setBitmap("platinum/client/ui/packs/old/leaderboards/play/egg");
+			}
+		} else {
+			if (%game $= "PlatinumQuest") {
+				OldMLBEasterEggIcon.setBitmap("platinum/client/ui/play/egg_pq_notfound_ol");
+			} else {
+				OldMLBEasterEggIcon.setBitmap("platinum/client/ui/packs/old/leaderboards/play/egg_nf");
+			}
+		} 
+	} else {
+		OldMLBEasterEggIcon.setVisible(false);
+	}
+
+	OldMLBMissionPersonalTimes.setText(%text2);
+}
+
+function OldLBMarblelandPlayMissionDlg::prevScorePage(%this) {
+	%this.globalPage --;
+	%this.updateMissionScores();
+}
+
+function OldLBMarblelandPlayMissionDlg::nextScorePage(%this) {
+	%this.globalPage ++;
+	%this.updateMissionScores();
+}
+
+function OldLBMarblelandPlayMissionDlg::deleteMission(%this) {
+	if ($Menu::CurrentlyLoadedMission $= %this.mission.file) {
+		MessageBoxOK("Cannot Delete Mission", "You cannot delete a mission that is currently in use!");
+	} else {
+		marblelandDelete(%this.mission.id);
+		OldMLBPM_DeleteLevel.setActive(false);
+
+		if ($MissionType $= "Installed") {
+			%this.getMissionList().buildMissionList("Levels", "Installed");
+			%ml = %this.getMissionList().getMissionList($CurrentGame, $MissionType);
+			%prev = %ml.getEntry(%this.missionIndex - 1);
+			%next = %ml.getEntry(%this.missionIndex + 1);
+			if (%prev !$= "") {
+				%this.setMissionTab($CurrentGame, $MissionType, %this.missionIndex - 1);
+			} else if (%next !$= "") {
+				%this.setMissionTab($CurrentGame, $MissionType, %this.missionIndex + 1);
+			} else {
+				%this.setMissionTab("Levels", "All", 0);
+			}
+		}
+	}
+}
+
+function OldLBMarblelandPlayMissionDlg::toggleSpeed(%this) {
+	OldMLBMissionNext.repeatPeriod = (OldMLBSpeed.getValue() ? ($pref::OldGui::MarblelandFastRepeatSpeed? $pref::OldGui::MarblelandFastRepeatSpeed : "30") : ($pref::OldGui::MarblelandNormalRepeatSpeed ? $pref::OldGui::MarblelandNormalRepeatSpeed : "400"));
+	OldMLBMissionPrev.repeatPeriod = (OldMLBSpeed.getValue() ? ($pref::OldGui::MarblelandFastRepeatSpeed ? $pref::OldGui::MarblelandFastRepeatSpeed : "30") : ($pref::OldGui::MarblelandNormalRepeatSpeed ? $pref::OldGui::MarblelandNormalRepeatSpeed : "400"));
+}
+
+function OldLBMarblelandPlayMissionDlg::onTick(%this) {
+	if ($hs["eggFound"] && OldMLBEasterEggIcon.isHover()) {
+		%game = resolveMissionModification(%this.mission);
+		%eggThemeColor = (%game $= "PlatinumQuest") ? "<color:cccc99>" : "<color:4580ff>";
+		OldMLBEasterEggTime.setText(shadow("1 1", "0000007f") @ "<font:Marker Felt:18><just:center>" @ %eggThemeColor @ formatTime(getField($hs["egg"], 0)));
+		OldMLBEasterEggTime.setVisible(true);
+	} else {
+		OldMLBEasterEggTime.setText("");
+		OldMLBEasterEggTime.setVisible(false);
+	}
+}
+
+function OldLBMarblelandPlayMissionDlg::play(%this) {
+	%mission = %this.mission;
+	Canvas.setContent(OldLoadingGui);
+	Canvas.repaint();
+	menuLoadMission(%mission.file);
+}
+
+function OldLBMarblelandPlayMissionDlg::playPack(%this) {
+	%queue = createDifficultyMissionQueue(%this.getMissionList(), $CurrentGame, $MissionType);
+	menuPlayQueue(%queue);
+}
+
+function OldLBMarblelandPlayMissionDlg::addGame(%this, %game, %difficulties) {
+	%name = getField(%game, 0);
+	%display = getField(%game, 1);
+	%xpos = getWord(%this.gamePos, 0);
+	%length = 160;
+	OldMLBPM_DifficultyButtons.add(new GuiTextCtrl("OldMLBPM_Game" @ %name) {
+		profile = "OldPMDifficultyButtonProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = %this.gamePos;
+		extent = %length SPC "31";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		text = " " @ %display;
+		maxLength = "255";
+	});
+	OldMLBPM_DifficultyButtons.add(new GuiScrollCtrl() {
+		profile = "GuiPhilScrollProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = %xpos SPC 42;
+		extent = "151 186";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		willFirstRespond = "1";
+		hScrollBar = "alwaysOff";
+		vScrollBar = "alwaysOn";
+		constantThumbHeight = "0";
+		childMargin = "0 0";
+
+		new GuiControl("OldMLBPM_GameList" @ %name) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 0";
+			extent = "151 186";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		};
+	});
+	%container = "OldMLBPM_GameList" @ %name;
+	%this.difficulties[%name] = 0;
+	for (%i = 0; %i < getRecordCount(%difficulties); %i ++) {
+		%difficulty = getRecord(%difficulties, %i);
+		%difficultyName = getField(%difficulty, 0);
+		%difficultyDisplay = getField(%difficulty, 1);
+		%container.add(new GuiBitmapButtonTextCtrl("OldMLBPM_Difficulty" @ %name @ %difficultyName) {
+			profile = "OldPMDifficultyButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = 0 SPC %this.difficulties[%name] * 30;
+			extent = "140 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBMarblelandPlayMissionDlg.setMissionTab(\"" @ %name @ "\", \"" @ %difficultyName @ "\"); OldLBMarblelandPlayMissionDlg.popDifficulty();";
+			helpTag = "0";
+			text = " " @ clipPx("Marker Felt", 24, %difficultyDisplay, 135, true);
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/play/difficulty_highlight-120";
+		});
+		%this.difficulties[%name] ++;
+	}
+	%container.setExtent("150" SPC %this.difficulties[%name] * 31);
+	%this.games ++;
+	%this.gamePos = %xpos + %length SPC 0;
+}
+
+function OldLBMarblelandPlayMissionDlg::buildDifficultySelector(%this) {
+	if (%this.games != 0)
+		return;
+	%ml = %this.getMissionList();
+	%list = %ml.getGameList();
+	//Resize the container first because doing it after will break stuff
+	%l = 0;
+	for (%i = 0; %i < getRecordCount(%list); %i ++) {
+		%game = getRecord(%list, %i);
+		%display = getField(%game, 1);
+		%l += 160;
+	}
+	OldMLBPM_DifficultyButtons.setExtent(%l SPC 230);
+	OldMLBPM_GameCustom.setPosition(%l - 220 SPC 0);
+	OldMLBPM_directoryScroll.setPosition(%l - 220 SPC 47);
+	for (%i = 0; %i < getRecordCount(%list); %i ++) {
+		%game = getRecord(%list, %i);
+		%name = getField(%game, 0);
+		%difficulties = %ml.getDifficultyList(%name);
+		%this.addGame(%game, %difficulties);
+	}
+}

@@ -1,0 +1,366 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldCompleteDemoDlg) {
+	profile = "GuiDialogProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "640 480";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "171 151";
+		extent = "457 298";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/marbleSelect/marbleSelect";
+		wrap = "0";
+
+		new GuiMLTextCtrl(OldCompleteDemoTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "86 25";
+			extent = "275 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "35 140";
+			extent = "391 80";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/endgame/window";
+			wrap = "0";
+		};
+		new GuiBitmapButtonCtrl(OldEnterDemoSave) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "126 217";
+			extent = "94 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldCompleteDemoDlg.dosave();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/Options/apply";
+		};
+		new GuiBitmapButtonCtrl(OldEnterDemoDelete) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "227 217";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldCompleteDemoDlg.dodelete();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/Options/delete";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "33 55";
+			extent = "210 50";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/endgame/window";
+			wrap = "0";
+		};
+		new GuiScrollCtrl() {
+			profile = "OldGuiBacklessScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "42 148";
+			extent = "376 60";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextEditCtrl(OldEnterDemoDescription) {
+				profile = "OldGuiMediumTextEditProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "1 1";
+				extent = "357 65";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiTextEditCtrl(OldEnterDemoFileEdit) {
+			profile = "OldGuiBigTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "37 60";
+			extent = "200 40";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "242 55";
+			extent = "181 50";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/endgame/window";
+			wrap = "0";
+		};
+		new GuiTextEditCtrl(OldEnterDemoAuthor) {
+			profile = "OldGuiBigTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "245 61";
+			extent = "174 40";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldCompleteDemoDlg::onWake(%this) {
+	OldCompleteDemoTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:32><color:ffffff><just:left>Title<just:right>Author\n<font:Arial:24>\n<font:Marker Felt:32>\n<just:center>Description");
+}
+
+function OldCompleteDemoDlg::open(%this, %callback) {
+	OldEnterDemoDelete.setBitmap("platinum/client/ui/packs/old/offline/Options/delete");
+
+	%this.callback = %callback;
+
+	Canvas.pushDialog(%this);
+	%score = $Game::FinalScore;
+
+	if (%score $= "") {
+		if ($Game::EasterEgg && $Game::EasterEggTime >= 0) {
+			%eggScore = $Game::EasterEggTime;
+			%format = formatTime(%eggScore);
+			%title = MissionInfo.name SPC "Egg" SPC %format;
+		} else {
+			%title = MissionInfo.name SPC "Unfinished Run";
+		}
+	} else {
+		%format = (getField(%score, 0) == $ScoreType::Time ? formatTime(getField(%score, 1)) : formatScore(getField(%score, 1)));
+		%title = MissionInfo.name SPC %format;
+	}
+
+	OldEnterDemoAuthor.setValue($pref::highscoreName);
+	OldEnterDemoFileEdit.setValue(%title);
+
+	%this.editmode = false;
+}
+
+function OldCompleteDemoDlg::editDemo(%this, %file) {
+	OldEnterDemoDelete.setBitmap("platinum/client/ui/packs/old/offline/search/cancel");
+
+	Canvas.pushDialog(%this);
+
+	%info = getReplayInfo(%file);
+	OldEnterDemoAuthor.setValue(%info.author);
+	OldEnterDemoFileEdit.setValue(%info.name);
+	OldEnterDemoDescription.setValue(%info.desc);
+
+	%this.editmode = true;
+	%this.recordfile = %info;
+}
+
+function OldCompleteDemoDlg::doSave(%this) {
+	if (%this.editmode) {
+		%author = OldEnterDemoAuthor.getValue();
+		%name = OldEnterDemoFileEdit.getValue();
+		%desc = OldEnterDemoDescription.getText();
+		%record = %this.recordfile;
+
+		%filepath = %record.file;
+
+		editRREC(%filepath, "platinum/data/recordings/tempedit.rrec", %name, %author, %desc);
+		%fb = fileBase(%filepath);
+		%zipfilepath = "platinum/data/recordings/" @ %fb @ ".rrec/" @ %fb @ ".rrec";
+		if (%zipfilepath $= %filepath) {
+			deleteFile("platinum/data/recordings/" @ %fb @ ".rrec.zip");
+			if (isFile("platinum/data/recordings/" @ %fb @ ".rrec")) {
+				moveFile("platinum/data/recordings/" @ %fb @ ".rrec", "platinum/data/recordings/" @ %fb @ "0.rrec");
+			}
+		} else {
+			deleteFile("platinum/data/recordings/" @ %fb @ ".rrec");
+		}
+		moveFile("platinum/data/recordings/tempedit.rrec","platinum/data/recordings/" @ %fb @ ".rrec");
+		zip("platinum/data/recordings/" @ %fb @ ".rrec");
+		deleteFile("platinum/data/recordings/" @ %fb @ ".rrec");
+
+		%final = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec";
+		%finalzip = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec.zip";
+
+		%num = 0;
+		while (isFile(%final) || isFile(%finalzip)) {
+			%num++;
+			%baseName = alphaNum(%name) @ "(" @ %num @ ")";
+			%final = "platinum/data/recordings/" @ %baseName @ ".rrec";
+			%finalzip = "platinum/data/recordings/" @ %baseName @ ".rrec.zip";
+		}
+		if (%num > 0) {
+			%name = %name SPC "(" @ %num @ ")";
+		}
+
+		setModPaths($modPath);
+		OldPlayDemoGui.onWake();
+
+		Canvas.popDialog(%this);
+
+	} else {
+		%author = OldEnterDemoAuthor.getValue();
+		%name = OldEnterDemoFileEdit.getValue();
+		%desc = OldEnterDemoDescription.getText();
+
+		%file = $Record::File;
+		%final = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec";
+		%finalzip = "platinum/data/recordings/" @ alphaNum(%name) @ ".rrec.zip";
+
+		%num = 0;
+		while (isFile(%final) || isFile(%finalzip)) {
+			%num++;
+			%baseName = alphaNum(%name) @ "(" @ %num @ ")";
+			%final = "platinum/data/recordings/" @ %baseName @ ".rrec";
+			%finalzip = "platinum/data/recordings/" @ %baseName @ ".rrec.zip";
+		}
+		if (%num > 0) {
+			%name = %name SPC "(" @ %num @ ")";
+		}
+
+		recordFinish();
+
+		%tmp = %file @ ".tmp";
+		moveFile(%file, %tmp);
+
+		%fr = new FileObject();
+		if (!%fr.openForRead(%tmp)) {
+			error("Couldn't open file for reading");
+			return;
+		}
+		%fw = new FileObject();
+		if (!%fw.openForWrite(%final)) {
+			error("Couldn't open file for writing");
+			return;
+		}
+
+		%fw.writeRawS16(%fr.readRawS16());
+		%fw.writeRawS16(%fr.readRawS16());
+		%fw.writeRawString8(%fr.readRawString8());
+		%fw.writeRawString8(%fr.readRawString8());
+
+		%flags = %fr.readRawU8();
+		%flags |= 1;
+		%fw.writeRawU8(%flags);
+
+		recordWriteMetadata(%fw, %author, %name, %desc);
+
+		%fw.writeBase64(%fr.readBase64());
+
+		%fr.close();
+		%fw.close();
+		%fr.delete();
+		%fw.delete();
+
+		deleteFile(%tmp);
+
+		$Record::NeedSave = false;
+
+		zip(%final);
+		deleteFile(%final);
+		setModPaths($modPath);
+
+		Canvas.popDialog(%this);
+		eval(%this.callback);
+
+	}
+}
+
+function OldCompleteDemoDlg::dodelete(%this) {
+	if (%this.editmode) {
+		Canvas.popDialog(%this);
+
+	} else {
+		$Record::NeedSave = false;
+
+		%file = $Record::File;
+		recordFinish();
+		deleteFile(%file);
+
+		Canvas.popDialog(%this);
+		eval(%this.callback);
+
+	}
+}

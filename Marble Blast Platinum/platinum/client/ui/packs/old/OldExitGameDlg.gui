@@ -1,0 +1,912 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(OldExitGameDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./offline/exit/black";
+	wrap = "0";
+		_guiSize = "800 600";
+		restartCallback = "resumeGame(); restartLevel();";
+
+	new GuiBitmapCtrl(OldExitGameNew) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "24 25";
+		extent = "751 550";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/exit/window-big.png";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "266 444";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldExitGameDlg); resumeGame(); restartLevel(true);";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/restart";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "49 444";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldExitGameDlg); OldExitGameDlg.end();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "YES";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/yes";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "156 444";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldExitGameDlg); resumeGame();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "NO";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/no";
+				simpleStyle = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "44 364";
+			extent = "312 30";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldExitGameLevelTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "80 50";
+			extent = "590 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+
+		new GuiMLTextCtrl(OldExitGameInfoLeftmostChallengeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "58 120";
+			extent = "152 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoLeftcenterChallengeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "213 120";
+			extent = "152 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoCenterChallengeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "298 120";
+			extent = "152 14";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoRightcenterChallengeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "383 120";
+			extent = "152 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoRightmostChallengeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "538 120";
+			extent = "152 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoLeftmostChallengeTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "58 150";
+			extent = "152 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoLeftcenterChallengeTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "213 150";
+			extent = "152 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoCenterChallengeTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "298 150";
+			extent = "152 14";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoRightcenterChallengeTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "383 150";
+			extent = "152 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoRightmostChallengeTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "538 150";
+			extent = "152 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoPersonalBestTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "298 220";
+			extent = "152 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoPersonalBestTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "298 255";
+			extent = "152 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoPersonalBestModeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "58 220";
+			extent = "152 14";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoPersonalBestModeTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "58 255";
+			extent = "152 14";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoRecordModeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "538 220";
+			extent = "152 14";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameInfoRecordModeTime) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "538 250";
+			extent = "152 14";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "402 374";
+			extent = "300 110";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/exit/modewindow";
+			wrap = "0";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "417 389";
+			extent = "270 76";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldExitGameLevelMode) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "260 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+	};
+	new GuiBitmapCtrl(OldExitGame) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "215 203";
+		extent = "370 193";
+		minExtent = "48 92";
+		visible = "0";
+		helpTag = "0";
+		bitmap = "./offline/alert/dialog.png";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "250 116";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldExitGameDlg); resumeGame(); restartLevel(true);";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/restart";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "34 116";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldExitGameDlg); OldExitGameDlg.end();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "YES";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/yes";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "121 116";
+			extent = "86 40";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldExitGameDlg); resumeGame();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "NO";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/no";
+				simpleStyle = "0";
+		};
+		new GuiMLTextCtrl(OldExitGameTitle2) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "29 35";
+			extent = "312 30";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+	new GuiControl(OldExitGameExtras) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "top";
+		position = "8 523";
+		extent = "784 65";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapButtonCtrl(OldExitGameOptions) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "top";
+			vertSizing = "top";
+			position = "0 0";
+			extent = "187 65";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.show(true);";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/options";
+		};
+		new GuiBitmapButtonCtrl(OldExitGameMarbles) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "top";
+			vertSizing = "top";
+			position = "199 0";
+			extent = "187 65";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.pushDialog(lb() ? OldLBMarbleSelectionDlg : OldMarbleSelectGui);";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/marbles";
+		};
+		new GuiBitmapButtonCtrl(OldExitGameRecord) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "top";
+			vertSizing = "top";
+			position = "398 0";
+			extent = "187 65";
+			minExtent = "8 8";
+			visible = "1";
+			variable = "$Game::Record";
+			command = "OldExitGameDlg.doMidGameRecord();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/record";
+		};
+		new GuiBitmapButtonCtrl(OldExitGameJukebox) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "top";
+			vertSizing = "top";
+			position = "597 0";
+			extent = "187 65";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.pushDialog(OldJukeboxDlg);";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/jb_pausemenu";
+		};
+	};
+	new GuiBitmapButtonCtrl(OldExitGameJukeboxOld) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "599 523";
+		extent = "187 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "Canvas.pushDialog(OldJukeboxDlg);";
+		helpTag = "0";
+		text = "button";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+		bitmap = "./offline/exit/jb_pausemenu";
+	};
+
+	new GuiBitmapCtrl(OldExitGameQueue) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "bottom";
+		position = "172 0";
+		extent = "454 254";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/loading/queueloadingwindow";
+		wrap = "0";
+
+		new GuiMLTextCtrl(OldExitGameQueueText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "37 27";
+			extent = "380 180";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldExitGameDlg::onWake(%this) {
+	OldExitGameNew.setVisible($pref::OldGui::NewExitGame >= 2);
+	OldExitGame.setVisible($pref::OldGui::NewExitGame < 2);
+	OldExitGameTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:32><just:center><color:ffffff>Exit from this Level?");
+	OldExitGameTitle2.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:32><just:center><color:ffffff>Exit from this Level?");
+
+	//More buttons at bottom
+	OldExitGameJukeboxOld.setVisible($pref::OldGui::NewExitGame < 1);
+	OldExitGameOptions.setVisible($pref::OldGui::NewExitGame >= 1);
+	OldExitGameMarbles.setVisible($pref::OldGui::NewExitGame >= 1);
+	OldExitGameRecord.setVisible($pref::OldGui::NewExitGame >= 1);
+	OldExitGameJukebox.setVisible($pref::OldGui::NewExitGame >= 1);
+
+	//Expanded pause screen
+	if ($pref::OldGui::NewExitGame >= 2) {
+		%info = getMissionInfo($Client::MissionFile);
+
+		%title = "<shadow:1:1><shadowcolor:000000bf><color:FFFFFF><just:center>" @ shrinkToFit(%info.name, "Marker Felt", 42, 24, getWord(OldExitGameLevelTitle.getExtent(), 0));
+		OldExitGameLevelTitle.setText(%title);
+
+		%completion = Unlock::getMissionCompletion(%info);
+
+		%showGoldTime = ($CurrentGame $= "Gold" || $CurrentGame $= "Ultra");
+		%showAwesome = (((%completion & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll) && ($CurrentGame !$= "Gold" && $CurrentGame !$= "Ultra" && $CurrentGame !$= "Platinum");
+		%showEgg = ((%completion & $Completion::EasterEgg) == $Completion::EasterEgg) || $Unlock::DisplayAll;
+
+		//Some levels use score0 and score1 (solo and vs times), score1 is displayed outside of multiplayer
+		%score = %info.score1 ? %info.score1 : %info.score;
+		%platinumScore = %info.platinumscore1 ? %info.platinumscore1 : (%info.platinumScore ? %info.platinumScore : (%info.goldscore1 ? %info.goldscore1 : %info.goldScore));
+		%ultimateScore = %info.ultimatescore1 ? %info.ultimatescore1 : %info.ultimateScore;
+		%awesomeScore = %info.awesomescore1 ? %info.awesomescore1 : %info.awesomeScore;
+
+		//Get the World Record
+		%hasRecord = false;
+		%hasEggRecord = false;
+		if (lb()) {
+			%cache = PlayMissionGui.globalScoreCache[$PMG::CurrentGui.mission.id];
+			if ($Game::isMode["challenge"])
+				%cache = PlayMissionGui.globalChallengeScoreCache[$PMG::CurrentGui.mission.id];
+			if (isObject(%cache)) {
+				%scores = %cache.scores;
+				if (%scores.getSize()) {
+					%record = %scores.getEntry(0).score;
+					%recordType = %scores.getEntry(0).score_type;
+					%recordLabel = (%recordType $= "time" ? formatTime(%record) : formatScore(%record));
+					%hasRecord = true;
+				}
+			}
+
+			//And the Egg Record too
+			%cache = PlayMissionGui.globalScoreModeCache[$PMG::CurrentGui.mission.id];
+			if (isObject(%cache)) {
+				%scores = %cache.getFieldValue("egg").scores;
+				if (%scores.getSize()) {
+					%eggRecordLabel = formatTime(%scores.getEntry(0).time);
+					%hasEggRecord = true;
+				}
+			}
+		}
+
+		if ((%info.time || $CurrentGame $= "Gold") && ClientMode::callback("timeMultiplier", 1) >= 0) {
+			%challengeTitles = %challengeTitles NL ($CurrentGame $= "Gold" ? "Qualify" : "Par") @ " Time:";
+			%challengeTimes = %challengeTimes NL (%info.time !$= "" ? formatTime(%info.time) : "N/A");
+		} else if (%score || $CurrentGame $= "Gold") {
+			%challengeTitles = %challengeTitles NL ($CurrentGame $= "Gold" ? "Qualify" : "Par") @ " Score:";
+			%challengeTimes = %challengeTimes NL formatScore(%score);
+		}
+		if (%info.goldTime) {
+			%challengeTitles = %challengeTitles NL (%showGoldTime ? "<color:FFCC00>Gold Time:" : "<color:CCCCCC>Platinum Time:");
+			%challengeTimes = %challengeTimes NL (%showGoldTime ? "<color:FFCC00>" : "<color:CCCCCC>")@ formatTime(%info.goldTime);
+		} else if (%info.platinumTime) {
+			%challengeTitles = %challengeTitles NL "<color:CCCCCC>Platinum Time:";
+			%challengeTimes = %challengeTimes NL "<color:CCCCCC>"@ formatTime(%info.platinumTime);
+		} else if (%platinumScore) {
+			%challengeTitles = %challengeTitles NL ($CurrentGame $= "Gold" ? "<color:FFCC00>Gold Score:" : "<color:CCCCCC>Platinum Score:");
+			%challengeTimes = %challengeTimes NL ($CurrentGame $= "Gold" ? "<color:FFCC00>" : "<color:CCCCCC>") @ formatScore(%platinumScore);
+		}
+		if (%info.ultimateTime) {
+			%challengeTitles = %challengeTitles NL "<color:FFDD22>Ultimate Time:";
+			%challengeTimes = %challengeTimes NL "<color:FFDD22>" @ formatTime(%info.ultimateTime);
+		} else if (%ultimateScore) {
+			%challengeTitles = %challengeTitles NL "<color:FFDD22>Ultimate Score:";
+			%challengeTimes = %challengeTimes NL "<color:FFDD22>"@ formatScore(%ultimateScore);
+		}
+		if (%showAwesome && %info.awesomeTime) {
+			%challengeTitles = %challengeTitles NL "<color:FF4444>Awesome Time:";
+			%challengeTimes = %challengeTimes NL "<color:FF4444>" @ formatTime(%info.awesomeTime);
+		} else if (%showAwesome && %awesomeScore) {
+			%challengeTitles = %challengeTitles NL "<color:FF4444>Awesome Score:";
+			%challengeTimes = %challengeTimes NL "<color:FF4444>"@ formatScore(%awesomeScore);
+		}
+		if (lb() && (%showAwesome || $LBPref::ShowRecords) && %hasRecord) {
+			%challengeTitles = %challengeTitles NL "<color:0060F0>World Record:";
+			%challengeTimes  = %challengeTimes  NL "<color:0060F0>" @ %recordLabel;
+		}
+
+		%challengeTitles = ltrim(%challengeTitles);
+		%challengeTimes = ltrim(%challengeTimes);
+		%challengeLength = getRecordCount(%challengeTimes);
+
+		if (%challengeLength == 1) {
+			OldExitGameInfoCenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ %challengeTitles);
+			OldExitGameInfoCenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ %challengeTimes);
+		} else if (%challengeLength == 2) {
+			OldExitGameInfoLeftcenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 0));
+			OldExitGameInfoLeftcenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 0));
+			OldExitGameInfoRightcenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 1));
+			OldExitGameInfoRightcenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 1));
+		} else if (%challengeLength == 3) {
+			OldExitGameInfoLeftmostChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 0));
+			OldExitGameInfoLeftmostChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 0));
+			OldExitGameInfoCenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 1));
+			OldExitGameInfoCenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 1));
+			OldExitGameInfoRightmostChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 2));
+			OldExitGameInfoRightmostChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 2));
+		} else if (%challengeLength == 4) {
+			OldExitGameInfoLeftmostChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 0));
+			OldExitGameInfoLeftmostChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 0));
+			OldExitGameInfoLeftcenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 1));
+			OldExitGameInfoLeftcenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 1));
+			OldExitGameInfoRightcenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 2));
+			OldExitGameInfoRightcenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 2));
+			OldExitGameInfoRightmostChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 3));
+			OldExitGameInfoRightmostChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 3));
+		} else if (%challengeLength >= 5) {
+			OldExitGameInfoLeftmostChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 0));
+			OldExitGameInfoLeftmostChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 0));
+			OldExitGameInfoLeftcenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 2));
+			OldExitGameInfoLeftcenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 2));
+			OldExitGameInfoRightcenterChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 3));
+			OldExitGameInfoRightcenterChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 3));
+			OldExitGameInfoRightmostChallengeTitle.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTitles, 4));
+			OldExitGameInfoRightmostChallengeTime.setText("<font:Marker Felt:28><color:FFFFFF><just:center>" @ shadow("1 1", "0000007f") @ getRecord(%challengeTimes, 4));
+		}
+		OldExitGameInfoCenterChallengeTitle.setVisible(%challengeLength == 1 || %challengeLength == 3);
+		OldExitGameInfoCenterChallengeTime.setVisible(%challengeLength == 1 || %challengeLength == 3);
+		OldExitGameInfoLeftmostChallengeTitle.setVisible(%challengeLength >= 3);
+		OldExitGameInfoLeftmostChallengeTime.setVisible(%challengeLength >= 3);
+		OldExitGameInfoRightmostChallengeTitle.setVisible(%challengeLength >= 3);
+		OldExitGameInfoRightmostChallengeTime.setVisible(%challengeLength >= 3);
+		OldExitGameInfoLeftcenterChallengeTitle.setVisible(%challengeLength == 2 || %challengeLength >= 4);
+		OldExitGameInfoLeftcenterChallengeTime.setVisible(%challengeLength == 2 || %challengeLength >= 4);
+		OldExitGameInfoRightcenterChallengeTitle.setVisible(%challengeLength == 2 || %challengeLength >= 4);
+		OldExitGameInfoRightcenterChallengeTime.setVisible(%challengeLength == 2 || %challengeLength >= 4);
+
+		%pbType = getField($hs[0], 0);
+		%time = getField($hs[0], 1);
+		%pbLabel = %pbType == 0 ? formatTime(getField($hs[0], 1)) : formatScore(getField($hs[0], 1));
+		%pbEggLabel = formatTime(getField($hs["egg"], 0));
+
+		%flags = Unlock::getMissionScoreFlags(%info, $hs[0]);
+		if (lb() && %hasRecord && (%recordType $= "time" ? %time <= %record : %time >= %record)) {
+			%scoreFormat = "<color:0060F0>";
+		} else if (%flags & $Completion::Awesome) {
+			%scoreFormat = "<color:FF4444>";
+		} else if (%flags & $Completion::Ultimate) {
+			%scoreFormat = "<color:FFDD22>";
+		} else if (%flags & $Completion::Platinum) {
+			%scoreFormat = "<color:CCCCCC>";
+		} else if (%flags & $Completion::Gold) {
+			%scoreFormat = "<color:FFCC00>";
+		} else {
+			%scoreFormat = "<color:FFFFFF>";
+		}
+
+		%eggThemeColor = ($CurrentGame $= "PlatinumQuest") ? "<color:cccc99>" : "<color:4580ff>";
+
+		%pbTitle = shadow("1 1", "0000007f") @ "<color:FFFFFF>Personal Best";
+		%pbEggTitle = shadow("1 1", "0000007f") @ "<color:FFFFFF>" @ %eggThemeColor @ "Egg Best";
+		%eggRecordTitle = shadow("1 1", "0000007f") @ "<color:0060f0>Egg Record";
+
+		if (getField($hs[0], 2) $= "Matan W." && (%pbType == 0 && getSubStr(%pbLabel, 0, 5) $= "99:59") || (%pbType == 1 && getField($hs[0], 1) == 0)) {
+			OldExitGameInfoPersonalBestTitle.setVisible(false);
+			OldExitGameInfoPersonalBestTime.setVisible(false);
+		} else {
+			OldExitGameInfoPersonalBestTitle.setText("<just:center><font:Marker Felt:32>" @ %pbTitle);
+			OldExitGameInfoPersonalBestTime.setText("<just:center><font:Marker Felt:32>" @ shadow("1 1", "0000007f") @ %scoreFormat @ %pbLabel);
+			OldExitGameInfoPersonalBestTitle.setVisible(true);
+			OldExitGameInfoPersonalBestTime.setVisible(true);
+		}
+
+
+		if (%showEgg) {
+			OldExitGameInfoPersonalBestModeTitle.setText("<just:center><font:Marker Felt:32>" @ shadow("1 1", "0000007f") @ %pbEggTitle);
+			OldExitGameInfoPersonalBestModeTime.setText("<just:center><font:Marker Felt:32>" @ shadow("1 1", "0000007f") @ %eggThemeColor @ %pbEggLabel);
+			OldExitGameInfoPersonalBestModeTitle.setVisible(true);
+			OldExitGameInfoPersonalBestModeTime.setVisible(true);
+			if (lb() && %hasEggRecord) {
+				OldExitGameInfoRecordModeTitle.setText("<just:center><font:Marker Felt:28>" @ shadow("1 1", "0000007f") @ %eggRecordTitle);
+				OldExitGameInfoRecordModeTime.setText("<just:center><font:Marker Felt:28>" @ shadow("1 1", "0000007f") @ "<color:0060F0>" @ %eggRecordLabel);
+				OldExitGameInfoRecordModeTitle.setVisible(true);
+				OldExitGameInfoRecordModeTime.setVisible(true);
+			} else {
+				OldExitGameInfoRecordModeTitle.setVisible(false);
+				OldExitGameInfoRecordModeTime.setVisible(false);
+			}
+
+		} else {
+			OldExitGameInfoPersonalBestModeTitle.setVisible(false);
+			OldExitGameInfoPersonalBestModeTime.setVisible(false);
+			OldExitGameInfoRecordModeTitle.setVisible(false);
+			OldExitGameInfoRecordModeTime.setVisible(false);
+		}
+
+		%info = $PMG::CurrentGui.mission;
+		%modes = resolveMissionGameModes(%info, %info.gameMode);
+		%modes = formatGameModes(%modes);
+		for (%i = 0; %i < getWordCount(%modes); %i ++) {
+			%mode = getWord(%modes, %i);
+			%minfo = getModeInfo(%mode);
+			%modetext = %modetext @ (%modetext $= "" ? "" : "\n") @ "<font:Marker Felt:18><just:left>" @ %minfo.name @ ": " @ %minfo.desc;
+		}
+		OldExitGameLevelMode.setText(%modetext);
+	}
+
+	if (isObject($Menu::Queue)) {
+		OldExitGameQueue.setVisible(true);
+		%this.updateQueue();
+	} else {
+		OldExitGameQueue.setVisible(false);
+		OldExitGameQueueText.setText("");
+	}
+}
+
+function OldExitGameDlg::end(%this) {
+	if (recordEnd("OldExitGameDlg.end();")) {
+		return;
+	}
+	menuMissionExit();
+}
+
+function OldExitGameDlg::close(%this) {
+	Canvas.popDialog(%this);
+}
+
+function OldExitGameDlg::doMidGameRecord(%this) {
+	if ($Game::Record) {
+		if (!%this.hasShownRecordingWarning) {
+			%this.hasShownRecordingWarning = true;
+			MessageBoxOK("Notice", "Recording of the game will start upon the next restart");
+		}
+	} else {
+		recordEnd("");
+	}
+	PlayGui.updateRecordingIndicator();
+}
+
+function OldExitGameDlg::updateQueue(%this) {
+	if (!isObject($Menu::Queue))
+		return;
+
+	%qtext = "<shadow:1:1><shadowcolor:000000bf><font:Marker Felt:32><tab:140,230>";
+	%qtext = %qtext @ "Level\tScore\tTotal<font:Marker Felt:22>";
+
+	%firstVisible = $Menu::QueueIndex - 2;
+	if (%firstVisible < 0)
+		%firstVisible = 0;
+	%lastVisible = min(%firstVisible + 4, $Menu::Queue.getMissionCount());
+	if (%lastVisible == $Menu::Queue.getMissionCount()) {
+		%firstVisible = max(0, %lastVisible - 5);
+	}
+
+	for (%i = %firstVisible; %i < %lastVisible; %i ++) {
+		%mis = $Menu::Queue.getMissionInfo(%i);
+		if (%i == $Menu::QueueIndex) {
+			%qtext = %qtext @ "<color:00cc00>";
+		}
+		if (%i > $Menu::QueueIndex && $Menu::Queue.isUpcomingHidden()) {
+			%name = (%i + 1) @ ". ???";
+		} else {
+			%name = clipPx("Marker Felt", 22, (%i + 1) @ ". " @ %mis.name, 140, true);
+		}
+		%qtext = %qtext @ "\n" @ %name @ "\t";
+
+		if ($Menu::Queue.missionCompleted[%i] || %i >= $Menu::QueueIndex) {
+			%scoreInfo = $Menu::Queue.missionScore[%i];
+			%type = getField(%scoreInfo, 0);
+			%score = getField(%scoreInfo, 1);
+
+			if (%type $= $ScoreType::Time) {
+				%qtext = %qtext @ formatTime(%score) @ "\t";
+			} else {
+				%qtext = %qtext @ formatScore(%score) @ "\t";
+			}
+		} else {
+			%qtext = %qtext @ "<skipped>\t";
+		}
+		%qtext = %qtext @ formatTime($Menu::Queue.missionTotalTimeScore[%i]);
+		if ($Menu::Queue.missionTotalScoreScore[%i] > 0) {
+			%qtext = %qtext @ " + " @ formatScore($Menu::Queue.missionTotalScoreScore[%i]);
+		}
+		%qtext = %qtext @ "<color:000000>";
+	}
+
+	if (%lastVisible != $Menu::Queue.getMissionCount()) {
+		if ($Menu::Queue.isUpcomingHidden()) {
+			%name = "???";
+		} else {
+			%name =  $Menu::Queue.getMissionInfo($Menu::Queue.getMissionCount() - 1).name;
+		}
+		%qtext = %qtext @ "\n" @ clipPx("Marker Felt", 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 140, true);
+		%qtext = %qtext @ "\t\t" @ formatTime(0);
+	}
+	%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime($Menu::Queue.totalTimeScore);
+	if ($Menu::Queue.totalScoreScore > 0) {
+		%qtext = %qtext @ " + " @ formatScore($Menu::Queue.totalScoreScore);
+	}
+	%qtext = %qtext @ "\n" @ "Real Time:\t\t" @ formatTime($Menu::Queue.totalRealTime);
+
+	OldExitGameQueueText.setText(%qtext);
+}

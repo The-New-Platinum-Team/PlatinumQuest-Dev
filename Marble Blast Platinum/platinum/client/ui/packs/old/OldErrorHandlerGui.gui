@@ -1,0 +1,113 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(OldErrorHandlerGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./offline/exit/black";
+	wrap = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "178 129";
+		extent = "444 341";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/marbleSelect/marbleSelect.png";
+		wrap = "0";
+			canClose = "0";
+			canMaximize = "0";
+			canMinimize = "0";
+			canMove = "1";
+			maxLength = "255";
+			minSize = "50 50";
+			resizeHeight = "1";
+			resizeWidth = "1";
+
+		new GuiMLTextCtrl(OldMBErrorHandlerTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "35 29";
+			extent = "374 24";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				unformattedText = "<font:DomCasualD:24><just:center>Error!";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "179 254";
+			extent = "88 41";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MessageCallback(OlderrorHandlerGui,OlderrorHandlerGui.callback); resumeGame(); $asserted = 0;";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/motd/ok";
+				simpleStyle = "0";
+		};
+		new GuiMLTextCtrl(OldMBErrorHandlerText) {
+			profile = "GuiTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "33 56";
+			extent = "377 28";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				unformattedText = "There was an unknown error.";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OlderrorHandlerGui::ASSERT(%this, %title, %message, %callback) {
+	OldMBErrorHandlerTitle.setText("<font:DomCasualD:24><just:center>" @ %title);
+	OldMBErrorHandlerText.setText(%message);
+	Canvas.pushDialog(OlderrorHandlerGui);
+	%this.callback = %callback;
+	pauseGame();
+}

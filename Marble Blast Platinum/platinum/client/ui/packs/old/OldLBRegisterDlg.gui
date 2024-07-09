@@ -1,0 +1,451 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldLBRegisterDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "84 6";
+		extent = "471 467";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./leaderboards/scores/window";
+		wrap = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "109 78";
+			extent = "338 46";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/login/textfield";
+			wrap = "0";
+		};
+		new GuiBitmapButtonCtrl(OldLBR_Create) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "345 386";
+			extent = "95 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBRegisterDlg.create();";
+			helpTag = "0";
+			text = "Create";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/login/create";
+		};
+		new GuiMLTextCtrl(OldLBR_ErrorMessage) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "29 395";
+			extent = "216 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "109 122";
+			extent = "338 46";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/login/textfield";
+			wrap = "0";
+		};
+		new GuiTextEditCtrl(OldLBR_Username) {
+			profile = "OldGuiOptionsTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "117 89";
+			extent = "320 26";
+			minExtent = "8 8";
+			visible = "1";
+			variable = "$LB::Register::Name";
+			command = "OldLBRegisterDlg.check();";
+			helpTag = "0";
+			maxLength = "32";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "109 166";
+			extent = "338 46";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/login/textfield";
+			wrap = "0";
+		};
+		new GuiTextEditCtrl(OldLBR_Password) {
+			profile = "OldGuiOptionsTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "117 133";
+			extent = "321 26";
+			minExtent = "8 8";
+			visible = "1";
+			variable = "$LB::Register::Password";
+			command = "OldLBRegisterDlg.check();";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "1";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiTextEditCtrl(OldLBR_Email) {
+			profile = "OldGuiOptionsTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "117 177";
+			extent = "321 26";
+			minExtent = "8 8";
+			visible = "1";
+			variable = "$LB::Register::Email";
+			command = "OldLBRegisterDlg.check();";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiControl() {
+			profile = "GuiTransparency75Profile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "28 213";
+			extent = "416 169";
+			minExtent = "27 27";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiControl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "418 172";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiScrollCtrl() {
+					profile = "OldGuiBacklessScrollProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "6 6";
+					extent = "404 159";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "alwaysOff";
+					vScrollBar = "alwaysOn";
+					constantThumbHeight = "0";
+					childMargin = "2 2";
+
+					new GuiMLTextCtrl(OldLBR_Tos) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "3 3";
+						extent = "383 14";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "2";
+						allowColorChars = "0";
+						maxChars = "-1";
+					};
+					new GuiCheckBoxCtrl(OldLBR_Accept) {
+						profile = "GuiCheckBoxProfile";
+						horizSizing = "right";
+						vertSizing = "bottom";
+						position = "8 723";
+						extent = "162 16";
+						minExtent = "8 8";
+						visible = "1";
+						variable = "$LB::Register::AcceptTOS";
+						command = "OldLBRegisterDlg.check();";
+						helpTag = "0";
+						text = " I accept the Terms of Service";
+						groupNum = "-1";
+						buttonType = "ToggleButton";
+						repeatPeriod = "1000";
+						repeatDecay = "1";
+					};
+				};
+			};
+		};
+		new GuiBitmapButtonCtrl(OldLBR_Cancel) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "248 386";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLBRegisterDlg.cancel(); Canvas.popDialog(OldLBRegisterDlg);";
+			helpTag = "0";
+			text = "Cancel";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/cancel";
+		};
+		new GuiMLTextCtrl(OldLBR_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "27 24";
+			extent = "414 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldLBR_UsernameTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "26 89";
+			extent = "83 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldLBR_PasswordTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "26 133";
+			extent = "83 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldLBR_EmailTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "26 177";
+			extent = "83 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldLBRegisterDlg::onWake(%this) {
+	%this.reset();
+	%this.check();
+
+	OldLBR_TOS.setText(fread(expandFilename("platinum/client/ui/lb/login/tos.txt")) NL "");
+	OldLBR_TOS.forceReflow();
+	OldLBR_Accept.setPosition(5 SPC getWord(OldLBR_TOS.getPosition(), 1) + getWord(OldLBR_TOS.getExtent(), 1) - 17);
+
+	OldLBR_UsernameTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><just:right><color:ffffff>Username:");
+	OldLBR_PasswordTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><just:right><color:ffffff>Password:");
+	OldLBR_EmailTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><just:right><color:ffffff>Email:");
+	OldLBR_Title.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:48><just:center><color:ffffff>Register");
+
+	if (trim(OldLBR_TOS.getText()) $= "") {
+		LBAssert("Cannot Load TOS", "Could not load Terms of Service! File missing or damaged!\nPlease register for an account <a:marbleblast.com>on our website.</a>", "Canvas.popDialog(OldLBRegisterDlg);");
+	}
+}
+
+function OldLBRegisterDlg::reset(%this) {
+	$LB::Register::Name = "";
+	$LB::Register::Password = "";
+	$LB::Register::Email = "";
+	$LB::Register::AcceptTOS = false;
+	OldLBR_Accept.setValue(0);
+	OldLBR_Username.setValue("");
+	OldLBR_Password.setValue("");
+	OldLBR_Email.setValue("");
+}
+
+function OldLBRegisterDlg::check(%this) {
+	%errorMessageBase = "<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:18><just:center><color:ffffff>";
+	%error[1] = "Please Enter a Username";
+	%error[2] = "Please Enter a Password";
+	%error[3] = "Please Enter an Email Address";
+	%error[6] = "Please Accept the Terms of Service";
+	%error[7] = "Please Enter a Valid Email Address";
+	OldLBR_Create.setActive(1);
+	OldLBR_ErrorMessage.setText("");
+	$LB::Register::Name = fixName($LB::Register::Name);
+	OldLBR_Username.setValue($LB::Register::Name);
+	if ($LB::Register::Name $= "") {
+		OldLBR_Create.setActive(0);
+		OldLBR_ErrorMessage.setText(%errorMessageBase @ %error[1]);
+		return;
+	}
+	if ($LB::Register::Password $= "") {
+		OldLBR_Create.setActive(0);
+		OldLBR_ErrorMessage.setText(%errorMessageBase @ %error[2]);
+		return;
+	}
+	if ($LB::Register::Email $= "") {
+		OldLBR_Create.setActive(0);
+		OldLBR_ErrorMessage.setText(%errorMessageBase @ %error[3]);
+		return;
+	}
+	%atIndex = strrpos($LB::Register::Email, "@");
+	if (%atIndex == -1) {
+		OldLBR_Create.setActive(0);
+		OldLBR_ErrorMessage.setText(%errorMessageBase @ %error[7]);
+		return;
+	}
+	$LB::Register::Name = strReplace($LB::Register::Name, "-SPC-", " ");
+	%domain = getSubStr($LB::Register::Email, %atIndex + 1, strLen($LB::Register::Email));
+	%local = getSubStr($LB::Register::Email, 0, %atIndex);
+
+	if (%domain $= "" || %local $= "") {
+		OldLBR_Create.setActive(0);
+		OldLBR_ErrorMessage.setText(%errorMessageBase @ %error[7]);
+		return;
+	}
+
+	%validEmail = true;
+	if (strLen(%domain) > 255)
+		%validEmail = false;
+	if (strLen(%local) > 64)
+		%validEmail = false;
+	if (getSubStr(%local, 0, 1) $= "." || getSubStr(%local, strLen(%local) - 1, 1) $= ".")
+		%validEmail = false;
+	if (strPos(%local, "..") != -1)
+		%validEmail = false;
+	if (strPos(%domain, "..") != -1)
+		%validEmail = false;
+	if (strPos($LB::Register::Email, "@") != %atIndex)
+		%validEmail = false;
+
+	if (!%validEmail) {
+		OldLBR_Create.setActive(0);
+		OldLBR_ErrorMessage.setText(%errorMessageBase @ %error[7]);
+		return;
+	}
+	if (!$LB::Register::AcceptTOS) {
+		OldLBR_Create.setActive(0);
+		OldLBR_ErrorMessage.setText(%errorMessageBase @ %error[6]);
+		return;
+	}
+}
+
+function OldLBRegisterDlg::cancel(%this) {
+	Canvas.popDialog(%this);
+	%this.reset();
+}
+
+function OldLBRegisterDlg::create(%this) {
+	$LB::Register::Name = getSubStr($LB::Register::Name, 0, 32);
+
+	statsRegisterUser($LB::Register::Name, $LB::Register::Password, $LB::Register::Email);
+	OldLBR_Cancel.setActive(0);
+	OldLBR_Create.setVisible(0);
+
+	OldLBR_ErrorMessage.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:18><just:center><color:ffffff>Creating account...");
+}
+
+function OldLBRegisterDlg::onRegisterStatus(%this, %parsed) {
+	switch$ (%parsed.result) {
+	case "false":
+		OldLBR_ErrorMessage.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:18><just:center><color:ffffff>" @ %parsed.error);
+	case "useractivate":
+		MessageBoxOk("Activation", "An email has been sent to the address you provided. Please follow the directions to activate your account!");
+		OldLBR_ErrorMessage.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:18><just:center><color:ffffff>Activation Required");
+	case "adminactivate":
+		MessageBoxOk("Activation", "The admins of the site need to activate your account. Please wait for them to do so.");
+		OldLBR_ErrorMessage.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:18><just:center><color:ffffff>Activation Required");
+	case "success":
+		OldLBR_ErrorMessage.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:18><just:center><color:ffffff>Account Created");
+	}
+	$lbr_finish = schedule(3000, 0, oldlb_register_finish, (%parsed.result !$= "false"));
+}
+
+function OldLB_Register_Finish(%success) {
+	if (%success) {
+		Canvas.popDialog(LBRegisterDlg);
+		$LB::Username = $LB::Register::Name;
+		$LB::Password = "";
+		$LBPref::Username = $LB::Register::Name;
+		$LBPref::Password = "";
+		LBLoginUsername.setValue($LB::Register::Name);
+		LBLoginPassword.setValue("");
+	}
+	OldLBR_Cancel.setActive(1);
+	OldLBR_Create.setVisible(1);
+}
+
+function OldLBRegisterDlg::onDisconnect(%this) {
+	%this.delete();
+}

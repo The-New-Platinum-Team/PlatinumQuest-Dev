@@ -1,0 +1,126 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldHowToLEGui) {
+	profile = "GuiDialogProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		bitmap = "./offline/menubackground";
+		tile = "0";
+		useVariable = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "230 188";
+		extent = "339 224";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/LE/new_mess_base";
+		wrap = "0";
+			canClose = "0";
+			canMaximize = "0";
+			canMinimize = "0";
+			canMove = "1";
+			maxLength = "255";
+			minSize = "50 50";
+			resizeHeight = "1";
+			resizeWidth = "1";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "235 171";
+			extent = "88 41";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldHowToLEGui);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/LE/ok";
+				simpleStyle = "0";
+		};
+		new GuiMLTextCtrl(OldHowToLEGuiText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "27 30";
+			extent = "281 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldEditorTipCheck) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "17 174";
+			extent = "31 31";
+			minExtent = "8 8";
+			visible = "1";
+			variable = "$pref::OldGui::LETip";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/LE/mess_chkbx";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldHowToLEGui::onWake(%this) {
+   OldHowToLEGuiText.setText("<font:DomCasualD:24><just:center>Level editor is now activated.\nPress F11 on your keyboard while inside a mission/level in order to activate the level editor.");
+}
+
+function OldHowToLEGui::onSleep(%this) {
+   OldEditorTipCheck.variable = "$pref::OldGui::LETip";
+}
+
+function OldHowToLEGui::remind(%this, %text, %idx) {
+	if ($pref::hideReminder[%idx] !$= "" && !$pref::hideReminder[%idx])
+			return;
+
+	Canvas.pushDialog(%this);
+	OldHowToLEGuiText.setText("<font:DomCasualD:24><just:center>" @ %text);
+	OldEditorTipCheck.variable = "$pref::hideReminder" @ %idx;
+	OldEditorTipCheck.setValue(1);
+}

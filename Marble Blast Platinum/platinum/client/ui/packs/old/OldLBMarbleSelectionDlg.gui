@@ -1,0 +1,378 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldLBMarbleSelectionDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "3 3";
+		extent = "634 473";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "105 103";
+			extent = "478 267";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/marbleSelect/window";
+			wrap = "0";
+
+			new GuiMLTextCtrl(OldLBMarbleTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "57 25";
+				extent = "369 74";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+					unformattedText = "<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:32><just:center><color:ffffff>Choose Your Marble\n<font:Marker Felt:24>MBP Official\nStaff's Original";
+			};
+			new GuiBitmapButtonCtrl(OldLBMarbleSelectPrevCat) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "28 198";
+				extent = "85 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarbleSelectionDlg.prevCat();";
+				accelerator = "left";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/marbleSelect/prevcat";
+			};
+			new GuiBitmapButtonCtrl(OldLBMarbleSelectNextCat) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "369 198";
+				extent = "85 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarbleSelectionDlg.nextCat();";
+				accelerator = "left";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/marbleSelect/nextcat";
+			};
+			new GuiBitmapButtonCtrl(OldLBMarbleSelectNext) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "291 198";
+				extent = "73 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarbleSelectionDlg.nextMarble();";
+				helpTag = "0";
+				text = "next";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/play/next";
+			};
+			new GuiBitmapButtonCtrl(OldLBMarbleSelectPrev) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "119 198";
+				extent = "73 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarbleSelectionDlg.prevMarble();";
+				helpTag = "0";
+				text = "prev";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/play/prev";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "195 198";
+				extent = "93 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.popDialog(OldLBMarbleSelectionDlg);";
+				helpTag = "0";
+				text = "select";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/play/choose";
+			};
+			new GuiObjectView(OldLBMarbleSelectPreview) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "178 72";
+				extent = "128 128";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				cameraZRot = "0";
+				forceFOV = "50";
+				model = "~/data/shapes/balls/ball-superball.dts";
+				skin = "base";
+				cameraRotX = "0.3";
+				cameraZRotSpeed = "0.001";
+				orbitDistance = "1";
+				autoSize = "0";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+//This could possibly be combined with MarbleSelectGui, but the GUI shapes/positionings in both are different enough to justify them being separate.
+
+function OldLBMarbleSelectionDlg::onWake(%this) {
+	%this.loadPrefs();
+}
+
+function OldLBMarbleSelectionDlg::loadPrefs(%this) {
+	if (mp()) {
+		if ($MPPref::marbleCategory $= "" || $LBPref::marbleIndex $= "") {
+			$MPPref::marbleCategory = "PQ Classic";
+			$MPPref::marbleIndex = 0;
+			$MPPref::marbleNormalize = true;
+		}
+		if ($MPPref::marbleCategory $= "Official Marbles") {
+			$MPPref::marbleCategory = "MBP Official";
+		}
+
+		%category  = $MPPref::marbleCategory;
+		%marbleNum = $MPPref::marbleIndex;
+		%normalize = $MPPref::marbleNormalize;
+	} else {
+		if ($LBPref::marbleCategory $= "" || $LBPref::marbleIndex $= "") {
+			$LBPref::marbleCategory = "PQ Classic";
+			$LBPref::marbleIndex = 0;
+			$LBPref::marbleNormalize = true;
+		}
+		if ($LBPref::marbleCategory $= "Official Marbles") {
+			$LBPref::marbleCategory = "MBP Official";
+		}
+
+		%category  = $LBPref::marbleCategory;
+		%marbleNum = $LBPref::marbleIndex;
+		%normalize = $LBPref::marbleNormalize;
+	}
+
+	OldMS_NormalSizeCheck.setValue(%normalize);
+	MS_NormalSizeCheck.setValue(%normalize);
+
+	echo("Marble select prefs:");
+	echo("   Category: " @ %category);
+
+	MarbleSelectDlg.category = %category;
+
+	%list = MarbleSelectDlg.getMarbleList(%category);
+	if (!isObject(%list)) {
+		%this.selectCategory("MBP Official");
+		ASSERT("Marble not Found!", "The previously selected custom marble was not found. The category it was in no longer exists.");
+		return;
+	}
+
+	MarbleSelectDlg.categoryChoice = MarbleSelectDlg.lists.getIndex(%list);
+	echo("   Category Index: " @ MarbleSelectDlg.categoryChoice);
+	%this.selectCategory(%category);
+	%list = MarbleSelectDlg.getMarbleList(%category);
+	if (!isObject(%list)) {
+		%this.selectCategory("MBP Official");
+		ASSERT("Marble not Found!", "The previously selected custom marble was not found. The category it was in is inaccessible.");
+		return;
+	}
+
+	%this.selectMarble(%marbleNum);
+}
+
+function OldLBMarbleSelectionDlg::getSelection(%this) {
+	%list = MarbleSelectDlg.getMarbleList(mp() ? $MPPref::marbleCategory : $LBPref::marbleCategory);
+
+	%base = %list.base;
+
+	%marble = %list.marbles.getEntry(mp() ? $MPPref::marbleIndex : $LBPref::marbleIndex);
+
+	%shapeName = %marble.shape;
+	%shapeFile = %base @ "/" @ %shapeName;
+
+	%shapeNormalSize = %marble.normalize;
+
+	return %shapeFile TAB %marble.skin TAB %shapeNormalSize TAB %marble.shaderV TAB %marble.shaderF;
+}
+
+function OldLBMarbleSelectionDlg::onSleep(%this) {
+	%this.savePrefs();
+	savePrefs();
+	if (isObject(ServerConnection)) {
+		commandToServer('UpdateMarble', %this.getSelection());
+	}
+}
+
+function OldLBMarbleSelectionDlg::savePrefs(%this) {
+	if (mp()) {
+		$MPPref::marbleCategory  = MarbleSelectDlg.category;
+		$MPPref::marbleIndex     = MarbleSelectDlg.marbleChoice;
+		$MPPref::marbleNormalize = true;
+	} else {
+		$LBPref::marbleCategory  = MarbleSelectDlg.category;
+		$LBPref::marbleIndex     = MarbleSelectDlg.marbleChoice;
+		$LBPref::marbleNormalize = true;
+	}
+}
+
+function OldLBMarbleSelectionDlg::update(%this) {
+
+	%list = MarbleSelectDlg.getMarbleList(MarbleSelectDlg.category);
+
+	%marble = %list.marbles.getEntry(MarbleSelectDlg.marbleChoice);
+
+	%base = %list.base;
+
+	%shapeName = %marble.shape;
+	%shapeFile = %base @ "/" @ %shapeName;
+
+	%shapeSkin = %marble.skin;
+	%shapeTitle = %marble.name;
+
+	OldLBMarbleSelectNextCat.setVisible(MarbleSelectDlg.lists.getSize() > 1);
+	OldLBMarbleSelectPrevCat.setVisible(MarbleSelectDlg.lists.getSize() > 1);
+
+	if (isFile(%shapeFile)) {
+		OldLBMarbleSelectPreview.setModel(%shapeFile, %shapeSkin);
+
+
+		%normalize = %marble.normalize;
+		OldMS_NormalSizeCheck.setVisible(!%normalize);
+		OldMS_NormalSizetext.setVisible(!%normalize);
+		MS_NormalSizeCheck.setVisible(!%normalize);
+	} else {
+		error("MarbleSelect :: Tried to set shapefile to" SPC %shapeFile SPC "but file does not exist.");
+		OldLBMarbleSelectPreview.setEmpty();
+	}
+
+	OldLBMarbleTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:32><just:center><color:ffffff>" @ (mp() ? "Select a Marble" : "Choose Your Marble") NL "<font:Marker Felt:24>" @ upperFirst(MarbleSelectDlg.category) NL upperFirst(%shapeTitle));
+}
+
+function OldLBMarbleSelectionDlg::selectMarble(%this, %marble) {
+	MarbleSelectDlg.marbleChoice = %marble;
+	%this.update();
+	%this.savePrefs();
+}
+
+function OldLBMarbleSelectionDlg::selectCategory(%this, %category) {
+	%list = MarbleSelectDlg.getMarbleList(%category);
+
+	if (!isObject(%list)) {
+		error("MarbleSelect :: Tried to set category" SPC %category SPC "but category does not exist.");
+		return;
+	}
+
+	MarbleSelectDlg.category = %category;
+
+	%this.selectMarble(0);
+}
+
+function OldLBMarbleSelectionDlg::nextMarble(%this) {
+	%choice = MarbleSelectDlg.marbleChoice + 1;
+
+	if (%choice >= MarbleSelectDlg.getMarbleList(MarbleSelectDlg.category).marbles.getSize())
+		%choice = 0;
+
+	%this.selectMarble(%choice);
+}
+
+function OldLBMarbleSelectionDlg::prevMarble(%this) {
+	%choice = MarbleSelectDlg.marbleChoice - 1;
+
+	if (%choice < 0)
+		%choice = MarbleSelectDlg.getMarbleList(MarbleSelectDlg.category).marbles.getSize() - 1;
+
+	if (%choice < 0)
+		%choice = 0;
+
+	%this.selectMarble(%choice);
+}
+
+function OldLBMarbleSelectionDlg::nextCat(%this) {
+	%choice = MarbleSelectDlg.categoryChoice + 1;
+
+	if (%choice >= MarbleSelectDlg.lists.getSize())
+		%choice = 0;
+
+	MarbleSelectDlg.categoryChoice = %choice;
+
+	%list = MarbleSelectDlg.lists.getEntry(%choice);
+
+	%this.selectCategory(%list.name);
+}
+
+function OldLBMarbleSelectionDlg::prevCat(%this) {
+	%choice = MarbleSelectDlg.categoryChoice - 1;
+
+	if (%choice < 0)
+		%choice = MarbleSelectDlg.lists.getSize() - 1;
+
+	if (%choice < 0)
+		%choice = 0;
+
+	MarbleSelectDlg.categoryChoice = %choice;
+
+	%list = MarbleSelectDlg.lists.getEntry(%choice);
+
+	%this.selectCategory(%list.name);
+}

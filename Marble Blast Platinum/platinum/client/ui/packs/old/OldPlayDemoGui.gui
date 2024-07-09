@@ -1,0 +1,396 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldPlayDemoGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./backgrounds/platinum/2";
+	useVariable = "0";
+	tile = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "80 60";
+		extent = "640 480";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/replay/window";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldPD_Edit) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "421 386";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldCompleteDemoDlg.editDemo(getField(OldPD_DemoList.getRowTextById(OldPD_DemoList.getSelectedId()), 1));";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/search/options";
+		};
+		new GuiBitmapButtonCtrl(OldPD_play) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "322 386";
+			extent = "94 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldPlayDemoGui.startSelectedDemo();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/replay/play";
+		};
+		new GuiBitmapButtonCtrl(OldPD_Exit) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "223 386";
+			extent = "94 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldPlayDemoGui.exit();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/replay/home";
+		};
+		new GuiBitmapButtonCtrl(OldPD_delete) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "124 386";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldPlayDemoGui.deleteFile();";
+			helpTag = "0";
+			text = "Delete";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/options/delete";
+		};
+		new GuiScrollCtrl() {
+			profile = "OldGuiBacklessScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "30 25";
+			extent = "283 346";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiTextListCtrl(OldPD_DemoList) {
+				profile = "OldSearchProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "1 1";
+				extent = "265 8";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldPlayDemoGui.getSelectedDemo();";
+				helpTag = "0";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "0";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+					noDuplicates = "false";
+			};
+		};
+		new GuiBitmapCtrl(OldPD_MissionPreview) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "360 29";
+			extent = "216 150";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "0";
+			wrap = "0";
+		};
+		new GuiMLTextCtrl(OldPD_AuthorName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "329 339";
+			extent = "278 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiScrollCtrl() {
+			profile = "OldGuiBacklessScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "327 255";
+			extent = "282 83";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldPD_DescriptionText) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "1 1";
+				extent = "264 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiMLTextCtrl(OldPD_DescriptionTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "326 225";
+			extent = "281 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "351 21";
+			extent = "234 168";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/replay/replayframe";
+			wrap = "0";
+		};
+		new GuiMLTextCtrl(OldPD_MissionName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "327 181";
+			extent = "278 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldPlayDemoGui::open(%this, %lb, %dialog) {
+	%this.isLB = %lb;
+	%this.PMCurrentGame = ($pref::CurrentGame !$= "" ? $pref::CurrentGame : "Platinum");
+	%this.PMMissionType = ($pref::MissionType !$= "" ? $pref::MissionType : "Beginner");
+	if (%dialog) {
+		Canvas.pushDialog(%this);
+		%this.setBitmap("platinum/client/ui/packs/old/offline/exit/empty.png");
+		%this.dialog = true;
+	} else {
+		Canvas.setContent(%this);
+		%this.setBitmap(%lb ? OldLBChatGui.randomBackground : %this.randomBackground);
+		%this.dialog = false;
+	}
+}
+
+function OldPlayDemoGui::onWake(%this) {
+	if (!$replayFromPlayDemoGui) {
+		%this.buildDemoList();
+		resumeMusic();
+		OldPD_Delete.setActive(0);
+		OldPD_play.setActive(0);
+		OldPD_Edit.setActive(0);
+		OldPD_MissionPreview.setBitmap("");
+		OldPD_MissionName.setText("");
+		OldPD_DescriptionTitle.setText("");
+		OldPD_DescriptionText.setText("");
+		OldPD_AuthorName.setText("");
+	}
+}
+
+function OldPlayDemoGui::exit(%this) {
+	$CurrentGame = %this.PMCurrentGame;
+	$MissionType = %this.PMMissionType;
+	if (lb()) {
+		Canvas.setContent(OldLBChatGui);
+	} else {
+		Canvas.setContent(OldMainMenuGui);
+	}
+}
+
+function OldPlayDemoGui::getMissionList(%this) {
+	if (lb()) {
+		return getMissionList("lb");
+	} else {
+		return getMissionList("offline");
+	}
+}
+
+function OldPlayDemoGui::buildDemoList(%this) {
+
+	if (!isObject(ReplaySearchSet)) {
+		Array(ReplaySearchSet);
+		RootGroup.add(ReplaySearchSet);
+	}
+
+	ReplaySearchSet.clear();
+
+	OldPD_DemoList.clear();
+
+	for (%file = findFirstFile($usermods @ "/data/recordings/*.rrec");
+	        %file !$= ""; %file = findNextFile($usermods @ "/data/recordings/*.rrec")) {
+		%base = fileBase(%file);
+		if (%base $= "lb-latest" || %base $= "lb-current")
+			continue;
+
+		%info = getReplayInfo(%file);
+		if (!isObject(%info)) {
+			continue;
+		}
+		if (%this.isLB && !%info.lb) {
+			continue;
+		}
+
+		ReplaySearchSet.addEntry(%info);
+
+		%tagText = (%info.mp ? "[MP] " : (%info.lb ? "[LB] " : ""));
+
+		%name = stripChars(%info.name, "\n\t");
+		OldPD_DemoList.addRow(OldPD_DemoList.rowCount(), clipPx("Marker Felt", 24, %tagText @ %name, 260, true) TAB %file TAB %name);
+	}
+	OldPD_DemoList.sort(2);
+}
+
+function OldPlayDemoGui::getSelectedDemo(%this) {
+	%id = OldPD_DemoList.getSelectedId();
+	%row = OldPD_DemoList.getRowTextById(%id);
+	%demo = getField(%row, 1);
+
+	%info = getReplayInfo(%demo);
+	%mission = getMissionInfo(%info.missionFile, true);
+
+	%this.mission = %mission;
+	$CurrentGame = resolveMissionGame(%mission);
+	$MissionType = resolveMissionType(%mission);
+
+	OldPD_MissionPreview.setBitmap(resolveOldMissionBitmap(%mission, %this.getMissionList()));
+	OldPD_MissionName.setText("<just:center><font:Marker Felt:24>" @ clipPx("Marker Felt", 24, %mission.name, 278, true));
+	OldPD_DescriptionTitle.setText("<font:Marker Felt:24>" @ clipPx("Marker Felt", 24, (%info.name !$= "" ? %info.name : "Untitled"), 278, true));
+	OldPD_DescriptionText.setText("<font:Marker Felt:24>" @ (%info.desc !$= "" ? %info.desc : "No description."));
+	OldPD_AuthorName.setText("<font:Marker Felt:18>Author: " @ clipPx("Marker Felt", 24, (%info.author !$= "" ? %info.author : "Unknown"), 278, true));
+	OldPD_play.setActive(1);
+	OldPD_Delete.setActive(1);
+	OldPD_Edit.setActive(1);
+	OldCompleteDemoDlg.recordfile = "";
+}
+
+function OldPlayDemoGui::deleteFile(%this) {
+	%id = OldPD_DemoList.getSelectedId();
+	%row = OldPD_DemoList.getRowTextById(%id);
+	%demo = getField(%row, 1);
+
+	%info = getReplayInfo(%demo);
+	%name = %info.name;
+
+	MessageBoxYesNo("Delete Recording?", "Do you want to delete the recording \"" @ %name @ "\"?", "OldPlayDemoGui.doDelete(" @ %id @ ");", "");
+}
+
+function OldPlayDemoGui::doDelete(%this, %id) {
+	%row = OldPD_DemoList.getRowTextById(%id);
+	%file = getField(%row, 1);
+
+	%fbase = fileBase(%file);
+	%rrecExistence = getFileSize("platinum/data/recordings/" @ %fbase @ ".rrec") != 0;
+	if (%rrecExistence) {
+		deleteFile(%file);
+	}
+	else {
+		deleteFile("platinum/data/recordings/" @ %fbase @ ".rrec.zip");
+	}
+	OldPD_DemoList.removeRowById(%id);
+
+	OldPD_Delete.setActive(0);
+	OldPD_play.setActive(0);
+	OldPD_Edit.setActive(0);
+	OldPD_MissionPreview.setBitmap("");
+	OldPD_MissionName.setText("");
+	OldPD_DescriptionTitle.setText("");
+	OldPD_DescriptionText.setText("");
+	OldPD_AuthorName.setText("");
+}
+
+function OldPlayDemoGui::startSelectedDemo(%this) {
+	%id = OldPD_DemoList.getSelectedId();
+	%row = OldPD_DemoList.getRowTextById(%id);
+	%demo = getField(%row, 1);
+
+	%this.lastSelectedDemo = %id;
+	$replayFromPlayDemoGui = true;
+	playReplay(%demo);
+}

@@ -1,0 +1,326 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldJukeboxDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl(OldJukeBox_window) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "129 95";
+		extent = "541 409";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/jukebox/window";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldJukeBoxDlg_stop) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "219 306";
+			extent = "96 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldJukeboxDlg.stop();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/jukebox/stop";
+		};
+		new GuiBitmapButtonCtrl(OldJukeBoxDlg_play) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "219 306";
+			extent = "96 45";
+			minExtent = "8 8";
+			visible = "0";
+			command = "$JukeBoxDlg::isPlaying = true; OldJukeboxDlg.play();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/jukebox/play";
+		};
+		new GuiScrollCtrl(OldJukeBox_scroll) {
+			profile = "OldGuiBacklessScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "51 39";
+			extent = "439 216";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiTextListCtrl(OldJukeBox_SongList) {
+				profile = "OldSearchProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "1 1";
+				extent = "421 8";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldJukeBoxDlg.selectSong();";
+				helpTag = "0";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "0";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+					noDuplicates = "false";
+			};
+		};
+		new GuiMLTextCtrl(OldJukeBox_SongTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "61 262";
+			extent = "416 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldJukeBox_SongAuthor) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "56 283";
+			extent = "421 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldJukeBoxDlg_prev) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "145 307";
+			extent = "72 43";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldJukeboxDlg.prevSong();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/play/prev";
+		};
+		new GuiBitmapButtonCtrl(OldJukeBoxDlg_next) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "317 307";
+			extent = "72 43";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldJukeboxDlg.nextSong();";
+			helpTag = "0";
+			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/play/next";
+		};
+		new GuiBitmapButtonCtrl(OldJukeBoxDlg_close) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "47 307";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldJukeboxDlg);";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/jukebox/close";
+				simpleStyle = "0";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldJukeboxDlg::onWake(%this) {
+	%this.adjustStyle();
+
+	$JukeboxDlg::active = true;
+	OldJukeBox_SongTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:center>Title:");
+	%this.getSongList();
+	%this.selectPlayingSong();
+}
+function OldJukeboxDlg::onSleep(%this) {
+	$JukeboxDlg::active = false;
+}
+function OldJukeboxDlg::getSongList(%this) {
+	//Use a different variable here, as otherwise it clashes with the regular jukebox
+	if (!%this.musicFound) {
+		OldJukeBox_SongList.clear();
+		%this.SongNum = 0;
+		for (%file = findFirstFile($usermods @ "/data/sound/music/*.ogg"); %file !$= ""; %file = findNextFile($usermods @ "/data/sound/music/*.ogg")) {
+			%base = fileBase(%file);
+			if (%base $= "Upbeat Finale" || %base $= "Good to Jump to (Loop Edit)")
+				continue;
+			OldJukeBox_SongList.addRow(%this.SongNum,fileBase(%file));
+			%this.SongNum++;
+		}
+		OldJukeBox_SongList.sort(0);
+		%this.musicFound = true;
+	}
+}
+function OldJukeboxDlg::selectPlayingSong(%this) {
+	if (alxIsPlaying($currentMusicHandle)) {
+		$JukeBoxDlg::isPlaying = true;
+		OldJukeBox_SongAuthor.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:center>Playing");
+	} else {
+		$JukeBoxDlg::isPlaying = false;
+		OldJukeBox_SongAuthor.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:center>Stopped");
+	}
+	OldJukeBoxDlg_stop.setVisible($JukeBoxDlg::isPlaying);
+	OldJukeBoxDlg_play.setVisible(!$JukeBoxDlg::isPlaying);
+
+	for (%i = 0; %i < $JukeboxDlg::SongNum; %i++) {
+		if ($JukeboxDlg::Song[%i] $= fileBase(MusicProfile.fileName)) {
+			OldJukeBox_SongList.setSelectedById(%i);
+			%row = JukeBox_SongList.getRowNumById(%i);
+			$JukeboxDlg::playingId = %row;
+			OldJukeBox_SongTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:center>Title: " @ $JukeboxDlg::Song[%i]);
+			%this.update();
+			return;
+		}
+	}
+}
+
+function OldJukeboxDlg::update(%this) {
+	if ($JukeboxDlg::playingId == 0)
+		OldJukeBoxDlg_prev.setActive(false);
+	else
+		OldJukeBoxDlg_prev.setActive(true);
+
+	if ($JukeboxDlg::playingId == ($JukeboxDlg::SongNum - 1))
+		OldJukeBoxDlg_next.setActive(false);
+	else
+		OldJukeBoxDlg_next.setActive(true);
+}
+
+function OldJukeboxDlg::prevSong(%this) {
+	if ($JukeboxDlg::playingId == 0)
+		return;
+
+	%row = $JukeboxDlg::playingId - 1;
+
+	OldJukeBox_SongList.setSelectedRow(%row);
+	%this.play();
+}
+
+function OldJukeboxDlg::toggleSong(%this) {
+	if ($JukeboxDlg::isPlaying) {
+		%this.stop();
+	} else {
+		$JukeboxDlg::isPlaying = true;
+		%this.play();
+	}
+}
+
+function OldJukeboxDlg::selectSong(%this) {
+	%this.play();
+}
+
+function OldJukeboxDlg::nextSong(%this) {
+	if ($JukeboxDlg::playingId == ($JukeboxDlg::SongNum - 1))
+		return;
+
+	%row = $JukeboxDlg::playingId + 1;
+
+	OldJukeBox_SongList.setSelectedRow(%row);
+	%this.play();
+}
+
+function OldJukeboxDlg::play(%this) {
+	OldJukeBoxDlg_stop.setVisible(true);
+	OldJukeBoxDlg_play.setVisible(false);
+	%id = OldJukeBox_SongList.getSelectedId();
+	%row = OldJukeBox_SongList.getRowNumById(%id);
+
+	if ($JukeboxDlg::isPlaying) {
+		playMusic($JukeboxDlg::Song[%id] @ ".ogg");
+		OldJukeBox_SongAuthor.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:center>Playing");
+	}
+
+	$JukeboxDlg::playingId = %row;
+	OldJukeBox_SongTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:center>Title: " @ $JukeboxDlg::Song[%id]);
+	%this.update();
+}
+
+function OldJukeboxDlg::stop(%this) {
+	OldJukeBoxDlg_stop.setVisible(false);
+	OldJukeBoxDlg_play.setVisible(true);
+	pauseMusic();
+	$JukeBoxDlg::isPlaying = false;
+	OldJukeBox_SongAuthor.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:center>Stopped");
+}
+
+function OldJukeboxDlg::adjustStyle(%this) {
+	//Adjust style for multiplayer or leaderboards/offline
+	OldJukeBox_SongList.profile = (mp() ? "OldMPSearchProfile" : "OldSearchProfile");
+	OldJukeBox_scroll.profile = (mp() ? "OldGuiWhiteBacklessScrollProfile" : "OldGuiBacklessScrollProfile");
+	OldJukeBox_scroll.inspectPostApply();
+	OldJukeBox_window.setBitmap(mp() ? "platinum/client/ui/packs/old/multiplayer/jukebox/jukebox-mp" : "platinum/client/ui/packs/old/offline/jukebox/window");
+	OldJukeBoxDlg_close.setBitmap(mp() ? "platinum/client/ui/packs/old/multiplayer/jukebox/close" : "platinum/client/ui/packs/old/offline/jukebox/close");
+	OldJukeBoxDlg_prev.setBitmap(mp() ? "platinum/client/ui/packs/old/multiplayer/jukebox/prev" : "platinum/client/ui/packs/old/offline/play/prev");
+	OldJukeBoxDlg_next.setBitmap(mp() ? "platinum/client/ui/packs/old/multiplayer/jukebox/next" : "platinum/client/ui/packs/old/offline/play/next");
+	OldJukeBoxDlg_stop.setBitmap(mp() ? "platinum/client/ui/packs/old/multiplayer/jukebox/stop" : "platinum/client/ui/packs/old/offline/jukebox/stop");
+	OldJukeBoxDlg_play.setBitmap(mp() ? "platinum/client/ui/packs/old/multiplayer/jukebox/play" : "platinum/client/ui/packs/old/offline/jukebox/play");
+}

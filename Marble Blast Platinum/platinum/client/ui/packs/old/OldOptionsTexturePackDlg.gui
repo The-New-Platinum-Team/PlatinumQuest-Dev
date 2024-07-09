@@ -1,0 +1,490 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldOptionsTexturePackDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	wrap = "0";
+		commandCancel = "OldOptionsTexturePackDlg.close();";
+		commandNameCancel = "Close";
+		defaultControl = "OldOTPD_Pack0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "129 112";
+		extent = "741 476";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/Options/window";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "223 394";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsTexturePackDlg.close();";
+			helpTag = "0";
+			bitmap = "./offline/Options/back";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiMLTextCtrl() {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "66 22";
+			extent = "409 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:center>Texture Packs";
+				unformattedText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:center>Texture Packs";
+		};
+		new GuiControl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "23 53";
+			extent = "305 356";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiScrollCtrl(OldOTPD_PackList) {
+				profile = "OldGuiGreenScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "13 44";
+				extent = "279 299";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "dynamic";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "2 2";
+
+				new GuiControl(OldOTPD_PackListContent) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "2 2";
+					extent = "275 16";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+				};
+			};
+			new GuiMLTextCtrl() {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "25 14";
+				extent = "202 24";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+					defaultText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Available";
+					unformattedText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Available";
+			};
+		};
+		new GuiControl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "height";
+			position = "318 53";
+			extent = "401 356";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiScrollCtrl(OldOTPD_ActiveList) {
+				profile = "OldGuiGreenScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "13 44";
+				extent = "365 299";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "dynamic";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "2 2";
+
+				new GuiControl(OldOTPD_ActiveListContent) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "2 2";
+					extent = "371 16";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+				};
+			};
+			new GuiMLTextCtrl() {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "25 14";
+				extent = "202 24";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+					defaultText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Active";
+					unformattedText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Active";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldOptionsTexturePackDlg::onWake(%this) {
+	buildTexturePackArray();
+	%this.buildLists();
+}
+
+function OldOptionsTexturePackDlg::close(%this) {
+	Canvas.popDialog(%this);
+}
+
+function OldOptionsTexturePackDlg::buildLists(%this) {
+	OldOTPD_PackListContent.clear();
+	OldOTPD_ActiveListContent.clear();
+
+	%availableCount = TexturePackArray.getSize();
+	%activeCount = 0;
+
+	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
+		%pref = $pref::Video::TexturePack[%i];
+		%index = TexturePackArray.getIndexByField(%pref, 1);
+
+		if (%index != -1) {
+			%activeIndexes[%index] = true;
+			%activePacks[%activeCount] = %pref;
+			%activeCount ++;
+			%availableCount --;
+		}
+	}
+
+	%rowHeight = 45;
+
+	%availableParentWidth = OldOTPD_PackListContent.getGroup().getWidth() - 4;
+	%availableParentHeight = OldOTPD_PackListContent.getGroup().getHeight() - 4;
+	OldOTPD_PackListContent.setWidth(%availableParentWidth - ((%availableCount * %rowHeight) > %availableParentHeight ? 16 : 0));
+
+	%activeParentWidth = OldOTPD_ActiveListContent.getGroup().getWidth() - 4;
+	%activeParentHeight = OldOTPD_ActiveListContent.getGroup().getHeight() - 4;
+	OldOTPD_ActiveListContent.setWidth(%activeParentWidth - ((%activeCount * %rowHeight) > %activeParentHeight ? 16 : 0));
+
+	%availableWidth = OldOTPD_PackListContent.getWidth();
+	%activeWidth = OldOTPD_ActiveListContent.getWidth();
+
+	OldOTPD_PackListContent.setHeight(%availableCount * %rowHeight);
+	OldOTPD_ActiveListContent.setHeight(%activeCount * %rowHeight);
+
+	for (%i = 0; %i < TexturePackArray.getSize(); %i ++) {
+		%pack = TexturePackArray.getEntry(%i);
+
+		%display = getField(%pack, 0);
+		%name = getField(%pack, 1);
+
+		%index = OldOTPD_PackListContent.getCount();
+		%box = "OldOTPD_Pack" @ %index;
+		%boxDown = "OldOTPD_Pack" @ (%index + 1);
+		%boxUp = "OldOTPD_Pack" @ (%index - 1);
+		%boxRight = "OldOTPD_Active0";
+		%titleCtrl = "OldOTPD_Pack" @ %index @ "_Title";
+		%activateButton = "OldOTPD_Pack" @ %index @ "_Activate";
+
+		if (!%activeIndexes[%i]) {
+			OldOTPD_PackListContent.add(new GuiControl(%box) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0" SPC (%index * %rowHeight);
+				extent = %availableWidth SPC %rowHeight;
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+					commandSelect = "OldOptionsTexturePackDlg.activatePack(\"" @ expandEscape(%name) @ "\");";
+					commandNameSelect = "Activate";
+					controlDown = %boxDown;
+					controlUp = %boxUp;
+					controlRight = %boxRight;
+
+				new GuiMLTextCtrl(%titleCtrl) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "8 8";
+					extent = "360 14";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiBitmapButtonCtrl(%activateButton) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = (%availableWidth - 45) SPC "0";
+					extent = "43 43";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/Options/plus";
+					text = "";
+					command = "OldOptionsTexturePackDlg.activatePack(\"" @ expandEscape(%name) @ "\");";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+			});
+
+			%titleCtrl.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:20>" @ %display);
+		}
+	}
+
+	for (%i = 0; %i < %activeCount; %i ++) {
+		%pref = %activePacks[(%activeCount - 1) - %i];
+		%pack = TexturePackArray.getEntryByField(%pref, 1);
+
+		%display = getField(%pack, 0);
+		%name = getField(%pack, 1);
+
+		%index = OldOTPD_ActiveListContent.getCount();
+		%box = "OldOTPD_Active" @ %index;
+		%boxDown = "OldOTPD_Active" @ (%index + 1);
+		%boxUp = "OldOTPD_Active" @ (%index - 1);
+		%boxLeft = "OldOTPD_Pack0";
+		%titleCtrl = "OldOTPD_Active" @ %index @ "_Title";
+		%deactivateButton = "OldOTPD_Active" @ %index @ "_Deactivate";
+		%upButton = "OldOTPD_Active" @ %index @ "_Up";
+		%downButton = "OldOTPD_Active" @ %index @ "_Down";
+
+		if (!%activePacks[%pack]) {
+			OldOTPD_ActiveListContent.add(new GuiControl(%box) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0" SPC (%index * %rowHeight);
+				extent = %activeWidth SPC %rowHeight;
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+					commandSelect = "OldOptionsTexturePackDlg.deactivatePack(\"" @ expandEscape(%name) @ "\");";
+					commandNameSelect = "Deactivate";
+					controlDown = %boxDown;
+					controlUp = %boxUp;
+					controlLeft = %boxLeft;
+
+				new GuiMLTextCtrl(%titleCtrl) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "8 8";
+					extent = "360 14";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+			});
+
+			if (%name !$= "default") {
+				%box.add(new GuiBitmapButtonCtrl(%downButton) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = (%activeWidth - 89) SPC "0";
+					extent = "43 43";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/Options/down";
+					text = "";
+					command = "OldOptionsTexturePackDlg.movePackDown(\"" @ expandEscape(%name) @ "\");";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				});
+				%box.add(new GuiBitmapButtonCtrl(%upButton) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = (%activeWidth - 133) SPC "0";
+					extent = "43 43";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/Options/up";
+					text = "";
+					command = "OldOptionsTexturePackDlg.movePackUp(\"" @ expandEscape(%name) @ "\");";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				});
+				%box.add(new GuiBitmapButtonCtrl(%deactivateButton) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = (%activeWidth - 45) SPC "0";
+					extent = "43 43";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/Options/minus";
+					text = "";
+					command = "OldOptionsTexturePackDlg.deactivatePack(\"" @ expandEscape(%name) @ "\");";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				});
+				%downButton.setActive(%index < (%activeCount - 2));
+				%upButton.setActive(%index > 0);
+				if (%index > 0) {
+					%box.commandAlt1 = "OldOptionsTexturePackDlg.movePackUp(\"" @ expandEscape(%name) @ "\");";
+					%box.commandNameAlt1 = "Move Up";
+				}
+				if (%index < (%activeCount - 2)) {
+					%box.commandAlt2 = "OldOptionsTexturePackDlg.movePackDown(\"" @ expandEscape(%name) @ "\");";
+					%box.commandNameAlt2 = "Move Down";
+				}
+			}
+
+			%titleCtrl.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:20>" @ %display);
+		}
+	}
+}
+
+function OldOptionsTexturePackDlg::activatePack(%this, %pack) {
+	%found = false;
+	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
+		%pref = $pref::Video::TexturePack[%i];
+		if (%pref $= %pack) {
+			%found = true;
+		}
+	}
+	if (%found) {
+		return;
+	}
+	$pref::Video::TexturePack[%i] = %pack;
+	%this.buildLists();
+	$Options::TexturePackDirty = true;
+}
+
+function OldOptionsTexturePackDlg::movePackDown(%this, %pack) {
+	%found = false;
+	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
+		%pref = $pref::Video::TexturePack[%i];
+		if (%pref $= %pack) {
+			%found = true;
+			%index = %i;
+		}
+	}
+	if (!%found) {
+		return;
+	}
+
+	%temp = $pref::Video::TexturePack[%index];
+	$pref::Video::TexturePack[%index] = $pref::Video::TexturePack[%index - 1];
+	$pref::Video::TexturePack[%index - 1] = %temp;
+	%this.buildLists();
+	$Options::TexturePackDirty = true;
+}
+
+function OldOptionsTexturePackDlg::movePackUp(%this, %pack) {
+	%found = false;
+	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
+		%pref = $pref::Video::TexturePack[%i];
+		if (%pref $= %pack) {
+			%found = true;
+			%index = %i;
+		}
+	}
+	if (!%found) {
+		return;
+	}
+
+	%temp = $pref::Video::TexturePack[%index];
+	$pref::Video::TexturePack[%index] = $pref::Video::TexturePack[%index + 1];
+	$pref::Video::TexturePack[%index + 1] = %temp;
+	%this.buildLists();
+	$Options::TexturePackDirty = true;
+}
+
+function OldOptionsTexturePackDlg::deactivatePack(%this, %pack) {
+	%found = false;
+	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
+		%pref = $pref::Video::TexturePack[%i];
+		if (%pref $= %pack) {
+			%found = true;
+			%index = %i;
+		}
+	}
+	if (!%found) {
+		return;
+	}
+
+	for (%i = %index; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
+		$pref::Video::TexturePack[%i] = $pref::Video::TexturePack[%i + 1];
+	}
+	%this.buildLists();
+	$Options::TexturePackDirty = true;
+}

@@ -1,0 +1,416 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldLBLoginGui) {
+	profile = "GuiContentProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./backgrounds/multi/1";
+	useVariable = "0";
+	tile = "0";
+		checking = "0";
+		onLine = "1";
+		players = "4";
+		spinInterval = "1";
+		spinNum = "3";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "0 0";
+		extent = "640 480";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "64 91";
+			extent = "511 297";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/login/window";
+			wrap = "0";
+
+			new GuiMLTextCtrl(OldLBLoginUsernameTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "32 99";
+				extent = "110 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(OldLBLoginCreate) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "136 214";
+				extent = "155 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.pushDialog(OldLBRegisterDlg);";
+				helpTag = "0";
+				text = "New Account";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/login/createacc";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "32 214";
+				extent = "94 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "leaveLeaderboards();";
+				helpTag = "0";
+				text = "home";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/login/home";
+			};
+			new GuiMLTextCtrl(OldLBLoginPlayers) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "29 23";
+				extent = "191 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(OldLBLoginButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "386 214";
+				extent = "95 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBLoginGui.retries = 0;OldLBLoginGui.login();";
+				helpTag = "0";
+				text = "login";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/login/login";
+			};
+			new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "144 136";
+				extent = "338 46";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./leaderboards/login/textfield";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "144 91";
+				extent = "338 46";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./leaderboards/login/textfield";
+				wrap = "0";
+			};
+			new GuiTextEditCtrl(OldLBLoginUsername) {
+				profile = "OldGuiOptionsTextEditProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "153 103";
+				extent = "322 26";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBLoginGui.enableLogin();";
+				altCommand = "OldLBLoginGui.login();";
+				helpTag = "0";
+				maxLength = "255";
+				maxPixelWidth = "-1";
+				historySize = "0";
+				password = "0";
+				tabComplete = "0";
+				sinkAllKeyEvents = "0";
+			};
+			new GuiTextEditCtrl(OldLBLoginPassword) {
+				profile = "OldGuiOptionsTextEditProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "153 148";
+				extent = "322 26";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBLoginGui.enableLogin();";
+				altCommand = "OldLBLoginGui.login();";
+				helpTag = "0";
+				maxLength = "255";
+				maxPixelWidth = "-1";
+				historySize = "0";
+				password = "1";
+				tabComplete = "0";
+				sinkAllKeyEvents = "0";
+			};
+			new GuiMLTextCtrl(OldLBLoginPasswordTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "32 144";
+				extent = "110 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "288 184";
+				extent = "186 27";
+				minExtent = "8 8";
+				visible = "1";
+				variable = "$LBPref::RememberPassword";
+				command = "OldLBLoginGui.enableLogin();";
+				helpTag = "0";
+				text = "Remember Password?";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/LOGIN/REMEMBER";
+			};
+			new GuiBitmapButtonCtrl(OldLBLoginGuest) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "291 214";
+				extent = "95 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.setContent(OldLBGuestLoginGui);";
+				helpTag = "0";
+				text = "Guest";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/login/guest";
+			};
+			new GuiMLTextCtrl(OldLBLoginTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "160 26";
+				extent = "191 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldLBLoginGui::onWake(%this) {
+	if ($Game::Offline) {
+		closeLeaderboards();
+		return;
+	}
+
+	$LB::Guest = false;
+
+	if (!%this.returning || OldLBLoginTitle.getText() $= "") {
+		OldLBLoginUsername.setText("");
+		OldLBLoginPassword.setText("");
+
+		OldLBLoginUsernameTitle.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:32><just:right>Username:");
+		OldLBLoginPasswordTitle.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:32><just:right>Password:");
+		OldLBLoginTitle.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:48><just:center>Log In");
+
+		%this.rememberUsername();
+		%this.checkServer();
+	}
+	%this.enableLogin();
+
+	playShellMusic();
+}
+
+function OldLBLoginGui::enableLogin(%this) {
+	%username = OldLBLoginUsername.getValue();
+	%password = OldLBLoginPassword.getValue();
+	%enable = false;
+	if (%username !$= "" && %password !$= "")
+		%enable = true;
+
+	OldLBLoginButton.setActive(%enable && !%this.checking && %this.online);
+	OldLBLoginGuest.setActive(!%this.checking && %this.online);
+	OldLBLoginCreate.setActive(%this.online && !%this.checking);
+
+	%message = "Unknown Status!";
+	if (%this.checking) {
+		%message = "Requesting Status...";
+	} else if (%this.online) {
+		if ($LBPref::DisableChat) {
+			%message = "Chat Disabled";
+		} else {
+			%message = %this.players SPC "Player" @ (%this.players == 1 ? "" : "s") @ " Online";
+		}
+	} else {
+		%message = %this.error;
+	}
+
+	OldLBLoginPlayers.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:22><just:left>" @ %message);
+
+	$LBPref::Username = %username;
+	if ($LBPref::RememberPassword)
+		$LBPref::Password = strEnc(%password, 2);
+
+	$LB::Password2 = garbledeguck(%password);
+}
+
+function OldLBLoginGui::rememberUsername(%this) {
+	OldLBLoginPassword.makeFirstResponder(false);
+
+	%username = $LBPref::Username;
+
+	if (%username !$= "") {
+		OldLBLoginUsername.setText(%username);
+
+		OldLBLoginPassword.makeFirstResponder(true);
+
+		if ($LBPref::RememberPassword) {
+
+			%password = strDec($LBPref::Password, 2);
+			if (%password !$= "")
+				OldLBLoginPassword.setText(%password);
+		}
+	}
+}
+
+function OldLBLoginGui::login(%this, %auto) {
+	if (!%auto && (!%this.online || %this.checking))
+		return;
+
+	pauseMusic();
+	$LB::FriendListCount = 0;
+
+	if (%auto) {
+		$LB::Username = $LBPref::AutoLoginUsername;
+		$LB::Password = strDec($LBPref::AutoLoginPassword, 2);
+	} else {
+		$LB::Username = OldLBLoginUsername.getValue();
+		$LB::Password = OldLBLoginPassword.getValue();
+	}
+
+	traceGuard();
+		$LB::Password2 = garbledeguck($LB::Password);
+	traceGuardEnd();
+
+	$LBPref::Username = $LB::Username;
+
+	$LB::LoggedIn = false;
+	statsCheckLogin($MP::RevisionOn);
+
+	LBMessage("Connecting...", "LBdisconnect();");
+
+	setTimeScale(1.0);
+}
+
+function OldLBLoginGui::guestLogin(%this) {
+	Canvas.setContent(OldLBGuestLoginGui);
+}
+
+function OldLBLoginGui::checkServer(%this) {
+	if (%this.checking)
+		%this.error = "Still trying...";
+
+	%this.checking = true;
+	%this.enableLogin();
+
+	statsGetServerStatus();
+
+	$LB::CheckSch = %this.schedule(10000, "checkServer");
+}
+
+function OldLBLoginGui::onServerStatus(%this, %parsed) {
+	cancel($LB::CheckSch);
+
+	echo("Server status: " @ %parsed);
+	%this.checking = false;
+	%this.players = %parsed.players;
+
+	%this.online = false;
+
+	if (%parsed.online $= "true") {
+		if ($MP::RevisionOn >= %parsed.Version) {
+			%this.error = "";
+			%this.online = true;
+		} else {
+			%this.error = "Update Required!";
+		}
+	} else {
+		%this.error = "Server is Closed";
+	}
+
+	%this.enableLogin();
+}
+
+//Return from LBGuestLoginGui
+function OldLBLoginGui::back(%this) {
+	%this.returning = true;
+	Canvas.setContent(%this);
+	%this.returning = false;
+}

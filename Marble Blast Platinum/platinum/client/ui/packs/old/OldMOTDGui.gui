@@ -1,0 +1,168 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldMOTDGui) {
+	profile = "GuiDialogProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		bitmap = "./offline/menubackground.jpg";
+		tile = "0";
+		useVariable = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "80 60";
+		extent = "640 480";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/motd/messagewindow";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "273 388";
+			extent = "94 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMOTDGui);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/Options/home";
+				simpleStyle = "0";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "35 30";
+			extent = "571 349";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldMOTDGuiText) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "561 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+// function OldMOTDGui::showWelcome(%this) {
+// 	%title = "<font:Marker Felt:36><just:center>Welcome to Marble Blast Platinum 1.50";
+// 	%message = "<font:Marker Felt:18><just:left>"
+// 	@ "Version 1.50 is the latest update to the line of the very successful mod, Marble Blast Platinum. Platinum has been enjoyed by thousands of users over the years since its first release in Christmas 2007, and has had constant updates over the years, making it the only mod to continue expanding and improving since release.\n\n"
+
+// 	@ "Months after release, MBP had enjoyed an upgrade that added Platinum Online, and with it a leaderboards section and a chat in which users could talk and discuss the game among themselves. This competitive environment kept Platinum alive for years to come even when development halted a year later, with the release of 1.14, in September 2009.\n\n"
+
+// 	@ "Starting May 2012 development has resumed, although silently for more than a year before announcing it to the community. With 1.50 Beta 1 released in conjuction with the new MarbleBlast.com website in January 2014, the community surged back to the popular mod. In addition to that, many new people have joined the community, enjoying a unique experience that many were playing.\n\n"
+
+// 	@ "Today we are proud to present to you the final release build of Marble Blast Platinum 1.50. It contains hundreds of new features, changes and fixes since Platinum 1.14 and 1.20. It is recommended to read the Help section whether you are a new player or an experienced one, as it contains lots of useful information about Platinum.\n\n"
+
+// 	@ "We hope you will enjoy the very experience that many have loved over the years, and continue to enjoy it over the years to come.\n"
+// 	@ "- The Platinum Team";
+
+// 	OldMOTDGuiText.setText(%title NL "" NL %message);
+// 	Canvas.pushDialog(%this);
+// }
+
+function OldMOTDGui::doBlink(%this) {
+	cancel(%this.blinkSchedule);
+	if (!$pref::OldGui::TotD || !OldMainMenuGui.isAwake()) {
+		%this.stopBlink();
+		OldMOTDButton.setActive(0);
+	} else {
+		OldMOTDButton.setActive(1);
+		if (%this.MOTD $= "") {
+			%this.blink = !%this.blink;
+			OldMOTDButton.setBitmap(%this.blink ? "platinum/client/ui/packs/old/offline/menu/totdactive" : "platinum/client/ui/packs/old/offline/menu/totd");
+			%this.blinkSchedule = %this.schedule(500, doBlink);
+		}
+	}
+}
+
+function OldMOTDGui::stopBlink(%this) {
+	cancel(%this.blinkSchedule);
+	OldMOTDButton.setBitmap("platinum/client/ui/packs/old/offline/menu/totd");
+	%this.blink = 0;
+}
+
+function OldMOTDGui::showMOTD(%this) {
+	Canvas.pushDialog(%this);
+	if (%this.MOTD !$= "") {
+		OldMOTDGuiText.setText(%this.MOTD);
+	} else {
+		//Grab a tip from PQ's LoadingGui
+		if ($pref::tipCount < 4) {
+			%cat = 0;
+		} else {
+			%tip = getRandom();
+			for (%i = 0; %i < 3; %i ++) {
+				if (%tip < $Loading::TipsChance[%i]) {
+					%cat = %i;
+					break;
+				}
+				%tip -= $Loading::TipsChance[%i];
+			}
+		}
+		$pref::tipCount ++;
+		%tip = getRandom(0, $Loading::Tips[%cat]);
+		%motd = $Loading::Tip[%cat, %tip];
+		
+		%title = "<font:Marker Felt:36><just:center>Tip of the Day";
+		%message = "<font:Marker Felt:18><just:left>" @ removeWord(%motd, 0);
+		OldMOTDGuiText.setText(%title NL "" NL %message);
+		%this.MOTD = %title NL "" NL %message;
+		%this.stopBlink();
+	}
+}

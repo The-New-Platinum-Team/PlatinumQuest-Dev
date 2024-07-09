@@ -1,0 +1,109 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(Oldextendedhelpdlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "platinum/client/ui/exit/black";
+	wrap = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "45 15";
+		extent = "550 450";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/marbleSelect/marbleSelect.png";
+
+		new GuiBitmapButtonCtrl(OldEH_Close) {
+			profile = "GuiButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "231 348";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldExtendedHelpDlg.close();";
+			accelerator = "enter";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			bitmap = "./offline/jukebox/close";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "47 39";
+			extent = "459 300";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldEH_Text) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "448 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldExtendedHelpDlg::open(%this, %message) {
+	Canvas.pushDialog(%this);
+	OldEH_Text.setText("<font:DomCasualD:24>" @ %message);
+
+	if ($Server::ServerType $= "SinglePlayer") {
+		pauseGame();
+	}
+}
+
+function OldExtendedHelpDlg::close(%this) {
+	Canvas.popDialog(%this);
+	resumeGame();
+}

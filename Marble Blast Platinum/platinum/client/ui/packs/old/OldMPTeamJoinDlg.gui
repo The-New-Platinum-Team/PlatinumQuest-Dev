@@ -1,0 +1,261 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldMPTeamJoinDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "226 146";
+		extent = "347 307";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/team/teamjoin";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "29 245";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPTeamJoinDlg.close();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/team/cancel";
+		};
+		new GuiBitmapButtonCtrl(OldMPTeamJoinButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "223 245";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPTeamJoinDlg.joinTeam();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/join";
+		};
+		new GuiMLTextCtrl(OldMPTeamJoinTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "11 17";
+			extent = "323 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiControl() {
+			profile = "GuiTransparencyProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "16 53";
+			extent = "154 185";
+			minExtent = "27 27";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiScrollCtrl() {
+				profile = "OldGuiBacklessScrollProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "4 8";
+				extent = "146 170";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "dynamic";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "0 0";
+
+				new GuiTextListCtrl(OldMPTeamJoinList) {
+					profile = "OldMPTeamJoinListProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "1 1";
+					extent = "144 8";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldMPTeamJoinDlg.infoTeam();";
+					helpTag = "0";
+					enumerate = "0";
+					resizeCell = "1";
+					columns = "0";
+					fitParentWidth = "1";
+					clipColumnText = "0";
+				};
+			};
+		};
+		new GuiScrollCtrl() {
+			profile = "OldGuiBacklessScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "172 53";
+			extent = "161 180";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldMPTeamJoinDesc) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "1 1";
+				extent = "161 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "126 245";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPTeamJoinDlg.create();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/team/create";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPTeamJoinDlg::open(%this) {
+	Canvas.pushDialog(%this);
+}
+
+function OldMPTeamJoinDlg::close(%this) {
+	Canvas.popDialog(%this);
+}
+
+function OldMPTeamJoinDlg::onWake(%this) {
+	OldMPTeamJoinTitle.setText("<font:DomCasualD:24><just:center>Join Team");
+	%this.updateTeamList();
+}
+
+function OldMPTeamJoinDlg::create(%this) {
+	OldMPTeamCreateDlg.open();
+}
+
+function OldMPTeamJoinDlg::updateTeamList(%this) {
+	OldMPTeamJoinList.clear();
+
+	%count = TeamList.getSize();
+	for (%i = 0; %i < %count; %i ++) {
+		%team = getRecord(TeamList.getEntry(%i), 0);
+		%color = getRecord(TeamList.getEntry(%i), 1);
+		OldMPTeamJoinList.addRow(%i, collapseEscape("\\c" @ (%color + 1)) @ %team);
+	}
+	OldMPTeamJoinList.sort(0, true);
+
+	OldMPTeamJoinList.setSelectedRow(0);
+	OldMPTeamJoinButton.setActive(%count > 0);
+
+	%this.infoTeam();
+}
+
+function OldMPTeamJoinDlg::infoTeam(%this) {
+	%selectedTeam = stripCols(OldMPTeamJoinList.getRowTextById(OldMPTeamJoinList.getSelectedId()));
+	$MP::TeamInfoLoading = true;
+	commandToServer('TeamInfo', %selectedTeam);
+
+	%this.updateTeam();
+}
+
+function OldMPTeamJoinDlg::updateTeam(%this) {
+	if ($MP::TeamInfoLoading || $MP::TeamInfoName $= "" || $MP::TeamInfoName $= 0) {
+		%text = "<font:DomCasualD:24><just:center>Loading Team Info...";
+		OldMPTeamJoinDesc.setValue(%text);
+	} else {
+		%text = "<spush><font:DomCasualD:24><just:center>" @ $MP::TeamInfoName @ "<spop>";
+		%text = %text NL "<spush><just:left><font:Arial Bold:14>Info:<spop>" SPC $MP::TeamInfoDesc;
+		%text = %text NL "<spush><font:Arial Bold:14>Players:<spop>";
+		%count = TeamInfoPlayerList.getSize();
+		for (%i = 0; %i < %count; %i ++) {
+			if (%i)
+				%text = %text @ ",";
+			%text = %text @ " ";
+			if (getField(TeamInfoPlayerList.getEntry(%i), 1))
+				%text = %text @ "[L] ";
+			%text = %text @ LBResolveName(getField(TeamInfoPlayerList.getEntry(%i), 0), true);
+		}
+		OldMPTeamJoinDesc.setValue(%text);
+	}
+
+	if (getWord(OldMPTeamJoinDesc.getExtent(), 1) > getWord(OldMPTeamJoinDesc.getGroup().getExtent(), 1)) {
+		OldMPTeamJoinDesc.resize(0, getWord(OldMPTeamJoinDesc.position, 1), getWord(OldMPTeamJoinDesc.getGroup().getExtent(), 0) - 22, getWord(OldMPTeamJoinDesc.getExtent(), 1));
+	} else {
+		OldMPTeamJoinDesc.resize(0, getWord(OldMPTeamJoinDesc.position, 1), getWord(OldMPTeamJoinDesc.getGroup().getExtent(), 0), getWord(OldMPTeamJoinDesc.getExtent(), 1));
+	}
+	if (OldMPTeamJoinDlg.isAwake())
+		OldMPTeamJoinDesc.forceReflow();
+}
+
+function OldMPTeamJoinDlg::joinTeam(%this) {
+	%selectedTeam = stripCols(OldMPTeamJoinList.getRowTextById(OldMPTeamJoinList.getSelectedId()));
+	commandToServer('TeamJoin', %selectedTeam);
+	%this.close();
+}

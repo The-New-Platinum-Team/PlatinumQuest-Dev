@@ -1,0 +1,334 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldLoadingGui) {
+	profile = "GuiContentProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./backgrounds/platinum/28";
+	useVariable = "0";
+	tile = "0";
+		qLineCount = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiContentProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "166 137";
+		extent = "468 325";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/loading/loadingGui";
+		wrap = "0";
+
+		new GuiMLTextCtrl(OldLOAD_MapName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "6 33";
+			extent = "456 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiProgressCtrl(OldLoadingProgress) {
+			profile = "GuiProgressProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "194 145";
+			extent = "225 56";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		};
+		new GuiBitmapButtonCtrl(OldLoadingCancel) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "333 243";
+			extent = "112 59";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldLoadingGui.cancel();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "cancel";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/loading/cancel";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "188 139";
+			extent = "242 75";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/loading/overlay";
+			wrap = "0";
+		};
+	};
+
+	new GuiBitmapCtrl(OldLoadingQueue) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "bottom";
+		position = "172 0";
+		extent = "454 254";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/loading/queueloadingwindow";
+		wrap = "0";
+
+		new GuiMLTextCtrl(OldLoadingQueueText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "37 27";
+			extent = "380 180";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldLoadingGui::loadMainMenu(%this) {
+	Canvas.setContent(%this);
+	OldLoadingCancel.setVisible(false);
+	OldLOAD_MapName.setText("<font:DomCasualD:32><just:center>Loading PQ...");
+	Canvas.repaint();
+
+	PlayMissionGui.init();
+	Unlock::updateCaches(true);
+
+	Canvas.setContent(OldMainMenuGui);
+
+	JukeboxDlg.getSongList();
+	playShellMusic();
+
+	if ($argError > 0)
+		presentCommandLineError($argError);
+
+	startTotalTimer();
+
+	OldLoadingCancel.setVisible(true);
+}
+
+function OldLoadingGui::setStartProgress(%this, %message, %amount, %total, %repaint) {
+	OldLOAD_MapName.setText("<font:DomCasualD:32><just:center>Loading PQ... (" @ mRound(%amount / %total * 100) @ "%)");
+	OldLoadingProgress.setValue(%amount / %total);
+	if (%repaint) {
+		Canvas.repaint();
+	}
+}
+
+function OldLoadingGui::onWake(%this) {
+	$Game::Loading = true;
+	%mission = $replayFromPlayDemoGui ? OldPlayDemoGui.mission : $PMG::CurrentGui.mission;
+	OldLOAD_MapName.setText( "<font:DomCasualD:32><just:center>" @ %mission.name);
+	CloseMessagePopup();
+
+	if (isObject($Menu::Queue)) {
+		OldLOAD_MapName.setText("<font:DomCasualD:32><just:center>" @ $Menu::Queue.getMissionInfo().name);
+		OldLoadingQueue.setVisible(true);
+		%this.updateQueue();
+	} else {
+		OldLoadingQueue.setVisible(false);
+		OldLoadingQueueText.setText("");
+	}
+}
+
+function OldLoadingGui::onSleep(%this) {
+	$Game::Loading = false;
+	OldLOAD_MapName.setText( "" );
+	OldLoadingProgress.setValue( 0 );
+}
+
+function OldLoadingGui::cancel(%this) {
+	exitGame();
+	cancel($LoadStage2);
+	if ($playingDemo) {
+		deactivateMenuHandler("Replay");
+		%this.setReplayDialog();
+		$playingDemo = false;
+		$Client::PlayingDemo = false;
+		$replayFromPlayDemoGui = false;
+		$replayFromWorldRecord = false;
+	}
+	resumeMusic();
+}
+
+function OldLoadingGui::onPlayReplay(%this, %minfo) {
+	Canvas.setContent(%this);
+	OldLOAD_MapName.setText("<font:DomCasualD:32><just:center>" @ %minfo.name);
+}
+
+function OldLoadingGui::setReplayDialog(%this) {
+	if ($replayFromPlayDemoGui) {
+		if (lb() && OldPlayDemoGui.dialog)
+			Canvas.setContent(OldLBChatGui);
+		OldPlayDemoGui.open(lb(), OldPlayDemoGui.dialog);
+		OldPD_DemoList.setSelectedById(OldPlayDemoGui.lastSelectedDemo);
+		OldPlayDemoGui.lastSelectedDemo = "";
+		OldPlayDemoGui.getSelectedDemo();
+	} else if (lb() && $replayFromWorldRecord) {
+		Canvas.setContent(OldLBChatGui);
+		Canvas.pushDialog(OldLBPlayMissionDlg);
+	} else {
+		if ($PMG::CurrentGui.isDialog) {
+			Canvas.setContent($PMG::CurrentGui.parentContent);
+			Canvas.pushDialog($PMG::CurrentGui);
+		} else {
+			Canvas.setContent($PMG::CurrentGui);
+		}	
+	}
+}
+
+function OldLoadingGui_LoadMission() {
+	resumeMusic();
+}
+
+function OldLoadingGui_LoadProgress(%progress) {
+	OldLoadingProgress.setValue(%progress);
+}
+
+function OldLoadingGui_MissionLoaded() {
+	if ($playingDemo)
+		return;
+	menuPlay();
+}
+
+function OldLoadingGui_MissionExit() {
+	if ($playingDemo)
+		return;
+	if ($PMG::CurrentGui.isDialog) {
+		Canvas.setContent($PMG::CurrentGui.parentContent);
+		Canvas.pushDialog($PMG::CurrentGui);
+	} else {
+		Canvas.setContent($PMG::CurrentGui);
+	}
+	playShellMusic();
+}
+
+function OldLoadingGui_MissionLoadFailed() {
+	if ($playingDemo) {
+		deactivateMenuHandler("Replay");
+		menuMissionEnd();
+		%this.setReplayDialog();
+		MessageBoxOk("Error", "Error loading the replay. Check your console.");
+		$playingDemo = 0;
+	} else {
+
+		if ($PMG::CurrentGui.isDialog) {
+			Canvas.setContent($PMG::CurrentGui.parentContent);
+			Canvas.pushDialog($PMG::CurrentGui);
+		} else {
+			Canvas.setContent($PMG::CurrentGui);
+		}
+	}
+	playShellMusic();
+}
+
+function OldLoadingGui::updateQueue(%this) {
+	if (!isObject($Menu::Queue))
+		return;
+
+	%qtext = "<shadow:1:1><shadowcolor:000000bf><font:Marker Felt:32><tab:140,230>";
+	%qtext = %qtext @ "Level\tScore\tTotal<font:Marker Felt:22>";
+
+	%firstVisible = $Menu::QueueIndex - 2;
+	if (%firstVisible < 0)
+		%firstVisible = 0;
+	%lastVisible = min(%firstVisible + 4, $Menu::Queue.getMissionCount());
+	if (%lastVisible == $Menu::Queue.getMissionCount()) {
+		%firstVisible = max(0, %lastVisible - 5);
+	}
+
+	for (%i = %firstVisible; %i < %lastVisible; %i ++) {
+		%mis = $Menu::Queue.getMissionInfo(%i);
+		if (%i == $Menu::QueueIndex) {
+			%qtext = %qtext @ "<color:00cc00>";
+		}
+		if (%i > $Menu::QueueIndex && $Menu::Queue.isUpcomingHidden()) {
+			%name = (%i + 1) @ ". ???";
+		} else {
+			%name = clipPx("Marker Felt", 22, (%i + 1) @ ". " @ %mis.name, 140, true);
+		}
+		%qtext = %qtext @ "\n" @ %name @ "\t";
+
+		if ($Menu::Queue.missionCompleted[%i] || %i >= $Menu::QueueIndex) {
+			%scoreInfo = $Menu::Queue.missionScore[%i];
+			%type = getField(%scoreInfo, 0);
+			%score = getField(%scoreInfo, 1);
+
+			if (%type $= $ScoreType::Time) {
+				%qtext = %qtext @ formatTime(%score) @ "\t";
+			} else {
+				%qtext = %qtext @ formatScore(%score) @ "\t";
+			}
+		} else {
+			%qtext = %qtext @ "<skipped>\t";
+		}
+		%qtext = %qtext @ formatTime($Menu::Queue.missionTotalTimeScore[%i]);
+		if ($Menu::Queue.missionTotalScoreScore[%i] > 0) {
+			%qtext = %qtext @ " + " @ formatScore($Menu::Queue.missionTotalScoreScore[%i]);
+		}
+		%qtext = %qtext @ "<color:000000>";
+	}
+
+	if (%lastVisible != $Menu::Queue.getMissionCount()) {
+		if ($Menu::Queue.isUpcomingHidden()) {
+			%name = "???";
+		} else {
+			%name = $Menu::Queue.getMissionInfo($Menu::Queue.getMissionCount() - 1).name;
+		}
+		%qtext = %qtext @ "\n" @ clipPx("Marker Felt", 22, $Menu::Queue.getMissionCount() @ ". " @ %name, 140, true);
+		%qtext = %qtext @ "\t\t" @ formatTime(0);
+	}
+	%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime($Menu::Queue.totalTimeScore);
+	if ($Menu::Queue.totalScoreScore > 0) {
+		%qtext = %qtext @ " + " @ formatScore($Menu::Queue.totalScoreScore);
+	}
+	%qtext = %qtext @ "\n" @ "Real Time:\t\t" @ formatTime($Menu::Queue.totalRealTime);
+
+	OldLoadingQueueText.setText(%qtext);
+}

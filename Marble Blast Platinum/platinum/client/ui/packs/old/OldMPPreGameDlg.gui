@@ -1,0 +1,524 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldMPPreGameDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	useVariable = "0";
+	tile = "0";
+		wrap = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "80 60";
+		extent = "640 480";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/pre/window";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldMPPreGameExit) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "499 388";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPPreGameDlg.leave();";
+			helpTag = "0";
+			text = "exit";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/pre/leave";
+		};
+		new GuiBitmapButtonCtrl(OldMPPreGamePlay) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "406 388";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPPreGameDlg.play();";
+			helpTag = "0";
+			text = "play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/pre/play";
+		};
+		new GuiBitmapButtonCtrl(OldMPPreGameReady) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "53 394";
+			extent = "133 33";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPPreGameDlg.ready();";
+			helpTag = "0";
+			text = "ready";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/pre/ready";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "57 286";
+			extent = "525 99";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiTextListCtrl(OldMPPreGameUserListShadow) {
+				profile = "OldGuiMPPlayerlistProfile2";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "525 8";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "0 150 285 420";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+			};
+			new GuiTextListCtrl(OldMPPreGameUserList) {
+				profile = "OldGuiMPPlayerlistProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "-1 -1";
+				extent = "525 8";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "0 150 285 420";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+			};
+		};
+		new GuiMLTextCtrl(OldMPPreGameTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "60 59";
+			extent = "525 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "60 92";
+			extent = "525 66";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldMPPreGameSubtitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "516 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiMLTextCtrl(OldMPPreGamePlayerTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "60 263";
+			extent = "525 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldMPPreGameSpectate) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "190 394";
+			extent = "127 33";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPPreGameDlg.spectate();";
+			helpTag = "0";
+			text = "ready";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/pre/spectate";
+		};
+		new GuiMLTextCtrl(OldMPPreGameLevelName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "60 158";
+			extent = "525 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldMPPregameKickUsers) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "360 388";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPUserKickDlg.show();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/play/kick";
+				oldtooltip = "Kick/Ban Players";
+		};
+		new GuiBitmapButtonCtrl(OldMPPregameTeams) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "315 388";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPTeamSelectDlg.open();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/play/teaminfo";
+				oldtooltip = "Team Information";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "60 185";
+			extent = "525 63";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldMPPreGameDesc) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "516 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+	};
+	new GuiBitmapButtonCtrl(OldMPPreGameServerSettings) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "599 218";
+			extent = "187 65";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPServerDlg.open();";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/pre/settings";
+	};
+	new GuiBitmapButtonCtrl(OldMPPreGameOptions) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "599 295";
+			extent = "187 65";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.show(true);";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/exit/options";
+	};
+	new GuiBitmapButtonCtrl(OldMPPreGameJukebox) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "599 372";
+		extent = "187 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "Canvas.pushDialog(OldJukeboxDlg);";
+		helpTag = "0";
+		text = "button";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+		bitmap = "./offline/exit/jb_pausemenu";
+	};
+	new GuiBitmapButtonCtrl(OldMPPreGameMarbles) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "top";
+		position = "14 372";
+		extent = "187 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "Canvas.pushDialog(OldLBMarbleSelectionDlg);";
+		helpTag = "0";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+		bitmap = "./offline/exit/marbles";
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPPreGameDlg::onWake(%this) {
+	if (!MPPreGameDlg.save) {
+		commandToServer('SetSpectate', false);
+		$SpectateMode = false;
+		MPPreGameReady.setValue(false);
+		MPPreGameSpectate.setValue(false);
+	}
+	MPPreGameDlg.save = false;
+
+	OldMPPreGameReady.setValue(MPPreGameReady.getValue());
+	OldMPPreGameSpectate.setValue(MPPreGameSpectate.getValue());
+
+	OldMPPreGameServerSettings.setVisible($Server::Hosting);
+
+	%this.ready();
+	%this.updateInfo();
+
+	%this.updateButtons();
+
+	if (MPPreGameDlg.overrideSch $= "") {
+		MPPreGameDlg.force = false;
+		MPPreGameDlg.override = false;
+		MPPreGameDlg.overrideSch = MPPreGameDlg.schedule(60000, "override");
+		MPPreGameDlg.overrideStart = getRealTime();
+		MPPreGameDlg.overrideInterval = MPPreGameDlg.interval(100, "updateActive");
+	}
+
+	if (OldMPExitGameDlg.isAwake()) {
+		Canvas.popDialog(OldMPExitGameDlg);
+	}
+}
+
+function OldMPPreGameDlg::override(%this) {
+	MPPreGameDlg.override = true;
+	%this.updateInfo();
+	cancel(MPPreGameDlg.overrideSch);
+	MPPreGameDlg.overrideSch = "";
+	cancelInterval(MPPreGameDlg.overrideInterval);
+}
+
+function OldMPPreGameDlg::updateActive(%this) {
+	%isHost = $Server::Hosting;
+	OldMPPreGamePlay.setVisible(%isHost);
+	OldMPPreGameSpectate.setActive(!$MP::SpectateFull);
+	OldMPPreGameKickUsers.setVisible($Server::Hosting);
+	OldMPPreGameServerSettings.setVisible($Server::Hosting);
+	OldMPPreGameTeams.setVisible($MP::TeamMode);
+}
+
+function OldMPPreGameDlg::ready(%this) {
+	%ready = OldMPPreGameReady.getValue();
+
+	MPPreGameReady.setValue(%ready);
+	commandToServer('Ready', %ready);
+}
+
+function OldMPPreGameDlg::spectate(%this) {
+	%spectate = OldMPPreGameSpectate.getValue();
+
+	MPPreGameSpectate.setValue(%spectate);
+	commandToServer('SetSpectate', %spectate);
+}
+
+function OldMPPreGameDlg::play(%this) {
+	if ($Server::Hosting) {
+		commandToServer('PreGamePlay', MPPreGameDlg.override);
+		MPPreGameDlg.override = false;
+		cancel(MPPreGameDlg.overrideSch);
+		MPPreGameDlg.overrideSch = "";
+		cancelInterval(MPPreGameDlg.overrideInterval);
+	}
+}
+
+function OldMPPreGameDlg::leave(%this) {
+	if ($Server::Hosting && !MPPreGameDlg.force) {
+		commandToServer('LobbyReturn');
+		MPPreGameDlg.force = true;
+	} else {
+		disconnect();
+	}
+}
+
+function OldMPPreGameDlg::update(%this) {
+	OldMPPreGameUserList.clear();
+	OldMPPreGameUserListShadow.clear();
+
+	%count = PlayerList.getSize();
+	for (%i = 0; %i < %count; %i ++) {
+		%player = PlayerList.getEntry(%i);
+		if (!isObject(%player))
+			continue;
+
+		%name = LBResolveName(%player.name, true);
+
+		%px = 285;
+		if ($MP::TeamMode)
+			%px = 150;
+
+		if (%player.host) {
+			%name = "[Host] " @ %name;
+		} else if (%player.admin) {
+			%name = "[Admin] " @ %name;
+		}
+
+		%name = clipPx("Marker Felt", 18, %name, %px, true);
+		if (%player.ready && %player.specState == 2) {
+			%status = "[Spectator]";
+		} else if (%player.ready) {
+			%status = "[Ready]";
+		} else if (%player.loadState != 3) {
+			%status = "[Loading...]";
+		} else {
+			%status = "[Waiting]";
+		}
+
+		if ($MP::TeamMode) {
+			%team = TeamList.getEntryByRecord(%player.team, 0);
+
+			%teamname = getRecord(%team, 0);
+			%color = getRecord(%team, 1);
+			switch (%color) {
+			case -1: %color = "\c1";
+			case  0: %color = "\c2";
+			case  1: %color = "\c3";
+			case  2: %color = "\c4";
+			case  3: %color = "\c5";
+			case  4: %color = "\c6";
+			case  5: %color = "\c7";
+			case  6: %color = "\c8";
+			case  7: %color = "\c9";
+			}
+			%teamname = "\cp" @ %color @ %teamname @ "\co";
+		}
+		%row = %name TAB %teamName TAB formatLevel(%player.rating) TAB %status;
+
+		OldMPPreGameUserList.addRow(OldMPPreGameUserList.rowCount(), %row);
+		OldMPPreGameUserListShadow.addRow(OldMPPreGameUserList.rowCount(), %row);
+	}
+
+	%this.updateInfo();
+}
+
+function OldMPPreGameDlg::updateInfo(%this) {
+	OldMPPreGameTitle.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><just:center><color:ffffff>" @ MPPreGameDlg.serverName);
+	OldMPPreGameSubtitle.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:24><just:center><color:eeeeff>" @ MPPreGameDlg.info);
+	OldMPPreGameLevelName.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:24><just:left><color:ffffff>" @ MPPreGameDlg.mapName);
+	OldMPPreGameDesc.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:18><just:left><color:ffffff>" @ MPPreGameDlg.mapDesc);
+	OldMPPreGamePlayerTitle.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:18><just:left><color:ddddee><tab:150,285,420>Player\t" @ ($MP::Teammode ? "Team" : "") @ "\tLevel\tStatus");
+
+	OldMPPreGamePlay.setActive((MPPreGameDlg.readyCount == MPPreGameDlg.playerCount || MPPreGameDlg.override) && $Server::Hosting);
+
+	%this.updateActive();
+}
+
+function OldMPPreGameDlg::updateButtons(%this) {
+	OldMPPreGameServerSettings.setVisible($pref::OldGui::NewMPPreGame);
+	OldMPPreGameOptions.setVisible($pref::OldGui::NewMPPreGame);
+	OldMPPreGameJukebox.setVisible($pref::OldGui::NewMPPreGame);
+	OldMPPreGameMarbles.setVisible($pref::OldGui::NewMPPreGame);
+}

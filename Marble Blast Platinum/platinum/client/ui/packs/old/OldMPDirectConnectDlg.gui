@@ -1,0 +1,160 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(OldMPDirectConnectDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "~/client/ui/exit/black";
+	wrap = "0";
+		selected = "0";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "83 63";
+		extent = "634 473";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "63 135";
+			extent = "508 202";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./multiplayer/join/window2";
+			wrap = "0";
+
+			new GuiMLTextCtrl(OldMPDirectConnectTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "22 28";
+				extent = "463 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "22 73";
+				extent = "463 47";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./multiplayer/join/textbar";
+				wrap = "0";
+			};
+			new GuiTextEditCtrl(OldMPDirectConnectAddress) {
+				profile = "OldGuiBigTextEditProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "30 76";
+				extent = "447 40";
+				minExtent = "8 8";
+				visible = "1";
+				variable = "$MPPref::DirectConnectAddress";
+				command = "OldMPDirectConnectDlg.update();";
+				altCommand = "OldMPDirectConnectDlg.directConnect();";
+				helpTag = "0";
+				maxLength = "255";
+				maxPixelWidth = "0";
+				escapeCommand = "Canvas.PopDialog(OldMPDirectConnectDlg);";
+				historySize = "0";
+				password = "0";
+				tabComplete = "0";
+				sinkAllKeyEvents = "0";
+			};
+			new GuiBitmapButtonCtrl(OldMPDirectConnectButton) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "385 126";
+				extent = "94 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPDirectConnectDlg.directConnect();";
+				helpTag = "0";
+				text = "Join";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/join/join";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "29 126";
+				extent = "94 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.PopDialog(OldMPDirectConnectDlg);";
+				helpTag = "0";
+				text = "Cancel";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/join/cancel";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPDirectConnectDlg::onWake(%this) {
+	OldMPDirectConnectAddress.setValue("");
+	OldMPDirectConnectTitle.setValue("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>Direct Connect");
+	OldMPdirectConnectDlg.update();
+}
+
+function OldMPDirectConnectDlg::update(%this) {
+	OldMPDirectConnectButton.setActive(OldMPDirectConnectAddress.getValue() !$= "");
+}
+
+function OldMPDirectConnectDlg::directConnect(%this) {
+	%value = OldMPDirectConnectAddress.getValue();
+	if (strPos(%value, ":") == -1)
+		%value = %value @ ":28000";
+	$MP::ServerPassword = "";
+	joinServer(%value, $LB::Username, "", true);
+	Canvas.popDialog(OldMPDirectConnectDlg);
+}

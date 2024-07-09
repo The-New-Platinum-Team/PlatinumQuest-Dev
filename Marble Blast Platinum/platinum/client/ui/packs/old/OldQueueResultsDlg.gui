@@ -1,0 +1,178 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldQueueResultsDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		wrap = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "800 600";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "platinum/client/ui/exit/black";
+		wrap = "0";
+	};
+	new GuiBitmapCtrl(OldQueueResultsWindow) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "100 100";
+		extent = "600 400";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/loading/queueresultswindow";
+		wrap = "0";
+
+		new GuiMLTextCtrl(OldQueueResultsInfoTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "50 30";
+			extent = "500 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				wrap = "0";
+		};
+
+		new GuiScrollCtrl(OldQueueResultsScroll) {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "44 64";
+			extent = "522 237";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "2 2";
+
+			new GuiMLTextCtrl(OldQueueResultsInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "2 2";
+				extent = "512 570";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+					wrap = "0";
+			};
+		};
+		new GuiBitmapButtonCtrl(OldQueueResultsClose) {
+			profile = "GuiButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "253 308";
+			extent = "95 45";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			text = "Close";
+			bitmap = "./offline/alert/ok";
+			command = "Canvas.popDialog(OldQueueResultsDlg);";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldQueueResultsDlg::open(%this, %queue) {
+	%this.queue = %queue;
+	Canvas.pushDialog(%this);
+}
+
+function OldQueueResultsDlg::onWake(%this) {
+	%this.adjustStyle();
+	
+	%qtitle = "<color:FFFFFF><shadow:1:1><shadowcolor:000000bf><just:center>";
+	%qtitle = %qtitle @ shrinkToFit("Results: " @ %this.queue.getQueueName(), "Marker Felt", 28, 24, 500);
+
+	%qtext = "<color:FFFFFF><shadow:1:1><shadowcolor:000000bf><font:Marker Felt:22><tab:300,380>";
+	%qtext = %qtext @ "Level\tScore\tTotal<font:Marker Felt:18>";
+
+	for (%i = 0; %i < %this.queue.getMissionCount(); %i ++) {
+		%mis = %this.queue.getMissionInfo(%i);
+		%name = clipPx("Marker Felt", 22, (%i + 1) @ ". " @ %mis.name, 300, true);
+		%qtext = %qtext @ "\n" @ %name @ "\t";
+
+		if (%this.queue.missionCompleted[%i]) {
+			%scoreInfo = %this.queue.missionScore[%i];
+			%type = getField(%scoreInfo, 0);
+			%score = getField(%scoreInfo, 1);
+
+			if (%type $= $ScoreType::Time) {
+				%qtext = %qtext @ formatTime(%score) @ "\t";
+			} else {
+				%qtext = %qtext @ formatScore(%score) @ "\t";
+			}
+		} else {
+			%qtext = %qtext @ "<skipped>\t";
+		}
+		%qtext = %qtext @ formatTime(%this.queue.missionTotalTimeScore[%i]);
+		if (%this.queue.missionTotalScoreScore[%i] > 0) {
+			%qtext = %qtext @ " + " @ formatScore(%this.queue.missionTotalScoreScore[%i]);
+		}
+		%qtext = %qtext @ "<color:FFFFFF>";
+	}
+
+	%qtext = %qtext @ "\n" @ "Total:\t\t" @ formatTime(%this.queue.totalTimeScore);
+	if (%this.queue.totalScoreScore > 0) {
+		%qtext = %qtext @ " + " @ formatScore(%this.queue.totalScoreScore);
+	}
+	%qtext = %qtext @ "\n" @ "Real Time:\t\t" @ formatTime(%this.queue.totalRealTime);
+
+	OldQueueResultsInfoTitle.setText(%qtitle);
+	OldQueueResultsInfo.setText(%qtext);
+}
+
+function OldQueueResultsDlg::adjustStyle(%this) {
+	//Adjust style for leaderboards or offline
+	OldQueueResultsWindow.setBitmap(lb() ? "platinum/client/ui/packs/old/leaderboards/misc/queueresultswindow-lb" : "platinum/client/ui/packs/old/offline/loading/queueresultswindow");
+	OldQueueResultsClose.setBitmap(lb() ? "platinum/client/ui/packs/old/leaderboards/misc/ok" : "platinum/client/ui/packs/old/offline/alert/ok");
+}

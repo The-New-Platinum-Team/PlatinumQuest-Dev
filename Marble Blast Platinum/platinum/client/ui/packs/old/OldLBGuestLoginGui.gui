@@ -1,0 +1,190 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldLBGuestLoginGui) {
+	profile = "GuiContentProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./backgrounds/gold/10";
+	useVariable = "0";
+	tile = "0";
+	followBitmap = "OldLBLoginGui";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "80 60";
+		extent = "640 480";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "64 91";
+			extent = "511 297";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/login/window";
+			wrap = "0";
+
+			new GuiControl() {
+				profile = "GuiTransparency75Profile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "27 85";
+				extent = "452 128";
+				minExtent = "27 27";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiScrollCtrl() {
+					profile = "OldGuiBacklessScrollProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "6 6";
+					extent = "441 116";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "alwaysOff";
+					vScrollBar = "alwaysOn";
+					constantThumbHeight = "0";
+					childMargin = "2 2";
+
+					new GuiMLTextCtrl(OldLBGL_TOS) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "3 3";
+						extent = "417 14";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "2";
+						allowColorChars = "0";
+						maxChars = "-1";
+					};
+					new GuiCheckBoxCtrl(OldLBGL_Accept) {
+						profile = "GuiCheckBoxProfile";
+						horizSizing = "right";
+						vertSizing = "bottom";
+						position = "5 679";
+						extent = "162 16";
+						minExtent = "8 8";
+						visible = "1";
+						command = "OldLBGuestLoginGui.accept();";
+						helpTag = "0";
+						text = " I accept the Terms of Service";
+						groupNum = "-1";
+						buttonType = "ToggleButton";
+						repeatPeriod = "1000";
+						repeatDecay = "1";
+					};
+				};
+			};
+			new GuiBitmapButtonCtrl(OldLBGuestLoginButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "386 214";
+				extent = "95 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBGuestLoginGui.logIn();";
+				helpTag = "0";
+				text = "login";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/login/login";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "32 214";
+				extent = "94 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBLoginGui.back();";
+				helpTag = "0";
+				text = "home";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/join/cancel";
+			};
+			new GuiMLTextCtrl(OldLBGuestLoginTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "99 26";
+				extent = "312 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldLBGuestLoginGui::onWake(%this) {
+	OldLBGuestLoginTitle.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:48><just:center><color:ffffff>Guest Login");
+	OldLBGL_TOS.setText(fread(expandFilename("platinum/client/ui/lb/login/tos.txt")) NL "");
+	OldLBGuestLoginButton.setActive(false);
+	OldLBGL_Accept.setValue(false);
+	OldLBGL_TOS.forceReflow();
+	OldLBGL_Accept.setPosition(5 SPC getWord(OldLBGL_TOS.getPosition(), 1) + getWord(OldLBGL_TOS.getExtent(), 1) - 17);
+	
+	if (trim(OldLBGL_TOS.getText()) $= "") {
+		LBAssert("Cannot Load TOS", "Could not load Terms of Service! File missing or damaged!", "OldLBLoginGui.back();");
+	}
+}
+
+function OldLBGuestLoginGui::accept(%this) {
+	%value = !!(OldLBGL_Accept.getValue());
+	$LB::AcceptedTOS = %value;
+	OldLBGuestLoginButton.setActive(%value);
+}
+
+function OldLBGuestLoginGui::logIn(%this) {
+	LBguestConnect();
+	LBMessage("Connecting...", "LBdisconnect();");
+}

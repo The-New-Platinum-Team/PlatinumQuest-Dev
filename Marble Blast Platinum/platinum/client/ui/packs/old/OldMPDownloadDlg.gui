@@ -1,0 +1,485 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldMPDownloadDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl(OldMPD_HostWindow) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "134 101";
+		extent = "532 397";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+		bitmap = "./multiplayer/download/window.png";
+		wrap = "0";
+
+		new GuiMLTextCtrl(OldMPDH_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "27 37";
+			extent = "479 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapCtrl(OldMPDH_MissionPreview) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "33 83";
+			extent = "197 148";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "~/data/multiplayer/hunt/beginner/Bowl";
+			wrap = "0";
+
+			new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "197 148";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./multiplayer/download/levelwindow";
+				wrap = "0";
+			};
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "234 141";
+			extent = "266 156";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiControl(OldMPDH_RestrictScroll) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "266 27";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+		};
+		new GuiBitmapButtonCtrl(OldMPDH_Enable) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "233 85";
+			extent = "156 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPDownloadDlg.update();";
+			helpTag = "0";
+			text = "Enable";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/download/enable";
+		};
+		new GuiBitmapButtonCtrl(OldMPDH_AllowAll) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "396 85";
+			extent = "101 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPDownloadDlg.allowAll();";
+			helpTag = "0";
+			text = "Disable";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/download/allowall";
+		};
+		new GuiMLTextCtrl(OldMPDH_RestrictTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "234 117";
+			extent = "272 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "220 316";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMPDownloadDlg);";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/download/close";
+		};
+		new GuiMLTextCtrl(OldMPDH_MissionInfo) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "37 231";
+			extent = "188 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+	new GuiBitmapCtrl(OldMPD_ClientWindow) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "104 196";
+		extent = "592 207";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/download/window-client.png";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldMPDC_Close) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "191 123";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMPDownloadDlg);";
+			helpTag = "0";
+			text = "close";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/download/close";
+		};
+		new GuiMLTextCtrl(OldMPDC_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "26 30";
+			extent = "539 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPDC_Info) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "26 77";
+			extent = "539 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldMPDC_Download) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "287 123";
+			extent = "114 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPDownloadDlg.startDownload();";
+			helpTag = "0";
+			text = "close";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/download/download";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPDownloadDlg::show(%this) {
+	if ($Server::Hosting && !$Server::_Dedicated) {
+		%this.showHost();
+	} else {
+		%this.showClient();
+	}
+}
+
+function OldMPDownloadDlg::showHost(%this) {
+	OldMPDH_Title.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:32><just:center>Offer Mission for Download");
+	OldMPDH_RestrictTitle.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Restrict Access");
+	OldMPDH_MissionInfo.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>" @ $MP::MissionObj.name NL "<just:left>Size:<just:right>Loading...");
+	OldMPDH_MissionPreview.setBitmap(resolveOldMissionBitmap($MP::MissionObj, $PMG::CurrentGui.getMissionList()));
+
+	OldMPD_HostWindow.setVisible(true);
+	OldMPD_ClientWindow.setVisible(false);
+
+	Canvas.pushDialog(OldMPDownloadDlg);
+
+	%this.fo = "";
+	%this.readFile();
+
+	%this.setupPlayers();
+
+	%this.updating = true;
+	OldMPDH_Enable.setValue($MP::CanDownloadMission[$MP::MissionFile]);
+	%this.updating = false;
+}
+
+function OldMPDownloadDlg::showClient(%this) {
+	OldMPDC_Title.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:32><just:center>Download Mission");
+
+	OldMPD_HostWindow.setVisible(false);
+	OldMPD_ClientWindow.setVisible(true);
+
+	Canvas.pushDialog(OldMPDownloadDlg);
+}
+
+function OldMPDownloadDlg::readFile(%this) {
+	if (%this.fo $= "") {
+		%this.fo = new FileObject();
+		if (!%this.fo.openForRead($MP::MissionFile)) {
+			OldMPDH_MissionInfo.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>" @ $MP::MissionObj.name NL "<just:left>Size:<just:right>Error");
+			%this.fo.close();
+			%this.fo.delete();
+			%this.fo = "";
+			return;
+		}
+
+		%this.fileSize = 0;
+	}
+
+	%next = %this.fileSize + 250;
+
+	while (%this.fileSize < %next && !%this.fo.isEOF())
+		%this.fileSize += strlen(%this.fo.readLine());
+
+	OldMPDH_MissionInfo.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>" @ $MP::MissionObj.name NL "<just:left>Size:<just:right>" @ mCeil(%this.fileSize / 1000) @ "KB");
+
+	if (%this.fo.isEOF()) {
+		%this.fo.close();
+		%this.fo.delete();
+		%this.fo = "";
+		return;
+	} else
+		%this.schedule(1, readFile);
+}
+
+function OldMPDownloadDlg::setupPlayers(%this) {
+	OldMPDH_RestrictScroll.clear();
+
+	%boxes = 0;
+
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		if (%client.isHost())
+			continue;
+
+		OldMPDH_RestrictScroll.add(
+		new GuiControl(OldMPDH_Box @ %i) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "0" SPC(%boxes * 27);
+			extent = "266 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			box = %i;
+			client = %client;
+
+			new GuiMLTextCtrl(OldMPDH_Name @ %i) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "2 3";
+				extent = "262 22";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+				box = %i;
+			};
+			new GuiBitmapButtonCtrl(OldMPDH_Allow @ %i) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "191 0";
+				extent = "75 27";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPDownloadDlg.allow(" @ %i @ ");";
+				helpTag = "0";
+				text = "button";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "platinum/client/ui/packs/old/multiplayer/download/allow";
+				box = %i;
+			};
+		}
+		);
+		%boxes ++;
+	}
+
+	OldMPDH_RestrictScroll.resize(0, 0, 266, 27 * %boxes);
+
+	%this.update();
+}
+
+function OldMPDownloadDlg::allow(%this, %box) {
+	(OldMPDH_Box @ %box).client.canDownload[$MP::MissionFile] = (OldMPDH_Allow @ %box).getValue();
+	commandToClient((OldMPDH_Box @ %box).client, 'CanDownloadMission', $MP::MissionFile, (OldMPDH_Allow @ %box).getValue());
+
+	if (!(OldMPDH_Allow @ %box).getValue())
+		OldMPDH_AllowAll.setValue(false);
+
+	%this.update();
+}
+
+function OldMPDownloadDlg::update(%this) {
+	if (%this.updating)
+		return;
+
+	%this.updating = true;
+	$MP::CanDownloadMission[$MP::MissionFile] = OldMPDH_Enable.getValue();
+
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		if (!isObject(OldMPDH_Box @ %i))
+			continue;
+
+		%client = (OldMPDH_Box @ %i).client;
+		if (%client.isHost())
+			continue;
+
+		%color = "<color:";
+		%status = "";
+		if (%client.missionPassed[$MP::MissionFile]) {
+			%color = %color @ "008822>";
+			%status = "Already Has";
+		} else if (%client.missionFailed[$MP::MissionFile]) {
+			%color = %color @ "cc0000>";
+			%status = "Conflict";
+		} else
+			%color = %color @ "000000>";
+
+		(OldMPDH_Name @ %i).setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><just:left>" @ %color @ %client.getDisplayName() @ "<just:right>" @ %status);
+
+		(OldMPDH_Allow @ %i).setVisible(%status $= "");
+		(OldMPDH_Allow @ %i).setActive($MP::CanDownloadMission[$MP::MissionFile]);
+		(OldMPDH_Allow @ %i).setValue(%client.canDownload[$MP::MissionFile]);
+	}
+
+	OldMPDH_AllowAll.setActive($MP::CanDownloadMission[$MP::MissionFile]);
+	%this.updating = false;
+}
+
+function OldMPDownloadDlg::allowAll(%this) {
+	if (OldMPDH_AllowAll.getValue()) {
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			%client = ClientGroup.getObject(%i);
+			if (%client.isHost())
+				continue;
+
+			%client.canDownload[$MP::MissionFile] = true;
+			commandToClient(%client, 'CanDownloadMission', $MP::MissionFile, true);
+		}
+	}
+
+	%this.update();
+}
+
+function OldMPDownloadDlg::startDownload(%this) {
+	commandToServer('RequestMissionFile', $MP::MissionFile);
+	OldMPDC_Info.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Starting Download");
+
+	OldMPDC_Close.setActive(false);
+	OldMPDC_Download.setActive(false);
+}
+
+function OldMPDownloadDlg::downloadStart(%this) {
+	OldMPDC_Info.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Starting Download");
+}
+
+function OldMPDownloadDlg::downloadFinish(%this) {
+	OldMPDC_Info.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Download Finished");
+	OldMPDC_Close.setActive(true);
+	OldMPDC_Download.setActive(true);
+}
+
+function OldMPDownloadDlg::downloadError(%this) {
+	OldMPDC_Info.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Error with Download");
+	OldMPDC_Close.setActive(true);
+	OldMPDC_Download.setActive(true);
+}
+
+function OldMPDownloadDlg::onFileDownloadChunk(%this, %file, %recv, %total, %seq, %estimated) {
+	OldMPDC_Info.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Receiving" SPC fileBase(%file) @ fileExt(%file) SPC "-" SPC mFloor((100 * %recv) / %total) @ "%" @($DownloadFileNameLength[%seq] < 270 ? " (" @($DownloadFileNameLength[%seq] < 200 ? (mFloor(%recv / 100) / 10) @ "/" @(mFloor(%total / 100) / 10) SPC "kB, " : "") @ mFloor(%rate / 100) / 10 SPC "kB/s)" : "") @($DownloadFileNameLength[%seq] < 320 ? " " @ getSubStr(formatTimeSeconds(%estimated), 1, 999) : ""));
+}

@@ -1,0 +1,713 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldLBChatGui) {
+	profile = "GuiContentProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./backgrounds/platinumquest/18";
+	useVariable = "0";
+	tile = "0";
+		_guiSize = "800 600";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "relative";
+		vertSizing = "relative";
+		position = "0 0";
+		extent = "800 600";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 13";
+			extent = "800 555";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/chat/chat_transparency";
+			wrap = "0";
+
+			new GuiBitmapButtonCtrl(OldLBSingleplayerButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "2 1";
+				extent = "135 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.pushDialog(OldLBPlayMissionDlg);";
+				helpTag = "0";
+				text = "Play";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/play";
+			};
+			new GuiBitmapButtonCtrl(OldLBMultiplayerButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "133 1";
+				extent = "135 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.pushDialog(OldMPJoinServerGui);";
+				helpTag = "0";
+				text = "MultiPlayer";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/multiplayer";
+			};
+			new GuiBitmapButtonCtrl(OldLBMarblelandButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "266 1";
+				extent = "135 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBMarblelandPlayMissionDlg.open();";
+				helpTag = "0";
+				text = "Marbleland";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/marbleland";
+			};
+			new GuiBitmapButtonCtrl(OldLBChallengesButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "399 1";
+				extent = "135 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBPlayMissionDlg.showChallenges();";
+				helpTag = "0";
+				text = "Challenges";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/challenges";
+			};
+			new GuiBitmapButtonCtrl(OldLBLeaderboardsButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "532 1";
+				extent = "136 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.pushDialog(OldLBScoresDlg);";
+				helpTag = "0";
+				text = "Scores";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/leaderboards";
+			};
+			new GuiBitmapButtonCtrl(OldLBMyProfile) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "575 1";
+				extent = "115 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBUserDlg.show($LB::Username);";
+				helpTag = "0";
+				text = "Profile";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/profile";
+			};
+			new GuiBitmapButtonCtrl(OldLBOptionsButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "690 1";
+				extent = "105 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldOptionsDlg.show(true, true);";
+				helpTag = "0";
+				text = "Options";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/options";
+			};
+			new GuiBitmapButtonCtrl(OldLBReplaysButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "582 509";
+				extent = "105 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldPlayDemoGui.open(true, true);";
+				helpTag = "0";
+				text = "Replays";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/replays";
+			};
+			new GuiBitmapButtonCtrl(OldLBLogoutButton) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "692 509";
+				extent = "105 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBChatGui.logout();";
+				helpTag = "0";
+				text = "Logout";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/chat/logout";
+			};
+			
+			new GuiControl() {
+				profile = "GuiTransparency75Profile";
+				horizSizing = "left";
+				vertSizing = "height";
+				position = "575 41";
+				extent = "219 468";
+				minExtent = "27 27";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiScrollCtrl(OldLBChat_PlayerScroll) {
+					profile = "OldGuiBacklessScrollProfile";
+					horizSizing = "left";
+					vertSizing = "height";
+					position = "7 7";
+					extent = "208 452";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "dynamic";
+					vScrollBar = "dynamic";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiMLTextCtrl(OldLBUserList) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "relative";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "206 105";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "2";
+						allowColorChars = "0";
+						maxChars = "-1";
+							clipColumnText = "0";
+							columns = "0";
+							enumerate = "0";
+							fitParentWidth = "1";
+							resizeCell = "0";
+					};
+					new GuiButtonBaseCtrl(OldLBChatUserProfile) {
+						profile = "GuiDefaultProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "0 75";
+						extent = "188 26";
+						minExtent = "8 8";
+						visible = "1";
+						command = "OldLBChatGui.onClickUserlist(0);";
+						helpTag = "0";
+						groupNum = "-1";
+						buttonType = "PushButton";
+						repeatPeriod = "1000";
+						repeatDecay = "1";
+					};
+				};
+				new GuiScrollCtrl(OldLBChat_PlayerScrollOld) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "height";
+					position = "3 5";
+					extent = "212 453";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "dynamic";
+					vScrollBar = "dynamic";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiTextListCtrl(OldLBUserListOld) {
+						profile = "OldGuiLBUserlistProfile";
+						horizSizing = "relative";
+						vertSizing = "bottom";
+						position = "1 1";
+						extent = "210 8";
+						minExtent = "8 8";
+						visible = "1";
+						command = "OldLBChatGui.onClickUserList(OldLBUserListOld.getSelectedId());";
+						helpTag = "0";
+						enumerate = "0";
+						resizeCell = "0";
+						columns = "0";
+						fitParentWidth = "1";
+						clipColumnText = "0";
+					};
+				};
+			};
+			new GuiControl() {
+				profile = "GuiTransparency75Profile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "1 41";
+				extent = "576 513";
+				minExtent = "27 27";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "width";
+					vertSizing = "top";
+					position = "4 479";
+					extent = "568 1";
+					minExtent = "8 1";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./leaderboards/core/transparency/75/transparencyfill";
+					wrap = "0";
+				};
+				new GuiScrollCtrl(OldLBChatContainer) {
+					profile = "OldGuiBacklessScrollProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "6 6";
+					extent = "564 473";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "dynamic";
+					vScrollBar = "dynamic";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiMLTextCtrl(OldLBChatText) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "545 462";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "2";
+						allowColorChars = "0";
+						maxChars = "-1";
+					};
+				};
+			};
+			new GuiControl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "top";
+				position = "6 521";
+				extent = "566 29";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiMLTextEditCtrl(OldLBSendChat) {
+					profile = "OldGuiMediumTextEditProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "0 0";
+					extent = "566 29";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldLBChatGui.chatUpdate();";
+					altCommand = "OldLBChatGui.sendChat();";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "1";
+					maxChars = "255";
+				};
+				new GuiMLTextCtrl(OldLBSendChatDisabledText) {
+					profile = "OldGuiMediumTextEditProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "0 0";
+					extent = "566 25";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "1";
+					maxChars = "255";
+						unformattedText = "<color:999999>Disabled";
+				};
+			};
+		};
+	};
+	new GuiMLTextCtrl(OldLBServerDescText) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "width";
+		vertSizing = "top";
+		position = "6 574";
+		extent = "545 42";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+	};
+	new GuiMLTextCtrl(OldLBPingText) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "635 574";
+		extent = "158 14";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+	};
+};
+//--- OBJECT WRITE END ---
+
+if ($LB::FirstTimeForChatGui $= "")
+	$LB::FirstTimeForChatGui = true;
+
+function OldLBChatGui::onWake(%this) {
+	if ($Game::Offline) {
+		closeOldLeaderboards();
+		return;
+	}
+	playLBMusic();
+
+	LBChatGui.welcomeMessage();
+	OldLBChatContainer.scrollToBottom();
+	OldLBChatContainer.schedule(100, scrollToBottom);
+	OldLBChatContainer.schedule(1000, scrollToBottom);
+
+	OldLBServerDescText.setText("<color:FFFFFF><font:Marker Felt:22><shadow:1:1><shadowcolor:0000007f>Leaderboards Server v8 @ " @ $LBServerInfo::webchatServer @ " - Running " @ $THIS_VERSION_NAME @ " / " @ $THIS_VERSION_SUB);
+
+	OldLBSendChat.setTickable(true);
+
+	OldLBSendChat.setActive($LB::GlobalChatEnabled);
+	OldLBSendChat.makeFirstResponder($LB::GlobalChatEnabled);
+
+	OldLBSendChat.setVisible($LB::GlobalChatEnabled);
+	OldLBSendChatDisabledText.setVisible(!$LB::GlobalChatEnabled);
+
+	OldLBSendChatDisabledText.setText("<color:999999>Disabled");
+	OldLBSendChat.setActive(!$LB::Guest);
+
+	OldLBMyProfile.setVisible(!$LB::Guest);
+
+	LBSetMode(0);
+	
+	%this.updateChat();
+	%this.updateUserList();
+
+	if ($PMG::CurrentGui !$= "OldLBPlayMissionDlg" && $PMG::CurrentGui !$= "OldLBMarblelandPlayMissionDlg") {
+		$PMG::CurrentGui = "OldLBPlayMissionDlg";
+		if (OldLBPlayMissionDlg.mission $= "")
+			OldLBPlayMissionDlg.setMissionTab(($LBPref::CurrentGame !$= "" ? $LBPref::CurrentGame : "Platinum"), ($LBPref::MissionType !$= "" ? $LBPref::MissionType : "Beginner"), ($LBPref::SelectedMissionIndex !$= "" ? $LBPref::SelectedMissionIndex : 0));
+		$Menu::MissionFile = OldLBPlayMissionDlg.mission.file;
+	}
+
+	setDiscordStatus("In Global Lobby");
+}
+
+function OldLBChatGui::updateChat(%this, %message) {
+	if (%message $= "") {
+		%text = "<font:\x10:\x11>" @ $LB::ChatText;
+
+		traceGuard();
+
+			if (OldLBChatGui.isAwake()) {
+				OldLBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Arial"), "\x11", 14), "chat"));
+				OldLBChatText.forceReflow();
+				OldLBChatContainer.scrollToBottom();
+			}
+
+			if (PlayGUI.isAwake()) {
+				PG_LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Arial"), "\x11", 14), "ingame"));
+				PG_LBChatText.forceReflow();
+				PG_LBChatScroll.scrollToBottom();
+				OldPG_LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Arial"), "\x11", 14), "ingame"));
+				OldPG_LBChatText.forceReflow();
+				OldPG_LBChatScroll.scrollToBottom();
+			}
+
+			if (OldMPPlayMissionDlg.isAwake()) {
+				OldMPMissionGlobalChat.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Marker Felt"), "\x11", 16), "mp"));
+				OldMPMissionGlobalChat.forceReflow();
+				OldMPMissionGlobalChatScroll.scrollToBottom();
+			}
+
+		traceGuardEnd();
+	} else {
+		%text = "\n<spush>" @ %message @ "<spop>";
+
+		OldLBChatText.addText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Arial"), "\x11", 14), "chat"), false);
+		if (OldLBChatGui.isAwake())
+			OldLBChatText.forceReflow();
+		OldLBChatContainer.scrollToBottom();
+
+		PG_LBChatText.addText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Arial"), "\x11", 14), "ingame"), false);
+		OldPG_LBChatText.addText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Arial"), "\x11", 14), "ingame"), false);
+		if (PlayGUI.isAwake()) {
+			PG_LBChatText.forceReflow();
+			OldPG_LBChatText.forceReflow();
+		}
+		PG_LBChatScroll.scrollToBottom();
+		OldPG_LBChatScroll.scrollToBottom();
+
+		OldMPMissionGlobalChat.addText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Marker Felt"), "\x11", 16), "mp"), false);
+		if (OldMPPlayMissionDlg.isAwake())
+			OldMPMissionGlobalChat.forceReflow();
+		OldMPMissionGlobalChatScroll.scrollToBottom();
+	}
+}
+
+function OldLBChatGui::setChatMessage(%this, %message, %ctrl) {
+	if (%ctrl $= "OldPG_LBChatEntry" && !PlayGui.isAwake())
+		return;
+	if (%ctrl !$= "OldLBSendChat")
+		OldLBSendChat.setValue(%message);
+	if (%ctrl !$= "OldPG_LBChatEntry")
+		OldPG_LBChatEntry.setValue(%message);
+	if (%ctrl !$= "OldMPPlayMissionChatEntry")
+		OldMPPlayMissionChatEntry.setValue(%message);
+}
+
+function OldLBChatText::onURL(%this, %url) {
+	LBChatOpenURL(%url);
+}
+
+function OldPG_LBChatText::onURL(%this, %url) {
+	LBChatOpenURL(%url);
+}
+
+function OldLBChatGui::sendChat(%this) {
+	%message = trim(OldLBSendChat.getValue());
+	if (%message !$= "" && $LB::LoggedIn && !$LB::Guest) {
+		LBSendChat(%message);
+	}
+	LBSetChatMessage("");
+}
+
+function OldLBChatGui::chatUpdate(%this) {
+	%message = OldLBSendChat.getValue();
+
+	if (getSubStr(%message, 0, 3) $= "@@@") {
+		%message = "/whisper" SPC $LB::LastWhisper SPC ltrim(getSubStr(%message, 3, strLen(%message)));
+		%update = true;
+	}
+	if (getSubStr(%message, 0, 2) $= "@@" && strLen(%message) > 2) {
+		%message = "/whisper " @ ltrim(getSubStr(%message, 2, strLen(%message)));
+		%update = true;
+	}
+	%message = stripChars(%message, "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f");
+
+	LBSetChatMessage(%message, OldLBSendChat);
+
+	if (OldLBSendChat.getValue() !$= %message && %update) {
+		OldLBSendChat.setValue(%message);
+	}
+
+	OldLBSendChat.setPosition("0" SPC(30 - getWord(OldLBSendChat.extent, 1)));
+}
+
+function OldLBChatGui::setEnableChatEntry(%this, %enabled) {
+	$LB::GlobalChatEnabled = %enabled;
+
+	OldLBSendChat.setVisible(%enabled);
+	OldLBSendChatDisabledText.setVisible(!%enabled);
+	OldLBSendChat.makeFirstResponder(%enabled);
+
+	if (!%enabled && $chatHudType $= "global") {
+		disableChatHUD(true);
+	}
+	PG_LBChatEntry.setActive(%enabled);
+	OldPG_LBChatEntry.setActive(%enabled);
+}
+
+function OldLBChatGui::updateUserlist(%this) {
+	OldLBChat_PlayerScroll.setVisible(!$pref::OldGui::OldLBUserList);
+	OldLBChat_PlayerScrollOld.setVisible($pref::OldGui::OldLBUserList);
+	OldMPPlayMissionUserScroll.setVisible(!$pref::OldGui::OldLBUserList);
+	OldMPPlayMissionUserScrollOld.setVisible($pref::OldGui::OldLBUserList);
+	OldMPGlobalPlayerListTitle.setVisible($pref::OldGui::OldLBUserList);
+	OldLBUserList.clear();
+	OldLBUserListOld.clear();
+	OldMPPlayMissionUserList.clear();
+	OldMPPlayMissionUserListOld.clear();
+	LBUserListArray.sort(sortUserlistItems);
+
+		%lastGroup = -1;
+	while (isObject(OldLBChatUserProfile))
+		OldLBChatUserProfile.delete();
+	while (isObject(OldMPPlayMissionUserListProfile))
+		OldMPPlayMissionUserListProfile.delete();
+
+	//1.50 style user list
+	if ($pref::OldGui::OldLBUserList) {
+		for (%i = 0; %i < LBUserListArray.getSize(); %i ++) {
+			%entry = LBUserListArray.getEntry(%i);
+			%status = LBResolveStatus(%entry.location);
+			%username = decodeName(%entry.username);
+			%display = decodeName(%entry.display);
+			%access = %entry.groupNum;
+
+			%row = LBResolveName(%username, true) SPC %status;
+
+			OldLBUserListOld.addRow(OldLBUserListOld.rowCount(), collapseEscape("\\c" @ (%access == 2 ? "0" : (%access == 1 ? "1" : "2"))) @ clipPx("DomCasualD", 24, %row, 200, true));
+			OldMPPlayMissionUserlistOld.addRow(OldMPPlayMissionUserlistOld.rowCount(), collapseEscape("\\c" @ (%access == 2 ? "0" : (%access == 1 ? "1" : "2"))) @ clipPx("Marker Felt", 18, %row, 280, true));
+		}
+
+		OldLBUserListOld.sort(0, true);
+		OldMPPlayMissionUserlistOld.sort(0, true);
+
+	//Normal user list
+	} else {
+		%text = "<lmargin:4><font:DomCasualD:36>Users Online";
+
+		%start = 8;
+
+		for (%i = 0; %i < LBUserListArray.getSize(); %i ++) {
+			%entry = LBUserListArray.getEntry(%i);
+
+			%group = %entry.group;
+			if (%group.group !$= %lastGroup) {
+				devecho("Next group: " @ %group SPC %group.name);
+				%text = %text NL "<font:Arial:8> ";
+				%text = %text NL "<font:DomCasualD:32>" @ %group.name;
+				%lastGroup = %group.group;
+				%start += 41;
+			}
+
+			%status = LBResolveStatus(%entry.location);
+			%username = decodeName(%entry.username);
+			%display = decodeName(%entry.display);
+			%access = %entry.groupNum;
+
+			%display = clipPx("DomCasualD", 24, %display SPC %status, 210, false);
+			%text = %text NL "<font:DomCasualD:24>" @ LBResolveChatColors(LBColorFormat(%username, %display, %access), "chat");
+
+			%start += 26;
+			%end = %start + 26;
+
+			OldLBChat_PlayerScroll.add(new GuiButtonBaseCtrl(OldLBChatUserProfile) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0" SPC %start;
+				extent = (getWord(OldLBChat_PlayerScroll.extent, 0) - 20) SPC (%end - %start);
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				command = "OldLBChatGui.onClickUserlist(" @ %i @ ");";
+				helpTag = "0";
+				text = "";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
+			OldMPPlayMissionUserScroll.add(new GuiButtonBaseCtrl(OldMPPlayMissionUserListProfile) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0" SPC %start;
+				extent = (getWord(OldMPPlayMissionUserScroll.extent, 0) - 20) SPC (%end - %start);
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				command = "OldLBChatGui.onClickUserlist(" @ %i @ ");";
+				helpTag = "0";
+				text = "";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
+		}
+
+		%text = trim(%text);
+		OldLBUserList.setText(%text);
+		OldMPPlayMissionUserList.setText(%text);
+	}
+}
+
+function OldLBChatGui::onClickUserlist(%this, %index) {
+	%user = LBUserListArray.getEntry(%index).username;
+	if (isGuest(%user)) {
+		OldLBUserListOld.clearSelection();
+		OldMPPlayMissionUserlistOld.clearSelection();
+		return;
+	}
+	OldLBUserDlg.show(%user);
+}
+
+function OldLBChatGui::logout(%this, %finishCmd) {
+	if ($Server::ServerType !$= "")
+		disconnect();
+	$LB::LoggingOut = true;
+	OldLBLoginButton.setActive(false);
+	LBdisconnect(%finishCmd);
+	LBMessage("Logging Out...", "LB_FinishLogout(\"" @ expandEscape(%finishCmd) @ "\");");
+}

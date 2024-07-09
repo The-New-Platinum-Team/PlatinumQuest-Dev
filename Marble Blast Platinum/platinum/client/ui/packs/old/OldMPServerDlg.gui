@@ -1,0 +1,544 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldMPServerDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "100 17";
+		extent = "440 446";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/settings/serversettings";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldMPServerCancel) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "123 384";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPServerDlg.cancel();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/cancel";
+		};
+		new GuiBitmapButtonCtrl(OldMPServerSave) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "223 384";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPServerDlg.SaveFields();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/save";
+		};
+		new GuiMLTextCtrl(OldMPServerTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "11 21";
+			extent = "418 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPServerShowPasswordsTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "259 94";
+			extent = "129 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldMPServerShowPasswords) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "389 86";
+			extent = "31 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPServerDlg.updateActive();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/core/lb_chkbx";
+		};
+		new GuiMLTextCtrl(OldMPServerIPTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "top";
+			position = "16 358";
+			extent = "405 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPServerPortTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "16 329";
+			extent = "203 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldMPServerMapRefresh) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "226 324";
+			extent = "31 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPServerDlg.refreshPortMapping();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/refresh/refresh-1";
+				oldtooltip = "Refresh";
+		};
+		new GuiControl(OldMPServerSettingsContainer) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "height";
+			position = "16 55";
+			extent = "240 276";
+			minExtent = "27 27";
+			visible = "1";
+			helpTag = "0";
+		};
+		new GuiMLTextCtrl(OldMPServerDescTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "259 125";
+			extent = "166 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiControl() {
+			profile = "GuiTransparencyProfile";
+			horizSizing = "left";
+			vertSizing = "height";
+			position = "258 143";
+			extent = "168 208";
+			minExtent = "27 27";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiScrollCtrl() {
+				profile = "OldGuiBacklessScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "6 6";
+				extent = "158 257";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "dynamic";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "0 0";
+
+				new GuiMLTextEditCtrl(OldMPServerDescField) {
+					profile = "GuiMLTextEditProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "1 1";
+					extent = "157 257";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "512";
+						cursorPosition = "1";
+				};
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPServerDlg::open(%this) {
+	if ($Server::_Dedicated) {
+		OldMPDedicatedServerDlg.open();
+		return;
+	}
+
+	Canvas.pushDialog(%this);
+}
+
+function OldMPServerDlg::cancel(%this) {
+	Canvas.popDialog(%this);
+	OldMPServerDescField.setValue($Pref::Server::Info);
+}
+
+function OldMPServerDlg::onWake(%this) {
+	OldMPServerTitle.setText("<color:ffffff><font:Marker Felt:32><shadow:1:1><shadowcolor:0000007f><just:center>Server Settings");
+	OldMPServerDescTitle.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f><just:center>Server Info");
+	OldMPServerDescField.setValue($Pref::Server::Info);
+
+	OldMPServerShowPasswordsTitle.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Show Password:");
+	OldMPServerShowPasswords.setValue(false);
+
+	%this.populate();
+	%this.updateIP();
+}
+
+function OldMPServerDlg::populate(%this) {
+	%rowHeight = 29;
+	OldMPServerSettingsContainer.clear();
+
+	for (%i = 0; %i < $MP::Server::Settings; %i ++) {
+		%id       = $MP::Server::Setting[%i, "id"];
+		%name     = $MP::Server::Setting[%i, "name"];
+		%type     = $MP::Server::Setting[%i, "type"];
+		%variable = $MP::Server::Setting[%i, "variable"];
+
+		%titleName = "OldMPServer" @ %id @ "Title";
+
+		%tempvar = "$MP::Server::Temp::" @ %id;
+		setVariable(%tempvar, getVariable(%variable));
+
+		%y = (%rowHeight * %i);
+
+		OldMPServerSettingsContainer.add(
+		new GuiMLTextCtrl(%titleName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = 0 SPC (10 + %y);
+			extent = "206 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		}
+		);
+
+		%titleName.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f><just:left>" @ %name @ ":");
+
+		switch$ (%type) {
+		case "check":
+			%check = "OldMPServer" @ %id @ "Check";
+			%checkName = "OldMPServer" @ %id @ "CheckTitle";
+
+			new GuiMLTextCtrl(%checkName) {
+		         profile = "GuiMLTextProfile";
+		         horizSizing = "width";
+		         vertSizing = "bottom";
+		         position = 16 SPC (%y + 6);
+		         extent = "161 19";
+		         minExtent = "8 8";
+		         visible = "1";
+		         helpTag = "0";
+		         lineSpacing = "2";
+		         allowColorChars = "0";
+		         maxChars = "-1";
+		      };
+			OldMPServerSettingsContainer.add(
+			new GuiBitmapButtonCtrl(%check) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = 210 SPC (%y + 6);
+				extent = "31 31";
+				minExtent = "8 8";
+				visible = "1";
+				variable = %tempvar;
+				helpTag = "0";
+				text = "button";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/core/lb_chkbx";
+			}
+			);
+
+			%check.setText(getVariable(%variable));
+		case "number":
+			%plusName = "OldMPServer" @ %id @ "Plus";
+			%minusName = "OldMPServer" @ %id @ "Minus";
+
+			OldMPServerSettingsContainer.add(
+			new GuiBitmapButtonCtrl(%plusName) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = 210 SPC (%y + 4);
+				extent = "31 31";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPServerDlg.incrementSetting(\"" @ %i @ "\");";
+				helpTag = "0";
+				text = "+";
+				groupNum = "-1";
+				buttonType = "RepeaterButton";
+				repeatPeriod = "1000";
+				repeatDecay = "0.9";
+				bitmap = "./multiplayer/settings/plus";
+			}
+			);
+			OldMPServerSettingsContainer.add(
+			new GuiBitmapButtonCtrl(%minusName) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = 182 SPC (%y + 4);
+				extent = "31 31";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPServerDlg.decrementSetting(\"" @ %i @ "\");";
+				helpTag = "0";
+				text = "-";
+				groupNum = "-1";
+				buttonType = "RepeaterButton";
+				repeatPeriod = "1000";
+				repeatDecay = "0.9";
+				bitmap = "./multiplayer/settings/minus";
+			}
+			);
+
+			%titleName.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f><just:left>" @ %name @ ":" SPC getVariable(%variable));
+		case "text" or "password":
+			%fieldName = "OldMPServer" @ %id @ "Field";
+
+			OldMPServerSettingsContainer.add(
+			new GuiControl() {
+				profile = "GuiTransparencyProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = 99 SPC (%y + 1);
+				extent = "143 35";
+				minExtent = "27 27";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiTextEditCtrl(%fieldName) {
+					profile = "OldGuiMediumTextEditProfile";
+					horizSizing = "left";
+					vertSizing = "bottom";
+					position = "3 3";
+					extent = "136 29";
+					minExtent = "8 8";
+					visible = "1";
+					variable = %tempvar;
+					command = "OldMPServerDlg.updateActive();";
+					helpTag = "0";
+					maxLength = "255";
+					maxPixelWidth = "0";
+					historySize = "0";
+					password = (%type $= "password");
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+				};
+			}
+			);
+
+			%fieldName.setValue(getVariable(%variable));
+		}
+	}
+}
+
+function OldMPServerDlg::incrementSetting(%this, %idx) {
+	%id   = $MP::Server::Setting[%idx, "id"];
+	%max  = $MP::Server::Setting[%idx, "max"];
+	%name = $MP::Server::Setting[%idx, "name"];
+
+	%tempvar = "$MP::Server::Temp::" @ %id;
+
+	%val = getVariable(%tempVar);
+	%val ++;
+
+	if (%val > %max)
+		%val = %max;
+
+	setVariable(%tempVar, %val);
+
+	%titleName = "OldMPServer" @ %id @ "Title";
+
+	%titleName.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f><just:left>" @ %name @ ":" SPC %val);
+}
+
+function OldMPServerDlg::decrementSetting(%this, %idx) {
+	%id   = $MP::Server::Setting[%idx, "id"];
+	%min  = $MP::Server::Setting[%idx, "min"];
+	%name = $MP::Server::Setting[%idx, "name"];
+
+	%tempvar = "$MP::Server::Temp::" @ %id;
+
+	%val = getVariable(%tempVar);
+	%val --;
+
+	if (%val < %min)
+		%val = %min;
+
+	setVariable(%tempVar, %val);
+
+	%titleName = "OldMPServer" @ %id @ "Title";
+
+	%titleName.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f><just:left>" @ %name @ ":" SPC %val);
+}
+
+function OldMPServerDlg::updateActive(%this) {
+	for (%i = 0; %i < $MP::Server::Settings; %i ++) {
+		%id       = $MP::Server::Setting[%i, "id"];
+		%name     = $MP::Server::Setting[%i, "name"];
+		%type     = $MP::Server::Setting[%i, "type"];
+		%variable = $MP::Server::Setting[%i, "variable"];
+
+		%tempvar = "$MP::Server::Temp::" @ %id;
+
+		switch$ (%type) {
+		case "text" or "password":
+			%fieldName = "OldMPServer" @ %id @ "Field";
+			%fieldName.password = (%type $= "password" && !OldMPServerShowPasswords.getValue());
+
+			setVariable(%tempvar, %fieldName.getValue());
+		}
+	}
+
+	OldMPServerSave.setActive($MP::Server::Temp::Name !$= "");
+}
+
+function OldMPServerDlg::updateIP(%this) {
+	%status = "<spush><color:ffff66>Loading<spop>";
+	switch$ ($PortStatus) {
+	case "lan":
+		%status = "<spush><color:ff6666>Failure<spop>";
+	case "error":
+		%status = "<spush><color:ff6666>Server Error!<spop>";
+	case "checking":
+		%status = "<spush><color:ffff66>Checking<spop>";
+	case "global":
+		%status = "<spush><color:66ff66>Successful<spop>";
+	}
+	OldMPServerPortTitle.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Port Mapping:<just:right>" @ %status);
+	OldMPServerIPTitle.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>Server Address:<just:right>" @ $ip @($pref::Server::Port != 28000 ? ":" @ $pref::Server::Port : ""));
+}
+
+function OldMPServerDlg::saveFields(%this) {
+	Canvas.popDialog(%this);
+	$Pref::Server::Info = OldMPServerDescField.getValue();
+
+	for (%i = 0; %i < $MP::Server::Settings; %i ++) {
+		%id       = $MP::Server::Setting[%i, "id"];
+		%variable = $MP::Server::Setting[%i, "variable"];
+
+		%tempvar = "$MP::Server::Temp::" @ %id;
+
+		commandToServer('ServerSetting', %id, getVariable(%tempvar));
+	}
+
+	savePrefs();
+	startHeartbeat();
+
+	OldMPPlayMissionDlg.updateMPButtons();
+}
+
+function OldMPServerDlg::updateSpinner(%this) {
+	if (!%this.isAwake())
+		return;
+	if (%this.loading || %this.spinNum > 0)
+		%this.spinNum ++;
+	%this.spinNum %= 10;
+
+	//Why...?
+	%bmpNumber = (((%this.spinNum * 2) % 10) + mFloor(%this.spinNum / 5)) + 1;
+
+	OldMPServerMapRefresh.setBitmap(expandFilename("platinum/client/ui/packs/old/multiplayer/join/refresh/refresh-" @ %bmpNumber));
+}
+
+function OldMPServerDlg::refreshPortMapping(%this) {
+	$PortStatus = "";
+	checkPort();
+
+	OldMPServerMapRefresh.setActive(false);
+	MPUpdatePortLabel();
+	%this.loading = true;
+
+	if (%this.spinInterval $= "")
+		%this.spinInterval = %this.interval(90, "updateSpinner");
+}
+
+function OldMPServerDlg::portMappingFinished(%this) {
+	OldMPServerMapRefresh.setActive(true);
+	MPUpdatePortLabel();
+	%this.loading = false;
+}

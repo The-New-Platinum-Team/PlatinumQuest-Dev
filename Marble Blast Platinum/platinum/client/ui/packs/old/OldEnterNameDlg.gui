@@ -1,0 +1,142 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldEnterNameDlg) {
+	profile = "GuiDialogProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "110 112";
+		extent = "420 256";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/endgame/enternamebox";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldEnterNameAcceptButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "151 184";
+			extent = "110 55";
+			minExtent = "8 8";
+			visible = "1";
+			command = "highScoreNameAccept();";
+			helpTag = "0";
+			text = "Accept";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/endgame/ok";
+		};
+		new GuiBitmapCtrl(OldEnterNameEditBitmap) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "16 119";
+			extent = "388 56";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/endgame/window";
+			wrap = "0";
+		};
+		new GuiMLTextCtrl(OldEnterNameText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "37 23";
+			extent = "345 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiTextEditCtrl(OldEnterNameEdit) {
+			profile = "OldGuiBigTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "28 130";
+			extent = "363 40";
+			minExtent = "8 8";
+			visible = "1";
+			variable = "$pref::HighScoreName";
+			command = "highScoreNameChanged();";
+			altCommand = "if ($pref::HighScoreName !$= \"\") { highScoreNameAccept(); }";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "999999";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldEnterNameDlg::onWake(%this) {
+	OldEnterNameAcceptButton.setActive($pref::HighScoreName !$= "");
+	OldEnterNameText.setText("<just:center><shadow:1:1><shadowcolor:7777777F><color:FFFFFF><font:DomCasualD:48>Well Done!\n<font:DomCasualD:32>You have the" SPC %this.msgIn @ "top" SPC (getField($Game::FinalScore, 0) == $ScoreType::Time ? "time" : "score") @ "!");
+	$highScoreAccept = false;
+	OldEndGameGui.highScoreNameChanged();
+
+	if ($Completion::AwesomeMessage) {
+		OldEnterNameDlg.showFirstAwesomePopup();
+	}
+}
+
+//First Awesome Time popup
+function OldEnterNameDlg::showFirstAwesomePopup(%this) {
+	$Completion::AwesomeMessage = false;
+	OldEnterNameEditBitmap.setVisible(false);
+	OldEnterNameEdit.setVisible(false);
+	OldEnterNameAcceptButton.setActive(true);
+	OldEnterNameAcceptButton.command = "OldEnterNameDlg.closeFirstAwesomePopup();";
+	OldEnterNameText.setText("<just:center><font:Marker Felt:30>You beat an <spush><color:FF4444>Awesome " @ ($PMG::CurrentGui.mission.awesomeScore ? "Score" : "Time") @ "<spop>!" NL
+		"<font:Marker Felt:18>Every PlatinumQuest level has an Awesome Time or Score" SPC
+		"that requires plenty of skill to beat. They are based on the staff's best," SPC
+		"aimed for the hardcore players, and made to be pretty difficult." @
+		"<font:Arial:9>\n\n<font:Marker Felt:18><just:center>Are you prepared for the <spush><color:200000>awesome<spop> quest awaiting you?");
+}
+
+function OldEnterNameDlg::closeFirstAwesomePopup(%this) {
+	OldEnterNameText.setText("<just:center><shadow:1:1><shadowcolor:7777777F><color:FFFFFF><font:DomCasualD:48>Well Done!\n<font:DomCasualD:32>You have the" SPC %this.msgIn @ "top" SPC (getField($Game::FinalScore, 0) == $ScoreType::Time ? "time" : "score") @ "!");
+	OldEnterNameEditBitmap.setVisible(true);
+	OldEnterNameEdit.setVisible(true);
+	OldEnterNameAcceptButton.setActive($pref::HighScoreName !$= "");
+	OldEnterNameAcceptButton.command = "highScoreNameAccept();";
+}

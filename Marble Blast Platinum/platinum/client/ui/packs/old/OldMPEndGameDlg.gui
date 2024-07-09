@@ -1,0 +1,938 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(OldMPEndGameDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./offline/exit/black";
+	wrap = "0";
+		_guiSize = "800 600";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "800 400";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiScrollCtrl() {
+			profile = "OldGuiWhiteBacklessScrollProfile";
+			horizSizing = "center";
+			vertSizing = "height";
+			position = "25 125";
+			extent = "750 275";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+				defaultLineHeight = "15";
+
+			new GuiControl(OldMPEndGameListContainer) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 1";
+				extent = "750 16";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+		};
+		new GuiMLTextCtrl(OldMPEndGameHeader) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "25 74";
+			extent = "750 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPEndGameTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "25 4";
+			extent = "750 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiObjectView(OldMPEndGameRedGem) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "365 65";
+			extent = "64 64";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			cameraZRot = "0";
+			forceFOV = "0";
+			model = "~/data/shapes/items/gem.dts";
+			skin = "red";
+			cameraRotX = "0";
+			cameraZRotSpeed = "0";
+			orbitDistance = "1.25";
+			autoSize = "0";
+		};
+		new GuiObjectView(OldMPEndGameYellowGem) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "417 65";
+			extent = "64 64";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			cameraZRot = "0";
+			forceFOV = "0";
+			model = "~/data/shapes/items/gem.dts";
+			skin = "yellow";
+			cameraRotX = "0";
+			cameraZRotSpeed = "0";
+			orbitDistance = "1.25";
+			autoSize = "0";
+		};
+		new GuiObjectView(OldMPEndGameBlueGem) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "469 65";
+			extent = "64 64";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			cameraZRot = "0";
+			forceFOV = "0";
+			model = "~/data/shapes/items/gem.dts";
+			skin = "blue";
+			cameraRotX = "0";
+			cameraZRotSpeed = "0";
+			orbitDistance = "1.25";
+			autoSize = "0";
+		};
+		new GuiObjectView(OldMPEndGamePlatinumGem) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "521 65";
+			extent = "64 64";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			cameraZRot = "0";
+			forceFOV = "0";
+			model = "~/data/shapes/items/gem.dts";
+			skin = "platinum";
+			cameraRotX = "0";
+			cameraZRotSpeed = "0";
+			orbitDistance = "1.25";
+			autoSize = "0";
+		};
+	};
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "center";
+		position = "747 201";
+		extent = "53 155";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/end/window";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldMPEndGameLobby) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "5 101";
+			extent = "49 49";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPEndGameDlg.lobby();";
+			helpTag = "0";
+			text = "Lobby";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/end/lobby";
+				oldtooltip = "Return to Lobby";
+		};
+		new GuiBitmapButtonCtrl(OldMPEndGameRate) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "5 53";
+			extent = "49 49";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPEndGameDlg.showRate();";
+			helpTag = "0";
+			text = "Rate";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/end/rate";
+				oldtooltip = "Rate Level";
+		};
+		new GuiBitmapButtonCtrl(OldMPEndGameRestart) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "5 7";
+			extent = "49 49";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPEndGameDlg.restart();";
+			helpTag = "0";
+			text = "Restart";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/end/restart";
+				oldtooltip = "Restart Level";
+		};
+	};
+	new GuiControl(OldMPEndRateContainer) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "top";
+		position = "0 400";
+		extent = "800 200";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+
+		new GuiControl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "250 0";
+			extent = "300 100";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiMLTextCtrl(OldMPEndRateTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 56";
+				extent = "300 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(OldMPEndRateNegative) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "40 0";
+				extent = "60 60";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPEndGameDlg.rate(-1);";
+				helpTag = "0";
+				text = "Dislike";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/end/rate-negative";
+			};
+			new GuiBitmapButtonCtrl(OldMPEndRateNeutral) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "120 0";
+				extent = "60 60";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPEndGameDlg.rate(0);";
+				helpTag = "0";
+				text = "Indifferent";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/end/rate-neutral";
+			};
+			new GuiBitmapButtonCtrl(OldMPEndRatePositive) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "200 0";
+				extent = "60 60";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPEndGameDlg.rate(1);";
+				helpTag = "0";
+				text = "Like";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/end/rate-positive";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPEndGameDlg::onWake(%this) {
+	disableChatHUD();
+
+	%this.updateActive();
+	%this.updateRating();
+
+	OldMPEndRateContainer.setVisible(0);
+
+	%this.force = false;
+}
+
+function OldMPEndGameDlg::updateActive(%this) {
+	OldMPEndGameRestart.setActive($Server::Hosting);
+	OldMPEndGameLobby.setBitmap("platinum/client/ui/packs/old/multiplayer/end/" @ ($Server::Hosting ? "lobby" : "exit"));
+}
+
+function OldMPEndGameDlg::updateScores(%this) {
+	%snow = $Game::isMode["snowball"];
+	%spooky = $Game::isMode["spooky"];
+
+	%platinumLabel = (%spooky ? "Spooky" : (%snow ? "Chilly" : "Platinum"));
+	%ultimateLabel = (%spooky ? "Scary"  : (%snow ? "Frozen" : "Ultimate"));
+
+	%platinumColor = (%spooky ? "FF8000" : (%snow ? "EEEEEE" : "CCCCCC"));
+	%ultimateColor = (%spooky ? "CC2222" : (%snow ? "22CCFF" : "FFCC22"));
+
+	while (OldMPEndGameListContainer.getCount())
+		OldMPEndGameListContainer.getObject(0).delete();
+	%this.scoreUpdate ++;
+
+	%show10 = false;
+	%players = $MP::ScorePlayers;
+
+	if (!$MP::TeamMode) {
+		for (%j = 0; %j < %players; %j ++) {
+			%gems   = ScoreList.getEntry(%j).gems;
+			%gems10 = mFloor(getWord(%gems, 3));
+
+			if (%gems10 > 0) {
+				%show10 = true;
+				break;
+			}
+		}
+	} else {
+		for (%j = 0; %j < %players; %j ++) {
+			%gems   = getRecord(TeamScorePlayerList.getEntry(%j), 5);
+			%gems10 = mFloor(getWord(%gems, 3));
+
+			if (%gems10 > 0) {
+				%show10 = true;
+				break;
+			}
+		}
+	}
+	OldMPEndGamePlatinumGem.setVisible(%show10);
+
+	OldMPEndGameRedGem.resize((%show10 ? 355 : 365), 65, 64, 64);
+	OldMPEndGameYellowGem.resize((%show10 ? 397 : 417), 65, 64, 64);
+	OldMPEndGameBlueGem.resize((%show10 ? 439 : 469), 65, 64, 64);
+	OldMPEndGamePlatinumGem.resize((%show10 ? 481 : 521), 65, 64, 64);
+
+	if ($MP::TeamMode) {
+		%teams = $MP::ScoreTeams;
+		%face    = "<font:DomCasualD:36>";
+		%font    = %face @ "<color:ffffff><tab:40,280,590,650>";
+		%font2   = %face @ "<color:ffffff><tab:40,280>";
+		%rowIdx = 0;
+		%teamIdx = 0;
+
+		%used = Array(OldMPEndGameUsedPlayersArray);
+		for (%i = 0; %i < %teams; %i ++) {
+			%bestScore = -9999;
+			%bestIdx = -1;
+			for (%j = 0; %j < %teams; %j ++) {
+				%team  = getRecord(TeamScoreList.getEntry(%j), 0);
+				%score = getRecord(TeamScoreList.getEntry(%j), 1);
+				if (%used.containsEntry(%team))
+					continue;
+				if (%score > %bestScore) {
+					%bestScore = %score;
+					%bestIdx = %j;
+				} else
+					continue;
+			}
+
+			%team    = getRecord(TeamScoreList.getEntry(%bestIdx), 0);
+			%score   = getRecord(TeamScoreList.getEntry(%bestIdx), 1);
+			%players = getRecord(TeamScoreList.getEntry(%bestIdx), 2);
+			%number  = getRecord(TeamScoreList.getEntry(%bestIdx), 3);
+
+			%used.addEntry(%team);
+
+			if (%players == 0)
+				continue;
+
+			%teamIdx ++;
+
+			%itemHeight   = 44;
+
+			if ($MP::EndListTeamIndex[%team] $= "" || !isObject(OldMPEndContainerTeam @ %number)) {
+				$MP::EndListTeamIndex[%team]    = %number;
+				$MP::EndListTeamLookup[%number] = %team;
+
+				OldMPEndGameListContainer.add(
+				new GuiControl(OldMPEndContainerTeam @ %number) {
+					profile = "GuiMLTextProfile";
+					position = "0 0";
+					extent = 750 SPC %itemHeight;
+					visible = "1";
+
+					new GuiMLTextCtrl(OldMPEndTextTeam @ %number) {
+						profile = "GuiMLTextProfile";
+						position = "0 3";
+						extent = "750 14";
+						visible = "1";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+				}
+				);
+			}
+
+			%scoreText   = "OldMPEndTextTeam"      @ %number;
+			%container   = "OldMPEndContainerTeam" @ %number;
+
+			%container.resize(0, %rowIdx * %itemHeight,   500, %itemHeight);
+
+			%container.team = %team;
+
+			%rowIdx ++;
+
+			%scoreText.setText(%font   @ %teamIdx @ "." TAB clipPx("DomCasualD", 36, %team, 230, true) TAB %score);
+
+			%container.lastUpdate   = %this.scoreUpdate;
+
+			%teamPlayers = Array(OldMPEndGameTeamPlayersArray);
+			%players = $MP::ScorePlayers;
+
+			for (%j = 0; %j < %players; %j ++) {
+				%player = TeamScorePlayerList.getEntry(%j);
+				if (getRecord(%player, 0) $= %team)
+					%teamPlayers.addEntry(%player);
+			}
+
+			%usedPlayers = Array(OldMPEndGameTeamUsedArray);
+			%teamPlayerCount = %teamPlayers.getSize();
+
+			for (%j = 0; %j < %teamPlayerCount; %j ++) {
+				%bestScore = -9999;
+				%bestIdx = -1;
+				for (%k = 0; %k < %teamPlayerCount; %k ++) {
+					%player = getRecord(%teamPlayers.getEntry(%k), 1);
+					%score  = getRecord(%teamPlayers.getEntry(%k), 2);
+					if (%usedPlayers.containsEntry(%player))
+						continue;
+					if (%score > %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %k;
+					} else
+						continue;
+				}
+
+				%player = getRecord(%teamPlayers.getEntry(%bestIdx), 1);
+				%score  = getRecord(%teamPlayers.getEntry(%bestIdx), 2);
+				%index  = getRecord(%teamPlayers.getEntry(%bestIdx), 3);
+				%marble = getRecord(%teamPlayers.getEntry(%bestIdx), 4);
+
+				%itemHeight   = 44;
+
+				if ($MP::EndListIndex[%player] $= "" || !isObject(OldMPEndContainer @ %index)) {
+					$MP::EndListIndex[%player] = %index;
+					$MP::EndListLookup[%index] = %player;
+
+					OldMPEndGameListContainer.add(
+					new GuiControl(OldMPEndContainer @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "0 0";
+						extent = 750 SPC %itemHeight;
+						visible = "1";
+
+						new GuiMLTextCtrl(OldMPEndText @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "0 3";
+							extent = "750 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiMLTextCtrl(OldMPEndTextR @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "348 3";
+							extent = "52 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiMLTextCtrl(OldMPEndTextY @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "400 3";
+							extent = "52 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiMLTextCtrl(OldMPEndTextB @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "452 3";
+							extent = "52 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiMLTextCtrl(OldMPEndTextP @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "504 3";
+							extent = "52 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiObjectView(OldMPEndPlayerMarble @ %index) {
+							profile = "GuiDefaultProfile";
+							position = "510 -10";
+							extent = "64 64";
+							visible = "1";
+							model = "~/data/shapes/balls/ball-superball.dts";
+							skin = "base";
+							cameraZRotSpeed = "0.001";
+							orbitDistance = "0.75";
+						};
+					}
+					);
+				}
+
+				%scoreText    = "OldMPEndText"         @ %index;
+				%scoreTextR   = "OldMPEndTextR"        @ %index;
+				%scoreTextY   = "OldMPEndTextY"        @ %index;
+				%scoreTextB   = "OldMPEndTextB"        @ %index;
+				%scoreTextP   = "OldMPEndTextP"        @ %index;
+				%objectView   = "OldMPEndPlayerMarble" @ %index;
+				%container    = "OldMPEndContainer"    @ %index;
+
+				%container.resize(0, %rowIdx * %itemHeight,   750, %itemHeight);
+				%container.player   = %player;
+
+				%scoreTextR.resize((%show10 ? 338 : 348), 3, 52, 14);
+				%scoreTextY.resize((%show10 ? 380 : 400), 3, 52, 14);
+				%scoreTextB.resize((%show10 ? 422 : 452), 3, 52, 14);
+				%scoreTextP.resize((%show10 ? 464 : 504), 3, 52, 14);
+
+				%scoreTextP.setVisible(%show10);
+
+				%rowIdx ++;
+
+				%playerIdx =        $MP::MasterScoreLookup[%player];
+				%rating    = mFloor($MP::MasterScoreRating[%playerIdx]);
+				%change    = mFloor($MP::MasterScoreChange[%playerIdx]);
+				%gems1     = mFloor(getField($MP::PlayerGemCount[%player], 0));
+				%gems2     = mFloor(getField($MP::PlayerGemCount[%player], 1));
+				%gems5     = mFloor(getField($MP::PlayerGemCount[%player], 2));
+				%gems10    = mFloor(getField($MP::PlayerGemCount[%player], 3));
+
+				%gems1  = %gems1  $= "" || %gems1  == 0 ? "0" : %gems1;
+				%gems2  = %gems2  $= "" || %gems2  == 0 ? "0" : %gems2;
+				%gems5  = %gems5  $= "" || %gems5  == 0 ? "0" : %gems5;
+				%gems10 = %gems10 $= "" || %gems10 == 0 ? "0" : %gems10;
+
+				if (%gems1  < 10) %gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
+				if (%gems2  < 10) %gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
+				if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
+				if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
+
+				%changeColor = "<shadowcolor:0000007f><shadow:1:1>";
+				if (%change == 0)
+					%changeColor = %changeColor @ "<color:cccccc>";
+				else if (%change < 0)
+					%changeColor = %changeColor @ "<color:ff0000>";
+				else if (%change > 0)
+					%changeColor = %changeColor @ "<color:00ff00>";
+
+				%change = %changeColor @ "(" @(%change >= 0 ? "+" @ %change : %change) @ ")";
+
+				%scoreColor = "<shadowcolor:0000007f><shadow:1:1>";
+				%vs = !$Server::Hosting
+					|| (!$Server::_Dedicated && ClientGroup.getCount() > 1)
+					|| ($Server::_Dedicated && isObject(ScoreList.player[1]));
+				%scoreIdx = (%vs ? 0 : 1);
+
+				if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] || %score < MissionInfo.score && MissionInfo.score)
+					%score = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
+				else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore)
+					%score = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
+				else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore)
+					%score = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
+
+				%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
+				%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
+				%gems5  = "<spush><color:4040FF>" @ %scoreColor @ %gems5  @ "<spop>";
+				%gems10 = "<spush><color:CCCCCC>" @ %scoreColor @ %gems10 @ "<spop>";
+
+				if (%change > 0)
+					%changeLabel = "<color:00ff00><shadow:1:1><shadowcolor:0000007f>+" @ %change;
+				else
+					%changeLabel = "0";
+
+				%scoreText.setText(%font TAB clipPx("DomCasualD", 36, LBResolveName(%player, true), 230, true) TAB %score TAB formatLevel(%rating) TAB %changeLabel);
+				%scoreTextR.setText(%font @ "<just:center>" @ %gems1);
+				%scoreTextY.setText(%font @ "<just:center>" @ %gems2);
+				%scoreTextB.setText(%font @ "<just:center>" @ %gems5);
+				%scoreTextP.setText(%font @ "<just:center>" @ %gems10);
+
+				%shape = getField(%marble, 0);
+				%skin  = getField(%marble, 1);
+				if (!isFile(%shape)) {
+					%shape = $usermods @ "/data/shapes/balls/ball-superball.dts";
+					%skin = "base";
+				}
+				%objectView.setModel(%shape, %skin);
+
+				%objectView.model   = %shape;
+				%objectView.skin    = %skin;
+
+				%container.lastUpdate   = %this.scoreUpdate;
+
+				%usedPlayers.addEntry(%player);
+			}
+
+			%usedPlayers.delete();
+			%teamPlayers.delete();
+		}
+		%used.delete();
+
+		%count = OldMPEndGameListContainer.getCount();
+		for (%i = 0; %i < %count; %i ++) {
+			%obj = OldMPEndGameListContainer.getObject(%i);
+			if ((%obj.team !$= "" && !TeamScoreList.containsEntryAtRecord(%obj.team, 0)) || (%obj.player !$= "" && !TeamScorePlayerList.containsEntryAtRecord(%obj.player, 1)) || %obj.lastUpdate != %this.scoreUpdate) {
+				%obj.delete();
+				%i --;
+				%count --;
+			}
+		}
+	} else {
+		%face   = "<font:DomCasualD:36>";
+		%font   = %face @ "<color:ffffff><tab:40,280,590,650>";
+		%players = $MP::ScorePlayers;
+		%rowIdx = 0;
+
+		%used = Array(OldMPEndGameUsedPlayersArray);
+		for (%i = 0; %i < %players; %i ++) {
+			%bestScore = -9999;
+			%bestIdx = -1;
+			for (%j = 0; %j < %players; %j ++) {
+				%player = ScoreList.getEntry(%j).name;
+				%score  = ScoreList.getEntry(%j).score;
+				if (%used.containsEntry(%player))
+					continue;
+				if (%score > %bestScore) {
+					%bestScore = %score;
+					%bestIdx = %j;
+				} else
+					continue;
+			}
+
+			%player = ScoreList.getEntry(%bestIdx).name;
+			%score  = ScoreList.getEntry(%bestIdx).score;
+			%index  = ScoreList.getEntry(%bestIdx).index;
+			%marble = ScoreList.getEntry(%bestIdx).skin;
+
+			%itemHeight   = 44;
+
+			if ($MP::EndListIndex[%player] $= "" || !isObject(OldMPEndContainer @ %index)) {
+				$MP::EndListIndex[%player] = %index;
+				$MP::EndListLookup[%index] = %player;
+
+				OldMPEndGameListContainer.add(
+				new GuiControl(OldMPEndContainer @ %index) {
+					profile = "GuiMLTextProfile";
+					position = "0 0";
+					extent = 750 SPC %itemHeight;
+					visible = "1";
+
+					new GuiMLTextCtrl(OldMPEndText @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "0 3";
+						extent = "750 14";
+						visible = "1";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+					new GuiMLTextCtrl(OldMPEndTextR @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "348 3";
+						extent = "52 14";
+						visible = "1";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+					new GuiMLTextCtrl(OldMPEndTextY @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "400 3";
+						extent = "52 14";
+						visible = "1";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+					new GuiMLTextCtrl(OldMPEndTextB @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "452 3";
+						extent = "52 14";
+						visible = "1";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+					new GuiMLTextCtrl(OldMPEndTextP @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "504 3";
+						extent = "52 14";
+						visible = "0";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+					new GuiObjectView(OldMPEndPlayerMarble @ %index) {
+						profile = "GuiDefaultProfile";
+						position = "510 -10";
+						extent = "64 64";
+						visible = "1";
+						model = "~/data/shapes/balls/ball-superball.dts";
+						skin = "base";
+						cameraZRotSpeed = "0.001";
+						orbitDistance = "0.75";
+					};
+				}
+				);
+			}
+
+			%scoreText    = "OldMPEndText"         @ %index;
+			%scoreTextR   = "OldMPEndTextR"        @ %index;
+			%scoreTextY   = "OldMPEndTextY"        @ %index;
+			%scoreTextB   = "OldMPEndTextB"        @ %index;
+			%scoreTextP   = "OldMPEndTextP"        @ %index;
+			%objectView   = "OldMPEndPlayerMarble" @ %index;
+			%container    = "OldMPEndContainer"    @ %index;
+
+			%container.resize(0, %rowIdx * %itemHeight,   750, %itemHeight);
+			%container.player   = %player;
+
+			%scoreTextR.resize((%show10 ? 338 : 348), 3, 52, 14);
+			%scoreTextY.resize((%show10 ? 380 : 400), 3, 52, 14);
+			%scoreTextB.resize((%show10 ? 422 : 452), 3, 52, 14);
+			%scoreTextP.resize((%show10 ? 464 : 504), 3, 52, 14);
+
+			%scoreTextP.setVisible(%show10);
+
+			%rowIdx ++;
+
+			%playerIdx =        $MP::MasterScoreLookup[%player];
+			%rating    = mFloor($MP::MasterScoreRating[%playerIdx]);
+			%change    = mFloor($MP::MasterScoreChange[%playerIdx]);
+			%gems1     = mFloor(getField($MP::PlayerGemCount[%player], 0));
+			%gems2     = mFloor(getField($MP::PlayerGemCount[%player], 1));
+			%gems5     = mFloor(getField($MP::PlayerGemCount[%player], 2));
+			%gems10    = mFloor(getField($MP::PlayerGemCount[%player], 3));
+
+			%gems1  = %gems1  $= "" || %gems1  == 0 ? "0" : %gems1;
+			%gems2  = %gems2  $= "" || %gems2  == 0 ? "0" : %gems2;
+			%gems5  = %gems5  $= "" || %gems5  == 0 ? "0" : %gems5;
+			%gems10 = %gems10 $= "" || %gems10 == 0 ? "0" : %gems10;
+
+			if (%gems1  < 10) %gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
+			if (%gems2  < 10) %gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
+			if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
+			if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
+
+			%scoreColor = "<shadowcolor:0000007f><shadow:1:1>";
+			%vs = !$Server::Hosting
+				|| (!$Server::_Dedicated && ClientGroup.getCount() > 1)
+				|| ($Server::_Dedicated && isObject(ScoreList.player[1]));
+			%scoreIdx = (%vs ? 0 : 1);
+
+			if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] || %score < MissionInfo.score && MissionInfo.score)
+				%score = "<spush>" @ %scoreColor @ "<color:FF6666>" @ %score @ "<spop>";
+			else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore)
+				%score = "<spush>" @ %scoreColor @ "<color:" @ %ultimateColor @ ">" @ %score @ "<spop>";
+			else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore)
+				%score = "<spush>" @ %scoreColor @ "<color:" @ %platinumColor @ ">" @ %score @ "<spop>";
+
+			%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
+			%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
+			%gems5  = "<spush><color:4040FF>" @ %scoreColor @ %gems5  @ "<spop>";
+			%gems10 = "<spush><color:CCCCCC>" @ %scoreColor @ %gems10 @ "<spop>";
+
+			if (%change > 0)
+				%changeLabel = "<color:00ff00><shadow:1:1><shadowcolor:0000007f>+" @ %change;
+			else
+				%changeLabel = "0";
+
+			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx("DomCasualD", 36, LBResolveName(%player, true), 230, true) TAB %score TAB formatLevel(%rating) TAB %changeLabel);
+			%scoreTextR.setText(%font @ "<just:center>" @ %gems1);
+			%scoreTextY.setText(%font @ "<just:center>" @ %gems2);
+			%scoreTextB.setText(%font @ "<just:center>" @ %gems5);
+			%scoreTextP.setText(%font @ "<just:center>" @ %gems10);
+
+			%shape = getField(%marble, 0);
+			%skin  = getField(%marble, 1);
+			if (!isFile(%shape)) {
+				%shape = $usermods @ "/data/shapes/balls/ball-superball.dts";
+				%skin = "base";
+			}
+			%objectView.setModel(%shape, %skin);
+
+			%objectView.model   = %shape;
+			%objectView.skin    = %skin;
+
+			%container.lastUpdate   = %this.scoreUpdate;
+
+			%used.addEntry(%player);
+		}
+		%used.delete();
+
+		%count = OldMPEndGameListContainer.getCount();
+		for (%i = 0; %i < %count; %i ++) {
+			%obj = OldMPEndGameListContainer.getObject(%i);
+			if (!ScoreList.containsEntryAtVariable("name", %obj.player) || %obj.lastUpdate != %this.scoreUpdate) {
+				%obj.delete();
+				%i --;
+				%count --;
+			}
+		}
+	}
+
+	%itemHeight = 44;
+	OldMPEndGameListContainer.setHeight(%itemHeight * OldMPEndGameListContainer.getCount());
+
+	OldMPEndGameHeader.setText("<font:DomCasualD:36><color:FFFFFF><tab:40,280,510,590,650> \tName\tScore\tMarble\tLevel\tPoints");
+
+	%text = "<font:Expo:50><color:FFFFFF><just:center><shadowcolor:0000007f><shadow:1:1>";
+	%score = PlayGui.gemCount;
+
+	%vs = !$Server::Hosting
+		|| (!$Server::_Dedicated && ClientGroup.getCount() > 1)
+		|| ($Server::_Dedicated && isObject(ScoreList.player[1]));
+	%scoreIdx = (%vs ? 0 : 1);
+	if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx] || %score < MissionInfo.score && MissionInfo.score)
+		%text = %text @ "<color:FF6666>You Didn\'t Pass the Par Score!";
+	else if (%score >= MissionInfo.ultimateScore[%scoreIdx] && MissionInfo.ultimateScore[%scoreIdx] || %score >= MissionInfo.ultimateScore && MissionInfo.ultimateScore)
+		%text = %text @ "You Beat the <spush><color:" @ %ultimateColor @ ">" @ %ultimateLabel @ "<spop> Score!";
+	else if (%score >= MissionInfo.platinumScore[%scoreIdx] && MissionInfo.platinumScore[%scoreIdx] || %score >= MissionInfo.platinumScore && MissionInfo.platinumScore)
+		%text = %text @ "You Beat the <spush><color:" @ %platinumColor @ ">" @ %platinumLabel @ "<spop> Score!";
+	else
+		%text = %text @ "You\'ve Qualified!";
+	OldMPEndGameTitle.setText(%text);
+}
+
+function OldMPEndGameDlg::lobby(%this) {
+	if ($Server::Hosting && !%this.force) {
+		%this.force = true;
+		commandToServer('LobbyReturn');
+		OldMPEndGameLobby.schedule(500, setBitmap, "platinum/client/ui/packs/old/multiplayer/end/exit");
+	} else {
+		disconnect();
+		Canvas.setContent(OldLBChatGui);
+	}
+}
+
+function OldMPEndGameDlg::restart(%this) {
+	commandToServer('LobbyRestart');
+}
+
+function OldMPEndGameDlg::showRate(%this) {
+	OldMPEndButtonsContainer.setVisible(0);
+	OldMPEndRateContainer.setVisible(1);
+}
+
+function clientCmdCloseEndGame() {
+	RootGui.popDialog(OldMPEndGameDlg);
+	ClientMode::callback("closeEndGame");
+}
+
+function OldMPEndGameDlg::showRate(%this) {
+	OldMPEndRateContainer.setVisible(1);
+}
+
+function OldMPEndGameDlg::updateRating(%this) {
+	OldMPEndRateTitle.setText("<just:center><color:ffffff><font:DomCasualD:24>Rate This Level");
+
+	%level = fileBase($Client::MissionFile);
+	%choice = $MPPref::LevelRating[%level];
+
+	if (%choice $= "") {
+		OldMPEndRateNegative.setValue(0);
+		OldMPEndRateNeutral.setValue(0);
+		OldMPEndRatePositive.setValue(0);
+	} else {
+		switch (%choice) {
+		case -1:
+			OldMPEndRateNegative.setValue(1);
+		case  0:
+			OldMPEndRateNeutral.setValue(1);
+		case  1:
+			OldMPEndRatePositive.setValue(1);
+		}
+	}
+}
+
+function OldMPEndGameDlg::rate(%this, %choice) {
+	statsRateMission($PMG::CurrentGui.mission, %choice);
+
+	$MPPref::LevelRating[%level] = %choice;
+	OldMPEndRateTitle.setText("<just:center><color:ffffff><font:DomCasualD:24>Rating sent!");
+}

@@ -1,0 +1,546 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldSearchGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl(OldSG_Window) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "156 68";
+		extent = "487 463";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/search/window";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldSG_Cancel) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "21 395";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldSearchGui);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/search/cancel";
+				simpleStyle = "0";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "19 65";
+			extent = "447 317";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiTextListCtrl(OldSearchMissionListShadow) {
+				profile = "OldSearchShadowProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "431 8";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "0";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+			};
+			new GuiTextListCtrl(OldSearchMissionList) {
+				profile = "OldSearchProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "-1 -1";
+				extent = "431 8";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				command = "OldSearchGui.updatePlay();";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "0";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+			};
+		};
+		new GuiBitmapButtonCtrl(OldSearchPlay) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "370 395";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldSearchGui.StartMission();";
+			helpTag = "0";
+			text = "play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/search/play";
+		};
+		new GuiMLTextCtrl(OldSearchTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "52 17";
+			extent = "64 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiTextEditCtrl(OldSearchEdit) {
+			profile = "OldGuiMediumTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "91 17";
+			extent = "373 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldSearchGui.search();";
+			altCommand = "OldSearchGui.entryStart();";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "1";
+		};
+		new GuiBitmapButtonCtrl(OldSearchOptionsPush) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "121 395";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldSearchGui.pushOptions();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/search/options";
+				simpleStyle = "0";
+		};
+	};
+	new GuiButtonBaseCtrl(OldSearchOptionsPop) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "800 600";
+		minExtent = "8 8";
+		visible = "0";
+		command = "OldSearchGui.popOptions();";
+		helpTag = "0";
+		text = "";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+
+		new GuiButtonBaseCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "160 67";
+			extent = "480 465";
+			minExtent = "48 92";
+			visible = "1";
+			command = "OldSearchGui.popOptions();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 281";
+				extent = "348 148";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldSearchGui.popOptions();";
+				helpTag = "0";
+				text = "";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/play/moremenu";
+					wrap = "0";
+
+				new GuiBitmapButtonCtrl(OldSearchByFile) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "229 45";
+					extent = "68 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldSearchGui.setSearchType(2);";
+					helpTag = "0";
+					text = "";
+					groupNum = "-1";
+					buttonType = "RadioButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./offline/search/file";
+				};
+				new GuiBitmapButtonCtrl(OldSearchByArtist) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "159 45";
+					extent = "72 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldSearchGui.setSearchType(1);";
+					helpTag = "0";
+					text = "";
+					groupNum = "-1";
+					buttonType = "RadioButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./offline/search/artist";
+				};
+				new GuiBitmapButtonCtrl(OldSearchRandom) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "top";
+					position = "44 45";
+					extent = "44 44";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldSearchGui.random();";
+					helpTag = "0";
+					text = "";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./offline/search/random";
+						oldtooltip = "Random Level";
+				};
+				new GuiBitmapButtonCtrl(OldSearchByTitle) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "92 45";
+					extent = "68 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "OldSearchGui.setSearchType(0);";
+					helpTag = "0";
+					text = "";
+					groupNum = "-1";
+					buttonType = "RadioButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./offline/search/name";
+				};
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+if (!isObject(SearchSet)) {
+   new SimGroup(SearchSet);
+   RootGroup.add(SearchSet);
+}
+
+function OldSearchGui::onWake(%this) {
+	%this.adjustStyle();
+
+	echo("Current game is:" SPC $CurrentGame);
+
+	OldSearchMissionList.clear();
+	OldSearchMissionListShadow.clear();
+	OldSearchEdit.setValue("");
+
+	SearchSet.clear();
+
+	%ml = $PMG::CurrentGui.getMissionList();
+	%difficulties = %ml.getDifficultyList($CurrentGame);
+
+	if (($PMG::CurrentGui $= "OldPlayMissionGui" && $CurrentGame $= "Custom") || %ml $= getMissionList("marbleland")) {
+		%list = %ml.getMissionList($CurrentGame, $MissionType);
+		if (!isObject(%list)) {
+			%ml.buildMissionList($CurrentGame, $MissionType);
+		}
+		for (%j = 0; %j < %list.getSize(); %j ++) {
+			%info = %list.getEntry(%j);
+
+			if (!Unlock::canDisplayMission(%info)) {
+				%info.canDisplay = false;
+				continue;
+			}
+			getSearchMissionInfo(%info, $CurrentGame, $MissionType);
+
+			SearchSet.add(%info);
+		}
+	} else {
+		for (%i = 0; %i < getRecordCount(%difficulties); %i ++) {
+			%difficultyInfo = getRecord(%difficulties, %i);
+			%difficulty = getField(%difficultyInfo, 0);
+
+			%list = %ml.getMissionList($CurrentGame, %difficulty);
+			if (!isObject(%list)) {
+				%ml.buildMissionList($CurrentGame, %difficulty);
+			}
+			for (%j = 0; %j < %list.getSize(); %j ++) {
+				%info = %list.getEntry(%j);
+
+				if (!Unlock::canDisplayMission(%info)) {
+					%info.canDisplay = false;
+					continue;
+				}
+				getSearchMissionInfo(%info, $CurrentGame, %difficulty);
+
+				SearchSet.add(%info);
+			}
+		}
+	}
+
+	if ($pref::OldGui::SearchType $= "" || $pref::OldGui::SearchType < 0 || $pref::OldGui::SearchType > 2)
+		$pref::OldGui::SearchType = 0;
+
+	%this.search();
+	
+	resumeMusic();
+}
+
+function OldSearchGui::search(%this) {
+   OldSearchMissionList.clear();
+   OldSearchMissionListShadow.clear();
+   %key   = strlwr(trim(OldSearchEdit.getValue()));
+   %count = SearchSet.getCount();
+
+   %text  = "<font:DomCasualD:24><color:696969>";
+
+   switch ($pref::OldGui::SearchType) {
+      case 0:
+         for (%i = 0; %i < %count; %i ++) {
+            %obj = SearchSet.getObject(%i);
+
+            if (strStr(%obj.searchName, %key) != -1) {
+               %row = %obj.name TAB %obj;
+               OldSearchMissionList.addRow(OldSearchMissionList.rowCount(), %row);
+               OldSearchMissionListShadow.addRow(OldSearchMissionListShadow.rowCount(), %row);
+            }
+         }
+      %text = %text @ "Title:";
+
+      case 1:
+         for (%i = 0; %i < %count; %i ++) {
+            %obj = SearchSet.getObject(%i);
+
+            if (strStr(%obj.searchArtist, %key) != -1) {
+               %row = %obj.name SPC "By" SPC %obj.artist TAB %obj;
+               OldSearchMissionList.addRow(OldSearchMissionList.rowCount(), %row);
+               OldSearchMissionListShadow.addRow(OldSearchMissionListShadow.rowCount(), %row);
+            }
+         }
+      %text = %text @ "Artist:";
+
+      case 2:
+         for (%i = 0; %i < %count; %i ++) {
+            %obj = SearchSet.getObject(%i);
+            //Get the parent directory plus the filename
+            %file = getSubStr(%obj.file, strlen(filePath(filePath(%obj.file))) + 1, strlen(%obj.file));
+            %searchFile = strlwr(%file);
+
+            if (strStr(%searchFile, %key) != -1) {
+            	%row = %file TAB %obj;
+               OldSearchMissionList.addRow(OldSearchMissionList.rowCount(), %row);
+               OldSearchMissionListShadow.addRow(OldSearchMissionListShadow.rowCount(), %row);
+            }
+         }
+      %text = %text @ "File:";
+   }
+
+   OldSearchTitle.setText(%text);
+   %this.finalize();
+}
+
+function OldSearchGui::finalize(%this) {
+   if (OldSearchMissionList.rowCount()) {
+      OldSearchMissionList.sort(0);
+      OldSearchMissionList.scrollVisible(0);
+      OldSearchMissionListShadow.sort(0);
+      OldSearchMissionListShadow.scrollVisible(0);
+      OldSearchOptionsPush.setActive(true);
+      OldSearchRandom.setActive(true);
+      OldSearchPlay.setActive(Unlock::canPlayMission(getField(OldSearchMissionList.getRowTextById(OldSearchMissionList.getSelectedId()), 1)));
+   } else {
+      OldSearchOptionsPush.setActive(false);
+      OldSearchPlay.setActive(false);
+      OldSearchRandom.setActive(false);
+   }
+}
+
+function OldSearchGui::updatePlay(%this) {
+	%mission = getField(OldSearchMissionList.getRowTextById(OldSearchMissionList.getSelectedId()), 1);
+	OldSearchPlay.setActive(Unlock::canPlayMission(%mission));
+
+	//Find the mission in the mission list
+	%list = $PMG::CurrentGui.getMissionList(%mission.searchGame, %mission.searchType);
+	%ml = %list.getMissionList(%mission.searchGame, %mission.searchType);
+	if (!isObject(%ml)) {
+		%list.buildMissionList(%mission.searchGame, %mission.searchType);
+		%ml = %list.getMissionList(%mission.searchGame, %mission.searchType);	
+	}
+	for (%i = 0; %i < %ml.getSize(); %i ++) {
+		%test = %ml.getEntry(%i);
+		if (%test.file $= %mission.file) {
+			%num = %i;
+			break;
+		}
+	}
+
+	$PMG::CurrentGui.setMissionTab(%mission.searchGame, %mission.searchType, %num);
+}
+
+function OldSearchGui::StartMission(%this, %force) {
+	if (mp()) {
+		if ($Client::Loaded && !%force) {
+			MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\'); OldSearchGui.startMission(true);");
+		} else {
+			$PMG::CurrentGui.preload();
+			Canvas.popDialog(%this);
+		}
+		return;
+	}
+	
+   %id = OldSearchMissionList.getSelectedId();
+   %mission = getField(OldSearchMissionList.getRowTextById(%id), 1);
+
+   if (!Unlock::canPlayMission(%mission) || !Unlock::canDisplayMission(%mission))
+   	return;
+
+	//Find the mission in the mission list
+	%list = $PMG::CurrentGui.getMissionList(%mission.searchGame, %mission.searchType);
+	%ml = %list.getMissionList(%mission.searchGame, %mission.searchType);
+	if (!isObject(%ml)) {
+		%list.buildMissionList(%mission.searchGame, %mission.searchType);
+		%ml = %list.getMissionList(%mission.searchGame, %mission.searchType);	
+	}
+	for (%i = 0; %i < %ml.getSize(); %i ++) {
+		%test = %ml.getEntry(%i);
+		if (%test.file $= %mission.file) {
+			%num = %i;
+			break;
+		}
+	}
+
+	$PMG::CurrentGui.setMissionTab(%mission.searchGame, %mission.searchType, %num);
+	Canvas.setContent(OldLoadingGui);
+	Canvas.repaint();
+	menuLoadMission(%mission.file);
+}
+
+function OldSearchGui::entryStart(%this) {
+   if (OldSearchMissionList.getSelectedId() != -1)
+      %this.StartMission();
+}
+
+function OldSearchGui::pushOptions(%this) {
+   OldSearchOptionsPop.setVisible(true);
+
+   OldSearchByTitle.setValue($pref::OldGui::SearchType == 0);
+   OldSearchByArtist.setValue($pref::OldGui::SearchType == 1);
+   OldSearchByFile.setValue($pref::OldGui::SearchType == 2);
+}
+
+function OldSearchGui::popOptions(%this) {
+   OldSearchOptionsPop.setVisible(false);
+}
+
+function OldSearchGui::random(%this) {
+   %count = OldSearchMissionList.rowCount();
+   if (!%count)
+      return;
+   %randomNumber = getRandom(0, %count - 1);
+   OldSearchMissionList.setSelectedRow(%randomNumber);
+   %this.popOptions();
+   if (mp()) {
+		serverSendChat(LBChatColor("notification") @ "The Host has rolled the random map" SPC getField(OldSearchMissionList.getRowTextById(OldSearchMissionList.getSelectedId()), 0) @ ".");
+	}
+}
+
+function OldSearchGui::setSearchType(%this, %type) {
+   $pref::OldGui::SearchType = %type;
+   %this.search();
+}
+
+function OldSearchGui::adjustStyle(%this) {
+	//Adjust style for multiplayer, leaderboards, or offline
+	OldSearchMissionList.profile = (mp() ? "OldMPSearchProfile" : "OldSearchProfile");
+	OldSearchMissionListShadow.profile = (mp() ? "OldMPSearchShadowProfile" : "OldSearchShadowProfile");
+	OldSG_Window.setBitmap(mp() ? "platinum/client/ui/packs/old/multiplayer/search/window" : (lb() ? "platinum/client/ui/packs/old/leaderboards/misc/search-lb" : "platinum/client/ui/packs/old/offline/search/window"));
+	OldSG_Cancel.setBitmap(lb() ? "platinum/client/ui/packs/old/multiplayer/search/cancel" : "platinum/client/ui/packs/old/offline/search/cancel");
+	OldSearchOptionsPush.setBitmap(lb() ? "platinum/client/ui/packs/old/multiplayer/search/options" : "platinum/client/ui/packs/old/offline/search/options");
+	OldSearchByTitle.setBitmap(lb() ? "platinum/client/ui/packs/old/multiplayer/search/name" : "platinum/client/ui/packs/old/offline/search/name");
+	OldSearchByArtist.setBitmap(lb() ? "platinum/client/ui/packs/old/multiplayer/search/artist" : "platinum/client/ui/packs/old/offline/search/artist");
+	OldSearchByFile.setBitmap(lb() ? "platinum/client/ui/packs/old/multiplayer/search/file" : "platinum/client/ui/packs/old/offline/search/file");
+	OldSearchRandom.setBitmap(lb() ? "platinum/client/ui/packs/old/multiplayer/search/random" : "platinum/client/ui/packs/old/offline/search/random");
+	OldSearchPlay.setBitmap(lb() ? "platinum/client/ui/packs/old/multiplayer/search/play" : "platinum/client/ui/packs/old/offline/search/play");
+}

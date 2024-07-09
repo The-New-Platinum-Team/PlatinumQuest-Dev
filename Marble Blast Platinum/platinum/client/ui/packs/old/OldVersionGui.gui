@@ -1,0 +1,147 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldVersionGui) {
+	profile = "GuiDialogProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		bitmap = "./offline/menubackground.jpg";
+		tile = "0";
+		useVariable = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "84 72";
+		extent = "631 455";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/motd/messagewindow";
+		wrap = "0";
+			canClose = "0";
+			canMaximize = "0";
+			canMinimize = "0";
+			canMove = "1";
+			maxLength = "255";
+			minSize = "50 50";
+			resizeHeight = "1";
+			resizeWidth = "1";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "500 370";
+			extent = "88 41";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldVersionGui);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/loading/ok";
+				simpleStyle = "0";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "31 25";
+			extent = "568 337";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldVER_Text) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "1 1";
+				extent = "548 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiMLTextCtrl(OldVER_CheckText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "36 98";
+			extent = "558 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldVersionGui::showVersion(%this, %parsed) {
+	Canvas.pushDialog(%this);
+
+	%latest = %parsed.getEntry(0);
+	%text = "<spush><font:DomCasualD:24>" @ %latest.title SPC "available!<just:right>" @ %latest.time @ "\n<spop><just:left>" @ %latest.desc @ "<spop>";
+	for (%i = 1; %i < %parsed.getSize(); %i ++) {
+		if (%i == 1) {
+			%text = %text @ "\n\n\n<spush><spush><font:DomCasualD:24>Previous Versions:<spop>";
+		}
+
+		%version = %parsed.getEntry(%i);
+
+		%text = %text @ "\n\n";
+		%text = %text @ "<spush><spush><font:DomCasualD:24>" @ %version.title @ "<just:right>" @ %version.time @ "\n<spop><just:left>" @ %version.desc @ "<spop>";
+	}
+
+	OldVER_Text.setText(%text);
+	OldVER_Text.forceReflow();
+	if (getWord(OldVER_Text.extent, 1) > 330) {
+		OldVER_Text.setExtent("548 8");
+		OldVER_Text.forceReflow();
+	} else {
+		OldVER_Text.setExtent("566 8");
+		OldVER_Text.forceReflow();
+	}
+}

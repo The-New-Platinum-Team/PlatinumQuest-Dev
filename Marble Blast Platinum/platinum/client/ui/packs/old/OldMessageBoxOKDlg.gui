@@ -1,0 +1,130 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldMessageBoxOKDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl(OldMBOKFrame) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "250 212";
+		extent = "300 175";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/message/dialog.png";
+		wrap = "0";
+			canClose = "0";
+			canMaximize = "0";
+			canMinimize = "0";
+			canMove = "1";
+			maxLength = "255";
+			minSize = "50 50";
+			resizeHeight = "1";
+			resizeWidth = "1";
+
+		new GuiMLTextCtrl(OldMBOKTitle) {
+			profile = "GuiComic24Profile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "43 15";
+			extent = "213 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				unformattedText = "";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "117 123";
+         	extent = "71 35";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MessageCallback(OldMessageBoxOKDlg,OldMessageBoxOKDlg.callback);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/message/ok";
+				simpleStyle = "0";
+		};
+		new GuiMLTextCtrl(OldMBOKText) {
+			profile = "GuiTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "32 50";
+			extent = "236 63";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				unformattedText = "";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMessageBoxOKDlg::showMessage(%this, %title, %message, %callback) {
+	OldMBOKTitle.setText("<just:center>" @ %title);
+	Canvas.pushDialog(%this);
+	OldMBOKTitle.forceReflow();
+	OldMBOKText.setPosition(32 SPC 50 + getWord(OldMBOKTitle.getExtent(), 1) - 29);
+	MBSetText(OldMBOKText, OldMBOKFrame, %message);
+	%this.callback = %callback;
+}
+
+function OldMessageBoxOkDlg::MBSetText(%this, %text, %frame, %msg) {
+	Canvas.repaint();
+	if (%frame.oldPosition $= "")
+		%frame.oldPosition = %frame.getPosition();
+	if (%frame.oldExtent $= "")
+		%frame.oldExtent = %frame.getExtent();
+	%text.setText("");
+	%text.forceReflow();
+	%ext = %text.getExtent();
+	%text.setText("<just:center>" @ %msg);
+	%text.forceReflow();
+	%newExtent = %text.getExtent();
+	%deltaY = getWord(%newExtent, 1) - getWord(%ext, 1) - 14;
+	%windowPos = %frame.oldPosition;
+	%windowExt = %frame.oldExtent;
+	%frame.resize(getWord(%windowPos, 0), getWord(%windowPos, 1) - (%deltaY / 2), getWord(%windowExt, 0), getWord(%windowExt, 1) + max(%deltaY, 0));
+}

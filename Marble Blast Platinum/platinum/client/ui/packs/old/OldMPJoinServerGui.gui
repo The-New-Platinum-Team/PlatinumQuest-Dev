@@ -1,0 +1,751 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldMPJoinServerGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	isDialog = "1";
+	parentContent = "OldLBChatGui";
+		_guiSize = "800 600";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "20 65";
+		extent = "759 469";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/join/window";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldJS_exit) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "32 379";
+			extent = "93 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPJoinServerGui.exit();";
+			helpTag = "0";
+			text = "Exit";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/leave";
+		};
+		new GuiBitmapButtonCtrl(OldJS_ping) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "124 379";
+			extent = "93 45";
+			minExtent = "8 8";
+			visible = "0";
+			command = "OldMPJoinServerGui.ping();";
+			helpTag = "0";
+			text = "Ping";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/ping";
+		};
+		new GuiBitmapButtonCtrl(OldJS_DirectConnect) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "126 379";
+			extent = "164 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPJoinServerGui.directConnect();";
+			helpTag = "0";
+			text = "Direct Connect";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/direct";
+		};
+		new GuiBitmapButtonCtrl(OldJS_joinServer) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "628 379";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPJoinServerGui.join();";
+			helpTag = "0";
+			text = "Join";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/join";
+		};
+		new GuiBitmapButtonCtrl(OldJS_HostGame) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "521 379";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPJoinServerGui.hostMission();";
+			helpTag = "0";
+			text = "Host";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/host";
+		};
+		new GuiBitmapButtonCtrl(OldJS_refresh) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "290 379";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPJoinServerGui.query();";
+			helpTag = "0";
+			text = "Query";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/join/refresh/refresh-1";
+				oldtooltip = "Refresh";
+		};
+		new GuiMLTextCtrl(OldJS_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "30 20";
+			extent = "647 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldJS_ListTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "30 58";
+			extent = "480 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldJS_StatusTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "30 348";
+			extent = "480 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "30 80";
+			extent = "475 290";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiTextListCtrl(OldJS_serverListShadow) {
+				profile = "OldJSTextListProfile2";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "475 8";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "35 285 350 405";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+			};
+			new GuiTextListCtrl(OldJS_serverList) {
+				profile = "OldJSTextListProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "-1 -1";
+				extent = "475 8";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				enumerate = "0";
+				resizeCell = "1";
+				columns = "35 285 350 405";
+				fitParentWidth = "1";
+				clipColumnText = "0";
+				command = "serverSelect();";
+			};
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "520 58";
+			extent = "210 310";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldJS_serverInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "200 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "520 255";
+			extent = "260 122";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(OldJS_handicapsInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "195 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+		};
+		new GuiMLTextCtrl(OldJS_HandicapsTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "520 225";
+			extent = "210 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "32 61";
+			extent = "14 19";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./multiplayer/join/lock_header";
+			wrap = "0";
+				oldtooltip = "Password Protected Server";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "47 61";
+			extent = "18 19";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./multiplayer/join/ratings_header";
+			wrap = "0";
+				oldtooltip = "Server Calculates Ratings";
+		};
+	};
+	new GuiBitmapCtrl(OldMPJoinPasswordPop) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "800 600";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+		bitmap = "~/client/ui/exit/black";
+		wrap = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "146 199";
+			extent = "508 202";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./multiplayer/join/window2";
+			wrap = "0";
+
+			new GuiMLTextCtrl(OldMPJoinPasswordTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "22 28";
+				extent = "463 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "22 73";
+				extent = "463 47";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./multiplayer/join/textbar";
+				wrap = "0";
+			};
+			new GuiTextEditCtrl(OldMPJoinPassword) {
+				profile = "OldGuiBigTextEditProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "30 76";
+				extent = "447 40";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPJoinServerGui.updatePassword();";
+				altCommand = "OldMPJoinServerGui.joinPassword();";
+				helpTag = "0";
+				maxLength = "255";
+				maxPixelWidth = "0";
+				escapeCommand = "MPJoinServerGui.cancelPassword();";
+				historySize = "0";
+				password = "1";
+				tabComplete = "0";
+				sinkAllKeyEvents = "0";
+			};
+			new GuiBitmapButtonCtrl(OldMPJoinShowPassword) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "160 131";
+				extent = "188 31";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPJoinServerGui.updatePassword();";
+				helpTag = "0";
+				text = "Password";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/join/password";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "29 126";
+				extent = "94 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPJoinServerGui.cancelPassword();";
+				helpTag = "0";
+				text = "Cancel";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/join/cancel";
+			};
+			new GuiBitmapButtonCtrl(OldMPJoinPasswordJoin) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "385 126";
+				extent = "94 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPJoinServerGui.joinPassword();";
+				helpTag = "0";
+				text = "Join";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/join/join";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPJoinServerGui::onWake(%this) {
+	OldJS_JoinServer.setActive(false);
+	%this.joining = false;
+
+	serverSelect();
+	%this.update();
+	%this.query();
+	%this.popPassword();
+
+	serverSelect();
+
+	if (%this.spinInterval $= "")
+		%this.spinInterval = %this.interval(90, "updateSpinner");
+}
+
+function OldMPJoinServerGui::updateSpinner(%this) {
+	if (!%this.isAwake())
+		return;
+	if (%this.loading || %this.spinNum > 0)
+		%this.spinNum ++;
+	%this.spinNum %= 10;
+
+	//Why...?
+	%bmpNumber = (((%this.spinNum * 2) % 10) + mFloor(%this.spinNum / 5)) + 1;
+
+	OldJS_refresh.setBitmap(expandFilename("platinum/client/ui/packs/old/multiplayer/join/refresh/refresh-" @ %bmpNumber));
+}
+
+function OldMPJoinServerGui::query(%this) {
+	OldJS_Refresh.setActive(false);
+	%this.loading = true;
+
+	if (%this.querying) {
+		%this.querying = false;
+		%this.schedule(500, "query");
+		return;
+	}
+
+	OldJS_ServerList.clearSelection();
+
+	%this.queried = true;
+	%this.querying = true;
+	%this.progress = 0;
+
+	%this.queryStatus = 0;
+	%this.queryMaxServers = 1;
+
+	%this.update();
+
+	MPJoinServerDlg.queryGG();
+	%this.queried = true;
+}
+
+function OldMPJoinServerGui::cancel(%this) {
+	cancelServerQuery();
+	if (%this.querying) {
+		queryFinish();
+	}
+}
+
+function OldMPJoinServerGui::join(%this) {
+	$MP::ServerPassword = "";
+
+	cancelServerQuery();
+	%id = OldJS_ServerList.getSelectedId();
+
+	%serverType = getField(OldJS_ServerList.getRowTextById(%id), $Master::ServerRowIndexField + 1);
+	%index = getField(OldJS_ServerList.getRowTextById(%id), $Master::ServerRowIndexField);
+
+	switch (%serverType) {
+	case 1:
+		if (setServerInfo(%index)) {
+			%gameTypeInfo = $ServerInfo::GameType;
+			if (getField(%gameTypeInfo, 4) && %password $= "") {
+				%this.pushPassword($ServerInfo::Address);
+			} else
+				joinServer($ServerInfo::Address, $LB::Username, $MP::ServerPassword);
+		}
+	case 2:
+		%foo = bar;
+	}
+}
+
+function OldMPJoinServerGui::exit(%this) {
+	%this.cancel();
+	Canvas.setContent(OldLBChatGui);
+}
+
+function OldMPJoinServerGui::pushPassword(%this, %ip, %invalid) {
+	%this.joinIP = %ip;
+	OldMPJoinPasswordPop.setVisible(true);
+	OldMPJoinPasswordTitle.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>" @(%invalid ? "Invalid Password" : "Password Required"));
+	OldMPJoinPassword.setValue("");
+	OldMPJoinShowPassword.setValue(false);
+	%this.updatePassword();
+}
+
+function OldMPJoinServerGui::updatePassword(%this) {
+	OldMPJoinPassword.password = !OldMPJoinShowPassword.getValue();
+	OldMPJoinPasswordJoin.setActive(OldMPJoinPassword.getValue() !$= "");
+	$MP::ServerPassword = OldMPJoinPassword.getValue();
+}
+
+function OldMPJoinServerGui::cancelPassword(%this) {
+	%this.popPassword();
+}
+
+function OldMPJoinServerGui::joinPassword(%this) {
+	if (%this.joinIP $= "") {
+		%this.join();
+		return;
+	}
+
+	joinServer(%this.joinIP, $LB::Username, $MP::ServerPassword);
+	%this.joinIP = "";
+
+	%this.cancelPassword();
+}
+
+function OldMPJoinServerGui::popPassword(%this) {
+	OldMPJoinPasswordPop.setVisible(false);
+	OldMPJoinShowPassword.setValue(false);
+	%this.updatePassword();
+}
+
+
+function OldMPJoinServerGui::directConnect(%this) {
+	if ($MP::EnableDirectConnect)
+		Canvas.pushDialog(OldMPDirectConnectDlg);
+}
+
+
+function OldMPJoinServerGui::hostMission(%this) {
+	if ($Game::Offline)
+		return;
+	OldMPPlayMissionDlg.showHost();
+}
+
+function OldMPJoinServerGui::update(%this) {
+	%selected = OldJS_ServerList.getSelectedId();
+	if (%selected < 0)
+		%selected = 0;
+
+	while (isObject(OldJS_LockIcon)) {
+		OldJS_LockIcon.delete();
+	}
+	OldJS_ServerList.clear();
+	OldJS_ServerListShadow.clear();
+
+	OldJS_listTitle.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:24><color:ddddee><tab:35,285,350,405>\tServer Name\tPlayers\tPing\tMode");
+	OldJS_Title.setText("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>Join Server");
+
+
+	deleteVariables("$Master::RowInfo*");
+
+	%sc = getServerCount();
+	for (%i = 0; %i < %sc; %i++) {
+		setServerInfo(%i);
+		%loading = $ServerInfo::State $= "";
+		if (%loading) {
+
+			%row = clipPx("Marker Felt", 18, "[Loading] " @ $ServerInfo::Name, 250, true) TAB
+					 "" TAB
+					 "" TAB
+					 "" TAB
+					 %i TAB
+					 1;
+
+			$Master::RowInfo[%i] = %row;
+			OldJS_ServerList.addRow(%i, %row);
+			OldJS_ServerListShadow.addRow(%i, %row);
+
+			OldJS_ServerList.setRowActive(%i, 0);
+		} else {
+			%gameTypeInfo = $ServerInfo::GameType;
+			%row = ($ServerInfo::Dedicated ? "\c6" : "") @
+					 clipPx("Marker Felt", 18, "[" @ $ServerInfo::State @ "] " @ $ServerInfo::Name, 290, true) TAB
+					 $ServerInfo::PlayerCount SPC "/" SPC $ServerInfo::MaxPlayers TAB
+					 $ServerInfo::Ping TAB
+					 clipPx("Marker Felt", 18, getField($ServerInfo::GameType, 1), 50, true) TAB
+					 %i TAB
+					 1;
+
+			$Master::RowInfo[%i] = %row;
+			OldJS_ServerList.addRow(%i, %row);
+			OldJS_ServerListShadow.addRow(%i, %row);
+		}
+	}
+	OldJS_ServerList.sort(0, true);
+	OldJS_ServerListShadow.sort(0, true);
+
+	for (%i = 0; %i < %sc; %i++) {
+		setServerInfo(%i);
+		%loading = $ServerInfo::State $= "";
+		%gameTypeInfo = $ServerInfo::GameType;
+		if (!%loading) {
+			if (getField(%gameTypeInfo, 4)) {
+				OldJS_ServerList.getGroup().add(new GuiBitmapCtrl(OldJS_LockIcon) {
+					profile = "GuiDefaultProfile";
+					position = "2" SPC 1 + (OldJS_serverList.rowCount() - 1) * 20;
+					extent = "14 18";
+					bitmap = "platinum/client/ui/packs/old/multiplayer/join/" @ ($ServerInfo::Dedicated ? "lock_header" : "lock");
+				});
+			}
+		}
+	}
+
+	OldJS_ServerList.setSelectedById(%selected);
+	OldJS_ServerList.scrollVisible(0);
+	OldJS_ServerListShadow.scrollVisible(0);
+
+	OldJS_JoinServer.setActive(OldJS_ServerList.rowCount() > 0 && !%this.joining);
+	OldJS_DirectConnect.setActive(!%this.joining);
+	OldJS_HostGame.setActive(!%this.joining);
+	OldJS_Exit.setActive(!%this.joining);
+}
+
+function OldMPJoinServerGui::onServerQueryStatus(%this, %status, %msg, %value) {
+	%fontStatus = "<font:Marker Felt:24><color:FFFFFF><shadowcolor:0000007f><shadow:1:1><just:center>";
+
+	switch$ (%status) {
+	case "start":
+		OldJS_StatusTitle.setText(%fontStatus @ "Starting Query...");
+
+		OldJS_ServerInfo.setText(%fontStatus @ "Select a Server");
+
+		while (isObject(OldJS_LockIcon)) {
+			OldJS_LockIcon.delete();
+		}
+		OldJS_ServerList.clear();
+		%this.loading = true;
+		OldJS_Refresh.setActive(false);
+		%this.update();
+	case "ping":
+		%done = mCeil(%value * 100);
+		OldJS_StatusTitle.setText(%fontStatus @ "Pinging Servers...(" @ %done @ "% complete)");
+		%this.update();
+	case "query":
+		%done = mCeil(%value * 100);
+		OldJS_StatusTitle.setText(%fontStatus @ "Querying Servers (" @ %done @ "% complete)");
+		%this.update();
+	case "done":
+		OldJS_StatusTitle.setText(%fontStatus @ %msg);
+		%this.update();
+		%this.loading = false;
+		OldJS_Refresh.setActive(true);
+	}
+}
+
+function OldMPJoinServerGui::queryFinish(%this) {
+	if (!%this.isAwake())
+		return;
+
+	%this.querying = false;
+	%this.update();
+}
+
+function OldMPJoinServerGui::serverSelect(%this) {
+	%index = OldJS_ServerList.rowCount() ? OldJS_ServerList.getSelectedId() : -1;
+	if (%index >= 0 && OldJS_ServerList.isRowActive(%index)) {
+		%serverIdx  = getField(OldJS_ServerList.getRowTextById(%index), $Master::ServerRowIndexField);
+		%serverType = getField(OldJS_ServerList.getRowTextById(%index), $Master::ServerRowIndexField + 1);
+
+		if (%serverType == 1) {
+			setServerInfo(%serverIdx);
+			%title = $ServerInfo::Name;
+			%dedicated = $ServerInfo::Dedicated;
+			%desc = $ServerInfo::Info;
+			%host = "";
+		}
+
+		OldJS_ServerInfo.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><just:center><color:ffffff>" @ %title NL "<font:Marker Felt:18><color:ddddee>" @ (%dedicated ? "Dedicated Server" : "Hosted By" SPC %host) NL "" NL "<color:ffffff><just:left>" @ %desc);
+		OldJS_ServerInfo.forceReflow();
+	} else {
+	}
+	OldJS_JoinServer.setActive(OldJS_ServerList.getSelectedId() >= 0 && !%this.joining);
+}
+
+function OldMPJoinServerGui::showPassword(%this) {
+	Canvas.setContent(OldLBChatGui);
+	Canvas.pushDialog(%this);
+	%this.pushPassword(%this.joinIP, $MP::ServerPassword !$= "");
+	$MP::ServerPassword = "";
+	%this.joining = false;
+}
+
+function OldMPJoinServerGui::onJoinServer(%this, %ip) {
+	%this.joining = true;
+	%this.address = %ip;
+	%this.joinIP = %ip;
+	%this.update();
+}

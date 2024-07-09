@@ -1,0 +1,613 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldEndGameGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		loadedBitmap = "1";
+		tile = "0";
+		useVariable = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "108 80";
+		extent = "584 440";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/endgame/base";
+		wrap = "0";
+
+		new GuiMLTextCtrl(OldEG_Description) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "25 115";
+			extent = "293 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(OldEG_Continue) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "460 307";
+			extent = "104 54";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldEndGameGui); OldEndGameGui.end();";
+			accelerator = "enter";
+			helpTag = "0";
+			text = "play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/endgame/continue";
+		};
+		new GuiBitmapButtonCtrl(OldEG_Replay) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "460 363";
+			extent = "104 54";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldEndGameGui); OldEndGameGui.restart();";
+			accelerator = "shift return";
+			helpTag = "0";
+			text = "Prev";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/endgame/replay";
+		};
+		new GuiControl(OldEG_NextLevel) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "326 307";
+			extent = "130 110";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiBitmapCtrl(OldEG_Preview) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "-15 0";
+				extent = "160 110";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/data/missions_mbg/advanced/MoneyTree";
+				wrap = "0";
+			};
+			new GuiBitmapButtonCtrl(OldEG_Next) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "130 110";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldEndGameGui.next();";
+				helpTag = "0";
+				text = "End";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./offline/endgame/level_window";
+			};
+		};
+		new GuiMLTextCtrl(OldEG_Result) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "313 33";
+			extent = "233 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldEG_3rdLine) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "341 206";
+			extent = "209 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldEG_1stLine) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "340 150";
+			extent = "210 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldEG_2ndLine) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "341 178";
+			extent = "209 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldEG_TitleText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "34 32";
+			extent = "247 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldEG_TopThreeText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "341 114";
+			extent = "209 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldEG_4thLine) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "341 234";
+			extent = "209 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldEG_5thLine) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "341 262";
+			extent = "209 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldEndGameGui::end(%this) {
+	if (recordEnd("OldEndGameGui.end();")) {
+		return;
+	}
+	if ($pref::StopRecordingOnMenu) {
+		$Game::Record = false;
+	}
+	menuMissionExit();
+	if (%this.next !$= "")
+		$PMG::CurrentGui.setMissionTab($CurrentGame, getRecord(%this.next, 2), getRecord(%this.next, 1));
+}
+
+function OldEndGameGui::restart(%this) {
+	if (recordEnd("OldEndGameGui.restart();")) {
+		return;
+	}
+	restartLevel();
+}
+
+function OldEndGameGui::onWake(%this) {
+	%this.next = %this.getNextLevel();
+
+	if (%this.next $= "") {
+		OldEG_NextLevel.setVisible(false);
+	} else {
+		OldEG_NextLevel.setVisible(true);
+		%type = $MissionType;
+		$MissionType = getRecord(%this.next, 2);
+		OldEG_Preview.setBitmap(resolveOldMissionBitmap(getRecord(%this.next, 0), $PMG::CurrentGui.getMissionList()));
+		$MissionType = %type;
+	}
+}
+
+function OldEndGameGui::getNextLevel(%this) {
+	if (marblelandIsMission($PMG::CurrentGui.mission.file)) {
+		return;
+	}
+	%list = $PMG::CurrentGui.getMissionList();
+	%attempts = 0;
+	%pmSelectedIndex = $PMG::CurrentGui.missionIndex;
+	%currentMissionType = $MissionType;
+	while (%attempts < 10000) {
+		%attempts++;
+		%ml = %list.getMissionList($CurrentGame, %currentMissionType);
+		%pmSelectedIndex ++;
+
+		if (%pmSelectedIndex >= %ml.getSize()) {
+			%diffs = %list.getDifficultyList($CurrentGame);
+			for (%i = 0; %i < getRecordCount(%diffs); %i ++) {
+				%record = getRecord(%diffs, %i);
+				if (getField(%record, 0) $= %currentMissionType) {
+					%found = true;
+					break;
+				}
+			}
+			if (!%found) {
+				return;
+			}
+			%next = getField(getRecord(%diffs, %i + 1), 0);
+			if (%next $= "") {
+				return;
+			}
+			%currentMissionType = %next;
+			%pmSelectedIndex = 0;
+			%ml = %list.getMissionList($CurrentGame, %currentMissionType);
+			if (!isObject(%ml)) {
+				%list.buildMissionList($CurrentGame, %currentMissionType);
+				%ml = %list.getMissionList($CurrentGame, %currentMissionType);	
+			}
+		}
+
+		%mission = %ml.getEntry(%pmSelectedIndex);
+		if (Unlock::canDisplayMission(%mission) && Unlock::canPlayMission(%mission))
+			break;
+	}
+	return %mission NL %pmSelectedIndex NL %currentMissionType;
+}
+
+function OldEndGameGui::next(%this) {
+	if (recordEnd("OldEndGameGui.next();")) {
+		return;
+	}
+	menuMissionExit();
+	$PMG::CurrentGui.setMissionTab($CurrentGame, getRecord(%this.next, 2), getRecord(%this.next, 1));
+	Canvas.setContent(OldLoadingGui);
+	Canvas.repaint();
+	menuLoadMission(getRecord(%this.next, 0).file);
+}
+
+function OldEndGameGui::gameEnd(%this) {
+	Canvas.pushDialog(%this);
+	PlayGui.positionMessageHud();
+	if ($highScoreIndex !$= "") {
+		if ($highScoreIndex == 0)
+			OldEnterNameDlg.msgIn = "";
+		else if ($highScoreIndex == 1)
+			OldEnterNameDlg.msgIn = "second ";
+		else if ($highScoreIndex == 2)
+			OldEnterNameDlg.msgIn = "third ";
+		else if ($highScoreIndex == 3)
+			OldEnterNameDlg.msgIn = "fourth ";
+		else
+			OldEnterNameDlg.msgIn = "fifth ";
+		if (!$pref::DisableHighScoreNamePopup) {
+			Canvas.pushDialog(OldEnterNameDlg);
+		}
+	}
+	%this.reformatGameEndText();
+}
+
+function OldEndGameGui::highScoreNameAccept(%this) {
+	Canvas.popDialog(OldEnterNameDlg);
+	OldEnterNameEdit.makeFirstResponder(false);
+	$highScoreAccept = true;
+	savePrefs();
+	if ($PMG::CurrentGui.getMissionList().shouldCheckAchievements($CurrentGame)) {
+		checkEndgameAchievements();
+	}
+}
+
+function OldEndGameGui::highScoreNameChanged(%this) {
+	if ($pref::highScoreName $= "")
+		OldEnterNameAcceptButton.setActive(false);
+	else
+		OldEnterNameAcceptButton.setActive(true);
+	if ($Game::isMode["challenge"]) {
+		$Server::MissionFile = strReplace($Server::MissionFile, "platinum/data", "challenge/data");
+	}
+	%score = $Game::FinalScore;
+	if ($highScoreIndex !$= "") {
+		%name = ($pref::highScoreName $= "" ? " " : $pref::highScoreName);
+		$pref::highScores[$Server::MissionFile, $highScoreIndex] = %score @ "\t" @ %name;
+	}
+	%this.reformatGameEndText();
+}
+
+function OldEndGameGui::reformatGameEndText(%this) {
+	OldEG_Result.setText("");
+	OldEG_Description.setText("");
+	OldEG_1stLine.setText("");
+	OldEG_2ndLine.setText("");
+	OldEG_3rdLine.setText("");
+
+	if ($Game::isMode["challenge"]) {
+		$Client::MissionFile = strReplace($Client::MissionFile, "platinum/data", "challenge/data");
+	}
+
+	%info = getMissionInfo($Client::MissionFile);
+	getBestTimes(%info);
+
+	%game = resolveMissionModification(%info);
+
+	%showAwesome = (((Unlock::getMissionCompletion(%info) & $Completion::Awesome) == $Completion::Awesome) || $Unlock::DisplayAll) && (%game !$= "Gold" && %game !$= "Ultra" && %game !$= "Platinum");
+
+	%scoreVals = $Game::FinalScore;
+	%flags = Unlock::getMissionScoreFlags(%info, %scoreVals);
+
+	%type = getField(%scoreVals, 0);
+	%score = getField(%scoreVals, 1);
+	%name = (%type $= $ScoreType::Time) ? "Time" : "Score";
+
+	%isMarbleland = marblelandIsMission($Client::MissionFile);
+
+	%hasRecord = false;
+	if (lb() && !%isMarbleland && $pref::OldGui::ShowLBWorldRecord) {
+		%cache = PlayMissionGui.globalScoreCache[$PMG::CurrentGui.mission.id];
+		if ($Game::isMode["challenge"])
+			%cache = PlayMissionGui.globalChallengeScoreCache[$PMG::CurrentGui.mission.id];
+		if (isObject(%cache)) {
+			%scores = %cache.scores;
+			if (%scores.getSize()) {
+				%record = %scores.getEntry(0).score;
+				%recordType = %scores.getEntry(0).score_type;
+				%recordLabel = (%recordType $= "time" ? formatTime(%record) : formatScore(%record));
+				%hasRecord = true;
+			}
+		}
+	}
+
+	OldEG_TitleText.setText("<font:DomCasualD:64><color:FFFFFF><shadow:1:1><shadowcolor:777777>Your" SPC %name @ ":");
+	OldEG_TopThreeText.setText("<font:DomCasualD:32><color:FFFFFF><shadow:1:1><shadowColor:777777>Top " @ $Game::HighscoreCount SPC %name @ "s:");
+
+	%text = "<color:FFFFFF><shadow:1:1><shadowcolor:7777777F><just:center><font:DomCasualD:32>";
+
+	if ($Cheats::Activated) {
+		%text = %text @ "Nice Cheats!";
+	} else if ($Editor::Opened) {
+		%text = %text @ "<color:00cc00><shadow:1:1><shadowcolor:0000007f>Level Editor Opened";
+	} else {
+		if (lb() && %hasRecord && (%recordType $= "time" ? %score <= %record : %score >= %record)) {
+			%text = %text @ "You beat the <color:0060F0><shadowcolor:0060A07F>World Record<color:FFFFFF><shadowcolor:7777777F>!";
+			%scoreFormat = "<color:0060F0><shadowcolor:0060A07F>";
+		} else if (%flags & $Completion::Awesome) {
+			%text = %text @ "Who's Awesome? <color:FF4444><shadowcolor:AA44447F>You're<color:FFFFFF><shadowcolor:7777777F> Awesome!";
+			%scoreFormat = "<color:FF4444><shadowcolor:AA44447F>";
+		} else if (%flags & $Completion::Ultimate) {
+			%text = %text @ "You beat the <color:FFDD22><shadowcolor:AA99227F>Ultimate<color:FFFFFF><shadowcolor:7777777F> " @ %name @ "!";
+			%scoreFormat = "<color:FFDD22><shadowcolor:AA99227F>";
+		} else if (%flags & $Completion::Platinum) {
+			%text = %text @ "You beat the <color:CCCCCC><shadowcolor:5555557F>Platinum<color:FFFFFF><shadowcolor:7777777F> " @ %name @ "!";
+			%scoreFormat = "<color:CCCCCC><shadowcolor:5555557F>";
+		} else if (%flags & $Completion::Gold) {
+			%text = %text @ "You beat the <color:FFCC00><shadowcolor:9966007F>Gold<color:FFFFFF><shadowcolor:7777777F> " @ %name @ "!";
+			%scoreFormat = "<color:FFCC00><shadowcolor:9966007F>";
+		} else if (%flags & $Completion::Par) {
+			if (%game $= "Gold") {
+				%text = %text @ "You've Qualified!";
+			} else {
+				%text = %text @ "You beat the Par " @ %name @ "!";
+			}
+		} else {
+			if (%game $= "Gold") {
+				%text = %text @ "<color:f55555><shadowcolor:800000>You didn\'t pass the Qualify " @ %name @ "!";
+			} else {
+				%text = %text @ "<color:f55555><shadowcolor:800000>You didn\'t pass the Par " @ %name @ "!";
+			}
+		}
+	}
+	OldEG_Result.setText("<font:DomCasualD:64><color:FFFFFF><shadow:1:1><shadowcolor:777777><just:right>" @ %scoreFormat @ (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score)));
+
+	%text = %text @ "<font:DomCasualD:9>\n\n<tab:208><color:FFFFFF><font:DomCasualD:24><shadowcolor:7777777F><just:left>";
+
+	//Some levels use score0 and score1 (solo and vs times), score1 is displayed outside of multiplayer
+	%score = %info.score1 ? %info.score1 : %info.score;
+	%platinumScore = %info.platinumscore1 ? %info.platinumscore1 : (%info.platinumScore ? %info.platinumScore : (%info.goldscore1 ? %info.goldscore1 : %info.goldScore));
+	%ultimateScore = %info.ultimatescore1 ? %info.ultimatescore1 : %info.ultimateScore;
+	%awesomeScore = %info.awesomescore1 ? %info.awesomescore1 : %info.awesomeScore;
+
+	%showGoldTime = (%game $= "Gold" || %game $= "Ultra");
+
+	%scoreCount = 0;
+
+	if (ClientMode::callback("timeMultiplier", 1) >= 0) {
+		%text = %text @ "<just:left>" @ (%game $= "Gold" ? "Qualify" : "Par") @ " Time:\t<just:right>" @ (%info.time !$= "" ? formatTime(%info.time) : formatTime(5999999)) @ "\n";
+		%scoreCount ++;
+
+	} else {
+		%text = %text @ "<just:left>" @ (%game $= "Gold" ? "Qualify" : "Par") @ " Score:\t<just:right>" @ (%score !$= "" ? formatScore(%score) : "N/A") @ "\n";
+		%scoreCount ++;
+	}
+
+	if (%info.goldTime) {
+		%text = %text @ "<just:left>" @ (%showGoldTime ? "<shadowcolor:AA88007F><color:FFCC00>Gold Time:" : "<shadowcolor:5555557F><color:CCCCCC>Platinum Time:") @ "\t<just:right>" @ formatTime(%info.goldTime) @ "\n";
+		%scoreCount ++;
+
+	} else if (%info.platinumTime) {
+		%text = %text @ "<just:left><shadowcolor:5555557F><color:CCCCCC>Platinum Time:" @ "\t<just:right>" @ formatTime(%info.platinumTime) @ "\n";
+		%scoreCount ++;
+
+	} else if (%platinumScore) {
+		%text = %text @ "<just:left>" @ (%game $= "Gold" ? "<shadowcolor:AA88007F><color:FFCC00>Gold Score:" : "<shadowcolor:5555557F><color:CCCCCC>Platinum Score:") @ "\t<just:right>" @ formatScore(%platinumScore) @ "\n";
+		%scoreCount ++;
+	}
+
+	if (%info.ultimateTime) {
+		%text = %text @ "<just:left><shadowcolor:AA99227F><color:FFDD22>Ultimate Time:\t<just:right>" @ formatTime(%info.ultimateTime) @ "\n";
+		%scoreCount ++;
+
+	} else if (%ultimateScore) {
+		%text = %text @ "<just:left><shadowcolor:AA99227F><color:FFDD22>Ultimate Score:\t<just:right>" @ formatScore(%ultimateScore) @ "\n";
+		%scoreCount ++;
+	}
+
+	if (%showAwesome && %info.awesomeTime) {
+		%text = %text @ "<just:left><shadowcolor:AA44447F><color:FF4444>Awesome Time:\t<just:right>" @ formatTime(%info.awesomeTime) @ "\n";
+		%scoreCount ++;
+
+	} else if (%showAwesome && %awesomeScore) {
+		%text = %text @ "<just:left><shadowcolor:AA44447F><color:FF4444>Awesome Score:\t<just:right>" @ formatScore(%awesomeScore) @ "\n";
+		%scoreCount ++;
+	}
+
+	if (lb() && %hasRecord) {
+		%text = %text @ "<just:left><shadowcolor:0060A07F><color:0060F0>World Record:\t<just:right>" @ %recordLabel @ (%scoreCount >= 4 ? "" : "\n"); //Don't add a newline if there's too many challenge times so stuff below can fit into the GUI
+	}
+
+	%text = %text @ "<font:DomCasualD:9>\n\n<color:FFFFFF><font:DomCasualD:24><shadowcolor:7777777F>";
+
+	%totalTTs = countTTs(MissionGroup);
+	if (%totalTTs == 0 || anyRespawningTTs(MissionGroup)) {
+		%textTTs = "";
+	} else {
+		%grabbedTTs = countInvisibleTTs(MissionGroup);
+		%plural = %totalTTs > 1 ? "s" : "";
+		%textTTs = "<spush><color:00FF00>(" @ %grabbedTTs @ "/" @ %totalTTs @ " TT" @ %plural @ ")<spop> ";
+	}
+
+	%text = %text @
+	"<just:left>Time Passed:<just:right>" @ formatTime($Game::ElapsedTime) @ "\n" @
+		"<just:left>Clock Bonuses:<just:right>" @ %textTTs @ formatTime($Game::BonusTime) @ "\n";
+
+	if (lb() && !$LB::Guest && !%isMarbleland) {
+		%rating = formatRating($LB::Rating);
+		if ($LB::RatingDelta > 0) {
+			%rating = "<color:00ff00>(+" @ formatRating($LB::RatingDelta) @ ")<color:FFFFFF> " @ %rating;
+		}
+		if (!$Game::isMode["challenge"]) {
+			%text = %text @ "<just:left>Rating:<just:right>" @ ($LB::RatingPending ? "..." : %rating) @ "\n";
+			%text = %text @ "<just:left>General Rating:<just:right>" @ formatRating($LB::TotalRating) @ "\n";
+		}
+		%text = %text @ "<just:left>Global Level Rank:<just:right>" @ ($LB::RatingPending ? "..." : $LB::LevelPosition);
+	}
+
+	OldEG_Description.setText(%text);
+
+	for (%i = 0; %i < $Game::HighscoreCount; %i++) {
+		%type = getField($hs[%i], 0);
+		%time = getField($hs[%i], 1);
+		%name = getField($hs[%i], 2);
+
+		%scoreText = "<shadow:1:1><font:DomCasualD:24>";
+
+		switch(%i) {
+			case 0:
+				%scoreText = %scoreText @ "<color:eec884><shadowcolor:816d48>1. ";
+			case 1:
+				%scoreText = %scoreText @ "<color:cdcdcd><shadowcolor:7e7e7e>2. ";
+			case 2:
+				%scoreText = %scoreText @ "<color:c9afa0><shadowcolor:7f6f65>3. ";
+			case 3:
+				%scoreText = %scoreText @ "<color:a4a4a4><shadowcolor:7e7e7e>4. ";
+			case 4:
+				%scoreText = %scoreText @ "<color:949494><shadowcolor:7f6f65>5. ";
+		}
+		%scoreText = %scoreText @ "<shadowcolor:7777777F><color:FFFFFF>" @ %name @ "\t<just:right>";
+
+		if (%type == $ScoreType::Time) {
+			if (lb() && %hasRecord && (%recordType $= "time" ? %time <= %record : %time >= %record)) {
+				%scoreText = %scoreText @ "<shadowcolor:0060A07F><color:0060F0>";
+			} else if (%info.awesomeTime && %time < %info.awesomeTime || %awesomeScore) {
+				//MissionInfo.staffTime
+				%scoreText = %scoreText @ "<shadowcolor:AA44447F><color:FF4444>";
+			} else if (%info.ultimateTime && %time < %info.ultimateTime || %ultimateScore) {
+				%scoreText = %scoreText @ "<shadowcolor:AA99227F><color:FFDD22>";
+			} else if (%info.goldTime && %time < %info.goldTime || %goldScore) {
+				%scoreText = %scoreText @ (%showGoldTime ? "<shadowcolor:AA88007F><color:FFCC00>" : "<shadowcolor:5555557F><color:CCCCCC>");
+			} else if (%info.platinumTime && %time < %info.platinumTime || %platinumScore) {
+				%scoreText = %scoreText @ "<shadowcolor:5555557F><color:CCCCCC>";
+			}
+			%scoreText = %scoreText @ formatTime(%time);
+		} else {
+			if (lb() && %hasRecord && (%recordType $= "time" ? %time <= %record : %time >= %record)) {
+				%scoreText = %scoreText @ "<shadowcolor:0060A07F><color:0060F0>";
+			} else if (%awesomeScore && %time >= %awesomeScore) {
+				%scoreText = %scoreText @ "<shadowcolor:AA44447F><color:FF4444>";
+			} else if (%ultimateScore && %time >= %ultimateScore) {
+				%scoreText = %scoreText @ "<shadowcolor:AA99227F><color:FFDD22>";
+			} else if (%platinumScore && %time >= %platinumScore) {
+				%scoreText = %scoreText @ (%showGoldTime ? "<shadowcolor:AA88007F><color:FFCC00>" : "<shadowcolor:5555557F><color:CCCCCC>");
+			}
+			%scoreText = %scoreText @ formatScore(%time);
+		}
+
+		switch(%i + 1) {
+			case 1:
+				OldEG_1stLine.setText(%scoreText);
+			case 2:
+				OldEG_2ndLine.setText(%scoreText);
+			case 3:
+				OldEG_3rdLine.setText(%scoreText);
+			case 4:
+				OldEG_4thLine.setText(%scoreText);
+			case 5:
+				OldEG_5thLine.setText(%scoreText);
+		}
+	}
+	OldEG_Description.setText(%text);
+}

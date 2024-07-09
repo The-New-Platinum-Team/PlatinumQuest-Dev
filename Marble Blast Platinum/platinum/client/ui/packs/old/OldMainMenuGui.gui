@@ -1,0 +1,287 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldMainMenuGui) {
+	profile = "GuiContentProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./backgrounds/platinum/11";
+	useVariable = "0";
+	tile = "0";
+		_guiSize = "800 600";
+
+	new GuiControl(OldMainMenuContent) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "-50 -50";
+		extent = "900 700";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "363 664";
+			extent = "400 30";
+			minExtent = "8 8";
+			visible = "1";
+			command = "gotoWebPage(\"https://marbleblast.com\");";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/site";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "-5 -2";
+			extent = "247 164";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.setContent(OldplayMissionGui);";
+			accelerator = "enter";
+			helpTag = "0";
+			text = "play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/play";
+		};
+		new GuiBitmapButtonCtrl(OldMenuLBButton) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "-5 128";
+			extent = "247 164";
+			minExtent = "8 8";
+			visible = "1";
+			command = "initLeaderboards();";
+			helpTag = "0";
+			text = "Leaderboards";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/online";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "-5 258";
+			extent = "247 164";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.show(false, true);";
+			helpTag = "0";
+			text = "options";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/options";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "-5 388";
+			extent = "247 164";
+			minExtent = "8 8";
+			visible = "1";
+			command = "quit();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "exit";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/quit";
+		};
+		new GuiBitmapButtonCtrl(OldMOTDButton) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "706 536";
+			extent = "191 141";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMOTDGui.showMOTD();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/totd";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "552 536";
+			extent = "191 141";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldPlayDemoGui.open(false);";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/replay";
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "398 536";
+			extent = "191 141";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.setContent(OldManualGui);";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/help";
+		};
+		new GuiBitmapButtonCtrl(OldMarblelandButton) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "244 536";
+			extent = "191 141";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMarblelandPlayMissionDlg.open();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/menu/marbleland";
+		};
+	};
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "bottom";
+		position = "636 12";
+		extent = "153 150";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/menu/mbp";
+		wrap = "0";
+	};
+	new GuiMLTextCtrl(OldVersionText) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "left";
+		vertSizing = "bottom";
+		position = "662 66";
+		extent = "97 54";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+			unformattedText = "<shadow:2:2><shadowcolor:0000007f><just:center><font:Marker Felt:36><color:ffffff>2.9.1\n<font:Marker Felt:18>1.50";
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMainMenuGui::onWake(%this) {
+	// if (!$Pref::OldGui::Introduced) { //$pref::FirstRun50
+	// 	OldMOTDGui.showWelcome();
+	// 	%bob = new GuiFadeinBitmapCtrl() {
+	// 		extent = "800 600";
+	// 		horizSizing = "width";
+	// 		vertSizing = "height";
+	// 		fadeInTime = 1000;
+	// 		waitTime = 0;
+	// 		fadeOutTime = 0;
+	// 		done = false;
+	// 	};
+	// 	Canvas.add(%bob);
+	// 	%bob.schedule(1050, delete);
+	// 	$Pref::OldGui::Introduced = true;
+	// }
+	if (!$pref::noVersionCheck && !$madeVersionCheck) {
+		statsGetServerVersion();
+		$madeVersionCheck = true;
+	}
+	OldMOTDGui.doBlink();
+	OldVersionText.setText("<shadow:2:2><shadowcolor:0000007f><just:center><font:Marker Felt:36><color:ffffff>" @ $THIS_VERSION_NAME NL "<font:Marker Felt:18>v" @ $THIS_VERSION_SUB);
+
+	$PMG::CurrentGui = "OldPlayMissionGui";
+	if (OldPlayMissionGui.mission $= "")
+		OldPlayMissionGui.setMissionTab(($pref::CurrentGame !$= "" ? $pref::CurrentGame : "Platinum"), ($pref::MissionType !$= "" ? $pref::MissionType : "Beginner"), ($pref::SelectedMissionIndex !$= "" ? $pref::SelectedMissionIndex : 0));
+	$Menu::MissionFile = OldPlayMissionGui.mission.file;
+
+
+
+	setDiscordStatus("Main Menu");
+	if (!$PluginSystemInit) {
+		if ($platform $= "macos")
+			%message = "Please use the launcher to launch PlatinumQuest. If this error persists, contact the Platinum Team for support.";
+		else
+			%message = "Please launch the game using the launcher. If this error persists, contact the Platinum Team for support.";
+		MessageBoxOK("Engine Failure", %message, "quit();");
+		return;
+	}
+	if ($pref::OpenALWarning $= "" && alGetString("AL_VENDOR") $= "Apple Computer Inc." && $platform $= "windows") {
+		MessageBoxOk("OpenAL Notice", "We\'re sorry for the inconvenience, but in some cases, sound effects have been reported to not work with WinE / CrossOver. " @
+		             "Some or all sounds do not play, although menu music should still work. " @
+		             "You can find instructions for fixing this <a:marbleblast.proboards.com/post/177578>at this link</a>." NL
+		             "If you are not on WinE/Crossover, or if your sounds work, you can disregard this message.");
+		$pref::OpenALWarning = true;
+	}
+	if (!MainMenuGui.downloadedMarbleland) {
+		marblelandDownloadMissionList();
+		marblelandDownloadPackList();
+		MainMenuGui.downloadedMarbleland = true;
+	}
+	OldMenuLBButton.setActive(!$Game::Offline);
+	MainMenuGui.schedule(1000, checkScriptError);
+	setDiscordStatus("Main Menu");
+}

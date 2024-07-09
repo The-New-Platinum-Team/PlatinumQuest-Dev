@@ -1,0 +1,383 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldLBAchievementsDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "52 -5";
+		extent = "535 490";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/achiev/window.png";
+		wrap = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "8 21";
+			extent = "176 50";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/achiev/achiev";
+			wrap = "0";
+		};
+		new GuiMLTextCtrl(OldLBAchiev_LoadingText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "185 29";
+			extent = "320 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiScrollCtrl(OldLBachiev_scroll) {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "5 60";
+			extent = "505 318";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiControl(OldLBachiev_parentContainer) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "407 190";
+				minExtent = "1 1";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiControl(OldLBachiev_chatContainer) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "195 0";
+					extent = "407 190";
+					minExtent = "1 1";
+					visible = "1";
+					helpTag = "0";
+
+					new GuiMLTextCtrl(OldLBachiev_maintext) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "right";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "368 14";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "5";
+						allowColorChars = "0";
+						maxChars = "-1";
+					};
+				};
+				new GuiControl(OldLBachiev_container) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "407 190";
+					minExtent = "1 1";
+					visible = "1";
+					helpTag = "0";
+				};
+			};
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "220 432";
+			extent = "95 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldLBAchievementsDlg);";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/achiev/close";
+		};
+		new GuiControl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "92 384";
+			extent = "350 46";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiBitmapButtonCtrl(OldLBAchiev_SingleplayerCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "45 0";
+				extent = "109 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBAchievementsDlg.selectCategory(\"Single Player\");";
+				helpTag = "0";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/singleplayer";
+			};
+			new GuiBitmapButtonCtrl(OldLBAchiev_EventsCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "141 0";
+				extent = "70 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBAchievementsDlg.selectCategory(\"Event\");";
+				helpTag = "0";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/events";
+			};
+			new GuiBitmapButtonCtrl(OldLBAchiev_MultiplayerCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "197 0";
+				extent = "109 46";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBAchievementsDlg.selectCategory(\"Multiplayer\");";
+				helpTag = "0";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/multiplayer";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldLBAchievementsDlg::show(%this, %user, %list) {
+	if (%user $= "")
+		%user = $LB::Username;
+	%this.user = %user;
+
+	Canvas.pushDialog(%this);
+	statsGetPlayerAchievements(%user);
+
+	if (%list $= "")
+		%list = LBAchievementsDlg.achievementList.categoryNames.getEntry(0);
+	%this.selectCategory(%list);
+}
+
+function OldLBAchievementsDlg::prevCategory(%this) {
+	switch$ (%this.list) {
+		case "Single Player": %this.selectCategory("Event");
+		case "Multiplayer": %this.selectCategory("Single Player");
+		case "Event": %this.selectCategory("Multiplayer");
+	}
+}
+
+function OldLBAchievementsDlg::nextCategory(%this) {
+	switch$ (%this.list) {
+		case "Single Player": %this.selectCategory("Multiplayer");
+		case "Multiplayer": %this.selectCategory("Event");
+		case "Event": %this.selectCategory("Single Player");
+	}
+}
+
+function OldLBAchievementsDlg::selectCategory(%this, %list) {
+	%this.list = %list;
+
+	OldLBAchiev_SingleplayerCategory.setValue(false);
+	OldLBAchiev_MultiplayerCategory.setValue(false);
+	OldLBAchiev_EventsCategory.setValue(false);
+	switch$ (%list) {
+	case "Single Player":
+		OldLBAchiev_SingleplayerCategory.setValue(true);
+	case "Multiplayer":
+		OldLBAchiev_MultiplayerCategory.setValue(true);
+	case "Event":
+		OldLBAchiev_EventsCategory.setValue(true);
+	}
+
+	%this.generateAchList(%list);
+	%this.update();
+}
+
+$LB::Achievement::ImageExtentX = 125;
+
+function OldLBAchievementsDlg::getBitmapPath(%this, %list, %i) {
+	%cat = LBAchievementsDlg.achievementList.categories.getFieldValue(%list);
+	%achiev = LBAchievementsDlg.achievementList.achievements.getFieldValue(%list).getEntry(%i);
+	return strReplace(%cat.bitmap_path, "~", $usermods) @ %achiev.index;
+}
+
+function OldLBAchievementsDlg::generateAchList(%this, %list) {
+	while (OldLBachiev_container.getCount())
+		OldLBachiev_container.getObject(0).delete();
+
+	for (%i = 0; %i < LBAchievementsDlg.achievementList.achievements.getFieldValue(%this.list).getSize(); %i++) {
+		%achiev = LBAchievementsDlg.achievementList.achievements.getFieldValue(%this.list).getEntry(%i);
+		%name = "OldLBachiev_bitmap" @ %i;
+		%lockName = "OldLBachiev_lock" @ %i;
+		%position = "3" SPC (%i * 53);
+		%extent = %achiev.bitmap_extent;
+		%position = VectorRound(VectorAdd(%position, VectorScale(VectorSub("113 44", %extent), 0.5)));
+		%gui = new GuiBitmapCtrl(%name) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = %position;
+			extent = %extent;
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			bitmap = %this.getBitmapPath(%this.list, %i);
+			wrap = "0";
+		};
+		%lock = new GuiBitmapCtrl(%lockName) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = %position;
+			extent = "113 44";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/packs/old/offline/achiev/nonachiev.png";
+			wrap = "0";
+		};
+		OldLBachiev_container.add(%gui);
+		OldLBachiev_container.add(%lock);
+	}
+
+	%xScroll = (getWord(OldLBachiev_scroll.getExtent(), 0) - $LB::Achievement::ImageExtentX) - 15;
+	%yExtent = (%i * 53);
+	OldLBachiev_container.resize(0, 0, $LB::Achievement::ImageExtentX, %yExtent);
+	OldLBachiev_chatContainer.resize($LB::Achievement::ImageExtentX, 0, %xScroll, %yExtent);
+	OldLBachiev_parentContainer.resize(0, 0, getWord(OldLBachiev_scroll.getExtent(), 0), %yExtent);
+	OldLBachiev_container.setVisible(true);
+}
+
+function OldLBAchievementsDlg::update(%this) {
+	%lineLength = 368;
+
+	%list = LBAchievementsDlg.achievementList.achievements.getFieldValue(%this.list);
+
+	for (%i = 0; %i < %list.getSize(); %i ++) {
+		%bitmap = "OldLBachiev_bitmap" @ %i;
+		%bitmap.setVisible(false);
+	}
+	OldLBAchiev_maintext.setText("");
+	if (!isObject(LBAchievementsDlg.playerAchievements[%this.user]))
+		OldLBAchiev_LoadingText.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:right>Loading...");
+	else {
+		OldLBAchiev_LoadingText.setText("<shadow:1:1><shadowcolor:0000007f><font:Marker Felt:24><color:ffffff><just:right>" @(%this.user $= $LB::Username ? "My" : LBResolveName(%this.user, true) @ "\'s") SPC "Achievements");
+
+		OldLBachiev_maintext.setText("<shadow:1:1><shadowcolor:0000007f><font:Arial Bold:14>");
+
+		%yPosition = 0;
+		%constant = 5;
+		for (%i = 0; %i < %list.getSize(); %i ++) {
+			%achiev = %list.getEntry(%i);
+
+			%title = %achiev.title;
+			%award = %achiev.rating;
+			%descr = %achiev.description;
+
+			%has = LBAchievementsDlg.playerAchievements[%this.user].containsEntry(%achiev.id);
+
+
+			%offset = (%i == 0 ? 0 : %constant);
+			%extent = %achiev.bitmap_extent;
+			%position = VectorRound(VectorAdd("3" SPC (%yPosition - %offset), VectorScale(VectorSub("113 44", %extent), 0.5)));
+			%lockPos = "36" SPC (%yPosition - %offset);
+
+			%bitmap = "OldLBachiev_bitmap" @ %i;
+			%bitmap.setVisible(%has);
+			%bitmap.setPosition(%position);
+			%bitmap.setBitmap(%this.getBitmapPath(%this.list, %i));
+
+			%lock = "OldLBachiev_lock" @ %i;
+			%lock.setVisible(!%has);
+			%lock.setPosition("3" SPC getWord(%position, 1));
+
+			%line = "<lmargin:0><font:Marker Felt:25>" @ (%has ? "<color:ffeeaa>" : "<color:999999>") @
+			        %title @ "<just:right><font:Marker Felt:16>" @
+			        (%award ? formatCommas(%award) SPC "Points" : "") @
+			        "\n<just:left><lmargin:10><font:Arial Bold:14>" @ %descr @ "\n\n";
+
+			OldLBachiev_maintext.addText(%line, true);
+			OldLBachiev_maintext.forceReflow();
+			%yPosition = getWord(OldLBachiev_maintext.getExtent(), 1) - 9;
+		}
+
+		LBachiev_container.setVisible(true);
+
+		%yExtent = getWord(OldLBachiev_maintext.getExtent(), 1);
+		OldLBachiev_container.setExtent($LB::Achievement::ImageExtentX SPC %yExtent);
+		OldLBachiev_chatContainer.resize($LB::Achievement::ImageExtentX, 0, %lineLength, %yExtent);
+		OldLBachiev_maintext.setExtent(%lineLength SPC %yExtent);
+		OldLBachiev_parentContainer.setExtent(getWord(OldLBachiev_scroll.getExtent(), 0) SPC %yExtent);
+	}
+}
+
+function OldLBAchievementsDlg::onAchievementListUpdate(%this, %list) {
+}
+
+function OldLBAchievementsDlg::onPlayerAchievementsUpdate(%this, %parsed) {
+	%this.update();
+}

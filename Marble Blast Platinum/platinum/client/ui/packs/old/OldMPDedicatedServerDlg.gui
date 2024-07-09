@@ -1,0 +1,311 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldMPDedicatedServerDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "243 191";
+		extent = "313 218";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/settings/serversettings-dedicated";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldMPDServerClose) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "109 156";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPDedicatedServerDlg.close();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/team/close";
+		};
+		new GuiMLTextCtrl(OldMPDServerTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "11 21";
+			extent = "291 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiScrollCtrl() {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "12 54";
+			extent = "280 97";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = "0";
+			childMargin = "2 2";
+
+			new GuiControl(OldMPDServerSettingsBox) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "2 2";
+				extent = "285 186";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPDedicatedServerDlg::onWake(%this) {
+	OldMPDServerTitle.setText("<color:ffffff><font:Marker Felt:32><shadow:1:1><shadowcolor:0000007f><just:center>Dedicated Server Settings");
+	%this.generateSettings();
+	%this.updateActive();
+}
+
+function OldMPDedicatedServerDlg::updateActive(%this) {
+	for (%i = 0; %i < MPDedicatedServerDlg.settings; %i ++) {
+		if (MPDedicatedServerDlg.setting[%i, "type"] $= "number") {
+			%plusName = "OldMPDServerSetting" @ MPDedicatedServerDlg.setting[%i] @ "Plus";
+			%minusName = "OldMPDServerSetting" @ MPDedicatedServerDlg.setting[%i] @ "Minus";
+			%labelName = "OldMPDServerSetting" @ MPDedicatedServerDlg.setting[%i] @ "Label";
+
+			%plusName.setActive(MPDedicatedServerDlg.setting[%i, "value"] < MPDedicatedServerDlg.setting[%i, "max"]);
+			%minusName.setActive(MPDedicatedServerDlg.setting[%i, "value"] > MPDedicatedServerDlg.setting[%i, "min"]);
+			%labelName.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>" @ MPDedicatedServerDlg.setting[%i, "name"] @ ":" SPC MPDedicatedServerDlg.setting[%i, "value"]);
+		}
+	}
+}
+
+function OldMPDedicatedServerDlg::update(%this, %id) {
+	%checkName = "OldMPDServerSetting" @ %id @ "Check";
+	%value = %checkName.getValue();
+
+	%this.updateActive();
+	commandToServer('ServerSetting', %id, %value);
+}
+
+function OldMPDedicatedServerDlg::increment(%this, %id) {
+	%idx = MPDedicatedServerDlg.setting[%id];
+	MPDedicatedServerDlg.setting[%idx, "value"] ++;
+	if (MPDedicatedServerDlg.setting[%idx, "value"] > MPDedicatedServerDlg.setting[%idx, "max"])
+		MPDedicatedServerDlg.setting[%idx, "value"] = MPDedicatedServerDlg.setting[%idx, "max"];
+
+	%this.updateActive();
+	commandToServer('ServerSetting', %id, MPDedicatedServerDlg.setting[%idx, "value"]);
+}
+
+function OldMPDedicatedServerDlg::decrement(%this, %id) {
+	%idx = MPDedicatedServerDlg.setting[%id];
+	MPDedicatedServerDlg.setting[%idx, "value"] --;
+	if (MPDedicatedServerDlg.setting[%idx, "value"] < MPDedicatedServerDlg.setting[%idx, "min"])
+		MPDedicatedServerDlg.setting[%idx, "value"] = MPDedicatedServerDlg.setting[%idx, "min"];
+
+	%this.updateActive();
+	commandToServer('ServerSetting', %id, MPDedicatedServerDlg.setting[%idx, "value"]);
+}
+
+function OldMPDedicatedServerDlg::open(%this) {
+	Canvas.pushDialog(%this);
+}
+
+function OldMPDedicatedServerDlg::close(%this) {
+	Canvas.popDialog(%this);
+}
+
+function OldMPDedicatedServerDlg::resetSettings(%this) {
+	MPDedicatedServerDlg.settings = 0;
+}
+
+function OldMPDedicatedServerDlg::addSetting(%this, %id, %name, %value, %type, %min, %max) {
+	MPDedicatedServerDlg.setting[%id] = MPDedicatedServerDlg.settings;
+	MPDedicatedServerDlg.setting[MPDedicatedServerDlg.settings] = %id;
+	MPDedicatedServerDlg.setting[MPDedicatedServerDlg.settings, "id"]    = %id;
+	MPDedicatedServerDlg.setting[MPDedicatedServerDlg.settings, "name"]  = %name;
+	MPDedicatedServerDlg.setting[MPDedicatedServerDlg.settings, "value"] = %value;
+	MPDedicatedServerDlg.setting[MPDedicatedServerDlg.settings, "type"]  = %type;
+	MPDedicatedServerDlg.setting[MPDedicatedServerDlg.settings, "min"]   = %min;
+	MPDedicatedServerDlg.setting[MPDedicatedServerDlg.settings, "max"]   = %max;
+
+	MPDedicatedServerDlg.settings ++;
+}
+
+function OldMPDedicatedServerDlg::generateSettings(%this) {
+	OldMPDServerSettingsBox.clear();
+	for (%i = 0; %i < MPDedicatedServerDlg.settings; %i ++) {
+		if (MPDedicatedServerDlg.setting[%i, "type"] $= "number") {
+			%this.addNumericLabel(MPDedicatedServerDlg.setting[%i]);
+		} else {
+			%this.addBooleanLabel(MPDedicatedServerDlg.setting[%i]);
+		}
+	}
+}
+
+function OldMPDedicatedServerDlg::addBooleanLabel(%this, %id) {
+	%labelName = "OldMPDServerSetting" @ %id @ "Label";
+	%checkName = "OldMPDServerSetting" @ %id @ "Check";
+	OldMPDServerSettingsBox.add(new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "bottom";
+		position = "0" SPC (31 * OldMPDServerSettingsBox.getCount());
+		extent = "285 31";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+
+		new GuiMLTextCtrl(%labelName) {
+	         profile = "GuiMLTextProfile";
+	         horizSizing = "width";
+	         vertSizing = "bottom";
+	         position = "20 3";
+	         extent = "223 21";
+	         minExtent = "8 8";
+	         visible = "1";
+	         helpTag = "0";
+	         lineSpacing = "2";
+	         allowColorChars = "0";
+	         maxChars = "-1";
+	    };
+		new GuiBitmapButtonCtrl(%checkName) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "234 0";
+			extent = "31 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPDedicatedServerDlg.update(\"" @ %id @ "\");";
+			helpTag = "0";
+			text = "button";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./leaderboards/core/lb_chkbx";
+		};
+	});
+
+	%labelName.setText("<color:ffffff><font:Marker Felt:18><shadow:1:1><shadowcolor:0000007f>" @ MPDedicatedServerDlg.setting[MPDedicatedServerDlg.setting[%id], "name"] @ ":");
+	%checkName.setValue(MPDedicatedServerDlg.setting[MPDedicatedServerDlg.setting[%id], "value"]);
+
+	OldMPDServerSettingsBox.setExtent(285 SPC (31 * OldMPDServerSettingsBox.getCount()));
+}
+
+function OldMPDedicatedServerDlg::addNumericLabel(%this, %id) {
+	%labelName = "OldMPDServerSetting" @ %id @ "Label";
+	%minusName = "OldMPDServerSetting" @ %id @ "Minus";
+	%plusName = "OldMPDServerSetting" @ %id @ "Plus";
+	OldMPDServerSettingsBox.add(new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "bottom";
+		position = "0" SPC (31 * OldMPDServerSettingsBox.getCount());
+		extent = "285 31";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+
+		new GuiMLTextCtrl(%labelName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "20 3";
+			extent = "192 21";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapButtonCtrl(%plusName) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "234 0";
+			extent = "31 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPDedicatedServerDlg.increment(\"" @ %id @ "\");";
+			helpTag = "0";
+			text = "+";
+			groupNum = "-1";
+			buttonType = "RepeaterButton";
+			repeatPeriod = "1000";
+			repeatDecay = "0.9";
+			bitmap = "./multiplayer/settings/plus";
+		};
+		new GuiBitmapButtonCtrl(%minusName) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "204 0";
+			extent = "31 31";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPDedicatedServerDlg.decrement(\"" @ %id @ "\");";
+			helpTag = "0";
+			text = "-";
+			groupNum = "-1";
+			buttonType = "RepeaterButton";
+			repeatPeriod = "1000";
+			repeatDecay = "0.9";
+			bitmap = "./multiplayer/settings/minus";
+		};
+	});
+
+	%labelName.setText("<font:18>" @ MPDedicatedServerDlg.setting[MPDedicatedServerDlg.setting[%id], "name"] @ ":" SPC MPDedicatedServerDlg.setting[MPDedicatedServerDlg.setting[%id], "value"]);
+}

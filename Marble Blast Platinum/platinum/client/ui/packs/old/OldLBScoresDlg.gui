@@ -1,0 +1,439 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldLBScoresDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	pageSize = "20";
+	categoryMap["General"]       = "rating_general";
+	categoryMap["Gold"]          = "rating_mbg";
+	categoryMap["Platinum"]      = "rating_mbp";
+	categoryMap["Ultra"]         = "rating_mbu";
+	categoryMap["PlatinumQuest"] = "rating_pq";
+	categoryMap["Custom"]        = "rating_custom";
+	categoryMap["Multiplayer"]   = "rating_mp";
+	categoryMap["rating_general"] = "General";
+	categoryMap["rating_mbg"]     = "Gold";
+	categoryMap["rating_mbp"]     = "Platinum";
+	categoryMap["rating_mbu"]     = "Ultra";
+	categoryMap["rating_pq"]      = "PlatinumQuest";
+	categoryMap["rating_custom"]  = "Custom";
+	categoryMap["rating_mp"]      = "Multiplayer";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "0 0";
+		extent = "640 480";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "178 48";
+			extent = "444 504";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/scores/window";
+			wrap = "0";
+
+			new GuiMLTextCtrl(OldLB_GeneralScoresText) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "38 24";
+				extent = "376 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralPrev) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "28 423";
+				extent = "46 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.prev();";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "-1";
+				buttonType = "RepeaterButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/prevpage";
+					oldtooltip = "Previous Page";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralNext) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "373 423";
+				extent = "46 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.next();";
+				helpTag = "0";
+				text = "Next";
+				groupNum = "-1";
+				buttonType = "RepeaterButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/nextpage";
+					oldtooltip = "Next Page";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "center";
+				vertSizing = "top";
+				position = "175 425";
+				extent = "94 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.PopDialog(OldLBScoresDlg);";
+				helpTag = "0";
+				text = "Close";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/scores/close";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralGeneralCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "29 350";
+				extent = "84 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectCategory(\"General\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/general";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralPlatinumCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "100 350";
+				extent = "87 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectCategory(\"Platinum\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/platinum";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralGoldCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "174 350";
+				extent = "63 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectCategory(\"Gold\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/gold";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralUltraCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "223 350";
+				extent = "70 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectCategory(\"Ultra\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/ultra";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralPlatinumQuestCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "280 350";
+				extent = "63 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectCategory(\"PlatinumQuest\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/platinumquest";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralCustomCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "329 350";
+				extent = "87 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectCategory(\"Custom\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/custom";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralSingleplayerCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "121 383";
+				extent = "109 47";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectGame(\"Singleplayer\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "2";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/singleplayer";
+			};
+			new GuiBitmapButtonCtrl(OldLB_GeneralMultiplayerCategory) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "217 383";
+				extent = "109 46";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBScoresDlg.selectGame(\"Multiplayer\");";
+				helpTag = "0";
+				text = "Prev";
+				groupNum = "2";
+				buttonType = "RadioButton";
+				repeatPeriod = "450";
+				repeatDecay = "0.958";
+				bitmap = "./leaderboards/scores/multiplayer";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldLBScoresDlg::onWake(%this) {
+	if (LBScoresDlg.category $= "") {
+		OldLB_GeneralGeneralCategory.setValue(true);
+		OldLB_GeneralPlatinumCategory.setValue(false);
+		OldLB_GeneralGoldCategory.setValue(false);
+		OldLB_GeneralUltraCategory.setValue(false);
+		OldLB_GeneralPlatinumQuestCategory.setValue(false);
+		OldLB_GeneralCustomCategory.setValue(false);
+
+		OldLB_GeneralSingleplayerCategory.setValue(true);
+		OldLB_GeneralMultiplayerCategory.setValue(false);
+		LBScoresDlg.category = "General";
+		LBScoresDlg.game = "Singleplayer";
+	}
+
+	%this.reset();
+	%this.loadData();
+	%this.updatePage();
+}
+
+function OldLBScoresDlg::onSleep(%this) {
+	%this.reset();
+}
+
+function OldLBScoresDlg::reset(%this) {
+	%this.page = 0;
+	LBScoresDlg.loading = false;
+
+	%category = LBScoresDlg.topPlayerCache.getFieldValue(%this.getRatingColumn());
+	if (isObject(%category)) {
+		for (%i = 0; %i < %category.display.getSize(); %i ++) {
+			%username = %category.username.getEntry(%i);
+			if (%username $= $LB::Username) {
+				%this.page = mFloor(%i / %this.pageSize);
+				break;
+			}
+		}
+	}
+}
+
+function OldLBScoresDlg::next(%this) {
+	%this.page ++;
+	%this.updatePage();
+}
+
+function OldLBScoresDlg::prev(%this) {
+	%this.page --;
+	%this.updatePage();
+}
+
+function OldLBScoresDlg::selectCategory(%this, %category) {
+	LBScoresDlg.category = %category;
+	%this.page = 0;
+	%this.reset();
+	%this.updatePage();
+}
+
+function OldLBScoresDlg::selectGame(%this, %game) {
+	LBScoresDlg.game = %game;
+	%this.page = 0;
+	%this.reset();
+	%this.updatePage();
+}
+
+function OldLBScoresDlg::updatePage(%this) {
+	OldLB_GeneralPrev.setActive(true);
+	OldLB_GeneralNext.setActive(true);
+	%category = LBScoresDlg.topPlayerCache.getFieldValue(%this.getRatingColumn());
+	if (%this.page <= 0) {
+		%this.page = 0;
+		OldLB_GeneralPrev.setActive(false);
+	} else if (%this.page >= mFloor(%category.display.getSize() / %this.pageSize)) {
+		%this.page = mFloor(%category.display.getSize() / %this.pageSize);
+		OldLB_GeneralNext.setActive(false);
+	}
+
+	OldLB_GeneralGeneralCategory.setActive(LBScoresDlg.game $= "SinglePlayer");
+	OldLB_GeneralPlatinumCategory.setActive(LBScoresDlg.game $= "SinglePlayer");
+	OldLB_GeneralGoldCategory.setActive(LBScoresDlg.game $= "SinglePlayer");
+	OldLB_GeneralUltraCategory.setActive(LBScoresDlg.game $= "SinglePlayer");
+	OldLB_GeneralPlatinumQuestCategory.setActive(LBScoresDlg.game $= "SinglePlayer");
+	OldLB_GeneralCustomCategory.setActive(LBScoresDlg.game $= "SinglePlayer");
+
+	OldLB_GeneralSingleplayerCategory.setValue(LBScoresDlg.game $= "SinglePlayer");
+	OldLB_GeneralMultiplayerCategory.setValue(LBScoresDlg.game $= "Multiplayer");
+	OldLB_GeneralGeneralCategory.setValue(LBScoresDlg.category $= "General");
+	OldLB_GeneralGoldCategory.setValue(LBScoresDlg.category $= "Gold");
+	OldLB_GeneralPlatinumCategory.setValue(LBScoresDlg.category $= "Platinum");
+	OldLB_GeneralUltraCategory.setValue(LBScoresDlg.category $= "Ultra");
+	OldLB_GeneralPlatinumQuestCategory.setValue(LBScoresDlg.category $= "PlatinumQuest");
+	OldLB_GeneralCustomCategory.setValue(LBScoresDlg.category $= "Custom");
+
+	%this.showPage();
+}
+
+function OldLBScoresDlg::getRatingColumn(%this) {
+	if (LBScoresDlg.game $= "Multiplayer") {
+		return "rating_mp";
+	}
+	return LBScoresDlg.categoryMap[LBScoresDlg.category];
+}
+
+function OldLBScoresDlg::showPage(%this) {
+	%title = "";
+	if (LBScoresDlg.category $= "General")		 %title = "General Rankings";
+	if (LBScoresDlg.category $= "Platinum")		%title = "Marble Blast Platinum";
+	if (LBScoresDlg.category $= "Gold")			 %title = "Marble Blast Gold";
+	if (LBScoresDlg.category $= "Ultra")			%title = "Marble Blast Ultra";
+	if (LBScoresDlg.category $= "PlatinumQuest") %title = "PlatinumQuest";
+	if (LBScoresDlg.category $= "Custom")		  %title = "Custom Levels";
+	if (LBScoresDlg.game $= "Multiplayer")		 %title = "Multiplayer Levels";
+
+	if (LBScoresDlg.loading) {
+		%title = "Please Wait...";
+	}
+
+	%category = LBScoresDlg.topPlayerCache.getFieldValue(%this.getRatingColumn());
+	%title = %title SPC (%this.page * %this.pageSize) + 1 @ " - " @ (%this.page * %this.pageSize) + %this.pageSize;
+	%text = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>" @ %title @ "\n<just:left><tab:34,280><font:Arial Bold:14>Place\tPlayer\t<just:right>Rating<just:left>";
+	for (%i = 0; %i < %this.pageSize; %i ++) {
+		%index = %i + (%this.page * %this.pageSize);
+		if (isObject(%category) && isObject(%category.display)) {
+			%display = %category.display.getEntry(%index);
+			%rating = %category.rating.getEntry(%index);
+			%username = %category.username.getEntry(%index);
+		}
+		if (%display $= "") %display = $LB::DefaultHSName;
+		if (%rating $= "") %rating = 0;
+
+		%mine = (%username $= $LB::Username);
+		%text = %text NL "<spush>" @ (%mine ? "<color:00cc00>" : LBSpecialColor(%index + 1, true)) @ (%index + 1);
+		%text = %text TAB clipPx("Arial Bold", 14, %display, 240, true);
+
+		if (LBScoresDlg.game $= "Multiplayer") {
+			%text = %text @ "<just:right>" @ formatLevel(%rating) SPC "(" @ formatExperience(%rating) @ " / " @ levelDeltaPoints(pointsToLevel(%rating)) @ ")<just:left><spop>";
+		} else {
+			%text = %text @ "<just:right>" @ formatCommas(%rating) @ "<just:left><spop>";
+		}
+	}
+	OldLB_GeneralScoresText.setText(%text);
+}
+
+function OldLBScoresDlg::loadData(%this) {
+	statsGetTopPlayers();
+	LBScoresDlg.loading = true;
+	%this.showPage();
+}
+
+function OldLBScoresDlg::onTopPlayersUpdate(%this, %parsed) {
+	%category = LBScoresDlg.topPlayerCache.getFieldValue(%this.getRatingColumn());
+	if (isObject(%category)) {
+		for (%i = 0; %i < %category.display.getSize(); %i ++) {
+			%username = %category.username.getEntry(%i);
+			if (%username $= $LB::Username) {
+				%this.page = mFloor(%i / %this.pageSize);
+				break;
+			}
+		}
+	}
+
+	%this.updatePage();
+}

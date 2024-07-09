@@ -1,0 +1,480 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldAchievementsGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "153 39";
+		extent = "493 521";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/achiev/window";
+		wrap = "0";
+			canClose = "0";
+			canMaximize = "0";
+			canMinimize = "0";
+			canMove = "1";
+			maxLength = "255";
+			minSize = "50 50";
+			resizeHeight = "1";
+			resizeWidth = "1";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "152 26";
+			extent = "176 50";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/achiev/achiev";
+			wrap = "0";
+		};
+		new GuiMLTextCtrl(OldAchiv_LoadingText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "86 65";
+			extent = "320 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldAchiv_maintext) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "156 60";
+			extent = "262 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "5";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiControl(OldAchiv_MBPBitmaps) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 0";
+			extent = "493 521";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+
+			new GuiBitmapCtrl(Oldachiv_bitmap1) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "39 62";
+				extent = "113 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(Oldachiv_bitmap2) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "35 115";
+				extent = "117 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(Oldachiv_bitmap3) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "30 168";
+				extent = "122 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(Oldachiv_bitmap4) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "30 221";
+				extent = "122 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(Oldachiv_bitmap5) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "36 274";
+				extent = "116 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(Oldachiv_bitmap6) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "37 327";
+				extent = "115 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(Oldachiv_bitmap7) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "38 380";
+				extent = "114 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+			new GuiBitmapCtrl(Oldachiv_bitmap8) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "39 433";
+				extent = "113 44";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/achiev/nonachiev";
+				wrap = "0";
+			};
+		};
+		new GuiScrollCtrl(OldAchiv_AchievScroll) {
+			profile = "GuiPhilScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "36 65";
+			extent = "420 350";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiControl(OldAchiv_AchievList) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "410 350";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+		};
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "355 426";
+			extent = "95 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.popDialog(OldAchievementsGui);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/achiev/close";
+				simpleStyle = "0";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldAchievementsGui::onWake(%this) {
+	OldAchiv_LoadingText.setText("<font:DomCasualD:24><just:center>Loading...");
+	OldAchiv_maintext.setText("");
+	OldAchiv_maintext.setVisible(false);
+	OldAchiv_MBPBitmaps.setVisible(false);
+	OldAchiv_AchievList.clear();
+	OldAchiv_AchievScroll.setVisible(false);
+	Canvas.repaint();
+
+	switch$ ($CurrentGame) {
+	case "Platinum":
+		%this.displayPlatinum();
+
+	case "PlatinumQuest":
+		%this.displayPlatinumQuest();
+
+	default:
+		OldAchiv_LoadingText.setText("<font:DomCasualD:24><just:center>No achievements exist for the current category.");	
+	}
+}
+
+function OldAchievementsGui::displayPlatinum(%this) {
+	OldAchiv_MBPBitmaps.setVisible(true);
+	OldAchiv_maintext.setVisible(true);
+
+	Oldachiv_bitmap1.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+	Oldachiv_bitmap2.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+	Oldachiv_bitmap3.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+	Oldachiv_bitmap4.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+	Oldachiv_bitmap5.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+	Oldachiv_bitmap6.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+	Oldachiv_bitmap7.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+	Oldachiv_bitmap8.setBitmap("platinum/client/ui/packs/old/offline/achiev/nonachiev");
+
+	%achiev1_title = "Amateur Marbler";
+	%achiev2_title = "Experienced Marbler";
+	%achiev3_title = "Pro Marbler";
+	%achiev4_title = "Skilled Marbler";
+	%achiev5_title = "Marble Master";
+	%achiev6_title = "Legendary Marbler";
+	%achiev7_title = "Egg Seeker";
+	%achiev8_title = "Easter Bunny";
+	%achiev1_descr = "Beat all Beginner levels.";
+	%achiev2_descr = "Beat all Intermediate levels.";
+	%achiev3_descr = "Beat all Advanced levels.";
+	%achiev4_descr = "Beat all Expert Levels.";
+	%achiev5_descr = "Beat all of the Platinum Times.";
+	%achiev6_descr = "Beat all of the Ultimate Times.";
+	%achiev7_descr = "Find any Easter Egg.";
+	%achiev8_descr = "Find all of the Easter Eggs.";
+
+	%achiev_text = "<lmargin:0><font:DomCasualD:24>" @ %achiev1_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev1_descr;
+	%achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev2_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev2_descr;
+	%achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev3_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev3_descr;
+	%achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev4_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev4_descr;
+	%achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev5_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev5_descr;
+	%achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev6_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev6_descr;
+	%achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev7_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev7_descr;
+	%achiev_text = %achiev_text @ "\n\n<lmargin:0><font:DomCasualD:24>" @ %achiev8_title @ "<lmargin:10><font:Arial Bold:14>\n" @ %achiev8_descr;
+
+	OldAchiv_maintext.setText(%achiev_text);
+
+	//MBP's eight offline achievements don't use prefs, so check them manually
+	Unlock::updateCaches();
+	%beginner = Unlock::getDifficultyCompletion("Beginner", "Platinum");
+	%intermediate = Unlock::getDifficultyCompletion("Intermediate", "Platinum");
+	%advanced = Unlock::getDifficultyCompletion("Advanced", "Platinum");
+	%expert = Unlock::getDifficultyCompletion("Expert", "Platinum");
+	%platinum = Unlock::getDifficultyCompletionCountFlags("Beginner", "Platinum", $Completion::Platinum) + Unlock::getDifficultyCompletionCountFlags("Intermediate", "Platinum", $Completion::Platinum) + Unlock::getDifficultyCompletionCountFlags("Advanced", "Platinum", $Completion::Platinum) + Unlock::getDifficultyCompletionCountFlags("Expert", "Platinum", $Completion::Platinum);
+	%ultimate = Unlock::getDifficultyCompletionCountFlags("Beginner", "Platinum", $Completion::Ultimate) + Unlock::getDifficultyCompletionCountFlags("Intermediate", "Platinum", $Completion::Ultimate) + Unlock::getDifficultyCompletionCountFlags("Advanced", "Platinum", $Completion::Ultimate) + Unlock::getDifficultyCompletionCountFlags("Expert", "Platinum", $Completion::Ultimate);
+	%easteregg = Unlock::getDifficultyCompletionCountFlags("Beginner", "Platinum", $Completion::EasterEgg) + Unlock::getDifficultyCompletionCountFlags("Intermediate", "Platinum", $Completion::EasterEgg) + Unlock::getDifficultyCompletionCountFlags("Advanced", "Platinum", $Completion::EasterEgg) + Unlock::getDifficultyCompletionCountFlags("Expert", "Platinum", $Completion::EasterEgg);
+
+	if (%beginner == 1)
+		Oldachiv_bitmap1.setBitmap("platinum/client/ui/packs/old/offline/achiev/n1");
+
+	if (%intermediate == 1)
+		Oldachiv_bitmap2.setBitmap("platinum/client/ui/packs/old/offline/achiev/n2");
+
+	if (%advanced == 1)
+		Oldachiv_bitmap3.setBitmap("platinum/client/ui/packs/old/offline/achiev/n3");
+
+	if (%expert == 1)
+		Oldachiv_bitmap4.setBitmap("platinum/client/ui/packs/old/offline/achiev/n4");
+
+	if (%platinum == 120)
+		Oldachiv_bitmap5.setBitmap("platinum/client/ui/packs/old/offline/achiev/n5");
+
+	if (%ultimate == 120)
+		Oldachiv_bitmap6.setBitmap("platinum/client/ui/packs/old/offline/achiev/n6");
+
+	if (%easteregg > 0)
+		Oldachiv_bitmap7.setBitmap("platinum/client/ui/packs/old/offline/achiev/1");
+
+	if (%easteregg == 98)
+		Oldachiv_bitmap8.setBitmap("platinum/client/ui/packs/old/offline/achiev/2");
+
+	OldAchiv_LoadingText.setText("");
+}
+
+
+function OldAchievementsGui::displayPlatinumQuest(%this) {
+	AchievementsDlg.update();
+	OldAchiv_AchievList.setHeight(0);
+	OldAchiv_AchievScroll.setVisible(true);
+
+	for (%catId = 0; %catId < $Achievement::Category::Count; %catId ++) {
+		%catCount = $Achievement::Category::Count[%catId];
+		%catName  = $Achievement::Category::Name[%catId];
+
+		%this.addPQCategory(%catId, %catName);
+
+		%sorted = Array("AchievementSort");
+
+		for (%id = 0; %id < %catCount; %id ++) {
+			if ($Achievement::Show[%catId, %id]) {
+				%sorted.addEntry(%catId SPC %id);
+			}
+		}
+		%sorted.sort(sortAchievements);
+
+		for (%i = 0; %i < %sorted.getSize(); %i ++) {
+			%id = getWord(%sorted.getEntry(%i), 1);
+
+			%achName  = $Achievement::Name [%catId, %id];
+			%achDesc  = $Achievement::Desc [%catId, %id];
+			%achLevel = $Achievement::Level[%catId, %id];
+
+			if ($Achievement::Show[%catId, %id]) {
+				%earned = $Achievement::Earned[%catId, %id];
+				%this.addPQAchievement(%catId, %id, %earned, %achName, %achDesc, %achLevel);
+			}
+		}
+		%sorted.delete();
+	}
+
+	OldAchiv_LoadingText.setText("");
+}
+
+function OldAchievementsGui::addPQCategory(%this, %catId, %catName) {
+	%w = getWord(OldAchiv_AchievList.getExtent(), 0);
+	%h = 40;
+	%x = 0;
+	%y = getWord(OldAchiv_AchievList.getExtent(), 1);
+
+	%boxName = "OldAchiv_AchievCatBox_" @ %catId;
+	%textName = "OldAchiv_AchievCatText_" @ %catId;
+
+	%box = new GuiControl(%boxName) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "bottom";
+		position = "0" SPC %y;
+		extent = %w SPC %h;
+		minExtent = "8 8";
+		visible = "1";
+
+		new GuiMLTextCtrl(%textName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "7 7";
+			extent = (%w - 4) SPC(%h - 4);
+			minExtent = "8 8";
+			visible = "1";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+
+	%text = "<font:Marker Felt:28>" @ %catName;
+	%textName.setText(%text);
+
+	OldAchiv_AchievList.add(%box);
+
+	OldAchiv_AchievList.setHeight(%y + %h);
+}
+
+function OldAchievementsGui::addPQAchievement(%this, %catId, %id, %earned, %achName, %achDesc, %achLevel) {
+	%w = getWord(OldAchiv_AchievList.getExtent(), 0);
+	%h = 80;
+	%x = 0;
+	%y = getWord(OldAchiv_AchievList.getExtent(), 1);
+
+	%boxName = "OldAchiv_AchievBox_" @ %catId @ "_" @ %id;
+	%imgName = "OldAchiv_AchievImg_" @ %catId @ "_" @ %id;
+	%textName = "OldAchiv_AchievText_" @ %catId @ "_" @ %id;
+
+	%box = new GuiControl(%boxName) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "bottom";
+		position = "0" SPC %y;
+		extent = %w SPC %h;
+		minExtent = "8 8";
+		visible = "1";
+
+		new GuiBitmapCtrl(%imgName) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "4 4";
+			extent = (%h - 8) SPC(%h - 8);
+			minExtent = "8 8";
+			visible = "1";
+		};
+		new GuiMLTextCtrl(%textName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "2 2";
+			extent = (%w - 8) SPC(%h - 4);
+			minExtent = "8 8";
+			visible = "1";
+			lineSpacing = "2";
+			allowColorChars = "1";
+			maxChars = "-1";
+		};
+	};
+
+	%color = (%earned ? "<color:000000>" : "<color:888888>");
+
+	%text = %color @ "<font:Marker Felt:26><lmargin:80>" @ %achName;
+	if (%achLevel !$= "")
+		%text = %text @ "<just:right><font:Marker Felt:18>(" @ %achLevel @ ")";
+	%text = %text NL "<font:Marker Felt:18><just:left>" @ %achDesc;
+	%textName.setText(%text);
+
+	%imgName.setBitmap(%earned ? "platinum/client/ui/achiev/pq/" @ $Achievement::Category::Directory[%catId] @ "/" @ %id @ ".png" : "platinum/client/ui/achiev/lock.png");
+
+	OldAchiv_AchievList.add(%box);
+	OldAchiv_AchievList.setHeight(%y + %h);
+}

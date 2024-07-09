@@ -1,0 +1,350 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldPercentGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "800 600";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "153 39";
+		extent = "733 521";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/achiev/statswindow";
+		wrap = "0";
+			canClose = "0";
+			canMaximize = "0";
+			canMinimize = "0";
+			canMove = "1";
+			maxLength = "255";
+			minSize = "50 50";
+			resizeHeight = "1";
+			resizeWidth = "1";
+
+		new GuiBitmapButtonCtrl() {
+			profile = "GuiButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "339 431";
+			extent = "95 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.popDialog(OldpercentGui);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "OK";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/achiev/close";
+				simpleStyle = "0";
+		};
+		new GuiMLTextCtrl(OldPerG_LoadingText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "226 216";
+			extent = "320 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldPerG_PercentageText1) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "59 64";
+			extent = "295 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldPerG_PercentageText2) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "379 64";
+			extent = "295 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "316 25";
+			extent = "160 39";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/play/statistics_text";
+			wrap = "0";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldpercentGui::onWake(%this) {
+	OldPerG_LoadingText.setText("<font:DomCasualD:24><just:center>Loading... Please Wait");
+	OldPerG_PercentageText1.setText("");
+	OldPerG_PercentageText2.setText("");
+	Canvas.repaint();
+	%this.display();
+}
+
+function OldpercentGui::display(%this) {
+	Unlock::updateCaches();
+
+	%prog["Tutorial"]     = Unlock::getDifficultyCompletionCount("Tutorial");
+	%prog["Beginner"]     = Unlock::getDifficultyCompletionCount("Beginner");
+	%prog["Intermediate"] = Unlock::getDifficultyCompletionCount("Intermediate");
+	%prog["Advanced"]     = Unlock::getDifficultyCompletionCount("Advanced");
+	%prog["Expert"]       = Unlock::getDifficultyCompletionCount("Expert");
+	%prog["Bonus"]        = Unlock::getDifficultyCompletionCount("Bonus");
+
+	%prog["Packs 1-9"]    = Unlock::getDifficultyCompletionCount("Packs 1-9");
+	%prog["Packs 10-19"]  = Unlock::getDifficultyCompletionCount("Packs 10-19");
+	%prog["Packs 20-29"]  = Unlock::getDifficultyCompletionCount("Packs 20-29");
+	%prog["Packs 30-39"]  = Unlock::getDifficultyCompletionCount("Packs 30-39");
+	%prog["Packs 40-49"]  = Unlock::getDifficultyCompletionCount("Packs 40-49");
+	%prog["Packs 50-59"]  = Unlock::getDifficultyCompletionCount("Packs 50-59");
+	%prog["Packs 60-69"]  = Unlock::getDifficultyCompletionCount("Packs 60-69");
+
+	%prog["Total"]        = %prog["Tutorial"] + %prog["Beginner"] + %prog["Intermediate"] + %prog["Advanced"] + %prog["Expert"] + %prog["Packs 1-9"] + %prog["Packs 10-19"] + %prog["Packs 20-29"] + %prog["Packs 30-39"] + %prog["Packs 40-49"] + %prog["Packs 50-59"] + %prog["Packs 60-69"];
+	%prog["Grand"]        = %prog["Total"] + %prog["Bonus"];
+
+	%total["Tutorial"]     = Unlock::getDifficultyLevelCount("Tutorial");
+	%total["Beginner"]     = Unlock::getDifficultyLevelCount("Beginner");
+	%total["Intermediate"] = Unlock::getDifficultyLevelCount("Intermediate");
+	%total["Advanced"]     = Unlock::getDifficultyLevelCount("Advanced");
+	%total["Expert"]       = Unlock::getDifficultyLevelCount("Expert");
+	%total["Bonus"]        = Unlock::getDifficultyLevelCount("Bonus");
+
+	%total["Packs 1-9"]    = Unlock::getDifficultyLevelCount("Packs 1-9");
+	%total["Packs 10-19"]  = Unlock::getDifficultyLevelCount("Packs 10-19");
+	%total["Packs 20-29"]  = Unlock::getDifficultyLevelCount("Packs 20-29");
+	%total["Packs 30-39"]  = Unlock::getDifficultyLevelCount("Packs 30-39");
+	%total["Packs 40-49"]  = Unlock::getDifficultyLevelCount("Packs 40-49");
+	%total["Packs 50-59"]  = Unlock::getDifficultyLevelCount("Packs 50-59");
+	%total["Packs 60-69"]  = Unlock::getDifficultyLevelCount("Packs 60-69");
+
+	%total["Total"]        = %total["Tutorial"] + %total["Beginner"] + %total["Intermediate"] + %total["Advanced"] + %total["Expert"] + %total["Packs 1-9"] + %total["Packs 10-19"] + %total["Packs 20-29"] + %total["Packs 30-39"] + %total["Packs 40-49"] + %total["Packs 50-59"] + %total["Packs 60-69"];
+	%total["Grand"]        = %total["Bonus"] + %total["Total"];
+
+	%perc["Tutorial"]     = mRound(100 * %prog["Tutorial"]     / %total["Tutorial"]) @ "%";
+	%perc["Beginner"]     = mRound(100 * %prog["Beginner"]     / %total["Beginner"]) @ "%";
+	%perc["Intermediate"] = mRound(100 * %prog["Intermediate"] / %total["Intermediate"]) @ "%";
+	%perc["Advanced"]     = mRound(100 * %prog["Advanced"]     / %total["Advanced"]) @ "%";
+	%perc["Expert"]       = mRound(100 * %prog["Expert"]       / %total["Expert"]) @ "%";
+	%perc["Bonus"]        = mRound(100 * %prog["Bonus"]        / %total["Bonus"]) @ "%";
+	%perc["Total"]        = mRound(100 * %prog["Total"]        / %total["Total"]) @ "%";
+	%perc["Grand"]        = mRound(100 * %prog["Grand"]        / %total["Grand"]) @ "%";
+
+	%perc["Packs 1-9"]    = mRound(100 * %prog["Packs 1-9"]    / %total["Packs 1-9"]) @ "%";
+	%perc["Packs 10-19"]  = mRound(100 * %prog["Packs 10-19"]  / %total["Packs 10-19"]) @ "%";
+	%perc["Packs 20-29"]  = mRound(100 * %prog["Packs 20-29"]  / %total["Packs 20-29"]) @ "%";
+	%perc["Packs 30-39"]  = mRound(100 * %prog["Packs 30-39"]  / %total["Packs 30-39"]) @ "%";
+	%perc["Packs 40-49"]  = mRound(100 * %prog["Packs 40-49"]  / %total["Packs 40-49"]) @ "%";
+	%perc["Packs 50-59"]  = mRound(100 * %prog["Packs 50-59"]  / %total["Packs 50-59"]) @ "%";
+	%perc["Packs 60-69"]  = mRound(100 * %prog["Packs 60-69"]  / %total["Packs 60-69"]) @ "%";
+
+	%has["Tutorial"]     = (%total["Tutorial"]     !$= "");
+	%has["Beginner"]     = (%total["Beginner"]     !$= "");
+	%has["Intermediate"] = (%total["Intermediate"] !$= "");
+	%has["Advanced"]     = (%total["Advanced"]     !$= "");
+	%has["Expert"]       = (%total["Expert"]       !$= "");
+	%has["Bonus"]        = (%total["Bonus"]        !$= "");
+	%has["Total"]        = (%total["Total"]        !$= "");
+
+	%has["Packs 1-9"]    = (%total["Packs 1-9"]    !$= "");
+	%has["Packs 10-19"]  = (%total["Packs 10-19"]  !$= "");
+	%has["Packs 20-29"]  = (%total["Packs 20-29"]  !$= "");
+	%has["Packs 30-39"]  = (%total["Packs 30-39"]  !$= "");
+	%has["Packs 40-49"]  = (%total["Packs 40-49"]  !$= "");
+	%has["Packs 50-59"]  = (%total["Packs 50-59"]  !$= "");
+	%has["Packs 60-69"]  = (%total["Packs 60-69"]  !$= "");
+
+	%unlocked["Bonus"] = Unlock::getDifficultyUnlockedLevelCount("Bonus");
+
+	%l = "<just:left>";
+	%r = "<just:right>";
+	%c = "<just:center>";
+
+	%big = "<font:DomCasualD:24>";
+
+	%left = %big @ %c @ "Levels Completed (" @ $CurrentGame @ ")" NL
+	        (%has["Tutorial"]     ? (%big @ %l @ "Tutorial:"     @ %big @ %r @ %prog["Tutorial"]     @ "/" @ %total["Tutorial"]     @ " (" @ %perc["Tutorial"])     @ ")\n" : "") @
+	        (%has["Beginner"]     ? (%big @ %l @ "Beginner:"     @ %big @ %r @ %prog["Beginner"]     @ "/" @ %total["Beginner"]     @ " (" @ %perc["Beginner"])     @ ")\n" : "") @
+	        (%has["Intermediate"] ? (%big @ %l @ "Intermediate:" @ %big @ %r @ %prog["Intermediate"] @ "/" @ %total["Intermediate"] @ " (" @ %perc["Intermediate"]) @ ")\n" : "") @
+	        (%has["Advanced"]     ? (%big @ %l @ "Advanced:"     @ %big @ %r @ %prog["Advanced"]     @ "/" @ %total["Advanced"]     @ " (" @ %perc["Advanced"])     @ ")\n" : "") @
+	        (%has["Expert"]       ? (%big @ %l @ "Expert:"       @ %big @ %r @ %prog["Expert"]       @ "/" @ %total["Expert"]       @ " (" @ %perc["Expert"])       @ ")\n" : "") @
+	        (%has["Packs 1-9"]    ? (%big @ %l @ "Packs 1-9:"    @ %big @ %r @ %prog["Packs 1-9"]    @ "/" @ %total["Packs 1-9"]    @ " (" @ %perc["Packs 1-9"])    @ ")\n" : "") @
+	        (%has["Packs 10-19"]  ? (%big @ %l @ "Packs 10-19:"  @ %big @ %r @ %prog["Packs 10-19"]  @ "/" @ %total["Packs 10-19"]  @ " (" @ %perc["Packs 10-19"])  @ ")\n" : "") @
+	        (%has["Packs 20-29"]  ? (%big @ %l @ "Packs 20-29:"  @ %big @ %r @ %prog["Packs 20-29"]  @ "/" @ %total["Packs 20-29"]  @ " (" @ %perc["Packs 20-29"])  @ ")\n" : "") @
+	        (%has["Packs 30-39"]  ? (%big @ %l @ "Packs 30-39:"  @ %big @ %r @ %prog["Packs 30-39"]  @ "/" @ %total["Packs 30-39"]  @ " (" @ %perc["Packs 30-39"])  @ ")\n" : "") @
+	        (%has["Packs 40-49"]  ? (%big @ %l @ "Packs 40-49:"  @ %big @ %r @ %prog["Packs 40-49"]  @ "/" @ %total["Packs 40-49"]  @ " (" @ %perc["Packs 40-49"])  @ ")\n" : "") @
+	        (%has["Packs 50-59"]  ? (%big @ %l @ "Packs 50-59:"  @ %big @ %r @ %prog["Packs 50-59"]  @ "/" @ %total["Packs 50-59"]  @ " (" @ %perc["Packs 50-59"])  @ ")\n" : "") @
+	        (%has["Total"]        ? (%big @ %l @ "Total:"                 @ %r @ %prog["Total"]        @ "/" @ %total["Total"]        @ " (" @ %perc["Total"])        @ ")\n" : "") @
+	        %big @ (($CurrentGame !$= "Leaderboards") ? ((%has["Tutorial"] ? "" : "\n") @ (%has["Expert"] ? "" : "\n")) : "");
+
+	if (%has["Bonus"]) {
+		%left = %left NL
+		        %big @ %l @ "Bonus:" @ %big @ %r @ %prog["Bonus"] @ " / " @ %total["Bonus"] @ " (" @ %perc["Bonus"] @ ")" NL
+		        "(Unlocked " @ %unlocked["Bonus"] @ "/" @ %total["Bonus"] @ ")" NL " ";
+	} else {
+		if ($CurrentGame !$= "Leaderboards")
+			%left = %left NL
+					%l @ %big @ " " NL
+					%r @ %big @ " ";
+		else
+			%left = %left;
+	}
+
+	%left = %left NL %big @ %l @ "Grand Total:" @ %r @ %prog["Grand"] @ "/" @ %total["Grand"] @ " (" @ %perc["Grand"] @ ")";
+
+	OldPerG_PercentageText1.setText(%left);
+
+	%total["EasterEgg"] = Unlock::getGameEasterEggCount($CurrentGame);
+
+	%comp["Gold"]      = Unlock::getGameCompletionCountFlags($CurrentGame, $Completion::Gold);
+	%comp["Platinum"]  = Unlock::getGameCompletionCountFlags($CurrentGame, $Completion::Platinum);
+	%comp["Ultimate"]  = Unlock::getGameCompletionCountFlags($CurrentGame, $Completion::Ultimate);
+	%comp["Awesome"]   = Unlock::getGameCompletionCountFlags($CurrentGame, $Completion::Awesome);
+	%comp["EasterEgg"] = Unlock::getGameCompletionCountFlags($CurrentGame, $Completion::EasterEgg);
+
+	%perc["Gold"]      = mRound(100 * %comp["Gold"]      / %total["Grand"]) @ "%";
+	%perc["Platinum"]  = mRound(100 * %comp["Platinum"]  / %total["Grand"]) @ "%";
+	%perc["Ultimate"]  = mRound(100 * %comp["Ultimate"]  / %total["Grand"]) @ "%";
+	%perc["Awesome"]   = mRound(100 * %comp["Awesome"]   / %total["Grand"]) @ "%";
+	%perc["EasterEgg"] = mRound(100 * %comp["EasterEgg"] / %total["EasterEgg"]) @ "%";
+
+	%difficulty = 0;
+	%hardest = $usermods @ "/data/missions_mbg/beginner/LearningToRoll.mis";
+	%dir = "platinum/data/" @ $Files::MissionsFolder[$CurrentGame] @ "/*";
+	for (%file = findFirstMission(%dir); %file !$= ""; %file = findNextMission(%dir)) {
+		if (strPos(%file, ".svn") != -1 || strPos(%file, "._") != -1)
+			continue;
+
+		%oobs     = $pref::LevelOOBs[%file];
+		%respawns = $pref::LevelRespawns[%file];
+		%time     = $pref::LevelTime[%file];
+
+		%diff = %oobs + %respawns + (%time / 60000);
+
+		if (%diff > %difficulty) {
+			%difficulty = %diff;
+			%hardest = %file;
+		}
+	}
+
+	%hardOobs     = $pref::LevelOOBs[%hardest];
+	%hardRespawns = $pref::LevelRespawns[%hardest];
+	%badTime      = formatTime(removeScientificNotation($pref::LevelTime[%hardest] * 1000));
+	%hardName     = getMissionInfo(%hardest).name;
+
+	%time["Levels"] = formatTime(Unlock::getGameCompletionTime());
+	%time["Total"] = formatTimeDays($pref::TotalTimer);
+
+	%right = %big @ %c @ "Times / Other (" @ $CurrentGame @ ")";
+
+	switch$ ($CurrentGame) {
+	case "Gold":
+		%right = %right NL
+		         %l @ %big @ "Gold Times:"     @ %r @ %big @ %comp["Gold"]      @ "/" @ %total["Grand"]     @ " (" @ %perc["Gold"]      @ ")" NL
+		         %l @ %big @ "Easter Eggs:"    @ %r @ %big @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")" NL
+		         %l @ %big @ " " NL
+		         %l @ %big @ " ";
+	case "Platinum":
+		%right = %right NL
+		         %l @ %big @ "Platinum Times:" @ %r @ %big @ %comp["Platinum"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Platinum"]  @ ")" NL
+		         %l @ %big @ "Ultimate Times:" @ %r @ %big @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")" NL
+		         %l @ %big @ "Easter Eggs:"    @ %r @ %big @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")" NL
+		         %l @ %big @ " ";
+	case "Ultra":
+		%right = %right NL
+		         %l @ %big @ "Gold Times:"     @ %r @ %big @ %comp["Gold"]      @ "/" @ %total["Grand"]     @ " (" @ %perc["Gold"]      @ ")" NL
+		         %l @ %big @ "Ultimate Times:" @ %r @ %big @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")" NL
+		         %l @ %big @ "Easter Eggs:"    @ %r @ %big @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")" NL
+		         %l @ %big @ " ";
+	case "PlatinumQuest":
+		%right = %right NL
+		         %l @ %big @ "Platinum Times:" @ %r @ %big @ %comp["Platinum"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Platinum"]  @ ")" NL
+		         %l @ %big @ "Ultimate Times:" @ %r @ %big @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")";
+		if ($pref::ShowAwesomeHints) {
+			%right = %right NL
+		         %l @ %big @ "Awesome Times:"  @ %r @ %big @ %comp["Awesome"]   @ "/" @ %total["Grand"]     @ " (" @ %perc["Awesome"]   @ ")";
+		}
+		%right = %right NL
+		         %l @ %big @ "Nest Eggs:"      @ %r @ %big @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")" NL
+		         %l @ %big @ " ";
+
+	case "Leaderboards":
+		%right = %right NL
+				 %l @ %big @ "Platinum Times:" @ %r @ %big @ %comp["Platinum"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Platinum"]  @ ")" NL
+				 %l @ %big @ "Ultimate Times:" @ %r @ %big @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")";
+		if ($pref::ShowAwesomeHints) {
+			%right = %right NL
+		         %l @ %big @ "Awesome Times:"  @ %r @ %big @ %comp["Awesome"]   @ "/" @ %total["Grand"]     @ " (" @ %perc["Awesome"]   @ ")";
+		}
+		%right = %right NL
+		         %l @ %big @ "Easter Eggs:"      @ %r @ %big @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")" NL
+		         %l @ %big @ " ";
+	}
+
+
+	%right = %right NL %l @ %big @ "Hardest Level:" @ %r @ %hardName NL
+	         %c @ "<font:DomCasualD:20>" @ "(" @ %hardOobs @ " OOBs, " @ %hardRespawns @ " Respawns, and " @ %badTime @ ")" @ "<font:Arial:4>\n\n\n";
+
+	%right = %right @ %l @ %big @ (($CurrentGame $= "PlatinumQuest" || $CurrentGame $= "Leaderboards") ? " " : "\n");
+
+	%right = %right NL %l @ %big @ "Marbles Lost:" @ %r @ %big @ $pref::OOBCount NL
+	         %l @ %big @ "Total Level Times:" @ %r @ %big @ %time["Levels"] NL
+	         %l @ %big @ "Total Wasted Time: " @ %r @ %big @ %time["Total"];
+
+
+	OldPerG_PercentageText2.setText(%right);
+
+	OldPerG_LoadingText.setText("");
+}

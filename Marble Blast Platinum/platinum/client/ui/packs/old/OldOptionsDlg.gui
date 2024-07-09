@@ -1,0 +1,1539 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiChunkedBitmapCtrl(OldOptionsDlg) {
+	profile = "GuiContentProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./backgrounds/ultra/9";
+	useVariable = "0";
+	tile = "0";
+		_guiSize = "800 600";
+		tab = "General";
+
+	new GuiBitmapCtrl(OldOptionsPanel) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "8 13";
+		extent = "784 573";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./offline/Options/window";
+		wrap = "0";
+
+		new GuiScrollCtrl(OldOptionsGeneralPanel) {
+			profile = "OldGuiGreenScrollProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "30 88";
+			extent = "726 380";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiControl(OldOptionsGeneralContent) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "1 0";
+				extent = "717 495";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+		};
+
+		new GuiBitmapButtonCtrl(OldOptionsGraphicsButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "32 19";
+			extent = "120 57";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.setTab(\"Graphics\");";
+			helpTag = "0";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/options/graphics";
+		};
+		new GuiBitmapButtonCtrl(OldOptionsGameplayButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "152 19";
+			extent = "120 57";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.setTab(\"Gameplay\");";
+			helpTag = "0";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/options/gameplay";
+		};
+		new GuiBitmapButtonCtrl(OldOptionsInputButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "272 19";
+			extent = "120 57";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.setTab(\"Input\");";
+			helpTag = "0";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/options/input";
+		};
+		new GuiBitmapButtonCtrl(OldOptionsAudioButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "392 19";
+			extent = "120 57";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.setTab(\"Audio\");";
+			helpTag = "0";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/options/audio";
+		};
+		new GuiBitmapButtonCtrl(OldOptionsOnlineButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "512 19";
+			extent = "120 57";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.setTab(\"Online\");";
+			helpTag = "0";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/options/online";
+		};
+		new GuiBitmapButtonCtrl(OldOptionsOldGUIButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "632 19";
+			extent = "120 57";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.setTab(\"OldGUI\");";
+			helpTag = "0";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/options/oldgui";
+		};
+
+		new GuiBitmapButtonCtrl(OldOptionsHomeButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "292 482";
+			extent = "94 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.apply(); OptionsGui.back();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/Options/home";
+		};
+		new GuiBitmapButtonCtrl(OldOptionsApplyButton) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "398 482";
+			extent = "94 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldOptionsDlg.apply();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./offline/Options/apply";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldOptionsDlg::load(%this) {
+	$PMG::CurrentGui = (mp() ? "OldMPPlayMissionDlg" : (lb() ? (PlayMissionGui.marbleland ? "OldLBMarblelandPlayMissionDlg" : "OldLBPlayMissionDlg") : (PlayMissionGui.marbleland ? "OldMarblelandPlayMissionDlg" : "OldPlayMissionGui")));
+	$PMG::CurrentGui.mission = PlayMissionGui.selectedMission;
+	$PMG::CurrentGui.missionIndex = PlayMissionGui.selectedIndex;
+	
+	if (lb()) {
+		OldLBChatGui.updateChat();
+		OldLBChatGui.updateUserList();
+	}
+	if (mp()) {
+		OldMPPlayMissionDlg.mission = PlayMissionGui.selectedMission;
+		OldMPPlayMissionDlg.missionIndex = $MPPref::SelectedMissionIndex;
+		OldMPPlayMissionDlg.buildDifficultySelector();
+		OldMPPlayMissionDlg.updateDisplay();
+		OldMPPlayMissionDlg.updateServerChat();
+		OldMPPlayMissionDlg.getScores();
+		OldMPPlayMissionDlg.updateTeamChat();
+		OldMPPlayMissionDlg.onNextFrame(updateServerPlayerList);
+		if (PlayMissionGui.chatPanel $= "global") {
+			OldMPPlayMissionDlg.chatType = 0;
+			OldMPPlayMissionDlg.toggleGlobalChat();
+		}
+	}
+
+	if (PlayGui.isAwake()) {
+		Canvas.popDialog(OptionsGui);
+		if (lb()) {
+			Canvas.popDialog(LBMessageHudDlg);
+			OldLBMessageHudDlg.positionMessageHud();
+		}
+		if (mp()) {
+			if ($Game::Pregame) {
+				MPPreGameDlg.save = true;
+				Canvas.popDialog(MPPreGameDlg);
+				Canvas.pushDialog(OldMPPreGameDlg);
+			} else {
+				Canvas.popDialog(MPExitGameDlg);
+				Canvas.pushDialog(OldMPExitGameDlg);
+			}
+		} else if ($gamePaused) {
+			Canvas.popDialog(ExitGameDlg);
+			Canvas.pushDialog(OldExitGameDlg);
+		}
+		OldOptionsDlg.show(true, false);
+
+	} else if (mp()) {
+		Canvas.setContent(OldMPPlayMissionDlg);
+		if (PlayMissionGui.chatPanel $= "team") {
+			OldMPTeamSelectDlg.open();
+		}
+		OldOptionsDlg.show(true, false);
+
+	} else if (lb()) {
+		if (PlayMissionGui.isAwake()) {
+			Canvas.setContent(OldLBChatGui);
+			Canvas.pushDialog(PlayMissionGui.marbleland ? OldLBMarblelandPlayMissionDlg : OldLBPlayMissionDlg);
+			OldOptionsDlg.show(true, false);
+		} else {
+			Canvas.setContent(OldLBChatGui);
+			OldOptionsDlg.show(true, true);
+		}
+
+	} else {
+		if (PlayMissionGui.isAwake()) {
+			Canvas.setContent(PlayMissionGui.marbleland ? OldMarblelandPlayMissionDlg : OldPlayMissionGui);
+			OldOptionsDlg.show(true, false);
+		} else {
+			OldOptionsDlg.show(false, true);
+		}
+	}
+}
+
+function OldOptionsDlg::show(%this, %dialog, %home) {
+	if (%dialog) {
+		Canvas.pushDialog(%this);
+		%this.setBitmap("platinum/client/ui/packs/old/offline/exit/empty.png");
+		%this.dialog = true;
+	} else {
+		Canvas.setContent(%this);
+		%this.setBitmap(mp() ? OldMPPlayMissionDlg.randomBackground["multi"] : (lb() ? OldLBChatGui.randomBackground : %this.randomBackground));
+		%this.dialog = false;
+	}
+	OldOptionsHomeButton.setBitmap(%home ? "platinum/client/ui/packs/old/offline/Options/home" : "platinum/client/ui/packs/old/offline/Options/back");
+	
+	buildResolutionList();
+	%this.setTab("Graphics");
+}
+
+function OldOptionsDlg::apply(%this) {
+	OptionsGui.apply();
+	if (!$GuiPack::Active) {
+		return;
+	}
+	if (PlayGui.isAwake()) {
+		playMusic($currentMusicBase);
+	} else {
+		playShellMusic();
+	}
+}
+
+function OldOptionsDlg::back(%this) {
+	if (!$GuiPack::Active) {
+		OptionsGui.back();
+		return;
+	}
+	if (%this.dialog) {
+		Canvas.popDialog(%this);
+	} else {
+		Canvas.setContent(mp() ? OldMPPlayMissionDlg : (lb() ? OldLBChatGui : OldMainMenuGui));
+	}
+}
+
+function OldOptionsDlg::setTab(%this, %tab) {
+	OldOptionsGraphicsButton.setValue(%tab $= "Graphics");
+	OldOptionsGameplayButton.setValue(%tab $= "Gameplay");
+	OldOptionsInputButton.setValue(%tab $= "Input");
+	OldOptionsAudioButton.setValue(%tab $= "Audio");
+	OldOptionsOnlineButton.setValue(%tab $= "Online");
+	OldOptionsOldGUIButton.setValue(%tab $= "OldGUI");
+	OldOptionsGeneralPanel.scrollToTop();
+	OldOptionsGeneralPanel.setExtent("726 380");
+	OldOptionsGeneralContent.setExtent("717 495");
+	if (isObject(OldOptionsInputSpeeds))
+		OldOptionsInputSpeeds.delete();
+
+	if (%tab $= "Input") {
+		%this.generateHotkeysList();
+	} else {
+		%this.buildTab(%tab);
+	}
+}
+
+
+$i = -1;
+
+$Options::Name     ["OldGUI", $i++] = "NewExitGame";
+$Options::Title    ["OldGUI", $i] = "Expanded Pause Menu";
+$Options::Type     ["OldGUI", $i] = "boolean";
+
+$Options::Name     ["OldGUI", $i++] = "TotD";
+$Options::Title    ["OldGUI", $i] = "Tip Of The Day";
+$Options::Type     ["OldGUI", $i] = "boolean";
+
+$Options::Name     ["OldGUI", $i++] = "MarblelandFastRepeat";
+$Options::Title    ["OldGUI", $i] = "Marbleland Fast Speed";
+$Options::Ctrl     ["OldGUI", $i] = "slider";
+$Options::Min      ["OldGUI", $i] = 30;
+$Options::Max      ["OldGUI", $i] = 1000;
+$Options::Ticks    ["OldGUI", $i] = 97;
+
+$Options::Name     ["OldGUI", $i++] = "MarblelandNormalRepeat";
+$Options::Title    ["OldGUI", $i] = "Marbleland Speed";
+$Options::Ctrl     ["OldGUI", $i] = "slider";
+$Options::Min      ["OldGUI", $i] = 30;
+$Options::Max      ["OldGUI", $i] = 1000;
+$Options::Ticks    ["OldGUI", $i] = 97;
+
+$Options::Name     ["OldGUI", $i++] = "OldLBUserList";
+$Options::Title    ["OldGUI", $i] = "(LB) Old User List";
+$Options::Type     ["OldGUI", $i] = "boolean";
+
+$Options::Name     ["OldGUI", $i++] = "ExpandedLBUserInfo";
+$Options::Title    ["OldGUI", $i] = "(LB) Expanded User Info";
+$Options::Type     ["OldGUI", $i] = "boolean";
+
+$Options::Name     ["OldGUI", $i++] = "ShowLBWorldRecord";
+$Options::Title    ["OldGUI", $i] = "(LB) End Screen World Record";
+$Options::Type     ["OldGUI", $i] = "boolean";
+
+$Options::Name     ["OldGUI", $i++] = "NewMPPreGame";
+$Options::Title    ["OldGUI", $i] = "(MP) Expanded Pre-Game Menu";
+$Options::Type     ["OldGUI", $i] = "boolean";
+
+$Options::Name     ["OldGUI", $i++] = "NewMPExitGame";
+$Options::Title    ["OldGUI", $i] = "(MP) Expanded Pause Menu";
+$Options::Type     ["OldGUI", $i] = "boolean";
+
+
+function Opt_NewExitGame_getDisplay() {
+	return $pref::OldGui::NewExitGame == 2 ? "Full GUI" : ($pref::OldGui::NewExitGame == 1 ? "Bottom Buttons" : "Disabled");
+}
+
+function Opt_TotD_getDisplay() {
+	return $pref::OldGui::TotD ? "Enabled" : "Disabled";
+}
+
+function Opt_OldLBUserList_getDisplay() {
+	return $pref::OldGui::OldLBUserList ? "Enabled" : "Disabled";
+}
+
+function Opt_ExpandedLBUserInfo_getDisplay() {
+	return $pref::OldGui::ExpandedLBUserInfo ? "Enabled" : "Disabled";
+}
+
+function Opt_ShowLBWorldRecord_getDisplay() {
+	return $pref::OldGui::ShowLBWorldRecord ? "Enabled" : "Disabled";
+}
+
+function Opt_NewMPPreGame_getDisplay() {
+	return $pref::OldGui::NewMPPreGame ? "Enabled" : "Disabled";
+}
+
+function Opt_NewMPExitGame_getDisplay() {
+	return $pref::OldGui::NewMPExitGame ? "Enabled" : "Disabled";
+}
+
+function Opt_MarblelandFastRepeat_getValue() {
+	return $pref::OldGui::MarblelandFastRepeatSpeed;
+}
+
+function Opt_MarblelandFastRepeat_getDisplay() {
+	%value = Opt_MarblelandFastRepeat_getValue();
+	OldOptionsMarblelandFastRepeatDisplay.setExtent((%value >= 1000 ? 60 : 46) SPC getWord(OldOptionsMarblelandFastRepeatDisplay.getExtent(), 1));
+	return mRound(%value);
+}
+
+function Opt_MarblelandFastRepeat_decrease(%size) {
+	Opt_MarblelandFastRepeat_setValue(Opt_MarblelandFastRepeat_getValue() - %size);
+}
+
+function Opt_MarblelandFastRepeat_increase(%size) {
+	Opt_MarblelandFastRepeat_setValue(Opt_MarblelandFastRepeat_getValue() + %size);
+}
+
+function Opt_MarblelandFastRepeat_setValue(%value) {
+	$pref::OldGui::MarblelandFastRepeatSpeed = %value;
+}
+
+function Opt_MarblelandNormalRepeat_getValue() {
+	return $pref::OldGui::MarblelandNormalRepeatSpeed;
+}
+
+function Opt_MarblelandNormalRepeat_getDisplay() {
+	%value = Opt_MarblelandNormalRepeat_getValue();
+	OldOptionsMarblelandNormalRepeatDisplay.setExtent((%value >= 1000 ? 60 : 46) SPC getWord(OldOptionsMarblelandNormalRepeatDisplay.getExtent(), 1));
+	return mRound(%value);
+}
+
+function Opt_MarblelandNormalRepeat_decrease(%size) {
+	Opt_MarblelandNormalRepeat_setValue(Opt_MarblelandNormalRepeat_getValue() - %size);
+}
+
+function Opt_MarblelandNormalRepeat_increase(%size) {
+	Opt_MarblelandNormalRepeat_setValue(Opt_MarblelandNormalRepeat_getValue() + %size);
+}
+
+function Opt_MarblelandNormalRepeat_setValue(%value) {
+	$pref::OldGui::MarblelandNormalRepeatSpeed = %value;
+}
+
+
+function Opt_screenResolution_getList() {
+	%resolutions = "";
+	for (%i = 0; %i < OptResolutions.getSize(); %i ++) {
+		%resolution = OptResolutions.getEntry(%i);
+		%resolutions = (%resolutions !$= "" ? %resolutions NL %resolution : %resolution) TAB "$pref::Video::resolution = \"" @ %resolution @ "\"; $pref::Video::WindowedRes = \"" @ %resolution @ "\";";
+	}
+	return %resolutions;
+}
+
+function Opt_screenStyle_getList() {
+	return "Windowed" TAB "$pref::Video::fullScreen = false; Opt_screenStyle_updateResolution();" NL "Full Screen" TAB "$pref::Video::fullScreen = true; pt_screenStyle_updateResolution();";
+}
+
+function Opt_textureQuality_getList() {
+	return "Low" TAB "$pref::Video::TextureQuality = 0;" NL "Medium" TAB "$pref::Video::TextureQuality = 1;" NL "High" TAB "$pref::Video::TextureQuality = 2;";
+}
+
+function Opt_marbleReflections_getList() {
+	return "Disabled" TAB "$pref::Video::MarbleReflectionQuality = 0; $pref::Video::MarbleCubemapExtent = 32;" NL "Basic" TAB "$pref::Video::MarbleReflectionQuality = 1; $pref::Video::MarbleCubemapExtent = 64;" NL "Advanced" TAB "$pref::Video::MarbleReflectionQuality = 2; $pref::Video::MarbleCubemapExtent = 128;";
+}
+
+function Opt_postprocessing_getList() {
+	return "Disabled" TAB "$pref::Video::PostProcessing = false;" NL "Enabled" TAB "$pref::Video::PostProcessing = true;";
+}
+
+function Opt_bloom_getList() {
+	return "Disabled" TAB "$pref::Video::ShapeBloomQuality = 0;" NL "Basic" TAB "$pref::Video::ShapeBloomQuality = 1;" NL "High" TAB "$pref::Video::ShapeBloomQuality = 2;" NL "Ultra" TAB "$pref::Video::ShapeBloomQuality = 3;";
+}
+
+function Opt_interiorShaders_getList() {
+	return "Legacy" TAB "$pref::Video::InteriorShaderQuality = -1;" NL "Low" TAB "$pref::Video::InteriorShaderQuality = 0;" NL "Medium" TAB "$pref::Video::InteriorShaderQuality = 1;" NL "High" TAB "$pref::Video::InteriorShaderQuality = 2;";
+}
+
+function Opt_antiAliasing_getList() {
+	return "Disabled" TAB "$pref::Video::AntiAliasing = 0;" NL "2x" TAB "$pref::Video::AntiAliasing = 2;" NL "4x" TAB "$pref::Video::AntiAliasing = 4;" NL "8x" TAB "$pref::Video::AntiAliasing = 8;";
+}
+
+function Opt_maxFPS_getList() {
+	return "Unlimited" TAB "$pref::Video::MaxFPS = -1;" NL "VSync" TAB "$pref::Video::MaxFPS = 0;" NL "30" TAB "$pref::Video::MaxFPS = 30;" NL "60" TAB "$pref::Video::MaxFPS = 60;" NL "75" TAB "$pref::Video::MaxFPS = 75;" NL "120" TAB "$pref::Video::MaxFPS = 120;" NL "200" TAB "$pref::Video::MaxFPS = 200;";
+}
+
+function Opt_guiPack_getList() {
+	%packs = "";
+	for (%i = 0; %i < GuiPackArray.getSize(); %i ++) {
+		%pack = GuiPackArray.getEntry(%i);
+		%display = getField(%pack, 0);
+		%guipack = getField(%pack, 1);
+		%packs = (%packs !$= "" ? %packs NL %display : %display) TAB "$pref::Video::GuiPack = \"" @ %guipack @ "\";";
+	}
+	return %packs;
+}
+
+function Opt_particleSystem_getList() {
+	%command = "if (isObject(BounceParticle)) applyParticleSystem();";
+	return "PlatinumQuest" TAB "$pref::Video::particleSystem = 0;" @ %command NL "Marble Blast Gold" TAB "$pref::Video::particleSystem = 1;" @ %command NL "Marble Blast Ultra" TAB "$pref::Video::particleSystem = 2;" @ %command;
+}
+
+function Opt_smoothShading_getList() {
+	return "Disabled" TAB "$pref::Interior::SmoothShading = false;" NL "Enabled" TAB "$pref::Interior::SmoothShading = true;";
+}
+
+function Opt_legacyItems_getList() {
+	%command = "if (isObject(ServerConnection)) { applyLegacyItems(); applyOldMPSky(); }";
+	return "Disabled" TAB "$pref::legacyItems = 0;" @ %command NL "Items" TAB "$pref::legacyItems = 1;" @ %command NL "Items + Skies" TAB "$pref::legacyItems = 2;" @ %command;
+}
+
+function Opt_animateBackground_getList() {
+	return "Disabled" TAB "$pref::animatePreviews = false;" NL "Enabled" TAB "$pref::animatePreviews = true;";
+}
+
+function Opt_fast_getList() {
+	return "Disabled" TAB "$pref::fastMode = false; enableInterpolation(!$pref::FastMode);" NL "Enabled" TAB "$pref::fastMode = true; enableInterpolation(!$pref::FastMode);";
+}
+
+function Opt_fpsCounter_getList() {
+	return "Disabled" TAB "$pref::showFPSCounter = false; FPSMetreCtrl.setVisible($pref::showFPSCounter);" NL "Enabled" TAB "$pref::showFPSCounter = true; FPSMetreCtrl.setVisible($pref::showFPSCounter);";
+}
+
+function Opt_freelook_getList() {
+	return "Disabled" TAB "$pref::Input::alwaysFreeLook = false;" NL "Enabled" TAB "$pref::Input::alwaysFreeLook = true;";
+}
+
+function Opt_oobInsults_getList() {
+	return "Disabled" TAB "$pref::showOOBMessages = false;" NL "Enabled" TAB "$pref::showOOBMessages = true;";
+}
+
+function Opt_thousandths_getList() {
+	%command = "PG_Timer.setVisible(!$pref::Thousandths); PG_TimerThousands.setVisible($pref::Thousandths); PlayGui.updateControls(); PlayGui.updateTimeTravelCountdown();";
+	return "Disabled" TAB "$pref::Thousandths = false;" @ %command NL "Enabled" TAB "$pref::Thousandths = true;" @ %command;
+}
+
+function Opt_helptriggers_getList() {
+	return "Disabled" TAB "$pref::HelpTriggers = false;" NL "Enabled" TAB "$pref::HelpTriggers = true;";
+}
+
+function Opt_screenshotMode_getList() {
+	return "Show Everything" TAB "$pref::screenshotMode = 0;" NL "Hide Chat Online" TAB "$pref::screenshotMode = 1;" NL "Hide Everything" TAB "$pref::screenshotMode = 2;";
+}
+
+function Opt_alwaysShowSpeedometer_getList() {
+	return "Disabled" TAB "$pref::alwaysShowSpeedometer = false; PG_Speedometer.setVisible($pref::alwaysShowSpeedometer);" NL "Enabled" TAB "$pref::alwaysShowSpeedometer = true; PG_Speedometer.setVisible($pref::alwaysShowSpeedometer);";
+}
+
+function Opt_powerupsAlwaysOnRadar_getList() {
+	return "Disabled" TAB "$pref::powerupsAlwaysOnRadar = false;" NL "Enabled" TAB "$pref::powerupsAlwaysOnRadar = true;";
+}
+
+function Opt_powerupTimers_getList() {
+	return "Disabled" TAB "$pref::powerupTimers = false;" NL "Enabled" TAB "$pref::powerupTimers = true;";
+}
+
+function Opt_timeTravelTimer_getList() {
+	return "Disabled" TAB "$pref::timeTravelTimer = 0; PlayGui.updateTimeTravelCountdown();" NL "Enabled" TAB "$pref::timeTravelTimer = 1; PlayGui.updateTimeTravelCountdown();" NL "Enabled, Precise" TAB "$pref::timeTravelTimer = 2; PlayGui.updateTimeTravelCountdown();";
+}
+
+function Opt_oldItemNames_getList() {
+	%command = "if (PlayGui.isAwake()) { hideBubble(); PG_ChatBubbleBox.setVisible(false); clearMessages(); }";
+	return "Disabled" TAB "$pref::OldItemNames = false;" @ %command NL "Enabled" TAB "$pref::OldItemNames = true;" @ %command;
+}
+
+function Opt_minimalSpectateUI_getList() {
+	return "Disabled" TAB "$pref::minimalSpectateUI = false;" NL "Enabled" TAB "$pref::minimalSpectateUI = true;";
+}
+
+function Opt_spchanges_getList() {
+	return "Disabled" TAB "$pref::spchanges = false;" NL "Enabled" TAB "$pref::spchanges = true;";
+}
+
+function Opt_parTimeAlarm_getList() {
+	return "Disabled" TAB "$pref::parTimeAlarm = false;" NL "Enabled" TAB "$pref::parTimeAlarm = true;";
+}
+
+function Opt_audioPack_getList() {
+	%packs = "";
+	for (%i = 0; %i < AudioPackArray.getSize(); %i ++) {
+		%pack = AudioPackArray.getEntry(%i);
+		%display = getField(%pack, 0);
+		%audiopack = getField(%pack, 1);
+		%packs = (%packs !$= "" ? %packs NL %display : %display) TAB "$pref::Audio::AudioPack = \"" @ %audiopack @ "\"; loadAudioPack($pref::Audio::AudioPack);";
+	}
+	return %packs;
+}
+
+function Opt_automaticAudio_getList() {
+	return "Disabled" TAB "$pref::automaticAudio = false;" NL "Enabled" TAB "$pref::automaticAudio = true;";
+}
+
+function Opt_scorePredictor_getList() {
+	return "Disabled" TAB "$MPPref::ScorePredictor = false;" NL "Enabled" TAB "$MPPref::ScorePredictor = true;";
+}
+
+function Opt_showRecords_getList() {
+	return "Disabled" TAB "$LBPref::ShowRecords = false;" NL "Enabled" TAB "$LBPref::ShowRecords = true;";
+}
+
+function Opt_profanityFilter_getList() {
+	return "Disabled" TAB "$pref::ProfanityFilter = 0;" NL "Minimal" TAB "$pref::ProfanityFilter = 1;" NL "Strong" TAB "$pref::ProfanityFilter = 2;";
+}
+
+function Opt_globalSize_getList() {
+	return "5" TAB "$LBPref::GlobalPageSize = 5;" NL "10" TAB "$LBPref::GlobalPageSize = 10;";
+}
+
+function Opt_chatMessageSize_getList() {
+	return "1" TAB "$LBPref::ChatMessageSize = 1;" NL "2" TAB "$LBPref::ChatMessageSize = 2;" NL "3" TAB "$LBPref::ChatMessageSize = 3;" NL "4" TAB "$LBPref::ChatMessageSize = 4;" NL "5" TAB "$LBPref::ChatMessageSize = 5;" NL "6" TAB "$LBPref::ChatMessageSize = 6;";
+}
+
+function Opt_allowTaunts_getList() {
+	return "Disabled" TAB "$MPPref::AllowTaunts = false;" NL "Enabled" TAB "$MPPref::AllowTaunts = true;";
+}
+
+
+function Opt_noholepunch_getList() {
+	return "Disabled" TAB "$pref::NoHolePunching = true;" NL "Enabled" TAB "$pref::NoHolePunching = false;";
+}
+
+function Opt_autoLogin_getList() {
+	%command = "$Options::Disable[\"Online\", $Options::AutoLoginUserField] = ($LBPref::AutoLogin !$= \"User\"); $Options::Disable[\"Online\", $Options::AutoLoginPassField] = ($LBPref::AutoLogin !$= \"User\"); if ($LBPref::AutoLogin !$= \"User\") { $LBPref::AutoLoginUsername = \"\"; $LBPref::AutoLoginPassword = \"\"; } OldOptionsDlg.scheduleIgnorePause(0, buildTab, \"Online\");";
+	return "None" TAB "$LBPref::AutoLogin = \"None\";" @ %command NL "User" TAB "$LBPref::AutoLogin = \"User\";" @ %command NL "Guest" TAB "$LBPref::AutoLogin = \"Guest\";" @ %command;
+}
+
+function Opt_NewExitGame_getList() {
+	return "Disabled" TAB "$pref::OldGui::NewExitGame = 0; if (OldExitGameDlg.isAwake()) OldExitGameDlg.onWake();" NL "Bottom Buttons" TAB "$pref::OldGui::NewExitGame = 1; if (OldExitGameDlg.isAwake()) OldExitGameDlg.onWake();" NL "Full GUI" TAB "$pref::OldGui::NewExitGame = 2; if (OldExitGameDlg.isAwake()) OldExitGameDlg.onWake();";
+}
+
+function Opt_TotD_getList() {
+	return "Disabled" TAB "$pref::OldGui::TotD = false;" NL "Enabled" TAB "$pref::OldGui::TotD = true;";
+}
+
+function Opt_OldLBUserList_getList() {
+	return "Disabled" TAB "$pref::OldGui::OldLBUserList = false; if ($LB::LoggedIn) OldLBChatGui.updateUserList();" NL "Enabled" TAB "$pref::OldGui::OldLBUserList = true; if ($LB::LoggedIn) OldLBChatGui.updateUserList();";
+}
+
+function Opt_ExpandedLBUserInfo_getList() {
+	return "Disabled" TAB "$pref::OldGui::ExpandedLBUserInfo = false;" NL "Enabled" TAB "$pref::OldGui::ExpandedLBUserInfo = true;";
+}
+
+function Opt_ShowLBWorldRecord_getList() {
+	return "Disabled" TAB "$pref::OldGui::ShowLBWorldRecord = false;" NL "Enabled" TAB "$pref::OldGui::ShowLBWorldRecord = true;";
+}
+
+function Opt_NewMPPreGame_getList() {
+	return "Disabled" TAB "$pref::OldGui::NewMPPreGame = false; if (OldMPPreGameDlg.isAwake()) OldMPPreGameDlg.updateButtons();" NL "Enabled" TAB "$pref::OldGui::NewMPPreGame = true; if (OldMPPreGameDlg.isAwake()) OldMPPreGameDlg.updateButtons();";
+}
+
+function Opt_NewMPExitGame_getList() {
+	return "Disabled" TAB "$pref::OldGui::NewMPExitGame = false; if (OldMPExitGameDlg.isAwake()) OldMPExitGameDlg.updateButtons();" NL "Enabled" TAB "$pref::OldGui::NewMPExitGame = true; if (OldMPExitGameDlg.isAwake()) OldMPExitGameDlg.updateButtons();";
+}
+
+function Opt_antiAliasing_showMessage() {
+	if (!$aaAssert) {
+		$aaAssert = true;
+		MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
+	}
+}
+
+function Opt_maxFPS_showMessage() {
+	if ($platform $= "macos" && !$vsyncAssert) {
+		$vsyncAssert = true;
+		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
+			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
+	}
+}
+
+function Opt_spchanges_showMessage() {
+	if (!$spchangesAssert) {
+		$spchangesAssert = true;
+		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
+	}
+}
+
+//Why does this toggle have a popup...?
+// function Opt_parTimeAlarm_showMessage() {
+	// MessageBoxOK("Stop Ringing!", "With this feature disabled, the game will no longer remind the player if they are about to miss the par time for a level.");
+// }
+
+
+function OldOptionsDlg::buildTab(%this, %tab) {
+	%content = "OldOptionsGeneralContent";
+	%content.clear();
+
+	%width = 163;
+	%rowHeight = 56;
+
+	%titleFont = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:center>";
+	%valueFontButton = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:center>";
+	%valueFontSlider = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:right>";
+	%valueFontTextbox = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:left>";
+
+	%row = -1;
+	%h = -1;
+	for (%i = 0; $Options::Name[%tab, %i] !$= ""; %i ++) {
+		%disable = $Options::Disable[%tab, %i];
+		if (%disable) {
+			continue;
+		}
+		%name = $Options::Name[%tab, %i];
+		%h ++;
+
+ 		//Auto-login options should be in the same row
+		%autoLogin = (strStr(%name, "autoLogin") != -1 || strStr(%name, "AutoLogin") != -1);
+		if (%autoLogin)
+			%autoLoginNum ++;
+
+		%even = (%h % 2 == 0) && !%autoLogin; 
+		if (%even || %autoLogin && %autoLoginNum > 1)
+			%row ++;
+
+		%title = $Options::Title[%tab, %i] @ ":";
+		%type = $Options::Type[%tab, %i];
+
+		%titleCtrl   = "OldOptions" @ %name @ "Title";
+		%displayCtrl = "OldOptions" @ %name @ "Display";
+		%valueCtrl   = "OldOptions" @ %name @ "Value";
+
+		%ctrl     = "OldOptions" @ %name @ "Ctrl";
+		%upCtrl   = "OldOptions" @ ($Options::Name[%tab, %i - 1]) @ "Ctrl";
+		%downCtrl = "OldOptions" @ ($Options::Name[%tab, %i + 1]) @ "Ctrl";
+
+		%leftArrow  = "OldOptions" @ %name @ "LeftArrow";
+		%rightArrow = "OldOptions" @ %name @ "RightArrow";
+		%button     = "OldOptions" @ %name @ "Button";
+		%whatControl = $Options::Ctrl[%tab, %i];
+
+		switch$ (%whatControl) {
+			case "slider":
+				%valueFont = %valueFontSlider;
+				%tickSize = "$pref::Input::ControlDevice $= \"Joystick\" ? " @ %valueCtrl @ ".getJoyTickSize() :" @ %valueCtrl @ ".getTickSize()";
+				%commandSlider = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getFormattedValue());";
+				%commandLeft   = "opt_" @ %name @ "_decrease(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
+				%commandRight  = "opt_" @ %name @ "_increase(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
+				%commandSlider = %commandSlider @ %displayCtrl @ ".setText(\"" @ %valueFont @ (isFunction("Oldopt_" @ %name @ "_getDisplay") ? "\" @ Oldopt_" @ %name @ "_getDisplay());" : "\" @ opt_" @ %name @ "_getDisplay());");
+				%commandLeft   = %commandLeft   @ %displayCtrl @ ".setText(\"" @ %valueFont @ (isFunction("Oldopt_" @ %name @ "_getDisplay") ? "\" @ Oldopt_" @ %name @ "_getDisplay());" : "\" @ opt_" @ %name @ "_getDisplay());");
+				%commandRight  = %commandRight  @ %displayCtrl @ ".setText(\"" @ %valueFont @ (isFunction("Oldopt_" @ %name @ "_getDisplay") ? "\" @ Oldopt_" @ %name @ "_getDisplay());" : "\" @ opt_" @ %name @ "_getDisplay());");
+				%nameLeft = "Decrease";
+				%nameRight = "Increase";
+			case "textbox" or "password":
+				%valueFont = %valueFontTextbox;
+				%commandTextbox = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getValue());";
+				%commandValidate = "opt_" @ %name @ "_validate(" @ %valueCtrl @ ".getValue());";
+				%commandLeft  = "";
+				%commandRight = "";
+				%nameLeft = "";
+				%nameRight = "";
+			case "button":
+				%valueFont = %valueFontButton;
+				%commandButton = "opt_" @ %name @ "_edit();";
+				%commandLeft  = "";
+				%commandRight = "";
+				%nameLeft = "";
+				%nameRight = "";
+			default:
+				%dropdownCommand = "OldOptionsDlg.pushDropdown(" @ %name @ ");";
+				%valueFont = %valueFontButton;
+				%commandLeft  = "opt_" @ %name @ "_decrease(); ";
+				%commandRight = "opt_" @ %name @ "_increase(); ";
+				%commandLeft  = %commandLeft  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+				%commandRight = %commandRight @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+
+				%nameLeft = (%type $= "boolean" ? "Toggle" : "Decrease");
+				%nameRight = (%type $= "boolean" ? "Toggle" : "Increase");
+		}
+
+		%content.add(new GuiControl(%ctrl) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = (%even ? "204" : "552") SPC (%row * %rowHeight);
+			extent = %width SPC %rowHeight;
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		});
+
+		%content.add(new GuiMLTextCtrl(%titleCtrl) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = (%even ? "9" : "364") SPC (%row * %rowHeight) + (textLen(%title, "Marker Felt", 28) < 190 ? 14 : 1);
+			extent = "190 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		});
+
+		switch$ (%whatControl) {
+			case "slider":
+				%ctrl.setExtent(220 SPC getWord(%ctrl.getExtent(), 1));
+				%ctrl.setPosition((%even ? "149" : "495") SPC getWord(%ctrl.getPosition(), 1));
+				%titleCtrl.setExtent("124 14");
+				%titleCtrl.setPosition((%even ? "9" : "366") SPC (%row * %rowHeight) + (textLen(%title, "Marker Felt", 28) < 124 ? 14 : 1));
+				%range = $Options::Min[%tab, %i] SPC $Options::Max[%tab, %i];
+				%defaultValue = call("Opt_" @ %name @ "_getValue");
+				%ctrl.add(new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "57 19";
+					extent = "154 19";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/Options/bar";
+					wrap = "0";
+				});
+				%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 16";
+					extent = "46 14";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				});
+				%ctrl.add(new GuiSliderCtrl(%valueCtrl) {
+					profile = "GuiSliderProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "48 8";
+					extent = "172 41";
+					minExtent = "8 8";
+					visible = "1";
+					altCommand = %commandSlider;
+					helpTag = "0";
+					range = %range;
+					ticks = $Options::Ticks[%tab, %i];
+					joyTicks = $Options::JoyTicks[%tab, %i];
+					value = %defaultValue;
+					bitmap = "./offline/options/slider";
+				});
+				%display = call("opt_" @ %name @ "_getDisplay");
+				%displayCtrl.setText(%valueFont @ %display);
+				eval(%commandSlider);
+
+			case "textbox" or "password":
+				%var = $Options::Var[%tab, %i];
+				%length = $Options::Length[%tab, %i];
+				%defaultValue = call("Opt_" @ %name @ "_getValue");
+				%ctrl.add(new GuiBitmapCtrl() {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "7 5";
+					extent = "148 46";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/options/textentry";
+					wrap = "0";
+				});
+
+				%ctrl.add(new GuiTextEditCtrl(%valueCtrl) {
+					profile = "OldGuiOptionsTextEditProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "14 17";
+					extent = "130 28";
+					minExtent = "8 8";
+					visible = "1";
+					variable = %var;
+					command = %commandTextbox;
+					helpTag = "0";
+					maxLength = %length;
+					maxPixelWidth = "0";
+					validate = %commandValidate;
+					historySize = "0";
+					password = (%whatControl $= "password");
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+				});
+				%valueCtrl.setValue(%defaultValue);
+				eval(%commandTextbox);
+
+			case "button":
+				%ctrl.add(new GuiBitmapButtonTextCtrl(%displayCtrl) {
+					profile = "OldGuiOptionsButtonProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "163 56";
+					minExtent = "8 8";
+					visible = "1";
+					command = %commandButton;
+					helpTag = "0";
+					text = ($Options::EditName[%tab, %i] !$= "" ? $Options::EditName[%tab, %i] : "Edit...");
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./offline/options/editbutton";
+				});
+				%ctrl.commandSelect = %commandButton;
+				%ctrl.commandNameSelect = "Edit";
+			default:
+				%ctrl.add(new GuiBitmapButtonTextCtrl(%displayCtrl) {
+					profile = "OldGuiOptionsButtonProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "163 56";
+					minExtent = "8 8";
+					visible = "1";
+					command = %dropdownCommand;
+					helpTag = "0";
+					text = "";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+					bitmap = "./offline/options/dropdown";
+				});
+		}
+
+		%titleCtrl.setText(%titleFont @ %title);
+		if (isObject(%displayCtrl) && %displayCtrl.getText() $= "") {
+			%display = call("opt_" @ %name @ "_getDisplay");
+			%displayCtrl.setText(%display);
+		}
+		%last2 = %last;
+		%last = %name;
+	}
+	//Add some height for the dropdowns
+	%list1 = getRecordCount(call("Opt_" @ %last @ "_getList"));
+	%list2 = getRecordCount(call("Opt_" @ %last2 @ "_getList"));
+	if (%even)
+		%list2 = "";
+	%list = max(%list1, %list2);
+	%extraHeight = (%list < 2 ? "0" : (%list == 2 ? "79" : (%list == 3 ? "99" : (%list == 4 ? "121" : "176")))) + %autoLoginNum * 56;
+	%content.setHeight(mCeil((!%even ? %h : %h + 1) / 2) * %rowHeight + %extraHeight);
+
+	%this.scheduleIgnorePause(0, buildButtonDropdowns, %tab);
+}
+
+
+function OldOptionsDlg::buildButtonDropdowns(%this, %tab) {
+	%content = "OldOptionsGeneralContent";
+
+	%content.add(new GuiButtonBaseCtrl(OldOptionsDropdownPop) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = %content.getPosition();
+		extent = %content.getExtent();
+		minExtent = "8 8";
+		visible = "0";
+		command = "OldOptionsDlg.popDropdown();";
+		helpTag = "0";
+		text = "";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	});
+
+	%row = -1;
+	%h = -1;
+	for (%i = 0; $Options::Name[%tab, %i] !$= ""; %i ++) {
+		%disable = $Options::Disable[%tab, %i];
+		if (%disable) {
+			continue;
+		}
+		%name = $Options::Name[%tab, %i];
+		%h ++;
+
+		%even = (%h % 2 == 0);
+		if (%even)
+			%row ++;
+
+		%ctrl     = "OldOptions" @ %name @ "Ctrl";
+
+		%whatControl = $Options::Ctrl[%tab, %i];
+
+		switch$ (%whatControl) {
+			case "slider":
+
+			case "textbox" or "password":
+
+			case "button":
+
+			default:
+				%list = call("Opt_" @ %name @ "_getList");
+				%count = getRecordCount(%list);
+				%dropdown = "OldOptionsDropdown" @ %name;
+				%dropdownList = "OldOptionsDropdownList" @ %name;
+				%content.add(new GuiBitmapCtrl(%dropdown) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = VectorAdd(%ctrl.getPosition(), "0 56");
+					extent = "163" SPC (%count <= 2 ? "79" : (%count == 3 ? "99" : (%count == 4 ? "121" : "176")));
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					bitmap = "./offline/Options/dropdown-" @ (%count <= 2 ? "small" : (%count == 3 ? "medium" : (%count == 4 ? "large" : "xlarge")));
+					wrap = "0";
+
+					new GuiScrollCtrl() {
+						profile = "OldGuiGreenScrollProfile";
+						horizSizing = "right";
+						vertSizing = "bottom";
+						position = "11 16";
+						extent = "135" SPC (%count <= 2 ? "47" : (%count == 3 ? "63" : (%count == 4 ? "88" : "145")));
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						willFirstRespond = "1";
+						hScrollBar = "dynamic";
+						vScrollBar = "alwaysOn";
+						constantThumbHeight = "0";
+						childMargin = "0 0";
+
+						new GuiTextListCtrl(%dropdownList) {
+							profile = "OldGuiOptionsListProfile";
+							horizSizing = "right";
+							vertSizing = "bottom";
+							position = "1 1";
+							extent = "117 8";
+							minExtent = "8 8";
+							visible = "1";
+							command = "OldOptionsDlg.applyButtonSetting();";
+							helpTag = "0";
+							enumerate = "0";
+							resizeCell = "1";
+							columns = "0";
+							fitParentWidth = "1";
+							clipColumnText = "0";
+						};
+					};
+				});
+				for (%j = 0; %j < %count; %j ++) {
+					%dropdownList.addRow(%dropdownList.rowCount(), getRecord(%list, %j));
+				}
+		}
+	}
+}
+
+function OldOptionsDlg::pushDropdown(%this, %option) {
+	%this.popDropdown();
+	OldOptionsDropdownPop.setVisible(true);
+	%dropdown = "OldOptionsDropdown" @ %option;
+	%dropdown.setVisible(true);
+	%this.dropdown = %dropdown;
+	%this.dropdownOption = %option;
+	if (isFunction("Opt_" @ %option @ "_showMessage"))
+		call("Opt_" @ %option @ "_showMessage");
+}
+
+function OldOptionsDlg::applyButtonSetting(%this) {
+	%dropdownList = "OldOptionsDropdownList" @ %this.dropdownOption;
+	%id = %dropdownList.getSelectedId();
+	%command = getField(%dropdownList.getRowTextById(%id), 1);
+	eval(%command);
+	%this.popDropdown();
+}
+
+function OldOptionsDlg::popDropdown(%this) {
+	%option = %this.dropdownOption;
+	%displayCtrl = "OldOptions" @ %option @ "Display";
+	%display = call("opt_" @ %option @ "_getDisplay");
+	%displayCtrl.setText(%display);
+	%this.dropdown.setVisible(false);
+	OldOptionsDropdownPop.setVisible(false);
+}
+
+
+function OldOptionsDlg::generateHotkeysList(%this) {
+	%content = "OldOptionsGeneralContent";
+	%height = 49;
+
+	OldOptionsInputSpeeds.delete();
+	%content.clear();
+	%device = $pref::Input::ControlDevice;
+	%map = MoveMap;
+
+	OldOptionsPanel.add(new GuiControl(OldOptionsInputSpeeds) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "31 88";
+		extent = "717 380";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiMLTextCtrl(OldOptionsInputSpeedTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "467 0";
+			extent = "190 45";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:center>Camera Sensitivity";
+		};
+
+		new GuiMLTextCtrl(OldOptionskeyboardSpeedTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "415 35";
+			extent = "100 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28>Keyboard:";
+		};
+		new GuiMLTextCtrl(OldOptionsmouseSpeedTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "415 80";
+			extent = "100 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28>Mouse:";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "507 39";
+			extent = "172 19";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/Options/bar";
+			wrap = "0";
+		};
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "507 84";
+			extent = "172 19";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./offline/Options/bar";
+			wrap = "0";
+		};
+		new GuiSliderCtrl(OldOptionskeyboardSpeedValue) {
+			profile = "GuiSliderProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "500 26";
+			extent = "190 45";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			altCommand = "OldOptionsDlg.updateKeyboardSpeed();";
+			range = "0.01 0.09";
+			ticks = "90";
+			bitmap = "./offline/Options/slider";
+		};
+		new GuiSliderCtrl(OldOptionsmouseSpeedValue) {
+			profile = "GuiSliderProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "500 71";
+			extent = "190 45";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			altCommand = "OldOptionsDlg.updateMouseSpeed();";
+			range = "0.05 0.95";
+			ticks = "90";
+			joyTicks = "16";
+			bitmap = "./offline/Options/slider";
+		};
+		new GuiMLTextCtrl(OldOptionskeyboardSpeedDisplay) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "665 35";
+			extent = "52 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldOptionsmouseSpeedDisplay) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "665 80";
+			extent = "52 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	});
+
+	%lastBoxName = "";
+	%row = 0;
+	for (%i = 0; $Options::HotKey[%device, %i, "Title"] !$= ""; %i ++) {
+		%title    = $Options::HotKey[%device, %i, "Title"];
+		%function = $Options::HotKey[%device, %i, "Function"];
+
+		for (%j = 0; %j < 4; %j ++) {
+			%bindFn = getBindFunction(%function, %j);
+			%binding = %map.getBinding(%bindFn);
+
+			%boxName = "OldOpt_Input_" @ %device @ "_" @ %bindFn @ "_Box";
+			%buttonName = "OldOpt_Input_" @ %device @ "_" @ %bindFn;
+
+			if ((%binding $= "") && (%j > 0)) {
+				continue;
+			}
+
+			%content.add(
+				%box = new GuiControl(%boxName) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = 0 SPC (%row * %height);
+					extent = "400 49";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+						controlSelect = %buttonName;
+						controlUp = %lastBoxName;
+						controlName["Select"] = "Edit";
+						commandRight = "OldOptionsDlg.inputGoRight(\"" @ %boxName @ "\");";
+						commandRepeatRight = true;
+						controlOffset = "0 -4";
+						controlExtent = "400 45";
+				}
+			);
+			%lastBoxName.controlDown = %boxName;
+			%lastBoxName = %boxName;
+
+			if (%j == 0) {
+				%box.add(new GuiMLTextCtrl() {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "10 4";
+					extent = "200 30";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+						defaultText = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28>" @ %title @ ":";
+				});
+
+				%addButton = "OldOpt_Input_Add_" @ %device @ "_" @ %bindFn;
+				%box.add(new GuiBitmapButtonCtrl(%addButton) {
+					profile = "GuiDefaultrofile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "355 0";
+					extent = "43 43";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/Options/plus";
+					command = "OldOptionsDlg.addBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+						controlLeft = %buttonName;
+						controlCancel = %box;
+						commandName["Select"] = "Add";
+						commandSelect = "OldOptionsDlg.addBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+						controlName["Cancel"] = "Cancel";
+				});
+				%sideButton = %addButton;
+			} else {
+				%subButton = "OldOpt_Input_Sub_" @ %device @ "_" @ %bindFn;
+				%box.add(new GuiBitmapButtonCtrl(%subButton) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "355 0";
+					extent = "43 43";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./offline/Options/minus";
+					command = "OldOptionsDlg.removeBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+						controlLeft = %buttonName;
+						controlCancel = %box;
+						commandName["Select"] = "Remove";
+						commandSelect = "OldOptionsDlg.removeBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+						controlName["Cancel"] = "Cancel";
+				});
+				%sideButton = %subButton;
+			}
+
+			if (%j == (4 - 1)) {
+				%addButton = "OldOpt_Input_Add_" @ %device @ "_" @ getBindFunction(%function, 0);
+				%addButton.setActive(0);
+			}
+
+			%keyDevice = getField(%binding, 0);
+			%keyAction = getField(%binding, 1);
+			%actionName = getMapDisplayName(%keyDevice, %keyAction, false);
+
+			%box.add(new GuiBitmapButtonTextCtrl(%buttonName) {
+				profile = "OldGuiOptionsButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "200 0";
+				extent = "152 49";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./offline/Options/bind";
+				text = %actionName;
+				command = "OldOptionsDlg.remap(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
+
+			%row ++;
+		}
+	}
+
+	OldOptionskeyboardSpeedValue.setValue(opt_keyboardSpeed_getValue());
+	OldOptionsmouseSpeedValue.setValue(opt_mouseSpeed_getValue());
+
+	%content.setExtent(400 SPC (%row * %height));
+	OldOptionsGeneralPanel.setExtent("410 380");
+	OldOptionsPanel.pushToBack(OldOptionsGeneralPanel);
+	%this.updateControlDisplay();
+}
+
+function OldOptionsDlg::addBinding(%this, %ctrl, %name) {
+	%map = MoveMap;
+
+	for (%i = 0; %i < 4; %i ++) {
+		%bindFn = getBindFunction(%ctrl, %i);
+		%binding = %map.getBinding(%bindFn);
+		if (%binding $= "") {
+			break;
+		}
+	}
+
+	%this.remap(%bindFn, %name);
+}
+
+function OldOptionsDlg::removeBinding(%this, %ctrl, %name) {
+	%binding = MoveMap.getBinding(%ctrl);
+	MoveMap.unbind(getField(%binding, 0), getField(%binding, 1));
+	%this.generateHotkeysList();
+}
+
+function OldOptionsDlg::remap(%this, %ctrl, %name) {
+	OldOptRemapText.setText( "<just:center><font:DomCasualD:24>Press a new key or button for \"" @ %name @ "\"" );
+	OldOptRemapInputCtrl.ctrl = %ctrl;
+	OldOptRemapInputCtrl.nameText = %name;
+	OldOptRemapInputCtrl.actionMap = %name;
+	Canvas.pushDialog(OldRemapDlg);
+}
+
+function OldOptRemapInputCtrl::onInputEvent(%this, %device, %action) {
+	error("** onInputEvent called - device = " @ %device @ ", action = " @ %action @ " **");
+
+	if (%device $= "keyboard") {
+		if (%action $= "escape") {
+			Canvas.popDialog(OldRemapDlg);
+			return;
+		}
+	}
+	if (%action $= "")
+		return;
+
+	Canvas.popDialog(OldRemapDlg);
+
+	%cmd  = %this.ctrl;
+	%name = %this.nameText;
+
+	%prevMap = moveMap.getCommand(%device, %action);
+	if (findRemapCmdIndex(%prevMap) !$= findRemapCmdIndex(%cmd)) {
+		if (%prevMap $= "") {
+			moveMap.bind(%device, %action, %cmd);
+			OldOptionsDlg.onNewBinding();
+		} else {
+			%mapName = getMapDisplayName(%device, %action);
+			%prevMapIndex = findRemapCmdIndex(%prevMap);
+			if (%prevMapIndex == -1) {
+				MessageBoxOK("REMAP FAILED", "\"" @ %mapName @ "\" is already bound to a non-remappable command!", "", true);
+			} else {
+				%prevCmdName = $Options::HotKey[$pref::Input::ControlDevice, %prevMapIndex, "Title"];
+				MessageBoxYesNo("WARNING",
+					"\"" @ %mapName @ "\" is already bound to \""
+					@ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
+					"OldOptionsDlg.redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\");", "");
+			}
+			return;
+		}
+	}
+}
+
+function OldOptionsDlg::redoMapping(%this, %device, %action, %cmd) {
+	MoveMap.bind(%device, %action, %cmd);
+	%this.onNewBinding();
+}
+
+function OldOptionsDlg::onNewBinding(%this) {
+	%this.checkBindings();
+	%this.updateControlDisplay();
+	%this.generateHotkeysList();
+}
+
+function OldOptionsDlg::checkBindings(%this) {
+	%map = MoveMap;
+
+	for (%i = 0; $Options::HotKey[$pref::Input::ControlDevice, %i, "Function"] !$= ""; %i++) {
+		%function = $Options::HotKey[$pref::Input::ControlDevice, %i, "Function"];
+
+		for (%j = 0; %j < 4; %j ++) {
+			%bindFn = getBindFunction(%function, %j);
+			%binding = %map.getBinding(%bindFn);
+			if (%binding $= "") {
+				//Try to get the next one
+				for (%k = %j + 1; %k < 4; %k ++) {
+					%bindFnK = getBindFunction(%function, %k);
+					%bindingK = %map.getBinding(%bindFnK);
+					if (%bindingK !$= "") {
+						%map.bind(getField(%bindingK, 0), getField(%bindingK, 1), %bindFn);
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+function OldOptionsDlg::updateControlDisplay(%this) {
+	for (%i = 0; $Options::HotKey["Keyboard", %i, "Title"] !$= ""; %i ++) {
+		%function = $Options::HotKey["Keyboard", %i, "Function"];
+
+		%keyButton = "OldOpt_Input_Keyboard_" @ %function;
+		if (!isObject(%keyButton)) {
+			continue;
+		}
+		%keyBinding = MoveMap.getBinding(%function);
+		%keyDevice = getField(%keyBinding, 0);
+		%keyAction = getField(%keyBinding, 1);
+
+		%actionName = getMapDisplayName(%keyDevice, %keyAction, false);
+		%keyButton.setVisible($pref::Input::ControlDevice $= "Keyboard");
+		%keyButton.setText(%actionName);
+	}
+
+	%this.updateMouseSpeed();
+	%this.updateKeyboardSpeed();
+}
+
+
+function OldOptionsDlg::updateKeyboardSpeed(%this) {
+	opt_keyboardSpeed_setValue(OldOptionskeyboardSpeedValue.getFormattedValue());
+	OldOptionskeyboardSpeedDisplay.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:right>" @ OldOptionskeyboardSpeedValue.getFormattedValue(5, 95));
+}
+
+function OldOptionsDlg::updateMouseSpeed(%this) {
+	opt_mouseSpeed_setValue(OldOptionsmouseSpeedValue.getFormattedValue());
+	OldOptionsmouseSpeedDisplay.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:28><just:right>" @ OldOptionsmouseSpeedValue.getFormattedValue(5, 95));
+}
+
+function OldOpt_musicVolume_getDisplay() {
+	%value = Opt_musicVolume_getValue();
+	OldOptionsmusicVolumeDisplay.setExtent((%value == 100 ? 60 : 46) SPC getWord(OldOptionsmusicVolumeDisplay.getExtent(), 1));
+	if (%value < 10) {
+		return "0%";
+	}
+	return mRound(%value) @ "%";
+}
+
+function OldOpt_soundVolume_getDisplay() {
+	%value = Opt_soundVolume_getValue();
+	OldOptionssoundVolumeDisplay.setExtent((%value == 100 ? 60 : 46) SPC getWord(OldOptionssoundVolumeDisplay.getExtent(), 1));
+	if (%value < 10) {
+		return "0%";
+	}
+	return mRound(%value) @ "%";
+}
+
+//TODO: The command to validate this option normally is hardcoded
+function OldOptionsDlg::serverPort_validate(%this, %value) {
+	%clamped = mClamp(%value, 1024, 65535);
+	OldOptionsserverPortValue.setValue(%clamped);
+}

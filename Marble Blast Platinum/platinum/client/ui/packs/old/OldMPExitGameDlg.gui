@@ -1,0 +1,336 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(OldMPExitGameDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "~/client/ui/exit/black";
+	wrap = "0";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "226 175";
+		extent = "347 250";
+		minExtent = "48 92";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "./multiplayer/team/teamjoin.png";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldMPExitRestart1) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "133 80";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMPExitGameDlg); commandToServer(\'RestartLevel\');";
+			helpTag = "0";
+			text = "Quick Restart";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/exit/partial";
+				simpleStyle = "0";
+				oldtooltip = "Restarts the game to the Ready, Set, Go sequence";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitDisconnect) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "22 132";
+			extent = "114 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMPExitGameDlg); OldMPExitGameDlg.exit();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Disconnect";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/exit/disconnect";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitReturn) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "133 132";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMPExitGameDlg); resumeGame();";
+			accelerator = "escape";
+			helpTag = "0";
+			text = "Return to Game";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/exit/resume";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitServer) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "195 184";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPServerDlg.open();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/play/settings";
+				oldtooltip = "Server Settings";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitKickUsers) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "279 184";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPUserKickDlg.show();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/play/kick";
+				oldtooltip = "Kick/Ban Players";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitQuickspawn) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "224 132";
+			extent = "104 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMPExitGameDlg); resumeGame(); forceRespawn(true); schedule(100, 0, forceRespawn, false);";
+			helpTag = "0";
+			text = "Quickspawn";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/exit/respawn";
+				simpleStyle = "0";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitRestart2) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "224 80";
+			extent = "104 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.PopDialog(OldMPExitGameDlg); commandToServer(\'LobbyRestart\');";
+			helpTag = "0";
+			text = "Slow Restart";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/exit/complete";
+				simpleStyle = "0";
+				oldtooltip = "Restarts the game to the pre-game \"ready\" screen";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitTeams) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "108 184";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPTeamSelectDlg.open();";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/play/teaminfo";
+				oldtooltip = "Team Information";
+		};
+		new GuiBitmapButtonCtrl(OldMPExitMarbles) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "25 184";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "Canvas.pushDialog(OldLBMarbleSelectionDlg);";
+			helpTag = "0";
+			text = "";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/play/marble";
+				oldtooltip = "Marble Select";
+		};
+		new GuiMLTextCtrl(OldMPExitTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "8 28";
+			extent = "331 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPExitRestartTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "20 88";
+			extent = "114 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+	};
+	new GuiBitmapButtonCtrl(OldMPExitJukebox) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "599 372";
+		extent = "187 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "Canvas.pushDialog(OldJukeboxDlg);";
+		helpTag = "0";
+		text = "Jukebox";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+		bitmap = "./offline/exit/jb_pausemenu";
+	};
+
+	new GuiBitmapButtonCtrl(OldMPExitOptions) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "top";
+		position = "14 372";
+		extent = "187 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "OldOptionsDlg.show(true);";
+		helpTag = "0";
+		text = "Options";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+		bitmap = "./offline/exit/options";
+	};
+
+	new GuiBitmapButtonCtrl(OldMPExitJukeboxOld) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "599 523";
+		extent = "187 65";
+		minExtent = "8 8";
+		visible = "0";
+		command = "Canvas.pushDialog(OldJukeboxDlg);";
+		helpTag = "0";
+		text = "button";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+		bitmap = "./offline/exit/jb_pausemenu";
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPExitGameDlg::onWake(%this) {
+	// if (MoveMap.isPushed())
+	// 	$Game::DoPushMoveMap = true;
+	// MoveMap.pop();
+	OldMPExitKickUsers.setActive($Server::Hosting);
+	OldMPExitTeams.setActive($MP::TeamMode);
+	OldMPExitServer.setActive($Server::Hosting);
+	OldMPExitRestart1.setActive($Server::Hosting);
+	OldMPExitRestart2.setActive($Server::Hosting);
+	OldMPExitTitle.setValue("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:38><color:ffffff><just:center>Ingame Options");
+	OldMPExitRestartTitle.setValue("<shadowcolor:0000007f><shadow:1:1><font:Marker Felt:32><color:ffffff><just:center>Restart:");
+	$exit2 = false;
+
+	OldMPExitDisconnect.setBitmap("platinum/client/ui/packs/old/multiplayer/exit/" @ ($Server::Hosting ? "levelselect" : "disconnect"));
+
+	%this.updateButtons();
+}
+
+
+function OldMPExitGameDlg::onSleep(%this) {
+	// if ($Game::DoPushMoveMap) {
+	// 	MoveMap.push();
+	// 	$Game::DoPushMoveMap = false;
+	// }
+}
+
+function OldMPExitGameDlg::exit(%this) {
+	if ($exit2 || !$Server::Hosting) {
+		disconnect();
+	} else {
+		$exit2 = true;
+		commandToServer('LobbyReturn');
+	}
+}
+
+function OldMPExitGameDlg::updateButtons(%this) {
+	OldMPExitOptions.setVisible($pref::OldGui::NewMPExitGame);
+	OldMPExitJukebox.setVisible($pref::OldGui::NewMPExitGame);
+	OldMPExitJukeboxOld.setVisible(!$pref::OldGui::NewMPExitGame);
+}

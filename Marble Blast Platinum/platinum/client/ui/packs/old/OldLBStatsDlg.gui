@@ -1,0 +1,239 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(OldLBStatsDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "3 3";
+		extent = "634 473";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "113 9";
+			extent = "407 454";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./leaderboards/misc/statistics";
+			wrap = "0";
+
+			new GuiMLTextCtrl(OldLBStatsInfo) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "20 19";
+				extent = "366 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl() {
+				profile = "GuiButtonProfile";
+				horizSizing = "center";
+				vertSizing = "top";
+				position = "156 384";
+				extent = "95 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "Canvas.PopDialog(OldLBStatsDlg);";
+				helpTag = "0";
+				text = "ok";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/achiev/close";
+			};
+			new GuiBitmapButtonCtrl(OldLBStatsNext) {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "251 384";
+				extent = "73 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBStatsDlg.next();";
+				helpTag = "0";
+				text = "ok";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./leaderboards/play/next";
+			};
+			new GuiBitmapButtonCtrl(OldLBStatsPrev) {
+				profile = "GuiButtonProfile";
+				horizSizing = "right";
+				vertSizing = "top";
+				position = "83 384";
+				extent = "73 45";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldLBStatsDlg.prev();";
+				helpTag = "0";
+				text = "ok";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "./multiplayer/play/prev";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldLBStatsDlg::show(%this, %user) {
+	if (%user $= "")
+		%user = $LB::Username;
+	%this.user = %user;
+	%this.categoryNum = 1;
+	%this.selectCategory("General");
+	statsGetPlayerStats(%user);
+	Canvas.pushDialog(%this);
+	OldLBStatsPrev.setActive(%this.categoryNum != 1);
+	OldLBStatsNext.setActive(%this.categoryNum != 6);
+}
+
+function OldLBStatsDlg::prev(%this) {
+	%this.categoryNum --;
+	switch (%this.categoryNum) {
+		case 1: %this.selectCategory("General");
+		case 2: %this.selectCategory("Gold");
+		case 3: %this.selectCategory("Platinum");
+		case 4: %this.selectCategory("Ultra");
+		case 5: %this.selectCategory("PlatinumQuest");
+		case 6: %this.selectCategory("Custom");
+	}
+}
+
+function OldLBStatsDlg::next(%this) {
+	%this.categoryNum ++;
+	switch (%this.categoryNum) {
+		case 1: %this.selectCategory("General");
+		case 2: %this.selectCategory("Gold");
+		case 3: %this.selectCategory("Platinum");
+		case 4: %this.selectCategory("Ultra");
+		case 5: %this.selectCategory("PlatinumQuest");
+		case 6: %this.selectCategory("Custom");
+	}
+}
+
+function OldLBStatsDlg::selectCategory(%this, %category) {
+	%this.category = %category;
+	%this.update();
+}
+
+function OldLBStatsDlg::update(%this) {
+	OldLBStatsPrev.setActive(%this.categoryNum != 1);
+	OldLBStatsNext.setActive(%this.categoryNum != 6);
+	%stats = LBStatsDlg.stats[%this.user];
+	if (!isObject(%stats)) {
+		OldLBStatsInfo.setText("<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>Loading...");
+		return;
+	}
+
+	%text = "<shadow:1:1><shadowcolor:0000007f><color:ffffff><font:Marker Felt:24><just:center>" @ (%this.user $= $LB::Username ? "My Statistics" : %stats.display @ "'s Statistics") SPC "(Page" SPC %this.categoryNum @ ")";
+	if (%this.category $= "General") {
+		%text = %text NL "<just:center><font:Marker Felt:24>General Statistics";
+		%text = %text @ "<font:Marker Felt:18>\n";
+		%text = %text NL "<just:left>Total Rating: <just:right>" @ formatScore(%stats.general.rating);
+		%text = %text NL "<just:left>Overall Ranking: <just:right>" @ formatScore(%stats.general.rank);
+		%text = %text NL "<just:left>Total Time Travel: <just:right>" @ formatTimeHoursMs(%stats.general.total_bonus);
+		%text = %text NL "<just:left>Total Time: <just:right>" @ formatTimeHoursMs(%stats.general.total_time);
+		%text = %text NL "<just:left>Grand Total: <just:right>" @ formatTimeHoursMs(%stats.general.grand_total);
+	} else {
+		%gameId = %stats.gameIds.getFieldValue(%this.category);
+		%game = %stats.games.getFieldValue(%gameId);
+
+		%text = %text NL "<shadow:1:1><shadowcolor:0000007f><color:ffffff><just:center><font:Marker Felt:24>" @ %game.display @ " Statistics<font:Marker Felt:18>";
+
+		for (%i = 0; %i < %game.difficulties.getSize(); %i ++) {
+			%difficulty = %game.difficulties.getEntry(%i);
+			%percent = mFloor(100 * (%difficulty.completion / %difficulty.total_missions)) @ "%";
+			%text = %text NL "<just:left>" @ %difficulty.display @ " Levels: <just:right>"
+				@ %difficulty.completion @ " / " @ %difficulty.total_missions @ " (" @ %percent;
+			if (%difficulty.completion == %difficulty.total_missions) {
+				%text = %text @ " in " @ formatTimeHoursMs(%difficulty.total_time) @ ")";
+			} else {
+				%text = %text @ ")";
+			}
+		}
+		%percent = mFloor(100 * (%game.completion.completion / %game.totals.total_missions)) @ "%";
+		%text = %text NL "<just:left>Total Levels: <just:right>"
+			@ %game.completion.completion @ " / " @ %game.totals.total_missions @ " (" @ %percent;
+		if (%game.completion.completion == %game.totals.total_missions) {
+			%text = %text @ " in " @ formatTimeHoursMs(%game.completion.total_time) @ ")";
+		} else {
+			%text = %text @ ")";
+		}
+		%text = %text NL "<just:left>";
+
+		if (%game.has_platinum_times) {
+			%percent = mFloor(100 * (%game.completion.platinum_count / %game.totals.total_platinums)) @ "%";
+			%text = %text NL "<just:left>Total " @ %game.platinum_time_name @ "s: <just:right>"
+				@ mFloor(%game.completion.platinum_count) @ " / " @ mFloor(%game.totals.total_platinums) @ " (" @ %percent @ ")";
+		}
+		if (%game.has_ultimate_times) {
+			%percent = mFloor(100 * (%game.completion.ultimate_count / %game.totals.total_ultimates)) @ "%";
+			%text = %text NL "<just:left>Total " @ %game.ultimate_time_name @ "s: <just:right>"
+				@ mFloor(%game.completion.ultimate_count) @ " / " @ mFloor(%game.totals.total_ultimates) @ " (" @ %percent @ ")";
+		}
+		if (%game.has_awesome_times && (%game.completion.awesome_count > 0) && $pref::ShowAwesomeHints) {
+			%percent = mFloor(100 * (%game.completion.awesome_count / %game.totals.total_awesomes)) @ "%";
+			%text = %text NL "<just:left>Total " @ %game.awesome_time_name @ "s: <just:right>"
+				@ mFloor(%game.completion.awesome_count) @ " / " @ mFloor(%game.totals.total_awesomes) @ " (" @ %percent @ ")";
+		}
+		if (%game.has_easter_eggs) {
+			%percent = mFloor(100 * (%game.completion.egg_count / %game.totals.total_eggs)) @ "%";
+			%text = %text NL "<just:left>Total " @ %game.easter_egg_name @ "s: <just:right>"
+				@ mFloor(%game.completion.egg_count) @ " / " @ mFloor(%game.totals.total_eggs) @ " (" @ %percent @ ")";
+		}
+		%text = %text NL "<just:left>Total Rating: <just:right>" @ formatScore(%game.rating) @ " (Ranked #" @ formatScore(%game.rank) @ ")";
+	}
+
+	OldLBStatsInfo.setText(%text);
+}
+
+function OldLBStatsDlg::onPlayerStatsUpdate(%this, %parsed) {
+	%this.update();
+}

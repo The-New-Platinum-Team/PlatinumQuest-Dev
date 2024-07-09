@@ -1,0 +1,634 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2024 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(OldMPCoopEndGameDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "~/client/ui/exit/black";
+	wrap = "0";
+		_guiSize = "800 600";
+
+	new GuiBitmapCtrl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "center";
+		position = "747 201";
+		extent = "53 198";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "~/client/ui/mp/end/window";
+		wrap = "0";
+
+		new GuiBitmapButtonCtrl(OldMPCEndGameLobby) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "6 99";
+			extent = "49 49";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPCoopEndGameDlg.lobby();";
+			helpTag = "0";
+			text = "LOBBY";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "~/client/ui/mp/end/lobby";
+				tooltip = "Return to Lobby";
+		};
+		new GuiBitmapButtonCtrl(OldMPCEndGameRestart) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "6 7";
+			extent = "49 49";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPCoopEndGameDlg.restart();";
+			helpTag = "0";
+			text = "RESTART";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "~/client/ui/mp/end/restart";
+				tooltip = "Restart Level";
+		};
+		new GuiBitmapButtonCtrl(OldMPCEndGameRate) {
+			profile = "GuiButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "6 145";
+			extent = "49 49";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPCoopEndGameDlg.showRate();";
+			helpTag = "0";
+			text = "RATE";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "./multiplayer/end/rate";
+				oldtooltip = "Rate Level";
+		};
+		new GuiBitmapButtonCtrl(OldMPCEndGameContinue) {
+			profile = "GuiButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "6 53";
+			extent = "49 49";
+			minExtent = "8 8";
+			visible = "1";
+			command = "OldMPCoopEndGameDlg.cont();";
+			helpTag = "0";
+			text = "CONTINUE";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "~/client/ui/mp/end/continue";
+				tooltip = "Return to Lobby";
+		};
+	};
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "25 0";
+		extent = "750 600";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiMLTextCtrl(OldMPCEndGame_Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 15";
+			extent = "750 50";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPCEndGame_Time) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 65";
+			extent = "750 44";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPCEndGame_ChallengeTimes) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 115";
+			extent = "750 34";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(OldMPCEndGame_Rank) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 535";
+			extent = "750 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiScrollCtrl() {
+			profile = "OldGuiWhiteBacklessScrollProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 160";
+			extent = "750 290";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			willFirstRespond = "1";
+			hScrollBar = "dynamic";
+			vScrollBar = "alwaysOff";
+			constantThumbHeight = "0";
+			childMargin = "0 0";
+
+			new GuiControl(OldMPCEndGame_Scroll) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "0 0";
+				extent = "750 270";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+		};
+		new GuiControl(OldMPCRateContainer) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "225 450";
+			extent = "300 100";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiMLTextCtrl(OldMPCEndRateTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "0 56";
+				extent = "300 25";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+			new GuiBitmapButtonCtrl(OldMPCEndRateNegative) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "40 0";
+				extent = "60 60";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPCoopEndGameDlg.rate(-1);";
+				helpTag = "0";
+				text = "Dislike";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "~/client/ui/mp/end/rate-negative";
+			};
+			new GuiBitmapButtonCtrl(OldMPCEndRateNeutral) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "120 0";
+				extent = "60 60";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPCoopEndGameDlg.rate(0);";
+				helpTag = "0";
+				text = "Indifferent";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "~/client/ui/mp/end/rate-neutral";
+			};
+			new GuiBitmapButtonCtrl(OldMPCEndRatePositive) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "200 0";
+				extent = "60 60";
+				minExtent = "8 8";
+				visible = "1";
+				command = "OldMPCoopEndGameDlg.rate(1);";
+				helpTag = "0";
+				text = "Like";
+				groupNum = "1";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+				bitmap = "~/client/ui/mp/end/rate-positive";
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function OldMPCoopEndGameDlg::onWake(%this) {
+	disableChatHUD();
+
+	%time = $Game::ScoreTime;
+	%timeColor = "ffffff";
+
+	%scoreVals = $Game::FinalScore;
+	%flags = Unlock::getMissionScoreFlags(MissionInfo, %scoreVals);
+
+	%type = getField(%scoreVals, 0);
+	%score = getField(%scoreVals, 1);
+	%name = (%type $= $ScoreType::Time) ? "Time" : "Score";
+
+	%color = getScoreFormatting(%scoreVals, MissionInfo);
+	%formatted = %color @ (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score));
+
+	%text = "<font:Expo:50><color:ffffff><just:center><shadowcolor:0000007f><shadow:1:1>";
+
+	if ($Cheats::Activated) {
+		%text = %text @ "Nice Cheats!";
+	} else if ($Editor::Opened) {
+		%text = %text @ "<color:00cc00><shadow:1:1><shadowcolor:0000007f>Level Editor Opened";
+	} else {
+		if (%flags & $Completion::Awesome) {
+			%text = %text @ "Who's Awesome? <spush><color:FF3333><shadowcolor:AA22227F>You're<spop> Awesome!";
+		} else if (%flags & $Completion::Ultimate) {
+			%text = %text @ "You beat the <spush><color:FFCC33><shadowcolor:0000007F>Ultimate<spop> " @ %name @ "!";
+		} else if (%flags & $Completion::Platinum) {
+			%text = %text @ "You beat the <spush><color:CCCCCC><shadowcolor:0000007F>Platinum<spop> " @ %name @ "!";
+		} else if (%flags & $Completion::Gold) {
+			%text = %text @ "You beat the <spush><color:FFEE11><shadowcolor:0000007F>Gold<spop> " @ %name @ "!";
+		} else if (%flags & $Completion::Par) {
+			%text = %text @ "You passed the level!";
+		} else {
+			%text = %text @ "<color:f55555><shadowcolor:800000>You didn\'t pass the level!";
+		}
+	}
+	OldMPCEndGame_Title.setText(%text);
+
+	OldMPCEndGame_Time.setText("<font:DomCasualD:42><color:ffffff><just:center>" @ shadow("1 1", "0000007f") @
+	                        "Your " @ %name @ ": <color:" @ %timeColor @ ">" @ %formatted);
+
+
+	%goldTimeLabel     = (MissionInfo.goldTime     !$= "" ? formatTime(MissionInfo.goldTime)     : "");
+	%platinumTimeLabel = (MissionInfo.platinumTime !$= "" ? formatTime(MissionInfo.platinumTime) : "");
+	%ultimateTimeLabel = (MissionInfo.ultimateTime !$= "" ? formatTime(MissionInfo.ultimateTime) : "");
+	%goldScoreLabel     = (MissionInfo.goldScore     !$= "" ? formatScore(MissionInfo.goldScore)     : "");
+	%platinumScoreLabel = (MissionInfo.platinumScore !$= "" ? formatScore(MissionInfo.platinumScore) : "");
+	%ultimateScoreLabel = (MissionInfo.ultimateScore !$= "" ? formatScore(MissionInfo.ultimateScore) : "");
+
+	%goldType     = (%goldTimeLabel     $= "" ? (%goldScoreLabel     $= "" ? %name : "Score") : "Time");
+	%platinumType = (%platinumTimeLabel $= "" ? (%platinumScoreLabel $= "" ? %name : "Score") : "Time");
+	%ultimateType = (%ultimateTimeLabel $= "" ? (%ultimateScoreLabel $= "" ? %name : "Score") : "Time");
+
+	%goldLabel     = ((%goldType     $= "Score") ? %goldScoreLabel     : %goldTimeLabel);
+	%platinumLabel = ((%platinumType $= "Score") ? %platinumScoreLabel : %platinumTimeLabel);
+	%ultimateLabel = ((%ultimateType $= "Score") ? %ultimateScoreLabel : %ultimateTimeLabel);
+
+	%goldTitle     = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum"; 
+	%platinumTitle = "<shadow:1:1><shadowcolor:0000007f><color:CCCCCC>Platinum";
+	%ultimateTitle = "<shadow:1:1><shadowcolor:0000007f><color:FFCC33>Ultimate";
+
+	%text = "";
+	if (%goldTitle     !$= "" && %goldLabel     !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %goldTitle     SPC %goldType     @ ": " @ %goldLabel     @ "<spop>";
+	if (%platinumTitle !$= "" && %platinumLabel !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %platinumTitle SPC %platinumType @ ": " @ %platinumLabel @ "<spop>";
+	if (%ultimateTitle !$= "" && %ultimateLabel !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %ultimateTitle SPC %ultimateType @ ": " @ %ultimateLabel @ "<spop>";
+	%text = "<<font:DomCasualD:32><color:ffffff><just:center>" @ shadow("1 1", "0000007f") @ %text;
+
+	OldMPCEndGame_ChallengeTimes.setText(%text);
+
+	%this.populate();
+	%this.updateActive();
+	%this.updateRating();
+	%this.force = false;
+
+	OldMPCRateContainer.setVisible(0);
+}
+
+function OldMPCoopEndGameDlg::updateActive(%this) {
+	OldMPCEndGameRestart.setActive($Server::Hosting);
+	OldMPCEndGameLobby.setBitmap("platinum/client/ui/packs/old/multiplayer/end/" @ ($Server::Hosting ? "lobby" : "exit"));
+	OldMPCEndGameNext.setActive($Server::Hosting);
+}
+
+function OldMPCoopEndGameDlg::cont(%this) {
+	%pmg = $PMG::CurrentGui;
+
+	%list = $PMG::CurrentGui.getMissionList();
+	%attempts = 0;
+	%pmSelectedIndex = $PMG::CurrentGui.missionIndex;
+	%currentMissionType = $MissionType;
+	while (%attempts < 10000) {
+		%attempts++;
+		%ml = %list.getMissionList($CurrentGame, %currentMissionType);
+		%pmSelectedIndex ++;
+
+		if (%pmSelectedIndex >= %ml.getSize()) {
+			%diffs = %list.getDifficultyList($CurrentGame);
+			for (%i = 0; %i < getRecordCount(%diffs); %i ++) {
+				%record = getRecord(%diffs, %i);
+				if (getField(%record, 0) $= %currentMissionType) {
+					%found = true;
+					break;
+				}
+			}
+			if (!%found) {
+				return;
+			}
+			%next = getField(getRecord(%diffs, %i + 1), 0);
+			if (%next $= "") {
+				return;
+			}
+			%currentMissionType = %next;
+			%pmSelectedIndex = 0;
+			%ml = %list.getMissionList($CurrentGame, %currentMissionType);
+			if (!isObject(%ml)) {
+				%list.buildMissionList($CurrentGame, %currentMissionType);
+				%ml = %list.getMissionList($CurrentGame, %currentMissionType);	
+			}
+		}
+
+		%mission = %ml.getEntry(%pmSelectedIndex);
+		if (Unlock::canDisplayMission(%mission) && Unlock::canPlayMission(%mission))
+			break;
+	}
+	devecho("Next: Final choice is " @ %mission.name);
+	if (isObject(%mission)) {
+		$PMG::CurrentGui.setMissionTab($CurrentGame, %currentMissionType, %pmSelectedIndex, true);
+		%file = %mission.file;
+		commandToServer('LoadMission', %file);
+	}
+}
+
+function OldMPCoopEndGameDlg::lobby(%this) {
+	if ($Server::Hosting && !%this.force) {
+		%this.force = true;
+		commandToServer('LobbyReturn');
+		OldMPCEndGameLobby.schedule(500, setBitmap, "platinum/client/ui/packs/old/multiplayer/end/exit");
+	} else {
+		disconnect();
+		Canvas.setContent(OldLBChatGui);
+	}
+}
+
+function OldMPCoopEndGameDlg::restart(%this) {
+	commandToServer('LobbyRestart');
+}
+
+function OldMPCoopEndGameDlg::showRate(%this) {
+	OldMPCRateContainer.setVisible(1);
+}
+
+function OldMPCoopEndGameDlg::populate(%this) {
+	%this.clearPlayers();
+	if ($MP::TeamMode) {
+		%count = TeamScorePlayerList.getSize();
+		for (%i = 0; %i < %count; %i ++) {
+			%player = getRecord(TeamScorePlayerList.getEntry(%i), 1);
+			%score  = getRecord(TeamScorePlayerList.getEntry(%i), 2);
+			%index  = getRecord(TeamScorePlayerList.getEntry(%i), 3);
+			%marble = getRecord(TeamScorePlayerList.getEntry(%i), 4);
+			%bonus  = getRecord(TeamScorePlayerList.getEntry(%i), 6);
+
+			%this.addPlayer(%i, %count, %player, %score, %bonus, %marble, %index);
+		}
+	} else {
+		%count = ScoreList.getSize();
+		for (%i = 0; %i < %count; %i ++) {
+			%player = ScoreList.getEntry(%i).name;
+			%score  = ScoreList.getEntry(%i).score;
+			%index  = ScoreList.getEntry(%i).index;
+			%marble = ScoreList.getEntry(%i).skin;
+			%bonus  = ScoreList.getEntry(%i).bonus;
+
+			%this.addPlayer(%i, %count, %player, %score, %bonus, %marble, %index);
+		}
+	}
+}
+
+function OldMPCoopEndGameDlg::clearPlayers(%this) {
+	OldMPCEndGame_Scroll.clear();
+}
+
+function OldMPCoopEndGameDlg::addPlayer(%this, %idx, %count, %name, %gems, %tts, %marble, %index) {
+	%boxName    = "OldMPCEndGame_Player" @ %idx;
+	%nameName   = "OldMPCEndGame_PlayerName" @ %idx;
+	%gemsName   = "OldMPCEndGame_PlayerGems" @ %idx;
+	%ttsName    = "OldMPCEndGame_PlayerTTs" @ %idx;
+	%marbleName = "OldMPCEndGame_PlayerMarble" @ %idx;
+
+	switch (%count) {
+	case 1:
+		%width = 750;
+		%spacing = 750;
+	case 2:
+		%width = 350;
+		%spacing = 375;
+	case 3:
+		%width = 250;
+		%spacing = 250;
+	case 4:
+		%width = 180;
+		%spacing = 187;
+	default:
+		%width = 180;
+		%spacing = 187;
+	}
+
+	%position = (%idx * %spacing) SPC 0;
+	%extent = %width SPC 270;
+
+	%marblePos = ((%width / 2) - 50) SPC 40;
+
+	OldMPCEndGame_Scroll.setExtent(max(750, (%idx + 1) * %spacing) SPC 270);
+	OldMPCEndGame_Scroll.add(
+	new GuiControl(%boxName) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = %position;
+		extent = %extent;
+		visible = "1";
+
+		new GuiMLTextCtrl(%nameName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 0";
+			extent = %width SPC 14;
+			visible = "1";
+		};
+		new GuiObjectView(%marbleName) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = %marblePos;
+			extent = "100 100";
+			visible = "1";
+			cameraZRot = "0";
+			forceFOV = "0";
+			model = $usermods @ "/data/shapes/balls/ball-superball.dts";
+			skin = "base";
+			cameraRotX = "0";
+			cameraZRotSpeed = "0.001";
+			orbitDistance = "0.75";
+			autoSize = "0";
+		};
+		new GuiObjectView() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "0 140";
+			extent = "64 64";
+			visible = "1";
+			cameraZRot = "0";
+			forceFOV = "0";
+			model = "~/data/shapes/items/gem.dts";
+			skin = "base";
+			cameraRotX = "0";
+			cameraZRotSpeed = "0.001";
+			orbitDistance = "1";
+			autoSize = "0";
+		};
+		new GuiObjectView() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "0 200";
+			extent = "64 64";
+			visible = "1";
+			cameraZRot = "0";
+			forceFOV = "0";
+			model = "~/data/shapes/items/timetravel.dts";
+			skin = "base";
+			cameraRotX = "0";
+			cameraZRotSpeed = "0.001";
+			orbitDistance = "1.5";
+			autoSize = "0";
+		};
+		new GuiMLTextCtrl(%gemsName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "64 150";
+			extent = (%width - 64) SPC 14;
+			visible = "1";
+		};
+		new GuiMLTextCtrl(%ttsName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "64 214";
+			extent = (%width - 64) SPC 14;
+			visible = "1";
+		};
+	}
+	);
+
+	echo(%name SPC %gems SPC %tts SPC %marble);
+
+	%nameColor = (%index == $Game::FinisherIndex ? "<color:66BBFF>" : "<color:ffffff>");
+
+	%nameName.setText("<font:DomCasualD:36><color:ffffff>" @ %nameColor @ "<just:center>" @ shadow("1 1", "0000007f") @ LBResolveName(%name, true));
+	%gemsName.setText("<font:DomCasualD:28><color:ffffff><just:right>" @ shadow("1 1", "0000007f") @ %gems);
+	%ttsName.setText("<font:DomCasualD:28><color:ffffff><just:right>" @ shadow("1 1", "0000007f") @ formatTime(%tts));
+
+	%shape = getField(%marble, 0);
+	%skin  = getField(%marble, 1);
+	if (!isFile(%shape)) {
+		%shape = $usermods @ "/data/shapes/balls/ball-superball.dts";
+		%skin = "base";
+	}
+	%marbleName.setModel(%shape, %skin);
+
+	%marbleName.model   = %shape;
+	%marbleName.skin    = %skin;
+}
+
+function OldMPCoopEndGameDlg::updateRating(%this) {
+	OldMPCEndRateTitle.setText("<just:center><color:ffffff><font:DomCasualD:24>Rate This Level");
+
+	%level = fileBase($Client::MissionFile);
+	%choice = $MPPref::LevelRating[%level];
+
+	if (%choice $= "") {
+		OldMPCEndRateNegative.setValue(0);
+		OldMPCEndRateNeutral.setValue(0);
+		OldMPCEndRatePositive.setValue(0);
+	} else {
+		switch (%choice) {
+		case -1:
+			OldMPCEndRateNegative.setValue(1);
+		case  0:
+			OldMPCEndRateNeutral.setValue(1);
+		case  1:
+			OldMPCEndRatePositive.setValue(1);
+		}
+	}
+}
+
+function OldMPCoopEndGameDlg::rate(%this, %choice) {
+	statsRateMission($PMG::CurrentGui.mission, %choice);
+
+	$MPPref::LevelRating[%level] = %choice;
+	OldMPCEndRateTitle.setText("<just:center><color:ffffff><font:DomCasualD:24>Rating sent!");
+}
