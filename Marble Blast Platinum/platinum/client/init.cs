@@ -127,7 +127,6 @@ function initClient() {
 	exec("./ui/remapDlg.gui");
 	exec("./ui/ExitGameDlg.gui");
 	exec("./ui/MiniShotGui.gui");
-	exec("./ui/ManualGui.gui"); //Unused but exists still
 
 	// GUIs
 	exec("./ui/MarbleSelectDlg.gui");
@@ -142,7 +141,6 @@ function initClient() {
 	exec("./ui/SearchDlg.gui");
 	exec("./ui/VersionDlg.gui");
 	exec("./ui/JukeboxDlg.gui");
-	exec("./ui/RenameFileDlg.gui");
 	exec("./ui/ExtendedHelpDlg.gui");
 	exec("./ui/HintsDlg.gui");
 	exec("./ui/EditorOrNewDlg.gui");
