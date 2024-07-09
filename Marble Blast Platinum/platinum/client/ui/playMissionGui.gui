@@ -1655,6 +1655,9 @@ function PlayMissionGui::setGame(%this, %game) {
 		PM_GameSelector.setText(clipPx($DefaultFont["Bold"], 26, %type, 140, true) @ "   ");
 	}
 
+	if (%this.oldCurrentGame $= "")
+		%this.oldCurrentGame = $CurrentGame;
+
 	$CurrentGame = %game;
 	%mode = %this.ml.getGameMode(%game);
 
@@ -1710,6 +1713,9 @@ function PlayMissionGui::setMissionType(%this, %type) {
 		//Unknown difficulty?? Just display the identifier I guess
 		PM_DifficultySelector.setText(clipPx($DefaultFont["Bold"], 26, %type, 140, true) @ "   ");
 	}
+
+	if (%this.oldMissionType $= "")
+		%this.oldMissionType = $MissionType;
 
 	$MissionType = %type;
 
@@ -1815,7 +1821,10 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 	//Update the mission info
 	%this.updateMissionInfo();
 
-	menuSetMission(%file);
+	%this.oldCurrentGame = "";
+	%this.oldMissionType = "";
+
+		menuSetMission(%file);
 }
 
 //-----------------------------------------------------------------------------
@@ -2686,6 +2695,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 
 			%index = (%vs ? 0 : 1);
+			%this.scoreType = %vs;
 
 			//The MP indexed scores override any previously set scores. But don't override
 			// unless we actually have one.
@@ -3015,9 +3025,6 @@ function PlayMissionGui::onTick(%this, %delta) {
 		%mission = %content.mission;
 		%button = %content.button;
 
-		%name = %mission.name;
-		%length = textLen(%name, $DefaultFont, 28);
-
 		%pos = %button.getAbsolutePosition();
 
 		if (%this.lastHover !$= %button.hover) {
@@ -3125,6 +3132,19 @@ function PlayMissionGui::onLoadProgress(%this, %progress) {
 function PlayMissionGui::play(%this) {
 	if ($Menu::Loading)
 		return;
+
+	if (%this.oldCurrentGame !$= "") {
+		%this.setGame(%this.oldCurrentGame);
+		%this.oldCurrentGame = "";
+		%update = true;
+	}
+	if (%this.oldMissionType !$= "") {
+		%this.setMissionType(%this.oldMissionType);
+		%this.oldMissionType = "";
+		%update = true;
+	}
+	if (%update)
+		%this.showMissionList();
 
 	if (mp()) {
 		%this.updateMPButtons();
@@ -4075,6 +4095,14 @@ function PlayMissionGui::updateChatPanel(%this, %toggled) {
 	%lb = %this.chatPanel $= "global";
 	%mp = %this.chatPanel $= "server";
 	%team = %this.chatPanel $= "team";
+
+	if (%team && !$MP::TeamMode) {
+		%this.chatPanel = "server";
+		PM_ChatEntry.setValue("");
+		PG_LBChatEntry.setValue("");
+		%team = false;
+		%mp = true;
+	}
 
 	PM_LBChatBox.setVisible(%lb);
 	PM_LBUserlistBox.setVisible(%lb);

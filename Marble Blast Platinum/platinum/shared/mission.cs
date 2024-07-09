@@ -317,6 +317,9 @@ function getMissionInfo(%file, %partial) {
 	$Mission::Info[%origfile] = %info;
 
 	//Update these
+	%info.game = "";
+	%info.type = "";
+	%info.modification = "";
 	%info.game = resolveMissionGame(%info);
 	%info.type = resolveMissionType(%info);
 	%info.modification = resolveMissionModification(%info);
@@ -702,6 +705,7 @@ function resolveMissionModification(%mission) {
 		if (strpos(%interior, "mbp_") != -1) return "Platinum";
 		if (strpos(%interior, "interiors_mbp") != -1) return "Platinum";
 		if (strpos(%interior, "interiors_mbu") != -1) return "Ultra";
+		if (strpos(%interior, "multiplayer") != -1) return "Platinum";
 		if (strpos(%interior, "fubargame") != -1) return "Fubar";
 	}
 

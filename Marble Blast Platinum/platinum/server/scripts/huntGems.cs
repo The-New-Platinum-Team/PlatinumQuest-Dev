@@ -66,7 +66,7 @@ function spawnHuntGemGroup(%exclude) {
 		return;
 	if ($playingDemo)
 		return;
-	if ($Game::isMode["snowball"] && $MPPref::SnowballsOnly) {
+	if ($Game::isMode["snowball"] && $MP::Server::SnowballsOnly) {
 		hideGems();
 		return;
 	}

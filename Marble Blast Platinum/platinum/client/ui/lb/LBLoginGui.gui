@@ -287,12 +287,10 @@ function LBLoginGui::enableLogin(%this) {
 	%enable = false;
 	if (%username !$= "" && %password !$= "")
 		%enable = true;
-	LBLoginButton.setActive(%enable && %this.online);
-	LBLoginGuest.setActive(%this.online);
-	LBLoginCreate.setActive(%this.online && !%this.checking);
 
-	LBLoginButton.setActive(!%this.checking && %this.online);
+	LBLoginButton.setActive(%enable && !%this.checking && %this.online);
 	LBLoginGuest.setActive(!%this.checking && %this.online);
+	LBLoginCreate.setActive(%this.online && !%this.checking);
 
 	%message = "Unknown Status!";
 	if (%this.checking) {

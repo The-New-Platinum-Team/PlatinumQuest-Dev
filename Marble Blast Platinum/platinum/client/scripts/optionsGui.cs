@@ -77,7 +77,7 @@ function OptionsGui::setTab(%this, %tab) {
 
 function OptionsGui::show(%this, %content) {
 	%this.content = %content;
-	if (%content $= "exit") {
+	if (%content $= "exit" || %content $= "lb") {
 		Canvas.pushDialog(%this);
 	} else {
 		RootGui.setContent(%this);
@@ -98,6 +98,8 @@ function OptionsGui::back(%this) {
 			}
 		}
 
+		Canvas.popDialog(%this);
+	} else if (%this.content $= "lb") {
 		Canvas.popDialog(%this);
 	} else {
 		%gui = $LB::LoggedIn ? "LBChatGui" : "MainMenuGui";
@@ -122,6 +124,7 @@ function OptionsGui::onWake(%this, %dontDiscard) {
 function OptionsGui::apply(%this) {
 	updateFrameController();
 	savePrefs();
+	MPsavePrefs();
 
 	MoveMap.save("~/client/config.cs");
 	JoystickMap.save("~/client/config.cs", true); //Append
@@ -542,7 +545,7 @@ AutoLoginArray.addEntry("User"  TAB "User");
 AutoLoginArray.addEntry("Guest" TAB "Guest");
 
 Array(ProfanityFilterArray);
-ProfanityFilterArray.addEntry("Disable" TAB 0);
+ProfanityFilterArray.addEntry("Disabled" TAB 0);
 ProfanityFilterArray.addEntry("Minimal" TAB 1);
 ProfanityFilterArray.addEntry("Strong"  TAB 2);
 
@@ -1262,10 +1265,12 @@ function Opt_alwaysShowSpeedometer_getValue() {
 
 function Opt_alwaysShowSpeedometer_decrease() {
 	$pref::alwaysShowSpeedometer = !$pref::alwaysShowSpeedometer;
+	PG_Speedometer.setVisible($pref::alwaysShowSpeedometer);
 }
 
 function Opt_alwaysShowSpeedometer_increase() {
 	$pref::alwaysShowSpeedometer = !$pref::alwaysShowSpeedometer;
+	PG_Speedometer.setVisible($pref::alwaysShowSpeedometer);
 }
 
 //-----------------------------------------------------------------------------
@@ -1340,15 +1345,9 @@ function Opt_timeTravelTimer_increase() {
 
 //-----------------------------------------------------------------------------
 
-}
 
-}
 
-}
 
-function Opt_minimalSpectateUI_increase() {
-	$pref::minimalSpectateUI = !$pref::minimalSpectateUI;
-}
 
 //-----------------------------------------------------------------------------
 

@@ -354,6 +354,7 @@ function clientCmdMissionLoadFailed() {
 		// We've failed, go back to PMG
 		RootGui.setContent(PlayMissionGui);
 	}
+	MessageBoxOk("Level Load Failed", "The selected level could not be loaded.");
 }
 
 function handleClientIndexMessage(%msgType, %msgString, %index) {

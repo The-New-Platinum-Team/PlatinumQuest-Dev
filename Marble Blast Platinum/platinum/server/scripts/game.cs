@@ -264,16 +264,9 @@ function onMissionLoaded() {
 
 	$Game::GemCount = countGems(MissionGroup);
 
-	// Start the game here if multiplayer...
-	if ($Server::ServerType $= "MultiPlayer") {
-		// amount of spectators
-		$Server::SpectateCount = 0;
-		setGameState("Waiting");
-		startGame();
-		startHeartbeat();
 
-		Time::reset();
-	}
+
+	$Game::GemCount = countGems(MissionGroup);
 
 	MPinitLoops();
 	serverCbOnMissionLoaded();
