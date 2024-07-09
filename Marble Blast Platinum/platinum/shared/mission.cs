@@ -778,3 +778,37 @@ function getMissionHash(%mission) {
 	}
 	return "";
 }
+
+//-----------------------------------------------------------------------------
+
+function resolveOldMissionBitmap(%mission, %list) {
+	//First, check if there's an old image that can be used
+	%dir = %list.getBitmapDirectory($CurrentGame, $MissionType);
+	%dir = strReplace(%dir, "~/", "platinum/");
+	%dir = strReplace(%dir, "lbmissions_custom/", "missions_lb/");
+	%dir = getSubStr(%dir, 14, strLen(%dir));
+	%dir = "platinum/data/previews_legacy/" @ %dir;
+	%bitmap = %dir @ "/" @ fileBase(%mission.file);
+	if (isBitmap(%bitmap)) {
+		return %bitmap;
+
+	//Otherwise, use the current level preview or icon
+	} else if (isBitmap(%list.getPreviewDirectory($CurrentGame, $MissionType) @ "/" @ fileBase(%mission.file) @ ".prev")) {
+		return strReplace(%list.getPreviewDirectory($CurrentGame, $MissionType), "~/", "platinum/") @ "/" @ fileBase(%mission.file) @ ".prev";
+
+	} else if (isBitmap(%mission.previews_directory @ "/" @ fileBase(%mission.file) @ ".prev")) {
+		return strReplace(%mission.previews_directory, "~/", "platinum/") @ "/" @ fileBase(%mission.file) @ ".prev";
+
+	} else if (isBitmap(filePath(%mission.file) @ "/" @ fileBase(%mission.file) @ ".prev")) {
+		return filePath(%mission.file) @ "/" @ fileBase(%mission.file) @ ".prev";
+
+	} else if (isBitmap(%list.getBitmapDirectory($CurrentGame, $MissionType) @ "/" @ fileBase(%mission.file))) {
+		return strReplace(%list.getBitmapDirectory($CurrentGame, $MissionType), "~/", "platinum/") @ "/" @ fileBase(%mission.file);
+
+	} else if (isBitmap(filePath(%mission.file) @ "/" @ fileBase(%mission.file))) {
+		return filePath(%mission.file) @ "/" @ fileBase(%mission.file);
+
+	} else {
+		return "platinum/client/ui/play/missingicon";
+	}	
+}
