@@ -812,3 +812,35 @@ function resolveOldMissionBitmap(%mission, %list) {
 		return "platinum/client/ui/play/missingicon";
 	}	
 }
+
+function replaceNewItemNames(%message, %ingame) {
+	if (!$pref::OldItemNames)
+		return %message;
+	%game = PlayMissionGui.isAwake() ? "" : PlayMissionGui.getMissionInfo().game;
+	if (%ingame && %game $= "Custom")
+		%game = MissionInfo.getFieldValue("game");
+	if ((%game !$= "Platinum" && $CurrentGame !$= "Platinum") && ((%game !$= "Ultra" && $CurrentGame !$= "Ultra") || !$TexturePack::LegacyMBUSun || !%ingame) && (($CurrentGame !$= "Hunt" && $CurrentGame !$= "CustomHunt") || !%ingame))
+		return %message;
+	//Replace item names with MBP versions
+	%message = strReplace(%message, "Gem", "Diamond");
+	%message = strReplace(%message, "gem", "diamond");
+	%message = strReplace(%message, "Super Speed", "Speed Booster");
+	%message = strReplace(%message, "super speed", "speed booster");
+	%message = strReplace(%message, "Super Jump", "Jump Boost");
+	%message = strReplace(%message, "super jump", "jump boost");
+	%message = strReplace(%message, "Gyrocopter", "Helicopter");
+	%message = strReplace(%message, "gyrocopter", "helicopter");
+	%message = strReplace(%message, "Shock Absorber", "Anti-Recoil");
+	%message = strReplace(%message, "shock absorber", "anti-recoil");
+	%message = strReplace(%message, "Super Bounce", "Marble Recoil");
+	%message = strReplace(%message, "super bounce", "marble recoil");
+	%message = strReplace(%message, "Time Travel", "Time Modifier");
+	%message = strReplace(%message, "time travel", "time modifier");
+	%message = strReplace(%message, "Gravity Modifier", "Gravity Defier");
+	%message = strReplace(%message, "gravity modifier", "gravity defier");
+	%message = strReplace(%message, "Tornado", "Cyclone");
+	%message = strReplace(%message, "tornado", "cyclone");
+	%message = strReplace(%message, "Tornadoes", "Cyclones");
+	%message = strReplace(%message, "tornadoes", "cyclones");
+	return %message;
+}

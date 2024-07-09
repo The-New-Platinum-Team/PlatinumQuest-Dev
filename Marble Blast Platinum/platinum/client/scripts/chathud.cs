@@ -33,6 +33,7 @@ function addHelpLine(%message, %playBeep) {
 		serverplay2d(HelpDingSfx);
 	}
 	if (getWordCount(%message)) {
+		%message = $pref::OldItemNames ? replaceNewItemNames(%message, true) : %message;
 		if ($TexturePack::MBPHelpUI) {
 			addDownYellowMBP(%message);
 			return;
@@ -399,6 +400,7 @@ function addBubbleLine(%message, %help, %time, %isAHelpLine) {
 	// Do not show help trigger messages if we have it disabled in the options.
 	if (%isAHelpLine && !$pref::HelpTriggers)
 		return;
+	%message = $pref::OldItemNames ? replaceNewItemNames(%message, true) : %message;
 	if ($TexturePack::MBPHelpUI) {
 		addCenterWhiteMBP(%message, %help);
 		return;

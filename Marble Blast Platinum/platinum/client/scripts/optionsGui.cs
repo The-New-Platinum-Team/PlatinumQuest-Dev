@@ -478,6 +478,8 @@ $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
 $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "oldItemNames";
+$Options::Title   ["Gameplay", $i  ] = "Old Item Names";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "spchanges";
 $Options::Title   ["Gameplay", $i  ] = "Ultra Violet";
@@ -1356,9 +1358,39 @@ function Opt_timeTravelTimer_increase() {
 
 //-----------------------------------------------------------------------------
 
+function Opt_oldItemNames_getDisplay() {
+	return $pref::OldItemNames ? "Enabled" : "Disabled";
+}
 
+function Opt_oldItemNames_getValue() {
+	return $pref::OldItemNames;
+}
 
+function Opt_oldItemNames_decrease() {
+	$pref::OldItemNames = !$pref::OldItemNames;
+	// if (PlayMissionGui.isAwake())
+	// 	PlayMissionGui.onWake();
+	// if (ExitGameDlg.isAwake())
+	// 	ExitGameDlg.onWake();
+	if (PlayGui.isAwake()) {
+		hideBubble();
+		PG_ChatBubbleBox.setVisible(false);
+		clearMessages();
+	}
+}
 
+function Opt_oldItemNames_increase() {
+	$pref::OldItemNames = !$pref::OldItemNames;
+	// if (PlayMissionGui.isAwake())
+	// 	PlayMissionGui.onWake();
+	// if (ExitGameDlg.isAwake())
+	// 	ExitGameDlg.onWake();
+	if (PlayGui.isAwake()) {
+		hideBubble();
+		PG_ChatBubbleBox.setVisible(false);
+		clearMessages();
+	}
+}
 
 //-----------------------------------------------------------------------------
 
