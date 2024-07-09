@@ -682,6 +682,10 @@ function onServerQueryStatus(%status, %msg, %value) {
 	// States: start, update, ping, query, done
 	// value = % (0-1) done for ping and query states
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPJoinServerDlg.onServerQueryStatus(%status, %msg, %value);
+		return;
+	}
 	%fontStatus = "<font:24><just:center>";
 
 	switch$ (%status) {
@@ -718,6 +722,10 @@ function onServerQueryStatus(%status, %msg, %value) {
 //----------------------------------------
 
 function queryFinish() {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPJoinServerDlg.queryFinish();
+		return;
+	}
 	if (!MPJoinServerDlg.isAwake())
 		return;
 
@@ -728,6 +736,10 @@ function queryFinish() {
 //-----------------------------------------------------------------------------
 
 function serverSelect() {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPJoinServerDlg.serverSelect();
+		return;
+	}
 	%index = MPJoinServerList.rowCount() ? MPJoinServerList.getSelectedId() : -1;
 	//name - players - mode - ping - idx - type
 	if (%index >= 0 && MPJoinServerList.isRowActive(%index)) {
@@ -782,10 +794,14 @@ function joinServer(%ip, %username, %password, %direct) {
 
 	echo("Join server: " @ %ip);
 
-	MPJoinServerDlg.joining = true;
-	MPJoinServerDlg.address = %ip;
-	MPJoinServerDlg.joinIP = %ip;
-	MPJoinServerDlg.update();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPJoinServerDlg.onJoinServer(%ip);
+	} else {
+		MPJoinServerDlg.joining = true;
+		MPJoinServerDlg.address = %ip;
+		MPJoinServerDlg.joinIP = %ip;
+		MPJoinServerDlg.update();
+	}
 
 	// We should probably force this for LB play
 	if (lb())

@@ -427,6 +427,10 @@ function LBRegisterDlg::create(%this) {
 }
 
 function LBRegisterDlg::onRegisterStatus(%this, %parsed) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBRegisterDlg.onRegisterStatus(%parsed);
+		return;
+	}
 	switch$ (%parsed.result) {
 	case "false":
 		LBR_ErrorMessage.setText("<font:18><just:center>" @ %parsed.error);

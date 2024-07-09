@@ -112,11 +112,15 @@ function GameConnection::onConnectionDropped(%this, %msg) {
 		%error = "This server is full.";
 	case "CHR_PASSWORD":
 		// XXX Should put up a password-entry dialog.
-		RootGui.setContent(LBChatGui);
-		RootGui.pushDialog(MPJoinServerDlg);
-		MPJoinServerDlg.pushPassword(MPJoinServerDlg.joinIP, $MP::ServerPassword !$= "");
-		$MP::ServerPassword = "";
-		MPJoinServerDlg.joining = false;
+		if ($GuiPack::Active) {
+			$GuiPack::CurrentPack.MPJoinServerDlg.showPassword();
+		} else {
+			RootGui.setContent(LBChatGui);
+			RootGui.pushDialog(MPJoinServerDlg);
+			MPJoinServerDlg.pushPassword(MPJoinServerDlg.joinIP, $MP::ServerPassword !$= "");
+			$MP::ServerPassword = "";
+			MPJoinServerDlg.joining = false;
+		}
 
 		disconnectedCleanup(true);
 		return;
@@ -178,11 +182,15 @@ function GameConnection::onConnectRequestRejected(%this, %msg) {
 		%error = "This server is full.";
 	case "CHR_PASSWORD":
 		// XXX Should put up a password-entry dialog.
-		RootGui.setContent(LBChatGui);
-		RootGui.pushDialog(MPJoinServerDlg);
-		MPJoinServerDlg.pushPassword(MPJoinServerDlg.joinIP, $MP::ServerPassword !$= "");
-		$MP::ServerPassword = "";
-		MPJoinServerDlg.joining = false;
+		if ($GuiPack::Active) {
+			$GuiPack::CurrentPack.MPJoinServerDlg.showPassword();
+		} else {
+			RootGui.setContent(LBChatGui);
+			RootGui.pushDialog(MPJoinServerDlg);
+			MPJoinServerDlg.pushPassword(MPJoinServerDlg.joinIP, $MP::ServerPassword !$= "");
+			$MP::ServerPassword = "";
+			MPJoinServerDlg.joining = false;
+		}
 
 		disconnectedCleanup(true);
 		return;
@@ -259,17 +267,21 @@ function disconnectedCleanup(%auto) {
 	// Back to the launch screen
 	%needInit = mp();
 	if (!%auto) {
-		if ($LB::loggedin) {
-			RootGui.setContent(LBChatGui);
-			if (MPJoinServerDlg.joining || $Server::ServerType $= "MultiPlayer") {
-				RootGui.pushDialog(MPJoinServerDlg);
-				MPJoinServerDlg.joining = false;
-			} else {
-				RootGui.setContent(PlayMissionGui);
-			}
+		if ($GuiPack::Active) {
+			$GuiPack::CurrentPack.PlayMissionGui.onDisconnect();
 		} else {
-			if (!$Game::UseMenu || $Game::Menu || $Game::Introduction) {
-				RootGui.setContent(MainMenuGui);
+			if ($LB::loggedin) {
+				RootGui.setContent(LBChatGui);
+				if (MPJoinServerDlg.joining || $Server::ServerType $= "MultiPlayer") {
+					RootGui.pushDialog(MPJoinServerDlg);
+					MPJoinServerDlg.joining = false;
+				} else {
+					RootGui.setContent(PlayMissionGui);
+				}
+			} else {
+				if (!$Game::UseMenu || $Game::Menu || $Game::Introduction) {
+					RootGui.setContent(MainMenuGui);
+				}
 			}
 		}
 

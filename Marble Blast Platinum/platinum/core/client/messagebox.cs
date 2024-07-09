@@ -39,6 +39,10 @@ function MessageCallback(%dlg,%callback) {
 // area.
 
 function MBSetText(%text, %frame, %msg) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MessageBoxOKDlg.MBSetText(%text, %frame, %msg);
+		return;
+	}
 	%text.setText("<just:center><font:18>" @ %msg);
 	%text.forceReflow();
 
@@ -56,6 +60,10 @@ function MBSetText(%text, %frame, %msg) {
 //-----------------------------------------------------------------------------
 
 function MessageBoxOK(%title, %message, %callback) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MessageBoxOKDlg.showMessage(%title, %message, %callback);
+		return;
+	}
 	if (ControllerGui.isJoystick()) {
 		MessageBoxOKDlg.prevControl = ControllerGui.control;
 	}
@@ -79,6 +87,10 @@ function MessageBoxOKDlg::onSleep(%this) {
 //------------------------------------------------------------------------------
 
 function MessageBoxYesNo(%title, %message, %yesCallback, %noCallback) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MessageBoxYesNoDlg.showMessage(%title, %message, %yesCallback, %noCallback);
+		return;
+	}
 	if (ControllerGui.isJoystick()) {
 		MessageBoxOKDlg.prevControl = ControllerGui.control;
 	}

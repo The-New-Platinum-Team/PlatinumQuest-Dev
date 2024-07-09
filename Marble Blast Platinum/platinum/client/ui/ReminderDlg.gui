@@ -101,6 +101,10 @@ function remind(%text, %idx) {
 	if ($pref::hideReminder[%idx] !$= "" && !$pref::hideReminder[%idx])
 		return;
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.ReminderDlg.remind(%text, %idx);
+		return;
+	}
 	RootGui.pushDialog(ReminderDlg);
 	ReminderText.setText("<font:24><just:center>" @ %text);
 	ReminderCheck.variable = "$pref::hideReminder" @ %idx;

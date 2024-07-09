@@ -545,6 +545,10 @@ function LBUserDlg::onPlayerAvatarUpdate(%this) {
 
 function LBUserDlg::onPlayerProfileInfoUpdate(%this, %parsed) {
 	%this.playerProfileInfo[%parsed.username] = %parsed;
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBUserDlg.onPlayerProfileInfoUpdate(%parsed);
+		return;
+	}
 	%this.updateInfo();
 }
 

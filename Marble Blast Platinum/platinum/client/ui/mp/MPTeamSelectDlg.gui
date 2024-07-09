@@ -146,11 +146,19 @@ function MPTeamSelectDlg::open(%this) {
 }
 
 function MPTeamSelectDlg::close(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamSelectDlg.close();
+		return;
+	}
 	RootGui.popDialog(%this);
 	PlayMissionGui.showBody();
 }
 
 function MPTeamSelectDlg::updateTeam(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamSelectDlg.updateTeam();
+		return;
+	}
 	MPTeamJoinLeave.command = "MPTeamSelectDlg." @ ($MP::TeamDefault ? "joinTeam" : "teamOptions") @ "();";
 	MPTeamJoinLeave.text = ($MP::TeamDefault ? "Join" : "Options");
 

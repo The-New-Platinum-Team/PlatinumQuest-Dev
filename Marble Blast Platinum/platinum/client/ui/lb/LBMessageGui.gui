@@ -105,6 +105,10 @@ new GuiControl(LBMessageGui) {
 
 // show the message
 function LBMessage(%message, %cancelCmd, %hideBack) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBMessageGui.message(%message, %cancelCmd, %hideBack);
+		return;
+	}
 	LBMessageTitle.setText("<bold:48><just:center>Please Wait");
 	%style = "<bold:28><just:center>";
 	LBMessageText.setText(%style @ %message);

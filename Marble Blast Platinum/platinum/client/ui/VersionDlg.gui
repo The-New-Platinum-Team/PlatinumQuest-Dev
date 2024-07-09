@@ -92,6 +92,10 @@ new GuiControl(VersionDlg) {
 //--- OBJECT WRITE END ---
 
 function VersionDlg::showVersion(%this, %parsed) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.VersionDlg.showVersion(%parsed);
+		return;
+	}
 	RootGui.pushDialog(%this);
 
 	%latest = %parsed.getEntry(0);

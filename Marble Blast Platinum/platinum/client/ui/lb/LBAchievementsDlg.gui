@@ -407,10 +407,17 @@ function LBAchievementsDlg::update(%this) {
 
 function LBAchievementsDlg::onAchievementListUpdate(%this, %list) {
 	%this.achievementList = %list;
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBAchievementsDlg.onAchievementListUpdate(%list);
+	}
 }
 
 function LBAchievementsDlg::onPlayerAchievementsUpdate(%this, %parsed) {
 	%this.playerAchievements[%parsed.username] = %parsed.achievements;
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBAchievementsDlg.onPlayerAchievementsUpdate(%parsed);
+		return;
+	}
 	%this.update();
 }
 

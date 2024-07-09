@@ -1824,6 +1824,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 	%this.oldCurrentGame = "";
 	%this.oldMissionType = "";
 
+	if (!%this.noLoad)
 		menuSetMission(%file);
 }
 
@@ -2377,6 +2378,10 @@ function PlayMissionGui::updateCurrentMission(%this) {
 }
 
 function PlayMissionGui::deactivateMissionList(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.deactivateMissionList();
+		return;
+	}
 	for (%i = 0; %i < %this.buttonFrameList.getSize(); %i ++) {
 		//Name for the button
 		%frame = %this.buttonFrameList.getEntry(%i);
@@ -2395,6 +2400,10 @@ function PlayMissionGui::deactivateMissionList(%this) {
 }
 
 function PlayMissionGui::reactivateMissionList(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.reactivateMissionList();
+		return;
+	}
 	for (%i = 0; %i < %this.buttonFrameList.getSize(); %i ++) {
 		%frame = %this.buttonFrameList.getEntry(%i);
 		%frame.button.enabled = true;
@@ -3616,6 +3625,8 @@ function PlayMissionGui::buildAllMissionLists(%this) {
 
 //Get the current mission info object
 function PlayMissionGui::getMissionInfo(%this) {
+	if ($GuiPack::Active)
+		return $GuiPack::CurrentPack.PlayMissionGui.getMissionInfo();
 	return %this.selectedMission;
 }
 
@@ -3725,12 +3736,19 @@ function PlayMissionGui::onOnlineScoreUpdate(%this, %scores) {
 		}
 	}
 
-	%this.globalPage = %this.getInitialScoresPage();
-	%this.updateCurrentMission();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+		if ($GuiPack::CurrentPack.EndGameDlg.isAwake()) {
+			$GuiPack::CurrentPack.EndGameDlg.reformatGameEndText();
+		}
+	} else {
+		%this.globalPage = %this.getInitialScoresPage();
+		%this.updateCurrentMission();
 
-	// Update endgame just in case WR updated
-	if (EndGameDlg.isAwake()) {
-		reformatGameEndText();
+		// Update endgame just in case WR updated
+		if (EndGameDlg.isAwake()) {
+			reformatGameEndText();
+		}
 	}
 }
 
@@ -3757,12 +3775,19 @@ function PlayMissionGui::onOnlineChallengeScoreUpdate(%this, %scores) {
 		}
 	}
 
-	%this.globalPage = %this.getInitialScoresPage();
-	%this.updateCurrentMission();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+		if ($GuiPack::CurrentPack.EndGameDlg.isAwake()) {
+			$GuiPack::CurrentPack.EndGameDlg.reformatGameEndText();
+		}
+	} else {
+		%this.globalPage = %this.getInitialScoresPage();
+		%this.updateCurrentMission();
 
-	// Update endgame just in case WR updated
-	if (EndGameDlg.isAwake()) {
-		reformatGameEndText();
+		// Update endgame just in case WR updated
+		if (EndGameDlg.isAwake()) {
+			reformatGameEndText();
+		}
 	}
 }
 
@@ -3772,7 +3797,11 @@ function PlayMissionGui::onOnlineScoreFailed(%this, %mission) {
 		%this.globalScoreCacheLoading[%mission.id] = false;
 		%this.globalScoreCacheFailed[%mission.id] = true;
 	}
-	%this.updateCurrentMission();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::onOnlineChallengeScoreFailed(%this, %mission) {
@@ -3781,7 +3810,11 @@ function PlayMissionGui::onOnlineChallengeScoreFailed(%this, %mission) {
 		%this.globalChallengeScoreCacheLoading[%mission.id] = false;
 		%this.globalChallengeScoreCacheFailed[%mission.id] = true;
 	}
-	%this.updateCurrentMission();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::onPersonalScoreUpdate(%this, %scores, %challenge) {
@@ -3794,7 +3827,11 @@ function PlayMissionGui::onPersonalScoreUpdate(%this, %scores, %challenge) {
 		%this.personalScoreCacheLoading[%scores.missionId] = false;
 		%this.personalScoreCacheFailed[%scores.missionId] = false;
 	}
-	%this.updateCurrentMission();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::onPersonalScoreFailed(%this, %mission, %challenge) {
@@ -3809,7 +3846,11 @@ function PlayMissionGui::onPersonalScoreFailed(%this, %mission, %challenge) {
 			%this.personalScoreCacheFailed[%mission.id] = true;
 		}
 	}
-	%this.updateCurrentMission();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::onOnlineScoreModeUpdate(%this, %scores) {
@@ -3817,8 +3858,12 @@ function PlayMissionGui::onOnlineScoreModeUpdate(%this, %scores) {
 	%this.globalScoreModeCacheLoading[%scores.missionId] = false;
 	%this.globalScoreModeCacheFailed[%scores.missionId] = false;
 
-	%this.globalPage = %this.getInitialScoresPage();
-	%this.updateMissionInfo();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.globalPage = %this.getInitialScoresPage();
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::onOnlineScoreModeFailed(%this, %mission) {
@@ -3827,7 +3872,11 @@ function PlayMissionGui::onOnlineScoreModeFailed(%this, %mission) {
 		%this.globalScoreModeCacheLoading[%mission.id] = false;
 		%this.globalScoreModeCacheFailed[%mission.id] = true;
 	}
-	%this.updateMissionInfo();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::onPersonalScoreListUpdate(%this, %scores) {
@@ -3924,7 +3973,11 @@ function PlayMissionGui::copyOnlinePrefs(%this) {
 
 function PlayMissionGui::onEasterEggUpdate(%this, %eggs) {
 	%this.onlineEasterEggCache = %eggs;
-	%this.updateMissionInfo();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::clearOnlineCache(%this) {
@@ -4168,6 +4221,10 @@ function PlayMissionGui::toggleChat(%this, %type) {
 }
 
 function PlayMissionGui::notifyGlobalChat(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.notifyGlobalChat();
+		return;
+	}
 	if (%this.chatPanel $= "global") {
 		return;
 	}
@@ -4176,6 +4233,10 @@ function PlayMissionGui::notifyGlobalChat(%this) {
 }
 
 function PlayMissionGui::notifyServerChat(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.notifyServerChat();
+		return;
+	}
 	if (%this.chatPanel $= "server") {
 		return;
 	}
@@ -4184,6 +4245,10 @@ function PlayMissionGui::notifyServerChat(%this) {
 }
 
 function PlayMissionGui::notifyTeamChat(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.notifyTeamChat();
+		return;
+	}
 	if (%this.chatPanel $= "team") {
 		return;
 	}
@@ -4194,6 +4259,10 @@ function PlayMissionGui::notifyTeamChat(%this) {
 // Teams interface
 
 function PlayMissionGui::updateTeams(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.updateTeams();
+		return;
+	}
 	%this.updateMPButtons();
 	%this.updateTeamUserlist();
 }
@@ -4236,6 +4305,10 @@ function PlayMissionGui::updateMPButtons(%this) {
 		error("updateMPButtons called not in MP");
 		return;
 	}
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.updateMPButtons();
+		return;
+	}
 	%this.setBarButtonActive(PM_MissionSearch, $Server::Hosting && !$Client::Loading);
 	//%this.setBarButtonActive(PM_MissionPlay, $Server::Hosting && !$Client::Loading);
 	%this.setBarButtonActive(PM_MissionServer, $Server::Hosting);
@@ -4259,6 +4332,10 @@ function PlayMissionGui::updateMPButtons(%this) {
 }
 
 function PlayMissionGui::onMPMissionLoaded(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.onMPMissionLoaded();
+		return;
+	}
 	$Client::Loading = false;
 	$Client::Loaded = true;
 
@@ -4271,6 +4348,10 @@ function PlayMissionGui::onMPMissionLoaded(%this) {
 }
 
 function PlayMissionGui::onMPStartLoading(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.onMPStartLoading();
+		return;
+	}
 	$Client::Loading = true;
 	$Client::Loaded = false;
 
@@ -4279,6 +4360,10 @@ function PlayMissionGui::onMPStartLoading(%this) {
 }
 
 function PlayMissionGui::onMPLoadFailed(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.onMPLoadFailed();
+		return;
+	}
 	$Client::Loading = false;
 	$Client::Loaded = false;
 
@@ -4295,6 +4380,10 @@ function PlayMissionGui::onMPLoadFailed(%this) {
 // Server player list
 
 function PlayMissionGui::clearServerPlayerList(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.clearServerPlayerList();
+		return;
+	}
 	PM_MPUserList.clear();
 	%count = $MP::ClientIndexMax;
 	for (%i = 0; %i < %count; %i ++) {
@@ -4309,6 +4398,10 @@ function PlayMissionGui::clearServerPlayerList(%this) {
 }
 
 function PlayMissionGui::updateServerPlayerList(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.updateServerPlayerList();
+		return;
+	}
 	%start = getWord(PM_MPUserList.position, 1);
 	%count = $MP::ClientIndexMax;
 	for (%i = 0; %i < %count; %i ++) {
@@ -4528,8 +4621,12 @@ function PlayMissionGui::onMarblelandScoreUpdate(%this, %scores) {
 	%this.globalScoreCacheLoading[%scores.missionId] = false;
 	%this.globalScoreCacheFailed[%scores.missionId] = false;
 
-	%this.globalPage = %this.getInitialScoresPage();
-	%this.updateCurrentMission();
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MarblelandPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.globalPage = %this.getInitialScoresPage();
+		%this.updateCurrentMission();
+	}
 }
 
 function PlayMissionGui::loadMarblelandScores(%this) {
@@ -4559,5 +4656,10 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 	%this.globalScoreCache[%mission] = "";
 	%this.globalScoreCacheLoading[%mission] = false;
 	%this.globalScoreCacheFailed[%mission] = true;
-	%this.updateCurrentMission();
+
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MarblelandPlayMissionGui.onScoreUpdate();
+	} else {
+		%this.updateCurrentMission();
+	}
 }

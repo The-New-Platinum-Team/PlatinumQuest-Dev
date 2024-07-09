@@ -103,7 +103,6 @@ function mpSendChat(%message) {
 }
 
 function MPAddServerChat(%message) {
-	%message = LBResolveChatColors(strReplace(strReplace(%message, "\x10", $DefaultFont), "\x11", 17), "chat");
 	%message = filterBadWords(%message);
 
 	$MP::ServerChat = $MP::ServerChat @ ($MP::ServerChat $= "" ? "" : "\n") @ "<spush>" @ %message @ "<spop>";
@@ -122,10 +121,16 @@ function MPAddServerChat(%message) {
 }
 
 function MPUpdateServerChat(%message) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.updateServerChat(%message);
+		return;
+	}
 	if (%message $= "") {
-		PM_MPChatText.setText("<font:17>" @ $MP::ServerChat);
-		PG_ServerChatText.setText("<font:17>" @ $MP::ServerChat);
+		%chat = LBResolveChatColors(strReplace(strReplace($MP::ServerChat, "\x10", $DefaultFont), "\x11", 17), "chat");
+		PM_MPChatText.setText("<font:17>" @ %chat);
+		PG_ServerChatText.setText("<font:17>" @ %chat);
 	} else {
+		%message = LBResolveChatColors(strReplace(strReplace(%message, "\x10", $DefaultFont), "\x11", 17), "chat");
 		PM_MPChatText.addText("\n<font:17>" @ %message);
 		PG_ServerChatText.addText("\n<font:17>" @ %message);
 	}
@@ -168,6 +173,10 @@ function onTeamChat(%sender, %team, %leader, %message) {
 	// %team is the team name
 	// %message is their message
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.onTeamChat(%sender, %team, %leader, %message);
+		return;
+	}
 	// Get their access code
 	%access = LBUserListArray.getEntryByVariable("username", %sender).access;
 
@@ -208,6 +217,10 @@ function addTeamChatLine(%message) {
 }
 
 function updateTeamChat(%message) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.updateTeamChat(%message);
+		return;
+	}
 	if (%message $= "") {
 		PM_TeamChatText.setText("<font:17>" @ $MP::TeamChat);
 		PG_TeamChatText.setText("<font:17>" @ $MP::TeamChat);

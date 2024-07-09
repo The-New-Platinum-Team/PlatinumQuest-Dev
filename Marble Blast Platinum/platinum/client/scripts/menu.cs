@@ -294,7 +294,7 @@ function menuMissionExit() {
 
 	$Game::Menu = true;
 
-	if ($pref::AnimatePreviews) {
+	if ($pref::animatePreviews && !$GuiPack::Active) {
 		//No fan noises
 		alxSetChannelVolume(1, 0);
 

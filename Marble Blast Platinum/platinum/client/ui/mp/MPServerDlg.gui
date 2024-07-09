@@ -480,6 +480,10 @@ function MPServerDlg::updateActive(%this) {
 }
 
 function MPServerDlg::updateIP(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPServerDlg.updateIP();
+		return;
+	}
 	// Various server port forward statuses
 	%status = "<spush><color:ffff66>Loading<spop>";
 	switch$ ($PortStatus) {
@@ -551,6 +555,10 @@ function MPServerDlg::refreshPortMapping(%this) {
 }
 
 function MPServerDlg::portMappingFinished(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPServerDlg.portMappingFinished();
+		return;
+	}
 	MPServerMapRefresh.setActive(true);
 	MPUpdatePortLabel();
 	%this.loading = false;

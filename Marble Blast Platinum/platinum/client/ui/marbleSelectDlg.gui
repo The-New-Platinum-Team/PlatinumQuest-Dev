@@ -548,6 +548,9 @@ function MarbleSelectDlg::savePrefs(%this) {
 
 // Used from other scripts, gets the custom marble data
 function MarbleSelectDlg::getSelection(%this) {
+	if ($GuiPack::Active) {
+		return $GuiPack::CurrentPack.MarbleSelectDlg.getSelection();
+	}
 	// Get the category list of marbles
 	%list = %this.getMarbleList(%this.category);
 

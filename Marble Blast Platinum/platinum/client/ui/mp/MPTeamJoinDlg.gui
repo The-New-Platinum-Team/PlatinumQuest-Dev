@@ -212,6 +212,10 @@ function MPTeamJoinDlg::open(%this) {
 }
 
 function MPTeamJoinDlg::close(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamJoinDlg.close();
+		return;
+	}
 	RootGui.popDialog(%this);
 }
 
@@ -227,6 +231,10 @@ function MPTeamJoinDlg::create(%this) {
 }
 
 function MPTeamJoinDlg::updateTeamList(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamJoinDlg.updateTeamList();
+		return;
+	}
 	MPTeamJoinList.clear();
 
 	%count = TeamList.getSize();
@@ -252,6 +260,10 @@ function MPTeamJoinDlg::infoTeam(%this) {
 }
 
 function MPTeamJoinDlg::updateTeam(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamJoinDlg.updateTeam();
+		return;
+	}
 	// Update team information
 	if ($MP::TeamInfoLoading || $MP::TeamInfoName $= "" || $MP::TeamInfoName $= 0) {
 		%text = "<font:24><just:center>Loading Team Info...";

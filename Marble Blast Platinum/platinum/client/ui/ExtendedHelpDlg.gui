@@ -94,6 +94,10 @@ new GuiBitmapCtrl(extendedhelpdlg) {
 //--- OBJECT WRITE END ---
 
 function ExtendedHelpDlg::open(%this, %message) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.ExtendedHelpDlg.open(%message);
+		return;
+	}
 	RootGui.pushDialog(%this);
 	EH_Text.setText(%message);
 

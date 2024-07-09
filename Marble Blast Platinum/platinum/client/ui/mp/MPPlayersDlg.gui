@@ -261,6 +261,10 @@ function MPPlayersDlg::onWake(%this) {
 }
 
 function MPPlayersDlg::updatePlayerList(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayersDlg.updatePlayerList();
+		return;
+	}
 	if ($Server::_Dedicated) {
 		MPDedicatedPlayersDlg.updatePlayerList();
 		return;

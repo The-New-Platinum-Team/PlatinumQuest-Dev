@@ -258,6 +258,10 @@ function JukeboxDlg::prevSong(%this) {
 	if ($JukeboxDlg::playingId == 0)
 		return;
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.JukeboxDlg.prevSong();
+		return;
+	}
 	%row = $JukeboxDlg::playingId - 1;
 
 	JukeBox_SongList.setSelectedRow(%row);
@@ -265,6 +269,10 @@ function JukeboxDlg::prevSong(%this) {
 }
 
 function JukeboxDlg::toggleSong(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.JukeboxDlg.toggleSong();
+		return;
+	}
 	if ($JukeboxDlg::isPlaying) {
 		%this.stop();
 	} else {
@@ -281,6 +289,10 @@ function JukeboxDlg::nextSong(%this) {
 	if ($JukeboxDlg::playingId == ($JukeboxDlg::SongNum - 1))
 		return;
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.JukeboxDlg.nextSong();
+		return;
+	}
 	%row = $JukeboxDlg::playingId + 1;
 
 	JukeBox_SongList.setSelectedRow(%row);

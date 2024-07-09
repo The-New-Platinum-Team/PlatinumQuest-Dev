@@ -131,6 +131,10 @@ new GuiControl(LBErrorHandlerDlg) {
 
 // method that asserts the error handler
 function LBAssert(%title,%message,%callback) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBErrorHandlerDlg.assert(%title, %message, %callback);
+		return;
+	}
 	// default erases commands and hides the error handler
 	%defaultCallback = "LBErrorNoHandlerButton.command = \"\"; LBErrorYesHandlerButton.command = \"\";";
 	%defaultCallback = %defaultCallback @ "LBErrorOkHandlerButton.command=\"\"; RootGui.popDialog(LBErrorHandlerDlg);";

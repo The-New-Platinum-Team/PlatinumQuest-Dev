@@ -238,6 +238,10 @@ function setLoadProgress(%loadState, %phase, %progress) {
 	}
 
 	if (mp()) {
+		if ($GuiPack::Active) {
+			$GuiPack::CurrentPack.MPPlayMissionGui.setLoadProgress(%adjusted, %loadState, %phase, %progress);
+			return;
+		}
 		//Update our loading bar on MPPMG if we have one
 		if (isObject(PlayerListBox @ $MP::ClientIndex)) {
 			(PlayerListBox @ $MP::ClientIndex).setValue(%adjusted);
@@ -344,6 +348,11 @@ function clientCmdShowLoadScreen() {
 }
 
 function clientCmdMissionLoadFailed() {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.PlayMissionGui.onLoadFailed();
+		MessageBoxOk("Level Load Failed", "The selected level could not be loaded.");
+		return;
+	}
 	if ($Game::Menu) {
 		menuOnMissionLoadFailed();
 	} else if (mp()) {

@@ -150,6 +150,13 @@ function RootGui::getContent(%this) {
 }
 
 function RootGui::setContent(%this, %ctrl) {
+	if ($GuiPack::Active) {
+		%newCtrl = $GuiPack::CurrentPack.getFieldValue(%ctrl);
+		if (%newCtrl !$= "") {
+			Canvas.setContent(%newCtrl);
+			return;
+		}
+	}
 	if (%this.getContent().getId() == %ctrl.getId()) {
 		//Just pop all of the dialogs we have
 		while (Canvas.getCount() > 2) {
@@ -164,11 +171,25 @@ function RootGui::setContent(%this, %ctrl) {
 }
 
 function RootGui::pushDialog(%this, %ctrl) {
+	if ($GuiPack::Active) {
+		%newCtrl = $GuiPack::CurrentPack.getFieldValue(%ctrl);
+		if (%newCtrl !$= "") {
+			Canvas.pushDialog(%newCtrl);
+			return;
+		}
+	}
 	%ctrl.setExtent(Canvas.getExtent());
 	Canvas.pushDialog(%ctrl);
 }
 
 function RootGui::popDialog(%this, %ctrl) {
+	if ($GuiPack::Active) {
+		%newCtrl = $GuiPack::CurrentPack.getFieldValue(%ctrl);
+		if (%newCtrl !$= "") {
+			Canvas.popDialog(%newCtrl);
+			return;
+		}
+	}
 	// Push to back first so it doesn't rearrange the other dialogs
 	Canvas.pushToBack(%ctrl);
 	Canvas.popDialog(%ctrl);

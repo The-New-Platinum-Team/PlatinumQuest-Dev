@@ -136,8 +136,12 @@ new GuiControl(QueueResultsDlg) {
 //--- OBJECT WRITE END ---
 
 function QueueResultsDlg::open(%this, %queue) {
-	%this.queue = %queue;
-	RootGui.pushDialog(%this);
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.QueueResultsDlg.open(%queue);
+	} else {
+		%this.queue = %queue;
+		RootGui.pushDialog(%this);
+	}
 }
 
 function QueueResultsDlg::onWake(%this) {

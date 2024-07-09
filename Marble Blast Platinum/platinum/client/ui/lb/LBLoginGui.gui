@@ -342,6 +342,10 @@ function LBLoginGui::rememberUsername(%this) {
 
 // login button
 function LBLoginGui::login(%this, %auto) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBLoginGui.login(%auto);
+		return;
+	}
 	if (!%auto && (!%this.online || %this.checking))
 		return;
 
@@ -433,6 +437,10 @@ function LBLoginGui::onLoginStatus(%this, %info) {
 }
 
 function LBLoginGui::guestLogin(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBLoginGui.guestLogin();
+		return;
+	}
 	LBguestConnect();
 	LBMessage("Connecting...", "LBdisconnect();");
 }
@@ -461,6 +469,10 @@ function LBLoginGui::checkServer(%this) {
 function LBLoginGui::onServerStatus(%this, %parsed) {
 	cancel($LB::CheckSch);
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBLoginGui.onServerStatus(%parsed);
+		return;
+	}
 	echo("Server status: " @ %parsed);
 	%this.checking = false;
 	%this.players = %parsed.players;

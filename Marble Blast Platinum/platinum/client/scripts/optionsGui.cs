@@ -87,6 +87,10 @@ function OptionsGui::show(%this, %content) {
 // redoing the Home button because this
 //       gui is now used for lb support
 function OptionsGui::back(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.OptionsGui.back();
+		return;
+	}
 	if (%this.content $= "exit") {
 		//Make sure we can still play
 		if ($playingDemo) {
@@ -198,6 +202,10 @@ function OptionsGui::apply(%this) {
 		$Options::TexturePackDirty = 0;
 	}
 	Canvas.repaint();
+
+	if ($pref::Video::GuiPack !$= $GuiPack::CurrentPack.identifier) {
+		loadGuiPack($pref::Video::GuiPack);
+	}
 
 	applyGraphicsQuality();
 
@@ -336,6 +344,9 @@ if (canSupportAntiAliasing()) { //This is not available on mac
 }
 $Options::Name    ["Graphics", $i++] = "maxFPS";
 $Options::Title   ["Graphics", $i  ] = "Max FPS";
+$Options::Type    ["Graphics", $i  ] = "value";
+$Options::Name    ["Graphics", $i++] = "guiPack";
+$Options::Title   ["Graphics", $i  ] = "GUI Style";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
@@ -965,6 +976,58 @@ function Opt_particleSystem_increase() {
 function Opt_texturePack_edit() {
 	// Dialog does all the config for us (and sets $Options::TexturePackDirty)
 	RootGui.pushDialog(OptionsTexturePackDlg);
+}
+
+//-----------------------------------------------------------------------------
+
+function buildGuiPackArray() {
+	if (isObject(GuiPackArray)) {
+		GuiPackArray.delete();
+	}
+	Array(GuiPackArray);
+	GuiPackArray.addEntry("PlatinumQuest" TAB "");
+
+	%spec = $userMods @ "/client/ui/packs/*/*.json";
+	for (%file = findFirstFile(%spec); %file !$= ""; %file = findNextFile(%spec)) {
+		%pack = jsonParse(fread(%file));
+		if (!isObject(%pack)) {
+			continue;
+		}
+
+		//Name TAB value
+		GuiPackArray.addEntry(%pack.name TAB fileBase(%file));
+	}
+}
+buildGuiPackArray();
+
+function Opt_guiPack_getDisplay() {
+	%entry = GuiPackArray.getEntryByField($pref::Video::GuiPack, 1);
+	if (%entry $= "") {
+		return $pref::Video::GuiPack;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_guiPack_getValue() {
+	return $pref::Video::GuiPack;
+}
+
+function Opt_guiPack_decrease() {
+	%index = GuiPackArray.getIndexByField($pref::Video::GuiPack, 1);
+	%index --;
+	if (%index < 0) {
+		%index = GuiPackArray.getSize() - 1;
+	}
+	$pref::Video::GuiPack = getField(GuiPackArray.getEntry(%index), 1);
+}
+
+function Opt_guiPack_increase() {
+	%index = GuiPackArray.getIndexByField($pref::Video::GuiPack, 1);
+	%index ++;
+	if (%index >= GuiPackArray.getSize()) {
+		%index = 0;
+	}
+	$pref::Video::GuiPack = getField(GuiPackArray.getEntry(%index), 1);
 }
 
 //-----------------------------------------------------------------------------
@@ -1633,8 +1696,12 @@ function Opt_serverPort_setValue(%value) {
 }
 
 function Opt_serverPort_validate(%value) {
-	%clamped = mClamp(%value, 1024, 65535);
-	OptionsserverPortValue.setValue(%clamped);
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.OptionsGui.serverPort_validate(%value);
+	} else {
+		%clamped = mClamp(%value, 1024, 65535);
+		OptionsserverPortValue.setValue(%clamped);
+	}
 }
 
 //-----------------------------------------------------------------------------

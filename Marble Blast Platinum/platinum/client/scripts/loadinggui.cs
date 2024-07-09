@@ -245,6 +245,10 @@ function LoadingGui::onWake(%this) {
 }
 
 function LoadingGui::setProgress(%this, %message, %amount, %total, %repaint) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LoadingGui.setStartProgress(%message, %amount, %total, %repaint);
+		return;
+	}
 	if (%this.isAwake()) {
 		LoadingProgressBar.setVisible(true);
 		LoadingProgressBar.setWidth(838 * %amount / %total);

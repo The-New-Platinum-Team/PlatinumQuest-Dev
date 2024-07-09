@@ -430,6 +430,10 @@ function MPTeamOptionsDlg::open(%this) {
 }
 
 function MPTeamOptionsDlg::close(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamOptionsDlg.close();
+		return;
+	}
 	RootGui.popDialog(%this);
 	// Update the server
 
@@ -490,6 +494,10 @@ function MPTeamOptionsDlg::updateColor(%this) {
 }
 
 function MPTeamOptionsDlg::updateTeam(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamOptionsDlg.updateTeam();
+		return;
+	}
 	MPTeamOptionsNameField.setValue($MP::TeamName);
 	MPTeamOptionsDescField.setValue($MP::TeamDesc);
 	MPTeamOptionsPrivateCheck.setValue($MP::TeamPrivate);
@@ -509,6 +517,10 @@ function MPTeamOptionsDlg::updateTeam(%this) {
 }
 
 function MPTeamOptionsDlg::updateActive(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamOptionsDlg.updateActive();
+		return;
+	}
 	%name = getField(MPTeamOptionsPlayerList.getRowTextById(MPTeamOptionsPlayerList.getSelectedId()), 1);
 
 	MPTeamOptionsPromote.setVisible($MP::TeamLeaderStatus);

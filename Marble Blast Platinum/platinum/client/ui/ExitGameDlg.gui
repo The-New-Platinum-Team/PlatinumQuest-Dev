@@ -972,6 +972,10 @@ function ExitGameDlg::onSleep(%this) {
 }
 
 function ExitGameDlg::close(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.ExitGameDlg.close();
+		return;
+	}
 	if (ExitGameExtraButtons.isVisible())
 		%this.hideExtras();
 	RootGui.popDialog(%this);

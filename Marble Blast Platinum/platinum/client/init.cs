@@ -178,6 +178,7 @@ function initClient() {
 	exec("./scripts/replay.cs");
 	exec("./scripts/controllerUI.cs");
 	exec("./scripts/texturePack.cs");
+	exec("./scripts/guiPack.cs");
 	exec("./scripts/legacyItems.cs");
 
 	// Default player key bindings
@@ -250,6 +251,9 @@ function initClient() {
 	//Anything else we probably can't save, but why not try?
 	addDirectoryOverride("marble/data/", "platinum/data/");
 	addDirectoryOverride("challenge/data/", "platinum/data/");
+
+	if ($pref::Video::GuiPack !$= "") 
+		loadGuiPack($pref::Video::GuiPack, true);
 
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.
@@ -420,6 +424,11 @@ function startTotalTimer() {
 
 function loadMainMenu() {
 	Canvas.setCursor("DefaultCursor");
+
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LoadingGui.loadMainMenu();
+		return;
+	}
 
 	//Setup loading screen
 	Canvas.setContent(RootGui);

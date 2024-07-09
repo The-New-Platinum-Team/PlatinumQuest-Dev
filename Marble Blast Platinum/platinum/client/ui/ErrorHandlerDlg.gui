@@ -91,6 +91,10 @@ new GuiBitmapCtrl(ErrorHandlerDlg) {
 //--- OBJECT WRITE END ---
 
 function ASSERT(%title, %message, %callback) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.ErrorHandlerDlg.ASSERT(%title, %message, %callback);
+		return;
+	}
 	$asserted = 1;
 	MBErrorHandlerTitle.setText("<bold:32><just:center>" @ %title);
 	MBErrorHandlerText.setText("<font:18>" @ %message);

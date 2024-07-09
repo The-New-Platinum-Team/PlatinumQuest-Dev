@@ -447,6 +447,10 @@ function MPDownloadDlg::allowAll(%this) {
 //-----------------------------------------------------------------------------
 
 function MPDownloadDlg::startDownload(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPDownloadDlg.startDownload();
+		return;
+	}
 	commandToServer('RequestMissionFile', $MP::MissionFile);
 	MPDC_Info.setText("<font:24><just:center>Starting Download");
 
@@ -455,16 +459,28 @@ function MPDownloadDlg::startDownload(%this) {
 }
 
 function MPDownloadDlg::downloadStart(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPDownloadDlg.downloadStart();
+		return;
+	}
 	MPDC_Info.setText("<font:24><just:center>Starting Download");
 }
 
 function MPDownloadDlg::downloadFinish(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPDownloadDlg.downloadFinish();
+		return;
+	}
 	MPDC_Info.setText("<font:24><just:center>Download Finished");
 	MPDC_Close.setActive(true);
 	MPDC_Download.setActive(true);
 }
 
 function MPDownloadDlg::downloadError(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPDownloadDlg.downloadError();
+		return;
+	}
 	MPDC_Info.setText("<font:24><just:center>Error with Download");
 	MPDC_Close.setActive(true);
 	MPDC_Download.setActive(true);

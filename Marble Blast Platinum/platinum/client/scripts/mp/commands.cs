@@ -412,6 +412,10 @@ function clientCmdPrivateMessage(%name, %message) {
 }
 
 function clientCmdHostStatus(%status) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.onHostStatus(%status);
+		return;
+	}
 	$Server::Hosting = %status;
 	MPPreGameDlg.updateActive();
 	MPEndGameDlg.updateActive();

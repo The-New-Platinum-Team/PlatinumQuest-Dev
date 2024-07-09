@@ -380,6 +380,10 @@ function MPEndGameDlg::updateActive(%this) {
 }
 
 function MPEndGameDlg::updateScores(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPEndGameDlg.updateScores();
+		return;
+	}
 	%snow = $Game::isMode["snowball"];
 	%spooky = $Game::isMode["spooky"];
 

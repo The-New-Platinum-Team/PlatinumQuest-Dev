@@ -391,36 +391,46 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 //--- OBJECT WRITE END ---
 
 function MPPreGameDlg::onWake(%this) {
-	commandToServer('SetSpectate', false);
-	$SpectateMode = false;
+	if (!%this.save) {
+		commandToServer('SetSpectate', false);
+		$SpectateMode = false;
+		MPPreGameReady.setValue(false);
+		MPPreGameSpectate.setValue(false);
+	}
+	%this.save = false;
 
-	MPPreGameReady.setValue(false);
-	MPPreGameSpectate.setValue(false);
 	MPPreGameServerSettings.setVisible($Server::Hosting);
-
 	MPPreGameServerSettings.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();");
 
 	%this.ready();
 	%this.updateInfo();
 
-	cancel(%this.overrideSch);
-	cancelInterval(%this.overrideInterval);
-
 	if (ControllerGui.isJoystick()) {
 		showControllerUI();
 	}
 
-	%this.force = false;
-	%this.override = false;
-	%this.overrideSch = %this.schedule(60000, "override");
-	%this.overrideStart = getRealTime();
-	%this.overrideInterval = %this.interval(100, "updateActive");
+	if (%this.overrideSch $= "") {
+		%this.force = false;
+		%this.override = false;
+		%this.overrideSch = %this.schedule(60000, "override");
+		%this.overrideStart = getRealTime();
+		%this.overrideInterval = %this.interval(100, "updateActive");
+	}
+
+	if (MPExitGameDlg.isAwake()) {
+		RootGui.popDialog(MPExitGameDlg);
+	}
 }
 
 function MPPreGameDlg::override(%this) {
 	%this.override = true;
 	%this.updateInfo();
+	cancel(%this.overrideSch);
+	%this.overrideSch = "";
 	cancelInterval(%this.overrideInterval);
+	if ($GuiPack::CurrentPack !$= "") {
+		$GuiPack::CurrentPack.MPPreGameDlg.override();
+	}
 }
 
 function MPPreGameDlg::updateOverride(%this) {
@@ -472,6 +482,7 @@ function MPPreGameDlg::play(%this) {
 		commandToServer('PreGamePlay', %this.override);
 		%this.override = false;
 		cancel(%this.overrideSch);
+		%this.overrideSch = "";
 		cancelInterval(%this.overrideInterval);
 	}
 }
@@ -487,6 +498,10 @@ function MPPreGameDlg::leave(%this) {
 
 // update the userlist for the clients
 function MPPreGameDlg::update(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPreGameDlg.update();
+		return;
+	}
 	MPPreGameUserList.clear();
 
 	%count = PlayerList.getSize();
@@ -547,6 +562,10 @@ function MPPreGameDlg::update(%this) {
 }
 
 function MPPreGameDlg::updateInfo(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPreGameDlg.updateInfo();
+		return;
+	}
 	//%this.mapName
 	//%this.serverName
 	//%this.info

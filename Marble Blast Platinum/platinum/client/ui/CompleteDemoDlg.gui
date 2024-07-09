@@ -231,6 +231,10 @@ new GuiControl(CompleteDemoDlg) {
 // AWESOME GUI
 
 function CompleteDemoDlg::open(%this, %callback) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.CompleteDemoDlg.open(%callback);
+		return;
+	}
 	error("Opening CompleteDemoDlg");
 	%this.callback = %callback;
 

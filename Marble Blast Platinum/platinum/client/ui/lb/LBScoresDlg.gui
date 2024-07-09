@@ -448,7 +448,12 @@ function LBScoresDlg::loadData(%this) {
 
 function LBScoresDlg::onTopPlayersUpdate(%this, %parsed) {
 	%this.topPlayerCache = %parsed;
+	%this.loading = false;
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBScoresDlg.onTopPlayersUpdate(%parsed);
+		return;
+	}
 	%category = %this.topPlayerCache.getFieldValue(%this.getRatingColumn());
 	if (isObject(%category)) {
 		for (%i = 0; %i < %category.display.getSize(); %i ++) {
@@ -460,6 +465,5 @@ function LBScoresDlg::onTopPlayersUpdate(%this, %parsed) {
 		}
 	}
 
-	%this.loading = false;
 	%this.updatePage();
 }

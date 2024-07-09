@@ -292,6 +292,10 @@ function MPTeamCreateDlg::open(%this) {
 }
 
 function MPTeamCreateDlg::close(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPTeamCreateDlg.close();
+		return;
+	}
 	RootGui.popDialog(%this);
 }
 

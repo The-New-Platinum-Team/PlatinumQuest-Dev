@@ -27,15 +27,25 @@ function clientCmdOpenLobby() {
 	if ($Server::ServerType !$= "MultiPlayer")
 		return;
 	$Server::Lobby = true;
-	if ($Client::NeedInit) {
-		PlayMissionGui.init();
-	}
 
 	%entry = PlayerList.getEntry($MP::ClientIndex);
 	%entry.progress = 0;
 	%entry.loadState = -1;
 
-	PlayMissionGui.open();
+	if ($Client::NeedInit) {
+		PlayMissionGui.init();
+	}
+
+	if ($GuiPack::Active) {
+		Canvas.setContent($GuiPack::CurrentPack.MPPlayMissionGui);
+	} else {
+		PlayMissionGui.open();
+	}
+
+	cancel(MPPreGameDlg.overrideSch);
+	MPPreGameDlg.overrideSch = "";
+	cancelInterval(MPPreGameDlg.overrideInterval);
+	
 	playLBMusic();
 }
 
@@ -70,38 +80,42 @@ function clientCmdLobbyMissionInfo(%info, %file, %game, %difficulty, %mode) {
 	$MP::MissionObj = new ScriptObject();
 	$MP::MissionObj.setFields(%info);
 
-	%update = false;
-	if ($CurrentGame !$= %game) {
-		PlayMissionGui.setGame(%game);
-		%update = true;
-	}
-	if ($MissionType !$= %difficulty) {
-		PlayMissionGui.setMissionType(%difficulty);
-		%update = true;
-	}
-	if (%update) {
-		PlayMissionGui.showMissionList();
-		echo("Got Game: " @ %game);
-		echo("Got MissionType: " @ %difficulty);
-	}
-
 	//Set mode
 	%modeInfo = getModeInfo(%mode);
 	$MP::CurrentMode = %mode;
 	$MP::CurrentModeInfo = %modeInfo;
 
-	// Update missionlist
-	PlayMissionGui.setSelectedMission($MP::MissionObj, %game, %difficulty);
-	if (!$Server::Hosting) {
-		PlayMissionGui.deactivateMissionList();
-	}
-
 	// Store these for later
 	$MP::MissionFile = %file;
 
-	if ((!$Server::Hosting || $Server::_Dedicated) && !$MP::DownloadMissionAvailable[$MP::MissionFile]) {
-		RootGui.popDialog(MPDownloadDlg);
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPPlayMissionGui.onLobbyMissionInfo(%info, %file, %game, %difficulty, %mode);
+	} else {
+		%update = false;
+		if ($CurrentGame !$= %game) {
+			PlayMissionGui.setGame(%game);
+			%update = true;
+		}
+		if ($MissionType !$= %difficulty) {
+			PlayMissionGui.setMissionType(%difficulty);
+			%update = true;
+		}
+		if (%update) {
+			PlayMissionGui.showMissionList();
+			echo("Got Game: " @ %game);
+			echo("Got MissionType: " @ %difficulty);
+		}
+
+		// Update missionlist
+		PlayMissionGui.setSelectedMission($MP::MissionObj, %game, %difficulty);
+		if (!$Server::Hosting) {
+			PlayMissionGui.deactivateMissionList();
+		}
 	}
+
+		if ((!$Server::Hosting || $Server::_Dedicated) && !$MP::DownloadMissionAvailable[$MP::MissionFile]) {
+			RootGui.popDialog(MPDownloadDlg);
+		}
 
 	commandToServer('MissionFileCheck', %file, getFileCRC(%file));
 }
@@ -193,11 +207,20 @@ function clientCmdPlayerlistPlayer(%list, %maxIdx) {
 
 	PlayMissionGui.updateServerPlayerList();
 	MPPlayersDlg.updatePlayerList();
+
+	if ($GuiPack::Active) {
+		if ($GuiPack::CurrentPack.MPPlayMissionGui.isAwake()) {
+			%vs = !$Server::Hosting || (!$Server::_Dedicated && ClientGroup.getCount() > 1) || ($Server::_Dedicated && isObject(ScoreList.player[1]));
+			if (%vs != $GuiPack::CurrentPack.MPPlayMissionGui.scoreType)
+				$GuiPack::CurrentPack.MPPlayMissionGui.updateScoreType();
+		}
+	} else {
 		if (PlayMissionGui.isAwake()) {
 			%vs = !$Server::Hosting || (!$Server::_Dedicated && ClientGroup.getCount() > 1) || ($Server::_Dedicated && isObject(ScoreList.player[1]));
 			if (%vs != PlayMissionGui.scoreType)
 				PlayMissionGui.updateMissionInfo();
 		}
+	}
 }
 
 function clientCmdClientLoadProgress(%recordSet) {
@@ -485,8 +508,12 @@ function clientCmdValidMission(%file) {
 
 function clientCmdCloseLobby() {
 	$Server::Lobby = false;
-	PG_LBChatEntry.setValue(""); // Clear ingame chat
-	LBSetChatMessage("", PG_LBChatEntry);
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.closeLobby();
+	} else {
+		PG_LBChatEntry.setValue(""); // Clear ingame chat
+		LBSetChatMessage("", PG_LBChatEntry);
+	}
 }
 
 function clientCmdDifficultyListStart() {
@@ -541,16 +568,20 @@ function clientCmdMissionListEnd(%gameName, %difficultyName) {
 	}
 	if ($Server::Lobby) {
 		//Really only need to update if we are showing this difficulty
-		%info = PlayMissionGui.getMissionInfo();
 		if (%gameName $= $CurrentGame && %difficultyName $= $MissionType) {
-			//Update to show the real mission list
-			PlayMissionGui.showMissionList();
+			if ($GuiPack::Active) {
+				$GuiPack::CurrentPack.MPPlayMissionGui.onMissionListReceived();
+			} else {
+				//Update to show the real mission list
+				PlayMissionGui.showMissionList();
 
-			//Select the current mission again so it doesn't deselect when the list updates
-			PlayMissionGui.setSelectedMission(%info, $CurrentGame, $MissionType);
+				//Select the current mission again so it doesn't deselect when the list updates
+				%info = PlayMissionGui.getMissionInfo();
+				PlayMissionGui.setSelectedMission(%info, $CurrentGame, $MissionType);
 
-			//Update the play screen
-			PlayMissionGui.updateMPButtons();
+				//Update the play screen
+				PlayMissionGui.updateMPButtons();
+			}
 		}
 
 		if (SearchDlg.isAwake()) {

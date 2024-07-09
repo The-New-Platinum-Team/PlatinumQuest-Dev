@@ -25,6 +25,10 @@
 //----------------------------------------------------------------------------
 
 function PlayGui::positionMessageHud(%this) {
+	if ($GuiPack::Active && lb()) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.positionMessageHud();
+		return;
+	}
 	//Sizing variables
 	%w             = getWord(%this.getExtent(), 0);
 	%h             = getWord(%this.getExtent(), 1);
@@ -98,9 +102,13 @@ function PlayGui::positionMessageHud(%this) {
 }
 
 function PlayGui::updateMessageHud(%this) {
+	%lb = lb();
+	if ($GuiPack::Active && %lb) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.updateMessageHud();
+		return;
+	}
 	showSpectatorMenu($SpectateMode);
 
-	%lb = lb();
 	//Sizing variables
 	%w             = getWord(%this.getExtent(), 0);
 	%h             = getWord(%this.getExtent(), 1);
@@ -153,6 +161,7 @@ function PlayGui::updateMessageHud(%this) {
 		} else {
 			FPSMetreText.resize(!%hideChat ? 20 : 10, !%hideChat ? 10 : 3, 106, 28);
 		}
+
 		%shadowStart = 0;
 		if ($SpectateMode)
 			%shadowStart = 302;
@@ -203,6 +212,10 @@ function PlayGui::updateMessageHud(%this) {
 }
 
 function LBscrollChat() {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.scrollChat();
+		return;
+	}
 	if (isObject(PG_LBChatScroll)) {
 		if (RootGui.getContent().getName() $= "PlayGui" && LBMessageHudDlg.isAwake()) {
 			PG_LBChatText.forceReflow();
@@ -223,6 +236,10 @@ function LBscrollChat() {
 //------------------------------------------------------------------------------
 
 function PlayGui::sendChat(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.sendChat();
+		return;
+	}
 	%message = trim(PG_LBChatEntry.getValue());
 	devecho("Send chat: " @ %message);
 
@@ -242,6 +259,10 @@ function PlayGui::sendChat(%this) {
 }
 
 function PlayGui::chatUpdate(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.chatUpdate();
+		return;
+	}
 	%message = PG_LBChatEntry.getValue();
 
 	if (getSubStr(%message, 0, 3) $= "@@@") {
@@ -307,6 +328,10 @@ function toggleTeamChatHUD(%make) {
 }
 
 function disableChatHUD(%remove) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.disableChatHUD(%remove);
+		return;
+	}
 	if (%remove) {
 		PG_LBChatEntry.setValue("");
 		LBSetChatMessage("", PG_LBChatEntry);
@@ -340,6 +365,10 @@ function disableChatHUD(%remove) {
 }
 
 function enableChatHUD() {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBMessageHudDlg.enableChatHUD();
+		return;
+	}
 	//echo("ENABLING CHATHUD");
 	PG_LBChatEntry.setTickable(true);
 	// only lbs

@@ -446,6 +446,10 @@ function clientCmdGameEnd() {
 		return;
 	}
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.EndGameDlg.gameEnd();
+		return;
+	}
 	RootGui.pushDialog(EndGameDlg);
 	PlayGui.positionMessageHud();
 	//Hack: why isn't this being called
@@ -507,6 +511,10 @@ function clientCmdGameEnd() {
 }
 
 function highScoreNameAccept() {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.EndGameDlg.highScoreNameAccept();
+		return;
+	}
 	EnterNameDlg.setVisible(false);
 	EnterNameEdit.makeFirstResponder(false);
 
@@ -526,6 +534,10 @@ function highScoreNameChanged() {
 	if ($highScoreAccept)
 		return;
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.EndGameDlg.highScoreNameChanged();
+		return;
+	}
 	// prevent nil name entries
 	// you need to check it before onWake!
 	if ($pref::highScoreName $= "")
@@ -555,6 +567,10 @@ function mLogb(%n,%b) {
 }
 
 function reformatGameEndText() {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.EndGameDlg.reformatGameEndText();
+		return;
+	}
 	// Clear everything first
 	EG_Result.setText("");
 	EG_Description.setText("");

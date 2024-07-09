@@ -61,7 +61,11 @@ function clientCmdFileDownloadChunk(%seq, %chunk, %packet) {
 
 	%estimated = ((getRealTime() - $downloadStart[%file]) / (%recv / %total)) - (getRealTime() - $downloadStart[%file]);
 
-	MPDC_Info.setText(shadow("1 1", "0000007f") @ "<color:ffffff><font:24><just:center>Receiving" SPC fileBase(%file) @ fileExt(%file) SPC "-" SPC mFloor((100 * %recv) / %total) @ "%" @($DownloadFileNameLength[%seq] < 270 ? " (" @($DownloadFileNameLength[%seq] < 200 ? (mFloor(%recv / 100) / 10) @ "/" @(mFloor(%total / 100) / 10) SPC "kB, " : "") @ mFloor(%rate / 100) / 10 SPC "kB/s)" : "") @($DownloadFileNameLength[%seq] < 320 ? " " @ getSubStr(formatTimeSeconds(%estimated), 1, 999) : ""));
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.MPDownloadDlg.onFileDownloadChunk(%file, %recv, %total, %seq, %estimated);
+	} else {
+		MPDC_Info.setText(shadow("1 1", "0000007f") @ "<color:ffffff><font:24><just:center>Receiving" SPC fileBase(%file) @ fileExt(%file) SPC "-" SPC mFloor((100 * %recv) / %total) @ "%" @($DownloadFileNameLength[%seq] < 270 ? " (" @($DownloadFileNameLength[%seq] < 200 ? (mFloor(%recv / 100) / 10) @ "/" @(mFloor(%total / 100) / 10) SPC "kB, " : "") @ mFloor(%rate / 100) / 10 SPC "kB/s)" : "") @($DownloadFileNameLength[%seq] < 320 ? " " @ getSubStr(formatTimeSeconds(%estimated), 1, 999) : ""));
+	}
 }
 
 function clientCmdFileDownloadEnd(%seq) {

@@ -406,7 +406,11 @@ function playReplay(%file) {
 	//How convenient
 	deactivateMenuHandler("PMMenu");
 	activateMenuHandler("Replay");
-	RootGui.setContent(LoadingGui);
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LoadingGui.onPlayReplay(%minfo);
+	} else {
+		RootGui.setContent(LoadingGui);
+	}
 
 	if ($Menu::Loaded && $Menu::MissionFile $= %info.missionFile) {
 		Replay_MissionLoaded();
@@ -497,21 +501,25 @@ function onDemoPlayDone() {
 
 	//Exit the mission
 	menuDestroyServer();
-	PlayMissionGui.setSelectedMission(PlayMissionGui.getMissionInfo());
 
-	//Back to where we started
-	if (lb()) {
-		if ($replayFromWorldRecord) {
-			RootGui.setContent(PlayMissionGui);
-			PlayMissionGui.showGlobalScores();
-		} else {
-			RootGui.setContent(LBChatGui);
-		}
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LoadingGui.setReplayDialog();
 	} else {
-		RootGui.setContent(MainMenuGui);
+		PlayMissionGui.setSelectedMission(PlayMissionGui.getMissionInfo());
+		//Back to where we started
+		if (lb()) {
+			if ($replayFromWorldRecord) {
+				RootGui.setContent(PlayMissionGui);
+				PlayMissionGui.showGlobalScores();
+			} else {
+				RootGui.setContent(LBChatGui);
+			}
+		} else {
+			RootGui.setContent(MainMenuGui);
+		}
+		if ($replayFromPlayDemoGui)
+			Canvas.pushDialog(PlayDemoGui);
 	}
-	if ($replayFromPlayDemoGui)
-		Canvas.pushDialog(PlayDemoGui);
 
 	$replayFromPlayDemoGui = false;
 	$replayFromWorldRecord = false;

@@ -730,6 +730,10 @@ function addLBChatLine(%message) {
 }
 
 function LBUpdateChat(%message) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBChatGui.updateChat(%message);
+		return;
+	}
 	if (%message $= "") {
 		%text = "<font:\x10:\x11>" @ $LB::ChatText;
 
@@ -960,6 +964,9 @@ function LBChatGui::chatUpdate(%this) {
 }
 
 function LBSetChatMessage(%message, %ctrl) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBChatGui.setChatMessage(%message, %ctrl);
+	}
 	if (%ctrl !$= "LBSendChat")
 		LBSendChat.setValue(%message);
 	if (%ctrl !$= "PG_LBChatEntry")
@@ -971,6 +978,10 @@ function LBSetChatMessage(%message, %ctrl) {
 function LBChatGui::setEnableChatEntry(%this, %enabled) {
 	$LB::GlobalChatEnabled = %enabled;
 
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBChatGui.setEnableChatEntry(%enabled);
+		return;
+	}
 	LBSendChat.setVisible(%enabled);
 	LBSendChatDisabledText.setVisible(!%enabled);
 	LBSendChat.makeFirstResponder(%enabled);
@@ -1225,6 +1236,10 @@ function LBSlapMessage(%from, %to) {
 
 // update the list!
 function LBChatGui::updateUserlist(%this) {
+	if ($GuiPack::Active) {
+		$GuiPack::CurrentPack.LBChatGui.updateUserList();
+		return;
+	}
 	%text = "<lmargin:4><font:24>Users Online";
 
 	%lastGroup = -1;
