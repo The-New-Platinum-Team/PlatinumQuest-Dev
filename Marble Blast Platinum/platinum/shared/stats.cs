@@ -695,7 +695,6 @@ function statsGetMissionListChallengeLine(%line, %req) {
 			$MissionType = getField(getRecord(%ml.getDifficultyList($CurrentGame), 0), 0);
 		} else {
 			PlayMissionGui.init();
-			Unlock::updateCaches();
 			statsGetPersonalTopScoreList();
 		}
 	}
