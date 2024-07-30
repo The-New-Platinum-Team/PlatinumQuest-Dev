@@ -320,6 +320,11 @@ function onMissionReset() {
 		$MP::ScoreSendingDisabled = true;
 	}
 
+	if (mp() && !$MPPref::Server::CompetitiveMode && !$MPPref::Server::SoubleSpawnGroups)
+	{
+		$MP::ScoreSendingDisabled = false;
+	}
+
 	// Reset the players and inform them we're starting
 	%count = ClientGroup.getCount();
 	for (%clientIndex = 0; %clientIndex < %count; %clientIndex++) {
