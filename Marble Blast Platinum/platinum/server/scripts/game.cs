@@ -320,7 +320,7 @@ function onMissionReset() {
 		$MP::ScoreSendingDisabled = true;
 	}
 
-	if (mp() && !$MPPref::Server::CompetitiveMode && !$MPPref::Server::SoubleSpawnGroups)
+	if (mp() && !$MPPref::Server::CompetitiveMode && !$MPPref::Server::DoubleSpawnGroups)
 	{
 		$MP::ScoreSendingDisabled = false;
 	}
