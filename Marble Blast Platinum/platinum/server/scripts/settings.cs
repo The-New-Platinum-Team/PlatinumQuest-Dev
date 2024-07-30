@@ -193,7 +193,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			} else {
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
 						$MP::ScoreSendingDisabled = true;
 						break;
 					}
@@ -218,12 +218,14 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				}
 				Hunt_CompetitiveClearTimer();
 				$MP::ScoreSendingDisabled = false;
+				
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
 						$MP::ScoreSendingDisabled = true;
 						break;
 					}
 				}
+
 				hideGems();
 				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
