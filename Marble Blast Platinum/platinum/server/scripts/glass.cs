@@ -90,17 +90,17 @@ datablock StaticShapeData(ForceFieldBumper : ForceFieldPost) {
 };
 
 function Empty::onAdd(%this, %obj) {
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost") {
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost" && !lb()) {
 	%obj.setDataBlock("ForceFieldPost");
 	%obj.playThread(0,"ambient_ifl");
    }
 
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldBumper") {
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldBumper" && !lb()) {
 	%obj.setDataBlock("ForceFieldBumper");
 	%obj.playThread(0,"ambient_ifl");
    }
 
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "Checkpoint_MBXP") {
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "Checkpoint_MBXP" && !lb()) {
 	%obj.setDataBlock("Checkpoint_MBXP");
    }
 }	

@@ -112,7 +112,7 @@ function TrapDoorClass::onAdd(%this, %obj) {
 	if ((Sky.materialList $= "platinum/data/skies/sky_day.dml") && (%obj.skin $= "")) {
 		%obj.skin = "skin1";
 		%obj.setSkinName(%obj.skin);
-		if ($TexturePack::MBXP) {
+		if ($TexturePack::MBXP && !lb()) {
 			%obj.skin = "skin0";
 			%obj.setSkinName(%obj.skin);
 		}
