@@ -76,12 +76,20 @@ function loadGuiPack(%packname, %auto) {
 		activateMenuHandler(%pack.MenuHandler);
 	}
 
-	if (%pack.ShellMusic !$= "" && getVariable("$pref::" @ strupr(%pack.identifier) @ "Gui::SongsMenu") $= "")
-		setVariable("$pref::" @ strupr(%pack.identifier) @ "Gui::SongsMenu", %pack.ShellMusic);
-	if (%pack.LBShellMusic !$= "" && getVariable("$pref::" @ strupr(%pack.identifier) @ "Gui::SongsLB") $= "")
-		setVariable("$pref::" @ strupr(%pack.identifier) @ "Gui::SongsLB", %pack.LBShellMusic);
+	if (%pack.ShellMusic !$= "" && getVariable("$pref::" @ upperFirst(%pack.identifier) @ "Gui::SongsMenu") $= "")
+		setVariable("$pref::" @ upperFirst(%pack.identifier) @ "Gui::SongsMenu", %pack.ShellMusic);
+	if (%pack.LBShellMusic !$= "" && getVariable("$pref::" @ upperFirst(%pack.identifier) @ "Gui::SongsLB") $= "")
+		setVariable("$pref::" @ upperFirst(%pack.identifier) @ "Gui::SongsLB", %pack.LBShellMusic);
 
 	$GuiPack::Active = true;
+
+	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
+		%tpack = ActiveTexturePacks.getEntry(%i);
+		if (%tpack.base $= ($usermods @ "/data/texture_packs/dark")) {
+			reloadTexturePacks();
+			break;
+		}
+	}
 
 	if (!%auto) {
 		if (%inOptions) {
@@ -158,6 +166,14 @@ function unloadGuiPack(%pack, %auto) {
 	deleteVariables("$GuiPack::*");
 	
 	$GuiPack::Active = false;
+
+	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
+		%tpack = ActiveTexturePacks.getEntry(%i);
+		if (%tpack.base $= ($usermods @ "/data/texture_packs/dark")) {
+			reloadTexturePacks();
+			break;
+		}
+	}
 
 	if (!%auto) {
 		PlayMissionGui.marbleland = marblelandIsMission($Menu::MissionFile);

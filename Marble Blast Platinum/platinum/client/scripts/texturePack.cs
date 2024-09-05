@@ -94,6 +94,8 @@ function reloadTexturePacks() {
 	//Then load everything back
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
+		if ($GuiPack::Active && %pack.base $= ($usermods @ "/data/texture_packs/dark"))
+			continue;
 		loadTexturePack(%pack);
 	}
 
@@ -119,6 +121,8 @@ function reloadTexturePacks() {
 function reloadTexturePackFields() {
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
+		if ($GuiPack::Active && %pack.base $= ($usermods @ "/data/texture_packs/dark"))
+			continue;
 		loadTexturePackFields(%pack);
 	}
 }

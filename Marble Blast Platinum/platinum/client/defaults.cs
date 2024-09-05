@@ -50,6 +50,7 @@ $pref::ScorePredictorMaxFactor = 2;
 $pref::StopRecordingOnMenu = false;
 $pref::NoHolePunching = false;
 $pref::NoFadeIn = false;
+$pref::OldItemNames = false;
 
 $pref::checkLETip = "1";
 $pref::checkTip[1] = "1";
@@ -175,6 +176,7 @@ $pref::Video::defaultPostFXShaderV = "platinum/data/shaders/postfxV.glsl";
 $pref::Video::defaultPostFXShaderF = "platinum/data/shaders/postfxF.glsl";
 //Texture packs
 $pref::Video::TexturePack[0] = "default";
+$pref::Video::GuiPack = "";
 
 //Bonus
 $pref::spchanges = false;

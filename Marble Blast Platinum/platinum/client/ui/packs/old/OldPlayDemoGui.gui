@@ -246,8 +246,10 @@ new GuiChunkedBitmapCtrl(OldPlayDemoGui) {
 
 function OldPlayDemoGui::open(%this, %lb, %dialog) {
 	%this.isLB = %lb;
-	%this.PMCurrentGame = ($pref::CurrentGame !$= "" ? $pref::CurrentGame : "Platinum");
-	%this.PMMissionType = ($pref::MissionType !$= "" ? $pref::MissionType : "Beginner");
+	if (%this.PMCurrentGame $= "" || %this.PMMissionType $= "") {
+		%this.PMCurrentGame = ($CurrentGame !$= "" ? $CurrentGame : "Platinum");
+		%this.PMMissionType = ($MissionType !$= "" ? $MissionType : "Beginner");
+	}
 	if (%dialog) {
 		Canvas.pushDialog(%this);
 		%this.setBitmap("platinum/client/ui/packs/old/offline/exit/empty.png");
@@ -277,10 +279,16 @@ function OldPlayDemoGui::onWake(%this) {
 function OldPlayDemoGui::exit(%this) {
 	$CurrentGame = %this.PMCurrentGame;
 	$MissionType = %this.PMMissionType;
-	if (lb()) {
-		Canvas.setContent(OldLBChatGui);
+	%this.PMCurrentGame = "";
+	%this.PMMissionType = "";
+	if (%this.dialog) {
+		Canvas.popDialog(%this);
 	} else {
-		Canvas.setContent(OldMainMenuGui);
+		if (lb()) {
+			Canvas.setContent(OldLBChatGui);
+		} else {
+			Canvas.setContent(OldMainMenuGui);
+		}
 	}
 }
 

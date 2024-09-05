@@ -337,10 +337,10 @@ function playMusic(%musicFileBase) {
 function playShellMusic() {
 	if ($GuiPack::Active) {
 		if (lb() && $GuiPack::CurrentPack.LBShellMusic !$= "") {
-			playMusic(getVariable("$pref::" @ strupr($GuiPack::CurrentPack.identifier) @ "Gui::SongsLB"));
+			playMusic(getVariable("$pref::" @ upperFirst($GuiPack::CurrentPack.identifier) @ "Gui::SongsLB"));
 			return;
 		} else if ($GuiPack::CurrentPack.ShellMusic !$= "") {
-			playMusic(getVariable("$pref::" @ strupr($GuiPack::CurrentPack.identifier) @ "Gui::SongsMenu"));
+			playMusic(getVariable("$pref::" @ upperFirst($GuiPack::CurrentPack.identifier) @ "Gui::SongsMenu"));
 			return;
 		}
 	}
@@ -352,8 +352,8 @@ function playShellMusic() {
 
 function playLBMusic() {
 	if ($GuiPack::Active) {
-		if (lb() && $GuiPack::CurrentPack.LBShellMusic !$= "") {
-			playMusic(getVariable("$pref::" @ strupr($GuiPack::CurrentPack.identifier) @ "Gui::SongsLB"));
+		if ($GuiPack::CurrentPack.LBShellMusic !$= "") {
+			playMusic(getVariable("$pref::" @ upperFirst($GuiPack::CurrentPack.identifier) @ "Gui::SongsLB"));
 			return;
 		}
 	}

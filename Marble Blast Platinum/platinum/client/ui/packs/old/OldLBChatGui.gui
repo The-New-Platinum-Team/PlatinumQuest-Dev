@@ -474,6 +474,7 @@ function OldLBChatGui::onWake(%this) {
 function OldLBChatGui::updateChat(%this, %message) {
 	if (%message $= "") {
 		%text = "<font:\x10:\x11>" @ $LB::ChatText;
+		%text = strReplace(%text, "/client/ui/lb/chat/flair/", "/client/ui/packs/old/leaderboards/chat/flair/");
 
 		traceGuard();
 
@@ -501,6 +502,7 @@ function OldLBChatGui::updateChat(%this, %message) {
 		traceGuardEnd();
 	} else {
 		%text = "\n<spush>" @ %message @ "<spop>";
+		%text = strReplace(%text, "/client/ui/lb/chat/flair/", "/client/ui/packs/old/leaderboards/chat/flair/");
 
 		OldLBChatText.addText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", "Arial"), "\x11", 14), "chat"), false);
 		if (OldLBChatGui.isAwake())

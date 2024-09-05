@@ -21,6 +21,9 @@
 //-----------------------------------------------------------------------------
 
 function GuiControl::setRandomBackground(%this) {
+	if (%this.noRandomBackground) {
+		return;
+	}
 	if (!%this.backgroundGameSpecific) {
 		if (%this.followBitmap.randomBackground !$= "") {
 			%this.randomBackground = %this.followBitmap.randomBackground;

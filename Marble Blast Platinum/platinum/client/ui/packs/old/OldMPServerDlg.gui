@@ -298,6 +298,7 @@ function OldMPServerDlg::populate(%this) {
 			%check = "OldMPServer" @ %id @ "Check";
 			%checkName = "OldMPServer" @ %id @ "CheckTitle";
 
+			OldMPServerSettingsContainer.add(
 			new GuiMLTextCtrl(%checkName) {
 		         profile = "GuiMLTextProfile";
 		         horizSizing = "width";
@@ -310,7 +311,8 @@ function OldMPServerDlg::populate(%this) {
 		         lineSpacing = "2";
 		         allowColorChars = "0";
 		         maxChars = "-1";
-		      };
+		      }
+			);
 			OldMPServerSettingsContainer.add(
 			new GuiBitmapButtonCtrl(%check) {
 				profile = "GuiDefaultProfile";

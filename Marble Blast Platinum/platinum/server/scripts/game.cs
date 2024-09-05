@@ -237,12 +237,10 @@ function onMissionLoaded() {
 	}
 
 	//Hack: Force astrolabe to be scoped so legacy items can do stuff with it
-	if (!mp()) {
-		%astrolabe = findAstrolabe(MissionGroup);
-		if (%astrolabe != -1) {
-			%astrolabe.setScopeAlways();
-			%astrolabe.forceNetUpdate();
-		}
+	%astrolabe = findAstrolabe(MissionGroup);
+	if (%astrolabe != -1) {
+		%astrolabe.setScopeAlways();
+		%astrolabe.forceNetUpdate();
 	}
 
 	$Game::GemCount = countGems(MissionGroup);

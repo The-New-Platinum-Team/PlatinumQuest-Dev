@@ -1017,6 +1017,7 @@ function OldLBPlayMissionDlg::showChallenges(%this) {
 function OldLBPlayMissionDlg::onWake(%this) {
 	$PMG::CurrentGui = %this.getName();
 	PlayMissionGui.ml = %this.getMissionList();
+	$Game::HighscoreCount = 10;
 	%this.scores = false;
 	OldLBPM_Achievements.setActive(!$LB::Guest);
 	OldLBPM_Stats.setActive(!$LB::Guest);
@@ -1027,6 +1028,10 @@ function OldLBPlayMissionDlg::onWake(%this) {
 	LBSetMode(1);
 	setDiscordStatus("In Level Select");
 	%this.setTickable(true);
+}
+
+function OldLBPlayMissionDlg::onSleep(%this) {
+	$Game::HighscoreCount = 5;
 }
 
 function OldLBPlayMissionDlg::setMissionTab(%this, %game, %cat, %index) {
@@ -1361,11 +1366,11 @@ function OldLBPlayMissionDlg::getScores(%this) {
 	%this.updateMissionScores();
 	if ($CurrentGame $= "Challenge") {
 		statsGetGlobalChallengeTopScores(%this.mission, %this.getMissionList().lookupGame["challenge"].challenge);
-		statsGetPersonalTopScores(%this.mission, %this.getMissionList().lookupGame["challenge"].challenge);
+		statsGetPersonalTopScores(%this.mission, %this.getMissionList().lookupGame["challenge"].challenge, 10);
 	} else {
 		statsGetGlobalTopScores(%this.mission);
 		statsGetTopScoreModes(%this.mission);
-		statsGetPersonalTopScores(%this.mission);
+		statsGetPersonalTopScores(%this.mission, "", 10);
 	}
 }
 

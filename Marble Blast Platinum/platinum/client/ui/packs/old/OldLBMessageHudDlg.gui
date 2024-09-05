@@ -313,7 +313,7 @@ new GuiControl(OldLBMessageHudDlg) {
 						allowColorChars = "0";
 						maxChars = "-1";
 					};
-					new GuiMLTextEditCtrl(OldPG_LBChatEntry) {
+					new GuiTextEditCtrl(OldPG_LBChatEntry) {
 						profile = "OldGuiMediumTextEditProfile";
 						horizSizing = "width";
 						vertSizing = "height";
@@ -328,8 +328,6 @@ new GuiControl(OldLBMessageHudDlg) {
 						allowColorChars = "1";
 						maxChars = "255";
 						escapeCommand = "disableChatHUD(true);";
-							tabCommand = "PlayGui.chatTabComplete();";
-							tabCompletions = "0";
 					};
 				};
 			};
@@ -605,9 +603,8 @@ new GuiControl(OldLBMessageHudDlg) {
 //--- OBJECT WRITE END ---
 
 function OldLBMessageHudDlg::positionMessageHud(%this) {
-	%this.setExtent(PlayGui.getExtent());
-	%w             = getWord(%this.getExtent(), 0);
-	%h             = getWord(%this.getExtent(), 1);
+	%w             = getWord(PlayGui.getExtent(), 0);
+	%h             = getWord(PlayGui.getExtent(), 1);
 	%mp            = ($PlayingDemo && $demoLB) || $Server::ServerType $= "Multiplayer";
 	%ultra         = MissionInfo.game $= "Ultra";
 	%isEndGame     = (isObject(EndGameDlg.getGroup()) && EndGameDlg.getGroup().getName() $= "Canvas");
@@ -634,6 +631,7 @@ function OldLBMessageHudDlg::positionMessageHud(%this) {
 			%chatboxWidth /= 2;
 	}
 
+	%this.setExtent(PlayGui.getExtent());
 	OldPG_LBChatBackground.resize(0, %h - %height, %w, %height);
 	OldPG_LBChatTextPanel.resize(%chatStartX, 0, %chatWidth, %height);
 	OldPG_LBChatText.setPosition(1, -(getWord(OldPG_LBChatText.getExtent(), 1)));
@@ -666,7 +664,7 @@ function OldLBMessageHudDlg::positionMessageHud(%this) {
 	%blastY = getWord(VectorSub(PlayGui.getExtent(), (!%hideChat ? "0" SPC (35 + (20 * $LBPref::ChatMessageSize)) : "0 35")), 1);
 	PG_BlastBar.setPosition(6 SPC %blastY);
 
-	OldPG_MessageListBox.setHeight(%h - (!%hideChat ? (20 * $LBPref::ChatMessageSize) + 100 : 100) - (shouldEnableBlast() ? 34 : 0));
+	PG_MessageListBox.setHeight(%h - (!%hideChat ? (20 * $LBPref::ChatMessageSize) + 100 : 100) - (shouldEnableBlast() ? 34 : 0));
 
 	%this.updateMessageHud();
 }
@@ -674,8 +672,8 @@ function OldLBMessageHudDlg::positionMessageHud(%this) {
 function OldLBMessageHudDlg::updateMessageHud(%this) {
 	showSpectatorMenu($SpectateMode);
 
-	%w             = getWord(%this.getExtent(), 0);
-	%h             = getWord(%this.getExtent(), 1);
+	%w             = getWord(PlayGui.getExtent(), 0);
+	%h             = getWord(PlayGui.getExtent(), 1);
 	%mp            = ($PlayingDemo && $demoLB) || $Server::ServerType $= "Multiplayer";
 	%ultra         = MissionInfo.game $= "Ultra";
 	%isEndGame     = (isObject(EndGameDlg.getGroup()) && EndGameDlg.getGroup().getName() $= "Canvas");

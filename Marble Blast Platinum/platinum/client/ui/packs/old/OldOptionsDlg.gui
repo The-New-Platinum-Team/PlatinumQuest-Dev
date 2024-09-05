@@ -180,7 +180,7 @@ new GuiChunkedBitmapCtrl(OldOptionsDlg) {
 			extent = "94 46";
 			minExtent = "8 8";
 			visible = "1";
-			command = "OldOptionsDlg.apply(); OptionsGui.back();";
+			command = "OldOptionsDlg.apply(); OldOptionsDlg.back();";
 			helpTag = "0";
 			text = "";
 			groupNum = "-1";
@@ -220,8 +220,6 @@ function OldOptionsDlg::load(%this) {
 		OldLBChatGui.updateUserList();
 	}
 	if (mp()) {
-		OldMPPlayMissionDlg.mission = PlayMissionGui.selectedMission;
-		OldMPPlayMissionDlg.missionIndex = $MPPref::SelectedMissionIndex;
 		OldMPPlayMissionDlg.buildDifficultySelector();
 		OldMPPlayMissionDlg.updateDisplay();
 		OldMPPlayMissionDlg.updateServerChat();
@@ -460,188 +458,6 @@ function Opt_MarblelandNormalRepeat_setValue(%value) {
 	$pref::OldGui::MarblelandNormalRepeatSpeed = %value;
 }
 
-
-function Opt_screenResolution_getList() {
-	%resolutions = "";
-	for (%i = 0; %i < OptResolutions.getSize(); %i ++) {
-		%resolution = OptResolutions.getEntry(%i);
-		%resolutions = (%resolutions !$= "" ? %resolutions NL %resolution : %resolution) TAB "$pref::Video::resolution = \"" @ %resolution @ "\"; $pref::Video::WindowedRes = \"" @ %resolution @ "\";";
-	}
-	return %resolutions;
-}
-
-function Opt_screenStyle_getList() {
-	return "Windowed" TAB "$pref::Video::fullScreen = false; Opt_screenStyle_updateResolution();" NL "Full Screen" TAB "$pref::Video::fullScreen = true; pt_screenStyle_updateResolution();";
-}
-
-function Opt_textureQuality_getList() {
-	return "Low" TAB "$pref::Video::TextureQuality = 0;" NL "Medium" TAB "$pref::Video::TextureQuality = 1;" NL "High" TAB "$pref::Video::TextureQuality = 2;";
-}
-
-function Opt_marbleReflections_getList() {
-	return "Disabled" TAB "$pref::Video::MarbleReflectionQuality = 0; $pref::Video::MarbleCubemapExtent = 32;" NL "Basic" TAB "$pref::Video::MarbleReflectionQuality = 1; $pref::Video::MarbleCubemapExtent = 64;" NL "Advanced" TAB "$pref::Video::MarbleReflectionQuality = 2; $pref::Video::MarbleCubemapExtent = 128;";
-}
-
-function Opt_postprocessing_getList() {
-	return "Disabled" TAB "$pref::Video::PostProcessing = false;" NL "Enabled" TAB "$pref::Video::PostProcessing = true;";
-}
-
-function Opt_bloom_getList() {
-	return "Disabled" TAB "$pref::Video::ShapeBloomQuality = 0;" NL "Basic" TAB "$pref::Video::ShapeBloomQuality = 1;" NL "High" TAB "$pref::Video::ShapeBloomQuality = 2;" NL "Ultra" TAB "$pref::Video::ShapeBloomQuality = 3;";
-}
-
-function Opt_interiorShaders_getList() {
-	return "Legacy" TAB "$pref::Video::InteriorShaderQuality = -1;" NL "Low" TAB "$pref::Video::InteriorShaderQuality = 0;" NL "Medium" TAB "$pref::Video::InteriorShaderQuality = 1;" NL "High" TAB "$pref::Video::InteriorShaderQuality = 2;";
-}
-
-function Opt_antiAliasing_getList() {
-	return "Disabled" TAB "$pref::Video::AntiAliasing = 0;" NL "2x" TAB "$pref::Video::AntiAliasing = 2;" NL "4x" TAB "$pref::Video::AntiAliasing = 4;" NL "8x" TAB "$pref::Video::AntiAliasing = 8;";
-}
-
-function Opt_maxFPS_getList() {
-	return "Unlimited" TAB "$pref::Video::MaxFPS = -1;" NL "VSync" TAB "$pref::Video::MaxFPS = 0;" NL "30" TAB "$pref::Video::MaxFPS = 30;" NL "60" TAB "$pref::Video::MaxFPS = 60;" NL "75" TAB "$pref::Video::MaxFPS = 75;" NL "120" TAB "$pref::Video::MaxFPS = 120;" NL "200" TAB "$pref::Video::MaxFPS = 200;";
-}
-
-function Opt_guiPack_getList() {
-	%packs = "";
-	for (%i = 0; %i < GuiPackArray.getSize(); %i ++) {
-		%pack = GuiPackArray.getEntry(%i);
-		%display = getField(%pack, 0);
-		%guipack = getField(%pack, 1);
-		%packs = (%packs !$= "" ? %packs NL %display : %display) TAB "$pref::Video::GuiPack = \"" @ %guipack @ "\";";
-	}
-	return %packs;
-}
-
-function Opt_particleSystem_getList() {
-	%command = "if (isObject(BounceParticle)) applyParticleSystem();";
-	return "PlatinumQuest" TAB "$pref::Video::particleSystem = 0;" @ %command NL "Marble Blast Gold" TAB "$pref::Video::particleSystem = 1;" @ %command NL "Marble Blast Ultra" TAB "$pref::Video::particleSystem = 2;" @ %command;
-}
-
-function Opt_smoothShading_getList() {
-	return "Disabled" TAB "$pref::Interior::SmoothShading = false;" NL "Enabled" TAB "$pref::Interior::SmoothShading = true;";
-}
-
-function Opt_legacyItems_getList() {
-	%command = "if (isObject(ServerConnection)) { applyLegacyItems(); applyOldMPSky(); }";
-	return "Disabled" TAB "$pref::legacyItems = 0;" @ %command NL "Items" TAB "$pref::legacyItems = 1;" @ %command NL "Items + Skies" TAB "$pref::legacyItems = 2;" @ %command;
-}
-
-function Opt_animateBackground_getList() {
-	return "Disabled" TAB "$pref::animatePreviews = false;" NL "Enabled" TAB "$pref::animatePreviews = true;";
-}
-
-function Opt_fast_getList() {
-	return "Disabled" TAB "$pref::fastMode = false; enableInterpolation(!$pref::FastMode);" NL "Enabled" TAB "$pref::fastMode = true; enableInterpolation(!$pref::FastMode);";
-}
-
-function Opt_fpsCounter_getList() {
-	return "Disabled" TAB "$pref::showFPSCounter = false; FPSMetreCtrl.setVisible($pref::showFPSCounter);" NL "Enabled" TAB "$pref::showFPSCounter = true; FPSMetreCtrl.setVisible($pref::showFPSCounter);";
-}
-
-function Opt_freelook_getList() {
-	return "Disabled" TAB "$pref::Input::alwaysFreeLook = false;" NL "Enabled" TAB "$pref::Input::alwaysFreeLook = true;";
-}
-
-function Opt_oobInsults_getList() {
-	return "Disabled" TAB "$pref::showOOBMessages = false;" NL "Enabled" TAB "$pref::showOOBMessages = true;";
-}
-
-function Opt_thousandths_getList() {
-	%command = "PG_Timer.setVisible(!$pref::Thousandths); PG_TimerThousands.setVisible($pref::Thousandths); PlayGui.updateControls(); PlayGui.updateTimeTravelCountdown();";
-	return "Disabled" TAB "$pref::Thousandths = false;" @ %command NL "Enabled" TAB "$pref::Thousandths = true;" @ %command;
-}
-
-function Opt_helptriggers_getList() {
-	return "Disabled" TAB "$pref::HelpTriggers = false;" NL "Enabled" TAB "$pref::HelpTriggers = true;";
-}
-
-function Opt_screenshotMode_getList() {
-	return "Show Everything" TAB "$pref::screenshotMode = 0;" NL "Hide Chat Online" TAB "$pref::screenshotMode = 1;" NL "Hide Everything" TAB "$pref::screenshotMode = 2;";
-}
-
-function Opt_alwaysShowSpeedometer_getList() {
-	return "Disabled" TAB "$pref::alwaysShowSpeedometer = false; PG_Speedometer.setVisible($pref::alwaysShowSpeedometer);" NL "Enabled" TAB "$pref::alwaysShowSpeedometer = true; PG_Speedometer.setVisible($pref::alwaysShowSpeedometer);";
-}
-
-function Opt_powerupsAlwaysOnRadar_getList() {
-	return "Disabled" TAB "$pref::powerupsAlwaysOnRadar = false;" NL "Enabled" TAB "$pref::powerupsAlwaysOnRadar = true;";
-}
-
-function Opt_powerupTimers_getList() {
-	return "Disabled" TAB "$pref::powerupTimers = false;" NL "Enabled" TAB "$pref::powerupTimers = true;";
-}
-
-function Opt_timeTravelTimer_getList() {
-	return "Disabled" TAB "$pref::timeTravelTimer = 0; PlayGui.updateTimeTravelCountdown();" NL "Enabled" TAB "$pref::timeTravelTimer = 1; PlayGui.updateTimeTravelCountdown();" NL "Enabled, Precise" TAB "$pref::timeTravelTimer = 2; PlayGui.updateTimeTravelCountdown();";
-}
-
-function Opt_oldItemNames_getList() {
-	%command = "if (PlayGui.isAwake()) { hideBubble(); PG_ChatBubbleBox.setVisible(false); clearMessages(); }";
-	return "Disabled" TAB "$pref::OldItemNames = false;" @ %command NL "Enabled" TAB "$pref::OldItemNames = true;" @ %command;
-}
-
-function Opt_minimalSpectateUI_getList() {
-	return "Disabled" TAB "$pref::minimalSpectateUI = false;" NL "Enabled" TAB "$pref::minimalSpectateUI = true;";
-}
-
-function Opt_spchanges_getList() {
-	return "Disabled" TAB "$pref::spchanges = false;" NL "Enabled" TAB "$pref::spchanges = true;";
-}
-
-function Opt_parTimeAlarm_getList() {
-	return "Disabled" TAB "$pref::parTimeAlarm = false;" NL "Enabled" TAB "$pref::parTimeAlarm = true;";
-}
-
-function Opt_audioPack_getList() {
-	%packs = "";
-	for (%i = 0; %i < AudioPackArray.getSize(); %i ++) {
-		%pack = AudioPackArray.getEntry(%i);
-		%display = getField(%pack, 0);
-		%audiopack = getField(%pack, 1);
-		%packs = (%packs !$= "" ? %packs NL %display : %display) TAB "$pref::Audio::AudioPack = \"" @ %audiopack @ "\"; loadAudioPack($pref::Audio::AudioPack);";
-	}
-	return %packs;
-}
-
-function Opt_automaticAudio_getList() {
-	return "Disabled" TAB "$pref::automaticAudio = false;" NL "Enabled" TAB "$pref::automaticAudio = true;";
-}
-
-function Opt_scorePredictor_getList() {
-	return "Disabled" TAB "$MPPref::ScorePredictor = false;" NL "Enabled" TAB "$MPPref::ScorePredictor = true;";
-}
-
-function Opt_showRecords_getList() {
-	return "Disabled" TAB "$LBPref::ShowRecords = false;" NL "Enabled" TAB "$LBPref::ShowRecords = true;";
-}
-
-function Opt_profanityFilter_getList() {
-	return "Disabled" TAB "$pref::ProfanityFilter = 0;" NL "Minimal" TAB "$pref::ProfanityFilter = 1;" NL "Strong" TAB "$pref::ProfanityFilter = 2;";
-}
-
-function Opt_globalSize_getList() {
-	return "5" TAB "$LBPref::GlobalPageSize = 5;" NL "10" TAB "$LBPref::GlobalPageSize = 10;";
-}
-
-function Opt_chatMessageSize_getList() {
-	return "1" TAB "$LBPref::ChatMessageSize = 1;" NL "2" TAB "$LBPref::ChatMessageSize = 2;" NL "3" TAB "$LBPref::ChatMessageSize = 3;" NL "4" TAB "$LBPref::ChatMessageSize = 4;" NL "5" TAB "$LBPref::ChatMessageSize = 5;" NL "6" TAB "$LBPref::ChatMessageSize = 6;";
-}
-
-function Opt_allowTaunts_getList() {
-	return "Disabled" TAB "$MPPref::AllowTaunts = false;" NL "Enabled" TAB "$MPPref::AllowTaunts = true;";
-}
-
-
-function Opt_noholepunch_getList() {
-	return "Disabled" TAB "$pref::NoHolePunching = true;" NL "Enabled" TAB "$pref::NoHolePunching = false;";
-}
-
-function Opt_autoLogin_getList() {
-	%command = "$Options::Disable[\"Online\", $Options::AutoLoginUserField] = ($LBPref::AutoLogin !$= \"User\"); $Options::Disable[\"Online\", $Options::AutoLoginPassField] = ($LBPref::AutoLogin !$= \"User\"); if ($LBPref::AutoLogin !$= \"User\") { $LBPref::AutoLoginUsername = \"\"; $LBPref::AutoLoginPassword = \"\"; } OldOptionsDlg.scheduleIgnorePause(0, buildTab, \"Online\");";
-	return "None" TAB "$LBPref::AutoLogin = \"None\";" @ %command NL "User" TAB "$LBPref::AutoLogin = \"User\";" @ %command NL "Guest" TAB "$LBPref::AutoLogin = \"Guest\";" @ %command;
-}
-
 function Opt_NewExitGame_getList() {
 	return "Disabled" TAB "$pref::OldGui::NewExitGame = 0; if (OldExitGameDlg.isAwake()) OldExitGameDlg.onWake();" NL "Bottom Buttons" TAB "$pref::OldGui::NewExitGame = 1; if (OldExitGameDlg.isAwake()) OldExitGameDlg.onWake();" NL "Full GUI" TAB "$pref::OldGui::NewExitGame = 2; if (OldExitGameDlg.isAwake()) OldExitGameDlg.onWake();";
 }
@@ -669,33 +485,6 @@ function Opt_NewMPPreGame_getList() {
 function Opt_NewMPExitGame_getList() {
 	return "Disabled" TAB "$pref::OldGui::NewMPExitGame = false; if (OldMPExitGameDlg.isAwake()) OldMPExitGameDlg.updateButtons();" NL "Enabled" TAB "$pref::OldGui::NewMPExitGame = true; if (OldMPExitGameDlg.isAwake()) OldMPExitGameDlg.updateButtons();";
 }
-
-function Opt_antiAliasing_showMessage() {
-	if (!$aaAssert) {
-		$aaAssert = true;
-		MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
-	}
-}
-
-function Opt_maxFPS_showMessage() {
-	if ($platform $= "macos" && !$vsyncAssert) {
-		$vsyncAssert = true;
-		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
-			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
-	}
-}
-
-function Opt_spchanges_showMessage() {
-	if (!$spchangesAssert) {
-		$spchangesAssert = true;
-		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
-	}
-}
-
-//Why does this toggle have a popup...?
-// function Opt_parTimeAlarm_showMessage() {
-	// MessageBoxOK("Stop Ringing!", "With this feature disabled, the game will no longer remind the player if they are about to miss the par time for a level.");
-// }
 
 
 function OldOptionsDlg::buildTab(%this, %tab) {
@@ -1029,7 +818,7 @@ function OldOptionsDlg::buildButtonDropdowns(%this, %tab) {
 						horizSizing = "right";
 						vertSizing = "bottom";
 						position = "11 16";
-						extent = "135" SPC (%count <= 2 ? "47" : (%count == 3 ? "63" : (%count == 4 ? "88" : "145")));
+						extent = "135" SPC (%count <= 2 ? "47" : (%count == 3 ? "63" : (%count == 4 ? "88" : "147")));
 						minExtent = "8 8";
 						visible = "1";
 						helpTag = "0";

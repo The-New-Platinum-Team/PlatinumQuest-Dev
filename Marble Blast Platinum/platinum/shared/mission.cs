@@ -317,9 +317,6 @@ function getMissionInfo(%file, %partial) {
 	$Mission::Info[%origfile] = %info;
 
 	//Update these
-	%info.game = "";
-	%info.type = "";
-	%info.modification = "";
 	%info.game = resolveMissionGame(%info);
 	%info.type = resolveMissionType(%info);
 	%info.modification = resolveMissionModification(%info);

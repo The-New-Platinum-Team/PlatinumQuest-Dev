@@ -339,7 +339,13 @@ function clientCmdShowLoadScreen() {
 		setLoadProgress(0, 0, 0);
 
 		//PMG does loading in MP
-		// RootGui.setContent(PlayMissionGui);
+		if ($GuiPack::Active) {
+			if (!$GuiPack::CurrentPack.MPPlayMissionGui.isAwake())
+				Canvas.setContent($GuiPack::CurrentPack.MPPlayMissionGui);
+		} else {
+			if (!PlayMissionGUi.isAwake())
+				RootGui.setContent(PlayMissionGui);
+		}
 		PlayMissionGui.onMPStartLoading();
 	} else {
 		// Need to pop up the loading gui to display this stuff.

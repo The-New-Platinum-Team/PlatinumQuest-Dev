@@ -473,7 +473,7 @@ new GuiChunkedBitmapCtrl(OldMPPlayMissionDlg) {
 			visible = "1";
 			helpTag = "0";
 
-			new GuiMLTextEditCtrl(OldMPPlayMissionChatEntry) {
+			new GuiTextEditCtrl(OldMPPlayMissionChatEntry) {
 				profile = "OldGuiMediumTextEditProfile";
 				horizSizing = "width";
 				vertSizing = "bottom";
@@ -2049,6 +2049,7 @@ function OldMPPlayMissionDlg::closePopovers(%this) {
 function OldMPPlayMissionDlg::onWake(%this) {
 	$PMG::CurrentGui = %this.getName();
 	PlayMissionGui.ml = %this.getMissionList();
+	%this.getScores();
 	%this.updateMPButtons();
 	OldMPGlobalPlayerListTitle.setText("<font:Marker Felt:24><color:bdcfe4><shadow:1:1><shadowcolor:0000007f>Players Online");
 	LBSetMode($Server::Hosting ? 6 : 7);

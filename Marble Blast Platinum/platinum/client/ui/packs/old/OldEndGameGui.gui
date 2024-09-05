@@ -278,7 +278,7 @@ function OldEndGameGui::onWake(%this) {
 
 function OldEndGameGui::getNextLevel(%this) {
 	if (marblelandIsMission($PMG::CurrentGui.mission.file)) {
-		return;
+		return "";
 	}
 	%list = $PMG::CurrentGui.getMissionList();
 	%attempts = 0;
@@ -299,11 +299,11 @@ function OldEndGameGui::getNextLevel(%this) {
 				}
 			}
 			if (!%found) {
-				return;
+				return "";
 			}
 			%next = getField(getRecord(%diffs, %i + 1), 0);
 			if (%next $= "") {
-				return;
+				return "";
 			}
 			%currentMissionType = %next;
 			%pmSelectedIndex = 0;

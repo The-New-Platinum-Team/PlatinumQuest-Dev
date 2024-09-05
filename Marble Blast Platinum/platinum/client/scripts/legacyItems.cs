@@ -657,7 +657,7 @@ function legacyApply() {
 	applyLegacyItems();
 	if ($CurrentGame $= "Hunt" || $CurrentGame $= "CustomHunt")
 		applyOldMPSky();
-	if ($TexturePack::LegacyMBUSun || mp())
+	if ($TexturePack::LegacyMBUSun)
 		applyLegacyMBUSun();
 }
 

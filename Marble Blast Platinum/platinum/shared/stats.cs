@@ -569,11 +569,15 @@ function statsGetTopScoreModesLine(%line, %req) {
 
 //-----------------------------------------------------------------------------
 
-function statsGetPersonalTopScores(%mission, %challenge) {
+function statsGetPersonalTopScores(%mission, %challenge, %count) {
 	%missionData = statsGetMissionIdentifier(%mission);
 
 	if (%challenge !$= "") {
 		%missionData = addParam(%missionData, "challenge", %challenge);
+	}
+
+	if (%count !$= "") {
+		%missionData = addParam(%missionData, "count", %count);
 	}
 
 	%req = statsPost("api/Score/GetPersonalTopScores.php", %missionData);

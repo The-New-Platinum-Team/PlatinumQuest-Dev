@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 
 if (!isObject(OldGuiProfilesGroup))
-		new SimGroup(OldGuiProfilesGroup);
+		RootGroup.add(new SimGroup(OldGuiProfilesGroup));
 
 if(!isObject(OldGuiBacklessScrollProfile)) OldGuiProfilesGroup.add(new GuiControlProfile (OldGuiBacklessScrollProfile){
 	opaque = false;
