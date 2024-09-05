@@ -82,6 +82,7 @@ function spawnHuntGemGroup(%exclude) {
 	$Game::SpawningGems = true;
 	if (doSpawnHuntGemGroup(%exclude)) {
 		Mode::callback("onHuntGemSpawn");
+		serverCbOnHuntGemSpawn();
 
 		if (SpawnedSet.getCount()) {
 			commandToAll('HuntGemSpawn', SpawnedSet.getCount());

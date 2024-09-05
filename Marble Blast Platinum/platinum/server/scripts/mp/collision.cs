@@ -31,7 +31,7 @@ function MPupdateGhostCollision() {
 	if (!$Server::Hosting || $Server::_Dedicated || $Server::ServerType $= "SinglePlayer")
 		return;
 
-	%nonMegaCollisions = (Mode::callback("enableMarbleCollisions", false));
+	%nonMegaCollisions = (Mode::callback("enableMarbleCollisions", false) || MissionInfo.MarbleCollisions);
 
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {

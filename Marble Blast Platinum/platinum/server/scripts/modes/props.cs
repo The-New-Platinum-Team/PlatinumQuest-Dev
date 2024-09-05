@@ -75,7 +75,7 @@ function Mode_props::onMissionReset(%this) {
 		%client = ClientGroup.getObject(%i);
 		%client.setHunter(false);
 		%client.playerListGem = $GemSkinColors[getRandom(1, 10)];
-		%client.hat.delete();
+		%client.hat.hide(true);
 		if (%client.propEliminated) {
 			%client.setSpectating(false);
 			%client.propEliminated = false;
@@ -93,6 +93,7 @@ function Mode_props::onMissionEnded(%this) {
 		%client = ClientGroup.getObject(%i);
 		%client.setHunter(false);
 		%client.playerListGem = "";
+		%client.hat.hide(false);
 		if (isObject(%client.player)) {
 			%client.player.setMode(Normal);
 		}
@@ -164,21 +165,26 @@ function Mode_props::onServerGo(%this) {
 	startDisguise();
 }
 function Mode_props::onBlast(%this, %object) {
-	%findRadius = %object.this.client.blastValue * 3;
-	if (%object.this.client.usingTripleBlast) {
-		%findRadius = 1.2;
-	}
-	if (%object.this.client.usingSpecialBlast) {
-		%findRadius = 3;
-	}
-	// if (%object.other.client.isMegaMarble()) {
-	// 	return;
-	// }
-	%mePos = %object.this.getWorldBoxCenter();
-	%theyPos = %object.other.getWorldBoxCenter();
-	if (VectorDist(%mePos, %theyPos) < %findRadius && %object.this.client.hunter && !%object.other.client.hunter) {
-		//Someone got tagged
-		%object.this.client.propFound(%object.other.client);
+	if ($Game::Seeking) {
+		%findRadius = %object.this.client.blastValue * 4;
+		if (%object.this.client.usingTripleBlast) {
+			%findRadius = 1.6;
+		}
+		if (%object.this.client.usingSpecialBlast) {
+			%findRadius = 4;
+		}
+		if (%object.this.client.isMegaMarble()) {
+			%findRadius /= $MP::MegaBlastModifier;
+		}
+		if (%object.other.client.isMegaMarble()) {
+			return;
+		}
+		%mePos = %object.this.getWorldBoxCenter();
+		%theyPos = %object.other.getWorldBoxCenter();
+		if (VectorDist(%mePos, %theyPos) < %findRadius && %object.this.client.hunter && !%object.other.client.hunter) {
+			//Someone got tagged
+			%object.this.client.propFound(%object.other.client);
+		}
 	}
 }
 function Mode_props::onUpdateGhost(%this, %object) {
@@ -301,8 +307,11 @@ function Mode_props::onServerChat(%this, %object) {
 	}
 }
 function Mode_props::getPlayerListSkin(%this, %object) {
-	if (!$Game::Running || !$Server::Started)
+	if (!$Game::Running || !$Server::Started) {
 		return %object.client.skinChoice;
+	} else if (!%object.client.isActive()) {
+		return "platinum/data/shapes/images/Blank.dts" TAB "" TAB "" TAB "" TAB "";
+	}
 	//Display a gem on the player list
 	if (!%object.client.hunter && isObject(%object.client.prop) && %object.client.isActive()) {
 		%skinChoice = "platinum/data/shapes/items/gem.dts" TAB %object.client.playerListGem TAB "" TAB "" TAB "";
@@ -586,13 +595,10 @@ function GameConnection::clearProp(%this) {
 	%this.prop.clearFX(%this.prop);
 	%this.prop.delete();
 	%this.updateGhostDatablock();
-
-	//Winterfest hat support
-	%this.hat.hide(false);
 }
 
 //List of allowed props
-$Props::AllowedProps = "GemItem GemItem_PQ GemItem_MBU FancyGemItem_PQ SuperSpeedItem SuperSpeedItem_PQ SuperSpeedItem_MBU SuperJumpItem SuperJumpItem_PQ SuperJumpItem_MBUHelicopterItem HelicopterItem_PQ HelicopterItem_MBU ShockAbsorberItem ShockAbsorberItem_PQ SuperBounceItem SuperBounceItem_PQ AntiGravityItem AntiGravityItem_PQ AntiGravityItem_MBU TimeTravelItem TimeTravelItem_PQ TimeTravelItem_MBU TimePenaltyItem TimePenaltyItem_PQ MegaMarbleItem MegaMarbleItem_MBU BlastItem BlastItem_MBU AnvilItem TeleportItem BubbleItem FireballItem SundialItem_PQ RandomPowerUpItem DefaultMarble PartyHatImage CandyItemRed CandyItemYellow CandyItemBlue Plant01 Tulip";
+$Props::AllowedProps = "GemItem GemItem_PQ GemItem_MBU FancyGemItem_PQ GemItemRed GemItemRed_PQ GemItemRed_MBU GemItemYellow GemItemYellow_PQ GemItemYellow_MBU GemItemBlue GemItemBlue_PQ GemItemBlue_MBU GemItemPlatinum GemItemPlatinum_PQ GemItemPlatinum_MBU SuperSpeedItem SuperSpeedItem_PQ SuperSpeedItem_MBU SuperJumpItem SuperJumpItem_PQ SuperJumpItem_MBUHelicopterItem HelicopterItem_PQ HelicopterItem_MBU ShockAbsorberItem ShockAbsorberItem_PQ SuperBounceItem SuperBounceItem_PQ AntiGravityItem AntiGravityItem_PQ AntiGravityItem_MBU TimeTravelItem TimeTravelItem_PQ TimeTravelItem_MBU TimePenaltyItem TimePenaltyItem_PQ MegaMarbleItem MegaMarbleItem_MBU BlastItem BlastItem_MBU AnvilItem TeleportItem BubbleItem FireballItem SundialItem_PQ RandomPowerUpItem DefaultMarble PartyHatImage CandyItemRed CandyItemYellow CandyItemBlue Plant01 Tulip";
 
 function GameConnection::setProp(%this, %prop) {
 	if (!$Game::isMode["props"])

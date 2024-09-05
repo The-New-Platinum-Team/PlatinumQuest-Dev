@@ -194,7 +194,7 @@ function dumpScores() {
 			%client = ClientGroup.getObject(%i);
 			if (isRealClient(%client) && !%client.connected)
 				continue;
-			echo(%client.getDisplayName() @ ":" SPC (%client.finalTime < 0 ? "N/A" : formatTime(%client.finalTime)));
+			echo(%client.getDisplayName() @ ":" SPC (%client.finalTime == 6000000 ? "N/A" : formatTime(%client.finalTime)));
 		}
 	} else {
 		echo("Scores Update:");

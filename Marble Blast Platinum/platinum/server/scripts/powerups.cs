@@ -504,6 +504,11 @@ datablock ItemData(RandomPowerUpItem) {
 	customField[1, "name"   ] = "Time Bonus";
 	customField[1, "desc"   ] = "Bonus time to add if the Random PowerUp gives you a Time Travel.";
 	customField[1, "default"] = $Game::TimeTravelBonus;
+	customField[2, "field"  ] = "noTT";
+	customField[2, "type"   ] = "boolean";
+	customField[2, "name"   ] = "No Time Travel";
+	customField[2, "desc"   ] = "If the Time Travel PowerUp should be excluded from the item.";
+	customField[2, "default"] = "0";
 };
 
 function RandomPowerUpItem::getPickupName(%this, %obj) {
@@ -517,7 +522,7 @@ function RandomPowerUpItem::getPickupName(%this, %obj) {
 
 function RandomPowerUpItem::OnPickup(%this,%obj,%user,%amount) {
 	// for PQ, we can not have a time travel item
-	if (MissionInfo.game $= "PlatinumQuest")
+	if (MissionInfo.game $= "PlatinumQuest" || %obj.noTT)
 		%pupIdx = getRandom(1, 5);
 	else
 		%pupIdx = getRandom(1, 6);
@@ -1286,7 +1291,6 @@ datablock ItemData(BlastItem) {
 	shapeFile = "~/data/shapes/items/blast.dts";
 	emap = false;
 	pickupName = "a Blast PowerUp!";
-	coopClient = 1;
 
 	image = BlastImage;
 };

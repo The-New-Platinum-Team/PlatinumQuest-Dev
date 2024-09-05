@@ -117,21 +117,26 @@ function Mode_seek::onServerGo(%this) {
 	startHiding();
 }
 function Mode_seek::onBlast(%this, %object) {
-	%findRadius = %object.this.client.blastValue * 3;
-	if (%object.this.client.usingTripleBlast) {
-		%findRadius = 1.2;
-	}
-	if (%object.this.client.usingSpecialBlast) {
-		%findRadius = 3;
-	}
-	if (%object.other.client.isMegaMarble()) {
-		return;
-	}
-	%mePos = %object.this.getWorldBoxCenter();
-	%theyPos = %object.other.getWorldBoxCenter();
-	if (VectorDist(%mePos, %theyPos) < %findRadius && %object.this.client.seeker && !%object.other.client.seeker) {
-		//Someone got tagged
-		%object.this.client.onFind(%object.other.client);
+	if ($Game::Seeking) {
+		%findRadius = %object.this.client.blastValue * 4;
+		if (%object.this.client.usingTripleBlast) {
+			%findRadius = 1.6;
+		}
+		if (%object.this.client.usingSpecialBlast) {
+			%findRadius = 4;
+		}
+		if (%object.this.client.isMegaMarble()) {
+			%findRadius /= $MP::MegaBlastModifier;
+		}
+		if (%object.other.client.isMegaMarble()) {
+			return;
+		}
+		%mePos = %object.this.getWorldBoxCenter();
+		%theyPos = %object.other.getWorldBoxCenter();
+		if (VectorDist(%mePos, %theyPos) < %findRadius && %object.this.client.seeker && !%object.other.client.seeker) {
+			//Someone got tagged
+			%object.this.client.onFind(%object.other.client);
+		}
 	}
 }
 function Mode_seek::onUpdateGhost(%this, %object) {
@@ -266,8 +271,11 @@ function Mode_seek::onServerChat(%this, %object) {
 	}
 }
 function Mode_seek::getPlayerListSkin(%this, %object) {
-	if (!$Game::Running || !$Server::Started)
+	if (!$Game::Running || !$Server::Started) {
 		return %object.client.skinChoice;
+	} else if (!%object.client.isActive()) {
+		return "platinum/data/shapes/images/Blank.dts" TAB "" TAB "" TAB "" TAB "";
+	}
 	//Which skin should be displayed in the player list?
 	if (%object.client.seeker) {
 		%skinChoice = "platinum/data/shapes/balls/ball-superball.dts" TAB "skin50" TAB getField(%object.client.skinChoice, 2) TAB getField(%object.client.skinChoice, 3) TAB getField(%object.client.skinChoice, 4);

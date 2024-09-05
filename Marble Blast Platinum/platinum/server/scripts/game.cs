@@ -1581,6 +1581,6 @@ function SimGroup::findGems(%this) {
 			%gems = addWord(%gems, %object.getID());
 		}
 	}
-	%this.searchingGems = false;
+	%this.searchingGems = "";
 	return %gems;
 }

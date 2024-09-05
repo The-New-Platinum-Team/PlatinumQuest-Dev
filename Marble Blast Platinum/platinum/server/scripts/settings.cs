@@ -198,8 +198,8 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 					%client = ClientGroup.getObject(%i);
 					%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or fewer gems remain. No quickspawn.");
-				$MP::ScoreSendingDisabled = true;
 				}
+				$MP::ScoreSendingDisabled = true;
 			} else {
 				deactivateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -207,15 +207,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 					%client.addBubbleLine("Competitive Mode is now off.");
 				}
 				Hunt_CompetitiveClearTimer();
-				$MP::ScoreSendingDisabled = false;
-				if (MPSettingsScoreDisable())
-					$MP::ScoreSendingDisabled = true;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+				$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 				if ($Game::isMode["hunt"]) {
 					hideGems();
 					spawnHuntGemGroup(); // Get rid of the old spawns
@@ -225,15 +217,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			if (%value) {
 				$MP::ScoreSendingDisabled = true;
 			} else {
-				$MP::ScoreSendingDisabled = false;
-				if (MPSettingsScoreDisable())
-					$MP::ScoreSendingDisabled = true;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+				$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 				if ($Game::isMode["hunt"]) {
 					hideGems();
 					spawnHuntGemGroup(); // Get rid of the old spawns
@@ -245,15 +229,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				$MP::ScoreSendingDisabled = true;
 			} else {
 				deactivateMode("partyspawns");
-				$MP::ScoreSendingDisabled = false;
-				if (MPSettingsScoreDisable())
-					$MP::ScoreSendingDisabled = true;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+				$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 			}
 			if ($Game::isMode["hunt"]) {
 				hideGems();
@@ -265,15 +241,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				$MP::ScoreSendingDisabled = true;
 			} else {
 				deactivateMode("gravitex");
-				$MP::ScoreSendingDisabled = false;
-				if (MPSettingsScoreDisable())
-					$MP::ScoreSendingDisabled = true;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+				$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 			}
 			if (isGameStarted() && %value)
 				Mode_gravitex.onServerGo();
@@ -283,15 +251,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				$MP::ScoreSendingDisabled = true;
 			} else {
 				deactivateMode("elimination");
-				$MP::ScoreSendingDisabled = false;
-				if (MPSettingsScoreDisable())
-					$MP::ScoreSendingDisabled = true;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+				$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 			}
 			if (isGameStarted())
 				restartLevel();
@@ -301,29 +261,13 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				$MP::ScoreSendingDisabled = true;
 			} else {
 				deactivateMode("steal");
-				$MP::ScoreSendingDisabled = false;
-				if (MPSettingsScoreDisable())
-					$MP::ScoreSendingDisabled = true;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+				$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 			}
 		case "HuntRB":
 			if (%value) {
 				$MP::ScoreSendingDisabled = true;
 			} else {
-				$MP::ScoreSendingDisabled = false;
-				if (MPSettingsScoreDisable())
-					$MP::ScoreSendingDisabled = true;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+				$MP::ScoreSendingDisabled = MPSettingsScoreDisable();
 			}
 
 	}
@@ -336,5 +280,10 @@ function onPostServerVariableSet(%id, %previous, %value) {
 }
 
 function MPSettingsScoreDisable() {
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) { //If you turned off a toggle or command while playing, scores should still be disabled
+		if (ClientGroup.getObject(%i).getGemCount() != 0) {
+			return true;
+		}
+	}
 	return (mp() && ($MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode || $MPPref::Server::PartySpawns || $MPPref::Server::Gravitex || $MPPref::Server::Elimination || $MPPref::Server::StealMode || $MPPref::Server::HuntRB));
 }

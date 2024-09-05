@@ -354,7 +354,6 @@ package Mode_partyspawns {
 			%gem.setTransform(%gem._nonPartyPosition);
 			%gem.setScale(%gem._nonPartyScale);
 
-			%existingRamp = ($MPPref::Server::SpawnRamp && mp());
 			%elapsedTime = $Time::ElapsedTime / Mode::callback("getStartTime", 0);
 			%chosen = getRandom(1, 1000);
 			%platinum = false;
@@ -480,17 +479,6 @@ package Mode_partyspawns {
 				%gem.setScale(%gem._nonPartyScale);
 				%gem._nonPartyDatablock = "";
 				%gem.onInspectApply();
-			}
-		}
-
-		if (%existingRamp) {
-			if (%gem._huntDatablock.huntExtraValue >= 3 && %elapsedTime < 0.25) {
-				%gem.setSkinName(%gem._nonPartySkin);
-				%gem.onInspectApply();
-			} else if (%gem._huntDatablock.huntExtraValue >= 6 && %elapsedTime < 0.50) {
-				%gem.setSkinName(%gem._nonPartySkin);
-				%gem.onInspectApply();
-
 			}
 		}
 

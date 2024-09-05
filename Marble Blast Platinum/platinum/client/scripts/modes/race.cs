@@ -135,7 +135,6 @@ function ClientMode_race::shouldIgnoreItem(%this, %object) {
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
-			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
 			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
 		//PowerUp
@@ -161,7 +160,6 @@ function ClientMode_race::shouldPickupItem(%this, %object) {
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
-			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
 			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
 		//PowerUp

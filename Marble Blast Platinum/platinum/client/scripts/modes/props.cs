@@ -91,8 +91,8 @@ function ClientMode_props::onFrameAdvance(%this, %delta) {
 		%prop.setTransform(%trans);
 
 		//Update any particle emitters
-		for (%i = 0; %i < %prop.fxCount; %i ++) {
-			%fx = %prop.fx[%i];
+		for (%j = 0; %j < %prop.fxCount; %j ++) {
+			%fx = %prop.fx[%j];
 			%fx.setTransform(vectorAdd(%prop.getWorldBoxCenter(), "0 0 0.05") SPC %prop.getRotation());
 			%fx.inspectPostApply();
 		}
@@ -501,6 +501,10 @@ function PropGui::onWake(%this) {
 		//Add all the allowed props
 		%this.addAllowedProp("Gem",               0,   "GemItem",             "GemItem_PQ",             "GemItem_MBU");
 		%this.addAllowedProp("Fancy Gem",         0,   "",                    "FancyGemItem_PQ",        "");
+		%this.addAllowedProp("Red Gem",           0,   "GemItemRed",          "GemItemRed_PQ",          "GemItemRed_MBU");
+		%this.addAllowedProp("Yellow Gem",        0,   "GemItemYellow",       "GemItemYellow_PQ",       "GemItemYellow_MBU");
+		%this.addAllowedProp("Blue Gem",          0,   "GemItemBlue",         "GemItemBlue_PQ",         "GemItemBlue_MBU");
+		%this.addAllowedProp("Platinum Gem",      0,   "GemItemPlatinum",     "GemItemPlatinum_PQ",     "GemItemPlatinum_MBU")
 		%this.addAllowedProp("Super Speed",       0,   "SuperSpeedItem",      "SuperSpeedItem_PQ",      "SuperSpeedItem_MBU");
 		%this.addAllowedProp("Super Jump",        0,   "SuperJumpItem",       "SuperJumpItem_PQ",       "SuperJumpItem_MBU");
 		%this.addAllowedProp("Gyrocopter",        0,   "HelicopterItem",      "HelicopterItem_PQ",      "HelicopterItem_MBU");
@@ -521,8 +525,8 @@ function PropGui::onWake(%this) {
 		%this.addAllowedProp("Marble Dummy",      1,   "DefaultMarble");
 		%this.addAllowedProp("Party Hat",         1,   "PartyHatImage");
 		%this.addAllowedProp("Red Candy",         1,   "CandyItemRed");
-		%this.addAllowedProp("Yellow Candy",      1,   "CandyItemYellow");
-		%this.addAllowedProp("Blue Candy",        1,   "CandyItemBlue");
+		%this.addAllowedProp("Orange Candy",      1,   "CandyItemYellow");
+		%this.addAllowedProp("Black Candy",       1,   "CandyItemBlue");
 		%this.addAllowedProp("Plant",             1,   "Plant01");
 		%this.addAllowedProp("Tulip",             1,   "Tulip");
 
@@ -638,7 +642,7 @@ function PropGui::buildPropList(%this, %game, %category) {
 		//Change stuff if required
 		%propObject = "Props_PropObject" @ %i;
 		if (strStr(%prop, "GemItem") != -1) {
-			%propObject.skin = $GemSkinColors[getRandom(1, 10)];
+			%propObject.skin = (strStr(%prop, "Red") != -1 ? "red" : (strStr(%prop, "Yellow") != -1 ? "yellow" : (strStr(%prop, "Blue") != -1 ? "blue" : (strStr(%prop, "Platinum") != -1 ? "platinum" : "pink"))));
 		} else if (strStr(%prop, "CandyItem") != -1) {
 			%propObject.skin = (strStr(%prop, "Yellow") != -1 ? "orange" : (strStr(%prop, "Blue") != -1 ? "black" : "red"));
 		} else if (%prop $= "TimePenaltyItem") {

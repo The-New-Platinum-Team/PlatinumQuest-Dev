@@ -75,6 +75,8 @@ function Mode_tag::onMissionEnded(%this) {
 	}
 }
 function Mode_tag::onBlast(%this, %object) {
+	if (%object.this == %object.other)
+		return;
 	//Define blast radius
 	%tagRadius = %object.this.client.blastValue * 7.5;
 	if (%object.this.client.usingTripleBlast) {
@@ -82,6 +84,12 @@ function Mode_tag::onBlast(%this, %object) {
 	}
 	if (%object.this.client.usingSpecialBlast) {
 		%tagRadius = 10;
+	}
+	if (%object.this.client.isMegaMarble()) {
+		%tagRadius /= $MP::MegaBlastModifier;
+	}
+	if (%object.other.client.isMegaMarble()) {
+		return;
 	}
 	%mePos = %object.this.getWorldBoxCenter();
 	%theyPos = %object.other.getWorldBoxCenter();

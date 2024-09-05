@@ -31,7 +31,7 @@ function PlayGui::positionMessageHud(%this) {
 	%mp            = (lb() || ($PlayingDemo && $demoLB)) && $Server::ServerType $= "Multiplayer";
 	%ultra         = MissionInfo.game $= "Ultra";
 	%isEndGame     = (isObject(EndGameDlg.getGroup()) && EndGameDlg.getGroup().getName() $= "Canvas");
-	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive() || !%mp;
+	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive() || !lb();
 	%hideAll       = $pref::ScreenshotMode == 2;
 
 	%height = 60 + (20 * $LBPref::ChatMessageSize); // From 80 - 160
@@ -102,7 +102,7 @@ function PlayGui::updateMessageHud(%this) {
 	%mp            = (%lb || ($PlayingDemo && $demoLB)) && $Server::ServerType $= "Multiplayer";
 	%ultra         = MissionInfo.game $= "Ultra";
 	%isEndGame     = (isObject(EndGameDlg.getGroup()) && EndGameDlg.getGroup().getName() $= "Canvas");
-	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive() || !%mp;
+	%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive() || !%lb;
 
 	%height = 60 + (20 * $LBPref::ChatMessageSize); // From 80 - 160
 

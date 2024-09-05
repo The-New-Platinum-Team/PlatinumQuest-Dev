@@ -70,10 +70,11 @@ function Mode_king::shouldRestorePowerup(%this) {
 
 function GameConnection::enterKingTrigger(%this, %trigger) {
 	%this.kingTrigger = %trigger;
-	%this.updateKingTrigger();
+	%this.kingSchedule = %this.schedule(1000, updateKingTrigger);
 }
 function GameConnection::leaveKingTrigger(%this, %trigger) {
 	%this.kingTrigger = false;
+	cancel(%this.kingSchedule);
 }
 function GameConnection::updateKingTrigger(%this) {
 	cancel(%this.kingSchedule);

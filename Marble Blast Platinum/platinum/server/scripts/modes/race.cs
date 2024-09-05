@@ -48,6 +48,8 @@ function Mode_race::onLoad(%this) {
 	%this.registerCallback("onFrameAdvance");
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
+	%this.registerCallback("onClientEnterGame");
+	%this.registerCallback("onPlayerJoin");
 	%this.registerCallback("onDeactivate");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
@@ -86,6 +88,10 @@ function Mode_race::onEnterPad(%this, %object) {
 					%client.addHelpLine(%finisher.getDisplayName() SPC "has finished!");
 				}
 			}
+			serverSendScores();
+			%finisher.sendEndGameScores();
+			if (!$Game::Finished)
+				%finisher.startTimer(); //sendEndGameScores stops the timer
 		}
 		%this.checkRaceEnd();
 
@@ -139,7 +145,7 @@ function Mode_race::onRespawnOnCheckpoint(%this, %object) {
 	%gemCount = $Game::GemCount;
 	for (%i = 0; %i < $Game::GemCount; %i ++) {
 		%gem = %client.raceLookupGem[%i];
-		if (isObject(%gem) && %client.raceLookupGemCP[%i] >= %client.curCheckpointNum) {
+		if (!isObject(%gem) || %client.raceLookupGemCP[%i] >= %client.curCheckpointNum) {
 			%client.raceFoundGem[%gem] = false;
 			%client.raceLookupGem[%i] = "";
 			%gemCount --;
@@ -176,11 +182,11 @@ function Mode_race::onMissionReset(%this) {
 			%client.setSpectating(false);
 			%client.isFinished = false;
 		}
-		for (%i = 0; %i < $Game::GemCount; %i ++) {
-			%gem = %client.raceLookupGem[%i];
+		for (%j = 0; %j < $Game::GemCount; %j ++) {
+			%gem = %client.raceLookupGem[%j];
 			%client.raceFoundGem[%gem] = false;
-			%client.raceLookupGem[%i] = "";
-			%client.raceLookupGemCP[%i] = "";
+			%client.raceLookupGem[%j] = "";
+			%client.raceLookupGemCP[%j] = "";
 		}
 	}
 	updateScores();
@@ -196,11 +202,11 @@ function Mode_race::onMissionEnded(%this) {
 			%client.setSpectating(false);
 			%client.isFinished = false;
 		}
-		for (%i = 0; %i < $Game::GemCount; %i ++) {
-			%gem = %client.raceLookupGem[%i];
+		for (%j = 0; %j < $Game::GemCount; %j ++) {
+			%gem = %client.raceLookupGem[%j];
 			%client.raceFoundGem[%gem] = false;
-			%client.raceLookupGem[%i] = "";
-			%client.raceLookupGemCP[%i] = "";
+			%client.raceLookupGem[%j] = "";
+			%client.raceLookupGemCP[%j] = "";
 		}
 	}
 	commandToAll('RacingOnRespawn');
@@ -282,6 +288,17 @@ function Mode_race::getFinalScore(%this, %object) {
 		return $ScoreType::Time TAB $Time::CurrentTime;
 	}
 }
+function Mode_race::onClientEnterGame(%this, %object) {
+	commandToClient(%client, 'RacingOnRespawn');
+}
+function Mode_race::onPlayerJoin(%this, %object) {
+	if (%object.client.finalTime $= "") {
+		%object.client.finalTime = 6000000;
+	}
+	if (%object.client.finalTime < 6000000) {
+		%object.client.isFinished = true;
+	}
+}
 function Mode_race::onDeactivate(%this) {
 	%this.onMissionEnded();
 }
@@ -294,11 +311,7 @@ function GameConnection::racingWinSpectate(%this) {
 	%this.setSpectating(true);
 	commandToClient(%this, 'RacingOnRespawn');
 	if (mp()) {
-		serverSendScores();
-		%this.sendEndGameScores();
 		commandToClient(%this, 'GameEnd');
-		if (!$Game::Finished)
-			%this.startTimer(); //sendEndGameScores stops the timer
 	}
 }
 

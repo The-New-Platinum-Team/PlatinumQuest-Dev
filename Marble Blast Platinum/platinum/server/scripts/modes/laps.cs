@@ -165,7 +165,7 @@ function GameConnection::onNextLap(%this) {
 			%this.playPitchedSound("missinggems");
 		} else {
 			// Finish the game
-			endGameSetup();
+			%this.onEnterPad();
 		}
 	}
 

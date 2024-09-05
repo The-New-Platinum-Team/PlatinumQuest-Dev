@@ -221,13 +221,13 @@ function scoreListUpdate() {
 	MPScorePlatinumGem.resize((%show10 ? 524 : 564), -5, 64, 64);
 
 	if (%timeScores) {
-		PGScoreListContainer.setExtent("400 500");
+		PGScoreListContainer.setExtent("400" SPC getWord(PGScoreListContainer.getExtent(), 1));
 		MPScoreRedGem.setVisible(false);
 		MPScoreYellowGem.setVisible(false);
 		MPScoreBlueGem.setVisible(false);
 		MPScorePlatinumGem.setVisible(false);
 	} else {
-		PGScoreListContainer.setExtent("300 500");
+		PGScoreListContainer.setExtent("300" SPC getWord(PGScoreListContainer.getExtent(), 1));
 		MPScoreRedGem.setVisible(true);
 		MPScoreYellowGem.setVisible(true);
 		MPScoreBlueGem.setVisible(true);
