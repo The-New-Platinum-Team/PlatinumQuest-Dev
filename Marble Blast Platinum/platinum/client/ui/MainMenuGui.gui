@@ -519,15 +519,15 @@ function MainMenuGui::onWake(%this) {
 
 	// if engine modifications are not being used
 	// don't let the client play the game!!!
-	if (!$PluginSystemInit) {
-		// mac don't use exe files, vary the message error code!
-		if ($platform $= "macos")
-			%message = "Please use the launcher to launch PlatinumQuest. If this error persists, contact the Platinum Team for support.";
-		else
-			%message = "Please launch the game using the launcher. If this error persists, contact the Platinum Team for support.";
-		MessageBoxOK("Engine Failure", %message, "quit();");
-		return;
-	}
+	// if (!$PluginSystemInit) {
+	// 	// mac don't use exe files, vary the message error code!
+	// 	if ($platform $= "macos")
+	// 		%message = "Please use the launcher to launch PlatinumQuest. If this error persists, contact the Platinum Team for support.";
+	// 	else
+	// 		%message = "Please launch the game using the launcher. If this error persists, contact the Platinum Team for support.";
+	// 	MessageBoxOK("Engine Failure", %message, "quit();");
+	// 	return;
+	// }
 
 	VersionText.setText(shadow("2 2", "0000007f") @ "<color:ffffff><just:right><bold:32>" @ $THIS_VERSION_NAME);
 	VersionSub.setText(shadow("1 1", "0000007f") @ "<color:ffffff><font:18>" @ $THIS_VERSION_SUB);
