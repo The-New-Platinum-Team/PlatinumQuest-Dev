@@ -108,12 +108,12 @@ function initClient() {
 	exec("./scripts/menu.cs");
 	exec("./ui/RootGui.gui");
 
-	if ($Video::OpenGLVersion < 2) {
-		MessageBoxOk("OpenGL", "OpenGL " @ $Video::OpenGLVersion @ " detected! This means either your graphics card is not detected or it's so old it doesn't support OpenGL 2." NL
-			"In either case, there is no way PQ will be able to run. Make sure your drivers are up to date and your card was made after 2006.", "quit();");
-		//No, seriously. You're not going to be able to play this game.
-		return;
-	}
+	// if ($Video::OpenGLVersion < 2) {
+	// 	MessageBoxOk("OpenGL", "OpenGL " @ $Video::OpenGLVersion @ " detected! This means either your graphics card is not detected or it's so old it doesn't support OpenGL 2." NL
+	// 		"In either case, there is no way PQ will be able to run. Make sure your drivers are up to date and your card was made after 2006.", "quit();");
+	// 	//No, seriously. You're not going to be able to play this game.
+	// 	return;
+	// }
 
 	setNetPort(0);
 
