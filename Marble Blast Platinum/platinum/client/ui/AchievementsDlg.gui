@@ -652,20 +652,20 @@ function checkEndgameAchievements() {
 		}
 		//Beat all construction UTs
 		if (
-			   (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/HighRiseQuickFall.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/RacingSpirits.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/BubbleCavern.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/HipPopStepJump.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Intermediate") @ "/ConstructionWonders.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Intermediate") @ "/RicketyRace.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Intermediate") @ "/AssemblyLine.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Advanced") @ "/WorkInProgress.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Advanced") @ "/DangerousDevelopment.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Advanced") @ "/CannonSniper.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/ABridgeTooHard.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/PlatinumConstructionCo.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/Contractor.mcs").completion & $Completion::Ultimate)
-			&& (getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/Hydropower.mcs").completion & $Completion::Ultimate)
+			   (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/HighRiseQuickFall.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/RacingSpirits.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/BubbleCavern.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Beginner") @ "/HipPopStepJump.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Intermediate") @ "/ConstructionWonders.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Intermediate") @ "/RicketyRace.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Intermediate") @ "/AssemblyLine.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Advanced") @ "/WorkInProgress.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Advanced") @ "/DangerousDevelopment.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Advanced") @ "/CannonSniper.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/ABridgeTooHard.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/PlatinumConstructionCo.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/Contractor.mcs")) & $Completion::Ultimate)
+			&& (Unlock::getMissionCompletion(getMissionInfo(PlayMissionGui.ml.getMissionDirectory("PlatinumQuest", "Expert") @ "/Hydropower.mcs")) & $Completion::Ultimate)
 		) {
 			activateAchievement($Achievement::Category::General, 6);
 		}
