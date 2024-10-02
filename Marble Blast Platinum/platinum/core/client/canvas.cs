@@ -261,46 +261,13 @@ function reloadBlur() {
 }
 
 function canSupportShaders() {
-	// Texture Arrays
-	if (!$Video::SupportsExtension["GL_EXT_texture_array"]) {
-		return false;
-	}
-
 	return true;
 }
 
 function canSupportPostFX() {
-	%extensions = glGetExtensions();
-	if (!$Video::SupportsExtension["GL_ARB_framebuffer_object"]) {
-		return false;
-	}
-	//GDI Generic causes all sorts of problems for us
-	if ($Video::OpenGLVersion < 2) {
-		return false;
-	}
-	//CrossOver / WinE on Mac OS (crashes with any type of AA used)
-	//if ($platform $= "windows" && (strpos(%extensions, "APPLE") != -1))
-	//	return false;
-
 	return true;
 }
 
 function canSupportAntiAliasing() {
-	%extensions = glGetExtensions();
-	if (!$Video::SupportsExtension["GL_ARB_framebuffer_object"]) {
-		return false;
-	}
-	//GDI Generic causes all sorts of problems for us
-	if ($Video::OpenGLVersion < 2) {
-		return false;
-	}
-	//CrossOver / WinE on Mac OS (crashes with any type of AA used)
-	//if ($platform $= "windows" && (strpos(%extensions, "APPLE") != -1))
-	//	return false;
-
-	//Mac doesn't support multisample framebuffer objects
-	if ($platform $= "macos")
-		return false;
-
-	return true;
+	return false; // Rip
 }
