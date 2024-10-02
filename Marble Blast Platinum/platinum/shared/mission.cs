@@ -90,7 +90,7 @@ function getMissionInfo(%file, %partial) {
 		%fileHash = getMissionHash(%file);
 		//Super fast caching so we don't have to read the file again
 		%info = $Mission::Info[%origfile];
-		echo(isObject(%info) SPC $Mission::Info[%origfile] SPC %origfile);
+		// echo(isObject(%info) SPC $Mission::Info[%origfile] SPC %origfile);
 		if (isObject(%info)) {
 			if (%partial) {
 				//Partial won't care whether or not it's fully loaded
