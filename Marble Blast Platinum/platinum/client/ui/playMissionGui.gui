@@ -1139,7 +1139,7 @@ function PlayMissionGui::open(%this, %marbleland) {
 			%this.init();
 		}
 	}
-
+	Canvas.doHover = true;
 	RootGui.setContent(%this);
 }
 
@@ -1428,7 +1428,7 @@ function PlayMissionGui::initInterface(%this) {
 
 function PlayMissionGui::onSleep(%this) {
 	deactivateMenuHandler(PMMenu);
-
+	Canvas.doHover = false;
 	if (mp()) {
 		%this.clearServerPlayerList();
 	}

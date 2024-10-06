@@ -102,7 +102,7 @@ function reloadTexturePacks() {
 	reloadPostFX();
 	clearTextureHolds();
 	purgeResources();
-	flushTextureCache();
+	// flushTextureCache();
 
 	PlayGui.updateGems(true);
 }
@@ -129,7 +129,7 @@ function unloadTexturePacks() {
 	reloadPostFX();
 	clearTextureHolds();
 	purgeResources();
-	flushTextureCache();
+	// flushTextureCache();
 }
 
 function loadTexturePack(%pack) {
