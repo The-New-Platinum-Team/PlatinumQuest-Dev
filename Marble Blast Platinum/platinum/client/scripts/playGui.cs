@@ -577,17 +577,21 @@ function specialBarFor(%id) {
 }
 
 function PlayGui::updateBarPositions(%this) {
-	if (!isObject(ServerConnection) || !isObject(ServerConnection.getControlObject()))
+	if (!isObject(ServerConnection) || !isObject(LocalClientConnection.player) || !isObject($MP::MyMarble))
 		return;
 
-	%trans = ServerConnection.getControlObject().getCameraTransform();
+	%trans = $MP::MyMarble.getCameraTransform();
 
 	//Which bars are active
 	%bubble = ($Game::BubbleInfinite || $Game::BubbleTime > 0);
 	%fireball = $Client::FireballActive;
 
+	if (%this.powerupTimersLength == 0 && !%bubble && !%fireball) {
+		return;
+	}
+
 	//Get the position of the side of the marble for us to position the bars relative to it
-	%obj = ServerConnection.getControlObject();
+	%obj = LocalClientConnection.player;
 	%rad = (%obj.getClassName() $= "Marble" ? %obj.getCollisionRadius() : 0.5);
 	%mpos = %obj.getPosition();
 	%rpos = VectorAdd(%mpos, RotMulVector(MatrixRot(%trans), %rad SPC "0 0"));
@@ -1054,6 +1058,20 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		return;
 	}
 
+	if (%this.bonusTime == 0) {
+		PGCountdownTT.setVisible(false);
+		PGCountdownTTPoint1.setVisible(false);
+		PGCountdownTTPoint2.setVisible(false);
+		PGCountdownTTPoint3.setVisible(false);
+		PGCountdownTTFirstDigit.setVisible(0); 
+		PGCountdownTTSecondDigit.setVisible(0); 
+		PGCountdownTTThirdDigit.setVisible(0);
+		PGCountdownTTFourthDigit.setVisible(0);
+		PGCountdownTTFifthDigit.setVisible(0);
+		PGCountdownTTSixthDigit.setVisible(0);
+		return; 
+	}
+
 	%preciseMode = $pref::timeTravelTimer == 2;
 	%timeUsed = %this.bonusTime;
 	if (!%preciseMode)
@@ -1407,7 +1425,7 @@ function PlayGui::stopCountdown(%this) {
 }
 
 function PlayGui::updateCountdown(%this, %delta) {
-	%this.countdownTime = sub64_int(%this.countdownTime, %delta);
+	%this.countdownTime = %this.countdownTime - %delta;
 
 	%visible = (%this.countdownTime > -5000);
 	if (!%visible) {
