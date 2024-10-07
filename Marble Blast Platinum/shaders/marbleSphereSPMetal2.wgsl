@@ -76,7 +76,7 @@ fn vMarble(in : TSVert) -> TSRasterizerData {
    var calcPos : vec4<f32> = vec4<f32>(in.pos.xyz, 1.0f);
    var calcNorm : vec4<f32> = vec4<f32>(in.norm.xyz, 0.0f);
    var worldPos : vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
-   var worldNorm : vec3<f32> = (calcNorm * tsUniforms.objectMat).xyz;
+   var worldNorm : vec3<f32> = normalize((calcNorm * tsUniforms.objectMat).xyz);
    var mv : mat4x4<f32> = expandTo44(commonUniforms.modelview);
    var mvp : mat4x4<f32> = mv * commonUniforms.projection;
    
