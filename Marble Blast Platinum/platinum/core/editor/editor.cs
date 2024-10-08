@@ -88,6 +88,9 @@ function Editor::onAdd(%this) {
 	exec("./WorldEditorSettingsDlg.gui");
 	exec("./SingleValueGui.gui");
 
+	// Terrain Editor
+	exec("./TerrainEditorVSettingsgui.gui");
+
 	// object saving overrides
 	exec("./saveObject.cs");
 	exec("./mcs.cs");
