@@ -587,6 +587,10 @@ function PlayGui::updateBarPositions(%this) {
 	%fireball = $Client::FireballActive;
 
 	if (%this.powerupTimersLength == 0 && !%bubble && !%fireball) {
+		PG_FirstTimerContainer.setVisible(false);
+		PG_SecondTimerContainer.setVisible(false);
+		PG_ThirdTimerContainer.setVisible(false);
+		PG_FourthTimerContainer.setVisible(false);
 		return;
 	}
 

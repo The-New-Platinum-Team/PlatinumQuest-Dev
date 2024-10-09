@@ -896,6 +896,8 @@ function EditorMenuBar::onWorldMenuItemSelect(%this, %itemId, %item) {
 function EditorMenuBar::onEditMenuItemSelect(%this, %itemId, %item) {
 	if (%item $= "World Editor Settings...")
 		RootGui.pushDialog(WorldEditorSettingsDlg);
+   else if(%item $= "Terrain Editor Settings...")
+      Canvas.pushDialog(TerrainEditorValuesSettingsGui, 99);
 	else if (%item $= "Relight Scene")
 		lightScene("", forceAlways);
 	else if (EWorldEditor.isVisible()) {

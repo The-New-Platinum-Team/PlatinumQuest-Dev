@@ -90,7 +90,7 @@ fn fMarble(in: TSRasterizerData) -> @location(0) vec4<f32> {
    var reflectAmount : f32 = 0.1;
 
    var reflectionColor = textureSample(cubeTex, cubeSampler, cameraReflection.xzy);
-   reflectAmount = invSigmoid(0.01 + 0.98 * materialColor.a);
+   reflectAmount = invSigmoid(0.01 + 0.98 * reflectAmount);
    reflectAmount -= 0.7 * (2.0 * -dot(in.norm, in.camDir.xyz) - 1.0);
    reflectAmount = sigmoid(reflectAmount);
    reflectAmount = 0.95 * reflectAmount;

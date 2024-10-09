@@ -54,6 +54,11 @@ fn GetRandom(co: vec2<f32>) -> f32 {
     return frac(sin(dot(co, vec2<f32>(12.9898, 78.233))) * 43758.5453);
 }
 
+fn wavy(v: vec3<f32>) -> vec3<f32> {
+    return sin(20 * v * vec3<f32>(1.0, 0.2, 0.4)) + cos(23 * v * vec3<f32>(-0.5, 0.3, 0.8)) +
+           sin(16 * v * vec3<f32>(-0.1, 0.9, 0.2));
+}
+
 fn normalWarp(normal: vec3<f32>) -> vec3<f32> {
     let fourMat = expandTo44(tsUniforms.objectMat);
     let local = (fourMat * vec4<f32>(normal, 0.0)).xyz;
@@ -121,7 +126,7 @@ fn fMarble(in: TSRasterizerData) -> @location(0) vec4<f32> {
 
 
    var reflectionColor = textureSample(cubeTex, cubeSampler, cameraReflection.xzy);
-   reflectAmount = invSigmoid(0.01 + 0.98 * materialColor.a);
+   reflectAmount = invSigmoid(0.01 + 0.98 * reflectAmount);
    reflectAmount -= 0.7 * (2.0 * -dot(in.norm, in.camDir.xyz) - 1.0);
    reflectAmount = sigmoid(reflectAmount);
    reflectAmount = 0.95 * reflectAmount;
