@@ -200,7 +200,7 @@ function ClientMode::registerCallback(%this, %callback) {
 }
 
 function ClientMode::callback(%this, %callback, %default, %object) {
-	return ClientModeCallback(%this, %callback, %default, %object);
+	// return ClientModeCallback(%this, %callback, %default, %object);
 	if (%object._delete) {
 		if (!isObject(DeleteGroup)) {
 			RootGroup.add(new SimGroup(DeleteGroup));
