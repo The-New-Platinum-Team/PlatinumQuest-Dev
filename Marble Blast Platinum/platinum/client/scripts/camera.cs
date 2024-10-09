@@ -201,7 +201,6 @@ function setCameraFov(%fov) {
 	echo("Set camera fov: " @ %fov);
 	PG_GameCtrl.forceFov = %fov;
 	PG_ShowCtrl.forceFov = %fov;
-	PG_SaveMyBaconCtrl.forceFov = %fov;
 }
 
 function getCameraFov() {
@@ -261,9 +260,6 @@ function useScriptCameraTransform(%use) {
 	PG_GameCtrl.setVisible(!%use);
 	PG_ShowCtrl.setVisible(%use);
 
-	//Major hackery: Use two because one stops showing
-	PG_SaveMyBaconCtrl.setVisible(%use);
-
 	//Find the sky
 	%sky = findSky(($Server::Hosting && !$Server::_Dedicated) ? MissionGroup : ServerConnection);
 	if (isObject(%sky))
@@ -272,15 +268,9 @@ function useScriptCameraTransform(%use) {
 		%distance = 500; //Reasonable guess
 
 	PG_ShowCtrl.setVisibleDistance(%distance);
-	PG_SaveMyBaconCtrl.setVisibleDistance(%distance);
 }
 
 function PG_ShowCtrl::onRender(%this) {
-	if (isObject($Client::ColCannon)) {
-		updateCannonAim(%this);
-	}
-}
-function PG_SaveMyBaconCtrl::onRender(%this) {
 	if (isObject($Client::ColCannon)) {
 		updateCannonAim(%this);
 	}

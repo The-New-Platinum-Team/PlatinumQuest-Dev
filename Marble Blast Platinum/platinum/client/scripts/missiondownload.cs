@@ -421,7 +421,8 @@ function handleReadyCountMessage(%msgType, %msgString, %readyCount, %playerCount
 
 function handleLoadMissionInfoPartMessage(%msgType, %msgString, %key, %value) {
 	// This spits out the mission info
-	$MP::MissionInfoPart.setFieldValue(%key, $MP::MissionInfoPart.getFieldValue(%key) @ %value);
+	if (isObject($MP::MissionInfoPart))
+		$MP::MissionInfoPart.setFieldValue(%key, $MP::MissionInfoPart.getFieldValue(%key) @ %value);
 }
 
 //------------------------------------------------------------------------------

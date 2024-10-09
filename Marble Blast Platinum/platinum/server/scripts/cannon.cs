@@ -486,6 +486,7 @@ datablock StaticShapeData(DefaultCannon) { // Default cannon
 	elasticity = 0.3;
 	skin = "white";
 	explosion = "CannonExplosion";
+	scopeAlways = true;
 
 	customField[0, "field"  ] = "useCharge";
 	customField[0, "type"   ] = "boolean";

@@ -78,7 +78,7 @@ function onUnpackTrailEmitter(%emitter, %n) {
 		ClientMarbleEmitterSet.add(%emitter);
 	} else {
 		ClientEmitterSet.add(%emitter);
-		if (ClientMovingObjects.containsEntry(%emitter.follow.getSyncId()) ||
+		if (isObject(%emitter.follow) && ClientMovingObjects.containsEntry(%emitter.follow.getSyncId()) ||
 		    ClientParentedObjects.containsEntry(%emitter.follow.getSyncId()) ||
 		    %emitter.follow.getClassName() $= "Marble") {
 			ClientMovingEmitterSet.add(%emitter);
