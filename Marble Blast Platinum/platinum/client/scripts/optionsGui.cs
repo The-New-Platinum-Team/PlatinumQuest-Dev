@@ -313,9 +313,6 @@ if (canSupportPostFX()) { //No point supporting reflections if you don't support
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
-	$Options::Name    ["Graphics", $i++] = "bloom";
-	$Options::Title   ["Graphics", $i  ] = "Bloom";
-	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";
@@ -347,9 +344,6 @@ $Options::Min     ["Graphics", $i  ] = 0;
 $Options::Max     ["Graphics", $i  ] = 200;
 $Options::Ticks   ["Graphics", $i  ] = 40; //Every 5
 $Options::JoyTicks["Graphics", $i  ] = 10; //Every 20
-$Options::Name    ["Graphics", $i++] = "smoothShading";
-$Options::Title   ["Graphics", $i  ] = "Smooth Shading";
-$Options::Type    ["Graphics", $i  ] = "boolean";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
 $Options::Type    ["Graphics", $i  ] = "boolean";
