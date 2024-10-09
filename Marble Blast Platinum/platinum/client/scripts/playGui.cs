@@ -953,7 +953,6 @@ package frameAdvance {
 
 		if ($Game::ScriptCameraTransform) {
 			PG_ShowCtrl.setCameraTransform(getScriptCameraTransform());
-			PG_SaveMyBaconCtrl.setCameraTransform(getScriptCameraTransform());
 		}
 
 		//Fireball
@@ -1057,23 +1056,9 @@ function clientCmdUpdateTimeTravelCountdown() {
 }
 
 function PlayGui::updateTimeTravelCountdown(%this) {
-	if (!$pref::timeTravelTimer) {
+	if (!$pref::timeTravelTimer || %this.bonusTime == 0) {
 		PGCountdownTT.setVisible(false);
 		return;
-	}
-
-	if (%this.bonusTime == 0) {
-		PGCountdownTT.setVisible(false);
-		PGCountdownTTPoint1.setVisible(false);
-		PGCountdownTTPoint2.setVisible(false);
-		PGCountdownTTPoint3.setVisible(false);
-		PGCountdownTTFirstDigit.setVisible(0); 
-		PGCountdownTTSecondDigit.setVisible(0); 
-		PGCountdownTTThirdDigit.setVisible(0);
-		PGCountdownTTFourthDigit.setVisible(0);
-		PGCountdownTTFifthDigit.setVisible(0);
-		PGCountdownTTSixthDigit.setVisible(0);
-		return; 
 	}
 
 	%preciseMode = $pref::timeTravelTimer == 2;
