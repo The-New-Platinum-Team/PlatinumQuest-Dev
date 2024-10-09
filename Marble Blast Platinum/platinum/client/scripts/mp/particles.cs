@@ -97,6 +97,9 @@ function updateEmitterPositions() {
 	if ($Server::ServerType $= "" || !isObject(ServerConnection) || $pref::FastMode)
 		return;
 
+	_updateEmitterPositions();
+	return;
+
 	%count = ClientMovingEmitterSet.getCount();
 	%removeAmount = 0;
 	for (%i = 0; %i < %count; %i ++) {
@@ -125,115 +128,116 @@ function updateEmitterPositions() {
 
 // this function updates the trail emitters to the correct positions
 // based upon velocities.
-function updateTrailEmitters() {
-	if ($Server::ServerType $= "" || !isObject(ServerConnection) || $pref::FastMode)
-		return;
+// function updateTrailEmitters() {
+// 	if ($Server::ServerType $= "" || !isObject(ServerConnection) || $pref::FastMode)
+// 		return;
 
-	%count = ClientMarbleEmitterSet.getCount();
-	%removeAmount = 0;
-	for (%i = 0; %i < %count; %i ++) {
-		%obj = ClientMarbleEmitterSet.getObject(%i);
-		%follow = %obj.follow;
+// 	%count = ClientMarbleEmitterSet.getCount();
+// 	%removeAmount = 0;
+// 	for (%i = 0; %i < %count; %i ++) {
+// 		%obj = ClientMarbleEmitterSet.getObject(%i);
+// 		%follow = %obj.follow;
 
-		// if the marble got deleted, we need to remove it form the set
-		if (!isObject(%follow)) {
-			%remove[%removeAmount] = %obj;
-			%removeAmount ++;
-			continue;
-		}
-		%marble = %follow.getClassName() $= "Marble";
+// 		// if the marble got deleted, we need to remove it form the set
+// 		if (!isObject(%follow)) {
+// 			echo("Trail follow:" SPC %follow SPC "did not exist");
+// 			%remove[%removeAmount] = %obj;
+// 			%removeAmount ++;
+// 			continue;
+// 		}
+// 		%marble = %follow.getClassName() $= "Marble";
 
-		// the new position to display the client particle.
-		%position = %follow.getPosition();
+// 		// the new position to display the client particle.
+// 		%position = %follow.getPosition();
 
-		// determine visibility
-		// if we have a high enough velocity, display it, else hide it.
-		%speed = VectorLen(%follow.getVelocity());
+// 		// determine visibility
+// 		// if we have a high enough velocity, display it, else hide it.
+// 		%speed = VectorLen(%follow.getVelocity());
 
-		//Mega marble is ~2x greater than default collision radius
-		%mega = (%marble && %follow.getCollisionRadius() > (%follow.getDatablock().getCollisionRadius() * 2));
+// 		//Mega marble is ~2x greater than default collision radius
+// 		%mega = (%marble && %follow.getCollisionRadius() > (%follow.getDatablock().getCollisionRadius() * 2));
 
-		//Trail particle criteria:
-		//Not in water:
-		//Show gold trail if vel > $TrailEmitterSpeed
-		//Show white trail if vel > $TrailEmitterWhiteSpeed
-		//Show fireball emitter if you have a fireball!
+// 		//Trail particle criteria:
+// 		//Not in water:
+// 		//Show gold trail if vel > $TrailEmitterSpeed
+// 		//Show white trail if vel > $TrailEmitterWhiteSpeed
+// 		//Show fireball emitter if you have a fireball!
 
-		//In water, and speed > 1:
-		//Show splash if not follow.bubbleEmitter
-		//Show bubble if follow.bubbleEmitter
+// 		//In water, and speed > 1:
+// 		//Show splash if not follow.bubbleEmitter
+// 		//Show bubble if follow.bubbleEmitter
 
-		%water = %follow.isInWater;
-		if (%water) {
-			%show["Splash4"] = (%speed > 1 && !%follow.bubbleEmitter);
-			%show["TrailBubble"] = (%speed > 1 && %follow.bubbleEmitter);
-			%show["Trail"] = false;
-			%show["WhiteTrail"] = false;
-			%show["Fireball3"] = false;
-			%show["Fireball4_2"] = false;
-		} else {
-			if (%follow.fireball) {
-				%show["Fireball3"] = !%mega;
-				%show["Fireball4_2"] = !%mega;
-				%show["Fireball3Mega"] = %mega;
-				%show["Fireball4_2Mega"] = %mega;
-				%show["Trail"] = false;
-				%show["WhiteTrail"] = false;
-			} else {
-				%show["Trail"] = (%speed > $TrailEmitterSpeed && %speed < $TrailEmitterWhiteSpeed);
-				%show["WhiteTrail"] = (%speed > $TrailEmitterWhiteSpeed);
-				%show["Fireball3"] = false;
-				%show["Fireball4_2"] = false;
-				%show["Fireball5"] = false;
-			}
-			//These are always false if not in water
-			%show["Splash4"] = false;
-			%show["TrailBubble"] = false;
-		}
+// 		%water = %follow.isInWater;
+// 		if (%water) {
+// 			%show["Splash4"] = (%speed > 1 && !%follow.bubbleEmitter);
+// 			%show["TrailBubble"] = (%speed > 1 && %follow.bubbleEmitter);
+// 			%show["Trail"] = false;
+// 			%show["WhiteTrail"] = false;
+// 			%show["Fireball3"] = false;
+// 			%show["Fireball4_2"] = false;
+// 		} else {
+// 			if (%follow.fireball) {
+// 				%show["Fireball3"] = !%mega;
+// 				%show["Fireball4_2"] = !%mega;
+// 				%show["Fireball3Mega"] = %mega;
+// 				%show["Fireball4_2Mega"] = %mega;
+// 				%show["Trail"] = false;
+// 				%show["WhiteTrail"] = false;
+// 			} else {
+// 				%show["Trail"] = (%speed > $TrailEmitterSpeed && %speed < $TrailEmitterWhiteSpeed);
+// 				%show["WhiteTrail"] = (%speed > $TrailEmitterWhiteSpeed);
+// 				%show["Fireball3"] = false;
+// 				%show["Fireball4_2"] = false;
+// 				%show["Fireball5"] = false;
+// 			}
+// 			//These are always false if not in water
+// 			%show["Splash4"] = false;
+// 			%show["TrailBubble"] = false;
+// 		}
 
-		%snoreThreshold = 0.01;
-		%snoreTimeout = 10;
+// 		%snoreThreshold = 0.01;
+// 		%snoreTimeout = 10;
 
-		//Snore emitter requires you to be still
-		if (%speed < %snoreThreshold && %follow.lastMovement !$= "" && $Game::State $= "Go") {
-			%show["Snore"] = $pref::Snore && (($Sim::Time - %follow.lastMovement) > %snoreTimeout);
-		} else {
-			%follow.lastMovement = $Sim::Time;
-			%show["Snore"] = false;
-		}
+// 		//Snore emitter requires you to be still
+// 		if (%speed < %snoreThreshold && %follow.lastMovement !$= "" && $Game::State $= "Go") {
+// 			%show["Snore"] = $pref::Snore && (($Sim::Time - %follow.lastMovement) > %snoreTimeout);
+// 		} else {
+// 			%follow.lastMovement = $Sim::Time;
+// 			%show["Snore"] = false;
+// 		}
 
-		//Stop getting in my face
-		if ($Client::ColCannon || $Game::State $= "End") {
-			%show["Trail"] = false;
-			%show["WhiteTrail"] = false;
-			%show["Snore"] = false;
-			%show["Splash4"] = false;
-			%show["TrailBubble"] = false;
-			%show["Fireball3"] = false;
-			%show["Fireball4_2"] = false;
-			%show["Fireball3Mega"] = false;
-			%show["Fireball4_2Mega"] = false;
-		}
+// 		//Stop getting in my face
+// 		if ($Client::ColCannon || $Game::State $= "End") {
+// 			%show["Trail"] = false;
+// 			%show["WhiteTrail"] = false;
+// 			%show["Snore"] = false;
+// 			%show["Splash4"] = false;
+// 			%show["TrailBubble"] = false;
+// 			%show["Fireball3"] = false;
+// 			%show["Fireball4_2"] = false;
+// 			%show["Fireball3Mega"] = false;
+// 			%show["Fireball4_2Mega"] = false;
+// 		}
 
-		//Need to call it this because %show == %show[""] and if %obj.type is unset
-		// then it will just use whatever the previous has.
-		%doShow = %show[%obj.type];
-		if (%obj.type $= "" || %show[%obj.type] $= "") {
-			//If we don't know if we should show it, then show it unless it's a
-			// ParticleTrailNode (i.e. a marble trail)
+// 		//Need to call it this because %show == %show[""] and if %obj.type is unset
+// 		// then it will just use whatever the previous has.
+// 		%doShow = %show[%obj.type];
+// 		if (%obj.type $= "" || %show[%obj.type] $= "") {
+// 			//If we don't know if we should show it, then show it unless it's a
+// 			// ParticleTrailNode (i.e. a marble trail)
 
-			%doShow = !isMarbleEmitterTime(%obj.getDataBlock().timeMultiple);
-		}
+// 			%doShow = !isMarbleEmitterTime(%obj.getDataBlock().timeMultiple);
+// 		}
 
-		//If we're showing it or don't know to not show it, show it
-		if (%doShow) {
-			%obj.setTransform(%position SPC "1 0 0 0");
-		} else {
-			%obj.setTransform("-999999 -999999 -999999 1 0 0 0");
-		}
-	}
+// 		//If we're showing it or don't know to not show it, show it
+// 		if (%doShow) {
+// 			%obj.setTransform(%position SPC "1 0 0 0");
+// 		} else {
+// 			%obj.setTransform("-999999 -999999 -999999 1 0 0 0");
+// 		}
+// 	}
 
-	// clean up old trail emitters
-	for (%i = 0; %i < %removeAmount; %i ++)
-		ClientMarbleEmitterSet.remove(%remove[%i]);
-}
+// 	// clean up old trail emitters
+// 	for (%i = 0; %i < %removeAmount; %i ++)
+// 		ClientMarbleEmitterSet.remove(%remove[%i]);
+// }
