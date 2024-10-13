@@ -222,7 +222,7 @@ function PlayGui::doFPSCounter(%this) {
 	if (ServerConnection.getPing() >= 250) %pingnum = "low";
 	if (ServerConnection.getPing() >= 500) %pingnum = "matanny";
 	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
-	%fps = $fps::real;
+	%fps = $fps::modded;
 	if (%fps >= 100) %fps = mRound(%fps) @ " ";
 	FPSMetreText.setText("<bold:24><just:left>FPS:<condensed:23>" SPC %fps @ ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : ""));
 	cancel(%this.fpsCounterSched);
