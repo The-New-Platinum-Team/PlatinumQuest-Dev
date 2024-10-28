@@ -1,16 +1,61 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
-         desc = "Loot the Castle!";
-         name = "Siege";
-         time = "240000";
-         type = "advanced";
-         startHelpText = "Use the launchers to find gems on the parapet!";
-         music = "Groove Police.ogg";
-         artist = "Alex Swanson";
-         level = "4";
-         gameMode = "collection";
+      CustomRadarRule = "63";
+      Radar = "1";
+      artist = "Alex Swanson";
+      blast = "1";
+      desc = "Loot the Castle!";
+      game = "Gold";
+      gameMode = "collection";
+      goldTime = "120000";
+      level = "4";
+      music = "Groove Police.ogg";
+      name = "Siege";
+      score = "78";
+      startHelpText = "Use the launchers to find gems on the parapet!";
+      type = "Advanced";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "18.7706 -18.24192 87.96909";
+         rotation = "0.2684641 0.1163172 -0.9562413 48.7502";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "12000";
+      };
+      new StaticShape(CameraPath2) {
+         position = "18.7706 -18.24192 3.219101";
+         rotation = "0.2684641 0.1163172 -0.9562413 48.7502";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            useRotation = "1";
+            timeToNext = "5000";
+      };
+      new StaticShape(CameraPath3) {
+         position = "18.7706 -18.24192 3.219093";
+         rotation = "0.2684641 0.1163172 -0.9562413 48.7502";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            usePosition = "1";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath1";
+            useRotation = "1";
+            timeToNext = "0";
+      };
    };
    new Item() {
       position = "5.13386 -13.1146 11.3436";
@@ -64,7 +109,7 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
    };
    new Sun(Sun) {
-      direction = "0.638261 0.459006 -0.61801";
+      direction = "0.487533 0.677929 -0.550204";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };

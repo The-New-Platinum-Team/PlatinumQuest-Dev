@@ -1,27 +1,139 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
-         type = "Advanced";
-         game = "Gold";
-         time = "240000";
-         maxGemsPerSpawn = "1";
-         platinumScore1 = "60";
-         gameMode = "collection";
-         music = "Beach Party.ogg";
-         startHelpText = "Move back and forth to escape the tornado\'s pull!";
-         artist = "Alex Swanson";
-         level = "7";
-         score0 = "15";
-         alarmStartTime = "20";
-         name = "Eye of the Storm";
-         ultimateScore0 = "85";
-         desc = "Use the tornado to your advantage!";
-         score1 = "35";
-         radiusFromGem = "15";
-         ultimateScore1 = "125";
-         platinumScore0 = "35";
-         overviewHeight = "15";
+      CustomRadarRule = "63";
+      Radar = "1";
+      artist = "Alex Swanson";
+      blast = "1";
+      desc = "Use the tornado to your advantage!";
+      game = "Gold";
+      gameMode = "collection";
+      goldTime = "120000";
+      level = "7";
+      music = "Beach Party.ogg";
+      name = "Eye of the Storm";
+      score = "67";
+      startHelpText = "Move back and forth to escape the tornado\'s pull!";
+      type = "Advanced";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "-0.9621961 -1.383086 4.128611";
+         rotation = "0.9785331 -0.07331292 0.1926089 42.5102";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath2) {
+         position = "0.1742214 -5.045864 8.367155";
+         rotation = "0.9916105 0.05691393 -0.1160588 52.62826";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath3) {
+         position = "3.556614 -7.94143 13.76491";
+         rotation = "0.8500416 0.2551901 -0.4607683 66.1717";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath4";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath4) {
+         position = "7.982899 -8.935599 20.0778";
+         rotation = "0.7637609 0.3308712 -0.5542504 76.02377";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath5";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath5) {
+         position = "13.33163 -7.314476 27.24913";
+         rotation = "0.6726805 0.394994 -0.6256843 86.36475";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath6";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath6) {
+         position = "17.33743 -3.393584 32.9626";
+         rotation = "0.5008128 0.4418142 -0.7443029 99.6917";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath7";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath7) {
+         position = "20.36107 2.990738 38.95029";
+         rotation = "0.3868509 0.4726734 -0.7917867 114.1116";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath8";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath8) {
+         position = "20.83506 11.73172 46.23094";
+         rotation = "-0.2645821 -0.4943151 0.8280392 227.8066";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath9";
+            useRotation = "1";
+            timeToNext = "5000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath9) {
+         position = "20.83506 11.73172 46.23094";
+         rotation = "-0.2645821 -0.4943151 0.8280392 227.8066";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath1";
+            useRotation = "1";
+            timeToNext = "0";
+            usePosition = "1";
+      };
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -48,7 +160,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-31 1.3684e-38";
       fogVolume2 = "-1 1.07208e-14 8.756e-14";
       fogVolume3 = "-1 5.1012e-10 2.05098e-08";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
+      materialList = "~/data/skies/sky_day.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -57,7 +169,7 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
    };
    new Sun() {
-      direction = "0.638261 0.459006 -0.61801";
+      direction = "-0.286096 0.524551 -0.80187";
       color = "1.400000 1.200000 0.400000 1.000000";
       ambient = "0.300000 0.300000 0.400000 1.000000";
    };
