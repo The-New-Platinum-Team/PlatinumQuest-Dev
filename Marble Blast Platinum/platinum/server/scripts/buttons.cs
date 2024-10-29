@@ -395,7 +395,7 @@ function ToggleButtonFlat_PQ::scanGroup(%this, %obj, %group) {
 	ToggleButton::scanGroup(%this, %obj, %group);
 }
 function ToggleButtonFlat_PQ::scanGroupState(%this, %group, %state) {
-	ToggleButton::scanGroupState(%this, %group, %state);
+	return ToggleButton::scanGroupState(%this, %group, %state);
 }
 function ToggleButtonFlat_PQ::activateGroup(%this, %group, %activated, %state) {
 	ToggleButton::activateGroup(%this, %group, %activated, %state);
