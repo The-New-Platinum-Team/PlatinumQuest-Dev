@@ -65,6 +65,9 @@ fn HandleAdvancedMapFrag(base: vec4<f32>,
    var emapMaskAlpha : f32 = (alphaIsReflectance * emapAlpha) + (invAlphaIsReflectance * emapTexture.a);
    // Modulate with env flag
    emapMaskAlpha *= in.fragControl.y;
+
+   calcColor = vec4<f32>(calcColor.rgb, calcColor.a * invAlphaIsReflectance + emapMaskAlpha * alphaIsReflectance);
+
    // Apply to emapTexture
    // emapTexture = vec4<f32>((emapTexture.rgb * emapMaskAlpha) + (calcColor.rgb * (1.0 - emapMaskAlpha)), calcColor.a);
    // Output
