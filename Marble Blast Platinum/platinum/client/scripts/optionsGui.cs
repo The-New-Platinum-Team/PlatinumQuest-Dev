@@ -224,12 +224,28 @@ function buildResolutionList() {
 	%resCount = getFieldCount(%resList);
 	%deskRes = getDesktopResolution();
 
-	//Extra resolutions
+	// Hardcoded resolutions - :(
 	%resList = %resList TAB "1024 768";
 	%resCount ++;
 	%resList = %resList TAB "1280 720";
 	%resCount ++;
+	%resList = %resList TAB "1280 1024";
+	%resCount ++;
+	%resList = %resList TAB "1366 720";
+	%resCount ++;
+	%resList = %resList TAB "1440 900";
+	%resCount ++;
+	%resList = %resList TAB "1600 900";
+	%resCount ++;
+	%resList = %resList TAB "1680 1050";
+	%resCount ++;
 	%resList = %resList TAB "1920 1080";
+	%resCount ++;
+	%resList = %resList TAB "2560 1440";
+	%resCount ++;
+	%resList = %resList TAB "2880 1620";
+	%resCount ++;
+	%resList = %resList TAB "3840 2160";
 	%resCount ++;
 
 	for (%i = 0; %i < %resCount; %i++) {
