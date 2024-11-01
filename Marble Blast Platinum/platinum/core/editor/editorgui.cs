@@ -1622,7 +1622,7 @@ function ETerrainEditor::setPaintMaterial(%this, %matIndex)
 function ETerrainEditor::changeMaterial(%this, %matIndex)
 {
    EPainter.matIndex = %matIndex;
-   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg", EPainterChangeMat);
+   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", EPainterChangeMat);
 }
 
 function EPainterChangeMat(%file)
@@ -2378,7 +2378,7 @@ function Texture_material_menu::onSelect(%this, %id, %text)
 function Texture::addMaterialTexture()
 {
    %root = filePath(terrain.terrainFile);
-   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg", addLoadedMaterial);
+   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", addLoadedMaterial);
 }
 
 function addLoadedMaterial(%file)
@@ -3513,7 +3513,7 @@ function Heightfield::doLoadHeightfield(%name)
 //--------------------------------------
 function Heightfield::setBitmap()
 {
-   getLoadFilename($TerraformerHeightfieldDir @ "/*.png", "Heightfield::doSetBitmap");
+   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", "Heightfield::doSetBitmap");
 }   
 
 //--------------------------------------
