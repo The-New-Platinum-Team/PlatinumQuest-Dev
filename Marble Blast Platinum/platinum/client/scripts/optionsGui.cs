@@ -231,7 +231,7 @@ function buildResolutionList() {
 	%resCount ++;
 	%resList = %resList TAB "1280 1024";
 	%resCount ++;
-	%resList = %resList TAB "1366 720";
+	%resList = %resList TAB "1366 768";
 	%resCount ++;
 	%resList = %resList TAB "1440 900";
 	%resCount ++;
@@ -243,7 +243,13 @@ function buildResolutionList() {
 	%resCount ++;
 	%resList = %resList TAB "2560 1440";
 	%resCount ++;
+	%resList = %resList TAB "2560 1600";
+	%resCount ++;
 	%resList = %resList TAB "2880 1620";
+	%resCount ++;
+	%resList = %resList TAB "2880 1800";
+	%resCount ++;
+	%resList = %resList TAB "3200 1800";
 	%resCount ++;
 	%resList = %resList TAB "3840 2160";
 	%resCount ++;
@@ -251,13 +257,13 @@ function buildResolutionList() {
 	for (%i = 0; %i < %resCount; %i++) {
 		%res = getWords(getField(%resList, %i), 0, 1);
 
-		if (!$pref::Video::fullScreen) {
+		//if (!$pref::Video::fullScreen) {
 			// Here they skip resolutions above your desktop res, in case you're playing windowed. Nice GG. Nice.
 			if (firstWord(%res) >= firstWord(%deskRes))
 				continue;
 			if (getWord(%res, 1) >= getWord(%deskRes, 1))
 				continue;
-		}
+		// }
 
 		//Lower Bound
 		if (firstWord(%res) < 1024 || getWord(%res, 1) < 768)
@@ -589,6 +595,8 @@ ChatMessageSizeArray.addEntry("6" TAB 6);
 // Graphics Functions.
 
 function Opt_screenResolution_getDisplay() {
+	if ($pref::Video::fullScreen) 
+		return "Not Available";
 	return getWord($pref::Video::Resolution, 0) SPC "x" SPC getWord($pref::Video::Resolution, 1);
 }
 
