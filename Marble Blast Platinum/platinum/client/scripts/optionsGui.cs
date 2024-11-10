@@ -117,6 +117,7 @@ function OptionsGui::onWake(%this, %dontDiscard) {
 	}
 
 	$Options::TexturePackDirty = 0;
+	$Options::ResolutionChanged = false;
 }
 
 function OptionsGui::apply(%this) {
@@ -129,35 +130,38 @@ function OptionsGui::apply(%this) {
 	flushInteriorRenderBuffers();
 	cleanupReflectiveMarble();
 
-	%newDisplay = ($pref::Video::displayDevice !$= getDisplayDeviceName());
-	%newRes = ($pref::Video::resolution !$= getResolution());
+	if ($Options::ResolutionChanged) {
+		%newDisplay = ($pref::Video::displayDevice !$= getDisplayDeviceName());
+		%newRes = ($pref::Video::resolution !$= getResolution());
 
-	if (%newDisplay) {
-		disablePostFX();
-		disableBlur();
-		disableShaders();
-		reloadDts();
-		setDisplayDevice($pref::Video::displayDevice,
-		                 firstWord($pref::Video::resolution),
-		                 getWord($pref::Video::resolution, 1),
-		                 getWord($pref::Video::resolution, 2),
-		                 $pref::Video::fullScreen);
-		//OptionsGui::deviceDependent( %this );
-	} else if (%newRes) {
-		disablePostFX();
-		disableBlur();
-		disableShaders();
-		reloadDts();
-		setScreenMode(firstWord($pref::Video::resolution),
-		              getWord($pref::Video::resolution, 1),
-		              getWord($pref::Video::resolution, 2),
-		              $pref::Video::fullScreen);
-	} else if ($pref::Video::fullScreen != isFullScreen()) {
-		disablePostFX();
-		disableBlur();
-		disableShaders();
-		reloadDts();
-		toggleFullScreen();
+		if (%newDisplay) {
+			disablePostFX();
+			disableBlur();
+			disableShaders();
+			reloadDts();
+			setDisplayDevice($pref::Video::displayDevice,
+							firstWord($pref::Video::resolution),
+							getWord($pref::Video::resolution, 1),
+							getWord($pref::Video::resolution, 2),
+							$pref::Video::fullScreen);
+			//OptionsGui::deviceDependent( %this );
+		} else if (%newRes) {
+			disablePostFX();
+			disableBlur();
+			disableShaders();
+			reloadDts();
+			setScreenMode(firstWord($pref::Video::resolution),
+						getWord($pref::Video::resolution, 1),
+						getWord($pref::Video::resolution, 2),
+						$pref::Video::fullScreen);
+		} else if ($pref::Video::fullScreen != isFullScreen()) {
+			disablePostFX();
+			disableBlur();
+			disableShaders();
+			reloadDts();
+			toggleFullScreen();
+		}
+		$Options::ResolutionChanged = false;
 	}
 	if ($pref::Video::AntiAliasing != $OldConfig::Video::AntiAliasing) {
 		if ($platform $= "macos" && !(%newDisplay || %newRes)) {
@@ -576,7 +580,22 @@ ChatMessageSizeArray.addEntry("6" TAB 6);
 function Opt_screenResolution_getDisplay() {
 	if ($pref::Video::fullScreen) 
 		return "Not Available";
-	return getWord($pref::Video::Resolution, 0) SPC "x" SPC getWord($pref::Video::Resolution, 1);
+
+	if ($Options::ResolutionChanged)
+		return getWord($pref::Video::Resolution, 0) SPC "x" SPC getWord($pref::Video::Resolution, 1);
+
+	%curRes = $pref::Video::windowedRes;
+	%curResX = getWord(%curRes, 0);
+	%curResY = getWord(%curRes, 1);
+
+	%wndResX = getWord($pref::Video::Resolution, 0);
+	%wndResY = getWord($pref::Video::Resolution, 1);
+
+	if (%curResX == %wndResX && %curResY == %wndResY) {
+		return %wndResX SPC "x" SPC %wndResY;
+	} else {
+		return %curResX SPC "x" SPC %curResY;
+	}
 }
 
 function Opt_screenResolution_getValue() {
@@ -592,6 +611,7 @@ function Opt_screenResolution_decrease() {
 	%current = OptResolutions.getEntry(%index);
 	$pref::Video::resolution = %current SPC getWord($pref::Video::resolution, 2);
 	$pref::Video::WindowedRes = %current SPC getWord($pref::Video::resolution, 2);
+	$Options::ResolutionChanged = true;
 }
 
 function Opt_screenResolution_increase() {
@@ -603,6 +623,7 @@ function Opt_screenResolution_increase() {
 	%current = OptResolutions.getEntry(%index);
 	$pref::Video::resolution = %current SPC getWord($pref::Video::resolution, 2);
 	$pref::Video::WindowedRes = %current SPC getWord($pref::Video::resolution, 2);
+	$Options::ResolutionChanged = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -631,6 +652,7 @@ function Opt_screenStyle_updateResolution() {
 	//And update the resolution pref... by going back and forth the really hacky way
 	eval(OptionsscreenResolutionLeftArrow.command);
 	eval(OptionsscreenResolutionRightArrow.command);
+	$Options::ResolutionChanged = true;
 }
 
 //-----------------------------------------------------------------------------
