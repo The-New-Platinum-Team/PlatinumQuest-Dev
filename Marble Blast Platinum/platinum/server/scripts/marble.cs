@@ -382,6 +382,50 @@ datablock AudioProfile(SlippingSfx) {
 	preload = true;
 };
 
+//------------------------------------------------------------------------------
+
+datablock AudioProfile(MegaBounce1Sfx) {
+	filename    = "~/data/sound/mega_bouncehard1.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
+datablock AudioProfile(MegaBounce2Sfx) {
+	filename    = "~/data/sound/mega_bouncehard2.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
+datablock AudioProfile(MegaBounce3Sfx) {
+	filename    = "~/data/sound/mega_bouncehard3.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
+datablock AudioProfile(MegaBounce4Sfx) {
+	filename    = "~/data/sound/mega_bouncehard4.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
+datablock AudioProfile(MegaJumpSfx) {
+	filename    = "~/data/sound/Jump.wav";
+	description = AudioDefault3d;
+	preload = true;
+};
+
+datablock AudioProfile(MegaRollingHardSfx) {
+	filename    = "~/data/sound/mega_roll.wav";
+	description = AudioClosestLooping3d;
+	preload = true;
+};
+
+datablock AudioProfile(MegaSlippingSfx) {
+	filename    = "~/data/sound/Sliding.wav";
+	description = AudioClosestLooping3d;
+	preload = true;
+};
+
 datablock MarbleData(DefaultMarble) {
 	shapeFile = "~/data/shapes/balls/ball-superball.dts";
 	emap = true;
@@ -413,6 +457,15 @@ datablock MarbleData(DefaultMarble) {
 	rollHardSound = RollingHardSfx;
 	slipSound = SlippingSfx;
 	jumpSound = JumpSfx;
+
+	megaBounce1 = MegaBounce1Sfx;
+	megaBounce2 = MegaBounce2Sfx;
+	megaBounce3 = MegaBounce3Sfx;
+	megaBounce4 = MegaBounce4Sfx;
+
+	megaRollHardSound = MegaRollingHardSfx;
+	megaSlipSound = MegaSlippingSfx;
+	megaJumpSound = MegaJumpSfx;
 
 	// Emitters
 	// 1.50 update: changed minTrailSpeed to 20
@@ -550,50 +603,6 @@ function findMarbleDatablock(%shapeFile) {
 if (!$Server::Dedicated) {
 	createMarbleDatablocks();
 }
-
-//------------------------------------------------------------------------------
-
-// datablock AudioProfile(MegaBounce1Sfx) {
-// 	filename    = "~/data/sound/mega_bouncehard1.wav";
-// 	description = AudioDefault3d;
-// 	preload = true;
-// };
-
-// datablock AudioProfile(MegaBounce2Sfx) {
-// 	filename    = "~/data/sound/mega_bouncehard2.wav";
-// 	description = AudioDefault3d;
-// 	preload = true;
-// };
-
-// datablock AudioProfile(MegaBounce3Sfx) {
-// 	filename    = "~/data/sound/mega_bouncehard3.wav";
-// 	description = AudioDefault3d;
-// 	preload = true;
-// };
-
-// datablock AudioProfile(MegaBounce4Sfx) {
-// 	filename    = "~/data/sound/mega_bouncehard4.wav";
-// 	description = AudioDefault3d;
-// 	preload = true;
-// };
-
-// datablock AudioProfile(MegaJumpSfx) {
-// 	filename    = "~/data/sound/Jump.wav";
-// 	description = AudioDefault3d;
-// 	preload = true;
-// };
-
-// datablock AudioProfile(MegaRollingHardSfx) {
-// 	filename    = "~/data/sound/mega_roll.wav";
-// 	description = AudioClosestLooping3d;
-// 	preload = true;
-// };
-
-// datablock AudioProfile(MegaSlippingSfx) {
-// 	filename    = "~/data/sound/Sliding.wav";
-// 	description = AudioClosestLooping3d;
-// 	preload = true;
-// };
 
 //-----------------------------------------------------------------------------
 
