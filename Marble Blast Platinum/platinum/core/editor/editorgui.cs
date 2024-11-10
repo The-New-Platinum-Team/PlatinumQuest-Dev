@@ -946,16 +946,16 @@ function EditorGui::setWorldEditorVisible(%this)
 
 function EditorGui::setTerrainEditorVisible(%this)
 {
-   EWorldEditor.setVisible(false);
-   ETerrainEditor.setVisible(true);
-   ETerrainEditor.attachTerrain();
-   EHeightField.setVisible(false);
-   ETexture.setVisible(false);
-   EditorMenuBar.setMenuVisible("World", false);
-   EditorMenuBar.setMenuVisible("Action", true);
-   EditorMenuBar.setMenuVisible("Brush", true);
-   ETerrainEditor.makeFirstResponder(true);
-   EPainter.setVisible(false);
+	if (!ETerrainEditor.visible) ETerrainEditor.checkForTerrain(true);
+	EWorldEditor.setVisible(false);
+	ETerrainEditor.setVisible(true);
+	EHeightField.setVisible(false);
+	ETexture.setVisible(false);
+	EditorMenuBar.setMenuVisible("World", false);
+	EditorMenuBar.setMenuVisible("Action", true);
+	EditorMenuBar.setMenuVisible("Brush", true);
+	ETerrainEditor.makeFirstResponder(true);
+	EPainter.setVisible(false);
 }
 
 function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
@@ -4338,6 +4338,60 @@ function EWAddExistingReplay(%replay) {
 
 	EWActiveReplayList.init();
 	EWorldEditor.isDirty = true;
+}
+
+//------------------------------------------------------------------------------
+// Terrain Creation functions ~ Connie
+
+function ETerrainEditor::checkForTerrain(%this, %checkforfile)
+{
+	if (!isObject(terrain)) {
+		// %checkforfile TRUE = it will check if createdTerrains already has a terrain block with the same name as the mission file.
+		// %checkforfile FALSE = it will not, it will go straight to asking you if you want to make a new terrain file.
+		if (%checkforfile == true) {
+			%file = "platinum/data/terrains/createdTerrains/" @ fileBase($Server::MissionFile) @ ".ter";
+
+			if (isFile(%file)) {
+				MessageBoxYesNo("Notice!", "This level has a Terrain Block associated with it. Do you want to add it?", "ETerrainEditor.addTerrain(%file);", "ETerrainEditor.checkForTerrain(false);");
+			} else {
+				ETerrainEditor.checkForTerrain(false);
+			}
+		} else {
+			MessageBoxYesNo("Notice!", "This level does not have a Terrain Block inside of it. Do you want to create a new one? (Any existing one with the same file name will be overwritten!)", "ETerrainEditor.addTerrain();", "");
+		}
+	}
+}
+
+function ETerrainEditor::addTerrain(%this, %file)
+{
+	if (!%file) {
+		%templateterrfile = "platinum/data/terrains/template.ter";
+
+		if (!isFile(%templateterrfile)) {
+			MessageBoxOK("Oops!", "The template terrain file does not exist! Can't create new terrain file.");
+			return;
+		}
+
+		%newterrfile = "platinum/data/terrains/createdTerrains/" @ fileBase($Server::MissionFile) @ ".ter";
+
+		copyFile(%templateterrfile, %newterrfile);
+
+		if (isFile(%newterrfile)) {
+			new TerrainBlock(terrain)
+			{
+				terrainFile = %newterrfile;
+				squareSize = "8";
+			};
+		} else {
+			MessageBoxOK("Oops!", "Failed to create copy terrain file.");
+		}
+	} else {
+		new TerrainBlock(terrain)
+		{
+			terrainFile = %file;
+			squareSize = "8";
+		};
+	}
 }
 
 //------------------------------------------------------------------------------
