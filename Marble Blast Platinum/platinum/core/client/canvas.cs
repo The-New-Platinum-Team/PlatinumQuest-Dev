@@ -247,7 +247,12 @@ function enableBlur() {
 		return;
 	}
 
-	blurInit($pref::Video::resolution, $pref::Video::BlurPasses, "platinum/data/shaders/blurV.glsl", "platinum/data/shaders/blurF.glsl");
+	if (isFullScreen()) {
+		%res = $pref::Video::resolution;
+	} else {
+		%res = $pref::Video::windowedRes;
+	}
+	blurInit(%res, $pref::Video::BlurPasses, "platinum/data/shaders/blurV.glsl", "platinum/data/shaders/blurF.glsl");
 
 	//Hack-- update menu blurs if we've reset over the framebuffer
 	if (RootGui.previewImage) {
