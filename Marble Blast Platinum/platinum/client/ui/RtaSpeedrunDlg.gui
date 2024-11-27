@@ -41,7 +41,7 @@ new GuiControl(RtaSpeedrunDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "621 399";
+		extent = "522 399";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -82,11 +82,11 @@ new GuiControl(RtaSpeedrunDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "16 100";
+			position = "36 276";
 			extent = "200 45";
 			minExtent = "8 8";
 			visible = "1";
-			command = "RtaSpeedrun.start();";
+			command = "RtaSpeedrun.start(); RtaSpeedrunDlg.updateButtons();";
 			accelerator = "return";
 			helpTag = "0";
 			text = "Start Speedrun";
@@ -99,7 +99,7 @@ new GuiControl(RtaSpeedrunDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "16 150";
+			position = "284 276";
 			extent = "200 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -112,29 +112,15 @@ new GuiControl(RtaSpeedrunDlg) {
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 		};
-		new GuiMLTextCtrl(RtaEndText) {
-			profile = "GuiMLTextProfile";
-			horizSizing = "right";
-			vertSizing = "bottom";
-			position = "232 156";
-			extent = "320 32";
-			minExtent = "8 8";
-			visible = "1";
-			helpTag = "0";
-			lineSpacing = "2";
-			allowColorChars = "0";
-			maxChars = "-1";
-				defaultText = "No Ending";
-		};
-		new GuiBorderButtonCtrl(RtaStartButton) {
+		new GuiBorderButtonCtrl(RtaStopButton) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "16 200";
+			position = "36 276";
 			extent = "200 45";
 			minExtent = "8 8";
-			visible = "1";
-			command = "RtaSpeedrun.stop();";
+			visible = "0";
+			command = "RtaSpeedrun.stop(); RtaSpeedrunDlg.updateButtons();";
 			accelerator = "return";
 			helpTag = "0";
 			text = "Stop Speedrun";
@@ -142,6 +128,32 @@ new GuiControl(RtaSpeedrunDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
+		};
+		new GuiBitmapCtrl(RTAEndLevelImage) {
+			profile = "GuiDefaultProfile";
+			visible = "1";
+			helpTag = "0";
+			wrap = "0";
+			bitmap = "platinum/client/ui/play/missingicon.png";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "190 67";
+			extent = "240 170";
+			minExtent = "41 41";
+		};
+		new GuiMLTextCtrl(RtaEndText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 246";
+			extent = "500 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "No Ending";
 		};
 	};
 };
@@ -156,13 +168,45 @@ function RtaSpeedrunDlg::onWake(%this) {
 	RtaBody.setPosition(%x SPC getWord(RtaBody.getPosition(), 1));
 
 	%this.updateEndText();
+	%this.updateButtons();
 }
 
+function RtaSpeedrunDlg::updateButtons(%this) {
+	if (RtaSpeedrun.isEnabled || RtaSpeedrun.shouldStartRun) {
+		RtaStartButton.setVisible(0);
+		RtaStopButton.setVisible(1);
+		RtaStartButton.setActive(0);
+		RtaStopButton.setActive(1);
+	} else {
+		RtaStartButton.setVisible(1);
+		RtaStopButton.setVisible(0);
+		RtaStartButton.setActive(1);
+		RtaStopButton.setActive(0);
+	}
+}
 
 function RtaSpeedrunDlg::updateEndText(%this) {
 	if (RtaSpeedrun.endMission $= "") {
-		RtaEndText.setText("<bold:28>No Final Level Selected");
+		RtaEndText.setText("<bold:28><just:center>No Final Level Selected");
 		return;
 	}
-	RtaEndText.setText("<bold:28>Final Level:" SPC RtaSpeedrun.endMission);
+	RtaEndText.setText("<bold:28><just:center>Final Level:" SPC RtaSpeedrun.endMissionInfo.name);
+
+	%mission = RtaSpeedrun.endMissionInfo;
+	%bitmap = PlayMissionGui.ml.getMissionPreview(%mission.searchGame, %mission.searchType, %mission);
+
+	if (!isBitmap(%bitmap)) {
+		if (%mission.bitmap_directory !$= "") {
+			%bitmap = expandFilename(%mission.bitmap_directory @ "/" @ fileBase(%mission.file));
+		} else
+			%bitmap = expandFilename(PlayMissionGui.getBitmapDirectory(%mission.searchGame, %mission.searchType) @ "/" @ fileBase(%mission.file));
+		if (!isBitmap(%mission)) {
+			%bitmap = resolveMissionBitmap(%mission);
+		}
+	}
+	if (isBitmap(%bitmap)) {
+		RTAEndLevelImage.setBitmap(%bitmap);
+	} else {
+		RTAEndLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
+	}
 }
