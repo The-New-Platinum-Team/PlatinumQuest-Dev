@@ -204,15 +204,11 @@ function RtaSpeedrunDlg::onWake(%this) {
 }
 
 function RtaSpeedrunDlg::updateButtons(%this) {
-	if (RtaSpeedrun.isEnabled || RtaSpeedrun.shouldStartRun || RtaSpeedrun.isDone) {
-		//RtaStartButton.setVisible(0);
-		//RtaStopButton.setVisible(1);
+	if (RtaSpeedrun.isEnabled || RtaSpeedrun.shouldStartRun || RtaSpeedrun.isDone || RtaSpeedrun.isCrashRecoveryMode) {
 		RtaStartButton.setActive(0);
 		RtaStopButton.setActive(1);
 		RtaRestartButton.setActive(!RtaSpeedrun.shouldStartRun);
 	} else {
-		//RtaStartButton.setVisible(1);
-		//RtaStopButton.setVisible(0);
 		RtaStartButton.setActive(1);
 		RtaStopButton.setActive(0);
 		RtaRestartButton.setActive(RtaSpeedrun.isDone);
@@ -226,7 +222,9 @@ function RtaSpeedrunDlg::updateButtons(%this) {
 
 function RtaSpeedrunDlg::updateStatusText(%this, %text) {
 	%formatting = "<font:22><just:center>";
-	if (RtaSpeedrun.isDone)
+	if (RtaSpeedrun.isCrashRecoveryMode)
+		RtaStatusText.setText(%formatting @ "Run will continue when next level loads");
+	else if (RtaSpeedrun.isDone)
 		RtaStatusText.setText(%formatting @ "Run completed!");
 	else if (RtaSpeedrun.isEnabled)
 		RtaStatusText.setText(%formatting @ "Run in progress! Go go go!");
