@@ -54,7 +54,7 @@ function RtaSpeedrun::create(%this) {
 RtaSpeedrun.schedule(100, create);
 
 
-function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
+function RtaSpeedrun::onFrameAdvanceWithPause(%this, %timeDelta) {
 	if (%this.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
 		%this.setTime(add64_int(%this.time, %timeDelta / getTimeScale()));
 		%this.updateTimers();
@@ -62,9 +62,9 @@ function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
 }
 
 package RtaSpeedrunFrameAdvance {
-	function onFrameAdvance(%timeDelta) {
-		Parent::onFrameAdvance(%timeDelta);
-		RtaSpeedrun.onFrameAdvance(%timeDelta);
+	function onFrameAdvanceWithPause(%timeDelta) {
+		Parent::onFrameAdvanceWithPause(%timeDelta);
+		RtaSpeedrun.onFrameAdvanceWithPause(%timeDelta);
 	}
 };
 activatePackage(RtaSpeedrunFrameAdvance);
@@ -228,22 +228,22 @@ function RtaSpeedrun::missionEnded(%this) {
 }
 
 function RtaSpeedrun::pauseGame(%this) {
-	RTAAS_setShouldInterpolateTime(true);
-	if (!%this.isEnabled)
-		return;
-	%this.pauseStartedTime = getRealTime();
+	//RTAAS_setShouldInterpolateTime(true);
+	//if (!%this.isEnabled)
+	//	return;
+	//%this.pauseStartedTime = getRealTime();
 }
 
 function RtaSpeedrun::unpauseGame(%this) {
-	RTAAS_setShouldInterpolateTime(false);
-	if (!%this.isEnabled)
-		return;
-	if (%this.pauseStartedTime < 0)
-		return;
-	%currentTime = getRealTime();
-	%diff = sub64_int(%currentTime, %this.pauseStartedTime);
-	%this.setTime(add64_int(%this.time, %diff));
-	%this.pauseStartedTime = -1;
+	//RTAAS_setShouldInterpolateTime(false);
+	//if (!%this.isEnabled)
+	//	return;
+	//if (%this.pauseStartedTime < 0)
+	//	return;
+	//%currentTime = getRealTime();
+	//%diff = sub64_int(%currentTime, %this.pauseStartedTime);
+	//%this.setTime(add64_int(%this.time, %diff));
+	//%this.pauseStartedTime = -1;
 }
 
 function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
