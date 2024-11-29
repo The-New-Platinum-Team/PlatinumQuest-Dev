@@ -106,11 +106,11 @@ function RtaSpeedrun::updateTimers(%this) {
 	}
 	if (%showGame) {
 		$pref::Thousandths = true;
-		%text = %text NL formatTimeHoursMs(%this.currentGameDuration) SPC "Game";
+		%text = %text NL formatTimeHoursMs(%this.currentGameDuration) SPC "Final Game Time";
 	}
 	if (%showCategory) {
 		$pref::Thousandths = true;
-		%text = %text NL formatTimeHoursMs(%this.missionTypeDuration) SPC "Category";
+		%text = %text NL formatTimeHoursMs(%this.missionTypeDuration) SPC "Final Category Time";
 	}
 	$pref::Thousandths = %prevPrefThousandths;
 	if (%showSplit)
@@ -158,7 +158,8 @@ function RtaSpeedrun::stop(%this) {
 }
 
 function RtaSpeedrun::setEnd(%this) {
-	%this.endMission = PlayMissionGui.getMissionInfo().file;
+	%this.endMissionInfo = PlayMissionGui.getMissionInfo();
+	%this.endMission = %this.endMissionInfo.file;
 	echo("The last level of the RTA speedrun set to" SPC %this.endMission);
 }
 
@@ -285,7 +286,7 @@ function RtaSpeedrun::loadProgress(%this) {
 	}
 	exec(%progressFile);
 	%this.setTime($RtaProgress::time);
-	%this.endMission = $RtaProgress::endMission;
+	%this.setEnd($RtaProgress::endMission);
 	%this.missionType = $RtaProgress::missionType;
 	%this.missionTypeBeganTime = $RtaProgress::missionTypeBeganTime;
 	%this.currentGame = $RtaProgress::currentGame;
