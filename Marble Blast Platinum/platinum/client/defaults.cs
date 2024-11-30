@@ -51,6 +51,9 @@ $pref::StopRecordingOnMenu = false;
 $pref::NoHolePunching = false;
 $pref::NoFadeIn = false;
 
+$pref::RtaShowAllSplits = true;
+$pref::RtaSkipNameEntry = true;
+
 $pref::parTimeAlarm = true;
 
 $pref::checkLETip = "1";

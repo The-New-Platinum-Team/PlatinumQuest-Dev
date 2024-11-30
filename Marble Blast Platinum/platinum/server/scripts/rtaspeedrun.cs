@@ -81,7 +81,7 @@ function RtaSpeedrun::updateTimers(%this) {
 	}
 	%showGame = %this.currentGameDuration > 0;
 	%showCategory = %this.missionTypeDuration > 0;
-	%showSplit = %this.lastSplitTime > 0;
+	%showSplit = $pref::RtaShowAllSplits && %this.lastSplitTime > 0;
 
 	if (%this.smartHideSplits) {
 		if (%this.isDone) {
