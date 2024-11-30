@@ -464,7 +464,7 @@ function clientCmdGameEnd() {
 		else
 			%msgIn = " fifth";
 
-		if ($pref::DisableHighScoreNamePopup) {
+		if ($pref::DisableHighScoreNamePopup || ($pref::RtaSkipNameEntry && RtaSpeedrun.isEnabled)) {
 			EnterNameDlg.setVisible(false);
 			EnterNameEdit.makeFirstResponder(false);
 		} else {
