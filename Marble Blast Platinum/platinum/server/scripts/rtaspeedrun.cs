@@ -159,8 +159,12 @@ function RtaSpeedrun::stop(%this) {
 	%this.clearProgress();
 }
 
-function RtaSpeedrun::setEnd(%this) {
-	%this.endMissionInfo = PlayMissionGui.getMissionInfo();
+function RtaSpeedrun::setEnd(%this, %arg) {
+	if (%arg $= "") {
+		%this.endMissionInfo = PlayMissionGui.getMissionInfo();
+	} else {
+		%this.endMissionInfo = getMissionInfo(%arg);
+	}
 	%this.endMission = %this.endMissionInfo.file;
 	echo("The last level of the RTA speedrun set to" SPC %this.endMission);
 	if (!%this.receivedMbgWarning && (stripos(%this.endMission, "data/missions_mbg/") != -1 || stripos(%this.endMission, "data/lbmissions_mbg/") != -1)) {
