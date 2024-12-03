@@ -603,7 +603,7 @@ function ExitGameDlg::onWake(%this) {
 	%info = getMissionInfo($Client::MissionFile);
 
 	%shouldEndLevel = false;
-	if (stripos(%info.gameMode, "hunt") != -1 || stripos(%info.gameMode, "gemmadness") != -1) {
+	if (($pref::AllowEndingScoreLevelsEarly || RtaSpeedrun.isEnabled) && (stripos(%info.gameMode, "hunt") != -1 || stripos(%info.gameMode, "gemmadness") != -1)) {
 		%scoreToBeat = (%info.score > 0) ? %info.score : 1;
 		%shouldEndLevel = PlayGui.gemCount >= %scoreToBeat;
 	}

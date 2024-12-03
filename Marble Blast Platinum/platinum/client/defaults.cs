@@ -50,6 +50,7 @@ $pref::ScorePredictorMaxFactor = 2;
 $pref::StopRecordingOnMenu = false;
 $pref::NoHolePunching = false;
 $pref::NoFadeIn = false;
+$pref::AllowEndingScoreLevelsEarly = false;
 
 $pref::RtaShowAllSplits = true;
 $pref::RtaSkipNameEntry = true;
