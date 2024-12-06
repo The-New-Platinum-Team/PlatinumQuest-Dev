@@ -41,7 +41,7 @@ new GuiControl(AdvancedOptionsDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "400 525";
+		extent = "400 550";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -52,7 +52,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "25 55";
-			extent = "350 400";
+			extent = "350 425";
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
@@ -63,7 +63,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 459";
+			position = "350 484";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -134,6 +134,10 @@ $AdvancedOptions::Name    [$i++] = "minimalSpectateUI";
 $AdvancedOptions::Title   [$i  ] = "(Online) Minimal Spectate UI";
 $AdvancedOptions::Variable[$i  ] = "$pref::minimalSpectateUI";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "threeDigitGemCounter";
+$AdvancedOptions::Title   [$i  ] = "Always Show Three Digits in Gem Counter";
+$AdvancedOptions::Variable[$i  ] = "$pref::GemCounterAlwaysThreeDigits";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "spchanges";
 $AdvancedOptions::Title   [$i  ] = "Use MBU Shapes in MBU levels";
 $AdvancedOptions::Variable[$i  ] = "$pref::spchanges";
@@ -182,7 +186,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 				horizSizing = "right";
 				vertSizing = "bottom";
 				position = 0 SPC %curYPos;
-				extent = "300 24";
+				extent = "340 24";
 				minExtent = "8 8";
 				visible = "1";
 				helpTag = "0";
