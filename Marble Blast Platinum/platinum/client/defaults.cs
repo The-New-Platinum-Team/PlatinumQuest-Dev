@@ -113,6 +113,8 @@ $pref::Audio::channelVolume8 = 0.5;
 $pref::OOBVoice = 1;
 $pref::Audio::AutomaticAudio = true;
 $pref::Audio::AudioPack = "";
+$pref::parTimeAlarm = 1;
+$pref::recordingIndicator = 1;
 
 $Pref::EnableDirectInput = true;
 $Pref::Unix::OpenALFrequency = 44100;

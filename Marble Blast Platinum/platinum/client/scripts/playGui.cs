@@ -198,7 +198,7 @@ function PlayGui::onSleep(%this) {
 }
 
 function PlayGui::updateRecordingIndicator(%this) {
-    if ($Game::Record && !mp() && !$playingDemo) {
+    if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
         RecordingIndicatorIcon.setVisible(true);
 	} else {
