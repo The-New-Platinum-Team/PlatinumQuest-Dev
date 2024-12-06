@@ -198,7 +198,7 @@ function PlayGui::onSleep(%this) {
 }
 
 function PlayGui::updateRecordingIndicator(%this) {
-    if ($Game::Record && !mp() && !$playingDemo) {
+    if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
         RecordingIndicatorIcon.setVisible(true);
 	} else {
@@ -781,6 +781,9 @@ function PlayGui::addBonusTime(%this, %dt) {
 }
 
 function PlayGui::refreshRed(%this) {
+	if (!$pref::parTimeAlarm)
+			return;
+
 	if ($PlayTimerActive && $InPlayGUI) {
 		if (%this.bonusTime || $Editor::Opened || %this.stopped)
 			$PlayTimerColor = $TimeColor["stopped"];

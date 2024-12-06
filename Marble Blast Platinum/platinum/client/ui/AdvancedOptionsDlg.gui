@@ -1,0 +1,208 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2023 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(AdvancedOptionsDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "800 600";
+		defaultControl = "RtaClose";
+		commandSelect = "RootGui.popDialog(AdvancedOptionsDlg);";
+		commandCancel = "RootGui.popDialog(AdvancedOptionsDlg);";
+		commandNameSelect = "Close";
+
+	new GuiControl(AdvancedOptionsBody) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "89 100";
+		extent = "400 525";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+			wrap = "0";
+
+		new GuiControl(AdvancedOptionsContent) {
+			profile = "PQWindowProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "25 55";
+			extent = "350 400";
+			minExtent = "61 61";
+			visible = "1";
+			helpTag = "0";
+				wrap = "0";
+		};
+
+		new GuiBorderButtonCtrl(AdvancedOptionsClose) {
+			profile = "PQButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "350 459";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RootGui.popDialog(AdvancedOptionsDlg);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Back";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiMLTextCtrl(AdvancedOptionsTitleText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 16";
+			extent = "700 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<bold:28><just:center>Advanced Options";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function AdvancedOptionsDlg::onWake(%this) {
+	//Try to center this GUI, but don't overlap the dropdowns
+	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(AdvancedOptionsBody.getExtent(), 0) / 2);
+	if (%x < 395) {
+		%x = 395;
+	}
+	AdvancedOptionsBody.setPosition(%x SPC getWord(AdvancedOptionsBody.getPosition(), 1));
+
+	%this.buildGUI();
+}
+
+$i = -1;
+$AdvancedOptions::Name    [$i++] = "alwaysShowSpeedometer";
+$AdvancedOptions::Title   [$i  ] = "Always Show Speedometer";
+$AdvancedOptions::Variable[$i  ] = "$pref::alwaysShowSpeedometer";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "powerupsAlwaysOnRadar";
+$AdvancedOptions::Title   [$i  ] = "Powerups Always on Radar";
+$AdvancedOptions::Variable[$i  ] = "$pref::powerupsAlwaysOnRadar";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "powerupTimers";
+$AdvancedOptions::Title   [$i  ] = "Powerup Timers";
+$AdvancedOptions::Variable[$i  ] = "$pref::powerupTimers";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "timeTravelTimer";
+$AdvancedOptions::Title   [$i  ] = "Time Travel Timer";
+$AdvancedOptions::Variable[$i  ] = "$pref::timeTravelTimer";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "parTimeAlarm";
+$AdvancedOptions::Title   [$i  ] = "Par Time Alarm";
+$AdvancedOptions::Variable[$i  ] = "$pref::parTimeAlarm";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "recordingIndicator";
+$AdvancedOptions::Title   [$i  ] = "Recording Indicator";
+$AdvancedOptions::Variable[$i  ] = "$pref::recordingIndicator";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "minimalSpectateUI";
+$AdvancedOptions::Title   [$i  ] = "(Online) Minimal Spectate UI";
+$AdvancedOptions::Variable[$i  ] = "$pref::minimalSpectateUI";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "spchanges";
+$AdvancedOptions::Title   [$i  ] = "Use MBU Shapes in MBU levels";
+$AdvancedOptions::Variable[$i  ] = "$pref::spchanges";
+$AdvancedOptions::Command [$i  ] = "AdvancedOptions_spchangesFnc";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "stopRecordingOnMenu";
+$AdvancedOptions::Title   [$i  ] = "Stop Recording On Menu";
+$AdvancedOptions::Variable[$i  ] = "$pref::stopRecordingOnMenu";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "noFadeIn";
+$AdvancedOptions::Title   [$i  ] = "Disable Fade In Animation";
+$AdvancedOptions::Variable[$i  ] = "$pref::NoFadeIn";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "allowEndingScoreLevelsEarly";
+$AdvancedOptions::Title   [$i  ] = "Allow Ending Score Levels Early";
+$AdvancedOptions::Variable[$i  ] = "$pref::AllowEndingScoreLevelsEarly";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "snoreMarble";
+$AdvancedOptions::Title   [$i  ] = "Marble Snoring";
+$AdvancedOptions::Variable[$i  ] = "$pref::Snore";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "oobVoice";
+$AdvancedOptions::Title   [$i  ] = "Out of Bounds Voice";
+$AdvancedOptions::Variable[$i  ] = "$pref::OOBVoice";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "useLowResGlass";
+$AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
+$AdvancedOptions::Variable[$i  ] = "$pref::UseLowResGlass";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+
+function AdvancedOptionsDlg::buildGUI(%this) {
+	AdvancedOptionsContent.clear();
+
+	%curYPos = 0;
+
+	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
+		%name = $AdvancedOptions::Name[%i];
+		%title = $AdvancedOptions::Title[%i];
+		%type = $AdvancedOptions::Type[%i];
+		%cmd = $AdvancedOptions::Command[%i];
+		%variable = $AdvancedOptions::Variable[%i];
+
+		if (%type $= "boolean") {
+			%btn = new GuiCheckBoxCtrl(AdvOpt_ @ %name) {
+				profile = "PQCheckboxProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = 0 SPC %curYPos;
+				extent = "300 24";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				variable = %variable;
+				text = %title;
+				command = %cmd;
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+
+			AdvancedOptionsContent.add(%btn);
+		}
+
+		%curYPos += 28;
+	}
+}
+
+function AdvancedOptions_spchangesFnc() {
+	if ($pref::spchanges)
+		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
+}
