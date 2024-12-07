@@ -41,7 +41,7 @@ new GuiControl(AdvancedOptionsDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "400 550";
+		extent = "400 590";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -52,7 +52,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "25 55";
-			extent = "350 425";
+			extent = "350 465";
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
@@ -63,7 +63,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 484";
+			position = "350 524";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -94,6 +94,10 @@ new GuiControl(AdvancedOptionsDlg) {
 };
 //--- OBJECT WRITE END ---
 
+// These don't work with local variables...
+$AdvOptTimeTravelTimerVar = $pref::timeTravelTimer > 0;
+$AdvOptTimeTravelTimerPreciseVar = $pref::timeTravelTimer == 2;
+
 function AdvancedOptionsDlg::onWake(%this) {
 	//Try to center this GUI, but don't overlap the dropdowns
 	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(AdvancedOptionsBody.getExtent(), 0) / 2);
@@ -120,8 +124,14 @@ $AdvancedOptions::Variable[$i  ] = "$pref::powerupTimers";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "timeTravelTimer";
 $AdvancedOptions::Title   [$i  ] = "Time Travel Timer";
-$AdvancedOptions::Variable[$i  ] = "$pref::timeTravelTimer";
+$AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerVar";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Command [$i  ] = "AdvancedOptions_timeTravelTimerFnc();";
+$AdvancedOptions::Name    [$i++] = "timeTravelTimerPrecise";
+$AdvancedOptions::Title   [$i  ] = "Show Precise Time Travel Time";
+$AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerPreciseVar";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Command [$i  ] = "AdvancedOptions_timeTravelTimerPreciseFnc();";
 $AdvancedOptions::Name    [$i++] = "parTimeAlarm";
 $AdvancedOptions::Title   [$i  ] = "Par Time Alarm";
 $AdvancedOptions::Variable[$i  ] = "$pref::parTimeAlarm";
@@ -141,7 +151,7 @@ $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "spchanges";
 $AdvancedOptions::Title   [$i  ] = "Use MBU Shapes in MBU levels";
 $AdvancedOptions::Variable[$i  ] = "$pref::spchanges";
-$AdvancedOptions::Command [$i  ] = "AdvancedOptions_spchangesFnc";
+$AdvancedOptions::Command [$i  ] = "AdvancedOptions_spchangesFnc();";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "stopRecordingOnMenu";
 $AdvancedOptions::Title   [$i  ] = "Stop Recording On Menu";
@@ -204,9 +214,26 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 
 		%curYPos += 28;
 	}
+
+	AdvOpt_timeTravelTimerPrecise.position = 30 SPC getWord(AdvOpt_timeTravelTimerPrecise.position, 1);
+	// TODO: Disable "precise" button when first one is unchecked (something like this probably)
+	//AdvOpt_timeTravelTimerPrecise.enabled = $pref::timeTravelTimer > 0;
 }
 
 function AdvancedOptions_spchangesFnc() {
 	if ($pref::spchanges)
 		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
+}
+
+function AdvancedOptions_timeTravelTimerFnc() {
+	AdvancedOptions_timeTravelTimerPreciseFnc();
+	//AdvOpt_timeTravelTimerPrecise.enabled = $pref::timeTravelTimer > 0;
+}
+
+function AdvancedOptions_timeTravelTimerPreciseFnc() {
+	if ($AdvOptTimeTravelTimerVar)
+		$pref::timeTravelTimer = $AdvOptTimeTravelTimerPreciseVar ? 2 : 1;
+	else
+		$pref::timeTravelTimer = 0;
+	PlayGui.updateTimeTravelCountdown();
 }
