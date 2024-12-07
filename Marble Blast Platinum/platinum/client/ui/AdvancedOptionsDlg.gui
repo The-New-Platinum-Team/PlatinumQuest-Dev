@@ -41,7 +41,7 @@ new GuiControl(AdvancedOptionsDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "400 590";
+		extent = "400 610";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -52,7 +52,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "25 55";
-			extent = "350 465";
+			extent = "350 485";
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
@@ -63,7 +63,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 524";
+			position = "350 544";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -97,6 +97,7 @@ new GuiControl(AdvancedOptionsDlg) {
 // These don't work with local variables...
 $AdvOptTimeTravelTimerVar = $pref::timeTravelTimer > 0;
 $AdvOptTimeTravelTimerPreciseVar = $pref::timeTravelTimer == 2;
+$AdvOptScorePredictorMaxFactorVar = !$pref::scorePredictorMaxFactor;
 
 function AdvancedOptionsDlg::onWake(%this) {
 	//Try to center this GUI, but don't overlap the dropdowns
@@ -148,6 +149,11 @@ $AdvancedOptions::Name    [$i++] = "threeDigitGemCounter";
 $AdvancedOptions::Title   [$i  ] = "Always Show Three Digits in Gem Counter";
 $AdvancedOptions::Variable[$i  ] = "$pref::GemCounterAlwaysThreeDigits";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "scorePredictorMaxFactor";
+$AdvancedOptions::Title   [$i  ] = "Don't Cap Score Predictor";
+$AdvancedOptions::Variable[$i  ] = "$AdvOptScorePredictorMaxFactorVar";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Command [$i  ] = "AdvancedOptions_scorePredictorMaxFactorFnc();";
 $AdvancedOptions::Name    [$i++] = "spchanges";
 $AdvancedOptions::Title   [$i  ] = "Use MBU Shapes in MBU levels";
 $AdvancedOptions::Variable[$i  ] = "$pref::spchanges";
@@ -236,4 +242,8 @@ function AdvancedOptions_timeTravelTimerPreciseFnc() {
 	else
 		$pref::timeTravelTimer = 0;
 	PlayGui.updateTimeTravelCountdown();
+}
+
+function AdvancedOptions_scorePredictorMaxFactorFnc() {
+	$pref::scorePredictorMaxFactor = $AdvOptScorePredictorMaxFactorVar ? 0 : 2;
 }
