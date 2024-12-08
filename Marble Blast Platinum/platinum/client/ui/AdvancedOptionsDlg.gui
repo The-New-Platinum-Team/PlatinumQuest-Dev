@@ -41,7 +41,7 @@ new GuiControl(AdvancedOptionsDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "400 610";
+		extent = "675 375";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -52,7 +52,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "25 55";
-			extent = "350 485";
+			extent = "625 315";
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
@@ -63,7 +63,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 544";
+			position = "350 309";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -183,11 +183,16 @@ $AdvancedOptions::Name    [$i++] = "useLowResGlass";
 $AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
 $AdvancedOptions::Variable[$i  ] = "$pref::UseLowResGlass";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "normalizeLights";
+$AdvancedOptions::Title   [$i  ] = "Standardize Sunlight";
+$AdvancedOptions::Variable[$i  ] = "$pref::normalizeLights";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 
 function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 
 	%curYPos = 0;
+	%rowsPerCol = 9;
 
 	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
 		%name = $AdvancedOptions::Name[%i];
@@ -195,13 +200,17 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 		%type = $AdvancedOptions::Type[%i];
 		%cmd = $AdvancedOptions::Command[%i];
 		%variable = $AdvancedOptions::Variable[%i];
+		%col = mFloor(%i / %rowsPerCol);
+		%row = %i % %rowsPerCol;
+		%xPos = %col * 350;
+		%yPos = %row * 28;
 
 		if (%type $= "boolean") {
 			%btn = new GuiCheckBoxCtrl(AdvOpt_ @ %name) {
 				profile = "PQCheckboxProfile";
 				horizSizing = "right";
 				vertSizing = "bottom";
-				position = 0 SPC %curYPos;
+				position = %xPos SPC %yPos;
 				extent = "340 24";
 				minExtent = "8 8";
 				visible = "1";
@@ -217,13 +226,10 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 
 			AdvancedOptionsContent.add(%btn);
 		}
-
-		%curYPos += 28;
 	}
 
 	AdvOpt_timeTravelTimerPrecise.position = 30 SPC getWord(AdvOpt_timeTravelTimerPrecise.position, 1);
-	// TODO: Disable "precise" button when first one is unchecked (something like this probably)
-	//AdvOpt_timeTravelTimerPrecise.enabled = $pref::timeTravelTimer > 0;
+	AdvOpt_timeTravelTimerPrecise.setActive($pref::timeTravelTimer > 0);
 }
 
 function AdvancedOptions_spchangesFnc() {
@@ -233,7 +239,7 @@ function AdvancedOptions_spchangesFnc() {
 
 function AdvancedOptions_timeTravelTimerFnc() {
 	AdvancedOptions_timeTravelTimerPreciseFnc();
-	//AdvOpt_timeTravelTimerPrecise.enabled = $pref::timeTravelTimer > 0;
+	AdvOpt_timeTravelTimerPrecise.setActive($pref::timeTravelTimer > 0);
 }
 
 function AdvancedOptions_timeTravelTimerPreciseFnc() {

@@ -118,6 +118,7 @@ function OptionsGui::onWake(%this, %dontDiscard) {
 
 	$Options::TexturePackDirty = 0;
 	$Options::ResolutionChanged = false;
+	copyBlurImage(PM_MissionImage.bitmap);
 }
 
 function OptionsGui::apply(%this) {
