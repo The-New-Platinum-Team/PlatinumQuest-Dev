@@ -198,7 +198,7 @@ function PlayGui::onSleep(%this) {
 }
 
 function PlayGui::updateRecordingIndicator(%this) {
-    if ($Game::Record && !mp() && !$playingDemo) {
+    if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
         RecordingIndicatorIcon.setVisible(true);
 	} else {
@@ -781,6 +781,9 @@ function PlayGui::addBonusTime(%this, %dt) {
 }
 
 function PlayGui::refreshRed(%this) {
+	if (!$pref::parTimeAlarm)
+			return;
+
 	if ($PlayTimerActive && $InPlayGUI) {
 		if (%this.bonusTime || $Editor::Opened || %this.stopped)
 			$PlayTimerColor = $TimeColor["stopped"];
@@ -1467,4 +1470,8 @@ function PlayGui::startCountdownLeft(%this, %time, %image) {
 	PGCountdownLeftImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
 	%this.countdownLeftTime = %time;
 	%this.runningCountdownLeft = true;
+}
+
+function PlayGui::updateRtaSpeedrunTimer(%this, %text) {
+	PG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }

@@ -88,6 +88,10 @@ function onFrameAdvance() {
 
 }
 
+function onFrameAdvanceWithPause() {
+
+}
+
 //------------------------------------------------------------------------------
 // Process command line arguments
 
