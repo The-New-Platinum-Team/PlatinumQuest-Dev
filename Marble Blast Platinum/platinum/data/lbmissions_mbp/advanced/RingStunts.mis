@@ -255,6 +255,15 @@ new SimGroup(MissionGroup) {
       scale = "1 1 1";
       dataBlock = "SignFinish";
    };
+   new Item() {
+      position = "-12 167.4 40";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.3";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath2) {
@@ -439,6 +448,13 @@ new SimGroup(MissionGroup) {
             useScale = "0";
             nextNode = "CameraPath9";
       };
+   };
+   new Trigger(hahasuck) {
+      position = "-49 138.4 35";
+      rotation = "1 0 0 0";
+      scale = "100 1 50";
+      dataBlock = "OutOfBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
    };
    new AudioProfile(MusicProfile) {
       fileName = "~/data/sound/music/Pianoforte (Guitar Remix).ogg";
