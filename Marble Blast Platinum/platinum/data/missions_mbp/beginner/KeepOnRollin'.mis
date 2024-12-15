@@ -7,6 +7,8 @@ new SimGroup(MissionGroup) {
          level = "24";
          startHelpText = "Don\'t fall off and \"keep on rollin!\"";
          ultimateHint = "No need to jump on the fan.";
+         easterEgg = "1";
+         easterEggHint = "If the radar doesn't spoil it, I don't know what will.";
          ultimateTime = "7250";
          name = "Keep on Rollin\'";
          artist = "Phil";
@@ -101,6 +103,24 @@ new SimGroup(MissionGroup) {
       rotate = "1";
          timeBonus = "5000";
    };
+   new Item() {
+      position = "-4.85 19 4.8";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new Item() {
+      position = "-4.25 19 11";
+      rotation = "0 1 0 90";
+      scale = "1 1 1";
+      dataBlock = "HelicopterItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {
@@ -186,6 +206,15 @@ new SimGroup(MissionGroup) {
       fileName = "~/data/sound/music/Pianoforte (Guitar Remix).ogg";
       description = "AudioMusic";
       preload = "0";
+   };
+   new Item() {
+      position = "0 15 18";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.3";
+      dataBlock = "EasterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
    };
 };
 //--- OBJECT WRITE END ---
