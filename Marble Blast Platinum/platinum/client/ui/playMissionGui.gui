@@ -70,6 +70,13 @@ new GuiControlProfile(PMBarButtonRightNoShadowProfile : PQButtonProfile) {
 	bitmap = "./play/barbuttonrightnoshadow.png";
 	hasBitmapArray = true;
 };
+new GuiControlProfile(PMBarButtonSingleNoShadowProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonsinglenoshadow.png";
+	hasBitmapArray = true;
+};
 new GuiControlProfile(PMBarButtonTabProfile : PQButtonProfile) {
 	fillColor = "85 85 85 255";
 	fillColorNA = "153 153 153 255";
@@ -3488,11 +3495,11 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 		for (%i = 0; %i < %rowCount; %i++) {
 			%barXPos = 26;
 			%barYPos = 194 - (81 * %i) + 11;
-			%barXExtent = ((%colCount * 95));
+			%barXExtent = %colCount * 95 + 2;
 			if (%i == %rowCount - 1) {
 				%barXPos += %colOffset;
 				%barXPos = mFloor(%barXPos);
-				%barXExtent = mFloor((((%rowCount - %colDiff) * 95)));
+				%barXExtent = mFloor((%colCount - %colDiff) * 95 + 2);
 			}
 			%bar.add(new GuiControl() {
 				profile = "GuiDefaultProfile";
@@ -3554,11 +3561,19 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 				%colCount = %colCount - %colDiff;
 
 			if (%col == 0) {
-				%profile = %row > 0 ? "PMBarButtonLeftNoShadowProfile" : "PMBarButtonLeftProfile";
-				%posX = 3; 
-				%extentX = 119;
-				%offset = "12 0";
-				%controlOffset = "24 11";
+				if (%colCount == 1) {
+					%profile = "PMBarButtonSingleNoShadowProfile";
+					%posX = 3; 
+					%extentX = 143;
+					%offset = "0 0";
+					%controlOffset = "24 11";
+				} else {
+					%profile = %row > 0 ? "PMBarButtonLeftNoShadowProfile" : "PMBarButtonLeftProfile";
+					%posX = 3; 
+					%extentX = 119;
+					%offset = "12 0";
+					%controlOffset = "24 11";
+				}
 			} else {
 				if (%row > 0) {
 					%profile = "PMBarButtonNoShadowProfile";
