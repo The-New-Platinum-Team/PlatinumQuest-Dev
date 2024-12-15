@@ -1396,6 +1396,7 @@ function PlayMissionGui::initInterface(%this) {
 	if ($pref::Congratulated) {
 		$PMG::BarButton["Extra", "Count"] = 8;
 		$PMG::BarButton["ExtraLB", "Count"] = 7;
+		$PMG::BarButton["ExtraLB", "RowCount"] = 3;
 	}
 
 	if (mp()) {
@@ -3298,7 +3299,7 @@ $PMG::BarButton["ExtraMarbleland", "Bitmap",     4] = "platinum/client/ui/play/b
 $PMG::BarButton["ExtraMarbleland", "Name",       5] = "PM_MissionRtaSpeedrun";
 $PMG::BarButton["ExtraMarbleland", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
 $PMG::BarButton["ExtraMarbleland", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
-$PMG::BarButton["ExtraMarbleland", "Count"] = 6; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraMarbleland", "Count"] = 6;
 $PMG::BarButton["ExtraMarbleland", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarbleland", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarbleland", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -3325,7 +3326,7 @@ $PMG::BarButton["ExtraMarblelandLB", "Bitmap",     4] = "platinum/client/ui/play
 $PMG::BarButton["ExtraMarblelandLB", "Name",       5] = "PM_MissionRtaSpeedrun";
 $PMG::BarButton["ExtraMarblelandLB", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
 $PMG::BarButton["ExtraMarblelandLB", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
-$PMG::BarButton["ExtraMarblelandLB", "Count"] = 6; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraMarblelandLB", "Count"] = 6;
 $PMG::BarButton["ExtraMarblelandLB", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarblelandLB", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarblelandLB", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -3392,7 +3393,7 @@ $PMG::BarButton["ExtraLB", "HaveTab"] = true;
 $PMG::BarButton["ExtraLB", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraLB", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
 $PMG::BarButton["ExtraLB", "CommandNameCancel"] = "Close";
-$PMG::BarButton["ExtraLB", "RowCount"] = 3;
+$PMG::BarButton["ExtraLB", "RowCount"] = 2; //Increases to 3 after showing the credits
 
 $PMG::BarButton["BottomLB", "Name",    0] = "PM_MissionPlay";
 $PMG::BarButton["BottomLB", "Command", 0] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
