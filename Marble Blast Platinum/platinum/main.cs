@@ -216,6 +216,7 @@ package marble {
 		export("$LBPref::*", "~/client/lbprefs.cs", False);
 
 		MPsavePrefs();
+		RtaSpeedrun.saveProgress();
 
 		//So we don't hear the menu when we quit
 		alxSetChannelVolume(1, 0);
