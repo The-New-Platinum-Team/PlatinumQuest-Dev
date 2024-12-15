@@ -3549,6 +3549,8 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 			} else {
 				%colOffset = 95 / (%colCount - %colDiff); 
 			}
+			if (%row == %rowCount - 1)
+				%colCount = %colCount - %colDiff;
 
 			if (%col == 0) {
 				%profile = %row > 0 ? "PMBarButtonLeftNoShadowProfile" : "PMBarButtonLeftProfile";
@@ -3565,7 +3567,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 				%offset = "0 0";
 				%controlOffset = "0 11";
 			}
-			if (%col == %colCount - 1) {
+			if (%col == %colCount - 1 && %colCount > 1) {
 				%profile = %row > 0 ? "PMBarButtonRightNoShadowProfile" :"PMBarButtonRightProfile";
 				%extentX = 119;
 				%offset = "-12 0";
