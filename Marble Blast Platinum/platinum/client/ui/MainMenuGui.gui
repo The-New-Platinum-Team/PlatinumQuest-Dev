@@ -306,7 +306,7 @@ new GuiControl(MainMenuGui) {
 			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
-			command = "MenuOpenUrl(\"https://marbleblast.com\");";
+			command = "MenuOpenUrl(\"https://marbleblast.com/index.php/forum\");";
 			helpTag = "0";
 			text = "           Forums";
 			groupNum = "-1";
@@ -591,11 +591,12 @@ function MainMenuGui::fixSizing(%this) {
 }
 
 function MainMenuGui::play(%this) {
-	if (getWord(getResolution(), 0) & 1 || getWord(getResolution(), 1) & 1) {
-		MessageBoxYesNo("Weird Resolution", "What type of resolution is " @ getResolution() @ ". You may have some problems.", "justPlayAlready();", "");
-	} else {
-		justPlayAlready();
-	}
+	justPlayAlready();
+	// if (getWord(getResolution(), 0) & 1 || getWord(getResolution(), 1) & 1) {
+	// 	MessageBoxYesNo("Weird Resolution", "What type of resolution is " @ getResolution() @ ". You may have some problems.", "justPlayAlready();", "");
+	// } else {
+	// 	justPlayAlready();
+	// }
 }
 
 function MainMenuGui::showExtras(%this) {
