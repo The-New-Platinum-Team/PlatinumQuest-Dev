@@ -3205,6 +3205,7 @@ function Heightfield::eval(%id)
          terraformer.erodeHydraulic( %row-1, %row, getField(%data,3), getField(%data,5) );
        
       case "Bitmap":
+	  	 terraformer.clearRegister(%row);
          terraformer.loadGreyscale(%row, getField(%data,3));
 
       case "Blend":
