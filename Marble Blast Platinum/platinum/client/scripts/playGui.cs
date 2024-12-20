@@ -1254,16 +1254,16 @@ function PlayGui::updateControls(%this) {
 
 //-----------------------------------------------------------------------------
 
-$numberPaths[0] = $userMods @ "/client/ui/game/numbers/0.png";
-$numberPaths[1] = $userMods @ "/client/ui/game/numbers/1.png";
-$numberPaths[2] = $userMods @ "/client/ui/game/numbers/2.png";
-$numberPaths[3] = $userMods @ "/client/ui/game/numbers/3.png";
-$numberPaths[4] = $userMods @ "/client/ui/game/numbers/4.png";
-$numberPaths[5] = $userMods @ "/client/ui/game/numbers/5.png";
-$numberPaths[6] = $userMods @ "/client/ui/game/numbers/6.png";
-$numberPaths[7] = $userMods @ "/client/ui/game/numbers/7.png";
-$numberPaths[8] = $userMods @ "/client/ui/game/numbers/8.png";
-$numberPaths[9] = $userMods @ "/client/ui/game/numbers/9.png";
+$numberPaths[0] = $userMods @ "/client/ui/game/numbers/0";
+$numberPaths[1] = $userMods @ "/client/ui/game/numbers/1";
+$numberPaths[2] = $userMods @ "/client/ui/game/numbers/2";
+$numberPaths[3] = $userMods @ "/client/ui/game/numbers/3";
+$numberPaths[4] = $userMods @ "/client/ui/game/numbers/4";
+$numberPaths[5] = $userMods @ "/client/ui/game/numbers/5";
+$numberPaths[6] = $userMods @ "/client/ui/game/numbers/6";
+$numberPaths[7] = $userMods @ "/client/ui/game/numbers/7";
+$numberPaths[8] = $userMods @ "/client/ui/game/numbers/8";
+$numberPaths[9] = $userMods @ "/client/ui/game/numbers/9";
 $numberPaths["point"] = $userMods @ "/client/ui/game/numbers/point.png";
 $numberPaths["colon"] = $userMods @ "/client/ui/game/numbers/colon.png";
 $numberPaths["dash"] = $userMods @ "/client/ui/game/numbers/dash.png";
