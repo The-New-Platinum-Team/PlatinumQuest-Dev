@@ -606,6 +606,24 @@ function MainMenuGui::showExtras(%this) {
 		%first = MenuCommunityButtons.getObject(2).getName();
 		ControllerGui.selectControl(%first);
 	}
+	// Hide "Community" title at low resolutions
+	%communityButtons = MenuOnlineButton TAB MenuMarblelandButton TAB MenuForumsButton TAB MenuDiscordButton TAB MenuBackButton;
+	%communityButtonsCount = 5;
+	if (getWord(getResolution(), 1) <= 720 && MenuCommunityText.isVisible()) {
+		MenuCommunityBg.setVisible(0);
+		MenuCommunityText.setVisible(0);
+		for (%i = 0; %i < %communityButtonsCount; %i++) {
+			%button = getField(%communityButtons, %i);
+			%button.position = getWord(%button.position, 0) SPC (getWord(%button.position, 1) - 110);
+		}
+	} else if (getWord(getResolution(), 1) > 720 && !MenuCommunityText.isVisible()) {
+		MenuCommunityBg.setVisible(1);
+		MenuCommunityText.setVisible(1);
+		for (%i = 0; %i < %communityButtonsCount; %i++) {
+			%button = getField(%communityButtons, %i);
+			%button.position = getWord(%button.position, 0) SPC (getWord(%button.position, 1) + 110);
+		}
+	}
 }
 
 function MainMenuGui::hideExtras(%this) {
