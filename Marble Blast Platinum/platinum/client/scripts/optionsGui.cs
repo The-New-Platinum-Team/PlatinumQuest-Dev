@@ -118,6 +118,7 @@ function OptionsGui::onWake(%this, %dontDiscard) {
 
 	$Options::TexturePackDirty = 0;
 	$Options::ResolutionChanged = false;
+	copyBlurImage(PM_MissionImage.bitmap);
 }
 
 function OptionsGui::apply(%this) {
@@ -478,24 +479,27 @@ $Options::Min     ["Gameplay", $i  ] = 5;
 $Options::Max     ["Gameplay", $i  ] = 85;
 $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
-$Options::Name    ["Gameplay", $i++] = "alwaysShowSpeedometer";
-$Options::Title   ["Gameplay", $i  ] = "Always Show Speedometer";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "powerupsAlwaysOnRadar";
-$Options::Title   ["Gameplay", $i  ] = "Powerups Always on Radar";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "powerupTimers";
-$Options::Title   ["Gameplay", $i  ] = "Powerup Timers";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
-$Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
-$Options::Title   ["Gameplay", $i  ] = "(Online) Minimal Spectate UI";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "spchanges";
-$Options::Title   ["Gameplay", $i  ] = "Ultra Violet";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "advancedOptions";
+$Options::Title   ["Gameplay", $i  ] = "Advanced Options";
+$Options::Ctrl    ["Gameplay", $i  ] = "button";
+// $Options::Name    ["Gameplay", $i++] = "alwaysShowSpeedometer";
+// $Options::Title   ["Gameplay", $i  ] = "Always Show Speedometer";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "powerupsAlwaysOnRadar";
+// $Options::Title   ["Gameplay", $i  ] = "Powerups Always on Radar";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "powerupTimers";
+// $Options::Title   ["Gameplay", $i  ] = "Powerup Timers";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
+// $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
+// $Options::Title   ["Gameplay", $i  ] = "(Online) Minimal Spectate UI";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "spchanges";
+// $Options::Title   ["Gameplay", $i  ] = "Ultra Violet";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -985,6 +989,11 @@ function Opt_particleSystem_increase() {
 function Opt_texturePack_edit() {
 	// Dialog does all the config for us (and sets $Options::TexturePackDirty)
 	RootGui.pushDialog(OptionsTexturePackDlg);
+}
+
+function Opt_advancedOptions_edit() {
+	// Dialog does all the config for us
+	RootGui.pushDialog(AdvancedOptionsDlg);
 }
 
 //-----------------------------------------------------------------------------

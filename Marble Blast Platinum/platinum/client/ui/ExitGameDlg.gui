@@ -580,6 +580,12 @@ new GuiControl(ExitGameDlg) {
 //--- OBJECT WRITE END ---
 
 function ExitGameDlg::end() {
+	if (strpos(ExitGameYes.text, "End Level") != -1) {
+		resumeGame();
+		endGameSetup();
+		return;
+	}
+
 	//If we're waiting to end a recording, do that before anything else
 	if (recordEnd("ExitGameDlg.end();")) {
 		return;
@@ -595,6 +601,16 @@ function ExitGameDlg::end() {
 
 function ExitGameDlg::onWake(%this) {
 	%info = getMissionInfo($Client::MissionFile);
+
+	%shouldEndLevel = false;
+	if (($pref::AllowEndingScoreLevelsEarly || RtaSpeedrun.isEnabled) && (stripos(%info.gameMode, "hunt") != -1 || stripos(%info.gameMode, "gemmadness") != -1)) {
+		%scoreToBeat = (%info.score > 0) ? %info.score : 1;
+		%shouldEndLevel = PlayGui.gemCount >= %scoreToBeat;
+	}
+	if (%shouldEndLevel)
+		ExitGameYes.setText("           End Level");
+	else
+		ExitGameYes.setText("           Exit");
 
 	%title = "<shadow:1:1><shadowcolor:000000bf><just:center>" @ shrinkToFit(%info.name, $DefaultFont["Bold"], 42, 24, getWord(ExitGameInfo.getExtent(), 0));
 	ExitGameInfoTitle.setText(%title);

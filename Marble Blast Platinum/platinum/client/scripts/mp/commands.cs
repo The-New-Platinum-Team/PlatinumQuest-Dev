@@ -131,6 +131,8 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 	$Game::EasterEgg = true;
 	$Game::EasterEggTime = %time;
 
+	RtaSpeedrun.eggCollected();
+
 	%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
 	if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
 		$pref::EasterEggTime[$Server::MissionFile] = %time;
