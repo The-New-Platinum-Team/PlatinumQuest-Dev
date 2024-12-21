@@ -200,17 +200,18 @@ new GuiControl(RtaSpeedrunDlg) {
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 		};
-		new GuiCheckBoxCtrl(RtaShowAllSplitsCheckbox) {
+		new GuiCheckBoxCtrl(RtaEggTimeCheckbox) {
 			profile = "PQCheckboxProfile";
 			horizSizing = "left";
 			vertSizing = "top";
-			position = "415 290";
-			extent = "186 27";
+			position = "393 290";
+			extent = "230 27";
 			minExtent = "8 8";
 			visible = "1";
-			variable = "$Pref::RtaShowAllSplits";
+			active = "0";
+			variable = "$RtaTimeEndsOnEgg";
 			helpTag = "0";
-			text = "Announce all splits";
+			text = "End Time on Egg Collection";
 			groupNum = "-1";
 			buttonType = "ToggleButton";
 			repeatPeriod = "1000";
@@ -220,8 +221,8 @@ new GuiControl(RtaSpeedrunDlg) {
 			profile = "PQCheckboxProfile";
 			horizSizing = "left";
 			vertSizing = "top";
-			position = "415 320";
-			extent = "186 27";
+			position = "393 320";
+			extent = "230 27";
 			minExtent = "8 8";
 			visible = "1";
 			variable = "$Pref::RtaSkipNameEntry";
@@ -283,6 +284,8 @@ function RtaSpeedrunDlg::updateStatusText(%this, %text) {
 function RtaSpeedrunDlg::updateEndText(%this) {
 	if (RtaSpeedrun.endMission $= "") {
 		RtaEndText.setText("<bold:28><just:center>No Final Level Selected");
+		RtaEndLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
+		RtaEggTimeCheckbox.setActive(false);
 		return;
 	}
 	RtaEndText.setText("<bold:28><just:center>Final Level:\n<font:20>" @ RtaSpeedrun.endMissionInfo.name);
@@ -300,8 +303,10 @@ function RtaSpeedrunDlg::updateEndText(%this) {
 		}
 	}
 	if (isBitmap(%bitmap)) {
-		RTAEndLevelImage.setBitmap(%bitmap);
+		RtaEndLevelImage.setBitmap(%bitmap);
 	} else {
-		RTAEndLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
+		RtaEndLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
 	}
+
+	RtaEggTimeCheckbox.setActive(RtaSpeedrun.endMissionInfo.easterEgg);
 }

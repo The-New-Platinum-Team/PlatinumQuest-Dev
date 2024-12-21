@@ -1099,6 +1099,8 @@ function restartLevel(%exitgame) {
 
 	Mode::callback("onRestartLevel", "");
 	serverSendCallback("onRestartLevel");
+
+	RtaSpeedrun.missionRestarted();
 }
 
 function GameConnection::quickRespawnPlayer(%this) {

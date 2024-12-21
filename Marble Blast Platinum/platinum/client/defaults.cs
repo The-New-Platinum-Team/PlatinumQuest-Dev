@@ -54,6 +54,7 @@ $pref::AllowEndingScoreLevelsEarly = false;
 
 $pref::RtaShowAllSplits = true;
 $pref::RtaSkipNameEntry = true;
+$pref::RtaShowEggSplits = true;
 
 $pref::parTimeAlarm = true;
 
