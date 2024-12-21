@@ -601,10 +601,12 @@ function EditorIconScreenshot() {
 	if (%gui == -1 || %gui $= ""){
 		%gui = "PlayGui";
 	}
-	
-	doMiniShot();
+	doMiniShot("EditorIconScreenshotEnd(" @ %gui @ ");");
+}
+
+function EditorIconScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
-	schedule(100, 0, ReturnMarbletoNormal);
+	ReturnMarbletoNormal();
 }
 
 function EditorPreviewScreenshot() {
@@ -632,9 +634,17 @@ function EditorDoPreviewScreenshot() {
 	Minishotter.forceFOV = %fov;
 	Minishotter.resize(0, 0, getWord(getResolution(), 0), getWord(getResolution(), 1));
 	Canvas.repaint();
+	schedule(50, 0, EditorDoPreviewScreenshotTakeScreenshot, %path, %gui);
+}
+
+function EditorDoPreviewScreenshotTakeScreenshot(%path, %gui) {
 	screenShot(%path, getWord(getResolution(), 0), getWord(getResolution(), 1));
+	schedule(100, 0, EditorDoPreviewScreenshotEnd, %gui);
+}
+
+function EditorDoPreviewScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
-	schedule(100, 0, ReturnMarbletoNormal);
+	ReturnMarbletoNormal();
 }
 
 function ReturnMarbletoNormal() {
@@ -3195,6 +3205,7 @@ function Heightfield::eval(%id)
          terraformer.erodeHydraulic( %row-1, %row, getField(%data,3), getField(%data,5) );
        
       case "Bitmap":
+	  	 terraformer.clearRegister(%row);
          terraformer.loadGreyscale(%row, getField(%data,3));
 
       case "Blend":

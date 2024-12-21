@@ -139,6 +139,7 @@ function getPixelSpace(%pos) {
 function VectorClampGui(%v, %inset) {
 	%res = getResolution();
 	%v = mClamp(getWord(%v, 0), %inset, getWord(%res, 0) - %inset) SPC mClamp(getWord(%v, 1), %inset, getWord(%res, 1) - %inset);
+	return %v;
 }
 
 function VectorClamp(%v, %min, %max) {
