@@ -144,8 +144,6 @@ function RtaSpeedrun::start(%this) {
 
 	%this.updateTimers();
 
-	RTAAS_setShouldInterpolateTime(false);
-
 	echo("An RTA speedrun will start when you enter a level, and end when you finish" SPC %this.endMission);
 	echo("Good luck!");
 }
@@ -235,25 +233,6 @@ function RtaSpeedrun::missionEnded(%this) {
 		%this.currentGameDuration = sub64_int(%this.time, %this.currentGameBeganTime);
 	%this.updateTimers();
 	%this.saveProgress();
-}
-
-function RtaSpeedrun::pauseGame(%this) {
-	//RTAAS_setShouldInterpolateTime(true);
-	//if (!%this.isEnabled)
-	//	return;
-	//%this.pauseStartedTime = getRealTime();
-}
-
-function RtaSpeedrun::unpauseGame(%this) {
-	//RTAAS_setShouldInterpolateTime(false);
-	//if (!%this.isEnabled)
-	//	return;
-	//if (%this.pauseStartedTime < 0)
-	//	return;
-	//%currentTime = getRealTime();
-	//%diff = sub64_int(%currentTime, %this.pauseStartedTime);
-	//%this.setTime(add64_int(%this.time, %diff));
-	//%this.pauseStartedTime = -1;
 }
 
 function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
