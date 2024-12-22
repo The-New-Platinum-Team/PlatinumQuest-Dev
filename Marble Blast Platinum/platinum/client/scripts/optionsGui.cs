@@ -117,6 +117,8 @@ function OptionsGui::onWake(%this, %dontDiscard) {
 	}
 
 	$Options::TexturePackDirty = 0;
+	$Options::ResolutionChanged = false;
+	copyBlurImage(PM_MissionImage.bitmap);
 }
 
 function OptionsGui::apply(%this) {
@@ -129,35 +131,38 @@ function OptionsGui::apply(%this) {
 	flushInteriorRenderBuffers();
 	cleanupReflectiveMarble();
 
-	%newDisplay = ($pref::Video::displayDevice !$= getDisplayDeviceName());
-	%newRes = ($pref::Video::resolution !$= getResolution());
+	if ($Options::ResolutionChanged) {
+		%newDisplay = ($pref::Video::displayDevice !$= getDisplayDeviceName());
+		%newRes = ($pref::Video::resolution !$= getResolution());
 
-	if (%newDisplay) {
-		disablePostFX();
-		disableBlur();
-		disableShaders();
-		reloadDts();
-		setDisplayDevice($pref::Video::displayDevice,
-		                 firstWord($pref::Video::resolution),
-		                 getWord($pref::Video::resolution, 1),
-		                 getWord($pref::Video::resolution, 2),
-		                 $pref::Video::fullScreen);
-		//OptionsGui::deviceDependent( %this );
-	} else if (%newRes) {
-		disablePostFX();
-		disableBlur();
-		disableShaders();
-		reloadDts();
-		setScreenMode(firstWord($pref::Video::resolution),
-		              getWord($pref::Video::resolution, 1),
-		              getWord($pref::Video::resolution, 2),
-		              $pref::Video::fullScreen);
-	} else if ($pref::Video::fullScreen != isFullScreen()) {
-		disablePostFX();
-		disableBlur();
-		disableShaders();
-		reloadDts();
-		toggleFullScreen();
+		if (%newDisplay) {
+			disablePostFX();
+			disableBlur();
+			disableShaders();
+			reloadDts();
+			setDisplayDevice($pref::Video::displayDevice,
+							firstWord($pref::Video::resolution),
+							getWord($pref::Video::resolution, 1),
+							getWord($pref::Video::resolution, 2),
+							$pref::Video::fullScreen);
+			//OptionsGui::deviceDependent( %this );
+		} else if (%newRes) {
+			disablePostFX();
+			disableBlur();
+			disableShaders();
+			reloadDts();
+			setScreenMode(firstWord($pref::Video::resolution),
+						getWord($pref::Video::resolution, 1),
+						getWord($pref::Video::resolution, 2),
+						$pref::Video::fullScreen);
+		} else if ($pref::Video::fullScreen != isFullScreen()) {
+			disablePostFX();
+			disableBlur();
+			disableShaders();
+			reloadDts();
+			toggleFullScreen();
+		}
+		$Options::ResolutionChanged = false;
 	}
 	if ($pref::Video::AntiAliasing != $OldConfig::Video::AntiAliasing) {
 		if ($platform $= "macos" && !(%newDisplay || %newRes)) {
@@ -224,27 +229,49 @@ function buildResolutionList() {
 	%resCount = getFieldCount(%resList);
 	%deskRes = getDesktopResolution();
 
-	//Extra resolutions
+	// Hardcoded resolutions - :(
 	%resList = %resList TAB "1024 768";
 	%resCount ++;
 	%resList = %resList TAB "1280 720";
 	%resCount ++;
+	%resList = %resList TAB "1280 1024";
+	%resCount ++;
+	%resList = %resList TAB "1366 768";
+	%resCount ++;
+	%resList = %resList TAB "1440 900";
+	%resCount ++;
+	%resList = %resList TAB "1600 900";
+	%resCount ++;
+	%resList = %resList TAB "1680 1050";
+	%resCount ++;
 	%resList = %resList TAB "1920 1080";
+	%resCount ++;
+	%resList = %resList TAB "2560 1440";
+	%resCount ++;
+	%resList = %resList TAB "2560 1600";
+	%resCount ++;
+	%resList = %resList TAB "2880 1620";
+	%resCount ++;
+	%resList = %resList TAB "2880 1800";
+	%resCount ++;
+	%resList = %resList TAB "3200 1800";
+	%resCount ++;
+	%resList = %resList TAB "3840 2160";
 	%resCount ++;
 
 	for (%i = 0; %i < %resCount; %i++) {
 		%res = getWords(getField(%resList, %i), 0, 1);
 
-		if (!$pref::Video::fullScreen) {
+		//if (!$pref::Video::fullScreen) {
 			// Here they skip resolutions above your desktop res, in case you're playing windowed. Nice GG. Nice.
 			if (firstWord(%res) >= firstWord(%deskRes))
 				continue;
 			if (getWord(%res, 1) >= getWord(%deskRes, 1))
 				continue;
-		}
+		// }
 
 		//Lower Bound
-		if (firstWord(%res) < 1024 || getWord(%res, 1) < 768)
+		if (firstWord(%res) < 1024 || getWord(%res, 1) < 720)
 			continue;
 
 		// yea add only if its not thar already man.
@@ -313,9 +340,6 @@ if (canSupportPostFX()) { //No point supporting reflections if you don't support
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
-	$Options::Name    ["Graphics", $i++] = "bloom";
-	$Options::Title   ["Graphics", $i  ] = "Bloom";
-	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";
@@ -347,9 +371,6 @@ $Options::Min     ["Graphics", $i  ] = 0;
 $Options::Max     ["Graphics", $i  ] = 200;
 $Options::Ticks   ["Graphics", $i  ] = 40; //Every 5
 $Options::JoyTicks["Graphics", $i  ] = 10; //Every 20
-$Options::Name    ["Graphics", $i++] = "smoothShading";
-$Options::Title   ["Graphics", $i  ] = "Smooth Shading";
-$Options::Type    ["Graphics", $i  ] = "boolean";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
 $Options::Type    ["Graphics", $i  ] = "boolean";
@@ -458,24 +479,27 @@ $Options::Min     ["Gameplay", $i  ] = 5;
 $Options::Max     ["Gameplay", $i  ] = 85;
 $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
-$Options::Name    ["Gameplay", $i++] = "alwaysShowSpeedometer";
-$Options::Title   ["Gameplay", $i  ] = "Always Show Speedometer";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "powerupsAlwaysOnRadar";
-$Options::Title   ["Gameplay", $i  ] = "Powerups Always on Radar";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "powerupTimers";
-$Options::Title   ["Gameplay", $i  ] = "Powerup Timers";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
-$Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
-$Options::Title   ["Gameplay", $i  ] = "(Online) Minimal Spectate UI";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "spchanges";
-$Options::Title   ["Gameplay", $i  ] = "Ultra Violet";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "advancedOptions";
+$Options::Title   ["Gameplay", $i  ] = "Advanced Options";
+$Options::Ctrl    ["Gameplay", $i  ] = "button";
+// $Options::Name    ["Gameplay", $i++] = "alwaysShowSpeedometer";
+// $Options::Title   ["Gameplay", $i  ] = "Always Show Speedometer";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "powerupsAlwaysOnRadar";
+// $Options::Title   ["Gameplay", $i  ] = "Powerups Always on Radar";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "powerupTimers";
+// $Options::Title   ["Gameplay", $i  ] = "Powerup Timers";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
+// $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "minimalSpectateUI";
+// $Options::Title   ["Gameplay", $i  ] = "(Online) Minimal Spectate UI";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
+// $Options::Name    ["Gameplay", $i++] = "spchanges";
+// $Options::Title   ["Gameplay", $i  ] = "Ultra Violet";
+// $Options::Type    ["Gameplay", $i  ] = "boolean";
 
 Array(ScreenshotModeArray);
 ScreenshotModeArray.addEntry("Show Everything"  TAB 0);
@@ -558,7 +582,24 @@ ChatMessageSizeArray.addEntry("6" TAB 6);
 // Graphics Functions.
 
 function Opt_screenResolution_getDisplay() {
-	return getWord($pref::Video::Resolution, 0) SPC "x" SPC getWord($pref::Video::Resolution, 1);
+	if ($pref::Video::fullScreen) 
+		return "Not Available";
+
+	if ($Options::ResolutionChanged)
+		return getWord($pref::Video::Resolution, 0) SPC "x" SPC getWord($pref::Video::Resolution, 1);
+
+	%curRes = $pref::Video::windowedRes;
+	%curResX = getWord(%curRes, 0);
+	%curResY = getWord(%curRes, 1);
+
+	%wndResX = getWord($pref::Video::Resolution, 0);
+	%wndResY = getWord($pref::Video::Resolution, 1);
+
+	if (%curResX == %wndResX && %curResY == %wndResY) {
+		return %wndResX SPC "x" SPC %wndResY;
+	} else {
+		return %curResX SPC "x" SPC %curResY;
+	}
 }
 
 function Opt_screenResolution_getValue() {
@@ -574,6 +615,7 @@ function Opt_screenResolution_decrease() {
 	%current = OptResolutions.getEntry(%index);
 	$pref::Video::resolution = %current SPC getWord($pref::Video::resolution, 2);
 	$pref::Video::WindowedRes = %current SPC getWord($pref::Video::resolution, 2);
+	$Options::ResolutionChanged = true;
 }
 
 function Opt_screenResolution_increase() {
@@ -585,6 +627,7 @@ function Opt_screenResolution_increase() {
 	%current = OptResolutions.getEntry(%index);
 	$pref::Video::resolution = %current SPC getWord($pref::Video::resolution, 2);
 	$pref::Video::WindowedRes = %current SPC getWord($pref::Video::resolution, 2);
+	$Options::ResolutionChanged = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -613,6 +656,7 @@ function Opt_screenStyle_updateResolution() {
 	//And update the resolution pref... by going back and forth the really hacky way
 	eval(OptionsscreenResolutionLeftArrow.command);
 	eval(OptionsscreenResolutionRightArrow.command);
+	$Options::ResolutionChanged = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -945,6 +989,11 @@ function Opt_particleSystem_increase() {
 function Opt_texturePack_edit() {
 	// Dialog does all the config for us (and sets $Options::TexturePackDirty)
 	RootGui.pushDialog(OptionsTexturePackDlg);
+}
+
+function Opt_advancedOptions_edit() {
+	// Dialog does all the config for us
+	RootGui.pushDialog(AdvancedOptionsDlg);
 }
 
 //-----------------------------------------------------------------------------

@@ -198,7 +198,7 @@ function PlayGui::onSleep(%this) {
 }
 
 function PlayGui::updateRecordingIndicator(%this) {
-    if ($Game::Record && !mp() && !$playingDemo) {
+    if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
         RecordingIndicatorIcon.setVisible(true);
 	} else {
@@ -222,7 +222,7 @@ function PlayGui::doFPSCounter(%this) {
 	if (ServerConnection.getPing() >= 250) %pingnum = "low";
 	if (ServerConnection.getPing() >= 500) %pingnum = "matanny";
 	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
-	%fps = $fps::real;
+	%fps = $fps::modded;
 	if (%fps >= 100) %fps = mRound(%fps) @ " ";
 	FPSMetreText.setText("<bold:24><just:left>FPS:<condensed:23>" SPC %fps @ ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : ""));
 	cancel(%this.fpsCounterSched);
@@ -577,17 +577,25 @@ function specialBarFor(%id) {
 }
 
 function PlayGui::updateBarPositions(%this) {
-	if (!isObject(ServerConnection) || !isObject(ServerConnection.getControlObject()))
+	if (!isObject(ServerConnection) || !isObject(LocalClientConnection.player) || !isObject($MP::MyMarble))
 		return;
 
-	%trans = ServerConnection.getControlObject().getCameraTransform();
+	%trans = $MP::MyMarble.getCameraTransform();
 
 	//Which bars are active
 	%bubble = ($Game::BubbleInfinite || $Game::BubbleTime > 0);
 	%fireball = $Client::FireballActive;
 
+	if (%this.powerupTimersLength == 0 && !%bubble && !%fireball) {
+		PG_FirstTimerContainer.setVisible(false);
+		PG_SecondTimerContainer.setVisible(false);
+		PG_ThirdTimerContainer.setVisible(false);
+		PG_FourthTimerContainer.setVisible(false);
+		return;
+	}
+
 	//Get the position of the side of the marble for us to position the bars relative to it
-	%obj = ServerConnection.getControlObject();
+	%obj = LocalClientConnection.player;
 	%rad = (%obj.getClassName() $= "Marble" ? %obj.getCollisionRadius() : 0.5);
 	%mpos = %obj.getPosition();
 	%rpos = VectorAdd(%mpos, RotMulVector(MatrixRot(%trans), %rad SPC "0 0"));
@@ -773,6 +781,9 @@ function PlayGui::addBonusTime(%this, %dt) {
 }
 
 function PlayGui::refreshRed(%this) {
+	if (!$pref::parTimeAlarm)
+			return;
+
 	if ($PlayTimerActive && $InPlayGUI) {
 		if (%this.bonusTime || $Editor::Opened || %this.stopped)
 			$PlayTimerColor = $TimeColor["stopped"];
@@ -940,7 +951,6 @@ package frameAdvance {
 
 		if ($Game::ScriptCameraTransform) {
 			PG_ShowCtrl.setCameraTransform(getScriptCameraTransform());
-			PG_SaveMyBaconCtrl.setCameraTransform(getScriptCameraTransform());
 		}
 
 		//Fireball
@@ -1044,7 +1054,7 @@ function clientCmdUpdateTimeTravelCountdown() {
 }
 
 function PlayGui::updateTimeTravelCountdown(%this) {
-	if (!$pref::timeTravelTimer) {
+	if (!$pref::timeTravelTimer || %this.bonusTime == 0) {
 		PGCountdownTT.setVisible(false);
 		return;
 	}
@@ -1247,16 +1257,16 @@ function PlayGui::updateControls(%this) {
 
 //-----------------------------------------------------------------------------
 
-$numberPaths[0] = $userMods @ "/client/ui/game/numbers/0.png";
-$numberPaths[1] = $userMods @ "/client/ui/game/numbers/1.png";
-$numberPaths[2] = $userMods @ "/client/ui/game/numbers/2.png";
-$numberPaths[3] = $userMods @ "/client/ui/game/numbers/3.png";
-$numberPaths[4] = $userMods @ "/client/ui/game/numbers/4.png";
-$numberPaths[5] = $userMods @ "/client/ui/game/numbers/5.png";
-$numberPaths[6] = $userMods @ "/client/ui/game/numbers/6.png";
-$numberPaths[7] = $userMods @ "/client/ui/game/numbers/7.png";
-$numberPaths[8] = $userMods @ "/client/ui/game/numbers/8.png";
-$numberPaths[9] = $userMods @ "/client/ui/game/numbers/9.png";
+$numberPaths[0] = $userMods @ "/client/ui/game/numbers/0";
+$numberPaths[1] = $userMods @ "/client/ui/game/numbers/1";
+$numberPaths[2] = $userMods @ "/client/ui/game/numbers/2";
+$numberPaths[3] = $userMods @ "/client/ui/game/numbers/3";
+$numberPaths[4] = $userMods @ "/client/ui/game/numbers/4";
+$numberPaths[5] = $userMods @ "/client/ui/game/numbers/5";
+$numberPaths[6] = $userMods @ "/client/ui/game/numbers/6";
+$numberPaths[7] = $userMods @ "/client/ui/game/numbers/7";
+$numberPaths[8] = $userMods @ "/client/ui/game/numbers/8";
+$numberPaths[9] = $userMods @ "/client/ui/game/numbers/9";
 $numberPaths["point"] = $userMods @ "/client/ui/game/numbers/point.png";
 $numberPaths["colon"] = $userMods @ "/client/ui/game/numbers/colon.png";
 $numberPaths["dash"] = $userMods @ "/client/ui/game/numbers/dash.png";
@@ -1402,7 +1412,7 @@ function PlayGui::stopCountdown(%this) {
 }
 
 function PlayGui::updateCountdown(%this, %delta) {
-	%this.countdownTime = sub64_int(%this.countdownTime, %delta);
+	%this.countdownTime = %this.countdownTime - %delta;
 
 	%visible = (%this.countdownTime > -5000);
 	if (!%visible) {
@@ -1460,4 +1470,8 @@ function PlayGui::startCountdownLeft(%this, %time, %image) {
 	PGCountdownLeftImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
 	%this.countdownLeftTime = %time;
 	%this.runningCountdownLeft = true;
+}
+
+function PlayGui::updateRtaSpeedrunTimer(%this, %text) {
+	PG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }

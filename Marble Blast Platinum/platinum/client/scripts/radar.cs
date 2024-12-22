@@ -265,7 +265,7 @@ function RadarLoop() {
 		RadarSetMode(0);
 		return;
 	}
-	if (isObject(MPGetMyMarble())) {
+	if (isObject($MP::MyMarble)) {
 		%pos = $MP::MyMarble.getTransform();
 	} else if (isObject(LocalClientConnection.player)) {
 		%pos = LocalClientConnection.player.getTransform();

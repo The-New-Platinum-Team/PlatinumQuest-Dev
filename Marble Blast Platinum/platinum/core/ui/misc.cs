@@ -168,8 +168,10 @@ $_offdecaymax = 2000;
 package CanvasHover {
 	function onFrameAdvance(%delta) {
 		Parent::onFrameAdvance(%delta);
-		Canvas._cursorContent2 = Canvas.getMouseControl();
-		Canvas._cursorContent = Canvas.getCursorContent();
+		if (Canvas.doHover) {
+			Canvas._cursorContent2 = Canvas.getMouseControl();
+			Canvas._cursorContent = Canvas.getCursorContent();
+		}
 	}
 };
 activatePackage(CanvasHover);

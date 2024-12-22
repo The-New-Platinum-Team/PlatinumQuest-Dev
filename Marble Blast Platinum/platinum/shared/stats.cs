@@ -804,7 +804,7 @@ function statsGetPlayerAvatarLine(%line) {
 	%parsed = jsonParse(%line);
 
 	if (%parsed.error $= "") {
-		%path = "platinum/client/ui/lb/avatars/" @ %parsed.filename;
+		%path = "vfs://avatars/" @ %parsed.filename;
 
 		%fo = new FileObject();
 		%fo.openForWrite(%path);

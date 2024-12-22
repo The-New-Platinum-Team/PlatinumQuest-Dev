@@ -122,7 +122,7 @@ function ClientMode_null::onActivate(%this, %object) {
 		ModeInfo_null.name = "Time Trial";
 		ModeInfo_null.desc = "Get to the finish before time runs out!";
 	} else {
-		ModeInfo_null.name = "Speedrun";
+		ModeInfo_null.name = "Normal";
 		ModeInfo_null.desc = "Get to the finish as fast as possible!";
 	}
 }

@@ -78,6 +78,10 @@ function EditorGui::getPrefs() {
 	EWorldEditor.rotationSnap = getPrefSetting($WEpref::rotationSnap, "15");
 	EWorldEditor.descriptiveFieldNames = getPrefSetting($WEpref::descriptiveFieldNames, true);
 	EWorldEditor.gemType = getPrefSetting($WEpref::gemType, "pq");
+
+	ETerrainEditor.softSelecting = 1;
+   	ETerrainEditor.currentAction = "raiseHeight";
+   	ETerrainEditor.currentMode = "select";
 }
 
 function EditorGui::setPrefs() {
@@ -129,9 +133,13 @@ function EditorGui::onSleep(%this) {
 
 function EditorGui::init(%this) {
 	%this.getPrefs();
+	
+	if(!isObject("terraformer"))
+		new Terraformer("terraformer");
 
 	$SelectedOperation = -1;
 	$NextOperationId   = 1;
+	$HeightfieldDirtyRow = -1;
 
 	EditorMenuBar.clearMenus();
 	EditorMenuBar.addMenu("File", 0);
@@ -164,6 +172,7 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItem("Edit", "Select None", 7, "Ctrl N");
 	EditorMenuBar.addMenuItem("Edit", "-", 0);
 	EditorMenuBar.addMenuItem("Edit", "World Editor Settings...", 12);
+	EditorMenuBar.addMenuItem("Edit", "Terrain Editor Settings...", 13);
 	EditorMenuBar.addMenuItem("Edit", "-", 0);
 	EditorMenuBar.addMenuItem("Edit", "Group Selection", 8);
 	EditorMenuBar.addMenuItem("Edit", "Ungroup Selection", 9);
@@ -204,6 +213,37 @@ function EditorGui::init(%this) {
 	//EditorMenuBar.addMenuItem("World", "Drop at Screen Center", 4, "", 1);
 	EditorMenuBar.addMenuItem("World", "Drop at Centroid", 5, "Alt 3", 1);
 	EditorMenuBar.addMenuItem("World", "Drop to Ground", 6, "Alt 4", 1);
+
+   EditorMenuBar.addMenu("Action", 3);
+   EditorMenuBar.addMenuItem("Action", "Select", 1, "", 1);
+   EditorMenuBar.addMenuItem("Action", "Adjust Selection", 2, "", 1);
+   EditorMenuBar.addMenuItem("Action", "-", 0);
+   EditorMenuBar.addMenuItem("Action", "Add Dirt", 6, "", 1);
+   EditorMenuBar.addMenuItem("Action", "Excavate", 6, "", 1);
+   EditorMenuBar.addMenuItem("Action", "Adjust Height", 6, "", 1);
+   EditorMenuBar.addMenuItem("Action", "Flatten", 4, "", 1);
+   EditorMenuBar.addMenuItem("Action", "Smooth", 5, "", 1);
+   EditorMenuBar.addMenuItem("Action", "Set Height", 7, "", 1);
+   EditorMenuBar.addMenuItem("Action", "-", 0);
+   EditorMenuBar.addMenuItem("Action", "Set Empty", 8, "", 1);
+   EditorMenuBar.addMenuItem("Action", "Clear Empty", 8, "", 1);
+   EditorMenuBar.addMenuItem("Action", "-", 0);
+   EditorMenuBar.addMenuItem("Action", "Paint Material", 9, "", 1);
+
+   EditorMenuBar.addMenu("Brush", 4);
+   EditorMenuBar.addMenuItem("Brush", "Box Brush", 91, "", 1);
+   EditorMenuBar.addMenuItem("Brush", "Circle Brush", 92, "", 1);
+   EditorMenuBar.addMenuItem("Brush", "-", 0);
+   EditorMenuBar.addMenuItem("Brush", "Soft Brush", 93, "", 2);
+   EditorMenuBar.addMenuItem("Brush", "Hard Brush", 94, "", 2);
+   EditorMenuBar.addMenuItem("Brush", "-", 0);
+   EditorMenuBar.addMenuItem("Brush", "Size 1 x 1", 1, "Alt 1", 3);
+   EditorMenuBar.addMenuItem("Brush", "Size 3 x 3", 3, "Alt 2", 3);
+   EditorMenuBar.addMenuItem("Brush", "Size 5 x 5", 5, "Alt 3", 3);
+   EditorMenuBar.addMenuItem("Brush", "Size 9 x 9", 9, "Alt 4", 3);
+   EditorMenuBar.addMenuItem("Brush", "Size 15 x 15", 15, "Alt 5", 3);
+   EditorMenuBar.addMenuItem("Brush", "Size 25 x 25", 25, "Alt 6", 3);
+
 
 	EditorMenuBar.addMenu("Quick Create", 7);
 	EditorMenuBar.addMenuItem("Quick Create", "- Pads -", 0);
@@ -265,6 +305,17 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItem("Window", "World Editor Inspector", 3, "F3", 1);
 	EditorMenuBar.addMenuItem("Window", "World Editor Creator", 4, "F4", 1);
 	EditorMenuBar.addMenuItem("Window", "Particle Editor", 6, "F5", 1);
+   EditorMenuBar.addMenuItem("Window", "Mission Area Editor", 5, "F6", 1);
+   EditorMenuBar.addMenuItem("Window", "-", 0);
+   EditorMenuBar.addMenuItem("Window", "Terrain Editor", 6, "F7", 1);
+   EditorMenuBar.addMenuItem("Window", "Terrain Terraform Editor", 7, "F8", 1);
+   EditorMenuBar.addMenuItem("Window", "Terrain Texture Editor", 8, "", 1);
+   EditorMenuBar.addMenuItem("Window", "Terrain Texture Painter", 9, "", 1);
+   EditorMenuBar.onActionMenuItemSelect(0, "Adjust Height");
+   EditorMenuBar.onBrushMenuItemSelect(0, "Circle Brush");
+   EditorMenuBar.onBrushMenuItemSelect(0, "Soft Brush");
+   EditorMenuBar.onBrushMenuItemSelect(9, "Size 9 x 9");
+   EditorMenuBar.onCameraMenuItemSelect(6, "Medium Pace");
 
 	EditorMenuBar.onCameraMenuItemSelect(6, "Medium Pace");
 	switch$ ($WEpref::dropType) {
@@ -279,6 +330,9 @@ function EditorGui::init(%this) {
 	}
 
 	EWorldEditor.init();
+	ETerrainEditor.attachTerrain();
+	TerraformerInit();
+    TextureInit();
 
 	//
 	Creator.init();
@@ -287,6 +341,8 @@ function EditorGui::init(%this) {
 	EWActiveReplayList.init();
 
 	EWorldEditor.isDirty = false;
+	ETerrainEditor.isDirty = false;
+    ETerrainEditor.isMissionDirty = false;
 	EditorGui.saveAs = false;
 }
 
@@ -303,7 +359,7 @@ function EditorMenuBar::addMenuItemConf(%this, %menu, %menuItemText, %menuItemId
 }
 
 function EditorNewMission() {
-	if (EWorldEditor.isDirty) {
+	if (EWorldEditor.isDirty || ETerrainEditor.isDirty) {
 		MessageBoxYesNo("Mission Modified", "Would you like to save changes to the current mission \"" @
 		                $Server::MissionFile @ "\" before creating a new mission?", "EditorDoNewMission(true);", "EditorDoNewMission(false);");
 	} else
@@ -336,14 +392,21 @@ function EditorSaveMission() {
 	// just save the mission without renaming it
 
 	// first check for dirty and read-only files:
-	if ((EWorldEditor.isDirty) && !isWriteableFileName($Server::MissionFile)) {
+	if ((EWorldEditor.isDirty || ETerrainEditor.isDirty) && !isWriteableFileName($Server::MissionFile)) {
 		MessageBoxOK("Error", "Mission file \""@ $Server::MissionFile @ "\" is read-only.");
+		return false;
+	}
+	if(ETerrainEditor.isDirty && !isWriteableFileName(Terrain.terrainFile))
+	{
+		MessageBoxOK("Error", "Terrain file \""@ Terrain.terrainFile @ "\" is read-only.");
 		return false;
 	}
 
 	// now write the terrain and mission files out:
+	if(ETerrainEditor.isDirty)
+      Terrain.save(Terrain.terrainFile);
 
-	if (EWorldEditor.isDirty) {
+	if (EWorldEditor.isDirty || ETerrainEditor.isMissionDirty) {
 		// Update the base transforms of the moving platforms incase the user never hit Apply in the inspector
 		updatePathedInteriorBaseTransforms();
 		deactivatePackage(save);
@@ -367,6 +430,8 @@ function EditorSaveMission() {
 		MessageBoxOK("Saved", "Saved mission to file \""@ $Server::MissionFile @ "\".");
 	}
 
+    ETerrainEditor.isDirty = false;
+    ETerrainEditor.isMissionDirty = false;
 	EWorldEditor.isDirty = false;
 	EditorGui.saveAs = false;
 
@@ -407,12 +472,16 @@ function EditorWriteMission(%file, %compiled) {
 function EditorDoSaveAs(%missionName) {
 	activatePackage(Save);
 	EWorldEditor.isDirty = true;
+	ETerrainEditor.isDirty = true;
 	%saveMissionFile = $Server::MissionFile;
 
 	$Server::MissionFile = %missionName;
+	Terrain.terrainFile = filePath(%missionName) @ "/" @ fileBase(%missionName) @ ".ter";
+
 
 	if (!EditorSaveMission()) {
 		$Server::MissionFile = %saveMissionFile;
+		Terrain.terrainFile = %saveTerrName;
 	}
 }
 
@@ -452,10 +521,11 @@ function EditorDoNewMission(%saveFirst) {
 	EditorDoLoadMission(%mission);
 	EditorGui.saveAs = true;
 	EWorldEditor.isDirty = true;
+	ETerrainEditor.isDirty = true;
 }
 
 function EditorOpenMission() {
-	if (EWorldEditor.isDirty) {
+	if (EWorldEditor.isDirty || ETerrainEditor.isDirty) {
 		MessageBoxYesNo("Mission Modified", "Would you like to save changes to the current mission \"" @
 		                $Server::MissionFile @ "\" before opening a new mission?", "EditorSaveBeforeLoad();", "getLoadFilename(\"~/data/missions*/*.mis\\t~/data/missions*/*.mcs\", \"EditorDoLoadMission\");");
 	} else
@@ -463,7 +533,7 @@ function EditorOpenMission() {
 }
 
 function EditorReloadMission(%test) {
-	if (EWorldEditor.isDirty) {
+	if (EWorldEditor.isDirty || ETerrainEditor.isDirty) {
 		MessageBoxYesNo("Mission Modified", "Would you like to save changes to the current mission \"" @
 		                $Server::MissionFile @ "\" before " @ (%test ? "testing" : "reloading") @ " it?",
 		                "EditorSaveBeforeReload(" @ %test @ ");", "EditorDoReloadMission(" @ %test @ ");");
@@ -531,10 +601,12 @@ function EditorIconScreenshot() {
 	if (%gui == -1 || %gui $= ""){
 		%gui = "PlayGui";
 	}
-	
-	doMiniShot();
+	doMiniShot("EditorIconScreenshotEnd(" @ %gui @ ");");
+}
+
+function EditorIconScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
-	schedule(100, 0, ReturnMarbletoNormal);
+	ReturnMarbletoNormal();
 }
 
 function EditorPreviewScreenshot() {
@@ -562,9 +634,17 @@ function EditorDoPreviewScreenshot() {
 	Minishotter.forceFOV = %fov;
 	Minishotter.resize(0, 0, getWord(getResolution(), 0), getWord(getResolution(), 1));
 	Canvas.repaint();
+	schedule(50, 0, EditorDoPreviewScreenshotTakeScreenshot, %path, %gui);
+}
+
+function EditorDoPreviewScreenshotTakeScreenshot(%path, %gui) {
 	screenShot(%path, getWord(getResolution(), 0), getWord(getResolution(), 1));
+	schedule(100, 0, EditorDoPreviewScreenshotEnd, %gui);
+}
+
+function EditorDoPreviewScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
-	schedule(100, 0, ReturnMarbletoNormal);
+	ReturnMarbletoNormal();
 }
 
 function ReturnMarbletoNormal() {
@@ -573,8 +653,10 @@ function ReturnMarbletoNormal() {
 
 function EditorMenuBar::onMenuSelect(%this, %menuId, %menu) {
 	if (%menu $= "File") {
+		%editingHeightfield = ETerrainEditor.isVisible() && EHeightField.isVisible();
+        EditorMenuBar.setMenuItemEnable("File", "Export Terraform Bitmap...", %editingHeightfield);
 		EditorMenuBar.setMenuItemEnable("File", "Save Mission...",
-		                                EWorldEditor.isDirty);
+		                                EWorldEditor.isDirty || ETerrainEditor.isMissionDirty || ETerrainEditor.isDirty);
 	} else if (%menu $= "Edit") {
 		// enable/disable undo, redo, cut, copy, paste depending on editor settings
 
@@ -593,6 +675,13 @@ function EditorMenuBar::onMenuSelect(%this, %menuId, %menu) {
 			EditorMenuBar.setMenuItemEnable("Edit", "Group Selection", %selSize > 0 && %lockCount == 0);
 			EditorMenuBar.setMenuItemEnable("Edit", "Ungroup Selection", %selSize > 0 && %lockCount == 0);
 
+		}
+		else if(ETerrainEditor.isVisible())
+		{
+			EditorMenuBar.setMenuItemEnable("Edit", "Cut", false);
+			EditorMenuBar.setMenuItemEnable("Edit", "Copy", false);
+			EditorMenuBar.setMenuItemEnable("Edit", "Paste", false);
+			EditorMenuBar.setMenuItemEnable("Edit", "Select All", false);
 		}
 	} else if (%menu $= "World") {
 		%selSize = EWorldEditor.getSelectionSize();
@@ -631,6 +720,10 @@ function EditorMenuBar::onMenuItemSelect(%this, %menuId, %menu, %itemId, %item) 
 		%this.onCreateMenuItemSelect(%itemId, %item);
 	case "Special":
 		%this.onSpecialMenuItemSelect(%itemId, %item);
+    case "Action":
+         %this.onActionMenuItemSelect(%itemId, %item);
+    case "Brush":
+         %this.onBrushMenuItemSelect(%itemId, %item);
 	case "Camera":
 		%this.onCameraMenuItemSelect(%itemId, %item);
 	}
@@ -656,6 +749,12 @@ function EditorMenuBar::onFileMenuItemSelect(%this, %itemId, %item) {
 		EditorIconScreenshot();
 	case "Get Preview Picture":
 		EditorPreviewScreenshot();
+    case "Import Texture Data...":
+       Texture::import();
+    case "Import Terraform Data...":
+       Heightfield::import();
+    case "Export Terraform Bitmap...":
+       Heightfield::saveBitmap("");
 	}
 }
 
@@ -677,6 +776,84 @@ function EditorMenuBar::onCameraMenuItemSelect(%this, %itemId, %item) {
 		$Camera::movementSpeed = ((%itemId - 3) / 6.0) * 195 + 5;
 		ECameraSpeed.setValue($Camera::movementSpeed);
 	}
+}
+
+function EditorMenuBar::onActionMenuItemSelect(%this, %itemId, %item)
+{
+   EditorMenuBar.setMenuItemChecked("Action", %item, true);
+   switch$(%item)
+   {
+      case "Select":
+         ETerrainEditor.currentMode = "select";
+         ETerrainEditor.selectionHidden = false;
+         ETerrainEditor.renderVertexSelection = true;
+         ETerrainEditor.setAction("select");
+      case "Adjust Selection":
+         ETerrainEditor.currentMode = "adjust";
+         ETerrainEditor.selectionHidden = false;
+         ETerrainEditor.setAction("adjustHeight");
+         ETerrainEditor.currentAction = brushAdjustHeight;
+         ETerrainEditor.renderVertexSelection = true;
+      default:
+         ETerrainEditor.currentMode = "paint";
+         ETerrainEditor.selectionHidden = true;
+         ETerrainEditor.setAction(ETerrainEditor.currentAction);
+         switch$(%item)
+         {
+            case "Add Dirt":
+               ETerrainEditor.currentAction = raiseHeight;
+               ETerrainEditor.renderVertexSelection = true;
+            case "Paint Material":
+               ETerrainEditor.currentAction = paintMaterial;
+               ETerrainEditor.renderVertexSelection = true;
+            case "Excavate":
+               ETerrainEditor.currentAction = lowerHeight;
+               ETerrainEditor.renderVertexSelection = true;
+            case "Set Height":
+               ETerrainEditor.currentAction = setHeight;
+               ETerrainEditor.renderVertexSelection = true;
+            case "Adjust Height":
+               ETerrainEditor.currentAction = brushAdjustHeight;
+               ETerrainEditor.renderVertexSelection = true;
+            case "Flatten":
+               ETerrainEditor.currentAction = flattenHeight;
+               ETerrainEditor.renderVertexSelection = true;
+            case "Smooth":
+               ETerrainEditor.currentAction = smoothHeight;
+               ETerrainEditor.renderVertexSelection = true;
+            case "Set Empty":
+               ETerrainEditor.currentAction = setEmpty;
+               ETerrainEditor.renderVertexSelection = false;
+            case "Clear Empty":
+               ETerrainEditor.currentAction = clearEmpty;
+               ETerrainEditor.renderVertexSelection = false;
+         }
+         if(ETerrainEditor.currentMode $= "select")
+            ETerrainEditor.processAction(ETerrainEditor.currentAction);
+         else if(ETerrainEditor.currentMode $= "paint")
+            ETerrainEditor.setAction(ETerrainEditor.currentAction);
+   }
+}
+
+function EditorMenuBar::onBrushMenuItemSelect(%this, %itemId, %item)
+{
+   EditorMenuBar.setMenuItemChecked("Brush", %item, true);
+   switch$(%item)
+   {
+      case "Box Brush":
+         ETerrainEditor.setBrushType(box);
+      case "Circle Brush":
+         ETerrainEditor.setBrushType(ellipse);
+      case "Soft Brush":
+         ETerrainEditor.enableSoftBrushes = true;
+      case "Hard Brush":
+         ETerrainEditor.enableSoftBrushes = false;
+      default:
+         // the rest are brush sizes:
+         ETerrainEditor.brushSize = %itemId;
+         
+         ETerrainEditor.setBrushSize(%itemId, %itemId);
+   }
 }
 
 function EditorMenuBar::onWorldMenuItemSelect(%this, %itemId, %item) {
@@ -729,6 +906,8 @@ function EditorMenuBar::onWorldMenuItemSelect(%this, %itemId, %item) {
 function EditorMenuBar::onEditMenuItemSelect(%this, %itemId, %item) {
 	if (%item $= "World Editor Settings...")
 		RootGui.pushDialog(WorldEditorSettingsDlg);
+   else if(%item $= "Terrain Editor Settings...")
+      Canvas.pushDialog(TerrainEditorValuesSettingsGui, 99);
 	else if (%item $= "Relight Scene")
 		lightScene("", forceAlways);
 	else if (EWorldEditor.isVisible()) {
@@ -763,6 +942,30 @@ function EditorMenuBar::onWindowMenuItemSelect(%this, %itemId, %item) {
 	default:
 		EditorGui.setEditor(%item);
 	}
+}
+
+function EditorGui::setWorldEditorVisible(%this)
+{
+   EWorldEditor.setVisible(true);
+   ETerrainEditor.setVisible(false);
+   EditorMenuBar.setMenuVisible("World", true);
+   EditorMenuBar.setMenuVisible("Action", false);
+   EditorMenuBar.setMenuVisible("Brush", false);
+   EWorldEditor.makeFirstResponder(true);
+}
+
+function EditorGui::setTerrainEditorVisible(%this)
+{
+	if (!ETerrainEditor.visible) ETerrainEditor.checkForTerrain(true);
+	EWorldEditor.setVisible(false);
+	ETerrainEditor.setVisible(true);
+	EHeightField.setVisible(false);
+	ETexture.setVisible(false);
+	EditorMenuBar.setMenuVisible("World", false);
+	EditorMenuBar.setMenuVisible("Action", true);
+	EditorMenuBar.setMenuVisible("Brush", true);
+	ETerrainEditor.makeFirstResponder(true);
+	EPainter.setVisible(false);
 }
 
 function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
@@ -1357,11 +1560,6 @@ function EditorMenuBar::onSpecialMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
-function EditorGui::setWorldEditorVisible(%this) {
-	EWorldEditor.setVisible(true);
-	EWorldEditor.makeFirstResponder(true);
-}
-
 function EditorGui::setEditor(%this, %editor) {
 	EditorMenuBar.setMenuItemBitmap("Window", %this.currentEditor, -1);
 	EditorMenuBar.setMenuItemBitmap("Window", %editor, 0);
@@ -1370,26 +1568,115 @@ function EditorGui::setEditor(%this, %editor) {
 	switch$ (%editor) {
 	case "World Editor":
 		EWFrame.setVisible(false);
+		EWMissionArea.setVisible(false);
 		%this.setWorldEditorVisible();
 	case "World Editor Inspector":
 		EWFrame.setVisible(true);
+		EWMissionArea.setVisible(false);
 		EWCreatorPane.setVisible(false);
 		EWInspectorPane.setVisible(true);
 		EWReplaysPane.setVisible(false);
 		%this.setWorldEditorVisible();
 	case "World Editor Creator":
 		EWFrame.setVisible(true);
+		EWMissionArea.setVisible(false);
 		EWCreatorPane.setVisible(true);
 		EWInspectorPane.setVisible(false);
 		EWReplaysPane.setVisible(false);
 		%this.setWorldEditorVisible();
 	case "Replay Editor":
 		EWFrame.setVisible(true);
+		EWMissionArea.setVisible(false);
 		EWCreatorPane.setVisible(false);
 		EWInspectorPane.setVisible(false);
 		EWReplaysPane.setVisible(true);
 		%this.setWorldEditorVisible();
+    case "Mission Area Editor":
+       EWFrame.setVisible(false);
+       EWMissionArea.setVisible(true);
+       %this.setWorldEditorVisible();
+    case "Terrain Editor":
+       %this.setTerrainEditorVisible();
+    case "Terrain Terraform Editor":
+       %this.setTerrainEditorVisible();
+       EHeightField.setVisible(true);
+    case "Terrain Texture Editor":
+       %this.setTerrainEditorVisible();
+       ETexture.setVisible(true);
+    case "Terrain Texture Painter":
+       %this.setTerrainEditorVisible();
+       EPainter.setVisible(true);
+       EPainter.setup();
 	}
+}
+
+function ETerrainEditor::setPaintMaterial(%this, %matIndex)
+{
+   ETerrainEditor.paintMaterial = EPainter.mat[%matIndex];
+   
+   %mats = ETerrainEditor.getTerrainMaterials();
+   %valid = true;
+   for(%i = 0; %i < 6; %i++)
+   {
+      %mat = getRecord(%mats, %i);
+      %this.mat[%i] = %mat;
+	  if (%matIndex == %i)
+	  {
+		("ETerrainMaterialText" @ %i).setText(fileBase(%mat) @ ": Active");
+	  }
+	  else
+      	("ETerrainMaterialText" @ %i).setText(fileBase(%mat));
+   }
+}
+
+function ETerrainEditor::changeMaterial(%this, %matIndex)
+{
+   EPainter.matIndex = %matIndex;
+   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", EPainterChangeMat);
+}
+
+function EPainterChangeMat(%file)
+{
+   // make sure the material isn't already in the terrain.
+   %file = filePath(%file) @ "/" @ fileBase(%file);
+   for(%i = 0; %i < 6; %i++)
+      if(EPainter.mat[%i] $= %file)
+         return;
+
+   EPainter.mat[EPainter.matIndex] = %file;
+   %mats = "";
+   for(%i = 0; %i < 6; %i++)
+      %mats = %mats @ EPainter.mat[%i] @ "\n";
+   ETerrainEditor.setTerrainMaterials(%mats);
+   EPainter.setup();
+   ("ETerrainMaterialPaint" @ EPainter.matIndex).performClick();
+}
+
+function EPainter::setup(%this)
+{
+   EditorMenuBar.onActionMenuItemSelect(0, "Paint Material");
+   %mats = ETerrainEditor.getTerrainMaterials();
+   %valid = true;
+   for(%i = 0; %i < 6; %i++)
+   {
+      %mat = getRecord(%mats, %i);
+      %this.mat[%i] = %mat;
+      ("ETerrainMaterialText" @ %i).setText(fileBase(%mat));
+      ("ETerrainMaterialBitmap" @ %i).setBitmap(%mat);
+      ("ETerrainMaterialChange" @ %i).setActive(true);
+      ("ETerrainMaterialPaint" @ %i).setActive(%mat !$= "");
+      if(%mat $= "")
+      {
+         ("ETerrainMaterialChange" @ %i).setText("Add...");
+         if(%valid)
+            %valid = false;
+         else
+            ("ETerrainMaterialChange" @ %i).setActive(false);
+      }
+      else
+         ("ETerrainMaterialChange" @ %i).setText("Change...");
+   }
+   ETerrainMaterialPaint0.performClick();
 }
 
 function EditorGui::getHelpPage(%this) {
@@ -1398,7 +1685,6 @@ function EditorGui::getHelpPage(%this) {
 		return "5. World Editor";
 	}
 }
-
 
 function EWorldEditor::dropSelection(%this) {
 	if (%this.dropType $= "toGround")
@@ -1799,19 +2085,16 @@ function Creator::init(%this) {
 	%objGroup[2] = "System";
 	//%objGroup[3] = "AI";
 
-//   %Environment_Item[0] = "Sky";
-//   %Environment_Item[1] = "Sun";
-//   %Environment_Item[2] = "Lightning";
-//   %Environment_Item[3] = "Water";
-//   %Environment_Item[4] = "Terrain";
-//   %Environment_Item[5] = "AudioEmitter";
-//   %Environment_Item[6] = "Precipitation";
-// We don't use the above anymore, so the one below does not need to be in that order anymore.
-//   %Environment_Item[7] = "ParticleEmitter";
-	%Environment_Item[0] = "Sky";
-	%Environment_Item[1] = "Sun";
-	%Environment_Item[2] = "AudioEmitter";
-	%Environment_Item[3] = "ParticleEmitter";
+   %Environment_Item[0] = "Sky";
+   %Environment_Item[1] = "Sun";
+   %Environment_Item[2] = "LightningTorque";
+   %Environment_Item[3] = "Water";
+   %Environment_Item[4] = "Terrain";
+   %Environment_Item[5] = "AudioEmitter";
+   %Environment_Item[6] = "Precipitation";
+   %Environment_Item[7]  = "ParticleEmitter";
+   %Environment_Item[8]  = "fxSunLight";
+   %Environment_Item[9] = "fxLight";
 
 //   %Mission_Item[0] = "MissionArea";
 //   %Mission_Item[1] = "Marker";
@@ -1992,6 +2275,1435 @@ function TSStatic::create(%shapeName) {
 
 function TSStatic::damage(%this) {
 	// prevent console error spam
+}
+
+function TerraformerGui::init(%this)
+{
+   TerraformerHeightfieldGui.init();
+   TerraformerTextureGui.init();
+}
+
+function TerraformerGui::onWake(%this)
+{
+   // Only the canvas level gui's get wakes, so udpate manually.
+   TerraformerTextureGui.update();
+}
+
+function TerraformerGui::onSleep(%this)
+{
+   %this.setPrefs();
+}
+
+$nextTextureId = 1;
+$nextTextureRegister = 1000;
+$selectedMaterial = -1;
+$selectedTextureOperation = -1;
+$TerraformerTextureDir = "common/editor/textureScripts";
+
+function TextureInit()
+{
+   // Assumes the terrain object is called terrain
+   
+   Texture_operation_menu.clear();
+   Texture_operation_menu.setText("Placement Operations");
+   Texture_operation_menu.add("Place by Fractal", 1);
+   Texture_operation_menu.add("Place by Height", 2);
+   Texture_operation_menu.add("Place by Slope", 3);
+   Texture_operation_menu.add("Place by Water Level", 4);
+
+   $HeightfieldSrcRegister = Heightfield_operation.rowCount()-1;
+
+   // sync up the preview windows
+   TexturePreview.setValue(HeightfieldPreview.getValue());
+   %script = terrain.getTextureScript();
+   if(%script !$= "")
+      Texture::loadFromScript(%script);
+
+   if (Texture_material.rowCount() == 0)
+   {
+      Texture_operation.clear();
+      $nextTextureRegister = 1000;
+   }
+   else
+   {
+      // it's difficult to tell if the heightfield was modified so 
+      // just in case flag all dependent operations as dirty.
+      %rowCount = Texture_material.rowCount();
+      for (%row = 0; %row < %rowCount; %row++)
+      {
+         %data = Texture_material.getRowText(%row);
+         %entry= getRecord(%data,0);
+         %reg  = getField(%entry,1);
+         $dirtyTexture[ %reg ] = true;
+
+         %opCount = getRecordCount(%data);
+         for (%op = 2; %op < %opCount; %op++)
+         {
+            %entry= getRecord(%data,%op);
+            %label= getField(%entry,0);
+            if (%label !$= "Place by Fractal" && %label !$= "Fractal Distortion")
+            {
+               %reg  = getField(%entry,2);
+               $dirtyTexture[ %reg ] = true;
+            }
+         }
+      }
+      Texture::previewMaterial();   
+   }
+}
+
+function TerraformerTextureGui::refresh(%this)
+{
+}   
+
+
+//--------------------------------------
+function Texture_material_menu::onSelect(%this, %id, %text)
+{
+   %this.setText("Materials");
+
+   // FORMAT
+   //   material name
+   //   register
+   //     operation
+   //       name
+   //       tab name
+   //       register
+   //       distortion register
+   //       {field,value}, ...
+   //     operation
+   //       ...
+   Texture::saveMaterial();
+   Texture::hideTab();   
+   %id = Texture::addMaterial(%text @ "\t" @ $nextTextureRegister++);
+   
+   if (%id != -1)
+   {
+      Texture_material.setSelectedById(%id);
+      Texture::addOperation("Fractal Distortion\ttab_DistortMask\t" @ $nextTextureRegister++ @ "\t0\tdmask_interval\t20\tdmask_rough\t0\tdmask_seed\t" @ terraFormer.generateSeed() @ "\tdmask_filter\t0.00000 0.00000 0.13750 0.487500 0.86250 1.00000 1.00000");
+   }
+}   
+
+
+function Texture::addMaterialTexture()
+{
+   %root = filePath(terrain.terrainFile);
+   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", addLoadedMaterial);
+}
+
+function addLoadedMaterial(%file)
+{
+   Texture::saveMaterial();
+   Texture::hideTab();   
+   %text = filePath(%file) @ "/" @ fileBase(%file);
+   %id = Texture::addMaterial(%text @ "\t" @ $nextTextureRegister++);
+   if (%id != -1)
+   {
+      Texture_material.setSelectedById(%id);
+      Texture::addOperation("Fractal Distortion\ttab_DistortMask\t" @ $nextTextureRegister++ @ "\t0\tdmask_interval\t20\tdmask_rough\t0\tdmask_seed\t" @ terraFormer.generateSeed() @ "\tdmask_filter\t0.00000 0.00000 0.13750 0.487500 0.86250 1.00000 1.00000");
+   }
+   Texture::save();
+}
+
+//--------------------------------------
+function Texture_material::onSelect(%this, %id, %text) 
+{
+   Texture::saveMaterial();
+   if (%id != $selectedMaterial)
+   {
+      $selectedTextureOperation = -1;
+      Texture_operation.clear();
+      
+      Texture::hideTab();
+      Texture::restoreMaterial(%id);
+   }
+
+   %matName = getField(%text, 0);
+   ETerrainEditor.paintMaterial = %matName;
+
+   Texture::previewMaterial(%id);
+   $selectedMaterial = %id;
+   $selectedTextureOperation = -1;
+   Texture_operation.clearSelection();
+}   
+
+
+//--------------------------------------
+function Texture_operation_menu::onSelect(%this, %id, %text)
+{
+   %this.setText("Placement Operations");
+   %id = -1;
+
+   if ($selectedMaterial == -1)
+      return;
+
+   %dreg = getField(Texture_operation.getRowText(0),2);
+                     
+   switch$ (%text)
+   {
+      case "Place by Fractal":
+         %id = Texture::addOperation("Place by Fractal\ttab_FractalMask\t" @ $nextTextureRegister++ @ "\t" @ %dreg @ "\tfbmmask_interval\t16\tfbmmask_rough\t0.000\tfbmmask_seed\t" @ terraFormer.generateSeed() @ "\tfbmmask_filter\t0.000000 0.166667 0.333333 0.500000 0.666667 0.833333 1.000000\tfBmDistort\ttrue");
+
+      case "Place by Height":
+         %id = Texture::addOperation("Place by Height\ttab_HeightMask\t" @ $nextTextureRegister++ @ "\t" @ %dreg @ "\ttextureHeightFilter\t0 0.2 0.4 0.6 0.8 1.0\theightDistort\ttrue");
+
+      case "Place by Slope":
+         %id = Texture::addOperation("Place by Slope\ttab_SlopeMask\t" @ $nextTextureRegister++ @ "\t" @ %dreg @ "\ttextureSlopeFilter\t0 0.2 0.4 0.6 0.8 1.0\tslopeDistort\ttrue");
+
+      case "Place by Water Level":
+         %id = Texture::addOperation("Place by Water Level\ttab_WaterMask\t" @ $nextTextureRegister++ @ "\t" @ %dreg @ "\twaterDistort\ttrue");
+   }
+
+   // select it
+   Texture::hideTab();
+   if (%id != -1)
+      Texture_operation.setSelectedById(%id);
+}   
+
+
+//--------------------------------------
+function Texture_operation::onSelect(%this, %id, %text)
+{
+   Texture::saveOperation();   
+   if (%id !$= $selectedTextureOperation)   
+   {
+      Texture::hideTab();   
+      Texture::restoreOperation(%id);
+      Texture::showTab(%id);   
+   }
+
+   Texture::previewOperation(%id);
+   $selectedTextureOperation = %id;
+}   
+
+
+//--------------------------------------
+function Texture::deleteMaterial(%id)
+{
+   if (%id $= "")
+      %id = $selectedMaterial;
+   if (%id == -1)   
+      return;
+   
+   %row = Texture_material.getRowNumById(%id);
+   
+   Texture_material.removeRow(%row);
+
+   // find the next row to select
+   %rowCount = Texture_material.rowCount()-1;
+   if (%row > %rowCount)
+      %row = %rowCount;
+
+   if (%id == $selectedMaterial)
+      $selectedMaterial = -1;
+
+   Texture_operation.clear();
+   %id = Texture_material.getRowId(%row);
+   Texture_material.setSelectedById(%id);
+   Texture::save();
+}   
+
+
+//--------------------------------------
+function Texture::deleteOperation(%id)
+{
+   if (%id $= "")
+      %id = $selectedTextureOperation;
+   if (%id == -1)   
+      return;
+   
+   %row = Texture_operation.getRowNumById(%id);
+   
+   // don't delete the first entry
+   if (%row == 0)
+      return;
+   
+   Texture_operation.removeRow(%row);
+
+   // find the next row to select
+   %rowCount = Texture_operation.rowCount()-1;
+   if (%row > %rowCount)
+      %row = %rowCount;
+
+   if (%id == $selectedTextureOperation)
+      $selectedTextureOperation = -1;
+
+   %id = Texture_operation.getRowId(%row);
+   Texture_operation.setSelectedById(%id);
+   Texture::save();
+}   
+
+
+//--------------------------------------
+function Texture::applyMaterials()
+{
+   Texture::saveMaterial();
+   %count = Texture_material.rowCount();
+   if (%count > 0)   
+   {
+      %data = getRecord(Texture_material.getRowText(0),0);
+      %mat_list = getField( %data, 0);
+      %reg_list = getField( %data, 1);
+      Texture::evalMaterial(Texture_material.getRowId(0));
+      
+      for (%i=1; %i<%count; %i++)
+      {
+         Texture::evalMaterial(Texture_material.getRowId(%i));
+         %data = getRecord(Texture_material.getRowText(%i),0);
+         %mat_list = %mat_list @ " " @ getField( %data, 0);
+         %reg_list = %reg_list @ " " @ getField( %data, 1);
+      }
+      terraformer.setMaterials(%reg_list, %mat_list);
+   }
+}   
+
+
+//--------------------------------------
+function Texture::previewMaterial(%id)
+{
+   if (%id $= "")
+      %id = $selectedMaterial;
+   if (%id == -1)
+      return;
+
+   %data = Texture_material.getRowTextById(%id);
+   %row  = Texture_material.getRowNumById(%id);
+   %reg  = getField(getRecord(%data,0),1);
+
+   Texture::evalMaterial(%id);
+
+   terraformer.preview(TexturePreview, %reg);
+}   
+
+
+//--------------------------------------
+function Texture::evalMaterial(%id)
+{
+   if (%id $= "")
+      %id = $selectedMaterial;
+   if (%id == -1)   
+      return;
+
+   %data = Texture_material.getRowTextbyId(%id);
+   %reg  = getField(getRecord(%data,0), 1);
+
+   // make sure all operation on this material are up to date
+   // and accumulate register data for each
+   %opCount = getRecordCount(%data);
+   if (%opCount >= 2)    // record0=material record1=fractal
+   {
+      %entry = getRecord(%data, 1);
+      Texture::evalOperationData(%entry, 1);
+      for (%op=2; %op<%opCount; %op++)
+      {
+         %entry = getRecord(%data, %op);
+         %reg_list = %reg_list @ getField(%entry, 2) @ " ";
+         Texture::evalOperationData(%entry, %op);
+      }
+      // merge the masks in to the dst reg
+      terraformer.mergeMasks(%reg_list, %reg);
+   }
+   Texture::save();
+}   
+
+
+//--------------------------------------
+function Texture::evalOperation(%id)
+{
+   if (%id $= "")
+      %id = $selectedTextureOperation;
+   if (%id == -1)   
+      return;
+   
+   %data   = Texture_operation.getRowTextById(%id);
+   %row    = Texture_operation.getRowNumById(%id);
+   
+   if (%row != 0)    
+      Texture::evalOperation( Texture_operation.getRowId(0) );
+
+   Texture::evalOperationData(%data, %row);
+   Texture::save();
+}   
+
+
+//--------------------------------------
+function Texture::evalOperationData(%data, %row)
+{
+   %label  = getField(%data, 0);
+   %reg    = getField(%data, 2);
+   %dreg   = getField(%data, 3);
+   %id     = Texture_material.getRowId(%row);
+
+   if ( $dirtyTexture[%reg] == false )
+   {
+      return;
+   }
+
+   switch$ (%label)
+   {
+      case "Fractal Distortion":
+         terraformer.maskFBm( %reg, getField(%data,5), getField(%data,7), getField(%data,9), getField(%data,11), false, 0 );
+
+      case "Place by Fractal":
+         terraformer.maskFBm( %reg, getField(%data,5), getField(%data,7), getField(%data,9), getField(%data,11), getField(%data,13), %dreg );
+
+      case "Place by Height":
+         terraformer.maskHeight( $HeightfieldSrcRegister, %reg, getField(%data,5), getField(%data,7), %dreg );
+
+      case "Place by Slope":
+         terraformer.maskSlope( $HeightfieldSrcRegister, %reg, getField(%data,5), getField(%data,7), %dreg );
+
+      case "Place by Water Level":
+         terraformer.maskWater( $HeightfieldSrcRegister, %reg, getField(%data,5), %dreg );
+   }
+
+
+   $dirtyTexture[%reg] = false;
+}   
+
+
+
+//--------------------------------------
+function Texture::previewOperation(%id)
+{
+   if (%id $= "")
+      %id = $selectedTextureOperation;
+   if (%id == -1)
+      return;
+
+   %row  = Texture_operation.getRowNumById(%id);
+   %data = Texture_operation.getRowText(%row);
+   %reg  = getField(%data,2);
+
+   Texture::evalOperation(%id);
+   terraformer.preview(TexturePreview, %reg);
+}   
+
+
+
+//--------------------------------------
+function Texture::restoreMaterial(%id)
+{
+   if (%id == -1)
+      return;
+
+   %data = Texture_material.getRowTextById(%id);
+   
+   Texture_operation.clear();
+   %recordCount = getRecordCount(%data);
+   for (%record=1; %record<%recordCount; %record++)
+   {
+      %entry = getRecord(%data, %record);
+      Texture_operation.addRow($nextTextureId++, %entry);
+   }
+}   
+
+
+//--------------------------------------
+function Texture::saveMaterial()
+{
+   %id = $selectedMaterial;
+   if (%id == -1)
+      return;
+
+   Texture::SaveOperation();
+   %data = Texture_Material.getRowTextById(%id);
+   %newData = getRecord(%data,0);
+
+   %rowCount = Texture_Operation.rowCount();
+   for (%row=0; %row<%rowCount; %row++)
+      %newdata = %newdata @ "\n" @ Texture_Operation.getRowText(%row);
+
+   Texture_Material.setRowById(%id, %newdata);
+   Texture::save();
+}   
+
+
+//--------------------------------------
+function Texture::restoreOperation(%id)
+{
+   if (%id == -1)
+      return;
+
+   %data = Texture_operation.getRowTextById(%id);
+
+   %fieldCount = getFieldCount(%data);
+   for (%field=4; %field<%fieldCount; %field += 2)
+   {
+      %obj = getField(%data, %field);
+      %obj.setValue( getField(%data, %field+1) );
+   }
+   Texture::save();
+}   
+
+
+//--------------------------------------
+function Texture::saveOperation()
+{
+   %id = $selectedTextureOperation;
+   if (%id == -1)
+      return;
+
+   %data = Texture_operation.getRowTextById(%id);
+   %newData = getField(%data,0) @ "\t" @ getField(%data,1) @ "\t" @ getField(%data,2) @ "\t" @ getField(%data,3); 
+
+   // go through each object and update its value
+   %fieldCount = getFieldCount(%data);
+   for (%field=4; %field<%fieldCount; %field += 2)
+   {
+      %obj = getField(%data, %field);
+      %newdata = %newdata @ "\t" @ %obj @ "\t" @ %obj.getValue();
+   }
+
+   %dirty = (%data !$= %newdata);
+   %reg   = getField(%data, 2);
+   $dirtyTexture[%reg] = %dirty;
+      
+   Texture_operation.setRowById(%id, %newdata);
+
+   // mark the material register as dirty too
+   if (%dirty == true)
+   {
+      %data = Texture_Material.getRowTextById($selectedMaterial);
+      %reg  = getField(getRecord(%data,0), 1);
+      $dirtyTexture[ %reg ] = true;
+   }
+
+   // if row is zero the fractal mask was modified
+   // mark everything else in the list as dirty
+    %row = Texture_material.getRowNumById(%id);
+    if (%row == 0)
+    {
+       %rowCount = Texture_operation.rowCount();
+       for (%r=1; %r<%rowCount; %r++)
+       {
+          %data = Texture_operation.getRowText(%r);
+          $dirtyTexture[ getField(%data,2) ] = true;
+       }
+   }
+   Texture::save();
+}   
+
+
+//--------------------------------------
+function Texture::addMaterial(%entry)
+{
+   %id = $nextTextureId++;
+   Texture_material.addRow(%id, %entry);
+   
+   %reg = getField(%entry, 1);
+   $dirtyTexture[%reg] = true;
+
+   Texture::save();
+   return %id;
+}   
+
+//--------------------------------------
+function Texture::addOperation(%entry)
+{
+   // Assumes: operation is being added to selected material
+
+   %id = $nextTextureId++;
+   Texture_operation.addRow(%id, %entry);
+
+   %reg = getField(%entry, 2);
+   $dirtyTexture[%reg] = true;
+
+   Texture::save();
+   return %id;
+}   
+
+
+//--------------------------------------
+function Texture::save()
+{
+   %script = "";
+
+   // loop through each operation and save it to disk
+   %rowCount = Texture_material.rowCount();
+   for(%row = 0; %row < %rowCount; %row++)
+   {
+      if(%row != 0)
+         %script = %script @ "\n";
+      %data = expandEscape(Texture_material.getRowText(%row));
+      %script = %script @ %data;
+   }
+   terrain.setTextureScript(%script);
+   ETerrainEditor.isDirty = true;
+}
+
+//--------------------------------------
+function Texture::import()
+{
+   getLoadFilename("*.ter", "Texture::doLoadTexture");
+}   
+
+function Texture::loadFromScript(%script)
+{
+   Texture_material.clear();
+   Texture_operation.clear();
+   $selectedMaterial = -1;
+   $selectedTextureOperation = -1;
+
+   %i = 0;
+   for(%rec = getRecord(%script, %i); %rec !$= ""; %rec = getRecord(%script, %i++))
+      Texture::addMaterial(collapseEscape(%rec));
+   // initialize dirty register array
+   // patch up register usage
+   // ...and deterime what the next register should be.
+   $nextTextureRegister = 1000;
+   %rowCount = Texture_material.rowCount();
+   for (%row = 0; %row < %rowCount; %row++)
+   {
+      $dirtyTexture[ $nextTextureRegister ] = true;
+      %data    = Texture_material.getRowText(%row);
+      %rec     = getRecord(%data, 0);
+      %rec     = setField(%rec, 1, $nextTextureRegister);
+      %data    = setRecord(%data, 0, %rec);
+      $nextTextureRegister++;
+      
+      %opCount = getRecordCount(%data);
+      for (%op = 1; %op < %opCount; %op++)
+      {
+         if (%op == 1)
+            %frac_reg = $nextTextureRegister;
+         $dirtyTexture[ $nextTextureRegister ] = true;
+         %rec  = getRecord(%data,%op);
+         %rec  = setField(%rec, 2, $nextTextureRegister);
+         %rec  = setField(%rec, 3, %frac_reg);
+         %data = setRecord(%data, %op, %rec);
+         $nextTextureRegister++;
+      }
+      %id = Texture_material.getRowId(%row);
+      Texture_material.setRowById(%id, %data);
+   }
+
+   $selectedMaterial = -1;
+   Texture_material.setSelectedById(Texture_material.getRowId(0));
+}
+
+//--------------------------------------
+function Texture::doLoadTexture(%name)
+{
+   // ok, we're getting a terrain file...
+   %newTerr = new TerrainBlock() // unnamed - since we'll be deleting it shortly:
+   {
+      position = "0 0 0";
+      terrainFile = %name;
+      squareSize = 8;
+      visibleDistance = 100;
+   };
+   if(isObject(%newTerr))
+   {
+      %script = %newTerr.getTextureScript();
+      if(%script !$= "")
+         Texture::loadFromScript(%script);
+      %newTerr.delete();
+   }   
+}   
+
+
+
+//--------------------------------------
+function Texture::hideTab()
+{
+   tab_DistortMask.setVisible(false);   
+   tab_FractalMask.setVisible(false);   
+   tab_HeightMask.setVisible(false);   
+   tab_SlopeMask.setVisible(false);   
+   tab_waterMask.setVisible(false);   
+}   
+
+
+//--------------------------------------
+function Texture::showTab(%id)
+{
+   Texture::hideTab();
+   %data = Texture_operation.getRowTextById(%id);
+   %tab  = getField(%data,1);
+   %tab.setVisible(true);
+}   
+
+
+
+$TerraformerHeightfieldDir = "common/editor/heightScripts";
+
+function tab_Blend::reset(%this)
+{
+   blend_option.clear();
+   blend_option.add("Add", 0);
+   blend_option.add("Subtract", 1);
+   blend_option.add("Max", 2);
+   blend_option.add("Min", 3);
+   blend_option.add("Multiply", 4);
+}
+
+function tab_fBm::reset(%this)
+{
+   fBm_detail.clear();
+   fBm_detail.add("Very Low", 0);
+   fBm_detail.add("Low", 1);
+   fBm_detail.add("Normal", 2);
+   fBm_detail.add("High", 3);
+   fBm_detail.add("Very High", 4);
+}
+
+function tab_RMF::reset(%this)
+{
+   rmf_detail.clear();
+   rmf_detail.add("Very Low", 0);
+   rmf_detail.add("Low", 1);
+   rmf_detail.add("Normal", 2);
+   rmf_detail.add("High", 3);
+   rmf_detail.add("Very High", 4);
+}
+
+function tab_terrainFile::reset(%this)
+{
+   // update tab controls..
+   terrainFile_textList.clear();
+
+   %filespec = $TerraformerHeightfieldDir @ "/*.ter";
+   for(%file = findFirstFile(%filespec); %file !$= ""; %file = findNextFile(%filespec))
+      terrainFile_textList.addRow(%i++, fileBase(%file) @ fileExt(%file));
+}
+
+function tab_canyon::reset()
+{
+}
+
+function tab_smooth::reset()
+{
+}
+
+function tab_smoothWater::reset()
+{
+}
+
+function tab_smoothRidge::reset()
+{
+}
+
+function tab_filter::reset()
+{
+}
+
+function tab_turbulence::reset()
+{
+}
+
+function tab_thermal::reset()
+{
+}
+
+function tab_hydraulic::reset()
+{
+}
+
+function tab_general::reset()
+{
+}
+
+function tab_bitmap::reset()
+{
+}
+
+function tab_sinus::reset()
+{
+}
+
+
+//--------------------------------------
+
+function Heightfield::resetTabs()
+{
+   tab_terrainFile.reset();
+   tab_fbm.reset();
+   tab_rmf.reset();
+   tab_canyon.reset();
+   tab_smooth.reset();
+   tab_smoothWater.reset();
+   tab_smoothRidge.reset();
+   tab_filter.reset();
+   tab_turbulence.reset();
+   tab_thermal.reset();
+   tab_hydraulic.reset();
+   tab_general.reset();
+   tab_bitmap.reset();
+   tab_blend.reset();
+   tab_sinus.reset();
+}
+
+//--------------------------------------
+function TerraformerInit()
+{
+   Heightfield_options.clear();   
+   Heightfield_options.setText("Operation");   
+   Heightfield_options.add("fBm Fractal",0);
+   Heightfield_options.add("Rigid MultiFractal",1);
+   Heightfield_options.add("Canyon Fractal",2);
+   Heightfield_options.add("Sinus",3);
+   Heightfield_options.add("Bitmap",4);
+   Heightfield_options.add("Turbulence",5);
+   Heightfield_options.add("Smoothing",6);
+   Heightfield_options.add("Smooth Water",7);
+   Heightfield_options.add("Smooth Ridges/Valleys", 8);
+   Heightfield_options.add("Filter",9);
+   Heightfield_options.add("Thermal Erosion",10);
+   Heightfield_options.add("Hydraulic Erosion",11);
+   Heightfield_options.add("Blend",12);
+   Heightfield_options.add("Terrain File",13);
+
+   Heightfield::resetTabs();
+
+   %script = Terrain.getHeightfieldScript();
+   if(%script !$= "")
+      Heightfield::loadFromScript(%script,true);
+
+   if (Heightfield_operation.rowCount() == 0)
+   {
+      Heightfield_operation.clear();
+      %id1 = Heightfield::add("General\tTab_general\tgeneral_min_height\t50\tgeneral_scale\t300\tgeneral_water\t0.000\tgeneral_centerx\t0\tgeneral_centery\t0");
+      Heightfield_operation.setSelectedById(%id1);
+   }
+
+   Heightfield::resetTabs();
+   Heightfield::preview();
+}   
+
+//--------------------------------------
+function Heightfield_options::onSelect(%this, %_id, %text)
+{
+   Heightfield_options.setText("Operation");
+   %id = -1;
+
+   %rowCount = Heightfield_operation.rowCount();
+
+   // FORMAT
+   //  item name
+   //  tab name
+   //    control name 
+   //    control value
+   switch$(%text)
+   {
+      case "Terrain File":
+         %id = HeightField::add("Terrain File\ttab_terrainFile\tterrainFile_terrFileText\tterrains/terr1.ter\tterrainFile_textList\tterr1.ter");
+
+      case "fBm Fractal":
+         %id = Heightfield::add("fBm Fractal\ttab_fBm\tfbm_interval\t9\tfbm_rough\t0.000\tfBm_detail\tNormal\tfBm_seed\t" @ terraformer.generateSeed());
+
+      case "Rigid MultiFractal":
+         %id = Heightfield::add("Rigid MultiFractal\ttab_RMF\trmf_interval\t4\trmf_rough\t0.000\trmf_detail\tNormal\trmf_seed\t" @ terraformer.generateSeed());
+
+      case "Canyon Fractal":
+         %id = Heightfield::add("Canyon Fractal\ttab_Canyon\tcanyon_freq\t5\tcanyon_factor\t0.500\tcanyon_seed\t" @ terraformer.generateSeed());
+   
+      case "Sinus":
+         %id = Heightfield::add("Sinus\ttab_Sinus\tsinus_filter\t1 0.83333 0.6666 0.5 0.33333 0.16666 0\tsinus_seed\t" @ terraformer.generateSeed());
+   
+      case "Bitmap":
+         %id = Heightfield::add("Bitmap\ttab_Bitmap\tbitmap_name\t");
+         Heightfield::setBitmap();
+   }
+
+
+   if (Heightfield_operation.rowCount() >= 1)
+   {
+      switch$(%text)
+      {
+         case "Smoothing":
+            %id = Heightfield::add("Smoothing\ttab_Smooth\tsmooth_factor\t0.500\tsmooth_iter\t0");
+   
+         case "Smooth Water":
+            %id = Heightfield::add("Smooth Water\ttab_SmoothWater\twatersmooth_factor\t0.500\twatersmooth_iter\t0");
+
+         case "Smooth Ridges/Valleys":
+            %id = Heightfield::add("Smooth Ridges/Valleys\ttab_SmoothRidge\tridgesmooth_factor\t0.8500\tridgesmooth_iter\t1");
+   
+         case "Filter":
+            %id = Heightfield::add("Filter\ttab_Filter\tfilter\t0 0.16666667 0.3333333 0.5 0.6666667 0.8333333 1");
+   
+         case "Turbulence":
+            %id = Heightfield::add("Turbulence\ttab_Turbulence\tturbulence_factor\t0.250\tturbulence_radius\t10");
+   
+         case "Thermal Erosion":
+            %id = Heightfield::add("Thermal Erosion\ttab_Thermal\tthermal_slope\t30\tthermal_cons\t80.0\tthermal_iter\t0");
+   
+         case "Hydraulic Erosion":
+            %id = Heightfield::add("Hydraulic Erosion\ttab_Hydraulic\thydraulic_iter\t0\thydraulic_filter\t0 0.16666667 0.3333333 0.5 0.6666667 0.8333333 1");
+      }
+   }
+
+   if (Heightfield_operation.rowCount() >= 2)
+   {
+      if("Blend" $= %text)
+         %id = Heightfield::add("Blend\ttab_Blend\tblend_factor\t0.500\tblend_srcB\t" @ %rowCount-2 @"\tblend_option\tadd");
+   }
+
+   
+   // select it
+   if (%id != -1)
+      Heightfield_operation.setSelectedById(%id);
+}   
+
+
+//--------------------------------------
+function Heightfield::eval(%id)
+{
+   if (%id == -1)   
+      return;
+   
+   %data  = restWords(Heightfield_operation.getRowTextById(%id));
+   %label = getField(%data,0);
+   %row   = Heightfield_operation.getRowNumById(%id);
+    
+   echo("Heightfield::eval:" @ %row @ "  " @ %label );
+
+   switch$(%label)
+   {
+      case "General":
+         if (Terrain.squareSize>0) %size = Terrain.squareSize;
+         else %size = 8;
+         terraformer.setTerrainInfo( 256, %size, getField(%data,3), getField(%data,5), getField(%data,7) );
+         terraformer.setShift( getField(%data,9), getField(%data,11) );
+         terraformer.terrainData(%row);
+
+      case "Terrain File":
+         terraformer.terrainFile(%row, getField(%data,3));
+
+      case "fBm Fractal":
+         terraformer.fBm( %row, getField(%data,3), getField(%data,5), getField(%data,7), getField(%data,9) );
+
+      case "Sinus":
+         terraformer.sinus( %row, getField(%data,3), getField(%data,5) );
+    
+      case "Rigid MultiFractal":
+         terraformer.rigidMultiFractal( %row, getField(%data,3), getField(%data,5), getField(%data,7), getField(%data,9) );
+    
+      case "Canyon Fractal":
+         terraformer.canyon( %row, getField(%data,3), getField(%data,5), getField(%data,7) );
+   
+      case "Smoothing":
+         terraformer.smooth( %row-1, %row, getField(%data,3), getField(%data,5) );
+       
+      case "Smooth Water":
+         terraformer.smoothWater( %row-1, %row, getField(%data,3), getField(%data,5) );
+       
+      case "Smooth Ridges/Valleys":
+         terraformer.smoothRidges( %row-1, %row, getField(%data,3), getField(%data,5) );
+
+      case "Filter":
+         terraformer.filter( %row-1, %row, getField(%data,3) );
+       
+      case "Turbulence":
+         terraformer.turbulence( %row-1, %row, getField(%data,3), getField(%data,5) );
+       
+      case "Thermal Erosion":
+         terraformer.erodeThermal( %row-1, %row, getField(%data,3), getField(%data,5),getField(%data,7) );
+       
+      case "Hydraulic Erosion":
+         terraformer.erodeHydraulic( %row-1, %row, getField(%data,3), getField(%data,5) );
+       
+      case "Bitmap":
+	  	 terraformer.clearRegister(%row);
+         terraformer.loadGreyscale(%row, getField(%data,3));
+
+      case "Blend":
+         %rowCount = Heightfield_operation.rowCount();
+         if(%rowCount > 2) 
+         {
+            %a = Heightfield_operation.getRowNumById(%id)-1;
+            %b = getField(%data, 5);
+            echo("Blend: " @ %data);
+            echo("Blend: " @ getField(%data,3) @ "  " @ getField(%data,7));
+            if(%a < %rowCount || %a > 0 || %b < %rowCount || %b > 0 ) 
+               terraformer.blend(%a, %b, %row, getField(%data,3), getField(%data,7) );
+            else
+               echo("Heightfield Editor: Blend parameters out of range.");
+         }
+   }
+
+}   
+
+//--------------------------------------
+function Heightfield::add(%entry)
+{
+   Heightfield::saveTab();
+   Heightfield::hideTab();
+
+   %id = $NextOperationId++;
+   if ($selectedOperation != -1)
+   {
+      %row = Heightfield_operation.getRowNumById($selectedOperation) + 1;
+      %entry = %row @ " " @ %entry;
+      Heightfield_operation.addRow(%id, %entry, %row); // insert
+
+      // adjust row numbers
+      for(%i = %row+1; %i < Heightfield_operation.rowCount(); %i++)
+      {
+         %id = Heightfield_operation.getRowId(%i);
+         %text = Heightfield_operation.getRowTextById(%id);
+         %text = setWord(%text, 0, %i);
+         Heightfield_operation.setRowById(%id, %text);
+      }
+   }
+   else
+   {
+      %entry = Heightfield_operation.rowCount() @ " " @ %entry;
+      Heightfield_operation.addRow(%id, %entry);   // add to end
+   }
+
+   %row = Heightfield_operation.getRowNumById(%id);
+   if (%row <= $HeightfieldDirtyRow)
+      $HeightfieldDirtyRow = %row;
+   Heightfield::save();
+   return %id;
+}   
+
+
+//--------------------------------------
+function Heightfield::onDelete(%id)
+{
+   if (%id $= "")
+      %id = $selectedOperation;
+
+   %row = Heightfield_operation.getRowNumById(%id);
+   
+   // don't delete the first entry
+   if (%row == 0)
+      return;
+
+   Heightfield_operation.removeRow(%row);
+   
+   // adjust row numbers
+   for(%i = %row; %i < Heightfield_operation.rowCount(); %i++)
+   {
+      %id2 = Heightfield_operation.getRowId(%i);
+      %text = Heightfield_operation.getRowTextById(%id2);
+      %text = setWord(%text, 0, %i);
+      Heightfield_operation.setRowById(%id2, %text);
+   }
+
+   // adjust the Dirty Row position
+   if ($HeightfieldDirtyRow >= %row)
+      $HeightfieldDirtyRow = %row;   
+   
+   // find the next row to select
+   %rowCount = Heightfield_operation.rowCount()-1;
+   if (%row > %rowCount)
+      %row = %rowCount;
+
+   if (%id == $selectedOperation)
+      $selectedOperation = -1;
+
+   %id = Heightfield_operation.getRowId(%row);
+   Heightfield_operation.setSelectedById(%id);
+   Heightfield::save();
+}   
+
+
+//--------------------------------------
+function Heightfield_operation::onSelect(%this, %id, %text)
+{
+   Heightfield::saveTab();
+   Heightfield::hideTab();
+
+   $selectedOperation = %id; 
+   Heightfield::restoreTab($selectedOperation);
+   Heightfield::showTab($selectedOperation);
+   Heightfield::preview($selectedOperation);
+}   
+
+
+//--------------------------------------
+function Heightfield::restoreTab(%id)
+{
+   if (%id == -1)   
+      return;
+
+   Heightfield::hideTab();
+   
+   %data = restWords(Heightfield_operation.getRowTextById(%id));
+
+   %fieldCount = getFieldCount(%data);
+   for (%field=2; %field<%fieldCount; %field += 2)
+   {
+      %obj = getField(%data, %field);
+      %obj.setValue( getField(%data, %field+1) );
+   }
+   Heightfield::save();
+}  
+
+ 
+//--------------------------------------
+function Heightfield::saveTab()
+{
+   if ($selectedOperation == -1)   
+      return;
+   
+   %data = Heightfield_operation.getRowTextById($selectedOperation);
+
+   %rowNum = getWord(%data, 0);
+   %data = restWords(%data);   
+   %newdata = getField(%data,0) @ "\t" @ getField(%data,1);
+
+   %fieldCount = getFieldCount(%data);
+   for (%field=2; %field < %fieldCount; %field += 2)
+   {
+      %obj = getField(%data, %field);
+      %newdata = %newdata @ "\t" @ %obj @ "\t" @ %obj.getValue();
+   }
+   // keep track of the top-most dirty operation
+   // so we know who to evaluate later
+   if (%data !$= %newdata)
+   {
+      %row = Heightfield_operation.getRowNumById($selectedOperation);
+      if (%row <= $HeightfieldDirtyRow && %row > 0)
+         $HeightfieldDirtyRow = %row;
+   }
+
+   Heightfield_operation.setRowById($selectedOperation, %rowNum @ " " @ %newdata);
+   Heightfield::save();
+}  
+
+
+//--------------------------------------
+function Heightfield::preview(%id)
+{
+   %rowCount = Heightfield_operation.rowCount();
+   if (%id $= "")
+      %id = Heightfield_operation.getRowId(%rowCount-1);
+
+   %row = Heightfield_operation.getRowNumById(%id);
+
+   Heightfield::refresh(%row);
+   terraformer.previewScaled(HeightfieldPreview, %row);
+}   
+
+
+//--------------------------------------
+function Heightfield::refresh(%last)
+{
+   if (%last $= "")   
+      %last = Heightfield_operation.rowCount()-1;
+
+   // always update the general info
+   Heightfield::eval(Heightfield_operation.getRowId(0));
+
+   for( 0; $HeightfieldDirtyRow<=%last; $HeightfieldDirtyRow++)
+   {
+      %id = Heightfield_operation.getRowId($HeightfieldDirtyRow);
+      Heightfield::eval(%id);
+   }
+   Heightfield::save();
+}   
+
+
+//--------------------------------------
+function Heightfield::apply(%id)
+{
+   %rowCount = Heightfield_operation.rowCount();
+   if (%rowCount < 1)
+      return;
+   if (%id $= "")
+      %id = Heightfield_operation.getRowId(%rowCount-1);
+
+   %row = Heightfield_operation.getRowNumById(%id);
+
+   HeightfieldPreview.setRoot();
+   Heightfield::refresh(%row);
+   terraformer.setTerrain(%row);
+
+   terraformer.setCameraPosition(0,0,0); 
+   ETerrainEditor.isDirty = true;
+}   
+
+//--------------------------------------
+$TerraformerSaveRegister = 0;
+function Heightfield::saveBitmap(%name)
+{
+   if(%name $= "")
+      getSaveFilename("*.png", "Heightfield::doSaveBitmap",
+         $TerraformerHeightfieldDir @ "/" @ fileBase($Client::MissionFile) @ ".png");
+   else
+      Heightfield::doSaveBitmap(%name);
+}
+
+function Heightfield::doSaveBitmap(%name)
+{        
+   terraformer.saveGreyscale($TerraformerSaveRegister, %name);
+}
+
+//--------------------------------------
+
+function Heightfield::save()
+{
+   %script = "";
+   %rowCount = Heightfield_operation.rowCount();
+   for(%row = 0; %row < %rowCount; %row++)
+   {
+      if(%row != 0)
+         %script = %script @ "\n";
+      %data = restWords(Heightfield_operation.getRowText(%row));
+      %script = %script @ expandEscape(%data);
+   }
+   terrain.setHeightfieldScript(%script);
+   ETerrainEditor.isDirty = true;
+}
+
+//--------------------------------------
+function Heightfield::import()
+{
+   getLoadFilename("*.ter", "Heightfield::doLoadHeightfield");
+}   
+
+
+//--------------------------------------
+function Heightfield::loadFromScript(%script,%leaveCamera)
+{
+   echo(%script);
+
+   Heightfield_operation.clear();
+   $selectedOperation = -1;
+   $HeightfieldDirtyRow = -1;
+
+   // zero out all shifting
+   HeightfieldPreview.reset();
+
+   for(%rec = getRecord(%script, %i); %rec !$= ""; %rec = getRecord(%script, %i++))
+      Heightfield::add(collapseEscape(%rec));
+
+   if (Heightfield_operation.rowCount() == 0)
+   {
+      // if there was a problem executing the script restore
+      // the operations list to a known state
+      Heightfield_operation.clear();
+      Heightfield::add("General\tTab_general\tgeneral_min_height\t50\tgeneral_scale\t300\tgeneral_water\t0.000\tgeneral_centerx\t0\tgeneral_centery\t0");
+   }
+   %data = restWords(Heightfield_operation.getRowText(0));
+   %x = getField(%data,7); 
+   %y = getField(%data,9); 
+   HeightfieldPreview.setOrigin(%x, %y);
+   Heightfield_operation.setSelectedById(Heightfield_operation.getRowId(0));
+
+   // Move the control object to the specified position
+   if (!%leaveCamera)
+      terraformer.setCameraPosition(%x,%y); 
+}   
+
+//--------------------------------------
+function strip(%stripStr, %strToStrip)
+{
+   %len = strlen(%stripStr);
+   if(strcmp(getSubStr(%strToStrip, 0, %len), %stripStr) == 0)
+      return getSubStr(%strToStrip, %len, 100000);
+   return %strToStrip;
+}
+
+function Heightfield::doLoadHeightfield(%name)
+{
+   // ok, we're getting a terrain file...
+
+   %newTerr = new TerrainBlock() // unnamed - since we'll be deleting it shortly:
+   {
+      position = "0 0 -1000";
+      terrainFile = strip("terrains/", %name);
+      squareSize = 8;
+      visibleDistance = 100;
+   };
+   if(isObject(%newTerr))
+   {
+      %script = %newTerr.getHeightfieldScript();
+      if(%script !$= "")
+         Heightfield::loadFromScript(%script);
+      %newTerr.delete();
+   }   
+}   
+
+
+//--------------------------------------
+function Heightfield::setBitmap()
+{
+   getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", "Heightfield::doSetBitmap");
+}   
+
+//--------------------------------------
+function Heightfield::doSetBitmap(%name)
+{
+   bitmap_name.setValue(%name);
+   Heightfield::saveTab();
+   Heightfield::preview($selectedOperation);
+}   
+
+
+//--------------------------------------
+function Heightfield::hideTab()
+{
+   tab_terrainFile.setVisible(false);
+   tab_fbm.setvisible(false);
+   tab_rmf.setvisible(false);
+   tab_canyon.setvisible(false);
+   tab_smooth.setvisible(false);
+   tab_smoothWater.setvisible(false);
+   tab_smoothRidge.setvisible(false);
+   tab_filter.setvisible(false);
+   tab_turbulence.setvisible(false);
+   tab_thermal.setvisible(false);
+   tab_hydraulic.setvisible(false);
+   tab_general.setvisible(false);
+   tab_bitmap.setvisible(false);
+   tab_blend.setvisible(false);
+   tab_sinus.setvisible(false);
+}
+
+
+//--------------------------------------
+function Heightfield::showTab(%id)
+{
+   Heightfield::hideTab();
+   %data = restWords(Heightfield_operation.getRowTextById(%id));
+   %tab  = getField(%data,1);
+   echo("Tab data: " @ %data @ " tab: " @ %tab);
+   %tab.setVisible(true);
+}
+
+
+//--------------------------------------
+function Heightfield::center()
+{
+   %camera = terraformer.getCameraPosition(); 
+   %x = getWord(%camera, 0);
+   %y = getWord(%camera, 1);
+
+   HeightfieldPreview.setOrigin(%x, %y);
+
+   %origin = HeightfieldPreview.getOrigin();
+   %x = getWord(%origin, 0);
+   %y = getWord(%origin, 1);
+
+   %root = HeightfieldPreview.getRoot();
+   %x += getWord(%root, 0);
+   %y += getWord(%root, 1);
+
+   general_centerx.setValue(%x);
+   general_centery.setValue(%y);
+   Heightfield::saveTab();
+}   
+
+function ExportHeightfield::onAction()
+{
+   error("Time to export the heightfield...");
+   if (Heightfield_operation.getSelectedId() != -1) {
+      $TerraformerSaveRegister = getWord(Heightfield_operation.getValue(), 0);
+      Heightfield::saveBitmap("");
+   }
+}
+
+//------------------------------------------------------------------------------
+// Functions
+//------------------------------------------------------------------------------
+
+function TerrainEditor::onGuiUpdate(%this, %text)
+{
+   %mouseBrushInfo = " (Mouse Brush) #: " @ getWord(%text, 0) @ "  avg: " @ getWord(%text, 1);
+   %selectionInfo = " (Selection) #: " @ getWord(%text, 2) @ "  avg: " @ getWord(%text, 3);
+   
+   TEMouseBrushInfo.setValue(%mouseBrushInfo);
+   TEMouseBrushInfo1.setValue(%mouseBrushInfo);
+   TESelectionInfo.setValue(%selectionInfo);
+   TESelectionInfo1.setValue(%selectionInfo);
+}
+
+function TerrainEditor::offsetBrush(%this, %x, %y)
+{
+   %curPos = %this.getBrushPos();
+   %this.setBrushPos(getWord(%curPos, 0) + %x, getWord(%curPos, 1) + %y);
+}
+
+function TerrainEditor::swapInLoneMaterial(%this, %name)
+{
+   // swapped?
+   if(%this.baseMaterialsSwapped $= "true")
+   {
+      %this.baseMaterialsSwapped = "false";
+      tEditor.popBaseMaterialInfo();
+   }
+   else
+   {
+      %this.baseMaterialsSwapped = "true";
+      %this.pushBaseMaterialInfo();
+      %this.setLoneBaseMaterial(%name);
+   }
+      
+   //
+   flushTextureCache();
+}
+
+//------------------------------------------------------------------------------
+// Functions
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+
+function TELoadTerrainButton::onAction(%this)
+{
+   getLoadFilename("terrains/*.ter", %this @ ".gotFileName");
+}
+
+function TELoadTerrainButton::gotFileName(%this, %name)
+{
+   //
+   %pos = "0 0 0";
+   %squareSize = "8";
+   %visibleDistance = "1200";
+
+   // delete current
+   if(isObject(terrain))
+   {
+      %pos = terrain.position;
+      %squareSize = terrain.squareSize;
+      %visibleDistance = terrain.visibleDistance;
+
+      terrain.delete();
+   }
+
+   // create new
+   new TerrainBlock(terrain)
+   {
+      position = %pos;
+      terrainFile = %name;
+      squareSize = %squareSize;
+      visibleDistance = %visibleDistance;
+   };
+
+   ETerrainEditor.attachTerrain();
+}
+
+function TerrainEditorSettingsGui::onWake(%this)
+{
+   TESoftSelectFilter.setValue(ETerrainEditor.softSelectFilter);
+}
+
+function TerrainEditorSettingsGui::onSleep(%this)
+{
+   ETerrainEditor.softSelectFilter = TESoftSelectFilter.getValue();
+}
+
+function TESettingsApplyButton::onAction(%this)
+{
+   ETerrainEditor.softSelectFilter = TESoftSelectFilter.getValue();
+   ETerrainEditor.resetSelWeights(true);
+   ETerrainEditor.processAction("softSelect");
+}
+
+function getPrefSetting(%pref, %default)
+{
+   // 
+   if(%pref $= "")
+      return(%default);
+   else
+      return(%pref);
 }
 
 //--------------------------------------
@@ -2637,6 +4349,60 @@ function EWAddExistingReplay(%replay) {
 
 	EWActiveReplayList.init();
 	EWorldEditor.isDirty = true;
+}
+
+//------------------------------------------------------------------------------
+// Terrain Creation functions ~ Connie
+
+function ETerrainEditor::checkForTerrain(%this, %checkforfile)
+{
+	if (!isObject(terrain)) {
+		// %checkforfile TRUE = it will check if createdTerrains already has a terrain block with the same name as the mission file.
+		// %checkforfile FALSE = it will not, it will go straight to asking you if you want to make a new terrain file.
+		if (%checkforfile == true) {
+			%file = "platinum/data/terrains/createdTerrains/" @ fileBase($Server::MissionFile) @ ".ter";
+
+			if (isFile(%file)) {
+				MessageBoxYesNo("Notice!", "This level has a Terrain Block associated with it. Do you want to add it?", "ETerrainEditor.addTerrain(%file);", "ETerrainEditor.checkForTerrain(false);");
+			} else {
+				ETerrainEditor.checkForTerrain(false);
+			}
+		} else {
+			MessageBoxYesNo("Notice!", "This level does not have a Terrain Block inside of it. Do you want to create a new one? (Any existing one with the same file name will be overwritten!)", "ETerrainEditor.addTerrain();", "");
+		}
+	}
+}
+
+function ETerrainEditor::addTerrain(%this, %file)
+{
+	if (!%file) {
+		%templateterrfile = "platinum/data/terrains/template.ter";
+
+		if (!isFile(%templateterrfile)) {
+			MessageBoxOK("Oops!", "The template terrain file does not exist! Can't create new terrain file.");
+			return;
+		}
+
+		%newterrfile = "platinum/data/terrains/createdTerrains/" @ fileBase($Server::MissionFile) @ ".ter";
+
+		copyFile(%templateterrfile, %newterrfile);
+
+		if (isFile(%newterrfile)) {
+			new TerrainBlock(terrain)
+			{
+				terrainFile = %newterrfile;
+				squareSize = "8";
+			};
+		} else {
+			MessageBoxOK("Oops!", "Failed to create copy terrain file.");
+		}
+	} else {
+		new TerrainBlock(terrain)
+		{
+			terrainFile = %file;
+			squareSize = "8";
+		};
+	}
 }
 
 //------------------------------------------------------------------------------

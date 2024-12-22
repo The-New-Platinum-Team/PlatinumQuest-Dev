@@ -497,16 +497,16 @@ $Inspect::CustomFieldType["ColorI"] = 12;
 $Inspect::CustomFieldType["ColorF"] = 13;
 $Inspect::CustomFieldType["SimObject"] = 14;
 
-$Inspect::MathFieldCount[15] = 2; //TypePoint2I
-$Inspect::MathFieldCount[16] = 2; //TypePoint2F
-$Inspect::MathFieldCount[17] = 1; //TypePoint3F
-$Inspect::MathFieldCount[18] = 4; //TypePoint4F
-$Inspect::MathFieldCount[19] = 4; //TypeRectI
-$Inspect::MathFieldCount[20] = 4; //TypeRectF
-$Inspect::MathFieldCount[21] = 1; //TypeMatrixPosition
-$Inspect::MathFieldCount[22] = 1; //TypeMatrixRotation
-$Inspect::MathFieldCount[23] = 2; //TypeBox3F
-$Inspect::MathFieldCount[34] = 1; //TypeTriggerPolyhedron
+$Inspect::MathFieldCount["Point2I"] = 2; //TypePoint2I
+$Inspect::MathFieldCount["Point2I"] = 2; //TypePoint2F
+$Inspect::MathFieldCount["Point3F"] = 1; //TypePoint3F
+$Inspect::MathFieldCount["Point4F"] = 4; //TypePoint4F
+$Inspect::MathFieldCount["RectI"] = 4; //TypeRectI
+$Inspect::MathFieldCount["RectF"] = 4; //TypeRectF
+$Inspect::MathFieldCount["MatrixPosition"] = 1; //TypeMatrixPosition
+$Inspect::MathFieldCount["MatrixRotation"] = 1; //TypeMatrixRotation
+$Inspect::MathFieldCount["Box3F"] = 2; //TypeBox3F
+$Inspect::MathFieldCount["TriggerPolyhedron"] = 1; //TypeTriggerPolyhedron
 
 //Mapping of field type -> expected class for class-type fields
 $Inspect::TypeClass[25] = GameBaseData;
@@ -579,14 +579,14 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 	}
 
 	//Value
-	switch (%type) {
+	switch$ (%type) {
 	//TypeSeparator = -1
-	case -1:
+	case "-1":
 	//Nothing
 
 	//TypeBool =  3,  <-- Checkbox
 	//TypeFlag = 11,  <-- Checkbox
-	case 3 or 11:
+	case "bool" or "flag":
 		%group.add(%entry = new GuiCheckBoxCtrl() {
 			profile = "GuiCheckBoxProfile";
 			horizSizing = "width";
@@ -615,7 +615,7 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 	//	});
 
 	//TypeEnum = 10,  <-- Popup menu
-	case 10:
+	case "enumval":
 		%group.add(%entry = new GuiPopUpMenuCtrl(InspectEnumEntry) {
 			profile = "GuiPopUpMenuProfile";
 			horizSizing = "width";
@@ -650,7 +650,7 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 	//TypeMatrixRotation    = 22,  <-- Multiple text boxes
 	//TypeBox3F             = 23,  <-- Multiple text boxes
 	//TypeTriggerPolyhedron = 34,  <-- Multiple text boxes
-	case 15 or 16 or 17 or 18 or 19 or 20 or 21 or 22 or 23 or 34:
+	case "Point2I" or "Point2F" or "Point3F" or "Point4F" or "RectI" or "RectF" or "MatrixPosition" or "MatrixRotation" or "Box3F" or "TriggerPolyhedron":
 		//Specialty case: bitmaps and bitmap buttons will auto size if you set
 		// their extent to 0 0. Only these classes do that.
 		if (%field $= "extent" && (
@@ -701,7 +701,7 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 		}
 
 	//TypeGuiProfile = 24,  <-- Popup menu
-	case 24:
+	case "GuiProfile":
 		%group.add(%entry = new GuiPopUpMenuCtrl() {
 			profile = "GuiPopUpMenuProfile";
 			horizSizing = "width";
@@ -734,8 +734,8 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 	//TypeDecalDataPtr              = 40,  <-- Popup menu
 	//TypeAudioEnvironmentPtr       = 42,  <-- Popup menu
 	//TypeAudioSampleEnvironmentPtr = 43,  <-- Popup menu
-	case 25 or 26 or 28 or 31 or 32 or 33 or 35 or 38 or 40 or 42 or 43:
-		%class = $Inspect::TypeClass[%type];
+	case "GameBaseData" or "ExplosionData" or "SplashData" or "ParticleEmitterData" or "AudioDescription" or "AudioProfile" or "ProjectileData" or "DebrisData" or "DecalData" or "AudioEnvironment" or "AudioSampleEnvironment":
+		%class = %type; // $Inspect::TypeClass[%type];
 
 		%group.add(%entry = new GuiPopUpMenuCtrl() {
 			profile = "GuiPopUpMenuProfile";
@@ -748,7 +748,7 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 			maxLength = "255";
 			maxPopupHeight = "400";
 		});
-		%dbType = $Inspect::TypeClass[%type];
+		%dbType = %type; // $Inspect::TypeClass[%type];
 
 		//Read all the potential datablocks from the data block group
 		%count = DataBlockGroup.getCount();
@@ -769,7 +769,7 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 		%entry.sort();
 
 	//Custom types
-	case 100 or 101 or 102:
+	case "100" or "101" or "102":
 		%group.add(%entry = new GuiPopUpMenuCtrl() {
 			profile = "GuiPopUpMenuProfile";
 			horizSizing = "width";
@@ -821,7 +821,7 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 		%entry.makeFirstResponder(false);
 
 	//TypeSimObjectPtr = 14,  <-- Object
-	case 14:
+	case "SimObjectPtr":
 		%group.add(%entry = new GuiTextEditCtrl() {
 			profile = "GuiInspectorTextEditProfile";
 			horizSizing = "width";

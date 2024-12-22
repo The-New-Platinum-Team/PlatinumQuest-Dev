@@ -147,7 +147,7 @@ new GuiControl(MainMenuGui) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "75 538";
-			extent = "500 85";
+			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
 			command = "quit();";
@@ -306,7 +306,7 @@ new GuiControl(MainMenuGui) {
 			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
-			command = "MenuOpenUrl(\"https://marbleblast.com\");";
+			command = "MenuOpenUrl(\"https://marbleblast.com/index.php/forum\");";
 			helpTag = "0";
 			text = "           Forums";
 			groupNum = "-1";
@@ -322,10 +322,10 @@ new GuiControl(MainMenuGui) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "75 558";
-			extent = "500 85";
+			extent = "500 84";
 			minExtent = "8 8";
 			visible = "1";
-			command = "MenuOpenUrl(\"https://discord.gg/UEkTDwg\");";
+			command = "MenuOpenUrl(\"https://discord.gg/BhyPpqGkFK\");";
 			helpTag = "0";
 			text = "           Discord";
 			groupNum = "-1";
@@ -519,15 +519,15 @@ function MainMenuGui::onWake(%this) {
 
 	// if engine modifications are not being used
 	// don't let the client play the game!!!
-	if (!$PluginSystemInit) {
-		// mac don't use exe files, vary the message error code!
-		if ($platform $= "macos")
-			%message = "Please use the launcher to launch PlatinumQuest. If this error persists, contact the Platinum Team for support.";
-		else
-			%message = "Please launch the game using the launcher. If this error persists, contact the Platinum Team for support.";
-		MessageBoxOK("Engine Failure", %message, "quit();");
-		return;
-	}
+	// if (!$PluginSystemInit) {
+	// 	// mac don't use exe files, vary the message error code!
+	// 	if ($platform $= "macos")
+	// 		%message = "Please use the launcher to launch PlatinumQuest. If this error persists, contact the Platinum Team for support.";
+	// 	else
+	// 		%message = "Please launch the game using the launcher. If this error persists, contact the Platinum Team for support.";
+	// 	MessageBoxOK("Engine Failure", %message, "quit();");
+	// 	return;
+	// }
 
 	VersionText.setText(shadow("2 2", "0000007f") @ "<color:ffffff><just:right><bold:32>" @ $THIS_VERSION_NAME);
 	VersionSub.setText(shadow("1 1", "0000007f") @ "<color:ffffff><font:18>" @ $THIS_VERSION_SUB);
@@ -591,11 +591,12 @@ function MainMenuGui::fixSizing(%this) {
 }
 
 function MainMenuGui::play(%this) {
-	if (getWord(getResolution(), 0) & 1 || getWord(getResolution(), 1) & 1) {
-		MessageBoxYesNo("Weird Resolution", "What type of resolution is " @ getResolution() @ ". You may have some problems.", "justPlayAlready();", "");
-	} else {
-		justPlayAlready();
-	}
+	justPlayAlready();
+	// if (getWord(getResolution(), 0) & 1 || getWord(getResolution(), 1) & 1) {
+	// 	MessageBoxYesNo("Weird Resolution", "What type of resolution is " @ getResolution() @ ". You may have some problems.", "justPlayAlready();", "");
+	// } else {
+	// 	justPlayAlready();
+	// }
 }
 
 function MainMenuGui::showExtras(%this) {
@@ -604,6 +605,24 @@ function MainMenuGui::showExtras(%this) {
 	if (ControllerGui.isJoystick()) {
 		%first = MenuCommunityButtons.getObject(2).getName();
 		ControllerGui.selectControl(%first);
+	}
+	// Hide "Community" title at low resolutions
+	%communityButtons = MenuOnlineButton TAB MenuMarblelandButton TAB MenuForumsButton TAB MenuDiscordButton TAB MenuBackButton;
+	%communityButtonsCount = 5;
+	if (getWord(getResolution(), 1) <= 720 && MenuCommunityText.isVisible()) {
+		MenuCommunityBg.setVisible(0);
+		MenuCommunityText.setVisible(0);
+		for (%i = 0; %i < %communityButtonsCount; %i++) {
+			%button = getField(%communityButtons, %i);
+			%button.position = getWord(%button.position, 0) SPC (getWord(%button.position, 1) - 110);
+		}
+	} else if (getWord(getResolution(), 1) > 720 && !MenuCommunityText.isVisible()) {
+		MenuCommunityBg.setVisible(1);
+		MenuCommunityText.setVisible(1);
+		for (%i = 0; %i < %communityButtonsCount; %i++) {
+			%button = getField(%communityButtons, %i);
+			%button.position = getWord(%button.position, 0) SPC (getWord(%button.position, 1) + 110);
+		}
 	}
 }
 

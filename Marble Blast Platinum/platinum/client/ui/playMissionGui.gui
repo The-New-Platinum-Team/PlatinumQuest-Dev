@@ -49,6 +49,34 @@ new GuiControlProfile(PMBarButtonRightProfile : PQButtonProfile) {
 	bitmap = "./play/barbuttonright.png";
 	hasBitmapArray = true;
 };
+new GuiControlProfile(PMBarButtonNoShadowProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonnoshadow.png";
+	hasBitmapArray = true;
+};
+new GuiControlProfile(PMBarButtonLeftNoShadowProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonleftnoshadow.png";
+	hasBitmapArray = true;
+};
+new GuiControlProfile(PMBarButtonRightNoShadowProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonrightnoshadow.png";
+	hasBitmapArray = true;
+};
+new GuiControlProfile(PMBarButtonSingleNoShadowProfile : PQButtonProfile) {
+	fillColor = "85 85 85 255";
+	fillColorNA = "153 153 153 255";
+	justify = "center";
+	bitmap = "./play/barbuttonsinglenoshadow.png";
+	hasBitmapArray = true;
+};
 new GuiControlProfile(PMBarButtonTabProfile : PQButtonProfile) {
 	fillColor = "85 85 85 255";
 	fillColorNA = "153 153 153 255";
@@ -1088,7 +1116,7 @@ new GuiControl(PlayMissionGui) {
 		horizSizing = "right";
 		vertSizing = "top";
 		position = "364 593";
-		extent = "719 97";
+		extent = "814 291";
 		minExtent = "8 8";
 		visible = "0";
 		helpTag = "0";
@@ -1109,6 +1137,19 @@ new GuiControl(PlayMissionGui) {
 		buttonType = "PushButton";
 		repeatPeriod = "1000";
 		repeatDecay = "1";
+	};
+	new GuiMLTextCtrl(PM_RtaSpeedrunTimer) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "380 70";
+		extent = "600 100";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
 	};
 };
 //--- OBJECT WRITE END ---
@@ -1139,7 +1180,7 @@ function PlayMissionGui::open(%this, %marbleland) {
 			%this.init();
 		}
 	}
-
+	Canvas.doHover = true;
 	RootGui.setContent(%this);
 }
 
@@ -1360,8 +1401,9 @@ function PlayMissionGui::onWake(%this) {
 function PlayMissionGui::initInterface(%this) {
 	//If we have already seen the credits, show the option to see them again
 	if ($pref::Congratulated) {
-		$PMG::BarButton["Extra", "Count"] = 7;
-		$PMG::BarButton["ExtraLB", "Count"] = 6;
+		$PMG::BarButton["Extra", "Count"] = 8;
+		$PMG::BarButton["ExtraLB", "Count"] = 7;
+		$PMG::BarButton["ExtraLB", "RowCount"] = 3;
 	}
 
 	if (mp()) {
@@ -1428,7 +1470,7 @@ function PlayMissionGui::initInterface(%this) {
 
 function PlayMissionGui::onSleep(%this) {
 	deactivateMenuHandler(PMMenu);
-
+	Canvas.doHover = false;
 	if (mp()) {
 		%this.clearServerPlayerList();
 	}
@@ -2887,7 +2929,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	%bx = max(459, (getWord(%this.getExtent(), 0) - getWord(PM_ButtonBox.getExtent(), 0)) / 2);
 	%by = %bottom - getWord(PM_ButtonBox.getExtent(), 1);
 	PM_ButtonBox.setPosition(%bx SPC %by);
-	PM_ExtrasBox.setPosition((%bx - 95) SPC (%by - 85));
+	PM_ExtrasBox.setPosition((%bx + 95) SPC (%by - 85 - 97 * 2));
 
 	PM_MissionBox.setExtent(%missionListWidth SPC %bottom);
 
@@ -3231,14 +3273,18 @@ $PMG::BarButton["Extra", "Command",    5] = "if ($ControllerEvent) {$Game::Recor
 $PMG::BarButton["Extra", "Variable",   5] = "$Game::Record";
 $PMG::BarButton["Extra", "ButtonType", 5] = "ToggleButton";
 $PMG::BarButton["Extra", "Bitmap",     5] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["Extra", "Name",       6] = "PM_MissionCredits";
-$PMG::BarButton["Extra", "Command",    6] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
-$PMG::BarButton["Extra", "Bitmap",     6] = "platinum/client/ui/play/buttons/credits.png";
-$PMG::BarButton["Extra", "Count"] = 6; //Increases to 7 after showing the credits
+$PMG::BarButton["Extra", "Name",       6] = "PM_MissionRtaSpeedrun";
+$PMG::BarButton["Extra", "Command",    6] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
+$PMG::BarButton["Extra", "Bitmap",     6] = "platinum/client/ui/play/buttons/rta.png";
+$PMG::BarButton["Extra", "Name",       7] = "PM_MissionCredits";
+$PMG::BarButton["Extra", "Command",    7] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
+$PMG::BarButton["Extra", "Bitmap",     7] = "platinum/client/ui/play/buttons/credits.png";
+$PMG::BarButton["Extra", "Count"] = 7; //Increases to 8 after showing the credits
 $PMG::BarButton["Extra", "HaveTab"] = true;
 $PMG::BarButton["Extra", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["Extra", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
 $PMG::BarButton["Extra", "CommandNameCancel"] = "Close";
+$PMG::BarButton["Extra", "RowCount"] = 3;
 
 $PMG::BarButton["ExtraMarbleland", "Name",       0] = "PM_MissionMarble";
 $PMG::BarButton["ExtraMarbleland", "Command",    0] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(MarbleSelectDlg);";
@@ -3257,11 +3303,15 @@ $PMG::BarButton["ExtraMarbleland", "Command",    4] = "if ($ControllerEvent) {$G
 $PMG::BarButton["ExtraMarbleland", "Variable",   4] = "$Game::Record";
 $PMG::BarButton["ExtraMarbleland", "ButtonType", 4] = "ToggleButton";
 $PMG::BarButton["ExtraMarbleland", "Bitmap",     4] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["ExtraMarbleland", "Count"] = 5; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraMarbleland", "Name",       5] = "PM_MissionRtaSpeedrun";
+$PMG::BarButton["ExtraMarbleland", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
+$PMG::BarButton["ExtraMarbleland", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
+$PMG::BarButton["ExtraMarbleland", "Count"] = 6;
 $PMG::BarButton["ExtraMarbleland", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarbleland", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarbleland", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
 $PMG::BarButton["ExtraMarbleland", "CommandNameCancel"] = "Close";
+$PMG::BarButton["ExtraMarbleland", "RowCount"] = 2;
 
 $PMG::BarButton["ExtraMarblelandLB", "Name",       0] = "PM_MissionMarble";
 $PMG::BarButton["ExtraMarblelandLB", "Command",    0] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(MarbleSelectDlg);";
@@ -3280,11 +3330,15 @@ $PMG::BarButton["ExtraMarblelandLB", "Command",    4] = "if ($ControllerEvent) {
 $PMG::BarButton["ExtraMarblelandLB", "Variable",   4] = "$Game::Record";
 $PMG::BarButton["ExtraMarblelandLB", "ButtonType", 4] = "ToggleButton";
 $PMG::BarButton["ExtraMarblelandLB", "Bitmap",     4] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["ExtraMarblelandLB", "Count"] = 5; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraMarblelandLB", "Name",       5] = "PM_MissionRtaSpeedrun";
+$PMG::BarButton["ExtraMarblelandLB", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
+$PMG::BarButton["ExtraMarblelandLB", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
+$PMG::BarButton["ExtraMarblelandLB", "Count"] = 6;
 $PMG::BarButton["ExtraMarblelandLB", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarblelandLB", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarblelandLB", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
 $PMG::BarButton["ExtraMarblelandLB", "CommandNameCancel"] = "Close";
+$PMG::BarButton["ExtraMarblelandLB", "RowCount"] = 2;
 
 $PMG::BarButton["Bottom", "Name",    0] = "PM_MissionPlay";
 $PMG::BarButton["Bottom", "Command", 0] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
@@ -3335,14 +3389,18 @@ $PMG::BarButton["ExtraLB", "Command",    4] = "if ($ControllerEvent) {$Game::Rec
 $PMG::BarButton["ExtraLB", "Variable",   4] = "$Game::Record";
 $PMG::BarButton["ExtraLB", "ButtonType", 4] = "ToggleButton";
 $PMG::BarButton["ExtraLB", "Bitmap",     4] = "platinum/client/ui/play/buttons/record.png";
-$PMG::BarButton["ExtraLB", "Name",       5] = "PM_MissionCredits";
-$PMG::BarButton["ExtraLB", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
-$PMG::BarButton["ExtraLB", "Bitmap",     5] = "platinum/client/ui/play/buttons/credits.png";
-$PMG::BarButton["ExtraLB", "Count"] = 5; //Increases to 7 after showing the credits
+$PMG::BarButton["ExtraLB", "Name",       5] = "PM_MissionRtaSpeedrun";
+$PMG::BarButton["ExtraLB", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
+$PMG::BarButton["ExtraLB", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
+$PMG::BarButton["ExtraLB", "Name",       6] = "PM_MissionCredits";
+$PMG::BarButton["ExtraLB", "Command",    6] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); PlayMissionGui.startCredits();";
+$PMG::BarButton["ExtraLB", "Bitmap",     6] = "platinum/client/ui/play/buttons/credits.png";
+$PMG::BarButton["ExtraLB", "Count"] = 6; //Increases to 7 after showing the credits
 $PMG::BarButton["ExtraLB", "HaveTab"] = true;
 $PMG::BarButton["ExtraLB", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraLB", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
 $PMG::BarButton["ExtraLB", "CommandNameCancel"] = "Close";
+$PMG::BarButton["ExtraLB", "RowCount"] = 2; //Increases to 3 after showing the credits
 
 $PMG::BarButton["BottomLB", "Name",    0] = "PM_MissionPlay";
 $PMG::BarButton["BottomLB", "Command", 0] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
@@ -3387,6 +3445,7 @@ $PMG::BarButton["ExtraMP", "HaveTab"] = true;
 $PMG::BarButton["ExtraMP", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMP", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
 $PMG::BarButton["ExtraMP", "CommandNameCancel"] = "Close";
+$PMG::BarButton["ExtraMP", "RowCount"] = 3;
 
 $PMG::BarButton["BottomMP", "Name",    0] = "PM_MissionPlay";
 $PMG::BarButton["BottomMP", "Command", 0] = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
@@ -3410,18 +3469,51 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 	%bar.clear();
 
 	%count = $PMG::BarButton[%which, "Count"];
+	%rowCount = $PMG::BarButton[%which, "RowCount"];
 
-	%bar.add(new GuiControl() {
-		profile = "GuiDefaultProfile";
-		horizSizing = "width";
-		vertSizing = "height";
-		position = "26 12";
-		extent = ((%count * 95) + 2) SPC "79";
-		minExtent = "8 8";
-		visible = "1";
-		helpTag = "0";
-		blur = "1";
-	});
+	if (%bar !$= "PM_ExtrasBox") {
+		%bar.add(new GuiControl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "26 12";
+			extent = ((%count * 95) + 2) SPC "79";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			blur = "1";
+		});
+	} else {
+		// 3xN grid
+		%colCount = mCeil(%count / %rowCount);
+		%colDiff = %colCount * %rowCount - %count;
+		if (%colDiff == 0) {
+			%colOffset = 0;
+		} else {
+			%colOffset = 95 / (%colCount - %colDiff); 
+		}
+		for (%i = 0; %i < %rowCount; %i++) {
+			%barXPos = 26;
+			%barYPos = 194 - (81 * %i) + 11;
+			%barXExtent = %colCount * 95 + 2;
+			if (%i == %rowCount - 1) {
+				%barXPos += %colOffset;
+				%barXPos = mFloor(%barXPos);
+				%barXExtent = mFloor((%colCount - %colDiff) * 95 + 2);
+			}
+			%bar.add(new GuiControl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = %barXPos SPC %barYPos;
+				extent = %barXExtent SPC "80";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				blur = "1";
+			});
+		}
+	}
 	for (%i = 0; %i < %count; %i ++) {
 		%profile = "PMBarButtonProfile";
 		if (%i == 0) {
@@ -3452,11 +3544,66 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 			%profile = "PMBarButtonRightTabProfile";
 		}
 
+		%posY = 0;
+
+		if (%bar $= "PM_ExtrasBox") {
+			// 3xN grid
+			%colCount = mCeil(%count / %rowCount);
+			%col = %i % %colCount;
+			%row = mFloor(%i / %colCount);
+			%colDiff = %colCount * %rowCount - %count;
+			if (%colDiff == 0) {
+				%colOffset = 0;
+			} else {
+				%colOffset = 95 / (%colCount - %colDiff); 
+			}
+			if (%row == %rowCount - 1)
+				%colCount = %colCount - %colDiff;
+
+			if (%col == 0) {
+				if (%colCount == 1) {
+					%profile = "PMBarButtonSingleNoShadowProfile";
+					%posX = 3; 
+					%extentX = 143;
+					%offset = "0 0";
+					%controlOffset = "24 11";
+				} else {
+					%profile = %row > 0 ? "PMBarButtonLeftNoShadowProfile" : "PMBarButtonLeftProfile";
+					%posX = 3; 
+					%extentX = 119;
+					%offset = "12 0";
+					%controlOffset = "24 11";
+				}
+			} else {
+				if (%row > 0) {
+					%profile = "PMBarButtonNoShadowProfile";
+				}
+				%posX = 122 + 95 * (%col - 1); 
+				%extentX = 95;
+				%offset = "0 0";
+				%controlOffset = "0 11";
+			}
+			if (%col == %colCount - 1 && %colCount > 1) {
+				%profile = %row > 0 ? "PMBarButtonRightNoShadowProfile" :"PMBarButtonRightProfile";
+				%extentX = 119;
+				%offset = "-12 0";
+				%controlOffset = "0 11";
+			}
+			if (%row == %rowCount - 1) {
+				%posX += %colOffset;
+				%posX = mFloor(%posX);
+			}
+			if (%i == 1) {
+				%profile = "PMBarButtonTabProfile";
+			}
+			%posY = 194 - (81 * %row);
+		}
+
 		%bar.add(new GuiBorderButtonCtrl($PMG::BarButton[%which, "Name", %i]) {
 			profile = %profile;
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = %posX SPC 0;
+			position = %posX SPC %posY;
 			extent = %extentX SPC 128;
 			minExtent = "8 8";
 			visible = "1";
@@ -4537,4 +4684,8 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 	%this.globalScoreCacheLoading[%mission] = false;
 	%this.globalScoreCacheFailed[%mission] = true;
 	%this.updateCurrentMission();
+}
+
+function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
+	PM_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }
