@@ -409,6 +409,8 @@ function startGame() {
 	}
 	onNextFrame(setGameState, "start");
 	onNextFrame(activateMovingObjects, true);
+
+	RtaSpeedrun.missionStarted();
 }
 
 function endGameSetup() {
@@ -431,6 +433,8 @@ function endGameSetup() {
 	Mode::callback("onEndGameSetup", "");
 	serverCbOnEndGameSetup();
 	serverSendCallback("onEndGameSetup");
+
+	RtaSpeedrun.missionEnded();
 
 	if ($Server::ServerType $= "MultiPlayer") {
 		// update the score list
@@ -1095,6 +1099,8 @@ function restartLevel(%exitgame) {
 
 	Mode::callback("onRestartLevel", "");
 	serverSendCallback("onRestartLevel");
+
+	RtaSpeedrun.missionRestarted();
 }
 
 function GameConnection::quickRespawnPlayer(%this) {

@@ -1,0 +1,312 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2023 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(RtaSpeedrunDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+		_guiSize = "800 600";
+		defaultControl = "RtaClose";
+		commandSelect = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+		commandCancel = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+		commandNameSelect = "Close";
+
+	new GuiControl(RtaBody) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "89 100";
+		extent = "700 500";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+			wrap = "0";
+
+		new GuiBorderButtonCtrl(RtaClose) {
+			profile = "PQButtonProfile";
+			horizSizing = "center";
+			vertSizing = "top";
+			position = "350 434";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Back";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiMLTextCtrl(RtaTitleText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 16";
+			extent = "700 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<bold:28><just:center>RTA Speedrun Mode";
+		};
+		new GuiMLTextCtrl(RtaStatusText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 52";
+			extent = "700 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<font:22><just:center>Not currently active";
+		};
+		new GuiMLTextCtrl(RtaInformationText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "22 80";
+			extent = "328 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "<font:20>This mode allows you to perform real time speedruns! It will automatically remove load times and calculate the final time.\n<just:center><bold:28>Usage\n<just:left><font:8>\n<font:20>To setup a speedrun, first use the level selection screen to nagivate to the <bold:20>final<font:20> level in the speedrun. Open this RTA menu, select \"Set Final Level\", and select \"Start Speedrun\". Then, navigate to the <bold:20>first<font:20> level in the run. Adjust any other settings you'd like, click Play, and start playing!";
+		};
+		new GuiBorderButtonCtrl(RtaStartButton) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "42 386";
+			extent = "200 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RtaSpeedrun.start(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateStatusText();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Start Speedrun";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(RtaStopButton) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "250 386";
+			extent = "200 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RtaSpeedrun.stop(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateStatusText();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Stop Speedrun";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(RtaRestartButton) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "458 386";
+			extent = "200 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RtaSpeedrun.stop(); RtaSpeedrun.start(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateStatusText();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Restart Speedrun";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBitmapCtrl(RtaEndLevelImage) {
+			profile = "GuiDefaultProfile";
+			visible = "1";
+			helpTag = "0";
+			wrap = "0";
+			bitmap = "platinum/client/ui/play/missingicon.png";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "440 80";
+			extent = "160 90";
+			minExtent = "41 41";
+		};
+		new GuiMLTextCtrl(RtaEndText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "left";
+			vertSizing = "bottom";
+			position = "356 180";
+			extent = "328 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+				defaultText = "No Ending";
+		};
+		new GuiBorderButtonCtrl(RtaSetEndButton) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "420 236";
+			extent = "200 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RtaSpeedrun.setEnd(); RtaSpeedrunDlg.updateEndText();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Set Final Level";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiCheckBoxCtrl(RtaEggTimeCheckbox) {
+			profile = "PQCheckboxProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "393 290";
+			extent = "230 27";
+			minExtent = "8 8";
+			visible = "1";
+			active = "0";
+			variable = "$RtaTimeEndsOnEgg";
+			helpTag = "0";
+			text = "End Time on Egg Collection";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiCheckBoxCtrl(RtaSkipNameEntryCheckbox) {
+			profile = "PQCheckboxProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "393 320";
+			extent = "230 27";
+			minExtent = "8 8";
+			visible = "1";
+			variable = "$Pref::RtaSkipNameEntry";
+			helpTag = "0";
+			text = "Skip name entry";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function RtaSpeedrunDlg::onWake(%this) {
+	//Try to center this GUI, but don't overlap the dropdowns
+	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(RtaBody.getExtent(), 0) / 2);
+	if (%x < 395) {
+		%x = 395;
+	}
+	RtaBody.setPosition(%x SPC getWord(RtaBody.getPosition(), 1));
+
+	%this.updateStatusText();
+	%this.updateEndText();
+	%this.updateButtons();
+}
+
+function RtaSpeedrunDlg::updateButtons(%this) {
+	if (RtaSpeedrun.isEnabled || RtaSpeedrun.shouldStartRun || RtaSpeedrun.isDone || RtaSpeedrun.isCrashRecoveryMode) {
+		RtaStartButton.setActive(0);
+		RtaStopButton.setActive(1);
+		RtaRestartButton.setActive(!RtaSpeedrun.shouldStartRun);
+	} else {
+		RtaStartButton.setActive(1);
+		RtaStopButton.setActive(0);
+		RtaRestartButton.setActive(RtaSpeedrun.isDone);
+	}
+	if (RtaSpeedrun.isDone) {
+		RtaStopButton.setText("Clear Speedrun");
+	} else {
+		RtaStopButton.setText("Stop Speedrun");
+	}
+}
+
+function RtaSpeedrunDlg::updateStatusText(%this, %text) {
+	%formatting = "<font:22><just:center>";
+	if (RtaSpeedrun.isCrashRecoveryMode)
+		RtaStatusText.setText(%formatting @ "Run will continue when next level loads");
+	else if (RtaSpeedrun.isDone)
+		RtaStatusText.setText(%formatting @ "Run completed!");
+	else if (RtaSpeedrun.isEnabled)
+		RtaStatusText.setText(%formatting @ "Run in progress! Go go go!");
+	else if (RtaSpeedrun.shouldStartRun)
+		RtaStatusText.setText(%formatting @ "Run will start when next level loads");
+	else
+		RtaStatusText.setText(%formatting @ "Not currently active");
+}
+
+function RtaSpeedrunDlg::updateEndText(%this) {
+	if (RtaSpeedrun.endMission $= "") {
+		RtaEndText.setText("<bold:28><just:center>No Final Level Selected");
+		RtaEndLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
+		RtaEggTimeCheckbox.setActive(false);
+		return;
+	}
+	RtaEndText.setText("<bold:28><just:center>Final Level:\n<font:20>" @ RtaSpeedrun.endMissionInfo.name);
+
+	%mission = RtaSpeedrun.endMissionInfo;
+	%bitmap = PlayMissionGui.ml.getMissionPreview(%mission.searchGame, %mission.searchType, %mission);
+
+	if (!isBitmap(%bitmap)) {
+		if (%mission.bitmap_directory !$= "") {
+			%bitmap = expandFilename(%mission.bitmap_directory @ "/" @ fileBase(%mission.file));
+		} else
+			%bitmap = expandFilename(PlayMissionGui.getBitmapDirectory(%mission.searchGame, %mission.searchType) @ "/" @ fileBase(%mission.file));
+		if (!isBitmap(%mission)) {
+			%bitmap = resolveMissionBitmap(%mission);
+		}
+	}
+	if (isBitmap(%bitmap)) {
+		RtaEndLevelImage.setBitmap(%bitmap);
+	} else {
+		RtaEndLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
+	}
+
+	RtaEggTimeCheckbox.setActive(RtaSpeedrun.endMissionInfo.easterEgg);
+}
