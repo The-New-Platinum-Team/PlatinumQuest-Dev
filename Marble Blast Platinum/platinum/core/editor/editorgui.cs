@@ -634,7 +634,7 @@ function EditorDoPreviewScreenshot() {
 	Minishotter.forceFOV = %fov;
 	Minishotter.resize(0, 0, getWord(getResolution(), 0), getWord(getResolution(), 1));
 	Canvas.repaint();
-	schedule(50, 0, EditorDoPreviewScreenshotTakeScreenshot, %path, %gui);
+	schedule(200, 0, EditorDoPreviewScreenshotTakeScreenshot, %path, %gui);
 }
 
 function EditorDoPreviewScreenshotTakeScreenshot(%path, %gui) {
