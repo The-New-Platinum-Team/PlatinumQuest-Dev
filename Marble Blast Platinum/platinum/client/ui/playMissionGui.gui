@@ -4575,13 +4575,13 @@ function PlayMissionGui::updateLoadProgress(%this, %delta) {
 			%loader.bitmapRotation = 0;
 			%progress = 0;
 		case  0: //Loading
-			%loader.bitmapRotation -= 180 * (%delta / 1000);
+			%loader.bitmapRotation += 180 * (%delta / 1000);
 			%loader.setTooltip("Loading " @ mRound(%progress * 100) @ "%");
 		case  1: //Sending
-			%loader.bitmapRotation -= 180 * (%delta / 1000);
+			%loader.bitmapRotation += 180 * (%delta / 1000);
 			%loader.setTooltip("Sending " @ mRound(%progress * 100) @ "%");
 		case  2: //Confirming
-			%loader.bitmapRotation -= 180 * (%delta / 1000);
+			%loader.bitmapRotation += 180 * (%delta / 1000);
 		case  3: //Ready
 			%loader.bitmapRotation = 0;
 			%progress = 1;
