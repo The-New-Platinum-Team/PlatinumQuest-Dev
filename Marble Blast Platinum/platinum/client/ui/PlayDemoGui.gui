@@ -382,6 +382,7 @@ function PlayDemoGui::doDelete(%this, %id) {
 	}
 	else {
 		deleteFile("platinum/data/recordings/" @ %fbase @ ".rrec.zip");
+		deleteFile("platinum/data/recordings/" @ %fbase @ ".rrec/" @ %fbase @ ".rrec"); // Delete the rrec resource entry too
 	}
 	PD_DemoList.removeRowById(%id);
 
