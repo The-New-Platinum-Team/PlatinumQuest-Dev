@@ -639,7 +639,7 @@ function EditorDoPreviewScreenshot() {
 
 function EditorDoPreviewScreenshotTakeScreenshot(%path, %gui) {
 	screenShot(%path, getWord(getResolution(), 0), getWord(getResolution(), 1));
-	schedule(100, 0, EditorDoPreviewScreenshotEnd, %gui);
+	schedule(150, 0, EditorDoPreviewScreenshotEnd, %gui);
 }
 
 function EditorDoPreviewScreenshotEnd(%gui) {

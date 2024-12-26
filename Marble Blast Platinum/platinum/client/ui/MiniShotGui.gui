@@ -77,9 +77,8 @@ function doMiniShot(%cb) {
 }
 
 function doMiniShotTakeScreenshot(%imgWidth, %imgHeight, %cb) {
-	screenShot(filePath($Server::MissionFile) @ "/" @ fileBase($Server::MissionFile) @ ".png", %imgWidth, %imgHeight);
-	schedule(100, 0, "doMiniShotEnd", %cb);
-	eval(%cb);
+	screenShotRegion(filePath($Server::MissionFile) @ "/" @ fileBase($Server::MissionFile) @ ".png", %imgWidth, %imgHeight, %imgWidth, %imgHeight);
+	schedule(150, 0, "doMiniShotEnd", %cb);
 }
 
 function doMiniShotEnd(%cb) {
