@@ -57,33 +57,5 @@ function applyDML() {
 	%dml = CSB_Sky.getValue();
 
 	%sky = Sky.getID();
-	new Sky(Sky) {
-		position = "0 0 0";
-		rotation = "1 0 0 0";
-		scale = "1 1 1";
-		cloudHeightPer[0] = %sky.cloudheightper0;
-		cloudHeightPer[1] = %sky.cloudheightper1;
-		cloudHeightPer[2] = %sky.cloudheightper2;
-		cloudSpeed1 = %sky.cloudspeed1;
-		cloudSpeed2 = %sky.cloudspeed2;
-		cloudSpeed3 = %sky.cloudspeed3;
-		visibleDistance = %sky.visibledistance;
-		useSkyTextures = %sky.useskytextures;
-		renderBottomTexture = %sky.renderbottomtexture;
-		SkySolidColor = %sky.skysolidcolor;
-		fogDistance = %sky.fogdistance;
-		fogColor = %sky.fogcolor;
-		fogVolume1 = %sky.fogvolume1;
-		fogVolume2 = %sky.fogvolume2;
-		fogVolume3 = %sky.fogvolume3;
-		materialList = %dml;
-		windVelocity = %sky.windvelocity;
-		windEffectPrecipitation = %sky.windEffectPrecipitation;
-		noRenderBans = %sky.norenderbans;
-		fogVolumeColor1 = %sky.fogvolumecolor1;
-		fogVolumeColor2 = %sky.fogvolumecolor2;
-		fogVolumeColor3 = %sky.fogvolumecolor3;
-	};
-	%sky.delete();
-	MissionData.add(Sky);
+	%sky.changeMaterial(%dml);
 }
