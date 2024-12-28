@@ -371,6 +371,32 @@ function resumeMusic() {
 	$JukeboxDlg::isPlaying = true;
 }
 
+function pitchMusic() {
+	//Warp Speed Music
+	%targetPitch = (mPow(%velocity / 360, 1/2) * 1.25);
+	if (%targetPitch < 1)
+		%targetPitch = 1;
+	if (%targetPitch > 1.25)
+		%targetPitch = 1.25;
+
+	//Final Lap Music
+	if ($Game::isMode["laps"] && (playGui.lapsComplete == playGui.lapsTotal))
+		%targetPitch *= 1.12246; //2 semitones
+	
+	//Panic Music
+	if(playGui.isAlarmActive())
+		%targetPitch *= 1.05946; //1 semitone
+	
+	//SUPERHOT (TODO: relocate to cheat section and implement similar to the "mew" cheat)
+	// %targetTimeScale = mPow(%velocity + 6, 0.5) / 4.0;
+	// setTimeScale(%targetTimeScale);
+
+	//Temporal Music
+	%targetPitch *= getTimeScale();
+
+	alxSourcef($currentMusicHandle, AL_PITCH, %targetPitch);
+}
+
 $Music::Exclude = "Pianoforte\tComforting Mystery\tQuiet Lab\tUpbeat Finale\tGood to Jump to (Loop Edit)\tElectroforte\tShell\tXmas Trance\tHalloween Trance\tFlanked\tMBP Old Shell\tMetropolis\tSeaside";
 function buildMusicList() {
 	if (!$musicFound) {

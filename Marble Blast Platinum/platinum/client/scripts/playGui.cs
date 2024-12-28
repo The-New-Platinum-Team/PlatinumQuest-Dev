@@ -784,6 +784,19 @@ function PlayGui::addBonusTime(%this, %dt) {
 		$BonusSfx = alxPlay(TimeTravelLoopSfx);
 }
 
+function PlayGui::isAlarmActive(%this) {
+	//$pref::parTimeAlarm is purposefully ignored for this
+	%output = false;
+	if ($PlayTimerActive && $InPlayGUI) {
+		%dir = ClientMode::callback("timeMultiplier", 1);
+		if      (%dir > 0)
+			%output = %this.currentTime >= (MissionInfo.time - $PlayTimerAlarmStartTime) && %this.currentTime < MissionInfo.time;
+		else if (%dir < 0)
+			%output = %this.currentTime <=                     $PlayTimerAlarmStartTime  && %this.currentTime > 0;
+	}
+	return %output;
+}
+
 function PlayGui::refreshRed(%this) {
 	if (!$pref::parTimeAlarm)
 			return;
@@ -905,6 +918,7 @@ package frameAdvance {
 		}
 
 		PlayGui.updateSpeedometer();
+		pitchMusic();
 
 		if (shouldUpdateBlast()) {
 			clientUpdateBlast(%timeDelta);
