@@ -806,20 +806,20 @@ function PlayGui::refreshRed(%this) {
 			$PlayTimerColor = $TimeColor["stopped"];
 		else {
 			%dir = ClientMode::callback("timeMultiplier", 1);
-			if (%dir > 0) {
+			if (%this.isAlarmActive()) {
+				if (!alxIsPlaying($PlayTimerAlarmHandle))
+					$PlayTimerAlarmHandle = alxPlay(TimerAlarm);
+
+				if (!$PlayTimerAlarmText) {
+					%seconds = ($PlayTimerAlarmStartTime / 1000);
+					addBubbleLine("You have " @ %seconds SPC (%seconds == 1 ? "second" : "seconds") SPC "left.", false, 5000);
+					$PlayTimerAlarmText = true;
+				}
+
+				$PlayTimerColor = (((%this.currentTime / 1000) % 2) ? $TimeColor["danger"] : $TimeColor["normal"]);
+			} else if (%dir > 0) {
 				if (!MissionInfo.time || %this.currentTime < (MissionInfo.time - $PlayTimerAlarmStartTime)) {
 					$PlayTimerColor = $TimeColor["normal"];
-				} else if (%this.currentTime >= (MissionInfo.time - $PlayTimerAlarmStartTime) && %this.currentTime < MissionInfo.time) {
-					if (!alxIsPlaying($PlayTimerAlarmHandle))
-						$PlayTimerAlarmHandle = alxPlay(TimerAlarm);
-
-					if (!$PlayTimerAlarmText) {
-						%seconds = ($PlayTimerAlarmStartTime / 1000);
-						addBubbleLine("You have " @ %seconds SPC (%seconds == 1 ? "second" : "seconds") SPC "left.", false, 5000);
-						$PlayTimerAlarmText = true;
-					}
-
-					$PlayTimerColor = (((%this.currentTime / 1000) % 2) ? $TimeColor["danger"] : $TimeColor["normal"]);
 				} else {
 					if (alxIsPlaying($PlayTimerAlarmHandle))
 						alxStop($PlayTimerAlarmHandle);
@@ -833,17 +833,7 @@ function PlayGui::refreshRed(%this) {
 				}
 			} else if (%dir < 0) {
 				$PlayTimerColor = $TimeColor["normal"];
-				if (%this.currentTime <= $PlayTimerAlarmStartTime && %this.currentTime > 0) {
-					if (!alxIsPlaying($PlayTimerAlarmHandle))
-						$PlayTimerAlarmHandle = alxPlay(TimerAlarm);
-
-					if (!$PlayTimerAlarmText) {
-						%seconds = ($PlayTimerAlarmStartTime / 1000);
-						addBubbleLine("You have " @ %seconds SPC (%seconds == 1 ? "second" : "seconds") SPC "left.", false, 5000);
-						$PlayTimerAlarmText = true;
-					}
-					$PlayTimerColor = (((%this.currentTime / 1000) % 2) ? $TimeColor["danger"] : $TimeColor["normal"]);
-				} else if (%this.currentTime == 0) {
+				if (%this.currentTime == 0) {
 					if (alxIsPlaying($PlayTimerAlarmHandle))
 						alxStop($PlayTimerAlarmHandle);
 					$PlayTimerColor = $TimeColor["stopped"];
