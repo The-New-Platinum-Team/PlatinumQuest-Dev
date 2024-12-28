@@ -251,10 +251,16 @@ function serverCmdFinishCRC(%client, %cFiles) {
 	}
 
 	// Ok fine, they've passed SO FAR. Will they pass the final test?
+	%crcFail = false;
+	$CRC::ErrorFileCount = 0;
+
 	for (%i = 0; %i < $MP::ServerFiles; %i ++) {
 		%file = $MP::ServerFile[%i];
 		if (%client.crcSuccess[%file] $= "" && $fileExec[%file] !$= "") {
-			MessageBoxOK("CRC ERROR", "\c2" @ %client._name SPC "missing file" SPC %file @ "!");
+			$CRC::ErrorFile[$CRC::ErrorFileCount] = %file;
+			$CRC::ErrorFileCount++;
+			%crcFail = true;
+			echo("Missing file" SPC %file SPC "from" SPC %client._name);
 			// Caught you! Thought you could get away without that one pesky
 			// file that we needed. Get off my server, damned kids.
 			if (!%client.isSuperAdmin) {
@@ -274,13 +280,27 @@ function serverCmdFinishCRC(%client, %cFiles) {
 	if ($MP::ServerFiles != %cFiles) {
 		// Well, I guess you get to sit and think about what you just did
 		// in the naughty corner of NOPE!
-		MessageBoxOK("CRC ERROR", "\c2" @ %client._name SPC "invalid file count! (" @ %cFiles SPC "!=" SPC $MP::ServerFiles @ ")");
+		// MessageBoxOK("CRC ERROR", "\c2" @ %client._name SPC "invalid file count! (" @ %cFiles SPC "!=" SPC $MP::ServerFiles @ ")");
+		echo("Invalid file count" SPC %cFiles SPC "from" SPC %client._name SPC "(" @ %cFiles SPC "!=" SPC $MP::ServerFiles @ ")" );
+		%crcFail = true;
 		if (!%client.isSuperAdmin) {
 			if ($CRC_NOPE) {
 				%client.delete("CRC_NOPE");
 				return;
 			}
 		}
+	}
+
+	if (%crcFail) {
+		// Make a pretty message
+		%message = "Invalid files: ";
+		for (%i = 0; %i < $CRC::ErrorFileCount; %i ++) {
+			%message = %message @ $CRC::ErrorFile[%i] NL "";
+		}
+		if ($MP::ServerFiles != %cFiles) {
+			%message = %message @ "Invalid file count: " @ %cFiles SPC "!=" SPC $MP::ServerFiles;
+		}
+		MessageBoxOK("CRC ERROR", "\c2" @ %client._name NL %message);
 	}
 
 	// HOLY SHIT THEY ACTUALLY PASSED THE CRC CHECK. WHAT ARE THE CHANCES
