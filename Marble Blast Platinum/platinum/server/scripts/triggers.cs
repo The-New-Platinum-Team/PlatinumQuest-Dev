@@ -1132,7 +1132,7 @@ function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 			        alxPlay(BubblePopSfx);
 				} else {
 			        addHelpLine("Oh dear, your marble has shrunk...");
-			        serverplay2d(DoAnvilSfx); 		
+			        serverplay2d(MegaShrinkSfx); 		
 				}
 			}
 	    } else if (%trigger.mbsize > %obj.getCollisionRadius()) { //Same here ^^ ~ Connie
