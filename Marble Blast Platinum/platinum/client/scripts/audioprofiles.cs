@@ -388,18 +388,16 @@ function pitchMusic() {
 	//Panic Music
 	if ($pref::panicMusic && playGui.isAlarmActive)
 		%targetPitch *= 1.05946; //1 semitone
-	
-	//SUPERHOT (TODO: relocate to cheat section and implement similar to the "mew" cheat)
-	// %targetTimeScale = mPow(VectorLen(MPGetMyMarble().getVelocity()) + 6, 0.5) / 4.0;
-	// setTimeScale(%targetTimeScale);
 
 	//Temporal Music
 	if ($pref::temporalMusic)
 		%targetPitch *= getTimeScale();
 	
-	if($GlobalMusicPitchHandler == "" || !$Game::Running)
+	//Music Triggers + Custom Code
+	if($GlobalMusicPitchHandler $= "" || !$Game::Running || $Game::Menu)
 		$GlobalMusicPitchHandler = 1;
 	%targetPitch *= $GlobalMusicPitchHandler;
+	
 	alxSourcef($currentMusicHandle, AL_PITCH, %targetPitch);
 }
 
