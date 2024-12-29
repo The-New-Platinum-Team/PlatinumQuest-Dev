@@ -998,14 +998,84 @@ function statsRecordReplay(%mission, %type, %isRetry) {
 		RecordFO.openForAppend($Record::File);
 	}
 
-	if (!%isRetry) {
-		$Replay::LastTry = getRealTime();
-	}
+	uploadReplay(%file, "?" @ LBDefaultQuery() @ "&" @ statsGetMissionIdentifier(%mission) @ "&type=" @ %type, 1, "uploadReplayFinish");
+	// if (!%isRetry) {
+	// 	$Replay::LastTry = getRealTime();
+	// }
 
-	%req = statsPost("api/Replay/RecordReplay.php", statsGetMissionIdentifier(%mission) @ "&type=" @ %type @ "&conts=" @ %conts);
-	%req.file = %file;
-	%req.mission = %mission;
-	%req.type = %type;
+	// %req = statsPost("api/Replay/RecordReplay.php", statsGetMissionIdentifier(%mission) @ "&type=" @ %type @ "&conts=" @ %conts);
+	// %req.file = %file;
+	// %req.mission = %mission;
+	// %req.type = %type;
+}
+
+function LBUpload::onLine(%this, %line)
+{
+    %this.success = true;
+	echo("Response:" SPC %line);
+}
+
+function LBUpload::onDisconnect(%this)
+{
+    if (%this.success) {
+        cancel($LB::UploadReplaySchedule); // Don't retry on success
+    }
+    if (%this.finishCb !$= "") {
+        eval(%this.finishCb @ "(" @ %this.success @ ");");
+    }
+    %this.delete();
+}
+
+function uploadReplay(%replayfile, %query, %attempt, %finishCb)
+{
+    if (%attempt > 5) {
+        if (%attempt > 10) {
+            MessageBoxOK("Cannot submit replay", "Max attempts reached. Check " @ %file);
+            cancel($LB::UploadReplaySchedule);
+        } else {
+            %fo = new FileObject();
+            if (!%fo.openForRead(%replayfile)) {
+                MessageBoxOk("Cannot submit replay", "Couldn't open replay file");
+                cancel($LB::UploadReplaySchedule);
+                return;
+            }
+            //El cheapo URLEncode
+            %conts = strReplace(%fo.readBase64(), "+", "%2B");
+            %len = strlen(%conts);
+
+            %fo.close();
+            %fo.delete();
+            if (%len > $TCP::MaxPostLength) {
+                MessageBoxOk("Cannot submit replay", "Replay file is too large to submit. Check " @ %file);
+                cancel($LB::UploadReplaySchedule);
+                return;
+            }
+
+            // Now we try to do it using the stupid POST params thing that worked for PQ
+            new HTTPObject(LBUpload);
+            %submitquery = getSubStr(%query, 1, strlen(%query)) @ "&conts=" @ %conts;
+            LBUpload.post($LBServerInfo::PQServer, "/api/Replay/RecordReplay.php", "", %submitquery);
+            LBUpload.finishCb = %finishCb;
+
+            $LB::UploadReplaySchedule = schedule(10000, 0, "uploadReplay", %replayfile, %query, %attempt + 1, %finishCb); // Do it again if it fails
+        }
+    } else {
+        new HttpObject(LBUpload);
+        LBUpload.uploadFile(%replayfile);
+        LBUpload.post($LBServerInfo::PQServer, "/api/Replay/UploadReplay.php" @ %query, "", "");
+        LBUpload.finishCb = %finishCb;
+
+        $LB::UploadReplaySchedule = schedule(10000, 0, "uploadReplay", %replayfile, %query, %attempt + 1, %finishCb); // Do it again if it fails
+    }
+}
+
+function uploadReplayFinish(%success) {
+	if (!%success) {
+		MessageBoxOk("Cannot submit replay", "Server rejected replay, cannot submit. Check " @ %file);
+	} else {
+		cancel($LB::UploadReplaySchedule);
+		echo("Stats: Replay recorded");
+	}
 }
 
 function statsRecordReplayLine(%line, %req) {

@@ -107,6 +107,10 @@ function serverCmdUpdateMarble(%client, %marble) {
 		%client.updateGhostDatablock();
 	}
 
+	%us = MPGetMyMarble();
+	if (isObject(%us))
+		%us.reloadShader();
+
 	//Update player lists
 	updatePlayerlist();
 	//Because playerlist is on the next frame too
