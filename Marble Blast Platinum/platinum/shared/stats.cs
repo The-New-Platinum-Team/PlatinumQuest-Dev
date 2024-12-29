@@ -252,6 +252,10 @@ $Stats::Modifiers::IsBestScore       = (1 << 15);
 function statsRecordScore(%mission) {
 	%score = $Game::FinalScore;
 
+	if ($Client::PlayingDemo || $playingDemo) {
+		return;
+	}
+
 	//Extract the parts of the score and make them pretty
 	%scoreType = getField(%score, 0) == $ScoreType::Time ? "time" : "score";
 	%score = removeScientificNotation(getField(%score, 1));
@@ -347,6 +351,10 @@ function statsRecordScoreLine(%line) {
 function statsRecordChallengeScore(%mission) {
 	%score = $Game::FinalScore;
 
+	if ($Client::PlayingDemo || $playingDemo) {
+		return;
+	}
+
 	//Extract the parts of the score and make them pretty
 	%score = removeScientificNotation(getField(%score, 1));
 
@@ -382,6 +390,10 @@ function statsRecordChallengeScoreLine(%line) {
 //-----------------------------------------------------------------------------
 
 function statsRecordEgg(%mission, %time) {
+	if ($Client::PlayingDemo || $playingDemo) {
+		return;
+	}
+
 	statsPost("api/Egg/RecordEgg.php", statsGetMissionIdentifier(%mission) @ "&time=" @ removeScientificNotation(%time));
 }
 function statsRecordEggLine(%line) {
