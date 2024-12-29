@@ -50,7 +50,7 @@ $pref::ScorePredictorMaxFactor = 2;
 $pref::StopRecordingOnMenu = false;
 $pref::NoHolePunching = false;
 $pref::NoFadeIn = false;
-$pref::AllowEndingScoreLevelsEarly = false;
+$pref::AllowEndingScoreLevelsEarly = true;
 
 $pref::RtaShowAllSplits = true;
 $pref::RtaSkipNameEntry = true;
@@ -114,8 +114,14 @@ $pref::Audio::channelVolume8 = 0.5;
 $pref::OOBVoice = 1;
 $pref::Audio::AutomaticAudio = true;
 $pref::Audio::AudioPack = "";
+$pref::timeTravelSounds = 1;
 $pref::parTimeAlarm = 1;
 $pref::recordingIndicator = 1;
+
+$pref::warpSpeedMusic = 1;
+$pref::finalLapMusic  = 1;
+$pref::panicMusic     = 1;
+$pref::temporalMusic  = 1;
 
 $Pref::EnableDirectInput = true;
 $Pref::Unix::OpenALFrequency = 44100;

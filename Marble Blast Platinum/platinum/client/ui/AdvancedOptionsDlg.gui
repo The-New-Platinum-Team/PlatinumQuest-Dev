@@ -115,38 +115,42 @@ $AdvancedOptions::Name    [$i++] = "alwaysShowSpeedometer";
 $AdvancedOptions::Title   [$i  ] = "Always Show Speedometer";
 $AdvancedOptions::Variable[$i  ] = "$pref::alwaysShowSpeedometer";
 $AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Name    [$i++] = "powerupsAlwaysOnRadar";
-$AdvancedOptions::Title   [$i  ] = "Powerups Always on Radar";
-$AdvancedOptions::Variable[$i  ] = "$pref::powerupsAlwaysOnRadar";
+$AdvancedOptions::Name    [$i++] = "oobInsults";
+$AdvancedOptions::Title   [$i  ] = "Out of Bounds Insults";
+$AdvancedOptions::Variable[$i  ] = "$pref::ShowOOBMessages";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "powerupTimers";
-$AdvancedOptions::Title   [$i  ] = "Powerup Timers";
+$AdvancedOptions::Title   [$i  ] = "PowerUp Timers";
 $AdvancedOptions::Variable[$i  ] = "$pref::powerupTimers";
 $AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Name    [$i++] = "timeTravelTimer";
-$AdvancedOptions::Title   [$i  ] = "Time Travel Timer";
-$AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerVar";
-$AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Command [$i  ] = "AdvancedOptions_timeTravelTimerFnc();";
-$AdvancedOptions::Name    [$i++] = "timeTravelTimerPrecise";
-$AdvancedOptions::Title   [$i  ] = "Show Precise Time Travel Time";
-$AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerPreciseVar";
-$AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Command [$i  ] = "AdvancedOptions_timeTravelTimerPreciseFnc();";
-$AdvancedOptions::Name    [$i++] = "parTimeAlarm";
-$AdvancedOptions::Title   [$i  ] = "Par Time Alarm";
-$AdvancedOptions::Variable[$i  ] = "$pref::parTimeAlarm";
+$AdvancedOptions::Name    [$i++] = "powerupsAlwaysOnRadar";
+$AdvancedOptions::Title   [$i  ] = "PowerUps Always on Radar";
+$AdvancedOptions::Variable[$i  ] = "$pref::powerupsAlwaysOnRadar";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "recordingIndicator";
 $AdvancedOptions::Title   [$i  ] = "Recording Indicator";
 $AdvancedOptions::Variable[$i  ] = "$pref::recordingIndicator";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "stopRecordingOnMenu";
+$AdvancedOptions::Title   [$i  ] = "Stop Recording On Level Exit";
+$AdvancedOptions::Variable[$i  ] = "$pref::stopRecordingOnMenu";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "minimalSpectateUI";
-$AdvancedOptions::Title   [$i  ] = "(Online) Minimal Spectate UI";
+$AdvancedOptions::Title   [$i  ] = "Minimal Spectator HUD";
 $AdvancedOptions::Variable[$i  ] = "$pref::minimalSpectateUI";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "legacyItems";
+$AdvancedOptions::Title   [$i  ] = "Legacy Items";
+$AdvancedOptions::Variable[$i  ] = "$pref::legacyItems";
+$AdvancedOptions::Command [$i  ] = "AdvancedOptions_legacyItemsFnc();";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "spchanges";
+$AdvancedOptions::Title   [$i  ] = "Use MBU Shapes in MBU Levels";
+$AdvancedOptions::Variable[$i  ] = "$pref::spchanges";
+$AdvancedOptions::Command [$i  ] = "AdvancedOptions_spchangesFnc();";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "threeDigitGemCounter";
-$AdvancedOptions::Title   [$i  ] = "Always Show Three Digits in Gem Counter";
+$AdvancedOptions::Title   [$i  ] = "Always Show Gem Counter Hundreds";
 $AdvancedOptions::Variable[$i  ] = "$pref::GemCounterAlwaysThreeDigits";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "scorePredictorMaxFactor";
@@ -154,39 +158,51 @@ $AdvancedOptions::Title   [$i  ] = "Don't Cap Score Predictor";
 $AdvancedOptions::Variable[$i  ] = "$AdvOptScorePredictorMaxFactorVar";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Command [$i  ] = "AdvancedOptions_scorePredictorMaxFactorFnc();";
-$AdvancedOptions::Name    [$i++] = "spchanges";
-$AdvancedOptions::Title   [$i  ] = "Use MBU Shapes in MBU levels";
-$AdvancedOptions::Variable[$i  ] = "$pref::spchanges";
-$AdvancedOptions::Command [$i  ] = "AdvancedOptions_spchangesFnc();";
-$AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Name    [$i++] = "stopRecordingOnMenu";
-$AdvancedOptions::Title   [$i  ] = "Stop Recording On Menu";
-$AdvancedOptions::Variable[$i  ] = "$pref::stopRecordingOnMenu";
-$AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Name    [$i++] = "noFadeIn";
-$AdvancedOptions::Title   [$i  ] = "Disable Fade In Animation";
-$AdvancedOptions::Variable[$i  ] = "$pref::NoFadeIn";
-$AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "allowEndingScoreLevelsEarly";
 $AdvancedOptions::Title   [$i  ] = "Allow Ending Score Levels Early";
 $AdvancedOptions::Variable[$i  ] = "$pref::AllowEndingScoreLevelsEarly";
-$AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Name    [$i++] = "snoreMarble";
-$AdvancedOptions::Title   [$i  ] = "Marble Snoring";
-$AdvancedOptions::Variable[$i  ] = "$pref::Snore";
-$AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Name    [$i++] = "oobVoice";
-$AdvancedOptions::Title   [$i  ] = "Out of Bounds Voice";
-$AdvancedOptions::Variable[$i  ] = "$pref::OOBVoice";
-$AdvancedOptions::Type    [$i  ] = "boolean";
-$AdvancedOptions::Name    [$i++] = "useLowResGlass";
-$AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
-$AdvancedOptions::Variable[$i  ] = "$pref::UseLowResGlass";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "normalizeLights";
 $AdvancedOptions::Title   [$i  ] = "Standardize Sunlight";
 $AdvancedOptions::Variable[$i  ] = "$pref::normalizeLights";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "oobVoice";
+$AdvancedOptions::Title   [$i  ] = "Out of Bounds Sounds";
+$AdvancedOptions::Variable[$i  ] = "$pref::OOBVoice";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "noFadeIn";
+$AdvancedOptions::Title   [$i  ] = "Disable Fade-In Animation";
+$AdvancedOptions::Variable[$i  ] = "$pref::NoFadeIn";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "snoreMarble";
+$AdvancedOptions::Title   [$i  ] = "Marble Snoring";
+$AdvancedOptions::Variable[$i  ] = "$pref::Snore";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "warpSpeedMusic";
+$AdvancedOptions::Title   [$i  ] = "Warp Speed Music";
+$AdvancedOptions::Variable[$i  ] = "$pref::warpSpeedMusic";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "temporalMusic";
+$AdvancedOptions::Title   [$i  ] = "Temporal Music";
+$AdvancedOptions::Variable[$i  ] = "$pref::temporalMusic";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+// $AdvancedOptions::Name    [$i++] = "useLowResGlass";
+// $AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
+// $AdvancedOptions::Variable[$i  ] = "$pref::UseLowResGlass";
+// $AdvancedOptions::Type    [$i  ] = "boolean";
+// $AdvancedOptions::Name    [$i++] = "timeTravelTimer";
+// $AdvancedOptions::Title   [$i  ] = "Time Travel Timer";
+// $AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerVar";
+// $AdvancedOptions::Type    [$i  ] = "boolean";
+// $AdvancedOptions::Command [$i  ] = "AdvancedOptions_timeTravelTimerFnc();";
+// $AdvancedOptions::Name    [$i++] = "timeTravelTimerPrecise";
+// $AdvancedOptions::Title   [$i  ] = "Show Precise Time Travel Time";
+// $AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerPreciseVar";
+// $AdvancedOptions::Type    [$i  ] = "boolean";
+// $AdvancedOptions::Command [$i  ] = "AdvancedOptions_timeTravelTimerPreciseFnc();";
+// $AdvancedOptions::Name    [$i++] = "parTimeAlarm";
+// $AdvancedOptions::Title   [$i  ] = "Par Time Alarm";
+// $AdvancedOptions::Variable[$i  ] = "$pref::parTimeAlarm";
 
 function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
@@ -202,7 +218,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 		%variable = $AdvancedOptions::Variable[%i];
 		%col = mFloor(%i / %rowsPerCol);
 		%row = %i % %rowsPerCol;
-		%xPos = %col * 350;
+		%xPos = (%col * 275) + 25;
 		%yPos = %row * 28;
 
 		if (%type $= "boolean") {
@@ -237,19 +253,26 @@ function AdvancedOptions_spchangesFnc() {
 		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
 }
 
-function AdvancedOptions_timeTravelTimerFnc() {
-	AdvancedOptions_timeTravelTimerPreciseFnc();
-	AdvOpt_timeTravelTimerPrecise.setActive($pref::timeTravelTimer > 0);
-}
+// function AdvancedOptions_timeTravelTimerFnc() {
+// 	AdvancedOptions_timeTravelTimerPreciseFnc();
+// 	AdvOpt_timeTravelTimerPrecise.setActive($pref::timeTravelTimer > 0);
+// }
 
-function AdvancedOptions_timeTravelTimerPreciseFnc() {
-	if ($AdvOptTimeTravelTimerVar)
-		$pref::timeTravelTimer = $AdvOptTimeTravelTimerPreciseVar ? 2 : 1;
-	else
-		$pref::timeTravelTimer = 0;
-	PlayGui.updateTimeTravelCountdown();
-}
+// function AdvancedOptions_timeTravelTimerPreciseFnc() {
+// 	if ($AdvOptTimeTravelTimerVar)
+// 		$pref::timeTravelTimer = $AdvOptTimeTravelTimerPreciseVar ? 2 : 1;
+// 	else
+// 		$pref::timeTravelTimer = 0;
+// 	PlayGui.updateTimeTravelCountdown();
+// }
 
 function AdvancedOptions_scorePredictorMaxFactorFnc() {
 	$pref::scorePredictorMaxFactor = $AdvOptScorePredictorMaxFactorVar ? 0 : 2;
+}
+
+function AdvancedOptions_legacyItemsFnc() {
+	if (!$liAssert) {
+		$liAssert = true;
+		MessageBoxOK("Notice", "This option requires you to restart the game.");
+	}
 }
