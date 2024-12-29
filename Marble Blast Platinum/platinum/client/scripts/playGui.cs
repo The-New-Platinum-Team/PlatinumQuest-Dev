@@ -774,20 +774,19 @@ function PlayGui::setBonusTime(%this, %time) {
 	%this.bonusTime = %time;
 	if (alxIsPlaying($BonusSfx) && !%time)
 		alxStop($BonusSfx);
-	if ($BonusSfx $= "" && %time && !alxIsPlaying($PlayTimerAlarmHandle))
+	if ($pref::timeTravelSounds && $BonusSfx $= "" && %time && !alxIsPlaying($PlayTimerAlarmHandle))
 		$BonusSfx = alxPlay(TimeTravelLoopSfx);
 }
 
 function PlayGui::addBonusTime(%this, %dt) {
 	%this.bonusTime = add64_int(%this.bonusTime, %dt);
-	if ($BonusSfx $= "" && !alxIsPlaying($PlayTimerAlarmHandle))
+	if ($pref::timeTravelSounds && $BonusSfx $= "" && !alxIsPlaying($PlayTimerAlarmHandle))
 		$BonusSfx = alxPlay(TimeTravelLoopSfx);
 }
 
 function PlayGui::isAlarmActive(%this) {
-	//$pref::parTimeAlarm is purposefully ignored for this
 	%output = false;
-	if ($PlayTimerActive && $InPlayGUI) {
+	if ($pref::parTimeAlarm && $PlayTimerActive && $InPlayGUI) {
 		%dir = ClientMode::callback("timeMultiplier", 1);
 		if      (%dir > 0)
 			%output = %this.currentTime >= (MissionInfo.time - $PlayTimerAlarmStartTime) && %this.currentTime < MissionInfo.time;
@@ -1005,7 +1004,7 @@ function PlayGui::setTimeStopped(%this, %stopped) {
 	echo("Time stop:" SPC %stopped);
 
 	if (%stopped) {
-		if ($BonusSfx $= "" && !alxIsPlaying($PlayTimerAlarmHandle))
+		if ($pref::timeTravelSounds && $BonusSfx $= "" && !alxIsPlaying($PlayTimerAlarmHandle))
 			$BonusSfx = alxPlay(TimeTravelLoopSfx);
 	}
 
