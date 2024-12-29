@@ -1021,10 +1021,31 @@ datablock TriggerData(MusicTrigger) {
     customField[0, "type"   ] = "string";
     customField[0, "name"   ] = "Music Name";
     customField[0, "desc"   ] = "What music to play when you enter the trigger.";
+	customField[1, "field"  ] = "pitch";
+    customField[1, "type"   ] = "float";
+    customField[1, "name"   ] = "Music Pitch";
+    customField[1, "desc"   ] = "What speed to play music at while inside this trigger.";
+	customField[1, "default"] = 1;
 };
 
 function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
-    playMusic(%trigger.text @ ".ogg");
+	if (%trigger.text !$= "") {
+    	playMusic(%trigger.text @ ".ogg");
+		echo("Playing song " @ %trigger.text @ "!");
+	}
+
+	if (%trigger.pitch == "")
+		%trigger.pitch = 1;
+	if (%trigger.pitch > 0) {
+		%trigger.pitchAltered = true;
+		%trigger.pitchDiff = %trigger.pitch - $GlobalMusicPitchHandler;
+		$GlobalMusicPitchHandler += %trigger.pitchDiff;
+	}
+}
+
+function MusicTrigger::onLeaveTrigger(%this,%trigger,%obj) {
+	if(%trigger.pitchAltered)
+		$GlobalMusicPitchHandler -= %trigger.pitchDiff;
 }
 
 datablock TriggerData(SoundTrigger) {
@@ -1132,7 +1153,7 @@ function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 			        alxPlay(BubblePopSfx);
 				} else {
 			        addHelpLine("Oh dear, your marble has shrunk...");
-			        serverplay2d(DoAnvilSfx); 		
+			        serverplay2d(MegaShrinkSfx); 		
 				}
 			}
 	    } else if (%trigger.mbsize > %obj.getCollisionRadius()) { //Same here ^^ ~ Connie

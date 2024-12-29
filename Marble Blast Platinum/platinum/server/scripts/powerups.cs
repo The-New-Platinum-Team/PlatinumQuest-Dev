@@ -1347,6 +1347,12 @@ datablock AudioProfile(PuMegaMarbleVoiceSfx) {
 	preload     = true;
 };
 
+datablock AudioProfile(MegaShrinkSfx) {
+	filename    = "~/data/sound/MegaShrink.wav";
+	description = AudioDefault3d;
+	preload     = true;
+};
+
 datablock ItemData(MegaMarbleItem) {
 	// Mission editor category
 	superCategory = "PowerUps";
@@ -1432,7 +1438,7 @@ function MegaMarbleItem::onUse(%this, %obj, %user) {
 
 function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 	cancel(%user.megaSchedule);
-	//%user.client.play2d(MegaShrinkSfx);
+	%user.client.play2d(MegaShrinkSfx);
 	commandToClient(%user.client, 'PushTimer', 6, getSimTime(), 0);
 
 	%user.client.setMegaMarble(false);
