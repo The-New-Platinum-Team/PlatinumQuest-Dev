@@ -382,7 +382,7 @@ function pitchMusic() {
 	}
 
 	//Final Lap Music
-	if ($pref::finalLapMusic && $Game::isMode["laps"] && (playGui.lapsComplete == playGui.lapsTotal))
+	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.nolapmus && (playGui.lapsComplete == playGui.lapsTotal))
 		%targetPitch *= 1.12246; //2 semitones
 	
 	//Panic Music
@@ -396,7 +396,10 @@ function pitchMusic() {
 	//Temporal Music
 	if ($pref::temporalMusic)
 		%targetPitch *= getTimeScale();
-
+	
+	if($GlobalMusicPitchHandler == "" || !$Game::Running)
+		$GlobalMusicPitchHandler = 1;
+	%targetPitch *= $GlobalMusicPitchHandler;
 	alxSourcef($currentMusicHandle, AL_PITCH, %targetPitch);
 }
 
