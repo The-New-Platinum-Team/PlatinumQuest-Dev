@@ -998,7 +998,7 @@ function statsRecordReplay(%mission, %type, %isRetry) {
 		RecordFO.openForAppend($Record::File);
 	}
 
-	uploadReplay(%file, "?" @ statsGetMissionIdentifier(%mission) @ "&type=" @ %type, 1, "uploadReplayFinish");
+	uploadReplay(%file, "?" @ LBDefaultQuery() @ "&" @ statsGetMissionIdentifier(%mission) @ "&type=" @ %type, 1, "uploadReplayFinish");
 	// if (!%isRetry) {
 	// 	$Replay::LastTry = getRealTime();
 	// }
@@ -1012,6 +1012,7 @@ function statsRecordReplay(%mission, %type, %isRetry) {
 function LBUpload::onLine(%this, %line)
 {
     %this.success = true;
+	echo("Response:" SPC %line);
 }
 
 function LBUpload::onDisconnect(%this)
@@ -1072,6 +1073,7 @@ function uploadReplayFinish(%success) {
 	if (!%success) {
 		MessageBoxOk("Cannot submit replay", "Server rejected replay, cannot submit. Check " @ %file);
 	} else {
+		cancel($LB::UploadReplaySchedule);
 		echo("Stats: Replay recorded");
 	}
 }
