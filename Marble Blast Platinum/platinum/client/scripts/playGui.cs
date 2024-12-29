@@ -784,18 +784,6 @@ function PlayGui::addBonusTime(%this, %dt) {
 		$BonusSfx = alxPlay(TimeTravelLoopSfx);
 }
 
-function PlayGui::isAlarmActive(%this) {
-	%output = false;
-	if ($pref::parTimeAlarm && $PlayTimerActive && $InPlayGUI) {
-		%dir = ClientMode::callback("timeMultiplier", 1);
-		if      (%dir > 0)
-			%output = %this.currentTime >= (MissionInfo.time - $PlayTimerAlarmStartTime) && %this.currentTime < MissionInfo.time;
-		else if (%dir < 0)
-			%output = %this.currentTime <=                     $PlayTimerAlarmStartTime  && %this.currentTime > 0;
-	}
-	return %output;
-}
-
 function PlayGui::refreshRed(%this) {
 	if (!$pref::parTimeAlarm)
 			return;
@@ -805,7 +793,13 @@ function PlayGui::refreshRed(%this) {
 			$PlayTimerColor = $TimeColor["stopped"];
 		else {
 			%dir = ClientMode::callback("timeMultiplier", 1);
-			if (%this.isAlarmActive()) {
+			%this.isAlarmActive = false;
+			if      (%dir > 0)
+				%this.isAlarmActive = %this.currentTime >= (MissionInfo.time - $PlayTimerAlarmStartTime) && %this.currentTime < MissionInfo.time;
+			else if (%dir < 0)
+				%this.isAlarmActive = %this.currentTime <=                     $PlayTimerAlarmStartTime  && %this.currentTime > 0;
+
+			if (%this.isAlarmActive) {
 				if (!alxIsPlaying($PlayTimerAlarmHandle))
 					$PlayTimerAlarmHandle = alxPlay(TimerAlarm);
 

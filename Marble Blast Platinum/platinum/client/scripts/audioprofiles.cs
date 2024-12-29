@@ -386,7 +386,7 @@ function pitchMusic() {
 		%targetPitch *= 1.12246; //2 semitones
 	
 	//Panic Music
-	if ($pref::panicMusic && playGui.isAlarmActive())
+	if ($pref::panicMusic && playGui.isAlarmActive)
 		%targetPitch *= 1.05946; //1 semitone
 	
 	//SUPERHOT (TODO: relocate to cheat section and implement similar to the "mew" cheat)
