@@ -630,6 +630,10 @@ function playbackDumpCsv(%file, %ghost) {
 	$replaycsv = 0;
 }
 
+function delayDemoFinish() {
+	$playingDemo = false;
+}
+
 function PlaybackInfo::finish(%this) {
 	//Shut it down
 	if (isObject(%this.fo)) {
@@ -651,7 +655,7 @@ function PlaybackInfo::finish(%this) {
 		Physics::popLayerName("noInput");
 		if ($playingDemo) {
 			onDemoPlayDone(false);
-			$playingDemo = false;
+			schedule(2000, 0, delayDemoFinish);
 		}
 	}
 
