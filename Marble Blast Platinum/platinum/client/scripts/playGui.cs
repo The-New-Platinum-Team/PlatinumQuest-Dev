@@ -785,21 +785,22 @@ function PlayGui::addBonusTime(%this, %dt) {
 }
 
 function PlayGui::refreshRed(%this) {
-
-	//Do not 'refresh red' or play the alarm if the player has disabled the alarm option.
-	if (!$pref::parTimeAlarm)
-		return;
-
 	if ($PlayTimerActive && $InPlayGUI) {
-		if (%this.bonusTime || $Editor::Opened || %this.stopped)
+		if (%this.bonusTime || $Editor::Opened || %this.stopped) {
 			$PlayTimerColor = $TimeColor["stopped"];
-		else {
+		} else if (!$pref::parTimeAlarm) {
+			$PlayTimerColor = $TimeColor["normal"];
+			%this.isAlarmActive  = false;
+			$PlayTimerAlarmText  = false;
+			$PlayTimerFailedText = false;
+		} else {
 			%dir = ClientMode::callback("timeMultiplier", 1);
-			%this.isAlarmActive = false;
 			if      (%dir > 0)
 				%this.isAlarmActive = %this.currentTime >= (MissionInfo.time - $PlayTimerAlarmStartTime) && %this.currentTime < MissionInfo.time;
 			else if (%dir < 0)
 				%this.isAlarmActive = %this.currentTime <=                     $PlayTimerAlarmStartTime  && %this.currentTime > 0;
+			else
+				%this.isAlarmActive = false;
 
 			if (%this.isAlarmActive) {
 				if (!alxIsPlaying($PlayTimerAlarmHandle))
