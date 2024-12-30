@@ -328,7 +328,7 @@ $Options::Name    ["Graphics", $i++] = "screenStyle";
 $Options::Title   ["Graphics", $i  ] = "Screen Style";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "screenResolution";
-$Options::Title   ["Graphics", $i  ] = "Window Size";
+$Options::Title   ["Graphics", $i  ] = "Default Window Size";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "maxFPS";
 $Options::Title   ["Graphics", $i  ] = "Max FPS";
@@ -336,23 +336,20 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Level Previews";
 $Options::Type    ["Graphics", $i  ] = "boolean";
+if (canSupportPostFX()) { //No point supporting reflections if you don't support postfx anyway
+	$Options::Name    ["Graphics", $i++] = "marbleReflections";
+	$Options::Title   ["Graphics", $i  ] = "Marble Reflections";
+	$Options::Type    ["Graphics", $i  ] = "value";
+}
 $Options::Name    ["Graphics", $i++] = "textureQuality";
 $Options::Title   ["Graphics", $i  ] = "Texture Quality";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";
 $Options::Type    ["Graphics", $i  ] = "value";
-if (canSupportPostFX()) { //No point supporting reflections if you don't support postfx anyway
-	$Options::Name    ["Graphics", $i++] = "marbleReflections";
-	$Options::Title   ["Graphics", $i  ] = "Marble Reflections";
-	$Options::Type    ["Graphics", $i  ] = "value";
+if (canSupportPostFX()) {
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
-	$Options::Type    ["Graphics", $i  ] = "value";
-}
-if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
-	$Options::Name    ["Graphics", $i++] = "antiAliasing";
-	$Options::Title   ["Graphics", $i  ] = "Anti Aliasing";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "fast";
@@ -371,6 +368,11 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
+// if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
+// 	$Options::Name    ["Graphics", $i++] = "antiAliasing";
+// 	$Options::Title   ["Graphics", $i  ] = "Anti Aliasing";
+// 	$Options::Type    ["Graphics", $i  ] = "value";
+// }
 
 Array(TextureQualityArray);
 TextureQualityArray.addEntry("Low"    TAB 0);
@@ -560,12 +562,12 @@ $Options::AutoLoginUserField = $i++;
 $Options::AutoLoginPassField = $i++;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
-$Options::Title   ["Online", $Options::AutoLoginUserField] = "Username";
+$Options::Title   ["Online", $Options::AutoLoginUserField] = "Auto Login Username";
 $Options::Ctrl    ["Online", $Options::AutoLoginUserField] = "textbox";
 $Options::Length  ["Online", $Options::AutoLoginUserField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginUserField] = ($LBPref::AutoLogin !$= "User");
 $Options::Name    ["Online", $Options::AutoLoginPassField] = "AutoLoginPassword";
-$Options::Title   ["Online", $Options::AutoLoginPassField] = "Password";
+$Options::Title   ["Online", $Options::AutoLoginPassField] = "Auto Login Password";
 $Options::Ctrl    ["Online", $Options::AutoLoginPassField] = "password";
 $Options::Length  ["Online", $Options::AutoLoginPassField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginPassField] = ($LBPref::AutoLogin !$= "User");
