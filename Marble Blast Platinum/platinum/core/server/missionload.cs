@@ -421,7 +421,7 @@ function onMissionLoadFailed() {
 		//Ah dicks
 		error("Error in loading startup mission! Need to get to the main menu somehow!");
 		$pref::AnimatePreviews = 0;
-		$ScriptError = addRecord($ScriptError, "Due to script errors, animated backgrounds have been disabled.");
+		$ScriptError = addRecord($ScriptError, "Due to script errors, level previews have been disabled.");
 		%file = $Server::MissionFile;
 
 		menuDestroyServer();
