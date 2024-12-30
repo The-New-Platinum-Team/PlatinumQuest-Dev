@@ -168,6 +168,7 @@ function emibutton(%revert) {
 		LargeFunctionDlg.addNote("\c4----------- Laps -----------");
 		LargeFunctionDlg.addTextEditField("EMI_Laps_LapsNumber", "Total number of laps:", MissionInfo.lapsNumber, 100, -1);
 		LargeFunctionDlg.addCheckBox("EMI_Laps_NoLapsCheckpoint", "Disable Trigger Checkpoints:", MissionInfo.noLapsCheckpoint, 0);
+		LargeFunctionDlg.addCheckBox("EMI_Laps_NoFinalLapMusic",  "Disable Final Lap Music:", MissionInfo.noFinalLapMusic, 0);
 	}
 	if (%use["collection"]) {
 		LargeFunctionDlg.addNote("\c4----------- Collection -----------");
@@ -341,47 +342,48 @@ function editMissionInfo(%gui) {
 
 	miAssign(gemQuota, EMI_Quota_GemQuota, $Game::isMode["quota"]);
 
-	miAssign(radiusFromGem, EMI_Hunt_GemSpawnRadius, $Game::isMode["hunt"]);
-	miAssign(maxGemsPerSpawn, EMI_Hunt_MaxGemsPerSpawn, $Game::isMode["hunt"]);
-	miAssign(gemGroups, EMI_Hunt_GemGroups, $Game::isMode["hunt"]);
-	miAssign(spawnBlock, EMI_Hunt_SpawnBlock, $Game::isMode["hunt"]);
-	miAssign(redSpawnChance, EMI_Hunt_RGSC, $Game::isMode["hunt"]);
-	miAssign(yellowSpawnChance, EMI_Hunt_YGSC, $Game::isMode["hunt"]);
-	miAssign(blueSpawnChance, EMI_Hunt_BGSC, $Game::isMode["hunt"]);
-	miAssign(platinumSpawnChance, EMI_Hunt_PGSC, $Game::isMode["hunt"]);
+	miAssign(radiusFromGem,       EMI_Hunt_GemSpawnRadius,  $Game::isMode["hunt"]);
+	miAssign(maxGemsPerSpawn,     EMI_Hunt_MaxGemsPerSpawn, $Game::isMode["hunt"]);
+	miAssign(gemGroups,           EMI_Hunt_GemGroups,       $Game::isMode["hunt"]);
+	miAssign(spawnBlock,          EMI_Hunt_SpawnBlock,      $Game::isMode["hunt"]);
+	miAssign(redSpawnChance,      EMI_Hunt_RGSC,            $Game::isMode["hunt"]);
+	miAssign(yellowSpawnChance,   EMI_Hunt_YGSC,            $Game::isMode["hunt"]);
+	miAssign(blueSpawnChance,     EMI_Hunt_BGSC,            $Game::isMode["hunt"]);
+	miAssign(platinumSpawnChance, EMI_Hunt_PGSC,            $Game::isMode["hunt"]);
 
-	miAssign(score, EMI_ParScore, !%useTime);
+	miAssign(score,         EMI_ParScore,      !%useTime);
 	miAssign(platinumScore, EMI_PlatinumScore, !%useTime);
 	miAssign(ultimateScore, EMI_UltimateScore, !%useTime);
-	miAssign(awesomeScore, EMI_AwesomeScore, !%useTime);
+	miAssign(awesomeScore,  EMI_AwesomeScore,  !%useTime);
 
 	miAssign(speedToQualify, EMI_Haste_SpeedToQualify, $Game::isMode["haste"]);
 
 	miAssign(minimumSpeed, EMI_Consistency_MinimumSpeed, $Game::isMode["consistency"]);
-	miAssign(gracePeriod, EMI_Consistency_GracePeriod, $Game::isMode["consistency"]);
+	miAssign(gracePeriod,  EMI_Consistency_GracePeriod,  $Game::isMode["consistency"]);
 	miAssign(penaltyDelay, EMI_Consistency_PenaltyDelay, $Game::isMode["consistency"]);
 
-	miAssign(lapsNumber, EMI_Laps_LapsNumber, $Game::isMode["laps"]);
+	miAssign(lapsNumber,       EMI_Laps_LapsNumber,       $Game::isMode["laps"]);
 	miAssign(noLapsCheckpoint, EMI_Laps_NoLapsCheckpoint, $Game::isMode["laps"]);
+	miAssign(noFinalLapMusic,  EMI_Laps_NoFinalLapMusic,  $Game::isMode["laps"]);
 
-	miAssign(cameraPlane, EMI_2d_CameraPlane, $Game::isMode["2d"]);
+	miAssign(cameraPlane,       EMI_2d_CameraPlane,       $Game::isMode["2d"]);
 	miAssign(invertCameraPlane, EMI_2d_InvertCameraPlane, $Game::isMode["2d"]);
 
 	miAssign(disableColor, EMI_Collection_disableColor, $Game::isMode["collection"]);
-	miAssign(noRandom, EMI_Collection_NoRandom, $Game::isMode["collection"]);
+	miAssign(noRandom,     EMI_Collection_NoRandom,     $Game::isMode["collection"]);
 
 	miAssign(eliminationTime, EMI_Elimination_EliminationTime, $Game::isMode["elimination"]);
 
 	miAssign(graceTime, EMI_Seek_GraceTime, $Game::isMode["seek"]);
-	miAssign(hideTime, EMI_Seek_HideTime, $Game::isMode["seek"]);
+	miAssign(hideTime,  EMI_Seek_HideTime,  $Game::isMode["seek"]);
 
 	miAssign(tagRadius, EMI_Elimination_TagRadius, $Game::isMode["tag"]);
 
 	miAssign(ghostsPerPlayer, EMI_Spooky_GhostsPerPlayer, $Game::isMode["spooky"]);
 
 	miAssign(pointsPerHit, EMI_Snowball_PointsPerHit, $Game::isMode["snowball"]);
-	miAssign(noAchShard, EMI_Snowball_NoAchShard, $Game::isMode["snowball"]);
-	miAssign(snowGravity, EMI_Snowball_SnowGravity, $Game::isMode["snowball"]);
+	miAssign(noAchShard,   EMI_Snowball_NoAchShard,   $Game::isMode["snowball"]);
+	miAssign(snowGravity,  EMI_Snowball_SnowGravity,  $Game::isMode["snowball"]);
 
 	miAssign(radar, EMI_Radar);
 	miAssign(hideRadar, EMI_HideRadar);
