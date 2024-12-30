@@ -382,7 +382,7 @@ function pitchMusic() {
 	}
 
 	//Final Lap Music
-	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.nolapmus && (playGui.lapsComplete == playGui.lapsTotal) && $InPlayGUI)
+	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.noFinalLapMusic && (playGui.lapsComplete == playGui.lapsTotal) && $InPlayGUI)
 		%targetPitch *= 1.12246; //2 semitones
 	
 	//Panic Music
