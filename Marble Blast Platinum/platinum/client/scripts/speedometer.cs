@@ -75,12 +75,6 @@ function PlayGui::updateSpeedometer(%this) {
 		//"They've Gone to Plaid" achievement
 		activateAchievement($Achievement::Category::General, 13);
 	}
-	%targetPitch = (mPow(%velocity / 360, 1/2) * 1.25);
-	if (%targetPitch < 1)
-		%targetPitch = 1;
-	if (%targetPitch > 1.25)
-		%targetPitch = 1.25;
-	alxSourcef($currentMusicHandle, AL_PITCH, %targetPitch);
 
 	//Where is the base?
 	%targetPos = %base SPC %targetY;

@@ -108,12 +108,12 @@ function initClient() {
 	exec("./scripts/menu.cs");
 	exec("./ui/RootGui.gui");
 
-	if ($Video::OpenGLVersion < 2) {
-		MessageBoxOk("OpenGL", "OpenGL " @ $Video::OpenGLVersion @ " detected! This means either your graphics card is not detected or it's so old it doesn't support OpenGL 2." NL
-			"In either case, there is no way PQ will be able to run. Make sure your drivers are up to date and your card was made after 2006.", "quit();");
-		//No, seriously. You're not going to be able to play this game.
-		return;
-	}
+	// if ($Video::OpenGLVersion < 2) {
+	// 	MessageBoxOk("OpenGL", "OpenGL " @ $Video::OpenGLVersion @ " detected! This means either your graphics card is not detected or it's so old it doesn't support OpenGL 2." NL
+	// 		"In either case, there is no way PQ will be able to run. Make sure your drivers are up to date and your card was made after 2006.", "quit();");
+	// 	//No, seriously. You're not going to be able to play this game.
+	// 	return;
+	// }
 
 	setNetPort(0);
 
@@ -136,6 +136,7 @@ function initClient() {
 	exec("./ui/EditDemoDlg.gui");
 	exec("./ui/ReminderDlg.gui");
 	exec("./ui/ErrorHandlerDlg.gui");
+	exec("./ui/MaliciousCodeDetectDlg.gui");
 	exec("./ui/CompleteDemoDlg.gui");
 	exec("./ui/AchievementsDlg.gui");
 	exec("./ui/SearchDlg.gui");
@@ -148,6 +149,7 @@ function initClient() {
 	exec("./ui/ControllerGui.gui");
 	exec("./ui/QueueResultsDlg.gui");
 	exec("./ui/RtaSpeedrunDlg.gui");
+	exec("./ui/AdvancedOptionsDlg.gui");
 
 	// Gui Scripts
 	exec("./scripts/EndGameDlg.cs");
@@ -251,11 +253,6 @@ function initClient() {
 	//Anything else we probably can't save, but why not try?
 	addDirectoryOverride("marble/data/", "platinum/data/");
 	addDirectoryOverride("challenge/data/", "platinum/data/");
-
-	// Download marbleland levels so they're ready in case we search
-	// Hopefully the lagspike from loading the list happens during the already super long initial loading screen
-	marblelandDownloadMissionList();
-	marblelandDownloadPackList();
 
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.

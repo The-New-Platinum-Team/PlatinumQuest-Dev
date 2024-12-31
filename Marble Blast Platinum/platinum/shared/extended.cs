@@ -33,106 +33,106 @@ package Tickable {
 			TickSet.getObject(%i).onTick(%timeDelta);
 	}
 
-	function GuiMLTextEditCtrl::setTabCompletions(%this, %list) {
-		%this.tabCompletions = getRecordCount(%list);
-		for (%i = 0; %i < %this.tabCompletions; %i ++)
-			%this.tabCompletion[%i] = getRecord(%list, %i);
-	}
+	// function GuiMLTextEditCtrl::setTabCompletions(%this, %list) {
+	// 	%this.tabCompletions = getRecordCount(%list);
+	// 	for (%i = 0; %i < %this.tabCompletions; %i ++)
+	// 		%this.tabCompletion[%i] = getRecord(%list, %i);
+	// }
 
-	function GuiMLTextEditCtrl::tabComplete(%this) {
-		%message = %this.getValue();
-		if (%this.tabCompletions == 0)
-			return;
+	// function GuiMLTextEditCtrl::tabComplete(%this) {
+	// 	%message = %this.getValue();
+	// 	if (%this.tabCompletions == 0)
+	// 		return;
 
-		if (%this.tabComplete) {
-			%start = strPos(%message, "<tab:0>");
-			if (%start == -1) { // Why'd you delete it?
-				%message = %message @ "<tab:0>";
-				%start = strlen(%message);
-			} else
-				%start += strlen("<tab:0>");
-			%this.tabCompleteOn ++;
-			if (%this.tabCompleteOn >= %this.tabCompletions)
-				%this.tabCompleteOn = 0;
-		} else {
-			%this.tabComplete = true;
-			%message = %message @ "<tab:0>";
-			%start = strlen(%message);
-			%this.tabCompleteOn = 0;
-		}
+	// 	if (%this.tabComplete) {
+	// 		%start = strPos(%message, "<tab:0>");
+	// 		if (%start == -1) { // Why'd you delete it?
+	// 			%message = %message @ "<tab:0>";
+	// 			%start = strlen(%message);
+	// 		} else
+	// 			%start += strlen("<tab:0>");
+	// 		%this.tabCompleteOn ++;
+	// 		if (%this.tabCompleteOn >= %this.tabCompletions)
+	// 			%this.tabCompleteOn = 0;
+	// 	} else {
+	// 		%this.tabComplete = true;
+	// 		%message = %message @ "<tab:0>";
+	// 		%start = strlen(%message);
+	// 		%this.tabCompleteOn = 0;
+	// 	}
 
-		%message = getSubStr(%message, 0, %start) @ "<shadow:1:1><shadowcolor:0000007f><color:999999>" @ %this.tabCompletion[%this.tabCompleteOn];
+	// 	%message = getSubStr(%message, 0, %start) @ "<shadow:1:1><shadowcolor:0000007f><color:999999>" @ %this.tabCompletion[%this.tabCompleteOn];
 
-		%this.setValue(%message);
-		%this.setCursorPosition(%start - strlen("<tab:0>"));
-	}
+	// 	%this.setValue(%message);
+	// 	%this.setCursorPosition(%start - strlen("<tab:0>"));
+	// }
 
-	function GuiMLTextEditCtrl::getUncompletedValue(%this, %strip) {
-		%message = stripChars(%this.getValue(), %strip);
-		if (%this.tabComplete) {
-			%start = strPos(%message, "<tab:0>");
-			if (%start == -1)
-				return %message;
-			return getSubStr(%message, 0, %start);
-		} else
-			return %message;
-	}
+	// function GuiMLTextEditCtrl::getUncompletedValue(%this, %strip) {
+	// 	%message = stripChars(%this.getValue(), %strip);
+	// 	if (%this.tabComplete) {
+	// 		%start = strPos(%message, "<tab:0>");
+	// 		if (%start == -1)
+	// 			return %message;
+	// 		return getSubStr(%message, 0, %start);
+	// 	} else
+	// 		return %message;
+	// }
 
-	function GuiMLTextEditCtrl::getCompletedValue(%this, %strip) {
-		%message = stripChars(%this.getValue(), %strip);
-		if (%this.tabComplete) {
-			%start = strPos(%message, "<tab:0>");
-			if (%start == -1)
-				return %message;
-			%next = %start + strlen("<tab:0><shadow:1:1><shadowcolor:0000007f><color:999999>");
-			return getSubStr(%message, 0, %start) @ getSubStr(%message, %next, strlen(%message));
-		} else
-			return %message;
-	}
+	// function GuiMLTextEditCtrl::getCompletedValue(%this, %strip) {
+	// 	%message = stripChars(%this.getValue(), %strip);
+	// 	if (%this.tabComplete) {
+	// 		%start = strPos(%message, "<tab:0>");
+	// 		if (%start == -1)
+	// 			return %message;
+	// 		%next = %start + strlen("<tab:0><shadow:1:1><shadowcolor:0000007f><color:999999>");
+	// 		return getSubStr(%message, 0, %start) @ getSubStr(%message, %next, strlen(%message));
+	// 	} else
+	// 		return %message;
+	// }
 
-	function GuiMLTextEditCtrl::onTick(%this, %delta) {
-		%message = %this.getUncompletedValue();
-		if (%this.tabCommand !$= "" && strPos(%this.getValue(), "\t") != -1 && !$pref::FastMode) {
-			//echO("stripping \\t");
-			%message = stripChars(%message, "\t");
-			%this.setValue(%message);
+	// function GuiMLTextEditCtrl::onTick(%this, %delta) {
+	// 	%message = %this.getUncompletedValue();
+	// 	if (%this.tabCommand !$= "" && strPos(%this.getValue(), "\t") != -1 && !$pref::FastMode) {
+	// 		//echO("stripping \\t");
+	// 		%message = stripChars(%message, "\t");
+	// 		%this.setValue(%message);
 
-			eval(%this.tabCommand);
-		}
-		if (strPos(%this.getValue(), "\n") != -1) {
-			if (%this.tabComplete) {
-				%message = %this.getCompletedValue("\n");
-				//echo("completed is" SPC %message);
-				%this.tabComplete = false;
-				%this.setValue(%message);
-				%this.setCursorPosition(strlen(%message));
+	// 		eval(%this.tabCommand);
+	// 	}
+	// 	if (strPos(%this.getValue(), "\n") != -1) {
+	// 		if (%this.tabComplete) {
+	// 			%message = %this.getCompletedValue("\n");
+	// 			//echo("completed is" SPC %message);
+	// 			%this.tabComplete = false;
+	// 			%this.setValue(%message);
+	// 			%this.setCursorPosition(strlen(%message));
 
-				if (%this.command !$= "") {
-					%this.lastMessage = %message;
-					eval(%this.command);
-				}
+	// 			if (%this.command !$= "") {
+	// 				%this.lastMessage = %message;
+	// 				eval(%this.command);
+	// 			}
 
-			} else if (%this.altCommand !$= "") {
-				%message = stripChars(%message, "\n");
-				%this.setValue(%message);
+	// 		} else if (%this.altCommand !$= "") {
+	// 			%message = stripChars(%message, "\n");
+	// 			%this.setValue(%message);
 
-				eval(%this.altCommand);
-			}
-		}
-		if (%message !$= %this.lastMessage && !$pref::FastMode) {
-			// Get cursor position
-			if (%this.tabComplete) {
-				%this.setValue(%this.getUncompletedValue());
-				%this.tabComplete = false;
-			}
+	// 			eval(%this.altCommand);
+	// 		}
+	// 	}
+	// 	if (%message !$= %this.lastMessage && !$pref::FastMode) {
+	// 		// Get cursor position
+	// 		if (%this.tabComplete) {
+	// 			%this.setValue(%this.getUncompletedValue());
+	// 			%this.tabComplete = false;
+	// 		}
 
-			if (%this.command !$= "") {
-				%this.lastMessage = %message;
+	// 		if (%this.command !$= "") {
+	// 			%this.lastMessage = %message;
 
-				eval(%this.command);
-			}
-		}
-	}
+	// 			eval(%this.command);
+	// 		}
+	// 	}
+	// }
 
 	function GuiMLTextEditCtrl::setValue(%this, %newValue) {
 		// We have to not jump around
@@ -162,7 +162,7 @@ function SimObject::onTick(%this, %delta) {
 
 function GuiMLTextEditCtrl::onAdd(%this) {
 	Parent::onAdd(%this);
-	%this.setTickable(true);
+	// %this.setTickable(true);
 }
 
 function getChangePosition(%message1, %message2) {

@@ -192,6 +192,19 @@ function loadMissionStage2() {
 	// Make sure the mission exists
 	%file = $Server::MissionFile;
 
+	//In case the level has the "Always trust this level" thing ticked.
+	if ($pref::AlwaysTrust[$Server::MissionFile] == 1) {
+		$trustlevel = 1;
+	}
+
+	// if (checkforMaliciousCode(%file) && !$trustlevel) {
+	// 	MalcodeError("Level Loading Halted!", "The level you just tried to load might have Malicious Code, which could be used to alter game files. Please review the code detected and decide if you want to continue loading the level or not.");
+	// 	return;
+	// }
+
+	//Level checking is over, change this back for future checks.
+	$trustlevel = 0;
+
 	if (!isScriptFile(%file)) {
 		error("Could not find mission " @ %file);
 
@@ -408,7 +421,7 @@ function onMissionLoadFailed() {
 		//Ah dicks
 		error("Error in loading startup mission! Need to get to the main menu somehow!");
 		$pref::AnimatePreviews = 0;
-		$ScriptError = addRecord($ScriptError, "Due to script errors, animated backgrounds have been disabled.");
+		$ScriptError = addRecord($ScriptError, "Due to script errors, level previews have been disabled.");
 		%file = $Server::MissionFile;
 
 		menuDestroyServer();

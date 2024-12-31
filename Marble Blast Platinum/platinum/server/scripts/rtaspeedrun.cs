@@ -35,6 +35,7 @@ function RtaSpeedrun::create(%this) {
 
 	%this.pauseStartedTime = -1;
 	%this.setLastSplitTime(-1);
+	%this.setLastEggTime(-1);
 
 	%this.missionType = "";
 	%this.setMissionTypeBeganTime(0);
@@ -42,6 +43,11 @@ function RtaSpeedrun::create(%this) {
 	%this.currentGame = "";
 	%this.setCurrentGameBeganTime(0);
 	%this.currentGameDuration = -1;
+
+	%this.receivedMbgWarning = false;
+
+	// Global since stupid GuiCheckBoxCtrl can't access variables inside RtaSpeedrun object
+	$RtaTimeEndsOnEgg = false;
 
 	%this.smartHideSplits = true;
 	if (%this.loadProgress()) {
@@ -54,7 +60,7 @@ function RtaSpeedrun::create(%this) {
 RtaSpeedrun.schedule(100, create);
 
 
-function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
+function RtaSpeedrun::onFrameAdvanceWithPause(%this, %timeDelta) {
 	if (%this.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
 		%this.setTime(add64_int(%this.time, %timeDelta / getTimeScale()));
 		%this.updateTimers();
@@ -62,9 +68,9 @@ function RtaSpeedrun::onFrameAdvance(%this, %timeDelta) {
 }
 
 package RtaSpeedrunFrameAdvance {
-	function onFrameAdvance(%timeDelta) {
-		Parent::onFrameAdvance(%timeDelta);
-		RtaSpeedrun.onFrameAdvance(%timeDelta);
+	function onFrameAdvanceWithPause(%timeDelta) {
+		Parent::onFrameAdvanceWithPause(%timeDelta);
+		RtaSpeedrun.onFrameAdvanceWithPause(%timeDelta);
 	}
 };
 activatePackage(RtaSpeedrunFrameAdvance);
@@ -79,7 +85,13 @@ function RtaSpeedrun::updateTimers(%this) {
 	}
 	%showGame = %this.currentGameDuration > 0;
 	%showCategory = %this.missionTypeDuration > 0;
-	%showSplit = %this.lastSplitTime > 0;
+	%lastTime = %this.lastSplitTime;
+	%lastTimeIsEgg = false;
+	if ($Pref::RtaShowEggSplits && %this.lastEggTime > %this.lastSplitTime) {
+		%lastTime = %this.lastEggTime;
+		%lastTimeIsEgg = true;
+	}
+	%showSplit = $pref::RtaShowAllSplits && %lastTime > 0;
 
 	if (%this.smartHideSplits) {
 		if (%this.isDone) {
@@ -89,8 +101,8 @@ function RtaSpeedrun::updateTimers(%this) {
 			if (%this.currentGameDuration == %this.time)
 				%showGame = false;
 		}
-		if (%this.lastSplitTime == %this.missionTypeDuration
-			|| %this.lastSplitTime == %this.currentGameDuration)
+		if (%lastTime == %this.missionTypeDuration
+			|| %lastTime == %this.currentGameDuration)
 			%showSplit = false;
 		if (%showCategory && %showGame && (%this.currentGameDuration == %this.missionTypeDuration)) {
 			%showGame = false;
@@ -106,15 +118,17 @@ function RtaSpeedrun::updateTimers(%this) {
 	}
 	if (%showGame) {
 		$pref::Thousandths = true;
-		%text = %text NL formatTimeHoursMs(%this.currentGameDuration) SPC "Game";
+		%text = %text NL formatTimeHoursMs(%this.currentGameDuration) SPC "Final Game Time";
 	}
 	if (%showCategory) {
 		$pref::Thousandths = true;
-		%text = %text NL formatTimeHoursMs(%this.missionTypeDuration) SPC "Category";
+		%text = %text NL formatTimeHoursMs(%this.missionTypeDuration) SPC "Final Category Time";
 	}
 	$pref::Thousandths = %prevPrefThousandths;
-	if (%showSplit)
-		%text = %text NL formatTimeHoursMs(%this.lastSplitTime) SPC "Split";
+	if (%showSplit) {
+		%suffix = %lastTimeIsEgg ? "Egg Split" : "Split";
+		%text = %text NL formatTimeHoursMs(%lastTime) SPC %suffix;
+	}
 	%this.setTimerText(%text);
 }
 
@@ -132,6 +146,7 @@ function RtaSpeedrun::start(%this) {
 
 	%this.pauseStartedTime = -1;
 	%this.setLastSplitTime(-1);
+	%this.setLastEggTime(-1);
 
 	%this.missionType = "";
 	%this.setMissionTypeBeganTime(0);
@@ -141,8 +156,6 @@ function RtaSpeedrun::start(%this) {
 	%this.currentGameDuration = -1;
 
 	%this.updateTimers();
-
-	RTAAS_setShouldInterpolateTime(false);
 
 	echo("An RTA speedrun will start when you enter a level, and end when you finish" SPC %this.endMission);
 	echo("Good luck!");
@@ -157,9 +170,18 @@ function RtaSpeedrun::stop(%this) {
 	%this.clearProgress();
 }
 
-function RtaSpeedrun::setEnd(%this) {
-	%this.endMission = PlayMissionGui.getMissionInfo().file;
+function RtaSpeedrun::setEnd(%this, %arg) {
+	if (%arg $= "") {
+		%this.endMissionInfo = PlayMissionGui.getMissionInfo();
+	} else {
+		%this.endMissionInfo = getMissionInfo(%arg);
+	}
+	%this.endMission = %this.endMissionInfo.file;
 	echo("The last level of the RTA speedrun set to" SPC %this.endMission);
+	if (!%this.receivedMbgWarning && (stripos(%this.endMission, "data/missions_mbg/") != -1 || stripos(%this.endMission, "data/lbmissions_mbg/") != -1)) {
+		ASSERT("Warning", "You have selected a Marble Blast Gold level as the final level. In order for a run to be valid on speedrun.com/mbg, it can't be done in PQ, it must be done in vanilla MBG. Feel free to run it if you would like, just be aware that it will not be verified. If it's part of a larger speedrun with multiple games (e.g. a colored name speedrun) which you plan on ending in MBG, then feel free to ignore this warning.");
+		%this.receivedMbgWarning = true;
+	}
 }
 
 function RtaSpeedrun::missionStarted(%this) {
@@ -177,6 +199,7 @@ function RtaSpeedrun::missionStarted(%this) {
 	if (!%this.isEnabled)
 		return;
 	%this.setLastSplitTime(-1);
+	%this.setLastEggTime(-1);
 	%this.missionTypeDuration = -1;
 	%this.currentGameDuration = -1;
 	if ($MissionType !$= %this.missionType) {
@@ -194,7 +217,7 @@ function RtaSpeedrun::missionStarted(%this) {
 function RtaSpeedrun::missionEnded(%this) {
 	if (!%this.isEnabled)
 		return;
-	if (%this.endMission $= $Server::MissionFile) {
+	if (!$RtaTimeEndsOnEgg && %this.endMission $= $Server::MissionFile) {
 		echo("Just finished the end level! Speedrun mode over");
 		echo("Final time:" SPC %this.time);
 		%this.setIsEnabled(false);
@@ -226,23 +249,30 @@ function RtaSpeedrun::missionEnded(%this) {
 	%this.saveProgress();
 }
 
-function RtaSpeedrun::pauseGame(%this) {
-	RTAAS_setShouldInterpolateTime(true);
+function RtaSpeedrun::missionRestarted(%this) {
 	if (!%this.isEnabled)
 		return;
-	%this.pauseStartedTime = getRealTime();
+	%this.setLastSplitTime(-1);
+	%this.setLastEggTime(-1);
+	%this.missionTypeDuration = -1;
+	%this.currentGameDuration = -1;
+	%this.updateTimers();
+	%this.saveProgress();
 }
 
-function RtaSpeedrun::unpauseGame(%this) {
-	RTAAS_setShouldInterpolateTime(false);
+function RtaSpeedrun::eggCollected(%this) {
 	if (!%this.isEnabled)
 		return;
-	if (%this.pauseStartedTime < 0)
-		return;
-	%currentTime = getRealTime();
-	%diff = sub64_int(%currentTime, %this.pauseStartedTime);
-	%this.setTime(add64_int(%this.time, %diff));
-	%this.pauseStartedTime = -1;
+	%this.setLastEggTime(%this.time);
+	if ($RtaTimeEndsOnEgg && %this.endMission $= $Server::MissionFile) {
+		echo("Just collected the last egg! Speedrun mode over");
+		echo("Final time:" SPC %this.time);
+		%this.setIsEnabled(false);
+		%this.setIsDone(true);
+		%this.clearProgress();
+	}
+	%this.updateTimers();
+	%this.saveProgress();
 }
 
 function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
@@ -275,6 +305,7 @@ function RtaSpeedrun::saveProgress(%this) {
 	$RtaProgress::missionTypeBeganTime = %this.missionTypeBeganTime;
 	$RtaProgress::currentGame = %this.currentGame;
 	$RtaProgress::currentGameBeganTime = %this.currentGameBeganTime;
+	$RtaProgress::timeEndsOnEgg = $RtaTimeEndsOnEgg;
 	export("$RtaProgress::*", "~/client/rtaProgress.cs", False);
 }
 
@@ -285,11 +316,12 @@ function RtaSpeedrun::loadProgress(%this) {
 	}
 	exec(%progressFile);
 	%this.setTime($RtaProgress::time);
-	%this.endMission = $RtaProgress::endMission;
+	%this.setEnd($RtaProgress::endMission);
 	%this.missionType = $RtaProgress::missionType;
 	%this.missionTypeBeganTime = $RtaProgress::missionTypeBeganTime;
 	%this.currentGame = $RtaProgress::currentGame;
 	%this.currentGameBeganTime = $RtaProgress::currentGameBeganTime;
+	$RtaTimeEndsOnEgg = $RtaProgress::timeEndsOnEgg;
 	echo("Loaded" SPC %progressFile @ ", RTA Speedrun in progress!!!");
 	return true;
 }
@@ -330,6 +362,10 @@ function RtaSpeedrun::setTime(%this, %time) {
 function RtaSpeedrun::setLastSplitTime(%this, %time) {
 	%this.lastSplitTime = %time;
 	RTAAS_setLastSplitTime(%this.lastSplitTime);
+}
+function RtaSpeedrun::setLastEggTime(%this, %time) {
+	%this.lastEggTime = %time;
+	RTAAS_setLastEggTime(%this.lastEggTime);
 }
 function RtaSpeedrun::setMissionTypeBeganTime(%this, %time) {
 	%this.missionTypeBeganTime = %time;

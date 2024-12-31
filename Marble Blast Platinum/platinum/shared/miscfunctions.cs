@@ -298,25 +298,25 @@ function useMyMarbleCamera() {
 
 function getMarbleCamYaw() {
 	if (useMyMarbleCamera()) {
-		$cameraYaw = MPGetMyMarble().getCameraYaw();
+		$cameraYaw = $MP::MyMarble.getCameraYaw();
 	}
 	return $cameraYaw;
 }
 
 function getMarbleCamPitch() {
 	if (useMyMarbleCamera()) {
-		$cameraPitch = MPGetMyMarble().getCameraPitch();
+		$cameraPitch = $MP::MyMarble.getCameraPitch();
 	}
 	return $cameraPitch;
 }
 function setMarbleCamYaw(%yaw) {
 	if (useMyMarbleCamera())
-		MPGetMyMarble().setCameraYaw(%yaw);
+		$MP::MyMarble.setCameraYaw(%yaw);
 	$cameraYaw = %yaw;
 }
 function setMarbleCamPitch(%pitch) {
 	if (useMyMarbleCamera())
-		MPGetMyMarble().setCameraPitch(%pitch);
+		$MP::MyMarble.setCameraPitch(%pitch);
 	$cameraPitch = %pitch;
 }
 

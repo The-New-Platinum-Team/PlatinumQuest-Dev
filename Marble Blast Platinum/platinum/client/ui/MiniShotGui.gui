@@ -47,13 +47,17 @@ new GuiControl(MiniShotGui) {
 };
 //--- OBJECT WRITE END ---
 
-function doMiniShot() {
-	if (!$Game::Running)
+function doMiniShot(%cb) {
+	if (!$Game::Running) {
+		eval(%cb);
 		return;
+	}
 
 	// if in lbs or in editor, disable.
-	if (!$Editor::Opened)
+	if (!$Editor::Opened) {
+		eval(%cb);
 		return;
+	}
 
 	%scale = 4;//Because screenshots aren't anti-aliased and they look stupid when small
 	%imgWidth = 96 * %scale;
@@ -68,8 +72,18 @@ function doMiniShot() {
 	Minishotter.resize(0, 0, %imgWidth, %imgHeight);
 	Minishotter.forceFOV = %imgFov;
 	Canvas.repaint();
-	screenShot(filePath($Server::MissionFile) @ "/" @ fileBase($Server::MissionFile) @ ".png", %imgWidth, %imgHeight);
+	schedule(200, 0, "doMiniShotTakeScreenshot", %imgWidth, %imgHeight, %cb);
+
+}
+
+function doMiniShotTakeScreenshot(%imgWidth, %imgHeight, %cb) {
+	screenShotRegion(filePath($Server::MissionFile) @ "/" @ fileBase($Server::MissionFile) @ ".png", %imgWidth, %imgHeight, %imgWidth, %imgHeight);
+	schedule(150, 0, "doMiniShotEnd", %cb);
+}
+
+function doMiniShotEnd(%cb) {
 	RootGui.setContent(PlayGui);
+	eval(%cb);
 }
 
 function doBigShot() {

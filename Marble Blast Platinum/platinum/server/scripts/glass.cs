@@ -20,31 +20,31 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-if ($pref::UseLowResGlass) {
-	datablock StaticShapeData(glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/3x3.dts";
-	};
+// if ($pref::UseLowResGlass) {
+// 	datablock StaticShapeData(glass_3shape) {
+// 		shapeFile = "~/data/shapes/Glass/3x3.dts";
+// 	};
 
-	datablock StaticShapeData(glass_6shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/6x3.dts";
-	};
+// 	datablock StaticShapeData(glass_6shape: glass_3shape) {
+// 		shapeFile = "~/data/shapes/Glass/6x3.dts";
+// 	};
 
-	datablock StaticShapeData(glass_9shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/9x3.dts";
-	};
+// 	datablock StaticShapeData(glass_9shape: glass_3shape) {
+// 		shapeFile = "~/data/shapes/Glass/9x3.dts";
+// 	};
 
-	datablock StaticShapeData(glass_12shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/12x3.dts";
-	};
+// 	datablock StaticShapeData(glass_12shape: glass_3shape) {
+// 		shapeFile = "~/data/shapes/Glass/12x3.dts";
+// 	};
 
-	datablock StaticShapeData(glass_15shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/15x3.dts";
-	};
+// 	datablock StaticShapeData(glass_15shape: glass_3shape) {
+// 		shapeFile = "~/data/shapes/Glass/15x3.dts";
+// 	};
 
-	datablock StaticShapeData(glass_18shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/18x3.dts";
-	};
-} else {
+// 	datablock StaticShapeData(glass_18shape: glass_3shape) {
+// 		shapeFile = "~/data/shapes/Glass/18x3.dts";
+// 	};
+// } else {
 	datablock StaticShapeData(glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/Col/3x3.dts";
 	};
@@ -68,7 +68,7 @@ if ($pref::UseLowResGlass) {
 	datablock StaticShapeData(glass_18shape: glass_3shape) {
 		shapeFile = "~/data/shapes/Glass/Col/18x3.dts";
 	};
-}
+// }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //This whole ass .cs is barren and I'm going to make fucking use of it with Marble Blast XP shapes. - Daniel
@@ -90,17 +90,17 @@ datablock StaticShapeData(ForceFieldBumper : ForceFieldPost) {
 };
 
 function Empty::onAdd(%this, %obj) {
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost") {
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost" && !lb()) {
 	%obj.setDataBlock("ForceFieldPost");
 	%obj.playThread(0,"ambient_ifl");
    }
 
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldBumper") {
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldBumper" && !lb()) {
 	%obj.setDataBlock("ForceFieldBumper");
 	%obj.playThread(0,"ambient_ifl");
    }
 
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "Checkpoint_MBXP") {
+   if ($TexturePack::MBXP && %obj.realDataBlock $= "Checkpoint_MBXP" && !lb()) {
 	%obj.setDataBlock("Checkpoint_MBXP");
    }
 }	

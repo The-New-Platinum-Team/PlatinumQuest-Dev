@@ -77,8 +77,10 @@ function onMissionDownloadPhase1(%missionName, %musicTrack) {
 	//MessageHud.close();
 	//cls();
 
-	// this variable is used for the fader effect in playGui::onWake
-	$PlayGuiFader = true;
+	if (!$pref::NoFadeIn) {
+		// this variable is used for the fader effect in playGui::onWake
+		$PlayGuiFader = true;
+	}
 
 	setLoadProgress(0, 1, 0);
 }
@@ -419,7 +421,8 @@ function handleReadyCountMessage(%msgType, %msgString, %readyCount, %playerCount
 
 function handleLoadMissionInfoPartMessage(%msgType, %msgString, %key, %value) {
 	// This spits out the mission info
-	$MP::MissionInfoPart.setFieldValue(%key, $MP::MissionInfoPart.getFieldValue(%key) @ %value);
+	if (isObject($MP::MissionInfoPart))
+		$MP::MissionInfoPart.setFieldValue(%key, $MP::MissionInfoPart.getFieldValue(%key) @ %value);
 }
 
 //------------------------------------------------------------------------------

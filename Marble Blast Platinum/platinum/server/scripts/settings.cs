@@ -155,16 +155,16 @@ function GameConnection::sendSettingsList(%this) {
 	commandToClient(%this, 'ServerSettingsListEnd');
 }
 
-//Add settings   Identifier             Name                   Variable                        Public     Type      Minimum                Maximum
-serverAddSetting("Name",                "Server Name",         "$Pref::Server::Name",          false,     "text");
-serverAddSetting("Password",            "Password",            "$MPPref::Server::Password",    false,     "password");
-serverAddSetting("MaxPlayers",          "Max Players",         "$pref::Server::MaxPlayers",    true,      "number", $MP::PlayerMinimum,    $MP::PlayerMaximum);
-serverAddSetting("ForceSpectators",     "Force Spectators",    "$MPPref::ForceSpectators",     true,      "check");
-serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQuickRespawn",   true,      "check");
-serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts", false,      "check");
-serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests", false,     "check");
-serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,     "check");
-serverAddSetting("CompetitiveMode",     "Competitive Mode",    "$MPPref::Server::CompetitiveMode", true,  "check");
+//Add settings   Identifier             Name                   Variable                              Public     Type         Minimum             Maximum
+serverAddSetting("Name",                "Server Name",         "$Pref::Server::Name",                false,     "text");
+serverAddSetting("Password",            "Password",            "$MPPref::Server::Password",          false,     "password");
+serverAddSetting("MaxPlayers",          "Max Players",         "$pref::Server::MaxPlayers",          true,      "number",    $MP::PlayerMinimum, $MP::PlayerMaximum);
+serverAddSetting("ForceSpectators",     "Force Spectators",    "$MPPref::ForceSpectators",           true,      "check");
+serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQuickRespawn",         true,      "check");
+serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts",       false,     "check");
+serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests",       false,     "check");
+serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,      "check");
+serverAddSetting("CompetitiveMode",     "Competitive Mode",    "$MPPref::Server::CompetitiveMode",   true,      "check");
 // serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
 
 //Called before a server variable is set
@@ -193,7 +193,7 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			} else {
 				$MP::ScoreSendingDisabled = false;
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
 						$MP::ScoreSendingDisabled = true;
 						break;
 					}
@@ -218,12 +218,14 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				}
 				Hunt_CompetitiveClearTimer();
 				$MP::ScoreSendingDisabled = false;
+				
 				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0) {
+					if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
 						$MP::ScoreSendingDisabled = true;
 						break;
 					}
 				}
+
 				hideGems();
 				spawnHuntGemGroup(); // Get rid of the old spawns
 			}

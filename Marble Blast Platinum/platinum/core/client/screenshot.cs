@@ -74,14 +74,22 @@ function doScreenShot(%val) {
 		if ($CurrentGame $= "PlatinumQuest") {
 			// PlatinumQuest does not have control+p. This will effectivly stop it.
 			pauseGame();
-			MessageBoxOk("Screenshot Taken", "Saved as \"screenshot_" @ formatImageNumber($screenshotNumber) @ ".png\" in the /screenshots/ directory.", "resumeGame();");
 		}
 
-		//Don't lag
-		correctNextFrame();
-
-		$screenshotNumber ++;
+		scheduleIgnorePause(100, onNextFrameScreenshot);
 	}
+}
+
+function onNextFrameScreenshot() {
+	if ($CurrentGame $= "PlatinumQuest") {
+		// PlatinumQuest does not have control+p. This will effectivly stop it.
+		MessageBoxOk("Screenshot Taken", "Saved as \"screenshot_" @ formatImageNumber($screenshotNumber) @ ".png\" in the /screenshots/ directory.", "resumeGame();");
+	}
+
+	//Don't lag
+	correctNextFrame();
+
+	$screenshotNumber ++;
 }
 
 

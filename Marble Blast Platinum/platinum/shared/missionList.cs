@@ -817,12 +817,12 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 				}
 
 				//CRC BABYYY
-				%hash = getMissionHash(%info);
-				if (%hash $= %missionObj.hash) {
-					echo("Matched hash: " @ %missionObj SPC %info SPC %info.name);
-				} else {
-					error("Unmatched hash: " @ %missionObj SPC %info SPC %info.name);
-				}
+				// %hash = getMissionHash(%info);
+				// if (%hash $= %missionObj.hash) {
+				// 	echo("Matched hash: " @ %missionObj SPC %info SPC %info.name);
+				// } else {
+				// 	error("Unmatched hash: " @ %missionObj SPC %info SPC %info.name);
+				// }
 			} else {
 				//You don't have it? Just put an empty mission there instead
 				MissionInfoGroup.add(%info = new ScriptObject() {

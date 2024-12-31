@@ -501,11 +501,20 @@ function onDemoPlayDone() {
 
 	//Back to where we started
 	if (lb()) {
-		RootGui.setContent(PlayMissionGui);
+		if ($replayFromWorldRecord) {
+			RootGui.setContent(PlayMissionGui);
+			PlayMissionGui.showGlobalScores();
+		} else {
+			RootGui.setContent(LBChatGui);
+		}
 	} else {
 		RootGui.setContent(MainMenuGui);
 	}
-	Canvas.pushDialog(PlayDemoGui);
+	if ($replayFromPlayDemoGui)
+		Canvas.pushDialog(PlayDemoGui);
+
+	$replayFromPlayDemoGui = false;
+	$replayFromWorldRecord = false;
 }
 
 function playbackSyncStart(%object, %info) {
@@ -621,6 +630,10 @@ function playbackDumpCsv(%file, %ghost) {
 	$replaycsv = 0;
 }
 
+function delayDemoFinish() {
+	$playingDemo = false;
+}
+
 function PlaybackInfo::finish(%this) {
 	//Shut it down
 	if (isObject(%this.fo)) {
@@ -642,7 +655,7 @@ function PlaybackInfo::finish(%this) {
 		Physics::popLayerName("noInput");
 		if ($playingDemo) {
 			onDemoPlayDone(false);
-			$playingDemo = false;
+			schedule(2000, 0, delayDemoFinish);
 		}
 	}
 

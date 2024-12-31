@@ -371,6 +371,36 @@ function resumeMusic() {
 	$JukeboxDlg::isPlaying = true;
 }
 
+function pitchMusic() {
+	%targetPitch = 1;
+
+	//Warp Speed Music
+	if ($pref::warpSpeedMusic && $InPlayGUI && isObject($MP::MyMarble)) {
+		%targetPitch = (mPow(VectorLen($MP::MyMarble.getVelocity()) / 360, 1/2));
+		if (%targetPitch < 1)
+			%targetPitch = 1;
+	}
+
+	//Final Lap Music
+	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.noFinalLapMusic && (playGui.lapsComplete == playGui.lapsTotal) && $InPlayGUI)
+		%targetPitch *= 1.12246; //2 semitones
+	
+	//Panic Music
+	if ($pref::panicMusic && playGui.isAlarmActive && $InPlayGUI)
+		%targetPitch *= 1.05946; //1 semitone
+
+	//Temporal Music
+	if ($pref::temporalMusic)
+		%targetPitch *= getTimeScale();
+	
+	//Music Triggers + Custom Code
+	if($GlobalMusicPitchHandler $= "" || !$Game::Running || $Game::Menu)
+		$GlobalMusicPitchHandler = 1;
+	%targetPitch *= $GlobalMusicPitchHandler;
+	
+	alxSourcef($currentMusicHandle, AL_PITCH, %targetPitch);
+}
+
 $Music::Exclude = "Pianoforte\tComforting Mystery\tQuiet Lab\tUpbeat Finale\tGood to Jump to (Loop Edit)\tElectroforte\tShell\tXmas Trance\tHalloween Trance\tFlanked\tMBP Old Shell\tMetropolis\tSeaside";
 function buildMusicList() {
 	if (!$musicFound) {
@@ -421,22 +451,22 @@ function getMusicFile(%location) {
 //-----------------------------------------------------------------------------
 
 function loadAudioPack(%packname) {
-	warn("Resetting Audio Pack...");
+	warn("Resetting Sound Pack...");
 	audioPackReset(RootGroup);
 
 	%apk = $userMods @ "/data/sound/ap_" @ %packname @ "/" @ %packname @ ".apk";
 	%pack = jsonParse(fread(%apk));
 	if (!isObject(%pack)) {
 		if (%pack !$= "") {
-			MessageBoxOk("Audio Pack Error!", "Could not load the audio pack \"" @ %packname @ "\"!");
+			MessageBoxOk("Sound Pack Error!", "Could not load the sound pack \"" @ %packname @ "\"!");
 		}
 		return;
 	}
 	%pack.dump();
-	warn("Executed Audio Pack" SPC %pack.name SPC "by" SPC %pack.author @ "...");
+	warn("Executed Sound Pack" SPC %pack.name SPC "by" SPC %pack.author @ "...");
 	$Audio::CurrentAudioPack = %pack;
 
-	warn("Loading Audio Pack...");
+	warn("Loading Sound Pack...");
 	audioPackIterate(RootGroup, %pack);
 
 	$SpawnKeyDefault = %pack.defaultSpawnKey;

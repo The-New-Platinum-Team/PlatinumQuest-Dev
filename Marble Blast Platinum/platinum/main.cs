@@ -127,6 +127,16 @@ package marble {
 					error("Error: Missing Command Line argument. Usage: -mission <filename>");
 					$argError = 1; // Present error at main menu
 				}
+			case "-marbleland":
+				$argUsed[%i]++;
+				if (%hasNextArg) {
+					$marblelandArg = %nextArg;
+					$argUsed[%i+1]++;
+					%i++;
+				} else {
+					error("Error: Missing Command Line argument. Usage: -marbleland <id>");
+					$argError = 1; // Present error at main menu
+				}
 			case "-server":
 				$argUsed[%i]++;
 				if (%hasNextArg) {

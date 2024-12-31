@@ -131,6 +131,8 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 	$Game::EasterEgg = true;
 	$Game::EasterEggTime = %time;
 
+	RtaSpeedrun.eggCollected();
+
 	%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
 	if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
 		$pref::EasterEggTime[$Server::MissionFile] = %time;
@@ -202,7 +204,7 @@ function clientCmdActivatePowerUp(%powerUpId) {
 		// [3] Super Bounce, [4] Shock Absorber, [5] Gyrocopter
 		// [6] Mega Marble 10s, [7] Teleporter 2s. Handled by their respective powerup codes.
 		// [9] Nerfed super jump for White Noise PQ level.
-		PlayGui.pushPowerupTimer(%powerupId, getSimTime(), 5000);
+		PlayGui.pushPowerupTimer(%powerupId, getSimTime(), $MP::MyMarble.getDataBlock().powerUpTime[%powerupId]);
 	}
 	//if (%powerUpId == 6)
 	//MegaRollingHardSfx.filename = RollingHardSfx.filename = "~/data/sound/mega_roll.wav";

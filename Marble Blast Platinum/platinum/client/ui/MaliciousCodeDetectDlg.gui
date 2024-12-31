@@ -1,0 +1,197 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2021 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+//--- OBJECT WRITE BEGIN ---
+new GuiBitmapCtrl(MaliciousCodeDetectDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "640 480";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	bitmap = "./exit/black";
+	wrap = "0";
+
+	new GuiControl() {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "98 69";
+		extent = "444 341";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiMLTextCtrl(MBMalCodeErrorHandlerTitle) {
+			profile = "GuiComic24Profile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "17 19";
+			extent = "410 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBorderButtonCtrl() {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "293 280";
+			extent = "136 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MessageCallback(MaliciousCodeDetectDlg,MaliciousCodeDetectDlg.callback); resumeGame(); $asserted = 0; $trustlevel = 1; checkifAlwaysTrus(); loadMissionStage2();";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Load Anyway";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			borderColor = "255 204 204";
+		};
+		new GuiMLTextCtrl(MBMalCodeErrorHandlerText) {
+			profile = "GuiTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "16 53";
+			extent = "412 63";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBorderButtonCtrl() {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "13 280";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MessageCallback(MaliciousCodeDetectDlg,MaliciousCodeDetectDlg.callback); resumeGame(); $asserted = 0; loadMissionFinish(false);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Close";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiCheckBoxCtrl(AlwaysTrusCheck) {
+			profile = "PQCheckboxProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "396 254";
+			extent = "31 31";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			text = "button";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiMLTextCtrl(TrusCheckText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "244 258";
+			extent = "151 21";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "8 107";
+			extent = "427 152";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiScrollCtrl() {
+				profile = "PQScrollProfile";
+				horizSizing = "center";
+				vertSizing = "center";
+				position = "13 14";
+				extent = "401 123";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "dynamic";
+				vScrollBar = "alwaysOn";
+				constantThumbHeight = "0";
+				childMargin = "0 0";
+
+				new GuiMLTextCtrl(ShowMalCodeBox) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "center";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "379 180";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+function MaliciousCodeDetectDlg::onWake(%this) {
+	TrusCheckText.setText("<spush><font:18><just:left>Always trust this Level?<spop>");
+}
+
+function MalcodeError(%title, %message, %callback) {
+	$asserted = 1;
+	MBMalCodeErrorHandlerTitle.setText("<bold:32><just:center>" @ %title);
+	MBMalCodeErrorHandlerText.setText("<font:18>" @ %message);
+	RootGui.pushDialog(MaliciousCodeDetectDlg);
+	MaliciousCodeDetectDlg.callback = %callback;
+	ShowMalCodeBox.setText("<spush><font:16>" @ $maliciouscode @ "<spop>");
+	pauseGame();
+}
+
+function checkifAlwaysTrus() {
+	if (AlwaysTrusCheck.getValue() == 1) {
+		$pref::AlwaysTrust[$Server::MissionFile] = 1;
+	}
+}
