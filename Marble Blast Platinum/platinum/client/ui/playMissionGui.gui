@@ -1347,6 +1347,7 @@ function PlayMissionGui::onWake(%this) {
 	activateMenuHandler(PMMenu);
 
 	%this.setTickable(true);
+	Canvas.doHover = true;
 
 	//If we shouldn't show the current mission, go pick a different one
 	if (!Unlock::canDisplayMission(%this.getMissionInfo())) {
