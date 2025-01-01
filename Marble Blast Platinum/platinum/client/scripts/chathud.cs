@@ -61,8 +61,8 @@ function shiftMessages(%amount) {
 function updateMessages(%delta) {
 	for (%i = 0; %i < PG_MessageListBox.getCount(); %i ++) {
 		%box = PG_MessageListBox.getObject(%i);
-		%x = getWord(%box.getPosition(), 0);
-		%y = getWord(%box.getPosition(), 1);
+		%x = %box.xPos !$= "" ? %box.xPos : getWord(%box.getPosition(), 0);
+		%y = %box.yPos !$= "" ? %box.yPos : getWord(%box.getPosition(), 1);
 
 		if (%x != %box.targetX) {
 			//Go in the direction given by directionX, each also has their own speed constant (see above)
@@ -70,7 +70,9 @@ function updateMessages(%delta) {
 			//Don't go past the limit. Multiply by direction because lazy way of making it work both ways
 			if (%x * %box.directionX > %box.targetX * %box.directionX)
 				%x = %box.targetX;
-			%box.setPosition(%x SPC getWord(%box.getPosition(), 1));
+			%box.xPos = %x;
+			%box.yPos = %y;
+			%box.setPosition(mFloor(%x) SPC mFloor(%y));
 		} else if (%box.directionX == -1) {
 			//Delete after this frame (but don't break our loop)
 			%box.onNextFrame(delete);
@@ -81,7 +83,9 @@ function updateMessages(%delta) {
 			//Don't go past the limit
 			if (%y < %box.targetY)
 				%y = %box.targetY;
-			%box.setPosition(getWord(%box.getPosition(), 0) SPC %y);
+			%box.xPos = %x;
+			%box.yPos = %y;
+			%box.setPosition(mFloor(%x) SPC mFloor(%y));
 		}
 	}
 
