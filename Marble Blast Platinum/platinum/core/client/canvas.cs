@@ -226,10 +226,9 @@ function updateFrameController() {
 		setTickInterval(1);
 	case 0: //Vsync
 		setVerticalSync(true);
-		setTickInterval(1);
 	default: //Manual
 		setVerticalSync(false);
-		setTickInterval(1000 / $pref::Video::MaxFPS);
+		setMaxFPS($pref::Video::MaxFPS);
 	}
 }
 
