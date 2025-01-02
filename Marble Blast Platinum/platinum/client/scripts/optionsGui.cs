@@ -472,7 +472,7 @@ $Options::Title   ["Gameplay", $i  ] = "Free-Look";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "fpsCounter";
 $Options::Title   ["Gameplay", $i  ] = "FPS Counter";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "helptriggers";
 $Options::Title   ["Gameplay", $i  ] = "Help Bubbles";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
@@ -527,6 +527,12 @@ Array(TimeTravelTimerArray);
 TimeTravelTimerArray.addEntry("Disabled"  TAB 0);
 TimeTravelTimerArray.addEntry("Enabled" TAB 1);
 TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
+
+Array(FPSCounterArray);
+FPSCounterArray.addEntry("Disabled"  TAB 0);
+FPSCounterArray.addEntry("Show Update Rate" TAB 1);
+FPSCounterArray.addEntry("Show Frame Rate"  TAB 2);
+FPSCounterArray.addEntry("Show All"  TAB 3);
 
 //-----------------------------------------------------------------------------
 // Online
@@ -1231,7 +1237,11 @@ function OptionsGui::updateChannelVolume(%this, %channel) {
 // Gameplay Functions
 
 function Opt_fpsCounter_getDisplay() {
-	return $pref::showFPSCounter ? "Enabled" : "Disabled";
+	%entry = FPSCounterArray.getEntryByField($pref::showFPSCounter, 1);
+	if (%entry $= "") {
+		return $pref::showFPSCounter ? "Enabled" : "Disabled";
+	}
+	return getField(%entry, 0);
 }
 
 function Opt_fpsCounter_getValue() {
@@ -1239,12 +1249,22 @@ function Opt_fpsCounter_getValue() {
 }
 
 function Opt_fpsCounter_decrease() {
-	$pref::showFPSCounter = !$pref::showFPSCounter;
+	%index = FPSCounterArray.getIndexByField($pref::showFPSCounter, 1);
+	%index --;
+	if (%index < 0) {
+		%index = FPSCounterArray.getSize() - 1;
+	}
+	$pref::showFPSCounter = getField(FPSCounterArray.getEntry(%index), 1);
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
 }
 
 function Opt_fpsCounter_increase() {
-	$pref::showFPSCounter = !$pref::showFPSCounter;
+	%index = FPSCounterArray.getIndexByField($pref::showFPSCounter, 1);
+	%index ++;
+	if (%index >= FPSCounterArray.getSize()) {
+		%index = 0;
+	}
+	$pref::showFPSCounter = getField(FPSCounterArray.getEntry(%index), 1);
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
 }
 
