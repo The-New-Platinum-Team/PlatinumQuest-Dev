@@ -1116,11 +1116,19 @@ function ServerMissionList::shouldCheckAchievements(%this, %game) {
 //-----------------------------------------------------------------------------
 
 function MarblelandMissionList::getGameList(%this) {
-	return "Levels\tLevels" NL
-	       "Packs\tPacks";
+	if (mp()) {
+		return "Marbleland\tMarbleland";
+	} else {
+		return "Levels\tLevels" NL
+			"Packs\tPacks";
+	}
 }
 
 function MarblelandMissionList::getDifficultyList(%this, %game) {
+	if (mp()) {
+		return "Marbleland\tMarbleland";
+	}
+
 	switch$ (%game) {
 	case "Levels":
 		return "All\tAlphabetical" NL
@@ -1197,6 +1205,8 @@ function MarblelandMissionList::getDifficultyTree(%this, %game) {
 
 function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 	switch$ (%game) {
+	case "Marbleland":
+		return true;
 	case "Levels":
 		switch$ (%difficulty) {
 		case "All":
@@ -1224,6 +1234,9 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 
 	%sort = MissionSortSearchName;
 	switch$ (%game) {
+	case "Marbleland":
+		%ml = $MarblelandMissionList;
+		%sort = MissionSortSearchName;
 	case "Levels":
 		switch$ (%difficulty) {
 		case "All":
@@ -1245,6 +1258,10 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 
 		if (%game $= "Levels" && %difficulty $= "Installed") {
 			%mis = marblelandGetMission(%mis); // MarblelandPackages has an id
+		}
+
+		if (%game $= "Marbleland" && %mis.gameType !$= "multi") {
+			continue; // This is for MP
 		}
 
 		if (%mis.class $= "Array") {
