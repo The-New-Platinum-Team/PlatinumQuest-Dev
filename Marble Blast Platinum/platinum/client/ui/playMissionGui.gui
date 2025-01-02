@@ -4701,7 +4701,7 @@ function clientCmdSwapMissionListMP() {
 }
 
 function clientCmdSetMPMarblelandMission(%idx) {
-	if (mp() && $Server::Hosting && !$Server::_Dedicated) {
+	if (mp() && !($Server::Hosting && !$Server::_Dedicated)) {
 		PlayMissionGui.setMissionByIndex(%idx);
 	}
 }
