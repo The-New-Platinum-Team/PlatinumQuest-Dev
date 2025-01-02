@@ -423,3 +423,10 @@ function strrpos(%haystack, %needle) {
 	}
 	return %index;
 }
+
+function rPad(%str, %len) {
+	%slen = strlen(%str);
+	if (%slen >= %len)
+		return %str;
+	return %str @ getSubStr("                                ", 0, %len - %slen);
+}
