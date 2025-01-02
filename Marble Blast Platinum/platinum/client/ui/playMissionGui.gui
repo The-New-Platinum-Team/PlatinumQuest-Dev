@@ -3442,7 +3442,7 @@ $PMG::BarButton["ExtraMP", "Name",       6] = "PM_MissionEnableTeams";
 $PMG::BarButton["ExtraMP", "Command",    6] = "PlayMissionGui.toggleTeamsMode();";
 $PMG::BarButton["ExtraMP", "Bitmap",     6] = "platinum/client/ui/play/buttons/teams-enable.png";
 $PMG::BarButton["ExtraMP", "Name",       7] = "PM_MissionToggleMarbleland";
-$PMG::BarButton["ExtraMP", "Command",    7] = "PlayMissionGui.swapMissionListMP();";
+$PMG::BarButton["ExtraMP", "Command",    7] = "PlayMissionGui.doSwapMissionListMP();";
 $PMG::BarButton["ExtraMP", "Bitmap",     7] = "platinum/client/ui/play/buttons/marbleland.png";
 $PMG::BarButton["ExtraMP", "Count"] = 8;
 $PMG::BarButton["ExtraMP", "HaveTab"] = true;
@@ -4695,6 +4695,13 @@ function clientCmdSwapMissionListMP() {
 	PlayMissionGui.swapMissionListMP();
 }
 
+function PlayMissionGui::doSwapMissionListMP(%this) {
+	if (mp() && $Server::Hosting) {
+		// Command this to client too
+		commandToAll('SwapMissionListMP');
+	}
+}
+
 function PlayMissionGui::swapMissionListMP(%this) {
 	// Swaps the current MP mission list with the appropriate marbleland mission list
 	if (mp()) {
@@ -4702,11 +4709,6 @@ function PlayMissionGui::swapMissionListMP(%this) {
 			%mpList = getMissionList("mp");
 		} else {
 			%mpList = getMissionList("server");
-		}
-
-		if ($Server::Hosting) {
-			// Command this to client too
-			commandToAll('SwapMissionListMP');
 		}
 
 		%marblelandList = getMissionList("marbleland");
