@@ -222,9 +222,22 @@ function PlayGui::doFPSCounter(%this) {
 	if (ServerConnection.getPing() >= 250) %pingnum = "low";
 	if (ServerConnection.getPing() >= 500) %pingnum = "matanny";
 	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
-	%fps = $fps::modded;
+	%ups = $fps::modded;
+	if (%ups >= 100) %ups = mRound(%ups) @ " ";
+
+	%fps = $fps::draw;
 	if (%fps >= 100) %fps = mRound(%fps) @ " ";
-	FPSMetreText.setText("<bold:24><just:left>FPS:<condensed:23>" SPC %fps @ ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : ""));
+
+	%fps = rPad(%fps, 4);
+	%ups = rPad(%ups, 4);
+
+	%upsText = (($pref::showFPSCounter & 1) != 0) ? ("<bold:24><just:left>UPS:<condensed:23>" SPC %ups) : "";
+	%fpsText = (($pref::showFPSCounter & 2) != 0) ? ("<bold:24><just:left>FPS:<condensed:23>" SPC %fps) : "";
+	%spacer = ($pref::showFPSCounter == 3) ? " | " : "";
+
+	%mpText = ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : "");
+
+	FPSMetreText.setText(%fpsText @ %spacer @ %upsText @ %mpText);
 	cancel(%this.fpsCounterSched);
 	%this.fpsCounterSched = %this.schedule(500, doFPSCounter);
 }

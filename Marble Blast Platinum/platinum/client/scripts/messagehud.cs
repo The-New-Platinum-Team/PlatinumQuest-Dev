@@ -123,7 +123,8 @@ function PlayGui::updateMessageHud(%this) {
 	}
 
 	//Resize the FPS meter
-	%fps_w = (%lb && !%hideChat ? 118 : 96);
+	%fps_w_add = ($pref::showFPSCounter == 3) * 90;
+	%fps_w = (%lb && !%hideChat ? 118 : 96) + %fps_w_add;
 	%fps_h = 32;
 
 	if (%lb && !%hideChat)
@@ -144,14 +145,14 @@ function PlayGui::updateMessageHud(%this) {
 		if (%mp) {
 			// The original line is:
 			// FPSMetreText.resize(%lb && !%mp && !%hideChat ? 20 : 10, %lb && !%mp && !%hideChat ? 10 : 3, 106, 28);
-			FPSMetreText.resize(10, 3, 106, 28); // Because %mp is on
+			FPSMetreText.resize(10, 3, 106 + %fps_w_add, 28); // Because %mp is on
 			if ($MP::TeamMode) {
 				%chatboxWidth /= 3;
 			} else {
 				%chatboxWidth /= 2;
 			}
 		} else {
-			FPSMetreText.resize(!%hideChat ? 20 : 10, !%hideChat ? 10 : 3, 106, 28);
+			FPSMetreText.resize(!%hideChat ? 20 : 10, !%hideChat ? 10 : 3, 106 + %fps_w_add, 28);
 		}
 		%shadowStart = 0;
 		if ($SpectateMode)
@@ -198,7 +199,7 @@ function PlayGui::updateMessageHud(%this) {
 			PG_SelectedChatHighlight.resize(%pos2, 60, %pos3 - %pos2 + 1, getWord(PG_LBChatScroll.getExtent(), 1) + 1);
 		}
 	} else {
-		FPSMetreText.resize(10, 3, 106, 28); // Because %lb is off
+		FPSMetreText.resize(10, 3, 106 + %fps_w_add, 28); // Because %lb is off
 	}
 }
 
