@@ -3441,7 +3441,10 @@ $PMG::BarButton["ExtraMP", "Bitmap",     5] = "platinum/client/ui/play/buttons/p
 $PMG::BarButton["ExtraMP", "Name",       6] = "PM_MissionEnableTeams";
 $PMG::BarButton["ExtraMP", "Command",    6] = "PlayMissionGui.toggleTeamsMode();";
 $PMG::BarButton["ExtraMP", "Bitmap",     6] = "platinum/client/ui/play/buttons/teams-enable.png";
-$PMG::BarButton["ExtraMP", "Count"] = 7;
+$PMG::BarButton["ExtraMP", "Name",       7] = "PM_MissionToggleMarbleland";
+$PMG::BarButton["ExtraMP", "Command",    7] = "PlayMissionGui.swapMissionListMP();";
+$PMG::BarButton["ExtraMP", "Bitmap",     7] = "platinum/client/ui/play/buttons/marbleland.png";
+$PMG::BarButton["ExtraMP", "Count"] = 8;
 $PMG::BarButton["ExtraMP", "HaveTab"] = true;
 $PMG::BarButton["ExtraMP", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMP", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -4367,6 +4370,7 @@ function PlayMissionGui::updateMPButtons(%this) {
 	%this.setBarButtonActive(PM_MissionPlayers, $Server::Hosting);
 	%this.setBarButtonActive(PM_MissionEnableTeams, $Server::Hosting);
 	%this.setBarButtonActive(PM_MissionDownload, !$Client::Loading && (($Server::Hosting && !$Server::_Dedicated) || ($MP::DownloadMissionAvailable[$MP::MissionFile] && !isFile($MP::MissionFile))));
+	%this.setBarButtonActive(PM_MissionToggleMarbleland, $Server::Hosting);
 
 	PM_MissionServer.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();");
 
@@ -4685,6 +4689,55 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 	%this.globalScoreCacheLoading[%mission] = false;
 	%this.globalScoreCacheFailed[%mission] = true;
 	%this.updateCurrentMission();
+}
+
+function clientCmdSwapMissionListMP() {
+	PlayMissionGui.swapMissionListMP();
+}
+
+function PlayMissionGui::swapMissionListMP(%this) {
+	// Swaps the current MP mission list with the appropriate marbleland mission list
+	if (mp()) {
+		if ($Server::Hosting && !$Server::_Dedicated) {
+			%mpList = getMissionList("mp");
+		} else {
+			%mpList = getMissionList("server");
+		}
+
+		if ($Server::Hosting) {
+			// Command this to client too
+			commandToAll('SwapMissionListMP');
+		}
+
+		%marblelandList = getMissionList("marbleland");
+		if (%this.ml == %mpList) {
+			%this.ml = %marblelandList;
+		} else {
+			%this.ml = %mpList;
+		}
+
+		//Can't find the game? Use a default
+		%game = getField(getRecord(%this.getGameList(), 0), 0);
+		%this.setGame(%game);
+
+		//Check if we have the selected difficulty in the list for our game
+		if (findField(%this.getDifficultyList(%game), %type) == -1) {
+			%type = %defaultType;
+
+			//Seriously?
+			if (findField(%this.getDifficultyList(%game), %type) == -1) {
+				//Use the first difficulty we can find
+				%type = getField(getRecord(%this.getDifficultyList(%game), 0), 0);
+			}
+		}
+		//Show the mission list
+		%this.setMissionType(%type);
+		%this.buildMissionList(%game, %type);
+		%this.buildGameList();
+
+		PlayMissionGui.setGame(%game); 
+		PlayMissionGui.showMissionList();
+	}
 }
 
 function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
