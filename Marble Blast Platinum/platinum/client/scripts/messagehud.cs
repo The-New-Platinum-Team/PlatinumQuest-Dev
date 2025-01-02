@@ -123,7 +123,7 @@ function PlayGui::updateMessageHud(%this) {
 	}
 
 	//Resize the FPS meter
-	%fps_w_add = ($pref::showFPSCounter == 3) * 90;
+	%fps_w_add = ($pref::showFPSCounter == 3) * (90 + %mp * 15);
 	%fps_w = (%lb && !%hideChat ? 118 : 96) + %fps_w_add;
 	%fps_h = 32;
 
@@ -145,7 +145,8 @@ function PlayGui::updateMessageHud(%this) {
 		if (%mp) {
 			// The original line is:
 			// FPSMetreText.resize(%lb && !%mp && !%hideChat ? 20 : 10, %lb && !%mp && !%hideChat ? 10 : 3, 106, 28);
-			FPSMetreText.resize(10, 3, 106 + %fps_w_add, 28); // Because %mp is on
+			%x_add = ($pref::showFPSCounter == 3) * 15;
+			FPSMetreText.resize(10 + %x_add, 3, 106 + %fps_w_add, 28); // Because %mp is on
 			if ($MP::TeamMode) {
 				%chatboxWidth /= 3;
 			} else {
