@@ -1837,7 +1837,12 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 	if (mp()) {
 		$MP::MissionObj = %info;
 		$MP::MissionFile = %info.file;
-		commandToServer('SetMission', %info.file, $CurrentGame, $MissionType, %this.ml.getGameMode($CurrentGame));
+		if ($CurrentGame $= "Marbleland" && $MissionType $= "Marbleland") {
+			// Set marbleland mission
+			commandToAll('SetMPMarblelandMission', %idx);
+		} else {
+			commandToServer('SetMission', %info.file, $CurrentGame, $MissionType, %this.ml.getGameMode($CurrentGame));
+		}
 	}
 
 	if (%this.marbleland) {
@@ -4693,6 +4698,12 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 
 function clientCmdSwapMissionListMP() {
 	PlayMissionGui.swapMissionListMP();
+}
+
+function clientCmdSetMPMarblelandMission(%idx) {
+	if (mp() && $Server::Hosting && !$Server::_Dedicated) {
+		PlayMissionGui.setMissionByIndex(%idx);
+	}
 }
 
 function PlayMissionGui::doSwapMissionListMP(%this) {
