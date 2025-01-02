@@ -1086,6 +1086,11 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 	}
 	commandToClient(%client, 'MissionListEnd', %gameName, %difficultyName);
 
+	if ($MissionType $= "Marbleland" && $CurrentGame $= "Marbleland") {
+		// Swap pls
+		commandToClient(%client, 'SwapMissionListMP');
+	}
+
 	if ($MissionType $= "Custom" && !%client.isHost()) {
 		%client.updatePlaymission();
 		if (%client.loading)
