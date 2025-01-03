@@ -1064,6 +1064,7 @@ function GameConnection::spawnPlayer(%this, %spawnPoint) {
 function GameConnection::startGame(%this) {
 	// Give the client control of the player
 	%this.setControlObject(%this.player);
+	%this.player.reloadShader();
 	%this.restarting = true;
 	%this.respawnPlayer();
 	%this.restarting = false;
