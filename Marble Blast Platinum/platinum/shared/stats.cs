@@ -995,16 +995,6 @@ function statsRecordReplay(%mission, %type, %isRetry) {
 	%fo.close();
 	%fo.delete();
 
-	//Now submit it
-	if (%len > $TCP::MaxPostLength) {
-		MessageBoxOk("Cannot submit replay", "Replay file is too large to submit. Check " @ %file);
-		if (%keepRecording) {
-			new FileObject(RecordFO);
-			RecordFO.openForAppend($Record::File);
-		}
-		return;
-	}
-
 	if (%keepRecording) {
 		new FileObject(RecordFO);
 		RecordFO.openForAppend($Record::File);
