@@ -222,13 +222,26 @@ function updateFrameController() {
 	// Unlimited.
 	switch ($pref::Video::MaxFPS) {
 	case -1: //Unlimited
-		setVerticalSync(false);
 		setTickInterval(1);
 	case 0: //Vsync
 		setVerticalSync(true);
 	default: //Manual
-		setVerticalSync(false);
 		setMaxFPS($pref::Video::MaxFPS);
+	}
+
+	if ($pref::Video::renderPriority $= "")
+		$pref::Video::renderPriority = 0;
+	
+	switch ($pref::Video::renderPriority) {
+		case 0: // Vsync
+			setVerticalSync(true);
+			$pref::prioritizeRender = false;
+		case 1:
+			setVerticalSync(false);
+			$pref::prioritizeRender = false;
+		case 2:
+			setVerticalSync(false);
+			$pref::prioritizeRender = true;
 	}
 }
 

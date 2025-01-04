@@ -231,7 +231,7 @@ function PlayGui::doFPSCounter(%this) {
 	%fps = rPad(%fps, 4);
 	%ups = rPad(%ups, 4);
 
-	%upsText = (($pref::showFPSCounter & 1) != 0) ? ("<bold:24><just:left>UPS:<condensed:23>" SPC %ups) : "";
+	%upsText = (($pref::showFPSCounter & 1) != 0) ? ("<bold:24><just:left>TPS:<condensed:23>" SPC %ups) : "";
 	%fpsText = (($pref::showFPSCounter & 2) != 0) ? ("<bold:24><just:left>FPS:<condensed:23>" SPC %fps) : "";
 	%spacer = ($pref::showFPSCounter == 3) ? " | " : "";
 
