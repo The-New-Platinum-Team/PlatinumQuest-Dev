@@ -330,12 +330,6 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "screenResolution";
 $Options::Title   ["Graphics", $i  ] = "Default Window Size";
 $Options::Type    ["Graphics", $i  ] = "value";
-$Options::Name    ["Graphics", $i++] = "maxFPS";
-$Options::Title   ["Graphics", $i  ] = "Max Tick Rate";
-$Options::Type    ["Graphics", $i  ] = "value";
-$Options::Name    ["Graphics", $i++] = "vsync";
-$Options::Title   ["Graphics", $i  ] = "Render Priority";
-$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Level Previews";
 $Options::Type    ["Graphics", $i  ] = "boolean";
@@ -355,19 +349,15 @@ if (canSupportPostFX()) {
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
+$Options::Name    ["Graphics", $i++] = "maxFPS";
+$Options::Title   ["Graphics", $i  ] = "Max Tick Rate";
+$Options::Type    ["Graphics", $i  ] = "value";
+$Options::Name    ["Graphics", $i++] = "vsync";
+$Options::Title   ["Graphics", $i  ] = "Performance Settings";
+$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
 $Options::Type    ["Graphics", $i  ] = "boolean";
-$Options::Name    ["Graphics", $i++] = "particles";
-$Options::Title   ["Graphics", $i  ] = "Particles";
-$Options::Ctrl    ["Graphics", $i  ] = "slider";
-$Options::Min     ["Graphics", $i  ] = 0;
-$Options::Max     ["Graphics", $i  ] = 200;
-$Options::Ticks   ["Graphics", $i  ] = 40; //Every 5
-$Options::JoyTicks["Graphics", $i  ] = 10; //Every 20
-$Options::Name    ["Graphics", $i++] = "particleSystem";
-$Options::Title   ["Graphics", $i  ] = "Particle System";
-$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
@@ -413,7 +403,10 @@ MaxFPSArray.addEntry("30"        TAB  30);
 MaxFPSArray.addEntry("60"        TAB  60);
 MaxFPSArray.addEntry("75"        TAB  75);
 MaxFPSArray.addEntry("120"       TAB 120);
+MaxFPSArray.addEntry("144"       TAB 144);
+MaxFPSArray.addEntry("165"       TAB 165);
 MaxFPSArray.addEntry("200"       TAB 200);
+MaxFPSArray.addEntry("240"       TAB 240);
 
 Array(RenderPriorityArray);
 RenderPriorityArray.addEntry("Vertical Sync" TAB 0);
@@ -500,6 +493,16 @@ $Options::Min     ["Gameplay", $i  ] = 5;
 $Options::Max     ["Gameplay", $i  ] = 85;
 $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
+$Options::Name    ["Gameplay", $i++] = "particles";
+$Options::Title   ["Gameplay", $i  ] = "Particles";
+$Options::Ctrl    ["Gameplay", $i  ] = "slider";
+$Options::Min     ["Gameplay", $i  ] = 0;
+$Options::Max     ["Gameplay", $i  ] = 200;
+$Options::Ticks   ["Gameplay", $i  ] = 40; //Every 5
+$Options::JoyTicks["Gameplay", $i  ] = 10; //Every 20
+$Options::Name    ["Gameplay", $i++] = "particleSystem";
+$Options::Title   ["Gameplay", $i  ] = "Particle System";
+$Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "advancedOptions";
 $Options::Title   ["Gameplay", $i  ] = "Advanced Options";
 $Options::Ctrl    ["Gameplay", $i  ] = "button";
