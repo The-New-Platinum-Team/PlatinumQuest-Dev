@@ -402,11 +402,12 @@ MaxFPSArray.addEntry("Unlimited" TAB  -1);
 MaxFPSArray.addEntry("30"        TAB  30);
 MaxFPSArray.addEntry("60"        TAB  60);
 MaxFPSArray.addEntry("75"        TAB  75);
-MaxFPSArray.addEntry("120"       TAB 120);
-MaxFPSArray.addEntry("144"       TAB 144);
-MaxFPSArray.addEntry("165"       TAB 165);
-MaxFPSArray.addEntry("200"       TAB 200);
-MaxFPSArray.addEntry("240"       TAB 240);
+MaxFPSArray.addEntry("100"       TAB  100);
+MaxFPSArray.addEntry("120"       TAB  120);
+MaxFPSArray.addEntry("144"       TAB  144);
+MaxFPSArray.addEntry("165"       TAB  165);
+MaxFPSArray.addEntry("200"       TAB  200);
+MaxFPSArray.addEntry("240"       TAB  240);
 
 Array(RenderPriorityArray);
 RenderPriorityArray.addEntry("Vertical Sync" TAB 0);
