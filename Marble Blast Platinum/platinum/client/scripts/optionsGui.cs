@@ -331,7 +331,10 @@ $Options::Name    ["Graphics", $i++] = "screenResolution";
 $Options::Title   ["Graphics", $i  ] = "Default Window Size";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "maxFPS";
-$Options::Title   ["Graphics", $i  ] = "Max FPS";
+$Options::Title   ["Graphics", $i  ] = "Max Tick Rate";
+$Options::Type    ["Graphics", $i  ] = "value";
+$Options::Name    ["Graphics", $i++] = "vsync";
+$Options::Title   ["Graphics", $i  ] = "Render Priority";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Level Previews";
@@ -406,12 +409,16 @@ AntiAliasingQualityArray.addEntry("8x"       TAB  8);
 
 Array(MaxFPSArray);
 MaxFPSArray.addEntry("Unlimited" TAB  -1);
-MaxFPSArray.addEntry("VSync"     TAB   0);
 MaxFPSArray.addEntry("30"        TAB  30);
 MaxFPSArray.addEntry("60"        TAB  60);
 MaxFPSArray.addEntry("75"        TAB  75);
 MaxFPSArray.addEntry("120"       TAB 120);
 MaxFPSArray.addEntry("200"       TAB 200);
+
+Array(RenderPriorityArray);
+RenderPriorityArray.addEntry("Vertical Sync" TAB 0);
+RenderPriorityArray.addEntry("Prioritize Game Ticks" TAB 1);
+RenderPriorityArray.addEntry("Prioritize Rendering" TAB 2);
 
 Array(ParticleSystemArray);
 ParticleSystemArray.addEntry("PlatinumQuest"      TAB 0);
@@ -530,7 +537,7 @@ TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
 
 Array(FPSCounterArray);
 FPSCounterArray.addEntry("Disabled"  TAB 0);
-FPSCounterArray.addEntry("Show Update Rate" TAB 1);
+FPSCounterArray.addEntry("Show Tick Rate" TAB 1);
 FPSCounterArray.addEntry("Show Frame Rate"  TAB 2);
 FPSCounterArray.addEntry("Show All"  TAB 3);
 
@@ -925,6 +932,14 @@ function Opt_antiAliasing_increase() {
 function Opt_maxFPS_getDisplay() {
 	%entry = MaxFPSArray.getEntryByField($pref::Video::MaxFPS, 1);
 	if (%entry $= "") {
+		if ($pref::Video::MaxFPS == 0) {
+			// This is vsync
+			$pref::Video::verticalSync = true;
+			$pref::Video::MaxFPS = -1; // Unlimited fps
+			%entry = MaxFPSArray.getEntryByField($pref::Video::MaxFPS, 1);
+			return getField(%entry, 0);
+		}
+
 		return $pref::Video::MaxFPS;
 	}
 	return getField(%entry, 0);
@@ -944,7 +959,7 @@ function Opt_maxFPS_decrease() {
 
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
-		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
+		MessageBoxOK("Performance Notice", "Unlimited tickrate will make your game computer as fast as possible." NL
 			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
 }
@@ -959,9 +974,41 @@ function Opt_maxFPS_increase() {
 
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
-		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
+		MessageBoxOK("Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
 			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
+}
+
+function Opt_vsync_getDisplay() {
+	if ($pref::Video::renderPriority $= "")
+		$pref::Video::renderPriority = 0;
+	%entry = RenderPriorityArray.getEntryByField($pref::Video::renderPriority, 1);
+	if (%entry $= "") {
+		return $pref::Video::renderPriority;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_vsync_getValue() {
+	return $pref::Video::renderPriority;
+}
+
+function Opt_vsync_decrease() {
+	%index = RenderPriorityArray.getIndexByField($pref::Video::renderPriority, 1);
+	%index --;
+	if (%index < 0) {
+		%index = RenderPriorityArray.getSize() - 1;
+	}
+	$pref::Video::renderPriority = getField(RenderPriorityArray.getEntry(%index), 1);
+}
+
+function Opt_vsync_increase() {
+	%index = RenderPriorityArray.getIndexByField($pref::Video::renderPriority, 1);
+	%index ++;
+	if (%index == RenderPriorityArray.getSize()) {
+		%index = 0;
+	}
+	$pref::Video::renderPriority = getField(RenderPriorityArray.getEntry(%index), 1);
 }
 
 

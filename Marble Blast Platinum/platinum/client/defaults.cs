@@ -177,6 +177,7 @@ $pref::Video::windowedRes = "1280 720";
 $pref::Video::disableVerticalSync = false;
 $pref::Video::MaxFPS = 0;
 $pref::Video::particleSystem = 0;
+$pref::Video::renderPriority = 0;
 //Video core
 $pref::Video::allowD3D = 0; //Nope
 $pref::Video::allowOpenGL = 1;
