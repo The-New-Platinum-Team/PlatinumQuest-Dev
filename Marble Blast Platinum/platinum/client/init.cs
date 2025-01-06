@@ -477,6 +477,8 @@ function enableSavePrefs() {
 
 function savePrefs(%showAssert) {
 	echo("Exporting client prefs");
+	copyFile(expandFilename("~/client/mbpPrefs.cs"), expandFilename("~/client/mbpPrefs.cs.backup"));
+	copyFile(expandFilename("~/client/lbprefs.cs"), expandFilename("~/client/lbprefs.cs.backup"));
 	export("$pref::*", "~/client/mbpPrefs.cs", False);
 	export("$LBPref::*", "~/client/lbprefs.cs", False);
 	MPsavePrefs();
