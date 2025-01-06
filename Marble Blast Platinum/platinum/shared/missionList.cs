@@ -1126,7 +1126,12 @@ function MarblelandMissionList::getGameList(%this) {
 
 function MarblelandMissionList::getDifficultyList(%this, %game) {
 	if (mp()) {
-		return "Marbleland\tMarbleland";
+		return "Hunt\tHunt" NL
+			"Collection\tCollection" NL
+			"King\tKing" NL
+			"Mega\tMega" NL
+			"Race\tRace" NL
+			"Uncategorized\tUncategorized";
 	}
 
 	switch$ (%game) {
@@ -1206,7 +1211,22 @@ function MarblelandMissionList::getDifficultyTree(%this, %game) {
 function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 	switch$ (%game) {
 	case "Marbleland":
-		return true;
+		switch$ (%difficulty) {
+			case "Collection":
+				return true;
+			case "Hunt":
+				return true;
+			case "King":
+				return true;
+			case "Mega":
+				return true;
+			case "Race":
+				return true;
+			case "Uncategorized":
+				return true;
+			default:
+				return false;
+		}
 	case "Levels":
 		switch$ (%difficulty) {
 		case "All":
@@ -1266,6 +1286,27 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 
 		if (%mis.class $= "Array") {
 			continue;
+		}
+
+		if (%game $= "Marbleland") {
+			%isCollection = stristr(%mis.gameMode, "collection") != -1;
+			%isHunt = stristr(%mis.gameMode, "hunt") != -1;
+			%isKing = stristr(%mis.gameMode, "king") != -1;
+			%isMega = stristr(%mis.gameMode, "mega") != -1;
+			%isRace = stristr(%mis.gameMode, "race") != -1;
+
+			if (%isCollection && %difficulty !$= "Collection")
+				continue;
+			if (%isHunt && %difficulty !$= "Hunt")
+				continue;
+			if (%isKing && %difficulty !$= "King")
+				continue;
+			if (%isMega && %difficulty !$= "Mega")
+				continue;
+			if (%isRace && %difficulty !$= "Race")
+				continue;
+			if (!(%isCollection || %isHunt || %isKing || %isMega || %isRace) && %difficulty !$= "Uncategorized")
+				continue;
 		}
 
 		MissionInfoGroup.add(%info = new ScriptObject() {
