@@ -84,6 +84,10 @@ exec("./server/defaults.cs");
 exec("./client/scripts/version.cs");
 
 // Preferences (overide defaults)
+// Back up the prefs! - .backup cause people may have already backed them up
+copyFile(expandFilename("~/client/mbpPrefs.cs"), expandFilename("~/client/mbpPrefs.cs.backup"));
+copyFile(expandFilename("~/client/lbprefs.cs"), expandFilename("~/client/lbprefs.cs.backup"));
+
 exec("./client/mbpPrefs.cs");
 exec("./client/lbprefs.cs");
 
