@@ -353,7 +353,7 @@ $Options::Name    ["Graphics", $i++] = "maxFPS";
 $Options::Title   ["Graphics", $i  ] = "Max Tick Rate";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "vsync";
-$Options::Title   ["Graphics", $i  ] = "Performance Settings";
+$Options::Title   ["Graphics", $i  ] = "Framerate";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
@@ -398,7 +398,7 @@ AntiAliasingQualityArray.addEntry("4x"       TAB  4);
 AntiAliasingQualityArray.addEntry("8x"       TAB  8);
 
 Array(MaxFPSArray);
-MaxFPSArray.addEntry("Unlimited" TAB  -1);
+MaxFPSArray.addEntry("1000" TAB  -1);
 MaxFPSArray.addEntry("30"        TAB  30);
 MaxFPSArray.addEntry("60"        TAB  60);
 MaxFPSArray.addEntry("75"        TAB  75);
@@ -411,8 +411,8 @@ MaxFPSArray.addEntry("240"       TAB  240);
 
 Array(RenderPriorityArray);
 RenderPriorityArray.addEntry("Vertical Sync" TAB 0);
-RenderPriorityArray.addEntry("Prioritize Game Ticks" TAB 1);
-RenderPriorityArray.addEntry("Prioritize Rendering" TAB 2);
+RenderPriorityArray.addEntry("Match Tick Rate" TAB 1);
+RenderPriorityArray.addEntry("Unlimited" TAB 2);
 
 Array(ParticleSystemArray);
 ParticleSystemArray.addEntry("PlatinumQuest"      TAB 0);
