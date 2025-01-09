@@ -225,12 +225,13 @@ function updateFrameController() {
 		setTickInterval(1);
 	case 0: //Vsync
 		setVerticalSync(true);
+		$pref::Video::renderPriority = 0;
 	default: //Manual
 		setMaxFPS($pref::Video::MaxFPS);
 	}
 
 	if ($pref::Video::renderPriority $= "")
-		$pref::Video::renderPriority = 0;
+		$pref::Video::renderPriority = 1;
 	
 	switch ($pref::Video::renderPriority) {
 		case 0: // Vsync
