@@ -964,7 +964,7 @@ function Opt_maxFPS_decrease() {
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
 		MessageBoxOK("Performance Notice", "Unlimited tickrate will make your game computer as fast as possible." NL
-			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
+			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
 }
 
@@ -979,7 +979,7 @@ function Opt_maxFPS_increase() {
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
 		MessageBoxOK("Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
-			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
+			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
 }
 
