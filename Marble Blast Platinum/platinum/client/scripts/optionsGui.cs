@@ -349,11 +349,11 @@ if (canSupportPostFX()) {
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
-$Options::Name    ["Graphics", $i++] = "maxFPS";
-$Options::Title   ["Graphics", $i  ] = "Max Tickrate";
-$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "vsync";
 $Options::Title   ["Graphics", $i  ] = "Max Framerate";
+$Options::Type    ["Graphics", $i  ] = "value";
+$Options::Name    ["Graphics", $i++] = "maxFPS";
+$Options::Title   ["Graphics", $i  ] = "Max Tickrate";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
@@ -535,15 +535,15 @@ ScreenshotModeArray.addEntry("Hide Chat Online" TAB 1);
 ScreenshotModeArray.addEntry("Hide Everything"  TAB 2);
 
 Array(TimeTravelTimerArray);
-TimeTravelTimerArray.addEntry("Disabled"  TAB 0);
-TimeTravelTimerArray.addEntry("Enabled" TAB 1);
-TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
+TimeTravelTimerArray.addEntry("Disabled"         TAB 0);
+TimeTravelTimerArray.addEntry("Enabled"          TAB 1);
+TimeTravelTimerArray.addEntry("Enabled, Precise" TAB 2);
 
 Array(FPSCounterArray);
 FPSCounterArray.addEntry("Disabled"       TAB 0);
-FPSCounterArray.addEntry("Show TPS Only"  TAB 1);
-FPSCounterArray.addEntry("Show FPS Only"  TAB 2);
-FPSCounterArray.addEntry("Show TPS & FPS" TAB 3);
+FPSCounterArray.addEntry("Framerate Only" TAB 1);
+FPSCounterArray.addEntry("Tickrate Only"  TAB 2);
+FPSCounterArray.addEntry("Show All"       TAB 3);
 
 //-----------------------------------------------------------------------------
 // Online
