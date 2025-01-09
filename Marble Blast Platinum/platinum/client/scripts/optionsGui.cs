@@ -398,16 +398,17 @@ AntiAliasingQualityArray.addEntry("4x"       TAB  4);
 AntiAliasingQualityArray.addEntry("8x"       TAB  8);
 
 Array(MaxFPSArray);
-MaxFPSArray.addEntry("Millisecond" TAB  -1);
-MaxFPSArray.addEntry("30 TPS"      TAB  30);
-MaxFPSArray.addEntry("60 TPS"      TAB  60);
-MaxFPSArray.addEntry("75 TPS"      TAB  75);
-MaxFPSArray.addEntry("100 TPS"     TAB  100);
-MaxFPSArray.addEntry("120 TPS"     TAB  120);
-MaxFPSArray.addEntry("144 TPS"     TAB  144);
-MaxFPSArray.addEntry("165 TPS"     TAB  165);
-MaxFPSArray.addEntry("200 TPS"     TAB  200);
-MaxFPSArray.addEntry("240 TPS"     TAB  240);
+MaxFPSArray.addEntry("1000 TPS" TAB  -1);
+MaxFPSArray.addEntry("30 TPS"   TAB  30);
+MaxFPSArray.addEntry("60 TPS"   TAB  60);
+MaxFPSArray.addEntry("75 TPS"   TAB  75);
+MaxFPSArray.addEntry("100 TPS"  TAB  100);
+MaxFPSArray.addEntry("120 TPS"  TAB  120);
+MaxFPSArray.addEntry("144 TPS"  TAB  144);
+MaxFPSArray.addEntry("165 TPS"  TAB  165);
+MaxFPSArray.addEntry("200 TPS"  TAB  200);
+MaxFPSArray.addEntry("240 TPS"  TAB  240);
+MaxFPSArray.addEntry("360 TPS"  TAB  360);
 
 Array(RenderPriorityArray);
 RenderPriorityArray.addEntry("VSync" TAB 0);
