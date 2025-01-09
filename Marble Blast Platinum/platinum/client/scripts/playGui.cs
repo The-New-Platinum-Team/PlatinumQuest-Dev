@@ -163,6 +163,8 @@ function PlayGui::onWake(%this) {
 function PlayGui::onSleep(%this) {
 	%this.stopFPSCounter();
 	%this.stopCountdown();
+	%this.isAlarmActive = false;
+	Physics::popAllLayers();
 	RootGui.resetDisplay();
 
 	$InPlayGUI = false;
