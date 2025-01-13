@@ -233,8 +233,8 @@ function PlayGui::doFPSCounter(%this) {
 	%fps = rPad(%fps, 4);
 	%ups = rPad(%ups, 4);
 
-	%upsText = (($pref::showFPSCounter & 1) != 0) ? ("<bold:24><just:left>TPS:<condensed:23>" SPC %ups) : "";
-	%fpsText = (($pref::showFPSCounter & 2) != 0) ? ("<bold:24><just:left>FPS:<condensed:23>" SPC %fps) : "";
+	%fpsText = (($pref::showFPSCounter & 1) != 0) ? ("<bold:24><just:left>FPS:<condensed:23>" SPC %fps) : "";
+	%upsText = (($pref::showFPSCounter & 2) != 0) ? ("<bold:24><just:left>TPS:<condensed:23>" SPC %ups) : "";
 	%spacer = ($pref::showFPSCounter == 3) ? " | " : "";
 
 	%mpText = ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : "");
