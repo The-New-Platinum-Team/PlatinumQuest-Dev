@@ -1390,6 +1390,9 @@ function PlaybackShapeBase::apply(%this, %object, %t) {
 			%overrode[5] = true;
 		}
 
+		if (%i == 3 && %this.mountImage[5] $= "SuperBounceImage")
+			continue; // Don't override!!
+
 		if (%i == 5 && %image $= "SuperBounceImage") {
 			%imageSlot = 3; // That fix
 			%overrode[3] = true;
