@@ -1070,6 +1070,30 @@ function GameConnection::startGame(%this) {
 	%this.restarting = false;
 }
 
+function PMGDoReloadMission() {
+	activateMenuHandler("PMGMenu");
+
+	menuDestroyServer();
+
+	RootGui.setContent(LoadingGui);
+	RootGui.showPreviewImage(true);
+	Canvas.repaint();
+
+	menuCreateServer();
+	menuLoadMission($Server::MissionFile);
+	$Game::UseMenu = true;
+
+	RootGui.setContent(LoadingGui);
+}
+function PMGMenu_MissionLoaded() {
+	menuPlay();
+}
+function PMGMenu_Play() {
+	deactivateMenuHandler("PMGMenu");
+	RootGui.showPreviewImage(false);
+}
+
+
 // TODO: remove exitgame paramater
 
 function restartLevel(%exitgame) {
@@ -1081,6 +1105,11 @@ function restartLevel(%exitgame) {
 
 	if ($Server::ServerType $= "MultiPlayer") {
 		$MP::Restarting = true;
+	} else {
+		if ($pref::restartReloadsLevels) {
+			PMGDoReloadMission();
+			return;
+		}
 	}
 
 	$forceCheckpointRespawn = false;
