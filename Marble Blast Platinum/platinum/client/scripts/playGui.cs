@@ -614,7 +614,7 @@ function PlayGui::updateBarPositions(%this) {
 	}
 
 	//Get the position of the side of the marble for us to position the bars relative to it
-	%obj = $playingDemo ? ServerConnection.getControlObject() : LocalClientConnection.player;
+	%obj = ServerConnection.getControlObject();
 	%rad = (%obj.getClassName() $= "Marble" ? %obj.getCollisionRadius() : 0.5);
 	%mpos = %obj.getPosition();
 	%rpos = VectorAdd(%mpos, RotMulVector(MatrixRot(%trans), %rad SPC "0 0"));
