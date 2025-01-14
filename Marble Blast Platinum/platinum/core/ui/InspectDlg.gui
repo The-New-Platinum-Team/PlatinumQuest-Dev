@@ -299,6 +299,11 @@ function Inspector::build(%this, %displayNames) {
 		%disable = "";
 		%type = "";
 
+		if (strstr("_moving _pathSyncId _pathRngStart _pathPosition trail attachId", %field) != -1) {
+			//Skip these fields
+			continue;
+		}
+
 		//Try to get some data about them
 		for (%j = 0; %j < %classCount; %j ++) {
 			%objClass = getField(%classes, %j);
