@@ -41,7 +41,7 @@ for ($file = findFirstFile("packages/marbleland/*.mbpak"); $file !$= ""; $file =
 	MarblelandPackages.addEntry(fileBase($file));
 }
 
-//$baseMods = "platinum";
+$baseMods = "packages";
 $userMods = "platinum";
 $displayHelp = false;
 

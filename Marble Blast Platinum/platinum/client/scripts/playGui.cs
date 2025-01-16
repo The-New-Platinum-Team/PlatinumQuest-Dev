@@ -163,6 +163,8 @@ function PlayGui::onWake(%this) {
 function PlayGui::onSleep(%this) {
 	%this.stopFPSCounter();
 	%this.stopCountdown();
+	%this.isAlarmActive = false;
+	Physics::popAllLayers();
 	RootGui.resetDisplay();
 
 	$InPlayGUI = false;
@@ -222,9 +224,22 @@ function PlayGui::doFPSCounter(%this) {
 	if (ServerConnection.getPing() >= 250) %pingnum = "low";
 	if (ServerConnection.getPing() >= 500) %pingnum = "matanny";
 	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
-	%fps = $fps::modded;
+	%ups = $fps::modded;
+	if (%ups >= 100) %ups = mRound(%ups) @ " ";
+
+	%fps = $fps::draw;
 	if (%fps >= 100) %fps = mRound(%fps) @ " ";
-	FPSMetreText.setText("<bold:24><just:left>FPS:<condensed:23>" SPC %fps @ ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : ""));
+
+	%fps = rPad(%fps, 4);
+	%ups = rPad(%ups, 4);
+
+	%fpsText = (($pref::showFPSCounter & 1) != 0) ? ("<bold:24><just:left>FPS:<condensed:23>" SPC %fps) : "";
+	%upsText = (($pref::showFPSCounter & 2) != 0) ? ("<bold:24><just:left>TPS:<condensed:23>" SPC %ups) : "";
+	%spacer = ($pref::showFPSCounter == 3) ? " | " : "";
+
+	%mpText = ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : "");
+
+	FPSMetreText.setText(%fpsText @ %spacer @ %upsText @ %mpText);
 	cancel(%this.fpsCounterSched);
 	%this.fpsCounterSched = %this.schedule(500, doFPSCounter);
 }
@@ -599,7 +614,7 @@ function PlayGui::updateBarPositions(%this) {
 	}
 
 	//Get the position of the side of the marble for us to position the bars relative to it
-	%obj = LocalClientConnection.player;
+	%obj = ServerConnection.getControlObject();
 	%rad = (%obj.getClassName() $= "Marble" ? %obj.getCollisionRadius() : 0.5);
 	%mpos = %obj.getPosition();
 	%rpos = VectorAdd(%mpos, RotMulVector(MatrixRot(%trans), %rad SPC "0 0"));

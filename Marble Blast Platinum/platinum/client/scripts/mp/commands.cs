@@ -345,6 +345,7 @@ function onNewMarble(%marble, %index) {
 
 	//Now that we know what shaders it should use, reset it
 	%marble.reloadShader();
+	%marble.schedule(100, reloadShader);
 }
 
 //-----------------------------------------------------------------------------

@@ -1066,10 +1066,35 @@ function GameConnection::spawnPlayer(%this, %spawnPoint) {
 function GameConnection::startGame(%this) {
 	// Give the client control of the player
 	%this.setControlObject(%this.player);
+	%this.player.reloadShader();
 	%this.restarting = true;
 	%this.respawnPlayer();
 	%this.restarting = false;
 }
+
+function PMGDoReloadMission() {
+	activateMenuHandler("PMGMenu");
+
+	menuDestroyServer();
+
+	RootGui.setContent(LoadingGui);
+	RootGui.showPreviewImage(true);
+	Canvas.repaint();
+
+	menuCreateServer();
+	menuLoadMission($Server::MissionFile);
+	$Game::UseMenu = true;
+
+	RootGui.setContent(LoadingGui);
+}
+function PMGMenu_MissionLoaded() {
+	menuPlay();
+}
+function PMGMenu_Play() {
+	deactivateMenuHandler("PMGMenu");
+	RootGui.showPreviewImage(false);
+}
+
 
 // TODO: remove exitgame paramater
 
@@ -1082,6 +1107,11 @@ function restartLevel(%exitgame) {
 
 	if ($Server::ServerType $= "MultiPlayer") {
 		$MP::Restarting = true;
+	} else {
+		if ($pref::restartReloadsLevels) {
+			PMGDoReloadMission();
+			return;
+		}
 	}
 
 	$forceCheckpointRespawn = false;

@@ -330,9 +330,6 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "screenResolution";
 $Options::Title   ["Graphics", $i  ] = "Default Window Size";
 $Options::Type    ["Graphics", $i  ] = "value";
-$Options::Name    ["Graphics", $i++] = "maxFPS";
-$Options::Title   ["Graphics", $i  ] = "Max FPS";
-$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Level Previews";
 $Options::Type    ["Graphics", $i  ] = "boolean";
@@ -352,19 +349,15 @@ if (canSupportPostFX()) {
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
+$Options::Name    ["Graphics", $i++] = "vsync";
+$Options::Title   ["Graphics", $i  ] = "Max Framerate";
+$Options::Type    ["Graphics", $i  ] = "value";
+$Options::Name    ["Graphics", $i++] = "maxFPS";
+$Options::Title   ["Graphics", $i  ] = "Max Tickrate";
+$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
 $Options::Type    ["Graphics", $i  ] = "boolean";
-$Options::Name    ["Graphics", $i++] = "particles";
-$Options::Title   ["Graphics", $i  ] = "Particles";
-$Options::Ctrl    ["Graphics", $i  ] = "slider";
-$Options::Min     ["Graphics", $i  ] = 0;
-$Options::Max     ["Graphics", $i  ] = 200;
-$Options::Ticks   ["Graphics", $i  ] = 40; //Every 5
-$Options::JoyTicks["Graphics", $i  ] = 10; //Every 20
-$Options::Name    ["Graphics", $i++] = "particleSystem";
-$Options::Title   ["Graphics", $i  ] = "Particle System";
-$Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
@@ -405,13 +398,22 @@ AntiAliasingQualityArray.addEntry("4x"       TAB  4);
 AntiAliasingQualityArray.addEntry("8x"       TAB  8);
 
 Array(MaxFPSArray);
-MaxFPSArray.addEntry("Unlimited" TAB  -1);
-MaxFPSArray.addEntry("VSync"     TAB   0);
-MaxFPSArray.addEntry("30"        TAB  30);
-MaxFPSArray.addEntry("60"        TAB  60);
-MaxFPSArray.addEntry("75"        TAB  75);
-MaxFPSArray.addEntry("120"       TAB 120);
-MaxFPSArray.addEntry("200"       TAB 200);
+MaxFPSArray.addEntry("1000 TPS" TAB  -1);
+MaxFPSArray.addEntry("30 TPS"   TAB  30);
+MaxFPSArray.addEntry("60 TPS"   TAB  60);
+MaxFPSArray.addEntry("75 TPS"   TAB  75);
+MaxFPSArray.addEntry("100 TPS"  TAB  100);
+MaxFPSArray.addEntry("120 TPS"  TAB  120);
+MaxFPSArray.addEntry("144 TPS"  TAB  144);
+MaxFPSArray.addEntry("165 TPS"  TAB  165);
+MaxFPSArray.addEntry("200 TPS"  TAB  200);
+MaxFPSArray.addEntry("240 TPS"  TAB  240);
+MaxFPSArray.addEntry("360 TPS"  TAB  360);
+
+Array(RenderPriorityArray);
+RenderPriorityArray.addEntry("VSync" TAB 0);
+RenderPriorityArray.addEntry("Match Tickrate" TAB 1);
+RenderPriorityArray.addEntry("Unlimited" TAB 2);
 
 Array(ParticleSystemArray);
 ParticleSystemArray.addEntry("PlatinumQuest"      TAB 0);
@@ -467,11 +469,11 @@ $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
 $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "fpsCounter";
+$Options::Title   ["Gameplay", $i  ] = "Performance Display";
+$Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "freelook";
 $Options::Title   ["Gameplay", $i  ] = "Free-Look";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "fpsCounter";
-$Options::Title   ["Gameplay", $i  ] = "FPS Counter";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "helptriggers";
 $Options::Title   ["Gameplay", $i  ] = "Help Bubbles";
@@ -493,6 +495,16 @@ $Options::Min     ["Gameplay", $i  ] = 5;
 $Options::Max     ["Gameplay", $i  ] = 85;
 $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
+$Options::Name    ["Gameplay", $i++] = "particles";
+$Options::Title   ["Gameplay", $i  ] = "Particles";
+$Options::Ctrl    ["Gameplay", $i  ] = "slider";
+$Options::Min     ["Gameplay", $i  ] = 0;
+$Options::Max     ["Gameplay", $i  ] = 200;
+$Options::Ticks   ["Gameplay", $i  ] = 40; //Every 5
+$Options::JoyTicks["Gameplay", $i  ] = 10; //Every 20
+$Options::Name    ["Gameplay", $i++] = "particleSystem";
+$Options::Title   ["Gameplay", $i  ] = "Particle System";
+$Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "advancedOptions";
 $Options::Title   ["Gameplay", $i  ] = "Advanced Options";
 $Options::Ctrl    ["Gameplay", $i  ] = "button";
@@ -524,9 +536,15 @@ ScreenshotModeArray.addEntry("Hide Chat Online" TAB 1);
 ScreenshotModeArray.addEntry("Hide Everything"  TAB 2);
 
 Array(TimeTravelTimerArray);
-TimeTravelTimerArray.addEntry("Disabled"  TAB 0);
-TimeTravelTimerArray.addEntry("Enabled" TAB 1);
-TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
+TimeTravelTimerArray.addEntry("Disabled"         TAB 0);
+TimeTravelTimerArray.addEntry("Enabled"          TAB 1);
+TimeTravelTimerArray.addEntry("Enabled, Precise" TAB 2);
+
+Array(FPSCounterArray);
+FPSCounterArray.addEntry("Disabled"       TAB 0);
+FPSCounterArray.addEntry("Framerate Only" TAB 1);
+FPSCounterArray.addEntry("Tickrate Only"  TAB 2);
+FPSCounterArray.addEntry("Show All"       TAB 3);
 
 //-----------------------------------------------------------------------------
 // Online
@@ -919,6 +937,14 @@ function Opt_antiAliasing_increase() {
 function Opt_maxFPS_getDisplay() {
 	%entry = MaxFPSArray.getEntryByField($pref::Video::MaxFPS, 1);
 	if (%entry $= "") {
+		if ($pref::Video::MaxFPS == 0) {
+			// This is vsync
+			$pref::Video::verticalSync = true;
+			$pref::Video::MaxFPS = -1; // Unlimited fps
+			%entry = MaxFPSArray.getEntryByField($pref::Video::MaxFPS, 1);
+			return getField(%entry, 0);
+		}
+
 		return $pref::Video::MaxFPS;
 	}
 	return getField(%entry, 0);
@@ -938,8 +964,8 @@ function Opt_maxFPS_decrease() {
 
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
-		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
-			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
+		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
+			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
 }
 
@@ -953,9 +979,41 @@ function Opt_maxFPS_increase() {
 
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
-		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
-			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
+		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
+			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
+}
+
+function Opt_vsync_getDisplay() {
+	if ($pref::Video::renderPriority $= "")
+		$pref::Video::renderPriority = 0;
+	%entry = RenderPriorityArray.getEntryByField($pref::Video::renderPriority, 1);
+	if (%entry $= "") {
+		return $pref::Video::renderPriority;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_vsync_getValue() {
+	return $pref::Video::renderPriority;
+}
+
+function Opt_vsync_decrease() {
+	%index = RenderPriorityArray.getIndexByField($pref::Video::renderPriority, 1);
+	%index --;
+	if (%index < 0) {
+		%index = RenderPriorityArray.getSize() - 1;
+	}
+	$pref::Video::renderPriority = getField(RenderPriorityArray.getEntry(%index), 1);
+}
+
+function Opt_vsync_increase() {
+	%index = RenderPriorityArray.getIndexByField($pref::Video::renderPriority, 1);
+	%index ++;
+	if (%index == RenderPriorityArray.getSize()) {
+		%index = 0;
+	}
+	$pref::Video::renderPriority = getField(RenderPriorityArray.getEntry(%index), 1);
 }
 
 
@@ -1231,7 +1289,11 @@ function OptionsGui::updateChannelVolume(%this, %channel) {
 // Gameplay Functions
 
 function Opt_fpsCounter_getDisplay() {
-	return $pref::showFPSCounter ? "Enabled" : "Disabled";
+	%entry = FPSCounterArray.getEntryByField($pref::showFPSCounter, 1);
+	if (%entry $= "") {
+		return $pref::showFPSCounter ? "Enabled" : "Disabled";
+	}
+	return getField(%entry, 0);
 }
 
 function Opt_fpsCounter_getValue() {
@@ -1239,12 +1301,22 @@ function Opt_fpsCounter_getValue() {
 }
 
 function Opt_fpsCounter_decrease() {
-	$pref::showFPSCounter = !$pref::showFPSCounter;
+	%index = FPSCounterArray.getIndexByField($pref::showFPSCounter, 1);
+	%index --;
+	if (%index < 0) {
+		%index = FPSCounterArray.getSize() - 1;
+	}
+	$pref::showFPSCounter = getField(FPSCounterArray.getEntry(%index), 1);
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
 }
 
 function Opt_fpsCounter_increase() {
-	$pref::showFPSCounter = !$pref::showFPSCounter;
+	%index = FPSCounterArray.getIndexByField($pref::showFPSCounter, 1);
+	%index ++;
+	if (%index >= FPSCounterArray.getSize()) {
+		%index = 0;
+	}
+	$pref::showFPSCounter = getField(FPSCounterArray.getEntry(%index), 1);
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
 }
 

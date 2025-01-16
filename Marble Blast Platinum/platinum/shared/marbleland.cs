@@ -118,7 +118,7 @@ function marblelandDownload(%id, %callback) {
 	%dl.callback = %callback;
 	%dl.id = %mission.id;
 	%dl.success = 0;
-	%dl.setDownloadPath("packages/marbleland/" @ %mission.id @ ".mbpak");
+	%dl.setDownloadPath("packages/marbleland/" @ %mission.id @ ".mbpak", !$pref::saveDownloadedLevels);
 	%dl.get("https://marbleland.vaniverse.io", "/api/level/" @ %mission.id @ "/mbpak", "assuming=none&append-id-to-mis=1");
 }
 

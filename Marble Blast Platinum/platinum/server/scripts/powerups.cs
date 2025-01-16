@@ -197,7 +197,7 @@ datablock ItemData(SuperBounceItem) {
 	coopClient = 1;
 
 	image = SuperBounceImage;
-	imageSlot = 5;
+	imageSlot = 3;
 
 	customField[0, "field"  ] = "showHelpOnPickup";
 	customField[0, "type"   ] = "boolean";
@@ -320,7 +320,7 @@ datablock ItemData(ShockAbsorberItem) {
 	emap = false;
 
 	image = ShockAbsorberImage;
-	imageSlot = 1;
+	imageSlot = 4;
 
 	customField[0, "field"  ] = "showHelpOnPickup";
 	customField[0, "type"   ] = "boolean";
@@ -400,7 +400,7 @@ datablock ItemData(HelicopterItem) {
 
 	image = ActualHelicopterImage;
 	megaImage = MegaHelicopterImage;
-	imageSlot = 3;
+	imageSlot = 5;
 
 	customField[0, "field"  ] = "showHelpOnPickup";
 	customField[0, "type"   ] = "boolean";
