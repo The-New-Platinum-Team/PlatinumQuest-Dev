@@ -602,6 +602,11 @@ function ExitGameDlg::end() {
 function ExitGameDlg::onWake(%this) {
 	%info = getMissionInfo($Client::MissionFile);
 
+	if ($pref::restartReloadsLevels)
+		ExitGameRestart.setText("           Reload");
+	else
+		ExitGameRestart.setText("           Restart");
+
 	%shouldEndLevel = false;
 	if (($pref::AllowEndingScoreLevelsEarly || RtaSpeedrun.isEnabled) && (stripos(%info.gameMode, "hunt") != -1 || stripos(%info.gameMode, "gemmadness") != -1)) {
 		%scoreToBeat = (%info.score > 0) ? %info.score : 1;
