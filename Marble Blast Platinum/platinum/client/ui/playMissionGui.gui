@@ -3147,15 +3147,13 @@ function PlayMissionGui::resetPlayButton(%this) {
 		if (RtaSpeedrun.endMission $= "") {
 			%rtaBitmap = "platinum/client/ui/play/buttons/rtaFinale.png";
 			%rtaColor  = "255 128 128";
-		}
-		else {
+		} else {
 			%rtaBitmap = "platinum/client/ui/play/buttons/rtaStart.png";
 			%rtaColor  = "128 255 128";
 		}
 		PM_MissionPlay.bitmap       = %rtaBitmap;
 		PM_MissionPlay.bitmapColor  = %rtaColor;
-	}
-	else {
+	} else {
 		PM_MissionPlay.bitmap       = PM_MissionPlay.originalBitmap;
 		PM_MissionPlay.bitmapColor  = PM_MissionPlay.originalBitmapColor;
 	}
@@ -3211,6 +3209,8 @@ function PlayMissionGui::play(%this) {
 				commandToServer('LoadMission', %this.getMissionInfo().file);
 			}
 		}
+	} else if (RtaSpeedrun.shouldStartRun && (RtaSpeedrun.endMission $= "")) {
+		RtaSpeedrun.setEnd();
 	} else {
 		//Thanks, controller support
 		if (!Unlock::canPlayMission(%this.getMissionInfo())) {
