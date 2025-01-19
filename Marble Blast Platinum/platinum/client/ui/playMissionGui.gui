@@ -3143,9 +3143,23 @@ function PMMenu_FinishQueue(%queue) {
 }
 
 function PlayMissionGui::resetPlayButton(%this) {
-	PM_MissionPlay.bitmap       = PM_MissionPlay.originalBitmap;
+	if (RtaSpeedrun.shouldStartRun) {
+		if (RtaSpeedrun.endMission $= "") {
+			%rtaBitmap = "platinum/client/ui/play/buttons/rtaFinale.png";
+			%rtaColor  = "255 128 128";
+		}
+		else {
+			%rtaBitmap = "platinum/client/ui/play/buttons/rtaStart.png";
+			%rtaColor  = "128 255 128";
+		}
+		PM_MissionPlay.bitmap       = %rtaBitmap;
+		PM_MissionPlay.bitmapColor  = %rtaColor;
+	}
+	else {
+		PM_MissionPlay.bitmap       = PM_MissionPlay.originalBitmap;
+		PM_MissionPlay.bitmapColor  = PM_MissionPlay.originalBitmapColor;
+	}
 	PM_MissionPlay.bitmapOffset = PM_MissionPlay.originalBitmapOffset;
-	PM_MissionPlay.bitmapColor  = PM_MissionPlay.originalBitmapColor;
 }
 
 function PlayMissionGui::onMissionLoaded(%this) {
@@ -3640,7 +3654,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 	}
 
 	%this.builtBar[%which] = true;
-	%this.updateRtaButtons();
+	%this.resetPlayButton();
 }
 
 function PlayMissionGui::toggleExtras(%this) {
@@ -3690,6 +3704,8 @@ function PlayMissionGui::setBarButtonActive(%this, %button, %active) {
 	if (isObject(%button)) {
 		%button.setActive(%active);
 		%button.bitmapColor = (%active ? %button.profile.fillColor : %button.profile.fillColorNA);
+		if ((%button $= "PM_MissionPlay") && %active)
+			%this.resetPlayButton();
 	}
 }
 
@@ -4761,33 +4777,4 @@ function PlayMissionGui::swapMissionListMP(%this) {
 
 function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 	PM_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
-}
-
-function PlayMissionGui::updateRtaButtons(%this) {
-	if ($TexturePack::InvertTextColors) {
-		%red   = "196   0   0 255";
-		%green = "  0 196   0 255";
-	}
-	else {
-		%red   = "255 128 128 255";
-		%green = "128 255 128 255";
-	}
-
-	if (RtaSpeedrun.shouldStartRun) {
-		if (RtaSpeedrun.endMission $= "") {
-			%rtaBitmap = "platinum/client/ui/play/buttons/rtaFinale.png";
-			%rtaColor  = %red;
-		}
-		else {
-			%rtaBitmap = "platinum/client/ui/play/buttons/rtaStart.png";
-			%rtaColor  = %green;
-		}
-	}
-	else {
-		%rtaBitmap = "platinum/client/ui/play/buttons/play.png";
-		%rtaColor = "255 255 255";
-	}
-
-	PM_MissionPlay.bitmap      = %rtaBitmap;
-	PM_MissionPlay.borderColor = %rtaColor;
 }
