@@ -156,6 +156,7 @@ function RtaSpeedrun::start(%this) {
 	%this.currentGameDuration = -1;
 
 	%this.updateTimers();
+	PlayMissionGui.updateRtaButtons();
 
 	echo("An RTA speedrun will start when you enter a level, and end when you finish" SPC %this.endMission);
 	echo("Good luck!");
@@ -168,6 +169,7 @@ function RtaSpeedrun::stop(%this) {
 	%this.setIsCrashRecoveryMode(false);
 	%this.updateTimers();
 	%this.clearProgress();
+	PlayMissionGui.updateRtaButtons();
 }
 
 function RtaSpeedrun::setEnd(%this, %arg) {
@@ -178,10 +180,13 @@ function RtaSpeedrun::setEnd(%this, %arg) {
 	}
 	%this.endMission = %this.endMissionInfo.file;
 	echo("The last level of the RTA speedrun set to" SPC %this.endMission);
+
 	if (!%this.receivedMbgWarning && (stripos(%this.endMission, "data/missions_mbg/") != -1 || stripos(%this.endMission, "data/lbmissions_mbg/") != -1)) {
 		ASSERT("Warning", "You have selected a Marble Blast Gold level as the final level. In order for a run to be valid on speedrun.com/mbg, it can't be done in PQ, it must be done in vanilla MBG. Feel free to run it if you would like, just be aware that it will not be verified. If it's part of a larger speedrun with multiple games (e.g. a colored name speedrun) which you plan on ending in MBG, then feel free to ignore this warning.");
 		%this.receivedMbgWarning = true;
 	}
+
+	PlayMissionGui.updateRtaButtons();
 }
 
 function RtaSpeedrun::missionStarted(%this) {
