@@ -107,6 +107,8 @@ function OptionsGui::back(%this) {
 
 function OptionsGui::onWake(%this, %dontDiscard) {
 	buildResolutionList();
+	if ($platform $= "windows")
+		buildRendererList();
 
 	%this.setTab("Graphics");
 
@@ -289,6 +291,21 @@ function sortResolution(%a, %b) {
 	return getWord(%a, 1) < getWord(%b, 1);
 }
 
+function buildRendererList() {
+	if (!isObject(OptRenderers)) {
+		Array(OptRenderers);
+	} else {
+		OptRenderers.clear();
+	}
+
+	OptRenderers.addEntry("Auto");
+	%renderers = getCompatibleRenderers();
+	for (%i = 0; %i < getWordCount(%renderers); %i ++) {
+		%renderer = getWord(%renderers, %i);
+		OptRenderers.addEntry(%renderer);
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 function GuiSliderCtrl::getFormattedValue(%this, %min, %max) {
@@ -330,6 +347,11 @@ $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "screenResolution";
 $Options::Title   ["Graphics", $i  ] = "Default Window Size";
 $Options::Type    ["Graphics", $i  ] = "value";
+if ($platform $= "windows") {
+	$Options::Name   ["Graphics", $i++] = "graphicsDriver";
+	$Options::Title  ["Graphics", $i  ] = "Graphics Driver";
+	$Options::Type   ["Graphics", $i  ] = "value";
+}
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Level Previews";
 $Options::Type    ["Graphics", $i  ] = "boolean";
@@ -1016,6 +1038,68 @@ function Opt_vsync_increase() {
 	$pref::Video::renderPriority = getField(RenderPriorityArray.getEntry(%index), 1);
 }
 
+
+function Opt_graphicsDriver_getDisplay() {
+	%value = $pref::Video::RendererOverride;
+	if (%value $= "") {
+		return "Auto";
+	}
+	return $pref::Video::RendererOverride;
+}
+
+function Opt_graphicsDriver_getValue() {
+	return $pref::Video::RendererOverride;
+}
+
+function Opt_graphicsDriver_decrease() {
+	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
+	if ($pref::Video::RendererOverride $= "") {
+		%index = 0;
+	}
+	%index --;
+	if (%index < 0) {
+		%index = OptRenderers.getSize() - 1;
+	}
+	if (%index == 0) {
+		$pref::Video::RendererOverride = "";
+	} else {
+		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
+	}
+	
+	if (!$gdAssert) {
+		$gdAssert = true;
+		MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " NL
+			"It is best to leave this option on Auto unless you are experiencing issues with the game. " NL
+			"Consequences of changing this option may include the game not starting or not rendering properly." NL
+			"You accept all responsibility for changing this option." NL
+			"This option requires you to restart the game.");
+	}
+}
+
+function Opt_graphicsDriver_increase() {
+	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
+	if ($pref::Video::RendererOverride $= "") {
+		%index = 0;
+	}
+	%index ++;
+	if (%index == OptRenderers.getSize()) {
+		%index = 0;
+	}
+	if (%index == 0) {
+		$pref::Video::RendererOverride = "";
+	} else {
+		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
+	}
+
+	if (!$gdAssert) {
+		$gdAssert = true;
+		MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " NL
+			"It is best to leave this option on Auto unless you are experiencing issues with the game. " NL
+			"Consequences of changing this option may include the game not starting or not rendering properly." NL
+			"You accept all responsibility for changing this option." NL
+			"This option requires you to restart the game.");
+	}
+}
 
 //-----------------------------------------------------------------------------
 
