@@ -655,7 +655,7 @@ function PlaybackInfo::finish(%this) {
 		Physics::popLayerName("noInput");
 		if ($playingDemo) {
 			onDemoPlayDone(false);
-			schedule(2000, 0, delayDemoFinish);
+			$playingDemo = false;
 		}
 	}
 
@@ -1385,7 +1385,7 @@ function PlaybackShapeBase::apply(%this, %object, %t) {
 			%overrode[4] = true;
 		}
 
-		if (%i == 3 && %image $= "ActualHelicopterImage") {
+		if (%i == 3 && (%image $= "ActualHelicopterImage" || %image $= "HelicopterImage_MBU" || %image $= "HelicopterImage_MBUBall")) {
 			%imageSlot = 5; // That fix
 			%overrode[5] = true;
 		}
