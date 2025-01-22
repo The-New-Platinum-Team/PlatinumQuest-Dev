@@ -206,6 +206,7 @@ for ($i = 1; $i < $Game::argc ; $i++) {
 	case "-dedicated":
 		$argUsed[$i]++;
 		$Server::Dedicated = true;
+		$DeferPackets = true;
 	//-------------------
 	case "-help":
 		$displayHelp = true;

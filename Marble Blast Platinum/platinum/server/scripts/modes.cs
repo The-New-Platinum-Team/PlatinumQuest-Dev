@@ -228,6 +228,7 @@ function Mode::registerCallback(%this, %callback) {
 }
 
 function Mode::callback(%this, %callback, %default, %object) {
+	return ModeCallback(%this, %callback, %default, %object);
 	if (%object._delete) {
 		if (!isObject(DeleteGroup)) {
 			RootGroup.add(new SimGroup(DeleteGroup));
