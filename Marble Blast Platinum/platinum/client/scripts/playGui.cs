@@ -1324,7 +1324,7 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 		profile = "GemCollectionMessageProfile";
 		horizSizing = "center";
 		vertSizing = "center";
-		position = %startPos;
+		position = getWords(%startPos, 0, 2);
 		extent = "400 100";
 		minExtent = "8 8";
 		visible = "1";
