@@ -246,7 +246,7 @@ new GuiControl(OptionsGui) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "30 88";
-			extent = "726 416";
+			extent = "736 416";
 			minExtent = "8 8";
 			visible = "0";
 			helpTag = "0";
@@ -935,7 +935,7 @@ new GuiControl(OptionsGui) {
 				horizSizing = "right";
 				vertSizing = "bottom";
 				position = "414 0";
-				extent = "312 365";
+				extent = "322 365";
 				minExtent = "8 8";
 				visible = "1";
 				helpTag = "0";
@@ -1006,6 +1006,20 @@ new GuiControl(OptionsGui) {
 					maxChars = "-1";
 						defaultText = "<bold:24>Mouse:";
 				};
+				new GuiMLTextCtrl(OptionscameraSmoothingTitle) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "5 90";
+					extent = "165 27";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+						defaultText = "<bold:24>Camera Smoothing:";
+				};
 				new GuiSliderCtrl(OptionskeyboardSpeedValue) {
 					profile = "GuiSliderProfile";
 					horizSizing = "right";
@@ -1040,7 +1054,7 @@ new GuiControl(OptionsGui) {
 					horizSizing = "right";
 					vertSizing = "bottom";
 					position = "260 30";
-					extent = "52 27";
+					extent = "52 77";
 					minExtent = "8 8";
 					visible = "1";
 					helpTag = "0";
@@ -1060,6 +1074,22 @@ new GuiControl(OptionsGui) {
 					lineSpacing = "2";
 					allowColorChars = "0";
 					maxChars = "-1";
+				};
+				new GuiCheckBoxCtrl(OptionscameraSmoothingChk) {
+					profile = "PQCheckboxProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "285 90";
+					extent = "100 28";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					variable = "$pref::cameraSmoothing";
+					text = "";
+					groupNum = "-1";
+					buttonType = "ToggleButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
 				};
 			};
 			new GuiScrollCtrl(OptionsInputScroll) {
