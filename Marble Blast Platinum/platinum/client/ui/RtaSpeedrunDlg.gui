@@ -92,6 +92,19 @@ new GuiControl(RtaSpeedrunDlg) {
 			maxChars = "-1";
 				defaultText = "<font:22><just:center>Not currently active";
 		};
+		new GuiMLTextCtrl(RtaFinalTimeText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 356";
+			extent = "700 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
 		new GuiMLTextCtrl(RtaInformationText) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "left";
@@ -259,6 +272,14 @@ function RtaSpeedrunDlg::updateStatusText(%this, %text) {
 		RtaStatusText.setText(%formatting @ "Run will start when next level loads");
 	else
 		RtaStatusText.setText(%formatting @ "Not currently active");
+	
+	if (RtaSpeedrun.prevFinalTime !$= "") {
+		%finalTimeText = %formatting @ "<spush><bold>";
+		if (RtaSpeedrun.shouldStartRun || RtaSpeedrun.isEnabled)
+			%finalTimeText = %finalTimeText @ "Previous ";
+		%finalTimeText = %finalTimeText @ "Final Time:<spop> " @ formatTimeHoursMs(RtaSpeedrun.prevFinalTime);
+		RtaFinalTimeText.setText(%finalTimeText);
+	}
 }
 
 function RtaSpeedrunDlg::updateEndText(%this) {

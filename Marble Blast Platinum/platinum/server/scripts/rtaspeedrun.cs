@@ -113,6 +113,7 @@ function RtaSpeedrun::updateTimers(%this) {
 	if (%this.isDone) {
 		$pref::Thousandths = true;
 		%text = formatTimeHoursMs(%this.time) SPC "Final Time";
+		%this.prevFinalTime = %this.time;
 	} else {
 		%text = formatTimeHoursMs(%this.time);
 	}
