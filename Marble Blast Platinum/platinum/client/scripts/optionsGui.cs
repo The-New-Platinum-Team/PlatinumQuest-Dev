@@ -107,6 +107,8 @@ function OptionsGui::back(%this) {
 
 function OptionsGui::onWake(%this, %dontDiscard) {
 	buildResolutionList();
+	if ($platform $= "windows")
+		buildRendererList();
 
 	%this.setTab("Graphics");
 
@@ -289,6 +291,21 @@ function sortResolution(%a, %b) {
 	return getWord(%a, 1) < getWord(%b, 1);
 }
 
+function buildRendererList() {
+	if (!isObject(OptRenderers)) {
+		Array(OptRenderers);
+	} else {
+		OptRenderers.clear();
+	}
+
+	OptRenderers.addEntry("Auto");
+	%renderers = getCompatibleRenderers();
+	for (%i = 0; %i < getWordCount(%renderers); %i ++) {
+		%renderer = getWord(%renderers, %i);
+		OptRenderers.addEntry(%renderer);
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 function GuiSliderCtrl::getFormattedValue(%this, %min, %max) {
@@ -328,49 +345,49 @@ $Options::Name    ["Graphics", $i++] = "screenStyle";
 $Options::Title   ["Graphics", $i  ] = "Screen Style";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "screenResolution";
-$Options::Title   ["Graphics", $i  ] = "Windowed Resolution";
+$Options::Title   ["Graphics", $i  ] = "Default Window Size";
 $Options::Type    ["Graphics", $i  ] = "value";
+if ($platform $= "windows") {
+	$Options::Name   ["Graphics", $i++] = "graphicsDriver";
+	$Options::Title  ["Graphics", $i  ] = "Graphics Driver";
+	$Options::Type   ["Graphics", $i  ] = "value";
+}
+$Options::Name    ["Graphics", $i++] = "animateBackground";
+$Options::Title   ["Graphics", $i  ] = "Level Previews";
+$Options::Type    ["Graphics", $i  ] = "boolean";
+if (canSupportPostFX()) { //No point supporting reflections if you don't support postfx anyway
+	$Options::Name    ["Graphics", $i++] = "marbleReflections";
+	$Options::Title   ["Graphics", $i  ] = "Marble Reflections";
+	$Options::Type    ["Graphics", $i  ] = "value";
+}
 $Options::Name    ["Graphics", $i++] = "textureQuality";
 $Options::Title   ["Graphics", $i  ] = "Texture Quality";
 $Options::Type    ["Graphics", $i  ] = "value";
-if (canSupportPostFX()) { //No point supporting reflections if you don't support postfx anyway
-	$Options::Name ["Graphics", $i++] = "marbleReflections";
-	$Options::Title["Graphics", $i  ] = "Marble Reflections";
-	$Options::Type ["Graphics", $i  ] = "value";
+$Options::Name    ["Graphics", $i++] = "interiorShaders";
+$Options::Title   ["Graphics", $i  ] = "Material Quality";
+$Options::Type    ["Graphics", $i  ] = "value";
+if (canSupportPostFX()) {
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
-$Options::Name    ["Graphics", $i++] = "interiorShaders";
-$Options::Title   ["Graphics", $i  ] = "Material Quality";
+$Options::Name    ["Graphics", $i++] = "vsync";
+$Options::Title   ["Graphics", $i  ] = "Max Framerate";
 $Options::Type    ["Graphics", $i  ] = "value";
-$Options::Name    ["Graphics", $i++] = "animateBackground";
-$Options::Title   ["Graphics", $i  ] = "Preload Levels";
-$Options::Type    ["Graphics", $i  ] = "boolean";
-if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
-	$Options::Name ["Graphics", $i++] = "antiAliasing";
-	$Options::Title["Graphics", $i  ] = "Anti Aliasing";
-	$Options::Type ["Graphics", $i  ] = "value";
-}
 $Options::Name    ["Graphics", $i++] = "maxFPS";
-$Options::Title   ["Graphics", $i  ] = "Max FPS";
+$Options::Title   ["Graphics", $i  ] = "Max Tickrate";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
 $Options::Type    ["Graphics", $i  ] = "boolean";
-$Options::Name    ["Graphics", $i++] = "particleSystem";
-$Options::Title   ["Graphics", $i  ] = "Particle System";
-$Options::Type    ["Graphics", $i  ] = "value";
-$Options::Name    ["Graphics", $i++] = "particles";
-$Options::Title   ["Graphics", $i  ] = "Particles";
-$Options::Ctrl    ["Graphics", $i  ] = "slider";
-$Options::Min     ["Graphics", $i  ] = 0;
-$Options::Max     ["Graphics", $i  ] = 200;
-$Options::Ticks   ["Graphics", $i  ] = 40; //Every 5
-$Options::JoyTicks["Graphics", $i  ] = 10; //Every 20
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
+// if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
+// 	$Options::Name    ["Graphics", $i++] = "antiAliasing";
+// 	$Options::Title   ["Graphics", $i  ] = "Anti Aliasing";
+// 	$Options::Type    ["Graphics", $i  ] = "value";
+// }
 
 Array(TextureQualityArray);
 TextureQualityArray.addEntry("Low"    TAB 0);
@@ -403,13 +420,22 @@ AntiAliasingQualityArray.addEntry("4x"       TAB  4);
 AntiAliasingQualityArray.addEntry("8x"       TAB  8);
 
 Array(MaxFPSArray);
-MaxFPSArray.addEntry("Unlimited" TAB  -1);
-MaxFPSArray.addEntry("VSync"     TAB   0);
-MaxFPSArray.addEntry("30"        TAB  30);
-MaxFPSArray.addEntry("60"        TAB  60);
-MaxFPSArray.addEntry("75"        TAB  75);
-MaxFPSArray.addEntry("120"       TAB 120);
-MaxFPSArray.addEntry("200"       TAB 200);
+MaxFPSArray.addEntry("1000 TPS" TAB  -1);
+MaxFPSArray.addEntry("30 TPS"   TAB  30);
+MaxFPSArray.addEntry("60 TPS"   TAB  60);
+MaxFPSArray.addEntry("75 TPS"   TAB  75);
+MaxFPSArray.addEntry("100 TPS"  TAB  100);
+MaxFPSArray.addEntry("120 TPS"  TAB  120);
+MaxFPSArray.addEntry("144 TPS"  TAB  144);
+MaxFPSArray.addEntry("165 TPS"  TAB  165);
+MaxFPSArray.addEntry("200 TPS"  TAB  200);
+MaxFPSArray.addEntry("240 TPS"  TAB  240);
+MaxFPSArray.addEntry("360 TPS"  TAB  360);
+
+Array(RenderPriorityArray);
+RenderPriorityArray.addEntry("VSync" TAB 0);
+RenderPriorityArray.addEntry("Match Tickrate" TAB 1);
+RenderPriorityArray.addEntry("Unlimited" TAB 2);
 
 Array(ParticleSystemArray);
 ParticleSystemArray.addEntry("PlatinumQuest"      TAB 0);
@@ -434,7 +460,7 @@ $Options::Max     ["Audio", 1] = 100;
 $Options::Ticks   ["Audio", 1] = 20; //Every 5
 $Options::JoyTicks["Audio", 1] = 20; //Every 5
 $Options::Name    ["Audio", 2] = "audioPack";
-$Options::Title   ["Audio", 2] = "Sound Pack";
+$Options::Title   ["Audio", 2] = "Default Sound Pack";
 $Options::Type    ["Audio", 2] = "value";
 $Options::Name    ["Audio", 3] = "automaticAudio";
 $Options::Title   ["Audio", 3] = "Automatic Audio Swap";
@@ -465,11 +491,11 @@ $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
 $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "fpsCounter";
+$Options::Title   ["Gameplay", $i  ] = "Performance Display";
+$Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "freelook";
 $Options::Title   ["Gameplay", $i  ] = "Free-Look";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "fpsCounter";
-$Options::Title   ["Gameplay", $i  ] = "FPS Counter";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "helptriggers";
 $Options::Title   ["Gameplay", $i  ] = "Help Bubbles";
@@ -491,6 +517,16 @@ $Options::Min     ["Gameplay", $i  ] = 5;
 $Options::Max     ["Gameplay", $i  ] = 85;
 $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
+$Options::Name    ["Gameplay", $i++] = "particles";
+$Options::Title   ["Gameplay", $i  ] = "Particles";
+$Options::Ctrl    ["Gameplay", $i  ] = "slider";
+$Options::Min     ["Gameplay", $i  ] = 0;
+$Options::Max     ["Gameplay", $i  ] = 200;
+$Options::Ticks   ["Gameplay", $i  ] = 40; //Every 5
+$Options::JoyTicks["Gameplay", $i  ] = 10; //Every 20
+$Options::Name    ["Gameplay", $i++] = "particleSystem";
+$Options::Title   ["Gameplay", $i  ] = "Particle System";
+$Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "advancedOptions";
 $Options::Title   ["Gameplay", $i  ] = "Advanced Options";
 $Options::Ctrl    ["Gameplay", $i  ] = "button";
@@ -522,9 +558,15 @@ ScreenshotModeArray.addEntry("Hide Chat Online" TAB 1);
 ScreenshotModeArray.addEntry("Hide Everything"  TAB 2);
 
 Array(TimeTravelTimerArray);
-TimeTravelTimerArray.addEntry("Disabled"  TAB 0);
-TimeTravelTimerArray.addEntry("Enabled" TAB 1);
-TimeTravelTimerArray.addEntry("Enabled, Precise"  TAB 2);
+TimeTravelTimerArray.addEntry("Disabled"         TAB 0);
+TimeTravelTimerArray.addEntry("Enabled"          TAB 1);
+TimeTravelTimerArray.addEntry("Enabled, Precise" TAB 2);
+
+Array(FPSCounterArray);
+FPSCounterArray.addEntry("Disabled"       TAB 0);
+FPSCounterArray.addEntry("Framerate Only" TAB 1);
+FPSCounterArray.addEntry("Tickrate Only"  TAB 2);
+FPSCounterArray.addEntry("Show All"       TAB 3);
 
 //-----------------------------------------------------------------------------
 // Online
@@ -560,12 +602,12 @@ $Options::AutoLoginUserField = $i++;
 $Options::AutoLoginPassField = $i++;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
-$Options::Title   ["Online", $Options::AutoLoginUserField] = "Username";
+$Options::Title   ["Online", $Options::AutoLoginUserField] = "Auto Login Username";
 $Options::Ctrl    ["Online", $Options::AutoLoginUserField] = "textbox";
 $Options::Length  ["Online", $Options::AutoLoginUserField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginUserField] = ($LBPref::AutoLogin !$= "User");
 $Options::Name    ["Online", $Options::AutoLoginPassField] = "AutoLoginPassword";
-$Options::Title   ["Online", $Options::AutoLoginPassField] = "Password";
+$Options::Title   ["Online", $Options::AutoLoginPassField] = "Auto Login Password";
 $Options::Ctrl    ["Online", $Options::AutoLoginPassField] = "password";
 $Options::Length  ["Online", $Options::AutoLoginPassField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginPassField] = ($LBPref::AutoLogin !$= "User");
@@ -917,6 +959,14 @@ function Opt_antiAliasing_increase() {
 function Opt_maxFPS_getDisplay() {
 	%entry = MaxFPSArray.getEntryByField($pref::Video::MaxFPS, 1);
 	if (%entry $= "") {
+		if ($pref::Video::MaxFPS == 0) {
+			// This is vsync
+			$pref::Video::verticalSync = true;
+			$pref::Video::MaxFPS = -1; // Unlimited fps
+			%entry = MaxFPSArray.getEntryByField($pref::Video::MaxFPS, 1);
+			return getField(%entry, 0);
+		}
+
 		return $pref::Video::MaxFPS;
 	}
 	return getField(%entry, 0);
@@ -936,8 +986,8 @@ function Opt_maxFPS_decrease() {
 
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
-		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
-			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
+		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
+			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
 }
 
@@ -951,11 +1001,105 @@ function Opt_maxFPS_increase() {
 
 	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
 		$vsyncAssert = true;
-		MessageBoxOK("Performance Notice", "Unlimited framerate will make your game render as fast as possible." NL
-			"This has been known to turn laptops into toasters as OSX doesn't activate the fans until your CPU reaches almost boiling point.");
+		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
+			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 	}
 }
 
+function Opt_vsync_getDisplay() {
+	if ($pref::Video::renderPriority $= "")
+		$pref::Video::renderPriority = 0;
+	%entry = RenderPriorityArray.getEntryByField($pref::Video::renderPriority, 1);
+	if (%entry $= "") {
+		return $pref::Video::renderPriority;
+	}
+	return getField(%entry, 0);
+}
+
+function Opt_vsync_getValue() {
+	return $pref::Video::renderPriority;
+}
+
+function Opt_vsync_decrease() {
+	%index = RenderPriorityArray.getIndexByField($pref::Video::renderPriority, 1);
+	%index --;
+	if (%index < 0) {
+		%index = RenderPriorityArray.getSize() - 1;
+	}
+	$pref::Video::renderPriority = getField(RenderPriorityArray.getEntry(%index), 1);
+}
+
+function Opt_vsync_increase() {
+	%index = RenderPriorityArray.getIndexByField($pref::Video::renderPriority, 1);
+	%index ++;
+	if (%index == RenderPriorityArray.getSize()) {
+		%index = 0;
+	}
+	$pref::Video::renderPriority = getField(RenderPriorityArray.getEntry(%index), 1);
+}
+
+
+function Opt_graphicsDriver_getDisplay() {
+	%value = $pref::Video::RendererOverride;
+	if (%value $= "") {
+		return "Auto";
+	}
+	return $pref::Video::RendererOverride;
+}
+
+function Opt_graphicsDriver_getValue() {
+	return $pref::Video::RendererOverride;
+}
+
+function Opt_graphicsDriver_decrease() {
+	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
+	if ($pref::Video::RendererOverride $= "") {
+		%index = 0;
+	}
+	%index --;
+	if (%index < 0) {
+		%index = OptRenderers.getSize() - 1;
+	}
+	if (%index == 0) {
+		$pref::Video::RendererOverride = "";
+	} else {
+		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
+	}
+	
+	if (!$gdAssert) {
+		$gdAssert = true;
+		MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " NL
+			"It is best to leave this option on Auto unless you are experiencing issues with the game. " NL
+			"Consequences of changing this option may include the game not starting or not rendering properly." NL
+			"You accept all responsibility for changing this option." NL
+			"This option requires you to restart the game.");
+	}
+}
+
+function Opt_graphicsDriver_increase() {
+	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
+	if ($pref::Video::RendererOverride $= "") {
+		%index = 0;
+	}
+	%index ++;
+	if (%index == OptRenderers.getSize()) {
+		%index = 0;
+	}
+	if (%index == 0) {
+		$pref::Video::RendererOverride = "";
+	} else {
+		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
+	}
+
+	if (!$gdAssert) {
+		$gdAssert = true;
+		MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " NL
+			"It is best to leave this option on Auto unless you are experiencing issues with the game. " NL
+			"Consequences of changing this option may include the game not starting or not rendering properly." NL
+			"You accept all responsibility for changing this option." NL
+			"This option requires you to restart the game.");
+	}
+}
 
 //-----------------------------------------------------------------------------
 
@@ -1229,7 +1373,11 @@ function OptionsGui::updateChannelVolume(%this, %channel) {
 // Gameplay Functions
 
 function Opt_fpsCounter_getDisplay() {
-	return $pref::showFPSCounter ? "Enabled" : "Disabled";
+	%entry = FPSCounterArray.getEntryByField($pref::showFPSCounter, 1);
+	if (%entry $= "") {
+		return $pref::showFPSCounter ? "Enabled" : "Disabled";
+	}
+	return getField(%entry, 0);
 }
 
 function Opt_fpsCounter_getValue() {
@@ -1237,12 +1385,22 @@ function Opt_fpsCounter_getValue() {
 }
 
 function Opt_fpsCounter_decrease() {
-	$pref::showFPSCounter = !$pref::showFPSCounter;
+	%index = FPSCounterArray.getIndexByField($pref::showFPSCounter, 1);
+	%index --;
+	if (%index < 0) {
+		%index = FPSCounterArray.getSize() - 1;
+	}
+	$pref::showFPSCounter = getField(FPSCounterArray.getEntry(%index), 1);
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
 }
 
 function Opt_fpsCounter_increase() {
-	$pref::showFPSCounter = !$pref::showFPSCounter;
+	%index = FPSCounterArray.getIndexByField($pref::showFPSCounter, 1);
+	%index ++;
+	if (%index >= FPSCounterArray.getSize()) {
+		%index = 0;
+	}
+	$pref::showFPSCounter = getField(FPSCounterArray.getEntry(%index), 1);
 	FPSMetreCtrl.setVisible($pref::showFPSCounter);
 }
 

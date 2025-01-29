@@ -630,6 +630,10 @@ function playbackDumpCsv(%file, %ghost) {
 	$replaycsv = 0;
 }
 
+function delayDemoFinish() {
+	$playingDemo = false;
+}
+
 function PlaybackInfo::finish(%this) {
 	//Shut it down
 	if (isObject(%this.fo)) {
@@ -1373,7 +1377,31 @@ function PlaybackShapeBase::apply(%this, %object, %t) {
 
 	for (%i = 0; %i < 8; %i ++) {
 		%image = %this.mountImage[%i];
-		%current = %object.getMountedImage(%i);
+
+		%imageSlot = %i;
+
+		if (%i == 1 && %image $= "ShockAbsorberImage") {
+			%imageSlot = 4; // That fix
+			%overrode[4] = true;
+		}
+
+		if (%i == 3 && (%image $= "ActualHelicopterImage" || %image $= "HelicopterImage_MBU" || %image $= "HelicopterImage_MBUBall")) {
+			%imageSlot = 5; // That fix
+			%overrode[5] = true;
+		}
+
+		if (%i == 3 && %this.mountImage[5] $= "SuperBounceImage")
+			continue; // Don't override!!
+
+		if (%i == 5 && %image $= "SuperBounceImage") {
+			%imageSlot = 3; // That fix
+			%overrode[3] = true;
+		}
+
+		if (%overrode[%i])
+			continue;
+
+		%current = %object.getMountedImage(%imageSlot);
 		if (%image $= "ActualHelicopterImage" && !$pref::LegacyItems && MissionInfo.game $= "Ultra")
 			%image = "HelicopterImage_MBUBall";
 		if (isObject(%current)) {
@@ -1382,9 +1410,9 @@ function PlaybackShapeBase::apply(%this, %object, %t) {
 
 		if (%image !$= %current) {
 			if (%image $= "0") {
-				%object.unmountImage(%i);
+				%object.unmountImage(%imageSlot);
 			} else {
-				%object.mountImage(%image, %i);
+				%object.mountImage(%image, %imageSlot);
 			}
 		}
 	}

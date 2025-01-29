@@ -375,18 +375,18 @@ function pitchMusic() {
 	%targetPitch = 1;
 
 	//Warp Speed Music
-	if ($pref::warpSpeedMusic && $InPlayGUI) {
-		%targetPitch = (mPow(VectorLen(MPGetMyMarble().getVelocity()) / 360, 1/2));
+	if ($pref::warpSpeedMusic && $InPlayGUI && isObject($MP::MyMarble)) {
+		%targetPitch = (mPow(VectorLen($MP::MyMarble.getVelocity()) / 360, 1/2));
 		if (%targetPitch < 1)
 			%targetPitch = 1;
 	}
 
 	//Final Lap Music
-	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.nolapmus && (playGui.lapsComplete == playGui.lapsTotal))
+	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.noFinalLapMusic && (playGui.lapsComplete == playGui.lapsTotal) && $InPlayGUI)
 		%targetPitch *= 1.12246; //2 semitones
 	
 	//Panic Music
-	if ($pref::panicMusic && playGui.isAlarmActive)
+	if ($pref::panicMusic && playGui.isAlarmActive && $InPlayGUI)
 		%targetPitch *= 1.05946; //1 semitone
 
 	//Temporal Music

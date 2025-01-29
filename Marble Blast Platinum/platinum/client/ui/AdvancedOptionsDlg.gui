@@ -41,7 +41,7 @@ new GuiControl(AdvancedOptionsDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "675 375";
+		extent = "675 405";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -52,7 +52,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "25 55";
-			extent = "625 315";
+			extent = "625 345";
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
@@ -63,7 +63,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 309";
+			position = "350 339";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -135,6 +135,10 @@ $AdvancedOptions::Name    [$i++] = "stopRecordingOnMenu";
 $AdvancedOptions::Title   [$i  ] = "Stop Recording On Level Exit";
 $AdvancedOptions::Variable[$i  ] = "$pref::stopRecordingOnMenu";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "restartReloadsLevels";
+$AdvancedOptions::Title   [$i  ] = "Restart Reloads Levels";
+$AdvancedOptions::Variable[$i  ] = "$pref::restartReloadsLevels";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "minimalSpectateUI";
 $AdvancedOptions::Title   [$i  ] = "Minimal Spectator HUD";
 $AdvancedOptions::Variable[$i  ] = "$pref::minimalSpectateUI";
@@ -161,6 +165,10 @@ $AdvancedOptions::Command [$i  ] = "AdvancedOptions_scorePredictorMaxFactorFnc()
 $AdvancedOptions::Name    [$i++] = "allowEndingScoreLevelsEarly";
 $AdvancedOptions::Title   [$i  ] = "Allow Ending Score Levels Early";
 $AdvancedOptions::Variable[$i  ] = "$pref::AllowEndingScoreLevelsEarly";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "saveDownloadedLevels";
+$AdvancedOptions::Title   [$i  ] = "Save Marbleland Customs Locally";
+$AdvancedOptions::Variable[$i  ] = "$pref::saveDownloadedLevels";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "normalizeLights";
 $AdvancedOptions::Title   [$i  ] = "Standardize Sunlight";
@@ -208,7 +216,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 
 	%curYPos = 0;
-	%rowsPerCol = 9;
+	%rowsPerCol = 10;
 
 	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
 		%name = $AdvancedOptions::Name[%i];
@@ -218,7 +226,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 		%variable = $AdvancedOptions::Variable[%i];
 		%col = mFloor(%i / %rowsPerCol);
 		%row = %i % %rowsPerCol;
-		%xPos = (%col * 275) + 25;
+		%xPos = (%col * 295) + 25;
 		%yPos = %row * 28;
 
 		if (%type $= "boolean") {

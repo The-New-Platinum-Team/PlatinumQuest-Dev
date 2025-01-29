@@ -53,9 +53,9 @@ if (!$Server::Dedicated) {
 	deleteVariables("$null");
 
 	// Good enough for science...
-	eval("f"@"u"@"n"@"c"@"t"@"i"@"o"@"n"@" "@"e"@"n"@"a"@"b"@"l"@"e"@"W"@"i"@"n"@"C"@"o"@"n"@"s"@"o"@"l"@"e"@"("@")"@" "@"{"@"}");
-	eval("f"@"u"@"n"@"c"@"t"@"i"@"o"@"n"@" "@"d"@"b"@"g"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"@"("@")"@" "@"{"@"}");
-	eval("f"@"u"@"n"@"c"@"t"@"i"@"o"@"n"@" "@"t"@"e"@"l"@"n"@"e"@"t"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"@"("@")"@" "@"{"@"}");
+	//eval("f"@"u"@"n"@"c"@"t"@"i"@"o"@"n"@" "@"e"@"n"@"a"@"b"@"l"@"e"@"W"@"i"@"n"@"C"@"o"@"n"@"s"@"o"@"l"@"e"@"("@")"@" "@"{"@"}");
+	//eval("f"@"u"@"n"@"c"@"t"@"i"@"o"@"n"@" "@"d"@"b"@"g"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"@"("@")"@" "@"{"@"}");
+	//eval("f"@"u"@"n"@"c"@"t"@"i"@"o"@"n"@" "@"t"@"e"@"l"@"n"@"e"@"t"@"S"@"e"@"t"@"P"@"a"@"r"@"a"@"m"@"e"@"t"@"e"@"r"@"s"@"("@")"@" "@"{"@"}");
 }
 
 
@@ -84,6 +84,10 @@ exec("./server/defaults.cs");
 exec("./client/scripts/version.cs");
 
 // Preferences (overide defaults)
+// Back up the prefs! - .backup cause people may have already backed them up
+copyFile(expandFilename("~/client/mbpPrefs.cs"), expandFilename("~/client/mbpPrefs.cs.backup"));
+copyFile(expandFilename("~/client/lbprefs.cs"), expandFilename("~/client/lbprefs.cs.backup"));
+
 exec("./client/mbpPrefs.cs");
 exec("./client/lbprefs.cs");
 

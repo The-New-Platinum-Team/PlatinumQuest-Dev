@@ -419,7 +419,7 @@ function recordScore() {
 }
 
 function clientCmdGameEnd() {
-	if ($Client::PlayingDemo) {
+	if ($Client::PlayingDemo || $playingDemo) {
 		return;
 	}
 

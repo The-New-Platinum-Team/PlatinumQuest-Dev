@@ -163,6 +163,8 @@ function PlayGui::onWake(%this) {
 function PlayGui::onSleep(%this) {
 	%this.stopFPSCounter();
 	%this.stopCountdown();
+	%this.isAlarmActive = false;
+	Physics::popAllLayers();
 	RootGui.resetDisplay();
 
 	$InPlayGUI = false;
@@ -222,9 +224,22 @@ function PlayGui::doFPSCounter(%this) {
 	if (ServerConnection.getPing() >= 250) %pingnum = "low";
 	if (ServerConnection.getPing() >= 500) %pingnum = "matanny";
 	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
-	%fps = $fps::modded;
+	%ups = $fps::modded;
+	if (%ups >= 100) %ups = mRound(%ups) @ " ";
+
+	%fps = $fps::draw;
 	if (%fps >= 100) %fps = mRound(%fps) @ " ";
-	FPSMetreText.setText("<bold:24><just:left>FPS:<condensed:23>" SPC %fps @ ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : ""));
+
+	%fps = rPad(%fps, 4);
+	%ups = rPad(%ups, 4);
+
+	%fpsText = (($pref::showFPSCounter & 1) != 0) ? ("<bold:24><just:left>FPS:<condensed:23>" SPC %fps) : "";
+	%upsText = (($pref::showFPSCounter & 2) != 0) ? ("<bold:24><just:left>TPS:<condensed:23>" SPC %ups) : "";
+	%spacer = ($pref::showFPSCounter == 3) ? " | " : "";
+
+	%mpText = ($Server::ServerType $= "MultiPlayer" ? "<bitmap:" @ $usermods @ "/client/ui/lb/play/connection-" @ %pingnum @ ".png>" : "");
+
+	FPSMetreText.setText(%fpsText @ %spacer @ %upsText @ %mpText);
 	cancel(%this.fpsCounterSched);
 	%this.fpsCounterSched = %this.schedule(500, doFPSCounter);
 }
@@ -612,7 +627,7 @@ function PlayGui::updateBarPositions(%this) {
 	}
 
 	//Get the position of the side of the marble for us to position the bars relative to it
-	%obj = LocalClientConnection.player;
+	%obj = ServerConnection.getControlObject();
 	%rad = (%obj.getClassName() $= "Marble" ? %obj.getCollisionRadius() : 0.5);
 	%mpos = %obj.getPosition();
 	%rpos = VectorAdd(%mpos, RotMulVector(MatrixRot(%trans), %rad SPC "0 0"));
@@ -798,19 +813,22 @@ function PlayGui::addBonusTime(%this, %dt) {
 }
 
 function PlayGui::refreshRed(%this) {
-	if (!$pref::parTimeAlarm)
-			return;
-
 	if ($PlayTimerActive && $InPlayGUI) {
-		if (%this.bonusTime || $Editor::Opened || %this.stopped)
+		if (%this.bonusTime || $Editor::Opened || %this.stopped) {
 			$PlayTimerColor = $TimeColor["stopped"];
-		else {
+		} else if (!$pref::parTimeAlarm) {
+			$PlayTimerColor = $TimeColor["normal"];
+			%this.isAlarmActive  = false;
+			$PlayTimerAlarmText  = false;
+			$PlayTimerFailedText = false;
+		} else {
 			%dir = ClientMode::callback("timeMultiplier", 1);
-			%this.isAlarmActive = false;
 			if      (%dir > 0)
 				%this.isAlarmActive = %this.currentTime >= (MissionInfo.time - $PlayTimerAlarmStartTime) && %this.currentTime < MissionInfo.time;
 			else if (%dir < 0)
 				%this.isAlarmActive = %this.currentTime <=                     $PlayTimerAlarmStartTime  && %this.currentTime > 0;
+			else
+				%this.isAlarmActive = false;
 
 			if (%this.isAlarmActive) {
 				if (!alxIsPlaying($PlayTimerAlarmHandle))
@@ -1319,7 +1337,7 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 		profile = "GemCollectionMessageProfile";
 		horizSizing = "center";
 		vertSizing = "center";
-		position = %startPos;
+		position = getWords(%startPos, 0, 2);
 		extent = "400 100";
 		minExtent = "8 8";
 		visible = "1";

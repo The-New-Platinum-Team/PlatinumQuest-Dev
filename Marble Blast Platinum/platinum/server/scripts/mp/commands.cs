@@ -108,8 +108,10 @@ function serverCmdUpdateMarble(%client, %marble) {
 	}
 
 	%us = MPGetMyMarble();
-	if (isObject(%us))
+	if (isObject(%us)) {
 		%us.reloadShader();
+		%us.schedule(100, reloadShader);
+	}
 
 	//Update player lists
 	updatePlayerlist();

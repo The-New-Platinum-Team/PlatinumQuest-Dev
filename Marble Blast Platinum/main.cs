@@ -41,7 +41,7 @@ for ($file = findFirstFile("packages/marbleland/*.mbpak"); $file !$= ""; $file =
 	MarblelandPackages.addEntry(fileBase($file));
 }
 
-//$baseMods = "platinum";
+$baseMods = "packages";
 $userMods = "platinum";
 $displayHelp = false;
 
@@ -206,6 +206,7 @@ for ($i = 1; $i < $Game::argc ; $i++) {
 	case "-dedicated":
 		$argUsed[$i]++;
 		$Server::Dedicated = true;
+		$DeferPackets = true;
 	//-------------------
 	case "-help":
 		$displayHelp = true;
