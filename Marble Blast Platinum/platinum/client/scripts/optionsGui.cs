@@ -934,10 +934,8 @@ function Opt_antiAliasing_decrease() {
 	}
 	$pref::Video::AntiAliasing = getField(AntiAliasingQualityArray.getEntry(%index), 1);
 
-	if (%index > 1 && !$aaAssert) {
-		$aaAssert = true;
-		MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
-	}
+	if (%index > 1 && !$aaAssert)
+		antiAliasingAssert();
 }
 
 function Opt_antiAliasing_increase() {
@@ -948,10 +946,13 @@ function Opt_antiAliasing_increase() {
 	}
 	$pref::Video::AntiAliasing = getField(AntiAliasingQualityArray.getEntry(%index), 1);
 
-	if (%index > 1 && !$aaAssert) {
-		$aaAssert = true;
-		MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
-	}
+	if (%index > 1 && !$aaAssert)
+		antiAliasingAssert();
+}
+
+function antiAliasingAssert() {
+	$aaAssert = true;
+	MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
 }
 
 //-----------------------------------------------------------------------------
@@ -984,11 +985,8 @@ function Opt_maxFPS_decrease() {
 	}
 	$pref::Video::MaxFPS = getField(MaxFPSArray.getEntry(%index), 1);
 
-	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
-		$vsyncAssert = true;
-		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
-			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
-	}
+	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert)
+		vSyncAssert();
 }
 
 function Opt_maxFPS_increase() {
@@ -999,11 +997,14 @@ function Opt_maxFPS_increase() {
 	}
 	$pref::Video::MaxFPS = getField(MaxFPSArray.getEntry(%index), 1);
 
-	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
-		$vsyncAssert = true;
-		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
-			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
-	}
+	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert)
+		vSyncAssert();
+}
+
+function vSyncAssert() {
+	$vsyncAssert = true;
+	MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible. " @
+				 "This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 }
 
 function Opt_vsync_getDisplay() {
@@ -1041,9 +1042,8 @@ function Opt_vsync_increase() {
 
 function Opt_graphicsDriver_getDisplay() {
 	%value = $pref::Video::RendererOverride;
-	if (%value $= "") {
-		return "Auto";
-	}
+	if (%value $= "")
+		return "Automatic";
 	return $pref::Video::RendererOverride;
 }
 
@@ -1053,52 +1053,45 @@ function Opt_graphicsDriver_getValue() {
 
 function Opt_graphicsDriver_decrease() {
 	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
-	if ($pref::Video::RendererOverride $= "") {
+	if ($pref::Video::RendererOverride $= "")
 		%index = 0;
-	}
-	%index --;
-	if (%index < 0) {
-		%index = OptRenderers.getSize() - 1;
-	}
-	if (%index == 0) {
-		$pref::Video::RendererOverride = "";
-	} else {
-		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
-	}
 	
-	if (!$gdAssert) {
-		$gdAssert = true;
-		MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " NL
-			"It is best to leave this option on Auto unless you are experiencing issues with the game. " NL
-			"Consequences of changing this option may include the game not starting or not rendering properly." NL
-			"You accept all responsibility for changing this option." NL
-			"This option requires you to restart the game.");
-	}
+	%index --;
+	if (%index < 0)
+		%index = OptRenderers.getSize() - 1;
+	if (%index == 0)
+		$pref::Video::RendererOverride = "";
+	else
+		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
+	
+	if (!$gdAssert)
+		graphicsDriverAssert();
 }
 
 function Opt_graphicsDriver_increase() {
 	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
-	if ($pref::Video::RendererOverride $= "") {
+	if ($pref::Video::RendererOverride $= "")
 		%index = 0;
-	}
+	
 	%index ++;
-	if (%index == OptRenderers.getSize()) {
+	if (%index == OptRenderers.getSize())
 		%index = 0;
-	}
-	if (%index == 0) {
+	if (%index == 0)
 		$pref::Video::RendererOverride = "";
-	} else {
+	else
 		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
-	}
 
-	if (!$gdAssert) {
-		$gdAssert = true;
-		MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " NL
-			"It is best to leave this option on Auto unless you are experiencing issues with the game. " NL
-			"Consequences of changing this option may include the game not starting or not rendering properly." NL
-			"You accept all responsibility for changing this option." NL
-			"This option requires you to restart the game.");
-	}
+	if (!$gdAssert)
+		graphicsDriverAssert();
+}
+
+function graphicsDriverAssert() {
+	$gdAssert = true;
+	ASSERT("Warning", "Please do not change this option unless you know exactly what you are doing. " @
+				 "It is best to leave this option on Automatic unless you are experiencing issues with the game. " NL
+				 "Consequences of changing this option may include the game not starting or not rendering properly." NL "" NL
+				 "<just:center>This option requires you to restart the game." NL "" NL
+				 "You accept all responsibility for changing this option.");
 }
 
 //-----------------------------------------------------------------------------
@@ -1125,7 +1118,7 @@ function Opt_particleSystem_decrease() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
+		restartAssert();
 	}
 }
 
@@ -1139,11 +1132,15 @@ function Opt_particleSystem_increase() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
+		restartAssert();
 	}
 }
 
 //-----------------------------------------------------------------------------
+
+function restartAssert() {
+	MessageBoxOK("Notice", "This option requires you to restart the game.");
+}
 
 //-----------------------------------------------------------------------------
 
