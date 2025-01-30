@@ -1706,8 +1706,7 @@ function EditorGui::onWake(%this) {
 	EditorMap.push();
 	%this.setEditor(%this.currentEditor);
 
-	EMovingObjectsCheck.setValue(true);
-	EWorldEditor.enableMovingObjects = true;
+	EMovingObjectsCheck.setValue($Server::MovingObjectsActive);
 
 	//Wait so the canvas size aligns correctly
 	EWorldEditor.schedule(10, buildSpecial);
@@ -1720,7 +1719,6 @@ function EditorGui::onSleep(%this) {
 	MoveMap.pop();
 	JoystickMap.pop();
 
-	activateMovingObjects(true);
 	updateGameDiscordStatus();
 
 	if ($EditorTestCamPath) {
@@ -4139,10 +4137,8 @@ function editorExpand() {
 }
 
 function EWorldEditor::toggleMovingObjects(%this) {
-	EWorldEditor.enableMovingObjects = !EWorldEditor.enableMovingObjects;
-	activateMovingObjects(EWorldEditor.enableMovingObjects);
-
-	EMovingObjectsCheck.setValue(EWorldEditor.enableMovingObjects);
+	activateMovingObjects(!$Server::MovingObjectsActive);
+	EMovingObjectsCheck.setValue($Server::MovingObjectsActive);
 }
 
 //------------------------------------------------------------------------------
