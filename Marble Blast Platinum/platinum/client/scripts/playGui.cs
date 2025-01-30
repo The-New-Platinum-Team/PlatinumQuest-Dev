@@ -816,6 +816,8 @@ function PlayGui::refreshRed(%this) {
 	if ($PlayTimerActive && $InPlayGUI) {
 		if (%this.bonusTime || $Editor::Opened || %this.stopped) {
 			$PlayTimerColor = $TimeColor["stopped"];
+			if ($Game::Finished)
+				%this.isAlarmActive = false;
 		} else if (!$pref::parTimeAlarm) {
 			$PlayTimerColor = $TimeColor["normal"];
 			%this.isAlarmActive  = false;
