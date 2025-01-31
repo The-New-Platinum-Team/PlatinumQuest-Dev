@@ -4,15 +4,14 @@ new SimGroup(MissionGroup) {
    new ScriptObject(MissionInfo) {
          GemGroups = "0";
          Time = "300000";
-         alarmStartTime = "00:30.00";
+         alarmStartTime = "30000";
          artist = "MillieAmp";
          awesomeHint = "Well damn. Good job!";
          awesomeScore = "200";
          blast = "1";
-         blueSpawnChance = "0.254902";
+         blueSpawnChance = "0.25";
          customRadarRule = "33";
          desc = "Just because it\'s a resort doesn\'t mean you get to relax! Get the Gems in this luxury hangout before the time runs out!";
-         eggHint = "Remember Citadel? Do it again.";
          game = "PlatinumQuest";
          gameMode = "hunt";
          generalHint = "Usually, a standing Super Jump and a Blast is the perfect height to get those tricky Platinums on top of the spires. ";
@@ -21,14 +20,14 @@ new SimGroup(MissionGroup) {
          music = "Racing Forever.ogg";
          name = "Poolside Panic";
          platinumScore = "150";
-         platinumSpawnChance = "0.127451";
+         platinumSpawnChance = "0.125";
          radar = "1";
          radiusFromGem = "15";
          redSpawnChance = "1";
          score = "80";
          startHelpText = "There are powerups on top of the canopies! Now, how to get to them...";
          trivia = "Song I mainly listened to while making this: The Avalanches - Because I\'m Me";
-         type = "Custom";
+         type = "Bonus";
          ultimateHint = "Remember to jump while using a super jump to make snagging those Platinum Gems a whole lot easier.";
          ultimateScore = "180";
          yellowSpawnChance = "0.5";
@@ -49,16 +48,16 @@ new SimGroup(MissionGroup) {
       cloudSpeed1 = "0.0001";
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
-      visibleDistance = "500";
+      visibleDistance = "5000";
       useSkyTextures = "1";
       renderBottomTexture = "1";
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Soothing Orange/sky_day.dml";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      materialList = "~/data/skies_pq/Blender2/blender2.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -67,10 +66,10 @@ new SimGroup(MissionGroup) {
       fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
    };
    new Sun() {
-      direction = "0.638261 0.459006 -0.61801";
-      color = "1.400000 1.200000 0.400000 1.000000";
-      ambient = "0.300000 0.300000 0.400000 1.000000";
-   };
+		direction = "0.638261 0.459006 -0.61801";
+		color = "1.400000 1.200000 0.400000 1.000000";
+		ambient = "0.300000 0.300000 0.400000 1.000000";
+	};
    new InteriorInstance() {
       position = "0 0 0";
       rotation = "1 0 0 0";
@@ -78,12 +77,14 @@ new SimGroup(MissionGroup) {
       interiorFile = "~/data/interiors_pq/multiplayer/PoolsidePanic.dif";
       showTerrainInside = "0";
    };
-   new StaticShape(StartPoint) {
-      position = "59 -7.54498e-007 14";
-      rotation = "0 0 1 90.0002";
-      scale = "1 1 1";
-      dataBlock = "StartPad_PQ";
-   };
+   new Trigger() {
+		position = "58.5 0.5 14";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			gravity = "0";
+	};
    new Item() {
       position = "-20 0 2.66649e-007";
       rotation = "1 0 0 0";
@@ -102,98 +103,6 @@ new SimGroup(MissionGroup) {
    };
    new SimGroup(PathNodeGroup) {
 
-      new StaticShape(watertriggerpath2) {
-         position = "-35 -15 -31.25";
-         rotation = "1 0 0 0";
-         scale = "80 30 30";
-         dataBlock = "PathNode";
-            FinalRotOffset = "1 0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "25000";
-            nextNode = "watertriggerpath1";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "5000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(watertriggerpath1) {
-         position = "-35 -15 -17.75";
-         rotation = "1 0 0 0";
-         scale = "80 30 30";
-         dataBlock = "PathNode";
-            FinalRotOffset = "1 0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "25000";
-            nextNode = "watertriggerpath2";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "5000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(waterplanepath2) {
-         position = "5 0 -1";
-         rotation = "1 0 0 0";
-         scale = "40 20 0.0001";
-         dataBlock = "PathNode";
-            FinalRotOffset = "1 0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "25000";
-            nextNode = "waterplanepath1";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "5000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
-      new StaticShape(waterplanepath1) {
-         position = "5 0 12.5";
-         rotation = "1 0 0 0";
-         scale = "40 20 0.0001";
-         dataBlock = "PathNode";
-            FinalRotOffset = "1 0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "1";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
-            bezier = "0";
-            branchNodes = " ";
-            delay = "25000";
-            nextNode = "waterplanepath2";
-            placed = "1";
-            reverseRotation = "0";
-            speed = "0";
-            timeToNext = "5000";
-            usePosition = "1";
-            useRotation = "0";
-            useScale = "0";
-      };
       new StaticShape(CameraPath1) {
          position = "56 0 25.25";
          rotation = "0.280356 0.279816 -0.918207 94.7736";
@@ -698,7 +607,7 @@ new SimGroup(MissionGroup) {
       position = "40 23 18.2342";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
+      dataBlock = "BlastItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -709,7 +618,7 @@ new SimGroup(MissionGroup) {
       position = "-30 -22.75 18.2342";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
+      dataBlock = "BlastItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -720,7 +629,7 @@ new SimGroup(MissionGroup) {
       position = "8.75 -23.5 18.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem_MBU";
+      dataBlock = "MegaMarbleItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -733,7 +642,7 @@ new SimGroup(MissionGroup) {
       position = "-0.25 23 18.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem_MBU";
+      dataBlock = "MegaMarbleItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -2249,7 +2158,7 @@ new SimGroup(MissionGroup) {
       position = "4 0 7.0005";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem_MBU";
+      dataBlock = "MegaMarbleItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -2259,7 +2168,7 @@ new SimGroup(MissionGroup) {
       position = "4 0 0.000502855";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "MegaMarbleItem_MBU";
+      dataBlock = "MegaMarbleItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -2269,7 +2178,7 @@ new SimGroup(MissionGroup) {
       position = "10 -10 -0.0157783";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
+      dataBlock = "BlastItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -2279,7 +2188,7 @@ new SimGroup(MissionGroup) {
       position = "0 10 -0.0157783";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
+      dataBlock = "BlastItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -2293,17 +2202,6 @@ new SimGroup(MissionGroup) {
       collideable = "0";
       static = "1";
       rotate = "1";
-   };
-   new Item() {
-      position = "-45 0 47.6875";
-      rotation = "1 0 0 0";
-      scale = "0.25 0.25 0.25";
-      dataBlock = "NestEgg_PQ";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-         noRespawn = "0";
-         skin = "blue";
    };
    new Item() {
       position = "49 12 13.5";
@@ -2328,7 +2226,6 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "40 20 0.0001";
       dataBlock = "WaterCylinder_slow";
-         Path = "waterplanepath1";
    };
    new Trigger(Bounds) {
       position = "-35 -15 -17.75";
@@ -2336,7 +2233,6 @@ new SimGroup(MissionGroup) {
       scale = "80 30 30";
       dataBlock = "WaterPhysicsTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-         Path = "watertriggerpath1";
          VelocityMultiplier = "0.5";
    };
    new TSStatic() {
