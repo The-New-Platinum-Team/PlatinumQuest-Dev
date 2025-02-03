@@ -3,7 +3,7 @@ new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
          goldTime = "35000";
-         level = "21";
+         level = "1";
          name = "Hypercube";
          Difficulty = "11";
          time = "180000";
@@ -12,14 +12,13 @@ new SimGroup(MissionGroup) {
          type = "advanced";
          game = "Ultra";
          ultimateTime = "15000";
-         noBlast = "1";
-         useUltraMarble = "0";
-         displayFunc = "display_LB_LegacyHypercubeUltra";
+         blast = "1";
+         useUltraMarble = "1";
 	 music = "Tim Trance.ogg";
    };
    new Sky(Sky) {
-      sphereFront = $usermods @ "/data/shapes/skies/wintry/front.png";
-      sphereBack = $usermods @ "/data/shapes/skies/wintry/back.png";
+      sphereFront = "platinum/data/shapes/skies/wintry/front.png";
+      sphereBack = "platinum/data/shapes/skies/wintry/back.png";
       position = "336 136 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -81,6 +80,7 @@ new SimGroup(MissionGroup) {
          rotation = "0 0 -1 90.573";
          scale = "1 1 1";
          dataBlock = "StartPad_MBM";
+         isTemperable = "1";
       };
    };
    new StaticShape(EndPoint) {
@@ -88,6 +88,7 @@ new SimGroup(MissionGroup) {
       rotation = "0 -1 0 90";
       scale = "1 1 1";
       dataBlock = "EndPad_MBM";
+      isTemperable = "1";
    };
    new Item() {
       position = "6.8 -2 -11";
@@ -762,9 +763,3 @@ new SimGroup(MissionGroup) {
    };
 };
 //--- OBJECT WRITE END ---
-//--- UNLOCK BEGIN ---
-function display_LB_LegacyHypercubeUltra(%mission) {
-	// Not used anymore
-	return false;
-}
-//--- UNLOCK END ---
