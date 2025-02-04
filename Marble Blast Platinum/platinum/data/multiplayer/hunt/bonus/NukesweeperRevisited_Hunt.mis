@@ -41,9 +41,7 @@ function NukesweeperTrigger::createItem(%this, %trigger) {
       if (!%nuke) {
          $Hunt::CurrentGemCount ++;
          %trigger.item = "gem";
-         //Originally was 3 3 1, but I could collect gems outside of the
-         // square.
-         %scale = "2 2 0.4";
+         %scale = "2 2 0.4"; //Originally was 3 3 1, but I could collect gems outside of the square.
       } else {
          %trigger.item = "nuke";
          %scale = "5.4 5.4 6";
@@ -240,11 +238,11 @@ new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
          name = "Nukesweeper Revisited";
-         type = "Advanced";
+         type = "Bonus";
          level = "32";
-         desc = "Every gem spawn is random. Where gems won\'t appear you will have either nukes or powerups. How lucky do you feel?";
+         desc = "Every Gem spawn is random. Where Gems won\'t appear you will have either Nukes or PowerUps. How lucky do you feel?";
          startHelpText = "If you go into a wrong square, it could spell \'Game Over\' for all.";
-         artist = "Matan, Moshe and HiGuy, fixed by A-Game";
+         artist = "Matan & Moshe, MP by HiGuy & A-Game";
          music = "Seaside Revisited.ogg";
          gameMode = "Hunt";
          game = "Platinum";
@@ -261,7 +259,6 @@ new SimGroup(MissionGroup) {
          nukesweeper = "1";
          hideRadar = "1";
          blast = "1";
-         overviewHeight = "15";
    };
    new MissionArea(MissionArea) {
       area = "-360 -648 720 1296";
@@ -285,10 +282,10 @@ new SimGroup(MissionGroup) {
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
       fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies/Cloudy/cloudy.dml";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      materialList = "~/data/skies/Expert/Expert_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -298,14 +295,8 @@ new SimGroup(MissionGroup) {
    };
    new Sun() {
       direction = "0.638261 0.459006 -0.61801";
-      color = "1.400000 1.200000 0.400000 1.000000";
-      ambient = "0.300000 0.300000 0.400000 1.000000";
-   };
-   new StaticShape() {
-      position = "0 0 0";
-      rotation = "1 0 0 0";
-      scale = "10000 10000 10000";
-      dataBlock = "Wintry";
+      color = "0.700000 0.700000 0.700000 1.000000";
+      ambient = "0.100000 0.100000 0.200000 1.000000";
    };
    new InteriorInstance() {
       position = "0 0 0";
@@ -775,10 +766,46 @@ new SimGroup(MissionGroup) {
             add = "0 0 1";
       };
    };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Flanked.ogg";
-      description = "AudioMusic";
-      preload = "0";
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "4.382828 -31.31685 18.19316";
+         rotation = "0.7986009 0.2203436 -0.5600761 52.45277";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            timeToNext = "5000";
+            usePosition = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            placed = "1";
+            useRotation = "1";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-2.848914 -29.83862 14.13404";
+         rotation = "0.9385799 0.1247261 -0.3217314 44.8852";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            timeToNext = "4500";
+            usePosition = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            placed = "1";
+            useRotation = "1";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-8.456902 -27.15749 11.05298";
+         rotation = "0.9999733 -0.002492757 0.006884482 39.80995";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            timeToNext = "3000";
+            usePosition = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath0";
+            placed = "1";
+            useRotation = "1";
+      };
    };
 };
 //--- OBJECT WRITE END ---
