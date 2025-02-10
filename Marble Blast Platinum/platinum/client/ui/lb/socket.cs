@@ -188,7 +188,7 @@ function LBNetwork::identify(%this) {
 		return;
 	}
 	if ($LB::Guest) {
-		%this.send("IDENTIFY Guest" @ "\r\n");
+		%this.send("IDENTIFYGUEST" SPC $MP::RevisionOn @ "\r\n");
 	} else {
 		//Send IDENTIFY and VERIFY requests
 		if ($LB::Relogin)
