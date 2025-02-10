@@ -320,26 +320,23 @@ function PlayGui::updateGems(%this, %updateMax) {
 
 	if ($PlayGuiGem) {
 		// PQ gets its own gem
-		if(MissionInfo.game $= "Hunt"){
-			if  (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq") {
+		if (MissionInfo.game $= "Hunt") {
+			if        (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq")  {
 				%skins = "platinum";
-				%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
-			} else if
-				(getSubStr(Sky.materialList, 0, 23) $= "platinum/data/skies_mbu") {
+				%dts   = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
+			} else if (getSubStr(Sky.materialList, 0, 23) $= "platinum/data/skies_mbu") {
 				%skins = "red";
-				%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
+				%dts   = $usermods @ "/data/shapes_mbu/items/gem.dts";
 			} else {
 				%skins = "base black blue green orange platinum purple red turquoise yellow";
-				%dts = $usermods @ "/data/shapes/items/gem.dts";
+				%dts   = $usermods @ "/data/shapes/items/gem.dts";
 			}
-		} else if
-			(MissionInfo.game $= "PlatinumQuest") {
+		} else if (MissionInfo.game $= "PlatinumQuest") {
 			%skins = "platinum";
-			%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
-		} else if
-		   (MissionInfo.game $= "Ultra") {
+			%dts   = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
+		} else if (MissionInfo.game $= "Ultra") {
 			%skins = "red";
-			%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
+			%dts   = $usermods @ "/data/shapes_mbu/items/gem.dts";
 		} else {
 			%skins = "base black blue green orange platinum purple red turquoise yellow";
 			%dts = $usermods @ "/data/shapes/items/gem.dts";
