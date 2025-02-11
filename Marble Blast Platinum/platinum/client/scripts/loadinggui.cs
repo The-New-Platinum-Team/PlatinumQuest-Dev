@@ -413,7 +413,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: It's 2:50am. Do you know where yo
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: JOHN CENA!!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Hi, Mom!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Puns make everything punstatic!";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: c() , d()";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: d();"; //rip c(); ??? - 2024
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Fetch, Stash, Pull with Rebase, Pop, Resolve Conflicts";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'party' on the main menu to have a party.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Writing these tips crashed the game.";
@@ -443,6 +443,8 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Chess Battle Advanced"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: There's a super secret setting outside of the options menu! On the main menu, if you hit the 'Quit' button one time, it toggles the game."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Beat your enemies in Multiplayer."; //Connie
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Impressed? I increased the height of my text box. Now I can fit more tips onto it! Take a looksy!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njoj"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'boo' on the level select to have some spooky fun all year round!"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'hohoho' on the level select to have some jolly fun all year round!"; //Yoshi
 ////////////////////////////////////// = "Snooping as usual, I see!" //Yoshi
 
 $Loading::TipsChance[1] = 0.03;
