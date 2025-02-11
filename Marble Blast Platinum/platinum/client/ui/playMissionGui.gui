@@ -4897,9 +4897,9 @@ function PlayMissionGui::deactivateHolidays(%this){
 }
 
 function PlayMissionGui::switchHoliday(%this){
-	if (!%this.marbleland && !lb()){
+	if (!%this.marbleland && !lb()) {
 		echo("Switching holiday! Holiday is currently " @ %this.currentHoliday @ ".");
-		switch$(%this.currentHoliday){
+		switch$(%this.currentHoliday) {
 		case "Hunt":
 			if      (%this.frightfest)
 				%this.activateFrightfest();
@@ -4921,7 +4921,7 @@ function PlayMissionGui::switchHoliday(%this){
 function PlayMissionGui::checkHolidaySecret(%this){
 	%typed = PM_HolidayCodeDetector.getValue();
 	if (!%this.marbleland && !lb()) {
-		switch$(%typed){
+		switch$(%typed) {
 		case "boo": 
 			if (%this.frightfest)
 				%this.disableFrightfest();
