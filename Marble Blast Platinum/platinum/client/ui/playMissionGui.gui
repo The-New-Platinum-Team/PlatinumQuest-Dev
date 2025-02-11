@@ -1738,6 +1738,16 @@ function PlayMissionGui::hideSelectors(%this) {
 //-----------------------------------------------------------------------------
 // Selections
 
+function PlayMissionGui::checkEnableStatsButton(%this) {
+	switch$ ($CurrentGame) {
+		case "Custom":     return false;
+		case "Hunt":       return false;
+		case "Frightfest": return false;
+		case "Winterfest": return false;
+		default:           return true;
+	}
+}
+
 function PlayMissionGui::setGame(%this, %game) {
 	%this.hideSelectors();
 
@@ -1795,7 +1805,7 @@ function PlayMissionGui::setGame(%this, %game) {
 	}
 	if (!lb()) {
 		%this.setBarButtonActive(PM_MissionAchievements, $CurrentGame $= "PlatinumQuest");
-		%this.setBarButtonActive(PM_MissionStatistics, ($CurrentGame !$= "Custom" && $CurrentGame !$= "Hunt"));
+		%this.setBarButtonActive(PM_MissionStatistics,   %this.checkEnableStatsButton());
 	}
 }
 
@@ -2574,7 +2584,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	}
 	if (!lb()) {
 		%this.setBarButtonActive(PM_MissionAchievements, $CurrentGame $= "PlatinumQuest");
-		%this.setBarButtonActive(PM_MissionStatistics, $CurrentGame !$= "Custom");
+		%this.setBarButtonActive(PM_MissionStatistics,   %this.checkEnableStatsButton());
 	}
 
 	if (!%canPlay) {
@@ -4899,7 +4909,7 @@ function PlayMissionGui::deactivateHolidays(%this){
 function PlayMissionGui::switchHoliday(%this){
 	if (!%this.marbleland && !lb()) {
 		echo("Switching holiday! Holiday is currently " @ %this.currentHoliday @ ".");
-		switch$(%this.currentHoliday) {
+		switch$ (%this.currentHoliday) {
 		case "Hunt":
 			if      (%this.frightfest)
 				%this.activateFrightfest();
@@ -4921,7 +4931,7 @@ function PlayMissionGui::switchHoliday(%this){
 function PlayMissionGui::checkHolidaySecret(%this){
 	%typed = PM_HolidayCodeDetector.getValue();
 	if (!%this.marbleland && !lb()) {
-		switch$(%typed) {
+		switch$ (%typed) {
 		case "boo": 
 			if (%this.frightfest)
 				%this.disableFrightfest();

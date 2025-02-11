@@ -1051,24 +1051,19 @@ function MPEndGameDlg::rate(%this, %choice) {
 
 function MPEndGameDlg::UpdateGems(%this){
 	//Based off of playGui's similar function - Yoshi
-	if(MissionInfo.game $= "Hunt"){
-		if  (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq") {
+	if (MissionInfo.game $= "Hunt") {
+		if      (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq")
 			%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
-		} else if
-			(getSubStr(Sky.materialList, 0, 23) $= "platinum/data/skies_mbu") {
+		else if (getSubStr(Sky.materialList, 0, 23) $= "platinum/data/skies_mbu")
 			%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
-		} else {
+		else
 			%dts = $usermods @ "/data/shapes/items/gem.dts";
-		}
-	} else if
-		(MissionInfo.game $= "PlatinumQuest") {
+	} else if (MissionInfo.game $= "PlatinumQuest") {
 		%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
-	} else if
-		(MissionInfo.game $= "Ultra") {
+	} else if (MissionInfo.game $= "Ultra") {
 		%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
-	} else {
+	} else
 		%dts = $usermods @ "/data/shapes/items/gem.dts";
-	}
 
 	echo("Found game" SPC MissionInfo.game @ ", setting the MPEndGameDlg gem(s) to" SPC %dts);
 
