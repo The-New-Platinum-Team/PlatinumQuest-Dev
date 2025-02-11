@@ -357,7 +357,6 @@ function MPEndGameDlg::onWake(%this) {
 		showControllerUI();
 	}
 
-	$MPEndGameDlgGem = true;
 	%this.updateActive();
 	%this.updateRating();
 	%this.updateGems();
@@ -1051,33 +1050,30 @@ function MPEndGameDlg::rate(%this, %choice) {
 }
 
 function MPEndGameDlg::UpdateGems(%this){
-	if ($MPEndGameDlgGem) {
-		//Based off of playGui's similar function - Yoshi
-		if(MissionInfo.game $= "Hunt"){
-			if  (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq") {
-				%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
-			} else if
-				(getSubStr(Sky.materialList, 0, 23) $= "platinum/data/skies_mbu") {
-				%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
-			} else {
-				%dts = $usermods @ "/data/shapes/items/gem.dts";
-			}
-		} else if
-			(MissionInfo.game $= "PlatinumQuest") {
+	//Based off of playGui's similar function - Yoshi
+	if(MissionInfo.game $= "Hunt"){
+		if  (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq") {
 			%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
 		} else if
-		   (MissionInfo.game $= "Ultra") {
+			(getSubStr(Sky.materialList, 0, 23) $= "platinum/data/skies_mbu") {
 			%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
 		} else {
 			%dts = $usermods @ "/data/shapes/items/gem.dts";
 		}
-
-		echo("Found game" SPC MissionInfo.game @ ", setting the MPEndGameDlg gem(s) to" SPC %dts);
-
-		MPEndGameRedGem.setModel(%dts, "red");
-		MPEndGameYellowGem.setModel(%dts, "yellow");
-		MPEndGameBlueGem.setModel(%dts, "blue");
-		MPEndGamePlatinumGem.setModel(%dts, "platinum");
-		$MPEndGameDlgGem = false;
+	} else if
+		(MissionInfo.game $= "PlatinumQuest") {
+		%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
+	} else if
+		(MissionInfo.game $= "Ultra") {
+		%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
+	} else {
+		%dts = $usermods @ "/data/shapes/items/gem.dts";
 	}
+
+	echo("Found game" SPC MissionInfo.game @ ", setting the MPEndGameDlg gem(s) to" SPC %dts);
+
+	MPEndGameRedGem.setModel(%dts, "red");
+	MPEndGameYellowGem.setModel(%dts, "yellow");
+	MPEndGameBlueGem.setModel(%dts, "blue");
+	MPEndGamePlatinumGem.setModel(%dts, "platinum");
 }
