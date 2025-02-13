@@ -4930,19 +4930,13 @@ function PlayMissionGui::switchHoliday(%this){
 
 function PlayMissionGui::checkHolidaySecret(%this){
 	%typed = PM_HolidayCodeDetector.getValue();
-	if (!%this.marbleland) {
+	if (!%this.marbleland && !lb()) { //Don't activate this in the online singleplayer LS, and servers will use commands in chat
 		switch$ (%typed) {
 		case "boo": 
-			if (%this.frightfest)
-				%this.disableFrightfest();
-			else
-				%this.enableFrightfest();
+			%this.toggleFrightfest();
 			break;
 		case "hohoho":
-			if (%this.winterfest)
-				%this.disableWinterfest();
-			else
-				%this.enableWinterfest();
+			%this.toggleWinterfest();
 			break;
 		}
 	}
@@ -4956,4 +4950,18 @@ function PlayMissionGui::checkHolidaySecret(%this){
 	    (%typed !$= "hoho") &&
 	    (%typed !$= "hohoh"))
 		PM_HolidayCodeDetector.setText("");
+}
+
+function PlayMissionGui::toggleFrightfest(%this) {
+	if (%this.frightfest)
+		%this.disableFrightfest();
+	else
+		%this.enableFrightfest();
+}
+
+function PlayMissionGui::toggleWinterfest(%this) {
+	if (%this.winterfest)
+		%this.disableWinterfest();
+	else
+		%this.enableWinterfest();
 }

@@ -443,8 +443,8 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Chess Battle Advanced"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: There's a super secret setting outside of the options menu! On the main menu, if you hit the 'Quit' button one time, it toggles the game."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Beat your enemies in Multiplayer."; //Connie
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Impressed? I increased the height of my text box. Now I can fit more tips onto it! Take a looksy!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njoj"; //Yoshi
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'boo' on the level select to have some spooky fun all year round!"; //Yoshi
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'hohoho' on the level select to have some jolly fun all year round!"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'boo' on the level select to have some spooky fun all year round! It also works as a server command."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'hohoho' on the level select to have some jolly fun all year round! It also works as a server command."; //Yoshi
 ////////////////////////////////////// = "Snooping as usual, I see!" //Yoshi
 
 $Loading::TipsChance[1] = 0.03;

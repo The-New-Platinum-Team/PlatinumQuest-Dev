@@ -71,6 +71,10 @@ function onServerChat(%user, %message) {
 			return;
 		case "slap":
 			MPAddServerChat(LBSlapMessage(%user, getWord(%message, 1)));
+		case "boo":
+			PlayMissionGui.toggleFrightfest();
+		case "hohoho":
+			PlayMissionGui.toggleWinterfest();
 		}
 	}
 
