@@ -1575,7 +1575,7 @@ function PlayMissionGui::buildGameList(%this, %season) {
 		}
 	}
 
-	%extent = (%height * %gameNumber); //-2 for the excluded versions of Hunt based on season
+	%extent = %height * %gameNumber;
 	PM_GameScroll.setExtent(158 SPC %extent);
 
 	%extent = min(%extent, getWord(Canvas.getExtent(), 1) - 50);
