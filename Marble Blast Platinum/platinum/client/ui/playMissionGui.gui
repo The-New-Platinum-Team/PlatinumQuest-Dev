@@ -1538,13 +1538,6 @@ function PlayMissionGui::buildGameList(%this, %season) {
 	%height = 35;
 	PM_GameScroll.clear();
 
-	%extent = (%height * (getRecordCount(%games) - 2)); //-2 for the excluded versions of Hunt based on season
-	PM_GameScroll.setExtent(158 SPC %extent);
-
-	%extent = min(%extent, getWord(Canvas.getExtent(), 1) - 50);
-	PM_GameList.setExtent(158 SPC %extent);
-	PM_GameContainer.setExtent(158 SPC %extent);
-
 	%gameNumber = 0;
 	for (%i = 0; %i < getRecordCount(%games); %i ++) {
 		%entry   = getRecord(%games	, %i);
@@ -1581,6 +1574,13 @@ function PlayMissionGui::buildGameList(%this, %season) {
 			%gameNumber++;
 		}
 	}
+
+	%extent = (%height * %gameNumber); //-2 for the excluded versions of Hunt based on season
+	PM_GameScroll.setExtent(158 SPC %extent);
+
+	%extent = min(%extent, getWord(Canvas.getExtent(), 1) - 50);
+	PM_GameList.setExtent(158 SPC %extent);
+	PM_GameContainer.setExtent(158 SPC %extent);
 
 	%this.buildDifficultyList();
 }
