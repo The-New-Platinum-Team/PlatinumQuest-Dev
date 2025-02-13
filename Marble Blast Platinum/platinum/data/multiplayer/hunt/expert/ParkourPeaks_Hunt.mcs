@@ -1,0 +1,699 @@
+//--- INFO BEGIN ---
+//Mission information for the level select. Generated from the MissionInfo object except with extra goodies.
+function MP_PQ_ParkourPeaksHunt_GetMissionInfo() {
+	return
+new ScriptObject() {
+		name = "Parkour Peaks";
+		type = "Expert";
+		level = "4";
+		desc = "Show off your craziest moves yet in this trickshot tour-de-force! You\'ll need to bring your best wall hits, slope hits, and strategic powerup usage to keep up!";
+		startHelpText = "Find creative ways to achieve and maintain high footing!";
+		artist = "hPerks";
+		music = "Endurance.ogg"; //Formerly a custom song called "Back to Work" -Yoshi
+		game = "Platinum";
+		gameMode = "Hunt";
+		blast = "1";
+		Time = "240000";
+		maxGemsPerSpawn = "3";
+		radiusFromGem = "30";
+		CustomRadarRule = $Radar::Flags::Gems | $Radar::Flags::EndPad;
+		alarmStartTime = "20";
+		easterEgg = "0";
+		gems = "33";
+		gems1 = "0";
+		gems10 = "0";
+		gems2 = "33";
+		gems5 = "0";
+		interior0 = $usermods @ "/data/multiplayer/interiors/advanced/parkourpeaks.dif";
+		interiors = "1";
+		maxScore = "66";
+		platinumScore0 = "50";
+		platinumScore1 = "70";
+		score0 = "20";
+		score1 = "30";
+		ultimateScore0 = "90";
+		ultimateScore1 = "130";
+};
+}
+//--- INFO END ---
+//--- UNLOCK BEGIN ---
+//In the event that you want this mission to be locked by a function, here's
+// where you should put that. Just uncomment this function and fill it out:
+//function unlock_MissionNameHere(%mission) { //%mission is the MissionInfo
+//	return true; //True if the mission is unlocked
+//}
+//--- UNLOCK END ---
+//Don't continue loading if this just wants the mission info
+if ($loadingMissionInfo) return;
+//--- CLIENT SCRIPTS BEGIN ---
+//Put any scripts that will be loaded on all clients (in MP / SP) here.
+// Note: these will be loaded by dedicated servers too, so be sure to test for
+// $Server::Dedicated before creating any GUI.
+
+//--- CLIENT SCRIPTS END ---
+//Don't continue loading if this is a client (non-server)
+if (!$Server::Hosting || $Server::_Dedicated) return;
+//--- SERVER PREMISSION SCRIPTS BEGIN ---
+//These scripts will be loaded by the server only, before the mission is created.
+// This is a great place to put custom datablocks.
+
+//--- SERVER PREMISSION SCRIPTS END ---
+//--- MISSION BEGIN ---
+function MP_PQ_ParkourPeaksHunt_LoadMission() {
+	return
+new SimGroup(MissionGroup) {
+
+	new SimGroup(PathNodeGroup) {
+
+		new StaticShape(CameraPath1) {
+			position = "27.9646 -33.2085 16.9546";
+			rotation = "0.4707 0.212684 -0.856275 55.64";
+			scale = "1 1 1";
+			dataBlock = "PathNode";
+				nextNode = "CameraPath2";
+				delay = "0";
+				timeToNext = "4000";
+				SmoothStart = "0";
+				SmoothEnd = "0";
+				Smooth = "0";
+				usePosition = "1";
+				useRotation = "1";
+				useScale = "1";
+				reverseRotation = "0";
+				RotationMultiplier = "1";
+				bezier = "0";
+				FinalRotOffset = "0 0 0";
+				Spline = "0";
+				branchNodes = " ";
+				speed = "0";
+				placed = "1";
+		};
+	};
+	new MissionArea(MissionArea) {
+		area = "-360 -648 720 1296";
+		flightCeiling = "300";
+		flightCeilingRange = "20";
+			locked = "true";
+	};
+	new Sky(Sky) {
+		position = "336 136 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		cloudHeightPer[0] = "0";
+		cloudHeightPer[1] = "0";
+		cloudHeightPer[2] = "0";
+		cloudSpeed1 = "0";
+		cloudSpeed2 = "0";
+		cloudSpeed3 = "0";
+		visibleDistance = "500";
+		useSkyTextures = "1";
+		renderBottomTexture = "1";
+		SkySolidColor = "0.000000 0.000000 0.000000 0.000000";
+		fogDistance = "300";
+		fogColor = "0.000000 0.000000 0.000000 0.000000";
+		fogVolume1 = "0 0 0";
+		fogVolume2 = "0 0 0";
+		fogVolume3 = "0 0 0";
+		materialList = "~/data/skies/Advanced/Advanced_Sky.dml";
+		windVelocity = "0 0 0";
+		windEffectPrecipitation = "0";
+		noRenderBans = "1";
+		fogVolumeColor1 = "0.000000 0.000000 0.000000 0.000000";
+		fogVolumeColor2 = "0.000000 0.000000 0.000000 0.000000";
+		fogVolumeColor3 = "0.000000 0.000000 0.000000 0.000000";
+	};
+	new Sun() {
+		direction = "0.57735 0.57735 -0.57735";
+		color = "1.400000 1.200000 0.400000 1.000000";
+		ambient = "0.300000 0.300000 0.400000 1.000000";
+	};
+	new InteriorInstance() {
+		position = "0 0 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		interiorFile = "~/data/multiplayer/interiors/advanced/parkourpeaks.dif";
+		showTerrainInside = "0";
+	};
+	new Trigger(Bounds) {
+		position = "-49 35 -14";
+		rotation = "1 0 0 0";
+		scale = "87 90 100";
+		dataBlock = "InBoundsTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+	};
+	new Trigger() {
+		position = "0 0 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Trigger() {
+		position = "-18 -10 -4";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Trigger() {
+		position = "-12 -28 -4";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Trigger() {
+		position = "15 -22 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Trigger() {
+		position = "15 -2 -4";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Trigger() {
+		position = "-23 12 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Trigger() {
+		position = "0 12 8";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Trigger() {
+		position = "-32 -16 -4";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SpawnTrigger";
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+			add = "0 0 3";
+			gravity = "0";
+	};
+	new Item() {
+		position = "4 0 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "20 -2 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "10 6 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "10 -10 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-2 -10 6";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "0 6 2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 0 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 12 6";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 -22 2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-6 -28 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "2 -38 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "10 -28 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-28 -2 -2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-18 -16 -4";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-18 -32 -1";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 -38 2";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-6 0 3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-2 -16 11";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "10 -16 6";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "20 -16 3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "4 -22 6";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 -10 14";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "10 -22 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "4 12 8";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-6 12 11";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 22 14";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "12 12 3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "20 12 6";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-18 12 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-18 6 6";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-18 0 3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-28 12 3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "16 -38 5";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "GemItemYellow";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "15 6 -3.8125";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "15 -10 -3.8125";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 -5 -3.8125";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-23 6 0.1875";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-23 -10 0.1875";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-33 -2 -3.8125";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-6 -33 -3.8125";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "10 -33 -3.8125";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperSpeedItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-2 -5 11.3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperBounceItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-7 -10 11.1";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "ShockAbsorberItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "5 6 8.3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperBounceItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-1 -22 6.3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperBounceItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-12 17 11.1";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "ShockAbsorberItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "0 17 11.3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperBounceItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-6 -43 2.3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperBounceItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "10 -43 2.1";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "ShockAbsorberItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "25 -2 6.3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperBounceItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-37 6 3.3";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "SuperBounceItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-37 -8 0.1";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "ShockAbsorberItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+	new Item() {
+		position = "-23 -22 -0.9";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "ShockAbsorberItem";
+		collideable = "0";
+		static = "1";
+		rotate = "1";
+	};
+};
+}
+//--- MISSION END ---
+//--- SERVER POSTMISSION SCRIPTS BEGIN ---
+//Put any scripts that will be loaded after the mission is loaded here
+
+//--- SERVER POSTMISSION SCRIPTS END ---

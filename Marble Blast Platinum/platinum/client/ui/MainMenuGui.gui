@@ -653,9 +653,18 @@ function justPlayAlready() {
 }
 
 function checkParty() {
-	if (MenuPartyEdit.getValue() $= "party") {
+	%typed = MenuPartyEdit.getValue();
+	if (%typed $= "party") {
 		doParty();
 	}
+
+	//If the code isn't in the process of being typed, then discard it
+	//Fix (including %typed) by Yoshi, copied from PlayMissionGui::checkHolidaySecret()
+	if ((%typed !$= "p")   &&
+	    (%typed !$= "pa")  &&
+	    (%typed !$= "par") &&
+	    (%typed !$= "part"))
+	MenuPartyEdit.setText("");
 }
 
 function doParty() {
