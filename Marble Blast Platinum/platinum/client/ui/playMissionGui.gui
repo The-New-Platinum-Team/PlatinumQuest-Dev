@@ -4837,7 +4837,7 @@ function PlayMissionGui::enableFrightfest(%this){
 	%this.frightfest = true;
 	if (%this.currentHoliday $= "Hunt")
 		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
-	if (!%this.marbleland && !lb())
+	if (!%this.marbleland)
 		PM_HolidaySelector.setVisible(true);
 }
 
@@ -4869,7 +4869,7 @@ function PlayMissionGui::enableWinterfest(%this){
 	%this.winterfest = true;
 	if (%this.currentHoliday $= "Frightfest" || !%this.frightfest)
 		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
-	if (!%this.marbleland && !lb())
+	if (!%this.marbleland)
 		PM_HolidaySelector.setVisible(true);
 }
 
@@ -4907,7 +4907,7 @@ function PlayMissionGui::deactivateHolidays(%this){
 }
 
 function PlayMissionGui::switchHoliday(%this){
-	if (!%this.marbleland && !lb()) {
+	if (!%this.marbleland) {
 		echo("Switching holiday! Holiday is currently " @ %this.currentHoliday @ ".");
 		switch$ (%this.currentHoliday) {
 		case "Hunt":
