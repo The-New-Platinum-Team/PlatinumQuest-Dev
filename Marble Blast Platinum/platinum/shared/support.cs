@@ -214,6 +214,17 @@ function strNum(%string) {
 	return %fin;
 }
 
+function randomString(%length) {
+	%table = "abcdefghijklmnopqrstuvwxyzABCDEFGHJIKLMNOPQRSTUVWXYZ1234567890";
+	%finished = "";
+	for (%i = 0; %i < %length; %i ++) {
+		%pos = getRandom(strLen(%table));
+		%char = getSubStr(%table, %pos, 1);
+		%finished = %finished @ %char;
+	}
+	return %finished;
+}
+
 //-----------------------------------------------------------------------------
 
 // Weak "encrypts" a string so it can't be seen in clear-text

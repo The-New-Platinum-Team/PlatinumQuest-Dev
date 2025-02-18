@@ -295,6 +295,8 @@ function statsRecordScore(%mission) {
 
 	%modeFields = ClientMode::callbackForMission(%mission, "getScoreFields", "");
 
+	%randomIdentifier = randomString(32);
+
 	statsPost("api/Score/RecordScore.php",
 		statsGetMissionIdentifier(%mission) @
 		"&score=" @ %score @
@@ -302,6 +304,7 @@ function statsRecordScore(%mission) {
 		"&totalBonus=" @ %totalBonus @
 		"&modifiers=" @ %modifiers @
 		"&marbleId=" @ %selection @
+		"&randomIdentifier=" @ %randomIdentifier @
 		%gemFields @
 		%modeFields);
 }
@@ -363,9 +366,12 @@ function statsRecordChallengeScore(%mission) {
 
 	%modeFields = ClientMode::callbackForMission(%mission, "getScoreFields", "");
 
+	%randomIdentifier = randomString(32);
+
 	statsPost("api/Score/RecordChallengeScore.php",
 		statsGetMissionIdentifier(%mission) @
 		"&score=" @ %score @
+		"&randomIdentifier=" @ %randomIdentifier @
 		%modeFields);
 }
 function statsRecordChallengeScoreLine(%line) {
@@ -394,7 +400,9 @@ function statsRecordEgg(%mission, %time) {
 		return;
 	}
 
-	statsPost("api/Egg/RecordEgg.php", statsGetMissionIdentifier(%mission) @ "&time=" @ removeScientificNotation(%time));
+		%randomIdentifier = randomString(32);
+
+	statsPost("api/Egg/RecordEgg.php", statsGetMissionIdentifier(%mission) @ "&randomIdentifier=" @ %randomIdentifier @ "&time=" @ removeScientificNotation(%time));
 }
 function statsRecordEggLine(%line) {
 	if (%line $= "SUCCESS") {
