@@ -532,8 +532,7 @@ function MPServerDlg::updateSpinner(%this) {
 	if (!%this.isAwake())
 		return;
 	if (%this.loading || (MPServerMapRefresh.bitmapRotation % 180) > 0) {
-		MPServerMapRefresh.bitmapRotation -= 10;
-		MPServerMapRefresh.bitmapRotation += 180;
+		MPServerMapRefresh.bitmapRotation += 10;
 		MPServerMapRefresh.bitmapRotation %= 180;
 	}
 }
