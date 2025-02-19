@@ -110,3 +110,22 @@ if (!$Pref::Migrated2_11) {
 	}
 	$Pref::Migrated2_11 = true;
 }
+
+if (!isObject(MigrationLookup)) {
+	new ScriptObject(MigrationLookup) {
+		class = "StringMap";
+	};
+	for (%i = 0; %i < $Migrations::Count; %i++) {
+		%oldMission = $Migrations::SourcePath[%i];
+		%newMission = $Migrations::TargetPath[%i];
+		MigrationLookup.setFieldValue(%oldMission, %newMission);
+	}
+}
+
+function StringMap::has(%this, %key) {
+	return %this.getFieldValue(%key) !$= "";
+}
+
+function StringMap::get(%this, %key) {
+	return %this.getFieldValue(%key);
+}
