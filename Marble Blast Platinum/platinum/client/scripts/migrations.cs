@@ -93,7 +93,7 @@ $Migrations::TargetPath[33] = "platinum/data/multiplayer/hunt/intermediate/Point
 $Migrations::SourcePath[34] = "platinum/data/multiplayer/hunt/advanced/SkateParkSquare_Hunt.mcs";
 $Migrations::TargetPath[34] = "platinum/data/multiplayer/hunt/intermediate/SkateParkSquare_Hunt.mcs";
 $Migrations::SourcePath[35] = "platinum/data/missions_mbu/advanced/hypercube_ultra.mis";
-$Migrations::TargetPath[35] = "platinum/data/missions_mbg/bonus/cube2_mbuparity.dds";
+$Migrations::TargetPath[35] = "platinum/data/missions_mbg/bonus/cube2_mbuparity.mis";
 $Migrations::Count = 36;
 
 if (!$Pref::Migrated2_11) {
