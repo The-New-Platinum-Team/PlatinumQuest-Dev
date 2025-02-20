@@ -88,7 +88,7 @@ function initDedicatedServer() {
 	exec("./dsupport.cs");
 
 	// Set the game
-	$CurrentGame = "Hunt";
+	//$CurrentGame = "Hunt";
 
 	// Server variables
 	$Server::Lobby = true;

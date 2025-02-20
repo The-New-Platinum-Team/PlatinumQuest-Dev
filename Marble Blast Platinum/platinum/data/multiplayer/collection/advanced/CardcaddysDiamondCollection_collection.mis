@@ -1,17 +1,63 @@
 // UT Tip: Ends up there's an easy path and that the platforms go in order. Find that order.
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
-         music = "Grudge.ogg";
-         type = "Expert";
-         artist = "Cardcaddy and Matan";
-         startHelpText = "Up and down all night long!";
+         CustomRadarRule = "63";
+         Radar = "1";
+         artist = "Cardcaddy & Matan";
+         blast = "1";
+         desc = "If one may fall or go to the sides, but not too far, the teleporter shall put him back to the start.";
+         game = "Platinum";
          gameMode = "collection";
          level = "6";
-         desc = "If one may fall or go to the sides, but not too far, the teleporter shall put him back to the start.";
-         name = "Cardcaddy\'s Diamond Collection";
-         time = "240000";
+         music = "Challenge.ogg";
+         name = "Cardcaddy\'s Gem Collection";
+         platinumTime = "240000";
+         score = "32";
+         startHelpText = "Up and down all night long!";
+         type = "Expert";
+         ultimateTime = "135000";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "53.41774 -29.67784 96.91605";
+         rotation = "0.5771264 0.1685641 -0.799069 40.15661";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "5000";
+            usePosition = "1";
+            placed = "1";
+      };
+      new StaticShape(CameraPath2) {
+         position = "45.59272 -21.40275 91.9245";
+         rotation = "0.7079017 0.1578244 -0.6884524 35.88783";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            useRotation = "1";
+            timeToNext = "5000";
+            usePosition = "1";
+            placed = "1";
+      };
+      new StaticShape(CameraPath3) {
+         position = "37.14286 -13.10878 86.65067";
+         rotation = "0.7926891 0.1377011 -0.5938708 32.6096";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath0";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+            placed = "1";
+      };
    };
    new Trigger() {
       position = "-496.6 554.4 -1000";
@@ -21,7 +67,7 @@ new SimGroup(MissionGroup) {
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          destination = "Start";
    };
-   new Trigger(Start) {
+   new Trigger(start) {
       position = "22.8 -5 80";
       rotation = "1 0 0 0";
       scale = "1 1 1";
@@ -44,7 +90,7 @@ new SimGroup(MissionGroup) {
       cloudSpeed1 = "0.0001";
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
-      visibleDistance = "1000";
+      visibleDistance = "500";
       useSkyTextures = "1";
       renderBottomTexture = "1";
       SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
@@ -53,7 +99,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-31 1.3684e-38";
       fogVolume2 = "-1 1.07208e-14 8.756e-14";
       fogVolume3 = "-1 5.1012e-10 2.05098e-08";
-      materialList = "~/data/skies/Advanced/Advanced_Sky.dml";
+      materialList = "~/data/skies/Expert/Expert_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -63,8 +109,8 @@ new SimGroup(MissionGroup) {
    };
    new Sun(Sun) {
       direction = "0.638261 0.459006 -0.61801";
-      color = "1.400000 1.200000 0.400000 1.000000";
-      ambient = "0.300000 0.300000 0.400000 1.000000";
+      color = "0.700000 0.700000 0.700000 1.000000";
+      ambient = "0.100000 0.100000 0.200000 1.000000";
    };
    new InteriorInstance() {
       position = "0 0 0";
@@ -107,7 +153,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "39";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -164,11 +210,13 @@ new SimGroup(MissionGroup) {
       position = "46.6563 0 97.6563";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "MegaMarbleItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "12500";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+         timeout = "12500";
    };
    new Item() {
       position = "41.9688 8.8125 84.6563";
@@ -300,11 +348,13 @@ new SimGroup(MissionGroup) {
       position = "13.1563 27.1875 91.6563";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "MegaMarbleItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "12500";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+         timeout = "12500";
    };
    new Item() {
       position = "3.55625 27.2 82.6563";
@@ -355,11 +405,13 @@ new SimGroup(MissionGroup) {
       position = "37.0625 36.8125 85.6563";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "TimeTravelItem";
+      dataBlock = "MegaMarbleItem";
       collideable = "0";
       static = "1";
       rotate = "1";
-         timeBonus = "12500";
+         noRespawn = "0";
+         showHelpOnPickup = "0";
+         timeout = "12500";
    };
    new Item() {
       position = "46.6563 36.8 82.6563";
@@ -469,7 +521,7 @@ new SimGroup(MissionGroup) {
       static = "1";
       rotate = "1";
    };
-   new Trigger(stayhere) {
+   new Trigger(StayHere) {
       position = "-350 350 -1250";
       rotation = "1 0 0 0";
       scale = "700 700 2500";
@@ -480,7 +532,7 @@ new SimGroup(MissionGroup) {
       position = "-18.3438 55.5 100.988";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "easterEgg";
+      dataBlock = "BlastItem";
       collideable = "0";
       static = "1";
       rotate = "1";
@@ -519,7 +571,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -561,7 +613,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -603,7 +655,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "2";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -645,7 +697,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "3";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -687,7 +739,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "4";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -729,7 +781,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "5";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -771,7 +823,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "6";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -813,7 +865,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "7";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -855,7 +907,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "8";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -897,7 +949,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "9";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -939,7 +991,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "10";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -981,7 +1033,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "11";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1023,7 +1075,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "12";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1065,7 +1117,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "13";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1107,7 +1159,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "14";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1149,7 +1201,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "15";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1191,7 +1243,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "16";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1233,7 +1285,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "17";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1275,7 +1327,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "18";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1317,7 +1369,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "19";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1359,7 +1411,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "20";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1401,7 +1453,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "21";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1443,7 +1495,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "22";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1485,7 +1537,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "23";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1527,7 +1579,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "24";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1569,7 +1621,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "25";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1611,7 +1663,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "26";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1653,7 +1705,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "27";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1695,7 +1747,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "28";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1737,7 +1789,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "29";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1779,7 +1831,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "30";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1821,7 +1873,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "31";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1863,7 +1915,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "32";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1905,7 +1957,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "33";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1947,7 +1999,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "34";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1989,7 +2041,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "35";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -2031,7 +2083,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "36";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -2073,7 +2125,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "37";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -2115,7 +2167,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = $usermods @ "/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
+         interiorResource = "platinum/data/interiors_MBP/Cardcaddy\'sDiamondCollection.dif";
          interiorIndex = "38";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -2130,11 +2182,7 @@ new SimGroup(MissionGroup) {
       dataBlock = "SpawnTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          center = "1";
-   };
-   new AudioProfile(MusicProfile) {
-      fileName = "~/data/sound/music/Flanked.ogg";
-      description = "AudioMusic";
-      preload = "0";
+         gravity = "0";
    };
    new Trigger() {
       position = "22.25 64.5 76.65625";
@@ -2143,6 +2191,7 @@ new SimGroup(MissionGroup) {
       dataBlock = "SpawnTrigger";
       polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
          center = "1";
+         gravity = "0";
    };
 };
 //--- OBJECT WRITE END ---

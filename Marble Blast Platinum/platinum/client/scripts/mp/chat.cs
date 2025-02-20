@@ -71,6 +71,19 @@ function onServerChat(%user, %message) {
 			return;
 		case "slap":
 			MPAddServerChat(LBSlapMessage(%user, getWord(%message, 1)));
+			return;
+		// case "boo":
+		// 	if ($Server::Hosting)
+		// 		PlayMissionGui.toggleFrightfest();
+		// 	else
+		// 		MPAddServerChat(LBChatColor("admin") @ "You must be the server host to enable Frightfest!");
+		// 	return;
+		// case "hohoho":
+		// 	if ($Server::Hosting)
+		// 		PlayMissionGui.toggleWinterfest();
+		// 	else
+		// 		MPAddServerChat(LBChatColor("admin") @ "You must be the server host to enable Winterfest!");
+		// 	return;
 		}
 	}
 

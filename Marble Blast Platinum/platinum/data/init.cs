@@ -252,6 +252,14 @@ new SimGroup(MaterialGroup) {
 		friction = 2;
 		restitution = 0.75;
 	};
+
+	// A LAVA WATERFALL!!
+
+	new MaterialProperty(LavaBounceFloorMaterial) {
+		friction = 1;
+		restitution = 2;
+		force = 15;
+	};
 };
 
 // YAY FOR MBP
@@ -287,6 +295,7 @@ addMaterialMapping("mmg_ice" ,    MMGIceMaterial);
 addMaterialMapping("mmg_ice_shadow" ,    MMGIceShadowMaterial);
 addMaterialMapping("friction_mp_high" ,    HighFrictionMultiplayerMaterial);
 addMaterialMapping("friction_mp_high_shadow" ,    HighFrictionMultiplayerMaterial);
+addMaterialMapping("pq_lava" ,    LavaBounceFloorMaterial);
 
 // PlatinumQuest
 addMaterialMapping("pq_friction_space" , PQSpaceMaterial);
