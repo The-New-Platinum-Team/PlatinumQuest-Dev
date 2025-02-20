@@ -91,6 +91,8 @@ copyFile(expandFilename("~/client/lbprefs.cs"), expandFilename("~/client/lbprefs
 exec("./client/mbpPrefs.cs");
 exec("./client/lbprefs.cs");
 
+exec("./client/scripts/migrations.cs");
+
 //This variable can fuck right off. Will crash your game on mission load if this
 // is not empty string.
 $pref::Server::Password = "";

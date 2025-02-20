@@ -383,6 +383,9 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When making a custom level, you c
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When playing in Competitive Mode, your usual Blast won't be able to knock other players around. This lets you save your Blast Meter for traversing the map, but keep in mind that Ultra Blasts still work as normal."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When playing in Competitive Mode, other players won't be able to push you around with their normal Blast power. Don't let your guard down, though. Their Ultra Blasts can still send you flying!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In multiplayer modes other than Co-op, quick respawning is placed on a 25-second cooldown. It can even be entirely disabled based on the server settings. Take extra care not to get stuck in any holes while playing custom levels!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Type 'boo' in the level select to have some spooky fun all year round!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Type 'hohoho' in the level select to have some jolly fun all year round!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Blast will always send you straight upwards. This makes it useful for turning around on sloped surfaces where jumps would push you sideways."; //Yoshi
 
 $Loading::TipsChance[0] = 0.80;
 
@@ -413,7 +416,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: It's 2:50am. Do you know where yo
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: JOHN CENA!!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Hi, Mom!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Puns make everything punstatic!";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: c() , d()";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: d();"; //rip c(); ??? - 2024
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Fetch, Stash, Pull with Rebase, Pop, Resolve Conflicts";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'party' on the main menu to have a party.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Writing these tips crashed the game.";
@@ -443,6 +446,12 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Chess Battle Advanced"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: There's a super secret setting outside of the options menu! On the main menu, if you hit the 'Quit' button one time, it toggles the game."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Beat your enemies in Multiplayer."; //Connie
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Impressed? I increased the height of my text box. Now I can fit more tips onto it! Take a looksy!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njoj"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: SUPER. HOT."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Press Space Bar to open volume view! This will let you see the level in 3 dimensions at a time."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Upon taking damage, marbles will give you a 10% chance to swallow your currently held trinket and gain its effects permanently."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: It's rude to talk about someone who's listening."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: mew!"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Don't try using any hidden cheat codes. It's not going to work."; //Yoshi
 ////////////////////////////////////// = "Snooping as usual, I see!" //Yoshi
 
 $Loading::TipsChance[1] = 0.03;

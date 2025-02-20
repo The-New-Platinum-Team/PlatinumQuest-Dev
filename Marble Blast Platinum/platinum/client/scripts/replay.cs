@@ -891,6 +891,10 @@ function PlaybackInfo::readHeader(%this) {
 	%this.missionFile = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %this.missionFile: " @ %this.missionFile);
 	%this.marbleSelection = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %this.marbleSelection: " @ %this.marbleSelection);
 
+	// Lookup table stuff
+	if (MigrationLookup.has(%this.missionFile))
+		%this.missionFile = MigrationLookup.get(%this.missionFile);
+
 	//If we have metadata
 	%flags = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %flags: " @ %flags);
 	%this.hasMetadata = %flags & 1;
