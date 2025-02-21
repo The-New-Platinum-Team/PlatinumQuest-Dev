@@ -143,10 +143,10 @@ function OptionsGui::apply(%this) {
 			disableShaders();
 			reloadDts();
 			setDisplayDevice($pref::Video::displayDevice,
-							firstWord($pref::Video::resolution),
-							getWord($pref::Video::resolution, 1),
-							getWord($pref::Video::resolution, 2),
-							$pref::Video::fullScreen);
+			                 firstWord($pref::Video::resolution),
+			                 getWord($pref::Video::resolution, 1),
+			                 getWord($pref::Video::resolution, 2),
+			                 $pref::Video::fullScreen);
 			//OptionsGui::deviceDependent( %this );
 		} else if (%newRes) {
 			disablePostFX();
@@ -154,9 +154,9 @@ function OptionsGui::apply(%this) {
 			disableShaders();
 			reloadDts();
 			setScreenMode(firstWord($pref::Video::resolution),
-						getWord($pref::Video::resolution, 1),
-						getWord($pref::Video::resolution, 2),
-						$pref::Video::fullScreen);
+			              getWord($pref::Video::resolution, 1),
+			              getWord($pref::Video::resolution, 2),
+			              $pref::Video::fullScreen);
 		} else if ($pref::Video::fullScreen != isFullScreen()) {
 			disablePostFX();
 			disableBlur();
@@ -265,11 +265,11 @@ function buildResolutionList() {
 		%res = getWords(getField(%resList, %i), 0, 1);
 
 		//if (!$pref::Video::fullScreen) {
-			// Here they skip resolutions above your desktop res, in case you're playing windowed. Nice GG. Nice.
-			if (firstWord(%res) >= firstWord(%deskRes))
-				continue;
-			if (getWord(%res, 1) >= getWord(%deskRes, 1))
-				continue;
+		// Here they skip resolutions above your desktop res, in case you're playing windowed. Nice GG. Nice.
+		if (firstWord(%res) >= firstWord(%deskRes))
+			continue;
+		if (getWord(%res, 1) >= getWord(%deskRes, 1))
+			continue;
 		// }
 
 		//Lower Bound
@@ -639,7 +639,7 @@ ChatMessageSizeArray.addEntry("6" TAB 6);
 // Graphics Functions.
 
 function Opt_screenResolution_getDisplay() {
-	if ($pref::Video::fullScreen) 
+	if ($pref::Video::fullScreen)
 		return "Not Available";
 
 	if ($Options::ResolutionChanged)
@@ -1004,7 +1004,7 @@ function Opt_maxFPS_increase() {
 function vSyncAssert() {
 	$vsyncAssert = true;
 	MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible. " @
-				 "This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
+	             "This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 }
 
 function Opt_vsync_getDisplay() {
@@ -1055,7 +1055,7 @@ function Opt_graphicsDriver_decrease() {
 	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
 	if ($pref::Video::RendererOverride $= "")
 		%index = 0;
-	
+
 	%index --;
 	if (%index < 0)
 		%index = OptRenderers.getSize() - 1;
@@ -1063,7 +1063,7 @@ function Opt_graphicsDriver_decrease() {
 		$pref::Video::RendererOverride = "";
 	else
 		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
-	
+
 	if (!$gdAssert)
 		graphicsDriverAssert();
 }
@@ -1072,7 +1072,7 @@ function Opt_graphicsDriver_increase() {
 	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
 	if ($pref::Video::RendererOverride $= "")
 		%index = 0;
-	
+
 	%index ++;
 	if (%index == OptRenderers.getSize())
 		%index = 0;
@@ -1088,10 +1088,10 @@ function Opt_graphicsDriver_increase() {
 function graphicsDriverAssert() {
 	$gdAssert = true;
 	ASSERT("Warning", "Please do not change this option unless you know exactly what you are doing. " @
-				 "It is best to leave this option on Automatic unless you are experiencing issues with the game. " NL
-				 "Consequences of changing this option may include the game not starting or not rendering properly." NL "" NL
-				 "<just:center>This option requires you to restart the game." NL "" NL
-				 "You accept all responsibility for changing this option.");
+	       "It is best to leave this option on Automatic unless you are experiencing issues with the game. " NL
+	       "Consequences of changing this option may include the game not starting or not rendering properly." NL "" NL
+	       "<just:center>This option requires you to restart the game." NL "" NL
+	       "You accept all responsibility for changing this option.");
 }
 
 //-----------------------------------------------------------------------------
@@ -1794,7 +1794,7 @@ function Opt_spChanges_increase() {
 	$pref::spchanges = !$pref::spchanges;
 	if ($pref::spchanges)
 		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
-	
+
 }
 
 //-----------------------------------------------------------------------------
@@ -2133,43 +2133,43 @@ function OptionsGui::buildTab(%this, %tab) {
 		%whatControl = $Options::Ctrl[%tab, %i];
 
 		switch$ (%whatControl) {
-			case "slider":
-				%valueFont = %valueFontSlider;
-				%tickSize = "$pref::Input::ControlDevice $= \"Joystick\" ? " @ %valueCtrl @ ".getJoyTickSize() :" @ %valueCtrl @ ".getTickSize()";
-				%commandSlider = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getFormattedValue());";
-				%commandLeft   = "opt_" @ %name @ "_decrease(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
-				%commandRight  = "opt_" @ %name @ "_increase(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
-				%commandSlider = %commandSlider @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%commandLeft   = %commandLeft   @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%commandRight  = %commandRight  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%nameLeft = "Decrease";
-				%nameRight = "Increase";
-			case "textbox" or "password":
-				%valueFont = %valueFontTextbox;
-				%commandTextbox = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getValue());";
-				%commandValidate = "opt_" @ %name @ "_validate(" @ %valueCtrl @ ".getValue());";
-				%commandLeft  = "";
-				%commandRight = "";
-				%nameLeft = "";
-				%nameRight = "";
-			case "button":
-				%valueFont = %valueFontButton;
-				%commandButton = "opt_" @ %name @ "_edit();";
-				%commandLeft  = "";
-				%commandRight = "";
-				%nameLeft = "";
-				%nameRight = "";
-			case "spacer":
-				%title = "";
-			default:
-				%valueFont = %valueFontButton;
-				%commandLeft  = "opt_" @ %name @ "_decrease(); ";
-				%commandRight = "opt_" @ %name @ "_increase(); ";
-				%commandLeft  = %commandLeft  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%commandRight = %commandRight @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+		case "slider":
+			%valueFont = %valueFontSlider;
+			%tickSize = "$pref::Input::ControlDevice $= \"Joystick\" ? " @ %valueCtrl @ ".getJoyTickSize() :" @ %valueCtrl @ ".getTickSize()";
+			%commandSlider = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getFormattedValue());";
+			%commandLeft   = "opt_" @ %name @ "_decrease(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
+			%commandRight  = "opt_" @ %name @ "_increase(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
+			%commandSlider = %commandSlider @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%commandLeft   = %commandLeft   @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%commandRight  = %commandRight  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%nameLeft = "Decrease";
+			%nameRight = "Increase";
+		case "textbox" or "password":
+			%valueFont = %valueFontTextbox;
+			%commandTextbox = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getValue());";
+			%commandValidate = "opt_" @ %name @ "_validate(" @ %valueCtrl @ ".getValue());";
+			%commandLeft  = "";
+			%commandRight = "";
+			%nameLeft = "";
+			%nameRight = "";
+		case "button":
+			%valueFont = %valueFontButton;
+			%commandButton = "opt_" @ %name @ "_edit();";
+			%commandLeft  = "";
+			%commandRight = "";
+			%nameLeft = "";
+			%nameRight = "";
+		case "spacer":
+			%title = "";
+		default:
+			%valueFont = %valueFontButton;
+			%commandLeft  = "opt_" @ %name @ "_decrease(); ";
+			%commandRight = "opt_" @ %name @ "_increase(); ";
+			%commandLeft  = %commandLeft  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%commandRight = %commandRight @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
 
-				%nameLeft = (%type $= "boolean" ? "Toggle" : "Decrease");
-				%nameRight = (%type $= "boolean" ? "Toggle" : "Increase");
+			%nameLeft = (%type $= "boolean" ? "Toggle" : "Decrease");
+			%nameRight = (%type $= "boolean" ? "Toggle" : "Increase");
 		}
 
 		%content.add(new GuiControl(%ctrl) {
@@ -2181,16 +2181,16 @@ function OptionsGui::buildTab(%this, %tab) {
 			minExtent = "8 8";
 			visible = "1";
 			helpTag = "0";
-				controlLSUp = %upCtrl;
-				controlLSDown = %downCtrl;
-				commandRSLeft = %commandLeft;
-				commandRSRight = %commandRight;
-				commandRepeatRSLeft = true;
-				commandRepeatRSRight = true;
-				controlOffset = "6 -6";
-				controlExtent = (%width - 7) SPC (%rowHeight + 12);
-				commandName["RSLeft"] = %nameLeft;
-				commandName["RSRight"] = %nameRight;
+			controlLSUp = %upCtrl;
+			controlLSDown = %downCtrl;
+			commandRSLeft = %commandLeft;
+			commandRSRight = %commandRight;
+			commandRepeatRSLeft = true;
+			commandRepeatRSRight = true;
+			controlOffset = "6 -6";
+			controlExtent = (%width - 7) SPC (%rowHeight + 12);
+			commandName["RSLeft"] = %nameLeft;
+			commandName["RSRight"] = %nameRight;
 
 			new GuiMLTextCtrl(%titleCtrl) {
 				profile = "GuiMLTextProfile";
@@ -2208,155 +2208,155 @@ function OptionsGui::buildTab(%this, %tab) {
 		});
 
 		switch$ (%whatControl) {
-			case "slider":
-				%range = $Options::Min[%tab, %i] SPC $Options::Max[%tab, %i];
-				%defaultValue = call("Opt_" @ %name @ "_getValue");
-				%ctrl.add(new GuiBitmapCtrl() {
-					profile = "GuiDefaultProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "400 18";
-					extent = "230 10";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-					bitmap = "~/client/ui/options/slider_bar";
-					wrap = "0";
-				});
-				%ctrl.add(new GuiSliderCtrl(%valueCtrl) {
-					profile = "GuiSliderProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "385 5";
-					extent = "260 35";
-					minExtent = "8 8";
-					visible = "1";
-					altCommand = %commandSlider;
-					helpTag = "0";
-					range = %range;
-					ticks = $Options::Ticks[%tab, %i];
-					joyTicks = $Options::JoyTicks[%tab, %i];
-					value = %defaultValue;
-					bitmap = "~/client/ui/options/slider";
-				});
-				%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
-					profile = "GuiMLTextProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "625 8";
-					extent = "75 14";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-					lineSpacing = "2";
-					allowColorChars = "0";
-					maxChars = "-1";
-				});
-				eval(%commandSlider); // hack to get slider UI to show textbox.
+		case "slider":
+			%range = $Options::Min[%tab, %i] SPC $Options::Max[%tab, %i];
+			%defaultValue = call("Opt_" @ %name @ "_getValue");
+			%ctrl.add(new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "400 18";
+				extent = "230 10";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/client/ui/options/slider_bar";
+				wrap = "0";
+			});
+			%ctrl.add(new GuiSliderCtrl(%valueCtrl) {
+				profile = "GuiSliderProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "385 5";
+				extent = "260 35";
+				minExtent = "8 8";
+				visible = "1";
+				altCommand = %commandSlider;
+				helpTag = "0";
+				range = %range;
+				ticks = $Options::Ticks[%tab, %i];
+				joyTicks = $Options::JoyTicks[%tab, %i];
+				value = %defaultValue;
+				bitmap = "~/client/ui/options/slider";
+			});
+			%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "625 8";
+				extent = "75 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			});
+			eval(%commandSlider); // hack to get slider UI to show textbox.
 
-			case "textbox" or "password":
-				%var = $Options::Var[%tab, %i];
-				%length = $Options::Length[%tab, %i];
-				%defaultValue = call("Opt_" @ %name @ "_getValue");
-				%ctrl.add(new GuiControl() {
-					profile = "PQTextboxBorderProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "381 4";
-					extent = "319 32";
-					minExtent = "21 21";
-					visible = "1";
+		case "textbox" or "password":
+			%var = $Options::Var[%tab, %i];
+			%length = $Options::Length[%tab, %i];
+			%defaultValue = call("Opt_" @ %name @ "_getValue");
+			%ctrl.add(new GuiControl() {
+				profile = "PQTextboxBorderProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "381 4";
+				extent = "319 32";
+				minExtent = "21 21";
+				visible = "1";
 
-					new GuiTextEditCtrl(%valueCtrl) {
-						profile = "PQTextboxProfile";
-						horizSizing = "right";
-						vertSizing = "bottom";
-						position = "3 1";
-						extent = "313 26";
-						minExtent = "8 8";
-						visible = "1";
-						variable = %var;
-						command = %commandTextbox;
-						helpTag = "0";
-						maxLength = %length;
-						maxPixelWidth = "0";
-						validate = %commandValidate;
-						historySize = "0";
-						password = (%whatControl $= "password");
-						tabComplete = "0";
-						sinkAllKeyEvents = "0";
-					};
-				});
-				%valueCtrl.setValue(%defaultValue);
-				eval(%commandTextbox);
+				new GuiTextEditCtrl(%valueCtrl) {
+					profile = "PQTextboxProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "3 1";
+					extent = "313 26";
+					minExtent = "8 8";
+					visible = "1";
+					variable = %var;
+					command = %commandTextbox;
+					helpTag = "0";
+					maxLength = %length;
+					maxPixelWidth = "0";
+					validate = %commandValidate;
+					historySize = "0";
+					password = (%whatControl $= "password");
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+				};
+			});
+			%valueCtrl.setValue(%defaultValue);
+			eval(%commandTextbox);
 
-			case "button":
-				%ctrl.add(new GuiBorderButtonCtrl(%buttonCtrl) {
-					profile = "GuiBorderButtonProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "375 -2";
-					extent = "331 44";
-					minExtent = "8 8";
-					visible = "1";
-					command = %commandButton;
-					helpTag = "0";
-					text = "Edit...";
-					groupNum = "1";
-					buttonType = "PushButton";
-					repeatPeriod = "1000";
-					repeatDecay = "1";
-				});
-				%ctrl.commandSelect = %commandButton;
-				%ctrl.commandNameSelect = "Edit";
-			case "spacer":
-				//Do nothing
-			default:
-				%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
-					profile = "GuiMLTextProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "420 5";
-					extent = "242 14";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-					lineSpacing = "2";
-					allowColorChars = "0";
-					maxChars = "-1";
-				});
-				%ctrl.add(new GuiBorderButtonCtrl(%rightArrow) {
-					profile = "GuiBorderButtonProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "662 -2";
-					extent = "44 44";
-					minExtent = "8 8";
-					visible = "1";
-					command = %commandRight;
-					helpTag = "0";
-					text = ">";
-					groupNum = "1";
-					buttonType = "PushButton";
-					repeatPeriod = "1000";
-					repeatDecay = "1";
-				});
-				%ctrl.add(new GuiBorderButtonCtrl(%leftArrow) {
-					profile = "GuiBorderButtonProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "375 -2";
-					extent = "44 44";
-					minExtent = "8 8";
-					visible = "1";
-					command = %commandLeft;
-					helpTag = "0";
-					text = "<";
-					groupNum = "1";
-					buttonType = "PushButton";
-					repeatPeriod = "1000";
-					repeatDecay = "1";
-				});
+		case "button":
+			%ctrl.add(new GuiBorderButtonCtrl(%buttonCtrl) {
+				profile = "GuiBorderButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "375 -2";
+				extent = "331 44";
+				minExtent = "8 8";
+				visible = "1";
+				command = %commandButton;
+				helpTag = "0";
+				text = "Edit...";
+				groupNum = "1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
+			%ctrl.commandSelect = %commandButton;
+			%ctrl.commandNameSelect = "Edit";
+		case "spacer":
+		//Do nothing
+		default:
+			%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "420 5";
+				extent = "242 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			});
+			%ctrl.add(new GuiBorderButtonCtrl(%rightArrow) {
+				profile = "GuiBorderButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "662 -2";
+				extent = "44 44";
+				minExtent = "8 8";
+				visible = "1";
+				command = %commandRight;
+				helpTag = "0";
+				text = ">";
+				groupNum = "1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
+			%ctrl.add(new GuiBorderButtonCtrl(%leftArrow) {
+				profile = "GuiBorderButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "375 -2";
+				extent = "44 44";
+				minExtent = "8 8";
+				visible = "1";
+				command = %commandLeft;
+				helpTag = "0";
+				text = "<";
+				groupNum = "1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
 		}
 
 		%titleCtrl.setText(%titleFont @ %title);
@@ -2422,10 +2422,14 @@ function getMapDisplayName(%device, %action, %fullText) {
 		} else {
 			if (strstr(%action, "axis") != -1) {
 				switch$ (%action) {
-				case "xaxis": return "Mouse X Axis";
-				case "yaxis": return "Mouse Y Axis";
-				case "zaxis": return "Scroll Wheel";
-				default:      return "??";
+				case "xaxis":
+					return "Mouse X Axis";
+				case "yaxis":
+					return "Mouse Y Axis";
+				case "zaxis":
+					return "Scroll Wheel";
+				default:
+					return "??";
 				}
 			} else {
 				error("Mouse input object other than button or axis passed to getDisplayMapName:" SPC %action @ "!");
@@ -2473,19 +2477,32 @@ function getDefaultControllerMapName(%action) {
 			%mods = %wordCount > 1 ? getWords(%action, 0, %wordCount - 2) @ " " : "";
 			%object = getWord(%action, %wordCount - 1);
 			switch$ (%object) {
-			case "xpov":   %object = "POV1 x";
-			case "ypov":   %object = "POV1 y";
-			case "upov":   %object = "POV1 up";
-			case "dpov":   %object = "POV1 down";
-			case "lpov":   %object = "POV1 left";
-			case "rpov":   %object = "POV1 right";
-			case "xpov2":  %object = "POV2 x";
-			case "ypov2":  %object = "POV2 y";
-			case "upov2":  %object = "POV2 up";
-			case "dpov2":  %object = "POV2 down";
-			case "lpov2":  %object = "POV2 left";
-			case "rpov2":  %object = "POV2 right";
-			default:       %object = "??";
+			case "xpov":
+				%object = "POV1 x";
+			case "ypov":
+				%object = "POV1 y";
+			case "upov":
+				%object = "POV1 up";
+			case "dpov":
+				%object = "POV1 down";
+			case "lpov":
+				%object = "POV1 left";
+			case "rpov":
+				%object = "POV1 right";
+			case "xpov2":
+				%object = "POV2 x";
+			case "ypov2":
+				%object = "POV2 y";
+			case "upov2":
+				%object = "POV2 up";
+			case "dpov2":
+				%object = "POV2 down";
+			case "lpov2":
+				%object = "POV2 left";
+			case "rpov2":
+				%object = "POV2 right";
+			default:
+				%object = "??";
 			}
 			return %mods @ %object;
 		} else {
@@ -2495,13 +2512,20 @@ function getDefaultControllerMapName(%action) {
 				%mods = %wordCount > 1 ? getWords(%action, 0, %wordCount - 2) @ " " : "";
 				%object = getWord(%action, %wordCount - 1);
 				switch$ (%object) {
-				case "xaxis":  %object = "X Axis";
-				case "yaxis":  %object = "Y Axis";
-				case "zaxis":  %object = "Z Axis";
-				case "rxaxis": %object = "Right X Axis";
-				case "ryaxis": %object = "Right Y Axis";
-				case "rzaxis": %object = "Right Z Axis";
-				default:       %object = "??";
+				case "xaxis":
+					%object = "X Axis";
+				case "yaxis":
+					%object = "Y Axis";
+				case "zaxis":
+					%object = "Z Axis";
+				case "rxaxis":
+					%object = "Right X Axis";
+				case "ryaxis":
+					%object = "Right Y Axis";
+				case "rzaxis":
+					%object = "Right Z Axis";
+				default:
+					%object = "??";
 				}
 				return %mods @ %object;
 			} else {
@@ -2725,22 +2749,22 @@ function OptionsGui::generateHotkeysList(%this) {
 
 			OptionsInputHotkeys.add(
 				%box = new GuiControl(%boxName) {
-					profile = "GuiMLTextProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = 0 SPC (%row * %height);
-					extent = "400 37";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-						controlSelect = %buttonName;
-						controlUp = %lastBoxName;
-						controlName["Select"] = "Edit";
-						commandRight = "OptionsGui.inputGoRight(\"" @ %boxName @ "\");";
-						commandRepeatRight = true;
-						controlOffset = "0 -4";
-						controlExtent = "400 45";
-				}
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = 0 SPC (%row * %height);
+				extent = "400 37";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				controlSelect = %buttonName;
+				controlUp = %lastBoxName;
+				controlName["Select"] = "Edit";
+				commandRight = "OptionsGui.inputGoRight(\"" @ %boxName @ "\");";
+				commandRepeatRight = true;
+				controlOffset = "0 -4";
+				controlExtent = "400 45";
+			}
 			);
 			%lastBoxName.controlDown = %boxName;
 			%lastBoxName = %boxName;
@@ -2758,7 +2782,7 @@ function OptionsGui::generateHotkeysList(%this) {
 					lineSpacing = "2";
 					allowColorChars = "0";
 					maxChars = "-1";
-						defaultText = "<bold:28>" @ %title @ ":";
+					defaultText = "<bold:28>" @ %title @ ":";
 				});
 
 				%addButton = "Opt_Input_Add_" @ %device @ "_" @ %bindFn;
@@ -2777,11 +2801,11 @@ function OptionsGui::generateHotkeysList(%this) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = %buttonName;
-						controlCancel = %box;
-						commandName["Select"] = "Add";
-						commandSelect = "OptionsGui.addBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
-						controlName["Cancel"] = "Cancel";
+					controlLeft = %buttonName;
+					controlCancel = %box;
+					commandName["Select"] = "Add";
+					commandSelect = "OptionsGui.addBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+					controlName["Cancel"] = "Cancel";
 				});
 				%sideButton = %addButton;
 			} else {
@@ -2801,11 +2825,11 @@ function OptionsGui::generateHotkeysList(%this) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = %buttonName;
-						controlCancel = %box;
-						commandName["Select"] = "Remove";
-						commandSelect = "OptionsGui.removeBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
-						controlName["Cancel"] = "Cancel";
+					controlLeft = %buttonName;
+					controlCancel = %box;
+					commandName["Select"] = "Remove";
+					commandSelect = "OptionsGui.removeBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+					controlName["Cancel"] = "Cancel";
 				});
 				%sideButton = %subButton;
 			}
@@ -3251,9 +3275,9 @@ function OptRemapInputCtrl::onInputEvent(%this, %device, %action) {
 			} else {
 				%prevCmdName = $Options::HotKey[$pref::Input::ControlDevice, %prevMapIndex, "Title"];
 				MessageBoxYesNo("WARNING",
-					"\"" @ %mapName @ "\" is already bound to \""
-					@ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
-					"OptionsGui.redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\");", "");
+				                "\"" @ %mapName @ "\" is already bound to \""
+				                @ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
+				                "OptionsGui.redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\");", "");
 			}
 			return;
 		}
@@ -3302,9 +3326,9 @@ function OptionsGui::event(%this, %joy, %category, %event, %val) {
 					if ($pref::Input::TriggerAction[%otherTrigger] !$= "" && $pref::Input::TriggerAction[%otherTrigger] !$= %this.remapCommand) {
 						//Yes we do, show a warning
 						MessageBoxYesNo("DirectInput Triggers", "Due to the way Windows reads your controller, you will be unable to press" SPC
-							"both LT and RT at the same time. You can still bind an action to each if you want, but note that pressing both" SPC
-							"at the same time will make neither one of the actions happen. Do you still want to bind this?",
-							"OptionsGui.onJoyRebind(\"" @ %axis @ "\");", "OptionsGui.cancelDITriggerBind();");
+						                "both LT and RT at the same time. You can still bind an action to each if you want, but note that pressing both" SPC
+						                "at the same time will make neither one of the actions happen. Do you still want to bind this?",
+						                "OptionsGui.onJoyRebind(\"" @ %axis @ "\");", "OptionsGui.cancelDITriggerBind();");
 					} else {
 						//Don't have the other one bound, just bind it like normal
 						OptionsGui.onJoyRebind(%axis);
@@ -3369,9 +3393,9 @@ function OptionsGui::onJoyRebind(%this, %action) {
 			} else {
 				%prevCmdName = $Options::HotKey[$pref::Input::ControlDevice, %prevMapIndex, "Title"];
 				MessageBoxYesNo("WARNING",
-					"\"" @ %actionName @ "\" is already bound to \""
-					@ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
-					"OptionsGui.setJoyMapping(\"" @ %action @ "\");", "");
+				                "\"" @ %actionName @ "\" is already bound to \""
+				                @ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
+				                "OptionsGui.setJoyMapping(\"" @ %action @ "\");", "");
 			}
 		}
 	}

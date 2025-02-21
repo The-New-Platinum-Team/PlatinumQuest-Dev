@@ -847,5 +847,5 @@ if (!$pref::LegacyItems) {
 		spawnChance = 0.18;
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
-	};						
+	};
 }

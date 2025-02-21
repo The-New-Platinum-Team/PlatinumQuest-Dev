@@ -137,23 +137,20 @@ function onPhase3Complete() {
 			$skyMBG = false;
 		}
 	}
-	
+
 	//Automatic Audio
 	if ($pref::AutomaticAudio) {
 		$optimizedaudio = false;
-		if (Sky.materialList $= "platinum/data/skies/sky_day.dml") { 
+		if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
 			loadAudioPack(mbg);
-		} else if 
-			((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra")) {
+		} else if ((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra")) {
 			loadAudioPack(mbu);
-		} else if 
-			((MissionInfo.game $= "Platinum") || ((Sky.materialList $= "platinum/data/skies/Beginner/Beginner_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Intermediate/Intermediate_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Advanced/Advanced_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Expert/Expert_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Bonus/Bonus_Sky.dml") || (Sky.materialList $= "platinum/data/skies/SpaceStation/SpaceStationSky.dml"))) {
+		} else if ((MissionInfo.game $= "Platinum") || ((Sky.materialList $= "platinum/data/skies/Beginner/Beginner_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Intermediate/Intermediate_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Advanced/Advanced_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Expert/Expert_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Bonus/Bonus_Sky.dml") || (Sky.materialList $= "platinum/data/skies/SpaceStation/SpaceStationSky.dml"))) {
 			loadAudioPack(mbp);
-		} else if 
-			((MissionInfo.game $= "PlatinumQuest") || (MissionInfo.modification $= "PlatinumQuest")) {
+		} else if ((MissionInfo.game $= "PlatinumQuest") || (MissionInfo.modification $= "PlatinumQuest")) {
 			loadAudioPack($pref::Audio::AudioPack);
 		}
-    } else if (!$optimizedaudio) {
+	} else if (!$optimizedaudio) {
 		$optimizedaudio = true;
 		loadAudioPack($pref::Audio::AudioPack);
 	}

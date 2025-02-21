@@ -60,8 +60,8 @@ function PNEdit(%gui) {
 	}
 	//if (isObject(PNE_Name.getValue()))
 	//{
-		//Assert("Info", "Node name already exists");
-		//return;
+	//Assert("Info", "Node name already exists");
+	//return;
 	//}
 	//else
 	%node.setName(PNE_Name.getValue());
@@ -122,7 +122,7 @@ function BuildSomeNodes(%name, %number, %loop) {
 		else
 			%next = %name @ (%i + 1);
 
-		%node = new StaticShape(%name @ %i){
+		%node = new StaticShape(%name @ %i) {
 			position = %x SPC (%y + (%i * 2)) SPC %z;
 			rotation = "1 0 0 0";
 			scale = "1 1 1";
@@ -156,7 +156,7 @@ function newNode(%prevnode) {
 
 	%pos = %prevnode.getPosition();
 
-	%node = new StaticShape(%basename @ %number++){
+	%node = new StaticShape(%basename @ %number++) {
 		position = vectorAdd(%pos, "0 2 0");
 		rotation = "1 0 0 0";
 		scale = "1 1 1";

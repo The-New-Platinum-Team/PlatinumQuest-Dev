@@ -32,8 +32,8 @@ new GuiControl(LBChatGui) {
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		_guiSize = "800 600";
-		defaultControl = "LBChatSinglePlayer";
+	_guiSize = "800 600";
+	defaultControl = "LBChatSinglePlayer";
 
 	new GuiControl() {
 		profile = "GuiDefaultProfile";
@@ -72,8 +72,8 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlLeft = "LBChatReplays";
-					controlUp = "LBChatOptions";
+				controlLeft = "LBChatReplays";
+				controlUp = "LBChatOptions";
 			};
 			new GuiBorderButtonCtrl(LBChatSinglePlayer) {
 				profile = "PQButtonProfile";
@@ -90,7 +90,7 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlRight = "LBChatMultiplayer";
+				controlRight = "LBChatMultiplayer";
 			};
 			new GuiBorderButtonCtrl(LBChatProfile) {
 				profile = "PQButtonProfile";
@@ -107,9 +107,9 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlDown = "LBChatReplays";
-					controlLeft = "LBChatLeaderboards";
-					controlRight = "LBChatOptions";
+				controlDown = "LBChatReplays";
+				controlLeft = "LBChatLeaderboards";
+				controlRight = "LBChatOptions";
 			};
 			new GuiBorderButtonCtrl(LBChatOptions) {
 				profile = "PQButtonProfile";
@@ -126,8 +126,8 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlDown = "LBChatLogout";
-					controlLeft = "LBChatProfile";
+				controlDown = "LBChatLogout";
+				controlLeft = "LBChatProfile";
 			};
 			new GuiBorderButtonCtrl(LBChatReplays) {
 				profile = "PQButtonProfile";
@@ -144,8 +144,8 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlRight = "LBChatLogout";
-					controlUp = "LBChatProfile";
+				controlRight = "LBChatLogout";
+				controlUp = "LBChatProfile";
 			};
 			new GuiBorderButtonCtrl(LBChatLeaderboards) {
 				profile = "PQButtonProfile";
@@ -162,8 +162,8 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlLeft = "LBChatMarbleland";
-					controlRight = "LBChatChallenges";
+				controlLeft = "LBChatMarbleland";
+				controlRight = "LBChatChallenges";
 			};
 			new GuiBorderButtonCtrl(LBChatMultiplayer) {
 				profile = "PQButtonProfile";
@@ -180,8 +180,8 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlLeft = "LBChatSinglePlayer";
-					controlRight = "LBChatMarbleland";
+				controlLeft = "LBChatSinglePlayer";
+				controlRight = "LBChatMarbleland";
 			};
 			new GuiBorderButtonCtrl(LBChatMarbleland) {
 				profile = "PQButtonProfile";
@@ -198,8 +198,8 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlLeft = "LBChatMultiplayer";
-					controlRight = "LBChatLeaderboards";
+				controlLeft = "LBChatMultiplayer";
+				controlRight = "LBChatLeaderboards";
 			};
 			new GuiBorderButtonCtrl(LBChatChallenges) {
 				profile = "PQButtonProfile";
@@ -216,8 +216,8 @@ new GuiControl(LBChatGui) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlLeft = "LBChatLeaderboards";
-					controlRight = "LBChatProfile";
+				controlLeft = "LBChatLeaderboards";
+				controlRight = "LBChatProfile";
 			};
 			new GuiMLTextCtrl(LBChallengeDesc) {
 				profile = "GuiMLTextProfile";
@@ -351,9 +351,9 @@ new GuiControl(LBChatGui) {
 					password = "0";
 					tabComplete = "0";
 					sinkAllKeyEvents = "0";
-						allowColorChars = "1";
-						lineSpacing = "2";
-						maxChars = "255";
+					allowColorChars = "1";
+					lineSpacing = "2";
+					maxChars = "255";
 				};
 				new GuiMLTextCtrl(LBSendChatDisabledText) {
 					profile = "GuiMediumTextEditProfile";
@@ -463,7 +463,7 @@ function LBChatGui::onWake(%this) {
 	LBChatContainer.schedule(1000, scrollToBottom);
 
 	LBServerDescText.setText("<color:FFFFFF><bold:22><shadow:1:1><shadowcolor:0000007f>Leaderboards Server v8 @ " @ $LB::Server @ " - Running " @ $THIS_VERSION_NAME @ " / " @ $THIS_VERSION_SUB);
-	
+
 	if (getWord($pref::Video::resolution, 0) >= 1280) {
 		LBChallengeDesc.setText("<font:24>" @ $CurrentWeeklyChallenge.description SPC "Challenge: Ending in" SPC PlayMissionGui.ml.lookupGame["challenge"].duration);
 	}
@@ -717,13 +717,13 @@ function addLBChatLine(%message) {
 	$LB::ChatText = $LB::ChatText NL "<spush>" @ %message @ "<spop>";
 
 	traceGuard();
-		// Too many chat lines causes some people to crash. This tries to avoid that.
-		if (strlen($LB::ChatText) > 20000) {
-			while (strlen($LB::ChatText) > 10000) {
-				popLBChatLine();
-			}
-			%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	// Too many chat lines causes some people to crash. This tries to avoid that.
+	if (strlen($LB::ChatText) > 20000) {
+		while (strlen($LB::ChatText) > 10000) {
+			popLBChatLine();
 		}
+		%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	}
 	traceGuardEnd();
 
 	LBUpdateChat(%message);
@@ -735,25 +735,25 @@ function LBUpdateChat(%message) {
 
 		traceGuard();
 
-			// \x10 is the font, \x11 is the size
-			if (LBChatGui.isAwake()) {
-				LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", $DefaultFont), "\x11", 17), "chat"));
-				LBChatText.forceReflow();
-				LBChatContainer.scrollToBottom();
-			}
+		// \x10 is the font, \x11 is the size
+		if (LBChatGui.isAwake()) {
+			LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", $DefaultFont), "\x11", 17), "chat"));
+			LBChatText.forceReflow();
+			LBChatContainer.scrollToBottom();
+		}
 
-			// add it to playGui too
-			if (PlayGUI.isAwake()) {
-				PG_LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", $DefaultFont), "\x11", 17), "ingame"));
-				PG_LBChatText.forceReflow();
-				PG_LBChatScroll.scrollToBottom();
-			}
+		// add it to playGui too
+		if (PlayGUI.isAwake()) {
+			PG_LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", $DefaultFont), "\x11", 17), "ingame"));
+			PG_LBChatText.forceReflow();
+			PG_LBChatScroll.scrollToBottom();
+		}
 
-			if (PlayMissionGui.isAwake()) {
-				PM_LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", $DefaultFont), "\x11", 17), "chat"));
-				PM_LBChatText.forceReflow();
-				PM_LBChatContainer.scrollToBottom();
-			}
+		if (PlayMissionGui.isAwake()) {
+			PM_LBChatText.setText(LBResolveChatColors(strReplace(strReplace(%text, "\x10", $DefaultFont), "\x11", 17), "chat"));
+			PM_LBChatText.forceReflow();
+			PM_LBChatContainer.scrollToBottom();
+		}
 
 		traceGuardEnd();
 	} else {

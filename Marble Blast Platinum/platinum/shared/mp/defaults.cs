@@ -198,10 +198,10 @@ $MPPref::Server::StealMode = false;
 
 function MPloadPrefs() {
 	traceGuard();
-		%file = expandFilename("./prefs.cs");
-		if (isFile(%file)) {
-			safeExecPrefs(%file);
-		}
+	%file = expandFilename("./prefs.cs");
+	if (isFile(%file)) {
+		safeExecPrefs(%file);
+	}
 	traceGuardEnd();
 }
 

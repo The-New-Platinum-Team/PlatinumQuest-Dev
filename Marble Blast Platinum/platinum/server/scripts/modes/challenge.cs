@@ -53,8 +53,8 @@ function Mode_challenge::shouldPickupPowerup(%this, %object) {
 }
 function Mode_challenge::shouldPickupItem(%this, %object) {
 	switch$ (%object.obj.getDataBlock().getName()) {
-		case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
-			return false;
+	case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
+		return false;
 	}
 	return true;
 }

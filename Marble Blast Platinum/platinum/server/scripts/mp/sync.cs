@@ -158,13 +158,13 @@ function serverCmdSyncObjectFinish(%client, %id, %finishCmd, %arg0) {
 	%object = getServerSyncObject(%id);
 	if (isObject(%object)) {
 		traceGuard();
-			// field SPC value TAB field SPC value ....
-			%fields = %object.getFields(1);
+		// field SPC value TAB field SPC value ....
+		%fields = %object.getFields(1);
 
-			//devecho("Sent sync object " @ %object.getSyncId() @ " (" @ %object.getClassName() @ ") to client " @ %this);
+		//devecho("Sent sync object " @ %object.getSyncId() @ " (" @ %object.getClassName() @ ") to client " @ %this);
 
-			// Send off the whole string
-			commandToClientLong(%client, 'SyncObject', %fields, %object.getName(), %id, %finishCmd, %arg0);
+		// Send off the whole string
+		commandToClientLong(%client, 'SyncObject', %fields, %object.getName(), %id, %finishCmd, %arg0);
 		traceGuardEnd();
 	}
 }

@@ -807,7 +807,7 @@ function unspawnGem(%gem, %nocheck) {
 		$Hunt::CurrentGemCount --;
 
 	if ($MPPref::Server::CompetitiveMode && %gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
-	// actually I think "FirstSpawn" is never actually on, lol
+		// actually I think "FirstSpawn" is never actually on, lol
 		$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
 		$Hunt::CurrentCompetitiveGemsLeftBehind -= 1;
 		if ($Hunt::Competitive_TimerIncrementOnLeftbehindPickup) {

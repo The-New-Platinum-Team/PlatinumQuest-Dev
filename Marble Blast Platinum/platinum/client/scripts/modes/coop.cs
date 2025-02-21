@@ -208,9 +208,9 @@ if (!$Server::Dedicated) {
 		bitmap = "~/client/ui/exit/black";
 		wrap = "0";
 		_guiSize = "800 600";
-			defaultControl = "MPCEndGameLobby";
-			commandAlt1 = "MPCoopEndGameDlg.restart();";
-			commandNameAlt1 = "Restart";
+		defaultControl = "MPCEndGameLobby";
+		commandAlt1 = "MPCoopEndGameDlg.restart();";
+		commandNameAlt1 = "Restart";
 
 		new GuiControl() {
 			profile = "GuiDefaultProfile";
@@ -325,7 +325,7 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlRight = "MPCEndGameRate";
+					controlRight = "MPCEndGameRate";
 				};
 				new GuiBorderButtonCtrl(MPCEndGameRate) {
 					profile = "PQButton28Profile";
@@ -342,8 +342,8 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = "MPCEndGameRestart";
-						controlRight = "MPCEndGameLobby";
+					controlLeft = "MPCEndGameRestart";
+					controlRight = "MPCEndGameLobby";
 				};
 				new GuiBorderButtonCtrl(MPCEndGameLobby) {
 					profile = "PQButton28Profile";
@@ -360,8 +360,8 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = "MPCEndGameRate";
-						controlRight = "MPCEndGameNext";
+					controlLeft = "MPCEndGameRate";
+					controlRight = "MPCEndGameNext";
 				};
 				new GuiBorderButtonCtrl(MPCEndGameNext) {
 					profile = "PQButton28Profile";
@@ -378,7 +378,7 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = "MPCEndGameLobby";
+					controlLeft = "MPCEndGameLobby";
 				};
 			};
 			new GuiControl(MPCEndRateContainer) {
@@ -420,7 +420,7 @@ if (!$Server::Dedicated) {
 					repeatPeriod = "1000";
 					repeatDecay = "1";
 					bitmap = "platinum/client/ui/mp/end/rate-negative";
-						controlRight = "MPCEndRateNeutral";
+					controlRight = "MPCEndRateNeutral";
 				};
 				new GuiBitmapButtonCtrl(MPCEndRateNeutral) {
 					profile = "GuiDefaultProfile";
@@ -438,8 +438,8 @@ if (!$Server::Dedicated) {
 					repeatPeriod = "1000";
 					repeatDecay = "1";
 					bitmap = "platinum/client/ui/mp/end/rate-neutral";
-						controlLeft = "MPCEndRateNegative";
-						controlRight = "MPCEndRatePositive";
+					controlLeft = "MPCEndRateNegative";
+					controlRight = "MPCEndRatePositive";
 				};
 				new GuiBitmapButtonCtrl(MPCEndRatePositive) {
 					profile = "GuiDefaultProfile";
@@ -457,7 +457,7 @@ if (!$Server::Dedicated) {
 					repeatPeriod = "1000";
 					repeatDecay = "1";
 					bitmap = "platinum/client/ui/mp/end/rate-positive";
-						controlLeft = "MPCEndRateNeutral";
+					controlLeft = "MPCEndRateNeutral";
 				};
 			};
 		};
@@ -569,7 +569,7 @@ function MPCoopEndGameDlg::updateActive(%this) {
 	MPCEndGameRestart.setActive($Server::Hosting);
 	%this.commandNameAlt1 = (MPCEndGameRestart.isActive() ? "Restart" : "");
 	%this.commandAlt1 = (MPCEndGameRestart.isActive() ? MPCEndGameRestart.command : "");
-	if (ControllerGui.isJoystick()){
+	if (ControllerGui.isJoystick()) {
 		ControllerGui.updateButtons();
 	}
 }
@@ -726,7 +726,7 @@ function MPCoopEndGameDlg::addPlayer(%this, %idx, %count, %name, %gems, %tts, %m
 	//Resize the parent so we can scroll if necessary
 	MPCEndGame_Scroll.setExtent(max(750, (%idx + 1) * %spacing) SPC 270);
 	MPCEndGame_Scroll.add(
-	new GuiControl(%boxName) {
+		new GuiControl(%boxName) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";

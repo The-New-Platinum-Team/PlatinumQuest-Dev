@@ -573,7 +573,7 @@ function LBDefaultQuery(%username, %password) {
 	%username = %username $= "" ? $LB::username : %username;
 
 	traceGuard();
-		%password = %password $= "" ? $LB::Password2 : garbledeguck(%password);
+	%password = %password $= "" ? $LB::Password2 : garbledeguck(%password);
 	traceGuardEnd();
 
 	%key = strRand(40);

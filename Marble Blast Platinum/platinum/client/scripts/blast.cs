@@ -66,7 +66,7 @@ function shouldUpdateBlast() {
 function clientUpdateBlast(%timeDelta) {
 	if ($MP::PartyTripleBlast) // Do not increment it in triple-blast mode
 		return;
-	
+
 	// blast code update
 	if ($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast)
 		$MP::BlastValue += (%timeDelta / 12000);
@@ -81,7 +81,9 @@ function clientUpdateBlast(%timeDelta) {
 
 function performBlast() {
 	%blastValue = ($MP::SpecialBlast ? $MP::BlastRechargePower : mSqrt($MP::BlastValue));
-	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast) && !$MP::SpecialBlast) {%blastValue = mSqrt(0.25);} // 0.2's the 'minimum' blast allowed, but 0.25 feels more like the min
+	if ((($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || $MP::PartyTripleBlast) && !$MP::SpecialBlast) {
+		%blastValue = mSqrt(0.25);   // 0.2's the 'minimum' blast allowed, but 0.25 feels more like the min
+	}
 	//Best results found when whacked from here
 	%attack = "0 0 -1";
 

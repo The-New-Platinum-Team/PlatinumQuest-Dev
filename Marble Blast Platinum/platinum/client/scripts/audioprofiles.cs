@@ -335,7 +335,7 @@ function playMusic(%musicFileBase) {
 }
 
 function playShellMusic() {
-	if (!$TexturePack::MBXP) 
+	if (!$TexturePack::MBXP)
 		playMusic(getMusicFile("Menu"));
 	else
 		playMusic(getMusicFile("XP"));
@@ -384,7 +384,7 @@ function pitchMusic() {
 	//Final Lap Music
 	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.noFinalLapMusic && (playGui.lapsComplete == playGui.lapsTotal) && $InPlayGUI)
 		%targetPitch *= 1.12246; //2 semitones
-	
+
 	//Panic Music
 	if ($pref::panicMusic && playGui.isAlarmActive && $InPlayGUI)
 		%targetPitch *= 1.05946; //1 semitone
@@ -392,12 +392,12 @@ function pitchMusic() {
 	//Temporal Music
 	if ($pref::temporalMusic)
 		%targetPitch *= getTimeScale();
-	
+
 	//Music Triggers + Custom Code
 	if($GlobalMusicPitchHandler $= "" || !$Game::Running || $Game::Menu)
 		$GlobalMusicPitchHandler = 1;
 	%targetPitch *= $GlobalMusicPitchHandler;
-	
+
 	alxSourcef($currentMusicHandle, AL_PITCH, %targetPitch);
 }
 

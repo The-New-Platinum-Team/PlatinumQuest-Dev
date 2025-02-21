@@ -149,10 +149,10 @@ function statsGetMissionIdentifier(%mission) {
 		//difficultyId
 
 		%missionData =  "missionFile="     @ URLEncode(%mission.file) @
-		               "&missionName="     @ URLEncode(%mission.name) @
-		               "&missionHash="     @ URLEncode(getMissionHash(%mission)) @
-		               "&missionGamemode=" @ URLEncode(resolveMissionGameModes(%mission, "")) @
-		               "&difficultyId="    @ URLEncode(%mission.difficultyId) ;
+		                "&missionName="     @ URLEncode(%mission.name) @
+		                "&missionHash="     @ URLEncode(getMissionHash(%mission)) @
+		                "&missionGamemode=" @ URLEncode(resolveMissionGameModes(%mission, "")) @
+		                "&difficultyId="    @ URLEncode(%mission.difficultyId) ;
 	} else {
 		return "missionId=" @ %mission.id;
 	}
@@ -272,13 +272,13 @@ function statsRecordScore(%mission) {
 
 	//Combine them in a nice bitfield
 	%modifiers =
-		  (%gotEasterEgg  ? $Stats::Modifiers::GotEasterEgg  : 0)
-		| (%noJumping     ? $Stats::Modifiers::NoJumping     : 0)
-		| (%specialMode   ? $Stats::Modifiers::SpecialMode   : 0)
-		| (%noTimeTravels ? $Stats::Modifiers::NoTimeTravels : 0)
-		| (%quotaHundred  ? $Stats::Modifiers::QuotaHundred  : 0)
-		| (%gemMadnessAll ? $Stats::Modifiers::GemMadnessAll : 0)
-		| (%controller    ? $Stats::Modifiers::Controller    : 0);
+	    (%gotEasterEgg  ? $Stats::Modifiers::GotEasterEgg  : 0)
+	    | (%noJumping     ? $Stats::Modifiers::NoJumping     : 0)
+	    | (%specialMode   ? $Stats::Modifiers::SpecialMode   : 0)
+	    | (%noTimeTravels ? $Stats::Modifiers::NoTimeTravels : 0)
+	    | (%quotaHundred  ? $Stats::Modifiers::QuotaHundred  : 0)
+	    | (%gemMadnessAll ? $Stats::Modifiers::GemMadnessAll : 0)
+	    | (%controller    ? $Stats::Modifiers::Controller    : 0);
 
 	//Hack
 	%totalBonus = $Time::TotalBonus;
@@ -298,15 +298,15 @@ function statsRecordScore(%mission) {
 	%randomIdentifier = randomString(32);
 
 	statsPost("api/Score/RecordScore.php",
-		statsGetMissionIdentifier(%mission) @
-		"&score=" @ %score @
-		"&scoreType=" @ %scoreType @
-		"&totalBonus=" @ %totalBonus @
-		"&modifiers=" @ %modifiers @
-		"&marbleId=" @ %selection @
-		"&randomIdentifier=" @ %randomIdentifier @
-		%gemFields @
-		%modeFields);
+	          statsGetMissionIdentifier(%mission) @
+	          "&score=" @ %score @
+	          "&scoreType=" @ %scoreType @
+	          "&totalBonus=" @ %totalBonus @
+	          "&modifiers=" @ %modifiers @
+	          "&marbleId=" @ %selection @
+	          "&randomIdentifier=" @ %randomIdentifier @
+	          %gemFields @
+	          %modeFields);
 }
 function statsRecordScoreLine(%line) {
 	%command = firstWord(%line);
@@ -369,10 +369,10 @@ function statsRecordChallengeScore(%mission) {
 	%randomIdentifier = randomString(32);
 
 	statsPost("api/Score/RecordChallengeScore.php",
-		statsGetMissionIdentifier(%mission) @
-		"&score=" @ %score @
-		"&randomIdentifier=" @ %randomIdentifier @
-		%modeFields);
+	          statsGetMissionIdentifier(%mission) @
+	          "&score=" @ %score @
+	          "&randomIdentifier=" @ %randomIdentifier @
+	          %modeFields);
 }
 function statsRecordChallengeScoreLine(%line) {
 	%command = firstWord(%line);
@@ -400,7 +400,7 @@ function statsRecordEgg(%mission, %time) {
 		return;
 	}
 
-		%randomIdentifier = randomString(32);
+	%randomIdentifier = randomString(32);
 
 	statsPost("api/Egg/RecordEgg.php", statsGetMissionIdentifier(%mission) @ "&randomIdentifier=" @ %randomIdentifier @ "&time=" @ removeScientificNotation(%time));
 }
@@ -1019,64 +1019,61 @@ function statsRecordReplay(%mission, %type, %isRetry) {
 	// %req.type = %type;
 }
 
-function LBUpload::onLine(%this, %line)
-{
-    %this.success = true;
+function LBUpload::onLine(%this, %line) {
+	%this.success = true;
 	echo("Response:" SPC %line);
 }
 
-function LBUpload::onDisconnect(%this)
-{
-    if (%this.success) {
-        cancel($LB::UploadReplaySchedule); // Don't retry on success
-    }
-    if (%this.finishCb !$= "") {
-        eval(%this.finishCb @ "(" @ %this.success @ ");");
-    }
-    %this.delete();
+function LBUpload::onDisconnect(%this) {
+	if (%this.success) {
+		cancel($LB::UploadReplaySchedule); // Don't retry on success
+	}
+	if (%this.finishCb !$= "") {
+		eval(%this.finishCb @ "(" @ %this.success @ ");");
+	}
+	%this.delete();
 }
 
-function uploadReplay(%replayfile, %query, %attempt, %finishCb)
-{
-    if (%attempt > 5) {
-        if (%attempt > 10) {
-            MessageBoxOK("Cannot submit replay", "Max attempts reached. Check " @ %file);
-            cancel($LB::UploadReplaySchedule);
-        } else {
-            %fo = new FileObject();
-            if (!%fo.openForRead(%replayfile)) {
-                MessageBoxOk("Cannot submit replay", "Couldn't open replay file");
-                cancel($LB::UploadReplaySchedule);
-                return;
-            }
-            //El cheapo URLEncode
-            %conts = strReplace(%fo.readBase64(), "+", "%2B");
-            %len = strlen(%conts);
+function uploadReplay(%replayfile, %query, %attempt, %finishCb) {
+	if (%attempt > 5) {
+		if (%attempt > 10) {
+			MessageBoxOK("Cannot submit replay", "Max attempts reached. Check " @ %file);
+			cancel($LB::UploadReplaySchedule);
+		} else {
+			%fo = new FileObject();
+			if (!%fo.openForRead(%replayfile)) {
+				MessageBoxOk("Cannot submit replay", "Couldn't open replay file");
+				cancel($LB::UploadReplaySchedule);
+				return;
+			}
+			//El cheapo URLEncode
+			%conts = strReplace(%fo.readBase64(), "+", "%2B");
+			%len = strlen(%conts);
 
-            %fo.close();
-            %fo.delete();
-            if (%len > $TCP::MaxPostLength) {
-                MessageBoxOk("Cannot submit replay", "Replay file is too large to submit. Check " @ %file);
-                cancel($LB::UploadReplaySchedule);
-                return;
-            }
+			%fo.close();
+			%fo.delete();
+			if (%len > $TCP::MaxPostLength) {
+				MessageBoxOk("Cannot submit replay", "Replay file is too large to submit. Check " @ %file);
+				cancel($LB::UploadReplaySchedule);
+				return;
+			}
 
-            // Now we try to do it using the stupid POST params thing that worked for PQ
-            new HTTPObject(LBUpload);
-            %submitquery = getSubStr(%query, 1, strlen(%query)) @ "&conts=" @ %conts;
-            LBUpload.post($LBServerInfo::PQServer, "/api/Replay/RecordReplay.php", "", %submitquery);
-            LBUpload.finishCb = %finishCb;
+			// Now we try to do it using the stupid POST params thing that worked for PQ
+			new HTTPObject(LBUpload);
+			%submitquery = getSubStr(%query, 1, strlen(%query)) @ "&conts=" @ %conts;
+			LBUpload.post($LBServerInfo::PQServer, "/api/Replay/RecordReplay.php", "", %submitquery);
+			LBUpload.finishCb = %finishCb;
 
-            $LB::UploadReplaySchedule = schedule(10000, 0, "uploadReplay", %replayfile, %query, %attempt + 1, %finishCb); // Do it again if it fails
-        }
-    } else {
-        new HttpObject(LBUpload);
-        LBUpload.uploadFile(%replayfile);
-        LBUpload.post($LBServerInfo::PQServer, "/api/Replay/UploadReplay.php" @ %query, "", "");
-        LBUpload.finishCb = %finishCb;
+			$LB::UploadReplaySchedule = schedule(10000, 0, "uploadReplay", %replayfile, %query, %attempt + 1, %finishCb); // Do it again if it fails
+		}
+	} else {
+		new HttpObject(LBUpload);
+		LBUpload.uploadFile(%replayfile);
+		LBUpload.post($LBServerInfo::PQServer, "/api/Replay/UploadReplay.php" @ %query, "", "");
+		LBUpload.finishCb = %finishCb;
 
-        $LB::UploadReplaySchedule = schedule(10000, 0, "uploadReplay", %replayfile, %query, %attempt + 1, %finishCb); // Do it again if it fails
-    }
+		$LB::UploadReplaySchedule = schedule(10000, 0, "uploadReplay", %replayfile, %query, %attempt + 1, %finishCb); // Do it again if it fails
+	}
 }
 
 function uploadReplayFinish(%success) {

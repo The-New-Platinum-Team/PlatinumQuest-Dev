@@ -45,29 +45,29 @@
 // 		shapeFile = "~/data/shapes/Glass/18x3.dts";
 // 	};
 // } else {
-	datablock StaticShapeData(glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/Col/3x3.dts";
-	};
+datablock StaticShapeData(glass_3shape) {
+	shapeFile = "~/data/shapes/Glass/Col/3x3.dts";
+};
 
-	datablock StaticShapeData(glass_6shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/Col/6x3.dts";
-	};
+datablock StaticShapeData(glass_6shape: glass_3shape) {
+	shapeFile = "~/data/shapes/Glass/Col/6x3.dts";
+};
 
-	datablock StaticShapeData(glass_9shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/Col/9x3.dts";
-	};
+datablock StaticShapeData(glass_9shape: glass_3shape) {
+	shapeFile = "~/data/shapes/Glass/Col/9x3.dts";
+};
 
-	datablock StaticShapeData(glass_12shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/Col/12x3.dts";
-	};
+datablock StaticShapeData(glass_12shape: glass_3shape) {
+	shapeFile = "~/data/shapes/Glass/Col/12x3.dts";
+};
 
-	datablock StaticShapeData(glass_15shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/Col/15x3.dts";
-	};
+datablock StaticShapeData(glass_15shape: glass_3shape) {
+	shapeFile = "~/data/shapes/Glass/Col/15x3.dts";
+};
 
-	datablock StaticShapeData(glass_18shape: glass_3shape) {
-		shapeFile = "~/data/shapes/Glass/Col/18x3.dts";
-	};
+datablock StaticShapeData(glass_18shape: glass_3shape) {
+	shapeFile = "~/data/shapes/Glass/Col/18x3.dts";
+};
 // }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -90,25 +90,25 @@ datablock StaticShapeData(ForceFieldBumper : ForceFieldPost) {
 };
 
 function Empty::onAdd(%this, %obj) {
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost" && !lb()) {
-	%obj.setDataBlock("ForceFieldPost");
-	%obj.playThread(0,"ambient_ifl");
-   }
+	if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost" && !lb()) {
+		%obj.setDataBlock("ForceFieldPost");
+		%obj.playThread(0,"ambient_ifl");
+	}
 
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldBumper" && !lb()) {
-	%obj.setDataBlock("ForceFieldBumper");
-	%obj.playThread(0,"ambient_ifl");
-   }
+	if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldBumper" && !lb()) {
+		%obj.setDataBlock("ForceFieldBumper");
+		%obj.playThread(0,"ambient_ifl");
+	}
 
-   if ($TexturePack::MBXP && %obj.realDataBlock $= "Checkpoint_MBXP" && !lb()) {
-	%obj.setDataBlock("Checkpoint_MBXP");
-   }
-}	
+	if ($TexturePack::MBXP && %obj.realDataBlock $= "Checkpoint_MBXP" && !lb()) {
+		%obj.setDataBlock("Checkpoint_MBXP");
+	}
+}
 
 function ForceFieldClass::onAdd(%this, %obj) {
 	if (%this.playAnimation)
 		%obj.playThread(0,"ambient_ifl");
-}	
+}
 
 datablock StaticShapeData(EndPad_MBXP : EndPad) {
 	shapeFile = "~/data/shapes_mbxp/pads/endarea.dts";
