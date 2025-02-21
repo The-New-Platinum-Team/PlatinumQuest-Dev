@@ -116,8 +116,8 @@ function Unlock::getMissionScoreFlags(%mission, %scoreInfo) {
 	if (mp()) {
 		//See if we have more than one other player
 		%vs = !$Server::Hosting //Not host, so there must be someone else who is
-			|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-			|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+		      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+		      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 
 		%index = (%vs ? 0 : 1);
 		%platinumScore = (%mission.platinumScore[%index] ? %mission.platinumScore[%index] : %platinumScore);

@@ -86,18 +86,18 @@ function StartPad_MBU::onMissionReset(%this, %obj) {
 }
 
 function StartPad_MBM::onAdd(%this,%obj) {
-   if ($pref::spchanges && %obj.isTemperable $= "1")
-	%obj.setDataBlock("StartPad_MBU");
+	if ($pref::spchanges && %obj.isTemperable $= "1")
+		%obj.setDataBlock("StartPad_MBU");
 	return StartPadClass::onAdd(%this, %obj);
 }
 
 function EndPad_MBM::onAdd(%this,%obj) {
-   if (($pref::spchanges && %obj.isTemperable $= "1") || ($Server::MissionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") && %obj.tochange == 1)) {   //Because the Ultra Template level needs to have the MBM End Pad (it will crash when making a new level with the MBU Pad), there is a simple mechanism in place to switch out the MBM pad in that level with an MBU pad. ~Connie
-	%obj.setDataBlock("EndPad_MBU");
-	return EndPad_MBU::onAdd(%this, %obj);
-   } else {
-	return EndPadClass::onAdd(%this, %obj);
-   }
+	if (($pref::spchanges && %obj.isTemperable $= "1") || ($Server::MissionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") && %obj.tochange == 1)) {   //Because the Ultra Template level needs to have the MBM End Pad (it will crash when making a new level with the MBU Pad), there is a simple mechanism in place to switch out the MBM pad in that level with an MBU pad. ~Connie
+		%obj.setDataBlock("EndPad_MBU");
+		return EndPad_MBU::onAdd(%this, %obj);
+	} else {
+		return EndPadClass::onAdd(%this, %obj);
+	}
 }
 
 function StartPadClass::onAdd(%this, %obj) {
@@ -115,14 +115,14 @@ function StartPadClass::onAdd(%this, %obj) {
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
 
-    if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
-  		%obj.setDataBlock("StartPad_MBG");
+	if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+		%obj.setDataBlock("StartPad_MBG");
 
 		if ($TexturePack::MBXP && !lb()) {
 			%obj.setDataBlock("StartPad_MBXP");
-		  	%obj.playThread(0,"ambient_ifl");
+			%obj.playThread(0,"ambient_ifl");
 		}
-   }
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -220,16 +220,16 @@ function EndPadClass::onAdd(%this, %obj) {
 	else if (%this.skinCount > 0)
 		%obj.setSkinName(%this.skin[getRandom(%this.skinCount)]);
 
-    if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
-  		%obj.setDataBlock("EndPad_MBG");
+	if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+		%obj.setDataBlock("EndPad_MBG");
 
 		if ($TexturePack::MBXP && !lb()) {
 			%obj.setDataBlock("EndPad_MBXP");
-		  	%obj.playThread(0,"ambient_ifl");
-		  	%obj.playThread(1,"effect_loop");
+			%obj.playThread(0,"ambient_ifl");
+			%obj.playThread(1,"effect_loop");
 			%obj.playThread(2, "effect_vis");
 		}
-   }
+	}
 }
 
 //MBM Datablocks down below.
@@ -239,7 +239,7 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/pads/endarea.dts";
 		skin[0] = "base";
 		skin[1] = "mbm";
-		
+
 		customField[0, "field"  ] = "skin";
 		customField[0, "type"   ] = "string";
 		customField[0, "name"   ] = "Skin Name";

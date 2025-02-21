@@ -41,9 +41,9 @@ function efpupdate() {
 	LargeFunctionDlg.init("editFadingPlatform", "Edit Fading Platform", 1);
 
 	%funcList =
-		"trapdoor" TAB "Trapdoor" NL
-		"periodic" TAB "Periodic" NL
-		"fading" TAB "Fading";
+	    "trapdoor" TAB "Trapdoor" NL
+	    "periodic" TAB "Periodic" NL
+	    "fading" TAB "Fading";
 
 	if (EWorldEditor.getSelectionSize() == 1) {
 		LargeFunctionDlg.addNote("\c5Editing " @ %obj.getName() @ " (Object " @ %obj.getID() @ ")");
@@ -123,7 +123,7 @@ function editFadingPlatform(%gui) {
 
 function efpApply(%obj) {
 	%obj.functionality = $EFPFunctionality;
-		switch$ ($EFPFunctionality) {
+	switch$ ($EFPFunctionality) {
 	case "trapdoor":
 		%obj.fadeOutTime = (EFP_fadeOutTime.getValue() $= "" ? $EFPDefault["fadeOutTime"] : EFP_fadeOutTime.getValue());
 		%obj.invisibleTime = (EFP_invisibleTime.getValue() $= "" ? $EFPDefault["invisibleTime"] : EFP_invisibleTime.getValue());

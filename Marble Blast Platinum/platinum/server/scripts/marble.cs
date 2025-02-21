@@ -141,8 +141,7 @@ if ($pref::Video::particleSystem == 2) {
 		times[2]      = 1.0;
 	};
 
-	datablock ParticleEmitterData(MarbleBounceEmitter) 
-	{
+	datablock ParticleEmitterData(MarbleBounceEmitter) {
 		ejectionPeriodMS = 80;
 		periodVarianceMS = 0;
 		ejectionVelocity = 3.0;
@@ -190,14 +189,14 @@ if ($pref::Video::particleSystem == 2) {
 // };
 
 datablock ParticleEmitterData(MarbleTrailOldEmitter) {
-   ejectionPeriodMS = 5;
-   periodVarianceMS = 0;
-   ejectionVelocity = 0.0;
-   velocityVariance = 0.25;
-   thetaMin         = 80.0;
-   thetaMax         = 90.0;
-   lifetimeMS       = 10000;
-   particles = "TrailParticle";
+	ejectionPeriodMS = 5;
+	periodVarianceMS = 0;
+	ejectionVelocity = 0.0;
+	velocityVariance = 0.25;
+	thetaMin         = 80.0;
+	thetaMax         = 90.0;
+	lifetimeMS       = 10000;
+	particles = "TrailParticle";
 };
 
 //-----------------------------------------------------------------------------
@@ -573,8 +572,8 @@ function createMarbleDatablocks() {
 
 				//So create an empty one first
 				eval("new MarbleData(TempData) {" @
-					"shapeFile = \"" @ expandEscape(%file) @ "\";" @
-				"};");
+				     "shapeFile = \"" @ expandEscape(%file) @ "\";" @
+				     "};");
 				//And steal its collision radius
 				%size = TempData.getCollisionRadius();
 				//Cleaning up
@@ -582,8 +581,8 @@ function createMarbleDatablocks() {
 				//Create new marble datablocks for every shape file (probably won't create
 				// too many datablocks for MB to handle. We didn't need to load quickly)
 				eval("datablock MarbleData(" @ %dataname @ " : LBDefaultMarble) {"@
-					"shapeFile = \"" @ expandEscape(%file) @ "\";" @
-				"};");
+				     "shapeFile = \"" @ expandEscape(%file) @ "\";" @
+				     "};");
 				//And set the new db's radius to the value we got above
 				%dataname.setCollisionRadius(%size);
 			}

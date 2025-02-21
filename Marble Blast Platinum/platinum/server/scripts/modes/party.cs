@@ -385,7 +385,7 @@ function partySwapItems(%enable) {
 				collideable = %item.collideable;
 				static = %item.static;
 				rotate = %item.rotate;
-					item = %item;
+				item = %item;
 			});
 		}
 	}

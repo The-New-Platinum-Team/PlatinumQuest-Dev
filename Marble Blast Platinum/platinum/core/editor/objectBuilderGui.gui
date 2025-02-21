@@ -462,17 +462,15 @@ function ObjectBuilderGui::addField(%this, %name, %type, %text, %value) {
 // Environment
 //------------------------------------------------------------------------------
 
-function ObjectBuilderGui::buildfxSunLight(%this)
-{
+function ObjectBuilderGui::buildfxSunLight(%this) {
 	%this.className = "fxSunLight";
 	%this.process();
 }
 
-function ObjectBuilderGui::buildfxLight(%this)
-{
-   %this.className = "fxLight";
-   %this.addField("dataBlock", "TypeDataBlock", "fxLight Data", "fxLightData");
-   %this.process();
+function ObjectBuilderGui::buildfxLight(%this) {
+	%this.className = "fxLight";
+	%this.addField("dataBlock", "TypeDataBlock", "fxLight Data", "fxLightData");
+	%this.process();
 }
 
 function ObjectBuilderGui::buildSky(%this) {
@@ -505,46 +503,43 @@ function ObjectBuilderGui::buildSun(%this) {
 	%this.process();
 }
 
-function ObjectBuilderGui::buildLightningTorque(%this)
-{
-  %this.className = "LightningTorque";
+function ObjectBuilderGui::buildLightningTorque(%this) {
+	%this.className = "LightningTorque";
 
-  %this.addField("dataBlock", "TypeDataBlock", "Data block", "LightningData DefaultStorm");
+	%this.addField("dataBlock", "TypeDataBlock", "Data block", "LightningData DefaultStorm");
 
-  %this.process();
+	%this.process();
 }
 
-function ObjectBuilderGui::buildWater(%this)
-{
-  %this.className = "WaterBlock";
+function ObjectBuilderGui::buildWater(%this) {
+	%this.className = "WaterBlock";
 
-  // jff: this object needs some work!!
-  %this.addField("extent", "TypePoint3", "Extent", "100 100 10");
-  %this.addField("textureSize", "TypePoint2", "Texture size", "32 32");
-  %this.addField("params[0]", "TypePoint4", "Wave Param0", "0.32 -0.67 0.066 0.5");
-  %this.addField("params[1]", "TypePoint4", "Wave Param1", "0.63 -2.41 0.33 0.21");
-  %this.addField("params[2]", "TypePoint4", "Wave Param2", "0.39 0.39 0.2 0.133");
-  %this.addField("params[3]", "TypePoint4", "Wave Param3", "1.21 -0.61 0.13 -0.33");
-  %this.addField("floodFill", "TypeBool", "Flood fill?", "true");
-  %this.addField("seedPoints", "TypeString", "Seed points", "0 0 1 0 1 1 0 1");
+	// jff: this object needs some work!!
+	%this.addField("extent", "TypePoint3", "Extent", "100 100 10");
+	%this.addField("textureSize", "TypePoint2", "Texture size", "32 32");
+	%this.addField("params[0]", "TypePoint4", "Wave Param0", "0.32 -0.67 0.066 0.5");
+	%this.addField("params[1]", "TypePoint4", "Wave Param1", "0.63 -2.41 0.33 0.21");
+	%this.addField("params[2]", "TypePoint4", "Wave Param2", "0.39 0.39 0.2 0.133");
+	%this.addField("params[3]", "TypePoint4", "Wave Param3", "1.21 -0.61 0.13 -0.33");
+	%this.addField("floodFill", "TypeBool", "Flood fill?", "true");
+	%this.addField("seedPoints", "TypeString", "Seed points", "0 0 1 0 1 1 0 1");
 
-  %this.addField("surfaceTexture", "TypeString", "Surface Texture",
-     "fps/data/water/water");
-  %this.addField("envMapTexture", "TypeString", "Env Map Texture",
-     "fps/data/skies/sunset_0007");
+	%this.addField("surfaceTexture", "TypeString", "Surface Texture",
+	               "fps/data/water/water");
+	%this.addField("envMapTexture", "TypeString", "Env Map Texture",
+	               "fps/data/skies/sunset_0007");
 
-  %this.process();
+	%this.process();
 }
 
-function ObjectBuilderGui::buildTerrain(%this)
-{
-  %this.className = "TerrainBlock";
-  %this.createCallback = "ETerrainEditor.attachTerrain();";
+function ObjectBuilderGui::buildTerrain(%this) {
+	%this.className = "TerrainBlock";
+	%this.createCallback = "ETerrainEditor.attachTerrain();";
 
-  %this.addField("terrainFile", "TypeFile", "Terrain file", "marble/data/terrains/terr1.ter");
-  %this.addField("squareSize", "TypeInt", "Square size", "8");
+	%this.addField("terrainFile", "TypeFile", "Terrain file", "marble/data/terrains/terr1.ter");
+	%this.addField("squareSize", "TypeInt", "Square size", "8");
 
-  %this.process();
+	%this.process();
 }
 
 function ObjectBuilderGui::buildAudioEmitter(%this) {

@@ -2,14 +2,12 @@
 // Weekly Challenge mode
 //-----------------------------------------------------------------------------
 
-if (!isObject(WeeklyChallengeTemplates))
-{
+if (!isObject(WeeklyChallengeTemplates)) {
 	RootGroup.add(new SimGroup(WeeklyChallengeTemplates));
 }
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "bowling";
 		description = "Bowling";
 		paramDesc = "Roll Force: 150%" NL "Gravity: 200%" NL "Friction Force: 200%" NL "Marble Size: 200%";
@@ -25,8 +23,7 @@ Physics::registerLayer("bowling",
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "beachball";
 		description = "Beach Ball";
 		paramDesc = "Gravity: 40%" NL "Marble Size: 300%" NL "No Powerups" NL "Blast";
@@ -40,8 +37,7 @@ Physics::registerLayer("beachball",
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "steelie";
 		description = "Steelie";
 		marbleSizeMult = "0.75";
@@ -56,8 +52,7 @@ Physics::registerLayer("steelie",
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "highjump";
 		description = "High Jump";
 		noPowerups = "1";
@@ -67,24 +62,22 @@ WeeklyChallengeTemplates.add(
 Physics::registerLayer("highjump", "jumpImpulse 24.975 24.975");
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "superball";
 		description = "Superball";
 		paramDesc = "Jump Force: 133%" NL "Bounce Force: 180%" NL "Friction Force: 200%";
 	}
 );
 Physics::registerLayer("superball",
-					   "staticFriction 2.2 2.2" NL
-					   "kineticFriction 1.4 1.4" NL
-					   "bounceKineticFriction 0.4 0.4" NL
-					   "jumpImpulse 9.975 9.975" NL
-					   "bounceRestitution 0.9 0.9"
-					  );
+                       "staticFriction 2.2 2.2" NL
+                       "kineticFriction 1.4 1.4" NL
+                       "bounceKineticFriction 0.4 0.4" NL
+                       "jumpImpulse 9.975 9.975" NL
+                       "bounceRestitution 0.9 0.9"
+                      );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "powerless";
 		description = "Powerless";
 		noPowerups = "1";
@@ -94,8 +87,7 @@ WeeklyChallengeTemplates.add(
 Physics::registerLayer("powerless","");
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "moonwalk";
 		description = "Moon Walk";
 		paramDesc = "Gravity: 17%";
@@ -106,8 +98,7 @@ Physics::registerLayer("moonwalk",
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "megamarble";
 		description = "Mega Marble";
 		marbleSizeMult = "2.5";
@@ -116,12 +107,11 @@ WeeklyChallengeTemplates.add(
 );
 Physics::registerLayer("megamarble",
                        "gravity 28 28" NL
-					   "jumpImpulse 12 12"
+                       "jumpImpulse 12 12"
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "aircontrol";
 		description = "Air Control";
 		paramDesc = "Air Force: 400%" NL "Roll Speed: 10%";
@@ -129,12 +119,11 @@ WeeklyChallengeTemplates.add(
 );
 Physics::registerLayer("aircontrol",
                        "airAcceleration 20 20" NL
-					   "maxRollVelocity 1.5 1.5"
+                       "maxRollVelocity 1.5 1.5"
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "blastclub";
 		description = "Blast Club";
 		tripleBlast = "1";
@@ -144,8 +133,7 @@ WeeklyChallengeTemplates.add(
 Physics::registerLayer("blastclub","");
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "tortoise";
 		description = "Tortoise";
 		paramDesc = "Roll Force: 50%" NL "Air Force: 50%" NL "Friction Force: 200%";
@@ -153,44 +141,41 @@ WeeklyChallengeTemplates.add(
 );
 Physics::registerLayer("tortoise",
                        "airAcceleration 2.5 2.5" NL
-					   "maxRollVelocity 7.5 7.5" NL
-					   "staticFriction 2.2 2.2" NL
-                       "kineticFriction 1.4 1.4" NL
-                       "bounceKineticFriction 0.4 0.4"
-                      );
-
-WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
-		name = "slipslide";
-		description = "Slip and Slide";
-		paramDesc = "Friction Force: 20%";
-	}
-);
-Physics::registerLayer("slipslide",
-					   "staticFriction 0.22 0.22" NL
-					   "kineticFriction 0.14 0.14" NL
-					   "bounceKineticFriction 0.04 0.04"
-                      );
-
-WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
-		name = "groundcontrol";
-		description = "Ground Control";
-		paramDesc = "Friction Force: 200%" NL "Jump Force: 25%";
-	}
-);
-Physics::registerLayer("groundcontrol",
-					   "jumpImpulse 1.875 1.875" NL
+                       "maxRollVelocity 7.5 7.5" NL
                        "staticFriction 2.2 2.2" NL
                        "kineticFriction 1.4 1.4" NL
                        "bounceKineticFriction 0.4 0.4"
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
+		name = "slipslide";
+		description = "Slip and Slide";
+		paramDesc = "Friction Force: 20%";
+	}
+);
+Physics::registerLayer("slipslide",
+                       "staticFriction 0.22 0.22" NL
+                       "kineticFriction 0.14 0.14" NL
+                       "bounceKineticFriction 0.04 0.04"
+                      );
+
+WeeklyChallengeTemplates.add(
+	new ScriptObject(ChallengeTemplate) {
+		name = "groundcontrol";
+		description = "Ground Control";
+		paramDesc = "Friction Force: 200%" NL "Jump Force: 25%";
+	}
+);
+Physics::registerLayer("groundcontrol",
+                       "jumpImpulse 1.875 1.875" NL
+                       "staticFriction 2.2 2.2" NL
+                       "kineticFriction 1.4 1.4" NL
+                       "bounceKineticFriction 0.4 0.4"
+                      );
+
+WeeklyChallengeTemplates.add(
+	new ScriptObject(ChallengeTemplate) {
 		name = "offroad";
 		description = "Offroad";
 		noGems = "1";
@@ -200,8 +185,7 @@ WeeklyChallengeTemplates.add(
 Physics::registerLayer("offroad", "");
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "landlocked";
 		description = "Land Locked";
 		noPowerups = "1";
@@ -210,12 +194,11 @@ WeeklyChallengeTemplates.add(
 	}
 );
 Physics::registerLayer("landlocked",
-					   "jumpImpulse 1.875 1.875"
+                       "jumpImpulse 1.875 1.875"
                       );
 
 WeeklyChallengeTemplates.add(
-	new ScriptObject(ChallengeTemplate)
-	{
+	new ScriptObject(ChallengeTemplate) {
 		name = "rebound";
 		description = "Rebound";
 		paramDesc = "Jump Impulse: 0%" NL "Bounce Force: 200%";
@@ -223,7 +206,7 @@ WeeklyChallengeTemplates.add(
 );
 Physics::registerLayer("rebound",
                        "bounceRestitution 1.005 1.005" NL
-					   "jumpImpulse 0 0"
+                       "jumpImpulse 0 0"
                       );
 
 //Each mode has its own information object that lays out the details and
@@ -293,8 +276,7 @@ function ClientMode_challenge::onActivate(%this, %object) {
 	ModeInfo_challenge.desc = $CurrentWeeklyChallenge.paramDesc;
 }
 
-function updateWeeklyChallengePhysics()
-{
+function updateWeeklyChallengePhysics() {
 	Physics::pushLayerName($CurrentWeeklyChallenge.name);
 }
 

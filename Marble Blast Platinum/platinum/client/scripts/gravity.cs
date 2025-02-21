@@ -147,9 +147,12 @@ function AlterGravityTrigger_onPlayerEnter(%this, %trigger, %player) {
 
 function AlterGravityTrigger_onPlayerLeave(%this, %trigger, %player) {
 	switch$ (%trigger.GravityAxis) {
-	case "x": %gdim = 0;
-	case "y": %gdim = 1;
-	case "z": %gdim = 2;
+	case "x":
+		%gdim = 0;
+	case "y":
+		%gdim = 1;
+	case "z":
+		%gdim = 2;
 	}
 	%rot = $AG::ClosestRot;
 	%rotation = "0 0 0" SPC -mDegToRad(%rot);
@@ -161,14 +164,20 @@ function AlterGravityTrigger_onPlayerLeave(%this, %trigger, %player) {
 function AlterGravityTrigger_getDownVector(%this, %trigger, %point) {
 	//get the lowest bound of the trigger
 	switch$ (%trigger.MeasureAxis) {
-	case "x": %dim = 0;
-	case "y": %dim = 1;
-	case "z": %dim = 2;
+	case "x":
+		%dim = 0;
+	case "y":
+		%dim = 1;
+	case "z":
+		%dim = 2;
 	}
 	switch$ (%trigger.GravityAxis) {
-	case "x": %gdim = 0;
-	case "y": %gdim = 1;
-	case "z": %gdim = 2;
+	case "x":
+		%gdim = 0;
+	case "y":
+		%gdim = 1;
+	case "z":
+		%gdim = 2;
 	}
 
 	%m = getWord(%point, %dim);

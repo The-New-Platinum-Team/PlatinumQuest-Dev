@@ -740,23 +740,23 @@ function Cannon::initFields(%this, %obj) {
 }
 
 $Editor::Fields["Cannon"] =
-	"useCharge" SPC
-	"chargeTime" SPC
-	"force" SPC
-	"yaw" SPC
-	"pitch" SPC
-	"pitchBoundLow" SPC
-	"pitchBoundHigh" SPC
-	"yawBoundLeft" SPC
-	"yawBoundRight" SPC
-	"yawLimit" SPC
-	"instant" SPC
-	"instantDelayTime" SPC
-	"useBase" SPC
-	"lockTime" SPC
-	"lockCam" SPC
-	"basename" SPC
-	"showReticle" SPC
-	"showAim" SPC
-	"aimSize" SPC
-	"aimTriggers";
+    "useCharge" SPC
+    "chargeTime" SPC
+    "force" SPC
+    "yaw" SPC
+    "pitch" SPC
+    "pitchBoundLow" SPC
+    "pitchBoundHigh" SPC
+    "yawBoundLeft" SPC
+    "yawBoundRight" SPC
+    "yawLimit" SPC
+    "instant" SPC
+    "instantDelayTime" SPC
+    "useBase" SPC
+    "lockTime" SPC
+    "lockCam" SPC
+    "basename" SPC
+    "showReticle" SPC
+    "showAim" SPC
+    "aimSize" SPC
+    "aimTriggers";

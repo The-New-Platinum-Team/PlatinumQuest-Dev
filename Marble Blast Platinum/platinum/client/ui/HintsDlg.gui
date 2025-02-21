@@ -30,10 +30,10 @@ new GuiControl(HintsDlg) {
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		defaultControl = "Hints_Scroll";
-		commandSelect = "HintsDlg.close();";
-		commandCancel = "HintsDlg.close();";
-		commandNameSelect = "Close";
+	defaultControl = "Hints_Scroll";
+	commandSelect = "HintsDlg.close();";
+	commandCancel = "HintsDlg.close();";
+	commandNameSelect = "Close";
 
 	new GuiControl() {
 		profile = "GuiDefaultProfile";
@@ -158,7 +158,7 @@ function HintsDlg::onWake(%this) {
 	%mission = PlayMissionGui.getMissionInfo();
 
 	if (%mission.partial) {
-		%mission = getMissionInfo(%mission.file, false); // Get the proper missioninfo with the hints and etc		
+		%mission = getMissionInfo(%mission.file, false); // Get the proper missioninfo with the hints and etc
 	}
 
 	%title = "<bold:28>" @ %mission.name @ ":";
@@ -186,7 +186,7 @@ function HintsDlg::onWake(%this) {
 		if (%mission.eastereggHint !$= "" && %this.shouldShowEasterEgg(%mission)) {
 			%text = %text @ "<condensed:24>Easter Egg Hint\n<font:17>" @ %mission.eastereggHint @ "\n\n";
 		}
-		
+
 
 		//Trivia at the end
 

@@ -168,7 +168,7 @@ if (!isObject(TooltipGui)) new GuiControl(TooltipGui) {
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-				noInvert = "1";
+			noInvert = "1";
 		};
 		new GuiButtonBaseCtrl(TooltipClose) {
 			profile = "GuiDefaultProfile";

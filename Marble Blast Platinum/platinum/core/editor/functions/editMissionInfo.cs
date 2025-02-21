@@ -391,13 +391,13 @@ function editMissionInfo(%gui) {
 	miAssign(radarDistance, EMI_RadarDistance);
 	miAssign(radarGemDistance, EMI_RadarGemDistance);
 	%flags = 0
-		| (EMI_Radar_Flags_Gems.getValue() ? $Radar::Flags::Gems : 0)
-		| (EMI_Radar_Flags_TimeTravels.getValue() ? $Radar::Flags::TimeTravels : 0)
-		| (EMI_Radar_Flags_EndPad.getValue() ? $Radar::Flags::EndPad : 0)
-		| (EMI_Radar_Flags_Checkpoints.getValue() ? $Radar::Flags::Checkpoints : 0)
-		| (EMI_Radar_Flags_Cannons.getValue() ? $Radar::Flags::Cannons : 0)
-		| (EMI_Radar_Flags_Powerups.getValue() ? $Radar::Flags::Powerups : 0)
-	;
+	         | (EMI_Radar_Flags_Gems.getValue() ? $Radar::Flags::Gems : 0)
+	         | (EMI_Radar_Flags_TimeTravels.getValue() ? $Radar::Flags::TimeTravels : 0)
+	         | (EMI_Radar_Flags_EndPad.getValue() ? $Radar::Flags::EndPad : 0)
+	         | (EMI_Radar_Flags_Checkpoints.getValue() ? $Radar::Flags::Checkpoints : 0)
+	         | (EMI_Radar_Flags_Cannons.getValue() ? $Radar::Flags::Cannons : 0)
+	         | (EMI_Radar_Flags_Powerups.getValue() ? $Radar::Flags::Powerups : 0)
+	         ;
 	MissionInfo.customRadarRule = %flags;
 
 	miAssign(blast, EMI_Blast);

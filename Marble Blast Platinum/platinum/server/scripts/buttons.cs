@@ -88,7 +88,7 @@ function Button::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {
 	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material)) return;
 	// Currently activates when any object hits it.
 	//if (%material $= "ButtonMaterial")
-		%this.activate(%obj,true);
+	%this.activate(%obj,true);
 
 	%this.triggerCallback(%obj, %col);
 }

@@ -30,7 +30,7 @@
 
 new GuiControl(ConsoleDlg) {
 	profile = "GuiDefaultProfile";
-		disableControls = "1";
+	disableControls = "1";
 
 	new GuiWindowCtrl() {
 		profile = "GuiWindowProfile";
@@ -122,9 +122,9 @@ new GuiControl(ConsoleDlg) {
 			text = "Last Cmd";
 			buttonType = "RepeaterButton";
 			command = "ConsoleEntry.setValue($lastCommand);";
-            repeatPeriod = 350;
-            accelerator = "up";
-            repeatDecay = 100;
+			repeatPeriod = 350;
+			accelerator = "up";
+			repeatDecay = 100;
 		};
 	};
 };
@@ -171,7 +171,7 @@ function ConsoleEntry::eval(%this, %echoCommand) {
 	//	}
 	//}
 
-   //MenuOnlineButton.setActive(false);
+	//MenuOnlineButton.setActive(false);
 
 	%cheatExpr = strReplace(%testExpr, " ", "_");
 	if (isFunction("cheat_" @ %cheatExpr)) {
@@ -181,8 +181,12 @@ function ConsoleEntry::eval(%this, %echoCommand) {
 	}
 
 	if (%echoCommand $= "echo") {
-		if (getSubStr(%text, strlen(%text)-1, 1) $= ";") {%text = getSubStr(%text, 0, strlen(%text)-1);} // drop semicolon at end if echoed
-		if (getSubStr(%text, 0, 4) $= "echo") {%text = getSubStr(%text, 4, strlen(%text)-1);} // drop "echo" at the start
+		if (getSubStr(%text, strlen(%text)-1, 1) $= ";") {
+			%text = getSubStr(%text, 0, strlen(%text)-1);   // drop semicolon at end if echoed
+		}
+		if (getSubStr(%text, 0, 4) $= "echo") {
+			%text = getSubStr(%text, 4, strlen(%text)-1);   // drop "echo" at the start
+		}
 		%text = "echo(" @ %text @ ");";
 	}
 	%text = strreplace(%text, ";;", ";");
@@ -347,7 +351,9 @@ package Mew {
 	}
 	function input_moveLeft(%val) {
 		Parent::input_moveLeft(%val);
-		if (!$Cheats::Mew) {return;}
+		if (!$Cheats::Mew) {
+			return;
+		}
 		if (isMovingDiagonally()) {
 			nerfDiagonals();
 		} else {
@@ -357,7 +363,9 @@ package Mew {
 
 	function input_moveRight(%val) {
 		Parent::input_moveRight(%val);
-		if (!$Cheats::Mew) {return;}
+		if (!$Cheats::Mew) {
+			return;
+		}
 		if (isMovingDiagonally()) {
 			nerfDiagonals();
 		} else {
@@ -367,7 +375,9 @@ package Mew {
 
 	function onFrameAdvance(%time_or_whatever) {
 		Parent::onFrameAdvance(%time_or_whatever);
-		if (!$Cheats::Mew || !MPGetMyMarble()) {return;}
+		if (!$Cheats::Mew || !MPGetMyMarble()) {
+			return;
+		}
 		$Mew_Speedcap = 75;
 		%velocity = MPGetMyMarble().getVelocity();
 		if (VectorLen(%velocity) > 75) {
@@ -438,19 +448,19 @@ function cheat_sv_cheats_0() {
 	echo("without these ridiculous hard-coded cheat messages.");
 	$Editor::Enabled = 0;
 }
-function cheat_boo(){
+function cheat_boo() {
 	if (!%this.marbleland && !lb()) {
 		if (%PlayMissionGui.frightfest) PlayMissionGui.disableFrightfest();
 		else                            PlayMissionGui.enableFrightfest();
 	}
 }
-function cheat_hohoho(){
+function cheat_hohoho() {
 	if (!%this.marbleland && !lb()) {
 		if (%PlayMissionGui.winterfest) PlayMissionGui.disableWinterfest();
 		else                            PlayMissionGui.enableWinterfest();
 	}
 }
-function cheat_gaster(){
+function cheat_gaster() {
 	d();
 }
 function cheat_super() {
@@ -459,7 +469,7 @@ function cheat_super() {
 }
 $Cheats::Hot = false;
 function cheat_hot() {
-	if($Cheats::Super){
+	if($Cheats::Super) {
 		$Cheats::Activated = true;
 		$Cheats::Hot = !$Cheats::Hot;
 		if($Cheats::Hot) {

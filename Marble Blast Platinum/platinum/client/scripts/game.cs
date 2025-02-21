@@ -329,16 +329,16 @@ function recordScore() {
 			if (%awesomeMessage) {
 				alxPlay(GotAwesomeSfx);
 			} else if ($pref::LevelAwesomes[$Server::MissionFile] > 4 &&
-				getField(%score, 0) == $ScoreType::Time &&
-				MissionInfo.awesomeTime && getField(%score, 1) < (MissionInfo.awesomeTime * 0.9) &&
-				getRandom() > 0.75) {
+			           getField(%score, 0) == $ScoreType::Time &&
+			           MissionInfo.awesomeTime && getField(%score, 1) < (MissionInfo.awesomeTime * 0.9) &&
+			           getRandom() > 0.75) {
 				//Super awesome or some bs
 				alxPlay(GotAwesomeSfx);
 				alxPlay(GotAwesomeAwesomeSfx);
 			} else if ($pref::LevelAwesomes[$Server::MissionFile] > 4 &&
-				getField(%score, 0) == $ScoreType::Score &&
-				MissionInfo.awesomeScore && getField(%score, 1) > (MissionInfo.awesomeScore * 1.15) &&
-				getRandom() > 0.75) {
+			           getField(%score, 0) == $ScoreType::Score &&
+			           MissionInfo.awesomeScore && getField(%score, 1) > (MissionInfo.awesomeScore * 1.15) &&
+			           getRandom() > 0.75) {
 				//Super awesome or some bs
 				alxPlay(GotAwesomeSfx);
 				alxPlay(GotAwesomeAwesomeSfx);
@@ -371,8 +371,7 @@ function recordScore() {
 				%marblelandScoreName = $LB::DisplayName;
 			else
 				%marblelandScoreName = $LB::Username;
-		}
-		else if ($pref::highScoreName !$= "")
+		} else if ($pref::highScoreName !$= "")
 			%marblelandScoreName = $pref::highScoreName;
 
 		MarblelandSubmit($Server::MissionFile, %marblelandScoreName, getField(%score, 1), getField(%score, 0));
@@ -485,10 +484,10 @@ function clientCmdGameEnd() {
 			EnterNameBox.setVisible(!%awesomeMessage);
 			EnterNameAwesomeBox.setVisible(%awesomeMessage);
 			EnterNameAwesomeText.setText("<just:center><bold:30>You beat an <spush><color:FF4444>Awesome " @ (%useLess ? "Time" : "Score") @ "<spop>!" NL
-				"<font:19>Every PlatinumQuest level has an Awesome Time or Score" SPC
-				"that requires plenty of skill to beat. They are based on the staff's best," SPC
-				"aimed for the hardcore players, and made to be pretty difficult." @
-				"<font:Arial:9>\n\n<font:19><just:center>Are you prepared for the <spush><color:200000>awesome<spop> quest awaiting you?");
+			                             "<font:19>Every PlatinumQuest level has an Awesome Time or Score" SPC
+			                             "that requires plenty of skill to beat. They are based on the staff's best," SPC
+			                             "aimed for the hardcore players, and made to be pretty difficult." @
+			                             "<font:Arial:9>\n\n<font:19><just:center>Are you prepared for the <spush><color:200000>awesome<spop> quest awaiting you?");
 			highScoreNameChanged();
 		}
 
@@ -666,7 +665,7 @@ function reformatGameEndText() {
 	%awesomeType  = (%awesomeTimeLabel  $= "N/A" ? "Score" : "Time");
 
 	//Get the world record
-	%record = false; 
+	%record = false;
 
 	%isMarbleland = marblelandIsMission($Client::MissionFile);
 
@@ -807,11 +806,16 @@ function reformatGameEndText() {
 			%scoreText = %scoreText @ "<color:00DD00><shadowcolor:7777777F>" @(%i + 1) @ ". ";
 		} else {
 			switch (%i) {
-			case 0: %scoreText = %scoreText @ "<color:eec884><shadowcolor:816d48>1. ";
-			case 1: %scoreText = %scoreText @ "<color:cdcdcd><shadowcolor:7e7e7e>2. ";
-			case 2: %scoreText = %scoreText @ "<color:c9afa0><shadowcolor:7f6f65>3. ";
-			case 3: %scoreText = %scoreText @ "<color:a4a4a4><shadowcolor:7e7e7e>4. ";
-			case 4: %scoreText = %scoreText @ "<color:949494><shadowcolor:7f6f65>5. ";
+			case 0:
+				%scoreText = %scoreText @ "<color:eec884><shadowcolor:816d48>1. ";
+			case 1:
+				%scoreText = %scoreText @ "<color:cdcdcd><shadowcolor:7e7e7e>2. ";
+			case 2:
+				%scoreText = %scoreText @ "<color:c9afa0><shadowcolor:7f6f65>3. ";
+			case 3:
+				%scoreText = %scoreText @ "<color:a4a4a4><shadowcolor:7e7e7e>4. ";
+			case 4:
+				%scoreText = %scoreText @ "<color:949494><shadowcolor:7f6f65>5. ";
 			}
 		}
 

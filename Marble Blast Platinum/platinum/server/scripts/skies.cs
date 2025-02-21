@@ -25,16 +25,14 @@
 // Cloudy
 // DO NOT USE IN MP - Gemlights disappear due to transparency
 
-datablock StaticShapeData(Cloudy)
-{
-  className = "Skies";
-  category = "Skies";
-  shapefile = $usermods @ "/data/shapes/Skies/Cloudy/Cloudy.dts";
+datablock StaticShapeData(Cloudy) {
+	className = "Skies";
+	category = "Skies";
+	shapefile = $usermods @ "/data/shapes/Skies/Cloudy/Cloudy.dts";
 };
 
-function Cloudy::onAdd(%this, %obj)
-{
- %obj.playThread(0, "Rotate");
+function Cloudy::onAdd(%this, %obj) {
+	%obj.playThread(0, "Rotate");
 }
 
 
@@ -114,8 +112,8 @@ function Astrolabe::onAdd(%this, %obj) {
 //MBU Datablocks down below.
 
 if (!$pref::LegacyItems) {
-		// Astrolabe MBU
-		datablock StaticShapeData(Astrolabe) {
+	// Astrolabe MBU
+	datablock StaticShapeData(Astrolabe) {
 		className = "Astrolabe";
 		superCategory = "Scenery";
 		category = "Astrolabe";
@@ -126,8 +124,8 @@ if (!$pref::LegacyItems) {
 
 } else {
 
-		// Ugly ass 1.50 MBP sky
-		datablock StaticShapeData(Astrolabe) {
+	// Ugly ass 1.50 MBP sky
+	datablock StaticShapeData(Astrolabe) {
 		className = "Astrolabe";
 		superCategory = "Scenery";
 		category = "Astrolabe";

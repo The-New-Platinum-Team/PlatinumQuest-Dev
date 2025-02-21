@@ -38,8 +38,8 @@ function Mode_mega::onLoad(%this) {
 }
 function Mode_mega::onCollision(%this, %object) {
 	if ($MP::Teammode &&
-		isObject(%object.client1.team) && isObject(%object.client2.team) &&
-		%object.client1.team.getId() == %object.client2.team.getId()) {
+	        isObject(%object.client1.team) && isObject(%object.client2.team) &&
+	        %object.client1.team.getId() == %object.client2.team.getId()) {
 		//Team kill! No points!
 		return;
 	}

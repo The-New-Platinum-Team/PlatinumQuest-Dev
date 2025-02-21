@@ -154,7 +154,7 @@ function PlayGui::onWake(%this) {
 	PGSpeedometer.setVisible(ClientMode::callback("shouldShowSpeedometer", false));
 
 	if ($pref::alwaysshowspeedometer) {
-	    PGSpeedometer.setVisible(1);	
+		PGSpeedometer.setVisible(1);
 	}
 
 	ClientMode::callback("onShowPlayGui", "");
@@ -200,12 +200,12 @@ function PlayGui::onSleep(%this) {
 }
 
 function PlayGui::updateRecordingIndicator(%this) {
-    if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
+	if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
-        RecordingIndicatorIcon.setVisible(true);
+		RecordingIndicatorIcon.setVisible(true);
 	} else {
-	    PG_RecordingIndicator.setVisible(false);
-		RecordingIndicatorIcon.setVisible(false);	
+		PG_RecordingIndicator.setVisible(false);
+		RecordingIndicatorIcon.setVisible(false);
 	}
 }
 
@@ -357,12 +357,10 @@ function PlayGui::updateGems(%this, %updateMax) {
 		if ($currentGame $= "PlatinumQuest") {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_pq/gameplay/powerups/timetravel.dts";
-		} else if
-		   ($currentGame $= "Ultra") {
+		} else if ($currentGame $= "Ultra") {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_mbu/items/timetravel.dts";
-		} else if
-		   (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+		} else if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
 			%skins = "mbg";
 			%dts = $usermods @ "/data/shapes/items/timetravel.dts";
 		} else {
@@ -412,8 +410,8 @@ function PlayGui::updateGems(%this, %updateMax) {
 	GemsFoundTen.setNumberColor(%ten, %color);
 	GemsFoundOne.setNumberColor(%one, %color);
 
-	GemsFoundHundred.setVisible(!(%hun == 0) || $pref::GemCounterAlwaysThreeDigits); 
-	GemsFoundTen.setVisible(!(%hun == 0 && %ten == 0) || $pref::GemCounterAlwaysThreeDigits || $pref::GemCounterAlwaysTwoDigits); 
+	GemsFoundHundred.setVisible(!(%hun == 0) || $pref::GemCounterAlwaysThreeDigits);
+	GemsFoundTen.setVisible(!(%hun == 0 && %ten == 0) || $pref::GemCounterAlwaysThreeDigits || $pref::GemCounterAlwaysTwoDigits);
 
 	%this.GemsFoundHundredTracked = %hun;
 	%this.GemsFoundTenTracked = %ten;
@@ -436,13 +434,13 @@ function PlayGui::updateGems(%this, %updateMax) {
 		GemsTotalTen.setPosition("120 0");
 		GemsTotalOne.setPosition("144 0");
 	}
-	
+
 	// Since the counter always displays 3 digits, there's no need for this to be active when that setting is also active. ~ Connie
 	if (!$pref::GemCounterAlwaysThreeDigits) {
 		GemsQuota.setPosition((%max < 10? "157" : (%max < 100? "181" : "205")) + (%hun == 0? -24 : 0) SPC "28");
 		// quota is 37 away by default, 120+37=157 144+37=181, -24 if current gems are 2 digit instead of 3 digit
 	}
-	
+
 	if (%maxNeedsToUpdate) {
 		%one = %max % 10;
 		%ten = ((%max - %one) / 10) % 10;
@@ -1159,7 +1157,7 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		PGCountdownTTPoint3.setNumberColor("point", %color);
 		%digits = 6;
 	}
-	
+
 	PGCountdownTTImage.setPosition("348" + %offsetIfThousandths SPC "3");
 	PGCountdownTTFirstDigit.setPosition("375" + %offsetIfThousandths SPC "0");
 	PGCountdownTTFourthDigit.setPosition("429" + %offsetIfThousandths SPC "0");
@@ -1170,7 +1168,7 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		%digits -= 2;
 	else if (!$pref::Thousandths)
 		%digits -= 1;
-	
+
 	//PGCountdownTTFirstDigit.setVisible(%digits >= 1); // Always true
 	//PGCountdownTTSecondDigit.setVisible(%digits >= 2); // Always true
 	PGCountdownTTThirdDigit.setVisible(%digits >= 3);
@@ -1221,7 +1219,7 @@ function PlayGui::updateCountdownLeft(%this, %delta) {
 		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(9, %color);
 		PGCountdownLeftThirdDigitOrDecimal.setPosition("407" + %leftOffset + %offsetIfThousandths SPC "0");
 	}
-	
+
 	PGCountdownLeftImage.setPosition("344" + %leftOffset + %offsetIfThousandths SPC "3"); // 348 - 4 for this one.
 	PGCountdownLeftFirstDigit.setPosition("375" + %leftOffset + %offsetIfThousandths SPC "0");
 	PGCountdownLeftSecondDigit.setPosition("391" + %leftOffset + %offsetIfThousandths SPC "0");

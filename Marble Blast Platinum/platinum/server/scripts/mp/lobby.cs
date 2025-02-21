@@ -160,7 +160,7 @@ function reloadAllPlaymission() {
 function GameConnection::updatePlaymission(%this) {
 	// Basic mission info that is used for playmission
 	traceGuard();
-		%info = $MP::MissionObj.getFields();
+	%info = $MP::MissionObj.getFields();
 	traceGuardEnd();
 	commandToClientLong(%this, 'LobbyMissionInfo', %info, $MP::MissionFile, $CurrentGame, $MissionType, $MP::CurrentMode);
 }
@@ -483,20 +483,20 @@ function GameConnection::updatePlayerlist(%this) {
 		%rating     = %client.rating;
 
 		%playerData =
-			    expandEscape(%client.getUsername())  // 0
-			TAB expandEscape(%client.loadState)      // 1
-			TAB expandEscape(%client.ready)          // 2
-			TAB expandEscape(%host)                  // 3
-			TAB expandEscape(%admim)                 // 4
-			TAB expandEscape(%client.skinChoice)     // 5
-			TAB expandEscape(%team)                  // 6
-			TAB expandEscape(%teamColor)             // 7
-			TAB expandEscape(%ping)                  // 8
-			TAB expandEscape(%nametag)               // 9
-			TAB expandEscape(%specState)             // 10
-			TAB expandEscape(%rating)                // 11
-			TAB %client.index                        // 12
-		;
+		    expandEscape(%client.getUsername())  // 0
+		    TAB expandEscape(%client.loadState)      // 1
+		    TAB expandEscape(%client.ready)          // 2
+		    TAB expandEscape(%host)                  // 3
+		    TAB expandEscape(%admim)                 // 4
+		    TAB expandEscape(%client.skinChoice)     // 5
+		    TAB expandEscape(%team)                  // 6
+		    TAB expandEscape(%teamColor)             // 7
+		    TAB expandEscape(%ping)                  // 8
+		    TAB expandEscape(%nametag)               // 9
+		    TAB expandEscape(%specState)             // 10
+		    TAB expandEscape(%rating)                // 11
+		    TAB %client.index                        // 12
+		    ;
 
 
 		if (%i == 0)
@@ -1077,11 +1077,11 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 		//Send them the file
 
 		traceGuard();
-			%info = getMissionInfo(%mission.file, true).getFields();
-			echo("Info length:" SPC strLen(%info));
+		%info = getMissionInfo(%mission.file, true).getFields();
+		echo("Info length:" SPC strLen(%info));
 
-			//Args are out of order because commandToClientLong puts the long arg in the first arg
-			commandToClientLong(%client, 'MissionListMission', %info, %gameName, %difficultyName);
+		//Args are out of order because commandToClientLong puts the long arg in the first arg
+		commandToClientLong(%client, 'MissionListMission', %info, %gameName, %difficultyName);
 		traceGuardEnd();
 	}
 	commandToClient(%client, 'MissionListEnd', %gameName, %difficultyName);

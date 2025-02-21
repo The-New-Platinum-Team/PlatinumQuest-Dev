@@ -81,16 +81,16 @@ function createNewMission() {
 	if (%missionGame $= "") { //In case the player forgets to change the missionGame thing, throw em in the PQ Template level. ~Connie
 		%missionGame = "PlatinumQuest";
 	}
-	
+
 	switch$ (%missionGame) {
-		case "Gold":
-			%toexec = "/data/missions/templates/GoldTemplate.mis";
-		case "Platinum":
-			%toexec = "/data/missions/templates/PlatinumTemplate.mis";
-		case "Ultra":
-			%toexec = "/data/missions/templates/UltraTemplate.mis";
-		case "PlatinumQuest":
-			%toexec = "/data/missions/templates/PQTemplate.mis";
+	case "Gold":
+		%toexec = "/data/missions/templates/GoldTemplate.mis";
+	case "Platinum":
+		%toexec = "/data/missions/templates/PlatinumTemplate.mis";
+	case "Ultra":
+		%toexec = "/data/missions/templates/UltraTemplate.mis";
+	case "PlatinumQuest":
+		%toexec = "/data/missions/templates/PQTemplate.mis";
 	}
 
 	exec($usermods @ %toexec);

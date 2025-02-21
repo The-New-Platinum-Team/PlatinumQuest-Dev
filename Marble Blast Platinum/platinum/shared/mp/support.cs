@@ -332,15 +332,25 @@ function getCurrentSky() {
 function getTeamColor(%color) {
 	if (%color $= "") return "000000";
 	switch (%color) {
-	case -1: return "000000";
-	case  0: return "ff0000";
-	case  1: return "ffff00";
-	case  2: return "00ff00";
-	case  3: return "00ffff";
-	case  4: return "0000ff";
-	case  5: return "ff00ff";
-	case  6: return "ff8000";
-	case  7: return "8000ff";
-	default: return "000000";
+	case -1:
+		return "000000";
+	case  0:
+		return "ff0000";
+	case  1:
+		return "ffff00";
+	case  2:
+		return "00ff00";
+	case  3:
+		return "00ffff";
+	case  4:
+		return "0000ff";
+	case  5:
+		return "ff00ff";
+	case  6:
+		return "ff8000";
+	case  7:
+		return "8000ff";
+	default:
+		return "000000";
 	}
 }

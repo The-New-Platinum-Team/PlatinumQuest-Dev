@@ -33,9 +33,9 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 	bitmap = "./exit/black";
 	useVariable = "0";
 	tile = "0";
-		commandCancel = "RootGui.popDialog(PlayDemoGui);";
-		commandNameCancel = "Close";
-		defaultControl = "PD_DemoList";
+	commandCancel = "RootGui.popDialog(PlayDemoGui);";
+	commandNameCancel = "Close";
+	defaultControl = "PD_DemoList";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -62,7 +62,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlLeft = "PD_Delete";
+			controlLeft = "PD_Delete";
 		};
 		new GuiBorderButtonCtrl(PD_close) {
 			profile = "PQButtonProfile";
@@ -80,8 +80,8 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlRight = "PD_Delete";
-				controlUp = "PD_DemoList";
+			controlRight = "PD_Delete";
+			controlUp = "PD_DemoList";
 		};
 		new GuiControl() {
 			profile = "PQPanelProfile";
@@ -123,8 +123,8 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 					columns = "0";
 					fitParentWidth = "1";
 					clipColumnText = "0";
-						controlDown = "PD_close";
-						noDuplicates = "false";
+					controlDown = "PD_close";
+					noDuplicates = "false";
 				};
 			};
 		};
@@ -183,10 +183,10 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				borderColor = "255 153 153 255";
-				controlLeft = "PD_close";
-				controlRight = "PD_Edit";
-				controlUp = "PD_DemoList";
+			borderColor = "255 153 153 255";
+			controlLeft = "PD_close";
+			controlRight = "PD_Edit";
+			controlUp = "PD_DemoList";
 		};
 		new GuiBorderButtonCtrl(PD_Edit) {
 			profile = "PQButtonProfile";
@@ -203,9 +203,9 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlLeft = "PD_Delete";
-				controlRight = "PD_play";
-				controlUp = "PD_DemoList";
+			controlLeft = "PD_Delete";
+			controlRight = "PD_play";
+			controlUp = "PD_DemoList";
 		};
 		new GuiControl() {
 			profile = "PQPanelProfile";
@@ -262,7 +262,7 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-				defaultText = "<bold:28><just:center>Watch Replay";
+			defaultText = "<bold:28><just:center>Watch Replay";
 		};
 	};
 };
@@ -379,8 +379,7 @@ function PlayDemoGui::doDelete(%this, %id) {
 	%rrecExistence = getFileSize("platinum/data/recordings/" @ %fbase @ ".rrec") != 0;
 	if (%rrecExistence) {
 		deleteFile(%file);
-	}
-	else {
+	} else {
 		deleteFile("platinum/data/recordings/" @ %fbase @ ".rrec.zip");
 		deleteFile("platinum/data/recordings/" @ %fbase @ ".rrec/" @ %fbase @ ".rrec"); // Delete the rrec resource entry too
 	}

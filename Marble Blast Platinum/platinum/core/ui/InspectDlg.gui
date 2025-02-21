@@ -659,10 +659,10 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 		//Specialty case: bitmaps and bitmap buttons will auto size if you set
 		// their extent to 0 0. Only these classes do that.
 		if (%field $= "extent" && (
-		                 %this.object.getClassName() $= "GuiBitmapCtrl" ||
-		                         %this.object.getClassName() $= "GuiBitmapButtonCtrl" ||
-		                                 %this.object.getClassName() $= "GuiBitmapButtonTextCtrl"
-		             )) {
+		                  %this.object.getClassName() $= "GuiBitmapCtrl" ||
+		                      %this.object.getClassName() $= "GuiBitmapButtonCtrl" ||
+		                          %this.object.getClassName() $= "GuiBitmapButtonTextCtrl"
+		              )) {
 			%fieldWidth -= 50;
 			%group.add(new GuiButtonCtrl() {
 				profile = "GuiButtonProfile";

@@ -545,12 +545,20 @@ function moveSpookyGhost(%obj) {
 // // ----------------------------------------------------------------------------
 
 // // Standard Ghost exhasperations
-datablock AudioProfile(GhostSound1)  { filename = "~/data/sound/ghost/g1.wav"; description = AudioDefault3D; preload = true; };		// Gasp 1
+datablock AudioProfile(GhostSound1)  {
+	filename = "~/data/sound/ghost/g1.wav";
+	description = AudioDefault3D;
+	preload = true;
+};		// Gasp 1
 // datablock AudioProfile(GhostSound2)  { filename = "~/data/sound/ghost/g2.wav"; description = AudioDefault3D; preload = true; };		// Gasp 2
 // datablock AudioProfile(GhostSound3)  { filename = "~/data/sound/ghost/g3.wav"; description = AudioDefault3D; preload = true; };		// Exhale 1
 // datablock AudioProfile(GhostSound4)  { filename = "~/data/sound/ghost/g4.wav"; description = AudioDefault3D; preload = true; };		// Exhale 2
 // datablock AudioProfile(GhostSound5)  { filename = "~/data/sound/ghost/g23.wav"; description = AudioDefault3D; preload = true; };	// Shriek noise thing
-datablock AudioProfile(GhostSound6)  { filename = "~/data/sound/ghost/g47.wav"; description = AudioDefault3D; preload = true; };	// Haunting Laughter
+datablock AudioProfile(GhostSound6)  {
+	filename = "~/data/sound/ghost/g47.wav";
+	description = AudioDefault3D;
+	preload = true;
+};	// Haunting Laughter
 // datablock AudioProfile(GhostSound7)  { filename = "~/data/sound/ghost/g17.wav"; description = AudioDefault3D; preload = true; };	// Soft Coughing
 // datablock AudioProfile(GhostSound8)  { filename = "~/data/sound/ghost/g18.wav"; description = AudioDefault3D; preload = true; };	// Soft Coughing 2
 // datablock AudioProfile(GhostSound9)  { filename = "~/data/sound/ghost/g71.wav"; description = AudioDefault3D; preload = true; };	// Sigh
@@ -660,7 +668,11 @@ datablock AudioProfile(GhostSound6)  { filename = "~/data/sound/ghost/g47.wav"; 
 // datablock AudioProfile(GhostSoundFun) { filename = "~/data/sound/ghost/g112.wav"; description = AudioDefault3D; preload = true; };			// Ooh Aah I am a Ghost
 
 // // Play an Airhorn meme every 1/400 times.
-datablock AudioProfile(GhostSoundAirhorn) { filename = "~/data/sound/ghost/airhorn.wav"; description = AudioDefault3D; preload = true; };	// AIRHORN.WAAAAAAAAV
+datablock AudioProfile(GhostSoundAirhorn) {
+	filename = "~/data/sound/ghost/airhorn.wav";
+	description = AudioDefault3D;
+	preload = true;
+};	// AIRHORN.WAAAAAAAAV
 
 // // Truly Terrifying noises. 1/500 choose one of these randomly.
 // datablock AudioProfile(GhostSoundScary1) { filename = "~/data/sound/ghost/GETOUT.wav"; description = AudioDefault3D; preload = true; };		// GET OUT

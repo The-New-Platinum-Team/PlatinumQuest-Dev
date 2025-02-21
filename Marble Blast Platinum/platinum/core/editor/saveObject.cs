@@ -168,33 +168,33 @@ function SimObject::saveFieldCompare(%this, %aname, %avalue, %bname, %bvalue) {
 }
 
 $Editor::Fields["MissionInfo"] =
-	"name" SPC
-	"type" SPC
-	"level" SPC
-	"desc" SPC
-	"startHelpText" SPC
-	"artist" SPC
-	"music" SPC
-	"game" SPC
-	"gameMode" SPC
-	"time" SPC
-	"goldTime" SPC
-	"platinumTime" SPC
-	"ultimateTime" SPC
-	"awesomeTime" SPC
-	"score" SPC
-	"platinumScore" SPC
-	"ultimateScore" SPC
-	"awesomeScore" SPC
-	"maxGemsPerSpawn" SPC
-	"radiusFromGem" SPC
-	"redSpawnChance" SPC
-	"yellowSpawnChance" SPC
-	"blueSpawnChance" SPC
-	"platinumSpawnChance" SPC
-	"generalHint" SPC
-	"ultimateHint" SPC
-	"awesomeHint" SPC
-	"eggHint" SPC
-	"eastereggHint" SPC
-	"CustomRadarRule";
+    "name" SPC
+    "type" SPC
+    "level" SPC
+    "desc" SPC
+    "startHelpText" SPC
+    "artist" SPC
+    "music" SPC
+    "game" SPC
+    "gameMode" SPC
+    "time" SPC
+    "goldTime" SPC
+    "platinumTime" SPC
+    "ultimateTime" SPC
+    "awesomeTime" SPC
+    "score" SPC
+    "platinumScore" SPC
+    "ultimateScore" SPC
+    "awesomeScore" SPC
+    "maxGemsPerSpawn" SPC
+    "radiusFromGem" SPC
+    "redSpawnChance" SPC
+    "yellowSpawnChance" SPC
+    "blueSpawnChance" SPC
+    "platinumSpawnChance" SPC
+    "generalHint" SPC
+    "ultimateHint" SPC
+    "awesomeHint" SPC
+    "eggHint" SPC
+    "eastereggHint" SPC
+    "CustomRadarRule";

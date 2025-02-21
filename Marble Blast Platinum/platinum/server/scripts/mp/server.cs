@@ -227,12 +227,12 @@ function GameConnection::updateScores(%this) {
 				%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
 
 				%rec = expandEscape(%client.getUsername())
-					TAB %score
-					TAB %client.index
-					TAB expandEscape(%skinChoice)
-					TAB %gems
-					TAB %client.totalBonus
-				;
+				       TAB %score
+				       TAB %client.index
+				       TAB expandEscape(%skinChoice)
+				       TAB %gems
+				       TAB %client.totalBonus
+				       ;
 
 				if (%playerList $= "")
 					%playerList = %rec;
@@ -241,11 +241,11 @@ function GameConnection::updateScores(%this) {
 			}
 
 			%record = expandEscape(Team::getTeamName(%team))
-				TAB %total
-				TAB %team.number
-				TAB %team.color
-				TAB %playerList
-			;
+			          TAB %total
+			          TAB %team.number
+			          TAB %team.color
+			          TAB %playerList
+			          ;
 
 			if (%list $= "")
 				%list = %record;
@@ -269,12 +269,12 @@ function GameConnection::updateScores(%this) {
 			%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
 
 			%record = expandEscape(%client.getUsername())
-				TAB %score
-				TAB %gems
-				TAB %client.index
-				TAB expandEscape(%client.skinChoice)
-				TAB %client.totalBonus
-			;
+			          TAB %score
+			          TAB %gems
+			          TAB %client.index
+			          TAB expandEscape(%client.skinChoice)
+			          TAB %client.totalBonus
+			          ;
 
 			if (%list $= "")
 				%list = %record;
