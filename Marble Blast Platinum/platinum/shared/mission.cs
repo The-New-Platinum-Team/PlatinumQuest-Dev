@@ -347,18 +347,18 @@ function checkForMaliciousCode(%file) {
 		return 0;
 	}
 
-    if (isFile(%file)) {
-        %fo = new FileObject();
-        if (%fo.openForRead(%file)) {
-            %returnval = 0;
+	if (isFile(%file)) {
+		%fo = new FileObject();
+		if (%fo.openForRead(%file)) {
+			%returnval = 0;
 
-            while (!%fo.isEOF()) {
-                %line = %fo.readLine();
+			while (!%fo.isEOF()) {
+				%line = %fo.readLine();
 
 				//Entirely skip empty lines. ~Connie
-                if (%line $= "") {
-                    continue;
-                }
+				if (%line $= "") {
+					continue;
+				}
 
 				//Once it detects the first part of the mission which is not outside of the main Mission Group, it will skip everything until it gets to the end.
 				//This is done to prevent any possible false positives in help texts, descriptions, start help texts, etc. ~Connie
@@ -373,10 +373,10 @@ function checkForMaliciousCode(%file) {
 				}
 
 				//Forbidden words. ~Connie
-                %keywords = "exec( eval( dump( call( tree( winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
+				%keywords = "exec( eval( dump( call( tree( winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
 
-                for (%i = 0; %i < getWordCount(%keywords); %i++) {
-                    %keyword = getWord(%keywords, %i);
+				for (%i = 0; %i < getWordCount(%keywords); %i++) {
+					%keyword = getWord(%keywords, %i);
 					%charbeforekeyword = strlwr(getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1));
 
 					if (%charbeforekeyword $= "") {
@@ -386,17 +386,17 @@ function checkForMaliciousCode(%file) {
 					//Checks if: 1) The Keyword was found; 2) The Keyword has a letter before it; 3) The Keyword has an equals sign before it (just in case). ~Connie
 					if ((strstr(strlwr(%line), %keyword)) != -1 && ((strPos("abcdefghijklmnopqrstuvwxyz", %charbeforekeyword) == -1) || (%charbeforekeyword $= "="))) {
 						%returnval = 1;
-                        break;
-                    }
-                }
-            }
+						break;
+					}
+				}
+			}
 
-            %fo.close();
-        }
+			%fo.close();
+		}
 
-        %fo.delete();
-        return %returnval;
-    }
+		%fo.delete();
+		return %returnval;
+	}
 }
 
 
@@ -415,17 +415,17 @@ function resolveMissionGame(%mission) {
 
 	//Check all known games or fallback to the mode
 	return
-	   (strStr(%file, "_pq/") != -1 ? "PlatinumQuest" :
-	    (strStr(%file, "_mbp/") != -1 ? "Platinum" :
-	     (strStr(%file, "_mbg/") != -1 ? "Gold" :
-	      (strStr(%file, "_mbu/") != -1 ? "Ultra" :
-	       (strStr(%file, "_custom/") != -1 ? "Custom" :
-	        ClientMode::callbackForMission(%mission, "getLevelGame", "Custom", %file)
-	       )
-	      )
-	     )
-	    )
-	   );
+		(strStr(%file, "_pq/") != -1 ? "PlatinumQuest" :
+		 (strStr(%file, "_mbp/") != -1 ? "Platinum" :
+		  (strStr(%file, "_mbg/") != -1 ? "Gold" :
+		   (strStr(%file, "_mbu/") != -1 ? "Ultra" :
+			(strStr(%file, "_custom/") != -1 ? "Custom" :
+			 ClientMode::callbackForMission(%mission, "getLevelGame", "Custom", %file)
+			)
+		   )
+		  )
+		 )
+		);
 }
 
 // Mission Type: Which difficulty/type the mission is in the mission list
@@ -490,11 +490,11 @@ function resolveMissionBitmap(%mission) {
 
 function isBitmap(%file) {
 	return isFile(%file)
-		|| isFile(%file @ ".png")
-		|| isFile(%file @ ".jpg")
-		|| isFile(%file @ ".bmp")
-		|| isFile(%file @ ".dds")
-	;
+		   || isFile(%file @ ".png")
+		   || isFile(%file @ ".jpg")
+		   || isFile(%file @ ".bmp")
+		   || isFile(%file @ ".dds")
+		   ;
 }
 
 //------------------------------------------------------------------------------

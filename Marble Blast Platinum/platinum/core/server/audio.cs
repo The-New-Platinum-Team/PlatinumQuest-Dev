@@ -53,7 +53,7 @@ function ServerPlay3D(%profile,%transform) {
 }
 
 //Simple function for playing sounds for other clients using commandToAll() or similar - Yoshi
-function clientCmdAlxPlay(%sound){
+function clientCmdAlxPlay(%sound) {
 	AlxPlay(%sound);
 }
 

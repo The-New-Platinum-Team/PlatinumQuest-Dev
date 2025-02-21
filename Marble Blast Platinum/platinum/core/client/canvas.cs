@@ -232,17 +232,17 @@ function updateFrameController() {
 
 	if ($pref::Video::renderPriority $= "")
 		$pref::Video::renderPriority = 1;
-	
+
 	switch ($pref::Video::renderPriority) {
-		case 0: // Vsync
-			setVerticalSync(true);
-			$pref::prioritizeRender = false;
-		case 1:
-			setVerticalSync(false);
-			$pref::prioritizeRender = false;
-		case 2:
-			setVerticalSync(false);
-			$pref::prioritizeRender = true;
+	case 0: // Vsync
+		setVerticalSync(true);
+		$pref::prioritizeRender = false;
+	case 1:
+		setVerticalSync(false);
+		$pref::prioritizeRender = false;
+	case 2:
+		setVerticalSync(false);
+		$pref::prioritizeRender = true;
 	}
 }
 

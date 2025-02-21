@@ -132,42 +132,42 @@ function buildPhysmodEmitters(%group) {
 		%class = %obj.getClassName();
 
 		if (%class $= "SimGroup")
-			buildPhysmodEmitters(%obj);
+				buildPhysmodEmitters(%obj);
 		else if (%class $= "Trigger" &&
-		         %obj.getDataBlock().getName() $= "MarblePhysModTrigger" &&
-		         !%obj.noEmitters) {
+			                   %obj.getDataBlock().getName() $= "MarblePhysModTrigger" &&
+			                       !%obj.noEmitters) {
 
-			if (%obj._builtEmitters) {
-				continue;
+				if (%obj._builtEmitters) {
+					continue;
+				}
+				%obj._builtEmitters = true;
+
+				// create position array for each emitter to be placed around
+				// the corner of the physmod trigger.
+				%pos = %obj.getTransform();
+				%scale = %obj.getScale();
+				%x = getWord(%pos, 0);
+				%y = getWord(%pos, 1);
+				%z = getWord(%pos, 2);
+				%sX = getWord(%scale, 0);
+				%sY = getWord(%scale, 1);
+
+				%pos[0] = %x SPC %y SPC %z;
+				%pos[1] = %x + %sX SPC %y SPC %z;
+				%pos[2] = %x SPC %y - %sY SPC %z;
+				%pos[3] = %x + %sX SPC %y - %sY SPC %z;
+
+				for (%j = 0; %j < $PhysModParticleEmitterCountPerTrigger; %j++) {
+					%staticShape = new StaticShape() {
+						position = %pos[%j];
+						rotation = "1 0 0 0";
+						scale = "1 1 1";
+						datablock = PhysModEmitterBase;
+					};
+					MissionCleanup.add(%staticShape);
+					$PhysModStaticShape[%obj.getId()] = %staticShape;
+				}
 			}
-			%obj._builtEmitters = true;
-
-			// create position array for each emitter to be placed around
-			// the corner of the physmod trigger.
-			%pos = %obj.getTransform();
-			%scale = %obj.getScale();
-			%x = getWord(%pos, 0);
-			%y = getWord(%pos, 1);
-			%z = getWord(%pos, 2);
-			%sX = getWord(%scale, 0);
-			%sY = getWord(%scale, 1);
-
-			%pos[0] = %x SPC %y SPC %z;
-			%pos[1] = %x + %sX SPC %y SPC %z;
-			%pos[2] = %x SPC %y - %sY SPC %z;
-			%pos[3] = %x + %sX SPC %y - %sY SPC %z;
-
-			for (%j = 0; %j < $PhysModParticleEmitterCountPerTrigger; %j++) {
-				%staticShape = new StaticShape() {
-					position = %pos[%j];
-					rotation = "1 0 0 0";
-					scale = "1 1 1";
-					datablock = PhysModEmitterBase;
-				};
-				MissionCleanup.add(%staticShape);
-				$PhysModStaticShape[%obj.getId()] = %staticShape;
-			}
-		}
 	}
 }
 

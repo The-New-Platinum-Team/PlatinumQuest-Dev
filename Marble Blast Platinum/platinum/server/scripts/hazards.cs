@@ -97,7 +97,7 @@ function TrapDoorClass::onAdd(%this, %obj) {
 	// Default variables
 	if (%obj.resetTime $= "0" || %obj.resetTime $= "")
 		%obj.resetTime = "5000";
-		
+
 	// Skin takes effect upon mission reset or reload
 	if (%obj.skinName !$= "") { //clean up old skinname field
 		%obj.skin = %obj.skinName;
@@ -138,8 +138,7 @@ function TrapDoorClass::onCollision(%this,%obj,%col) {
 
 function TrapdoorClass::open(%this, %obj) {
 	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
-	%obj.playAudio(0,TrapDoorOpenMbgSfx);
-	
+		%obj.playAudio(0,TrapDoorOpenMbgSfx);
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 
 	%obj.setThreadDir(0,true);
@@ -151,12 +150,12 @@ function TrapDoor_MBU::open(%this, %obj) {
 	%obj.setThreadDir(0,true);
 
 	if (((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU")) || ($pref::spchanges && %obj.isTemperable $= "1"))  {
-	%obj.playThread(0,"mbuFall",1);
-	%obj.playAudio(0,TrapDoorOpenMbuSfx);
+		%obj.playThread(0,"mbuFall",1);
+		%obj.playAudio(0,TrapDoorOpenMbuSfx);
 
-	} else { 
-	%obj.playThread(0,"fall",1);
-	%obj.playAudio(0,TrapDoorOpenSfx);
+	} else {
+		%obj.playThread(0,"fall",1);
+		%obj.playAudio(0,TrapDoorOpenSfx);
 	}
 
 	%obj._open = true;
@@ -164,7 +163,7 @@ function TrapDoor_MBU::open(%this, %obj) {
 
 function TrapdoorClass::close(%this, %obj) {
 	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
-	%obj.playAudio(0,TrapDoorOpenMbgSfx);
+		%obj.playAudio(0,TrapDoorOpenMbgSfx);
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 
 	%obj.setThreadDir(0,false);
@@ -174,8 +173,8 @@ function TrapdoorClass::close(%this, %obj) {
 function TrapDoor_MBU::close(%this, %obj) {
 	%obj.setThreadDir(0,false);
 
-	if (((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU")) || ($pref::spchanges && %obj.isTemperable $= "1")) 
-	%obj.playAudio(0,TrapDoorOpenMbuSfx);
+	if (((%obj.mbuanim $= "1") && (%obj.dataBlock $= "Trapdoor_MBU")) || ($pref::spchanges && %obj.isTemperable $= "1"))
+		%obj.playAudio(0,TrapDoorOpenMbuSfx);
 	else %obj.playAudio(0,TrapDoorOpenSfx);
 
 	%obj._open = false;
@@ -245,14 +244,14 @@ datablock StaticShapeData(SmallDuctFan_PQ : SmallDuctFan) {
 datablock StaticShapeData(DuctFan_MBU : DuctFan) {
 	superCategory = "Hazards";
 	category = "Marble_Blast_Ultra/Mobile";
-		
+
 	compile = "pls";
 	shapeFile = "~/data/shapes_mbu/hazards/mbu-hitboxes/ductfan.dts";
 };
 datablock StaticShapeData(SmallDuctFan_MBU : SmallDuctFan) {
 	superCategory = "Hazards";
 	category = "Marble_Blast_Ultra/Mobile";
-		
+
 	compile = "pls";
 	shapeFile = "~/data/shapes_mbu/mbu-hitboxes/hazards/ductfan.dts";
 };
@@ -292,8 +291,8 @@ function Fan::onMissionReset(%this, %obj) {
 }
 
 function Ductfan_MBM::onAdd(%this,%obj) {
-   if ($pref::spchanges && %obj.isTemperable $= "1")
-	%obj.setDataBlock("Ductfan_MBU");
+	if ($pref::spchanges && %obj.isTemperable $= "1")
+		%obj.setDataBlock("Ductfan_MBU");
 	return Fan::onAdd(%this, %obj);
 }
 //-----------------------------------------------------------------------------
@@ -347,7 +346,7 @@ datablock StaticShapeData(Tornado_MBM : Tornado) {
 	category = "Marble_Blast_Ultra/Mobile";
 
 	shapeFile = "~/data/shapes_mbu/hazards/tornado.dts";
-	
+
 	// Field to shoot the marble up
 	forceType[2] = Field;
 	forceVector[2] = "0 0 1";
@@ -375,7 +374,7 @@ datablock StaticShapeData(OilSlick) {
 function OilSlick::onAdd(%this,%obj) {
 	if (%obj.skin $= "")
 		%obj.skin = "base";
-		
+
 	// Skin takes effect upon mission reset or reload
 	if (%obj.skinName !$= "") { //clean up old skinname field
 		%obj.skin = %obj.skinName;
@@ -1413,7 +1412,7 @@ if (!$pref::LegacyItems) {
 	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
-	
+
 		shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
 	};
 
@@ -1427,7 +1426,7 @@ if (!$pref::LegacyItems) {
 	datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
-		
+
 		compile = "pls";
 		shapeFile = "~/data/shapes_mbu/hazards/ductfan.dts";
 	};
@@ -1435,21 +1434,21 @@ if (!$pref::LegacyItems) {
 	datablock StaticShapeData(TrapDoor_MBU : TrapDoor) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
-		
+
 		shapeFile = "~/data/shapes/hazards/trapdoor.dts";
 	};
 
 	datablock StaticShapeData(Ductfan_MBM : DuctFan) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
-		
+
 		compile = "pls";
 		shapeFile = "~/data/shapes/hazards/ductfan.dts";
 	};
 	datablock StaticShapeData(SmallDuctFan_MBM : SmallDuctFan) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
-		
+
 		compile = "pls";
 		shapeFile = "~/data/shapes/hazards/ductfan.dts";
 	};

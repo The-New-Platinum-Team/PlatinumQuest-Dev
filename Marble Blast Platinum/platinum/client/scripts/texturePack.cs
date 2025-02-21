@@ -122,7 +122,7 @@ function unloadTexturePacks() {
 		unloadTexturePack(%pack);
 	}
 	ActiveTexturePacks.clear();
-	
+
 	unloadTimerTextures();
 	reloadShaders();
 	reloadGlowShaders();

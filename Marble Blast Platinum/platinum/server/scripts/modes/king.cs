@@ -143,7 +143,7 @@ datablock ParticleEmitterNodeData(KingTrigEmitterNode) {
 	timeMultiple = 1;
 };
 
-function KingTrigger::onAdd(%this, %trigger) {	
+function KingTrigger::onAdd(%this, %trigger) {
 	%pos = %trigger.getTransform();
 	%scale = %trigger.getScale();   //buildKingTrigger() or whatever it was called in here now. ~Connie
 	%x = getWord(%pos, 0);
@@ -157,7 +157,7 @@ function KingTrigger::onAdd(%this, %trigger) {
 	%pos[1] = %x + %sX SPC %y SPC %z;
 	%pos[2] = %x SPC %y - %sY SPC %z;
 	%pos[3] = %x + %sX SPC %y - %sY SPC %z;
-		
+
 	%pos[4] = %x SPC %y SPC %z + %sZ;
 	%pos[5] = %x + %sX SPC %y SPC %z + %sZ;
 	%pos[6] = %x SPC %y - %sY SPC %z + %sZ;
@@ -191,7 +191,7 @@ function KingTrigger::onAdd(%this, %trigger) {
 function KingTrigger::onInspectApply(%this, %trigger) {
 	for (%d = 0; %d < 16; %d++) {
 		%trigger.ParticleEmitter[%d].getID().delete();   //Get rid of them all. ~Connie
-	} 
+	}
 
 	KingTrigger::onAdd(%this, %trigger);   //Then add them back. ~Connie
 }
@@ -255,7 +255,7 @@ function MPupdateCollisionKing() {
 				%dist -= %datablock1.impactRadius[%mega1];
 
 				%dist -= %datablock1.impactRadius[%mega2];
-				
+
 				if (%dist < 0) {
 
 					if (%client.lastCollision == %clientJ)
@@ -269,7 +269,7 @@ function MPupdateCollisionKing() {
 
 					//This line is what disables regular marble collisions normally
 					//if (!%mega1 && !%mega2)
-						//continue;
+					//continue;
 
 					if ((%mega1 == %mega2 && VectorLen(%client.player.getVelocity()) < VectorLen(%clientJ.player.getVelocity())) || (%mega2 && !%mega1))
 						continue;
@@ -299,7 +299,7 @@ function MPupdateCollisionKing() {
 
 					%reduction  = %datablock1.impactReduction[%mega1];
 					%reduction2 = %datablock2.impactReduction[%mega2];
-					
+
 
 					%bSpeed = VectorLen(%client.player.getVelocity()) + (VectorLen(%clientJ.player.getVelocity()) * %datablock1.impactBounceBack[%mega1]);
 

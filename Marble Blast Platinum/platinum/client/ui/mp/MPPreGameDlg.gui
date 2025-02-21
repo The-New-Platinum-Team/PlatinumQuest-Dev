@@ -52,10 +52,10 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 	helpTag = "0";
 	bitmap = "~/client/ui/exit/black";
 	wrap = "0";
-		_guiSize = "800 600";
-		defaultControl = "MPPreGameReady";
-		commandAlt1 = "MPPreGameDlg.play();";
-		commandNameAlt1 = "Play";
+	_guiSize = "800 600";
+	defaultControl = "MPPreGameReady";
+	commandAlt1 = "MPPreGameDlg.play();";
+	commandNameAlt1 = "Play";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -98,7 +98,7 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlRight = "MPPreGameExit";
+			controlRight = "MPPreGameExit";
 		};
 		new GuiCheckBoxCtrl(MPPreGameReady) {
 			profile = "PQCheckboxProfile";
@@ -115,7 +115,7 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 			buttonType = "ToggleButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlRight = "MPPreGameSpectate";
+			controlRight = "MPPreGameSpectate";
 		};
 		new GuiBorderButtonCtrl(MPPregameTeams) {
 			profile = "PQButtonProfile";
@@ -132,9 +132,9 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/team";
-				tooltip = "Team Information";
-				controlLeft = "MPPreGameSpectate";
+			bitmap = "platinum/client/ui/mp/play/team";
+			tooltip = "Team Information";
+			controlLeft = "MPPreGameSpectate";
 		};
 		new GuiMLTextCtrl(MPPreGameTitle) {
 			profile = "GuiMLTextProfile";
@@ -193,7 +193,7 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 			buttonType = "ToggleButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlLeft = "MPPreGameReady";
+			controlLeft = "MPPreGameReady";
 		};
 		new GuiControl() {
 			profile = "PQPanelProfile";
@@ -262,8 +262,8 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/players";
-				tooltip = "Player List";
+			bitmap = "platinum/client/ui/mp/play/players";
+			tooltip = "Player List";
 		};
 		new GuiBorderButtonCtrl(MPPregameMarbleSelect) {
 			profile = "PQButtonProfile";
@@ -280,8 +280,8 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/marble";
-				tooltip = "Marble Select";
+			bitmap = "platinum/client/ui/mp/play/marble";
+			tooltip = "Marble Select";
 		};
 		new GuiControl() {
 			profile = "PQPanelProfile";
@@ -521,15 +521,24 @@ function MPPreGameDlg::update(%this) {
 			%teamname = getRecord(%team, 0);
 			%color = getRecord(%team, 1);
 			switch (%color) {
-			case -1: %color = "\c1";
-			case  0: %color = "\c2";
-			case  1: %color = "\c3";
-			case  2: %color = "\c4";
-			case  3: %color = "\c5";
-			case  4: %color = "\c6";
-			case  5: %color = "\c7";
-			case  6: %color = "\c8";
-			case  7: %color = "\c9";
+			case -1:
+				%color = "\c1";
+			case  0:
+				%color = "\c2";
+			case  1:
+				%color = "\c3";
+			case  2:
+				%color = "\c4";
+			case  3:
+				%color = "\c5";
+			case  4:
+				%color = "\c6";
+			case  5:
+				%color = "\c7";
+			case  6:
+				%color = "\c8";
+			case  7:
+				%color = "\c9";
 			}
 			%teamname = "\cp" @ %color @ %teamname @ "\co";
 		}
@@ -558,7 +567,7 @@ function MPPreGameDlg::updateInfo(%this) {
 
 	%this.commandNameAlt1 = ((MPPreGamePlay.isVisible() && MPPreGamePlay.isActive()) ? "Play" : "");
 	%this.commandAlt1 = ((MPPreGamePlay.isVisible() && MPPreGamePlay.isActive()) ? MPPreGamePlay.command : "");
-	if (ControllerGui.isJoystick()){
+	if (ControllerGui.isJoystick()) {
 		ControllerGui.updateButtons();
 	}
 

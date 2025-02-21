@@ -38,15 +38,15 @@ new GuiChunkedBitmapCtrl(LBAchievementsDlg) {
 	bitmap = "~/client/ui/exit/black";
 	useVariable = "0";
 	tile = "0";
-		_guiSize = "800 600";
-		defaultControl = "LBachiev_scroll";
-		commandSelect = "RootGui.popDialog(LBAchievementsDlg);";
-		commandCancel = "RootGui.popDialog(LBAchievementsDlg);";
-		commandLT = "LBAchievementsDlg.prevCategory();";
-		commandRT = "LBAchievementsDlg.nextCategory();";
-		commandNameSelect = "Close";
-		commandNameLT = "Prev Category";
-		commandNameRT = "Next Category";
+	_guiSize = "800 600";
+	defaultControl = "LBachiev_scroll";
+	commandSelect = "RootGui.popDialog(LBAchievementsDlg);";
+	commandCancel = "RootGui.popDialog(LBAchievementsDlg);";
+	commandLT = "LBAchievementsDlg.prevCategory();";
+	commandRT = "LBAchievementsDlg.nextCategory();";
+	commandNameSelect = "Close";
+	commandNameLT = "Prev Category";
+	commandNameRT = "Next Category";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -249,17 +249,23 @@ function LBAchievementsDlg::onSleep(%this) {
 
 function LBAchievementsDlg::prevCategory(%this) {
 	switch$ (%this.list) {
-		case "Single Player": %this.selectCategory("Event");
-		case "Multiplayer": %this.selectCategory("Single Player");
-		case "Event": %this.selectCategory("Multiplayer");
+	case "Single Player":
+		%this.selectCategory("Event");
+	case "Multiplayer":
+		%this.selectCategory("Single Player");
+	case "Event":
+		%this.selectCategory("Multiplayer");
 	}
 }
 
 function LBAchievementsDlg::nextCategory(%this) {
 	switch$ (%this.list) {
-		case "Single Player": %this.selectCategory("Multiplayer");
-		case "Multiplayer": %this.selectCategory("Event");
-		case "Event": %this.selectCategory("Single Player");
+	case "Single Player":
+		%this.selectCategory("Multiplayer");
+	case "Multiplayer":
+		%this.selectCategory("Event");
+	case "Event":
+		%this.selectCategory("Single Player");
 	}
 }
 

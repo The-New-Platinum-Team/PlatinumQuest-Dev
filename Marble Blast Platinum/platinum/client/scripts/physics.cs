@@ -435,7 +435,7 @@ Physics::registerLayer("bubble",
                       );
 
 Physics::registerLayer("diagonull",
-                      "maxRollVelocity 10.6066 10.6066" NL
-                      "angularAcceleration 53.033 53.033" NL
-                      "airAcceleration 3.3234 3.3234"
+                       "maxRollVelocity 10.6066 10.6066" NL
+                       "angularAcceleration 53.033 53.033" NL
+                       "airAcceleration 3.3234 3.3234"
                       );

@@ -225,7 +225,7 @@ function MissionList::getMission(%this, %game, %difficulty, %file) {
 function MissionList::getMissionPreview(%this, %game, %difficulty, %mission) {
 	%file = %mission.file;
 	if (%mission.previews_directory !$= "") {
-			%dir = expandFilename(%mission.previews_directory);
+		%dir = expandFilename(%mission.previews_directory);
 	} else
 		%dir = expandFilename(%this.getPreviewDirectory(%game, %difficulty));
 
@@ -1120,25 +1120,25 @@ function MarblelandMissionList::getGameList(%this) {
 		return "Marbleland\tMarbleland";
 	} else {
 		return "Levels\tLevels" NL
-			"Packs\tPacks";
+		       "Packs\tPacks";
 	}
 }
 
 function MarblelandMissionList::getDifficultyList(%this, %game) {
 	if (mp()) {
 		return "Hunt\tHunt" NL
-			"Collection\tCollection" NL
-			"King\tKing" NL
-			"Mega\tMega" NL
-			"Race\tRace" NL
-			"Uncategorized\tUncategorized";
+		       "Collection\tCollection" NL
+		       "King\tKing" NL
+		       "Mega\tMega" NL
+		       "Race\tRace" NL
+		       "Uncategorized\tUncategorized";
 	}
 
 	switch$ (%game) {
 	case "Levels":
 		return "All\tAlphabetical" NL
 		       "Newest\tNewest First" NL
-			   "Installed\tInstalled Only";
+		       "Installed\tInstalled Only";
 	case "Packs":
 		%diffTree = %this.getDifficultyTree(%game);
 		%this.difficultyTreeList = "";
@@ -1212,20 +1212,20 @@ function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 	switch$ (%game) {
 	case "Marbleland":
 		switch$ (%difficulty) {
-			case "Collection":
-				return true;
-			case "Hunt":
-				return true;
-			case "King":
-				return true;
-			case "Mega":
-				return true;
-			case "Race":
-				return true;
-			case "Uncategorized":
-				return true;
-			default:
-				return false;
+		case "Collection":
+			return true;
+		case "Hunt":
+			return true;
+		case "King":
+			return true;
+		case "Mega":
+			return true;
+		case "Race":
+			return true;
+		case "Uncategorized":
+			return true;
+		default:
+			return false;
 		}
 	case "Levels":
 		switch$ (%difficulty) {
@@ -1391,7 +1391,7 @@ function MarblelandMissionList::addInstalledMission(%this, %mis) {
 		});
 		%list.addEntry(%info);
 		%list.sort(MissionSortSearchName);
-		
+
 		//Fix level numbers
 		%count = %list.getSize();
 		for (%i = 0; %i < %count; %i ++) {

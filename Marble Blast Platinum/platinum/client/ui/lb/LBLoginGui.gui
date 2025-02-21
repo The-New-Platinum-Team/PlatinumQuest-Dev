@@ -32,9 +32,9 @@ new GuiControl(LBLoginGui) {
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		defaultControl = "LBLoginButton";
-		commandCancel = "leaveLeaderboards();";
-		commandNameCancel = "Home";
+	defaultControl = "LBLoginButton";
+	commandCancel = "leaveLeaderboards();";
+	commandNameCancel = "Home";
 
 	new GuiControl() {
 		profile = "GuiDefaultProfile";
@@ -360,7 +360,7 @@ function LBLoginGui::login(%this, %auto) {
 
 	// Don't show our password, dummies
 	traceGuard();
-		$LB::Password2 = garbledeguck($LB::Password);
+	$LB::Password2 = garbledeguck($LB::Password);
 	traceGuardEnd();
 
 	// remembering

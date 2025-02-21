@@ -179,15 +179,15 @@ function createHelpMessage(%id, %text, %timeout) {
 	%boxName.schedule(%timeout, setFieldValue, "directionX", -1);
 }
 
-function fadeCenterWhiteMBG(%fade){ // Old helptext rendering from MBG
-   WhiteCenterMBGText.setAlpha(1.0 * %fade);
-   WhiteCenterMBGShadow.setAlpha(%fade);
-   if(%fade > 0){
-      %nextFade = %fade - 0.03;
-      if(%nextFade < 0)
-         %nextFade = 0;
-      $CenterWhiteFadeTimer = schedule(32, 0, fadeCenterWhiteMBG, %nextFade);
-   }
+function fadeCenterWhiteMBG(%fade) { // Old helptext rendering from MBG
+	WhiteCenterMBGText.setAlpha(1.0 * %fade);
+	WhiteCenterMBGShadow.setAlpha(%fade);
+	if(%fade > 0) {
+		%nextFade = %fade - 0.03;
+		if(%nextFade < 0)
+			%nextFade = 0;
+		$CenterWhiteFadeTimer = schedule(32, 0, fadeCenterWhiteMBG, %nextFade);
+	}
 }
 function addCenterWhiteMBG(%message) {
 	%text = "<just:center><font:DomCasualD:32>" @ %message;
@@ -521,52 +521,52 @@ function tryBubbleReflow() {
 	}
 }
 
-function fadeDownYellowMBG(%fade){ // Old helptext rendering from MBG
-   DownYellowMBGText.setAlpha(0.8 * %fade);
-   DownYellowMBGShadow.setAlpha(%fade);
-   if(%fade > 0) {
-      %nextFade = %fade - 0.03;
-      if(%nextFade < 0)
-         %nextFade = 0;
-      $DownYellowFadeTimer = schedule(32, 0, fadeDownYellowMBG, %nextFade);
-   }
+function fadeDownYellowMBG(%fade) { // Old helptext rendering from MBG
+	DownYellowMBGText.setAlpha(0.8 * %fade);
+	DownYellowMBGShadow.setAlpha(%fade);
+	if (%fade > 0) {
+		%nextFade = %fade - 0.03;
+		if (%nextFade < 0)
+			%nextFade = 0;
+		$DownYellowFadeTimer = schedule(32, 0, fadeDownYellowMBG, %nextFade);
+	}
 }
 
-function addDownYellowMBG(%message,%color){
+function addDownYellowMBG(%message,%color) {
 	if (%color $= "")
 		%color = "ffff00";
-		%text = "<just:center><font:DomCasualD:32>" @ %message;
-		DownYellowMBGShadow.setText("<color:000000>" @ %text);
-		DownYellowMBGText.setText("<color:" @ %color @ ">" @ %text);
-		cancel($DownYellowFadeTimer);
-		DownYellowMBGText.setAlpha(0.8);
-		DownYellowMBGShadow.setAlpha(1.0);
-		$DownYellowFadeTimer = schedule(3000, 0, fadeDownYellowMBG, 1.0);
-		if (lb()) {
-			%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
-			if (!%hideChat) {
-				DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), 0 SPC 62 + (20 * ($LBPref::ChatMessageSize))), 1)); // Change position based on height of chat, if visible
-			}
-		} else {
-			DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), "0 62"), 1));
+	%text = "<just:center><font:DomCasualD:32>" @ %message;
+	DownYellowMBGShadow.setText("<color:000000>" @ %text);
+	DownYellowMBGText.setText("<color:" @ %color @ ">" @ %text);
+	cancel($DownYellowFadeTimer);
+	DownYellowMBGText.setAlpha(0.8);
+	DownYellowMBGShadow.setAlpha(1.0);
+	$DownYellowFadeTimer = schedule(3000, 0, fadeDownYellowMBG, 1.0);
+	if (lb()) {
+		%hideChat = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
+		if (!%hideChat) {
+			DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), 0 SPC 62 + (20 * ($LBPref::ChatMessageSize))), 1)); // Change position based on height of chat, if visible
 		}
+	} else {
+		DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), "0 62"), 1));
+	}
 }
 function addDownWhiteMBU(%message,%color){
 	if (%color $= "")
 		%color = "ffffff";
-		%text = "<just:center><font:Arial Bold:30>" @ %message;
-		DownYellowMBGShadow.setText("<color:000000>" @ %text);
-		DownYellowMBGText.setText("<color:" @ %color @ ">" @ %text);
-		cancel($DownYellowFadeTimer);
-		DownYellowMBGText.setAlpha(0.8);
-		DownYellowMBGShadow.setAlpha(1.0);
-		$DownYellowFadeTimer = schedule(3000, 0, fadeDownYellowMBG, 1.0);
-		if (lb()) {
-			%hideChat      = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
-			if (!%hideChat) {
-				DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), 0 SPC 62 + (20 * ($LBPref::ChatMessageSize))), 1)); // Change position based on height of chat, if visible
-			}
-		} else {
-			DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), "0 62"), 1));
+	%text = "<just:center><font:Arial Bold:30>" @ %message;
+	DownYellowMBGShadow.setText("<color:000000>" @ %text);
+	DownYellowMBGText.setText("<color:" @ %color @ ">" @ %text);
+	cancel($DownYellowFadeTimer);
+	DownYellowMBGText.setAlpha(0.8);
+	DownYellowMBGShadow.setAlpha(1.0);
+	$DownYellowFadeTimer = schedule(3000, 0, fadeDownYellowMBG, 1.0);
+	if (lb()) {
+		%hideChat = $pref::ScreenshotMode > 0 || %isEndGame || isCannonActive();
+		if (!%hideChat) {
+			DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), 0 SPC 62 + (20 * ($LBPref::ChatMessageSize))), 1)); // Change position based on height of chat, if visible
 		}
+	} else {
+		DownYellowMBG.setPosition(0 SPC getWord(VectorSub(PlayGui.getExtent(), "0 62"), 1));
+	}
 }

@@ -555,25 +555,25 @@ function isServerMovingObject(%obj) {
 }
 
 $Editor::Fields["PathNode"] =
-	"NextNode" SPC
-	"Delay" SPC
-	"TimeToNext" SPC
-	"SmoothStart" SPC
-	"SmoothEnd" SPC
-	"Smooth" SPC
-	"SmoothFactor" SPC
-	"UsePosition" SPC
-	"UseRotation" SPC
-	"UseScale" SPC
-	"ReverseRotation" SPC
-	"RotationMultiplier" SPC
-	"bezierRotation" SPC
-	"bezier" SPC
-	"BezierHandle1" SPC
-	"BezierHandle2" SPC
-	"FinalRotOffset" SPC
-	"Spline" SPC
-	"branchNodes" SPC
-	"Speed" SPC
-	"StopWhenFinished" SPC
-	"placed";
+    "NextNode" SPC
+    "Delay" SPC
+    "TimeToNext" SPC
+    "SmoothStart" SPC
+    "SmoothEnd" SPC
+    "Smooth" SPC
+    "SmoothFactor" SPC
+    "UsePosition" SPC
+    "UseRotation" SPC
+    "UseScale" SPC
+    "ReverseRotation" SPC
+    "RotationMultiplier" SPC
+    "bezierRotation" SPC
+    "bezier" SPC
+    "BezierHandle1" SPC
+    "BezierHandle2" SPC
+    "FinalRotOffset" SPC
+    "Spline" SPC
+    "branchNodes" SPC
+    "Speed" SPC
+    "StopWhenFinished" SPC
+    "placed";

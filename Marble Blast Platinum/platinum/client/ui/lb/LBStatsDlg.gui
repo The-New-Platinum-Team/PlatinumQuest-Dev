@@ -34,15 +34,15 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 	bitmap = "~/client/ui/exit/black";
 	useVariable = "0";
 	tile = "0";
-		_guiSize = "800 600";
-		defaultControl = "LBStatsClose";
-		commandSelect = "RootGui.popDialog(LBStatsDlg);";
-		commandCancel = "RootGui.popDialog(LBStatsDlg);";
-		commandLT = "LBStatsDlg.prevCategory();";
-		commandRT = "LBStatsDlg.nextCategory();";
-		commandNameSelect = "Close";
-		commandNameLT = "Prev Category";
-		commandNameRT = "Next Category";
+	_guiSize = "800 600";
+	defaultControl = "LBStatsClose";
+	commandSelect = "RootGui.popDialog(LBStatsDlg);";
+	commandCancel = "RootGui.popDialog(LBStatsDlg);";
+	commandLT = "LBStatsDlg.prevCategory();";
+	commandRT = "LBStatsDlg.nextCategory();";
+	commandNameSelect = "Close";
+	commandNameLT = "Prev Category";
+	commandNameRT = "Next Category";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -53,7 +53,7 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
-			wrap = "0";
+		wrap = "0";
 
 		new GuiMLTextCtrl(LBStatsTitle) {
 			profile = "GuiMLTextProfile";
@@ -237,23 +237,35 @@ function LBStatsDlg::onSleep(%this) {
 
 function LBStatsDlg::prevCategory(%this) {
 	switch$ (%this.category) {
-		case "General": %this.selectCategory("Custom");
-		case "Gold": %this.selectCategory("General");
-		case "Platinum": %this.selectCategory("Gold");
-		case "Ultra": %this.selectCategory("Platinum");
-		case "PlatinumQuest": %this.selectCategory("Ultra");
-		case "Custom": %this.selectCategory("PlatinumQuest");
+	case "General":
+		%this.selectCategory("Custom");
+	case "Gold":
+		%this.selectCategory("General");
+	case "Platinum":
+		%this.selectCategory("Gold");
+	case "Ultra":
+		%this.selectCategory("Platinum");
+	case "PlatinumQuest":
+		%this.selectCategory("Ultra");
+	case "Custom":
+		%this.selectCategory("PlatinumQuest");
 	}
 }
 
 function LBStatsDlg::nextCategory(%this) {
 	switch$ (%this.category) {
-		case "General": %this.selectCategory("Gold");
-		case "Gold": %this.selectCategory("Platinum");
-		case "Platinum": %this.selectCategory("Ultra");
-		case "Ultra": %this.selectCategory("PlatinumQuest");
-		case "PlatinumQuest": %this.selectCategory("Custom");
-		case "Custom": %this.selectCategory("General");
+	case "General":
+		%this.selectCategory("Gold");
+	case "Gold":
+		%this.selectCategory("Platinum");
+	case "Platinum":
+		%this.selectCategory("Ultra");
+	case "Ultra":
+		%this.selectCategory("PlatinumQuest");
+	case "PlatinumQuest":
+		%this.selectCategory("Custom");
+	case "Custom":
+		%this.selectCategory("General");
 	}
 }
 
@@ -300,7 +312,7 @@ function LBStatsDlg::update(%this) {
 			%difficulty = %game.difficulties.getEntry(%i);
 			%percent = mFloor(100 * (%difficulty.completion / %difficulty.total_missions)) @ "%";
 			%text = %text NL "<just:left>" @ %difficulty.display @ " Completion: <just:right>"
-				@ %difficulty.completion @ " / " @ %difficulty.total_missions @ " (" @ %percent;
+			        @ %difficulty.completion @ " / " @ %difficulty.total_missions @ " (" @ %percent;
 			if (%difficulty.completion == %difficulty.total_missions) {
 				%text = %text @ " in " @ formatTimeHoursMs(%difficulty.total_time) @ ")";
 			} else {
@@ -310,7 +322,7 @@ function LBStatsDlg::update(%this) {
 		//Total game completion
 		%percent = mFloor(100 * (%game.completion.completion / %game.totals.total_missions)) @ "%";
 		%text = %text NL "<just:left>Game Completion: <just:right>"
-			@ %game.completion.completion @ " / " @ %game.totals.total_missions @ " (" @ %percent;
+		        @ %game.completion.completion @ " / " @ %game.totals.total_missions @ " (" @ %percent;
 		if (%game.completion.completion == %game.totals.total_missions) {
 			%text = %text @ " in " @ formatTimeHoursMs(%game.completion.total_time) @ ")";
 		} else {
@@ -322,23 +334,23 @@ function LBStatsDlg::update(%this) {
 		if (%game.has_platinum_times) {
 			%percent = mFloor(100 * (%game.completion.platinum_count / %game.totals.total_platinums)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.platinum_time_name @ "s: <just:right>"
-				@ mFloor(%game.completion.platinum_count) @ " / " @ mFloor(%game.totals.total_platinums) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.platinum_count) @ " / " @ mFloor(%game.totals.total_platinums) @ " (" @ %percent @ ")";
 		}
 		if (%game.has_ultimate_times) {
 			%percent = mFloor(100 * (%game.completion.ultimate_count / %game.totals.total_ultimates)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.ultimate_time_name @ "s: <just:right>"
-				@ mFloor(%game.completion.ultimate_count) @ " / " @ mFloor(%game.totals.total_ultimates) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.ultimate_count) @ " / " @ mFloor(%game.totals.total_ultimates) @ " (" @ %percent @ ")";
 		}
 		if (%game.has_awesome_times && (%game.completion.awesome_count > 0) && $pref::ShowAwesomeHints) {
 			%percent = mFloor(100 * (%game.completion.awesome_count / %game.totals.total_awesomes)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.awesome_time_name @ "s: <just:right>"
-				@ mFloor(%game.completion.awesome_count) @ " / " @ mFloor(%game.totals.total_awesomes) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.awesome_count) @ " / " @ mFloor(%game.totals.total_awesomes) @ " (" @ %percent @ ")";
 		}
 		//Easter Eggs
 		if (%game.has_easter_eggs) {
 			%percent = mFloor(100 * (%game.completion.egg_count / %game.totals.total_eggs)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.easter_egg_name @ "s: <just:right>"
-				@ mFloor(%game.completion.egg_count) @ " / " @ mFloor(%game.totals.total_eggs) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.egg_count) @ " / " @ mFloor(%game.totals.total_eggs) @ " (" @ %percent @ ")";
 		}
 		%text = %text NL "<just:left>Total Rating: <just:right>" @ formatScore(%game.rating) @ " (Ranked #" @ formatScore(%game.rank) @ ")";
 	}

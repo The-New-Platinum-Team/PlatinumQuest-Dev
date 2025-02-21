@@ -51,7 +51,10 @@ function ClientMode_hunt::onLoad(%this) {
 
 function updatePredictor() {
 	cancel($updatePredictorSchedule);
-	if (!$Game::IsMode["hunt"]) {PGScorePredictor.setVisible(false); return;}
+	if (!$Game::IsMode["hunt"]) {
+		PGScorePredictor.setVisible(false);
+		return;
+	}
 	PGScorePredictor.setVisible(true);
 	%score = PlayGui.gemCount;
 	if (%score < 10) {
@@ -81,8 +84,8 @@ function updatePredictor() {
 	} else {
 		%estimatedColor = "<shadowcolor:0000007f><shadow:1:1>";
 		%vs = !$Server::Hosting //Not host, so there must be someone else who is
-			|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-			|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+		      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+		      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 		%scoreIdx = (%vs ? 0 : 1);
 		%score = MissionInfo.score[%scoreIdx] || MissionInfo.score;
 		%pla = MissionInfo.platinumScore[%scoreIdx] || MissionInfo.platinumScore;
