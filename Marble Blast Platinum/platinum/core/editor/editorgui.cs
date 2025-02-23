@@ -134,7 +134,7 @@ function EditorGui::onSleep(%this) {
 function EditorGui::init(%this) {
 	%this.getPrefs();
 
-	if(!isObject("terraformer"))
+	if (!isObject("terraformer"))
 		new Terraformer("terraformer");
 
 	$SelectedOperation = -1;
@@ -409,13 +409,13 @@ function EditorSaveMission() {
 		MessageBoxOK("Error", "Mission file \""@ $Server::MissionFile @ "\" is read-only.");
 		return false;
 	}
-	if(ETerrainEditor.isDirty && !isWriteableFileName(Terrain.terrainFile)) {
+	if (ETerrainEditor.isDirty && !isWriteableFileName(Terrain.terrainFile)) {
 		MessageBoxOK("Error", "Terrain file \""@ Terrain.terrainFile @ "\" is read-only.");
 		return false;
 	}
 
 	// now write the terrain and mission files out:
-	if(ETerrainEditor.isDirty)
+	if (ETerrainEditor.isDirty)
 		Terrain.save(Terrain.terrainFile);
 
 	if (EWorldEditor.isDirty || ETerrainEditor.isMissionDirty) {
@@ -687,7 +687,7 @@ function EditorMenuBar::onMenuSelect(%this, %menuId, %menu) {
 			EditorMenuBar.setMenuItemEnable("Edit", "Group Selection", %selSize > 0 && %lockCount == 0);
 			EditorMenuBar.setMenuItemEnable("Edit", "Ungroup Selection", %selSize > 0 && %lockCount == 0);
 
-		} else if(ETerrainEditor.isVisible()) {
+		} else if (ETerrainEditor.isVisible()) {
 			EditorMenuBar.setMenuItemEnable("Edit", "Cut", false);
 			EditorMenuBar.setMenuItemEnable("Edit", "Copy", false);
 			EditorMenuBar.setMenuItemEnable("Edit", "Paste", false);
@@ -835,9 +835,9 @@ function EditorMenuBar::onActionMenuItemSelect(%this, %itemId, %item) {
 			ETerrainEditor.currentAction = clearEmpty;
 			ETerrainEditor.renderVertexSelection = false;
 		}
-		if(ETerrainEditor.currentMode $= "select")
+		if (ETerrainEditor.currentMode $= "select")
 			ETerrainEditor.processAction(ETerrainEditor.currentAction);
-		else if(ETerrainEditor.currentMode $= "paint")
+		else if (ETerrainEditor.currentMode $= "paint")
 			ETerrainEditor.setAction(ETerrainEditor.currentAction);
 	}
 }
@@ -911,7 +911,7 @@ function EditorMenuBar::onWorldMenuItemSelect(%this, %itemId, %item) {
 function EditorMenuBar::onEditMenuItemSelect(%this, %itemId, %item) {
 	if (%item $= "World Editor Settings...")
 		RootGui.pushDialog(WorldEditorSettingsDlg);
-	else if(%item $= "Terrain Editor Settings...")
+	else if (%item $= "Terrain Editor Settings...")
 		Canvas.pushDialog(TerrainEditorValuesSettingsGui, 99);
 	else if (%item $= "Relight Scene")
 		lightScene("", forceAlways);
@@ -1618,7 +1618,7 @@ function ETerrainEditor::setPaintMaterial(%this, %matIndex) {
 
 	%mats = ETerrainEditor.getTerrainMaterials();
 	%valid = true;
-	for(%i = 0; %i < 6; %i++) {
+	for (%i = 0; %i < 6; %i++) {
 		%mat = getRecord(%mats, %i);
 		%this.mat[%i] = %mat;
 		if (%matIndex == %i) {
@@ -1636,13 +1636,13 @@ function ETerrainEditor::changeMaterial(%this, %matIndex) {
 function EPainterChangeMat(%file) {
 	// make sure the material isn't already in the terrain.
 	%file = filePath(%file) @ "/" @ fileBase(%file);
-	for(%i = 0; %i < 6; %i++)
-		if(EPainter.mat[%i] $= %file)
+	for (%i = 0; %i < 6; %i++)
+		if (EPainter.mat[%i] $= %file)
 			return;
 
 	EPainter.mat[EPainter.matIndex] = %file;
 	%mats = "";
-	for(%i = 0; %i < 6; %i++)
+	for (%i = 0; %i < 6; %i++)
 		%mats = %mats @ EPainter.mat[%i] @ "\n";
 	ETerrainEditor.setTerrainMaterials(%mats);
 	EPainter.setup();
@@ -1653,16 +1653,16 @@ function EPainter::setup(%this) {
 	EditorMenuBar.onActionMenuItemSelect(0, "Paint Material");
 	%mats = ETerrainEditor.getTerrainMaterials();
 	%valid = true;
-	for(%i = 0; %i < 6; %i++) {
+	for (%i = 0; %i < 6; %i++) {
 		%mat = getRecord(%mats, %i);
 		%this.mat[%i] = %mat;
 		("ETerrainMaterialText" @ %i).setText(fileBase(%mat));
 		("ETerrainMaterialBitmap" @ %i).setBitmap(%mat);
 		("ETerrainMaterialChange" @ %i).setActive(true);
 		("ETerrainMaterialPaint" @ %i).setActive(%mat !$= "");
-		if(%mat $= "") {
+		if (%mat $= "") {
 			("ETerrainMaterialChange" @ %i).setText("Add...");
-			if(%valid)
+			if (%valid)
 				%valid = false;
 			else
 				("ETerrainMaterialChange" @ %i).setActive(false);
@@ -2303,7 +2303,7 @@ function TextureInit() {
 	// sync up the preview windows
 	TexturePreview.setValue(HeightfieldPreview.getValue());
 	%script = terrain.getTextureScript();
-	if(%script !$= "")
+	if (%script !$= "")
 		Texture::loadFromScript(%script);
 
 	if (Texture_material.rowCount() == 0) {
@@ -2763,8 +2763,8 @@ function Texture::save() {
 
 	// loop through each operation and save it to disk
 	%rowCount = Texture_material.rowCount();
-	for(%row = 0; %row < %rowCount; %row++) {
-		if(%row != 0)
+	for (%row = 0; %row < %rowCount; %row++) {
+		if (%row != 0)
 			%script = %script @ "\n";
 		%data = expandEscape(Texture_material.getRowText(%row));
 		%script = %script @ %data;
@@ -2785,7 +2785,7 @@ function Texture::loadFromScript(%script) {
 	$selectedTextureOperation = -1;
 
 	%i = 0;
-	for(%rec = getRecord(%script, %i); %rec !$= ""; %rec = getRecord(%script, %i++))
+	for (%rec = getRecord(%script, %i); %rec !$= ""; %rec = getRecord(%script, %i++))
 		Texture::addMaterial(collapseEscape(%rec));
 	// initialize dirty register array
 	// patch up register usage
@@ -2828,9 +2828,9 @@ function Texture::doLoadTexture(%name) {
 		squareSize = 8;
 		visibleDistance = 100;
 	};
-	if(isObject(%newTerr)) {
+	if (isObject(%newTerr)) {
 		%script = %newTerr.getTextureScript();
-		if(%script !$= "")
+		if (%script !$= "")
 			Texture::loadFromScript(%script);
 		%newTerr.delete();
 	}
@@ -2892,7 +2892,7 @@ function tab_terrainFile::reset(%this) {
 	terrainFile_textList.clear();
 
 	%filespec = $TerraformerHeightfieldDir @ "/*.ter";
-	for(%file = findFirstFile(%filespec); %file !$= ""; %file = findNextFile(%filespec))
+	for (%file = findFirstFile(%filespec); %file !$= ""; %file = findNextFile(%filespec))
 		terrainFile_textList.addRow(%i++, fileBase(%file) @ fileExt(%file));
 }
 
@@ -2972,7 +2972,7 @@ function TerraformerInit() {
 	Heightfield::resetTabs();
 
 	%script = Terrain.getHeightfieldScript();
-	if(%script !$= "")
+	if (%script !$= "")
 		Heightfield::loadFromScript(%script,true);
 
 	if (Heightfield_operation.rowCount() == 0) {
@@ -3045,7 +3045,7 @@ function Heightfield_options::onSelect(%this, %_id, %text) {
 	}
 
 	if (Heightfield_operation.rowCount() >= 2) {
-		if("Blend" $= %text)
+		if ("Blend" $= %text)
 			%id = Heightfield::add("Blend\ttab_Blend\tblend_factor\t0.500\tblend_srcB\t" @ %rowCount-2 @"\tblend_option\tadd");
 	}
 
@@ -3117,12 +3117,12 @@ function Heightfield::eval(%id) {
 
 	case "Blend":
 		%rowCount = Heightfield_operation.rowCount();
-		if(%rowCount > 2) {
+		if (%rowCount > 2) {
 			%a = Heightfield_operation.getRowNumById(%id)-1;
 			%b = getField(%data, 5);
 			echo("Blend: " @ %data);
 			echo("Blend: " @ getField(%data,3) @ "  " @ getField(%data,7));
-			if(%a < %rowCount || %a > 0 || %b < %rowCount || %b > 0 )
+			if (%a < %rowCount || %a > 0 || %b < %rowCount || %b > 0 )
 				terraformer.blend(%a, %b, %row, getField(%data,3), getField(%data,7) );
 			else
 				echo("Heightfield Editor: Blend parameters out of range.");
@@ -3143,7 +3143,7 @@ function Heightfield::add(%entry) {
 		Heightfield_operation.addRow(%id, %entry, %row); // insert
 
 		// adjust row numbers
-		for(%i = %row+1; %i < Heightfield_operation.rowCount(); %i++) {
+		for (%i = %row+1; %i < Heightfield_operation.rowCount(); %i++) {
 			%id = Heightfield_operation.getRowId(%i);
 			%text = Heightfield_operation.getRowTextById(%id);
 			%text = setWord(%text, 0, %i);
@@ -3176,7 +3176,7 @@ function Heightfield::onDelete(%id) {
 	Heightfield_operation.removeRow(%row);
 
 	// adjust row numbers
-	for(%i = %row; %i < Heightfield_operation.rowCount(); %i++) {
+	for (%i = %row; %i < Heightfield_operation.rowCount(); %i++) {
 		%id2 = Heightfield_operation.getRowId(%i);
 		%text = Heightfield_operation.getRowTextById(%id2);
 		%text = setWord(%text, 0, %i);
@@ -3281,7 +3281,7 @@ function Heightfield::refresh(%last) {
 	// always update the general info
 	Heightfield::eval(Heightfield_operation.getRowId(0));
 
-	for( 0; $HeightfieldDirtyRow<=%last; $HeightfieldDirtyRow++) {
+	for ( 0; $HeightfieldDirtyRow<=%last; $HeightfieldDirtyRow++) {
 		%id = Heightfield_operation.getRowId($HeightfieldDirtyRow);
 		Heightfield::eval(%id);
 	}
@@ -3310,7 +3310,7 @@ function Heightfield::apply(%id) {
 //--------------------------------------
 $TerraformerSaveRegister = 0;
 function Heightfield::saveBitmap(%name) {
-	if(%name $= "")
+	if (%name $= "")
 		getSaveFilename("*.png", "Heightfield::doSaveBitmap",
 		                $TerraformerHeightfieldDir @ "/" @ fileBase($Client::MissionFile) @ ".png");
 	else
@@ -3326,8 +3326,8 @@ function Heightfield::doSaveBitmap(%name) {
 function Heightfield::save() {
 	%script = "";
 	%rowCount = Heightfield_operation.rowCount();
-	for(%row = 0; %row < %rowCount; %row++) {
-		if(%row != 0)
+	for (%row = 0; %row < %rowCount; %row++) {
+		if (%row != 0)
 			%script = %script @ "\n";
 		%data = restWords(Heightfield_operation.getRowText(%row));
 		%script = %script @ expandEscape(%data);
@@ -3353,7 +3353,7 @@ function Heightfield::loadFromScript(%script,%leaveCamera) {
 	// zero out all shifting
 	HeightfieldPreview.reset();
 
-	for(%rec = getRecord(%script, %i); %rec !$= ""; %rec = getRecord(%script, %i++))
+	for (%rec = getRecord(%script, %i); %rec !$= ""; %rec = getRecord(%script, %i++))
 		Heightfield::add(collapseEscape(%rec));
 
 	if (Heightfield_operation.rowCount() == 0) {
@@ -3376,7 +3376,7 @@ function Heightfield::loadFromScript(%script,%leaveCamera) {
 //--------------------------------------
 function strip(%stripStr, %strToStrip) {
 	%len = strlen(%stripStr);
-	if(strcmp(getSubStr(%strToStrip, 0, %len), %stripStr) == 0)
+	if (strcmp(getSubStr(%strToStrip, 0, %len), %stripStr) == 0)
 		return getSubStr(%strToStrip, %len, 100000);
 	return %strToStrip;
 }
@@ -3390,9 +3390,9 @@ function Heightfield::doLoadHeightfield(%name) {
 		squareSize = 8;
 		visibleDistance = 100;
 	};
-	if(isObject(%newTerr)) {
+	if (isObject(%newTerr)) {
 		%script = %newTerr.getHeightfieldScript();
-		if(%script !$= "")
+		if (%script !$= "")
 			Heightfield::loadFromScript(%script);
 		%newTerr.delete();
 	}
@@ -3492,7 +3492,7 @@ function TerrainEditor::offsetBrush(%this, %x, %y) {
 
 function TerrainEditor::swapInLoneMaterial(%this, %name) {
 	// swapped?
-	if(%this.baseMaterialsSwapped $= "true") {
+	if (%this.baseMaterialsSwapped $= "true") {
 		%this.baseMaterialsSwapped = "false";
 		tEditor.popBaseMaterialInfo();
 	} else {
@@ -3523,7 +3523,7 @@ function TELoadTerrainButton::gotFileName(%this, %name) {
 	%visibleDistance = "1200";
 
 	// delete current
-	if(isObject(terrain)) {
+	if (isObject(terrain)) {
 		%pos = terrain.position;
 		%squareSize = terrain.squareSize;
 		%visibleDistance = terrain.visibleDistance;
@@ -3558,7 +3558,7 @@ function TESettingsApplyButton::onAction(%this) {
 
 function getPrefSetting(%pref, %default) {
 	//
-	if(%pref $= "")
+	if (%pref $= "")
 		return(%default);
 	else
 		return(%pref);

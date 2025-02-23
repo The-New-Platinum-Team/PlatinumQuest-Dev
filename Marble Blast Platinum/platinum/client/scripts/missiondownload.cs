@@ -364,7 +364,7 @@ function handleLoadInfoMessage(%msgType, %msgString, %mapName) {
 		return;
 
 	// Clear all of the loading info lines:
-	// for( %line = 0; %line < LoadingGui.qLineCount; %line++ )
+	// for ( %line = 0; %line < LoadingGui.qLineCount; %line++ )
 	//LoadingGui.qLine[%line] = "";
 	//LoadingGui.qLineCount = 0;
 

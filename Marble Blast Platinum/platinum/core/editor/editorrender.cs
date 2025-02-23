@@ -214,7 +214,7 @@ function Marker::onEditorRender(%this, %editor, %selected, %expanded) {
 
 //function Item::onEditorRender(%this, %editor, %selected, %expanded)
 //{
-//   if(%this.getDataBlock().getName() $= "MineDeployed")
+//   if (%this.getDataBlock().getName() $= "MineDeployed")
 //   {
 //      %editor.consoleFillColor = "0 0 0 0";
 //      %editor.consoleFrameColor = "255 0 0";

@@ -322,9 +322,9 @@ activatePackage(marble);
 
 function listResolutions() {
 	%deviceList = getDisplayDeviceList();
-	for(%deviceIndex = 0; (%device = getField(%deviceList, %deviceIndex)) !$= ""; %deviceIndex++) {
+	for (%deviceIndex = 0; (%device = getField(%deviceList, %deviceIndex)) !$= ""; %deviceIndex++) {
 		%resList = getResolutionList(%device);
-		for(%resIndex = 0; (%res = getField(%resList, %resIndex)) !$= ""; %resIndex++)
+		for (%resIndex = 0; (%res = getField(%resList, %resIndex)) !$= ""; %resIndex++)
 			echo(%device @ " - " @ getWord(%res, 0) @ " x " @ getWord(%res, 1) @ "(" @ getWord(%res, 2) @ " bpp)");
 	}
 }

@@ -231,7 +231,7 @@ function TeleportTrigger::onEnterTrigger(%data, %obj, %colObj) {
 	if (%delay $= "")
 		%delay = 2000;
 
-//   if(!%client)
+//   if (!%client)
 //   {
 //      echo("not a client!");
 //      return;
