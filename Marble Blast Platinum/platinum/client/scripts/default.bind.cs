@@ -883,13 +883,13 @@ function joyDITrigger(%val) {
 // button1: b
 // button2: x
 // button3: y
-// button4: lb
-// button5: rb
-// button6: ls      windows: back
-// button7: rs      windows: start
-// button8: start   windows: LS
-// button9: back    windows: RS
-// button10: guide
+// button4: back
+// button5: guide
+// button6: start
+// button7: ls
+// button8: rs
+// button9: lb
+// button10: rb
 // button11: dpad_up
 // button12: dpad_down
 // button13: dpad_left
@@ -910,13 +910,13 @@ joySetDefaultBind(joystick0, "button11", toggleChatHUD);
 joySetDefaultBind(joystick0, "button14", togglePrivateChatHUD);
 joySetDefaultBind(joystick0, "button12", toggleTeamChatHUD);
 joySetDefaultBind(joystick0, "button3",  joyFreelook);
-joySetDefaultBind(joystick0, "button5",  joyUseBlast1);
-joySetDefaultBind(joystick0, "button4",  joyThrowSnowball);
+joySetDefaultBind(joystick0, "button10", joyUseBlast1);
+joySetDefaultBind(joystick0, "button9",  joyThrowSnowball);
 //Windows is cool
-joySetDefaultBind(joystick0, ($platform $= "windows" ? "button8" : "button6"), joyToggleCamera); //LS
-joySetDefaultBind(joystick0, ($platform $= "windows" ? "button9" : "button7"), joyRadarSwitch); //RS
-joySetDefaultBind(joystick0, ($platform $= "windows" ? "button7" : "button8"), joyEscapeFromGame); //Start
-joySetDefaultBind(joystick0, ($platform $= "windows" ? "button6" : "button9"), joyForceRespawn); //Back
+joySetDefaultBind(joystick0, "button7", joyToggleCamera); //LS
+joySetDefaultBind(joystick0, "button8", joyRadarSwitch); //RS
+joySetDefaultBind(joystick0, "button6", joyEscapeFromGame); //Start
+joySetDefaultBind(joystick0, "button4", joyForceRespawn); //Back
 //May break if you have DI
 joySetDefaultBind(joystick0, "zaxis",    joyJump1);
 joySetDefaultBind(joystick0, "rzaxis",   joyMouseFire1);
