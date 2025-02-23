@@ -148,7 +148,7 @@ function statsGetMissionIdentifier(%mission) {
 		//missionHash
 		//difficultyId
 
-		%missionData =  "missionFile="     @ URLEncode(%mission.file) @
+		%missionData =  "missionFile="      @ URLEncode(%mission.file) @
 		                "&missionName="     @ URLEncode(%mission.name) @
 		                "&missionHash="     @ URLEncode(getMissionHash(%mission)) @
 		                "&missionGamemode=" @ URLEncode(resolveMissionGameModes(%mission, "")) @
