@@ -670,12 +670,12 @@ function PlaybackInfo::readLine(%this) {
 		return false;
 	}
 	if (%this.fo.isEOF()) {
-		if($debugreplay)echo("EOF");
+		if ($debugreplay)echo("EOF");
 		%this.finish();
 		return false;
 	}
 	if (!%this.playing) {
-		if($debugreplay)echo("Not playing");
+		if ($debugreplay)echo("Not playing");
 		%this.finish();
 		return false;
 	}
@@ -689,49 +689,49 @@ function PlaybackInfo::readLine(%this) {
 		if ($debugreplay) echo("Read pack of tag " @ %tag);
 		switch (%tag) {
 		case $RecordTag["time"]:
-			if($debugreplay)echo("Frame type: Time");
+			if ($debugreplay)echo("Frame type: Time");
 			%frame = %this.readTime();
 			break; //Out of the while-loop, very strange but that's how TS works
 		case $RecordTag["time2"]:
-			if($debugreplay)echo("Frame type: Time2");
+			if ($debugreplay)echo("Frame type: Time2");
 			%frame = %this.readTime2();
 			break; //Out of the while-loop, very strange but that's how TS works
 		case $RecordTag["position"]:
-			if($debugreplay)echo("Frame type: Position");
+			if ($debugreplay)echo("Frame type: Position");
 			%frame = %this.readPosition();
 		case $RecordTag["platform"]:
-			if($debugreplay)echo("Frame type: Platform");
+			if ($debugreplay)echo("Frame type: Platform");
 			%frame = %this.readPlatform();
 		case $RecordTag["scores"]:
-			if($debugreplay)echo("Frame type: Scores");
+			if ($debugreplay)echo("Frame type: Scores");
 			%frame = %this.readScores();
 		case $RecordTag["spawn"]:
-			if($debugreplay)echo("Frame type: Spawn");
+			if ($debugreplay)echo("Frame type: Spawn");
 			%frame = %this.readSpawn();
 		case $RecordTag["pickup"]:
-			if($debugreplay)echo("Frame type: Pickup");
+			if ($debugreplay)echo("Frame type: Pickup");
 			%frame = %this.readPickup();
 		case $RecordTag["physics"]:
-			if($debugreplay)echo("Frame type: Physics");
+			if ($debugreplay)echo("Frame type: Physics");
 			%frame = %this.readPhysics();
 		case $RecordTag["collision"]:
-			if($debugreplay)echo("Frame type: Collision");
+			if ($debugreplay)echo("Frame type: Collision");
 			%frame = %this.readCollision();
 		case $RecordTag["gravity"]:
-			if($debugreplay)echo("Frame type: Gravity");
+			if ($debugreplay)echo("Frame type: Gravity");
 			%frame = %this.readGravity();
 		case $RecordTag["gems"]:
-			if($debugreplay)echo("Frame type: Gems");
+			if ($debugreplay)echo("Frame type: Gems");
 			%frame = %this.readGems();
 		case $RecordTag["movement"]:
-			if($debugreplay)echo("Frame type: Movement");
+			if ($debugreplay)echo("Frame type: Movement");
 			%frame = %this.readMovement();
 		default:
 			PlaybackFrameGroup.add(%frame = new ScriptObject() {
 				class = "PlaybackFrame";
 			});
 			// We don't know frame size so everything after this will be corrupt
-			if($debugreplay)echo("Frame type: Unknown");
+			if ($debugreplay)echo("Frame type: Unknown");
 			%this.finish();
 			return false;
 		}
@@ -750,12 +750,12 @@ function PlaybackInfo::readLine(%this) {
 
 		//If we've reached the end, stop
 		if (%this.fo.isEOF()) {
-			if($debugreplay)echo("EOF");
+			if ($debugreplay)echo("EOF");
 			%this.finish();
 			return false;
 		}
 		if (!%this.playing) {
-			if($debugreplay)echo("Not playing");
+			if ($debugreplay)echo("Not playing");
 			%this.finish();
 			return false;
 		}
@@ -792,7 +792,7 @@ function PlaybackInfo::step(%this) {
 		%current -= %this.start;
 	}
 
-	if($debugreplay)echo("PIstep: " @ %current @ " next: " @ %nextFrame.total);
+	if ($debugreplay)echo("PIstep: " @ %current @ " next: " @ %nextFrame.total);
 
 	%offset = %current - %nextFrame.total;
 	while (%offset > 0) {
@@ -803,21 +803,21 @@ function PlaybackInfo::step(%this) {
 
 		%lastFrame = %this.lastFrame.lastFrame;
 		%nextFrame = %this.lastFrame;
-		if($debugreplay)echo("PIsubstep: " @ %current @ " next: " @ %nextFrame.total);
+		if ($debugreplay)echo("PIsubstep: " @ %current @ " next: " @ %nextFrame.total);
 
 		if (isObject(%nextFrame)) {
 			%offset = %current - %nextFrame.total;
 			if (%offset > 0) {
-				if($debugreplay)echo("apply frame at 1");
+				if ($debugreplay)echo("apply frame at 1");
 				%nextFrame.apply(%this.marble, 1);
 			} else {
-				if($debugreplay)echo("offset is " @ %offset @ " !> 0");
+				if ($debugreplay)echo("offset is " @ %offset @ " !> 0");
 			}
 		}
 	}
 
 	if (!isObject(%nextFrame)) {
-		if($debugreplay)echo("no next frame?");
+		if ($debugreplay)echo("no next frame?");
 		return;
 	}
 	if (isObject(%lastFrame)) {
@@ -826,7 +826,7 @@ function PlaybackInfo::step(%this) {
 		%t = 1;
 	}
 
-	if($debugreplay)echo("pgtime: " @ %current @ " next time: " @ %nextFrame.total @ " last time: " @ %lastFrame.total @ " delta: " @ %lastFrame.delta @ " T: " @ %t);
+	if ($debugreplay)echo("pgtime: " @ %current @ " next time: " @ %nextFrame.total @ " last time: " @ %lastFrame.total @ " delta: " @ %lastFrame.delta @ " T: " @ %t);
 	if (%t < 0) {
 		error("??? Negative time?");
 		return;
@@ -861,7 +861,7 @@ function PlaybackTimeFrame::apply(%this, %object, %t) {
 		%this.frame[%i].apply(%object, %t);
 	}
 
-	if($debugreplay) {
+	if ($debugreplay) {
 		if (!isObject(%this.info.lastTimes)) {
 			%this.info.lastTimes = Array();
 		}
@@ -1068,7 +1068,7 @@ function PlaybackSpawnFrame::apply(%this, %object, %t) {
 	%this.applied = true;
 	hideGems();
 
-	if($debugreplay)echo("Spawning " @ %this.gems @ " gems");
+	if ($debugreplay)echo("Spawning " @ %this.gems @ " gems");
 
 	for (%i = 0; %i < %this.gems; %i ++) {
 		%position = %this.spawnPosition[%i];
@@ -1077,7 +1077,7 @@ function PlaybackSpawnFrame::apply(%this, %object, %t) {
 		for (%j = 0; %j < %gems.getSize(); %j ++) {
 			%gem = %gems.getEntry(%j);
 			if (%gem.getClassName() $= "Item" && %gem.getDataBlock().className $= "Gem" && %gem.isHidden()) {
-				if($debugreplay)echo("Spawn gem " @ %gem @ " at " @ %position);
+				if ($debugreplay)echo("Spawn gem " @ %gem @ " at " @ %position);
 				spawnGem(%gem);
 			}
 		}
@@ -1120,7 +1120,7 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 				continue;
 		}
 
-		if($debugreplay)echo("Hacky pickup of item at " @ %this.position);
+		if ($debugreplay)echo("Hacky pickup of item at " @ %this.position);
 		//Hack
 		$Playback::DemoFrame = true;
 		DefaultMarble.onCollision(LocalClientConnection.player, %col);
@@ -1165,7 +1165,7 @@ function PlaybackCollisionFrame::apply(%this, %object, %t) {
 
 		%this.db = %col.getDataBlock().getName();
 
-		if($debugreplay)echo("Hacky collision of item at " @ %this.position);
+		if ($debugreplay)echo("Hacky collision of item at " @ %this.position);
 		//Hack
 		$Playback::DemoFrame = true;
 		%this.db.onCollision(%col, LocalClientConnection.player);
@@ -1210,8 +1210,8 @@ function PlaybackPhysicsFrame::apply(%this, %object, %t) {
 		}
 		$Playback::PhysicsValue[%field] = %value;
 
-		if($debugreplay)echo("pretend physics " @ %field @ " old value " @ $Playback::LastPhysicsValue[%field]);
-		if($debugreplay)echo("pretend physics " @ %field @ " value " @ %value);
+		if ($debugreplay)echo("pretend physics " @ %field @ " old value " @ $Playback::LastPhysicsValue[%field]);
+		if ($debugreplay)echo("pretend physics " @ %field @ " value " @ %value);
 	}
 }
 

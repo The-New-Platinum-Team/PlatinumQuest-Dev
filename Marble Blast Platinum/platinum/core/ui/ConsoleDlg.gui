@@ -469,10 +469,10 @@ function cheat_super() {
 }
 $Cheats::Hot = false;
 function cheat_hot() {
-	if($Cheats::Super) {
+	if ($Cheats::Super) {
 		$Cheats::Activated = true;
 		$Cheats::Hot = !$Cheats::Hot;
-		if($Cheats::Hot) {
+		if ($Cheats::Hot) {
 			activatePackage(SUPERHOT);
 			echo("HOT");
 		} else {
@@ -485,7 +485,7 @@ package SUPERHOT {
 	function onFrameAdvance(%time_or_whatever) {
 		Parent::onFrameAdvance(%time_or_whatever);
 		if ($Cheats::Hot) {
-			if(!$Game::Running || $Game::Finished || $Game::Menu) {
+			if (!$Game::Running || $Game::Finished || $Game::Menu) {
 				%targetTimeScale = 1;
 			} else {
 				if ($Game::State $= "start") {

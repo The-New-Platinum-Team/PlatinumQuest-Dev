@@ -394,7 +394,7 @@ function pitchMusic() {
 		%targetPitch *= getTimeScale();
 
 	//Music Triggers + Custom Code
-	if($GlobalMusicPitchHandler $= "" || !$Game::Running || $Game::Menu)
+	if ($GlobalMusicPitchHandler $= "" || !$Game::Running || $Game::Menu)
 		$GlobalMusicPitchHandler = 1;
 	%targetPitch *= $GlobalMusicPitchHandler;
 

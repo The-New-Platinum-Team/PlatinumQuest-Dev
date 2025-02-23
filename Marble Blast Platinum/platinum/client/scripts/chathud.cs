@@ -179,9 +179,9 @@ function createHelpMessage(%id, %text, %timeout) {
 function fadeCenterWhiteMBG(%fade) { // Old helptext rendering from MBG
 	WhiteCenterMBGText.setAlpha(1.0 * %fade);
 	WhiteCenterMBGShadow.setAlpha(%fade);
-	if(%fade > 0) {
+	if (%fade > 0) {
 		%nextFade = %fade - 0.03;
-		if(%nextFade < 0)
+		if (%nextFade < 0)
 			%nextFade = 0;
 		$CenterWhiteFadeTimer = schedule(32, 0, fadeCenterWhiteMBG, %nextFade);
 	}

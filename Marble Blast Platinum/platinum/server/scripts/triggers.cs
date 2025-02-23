@@ -1044,7 +1044,7 @@ function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
 }
 
 function MusicTrigger::onLeaveTrigger(%this,%trigger,%obj) {
-	if(%trigger.pitchAltered)
+	if (%trigger.pitchAltered)
 		$GlobalMusicPitchHandler -= %trigger.pitchDiff;
 }
 

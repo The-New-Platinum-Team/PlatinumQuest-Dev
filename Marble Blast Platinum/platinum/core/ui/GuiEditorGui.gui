@@ -302,7 +302,7 @@ function GuiEditorCreate() {
 //----------------------------------------
 function GuiEditorSaveGui() {
 	%obj = GuiEditorContent.getObject(0);
-	if(%obj == -1 || %obj.getName() $= "")
+	if (%obj == -1 || %obj.getName() $= "")
 		return;
 	%name = %obj.getName() @ ".gui";
 	getSaveFilename("*.gui", "GuiEditorSaveGuiCallback", %name);
@@ -327,7 +327,7 @@ function GuiEditorSaveGuiCallback(%name) {
 	}
 
 	// make sure it is saved...
-	if(!%obj.save(%name)) {
+	if (!%obj.save(%name)) {
 		MessageBoxOK("GuiEditor Save Failure", "Failed to save '" @ %name @ "'. The file may be read-only.");
 	}
 	MessageBoxOK("Formatting", "Stripping tabs...");
@@ -408,18 +408,18 @@ function GuiControl::onGuiEditorPostSave(%this) {
 
 //----------------------------------------
 function GuiEdit(%val) {
-	if(%val != 0)
+	if (%val != 0)
 		return;
 
 	$GuiEditorLastGui = "";
 
 	%content = Canvas.getContent();
 
-	if(%content == GuiEditorGui.getId()) {
+	if (%content == GuiEditorGui.getId()) {
 		//GlobalActionMap.bind(mouse, button1, mouselook);
 
 		%obj = GuiEditorContent.getObject(0);
-		if(%obj != -1) {
+		if (%obj != -1) {
 			GuiGroup.add(%obj);
 			RootGui.setContent(%obj);
 			%obj.onGuiEditDone();
@@ -454,7 +454,7 @@ function GuiEditorOpen(%content) {
 
 	Canvas.setContent(GuiEditorGui);
 	%content.onGuiEdit();
-	while((%obj = GuiEditorContent.getObject(0)) != -1)
+	while ((%obj = GuiEditorContent.getObject(0)) != -1)
 		GuiGroup.add(%obj); // get rid of anything being edited
 
 	$GuiEditorSelected = "";
@@ -471,7 +471,7 @@ function GuiEditorOpen(%content) {
 
 	GuiEditorContent.add(%content);
 
-	if(%content.getName() $= "")
+	if (%content.getName() $= "")
 		%name = "(unnamed) - " @ %content;
 	else
 		%name = %content.getName() @ " - " @ %content;
@@ -947,7 +947,7 @@ function GuiEditorCreateObject(%object) {
 
 //----------------------------------------
 function GuiEditorTreeView::onSelect(%this, %obj, %rightMouse) {
-	if(%rightMouse)
+	if (%rightMouse)
 		GuiEditor.setCurrentAddSet(%obj);
 	else {
 		$GuiEditorDirty = true;
@@ -975,7 +975,7 @@ function GuiEditor::onSelect(%this, %ctrl) {
 	GuiEditor.select(%ctrl);
 }
 function GuiEditorDeleteSelected( %val ) {
-	if( %val ) {
+	if ( %val ) {
 		$GuiEditorSelected.getGroup().pushToBack($GuiEditorSelected);
 		GuiEditor.deleteSelection();
 		echo("Delete selected");
