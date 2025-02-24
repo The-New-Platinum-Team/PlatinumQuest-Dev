@@ -314,8 +314,10 @@ function GuiSliderCtrl::getFormattedValue(%this, %min, %max) {
 	%thisMin = getWord(%this.range, 0);
 	%thisMax = getWord(%this.range, 1);
 	//In case you're lazy
-	if (%min $= "") %min = %thisMin;
-	if (%max $= "") %max = %thisMax;
+	if (%min $= "")
+		%min = %thisMin;
+	if (%max $= "")
+		%max = %thisMax;
 	//Convert to [0, 1]
 	%value = (%value - %thisMin) / (%thisMax - %thisMin);
 	//Round to ticks
@@ -2446,11 +2448,16 @@ function getMapDisplayName(%device, %action, %fullText) {
 
 function getJoystickName(%index) {
 	%type = getJoystickType(%index);
-	if (stripos(%type, "Xbox One") != -1) return "xboxone";
-	if (stripos(%type, "X360") != -1) return "xbox360";
-	if (stripos(%type, "XInput") != -1) return "xbox360"; //Ew but windows
-	if (stripos(%type, "Xbox 360") != -1) return "xbox360";
-	if (stripos(%type, "PS4") != -1) return "ps4";
+	if (stripos(%type, "Xbox One") != -1)
+		return "xboxone";
+	if (stripos(%type, "X360") != -1)
+		return "xbox360";
+	if (stripos(%type, "XInput") != -1)
+		return "xbox360"; //Ew but windows
+	if (stripos(%type, "Xbox 360") != -1)
+		return "xbox360";
+	if (stripos(%type, "PS4") != -1)
+		return "ps4";
 	//TODO: make the configs control this, instead of the other way around
 
 	return "default";
@@ -2708,11 +2715,14 @@ function OptionsGui::disableJoystick(%this) {
 function isSharedTriggers(%joystickNum) {
 	%count = getField(getJoystickAxes(%joystickNum), 0);
 	//Can't deal with this
-	if ($platform !$= "windows") return false;
+	if ($platform !$= "windows")
+		return false;
 	//Probably should have a console function for this
-	if ($Input::XInput) return false;
+	if ($Input::XInput)
+		return false;
 	//5 fields -- only one trigger axis. Probably shared
-	if (%count == 5) return true;
+	if (%count == 5)
+		return true;
 	//No idea, best to not chance it
 	return false;
 }
@@ -2748,7 +2758,7 @@ function OptionsGui::generateHotkeysList(%this) {
 			}
 
 			OptionsInputHotkeys.add(
-				%box = new GuiControl(%boxName) {
+			%box = new GuiControl(%boxName) {
 				profile = "GuiMLTextProfile";
 				horizSizing = "right";
 				vertSizing = "bottom";

@@ -161,9 +161,12 @@ function SimObject::saveFieldCompare(%this, %aname, %avalue, %bname, %bvalue) {
 	%apos = findWord(%fields, %aname);
 	%bpos = findWord(%fields, %bname);
 
-	if (%apos == -1 && %bpos != -1) return false;
-	if (%apos != -1 && %bpos == -1) return true;
-	if (%apos == -1 && %bpos == -1) return (stricmp(%aname, %bname) < 0);
+	if (%apos == -1 && %bpos != -1)
+		return false;
+	if (%apos != -1 && %bpos == -1)
+		return true;
+	if (%apos == -1 && %bpos == -1)
+		return (stricmp(%aname, %bname) < 0);
 	return (%apos < %bpos);
 }
 

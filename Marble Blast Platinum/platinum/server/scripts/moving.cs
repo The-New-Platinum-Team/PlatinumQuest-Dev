@@ -146,9 +146,12 @@ function Node::onAdd(%this, %obj) {
 	}
 	PathNodeGroup.onNextFrame("add", %obj);
 
-	if (isObject(%obj.nextNode))      %obj._nextNodeId      = %obj.nextNode.getSyncId();
-	if (isObject(%obj.BezierHandle1)) %obj._BezierHandle1id = %obj.BezierHandle1.getSyncId();
-	if (isObject(%obj.BezierHandle2)) %obj._BezierHandle2id = %obj.BezierHandle2.getSyncId();
+	if (isObject(%obj.nextNode))
+		%obj._nextNodeId      = %obj.nextNode.getSyncId();
+	if (isObject(%obj.BezierHandle1))
+		%obj._BezierHandle1id = %obj.BezierHandle1.getSyncId();
+	if (isObject(%obj.BezierHandle2))
+		%obj._BezierHandle2id = %obj.BezierHandle2.getSyncId();
 	%obj.setSync();
 
 	//Init the node

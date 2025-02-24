@@ -27,11 +27,13 @@
 //-----------------------------------------------------------------------------
 
 function Cannon::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	%col.client.enterCannon(%obj);
 }
 function CannonBase::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	if (%obj._cannon) {
 		%col.client.enterCannon(getServerSyncObject(%obj._cannon));
 	}

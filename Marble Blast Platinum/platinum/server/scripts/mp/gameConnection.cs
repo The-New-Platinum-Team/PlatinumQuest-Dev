@@ -39,7 +39,8 @@ function GameConnection::resetTimer(%this) {
 }
 
 function GameConnection::setTimeStopped(%this, %stopped) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	commandToClient(%this, 'setTimeStopped', %stopped);
 }
 
@@ -103,7 +104,8 @@ function GameConnection::addHelpLine(%this, %line, %playBeep) {
 }
 
 function GameConnection::addBubbleLine(%this, %line, %help, %time, %isAHelpTrigger) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	cancel(%this.downsched);
 	commandToClientLong(%this, 'AddBubbleLine', %line, %help, %isAHelpTrigger);
 
@@ -114,7 +116,8 @@ function GameConnection::addBubbleLine(%this, %line, %help, %time, %isAHelpTrigg
 	}
 }
 function GameConnection::hideBubble(%this) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	commandToClient(%this, 'HideBubble');
 }
 
@@ -213,7 +216,8 @@ function GameConnection::radarInit(%this) {
 }
 
 function GameConnection::setMovementKeysEnabled(%this, %enabled) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	commandToClient(%this, 'EnableMovementKeys', %enabled);
 }
 

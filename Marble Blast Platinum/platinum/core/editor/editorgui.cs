@@ -959,7 +959,8 @@ function EditorGui::setWorldEditorVisible(%this) {
 }
 
 function EditorGui::setTerrainEditorVisible(%this) {
-	if (!ETerrainEditor.visible) ETerrainEditor.checkForTerrain(true);
+	if (!ETerrainEditor.visible)
+		ETerrainEditor.checkForTerrain(true);
 	EWorldEditor.setVisible(false);
 	ETerrainEditor.setVisible(true);
 	EHeightField.setVisible(false);
@@ -2139,9 +2140,9 @@ function Creator::recurseInsert(%this, %array, %parentId) {
 	for (%i = 0; %i < %count; %i ++) {
 		%obj = %array.getEntry(%i);
 		if (isObject(%obj) && (%obj.class $= "Array")) {
-				%groupId = %this.addGroup(%parentId, %obj.name);
-				%this.recurseInsert(%obj, %groupId);
-			} else {
+			%groupId = %this.addGroup(%parentId, %obj.name);
+			%this.recurseInsert(%obj, %groupId);
+		} else {
 			%this.addItem(%parentId, getField(%obj, 0), getFields(%obj, 1));
 		}
 	}
@@ -3069,7 +3070,8 @@ function Heightfield::eval(%id) {
 
 	switch$(%label) {
 	case "General":
-		if (Terrain.squareSize>0) %size = Terrain.squareSize;
+		if (Terrain.squareSize>0)
+			%size = Terrain.squareSize;
 		else %size = 8;
 		terraformer.setTerrainInfo( 256, %size, getField(%data,3), getField(%data,5), getField(%data,7) );
 		terraformer.setShift( getField(%data,9), getField(%data,11) );
@@ -4620,7 +4622,9 @@ function buildDBJson() {
 	for (%i = 0; %i < DataBlockGroup.getCount(); %i++) {
 		%db = DataBlockGroup.getObject(%i);
 		if (%db.shapeFile !$= "") {
-			%so = new ScriptObject() { class = "JSONObject"; };
+			%so = new ScriptObject() {
+				class = "JSONObject";
+			};
 			%so.name = %db.getName();
 			%so.type = %db.getClassName();
 			%so.category = %db.superCategory $= "" ? %db.category : (%db.superCategory @ "." @ %db.category);
@@ -4633,7 +4637,9 @@ function buildDBJson() {
 				if (%db.customField[%j, "field"] $= "")
 					break;
 
-				%sofield = new ScriptObject() { class = "JSONObject"; };
+				%sofield = new ScriptObject() {
+					class = "JSONObject";
+				};
 				%sofield.name = %db.customField[%j, "field"];
 				%sofield.type = %db.customField[%j, "type"];
 				%sofield.display = %db.customField[%j, "name"];
@@ -4647,7 +4653,9 @@ function buildDBJson() {
 						if (%db.customEnum[%sofield.name, %k, "value"] $= "")
 							break;
 
-						%enumDesc = new ScriptObject() { class = "JSONObject"; };
+						%enumDesc = new ScriptObject() {
+							class = "JSONObject";
+						};
 						%enumDesc.name = %db.customEnum[%sofield.name, %k, "value"];
 						%enumDesc.display = %db.customEnum[%sofield.name, %k, "name"];
 						%enumfields.addEntry(%enumDesc);
@@ -4665,7 +4673,9 @@ function buildDBJson() {
 						if (%db.skin[%k] $= "")
 							break;
 
-						%skinDesc = new ScriptObject() { class = "JSONObject"; };
+						%skinDesc = new ScriptObject() {
+							class = "JSONObject";
+						};
 						%skinDesc.name = %db.skin[%k];
 						%skinDesc.display = %db.skin[%k];
 						%skins.addEntry(%skinDesc);
@@ -4697,7 +4707,9 @@ function buildDBJson() {
 	for (%i = 0; %i < DataBlockGroup.getCount(); %i++) {
 		%db = DataBlockGroup.getObject(%i);
 		if (%db.getClassName() $= "TriggerData") {
-			%so = new ScriptObject() { class = "JSONObject"; };
+			%so = new ScriptObject() {
+				class = "JSONObject";
+			};
 			%so.name = %db.getName();
 
 			%fields = Array();
@@ -4706,7 +4718,9 @@ function buildDBJson() {
 				if (%db.customField[%j, "field"] $= "")
 					break;
 
-				%sofield = new ScriptObject() { class = "JSONObject"; };
+				%sofield = new ScriptObject() {
+					class = "JSONObject";
+				};
 				%sofield.name = %db.customField[%j, "field"];
 				%sofield.type = %db.customField[%j, "type"];
 				%sofield.display = %db.customField[%j, "name"];
@@ -4720,7 +4734,9 @@ function buildDBJson() {
 						if (%db.customEnum[%sofield.name, %k, "value"] $= "")
 							break;
 
-						%enumDesc = new ScriptObject() { class = "JSONObject"; };
+						%enumDesc = new ScriptObject() {
+							class = "JSONObject";
+						};
 						%enumDesc.name = %db.customEnum[%sofield.name, %k, "value"];
 						%enumDesc.display = %db.customEnum[%sofield.name, %k, "name"];
 						%enumfields.addEntry(%enumDesc);

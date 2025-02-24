@@ -291,7 +291,8 @@ function FadePlatformClass::fadeInLoop(%this, %obj) {
 }
 
 function FadePlatformClass::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	switch$ (%obj.functionality) {
 	case "trapdoor":
 		if (%obj._visible) {

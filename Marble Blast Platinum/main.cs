@@ -330,7 +330,8 @@ function getFullPath(%path) {
 	%base = getSubStr(%base, 0, strrpos(%base, %ds));
 	if (getSubStr(trim(%path), 0, 1) $= "~")
 		%path = $usermods @ getSubStr(trim(%path), 1, strlen(%path));
-	if (getSubStr(trim(%path), 0, 1) !$= "/") %path = "/" @ %path;
+	if (getSubStr(trim(%path), 0, 1) !$= "/")
+		%path = "/" @ %path;
 
 	return %base @ strreplace(%path, "/", %ds);
 }

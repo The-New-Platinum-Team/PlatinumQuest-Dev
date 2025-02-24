@@ -338,7 +338,8 @@ function GameConnection::getDisplayName(%this) {
 // This function is called when a client drops for any reason
 //
 function GameConnection::onDrop(%client, %reason) {
-	if (%client.pinging) return;
+	if (%client.pinging)
+		return;
 	%client.onClientLeaveGame();
 
 	removeFromServerGuidList(%client.guid);
@@ -520,9 +521,12 @@ function GameConnection::endMission(%this) {
 //--------------------------------------------------------------------------
 
 function GameConnection::backup(%this) {
-	if (!$MPPref::BackupClients) return;
-	if (!%this.connected) return;
-	if (%this.namebase $= "") return;
+	if (!$MPPref::BackupClients)
+		return;
+	if (!%this.connected)
+		return;
+	if (%this.namebase $= "")
+		return;
 
 	FakeClientGroup.add(%fake = new ScriptObject(FakeConnection) {
 		class = "FakeGameConnection";

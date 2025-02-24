@@ -156,7 +156,8 @@ function CheckpointTrigger::onMissionReset(%this, %obj) {
 }
 
 function CheckPointClass::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {
-	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material)) return;
+	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material))
+		return;
 	if (%col.noPickup || %col._warping) {
 		return;
 	}

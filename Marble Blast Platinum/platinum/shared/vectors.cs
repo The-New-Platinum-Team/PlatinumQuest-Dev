@@ -279,15 +279,24 @@ function vectorEase(%a, %b, %delta) {
 //Turn {p0, p1, ... pn} into {p0 TAB p1 TAB ... pn}
 function _makeList(%p0, %p1, %p2, %p3, %p4, %p5, %p6, %p7, %p8, %p9) {
 	%plist = %p0;
-	if (%p1 !$= "") %plist = %plist TAB %p1;
-	if (%p2 !$= "") %plist = %plist TAB %p2;
-	if (%p3 !$= "") %plist = %plist TAB %p3;
-	if (%p4 !$= "") %plist = %plist TAB %p4;
-	if (%p5 !$= "") %plist = %plist TAB %p5;
-	if (%p6 !$= "") %plist = %plist TAB %p6;
-	if (%p7 !$= "") %plist = %plist TAB %p7;
-	if (%p8 !$= "") %plist = %plist TAB %p8;
-	if (%p9 !$= "") %plist = %plist TAB %p9;
+	if (%p1 !$= "")
+		%plist = %plist TAB %p1;
+	if (%p2 !$= "")
+		%plist = %plist TAB %p2;
+	if (%p3 !$= "")
+		%plist = %plist TAB %p3;
+	if (%p4 !$= "")
+		%plist = %plist TAB %p4;
+	if (%p5 !$= "")
+		%plist = %plist TAB %p5;
+	if (%p6 !$= "")
+		%plist = %plist TAB %p6;
+	if (%p7 !$= "")
+		%plist = %plist TAB %p7;
+	if (%p8 !$= "")
+		%plist = %plist TAB %p8;
+	if (%p9 !$= "")
+		%plist = %plist TAB %p9;
 	return %plist;
 }
 

@@ -736,14 +736,19 @@ function reformatGameEndText() {
 
 	//Show what we need to
 	//Except always show Par because otherwise the end screen is too barren in MBG/MBP
-	if (%parTitle !$= "")                                  %text = %text @ "<just:left><spush>" @ %parTitle SPC %parType @ ":<just:right>" @ %parLabel @ "<spop>\n";
-	if (%goldTitle !$= ""     && %goldLabel !$= "N/A")     %text = %text @ "<just:left><spush>" @ %goldTitle SPC %goldType @ ":<just:right>" @ %goldLabel @ "<spop>\n";
-	if (%platinumTitle !$= "" && %platinumLabel !$= "N/A") %text = %text @ "<just:left><spush>" @ %platinumTitle SPC %platinumType @ ":<just:right>" @ %platinumLabel @ "<spop>\n";
-	if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A") %text = %text @ "<just:left><spush>" @ %ultimateTitle SPC %ultimateType @ ":<just:right>" @ %ultimateLabel @ "<spop>\n";
+	if (%parTitle !$= "")
+		%text = %text @ "<just:left><spush>" @ %parTitle SPC %parType @ ":<just:right>" @ %parLabel @ "<spop>\n";
+	if (%goldTitle !$= ""     && %goldLabel !$= "N/A")
+		%text = %text @ "<just:left><spush>" @ %goldTitle SPC %goldType @ ":<just:right>" @ %goldLabel @ "<spop>\n";
+	if (%platinumTitle !$= "" && %platinumLabel !$= "N/A")
+		%text = %text @ "<just:left><spush>" @ %platinumTitle SPC %platinumType @ ":<just:right>" @ %platinumLabel @ "<spop>\n";
+	if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A")
+		%text = %text @ "<just:left><spush>" @ %ultimateTitle SPC %ultimateType @ ":<just:right>" @ %ultimateLabel @ "<spop>\n";
 
 	//Awesome times
 	if (%showAwesome) {
-		if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A") %text = %text @ "<just:left><spush>" @ %awesomeTitle SPC %awesomeType @ ":<just:right>" @ %awesomeLabel @ "<spop>\n";
+		if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A")
+			%text = %text @ "<just:left><spush>" @ %awesomeTitle SPC %awesomeType @ ":<just:right>" @ %awesomeLabel @ "<spop>\n";
 	}
 	if (%record && %showRecord) {
 		%text = %text @ "<just:left><spush>" @ %recordTitle @ ":<just:right>" @ %recordLabel @ "<spop>\n";
@@ -1044,12 +1049,18 @@ function formatScore(%score, %tab) {
 
 function formatRating(%rating) {
 	// Error Messages
-	if (%rating == -1)    return "Level Error";   // Level not found
-	if (%rating == -2)    return "Invalid Time";  // Score too low...
-	if (%rating == -3)    return "Submitting..."; // Submitting score
-	if (%rating == -4)    return "Still a WIP";   // Multiplayer Ratings
-	if (%rating == -5)    return "Still a WIP";   // Other multiplayer stuffs
-	if (%rating $= "INF") return "Server Error";  // The crap?
+	if (%rating == -1)
+		return "Level Error";   // Level not found
+	if (%rating == -2)
+		return "Invalid Time";  // Score too low...
+	if (%rating == -3)
+		return "Submitting..."; // Submitting score
+	if (%rating == -4)
+		return "Still a WIP";   // Multiplayer Ratings
+	if (%rating == -5)
+		return "Still a WIP";   // Other multiplayer stuffs
+	if (%rating $= "INF")
+		return "Server Error";  // The crap?
 
 	return formatCommas(%rating);
 }
@@ -1088,14 +1099,16 @@ function formatRating(%rating) {
 $ptsPerLevelLevel = 50;
 
 function levelTotalPoints(%level) {
-	if (%level <= 0) return 0;
+	if (%level <= 0)
+		return 0;
 	return (($ptsPerLevelLevel / 2) * %level * %level) - (($ptsPerLevelLevel / 2) * %level);
 }
 function levelDeltaPoints(%level) {
 	return levelTotalPoints(%level + 1) - levelTotalPoints(%level);
 }
 function pointsToLevel(%points) {
-	if (%points <= 0) return 1;
+	if (%points <= 0)
+		return 1;
 	return mRound(mSqrt((($ptsPerLevelLevel / 2) * ($ptsPerLevelLevel / 2)) + (($ptsPerLevelLevel * 2) * %points)) / $ptsPerLevelLevel);
 }
 

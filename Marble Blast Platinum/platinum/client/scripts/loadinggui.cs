@@ -212,12 +212,16 @@ function LoadingGui::onWake(%this) {
 		}
 
 		//Show what we need to
-		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A") %text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
-		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
-		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
+		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
+		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
+		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
 
 		if (%showAwesome) {
-			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
+			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A")
+				%text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
 		}
 
 		%text = %text NL "";

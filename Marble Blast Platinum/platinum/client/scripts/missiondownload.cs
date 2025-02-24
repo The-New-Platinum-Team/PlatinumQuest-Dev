@@ -259,7 +259,8 @@ function setLoadProgress(%loadState, %phase, %progress) {
 }
 
 function getLoadProgress(%loadState, %phase, %progress) {
-	if (%loadState < 0 || %phase < 0 || %progress < 0) return 0;
+	if (%loadState < 0 || %phase < 0 || %progress < 0)
+		return 0;
 	return ((%phase - 1) / $MP::LoadPhases[%loadState]) + (%progress / $MP::LoadPhases[%loadState]);
 }
 function getNextLoadSegment(%loadState, %progress) {

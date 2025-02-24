@@ -100,7 +100,8 @@ function printStatus() {
 	// Level, player count, team mode, version, host
 
 	//Level
-	if ($Server::Lobby) %status = "Lobby";
+	if ($Server::Lobby)
+		%status = "Lobby";
 	else %status = MissionInfo.name;
 
 	//Player Count
@@ -113,7 +114,8 @@ function printStatus() {
 	%status = %status NL $MP::RevisionOn;
 
 	//Host
-	if (ClientGroup.getCount()) %status = %status NL ClientGroup.getObject(0).getUsername();
+	if (ClientGroup.getCount())
+		%status = %status NL ClientGroup.getObject(0).getUsername();
 	else %status = %status NL "No Host";
 
 	fwrite($outputfile, %status);

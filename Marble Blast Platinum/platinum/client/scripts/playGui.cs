@@ -220,15 +220,21 @@ function PlayGui::stopFPSCounter(%this) {
 // Just more of a shorthand
 function PlayGui::doFPSCounter(%this) {
 	%pingnum = "high";
-	if (ServerConnection.getPing() >= 100) %pingnum = "medium";
-	if (ServerConnection.getPing() >= 250) %pingnum = "low";
-	if (ServerConnection.getPing() >= 500) %pingnum = "matanny";
-	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
+	if (ServerConnection.getPing() >= 100)
+		%pingnum = "medium";
+	if (ServerConnection.getPing() >= 250)
+		%pingnum = "low";
+	if (ServerConnection.getPing() >= 500)
+		%pingnum = "matanny";
+	if (ServerConnection.getPing() >= 1000)
+		%pingnum = "unknown";
 	%ups = $fps::modded;
-	if (%ups >= 100) %ups = mRound(%ups) @ " ";
+	if (%ups >= 100)
+		%ups = mRound(%ups) @ " ";
 
 	%fps = $fps::draw;
-	if (%fps >= 100) %fps = mRound(%fps) @ " ";
+	if (%fps >= 100)
+		%fps = mRound(%fps) @ " ";
 
 	%fps = rPad(%fps, 4);
 	%ups = rPad(%ups, 4);
