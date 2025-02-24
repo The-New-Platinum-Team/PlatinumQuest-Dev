@@ -49,14 +49,18 @@ function TimeEntryCtrlUpdate(%ctrl) {
 		%val = unpunctuateTime(%val);
 		%delStart = %pos;
 		//If you start typing after one of the punctuations we need to correct for that
-		if (%pos > 3) %delStart --;
-		if (%pos > 6) %delStart --;
+		if (%pos > 3)
+			%delStart --;
+		if (%pos > 6)
+			%delStart --;
 		//Remove the extra characters we overwrote
 		%val = getSubStr(%val, 0, %delStart) @ getSubStr(%val, %delStart + %diff, %len);
 		%val = punctuateTime(%val);
 		//If you end on punctuation then go to the next one automatically
-		if (%pos == 2) %pos ++;
-		if (%pos == 5) %pos ++;
+		if (%pos == 2)
+			%pos ++;
+		if (%pos == 5)
+			%pos ++;
 	} else if (%len < %lastlen) {
 		//Deletion
 		//What to do: find what was deleted and replace it with zeroes
@@ -71,13 +75,17 @@ function TimeEntryCtrlUpdate(%ctrl) {
 			//Find where they deleted
 			%delStart = %pos;
 			//If you start typing after one of the punctuations we need to correct for that
-			if (%pos > 2) %delStart --;
-			if (%pos > 5) %delStart --;
+			if (%pos > 2)
+				%delStart --;
+			if (%pos > 5)
+				%delStart --;
 			//Fill how many chars they deleted with zeroes
 			%val = getSubStr(%val, 0, %delStart) @ strRepeat("0", -%undiff) @ getSubStr(%val, %delStart, %len);
 			//If you end on punctuation then back up a little more
-			if (%pos == 3) %pos --;
-			if (%pos == 6) %pos --;
+			if (%pos == 3)
+				%pos --;
+			if (%pos == 6)
+				%pos --;
 			%val = punctuateTime(%val);
 		}
 	} else {
@@ -130,8 +138,10 @@ function unformatTime(%formatted) {
 	%formatted = nextToken(%formatted, "minutes", ":");
 	%ms = nextToken(%formatted, "seconds", ".");
 
-	if (strlen(%ms) == 2) %ms *= 10;
-	if (strlen(%ms) > 3) %ms = getSubStr(%ms, 0, 3);
+	if (strlen(%ms) == 2)
+		%ms *= 10;
+	if (strlen(%ms) > 3)
+		%ms = getSubStr(%ms, 0, 3);
 
 	return add64_int(%ms + (%seconds * 1000), mult64_int(%minutes * 60, 1000));
 }

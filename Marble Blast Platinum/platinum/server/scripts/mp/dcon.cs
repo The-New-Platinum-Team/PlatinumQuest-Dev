@@ -57,18 +57,28 @@ package dcon {
 			%a8 = (%long && %length < 9 ? getWords(%func, 8) : getWord(%func, 8));
 
 			//Check for this
-			if (%a0 $= "?") %a0 = "help";
+			if (%a0 $= "?")
+				%a0 = "help";
 
 			//Call the function based on the args
-			if (%a0 $= "") return;
-			if (%a1 $= "") return call("dcon" @ %a0);
-			if (%a2 $= "") return call("dcon" @ %a0, %a1);
-			if (%a3 $= "") return call("dcon" @ %a0, %a1, %a2);
-			if (%a4 $= "") return call("dcon" @ %a0, %a1, %a2, %a3);
-			if (%a5 $= "") return call("dcon" @ %a0, %a1, %a2, %a3, %a4);
-			if (%a6 $= "") return call("dcon" @ %a0, %a1, %a2, %a3, %a4, %a5);
-			if (%a7 $= "") return call("dcon" @ %a0, %a1, %a2, %a3, %a4, %a5, %a6);
-			if (%a8 $= "") return call("dcon" @ %a0, %a1, %a2, %a3, %a4, %a5, %a6, %a7);
+			if (%a0 $= "")
+				return;
+			if (%a1 $= "")
+				return call("dcon" @ %a0);
+			if (%a2 $= "")
+				return call("dcon" @ %a0, %a1);
+			if (%a3 $= "")
+				return call("dcon" @ %a0, %a1, %a2);
+			if (%a4 $= "")
+				return call("dcon" @ %a0, %a1, %a2, %a3);
+			if (%a5 $= "")
+				return call("dcon" @ %a0, %a1, %a2, %a3, %a4);
+			if (%a6 $= "")
+				return call("dcon" @ %a0, %a1, %a2, %a3, %a4, %a5);
+			if (%a7 $= "")
+				return call("dcon" @ %a0, %a1, %a2, %a3, %a4, %a5, %a6);
+			if (%a8 $= "")
+				return call("dcon" @ %a0, %a1, %a2, %a3, %a4, %a5, %a6, %a7);
 			return call("dcon" @ %a0, %a1, %a2, %a3, %a4, %a5, %a6, %a7, %a8);
 		}
 	}
@@ -146,7 +156,8 @@ package dcon {
 
 	function dcondcon(%command) {
 		echo("|------------------------------------------------------");
-		if (%command $= "") %command = "info";
+		if (%command $= "")
+			%command = "info";
 		switch$ (%command) {
 		case "reload":
 			exec($Con::File);
@@ -253,7 +264,8 @@ package dcon {
 
 	function dconmaster(%command) {
 		echo("|------------------------------------------------------");
-		if (%command $= "") %command = "info";
+		if (%command $= "")
+			%command = "info";
 		switch$ (%command) {
 		case "start":
 			if ($Master::Started)

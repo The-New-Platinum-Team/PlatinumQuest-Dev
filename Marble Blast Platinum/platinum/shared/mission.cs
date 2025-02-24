@@ -636,41 +636,68 @@ function formatGameModes(%modes) {
 
 function resolveMissionModification(%mission) {
 	//Duh
-	if (%mission.modification !$= "") return %mission.modification;
+	if (%mission.modification !$= "")
+		return %mission.modification;
 
-	if (strpos(%mission.file, "missions_pq/") != -1) return "PlatinumQuest";
-	if (strpos(%mission.file, "missions_mbg/") != -1) return "Gold";
-	if (strpos(%mission.file, "missions_mbp/") != -1) return "Platinum";
-	if (strpos(%mission.file, "missions_mbu/") != -1) return "Ultra";
+	if (strpos(%mission.file, "missions_pq/") != -1)
+		return "PlatinumQuest";
+	if (strpos(%mission.file, "missions_mbg/") != -1)
+		return "Gold";
+	if (strpos(%mission.file, "missions_mbp/") != -1)
+		return "Platinum";
+	if (strpos(%mission.file, "missions_mbu/") != -1)
+		return "Ultra";
 
-	if (strpos(%mission.file, "coop/pq_") != -1) return "PlatinumQuest";
-	if (strpos(%mission.file, "coop/gold_") != -1) return "Gold";
-	if (strpos(%mission.file, "coop/platinum_") != -1) return "Platinum";
-	if (strpos(%mission.file, "coop/ultra_") != -1) return "Ultra";
+	if (strpos(%mission.file, "coop/pq_") != -1)
+		return "PlatinumQuest";
+	if (strpos(%mission.file, "coop/gold_") != -1)
+		return "Gold";
+	if (strpos(%mission.file, "coop/platinum_") != -1)
+		return "Platinum";
+	if (strpos(%mission.file, "coop/ultra_") != -1)
+		return "Ultra";
 
 	//Some basic indicators
-	if (%mission.game !$= "" && %mission.game !$= "Custom") return %mission.game;
-	if (%mission.platinumTime !$= "") return "PlatinumQuest"; //Added in PQ
-	if (%mission.awesomeScore !$= "") return "PlatinumQuest";
-	if (%mission.ultimateTime !$= "") return "Platinum";
-	if (%mission.ultimateScore !$= "") return "Platinum";
-	if (%mission.awesomeScore[0] !$= "") return "PlatinumQuest";
-	if (%mission.awesomeScore[1] !$= "") return "PlatinumQuest";
-	if (%mission.platinumScore[0] !$= "") return "Platinum";
-	if (%mission.platinumScore[1] !$= "") return "Platinum";
-	if (%mission.ultimateScore[0] !$= "") return "Platinum";
-	if (%mission.ultimateScore[1] !$= "") return "Platinum";
-	if (%mission.easterEgg) return "Platinum";
+	if (%mission.game !$= "" && %mission.game !$= "Custom")
+		return %mission.game;
+	if (%mission.platinumTime !$= "")
+		return "PlatinumQuest"; //Added in PQ
+	if (%mission.awesomeScore !$= "")
+		return "PlatinumQuest";
+	if (%mission.ultimateTime !$= "")
+		return "Platinum";
+	if (%mission.ultimateScore !$= "")
+		return "Platinum";
+	if (%mission.awesomeScore[0] !$= "")
+		return "PlatinumQuest";
+	if (%mission.awesomeScore[1] !$= "")
+		return "PlatinumQuest";
+	if (%mission.platinumScore[0] !$= "")
+		return "Platinum";
+	if (%mission.platinumScore[1] !$= "")
+		return "Platinum";
+	if (%mission.ultimateScore[0] !$= "")
+		return "Platinum";
+	if (%mission.ultimateScore[1] !$= "")
+		return "Platinum";
+	if (%mission.easterEgg)
+		return "Platinum";
 
 	//Check interiors
 	for (%i = 0; %i < %mission.interiors; %i ++) {
 		%interior = %mission.interior[%i];
-		if (strpos(%interior, "pq_") != -1) return "PlatinumQuest";
-		if (strpos(%interior, "interiors_pq") != -1) return "PlatinumQuest";
-		if (strpos(%interior, "mbp_") != -1) return "Platinum";
-		if (strpos(%interior, "interiors_mbp") != -1) return "Platinum";
-		if (strpos(%interior, "interiors_mbu") != -1) return "Ultra";
-		if (strpos(%interior, "fubargame") != -1) return "Fubar";
+		if (strpos(%interior, "pq_") != -1)
+			return "PlatinumQuest";
+		if (strpos(%interior, "interiors_pq") != -1)
+			return "PlatinumQuest";
+		if (strpos(%interior, "mbp_") != -1)
+			return "Platinum";
+		if (strpos(%interior, "interiors_mbp") != -1)
+			return "Platinum";
+		if (strpos(%interior, "interiors_mbu") != -1)
+			return "Ultra";
+		if (strpos(%interior, "fubargame") != -1)
+			return "Fubar";
 	}
 
 	return "Gold";

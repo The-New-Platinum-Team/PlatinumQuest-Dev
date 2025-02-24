@@ -123,7 +123,8 @@ function TrapDoorClass::onAdd(%this, %obj) {
 }
 
 function TrapDoorClass::onCollision(%this,%obj,%col) {
-	if (!Parent::onCollision(%this,%obj,%col)) return;
+	if (!Parent::onCollision(%this,%obj,%col))
+		return;
 	if (!%obj._open) {
 		// pause before opening - give marble a chance to get off
 		%this.schedule(%obj._timeout,"open",%obj);
@@ -591,7 +592,8 @@ function LandMineClass::onAdd(%this, %obj) {
 }
 
 function LandMineClass::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	%obj.setDamageState("Destroyed");
 
 	%resetTime = (%obj.resetTime $= "Default")? %this.resetTime: %obj.resetTime;
@@ -859,7 +861,8 @@ function NukeClass::onAdd(%this, %obj) {
 }
 
 function NukeClass::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	%obj.setDamageState("Destroyed");
 	if (%obj.nukesweeper) {
 		return;
@@ -1302,7 +1305,8 @@ function IceShard2::onMissionReset(%this, %ice) {
 }
 
 function IceShard::onCollision(%this, %ice, %marble, %unused1, %unused2, %material) {
-	if (!Parent::onCollision(%this, %ice, %marble, %unused1, %unused2, %material)) return;
+	if (!Parent::onCollision(%this, %ice, %marble, %unused1, %unused2, %material))
+		return;
 	echo(%material);
 	//unfortunately colliding at both textures return the material mapped to shard_ice.png
 	//I'm thinking this is because the collision might be "textured" with shard_ice.png

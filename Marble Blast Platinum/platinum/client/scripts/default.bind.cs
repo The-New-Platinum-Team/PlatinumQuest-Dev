@@ -1083,7 +1083,8 @@ setDefaultBind(keyboard, "F7", dropPlayerAtCamera);
 //------------------------------------------------------------------------------
 
 function trace2(%toggle) {
-	if (!%toggle) trace(!$tracing);
+	if (!%toggle)
+		trace(!$tracing);
 }
 //GlobalActionMap.bind(keyboard, "ctrl T", "trace2");
 

@@ -959,7 +959,8 @@ function EditorGui::setWorldEditorVisible(%this) {
 }
 
 function EditorGui::setTerrainEditorVisible(%this) {
-	if (!ETerrainEditor.visible) ETerrainEditor.checkForTerrain(true);
+	if (!ETerrainEditor.visible)
+		ETerrainEditor.checkForTerrain(true);
 	EWorldEditor.setVisible(false);
 	ETerrainEditor.setVisible(true);
 	EHeightField.setVisible(false);
@@ -2139,9 +2140,9 @@ function Creator::recurseInsert(%this, %array, %parentId) {
 	for (%i = 0; %i < %count; %i ++) {
 		%obj = %array.getEntry(%i);
 		if (isObject(%obj) && (%obj.class $= "Array")) {
-				%groupId = %this.addGroup(%parentId, %obj.name);
-				%this.recurseInsert(%obj, %groupId);
-			} else {
+			%groupId = %this.addGroup(%parentId, %obj.name);
+			%this.recurseInsert(%obj, %groupId);
+		} else {
 			%this.addItem(%parentId, getField(%obj, 0), getFields(%obj, 1));
 		}
 	}
@@ -3069,7 +3070,8 @@ function Heightfield::eval(%id) {
 
 	switch$(%label) {
 	case "General":
-		if (Terrain.squareSize>0) %size = Terrain.squareSize;
+		if (Terrain.squareSize>0)
+			%size = Terrain.squareSize;
 		else %size = 8;
 		terraformer.setTerrainInfo( 256, %size, getField(%data,3), getField(%data,5), getField(%data,7) );
 		terraformer.setShift( getField(%data,9), getField(%data,11) );

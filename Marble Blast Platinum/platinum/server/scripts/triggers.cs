@@ -734,9 +734,12 @@ datablock TriggerData(SetVelocityTrigger) {
 
 function SetVelocityTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%vel = %trigger.velocity;
-	if (%trigger.ignoreX) %vel = setWord(%vel, 0, getWord(%obj.getVelocity(), 0));
-	if (%trigger.ignoreY) %vel = setWord(%vel, 1, getWord(%obj.getVelocity(), 1));
-	if (%trigger.ignoreZ) %vel = setWord(%vel, 2, getWord(%obj.getVelocity(), 2));
+	if (%trigger.ignoreX)
+		%vel = setWord(%vel, 0, getWord(%obj.getVelocity(), 0));
+	if (%trigger.ignoreY)
+		%vel = setWord(%vel, 1, getWord(%obj.getVelocity(), 1));
+	if (%trigger.ignoreZ)
+		%vel = setWord(%vel, 2, getWord(%obj.getVelocity(), 2));
 	%obj.setVelocity(%vel);
 }
 

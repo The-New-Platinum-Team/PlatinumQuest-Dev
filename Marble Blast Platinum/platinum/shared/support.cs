@@ -125,8 +125,10 @@ function mRound(%num, %places) {
 		%mult *= -1;
 		%num *= -1;
 	}
-	if ((%num * 2) % 2) return mCeil(%num) / %mult;
-	else return mFloor(%num) / %mult;
+	if ((%num * 2) % 2)
+		return mCeil(%num) / %mult;
+	else
+		return mFloor(%num) / %mult;
 }
 
 //-----------------------------------------------------------------------------

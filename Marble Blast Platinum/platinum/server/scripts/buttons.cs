@@ -85,7 +85,8 @@ function Button::onAdd(%this, %obj) {
 }
 
 function Button::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {
-	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material)) return;
+	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material))
+		return;
 	// Currently activates when any object hits it.
 	//if (%material $= "ButtonMaterial")
 	%this.activate(%obj,true);
@@ -190,7 +191,8 @@ function Button::triggerCallback(%this, %obj, %col) {
 
 function insertParameter(%method, %param) {
 	%pos = strStr(%method, "(");
-	if (%pos == -1) return;
+	if (%pos == -1)
+		return;
 
 	%pos2 = strStr(%method, ")");
 
@@ -281,7 +283,8 @@ function ToggleButton::onAdd(%this, %obj) {
 }
 
 function ToggleButton::onCollision(%this, %obj, %col, %vec, %vecLen, %material) {
-	if (!GameBaseData::onCollision(%this, %obj, %col, %vec, %vecLen, %material)) return;
+	if (!GameBaseData::onCollision(%this, %obj, %col, %vec, %vecLen, %material))
+		return;
 	// Currently activates when any object hits it.
 	%this.activate(%obj, !%obj._activated);
 }

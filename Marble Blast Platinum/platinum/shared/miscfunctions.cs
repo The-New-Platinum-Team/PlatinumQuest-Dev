@@ -176,7 +176,8 @@ function applyrotations(%r1, %r2, %r3, %r4) {
 			%blah = %r3;
 		if (%i == 4)
 			%blah = %r4;
-		if (%blah $= "") break;
+		if (%blah $= "")
+			break;
 		//echo(%blah);
 		if (getWordCount(%blah) == 3)
 			%blah = rotEtoAA(%blah, 1);
@@ -190,7 +191,8 @@ function applyrotations(%r1, %r2, %r3, %r4) {
 		//echo(%qtotal);
 
 		%i++;
-		if (%i > 5) break;
+		if (%i > 5)
+			break;
 	}
 	%finalrot = rotQtoAA(rotQnormalize(%qtotal));
 	//echo(%finalrot);
@@ -341,7 +343,8 @@ function normalOfGravity(%gravity) {
 //-----------------------------------------------------------------
 
 function spawnEmitter(%time, %db, %position, %parentto) {
-	if (%time $= "") %time = 1000;
+	if (%time $= "")
+		%time = 1000;
 	if (!isObject(%db))
 		return;
 	%obj = new ParticleEmitterNode() {

@@ -44,7 +44,8 @@ function commandToAllExcept(%exception, %command, %arg1, %arg2, %arg3, %arg4, %a
 }
 
 function commandToTeam(%team, %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10) {
-	if (!$MP::TeamMode) return commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
+	if (!$MP::TeamMode)
+		return commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
 
 	if (!isObject(%team) && (%team = Team::getTeam(%team)) == -1)
 		return commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
@@ -330,7 +331,8 @@ function getCurrentSky() {
 }
 
 function getTeamColor(%color) {
-	if (%color $= "") return "000000";
+	if (%color $= "")
+		return "000000";
 	switch (%color) {
 	case -1:
 		return "000000";

@@ -41,7 +41,8 @@ datablock AudioProfile(BumperFlat) {
 };
 
 function Bumper::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	%obj.stopThread(0);
 
 	// PQ's triangle bumper has a different animation.

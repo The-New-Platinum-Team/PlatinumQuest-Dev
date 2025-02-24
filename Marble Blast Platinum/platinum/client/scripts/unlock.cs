@@ -84,7 +84,8 @@ function Unlock::getMissionCompletion(%mission, %noSurrogate) {
 
 		//Non time-based
 		%easter = (%mission.easterEgg ? $hs["eggFound"] : false);
-		if (%easter) %flags |= $Completion::EasterEgg;
+		if (%easter)
+			%flags |= $Completion::EasterEgg;
 
 		return %flags;
 	}
@@ -139,20 +140,30 @@ function Unlock::getMissionScoreFlags(%mission, %scoreInfo) {
 
 	if (%scores) {
 		//We have par if we beat it, or if no par exists and we have a top
-		if (%parScore && (%score >= %parScore) || (!%parScore && %score != getField(%default, 1))) %flags |= $Completion::Par;
+		if (%parScore && (%score >= %parScore) || (!%parScore && %score != getField(%default, 1)))
+			%flags |= $Completion::Par;
 
-		if (%goldScore      && (%score >= %goldScore))     %flags |= $Completion::Gold;
-		if (%platinumScore  && (%score >= %platinumScore)) %flags |= $Completion::Platinum;
-		if (%ultimateScore  && (%score >= %ultimateScore)) %flags |= $Completion::Ultimate;
-		if (%awesomeScore   && (%score >= %awesomeScore))  %flags |= $Completion::Awesome;
+		if (%goldScore      && (%score >= %goldScore))
+			%flags |= $Completion::Gold;
+		if (%platinumScore  && (%score >= %platinumScore))
+			%flags |= $Completion::Platinum;
+		if (%ultimateScore  && (%score >= %ultimateScore))
+			%flags |= $Completion::Ultimate;
+		if (%awesomeScore   && (%score >= %awesomeScore))
+			%flags |= $Completion::Awesome;
 	} else {
 		//We have par if we beat it, or if no par exists and we have a top
-		if (%parTime && (%score < %parTime) || (!%parTime && %score != getField(%default, 1))) %flags |= $Completion::Par;
+		if (%parTime && (%score < %parTime) || (!%parTime && %score != getField(%default, 1)))
+			%flags |= $Completion::Par;
 
-		if (%goldTime      && (%score < %goldTime))     %flags |= $Completion::Gold;
-		if (%platinumTime  && (%score < %platinumTime)) %flags |= $Completion::Platinum;
-		if (%ultimateTime  && (%score < %ultimateTime)) %flags |= $Completion::Ultimate;
-		if (%awesomeTime   && (%score < %awesomeTime))  %flags |= $Completion::Awesome;
+		if (%goldTime      && (%score < %goldTime))
+			%flags |= $Completion::Gold;
+		if (%platinumTime  && (%score < %platinumTime))
+			%flags |= $Completion::Platinum;
+		if (%ultimateTime  && (%score < %ultimateTime))
+			%flags |= $Completion::Ultimate;
+		if (%awesomeTime   && (%score < %awesomeTime))
+			%flags |= $Completion::Awesome;
 
 		//Because MBP uses gold times for platinum times... what
 		%defined = "Gold Platinum Ultra PlatinumQuest LBCustom";
@@ -165,17 +176,24 @@ function Unlock::getMissionScoreFlags(%mission, %scoreInfo) {
 		//GemMadness is messy with ATs and stuff
 		if (%gemmadnessAll) {
 			//You've beaten all that there are scores for.
-			if (%goldScore)     %flags |= $Completion::Gold;
-			if (%platinumScore) %flags |= $Completion::Platinum;
-			if (%ultimateScore) %flags |= $Completion::Ultimate;
-			if (%awesomeScore)  %flags |= $Completion::Awesome;
+			if (%goldScore)
+				%flags |= $Completion::Gold;
+			if (%platinumScore)
+				%flags |= $Completion::Platinum;
+			if (%ultimateScore)
+				%flags |= $Completion::Ultimate;
+			if (%awesomeScore)
+				%flags |= $Completion::Awesome;
 		}
 	}
 
 	//These don't depend on the type of score
-	if (%easter) %flags |= $Completion::EasterEgg;
-	if (%quota100) %flags |= $Completion::Quota100;
-	if (%gemmadnessAll) %flags |= $Completion::GemMadnessAll;
+	if (%easter)
+		%flags |= $Completion::EasterEgg;
+	if (%quota100)
+		%flags |= $Completion::Quota100;
+	if (%gemmadnessAll)
+		%flags |= $Completion::GemMadnessAll;
 
 	return %flags;
 }

@@ -88,8 +88,8 @@ function Mode_mega::updateWinner(%this, %winners) {
 	//Check for other winners
 	for (%i = 1; %i < %count; %i ++) {
 		%client = ClientGroup.getObject(%i);
-			if (%winner == %client)
-				continue;
+		if (%winner == %client)
+			continue;
 		if (%client.gemCount == %winner.gemCount)
 			%winners.addEntry(%client);
 	}

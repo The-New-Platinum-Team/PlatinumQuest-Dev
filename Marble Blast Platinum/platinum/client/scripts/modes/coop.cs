@@ -545,9 +545,12 @@ function MPCoopEndGameDlg::onWake(%this) {
 
 	%text = "";
 	//Show what we need to
-	if (%goldTitle     !$= "" && %goldLabel     !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %goldTitle     SPC %goldType     @ ": " @ %goldLabel     @ "<spop>";
-	if (%platinumTitle !$= "" && %platinumLabel !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %platinumTitle SPC %platinumType @ ": " @ %platinumLabel @ "<spop>";
-	if (%ultimateTitle !$= "" && %ultimateLabel !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %ultimateTitle SPC %ultimateType @ ": " @ %ultimateLabel @ "<spop>";
+	if (%goldTitle     !$= "" && %goldLabel     !$= "")
+		%text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %goldTitle     SPC %goldType     @ ": " @ %goldLabel     @ "<spop>";
+	if (%platinumTitle !$= "" && %platinumLabel !$= "")
+		%text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %platinumTitle SPC %platinumType @ ": " @ %platinumLabel @ "<spop>";
+	if (%ultimateTitle !$= "" && %ultimateLabel !$= "")
+		%text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %ultimateTitle SPC %ultimateType @ ": " @ %ultimateLabel @ "<spop>";
 	%text = "<font:32><color:ffffff><just:center>" @ %text;
 
 	MPCEndGame_ChallengeTimes.setText(%text);
@@ -726,7 +729,7 @@ function MPCoopEndGameDlg::addPlayer(%this, %idx, %count, %name, %gems, %tts, %m
 	//Resize the parent so we can scroll if necessary
 	MPCEndGame_Scroll.setExtent(max(750, (%idx + 1) * %spacing) SPC 270);
 	MPCEndGame_Scroll.add(
-		new GuiControl(%boxName) {
+	new GuiControl(%boxName) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";
