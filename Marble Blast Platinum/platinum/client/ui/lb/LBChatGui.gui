@@ -1167,7 +1167,8 @@ function LBChatGui::showMeChat(%this,%line,%username,%message) {
 	case "/help":
 		return;
 	case "/invisible": // If you're not a moderator, you get the shame of
-		if ($LB::Access > 0) return; //using a command that "doesn't exist"
+		if ($LB::Access > 0)
+			return; //using a command that "doesn't exist"
 	default:
 	}
 }
@@ -1191,7 +1192,8 @@ function LBSlapMessage(%from, %to) {
 	}
 	%slap = getRandom(0, 10);
 	//awkward wording
-	if (%self && %slap == 7) %slap ++;
+	if (%self && %slap == 7)
+		%slap ++;
 	switch (%slap) {
 	case  0:
 		return upperFirst(%from) SPC "slapped" SPC %to SPC "with a large fish!";
@@ -1326,8 +1328,10 @@ function LBChatGui::onClickUserlist(%this, %index) {
 
 // @param %status : integer value representing status code
 function LBSetMode(%status, %ow) {
-	if ($LB::Invisible && !%ow) return;
-	if ($LB::Away && !%ow) return;
+	if ($LB::Invisible && !%ow)
+		return;
+	if ($LB::Away && !%ow)
+		return;
 	//echo("Setting mode to" SPC %Status);
 	LBSetModeForMe(%status);
 	if (isObject(LBNetwork)) {

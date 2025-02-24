@@ -401,14 +401,22 @@ function LBScoresDlg::getRatingColumn(%this) {
 
 function LBScoresDlg::showPage(%this) {
 	%title = "";
-	if (%this.category $= "General")		 %title = "General Rankings";
-	if (%this.category $= "Platinum")		%title = "Marble Blast Platinum";
-	if (%this.category $= "Gold")			 %title = "Marble Blast Gold";
-	if (%this.category $= "Ultra")			%title = "Marble Blast Ultra";
-	if (%this.category $= "PlatinumQuest") %title = "PlatinumQuest";
-	if (%this.category $= "Custom")		  %title = "Custom Levels";
-	if (%this.game $= "Multiplayer")		 %title = "Multiplayer Levels";
-	if (%this.game $= "Challenges")		  %title = "Challenge Points";
+	if (%this.category $= "General")
+		%title = "General Rankings";
+	if (%this.category $= "Platinum")
+		%title = "Marble Blast Platinum";
+	if (%this.category $= "Gold")
+		%title = "Marble Blast Gold";
+	if (%this.category $= "Ultra")
+		%title = "Marble Blast Ultra";
+	if (%this.category $= "PlatinumQuest")
+		%title = "PlatinumQuest";
+	if (%this.category $= "Custom")
+		%title = "Custom Levels";
+	if (%this.game $= "Multiplayer")
+		%title = "Multiplayer Levels";
+	if (%this.game $= "Challenges")
+		%title = "Challenge Points";
 
 	if (%this.loading) {
 		%title = "Updating...";
@@ -424,8 +432,10 @@ function LBScoresDlg::showPage(%this) {
 			%rating = %category.rating.getEntry(%index);
 			%username = %category.username.getEntry(%index);
 		}
-		if (%display $= "") %display = $LB::DefaultHSName;
-		if (%rating $= "") %rating = 0;
+		if (%display $= "")
+			%display = $LB::DefaultHSName;
+		if (%rating $= "")
+			%rating = 0;
 
 		%mine = (%username $= $LB::Username);
 		%text = %text NL "<spush>" @ (%mine ? "<color:00cc00>" : LBSpecialColor(%index + 1, true)) @ (%index + 1);
