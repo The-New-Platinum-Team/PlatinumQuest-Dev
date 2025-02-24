@@ -1215,14 +1215,19 @@ function PlayMissionGui::open(%this, %marbleland) {
 			%this.marbleland = 0;
 			%this.init();
 		}
-		if (%this.frightfest || %this.winterfest) PM_HolidaySelector.setVisible(true);
+		if (%this.frightfest || %this.winterfest)
+			PM_HolidaySelector.setVisible(true);
 	}
 
-	if (%this.currentHoliday $= "") %this.currentHoliday = "Hunt";
-	if (%this.frightfest     $= "") %this.frightfest     = false;
-	if (%this.winterfest     $= "") %this.winterfest     = false;
+	if (%this.currentHoliday $= "")
+		%this.currentHoliday = "Hunt";
+	if (%this.frightfest $= "")
+		%this.frightfest = false;
+	if (%this.winterfest $= "")
+		%this.winterfest = false;
 
-	if (lb()) PM_HolidaySelector.setVisible(false);
+	if (lb())
+		PM_HolidaySelector.setVisible(false);
 
 	Canvas.doHover = true;
 	RootGui.setContent(%this);
@@ -1382,8 +1387,10 @@ function PlayMissionGui::onWake(%this) {
 	// Reload marbleland packages
 	marblelandReloadMissions();
 
-	if ($CurrentGame $= "Frightfest") %this.activateFrightfest();
-	if ($CurrentGame $= "Winterfest") %this.activateWinterfest();
+	if ($CurrentGame $= "Frightfest")
+		%this.activateFrightfest();
+	if ($CurrentGame $= "Winterfest")
+		%this.activateWinterfest();
 
 	Unlock::updateCaches();
 	RootGui.resetDisplay();
@@ -1864,8 +1871,10 @@ function PlayMissionGui::setSelectedMission(%this, %mission, %game, %type) {
 	%this.setGame(%game);
 	%this.setMissionType(%type);
 	%this.showMissionList();
-	if ($CurrentGame $= "Frightfest") %this.activateFrightfest();
-	if ($CurrentGame $= "Winterfest") %this.activateWinterfest();
+	if ($CurrentGame $= "Frightfest")
+		%this.activateFrightfest();
+	if ($CurrentGame $= "Winterfest")
+		%this.activateWinterfest();
 
 	//Find the mission in our list
 	%list = %this.getMissionList(%game, %type);
@@ -2280,11 +2289,16 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 	%unlocked = Unlock::canPlayMission(%level);
 	if (%unlocked) {
 		%qual = Unlock::getMissionCompletion(%level);
-		if (%qual & $Completion::Awesome)  %frameImage = "./play/frame_awesome";
-		else if (%qual & $Completion::Ultimate) %frameImage = "./play/frame_ultimate";
-		else if (%qual & $Completion::Platinum) %frameImage = "./play/frame_platinum";
-		else if (%qual & $Completion::Gold)     %frameImage = "./play/frame_gold";
-		else if (%qual & $Completion::Par)      %frameImage = "./play/frame_completed";
+		if (%qual & $Completion::Awesome)
+			%frameImage = "./play/frame_awesome";
+		else if (%qual & $Completion::Ultimate)
+			%frameImage = "./play/frame_ultimate";
+		else if (%qual & $Completion::Platinum)
+			%frameImage = "./play/frame_platinum";
+		else if (%qual & $Completion::Gold)
+			%frameImage = "./play/frame_gold";
+		else if (%qual & $Completion::Par)
+			%frameImage = "./play/frame_completed";
 		else                                    %frameImage = "./play/frame_unlocked";
 
 		//Check if we have WR for the WR frame
@@ -2923,12 +2937,16 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		}
 
 		//Show what we need to
-		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A") %text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
-		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
-		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
+		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
+		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
+		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
 
 		if (%showAwesome) {
-			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
+			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A")
+				%text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
 		}
 
 		%text3 = "";
@@ -3029,7 +3047,8 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 	//Line up the box with the buttons
 	%width = getWord(%this.getExtent(), 0) - (%bx + 7); //Magic number: makes it line up nicely
-	if (%width > 800) %width = %infoMaxTextWidth; //So it doesn't stretch across the entire screen
+	if (%width > 800)
+		%width = %infoMaxTextWidth; //So it doesn't stretch across the entire screen
 	%x = getWord(%this.getExtent(), 0) - %width;
 
 	%width += %infoShadowWidth; //Magic number: shadow width
