@@ -938,13 +938,13 @@ function addGemLight(%gem) {
 	});
 
 	%gem._light.setSkinName(%gem.getSkinName()); //This was needlessly complicated previously lmfao - Daniel
-	if (%gem.getDataBlock().skin $= "default" || %gem.getDataBlock().skin $= "")
-		// %gem.setSkinName("red");
-		if (isServerMovingObject(%gem)) {
-			%gem._light.setParent(%gem, "0 0 0 1 0 0 0", true, "0 0 0");
-			//If this is the first spawn, this won't go through
-			%gem._light.schedule(100, setParent, %gem, "0 0 0 1 0 0 0", true, "0 0 0");
-		}
+	// if (%gem.getDataBlock().skin $= "default" || %gem.getDataBlock().skin $= "")
+	// %gem.setSkinName("red");
+	if (isServerMovingObject(%gem)) {
+		%gem._light.setParent(%gem, "0 0 0 1 0 0 0", true, "0 0 0");
+		//If this is the first spawn, this won't go through
+		%gem._light.schedule(100, setParent, %gem, "0 0 0 1 0 0 0", true, "0 0 0");
+	}
 	return %gem._light;
 }
 
