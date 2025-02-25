@@ -44,7 +44,8 @@ function commandToAllExcept(%exception, %command, %arg1, %arg2, %arg3, %arg4, %a
 }
 
 function commandToTeam(%team, %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10) {
-	if (!$MP::TeamMode) return commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
+	if (!$MP::TeamMode)
+		return commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
 
 	if (!isObject(%team) && (%team = Team::getTeam(%team)) == -1)
 		return commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
@@ -330,17 +331,28 @@ function getCurrentSky() {
 }
 
 function getTeamColor(%color) {
-	if (%color $= "") return "000000";
+	if (%color $= "")
+		return "000000";
 	switch (%color) {
-	case -1: return "000000";
-	case  0: return "ff0000";
-	case  1: return "ffff00";
-	case  2: return "00ff00";
-	case  3: return "00ffff";
-	case  4: return "0000ff";
-	case  5: return "ff00ff";
-	case  6: return "ff8000";
-	case  7: return "8000ff";
-	default: return "000000";
+	case -1:
+		return "000000";
+	case  0:
+		return "ff0000";
+	case  1:
+		return "ffff00";
+	case  2:
+		return "00ff00";
+	case  3:
+		return "00ffff";
+	case  4:
+		return "0000ff";
+	case  5:
+		return "ff00ff";
+	case  6:
+		return "ff8000";
+	case  7:
+		return "8000ff";
+	default:
+		return "000000";
 	}
 }

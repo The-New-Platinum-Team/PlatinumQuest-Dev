@@ -32,16 +32,16 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 	helpTag = "0";
 	bitmap = "~/client/ui/exit/black";
 	wrap = "0";
-		_guiSize = "800 600";
-		defaultControl = "MPExitReturn";
-		commandCancel = "RootGui.popDialog(MPExitGameDlg); hideControllerUI(); resumeGame();";
-		commandAlt1 = "RootGui.popDialog(MPExitGameDlg); hideControllerUI(); resumeGame(); forceRespawn(true); schedule(100, 0, forceRespawn, false);";
-		commandLT = "OptionsGui.show(\"exit\");";
-		commandRT = "RootGui.pushDialog(JukeboxDlg);";
-		commandNameCancel = "Resume";
-		commandNameAlt1 = "Restart";
-		commandNameLT = "Options";
-		commandNameRT = "Jukebox";
+	_guiSize = "800 600";
+	defaultControl = "MPExitReturn";
+	commandCancel = "RootGui.popDialog(MPExitGameDlg); hideControllerUI(); resumeGame();";
+	commandAlt1 = "RootGui.popDialog(MPExitGameDlg); hideControllerUI(); resumeGame(); forceRespawn(true); schedule(100, 0, forceRespawn, false);";
+	commandLT = "OptionsGui.show(\"exit\");";
+	commandRT = "RootGui.pushDialog(JukeboxDlg);";
+	commandNameCancel = "Resume";
+	commandNameAlt1 = "Restart";
+	commandNameLT = "Options";
+	commandNameRT = "Jukebox";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -68,10 +68,10 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				tooltip = "Restarts the game to the Ready, Set, Go sequence";
-				controlLeft = "MPExitQuickspawn";
-				controlRight = "MPExitRestart2";
-				controlDown = "MPExitDisconnect";
+			tooltip = "Restarts the game to the Ready, Set, Go sequence";
+			controlLeft = "MPExitQuickspawn";
+			controlRight = "MPExitRestart2";
+			controlDown = "MPExitDisconnect";
 		};
 		new GuiBorderButtonCtrl(MPExitDisconnect) {
 			profile = "PQButtonProfile";
@@ -89,9 +89,9 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlRight = "MPExitReturn";
-				controlDown = "MPExitTeams";
-				controlUp = "MPExitRestart1";
+			controlRight = "MPExitReturn";
+			controlDown = "MPExitTeams";
+			controlUp = "MPExitRestart1";
 		};
 		new GuiBorderButtonCtrl(MPExitReturn) {
 			profile = "PQButtonProfile";
@@ -109,9 +109,9 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlLeft = "MPExitDisconnect";
-				controlDown = "MPExitServer";
-				controlUp = "MPExitRestart2";
+			controlLeft = "MPExitDisconnect";
+			controlDown = "MPExitServer";
+			controlUp = "MPExitRestart2";
 		};
 		new GuiBorderButtonCtrl(MPExitServer) {
 			profile = "PQButtonProfile";
@@ -127,11 +127,11 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/settings";
-				tooltip = "Server Settings";
-				controlLeft = "MPExitTeams";
-				controlRight = "MPExitPlayers";
-				controlUp = "MPExitReturn";
+			bitmap = "platinum/client/ui/mp/play/settings";
+			tooltip = "Server Settings";
+			controlLeft = "MPExitTeams";
+			controlRight = "MPExitPlayers";
+			controlUp = "MPExitReturn";
 		};
 		new GuiMLTextCtrl(MPExitTitle) {
 			profile = "GuiMLTextProfile";
@@ -161,8 +161,8 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlRight = "MPExitRestart1";
-				controlDown = "MPExitDisconnect";
+			controlRight = "MPExitRestart1";
+			controlDown = "MPExitDisconnect";
 		};
 		new GuiBorderButtonCtrl(MPExitRestart2) {
 			profile = "PQButtonProfile";
@@ -179,10 +179,10 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				simpleStyle = "0";
-				tooltip = "Restarts the game to the pre-game \"ready\" screen";
-				controlLeft = "MPExitRestart1";
-				controlDown = "MPExitReturn";
+			simpleStyle = "0";
+			tooltip = "Restarts the game to the pre-game \"ready\" screen";
+			controlLeft = "MPExitRestart1";
+			controlDown = "MPExitReturn";
 		};
 		new GuiBorderButtonCtrl(MPExitTeams) {
 			profile = "PQButtonProfile";
@@ -198,11 +198,11 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/team";
-				tooltip = "Team Information";
-				controlLeft = "MPExitMarbles";
-				controlRight = "MPExitServer";
-				controlUp = "MPExitDisconnect";
+			bitmap = "platinum/client/ui/mp/play/team";
+			tooltip = "Team Information";
+			controlLeft = "MPExitMarbles";
+			controlRight = "MPExitServer";
+			controlUp = "MPExitDisconnect";
 		};
 		new GuiBorderButtonCtrl(MPExitMarbles) {
 			profile = "PQButtonProfile";
@@ -218,10 +218,10 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/marble";
-				tooltip = "Marble Select";
-				controlRight = "MPExitTeams";
-				controlUp = "MPExitDisconnect";
+			bitmap = "platinum/client/ui/mp/play/marble";
+			tooltip = "Marble Select";
+			controlRight = "MPExitTeams";
+			controlUp = "MPExitDisconnect";
 		};
 		new GuiBorderButtonCtrl(MPExitPlayers) {
 			profile = "PQButtonProfile";
@@ -237,10 +237,10 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/play/players";
-				tooltip = "Player List";
-				controlLeft = "MPExitServer";
-				controlUp = "MPExitReturn";
+			bitmap = "platinum/client/ui/mp/play/players";
+			tooltip = "Player List";
+			controlLeft = "MPExitServer";
+			controlUp = "MPExitReturn";
 		};
 	};
 	new GuiBorderButtonCtrl() {

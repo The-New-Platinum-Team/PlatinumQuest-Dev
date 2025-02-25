@@ -144,7 +144,9 @@ function updateItemCollision() {
 }
 
 function Item::onClientCollision(%this, %marble) {
-	if (!ClientMode::callback("shouldPickupItem", isClientSidedItem(%this), new ScriptObject() {
+	if (!ClientMode::callback("shouldPickupItem", 
+		isClientSidedItem(%this), 
+		new ScriptObject() {
 			this = %this;
 			marble = $MP::MyMarble;
 			_delete = true;

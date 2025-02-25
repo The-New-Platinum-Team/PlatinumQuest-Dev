@@ -670,12 +670,14 @@ function PlaybackInfo::readLine(%this) {
 		return false;
 	}
 	if (%this.fo.isEOF()) {
-		if($debugreplay)echo("EOF");
+		if ($debugreplay)
+			echo("EOF");
 		%this.finish();
 		return false;
 	}
 	if (!%this.playing) {
-		if($debugreplay)echo("Not playing");
+		if ($debugreplay)
+			echo("Not playing");
 		%this.finish();
 		return false;
 	}
@@ -684,53 +686,69 @@ function PlaybackInfo::readLine(%this) {
 
 	while (true) {
 		//What type the next pack of data is
-		%tag = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %tag: " @ %tag);
-		if($debugreplay)echo("Read pack of tag " @ %tag);
+		%tag = %this.fo.readRawU8();
+		if ($debugreplay)
+			echo("Read U8 %tag: " @ %tag);
+		if ($debugreplay)
+			echo("Read pack of tag " @ %tag);
 		switch (%tag) {
 		case $RecordTag["time"]:
-			if($debugreplay)echo("Frame type: Time");
+			if ($debugreplay)
+				echo("Frame type: Time");
 			%frame = %this.readTime();
 			break; //Out of the while-loop, very strange but that's how TS works
 		case $RecordTag["time2"]:
-			if($debugreplay)echo("Frame type: Time2");
+			if ($debugreplay)
+				echo("Frame type: Time2");
 			%frame = %this.readTime2();
 			break; //Out of the while-loop, very strange but that's how TS works
 		case $RecordTag["position"]:
-			if($debugreplay)echo("Frame type: Position");
+			if ($debugreplay)
+				echo("Frame type: Position");
 			%frame = %this.readPosition();
 		case $RecordTag["platform"]:
-			if($debugreplay)echo("Frame type: Platform");
+			if ($debugreplay)
+				echo("Frame type: Platform");
 			%frame = %this.readPlatform();
 		case $RecordTag["scores"]:
-			if($debugreplay)echo("Frame type: Scores");
+			if ($debugreplay)
+				echo("Frame type: Scores");
 			%frame = %this.readScores();
 		case $RecordTag["spawn"]:
-			if($debugreplay)echo("Frame type: Spawn");
+			if ($debugreplay)
+				echo("Frame type: Spawn");
 			%frame = %this.readSpawn();
 		case $RecordTag["pickup"]:
-			if($debugreplay)echo("Frame type: Pickup");
+			if ($debugreplay)
+				echo("Frame type: Pickup");
 			%frame = %this.readPickup();
 		case $RecordTag["physics"]:
-			if($debugreplay)echo("Frame type: Physics");
+			if ($debugreplay)
+				echo("Frame type: Physics");
 			%frame = %this.readPhysics();
 		case $RecordTag["collision"]:
-			if($debugreplay)echo("Frame type: Collision");
+			if ($debugreplay)
+				echo("Frame type: Collision");
 			%frame = %this.readCollision();
 		case $RecordTag["gravity"]:
-			if($debugreplay)echo("Frame type: Gravity");
+			if ($debugreplay)
+				echo("Frame type: Gravity");
 			%frame = %this.readGravity();
 		case $RecordTag["gems"]:
-			if($debugreplay)echo("Frame type: Gems");
+			if ($debugreplay)
+				echo("Frame type: Gems");
 			%frame = %this.readGems();
 		case $RecordTag["movement"]:
-			if($debugreplay)echo("Frame type: Movement");
+			if ($debugreplay)
+				echo("Frame type: Movement");
 			%frame = %this.readMovement();
 		default:
 			PlaybackFrameGroup.add(%frame = new ScriptObject() {
 				class = "PlaybackFrame";
 			});
 			// We don't know frame size so everything after this will be corrupt
-			if($debugreplay)echo("Frame type: Unknown");
+			if ($debugreplay)
+				echo("Frame type: Unknown");
 			%this.finish();
 			return false;
 		}
@@ -749,12 +767,14 @@ function PlaybackInfo::readLine(%this) {
 
 		//If we've reached the end, stop
 		if (%this.fo.isEOF()) {
-			if($debugreplay)echo("EOF");
+			if ($debugreplay)
+				echo("EOF");
 			%this.finish();
 			return false;
 		}
 		if (!%this.playing) {
-			if($debugreplay)echo("Not playing");
+			if ($debugreplay)
+				echo("Not playing");
 			%this.finish();
 			return false;
 		}
@@ -791,7 +811,8 @@ function PlaybackInfo::step(%this) {
 		%current -= %this.start;
 	}
 
-	if($debugreplay)echo("PIstep: " @ %current @ " next: " @ %nextFrame.total);
+	if ($debugreplay)
+		echo("PIstep: " @ %current @ " next: " @ %nextFrame.total);
 
 	%offset = %current - %nextFrame.total;
 	while (%offset > 0) {
@@ -802,21 +823,25 @@ function PlaybackInfo::step(%this) {
 
 		%lastFrame = %this.lastFrame.lastFrame;
 		%nextFrame = %this.lastFrame;
-		if($debugreplay)echo("PIsubstep: " @ %current @ " next: " @ %nextFrame.total);
+		if ($debugreplay)
+			echo("PIsubstep: " @ %current @ " next: " @ %nextFrame.total);
 
 		if (isObject(%nextFrame)) {
 			%offset = %current - %nextFrame.total;
 			if (%offset > 0) {
-				if($debugreplay)echo("apply frame at 1");
+				if ($debugreplay)
+					echo("apply frame at 1");
 				%nextFrame.apply(%this.marble, 1);
 			} else {
-				if($debugreplay)echo("offset is " @ %offset @ " !> 0");
+				if ($debugreplay)
+					echo("offset is " @ %offset @ " !> 0");
 			}
 		}
 	}
 
 	if (!isObject(%nextFrame)) {
-		if($debugreplay)echo("no next frame?");
+		if ($debugreplay)
+			echo("no next frame?");
 		return;
 	}
 	if (isObject(%lastFrame)) {
@@ -825,7 +850,8 @@ function PlaybackInfo::step(%this) {
 		%t = 1;
 	}
 
-	if($debugreplay)echo("pgtime: " @ %current @ " next time: " @ %nextFrame.total @ " last time: " @ %lastFrame.total @ " delta: " @ %lastFrame.delta @ " T: " @ %t);
+	if ($debugreplay)
+		echo("pgtime: " @ %current @ " next time: " @ %nextFrame.total @ " last time: " @ %lastFrame.total @ " delta: " @ %lastFrame.delta @ " T: " @ %t);
 	if (%t < 0) {
 		error("??? Negative time?");
 		return;
@@ -860,7 +886,7 @@ function PlaybackTimeFrame::apply(%this, %object, %t) {
 		%this.frame[%i].apply(%object, %t);
 	}
 
-	if($debugreplay) {
+	if ($debugreplay) {
 		if (!isObject(%this.info.lastTimes)) {
 			%this.info.lastTimes = Array();
 		}
@@ -881,29 +907,41 @@ function playbackStep() {
 }
 
 function PlaybackInfo::readHeader(%this) {
-	%this.version = %this.fo.readRawS16(); if($debugreplay)echo("Read S16 %this.version: " @ %this.version);
-	%this.gameVersion = %this.fo.readRawS16(); if($debugreplay)echo("Read S16 %this.gameVersion: " @ %this.gameVersion);
+	%this.version = %this.fo.readRawS16();
+	if ($debugreplay)
+		echo("Read S16 %this.version: " @ %this.version);
+	%this.gameVersion = %this.fo.readRawS16();
+	if ($debugreplay)
+		echo("Read S16 %this.gameVersion: " @ %this.gameVersion);
 	if (%this.version > $ReplayVersion) {
 		error("Unsupported replay version " @ %this.version @ " (currently version " @ $ReplayVersion @ ")");
 		return false;
 	}
 
-	%this.missionFile = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %this.missionFile: " @ %this.missionFile);
-	%this.marbleSelection = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %this.marbleSelection: " @ %this.marbleSelection);
+	%this.missionFile = %this.fo.readRawString8();
+	if ($debugreplay)
+		echo("Read String8 %this.missionFile: " @ %this.missionFile);
+	%this.marbleSelection = %this.fo.readRawString8();
+	if ($debugreplay)
+		echo("Read String8 %this.marbleSelection: " @ %this.marbleSelection);
 
 	// Lookup table stuff
 	if (MigrationLookup.has(%this.missionFile))
 		%this.missionFile = MigrationLookup.get(%this.missionFile);
 
 	//If we have metadata
-	%flags = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %flags: " @ %flags);
+	%flags = %this.fo.readRawU8();
+	if ($debugreplay)
+		echo("Read U8 %flags: " @ %flags);
 	%this.hasMetadata = %flags & 1;
 	%this.lb          = (%flags & (1 << 1)) == (1 << 1);
 	%this.mp          = (%flags & (1 << 2)) == (1 << 2);
 	if (%this.hasMetadata == 1) {
 		%this.readMetadata();
 	}
-	%this.sprngSeed = %this.fo.readRawU32(); if($debugreplay)echo("Read U32 %this.sprngSeed: " @ %this.sprngSeed);
+	%this.sprngSeed = %this.fo.readRawU32();
+	if ($debugreplay)
+		echo("Read U32 %this.sprngSeed: " @ %this.sprngSeed);
 	return true;
 }
 
@@ -914,10 +952,18 @@ function PlaybackInfo::readTime(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%nextFrame.total = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.total: " @ %nextFrame.total);
-	%nextFrame.current = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.current: " @ %nextFrame.current);
-	%nextFrame.bonus = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.bonus: " @ %nextFrame.bonus);
-	%nextFrame.active = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %nextFrame.active: " @ %nextFrame.active);
+	%nextFrame.total = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.total: " @ %nextFrame.total);
+	%nextFrame.current = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.current: " @ %nextFrame.current);
+	%nextFrame.bonus = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.bonus: " @ %nextFrame.bonus);
+	%nextFrame.active = %this.fo.readRawU8();
+	if ($debugreplay)
+		echo("Read U8 %nextFrame.active: " @ %nextFrame.active);
 	//Don't have this info, so make a best guess
 	%nextFrame.serverTotal = %nextFrame.total;
 	%nextFrame.serverCurrent = %nextFrame.current;
@@ -927,7 +973,9 @@ function PlaybackInfo::readTime(%this) {
 	%nextFrame.clientCurrent = %nextFrame.current;
 	%nextFrame.clientBonus = %nextFrame.bonus;
 	%nextFrame.cheatElapsed = 1;
-	if ($replaycsv) {$replayCSVFile.writeLine(%nextFrame.total @ "," @ %nextFrame.current @ "," @ %nextFrame.bonus @ "," @ %nextFrame.active); }
+	if ($replaycsv) {
+		$replayCSVFile.writeLine(%nextFrame.total @ "," @ %nextFrame.current @ "," @ %nextFrame.bonus @ "," @ %nextFrame.active);
+	}
 	return %nextFrame;
 }
 
@@ -938,20 +986,38 @@ function PlaybackInfo::readTime2(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%nextFrame.serverTotal = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.serverTotal: " @ %nextFrame.serverTotal);
-	%nextFrame.serverCurrent = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.serverCurrent: " @ %nextFrame.serverCurrent);
-	%nextFrame.serverElapsed = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.serverElapsed: " @ %nextFrame.serverElapsed);
-	%nextFrame.serverBonus = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.serverBonus: " @ %nextFrame.serverBonus);
-	%nextFrame.clientTotal = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.clientTotal: " @ %nextFrame.clientTotal);
-	%nextFrame.clientCurrent = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.clientCurrent: " @ %nextFrame.clientCurrent);
-	%nextFrame.clientBonus = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %nextFrame.clientBonus: " @ %nextFrame.clientBonus);
-	%nextFrame.active = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %nextFrame.active: " @ %nextFrame.active);
+	%nextFrame.serverTotal = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.serverTotal: " @ %nextFrame.serverTotal);
+	%nextFrame.serverCurrent = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.serverCurrent: " @ %nextFrame.serverCurrent);
+	%nextFrame.serverElapsed = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.serverElapsed: " @ %nextFrame.serverElapsed);
+	%nextFrame.serverBonus = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.serverBonus: " @ %nextFrame.serverBonus);
+	%nextFrame.clientTotal = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.clientTotal: " @ %nextFrame.clientTotal);
+	%nextFrame.clientCurrent = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.clientCurrent: " @ %nextFrame.clientCurrent);
+	%nextFrame.clientBonus = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %nextFrame.clientBonus: " @ %nextFrame.clientBonus);
+	%nextFrame.active = %this.fo.readRawU8();
+	if ($debugreplay)
+		echo("Read U8 %nextFrame.active: " @ %nextFrame.active);
 	//Compatibility
 	%nextFrame.total = %nextFrame.serverTotal;
 	%nextFrame.current = %nextFrame.clientCurrent;
 	%nextFrame.bonus = %nextFrame.clientBonus;
 	%nextFrame.cheatElapsed = 0;
-	if ($replaycsv) {$replayCSVFile.writeLine(%nextFrame.total @ "," @ %nextFrame.current @ "," @ %nextFrame.bonus @ "," @ %nextFrame.active); }
+	if ($replaycsv) {
+		$replayCSVFile.writeLine(%nextFrame.total @ "," @ %nextFrame.current @ "," @ %nextFrame.bonus @ "," @ %nextFrame.active);
+	}
 	return %nextFrame;
 }
 
@@ -979,19 +1045,31 @@ function PlaybackInfo::readPlatform(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%platformFrame.platforms = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %platformFrame.platforms: " @ %platformFrame.platforms);
+	%platformFrame.platforms = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %platformFrame.platforms: " @ %platformFrame.platforms);
 	for (%i = 0; %i < %platformFrame.platforms; %i ++) {
-		%platformFrame.pathTime[%i] = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %platformFrame.pathTime["@%i@"]: " @ %platformFrame.pathTime[%i]);
-		%platformFrame.targetTime[%i] = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %platformFrame.targetTime["@%i@"]: " @ %platformFrame.targetTime[%i]);
+		%platformFrame.pathTime[%i] = %this.fo.readRawS32();
+		if ($debugreplay)
+			echo("Read S32 %platformFrame.pathTime["@%i@"]: " @ %platformFrame.pathTime[%i]);
+		%platformFrame.targetTime[%i] = %this.fo.readRawS32();
+		if ($debugreplay)
+			echo("Read S32 %platformFrame.targetTime["@%i@"]: " @ %platformFrame.targetTime[%i]);
 	}
 
 	return %platformFrame;
 }
 
 function PlaybackInfo::readMetadata(%this) {
-	%this.author = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %this.author: " @ %this.author);
-	%this.name = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %this.name: " @ %this.name);
-	%this.desc = %this.fo.readRawString16(); if($debugreplay)echo("Read String16 %this.desc: " @ %this.desc);
+	%this.author = %this.fo.readRawString8();
+	if ($debugreplay)
+		echo("Read String8 %this.author: " @ %this.author);
+	%this.name = %this.fo.readRawString8();
+	if ($debugreplay)
+		echo("Read String8 %this.name: " @ %this.name);
+	%this.desc = %this.fo.readRawString16();
+	if ($debugreplay)
+		echo("Read String16 %this.desc: " @ %this.desc);
 }
 
 function PlaybackPlatformFrame::apply(%this, %object, %t) {
@@ -1022,9 +1100,13 @@ function PlaybackInfo::readSpawn(%this) {
 		info = %this;
 	});
 
-	%spawnFrame.gems = %this.fo.readRawS32(); if($debugreplay)echo("Read S32 %spawnFrame.gems: " @ %spawnFrame.gems);
+	%spawnFrame.gems = %this.fo.readRawS32();
+	if ($debugreplay)
+		echo("Read S32 %spawnFrame.gems: " @ %spawnFrame.gems);
 	for (%i = 0; %i < %spawnFrame.gems; %i ++) {
-		%spawnFrame.spawnPosition[%i] = %this.fo.readRawPoint3F(); if($debugreplay)echo("Read S32 %spawnFrame.spawnPosition["@%i@"]: " @ %spawnFrame.spawnPosition[%i]);
+		%spawnFrame.spawnPosition[%i] = %this.fo.readRawPoint3F();
+		if ($debugreplay)
+			echo("Read S32 %spawnFrame.spawnPosition["@%i@"]: " @ %spawnFrame.spawnPosition[%i]);
 	}
 
 	return %spawnFrame;
@@ -1037,7 +1119,8 @@ function PlaybackSpawnFrame::apply(%this, %object, %t) {
 	%this.applied = true;
 	hideGems();
 
-	if($debugreplay)echo("Spawning " @ %this.gems @ " gems");
+	if ($debugreplay)
+		echo("Spawning " @ %this.gems @ " gems");
 
 	for (%i = 0; %i < %this.gems; %i ++) {
 		%position = %this.spawnPosition[%i];
@@ -1046,7 +1129,8 @@ function PlaybackSpawnFrame::apply(%this, %object, %t) {
 		for (%j = 0; %j < %gems.getSize(); %j ++) {
 			%gem = %gems.getEntry(%j);
 			if (%gem.getClassName() $= "Item" && %gem.getDataBlock().className $= "Gem" && %gem.isHidden()) {
-				if($debugreplay)echo("Spawn gem " @ %gem @ " at " @ %position);
+				if ($debugreplay)
+					echo("Spawn gem " @ %gem @ " at " @ %position);
 				spawnGem(%gem);
 			}
 		}
@@ -1061,8 +1145,12 @@ function PlaybackInfo::readPickup(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%pickupFrame.db = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %pickupFrame.db: " @ %pickupFrame.db);
-	%pickupFrame.position = %this.fo.readRawPoint3F(); if($debugreplay)echo("Read S32 %pickupFrame.position: " @ %pickupFrame.position);
+	%pickupFrame.db = %this.fo.readRawString8();
+	if ($debugreplay)
+		echo("Read String8 %pickupFrame.db: " @ %pickupFrame.db);
+	%pickupFrame.position = %this.fo.readRawPoint3F();
+	if ($debugreplay)
+		echo("Read S32 %pickupFrame.position: " @ %pickupFrame.position);
 
 	return %pickupFrame;
 }
@@ -1081,13 +1169,14 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 	}
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
-		
+
 		if (strStr(%this.db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1) {
 			if (%col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
 				continue;
 		}
 
-		if($debugreplay)echo("Hacky pickup of item at " @ %this.position);
+		if ($debugreplay)
+			echo("Hacky pickup of item at " @ %this.position);
 		//Hack
 		$Playback::DemoFrame = true;
 		DefaultMarble.onCollision(LocalClientConnection.player, %col);
@@ -1102,8 +1191,12 @@ function PlaybackInfo::readCollision(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%collisionFrame.db = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %collisionFrame.db: " @ %collisionFrame.db);
-	%collisionFrame.position = %this.fo.readRawPoint3F(); if($debugreplay)echo("Read S32 %collisionFrame.position: " @ %collisionFrame.position);
+	%collisionFrame.db = %this.fo.readRawString8();
+	if ($debugreplay)
+		echo("Read String8 %collisionFrame.db: " @ %collisionFrame.db);
+	%collisionFrame.position = %this.fo.readRawPoint3F();
+	if ($debugreplay)
+		echo("Read S32 %collisionFrame.position: " @ %collisionFrame.position);
 
 	return %collisionFrame;
 }
@@ -1130,7 +1223,8 @@ function PlaybackCollisionFrame::apply(%this, %object, %t) {
 
 		%this.db = %col.getDataBlock().getName();
 
-		if($debugreplay)echo("Hacky collision of item at " @ %this.position);
+		if ($debugreplay)
+			echo("Hacky collision of item at " @ %this.position);
 		//Hack
 		$Playback::DemoFrame = true;
 		%this.db.onCollision(%col, LocalClientConnection.player);
@@ -1145,10 +1239,16 @@ function PlaybackInfo::readPhysics(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%physicsFrame.count = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %physicsFrame.count: " @ %physicsFrame.count);
+	%physicsFrame.count = %this.fo.readRawU8();
+	if ($debugreplay)
+		echo("Read U8 %physicsFrame.count: " @ %physicsFrame.count);
 	for (%i = 0; %i < %physicsFrame.count; %i ++) {
-		%physicsFrame.field[%i] = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %physicsFrame.field["@%i@"]: " @ %physicsFrame.field[%i]);
-		%physicsFrame.value[%i] = %this.fo.readRawString8(); if($debugreplay)echo("Read String8 %physicsFrame.value["@%i@"]: " @ %physicsFrame.value[%i]);
+		%physicsFrame.field[%i] = %this.fo.readRawString8();
+		if ($debugreplay)
+			echo("Read String8 %physicsFrame.field["@%i@"]: " @ %physicsFrame.field[%i]);
+		%physicsFrame.value[%i] = %this.fo.readRawString8();
+		if ($debugreplay)
+			echo("Read String8 %physicsFrame.value["@%i@"]: " @ %physicsFrame.value[%i]);
 	}
 
 	return %physicsFrame;
@@ -1172,8 +1272,10 @@ function PlaybackPhysicsFrame::apply(%this, %object, %t) {
 		}
 		$Playback::PhysicsValue[%field] = %value;
 
-		if($debugreplay)echo("pretend physics " @ %field @ " old value " @ $Playback::LastPhysicsValue[%field]);
-		if($debugreplay)echo("pretend physics " @ %field @ " value " @ %value);
+		if ($debugreplay)
+			echo("pretend physics " @ %field @ " old value " @ $Playback::LastPhysicsValue[%field]);
+		if ($debugreplay)
+			echo("pretend physics " @ %field @ " value " @ %value);
 	}
 }
 
@@ -1183,9 +1285,15 @@ function PlaybackInfo::readGravity(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%gravityFrame.dir = %this.fo.readRawOrthoF(); if($debugreplay)echo("Read OrthoF %gravityFrame.dir: " @ %gravityFrame.dir);
-	%gravityFrame.instant = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %gravityFrame.instant: " @ %gravityFrame.instant);
-	%gravityFrame.rot = %this.fo.readRawAngAxisF(); if($debugreplay)echo("Read AngAxisF %gravityFrame.rot: " @ %gravityFrame.rot);
+	%gravityFrame.dir = %this.fo.readRawOrthoF();
+	if ($debugreplay)
+		echo("Read OrthoF %gravityFrame.dir: " @ %gravityFrame.dir);
+	%gravityFrame.instant = %this.fo.readRawU8();
+	if ($debugreplay)
+		echo("Read U8 %gravityFrame.instant: " @ %gravityFrame.instant);
+	%gravityFrame.rot = %this.fo.readRawAngAxisF();
+	if ($debugreplay)
+		echo("Read AngAxisF %gravityFrame.rot: " @ %gravityFrame.rot);
 
 	return %gravityFrame;
 }
@@ -1212,10 +1320,18 @@ function PlaybackInfo::readGems(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%gemsFrame.count = %this.fo.readRawU16(); if($debugreplay)echo("Read U16 %gemsFrame.count: " @ %gemsFrame.count);
-	%gemsFrame.max = %this.fo.readRawU16(); if($debugreplay)echo("Read U16 %gemsFrame.max: " @ %gemsFrame.max);
-	%gemsFrame.quota = %this.fo.readRawU16(); if($debugreplay)echo("Read U16 %gemsFrame.quota: " @ %gemsFrame.quota);
-	%gemsFrame.green = %this.fo.readRawU8(); if($debugreplay)echo("Read U8 %gemsFrame.green: " @ %gemsFrame.green);
+	%gemsFrame.count = %this.fo.readRawU16();
+	if ($debugreplay)
+		echo("Read U16 %gemsFrame.count: " @ %gemsFrame.count);
+	%gemsFrame.max = %this.fo.readRawU16();
+	if ($debugreplay)
+		echo("Read U16 %gemsFrame.max: " @ %gemsFrame.max);
+	%gemsFrame.quota = %this.fo.readRawU16();
+	if ($debugreplay)
+		echo("Read U16 %gemsFrame.quota: " @ %gemsFrame.quota);
+	%gemsFrame.green = %this.fo.readRawU8();
+	if ($debugreplay)
+		echo("Read U8 %gemsFrame.green: " @ %gemsFrame.green);
 
 	return %gemsFrame;
 }
@@ -1243,10 +1359,18 @@ function PlaybackInfo::readMovement(%this) {
 		superClass = "PlaybackFrame";
 		info = %this;
 	});
-	%movementFrame.left = %this.fo.readRawF32(); if($debugreplay)echo("Read F32 %movementFrame.left: " @ %movementFrame.left);
-	%movementFrame.right = %this.fo.readRawF32(); if($debugreplay)echo("Read F32 %movementFrame.right: " @ %movementFrame.right);
-	%movementFrame.forward = %this.fo.readRawF32(); if($debugreplay)echo("Read F32 %movementFrame.forward: " @ %movementFrame.forward);
-	%movementFrame.backward = %this.fo.readRawF32(); if($debugreplay)echo("Read F32 %movementFrame.backward: " @ %movementFrame.backward);
+	%movementFrame.left = %this.fo.readRawF32();
+	if ($debugreplay)
+		echo("Read F32 %movementFrame.left: " @ %movementFrame.left);
+	%movementFrame.right = %this.fo.readRawF32();
+	if ($debugreplay)
+		echo("Read F32 %movementFrame.right: " @ %movementFrame.right);
+	%movementFrame.forward = %this.fo.readRawF32();
+	if ($debugreplay)
+		echo("Read F32 %movementFrame.forward: " @ %movementFrame.forward);
+	%movementFrame.backward = %this.fo.readRawF32();
+	if ($debugreplay)
+		echo("Read F32 %movementFrame.backward: " @ %movementFrame.backward);
 
 	return %movementFrame;
 }
@@ -1283,11 +1407,16 @@ function PlaybackFrame::applyInput(%this) {
 	%change = (%flags ^ %this.info.lastInput);
 	%this.info.lastInput = %flags;
 
-	if (%change & 1 << 0) usePowerup(!!(%flags & 1 << 0));
-	if (%change & 1 << 2) jump      (!!(%flags & 1 << 2));
-	if (%change & 1 << 3) mouseFire (!!(%flags & 1 << 3));
-	if (%change & 1 << 4) useBlast  (!!(%flags & 1 << 4));
-	if (%change & 1 << 5) forceRespawn(!!(%flags & 1 << 5));
+	if (%change & 1 << 0)
+		usePowerup(!!(%flags & 1 << 0));
+	if (%change & 1 << 2)
+		jump      (!!(%flags & 1 << 2));
+	if (%change & 1 << 3)
+		mouseFire (!!(%flags & 1 << 3));
+	if (%change & 1 << 4)
+		useBlast  (!!(%flags & 1 << 4));
+	if (%change & 1 << 5)
+		forceRespawn(!!(%flags & 1 << 5));
 }
 
 //-----------------------------------------------------------------------------
@@ -1328,7 +1457,9 @@ function Marble::recordSerialize(%this, %stream) {
 }
 
 function PlaybackSceneObject::recordDeserialize(%this, %stream) {
-	%this.transform = %stream.readRawMatrixF(); if ($debugreplay)echo("Read MatrixF %this.transform: " @ %this.transform);
+	%this.transform = %stream.readRawMatrixF();
+	if ($debugreplay)
+		echo("Read MatrixF %this.transform: " @ %this.transform);
 }
 
 function PlaybackShapeBase::recordDeserialize(%this, %stream) {
@@ -1336,18 +1467,30 @@ function PlaybackShapeBase::recordDeserialize(%this, %stream) {
 
 	//Mount any images that we're given
 	for (%i = 0; %i < 8; %i ++) {
-		%image = %stream.readRawString8(); if ($debugreplay)echo("Read String8 %image["@%i@"]: " @ %image);
+		%image = %stream.readRawString8();
+		if ($debugreplay)
+			echo("Read String8 %image["@%i@"]: " @ %image);
 		%this.mountImage[%i] = %image;
 	}
 }
 
 function PlaybackMarble::recordDeserialize(%this, %stream) {
 	PlaybackShapeBase::recordDeserialize(%this, %stream);
-	%this.velocity    = %stream.readRawPoint3F(); if ($debugreplay)echo("Read Point3F %this.velocity: " @ %this.velocity);
-	%this.angular     = %stream.readRawPoint3F(); if ($debugreplay)echo("Read Point3F %this.angular: " @ %this.angular);
-	%this.radius      = %stream.readRawF32(); if ($debugreplay)echo("Read F32 %this.radius: " @ %this.radius);
-	%this.cameraYaw   = %stream.readRawF32(); if ($debugreplay)echo("Read F32 %this.cameraYaw: " @ %this.cameraYaw);
-	%this.cameraPitch = %stream.readRawF32(); if ($debugreplay)echo("Read F32 %this.cameraPitch: " @ %this.cameraPitch);
+	%this.velocity    = %stream.readRawPoint3F();
+	if ($debugreplay)
+		echo("Read Point3F %this.velocity: " @ %this.velocity);
+	%this.angular     = %stream.readRawPoint3F();
+	if ($debugreplay)
+		echo("Read Point3F %this.angular: " @ %this.angular);
+	%this.radius      = %stream.readRawF32();
+	if ($debugreplay)
+		echo("Read F32 %this.radius: " @ %this.radius);
+	%this.cameraYaw   = %stream.readRawF32();
+	if ($debugreplay)
+		echo("Read F32 %this.cameraYaw: " @ %this.cameraYaw);
+	%this.cameraPitch = %stream.readRawF32();
+	if ($debugreplay)
+		echo("Read F32 %this.cameraPitch: " @ %this.cameraPitch);
 	//if ($replaycsv) echo(strreplace(%this.transform SPC %this.velocity, " ", ","));
 }
 
@@ -1459,8 +1602,10 @@ function interpolate(%a, %b, %t) {
 
 function cinterpolate(%a, %b, %t, %limit) {
 	//Normalize angles so going from 359 deg to 1 deg doesn't pass through 180 deg
-	if (%a > %b && (%a - %b) > (%limit / 2)) %b += %limit;
-	if (%b > %a && (%b - %a) > (%limit / 2)) %a += %limit;
+	if (%a > %b && (%a - %b) > (%limit / 2))
+		%b += %limit;
+	if (%b > %a && (%b - %a) > (%limit / 2))
+		%a += %limit;
 	return %a + (%b - %a) * %t;
 }
 

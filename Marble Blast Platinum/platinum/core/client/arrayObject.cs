@@ -144,16 +144,26 @@ function compareStringLesser(%a, %b) {
 
 //This is really ugly, but the only way to support engine methods that need a fixed number of arguments
 function SimObject::_call(%this, %func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9) {
-	if (%arg9 !$= "") return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9);
-	if (%arg8 !$= "") return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8);
-	if (%arg7 !$= "") return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7);
-	if (%arg6 !$= "") return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6);
-	if (%arg5 !$= "") return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5);
-	if (%arg4 !$= "") return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4);
-	if (%arg3 !$= "") return %this.call(%func, %arg0, %arg1, %arg2, %arg3);
-	if (%arg2 !$= "") return %this.call(%func, %arg0, %arg1, %arg2);
-	if (%arg1 !$= "") return %this.call(%func, %arg0, %arg1);
-	if (%arg0 !$= "") return %this.call(%func, %arg0);
+	if (%arg9 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9);
+	if (%arg8 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8);
+	if (%arg7 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7);
+	if (%arg6 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6);
+	if (%arg5 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5);
+	if (%arg4 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4);
+	if (%arg3 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2, %arg3);
+	if (%arg2 !$= "")
+		return %this.call(%func, %arg0, %arg1, %arg2);
+	if (%arg1 !$= "")
+		return %this.call(%func, %arg0, %arg1);
+	if (%arg0 !$= "")
+		return %this.call(%func, %arg0);
 	return %this.call(%func);
 }
 

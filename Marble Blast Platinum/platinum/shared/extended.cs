@@ -546,17 +546,20 @@ function withAll(%type,%code,%group) {
 	while (%set.getCount() > 0) {
 		%object = %set.getObject(0);
 		eval("%this = " @ %object @ "; " @ %code);
-		if (isObject(%object)) %set.remove(%object);
+		if (isObject(%object))
+			%set.remove(%object);
 	}
 	%set.delete();
 }
 
 function addAll(%type,%set,%group) {
-	if (%group $= "") %group = MissionGroup;
+	if (%group $= "")
+		%group = MissionGroup;
 	for (%i = 0; %i < %group.getCount(); %i ++) {
 		%object = %group.getObject(%i);
 		%class = %object.getClassName();
-		if (%class $= "SimGroup" || %class $= "Path") addAll(%type,%set,%object);
+		if (%class $= "SimGroup" || %class $= "Path")
+			addAll(%type,%set,%object);
 		%name = %object.getName();
 		if (%object.isGame()) {
 			%datablock = %object.getDatablock().getName();
@@ -565,7 +568,8 @@ function addAll(%type,%set,%group) {
 			%datablock = "";
 			%category = "";
 		}
-		if (%name $= %type || %class $= %type || %datablock $= %type || %category $= %type) %set.add(%object);
+		if (%name $= %type || %class $= %type || %datablock $= %type || %category $= %type)
+			%set.add(%object);
 	}
 }
 
@@ -792,11 +796,16 @@ function GuiMLTextCtrl::evalTextFunc(%this, %text) {
 		%fn = firstWord(%data);
 		%words = getWordCount(%data);
 
-		if (%words == 1) %value = call(%fn);
-		if (%words == 2) %value = call(%fn, getWord(%data, 1));
-		if (%words == 3) %value = call(%fn, getWord(%data, 1), getWord(%data, 2));
-		if (%words == 4) %value = call(%fn, getWord(%data, 1), getWord(%data, 2), getWord(%data, 3));
-		if (%words == 5) %value = call(%fn, getWord(%data, 1), getWord(%data, 2), getWord(%data, 3), getWord(%data, 4));
+		if (%words == 1)
+			%value = call(%fn);
+		if (%words == 2)
+			%value = call(%fn, getWord(%data, 1));
+		if (%words == 3)
+			%value = call(%fn, getWord(%data, 1), getWord(%data, 2));
+		if (%words == 4)
+			%value = call(%fn, getWord(%data, 1), getWord(%data, 2), getWord(%data, 3));
+		if (%words == 5)
+			%value = call(%fn, getWord(%data, 1), getWord(%data, 2), getWord(%data, 3), getWord(%data, 4));
 
 		return %value;
 	}
@@ -809,8 +818,10 @@ function GuiMLTextCtrl::onURL(%this, %url) {
 }
 
 //Because the mac version needs special versions of these
-if (isFunction("_strlwr")) eval("function strlwr(%str){return _strlwr(%str);}");
-if (isFunction("_strupr")) eval("function strupr(%str){return _strupr(%str);}");
+if (isFunction("_strlwr"))
+	eval("function strlwr(%str){return _strlwr(%str);}");
+if (isFunction("_strupr"))
+	eval("function strupr(%str){return _strupr(%str);}");
 
 function isFont(%font) {
 	%testfont = new GuiControlProfile(testFontProfile_ @ %font) {
@@ -868,14 +879,22 @@ function SimObjectCall(%object, %function, %arg1, %arg2, %arg3, %arg4, %arg5, %a
 	if (!isObject(%object))
 		return;
 
-	if (%arg1 $= "") %object.call(%function);
-	else if (%arg2 $= "") %object.call(%function, %arg1);
-	else if (%arg3 $= "") %object.call(%function, %arg1, %arg2);
-	else if (%arg4 $= "") %object.call(%function, %arg1, %arg2, %arg3);
-	else if (%arg5 $= "") %object.call(%function, %arg1, %arg2, %arg3, %arg4);
-	else if (%arg6 $= "") %object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5);
-	else if (%arg7 $= "") %object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6);
-	else if (%arg8 $= "") %object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7);
+	if (%arg1 $= "")
+		%object.call(%function);
+	else if (%arg2 $= "")
+		%object.call(%function, %arg1);
+	else if (%arg3 $= "")
+		%object.call(%function, %arg1, %arg2);
+	else if (%arg4 $= "")
+		%object.call(%function, %arg1, %arg2, %arg3);
+	else if (%arg5 $= "")
+		%object.call(%function, %arg1, %arg2, %arg3, %arg4);
+	else if (%arg6 $= "")
+		%object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5);
+	else if (%arg7 $= "")
+		%object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6);
+	else if (%arg8 $= "")
+		%object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7);
 	else %object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8);
 }
 

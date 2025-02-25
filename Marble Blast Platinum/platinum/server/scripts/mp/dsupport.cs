@@ -53,30 +53,30 @@ function dParseArgs() {
 		%hasNextArg = $Game::argc - %i > 1;
 
 		switch$ (%arg) {
-			case "-input":
-				$argUsed[%i]++;
-				if (%hasNextArg) {
-					$inputfile = %nextArg;
-					$argUsed[%i+1]++;
-				} else {
-					error("Error: Missing Command Line argument. Usage: -input <input file>");
-				}
-			case "-output":
-				$argUsed[%i]++;
-				if (%hasNextArg) {
-					$outputfile = %nextArg;
-					$argUsed[%i+1]++;
-				} else {
-					error("Error: Missing Command Line argument. Usage: -output <output file>");
-				}
-			case "-cycle":
-				$argUsed[%i]++;
+		case "-input":
+			$argUsed[%i]++;
+			if (%hasNextArg) {
+				$inputfile = %nextArg;
+				$argUsed[%i+1]++;
+			} else {
+				error("Error: Missing Command Line argument. Usage: -input <input file>");
+			}
+		case "-output":
+			$argUsed[%i]++;
+			if (%hasNextArg) {
+				$outputfile = %nextArg;
+				$argUsed[%i+1]++;
+			} else {
+				error("Error: Missing Command Line argument. Usage: -output <output file>");
+			}
+		case "-cycle":
+			$argUsed[%i]++;
 
-				echo("===================");
-				echo(" CYCLE SERVER INIT ");
-				echo("===================");
+			echo("===================");
+			echo(" CYCLE SERVER INIT ");
+			echo("===================");
 
-				schedule(3000, 0, startCycleServer);
+			schedule(3000, 0, startCycleServer);
 		}
 	}
 }
@@ -100,7 +100,8 @@ function printStatus() {
 	// Level, player count, team mode, version, host
 
 	//Level
-	if ($Server::Lobby) %status = "Lobby";
+	if ($Server::Lobby)
+		%status = "Lobby";
 	else %status = MissionInfo.name;
 
 	//Player Count
@@ -113,7 +114,8 @@ function printStatus() {
 	%status = %status NL $MP::RevisionOn;
 
 	//Host
-	if (ClientGroup.getCount()) %status = %status NL ClientGroup.getObject(0).getUsername();
+	if (ClientGroup.getCount())
+		%status = %status NL ClientGroup.getObject(0).getUsername();
 	else %status = %status NL "No Host";
 
 	fwrite($outputfile, %status);
@@ -227,7 +229,7 @@ function GameConnection::sendGameModes(%this) {
 	for (%i = 0; %i < ModeInfoGroup.getCount(); %i ++) {
 		%mode = ModeInfoGroup.getObject(%i);
 		traceGuard();
-			commandToClientLong(%this, 'GameModeList', %mode.getFields(), %mode.class, %mode.identifier);
+		commandToClientLong(%this, 'GameModeList', %mode.getFields(), %mode.class, %mode.identifier);
 		traceGuardEnd();
 	}
 }

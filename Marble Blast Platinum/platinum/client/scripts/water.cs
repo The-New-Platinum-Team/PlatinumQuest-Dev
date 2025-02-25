@@ -317,7 +317,7 @@ function BubbleLoop(%delta) {
 
 	if ($Game::BubbleActive) {
 		//Let go of the mouse (or whatever): pops
-			if (!%using) {
+		if (!%using) {
 			BubblePop();
 			return;
 		}

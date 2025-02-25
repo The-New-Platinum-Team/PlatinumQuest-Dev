@@ -82,8 +82,7 @@ function serverCmdBlast(%client, %gravity) {
 	if (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) || %client.usingPartyTripleBlast) {
 		if (%client.blastValue <= 0.35) { // It should be "== 0.34", but uh, floating point nonsense
 			%client.setBlastValue(0);
-			if (%client.usingPartyTripleBlast)
-			{
+			if (%client.usingPartyTripleBlast) {
 				%client.usingPartyTripleBlast = false;
 				$MP::PartyTripleBlast = false;
 			}
@@ -108,78 +107,78 @@ function serverCmdBlast(%client, %gravity) {
 //-----------------------------------------------------------------------------
 
 datablock ParticleData(MBUBlastSmoke) {
-   textureName          = "~/data/particles/twirl";
-   dragCoefficient      = 1.0;
-   gravityCoefficient   = -0.5;
-   inheritedVelFactor   = 0.1;
-   constantAcceleration = 1;
-   lifetimeMS           = 1000;
-   lifetimeVarianceMS   = 150;
-   spinSpeed     = 90;
-   spinRandomMin = -90.0;
-   spinRandomMax =  90.0;
+	textureName          = "~/data/particles/twirl";
+	dragCoefficient      = 1.0;
+	gravityCoefficient   = -0.5;
+	inheritedVelFactor   = 0.1;
+	constantAcceleration = 1;
+	lifetimeMS           = 1000;
+	lifetimeVarianceMS   = 150;
+	spinSpeed     = 90;
+	spinRandomMin = -90.0;
+	spinRandomMax =  90.0;
 
 	colors[0]     = "0 1 1 0.1";
 	colors[1]     = "0 1 1 0.5";
 	colors[2]     = "0 1 1 0.9";
 
-   sizes[0]      = 0.25;
-   sizes[1]      = 0.25;
-   sizes[2]      = 0.5;
+	sizes[0]      = 0.25;
+	sizes[1]      = 0.25;
+	sizes[2]      = 0.5;
 
-   times[0]      = 0;
-   times[1]      = 0.75;
-   times[2]      = 1.0;
+	times[0]      = 0;
+	times[1]      = 0.75;
+	times[2]      = 1.0;
 };
 
 datablock ParticleData(MBUUltraBlastSmoke) {
-   textureName          = "~/data/particles/twirl";
-   dragCoefficient      = 1.0;
-   gravityCoefficient   = 0;
-   inheritedVelFactor   = 0.1;
-   constantAcceleration = 1;
-   lifetimeMS           = 1000;
-   lifetimeVarianceMS   = 150;
-   spinSpeed     = 20;
-   spinRandomMin = -90.0;
-   spinRandomMax =  90.0;
+	textureName          = "~/data/particles/twirl";
+	dragCoefficient      = 1.0;
+	gravityCoefficient   = 0;
+	inheritedVelFactor   = 0.1;
+	constantAcceleration = 1;
+	lifetimeMS           = 1000;
+	lifetimeVarianceMS   = 150;
+	spinSpeed     = 20;
+	spinRandomMin = -90.0;
+	spinRandomMax =  90.0;
 
 	colors[0]     = "1 0.7 0 0.1";
 	colors[1]     = "1 0.7 0 0.5";
 	colors[2]     = "1 0.7 0 0.9";
 
-   sizes[0]      = 0.35;
-   sizes[1]      = 0.35;
-   sizes[2]      = 0.35;
+	sizes[0]      = 0.35;
+	sizes[1]      = 0.35;
+	sizes[2]      = 0.35;
 
-   times[0]      = 0;
-   times[1]      = 0.4;
-   times[2]      = 1.0;
+	times[0]      = 0;
+	times[1]      = 0.4;
+	times[2]      = 1.0;
 };
 
 datablock ParticleEmitterData(MBUBlastEmitter) {
-   ejectionPeriodMS = 10;
-   periodVarianceMS = 0;
-   ejectionVelocity = 15.0;
-   velocityVariance = 0.25;
-   thetaMin         = 00.0;
-   thetaMax         = 90.0;
+	ejectionPeriodMS = 10;
+	periodVarianceMS = 0;
+	ejectionVelocity = 15.0;
+	velocityVariance = 0.25;
+	thetaMin         = 00.0;
+	thetaMax         = 90.0;
 	phiReferenceVel  = 0;
 	phiVariance      = 360;
-   lifetimeMS       = 500;
+	lifetimeMS       = 500;
 	particles        = "MBUBlastSmoke";
 };
 
 datablock ParticleEmitterData(MBUUltraBlastEmitter) {
-   ejectionPeriodMS = 10;
-   periodVarianceMS = 0;
-   ejectionVelocity = 15.0;
-   velocityVariance = 0.25;
-   thetaMin         = 00.0;
-   thetaMax         = 90.0;
+	ejectionPeriodMS = 10;
+	periodVarianceMS = 0;
+	ejectionVelocity = 15.0;
+	velocityVariance = 0.25;
+	thetaMin         = 00.0;
+	thetaMax         = 90.0;
 	phiReferenceVel  = 0;
 	phiVariance      = 360;
-   lifetimeMS       = 500;
+	lifetimeMS       = 500;
 	particles        = "MBUUltraBlastSmoke";
 };
 

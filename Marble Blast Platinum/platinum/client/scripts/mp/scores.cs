@@ -513,10 +513,14 @@ function scoreListUpdate() {
 				%rowIdx ++;
 
 				%bitmap = "unknown";
-				if (%ping < 100) %bitmap = "high";
-				else if (%ping < 250) %bitmap = "medium";
-				else if (%ping < 500) %bitmap = "low";
-				else if (%ping < 1000) %bitmap = "matanny";
+				if (%ping < 100)
+					%bitmap = "high";
+				else if (%ping < 250)
+					%bitmap = "medium";
+				else if (%ping < 500)
+					%bitmap = "low";
+				else if (%ping < 1000)
+					%bitmap = "matanny";
 				%pgpingctrl.setBitmap($usermods @ "/client/ui/lb/play/connection-" @ %bitmap @ ".png");
 				//%pingctrl.setBitmap($usermods @ "/client/ui/lb/play/connection-" @ %bitmap @ ".png");
 
@@ -530,14 +534,20 @@ function scoreListUpdate() {
 				%gems5  = %gems5  $= "" || %gems5  == 0 ? "0" : %gems5;
 				%gems10 = %gems10 $= "" || %gems10 == 0 ? "0" : %gems10;
 
-				if (%gems1  < 10) %gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
-				if (%gems2  < 10) %gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
-				if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
-				if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
+				if (%gems1  < 10)
+					%gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
+				if (%gems2  < 10)
+					%gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
+				if (%gems5  < 10)
+					%gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
+				if (%gems10 < 10)
+					%gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
 
 				%prefix = "";
-				if (%state $= "0") %prefix = "[DC] ";
-				if (%state $= "2") %prefix = "[S] ";
+				if (%state $= "0")
+					%prefix = "[DC] ";
+				if (%state $= "2")
+					%prefix = "[S] ";
 
 				%scoreText.setText(%font2   @ clipPx($DefaultFont, 28, LBResolveName(%player, true), 300, true) TAB %face @ %score);
 				%pgscoreText.setText(%pgfont2 @ "<spush>" @ %color @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), 170, true) @ "<spop><just:right>" @ %pgface @ %score);
@@ -775,10 +785,14 @@ function scoreListUpdate() {
 			%rowIdx ++;
 
 			%bitmap = "unknown";
-			if (%ping < 100) %bitmap = "high";
-			else if (%ping < 250) %bitmap = "medium";
-			else if (%ping < 500) %bitmap = "low";
-			else if (%ping < 1000) %bitmap = "matanny";
+			if (%ping < 100)
+				%bitmap = "high";
+			else if (%ping < 250)
+				%bitmap = "medium";
+			else if (%ping < 500)
+				%bitmap = "low";
+			else if (%ping < 1000)
+				%bitmap = "matanny";
 			%pgpingctrl.setBitmap($usermods @ "/client/ui/lb/play/connection-" @ %bitmap @ ".png");
 
 			%estimated = mFloor(%score * (MissionInfo.time / max(1, MissionInfo.time - PlayGui.currentTime)));
@@ -793,19 +807,25 @@ function scoreListUpdate() {
 			%gems5  = %gems5  $= "" || %gems5  == 0 ? "0" : %gems5;
 			%gems10 = %gems10 $= "" || %gems10 == 0 ? "0" : %gems10;
 
-			if (%gems1  < 10) %gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
-			if (%gems2  < 10) %gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
-			if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
-			if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
+			if (%gems1  < 10)
+				%gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
+			if (%gems2  < 10)
+				%gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
+			if (%gems5  < 10)
+				%gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
+			if (%gems10 < 10)
+				%gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
 
 			%prefix = "";
-			if (%state $= "0") %prefix = "[DC] ";
-			if (%state $= "2") %prefix = "[S] ";
+			if (%state $= "0")
+				%prefix = "[DC] ";
+			if (%state $= "2")
+				%prefix = "[S] ";
 
 			//See if we have more than one other player
 			%vs = !$Server::Hosting //Not host, so there must be someone else who is
-				|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+			      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+			      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
 			%nameWidth = 200 - (15 * strlen(%score));

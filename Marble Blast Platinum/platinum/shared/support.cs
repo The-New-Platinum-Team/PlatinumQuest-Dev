@@ -59,11 +59,16 @@ function LBColorFormat(%username, %display, %access) {
 	if (%color $= "") {
 //		echo("Could not find a color");
 		switch (%access) {
-		case -3: %color = LBChatColor("normal");
-		case 0:  %color = LBChatColor("normal");
-		case 1:  %color = LBChatColor("mod");
-		case 2:  %color = LBChatColor("admin");
-		default: %color = LBChatColor("normal");
+		case -3:
+			%color = LBChatColor("normal");
+		case 0:
+			%color = LBChatColor("normal");
+		case 1:
+			%color = LBChatColor("mod");
+		case 2:
+			%color = LBChatColor("admin");
+		default:
+			%color = LBChatColor("normal");
 		}
 	}
 	%display = "<spush>" @ %color @ %display @ "<spop>";
@@ -72,12 +77,18 @@ function LBColorFormat(%username, %display, %access) {
 
 function LBAccountType(%access) {
 	switch (%access) {
-	case -3: return "Banned";
-	case 0:  return "User";
-	case 1:  return "Moderator";
-	case 2:  return "Administrator";
-	case 3:  return "Guest";
-	default: return "User";
+	case -3:
+		return "Banned";
+	case 0:
+		return "User";
+	case 1:
+		return "Moderator";
+	case 2:
+		return "Administrator";
+	case 3:
+		return "Guest";
+	default:
+		return "User";
 	}
 }
 
@@ -114,8 +125,10 @@ function mRound(%num, %places) {
 		%mult *= -1;
 		%num *= -1;
 	}
-	if ((%num * 2) % 2) return mCeil(%num) / %mult;
-	else return mFloor(%num) / %mult;
+	if ((%num * 2) % 2)
+		return mCeil(%num) / %mult;
+	else
+		return mFloor(%num) / %mult;
 }
 
 //-----------------------------------------------------------------------------
@@ -484,12 +497,12 @@ function fixColor(%color) {
 
 		// abc -> aabbcc
 		return
-			getSubStr(%color, 0, 1) @
-			getSubStr(%color, 0, 1) @
-			getSubStr(%color, 1, 1) @
-			getSubStr(%color, 1, 1) @
-			getSubStr(%color, 2, 1) @
-			getSubStr(%color, 2, 1);
+		    getSubStr(%color, 0, 1) @
+		    getSubStr(%color, 0, 1) @
+		    getSubStr(%color, 1, 1) @
+		    getSubStr(%color, 1, 1) @
+		    getSubStr(%color, 2, 1) @
+		    getSubStr(%color, 2, 1);
 	}
 	// abcde -> abcde0
 	return %color @ strRepeat("0", 6 - %len);

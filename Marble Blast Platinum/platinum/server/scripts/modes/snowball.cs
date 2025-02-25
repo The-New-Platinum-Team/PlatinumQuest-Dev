@@ -60,7 +60,8 @@ function Mode_snowball::modifyPlayerScoreData(%this, %object) {
 
 package Mode_snowball {
 	function IceShard::onCollision(%this, %ice, %marble, %unused1, %unused2, %material) {
-		if (!Parent::onCollision(%this, %ice, %marble, %unused1, %unused2, %material)) return;
+		if (!Parent::onCollision(%this, %ice, %marble, %unused1, %unused2, %material))
+			return;
 
 		if (%ice.achievement39) {
 			commandToClient(%marble.client, 'IceShardEarn');

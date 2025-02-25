@@ -113,9 +113,9 @@ function Checkpoint_PQ::onAdd(%this, %obj) {
 	%temp.setParent(%obj, "0 0 0 1 0 0 0", true, "0 0 0");
 	%obj._glass = %temp;
 	MissionCleanup.add(%temp);
-	
-   if (%obj.chkcollide $= "")
-	%obj.chkcollide = "1";
+
+	if (%obj.chkcollide $= "")
+		%obj.chkcollide = "1";
 }
 
 datablock StaticShapeData(SillyGlass : checkPoint) {
@@ -156,7 +156,8 @@ function CheckpointTrigger::onMissionReset(%this, %obj) {
 }
 
 function CheckPointClass::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {
-	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material)) return;
+	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material))
+		return;
 	if (%col.noPickup || %col._warping) {
 		return;
 	}
@@ -170,15 +171,14 @@ function CheckPointClass::onCollision(%this,%obj,%col,%vec, %vecLen, %material) 
 	}
 }
 
-function CheckPointClass::onAdd( %this, %obj )
-{
-   if (%obj.chkcollide $= "")
-	%obj.chkcollide = "1";
+function CheckPointClass::onAdd( %this, %obj ) {
+	if (%obj.chkcollide $= "")
+		%obj.chkcollide = "1";
 
-   if ($pref::spchanges && %obj.isTemperable $= "1") {
-	%obj.setDataBlock("Checkpoint_MBU");
-	%obj.setScale("1 1 1");
-   }
+	if ($pref::spchanges && %obj.isTemperable $= "1") {
+		%obj.setDataBlock("Checkpoint_MBU");
+		%obj.setScale("1 1 1");
+	}
 }
 
 function GameConnection::setCheckpointButton(%this, %object) {
@@ -409,7 +409,7 @@ function GameConnection::respawnOnCheckpoint(%this) {
 	%this.blockSpawning(300);
 
 	$Game::BlockTeleports = true; // Prevent teleport exploits unless the player actually enters one
-	
+
 	//Will happen at the start of next frame so no shame in doing it now
 	%this.sendCallback("OnRespawnOnCheckpoint");
 

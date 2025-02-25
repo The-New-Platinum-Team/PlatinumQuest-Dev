@@ -146,9 +146,12 @@ function Node::onAdd(%this, %obj) {
 	}
 	PathNodeGroup.onNextFrame("add", %obj);
 
-	if (isObject(%obj.nextNode))      %obj._nextNodeId      = %obj.nextNode.getSyncId();
-	if (isObject(%obj.BezierHandle1)) %obj._BezierHandle1id = %obj.BezierHandle1.getSyncId();
-	if (isObject(%obj.BezierHandle2)) %obj._BezierHandle2id = %obj.BezierHandle2.getSyncId();
+	if (isObject(%obj.nextNode))
+		%obj._nextNodeId      = %obj.nextNode.getSyncId();
+	if (isObject(%obj.BezierHandle1))
+		%obj._BezierHandle1id = %obj.BezierHandle1.getSyncId();
+	if (isObject(%obj.BezierHandle2))
+		%obj._BezierHandle2id = %obj.BezierHandle2.getSyncId();
 	%obj.setSync();
 
 	//Init the node
@@ -555,25 +558,25 @@ function isServerMovingObject(%obj) {
 }
 
 $Editor::Fields["PathNode"] =
-	"NextNode" SPC
-	"Delay" SPC
-	"TimeToNext" SPC
-	"SmoothStart" SPC
-	"SmoothEnd" SPC
-	"Smooth" SPC
-	"SmoothFactor" SPC
-	"UsePosition" SPC
-	"UseRotation" SPC
-	"UseScale" SPC
-	"ReverseRotation" SPC
-	"RotationMultiplier" SPC
-	"bezierRotation" SPC
-	"bezier" SPC
-	"BezierHandle1" SPC
-	"BezierHandle2" SPC
-	"FinalRotOffset" SPC
-	"Spline" SPC
-	"branchNodes" SPC
-	"Speed" SPC
-	"StopWhenFinished" SPC
-	"placed";
+    "NextNode" SPC
+    "Delay" SPC
+    "TimeToNext" SPC
+    "SmoothStart" SPC
+    "SmoothEnd" SPC
+    "Smooth" SPC
+    "SmoothFactor" SPC
+    "UsePosition" SPC
+    "UseRotation" SPC
+    "UseScale" SPC
+    "ReverseRotation" SPC
+    "RotationMultiplier" SPC
+    "bezierRotation" SPC
+    "bezier" SPC
+    "BezierHandle1" SPC
+    "BezierHandle2" SPC
+    "FinalRotOffset" SPC
+    "Spline" SPC
+    "branchNodes" SPC
+    "Speed" SPC
+    "StopWhenFinished" SPC
+    "placed";

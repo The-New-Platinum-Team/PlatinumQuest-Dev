@@ -216,5 +216,5 @@ function cleanUpNameTags() {
 		}
 	}
 	for (%i = 0; %i < %remove; %i ++)
-			%tag[%i].delete();
+		%tag[%i].delete();
 }

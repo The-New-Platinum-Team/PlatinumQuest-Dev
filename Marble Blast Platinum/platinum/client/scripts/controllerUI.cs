@@ -399,8 +399,10 @@ function GuiSliderCtrl::RSRight(%this) {
 		%val = getVariable(%this.variable);
 
 		%val += %tick;
-		if (%val > %upper) %val = %upper;
-		if (%val < %lower) %val = %lower;
+		if (%val > %upper)
+			%val = %upper;
+		if (%val < %lower)
+			%val = %lower;
 
 		setVariable(%this.variable, %val);
 		%this.setValue(%val);
@@ -418,8 +420,10 @@ function GuiSliderCtrl::RSLeft(%this) {
 		%val = getVariable(%this.variable);
 
 		%val -= %tick;
-		if (%val > %upper) %val = %upper;
-		if (%val < %lower) %val = %lower;
+		if (%val > %upper)
+			%val = %upper;
+		if (%val < %lower)
+			%val = %lower;
 
 		setVariable(%this.variable, %val);
 		%this.setValue(%val);

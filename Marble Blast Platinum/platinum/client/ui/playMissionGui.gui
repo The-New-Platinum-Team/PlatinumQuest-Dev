@@ -131,14 +131,14 @@ new GuiControl(PlayMissionGui) {
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		commandLT = "PlayMissionGui.showGames();";
-		commandRT = "PlayMissionGui.showDifficulties();";
-		commandCancel = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.exit();";
-		commandNameLT = "Games";
-		commandNameRT = "Difficulties";
-		commandNameCancel = "Back";
-		_guiSize = "1024 768";
-		scoresPerPage = "5";
+	commandLT = "PlayMissionGui.showGames();";
+	commandRT = "PlayMissionGui.showDifficulties();";
+	commandCancel = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.exit();";
+	commandNameLT = "Games";
+	commandNameRT = "Difficulties";
+	commandNameCancel = "Back";
+	_guiSize = "1024 768";
+	scoresPerPage = "5";
 
 	new GuiBorderButtonCtrl() {
 		profile = "PQButtonPlainProfile";
@@ -175,7 +175,7 @@ new GuiControl(PlayMissionGui) {
 			minExtent = "27 27";
 			visible = "1";
 			helpTag = "0";
-				blur = "1";
+			blur = "1";
 		};
 		new GuiBitmapCtrl() {
 			profile = "GuiDefaultProfile";
@@ -224,7 +224,7 @@ new GuiControl(PlayMissionGui) {
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
-			blur = "1";
+		blur = "1";
 
 		new GuiBitmapCtrl() {
 			profile = "GuiDefaultProfile";
@@ -994,9 +994,9 @@ new GuiControl(PlayMissionGui) {
 					password = "0";
 					tabComplete = "0";
 					sinkAllKeyEvents = "0";
-						allowColorChars = "1";
-						lineSpacing = "2";
-						maxChars = "255";
+					allowColorChars = "1";
+					lineSpacing = "2";
+					maxChars = "255";
 				};
 				new GuiMLTextCtrl(PM_ChatEntryDisabledText) {
 					profile = "GuiMediumTextEditProfile";
@@ -1037,10 +1037,10 @@ new GuiControl(PlayMissionGui) {
 					buttonType = "RadioButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						bitmap = "platinum/client/ui/mp/play/global.png";
-						borderColor = "255 255 255";
-						bitmapOffset = "3 0";
-						tooltip = "Global";
+					bitmap = "platinum/client/ui/mp/play/global.png";
+					borderColor = "255 255 255";
+					bitmapOffset = "3 0";
+					tooltip = "Global";
 				};
 				new GuiBorderButtonCtrl(PM_ChatToggleServer) {
 					profile = "PQButtonPillRightProfile";
@@ -1057,10 +1057,10 @@ new GuiControl(PlayMissionGui) {
 					buttonType = "RadioButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						bitmap = "platinum/client/ui/mp/play/server.png";
-						borderColor = "255 255 255";
-						bitmapOffset = "-3 0";
-						tooltip = "Server";
+					bitmap = "platinum/client/ui/mp/play/server.png";
+					borderColor = "255 255 255";
+					bitmapOffset = "-3 0";
+					tooltip = "Server";
 				};
 			};
 			new GuiControl(PM_TeamChatToggles) {
@@ -1088,10 +1088,10 @@ new GuiControl(PlayMissionGui) {
 					buttonType = "RadioButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						bitmap = "platinum/client/ui/mp/play/global.png";
-						borderColor = "255 255 255";
-						bitmapOffset = "3 0";
-						tooltip = "Global";
+					bitmap = "platinum/client/ui/mp/play/global.png";
+					borderColor = "255 255 255";
+					bitmapOffset = "3 0";
+					tooltip = "Global";
 				};
 				new GuiBorderButtonCtrl(PM_ChatToggleTeamServer) {
 					profile = "PQButtonPillCenterProfile";
@@ -1108,9 +1108,9 @@ new GuiControl(PlayMissionGui) {
 					buttonType = "RadioButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						bitmap = "platinum/client/ui/mp/play/server.png";
-						borderColor = "255 255 255";
-						tooltip = "Server";
+					bitmap = "platinum/client/ui/mp/play/server.png";
+					borderColor = "255 255 255";
+					tooltip = "Server";
 				};
 				new GuiBorderButtonCtrl(PM_ChatToggleTeamTeam) {
 					profile = "PQButtonPillRightProfile";
@@ -1127,10 +1127,10 @@ new GuiControl(PlayMissionGui) {
 					buttonType = "RadioButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						bitmap = "platinum/client/ui/mp/play/team.png";
-						borderColor = "255 255 255";
-						bitmapOffset = "-3 0";
-						tooltip = "Team";
+					bitmap = "platinum/client/ui/mp/play/team.png";
+					borderColor = "255 255 255";
+					bitmapOffset = "-3 0";
+					tooltip = "Team";
 				};
 			};
 		};
@@ -1144,7 +1144,7 @@ new GuiControl(PlayMissionGui) {
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
-			wrap = "0";
+		wrap = "0";
 	};
 	new GuiControl(PM_ExtrasBox) {
 		profile = "GuiDefaultProfile";
@@ -1155,7 +1155,7 @@ new GuiControl(PlayMissionGui) {
 		minExtent = "8 8";
 		visible = "0";
 		helpTag = "0";
-			wrap = "0";
+		wrap = "0";
 	};
 	new GuiButtonBaseCtrl() {
 		profile = "GuiDefaultProfile";
@@ -1215,15 +1215,20 @@ function PlayMissionGui::open(%this, %marbleland) {
 			%this.marbleland = 0;
 			%this.init();
 		}
-		if(%this.frightfest || %this.winterfest) PM_HolidaySelector.setVisible(true);
+		if (%this.frightfest || %this.winterfest)
+			PM_HolidaySelector.setVisible(true);
 	}
 
-	if (%this.currentHoliday $= "") %this.currentHoliday = "Hunt";
-	if (%this.frightfest     $= "") %this.frightfest     = false;
-	if (%this.winterfest     $= "") %this.winterfest     = false;
+	if (%this.currentHoliday $= "")
+		%this.currentHoliday = "Hunt";
+	if (%this.frightfest $= "")
+		%this.frightfest = false;
+	if (%this.winterfest $= "")
+		%this.winterfest = false;
 
-	if (lb()) PM_HolidaySelector.setVisible(false);
-	
+	if (lb())
+		PM_HolidaySelector.setVisible(false);
+
 	Canvas.doHover = true;
 	RootGui.setContent(%this);
 }
@@ -1382,8 +1387,10 @@ function PlayMissionGui::onWake(%this) {
 	// Reload marbleland packages
 	marblelandReloadMissions();
 
-	if ($CurrentGame $= "Frightfest") %this.activateFrightfest();
-	if ($CurrentGame $= "Winterfest") %this.activateWinterfest();
+	if ($CurrentGame $= "Frightfest")
+		%this.activateFrightfest();
+	if ($CurrentGame $= "Winterfest")
+		%this.activateWinterfest();
 
 	Unlock::updateCaches();
 	RootGui.resetDisplay();
@@ -1528,10 +1535,18 @@ function PlayMissionGui::onSleep(%this) {
 // Dropdowns
 
 function PlayMissionGui::buildGameList(%this, %season) {
-	switch$(%season){
-		case "Frightfest": %nonseason1 = "Hunt"; %nonseason2 = "Winterfest"; break;
-		case "Winterfest": %nonseason1 = "Hunt"; %nonseason2 = "Frightfest"; break;
-		default:     %nonseason1 = "Frightfest"; %nonseason2 = "Winterfest";
+	switch$(%season) {
+	case "Frightfest":
+		%nonseason1 = "Hunt";
+		%nonseason2 = "Winterfest";
+		break;
+	case "Winterfest":
+		%nonseason1 = "Hunt";
+		%nonseason2 = "Frightfest";
+		break;
+	default:
+		%nonseason1 = "Frightfest";
+		%nonseason2 = "Winterfest";
 	}
 
 	%games = %this.getGameList();
@@ -1544,7 +1559,7 @@ function PlayMissionGui::buildGameList(%this, %season) {
 		%name    = getField(%entry, 0);
 		%display = getField(%entry, 1);
 
-		if (%name !$= %nonseason1 && %name !$= %nonseason2){
+		if (%name !$= %nonseason1 && %name !$= %nonseason2) {
 			%buttonName  = "PM_GameButton_" @  %gameNumber;
 			%buttonNameU = "PM_GameButton_" @ (%gameNumber - 1);
 			%buttonNameD = "PM_GameButton_" @ (%gameNumber + 1);
@@ -1565,10 +1580,10 @@ function PlayMissionGui::buildGameList(%this, %season) {
 				repeatPeriod = "1000";
 				repeatDecay = "1";
 				bitmap = "./play/difficulty";
-					controlUp = %buttonNameU;
-					controlDown = %buttonNameD;
-					commandCancel = "PlayMissionGui.hideSelectors();";
-					commandNameCancel = "Close";
+				controlUp = %buttonNameU;
+				controlDown = %buttonNameD;
+				commandCancel = "PlayMissionGui.hideSelectors();";
+				commandNameCancel = "Close";
 			});
 
 			%gameNumber++;
@@ -1628,10 +1643,10 @@ function PlayMissionGui::buildDifficultyList(%this) {
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 			bitmap = "./play/difficulty";
-				controlUp = %buttonNameU;
-				controlDown = %buttonNameD;
-				commandCancel = "PlayMissionGui.hideSelectors();";
-				commandNameCancel = "Close";
+			controlUp = %buttonNameU;
+			controlDown = %buttonNameD;
+			commandCancel = "PlayMissionGui.hideSelectors();";
+			commandNameCancel = "Close";
 		});
 		%count ++;
 	}
@@ -1740,11 +1755,16 @@ function PlayMissionGui::hideSelectors(%this) {
 
 function PlayMissionGui::checkEnableStatsButton(%this) {
 	switch$ ($CurrentGame) {
-		case "Custom":     return false;
-		case "Hunt":       return false;
-		case "Frightfest": return false;
-		case "Winterfest": return false;
-		default:           return true;
+	case "Custom":
+		return false;
+	case "Hunt":
+		return false;
+	case "Frightfest":
+		return false;
+	case "Winterfest":
+		return false;
+	default:
+		return true;
 	}
 }
 
@@ -1851,8 +1871,10 @@ function PlayMissionGui::setSelectedMission(%this, %mission, %game, %type) {
 	%this.setGame(%game);
 	%this.setMissionType(%type);
 	%this.showMissionList();
-	if ($CurrentGame $= "Frightfest") %this.activateFrightfest();
-	if ($CurrentGame $= "Winterfest") %this.activateWinterfest();
+	if ($CurrentGame $= "Frightfest")
+		%this.activateFrightfest();
+	if ($CurrentGame $= "Winterfest")
+		%this.activateWinterfest();
 
 	//Find the mission in our list
 	%list = %this.getMissionList(%game, %type);
@@ -2129,16 +2151,16 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %positionIn
 		icon = %iconName;
 		egg = %eggName;
 		index = %idx;
-			commandSelect = "PlayMissionGui.trySetMissionByIndex(" @ %idx @ ");";
-			commandUp     = "PlayMissionGui.controllerHighlightMission(" @ %frameNameU @ ");";
-			commandDown   = "PlayMissionGui.controllerHighlightMission(" @ %frameNameD @ ");";
-			commandRight  = "PM_MissionPlay.controlLeftPosition = \"" @ %positionIndex @ "\"; ControllerGui.selectControl(PM_MissionPlay);";
-			commandRepeatUp   = true;
-			commandRepeatDown = true;
-			commandRepeatRight = true;
-			commandNameSelect = "Select";
-			commandAlt1 = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
-			commandNameAlt1 = "Play";
+		commandSelect = "PlayMissionGui.trySetMissionByIndex(" @ %idx @ ");";
+		commandUp     = "PlayMissionGui.controllerHighlightMission(" @ %frameNameU @ ");";
+		commandDown   = "PlayMissionGui.controllerHighlightMission(" @ %frameNameD @ ");";
+		commandRight  = "PM_MissionPlay.controlLeftPosition = \"" @ %positionIndex @ "\"; ControllerGui.selectControl(PM_MissionPlay);";
+		commandRepeatUp   = true;
+		commandRepeatDown = true;
+		commandRepeatRight = true;
+		commandNameSelect = "Select";
+		commandAlt1 = "PlayMissionGui.hideSelectors(); PlayMissionGui.hideExtras(); PlayMissionGui.play();";
+		commandNameAlt1 = "Play";
 
 		new GuiBitmapCtrl(%hoverName) {
 			profile = "GuiDefaultProfile";
@@ -2171,7 +2193,7 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %positionIn
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-				defaultText = "<bold:24>" @ clipPx($DefaultFont["Bold"], 24, %level.name, getWord(%textExt, 0), true);
+			defaultText = "<bold:24>" @ clipPx($DefaultFont["Bold"], 24, %level.name, getWord(%textExt, 0), true);
 		};
 		new GuiBitmapCtrl(%iconName) {
 			profile = "GuiDefaultProfile";
@@ -2267,11 +2289,16 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 	%unlocked = Unlock::canPlayMission(%level);
 	if (%unlocked) {
 		%qual = Unlock::getMissionCompletion(%level);
-		if (%qual & $Completion::Awesome)  %frameImage = "./play/frame_awesome";
-		else if (%qual & $Completion::Ultimate) %frameImage = "./play/frame_ultimate";
-		else if (%qual & $Completion::Platinum) %frameImage = "./play/frame_platinum";
-		else if (%qual & $Completion::Gold)     %frameImage = "./play/frame_gold";
-		else if (%qual & $Completion::Par)      %frameImage = "./play/frame_completed";
+		if (%qual & $Completion::Awesome)
+			%frameImage = "./play/frame_awesome";
+		else if (%qual & $Completion::Ultimate)
+			%frameImage = "./play/frame_ultimate";
+		else if (%qual & $Completion::Platinum)
+			%frameImage = "./play/frame_platinum";
+		else if (%qual & $Completion::Gold)
+			%frameImage = "./play/frame_gold";
+		else if (%qual & $Completion::Par)
+			%frameImage = "./play/frame_completed";
 		else                                    %frameImage = "./play/frame_unlocked";
 
 		//Check if we have WR for the WR frame
@@ -2281,7 +2308,7 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 				%recordcache = %this.personalScoreListCache.challengerecord;
 			}
 			if (isObject(%this.personalScoreListCache) && isObject(%recordcache)
-				&& %recordcache.containsEntry(%level.id)) {
+			        && %recordcache.containsEntry(%level.id)) {
 				//Oh cool, we do
 				%frameImage = "./play/frame_record";
 			}
@@ -2635,11 +2662,16 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		}
 
 		switch$ (%this.globalScoreMode) {
-			case "egg": %scoresTitle = "Best Egg Times";
-			case "lap": %scoresTitle = "Best Lap Times";
-			case "quota100": %scoresTitle = "100% Quota Scores";
-			case "dd": %scoresTitle = "Double Diamond Scores";
-			default: %scoresTitle = "Global Scores";
+		case "egg":
+			%scoresTitle = "Best Egg Times";
+		case "lap":
+			%scoresTitle = "Best Lap Times";
+		case "quota100":
+			%scoresTitle = "100% Quota Scores";
+		case "dd":
+			%scoresTitle = "Double Diamond Scores";
+		default:
+			%scoresTitle = "Global Scores";
 		}
 
 		//The header has both "Global Scores" and next/prev text buttons
@@ -2805,8 +2837,8 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		if (mp()) {
 			//See if we have more than one other player
 			%vs = !$Server::Hosting //Not host, so there must be someone else who is
-				|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+			      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+			      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 
 			%index = (%vs ? 0 : 1);
 
@@ -2905,12 +2937,16 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		}
 
 		//Show what we need to
-		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A") %text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
-		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
-		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
+		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
+		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
+		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
 
 		if (%showAwesome) {
-			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
+			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A")
+				%text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
 		}
 
 		%text3 = "";
@@ -2952,7 +2988,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 				%recordcache = %this.personalScoreListCache.challengerecord;
 			}
 			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache) && !%this.marbleland
-				&& %recordcache.containsEntry(%info.id)) {
+			        && %recordcache.containsEntry(%info.id)) {
 				%placement = 1;
 			}
 
@@ -3011,7 +3047,8 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 	//Line up the box with the buttons
 	%width = getWord(%this.getExtent(), 0) - (%bx + 7); //Magic number: makes it line up nicely
-	if (%width > 800) %width = %infoMaxTextWidth; //So it doesn't stretch across the entire screen
+	if (%width > 800)
+		%width = %infoMaxTextWidth; //So it doesn't stretch across the entire screen
 	%x = getWord(%this.getExtent(), 0) - %width;
 
 	%width += %infoShadowWidth; //Magic number: shadow width
@@ -3047,10 +3084,22 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 		//If any are invisible don't leave a gap where they should be
 		%pos = 0;
-		if (%hasModeEgg)      { PM_ScoreModeEgg.setPosition(%pos      SPC 0); %pos += getWord(PM_ScoreModeEgg.getExtent(),      0); }
-		if (%hasModeLap)      { PM_ScoreModeLap.setPosition(%pos      SPC 0); %pos += getWord(PM_ScoreModeLap.getExtent(),      0); }
-		if (%hasModeQuota100) { PM_ScoreModeQuota100.setPosition(%pos SPC 0); %pos += getWord(PM_ScoreModeQuota100.getExtent(), 0); }
-		if (%hasModeDD)       { PM_ScoreModeDD.setPosition(%pos       SPC 0); %pos += getWord(PM_ScoreModeDD.getExtent(),       0); }
+		if (%hasModeEgg)      {
+			PM_ScoreModeEgg.setPosition(%pos      SPC 0);
+			%pos += getWord(PM_ScoreModeEgg.getExtent(),      0);
+		}
+		if (%hasModeLap)      {
+			PM_ScoreModeLap.setPosition(%pos      SPC 0);
+			%pos += getWord(PM_ScoreModeLap.getExtent(),      0);
+		}
+		if (%hasModeQuota100) {
+			PM_ScoreModeQuota100.setPosition(%pos SPC 0);
+			%pos += getWord(PM_ScoreModeQuota100.getExtent(), 0);
+		}
+		if (%hasModeDD)       {
+			PM_ScoreModeDD.setPosition(%pos       SPC 0);
+			%pos += getWord(PM_ScoreModeDD.getExtent(),       0);
+		}
 
 		PM_ScoreModeEgg.setVisible(%hasModeEgg);
 		PM_ScoreModeLap.setVisible(%hasModeLap);
@@ -3569,7 +3618,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 		if (%colDiff == 0) {
 			%colOffset = 0;
 		} else {
-			%colOffset = 95 / (%colCount - %colDiff); 
+			%colOffset = 95 / (%colCount - %colDiff);
 		}
 		for (%i = 0; %i < %rowCount; %i++) {
 			%barXPos = 26;
@@ -3634,7 +3683,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 			if (%colDiff == 0) {
 				%colOffset = 0;
 			} else {
-				%colOffset = 95 / (%colCount - %colDiff); 
+				%colOffset = 95 / (%colCount - %colDiff);
 			}
 			if (%row == %rowCount - 1)
 				%colCount = %colCount - %colDiff;
@@ -3642,13 +3691,13 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 			if (%col == 0) {
 				if (%colCount == 1) {
 					%profile = "PMBarButtonSingleNoShadowProfile";
-					%posX = 3; 
+					%posX = 3;
 					%extentX = 143;
 					%offset = "0 0";
 					%controlOffset = "24 11";
 				} else {
 					%profile = %row > 0 ? "PMBarButtonLeftNoShadowProfile" : "PMBarButtonLeftProfile";
-					%posX = 3; 
+					%posX = 3;
 					%extentX = 119;
 					%offset = "12 0";
 					%controlOffset = "24 11";
@@ -3657,7 +3706,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 				if (%row > 0) {
 					%profile = "PMBarButtonNoShadowProfile";
 				}
-				%posX = 122 + 95 * (%col - 1); 
+				%posX = 122 + 95 * (%col - 1);
 				%extentX = 95;
 				%offset = "0 0";
 				%controlOffset = "0 11";
@@ -3693,19 +3742,19 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 			buttonType = ($PMG::BarButton[%which, "ButtonType", %i] $= "" ? "PushButton" : $PMG::BarButton[%which, "ButtonType", %i]);
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = $PMG::BarButton[%which, "Bitmap", %i];
-				bitmapOffset = %offset;
-				bitmapColor = %profile.fillColor;
-				originalBitmap = $PMG::BarButton[%which, "Bitmap", %i];
-				originalBitmapOffset = %offset;
-				originalBitmapColor = %profile.fillColor;
-				controlLeft = $PMG::BarButton[%which, "Name", %i - 1];
-				controlRight = $PMG::BarButton[%which, "Name", %i + 1];
-				commandCancel = $PMG::BarButton[%which, "CommandCancel"];
-				commandNameCancel = $PMG::BarButton[%which, "CommandNameCancel"];
-				commandDown = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
-				controlOffset = %controlOffset;
-				controlExtent = "95 80";
+			bitmap = $PMG::BarButton[%which, "Bitmap", %i];
+			bitmapOffset = %offset;
+			bitmapColor = %profile.fillColor;
+			originalBitmap = $PMG::BarButton[%which, "Bitmap", %i];
+			originalBitmapOffset = %offset;
+			originalBitmapColor = %profile.fillColor;
+			controlLeft = $PMG::BarButton[%which, "Name", %i - 1];
+			controlRight = $PMG::BarButton[%which, "Name", %i + 1];
+			commandCancel = $PMG::BarButton[%which, "CommandCancel"];
+			commandNameCancel = $PMG::BarButton[%which, "CommandNameCancel"];
+			commandDown = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
+			controlOffset = %controlOffset;
+			controlExtent = "95 80";
 		});
 	}
 
@@ -4820,7 +4869,7 @@ function PlayMissionGui::swapMissionListMP(%this) {
 		%this.buildMissionList(%game, %type);
 		%this.buildGameList();
 
-		PlayMissionGui.setGame(%game); 
+		PlayMissionGui.setGame(%game);
 		PlayMissionGui.showMissionList();
 	}
 }
@@ -4832,7 +4881,7 @@ function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 //-----------------------------------------------------------------------------
 //Holiday chicanery
 
-function PlayMissionGui::enableFrightfest(%this){
+function PlayMissionGui::enableFrightfest(%this) {
 	echo("Boo! Enabling Frightfest...");
 	%this.frightfest = true;
 	if (%this.currentHoliday $= "Hunt")
@@ -4841,7 +4890,7 @@ function PlayMissionGui::enableFrightfest(%this){
 		PM_HolidaySelector.setVisible(true);
 }
 
-function PlayMissionGui::disableFrightfest(%this){
+function PlayMissionGui::disableFrightfest(%this) {
 	echo("Boo! Disabling Frightfest...");
 	%this.frightfest = false;
 	if (%this.currentHoliday $= "Hunt" && %this.winterfest)
@@ -4852,7 +4901,7 @@ function PlayMissionGui::disableFrightfest(%this){
 		PM_HolidaySelector.setVisible(false);
 }
 
-function PlayMissionGui::activateFrightfest(%this){
+function PlayMissionGui::activateFrightfest(%this) {
 	%this.enableFrightfest();
 	%this.currentHoliday = "Frightfest";
 	%this.buildGameList("Frightfest");
@@ -4864,7 +4913,7 @@ function PlayMissionGui::activateFrightfest(%this){
 	%this.showMissionList();     //Refresh mission list in case the current game was already Hunt
 }
 
-function PlayMissionGui::enableWinterfest(%this){
+function PlayMissionGui::enableWinterfest(%this) {
 	echo("Ho ho ho! Enabling Winterfest...");
 	%this.winterfest = true;
 	if (%this.currentHoliday $= "Frightfest" || !%this.frightfest)
@@ -4873,7 +4922,7 @@ function PlayMissionGui::enableWinterfest(%this){
 		PM_HolidaySelector.setVisible(true);
 }
 
-function PlayMissionGui::disableWinterfest(%this){
+function PlayMissionGui::disableWinterfest(%this) {
 	echo("Ho ho ho! Disabling Winterfest...");
 	%this.winterfest = false;
 	if (%this.currentHoliday $= "Frightfest")
@@ -4884,7 +4933,7 @@ function PlayMissionGui::disableWinterfest(%this){
 		PM_HolidaySelector.setVisible(false);
 }
 
-function PlayMissionGui::activateWinterfest(%this){
+function PlayMissionGui::activateWinterfest(%this) {
 	%this.enableWinterfest();
 	%this.currentHoliday = "Winterfest";
 	%this.buildGameList("Winterfest");
@@ -4893,7 +4942,7 @@ function PlayMissionGui::activateWinterfest(%this){
 	%this.showMissionList();     //Refresh mission list in case the current game was already Hunt
 }
 
-function PlayMissionGui::deactivateHolidays(%this){
+function PlayMissionGui::deactivateHolidays(%this) {
 	%this.currentHoliday = "Hunt";
 	%this.buildGameList("Hunt");
 	if      (%this.frightfest)
@@ -4906,7 +4955,7 @@ function PlayMissionGui::deactivateHolidays(%this){
 	%this.showMissionList(); //Refresh mission list in case the current game was already Hunt
 }
 
-function PlayMissionGui::switchHoliday(%this){
+function PlayMissionGui::switchHoliday(%this) {
 	if (!%this.marbleland) {
 		echo("Switching holiday! Holiday is currently " @ %this.currentHoliday @ ".");
 		switch$ (%this.currentHoliday) {
@@ -4928,11 +4977,11 @@ function PlayMissionGui::switchHoliday(%this){
 	}
 }
 
-function PlayMissionGui::checkHolidaySecret(%this){
+function PlayMissionGui::checkHolidaySecret(%this) {
 	%typed = PM_HolidayCodeDetector.getValue();
 	if (!%this.marbleland && !lb()) { //Don't activate this in the online singleplayer LS, and servers will use commands in chat
 		switch$ (%typed) {
-		case "boo": 
+		case "boo":
 			%this.toggleFrightfest();
 			break;
 		case "hohoho":
@@ -4948,8 +4997,9 @@ function PlayMissionGui::checkHolidaySecret(%this){
 	    (%typed !$= "ho")   &&
 	    (%typed !$= "hoh")  && //sis
 	    (%typed !$= "hoho") &&
-	    (%typed !$= "hohoh"))
+	    (%typed !$= "hohoh")) {
 		PM_HolidayCodeDetector.setText("");
+	}
 }
 
 function PlayMissionGui::toggleFrightfest(%this) {

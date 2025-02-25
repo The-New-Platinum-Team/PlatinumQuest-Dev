@@ -32,10 +32,10 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 	helpTag = "0";
 	bitmap = "~/client/ui/exit/black";
 	wrap = "0";
-		_guiSize = "800 600";
-		defaultControl = "MPEndGameLobby";
-		commandAlt1 = "MPEndGameDlg.restart();";
-		commandNameAlt1 = "Restart";
+	_guiSize = "800 600";
+	defaultControl = "MPEndGameLobby";
+	commandAlt1 = "MPEndGameDlg.restart();";
+	commandNameAlt1 = "Restart";
 
 	new GuiControl() {
 		profile = "GuiDefaultProfile";
@@ -61,7 +61,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 			vScrollBar = "alwaysOn";
 			constantThumbHeight = "0";
 			childMargin = "0 0";
-				defaultLineHeight = "15";
+			defaultLineHeight = "15";
 
 			new GuiControl(MPEndGameListContainer) {
 				profile = "GuiDefaultProfile";
@@ -230,7 +230,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlRight = "MPEndGameRate";
+				controlRight = "MPEndGameRate";
 			};
 			new GuiBorderButtonCtrl(MPEndGameRate) {
 				profile = "PQButton28Profile";
@@ -247,8 +247,8 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlLeft = "MPEndGameRestart";
-					controlRight = "MPEndGameLobby";
+				controlLeft = "MPEndGameRestart";
+				controlRight = "MPEndGameLobby";
 			};
 			new GuiBorderButtonCtrl(MPEndGameLobby) {
 				profile = "PQButton28Profile";
@@ -265,7 +265,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 				buttonType = "PushButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
-					controlLeft = "MPEndGameRate";
+				controlLeft = "MPEndGameRate";
 			};
 		};
 		new GuiControl(MPEndRateContainer) {
@@ -307,7 +307,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 				repeatPeriod = "1000";
 				repeatDecay = "1";
 				bitmap = "./end/rate-negative";
-					controlRight = "MPEndRateNeutral";
+				controlRight = "MPEndRateNeutral";
 			};
 			new GuiBitmapButtonCtrl(MPEndRateNeutral) {
 				profile = "GuiDefaultProfile";
@@ -325,8 +325,8 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 				repeatPeriod = "1000";
 				repeatDecay = "1";
 				bitmap = "./end/rate-neutral";
-					controlLeft = "MPEndRateNegative";
-					controlRight = "MPEndRatePositive";
+				controlLeft = "MPEndRateNegative";
+				controlRight = "MPEndRatePositive";
 			};
 			new GuiBitmapButtonCtrl(MPEndRatePositive) {
 				profile = "GuiDefaultProfile";
@@ -344,7 +344,7 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 				repeatPeriod = "1000";
 				repeatDecay = "1";
 				bitmap = "./end/rate-positive";
-					controlLeft = "MPEndRateNeutral";
+				controlLeft = "MPEndRateNeutral";
 			};
 		};
 	};
@@ -371,7 +371,7 @@ function MPEndGameDlg::updateActive(%this) {
 	MPEndGameRestart.setActive($Server::Hosting);
 	%this.commandNameAlt1 = (MPEndGameRestart.isActive() ? "Restart" : "");
 	%this.commandAlt1 = (MPEndGameRestart.isActive() ? MPEndGameRestart.command : "");
-	if (ControllerGui.isJoystick()){
+	if (ControllerGui.isJoystick()) {
 		ControllerGui.updateButtons();
 	}
 }
@@ -434,7 +434,7 @@ function MPEndGameDlg::updateScores(%this) {
 		MPEndGameRedGem.setVisible(true);
 		MPEndGameBlueGem.setVisible(true);
 		MPMMWHitsGiven.setVisible(false);
-		MPMMWHitsTaken.setVisible(false);		
+		MPMMWHitsTaken.setVisible(false);
 	}
 
 	if ($MP::TeamMode) {
@@ -670,10 +670,14 @@ function MPEndGameDlg::updateScores(%this) {
 				%gems5  = %gems5  $= "" || %gems5  == 0 ? "0" : %gems5;
 				%gems10 = %gems10 $= "" || %gems10 == 0 ? "0" : %gems10;
 
-				if (%gems1  < 10) %gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
-				if (%gems2  < 10) %gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
-				if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
-				if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
+				if (%gems1  < 10)
+					%gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
+				if (%gems2  < 10)
+					%gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
+				if (%gems5  < 10)
+					%gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
+				if (%gems10 < 10)
+					%gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
 
 				%changeColor = "<shadowcolor:0000007f><shadow:1:1>";
 				if (%change == 0)
@@ -688,8 +692,8 @@ function MPEndGameDlg::updateScores(%this) {
 				%scoreColor = "<shadowcolor:0000007f><shadow:1:1>";
 				//See if we have more than one other player
 				%vs = !$Server::Hosting //Not host, so there must be someone else who is
-					|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-					|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+				      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+				      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 				%scoreIdx = (%vs ? 0 : 1);
 
 				if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
@@ -891,16 +895,20 @@ function MPEndGameDlg::updateScores(%this) {
 			%gems5  = %gems5  $= "" || %gems5  == 0 ? "0" : %gems5;
 			%gems10 = %gems10 $= "" || %gems10 == 0 ? "0" : %gems10;
 
-			if (%gems1  < 10) %gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
-			if (%gems2  < 10) %gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
-			if (%gems5  < 10) %gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
-			if (%gems10 < 10) %gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
+			if (%gems1  < 10)
+				%gems1  = " " @ %gems1  $= "" ? "0" : %gems1;
+			if (%gems2  < 10)
+				%gems2  = " " @ %gems2  $= "" ? "0" : %gems2;
+			if (%gems5  < 10)
+				%gems5  = " " @ %gems5  $= "" ? "0" : %gems5;
+			if (%gems10 < 10)
+				%gems10 = " " @ %gems10 $= "" ? "0" : %gems10;
 
 			%scoreColor = "<shadowcolor:0000007f><shadow:1:1>";
 			//See if we have more than one other player
 			%vs = !$Server::Hosting //Not host, so there must be someone else who is
-				|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+			      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+			      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
 			if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
@@ -967,8 +975,8 @@ function MPEndGameDlg::updateScores(%this) {
 
 	//See if we have more than one other player
 	%vs = !$Server::Hosting //Not host, so there must be someone else who is
-		|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-		|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+	      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+	      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 	%scoreIdx = (%vs ? 0 : 1);
 	if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx])
 		%text = %text @ "<color:FF6666>You Didn\'t Pass the Par Score!";
@@ -1049,7 +1057,7 @@ function MPEndGameDlg::rate(%this, %choice) {
 	}
 }
 
-function MPEndGameDlg::UpdateGems(%this){
+function MPEndGameDlg::UpdateGems(%this) {
 	//Based off of playGui's similar function - Yoshi
 	if (MissionInfo.game $= "Hunt") {
 		if      (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq")

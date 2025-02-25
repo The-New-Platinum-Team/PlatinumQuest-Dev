@@ -102,7 +102,7 @@ function RtaSpeedrun::updateTimers(%this) {
 				%showGame = false;
 		}
 		if (%lastTime == %this.missionTypeDuration
-			|| %lastTime == %this.currentGameDuration)
+		        || %lastTime == %this.currentGameDuration)
 			%showSplit = false;
 		if (%showCategory && %showGame && (%this.currentGameDuration == %this.missionTypeDuration)) {
 			%showGame = false;
@@ -279,15 +279,24 @@ function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
 	// Some games/categories have multiple valid places to represent the "end" of the speedrun/ We want to account for
 	// all of them, and even let the same run count towards each of the categories.
 	switch$ (%mission) {
-		case "platinum/data/missions_mbg/advanced/KingOfTheMountain.mis": return true;
-		case "platinum/data/missions_mbu/advanced/schadenfreude_ultra.mis": return true;
-		case "platinum/data/lbmissions_mbu/advanced/schadenfreude_ultra.mis": return true;
-		case "platinum/data/missions_mbu/advanced/hypercube_ultra.mis": return true;
-		case "platinum/data/missions_mbp/expert/BattlecubeFinale.mis": return true;
-		case "platinum/data/missions_pq/expert/ManicBounce.mcs": return true;
-		case "platinum/data/lbmissions_pq/expert/ManicBounce.mcs": return true;
-		case "platinum/data/missions_pq/bonus/Puzzle11Nightmare.mcs": return true;
-		case "platinum/data/lbmissions_pq/bonus/Puzzle11Nightmare.mcs": return true;
+	case "platinum/data/missions_mbg/advanced/KingOfTheMountain.mis":
+		return true;
+	case "platinum/data/missions_mbu/advanced/schadenfreude_ultra.mis":
+		return true;
+	case "platinum/data/lbmissions_mbu/advanced/schadenfreude_ultra.mis":
+		return true;
+	case "platinum/data/missions_mbu/advanced/hypercube_ultra.mis":
+		return true;
+	case "platinum/data/missions_mbp/expert/BattlecubeFinale.mis":
+		return true;
+	case "platinum/data/missions_pq/expert/ManicBounce.mcs":
+		return true;
+	case "platinum/data/lbmissions_pq/expert/ManicBounce.mcs":
+		return true;
+	case "platinum/data/missions_pq/bonus/Puzzle11Nightmare.mcs":
+		return true;
+	case "platinum/data/lbmissions_pq/bonus/Puzzle11Nightmare.mcs":
+		return true;
 	}
 	return false;
 }

@@ -114,8 +114,8 @@ function LoadingGui::onWake(%this) {
 		if (mp()) {
 			//See if we have more than one other player
 			%vs = !$Server::Hosting //Not host, so there must be someone else who is
-				|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+			      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+			      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 
 			%index = (%vs ? 0 : 1);
 
@@ -212,12 +212,16 @@ function LoadingGui::onWake(%this) {
 		}
 
 		//Show what we need to
-		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A") %text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
-		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
-		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
+		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
+		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
+		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
 
 		if (%showAwesome) {
-			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
+			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A")
+				%text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
 		}
 
 		%text = %text NL "";

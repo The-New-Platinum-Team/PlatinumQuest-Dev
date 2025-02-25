@@ -122,13 +122,13 @@ function MPAddServerChat(%message) {
 	$MP::ServerChat = $MP::ServerChat @ ($MP::ServerChat $= "" ? "" : "\n") @ "<spush>" @ %message @ "<spop>";
 
 	traceGuard();
-		// Too many chat lines causes some people to crash. This tries to avoid that.
-		if (strlen($MP::ServerChat) > 20000) {
-			while (strlen($MP::ServerChat) > 10000) {
-				popServerChatLine();
-			}
-			%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	// Too many chat lines causes some people to crash. This tries to avoid that.
+	if (strlen($MP::ServerChat) > 20000) {
+		while (strlen($MP::ServerChat) > 10000) {
+			popServerChatLine();
 		}
+		%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	}
 	traceGuardEnd();
 
 	MPUpdateServerChat(%message);
@@ -208,13 +208,13 @@ function addTeamChatLine(%message) {
 	$MP::TeamChat = $MP::TeamChat @ ($MP::TeamChat $= "" ? "" : "\n") @ "<spush>" @ %message @ "<spop>";
 
 	traceGuard();
-		// Too many chat lines causes some people to crash. This tries to avoid that.
-		if (strlen($MP::TeamChat) > 20000) {
-			while (strlen($MP::TeamChat) > 10000) {
-				popTeamChatLine();
-			}
-			%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	// Too many chat lines causes some people to crash. This tries to avoid that.
+	if (strlen($MP::TeamChat) > 20000) {
+		while (strlen($MP::TeamChat) > 10000) {
+			popTeamChatLine();
 		}
+		%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	}
 	traceGuardEnd();
 
 	updateTeamChat(%message);

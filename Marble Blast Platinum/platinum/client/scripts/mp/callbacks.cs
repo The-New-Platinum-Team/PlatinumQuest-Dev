@@ -135,7 +135,7 @@ function clientCmdCbOnRespawnOnCheckpoint() {
 	Physics::popLayerName("Bubble");
 
 	PlayGui.clearPowerupTimers();
-	
+
 	clientResetTriggerEntry();
 	Gravity::clearTriggers();
 	$Client::Frozen = false;
