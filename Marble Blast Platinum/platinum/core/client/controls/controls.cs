@@ -28,8 +28,8 @@ function initControls() {
 
 function Controls::addControl(%class, %name) {
 	if ($Controls[%class] $= "") {
-			Controls::addClass(%class);
-		}
+		Controls::addClass(%class);
+	}
 	if ($Controls[%class, %name])
 		return;
 
@@ -54,12 +54,12 @@ function Controls::check(%ctrl) {
 
 		//Find all custom controls for its class
 		for (%j = 0; %j < $Controls[%class]; %j ++) {
-				%control = $Controls[%class, %j];
-				//If it has the field, it gets the control
-				if (%ctrl.getFieldValue(%control)) {
-					call(%control, %ctrl, %ctrl.getFieldValue(%control));
-				}
+			%control = $Controls[%class, %j];
+			//If it has the field, it gets the control
+			if (%ctrl.getFieldValue(%control)) {
+				call(%control, %ctrl, %ctrl.getFieldValue(%control));
 			}
+		}
 	}
 }
 

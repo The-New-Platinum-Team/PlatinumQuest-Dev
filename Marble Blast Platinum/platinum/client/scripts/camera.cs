@@ -284,10 +284,10 @@ function findSky(%group) {
 		if (%obj.getClassName() $= "Sky")
 			return %obj;
 		if (%class $= "SimGroup") {
-				%sub = findSky(%obj);
-				if (isObject(%sub))
-					return %sub;
-			}
+			%sub = findSky(%obj);
+			if (isObject(%sub))
+				return %sub;
+		}
 	}
 	return -1;
 }

@@ -103,11 +103,11 @@ function serverHasMovingPlatforms(%group) {
 		%obj = %group.getObject(%i);
 		%class = %obj.getClassName();
 		if (%class $= "SimGroup") {
-				// if we find it, stop execution
-				if (serverHasMovingPlatforms(%obj))
-					return true;
-			} else if (%class $= "PathedInterior")
+			// if we find it, stop execution
+			if (serverHasMovingPlatforms(%obj))
 				return true;
+		} else if (%class $= "PathedInterior")
+			return true;
 	}
 	return false;
 }

@@ -560,10 +560,10 @@ function mcsSearch(%group, %sel) {
 		if (mcsMatch(%obj, %sel))
 			return %obj;
 		if (%class $= "SimGroup") {
-				%sub = mcsSearch(%obj, %sel);
-				if (isObject(%sub))
-					return %sub;
-			}
+			%sub = mcsSearch(%obj, %sel);
+			if (isObject(%sub))
+				return %sub;
+		}
 	}
 	return -1;
 }
