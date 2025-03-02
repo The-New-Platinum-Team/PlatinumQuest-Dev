@@ -118,9 +118,9 @@ function ParticleEditor::refreshDatablocks(%this, %init) {
 		%obj = rootgroup.getObject(%i);
 		%class = %obj.getClassName();
 		if (%class $= "ParticleData" || %class $= "ParticleEmitterData") {
-				//%toData[%h] = %obj;
-				%h++;
-			}
+			//%toData[%h] = %obj;
+			%h++;
+		}
 	}
 	//for (%i = 0; %i < %h; %i++)
 	//DatablockGroup.add(%toData[%i]);
