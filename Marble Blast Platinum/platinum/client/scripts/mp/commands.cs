@@ -443,6 +443,10 @@ function clientCmdShockwave(%mePos, %strength, %myMod, %theyMod) {
 	}
 }
 
+function clientCmdSetSharedSpawnPoint(%index) {
+	$MP::SharedSpawnPointIndex = %index;
+}
+
 function clientCmdServerSetting(%setting, %value) {
 	//TODO: Port these to the other settings
 	switch$ (%setting) {
