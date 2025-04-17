@@ -37,7 +37,6 @@ function GameConnection::stopTimer(%this) {
 function GameConnection::resetTimer(%this) {
 	commandToClient(%this, 'resetTimer');
 }
-
 function GameConnection::setTimeStopped(%this, %stopped) {
 	if (%this.fake)
 		return;
@@ -221,6 +220,13 @@ function GameConnection::setMovementKeysEnabled(%this, %enabled) {
 	commandToClient(%this, 'EnableMovementKeys', %enabled);
 }
 
+function GameConnection::sendSharedSpawnPoint(%this) {
+	if ($MP::SharedSpawnPointIndex $= "") {
+		chooseSharedSpawnPoint();
+	}
+	commandToClient(%this, 'setSharedSpawnPoint', $MP::SharedSpawnPointIndex);
+}
+
 function GameConnection::setWhiteOut(%this, %whiteout) {
 	%this.player.setWhiteOut(max(%this.player.getWhiteOut(), %whiteout));
 }
@@ -396,9 +402,11 @@ function GameConnection::getSharedSpawnTrigger(%this) {
 	if (($Sim::Time - %this.lastSpawnTime) > 4)
 		%this.lastSpawnTrigger = "";
 
-	// Always gets the first available spawn trigger
-	// Would be nice for the server to randomly pick one and sync to all players, but this will work for now.
-	return SpawnPointSet.getObject(0);
+	if ($MP::SharedSpawnPointIndex $= "") {
+		// We don't have a value here...
+		$MP::SharedSpawnPointIndex = 0;
+	}
+	return SpawnPointSet.getObject($MP::SharedSpawnPointIndex);
 }
 
 function GameConnection::pointToNearestGem(%this) {

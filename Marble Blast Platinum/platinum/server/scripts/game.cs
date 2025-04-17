@@ -273,6 +273,8 @@ function onMissionLoaded() {
 		startHeartbeat();
 
 		Time::reset();
+
+		chooseSharedSpawnPoint();
 	}
 
 	MPinitLoops();
@@ -728,6 +730,7 @@ function GameConnection::onClientEnterGame(%this) {
 		if ($Server::Started) {
 			%this.setPregame(false);
 			%this.resetTimer();
+			%this.sendSharedSpawnPoint();
 			%this.setTime($Time::CurrentTime);
 
 			//Spectating...
@@ -1116,11 +1119,14 @@ function restartLevel(%exitgame) {
 	$Server::SpawnGroups = true;
 	$Game::Running = true;
 
+	chooseSharedSpawnPoint();
+
 	// Reset the player back to the last checkpoint
 	onMissionReset();
 	setGameState("start");
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
+		%client.sendSharedSpawnPoint();
 		%client.restartLevel();
 		%client.setQuickRespawnStatus(true);
 	}
@@ -1583,4 +1589,15 @@ function getActivePlayerCount() {
 		%players ++;
 	}
 	return %players;
+}
+
+function chooseSharedSpawnPoint() {
+	if (!isObject(SpawnPointSet))
+		return -1;
+
+	%size = SpawnPointSet.getCount();
+	if (%size == 0)
+		return -1;
+
+	$MP::SharedSpawnPointIndex = getRandom(0, %size - 1);
 }
