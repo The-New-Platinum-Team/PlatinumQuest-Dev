@@ -1089,7 +1089,7 @@ function Opt_graphicsDriver_increase() {
 
 function graphicsDriverAssert() {
 	$gdAssert = true;
-	ASSERT("Warning", "Please do not change this option unless you know exactly what you are doing. " @
+	MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " @
 	       "It is best to leave this option on Automatic unless you are experiencing issues with the game. " NL
 	       "Consequences of changing this option may include the game not starting or not rendering properly." NL "" NL
 	       "<just:center>This option requires you to restart the game." NL "" NL
