@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$ReplayVersion = 26;
+$ReplayVersion = 27;
 
 $RecordTag["time"] = 1;
 $RecordTag["position"] = 2;
@@ -185,6 +185,7 @@ function recordWriteHeader(%stream) {
 	%stream.writeRawString8(MarbleSelectDlg.getSelection());
 	%stream.writeRawU8(%flags);
 	%stream.writeRawU32($Server::SprngSeed);
+	%stream.writeRawU8($pref::cameraSmoothing);
 }
 
 function recordWriteMetadata(%stream, %author, %name, %desc) {
@@ -553,6 +554,8 @@ function PlaybackInfo::start(%this) {
 			DemoMap.push();
 
 			initSprng(%this.sprngSeed);
+			$TempCameraSmoothing = $pref::cameraSmoothing;
+			$pref::cameraSmoothing = %this.cameraSmoothing;
 		}
 	}
 }
@@ -658,6 +661,8 @@ function PlaybackInfo::finish(%this) {
 			$playingDemo = false;
 		}
 	}
+
+	$pref::cameraSmoothing = $TempCameraSmoothing; // Reset this back to what it was
 
 	%this.playing = false;
 	%this.delete();
@@ -942,6 +947,9 @@ function PlaybackInfo::readHeader(%this) {
 	%this.sprngSeed = %this.fo.readRawU32();
 	if ($debugreplay)
 		echo("Read U32 %this.sprngSeed: " @ %this.sprngSeed);
+	if (%this.version >= 27) {
+		%this.cameraSmoothing = %this.fo.readRawU8();
+	}
 	return true;
 }
 
