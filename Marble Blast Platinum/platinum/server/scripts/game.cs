@@ -191,6 +191,8 @@ function onServerDestroyed() {
 	$Game::ServerRunning = false;
 	$Game::State = "";
 	$Event::Modes = ""; // Fuck this shit
+
+	$MP::SharedSpawnPointIndex = "";
 }
 
 //-----------------------------------------------------------------------------
@@ -273,8 +275,6 @@ function onMissionLoaded() {
 		startHeartbeat();
 
 		Time::reset();
-
-		chooseSharedSpawnPoint();
 	}
 
 	MPinitLoops();
@@ -326,10 +326,13 @@ function onMissionReset() {
 		$MP::ScoreSendingDisabled = false;
 	}
 
+	chooseSharedSpawnPoint();
+
 	// Reset the players and inform them we're starting
 	%count = ClientGroup.getCount();
 	for (%clientIndex = 0; %clientIndex < %count; %clientIndex++) {
 		%cl = ClientGroup.getObject(%clientIndex);
+		%cl.sendSharedSpawnPoint();
 		commandToClient(%cl, 'GameStart');
 		%cl.resetStats();
 	}
@@ -550,6 +553,8 @@ function GameConnection::stateWaiting(%this) {
 	%this.schedule(500, setMessage, "waiting");
 	%this.setGemCount(%this.getGemCount());
 	%this.setMaxGems($Game::GemCount);
+
+	%this.sendSharedSpawnPoint();
 }
 
 function serverStateWaiting() {
@@ -1120,13 +1125,16 @@ function restartLevel(%exitgame) {
 	$Game::Running = true;
 
 	chooseSharedSpawnPoint();
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%client = ClientGroup.getObject(%i);
+		%client.sendSharedSpawnPoint();
+	}
 
 	// Reset the player back to the last checkpoint
 	onMissionReset();
 	setGameState("start");
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
-		%client.sendSharedSpawnPoint();
 		%client.restartLevel();
 		%client.setQuickRespawnStatus(true);
 	}
@@ -1600,4 +1608,5 @@ function chooseSharedSpawnPoint() {
 		return -1;
 
 	$MP::SharedSpawnPointIndex = getRandom(0, %size - 1);
+	echo("Setting shared spawn point to: " @ $MP::SharedSpawnPointIndex);
 }
