@@ -235,6 +235,7 @@ function PlayGui::sendChat(%this) {
 	case "team":
 		commandToServer('TeamChat', %message);
 	}
+	PG_LBChatEntry.setValue(" ");
 	PG_LBChatEntry.setValue("");
 	LBSetChatMessage("", PG_LBChatEntry);
 	disableChatHUD();
@@ -307,6 +308,7 @@ function toggleTeamChatHUD(%make) {
 
 function disableChatHUD(%remove) {
 	if (%remove) {
+		PG_LBChatEntry.setValue(" ");
 		PG_LBChatEntry.setValue("");
 		LBSetChatMessage("", PG_LBChatEntry);
 	}
