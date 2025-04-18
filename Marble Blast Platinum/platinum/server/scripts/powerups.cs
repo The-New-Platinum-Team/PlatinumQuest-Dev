@@ -100,8 +100,9 @@ function PowerUp::onUse(%this, %obj, %user) {
 	}
 	if (%this.image !$= "") {
 		//Don't show two images if they already have one
-		if (!isEventPending(%user.client.unmount[%this.powerUpId]))
-			%user.client.mountPlayerImage(%this, %this.imageSlot);
+		if (isEventPending(%user.client.unmount[%this.powerUpId])) 
+			%user.client.unmountPlayerImage(%this.imageSlot); // Unmount and mount it again
+		%user.client.mountPlayerImage(%this, %this.imageSlot);
 
 		//But do cancel and reschedule
 		cancel(%user.client.unmount[%this.powerUpId]);
