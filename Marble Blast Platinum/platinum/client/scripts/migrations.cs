@@ -20,8 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-// 2.11 - Migrate scores from old hunt mission paths to new ones
+// Migrate scores from old mission paths to new ones
 
+// 2.11.0
 $Migrations::SourcePath[0] = "platinum/data/multiplayer/hunt/intermediate/RampsRevamped_Hunt.mcs";
 $Migrations::TargetPath[0] = "platinum/data/multiplayer/hunt/advanced/RampsRevamped_Hunt.mcs";
 $Migrations::SourcePath[1] = "platinum/data/multiplayer/hunt/intermediate/Sweep_Hunt.mcs";
@@ -94,23 +95,40 @@ $Migrations::SourcePath[34] = "platinum/data/multiplayer/hunt/advanced/SkatePark
 $Migrations::TargetPath[34] = "platinum/data/multiplayer/hunt/intermediate/SkateParkSquare_Hunt.mcs";
 $Migrations::SourcePath[35] = "platinum/data/missions_mbu/advanced/hypercube_ultra.mis";
 $Migrations::TargetPath[35] = "platinum/data/missions_mbg/bonus/cube2_mbuparity.mis";
-$Migrations::Count = 36;
+$Migrations::End2_11_0 = 36;
+// 2.11.1
+$Migrations::SourcePath[36] = "platinum/data/multiplayer/hunt/intermediate/BrownHills_Hunt.mis";
+$Migrations::TargetPath[36] = "platinum/data/multiplayer/hunt/bonus/BrownHills_Hunt.mis";
+$Migrations::SourcePath[37] = "platinum/data/multiplayer/hunt/intermediate/Centroid_Hunt.mis";
+$Migrations::TargetPath[37] = "platinum/data/multiplayer/hunt/bonus/Centroid_Hunt.mis";
+$Migrations::End2_11_1 = 38;
+$Migrations::Count = $Migrations::End2_11_1;
+
+function migrateMissionPrefs(%i) {
+	%oldMission = $Migrations::SourcePath[%i];
+	if ($pref::highscores[%oldMission, 0] !$= "") {
+		%newMission = $Migrations::TargetPath[%i];
+		echo("Migrating high scores from" SPC %oldMission SPC "to" SPC %newMission);
+		for (%j = 0; %j < 5; %j++) {
+			$pref::highscores[%newMission, %j] = $pref::highscores[%oldMission, %j];
+		}
+		$pref::LevelOOBs[%newMission] = $pref::LevelOOBs[%oldMission];
+		$pref::LevelRespawns[%newMission] = $pref::LevelRespawns[%oldMission];
+		$pref::LevelTimes[%newMission] = $pref::LevelTimes[%oldMission];
+	}
+}
 
 if (!$Pref::Migrated2_11) {
-	for (%i = 0; %i < $Migrations::Count; %i++) {
-		%oldMission = $Migrations::SourcePath[%i];
-		if ($pref::highscores[%oldMission, 0] !$= "") {
-			%newMission = $Migrations::TargetPath[%i];
-			echo("Migrating high scores from" SPC %oldMission SPC "to" SPC %newMission);
-			for (%j = 0; %j < 5; %j++) {
-				$pref::highscores[%newMission, %j] = $pref::highscores[%oldMission, %j];
-			}
-			$pref::LevelOOBs[%newMission] = $pref::LevelOOBs[%oldMission];
-			$pref::LevelRespawns[%newMission] = $pref::LevelRespawns[%oldMission];
-			$pref::LevelTimes[%newMission] = $pref::LevelTimes[%oldMission];
-		}
+	for (%i = 0; %i < $Migrations::End2_11_0; %i++) {
+		migrateMissionPrefs(%i);
 	}
 	$Pref::Migrated2_11 = true;
+}
+if (!$Pref::Migrated2_11_1) {
+	for (%i = $Migrations::End2_11_0; %i < $Migrations::End2_11_1; %i++) {
+		migrateMissionPrefs(%i);
+	}
+	$Pref::Migrated2_11_1 = true;
 }
 
 if (!isObject(MigrationLookup)) {
