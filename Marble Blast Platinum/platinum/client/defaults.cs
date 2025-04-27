@@ -115,6 +115,7 @@ $pref::Audio::AudioPack = "";
 $pref::timeTravelSounds = 1;
 $pref::parTimeAlarm = 1;
 $pref::recordingIndicator = 1;
+$pref::SearchHuntBonusDC = 1;
 
 $pref::warpSpeedMusic = 0;
 $pref::finalLapMusic  = 0;
