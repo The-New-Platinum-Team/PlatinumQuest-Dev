@@ -610,7 +610,7 @@ function specialBarFor(%id) {
 }
 
 function PlayGui::updateBarPositions(%this) {
-	if (!isObject(ServerConnection) || !isObject(LocalClientConnection.player) || !isObject($MP::MyMarble))
+	if (!isObject(ServerConnection) || !isObject(ServerConnection.getControlObject()) || !isObject($MP::MyMarble))
 		return;
 
 	%trans = $MP::MyMarble.getCameraTransform();
