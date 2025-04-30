@@ -192,9 +192,21 @@ function getBestTimes(%info) {
 			}
 		}
 	}
-	//Offline, use the offline scores
-	%mis = strreplace(%file, "lbmission", "mission");
-	%surrogateMis = strreplace(%surrogate, "lbmission", "mission");
+	// Offline, use the offline scores
+	%offlineMis = strreplace(%file, "lbmission", "mission");
+	%offlineSurrogate = strreplace(%surrogate, "lbmission", "mission");
+	// Check if it actually exists
+	if (isObject($Mission::Info[%offlineMis])) {
+		%mis = %offlineMis;
+	} else {
+		%mis = %file;
+	}
+	//Check if the surrogate exists
+	if (isObject($Mission::Info[%offlineSurrogate])) {
+		%surrogateMis = %offlineSurrogate;
+	} else {
+		%surrogateMis = %surrogate;
+	}
 
 	//Load the highscores from prefs, and fill in default ones with blanks if they don't exist
 	for (%i = 0; %i < $Game::HighscoreCount; %i++) {
