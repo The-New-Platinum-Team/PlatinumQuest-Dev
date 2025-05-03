@@ -214,6 +214,52 @@ function RtaSpeedrun::missionStarted(%this) {
 	%this.saveProgress();
 }
 
+// Copied from EndGameDlg::getNextLevel but without accounting for unlocks (to prevent false positives)
+// Returns: end of difficulty NL end of game
+function RtaSpeedrun::checkCategoryEnds(%this) {
+	if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
+		devecho("RtaSpeedrun::checkCategoryEnds: 1 1 (early mbl exit)");
+		return true NL true;
+	}
+
+	%endOfMissionType = false;
+	%endOfGame = false;
+
+	//Load next
+	%pmg = PlayMissionGui;
+	%pmSelectedIndex = %pmg.selectedIndex;
+	%currentMissionType = $MissionType;
+
+	%list = %pmg.getMissionList($CurrentGame, %currentMissionType);
+	%pmSelectedIndex ++;
+
+	if (%pmSelectedIndex >= %list.getSize()) {
+		%endOfMissionType = true;
+		//Next list
+		%diffs = %pmg.getDifficultyList($CurrentGame);
+		for (%i = 0; %i < getRecordCount(%diffs); %i ++) {
+			%record = getRecord(%diffs, %i);
+			if (getField(%record, 0) $= %currentMissionType) {
+				%found = true;
+				break;
+			}
+		}
+		if (!%found) {
+			//Unknown difficulty?
+			%endOfGame = true;
+			devecho("RtaSpeedrun::checkCategoryEnds: " @ %endOfMissionType SPC %endOfGame @ " (early unfound diff exit)");
+			return %endOfMissionType NL %endOfGame;
+		}
+		%next = getField(getRecord(%diffs, %i + 1), 0);
+		if (%next $= "") {
+			%endOfGame = true;
+		}
+	}
+
+	devecho("RtaSpeedrun::checkCategoryEnds: " @ %endOfMissionType SPC %endOfGame);
+	return %endOfMissionType NL %endOfGame;
+}
+
 function RtaSpeedrun::missionEnded(%this) {
 	if (!%this.isEnabled)
 		return;
@@ -230,14 +276,15 @@ function RtaSpeedrun::missionEnded(%this) {
 		%isEndOfMissionType = true;
 		%isEndOfCurrentGame = true;
 	} else {
-		%nextMission = EndGameDlg.getNextLevel();
-		if (!isObject(getRecord(%nextMission, 0)) || %this.isGameEndSpecialCase($Server::MissionFile)) {
+		if (%this.isGameEndSpecialCase($Server::MissionFile)) {
 			%isEndOfMissionType = true;
 			%isEndOfCurrentGame = true;
 		} else {
-			%nextMissionType = getRecord(%nextMission, 2);
-			if (%nextMissionType !$= $MissionType)
+			%ends = RtaSpeedrun.checkCategoryEnds();
+			if (getRecord(%ends, 0))
 				%isEndOfMissionType = true;
+			if (getRecord(%ends, 1))
+				%isEndOfCurrentGame = true;
 		}
 	}
 	%this.setLastSplitTime(%this.time);
@@ -276,26 +323,25 @@ function RtaSpeedrun::eggCollected(%this) {
 }
 
 function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
-	// Some games/categories have multiple valid places to represent the "end" of the speedrun/ We want to account for
+	// Some games/categories have multiple valid places to represent the "end" of the speedrun. We want to account for
 	// all of them, and even let the same run count towards each of the categories.
+	%mission = strreplace(%mission, "data/lbmissions_", "data/missions_");
 	switch$ (%mission) {
 	case "platinum/data/missions_mbg/advanced/KingOfTheMountain.mis":
 		return true;
+	case "platinum/data/missions_mbg/bonus/cube2_mbuparity.mis":
+		return true;
 	case "platinum/data/missions_mbu/advanced/schadenfreude_ultra.mis":
 		return true;
-	case "platinum/data/lbmissions_mbu/advanced/schadenfreude_ultra.mis":
-		return true;
-	case "platinum/data/missions_mbu/advanced/hypercube_ultra.mis":
+	case "platinum/data/missions_mbu/advanced/hypercube_ultra2.mis":
 		return true;
 	case "platinum/data/missions_mbp/expert/BattlecubeFinale.mis":
 		return true;
 	case "platinum/data/missions_pq/expert/ManicBounce.mcs":
 		return true;
-	case "platinum/data/lbmissions_pq/expert/ManicBounce.mcs":
-		return true;
 	case "platinum/data/missions_pq/bonus/Puzzle11Nightmare.mcs":
 		return true;
-	case "platinum/data/lbmissions_pq/bonus/Puzzle11Nightmare.mcs":
+	case "platinum/data/missions_pq/bonus/SuperSecretPuzzle12.mcs":
 		return true;
 	}
 	return false;

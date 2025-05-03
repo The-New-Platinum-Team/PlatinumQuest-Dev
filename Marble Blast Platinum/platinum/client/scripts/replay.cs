@@ -177,7 +177,7 @@ function recordLoop(%delta) {
 
 function recordWriteHeader(%stream) {
 	//Flags are metadata / lb / mp
-	%flags = 0 | (lb() << 1) | (mp() << 2);
+	%flags = 0 | (lb() << 1) | (mp() << 2) | ((!!$pref::cameraSmoothing) << 3);
 
 	%stream.writeRawS16($ReplayVersion);
 	%stream.writeRawS16($MP::RevisionOn);
@@ -185,7 +185,6 @@ function recordWriteHeader(%stream) {
 	%stream.writeRawString8(MarbleSelectDlg.getSelection());
 	%stream.writeRawU8(%flags);
 	%stream.writeRawU32($Server::SprngSeed);
-	%stream.writeRawU8($pref::cameraSmoothing);
 }
 
 function recordWriteMetadata(%stream, %author, %name, %desc) {
@@ -941,15 +940,15 @@ function PlaybackInfo::readHeader(%this) {
 	%this.hasMetadata = %flags & 1;
 	%this.lb          = (%flags & (1 << 1)) == (1 << 1);
 	%this.mp          = (%flags & (1 << 2)) == (1 << 2);
+	if (%this.version >= 27) {
+		%this.cameraSmoothing = (%flags & (1 << 3)) == (1 << 3);
+	}
 	if (%this.hasMetadata == 1) {
 		%this.readMetadata();
 	}
 	%this.sprngSeed = %this.fo.readRawU32();
 	if ($debugreplay)
 		echo("Read U32 %this.sprngSeed: " @ %this.sprngSeed);
-	if (%this.version >= 27) {
-		%this.cameraSmoothing = %this.fo.readRawU8();
-	}
 	return true;
 }
 
