@@ -485,7 +485,7 @@ function SearchDlg::random(%this) {
 	if (mp()) {
 		// Tell everyone it was indeed random
 		// SearchMissionList is actually internally made by putting each category one after another so the order is messed up, so we cannot use %randomNumber to do this.
-		serverSendChat(LBChatColor("notification") @ "The Host has rolled the random map" SPC getField(SearchMissionList.getRowTextById(SearchMissionList.getSelectedId()), 0) @ ".");
+		commandToServer('RandomMapSelected', getField(SearchMissionList.getRowTextById(SearchMissionList.getSelectedId()), 0));
 	}
 }
 
