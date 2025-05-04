@@ -65,6 +65,15 @@ function serverCmdTeamChat(%client, %message) {
 	commandToTeam(%client.team, 'TeamChat', %client.getUsername(), Team::getTeamName(%client.team), Team::isTeamLeader(%client.team, %client), %message);
 }
 
+function serverCmdRandomMapSelected(%client, %mapName) {
+	if (%client.checkSpam())
+		return;
+	%name = %client.getDisplayName();
+	if (%client.isHost())
+		%name = "The Host (" @ %name @ ")";
+	serverSendChat(LBChatColor("notification") @ %name SPC "has rolled the random map" SPC %mapName @ ".");
+}
+
 
 function GameConnection::checkSpam(%this) {
 	if (%this.getAddress() $= "local")
