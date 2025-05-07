@@ -1,0 +1,1414 @@
+//--- OBJECT WRITE BEGIN ---
+new SimGroup(MissionGroup) {
+
+   new ScriptObject(MissionInfo) {
+         artist = "CylinderKnot";
+         awesomeHint = "The shortcut at the start gives you almost no space to execute it.";
+         awesomeTime = "45000";
+         customRadarRule = "0";
+         desc = "Climb the hill and glide to freedom. Don\'t let the cones give you difficulties.";
+         eggHint = "Chances are that if you are not paying attention, you will be going too fast to notice the Easter Egg.";
+         game = "Gold";
+         gameMode = "null";
+         generalHint = "Most challenges have multiple ways to be completed. Sometimes, they can be skipped with enough speed.";
+         level = "8";
+         name = "Cone Hopper";
+         music = "Beach Party.ogg";
+         platinumTime = "105000";
+         startHelpText = "Never underestimate the power of momentum.";
+         trivia = "Players with keen eyes will notice a different building style. This level would have been a nightmare to build in the \"normal\" way.";
+         type = "Custom";
+         ultimateHint = "Avoid going too quickly on the final ramp. Going out of bounds is a huge time waste.";
+         ultimateTime = "75000";
+   };
+   new MissionArea(MissionArea) {
+      area = "-360 -648 720 1296";
+      flightCeiling = "300";
+      flightCeilingRange = "20";
+         locked = "true";
+   };
+   new Sky(Sky) {
+      position = "0 0 0";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      cloudHeightPer[0] = "0";
+      cloudHeightPer[1] = "0";
+      cloudHeightPer[2] = "0";
+      cloudSpeed1 = "0.0001";
+      cloudSpeed2 = "0.0002";
+      cloudSpeed3 = "0.0003";
+      visibleDistance = "500";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
+      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
+      fogDistance = "300";
+      fogColor = "0.600000 0.600000 0.600000 1.000000";
+      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
+      fogVolume2 = "-1 1.07208e-014 8.756e-014";
+      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
+      materialList = "~/data/skies/sky_day.dml";
+      windVelocity = "1 0 0";
+      windEffectPrecipitation = "0";
+      noRenderBans = "1";
+      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
+      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
+      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
+   };
+   new Sun() {
+      direction = "0.638261 0.459006 -0.61801";
+      color = "1.400000 1.200000 0.400000 1.000000";
+      ambient = "0.300000 0.300000 0.400000 1.000000";
+   };
+   new SimGroup(PathNodeGroup) {
+
+      new StaticShape(CameraPath1) {
+         position = "176.477 -103.825 241.433";
+         rotation = "0.704477 0.125547 -0.698535 28.6244";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+   };
+   new InteriorInstance() {
+      position = "145.5 347 198.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperEnd.dif";
+      showTerrainInside = "0";
+   };
+   new Trigger(Bounds) {
+      position = "54.25 581.25 179.75";
+      rotation = "1 0 0 0";
+      scale = "200 800 300";
+      dataBlock = "InBoundsTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new StaticShape(StartPoint) {
+      position = "161.5 -181.5 197";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "StartPad";
+   };
+   new InteriorInstance() {
+      position = "161.5 -173.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -157.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -157.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -157.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -157.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -157.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -157.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -149.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -149.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -149.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -149.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -149.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -149.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -133.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -133.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -133.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -133.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -133.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -133.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -141.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -141.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -141.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -141.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -141.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -141.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -117.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -101.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -101.5 196.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -93.5 200.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157 -85.5 201";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -77.5 200.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "166 -85.5 201";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "166 -85.5 201";
+      rotation = "0 1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157 -85.5 201";
+      rotation = "0 -1 0 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "154 -69 202.5";
+      rotation = "0.129428 -0.129428 0.983106 90.9767";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "137.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "138 -69.5 206.25";
+      rotation = "1 0 0 15";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "138 -77.75 208.75";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "138 -77.75 208.75";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "146 -74 209.75";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "146 -74 209.75";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153 -69 210.75";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153 -69 210.75";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "129.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "185.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "177.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "177.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "185.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "129.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "137.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -69 211.25";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "185.5 -69 211.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "185.5 -69 211.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "189.5 -68.5 195.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -69 216.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -69 216.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -69 216.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -69 217.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -69 217.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "137.5 -69 218.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "137.5 -69 218.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "121.5 -64.5 195.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "121.5 -64.5 219.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "135.5 -69 220.7";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "169.5 -69 217.25";
+      rotation = "0 0 -1 90.0002";
+      scale = "1 1 1";
+      dataBlock = "checkpoint";
+   };
+   new InteriorInstance() {
+      position = "121.5 -69 226.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -68.5 219.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "121.5 -69 227.437";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new InteriorInstance() {
+      position = "189.5 -68.5 219.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -68.5 195.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -76.5 195.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -76.5 219.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "189.5 -76.5 195.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "189.5 -76.5 219.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "189.5 -76.5 243.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -76.5 243.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "189.5 -68.5 243.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -68.5 243.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "121.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "137.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "129.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "185.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "177.5 -64.5 243.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "147.5 -69 227.25";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "147.5 -69 227.25";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "157.5 -69 229.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "167.5 -67 234.25";
+      rotation = "-8.96319e-007 0.707105 0.707109 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "167.5 -67 234.25";
+      rotation = "-8.96319e-007 0.707105 0.707109 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "177.5 -69 229.25";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "185.5 -69 230";
+      rotation = "-0.129427 0.129429 0.983106 90.9767";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape() {
+      position = "177.5 -69 229.75";
+      rotation = "0 0 1 89.9996";
+      scale = "1 1 1";
+      dataBlock = "checkpoint";
+   };
+   new InteriorInstance() {
+      position = "184.5 -78 230.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "184.5 -78 230.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "177.5 -82.75 231.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "177.5 -82.75 231.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -79.75 232.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -79.75 232.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161 -81.5 233.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161 -81.5 233.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161 -90.25 235.25";
+      rotation = "1 0 0 15";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -52.5 267.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "152 -82.3522 238.276";
+      rotation = "-1 0 0 15";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "152 -68.5 246";
+      rotation = "0.281083 0.678597 0.678601 211.4";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "152 -68.5 246";
+      rotation = "0.281083 0.678597 0.678601 211.4";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "143.5 -69 241.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "135.5 -69 241.5";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "127.5 -69 242";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "127.5 -69 242";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "123.5 -85.25 245";
+      rotation = "1 0 0 15";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "123.5 -100.75 248.5";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "123.5 -100.75 248.5";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "131.75 -104.75 248.75";
+      rotation = "-0.129427 0.129429 0.983106 90.9767";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -75.9093 264.662";
+      rotation = "-1 0 0 15";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "139.25 -104.75 250.75";
+      rotation = "-0.129427 0.129429 0.983106 90.9767";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "147.25 -104.75 252.25";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "147.25 -104.75 252.25";
+      rotation = "0 1 0 180";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new Item() {
+      position = "149.25 -104.75 251.2";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperJumpItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+   };
+   new StaticShape() {
+      position = "145.5 -52.5 268.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "checkpoint";
+   };
+   new InteriorInstance() {
+      position = "177.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "185.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "129.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "137.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "153.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "169.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "161.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "121.5 -64.5 171.75";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -68.5 171.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "189.5 -68.5 171.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "117 -76.5 171.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "189.5 -76.5 171.75";
+      rotation = "0 0 1 90.0002";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperWall-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -32.5 259";
+      rotation = "1 0 0 45";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 -15.5576 242.058";
+      rotation = "1 0 0 45";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 1.32322 225.177";
+      rotation = "1 0 0 45";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 12.75 214.25";
+      rotation = "1 0 0 37.5";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 19.25 209.75";
+      rotation = "1 0 0 30";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 26.25 206";
+      rotation = "1 0 0 22.4999";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 33.5 203.5";
+      rotation = "1 0 0 14.9998";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 41.25 201.75";
+      rotation = "1 0 0 7.49965";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x4-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 57.25 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopper4x12-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 73.25 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "145.5 73.25 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 210.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 210.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 210.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 210.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 202.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 202.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 202.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 202.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 186.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 186.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 186.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 186.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 194.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 194.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 194.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 194.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 218.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 218.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 218.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 218.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 226.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "149.5 226.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 226.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone1-CK.dif";
+      showTerrainInside = "0";
+   };
+   new InteriorInstance() {
+      position = "141.5 226.75 201";
+      rotation = "1 0 0 0";
+      scale = "1 1 0.5";
+      interiorFile = "~/data/lbinteriors_custom/mbg/custom/ConeHopperCone2-CK.dif";
+      showTerrainInside = "0";
+   };
+   new StaticShape(EndPoint) {
+      position = "145.5 347 199.005";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "EndPad";
+   };
+   new Item() {
+      position = "179.5 -69 222.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new Item() {
+      position = "152.75 -67.75 244.5";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "TimeTravelItem";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         timeBonus = "5000";
+   };
+   new StaticShape() {
+      position = "130.5 -65.75 222";
+      rotation = "0.577352 -0.57735 0.57735 240";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "124.5 -65 228.506";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SignPlainRight";
+   };
+   new StaticShape() {
+      position = "124.5 -73 228.5";
+      rotation = "0 0 1 180";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "150.75 -107.25 253";
+      rotation = "-0.357408 -0.357409 0.862855 98.421";
+      scale = "1 1 1";
+      dataBlock = "SignPlainLeft";
+   };
+   new StaticShape() {
+      position = "146 347 222";
+      rotation = "1 0 0 0";
+      scale = "2 2 2";
+      dataBlock = "SignFinish";
+   };
+   new Item() {
+      position = "145.5 206.75 198.235";
+      rotation = "1 0 0 0";
+      scale = "1 1 1.25";
+      dataBlock = "easterEgg";
+      collideable = "0";
+      static = "1";
+      rotate = "1";
+         noRespawn = "0";
+   };
+};
+//--- OBJECT WRITE END ---
