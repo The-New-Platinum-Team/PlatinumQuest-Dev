@@ -2,67 +2,71 @@
 new SimGroup(MissionGroup) {
 
    new ScriptObject(MissionInfo) {
-         artist = "xi am classicx";
-         name = "Points of the Radar";
-         maxGemsPerSpawn = "5";
-         game = "Ultra";
-         time = "240000";
-         type = "Intermediate";
-         game = "Ultra";
-	      music = "Tim Trance.ogg";
-         level = "6";
-         gameMode = "hunt";
-         desc = "Grab the gems on the islands, but mind the gaps!";
-         radiusFromGem = "10";
+         artist = "Xi am classicx";
          blast = "1";
+         blueSpawnChance = "0";
+         customRadarRule = "0";
+         desc = "Grab the gems on the islands, but mind the gaps!";
+         game = "Ultra";
+         gameMode = "hunt";
+         level = "6";
+         maxGemsPerSpawn = "5";
+         music = "Tim Trance.ogg";
+         name = "Points of the Radar";
+         platinumScore0 = "55";
+         platinumScore1 = "105";
+         platinumSpawnChance = "0";
+         radiusFromGem = "10";
+         redSpawnChance = "0";
          score0 = "25";
          score1 = "45";
-         platinumScore0 = "80";
-         platinumScore1 = "160";
-         ultimateScore0 = "105";
-         ultimateScore1 = "205";
+         Time = "240000";
+         type = "Intermediate";
+         ultimateScore0 = "90";
+         ultimateScore1 = "150";
+         yellowSpawnChance = "0";
    };
    new SimGroup(PathNodeGroup) {
 
       new StaticShape(CameraPath1) {
-         position = "18.06558 -36.30611 28.38015";
-         rotation = "0.8461654 0.2019796 -0.4931618 51.6558";
+         position = "18.0656 -36.3061 28.3801";
+         rotation = "0.846165 0.20198 -0.493162 51.6558";
          scale = "1 1 1";
          dataBlock = "PathNode";
+            nextNode = "CameraPath2";
             placed = "1";
             reverseRotation = "0";
-            useScale = "0";
-            nextNode = "CameraPath2";
-            useRotation = "1";
             timeToNext = "10000";
             usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
       };
       new StaticShape(CameraPath2) {
-         position = "13.84166 -27.80695 19.57694";
-         rotation = "0.8305119 0.1916901 -0.5229771 47.62738";
+         position = "13.8417 -27.8069 19.5769";
+         rotation = "0.830512 0.19169 -0.522977 47.6274";
          scale = "1 1 1";
          dataBlock = "PathNode";
-            placed = "1";
-            Spline = "1";
-            reverseRotation = "0";
-            useScale = "0";
             nextNode = "CameraPath3";
-            useRotation = "1";
+            placed = "1";
+            reverseRotation = "0";
+            Spline = "1";
             timeToNext = "10000";
             usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
       };
       new StaticShape(CameraPath3) {
-         position = "9.775128 -19.29642 12.06099";
-         rotation = "0.801847 0.1745773 -0.5714579 41.71255";
+         position = "9.77513 -19.2964 12.061";
+         rotation = "0.801847 0.174577 -0.571458 41.7126";
          scale = "1 1 1";
          dataBlock = "PathNode";
+            nextNode = "CameraPath0";
             placed = "1";
             reverseRotation = "0";
-            useScale = "0";
-            nextNode = "CameraPath0";
-            useRotation = "1";
             timeToNext = "3000";
             usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
       };
    };
    new SimGroup(SpawnPoints) {
@@ -74,6 +78,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "34.5 -12.5 2";
@@ -82,6 +87,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "34.5 3.5 2";
@@ -90,6 +96,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "12.5 25.5 2";
@@ -98,6 +105,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "4.5 33.5 2";
@@ -106,6 +114,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-3.5 25.5 2";
@@ -114,6 +123,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-25.5 3.5 2";
@@ -122,6 +132,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-33.5 -4.5 2";
@@ -130,6 +141,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-25.5 -12.5 2";
@@ -138,6 +150,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-3.5 -34.5 2";
@@ -146,6 +159,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "4.5 -42.5 2";
@@ -154,6 +168,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "12.5 -34.5 2";
@@ -162,6 +177,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "4.5 -10.5 2";
@@ -170,6 +186,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "-1.5 -4.5 2";
@@ -178,6 +195,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "4.5 1.5 2";
@@ -186,6 +204,7 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
       new Trigger() {
          position = "10.5 -4.5 2";
@@ -194,14 +213,15 @@ new SimGroup(MissionGroup) {
          dataBlock = "SpawnTrigger";
          polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
             center = "1";
+            gravity = "0";
       };
    };
    new Item() {
       position = "5 25 2.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemBlue_MBU";
-      collideable = "0";
+      dataBlock = "GemItemYellow_MBU";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -209,6 +229,7 @@ new SimGroup(MissionGroup) {
       position = "336 136 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
+      materialList = "~/data/skies_mbu/advanced/sky_advanced.dml";
       cloudHeightPer[0] = "0";
       cloudHeightPer[1] = "0";
       cloudHeightPer[2] = "0";
@@ -216,26 +237,28 @@ new SimGroup(MissionGroup) {
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
       visibleDistance = "10000";
-      useSkyTextures = "1";
-      renderBottomTexture = "1";
-      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
-      fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies_mbu/advanced/sky_advanced.dml";
+      fogColor = "0.6 0.6 0.6 1";
+      fogStorm1 = "0";
+      fogStorm2 = "0";
+      fogStorm3 = "0";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolumeColor1 = "128 128 128 0";
+      fogVolumeColor2 = "128 128 128 4e-06";
+      fogVolumeColor3 = "128 128 128 1.44355e+07";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
+      SkySolidColor = "0.6 0.6 0.6 1";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
    };
    new Sun() {
       direction = "0.573201 0.275357 -0.771764";
-      color = "1.080000 1.030000 0.900000 1.000000";
-      ambient = "0.400000 0.400000 0.500000 1.000000";
+      color = "1 1 0.9 1";
+      ambient = "0.4 0.4 0.5 1";
    };
    new StaticShape() {
       position = "0 0 -600";
@@ -248,18 +271,20 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+      useGLLighting = "0";
       showTerrainInside = "0";
    };
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "5.25 7 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Spline";
          };
@@ -268,6 +293,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -276,6 +302,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -284,6 +311,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -292,6 +320,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -300,6 +329,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -308,6 +338,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -316,6 +347,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -324,6 +356,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Accelerate";
          };
@@ -332,6 +365,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -341,7 +375,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "0";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -352,13 +386,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "17.25 -4.75 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Spline";
          };
@@ -367,6 +402,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -375,6 +411,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -383,6 +420,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -391,6 +429,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -399,6 +438,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -407,6 +447,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -415,6 +456,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -423,6 +465,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Spline";
          };
@@ -431,6 +474,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -440,7 +484,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "1";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -451,13 +495,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "5.25 -16.75 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Spline";
          };
@@ -466,6 +511,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -474,6 +520,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -482,6 +529,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -490,6 +538,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -498,6 +547,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -506,6 +556,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -514,6 +565,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -522,6 +574,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Spline";
          };
@@ -530,6 +583,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -539,7 +593,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "2";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -550,13 +604,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "-6.75 -4.75 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Spline";
          };
@@ -565,6 +620,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -573,6 +629,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -581,6 +638,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -589,6 +647,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -597,6 +656,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -605,6 +665,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "5000";
             smoothingType = "Accelerate";
          };
@@ -613,6 +674,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -621,6 +683,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "2500";
             smoothingType = "Spline";
          };
@@ -629,6 +692,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -638,7 +702,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "3";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -649,13 +713,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "-9.75 10.5 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Spline";
          };
@@ -664,6 +729,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -672,6 +738,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -680,6 +747,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -688,6 +756,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -696,6 +765,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -704,6 +774,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -712,6 +783,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -721,7 +793,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "4";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -732,13 +804,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "20.25 10.5 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -747,6 +820,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -755,6 +829,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -763,6 +838,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -771,6 +847,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -779,6 +856,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -787,6 +865,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Spline";
          };
@@ -795,6 +874,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -804,7 +884,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "5";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -815,13 +895,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "20.25 -19.5 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -830,6 +911,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -838,6 +920,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -846,6 +929,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -854,6 +938,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Spline";
          };
@@ -862,6 +947,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -870,6 +956,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -878,6 +965,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -887,7 +975,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "6";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -898,13 +986,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "-9.75 -19.5 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -913,6 +1002,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -921,6 +1011,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Spline";
          };
@@ -929,6 +1020,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -937,6 +1029,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -945,6 +1038,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -953,6 +1047,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "7500";
             smoothingType = "Accelerate";
          };
@@ -961,6 +1056,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -970,7 +1066,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "7";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -981,13 +1077,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "5.25 13 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Spline";
          };
@@ -996,6 +1093,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1004,6 +1102,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1012,6 +1111,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1020,6 +1120,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1028,6 +1129,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1036,6 +1138,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1044,6 +1147,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1052,6 +1156,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Accelerate";
          };
@@ -1060,6 +1165,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -1069,7 +1175,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "8";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1080,13 +1186,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "23.25 -4.75 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Spline";
          };
@@ -1095,6 +1202,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1103,6 +1211,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1111,6 +1220,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1119,6 +1229,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1127,6 +1238,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1135,6 +1247,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1143,6 +1256,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1151,6 +1265,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Spline";
          };
@@ -1159,6 +1274,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -1168,7 +1284,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "9";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1179,13 +1295,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "5.25 -22.75 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Spline";
          };
@@ -1194,6 +1311,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1202,6 +1320,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1210,6 +1329,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1218,6 +1338,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1226,6 +1347,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1234,6 +1356,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1242,6 +1365,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1250,6 +1374,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Spline";
          };
@@ -1258,6 +1383,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -1267,7 +1393,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "10";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1278,13 +1404,14 @@ new SimGroup(MissionGroup) {
    new SimGroup(MustChange_g) {
 
       new Path() {
-            isLooping = "0";
+         isLooping = "0";
 
          new Marker() {
             position = "-12.75 -4.75 2.5";
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "1";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Spline";
          };
@@ -1293,6 +1420,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "2";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1301,6 +1429,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "3";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1309,6 +1438,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "4";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1317,6 +1447,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "5";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1325,6 +1456,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "6";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1333,6 +1465,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "7";
+            type = "Normal";
             msToNext = "12000";
             smoothingType = "Accelerate";
          };
@@ -1341,6 +1474,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "8";
+            type = "Normal";
             msToNext = "1000";
             smoothingType = "Accelerate";
          };
@@ -1349,6 +1483,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "9";
+            type = "Normal";
             msToNext = "6000";
             smoothingType = "Spline";
          };
@@ -1357,6 +1492,7 @@ new SimGroup(MissionGroup) {
             rotation = "1 0 0 0";
             scale = "1 1 1";
             seqNum = "10";
+            type = "Normal";
             msToNext = "0";
             smoothingType = "Spline";
          };
@@ -1366,7 +1502,7 @@ new SimGroup(MissionGroup) {
          rotation = "1 0 0 0";
          scale = "1 1 1";
          dataBlock = "PathedDefault";
-         interiorResource = "platinum/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
+         interiorResource = "~/data/multiplayer/interiors/custom/mbu/pointsoftheradarMBU.dif";
          interiorIndex = "11";
          basePosition = "0 0 0";
          baseRotation = "1 0 0 0";
@@ -1386,7 +1522,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1395,7 +1531,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1404,7 +1540,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1413,7 +1549,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1422,7 +1558,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1431,7 +1567,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1440,7 +1576,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1449,16 +1585,16 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "35 -5 0.5500002";
+      position = "35 -5 0.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemBlue_MBU";
-      collideable = "0";
+      dataBlock = "GemItemYellow_MBU";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1467,7 +1603,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1476,7 +1612,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1485,7 +1621,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1494,7 +1630,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1503,7 +1639,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1512,7 +1648,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1521,7 +1657,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1530,7 +1666,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1539,7 +1675,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1548,7 +1684,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1557,7 +1693,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1566,7 +1702,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1575,7 +1711,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1584,7 +1720,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1593,7 +1729,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1602,7 +1738,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1611,7 +1747,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1620,7 +1756,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1629,7 +1765,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1638,7 +1774,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1647,7 +1783,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1656,7 +1792,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1665,7 +1801,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1674,7 +1810,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1683,7 +1819,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1692,7 +1828,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1701,7 +1837,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1710,7 +1846,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1719,7 +1855,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1728,7 +1864,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1737,7 +1873,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1746,7 +1882,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1755,7 +1891,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1764,7 +1900,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1773,25 +1909,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-5 25 2.268644";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "HelicopterItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "7.25 -2.75 2.687";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperSpeedItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1800,7 +1918,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1809,7 +1927,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1818,7 +1936,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1827,7 +1945,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1835,8 +1953,8 @@ new SimGroup(MissionGroup) {
       position = "-25 -5 4.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemBlue_MBU";
-      collideable = "0";
+      dataBlock = "GemItemYellow_MBU";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1845,7 +1963,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1854,7 +1972,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1863,7 +1981,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1872,7 +1990,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1881,7 +1999,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1890,7 +2008,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1899,7 +2017,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1908,7 +2026,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1917,7 +2035,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1926,7 +2044,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1935,7 +2053,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1944,7 +2062,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1953,7 +2071,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1962,7 +2080,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1971,7 +2089,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1980,7 +2098,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1989,7 +2107,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1998,7 +2116,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2007,7 +2125,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2016,7 +2134,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2025,7 +2143,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2034,7 +2152,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2043,7 +2161,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2052,7 +2170,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2061,7 +2179,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2070,7 +2188,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2079,7 +2197,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2088,7 +2206,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2097,7 +2215,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2106,7 +2224,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2115,7 +2233,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2124,7 +2242,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2132,8 +2250,8 @@ new SimGroup(MissionGroup) {
       position = "5 -35 2.55";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemBlue_MBU";
-      collideable = "0";
+      dataBlock = "GemItemYellow_MBU";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2142,7 +2260,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2151,7 +2269,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2160,7 +2278,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2169,7 +2287,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2178,7 +2296,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2187,7 +2305,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2196,7 +2314,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2205,7 +2323,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2214,7 +2332,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2223,7 +2341,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2232,7 +2350,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2241,7 +2359,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2250,7 +2368,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2259,7 +2377,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2268,7 +2386,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2277,7 +2395,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2286,7 +2404,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2295,7 +2413,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2304,7 +2422,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2313,7 +2431,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2322,7 +2440,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2331,7 +2449,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2340,7 +2458,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2349,7 +2467,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2358,7 +2476,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2367,7 +2485,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2376,7 +2494,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2385,7 +2503,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2394,7 +2512,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2403,7 +2521,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2412,7 +2530,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2421,7 +2539,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2430,7 +2548,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2439,7 +2557,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2448,7 +2566,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2457,7 +2575,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2466,7 +2584,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2475,7 +2593,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2484,7 +2602,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2493,7 +2611,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2501,8 +2619,8 @@ new SimGroup(MissionGroup) {
       position = "5 -5 2.05";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemBlue_MBU";
-      collideable = "0";
+      dataBlock = "GemItemYellow_MBU";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2511,7 +2629,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2520,7 +2638,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2529,7 +2647,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2538,7 +2656,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2547,7 +2665,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2556,7 +2674,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2565,7 +2683,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2574,7 +2692,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2583,7 +2701,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2592,7 +2710,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2601,7 +2719,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2610,7 +2728,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2619,7 +2737,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2628,7 +2746,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2637,7 +2755,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2646,25 +2764,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "37.5 -2.5 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "-3 -5 2.7";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2673,16 +2773,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "13 -5.25 2.7";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2691,7 +2782,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2700,7 +2791,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2709,7 +2800,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2718,7 +2809,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2727,7 +2818,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2736,7 +2827,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2745,7 +2836,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2754,7 +2845,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2763,7 +2854,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2772,7 +2863,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2781,7 +2872,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2790,7 +2881,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2799,7 +2890,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2808,7 +2899,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2817,7 +2908,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemRed_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -2826,189 +2917,123 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "37.5 -7.5 2.500503";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "MegaMarbleItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "32.5 -2.5 2.500503";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "MegaMarbleItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "32.5 -7.5 2.484221";
+      position = "32.5 -7.5 2.48422";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "0";
+         noParticles = "0";
    };
    new Item() {
-      position = "15 25 2.268644";
+      position = "7.25 -7.25 2.48422";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem_MBU";
-      collideable = "0";
+      dataBlock = "BlastItem_MBU";
+      collidable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
+         noParticles = "0";
    };
    new Item() {
-      position = "2.75 -7.25 2.687";
+      position = "2.75 -2.75 2.48422";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BlastItem_MBU";
+      collidable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "-2.75 -37.25 2.48422";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "BlastItem_MBU";
+      collidable = "0";
+      static = "1";
+      rotate = "0";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "-3 -5 2.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "-2.75 -32.75 2.268644";
+      position = "13 -5 2.75";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "HelicopterItem_MBU";
-      collideable = "0";
+      dataBlock = "SuperSpeedItem_MBU";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "7.25 -7.25 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "2.75 -2.75 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "5 35 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "12.75 17.25 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "-2.75 17.25 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "-27.5 -2.5 2.75";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-27.5 -7.5 2.75";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "SuperJumpItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "1";
-   };
-   new Item() {
-      position = "-22.5 -7.5 2.75";
+      position = "26.5 -26.5 2.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
+         noParticles = "0";
    };
    new Item() {
-      position = "-22.5 -2.5 2.75";
+      position = "-16.5 16.5 2.5";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem_MBU";
-      collideable = "0";
+      collidable = "0";
+      static = "1";
+      rotate = "1";
+         noParticles = "0";
+   };
+   new Item() {
+      position = "-32.9 -4.9 3";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SuperSpeedItem_MBU";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "2.75 -42.75 2.268644";
+      position = "37.0085 -2.57085 2.26809";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "7.25 -42.75 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "12.75 -37.25 2.268644";
+      position = "5.00292 32.8263 2.49586";
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_MBU";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
    new Item() {
-      position = "12.75 -32.75 2.484221";
+      position = "12.9333 -37.294 2.89847";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
+      dataBlock = "SuperSpeedItem_MBU";
+      collidable = "0";
       static = "1";
-      rotate = "0";
-   };
-   new Item() {
-      position = "-2.75 -37.25 2.484221";
-      rotation = "1 0 0 0";
-      scale = "1 1 1";
-      dataBlock = "BlastItem_MBU";
-      collideable = "0";
-      static = "1";
-      rotate = "0";
+      rotate = "1";
    };
 };
 //--- OBJECT WRITE END ---

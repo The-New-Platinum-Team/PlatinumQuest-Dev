@@ -1,8 +1,7 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
+
    new ScriptObject(MissionInfo) {
-         GemGroups = "0";
-         Time = "300000";
          alarmStartTime = "25";
          artist = "James C.";
          blast = "1";
@@ -12,23 +11,25 @@ new SimGroup(MissionGroup) {
          game = "PlatinumQuest";
          gameMode = "hunt";
          gameType = "Multiplayer";
-	      generalHint = "While this arena is rather massive, there are ways to get to gem spawns quickly. There are Super Speeds everywhere to help you. Teleporter PowerUps are also present to place destinations, but use them wisely.";
+         GemGroups = "0";
+         generalHint = "While this arena is rather massive, there are ways to get to gem spawns quickly. There are Super Speeds everywhere to help you. Teleporter PowerUps are also present to place destinations, but use them wisely.";
          level = "8";
          maxGemsPerSpawn = "7";
          music = "Upbeat Freedom.ogg";
          name = "Skatium";
-         platinumScore0 = "95";
-         platinumScore1 = "125";
+	 platinumScore0 = "80";
+         platinumScore1 = "130";
          platinumSpawnChance = "0.3";
          radar = "1";
          radiusFromGem = "40";
          redSpawnChance = "0";
          score0 = "50";
          score1 = "80";
-	      trivia = "The level's design is inspired by Bowl, and some of the assets resemble those of Skate Battle Royale. The decreased elevation is also inspired by Stadion from Marble It Up: Mayhem. The level's name is based on the ice skating rink chain of the same name.";
+         Time = "300000";
+         trivia = "The level\'s design is inspired by Bowl, and some of the assets resemble those of Skate Battle Royale. The decreased elevation is also inspired by Stadion from Marble It Up: Mayhem. The level\'s name is based on the ice skating rink chain of the same name.";
          type = "Intermediate";
-         ultimateScore0 = "140";
-         ultimateScore1 = "170";
+	 ultimateScore0 = "120";
+         ultimateScore1 = "200";
          yellowSpawnChance = "0.9";
    };
    new MissionArea(MissionArea) {
@@ -41,6 +42,7 @@ new SimGroup(MissionGroup) {
       position = "336 136 0";
       rotation = "1 0 0 0";
       scale = "1 1 1";
+      materialList = "~/data/skies_pq/Blender3/blender3.dml";
       cloudHeightPer[0] = "0";
       cloudHeightPer[1] = "0";
       cloudHeightPer[2] = "0";
@@ -48,26 +50,28 @@ new SimGroup(MissionGroup) {
       cloudSpeed2 = "0.0002";
       cloudSpeed3 = "0.0003";
       visibleDistance = "500";
-      useSkyTextures = "1";
-      renderBottomTexture = "1";
-      SkySolidColor = "0.600000 0.600000 0.600000 1.000000";
       fogDistance = "300";
-      fogColor = "0.600000 0.600000 0.600000 1.000000";
-      fogVolume1 = "-1 7.45949e-031 1.3684e-038";
-      fogVolume2 = "-1 1.07208e-014 8.756e-014";
-      fogVolume3 = "-1 5.1012e-010 2.05098e-008";
-      materialList = "~/data/skies_pq/Blender3/blender3.dml";
+      fogColor = "0.6 0.6 0.6 1";
+      fogStorm1 = "0";
+      fogStorm2 = "0";
+      fogStorm3 = "0";
+      fogVolume1 = "-1 7.45949e-31 1.3684e-38";
+      fogVolume2 = "-1 1.07208e-14 8.756e-14";
+      fogVolume3 = "-1 5.1012e-10 2.05098e-08";
+      fogVolumeColor1 = "128 128 128 0";
+      fogVolumeColor2 = "128 128 128 4e-06";
+      fogVolumeColor3 = "128 128 128 1.44355e+07";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
+      SkySolidColor = "0.6 0.6 0.6 1";
+      useSkyTextures = "1";
+      renderBottomTexture = "1";
       noRenderBans = "1";
-      fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
-      fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
-      fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
    };
    new Sun() {
       direction = "0.638261 0.459006 -0.61801";
-      color = "1.400000 1.200000 0.700000 1.000000";
-      ambient = "0.300000 0.300000 0.400000 1.000000";
+      color = "1 1 0.7 1";
+      ambient = "0.3 0.3 0.4 1";
    };
    new SimGroup(PathNodeGroup) {
 
@@ -76,19 +80,19 @@ new SimGroup(MissionGroup) {
          rotation = "0.0777875 -0.254377 0.963972 147.151";
          scale = "1 1 1";
          dataBlock = "PathNode";
-            FinalRotOffset = "1 0 0 0";
-            RotationMultiplier = "1";
-            Smooth = "0";
-            SmoothEnd = "0";
-            SmoothStart = "0";
-            Spline = "0";
             bezier = "0";
             branchNodes = " ";
             delay = "0";
+            FinalRotOffset = "1 0 0 0";
             nextNode = "CameraPath1";
             placed = "1";
             reverseRotation = "0";
+            RotationMultiplier = "1";
+            smooth = "0";
+            SmoothEnd = "0";
+            SmoothStart = "0";
             speed = "0";
+            Spline = "0";
             timeToNext = "3000";
             usePosition = "1";
             useRotation = "1";
@@ -100,6 +104,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       interiorFile = "~/data/interiors_pq/multiplayer/Skatium.dif";
+      useGLLighting = "0";
       showTerrainInside = "0";
    };
    new Trigger() {
@@ -116,7 +121,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -125,7 +130,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -134,7 +139,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -143,7 +148,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -152,7 +157,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -161,7 +166,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -170,7 +175,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -179,7 +184,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -188,7 +193,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -197,7 +202,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -206,7 +211,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -215,7 +220,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -224,7 +229,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -233,7 +238,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -242,7 +247,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -251,7 +256,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -260,7 +265,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -269,7 +274,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -278,7 +283,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -287,7 +292,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -296,7 +301,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -305,7 +310,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -314,7 +319,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -323,7 +328,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -332,7 +337,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -341,7 +346,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -350,7 +355,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -359,7 +364,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -368,7 +373,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -377,7 +382,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -386,7 +391,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -395,7 +400,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -404,7 +409,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -413,7 +418,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -422,7 +427,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -431,7 +436,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -440,7 +445,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -449,7 +454,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -458,7 +463,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -467,7 +472,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -476,7 +481,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -485,7 +490,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -494,7 +499,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -503,7 +508,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -512,7 +517,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -521,7 +526,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -530,7 +535,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -539,7 +544,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -548,7 +553,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -557,7 +562,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -566,7 +571,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -575,7 +580,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -584,7 +589,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -593,7 +598,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -602,7 +607,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -611,7 +616,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperJumpItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -620,7 +625,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -629,7 +634,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -638,7 +643,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -647,7 +652,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TeleportItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          keepVelocity = "0";
@@ -660,7 +665,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TeleportItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          keepVelocity = "0";
@@ -673,7 +678,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TeleportItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          keepVelocity = "0";
@@ -686,7 +691,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TeleportItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          keepVelocity = "0";
@@ -699,7 +704,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -708,7 +713,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "TeleportItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          keepVelocity = "0";
@@ -748,7 +753,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -757,7 +762,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -766,7 +771,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -775,7 +780,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -784,7 +789,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -793,7 +798,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -802,7 +807,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -865,7 +870,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -874,7 +879,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -883,7 +888,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "HelicopterItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -982,7 +987,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -991,7 +996,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1000,7 +1005,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1009,7 +1014,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1018,7 +1023,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1027,7 +1032,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1036,7 +1041,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1045,7 +1050,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1054,7 +1059,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1063,7 +1068,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1072,7 +1077,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1081,7 +1086,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1090,7 +1095,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1099,7 +1104,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1108,7 +1113,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1117,7 +1122,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1126,7 +1131,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1135,7 +1140,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1144,7 +1149,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1153,7 +1158,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1162,7 +1167,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1171,7 +1176,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1180,7 +1185,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "SuperSpeedItem_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -1189,7 +1194,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1199,7 +1204,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1209,7 +1214,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1219,7 +1224,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1229,7 +1234,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1239,7 +1244,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1248,8 +1253,8 @@ new SimGroup(MissionGroup) {
       position = "6.25 -5.5 0.499669";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemPlatinum_PQ";
-      collideable = "0";
+      dataBlock = "GemItemBlue_PQ";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1259,7 +1264,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1269,7 +1274,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1279,7 +1284,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1289,7 +1294,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1299,7 +1304,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1309,7 +1314,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1319,7 +1324,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1329,7 +1334,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1339,7 +1344,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1349,7 +1354,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1359,7 +1364,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1369,7 +1374,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1379,7 +1384,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1389,7 +1394,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1399,7 +1404,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1409,7 +1414,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1419,7 +1424,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1429,7 +1434,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1439,7 +1444,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemBlue_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1449,7 +1454,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1459,7 +1464,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1469,7 +1474,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1479,7 +1484,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1489,7 +1494,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1499,7 +1504,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1509,7 +1514,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1519,7 +1524,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1529,7 +1534,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1539,7 +1544,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1549,7 +1554,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1559,7 +1564,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1568,8 +1573,8 @@ new SimGroup(MissionGroup) {
       position = "108 -144 12.4997";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemPlatinum_PQ";
-      collideable = "0";
+      dataBlock = "GemItemBlue_PQ";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1579,7 +1584,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1589,7 +1594,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1599,7 +1604,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1609,7 +1614,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1619,7 +1624,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1629,7 +1634,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1639,7 +1644,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1649,7 +1654,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1659,7 +1664,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemBlue_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1669,7 +1674,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1679,7 +1684,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1689,7 +1694,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1699,7 +1704,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1709,7 +1714,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1719,7 +1724,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1729,7 +1734,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1739,7 +1744,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1749,7 +1754,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1759,7 +1764,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1769,7 +1774,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1779,7 +1784,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1789,7 +1794,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1799,7 +1804,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1809,7 +1814,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1818,8 +1823,8 @@ new SimGroup(MissionGroup) {
       position = "-108 -120 12.4997";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemPlatinum_PQ";
-      collideable = "0";
+      dataBlock = "GemItemBlue_PQ";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1829,7 +1834,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1839,7 +1844,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1849,7 +1854,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1859,7 +1864,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1869,7 +1874,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1879,7 +1884,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1889,7 +1894,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1899,7 +1904,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1909,7 +1914,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1919,7 +1924,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1929,7 +1934,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1939,7 +1944,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1949,7 +1954,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemBlue_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1959,7 +1964,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1969,7 +1974,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1979,7 +1984,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1989,7 +1994,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -1999,7 +2004,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2009,7 +2014,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2019,7 +2024,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2029,7 +2034,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2039,7 +2044,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2049,7 +2054,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2059,7 +2064,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2069,7 +2074,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2079,7 +2084,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2089,7 +2094,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2099,7 +2104,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2109,7 +2114,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2119,7 +2124,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2129,7 +2134,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2139,7 +2144,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2149,7 +2154,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2159,7 +2164,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2169,7 +2174,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2179,7 +2184,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2189,7 +2194,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2199,7 +2204,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2209,7 +2214,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2219,7 +2224,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2229,7 +2234,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2239,7 +2244,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2249,7 +2254,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2259,7 +2264,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2269,7 +2274,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2279,7 +2284,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2289,7 +2294,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2299,7 +2304,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2309,7 +2314,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2319,7 +2324,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2329,7 +2334,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2339,7 +2344,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2349,7 +2354,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2358,8 +2363,8 @@ new SimGroup(MissionGroup) {
       position = "-108 132 12.4997";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemPlatinum_PQ";
-      collideable = "0";
+      dataBlock = "GemItemBlue_PQ";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2369,7 +2374,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2379,7 +2384,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2389,7 +2394,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2399,7 +2404,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2409,7 +2414,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2419,7 +2424,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2429,7 +2434,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2439,7 +2444,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2449,7 +2454,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemBlue_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2459,7 +2464,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2469,7 +2474,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2479,7 +2484,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2489,7 +2494,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2499,7 +2504,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2509,7 +2514,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2519,7 +2524,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2529,7 +2534,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2539,7 +2544,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2549,7 +2554,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2559,7 +2564,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2569,7 +2574,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2579,7 +2584,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2589,7 +2594,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2599,7 +2604,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2609,7 +2614,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2619,7 +2624,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2629,7 +2634,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2639,7 +2644,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2649,7 +2654,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2659,7 +2664,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2669,7 +2674,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2679,7 +2684,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2689,7 +2694,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2699,7 +2704,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2709,7 +2714,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2719,7 +2724,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2729,7 +2734,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2739,7 +2744,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2749,7 +2754,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2759,7 +2764,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2769,7 +2774,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2779,7 +2784,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2789,7 +2794,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2799,7 +2804,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2809,7 +2814,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2819,7 +2824,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2829,7 +2834,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2839,7 +2844,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2849,7 +2854,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2859,7 +2864,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2869,7 +2874,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2879,7 +2884,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2889,7 +2894,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2899,7 +2904,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2909,7 +2914,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemBlue_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2919,7 +2924,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2929,7 +2934,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2939,7 +2944,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2949,7 +2954,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2959,7 +2964,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2969,7 +2974,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2979,7 +2984,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2989,7 +2994,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -2999,7 +3004,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3009,7 +3014,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3019,7 +3024,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3029,7 +3034,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3039,7 +3044,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemBlue_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3049,7 +3054,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3059,7 +3064,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3069,7 +3074,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3079,7 +3084,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3089,7 +3094,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3099,7 +3104,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3109,7 +3114,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3119,7 +3124,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3129,7 +3134,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3139,7 +3144,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3149,7 +3154,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3159,7 +3164,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3169,7 +3174,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3179,7 +3184,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3189,7 +3194,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3199,7 +3204,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3209,7 +3214,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3219,7 +3224,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3229,7 +3234,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3239,7 +3244,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3249,7 +3254,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3259,7 +3264,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3269,7 +3274,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3279,7 +3284,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3289,7 +3294,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3299,7 +3304,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3309,7 +3314,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3319,7 +3324,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3329,7 +3334,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3338,8 +3343,8 @@ new SimGroup(MissionGroup) {
       position = "110.5 136.25 13.3434";
       rotation = "1 0 0 0";
       scale = "1 1 1";
-      dataBlock = "GemItemPlatinum_PQ";
-      collideable = "0";
+      dataBlock = "GemItemBlue_PQ";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3349,7 +3354,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3359,7 +3364,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemBlue_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3369,7 +3374,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3379,7 +3384,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3389,7 +3394,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3399,7 +3404,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3409,7 +3414,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3419,7 +3424,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3429,7 +3434,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3439,7 +3444,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3449,7 +3454,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3459,7 +3464,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3469,7 +3474,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3479,7 +3484,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3489,7 +3494,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3499,7 +3504,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3509,7 +3514,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3519,7 +3524,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3529,7 +3534,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3539,7 +3544,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3549,7 +3554,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3559,7 +3564,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3569,7 +3574,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3579,7 +3584,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3589,7 +3594,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3599,7 +3604,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3609,7 +3614,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3619,7 +3624,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3629,7 +3634,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3639,7 +3644,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3649,7 +3654,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "GemItemYellow_PQ";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noParticles = "0";
@@ -3659,7 +3664,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3675,7 +3680,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3684,7 +3689,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3693,7 +3698,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3702,7 +3707,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3711,7 +3716,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3720,7 +3725,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3729,7 +3734,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3738,7 +3743,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3747,7 +3752,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3756,7 +3761,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3765,7 +3770,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3774,7 +3779,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3783,7 +3788,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3792,7 +3797,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3801,7 +3806,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3810,7 +3815,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3819,7 +3824,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3828,7 +3833,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3837,7 +3842,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3846,7 +3851,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3855,7 +3860,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
          noRespawn = "0";
@@ -3867,7 +3872,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "MegaMarbleItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };
@@ -3876,7 +3881,7 @@ new SimGroup(MissionGroup) {
       rotation = "1 0 0 0";
       scale = "1 1 1";
       dataBlock = "BlastItem";
-      collideable = "0";
+      collidable = "0";
       static = "1";
       rotate = "1";
    };

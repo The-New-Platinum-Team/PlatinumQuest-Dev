@@ -540,7 +540,11 @@ function clientCmdMissionListEnd(%gameName, %difficultyName) {
 		}
 
 		if (SearchDlg.isAwake()) {
-			SearchDlg.buildSearch();
+			// Small hack, all levels in "Hunt" will be the same across all clients and don't need to be rebuilt
+			// This prevents "Acropolis 2" from constantly being re-selected while picking on a dedicated server
+			if (%gameName $= $CurrentGame && $CurrentGame !$= "Hunt") {
+				SearchDlg.buildSearch();
+			}
 		}
 	}
 }
