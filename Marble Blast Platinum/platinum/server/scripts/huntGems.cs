@@ -671,6 +671,8 @@ function spawnGem(%gem) {
 		if (!$Server::Dedicated)
 			%gem.setRadarTarget();
 		$Hunt::CurrentGemCount ++;
+
+		cancel(%gem.predictionSchedule);
 	}
 
 	return true;
@@ -847,6 +849,7 @@ function unspawnGem(%gem, %nocheck) {
 	removeGemLight(%gem);
 	%gem.getDataBlock().clearFX(%gem);
 	%gem.hide(true);
+	cancel(%gem.predictionSchedule);
 }
 
 function spawnBackupGem(%gem) {

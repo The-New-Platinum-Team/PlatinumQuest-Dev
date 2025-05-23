@@ -116,6 +116,9 @@ function Gem::onPickup(%this,%obj,%user,%amount) {
 	%user.client.onFoundGem(%amount, %obj);
 	if (%obj.nukesweeper)
 		%obj.trigger.getDataBlock().reset(%obj.trigger);
+
+	cancel(%obj.predictionSchedule);
+
 	return true;
 }
 
@@ -133,6 +136,8 @@ function Gem::onMissionReset(%this, %obj) {
 	for (%i = 0; %i < %count; %i ++) {
 		ClientGroup.getObject(%i).gemPickup[%obj] = 0;
 	}
+
+	cancel(%obj.predictionSchedule);
 
 	return Parent::onMissionReset(%this, %obj);
 }
@@ -848,4 +853,33 @@ if (!$pref::LegacyItems) {
 		messageColor = "cccccc";
 		customField[0, "field"] = "";
 	};
+}
+
+// Rollback netcode jank
+
+
+function Marble::onPredictCollision(%this, %gem, %marble) 
+{
+	if ($Server::ServerType $= "MultiPlayer" && strStr(%gem.getDataBlock().getName(), "GemItem") != -1) {
+		// Client side gem prediction
+		if (%marble != $MP::MyMarble) {
+			removeGemLight(%gem);
+			%gem.getDataBlock().clearFX(%gem);
+			%gem.hide(true);
+
+			// Schedule for unhiding - in case the player didn't pick it up
+			%gem.predictionSchedule = schedule(500, 0, "unhidePredictionGem", %gem);
+		}
+	}
+}
+
+function unhidePredictionGem(%gem) 
+{
+	if (isObject(%gem)) {
+		%gem.hide(false);
+		if (%gem.getDataBlock().pq && !isObject(%gem.fx)) {
+			%gem.getDatablock().initFX(%gem);
+		}
+		addGemLight(%gem);
+	}
 }
