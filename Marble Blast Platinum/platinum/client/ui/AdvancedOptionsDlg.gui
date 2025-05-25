@@ -41,7 +41,7 @@ new GuiControl(AdvancedOptionsDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "675 405";
+		extent = "675 435";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -52,7 +52,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "25 55";
-			extent = "625 345";
+			extent = "625 375";
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
@@ -63,7 +63,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 339";
+			position = "350 369";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -194,6 +194,14 @@ $AdvancedOptions::Name    [$i++] = "temporalMusic";
 $AdvancedOptions::Title   [$i  ] = "Temporal Music";
 $AdvancedOptions::Variable[$i  ] = "$pref::temporalMusic";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "allowTaunts";
+$AdvancedOptions::Title   [$i  ] = "Allow Taunts";
+$AdvancedOptions::Variable[$i  ] = "$MPPref::AllowTaunts";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "clientsidePrediction";
+$AdvancedOptions::Title   [$i  ] = "Predict Other Players' Movements";
+$AdvancedOptions::Variable[$i  ] = "$pref::clientsidePrediction";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 // $AdvancedOptions::Name    [$i++] = "useLowResGlass";
 // $AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
 // $AdvancedOptions::Variable[$i  ] = "$pref::UseLowResGlass";
@@ -216,7 +224,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 
 	%curYPos = 0;
-	%rowsPerCol = 10;
+	%rowsPerCol = 11;
 
 	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
 		%name = $AdvancedOptions::Name[%i];
