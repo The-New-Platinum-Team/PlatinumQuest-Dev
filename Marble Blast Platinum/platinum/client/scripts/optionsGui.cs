@@ -343,47 +343,59 @@ function GuiSliderCtrl::getJoyTickSize(%this) {
 // Graphics
 
 $i = -1;
-$Options::Name    ["Graphics", $i++] = "screenStyle";
+$Options::Name    ["Graphics", $i++] = "screenStyle"; // Windowed or Fullscreen
 $Options::Title   ["Graphics", $i  ] = "Screen Style";
+$Options::Tooltip ["Graphics", $i  ] = "Choose between Windowed and Fullscreen mode. " NL "Windowed mode allows you to play the game in a window, while Fullscreen mode takes up the entire screen.";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "screenResolution";
 $Options::Title   ["Graphics", $i  ] = "Default Window Size";
+$Options::Tooltip ["Graphics", $i  ] = "Choose the default resolution for the game window. " NL "This will be used when you start the game in Windowed mode. It is not available in Fullscreen mode.";
 $Options::Type    ["Graphics", $i  ] = "value";
 if ($platform $= "windows") {
 	$Options::Name   ["Graphics", $i++] = "graphicsDriver";
 	$Options::Title  ["Graphics", $i  ] = "Graphics Driver";
+	$Options::Tooltip["Graphics", $i  ] = "Choose the graphics driver to use for rendering. " NL "This can affect performance and visual quality.";
 	$Options::Type   ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Level Previews";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable animated backgrounds in the level select and the menus. " NL "Disabling this can improve performance on lower-end systems.";
 $Options::Type    ["Graphics", $i  ] = "boolean";
 if (canSupportPostFX()) { //No point supporting reflections if you don't support postfx anyway
 	$Options::Name    ["Graphics", $i++] = "marbleReflections";
 	$Options::Title   ["Graphics", $i  ] = "Marble Reflections";
+	$Options::Tooltip ["Graphics", $i  ] = "Enable or disable reflections on the marble as well as quality of the reflections.";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "textureQuality";
 $Options::Title   ["Graphics", $i  ] = "Texture Quality";
+$Options::Tooltip ["Graphics", $i  ] = "Choose the quality of textures used in the game. " NL "Higher quality textures can improve visual fidelity but may require more memory.";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";
+$Options::Tooltip ["Graphics", $i  ] = "Whether the game should use shaders for materials in interiors. ";
 $Options::Type    ["Graphics", $i  ] = "value";
 if (canSupportPostFX()) {
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
+	$Options::Tooltip ["Graphics", $i  ] = "Enable or disable post-processing effects." NL "Disabling this can improve performance on lower-end systems.";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "vsync";
 $Options::Title   ["Graphics", $i  ] = "Max Framerate";
+$Options::Tooltip ["Graphics", $i  ] = "Set the maximum framerate for the game. " NL "This can help reduce screen tearing and improve performance on lower-end systems.";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "maxFPS";
 $Options::Title   ["Graphics", $i  ] = "Max Tickrate";
+$Options::Tooltip ["Graphics", $i  ] = "Set the maximum tickrate for the game. Tickrate is the rate at which the game updates its physics and logic. ";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable fast mode. " NL "Fast mode reduces the quality of some graphics effects to improve performance on lower-end systems.";
 $Options::Type    ["Graphics", $i  ] = "boolean";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
+$Options::Tooltip ["Graphics", $i  ] = "Choose the texture pack to use for the game. " NL "Texture packs can change the appearance of the game.";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
 // if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
 // 	$Options::Name    ["Graphics", $i++] = "antiAliasing";
@@ -449,6 +461,7 @@ ParticleSystemArray.addEntry("Marble Blast Ultra" TAB 2);
 
 $Options::Name    ["Audio", 0] = "musicVolume";
 $Options::Title   ["Audio", 0] = "Music Volume";
+$Options::Tooltip ["Audio", 0] = "Adjust the volume of the music in the game. " NL "This affects the music played during gameplay and in menus.";
 $Options::Ctrl    ["Audio", 0] = "slider";
 $Options::Min     ["Audio", 0] = 0;
 $Options::Max     ["Audio", 0] = 100;
@@ -456,6 +469,7 @@ $Options::Ticks   ["Audio", 0] = 20; //Every 5
 $Options::JoyTicks["Audio", 0] = 20; //Every 5
 $Options::Name    ["Audio", 1] = "soundVolume";
 $Options::Title   ["Audio", 1] = "Sound Volume";
+$Options::Tooltip ["Audio", 1] = "Adjust the volume of the sound effects in the game. " NL "This affects the sounds played during gameplay, such as bounce sounds and powerups.";
 $Options::Ctrl    ["Audio", 1] = "slider";
 $Options::Min     ["Audio", 1] = 0;
 $Options::Max     ["Audio", 1] = 100;
@@ -463,24 +477,30 @@ $Options::Ticks   ["Audio", 1] = 20; //Every 5
 $Options::JoyTicks["Audio", 1] = 20; //Every 5
 $Options::Name    ["Audio", 2] = "audioPack";
 $Options::Title   ["Audio", 2] = "Default Sound Pack";
+$Options::Tooltip ["Audio", 2] = "Choose the default sound pack to use for the game. " NL "Sound packs can change the sounds used in the game.";
 $Options::Type    ["Audio", 2] = "value";
 $Options::Name    ["Audio", 3] = "automaticAudio";
 $Options::Title   ["Audio", 3] = "Automatic Audio Swap";
+$Options::Tooltip ["Audio", 3] = "Enable or disable automatic audio swapping. " NL "When enabled, the game will automatically swap audio packs based on the game of the level being played.";
 $Options::Type    ["Audio", 3] = "boolean";
 $Options::Name    ["Audio", 4] = " ";
 $Options::Title   ["Audio", 4] = " ";
 $Options::Ctrl    ["Audio", 4] = "spacer";
 $Options::Name    ["Audio", 5] = "timeTravelSounds";
 $Options::Title   ["Audio", 5] = "Time Travel Sounds";
+$Options::Tooltip ["Audio", 5] = "Enable or disable Time Travel sounds. " NL "When enabled, the game will ticking sounds while a Time Travel powerup is active.";
 $Options::Type    ["Audio", 5] = "boolean";
 $Options::Name    ["Audio", 6] = "parTimeAlarm";
 $Options::Title   ["Audio", 6] = "Par Time Alarm";
+$Options::Tooltip ["Audio", 6] = "Enable or disable the Par Time alarm. " NL "When enabled, the game will play an alarm sound when you are close to the Par Time of the level.";
 $Options::Type    ["Audio", 6] = "boolean";
 $Options::Name    ["Audio", 7] = "finalLapMusic";
 $Options::Title   ["Audio", 7] = "Final Lap Music";
+$Options::Tooltip ["Audio", 7] = "When enabled, the game will speed up the music when you are on the final lap of a level.";
 $Options::Type    ["Audio", 7] = "boolean";
 $Options::Name    ["Audio", 8] = "panicMusic";
 $Options::Title   ["Audio", 8] = "Panic Music";
+$Options::Tooltip ["Audio", 8] = "When enabled, the game will speed up the music while the Par Time alarm is active.";
 $Options::Type    ["Audio", 8] = "boolean";
 
 //-----------------------------------------------------------------------------
@@ -489,24 +509,31 @@ $Options::Type    ["Audio", 8] = "boolean";
 $i = -1;
 $Options::Name    ["Gameplay", $i++] = "thousandths";
 $Options::Title   ["Gameplay", $i  ] = "Timer Precision";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the display of thousandths of a second in the timer. ";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
 $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the Time Travel timer. " NL "When enabled, the game will display a timer for remaining Time Travel duration while it is active.";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "fpsCounter";
 $Options::Title   ["Gameplay", $i  ] = "Performance Display";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the FPS/TPS counter. " NL "When enabled, the game will display the current frames/ticks per second in the bottom right corner of the screen.";
 $Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "freelook";
 $Options::Title   ["Gameplay", $i  ] = "Free-Look";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable free-look mode. " NL "When enabled, you can look around freely in all directions using the mouse while playing.";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "helptriggers";
 $Options::Title   ["Gameplay", $i  ] = "Help Bubbles";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable help bubbles. ";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "screenshotMode";
 $Options::Title   ["Gameplay", $i  ] = "HUD Visibility";
+$Options::Tooltip ["Gameplay", $i  ] = "Choose what to show in the HUD. " NL "This can be useful for creating clean screenshots without the HUD or chat.";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "fov";
 $Options::Title   ["Gameplay", $i  ] = "Field of View";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the field of view (FOV) for the camera. " NL "A higher FOV allows you to see more of the environment, while a lower FOV provides a more focused view.";
 $Options::Ctrl    ["Gameplay", $i  ] = "slider";
 $Options::Min     ["Gameplay", $i  ] = 60;
 $Options::Max     ["Gameplay", $i  ] = 140;
@@ -514,6 +541,7 @@ $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
 $Options::Name    ["Gameplay", $i++] = "maxRadarItems";
 $Options::Title   ["Gameplay", $i  ] = "Max Radar Items";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the maximum number of items that can be displayed on the radar. " NL "This can help reduce clutter on the radar in levels with many items.";
 $Options::Ctrl    ["Gameplay", $i  ] = "slider";
 $Options::Min     ["Gameplay", $i  ] = 5;
 $Options::Max     ["Gameplay", $i  ] = 85;
@@ -521,6 +549,7 @@ $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
 $Options::Name    ["Gameplay", $i++] = "particles";
 $Options::Title   ["Gameplay", $i  ] = "Particles";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the number of particles that can be displayed in the game. " NL "This can help improve performance on lower-end systems.";
 $Options::Ctrl    ["Gameplay", $i  ] = "slider";
 $Options::Min     ["Gameplay", $i  ] = 0;
 $Options::Max     ["Gameplay", $i  ] = 200;
@@ -528,9 +557,11 @@ $Options::Ticks   ["Gameplay", $i  ] = 40; //Every 5
 $Options::JoyTicks["Gameplay", $i  ] = 10; //Every 20
 $Options::Name    ["Gameplay", $i++] = "particleSystem";
 $Options::Title   ["Gameplay", $i  ] = "Particle System";
+$Options::Tooltip ["Gameplay", $i  ] = "Choose the particle system to use for the game. " NL "This can change the appearance of particles in the game.";
 $Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "advancedOptions";
 $Options::Title   ["Gameplay", $i  ] = "Advanced Options";
+$Options::Tooltip ["Gameplay", $i  ] = "";
 $Options::Ctrl    ["Gameplay", $i  ] = "button";
 // $Options::Name    ["Gameplay", $i++] = "oobInsults";
 // $Options::Title   ["Gameplay", $i  ] = "OOB Insults";
@@ -576,28 +607,36 @@ FPSCounterArray.addEntry("Show All"       TAB 3);
 $i = -1;
 $Options::Name    ["Online", $i++] = "scorePredictor";
 $Options::Title   ["Online", $i  ] = "Score Predictor";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable the score predictor. " NL "When enabled, the game will predict your score based on your current performance.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "showRecords";
 $Options::Title   ["Online", $i  ] = "Always Show World Record";
+$Options::Tooltip ["Online", $i  ] = "Always show the world record of a level at the end screen.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "profanityFilter";
 $Options::Title   ["Online", $i  ] = "Profanity Filter";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable the profanity filter. " NL "When enabled, the game will filter out profane words in chat messages.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "globalSize";
 $Options::Title   ["Online", $i  ] = "Global Scores Per Page";
+$Options::Tooltip ["Online", $i  ] = "Adjust the number of global scores displayed per page. ";
 $Options::Type    ["Online", $i  ] = "value";
 $Options::Name    ["Online", $i++] = "chatMessageSize";
 $Options::Title   ["Online", $i  ] = "In-Game Lines of Chat";
+$Options::Tooltip ["Online", $i  ] = "Adjust the number of lines of chat displayed in-game. ";
 $Options::Type    ["Online", $i  ] = "value";
 $Options::Name    ["Online", $i++] = "serverPort";
 $Options::Title   ["Online", $i  ] = "Server Port";
+$Options::Tooltip ["Online", $i  ] = "Set the port for hosting multiplayer games. " NL "This is the port that other players will connect to when joining your game.";
 $Options::Ctrl    ["Online", $i  ] = "textbox";
 $Options::Length  ["Online", $i  ] = 5;
 $Options::Name    ["Online", $i++] = "noholepunch";
 $Options::Title   ["Online", $i  ] = "Hole Punching";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable hole punching for multiplayer games. " NL "When enabled, the game will attempt to use hole punching to connect to other players behind NAT.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "autoLogin";
 $Options::Title   ["Online", $i  ] = "Auto Login";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable auto login. " NL "When enabled, the game will automatically log you in with the specified username and password.";
 $Options::Type    ["Online", $i  ] = "boolean";
 
 $Options::AutoLoginUserField = $i++;
@@ -605,11 +644,13 @@ $Options::AutoLoginPassField = $i++;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
 $Options::Title   ["Online", $Options::AutoLoginUserField] = "Auto Login Username";
+$Options::Tooltip ["Online", $Options::AutoLoginUserField] = "The username to use for auto login. " NL "This will be used to automatically log you in when the game starts.";
 $Options::Ctrl    ["Online", $Options::AutoLoginUserField] = "textbox";
 $Options::Length  ["Online", $Options::AutoLoginUserField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginUserField] = ($LBPref::AutoLogin !$= "User");
 $Options::Name    ["Online", $Options::AutoLoginPassField] = "AutoLoginPassword";
 $Options::Title   ["Online", $Options::AutoLoginPassField] = "Auto Login Password";
+$Options::Tooltip ["Online", $Options::AutoLoginPassField] = "The password to use for auto login. " NL "This will be used to automatically log you in when the game starts.";
 $Options::Ctrl    ["Online", $Options::AutoLoginPassField] = "password";
 $Options::Length  ["Online", $Options::AutoLoginPassField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginPassField] = ($LBPref::AutoLogin !$= "User");
@@ -2120,6 +2161,7 @@ function OptionsGui::buildTab(%this, %tab) {
 		%name = $Options::Name[%tab, %i];
 		%title = $Options::Title[%tab, %i] @ ":";
 		%type = $Options::Type[%tab, %i];
+		%tooltip = $Options::Tooltip[%tab, %i];
 
 		%titleCtrl   = "Options" @ %name @ "Title";
 		%displayCtrl = "Options" @ %name @ "Display";
@@ -2206,6 +2248,7 @@ function OptionsGui::buildTab(%this, %tab) {
 				lineSpacing = "2";
 				allowColorChars = "0";
 				maxChars = "-1";
+				tooltip = %tooltip;
 			};
 		});
 
