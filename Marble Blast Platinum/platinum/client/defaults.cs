@@ -51,6 +51,7 @@ $pref::StopRecordingOnMenu = false;
 $pref::NoHolePunching = false;
 $pref::NoFadeIn = false;
 $pref::AllowEndingScoreLevelsEarly = true;
+$pref::clientsidePrediction = true;
 
 $pref::RtaShowAllSplits = true;
 $pref::RtaSkipNameEntry = true;
