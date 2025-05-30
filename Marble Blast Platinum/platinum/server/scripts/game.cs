@@ -1600,13 +1600,6 @@ function getActivePlayerCount() {
 }
 
 function chooseSharedSpawnPoint() {
-	if (!isObject(SpawnPointSet))
-		return -1;
-
-	%size = SpawnPointSet.getCount();
-	if (%size == 0)
-		return -1;
-
-	$MP::SharedSpawnPointIndex = getRandom(0, %size - 1);
-	echo("Setting shared spawn point to: " @ $MP::SharedSpawnPointIndex);
+	// This gets moduloed with the amount of spawns on each client
+	$MP::SharedSpawnPointIndex = getRandom(0, 999999);
 }
