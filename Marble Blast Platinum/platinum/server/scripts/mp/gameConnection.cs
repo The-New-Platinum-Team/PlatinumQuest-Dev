@@ -406,7 +406,10 @@ function GameConnection::getSharedSpawnTrigger(%this) {
 		// We don't have a value here...
 		$MP::SharedSpawnPointIndex = 0;
 	}
-	return SpawnPointSet.getObject($MP::SharedSpawnPointIndex);
+
+	%index = $MP::SharedSpawnPointIndex % %size;
+
+	return SpawnPointSet.getObject(%index);
 }
 
 function GameConnection::pointToNearestGem(%this) {
