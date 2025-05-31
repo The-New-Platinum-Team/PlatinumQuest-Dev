@@ -863,8 +863,6 @@ function Marble::onPredictCollision(%this, %gem, %marble)
 	if ($Server::ServerType $= "MultiPlayer" && strStr(%gem.getDataBlock().getName(), "GemItem") != -1) {
 		// Client side gem prediction
 		if (%marble != $MP::MyMarble) {
-			removeGemLight(%gem);
-			%gem.getDataBlock().clearFX(%gem);
 			%gem.hide(true);
 
 			// Schedule for unhiding - in case the player didn't pick it up
@@ -877,9 +875,5 @@ function unhidePredictionGem(%gem)
 {
 	if (isObject(%gem)) {
 		%gem.hide(false);
-		if (%gem.getDataBlock().pq && !isObject(%gem.fx)) {
-			%gem.getDatablock().initFX(%gem);
-		}
-		addGemLight(%gem);
 	}
 }
