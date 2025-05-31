@@ -1548,14 +1548,14 @@ function countVisibleGems(%group) {
 	return %gems;
 }
 
-function GameConnection::getNearestGem(%this, %highestValue) {
+function GameConnection::getNearestGem(%this, %highestValue, %filterLeftBehind) {
 	if (isObject(%this.player)) {
-		return getNearestGem(%this.player.getTransform(), %highestValue);
+		return getNearestGem(%this.player.getTransform(), %highestValue, %filterLeftBehind);
 	}
-	return getNearestGem("0 0 0", %highestValue);
+	return getNearestGem("0 0 0", %highestValue, %filterLeftBehind);
 }
 
-function getNearestGem(%pos, %highestValue) {
+function getNearestGem(%pos, %highestValue, %filterLeftBehind) {
 	%nearest = -1;
 	%nearDist = 999999;
 	%highest = -1;
@@ -1566,6 +1566,8 @@ function getNearestGem(%pos, %highestValue) {
 	for (%i = 0; %i < $GemsCount; %i ++) {
 		%gem = $Gems[%i];
 		if (%gem.isHidden())
+			continue;
+		if (%filterLeftBehind && %gem._leftBehind)
 			continue;
 		%dist = VectorDist(getWords(%gem.getTransform(), 0, 2), %pos);
 
