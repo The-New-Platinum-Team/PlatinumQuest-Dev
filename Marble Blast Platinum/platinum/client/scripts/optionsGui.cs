@@ -2677,6 +2677,8 @@ $Options::HotKey["Keyboard", 31, "Title"]    = "Taunt: Shazbot";
 $Options::HotKey["Keyboard", 31, "Function"] = "taunt15";
 $Options::HotKey["Keyboard", 32, "Title"]    = "Taunt: Blue Steal";
 $Options::HotKey["Keyboard", 32, "Function"] = "taunt16";
+$Options::HotKey["Keyboard", 33, "Title"]    = "Restart RTA Run";
+$Options::HotKey["Keyboard", 33, "Function"] = "restartRtaSpeedrun";
 
 $Options::HotKey["Joystick", 0, "Title"]     = "Jump";
 $Options::HotKey["Joystick", 0, "Function"]  = "joyJump";

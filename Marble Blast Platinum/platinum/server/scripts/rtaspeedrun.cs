@@ -37,6 +37,7 @@ function RtaSpeedrun::create(%this) {
 	%this.setLastSplitTime(-1);
 	%this.setLastEggTime(-1);
 
+	%this.firstMission = "";
 	%this.missionType = "";
 	%this.setMissionTypeBeganTime(0);
 	%this.missionTypeDuration = -1;
@@ -195,6 +196,7 @@ function RtaSpeedrun::missionStarted(%this) {
 		echo("Speedrun mode began timing!");
 		%this.setIsEnabled(true);
 		%this.setShouldStartRun(false);
+		%this.firstMission = $Server::MissionFile;
 	}
 	if (!%this.isEnabled)
 		return;
@@ -355,6 +357,7 @@ function RtaSpeedrun::saveProgress(%this) {
 		return;
 	}
 	$RtaProgress::time = %this.time;
+	$RtaProgress::firstMission = %this.firstMission;
 	$RtaProgress::endMission = %this.endMission;
 	$RtaProgress::missionType = %this.missionType;
 	$RtaProgress::missionTypeBeganTime = %this.missionTypeBeganTime;
@@ -371,6 +374,7 @@ function RtaSpeedrun::loadProgress(%this) {
 	}
 	exec(%progressFile);
 	%this.setTime($RtaProgress::time);
+	%this.firstMission = $RtaProgress::firstMission;
 	%this.setEnd($RtaProgress::endMission);
 	%this.missionType = $RtaProgress::missionType;
 	%this.missionTypeBeganTime = $RtaProgress::missionTypeBeganTime;
@@ -387,6 +391,35 @@ function RtaSpeedrun::clearProgress(%this) {
 		deleteFile(%progressFile);
 	if (isFile(%progressFile @ ".dso"))
 		deleteFile(%progressFile @ ".dso");
+}
+
+// Hotkey which restarts an in-progress RTA speedrun
+RtaSpeedrun.restartMessageBoxOpen = false;
+
+function restartRtaSpeedrun(%val) {
+	if (!%val || RtaSpeedrun.restartMessageBoxOpen || !RtaSpeedrun.isEnabled || RtaSpeedrun.firstMission $= "")
+		return;
+
+	%noCallback = "RtaSpeedrun.restartMessageBoxOpen = false;";
+	if (!$gamePaused)
+		%noCallBack = %noCallback SPC "resumeGame();";
+	pauseGame();
+	echo("NO CALLBACK: " @ %noCallBack);
+	RtaSpeedrun.restartMessageBoxOpen = true;
+	MessageBoxYesNo("Restart run?", "Really reset RTA speedrun and restart from the beginning?", "RtaSpeedrun.doRestartRun();", %noCallback);
+}
+
+function RtaSpeedrun::doRestartRun(%this, %missionToLoad) {
+	RtaSpeedrun.restartMessageBoxOpen = false;
+	if ($gamePaused)
+		resumeGame();
+
+	%this.stop();
+	%this.start();
+	//menuLoadMission(%this.firstMission);
+	//disconnect();
+	//schedule(100, 0, menuLoadMission, %this.firstMission);
+	loadMission(%this.firstMission);
 }
 
 // Setters for most properties, to update the RTAAutosplitter plugin's values as well
