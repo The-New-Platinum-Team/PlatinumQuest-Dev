@@ -480,7 +480,7 @@ function SearchDlg::random(%this) {
 	%count = SearchMissionList.rowCount();
 	if (!%count)
 		return;
-	%randomNumber = getRandom(0, %count - 1);
+	%randomNumber = stdRandomGetInt(0, %count - 1);
 	SearchMissionList.setSelectedRow(%randomNumber);
 	if (mp()) {
 		// Tell everyone it was indeed random
