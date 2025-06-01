@@ -170,6 +170,8 @@ function MPDedicatedPlayersDlg::onWake(%this) {
 }
 
 function MPDedicatedPlayersDlg::updatePlayerList(%this) {
+	%selected = MPDedicatedPlayersOnlineList.getRowTextById(MPDedicatedPlayersOnlineList.getSelectedId());
+	%name = getField(%selected, 1);
 	MPDedicatedPlayersOnlineList.clear();
 
 	%count = $MP::ClientIndexMax;
@@ -184,6 +186,15 @@ function MPDedicatedPlayersDlg::updatePlayerList(%this) {
 	}
 	MPDedicatedPlayersOnlineList.sort(0, true);
 	MPDedicatedPlayersOnlineList.setSelectedRow(0);
+	if (%name !$= "") {
+		for (%i = 0; %i < MPDedicatedPlayersOnlineList.rowCount(); %i++) {
+			%rowName = getField(MPDedicatedPlayersOnlineList.getRowText(%i), 1);
+			if (%rowName $= %name) {
+				MPDedicatedPlayersOnlineList.setSelectedRow(%i);
+				break;
+			}
+		}
+	}
 }
 
 function MPDedicatedPlayersDlg::updateButtons(%this) {
