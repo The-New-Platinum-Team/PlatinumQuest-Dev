@@ -416,9 +416,12 @@ function RtaSpeedrun::doRestartRun(%this, %missionToLoad) {
 
 	%this.stop();
 	%this.start();
-	//menuLoadMission(%this.firstMission);
-	//disconnect();
-	//schedule(100, 0, menuLoadMission, %this.firstMission);
+	%minfo = getMissionInfo(%this.firstMission);
+	if (%minfo == -1) {
+		MessageBoxOk("Error", "Error restarting run, could not get mission information. Please report this!");
+		return;
+	}
+	PlayMissionGui.setSelectedMission(%minfo);
 	loadMission(%this.firstMission);
 }
 
