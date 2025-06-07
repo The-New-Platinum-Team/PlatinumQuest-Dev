@@ -49,7 +49,8 @@ function Bumper::onCollision(%this, %obj, %col) {
 	if (%this.pqTriangle)
 		%obj.playThread(0, "anim0");
 	else
-		%obj.playThread(0,"push");
+		// For some reason, the other bumpers seemingly work just fine, but this one needs this weird fix to work... ~ Connie
+		%obj.schedule(1, playThread, 0, "push");
 
 	%obj.playAudio(0, %this.sound);
 }
