@@ -326,6 +326,9 @@ function disconnectedCleanup(%auto) {
 	//Back to our original selection
 	MarbleSelectDlg.loadPrefs();
 
+	PlayerList.clear();
+	PlayerObjectGroup.clear();
+
 	if (%needInit) {
 		PlayMissionGui.init();
 	}
