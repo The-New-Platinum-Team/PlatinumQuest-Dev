@@ -203,6 +203,7 @@ function lobbyReturn() {
 
 	endMission(true);
 	$Server::Lobby = true;
+	$Server::Loading = false;
 	$Game::Running = false;
 	$missionRunning = false;
 	$Server::SpectateCount = 0;
