@@ -92,6 +92,14 @@ function GameConnection::onConnect(%client, %name, %password, %marble, %bologna)
 			HoldGroup.add(%this);
 			return;
 		}
+		if (!$MPPref::Server::AllowGuests && isGuest(%name)) {
+			%client.schedule(1000, delete, "CR_GUEST");
+			if (!isObject(HoldGroup))
+				RootGroup.add(new SimGroup(HoldGroup));
+				
+			HoldGroup.add(%this);
+			return;
+		}
 	}
 
 	%client.connected = true;
