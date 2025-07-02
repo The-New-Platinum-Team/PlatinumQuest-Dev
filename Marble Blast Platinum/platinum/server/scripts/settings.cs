@@ -229,6 +229,17 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			hideGems();
 			spawnHuntGemGroup(); // Get rid of the old spawns
 		}
+	case "AllowGuests":
+		if (!%value) {
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%client = ClientGroup.getObject(%i);
+				if (%client.isGuest())
+					%client.schedule(100, delete, "CR_GUEST");
+			}
+			if ($Server::Loading)
+				schedule(100, 0, checkAllClientsLoaded);
+		}
+			
 		// case "StealMode":
 		// 	if (%value) {
 		// 		activateMode("steal");
