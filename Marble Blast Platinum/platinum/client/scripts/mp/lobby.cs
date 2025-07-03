@@ -471,7 +471,15 @@ function clientCmdValidMission(%file) {
 
 function clientCmdCloseLobby() {
 	$Server::Lobby = false;
-	PG_LBChatEntry.setValue(""); // Clear ingame chat
+	PG_LBChatEntry.setValue(PM_ChatEntry.getValue());
+	switch$ (PlayMissionGui.chatPanel) {
+	case "global":
+		$chatHudType = "global";
+	case "server":
+		$chatHudType = "private";
+	case "team":
+		$chatHudType = "team";
+	}
 	LBSetChatMessage("", PG_LBChatEntry);
 }
 
