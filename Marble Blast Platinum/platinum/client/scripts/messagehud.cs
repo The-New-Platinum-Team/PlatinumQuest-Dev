@@ -81,8 +81,11 @@ function PlayGui::positionMessageHud(%this) {
 			RootGui.popDialog(LBMessageHudDlg);
 		} else if (RootGui.getContent().getName() $= "PlayGui") {
 			RootGui.pushDialog(LBMessageHudDlg);
-			//Otherwise it will try to focus the textfield
-			disableChatHUD();
+			if (!%mp || PG_LBChatEntry.getValue() $= "") {
+				disableChatHUD();
+			} else {
+				enableChatHUD();
+			}
 		}
 	}
 	PlayGuiContent.setVisible(!(%hideAll || %isEndGame));
