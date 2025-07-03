@@ -284,8 +284,8 @@ function EditorGui::init(%this) {
 	EditorMenuBar.addMenuItemConf("Quick Create", "Teleport & Destination Triggers", 24, "", 1);
 	EditorMenuBar.addMenuItem("Quick Create", "- Others -", 0);
 	EditorMenuBar.addMenuItemConf("Quick Create", "Camera Marker", 16, "M", 1);
-	EditorMenuBar.addMenuItemConf("Quick Create", "PathNode at Selection", 17, "", 1);
-	EditorMenuBar.addMenuItemConf("Quick Create", "Marble Dummy", 21, "N", 1);
+	EditorMenuBar.addMenuItemConf("Quick Create", "PathNode at Selection", 17, "N", 1);
+	EditorMenuBar.addMenuItemConf("Quick Create", "Marble Dummy", 21, "B", 1);
 
 	EditorMenuBar.addMenu("Special", 8);
 	EditorMenuBar.addMenuItem("Special", "- Gem Groups -", 0);
