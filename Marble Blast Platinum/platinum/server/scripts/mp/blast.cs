@@ -285,6 +285,11 @@ function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
 			continue;
 		}
 
+		//Don't blast people if they are on the same team
+		if ($MP::TeamMode && isObject(%client.team) && isObject(%this.client.team) && %client.team.getId() == %this.client.team.getId()) {
+			continue;
+		}
+
 		// If they are frozen on the ice shard, they shouldn't be able to receive
 		// the blast impulse from other players.
 		if (%client.player.isFrozen)
