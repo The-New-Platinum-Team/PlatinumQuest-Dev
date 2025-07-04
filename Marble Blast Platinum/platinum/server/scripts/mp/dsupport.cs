@@ -137,7 +137,7 @@ function dedicatedUpdate() {
 }
 
 function dedicatedFindNewHost(%oldHost) {
-	resetSettings();
+	//resetSettings();
 	if (isObject(%oldHost)) {
 		//New host time!
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
