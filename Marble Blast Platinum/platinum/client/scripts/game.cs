@@ -330,15 +330,15 @@ function recordScore() {
 		}
 
 		//Awesome time noise
-		%awesomeMessage = false;
+		$Completion::AwesomeMessage = false;
 		if (%flags & $Completion::Awesome) {
 			if (!$pref::ShowAwesomeHints) {
-				%awesomeMessage = true;
+				$Completion::AwesomeMessage = true;
 			}
 
 			$pref::LevelAwesomes[$Server::MissionFile] ++;
 			$pref::ShowAwesomeHints = true;
-			if (%awesomeMessage) {
+			if ($Completion::AwesomeMessage) {
 				alxPlay(GotAwesomeSfx);
 			} else if ($pref::LevelAwesomes[$Server::MissionFile] > 4 &&
 			           getField(%score, 0) == $ScoreType::Time &&
@@ -480,7 +480,7 @@ function clientCmdGameEnd() {
 			EnterNameEdit.makeFirstResponder(false);
 		} else {
 			if (ControllerGui.isJoystick()) {
-				ControllerGui.selectControl(%awesomeMessage ? EnterNameAwesomeClose : EnterNameAcceptButton);
+				ControllerGui.selectControl($Completion::AwesomeMessage ? EnterNameAwesomeClose : EnterNameAcceptButton);
 			}
 
 			// fix the system for "nil" entries.
@@ -493,14 +493,15 @@ function clientCmdGameEnd() {
 			EnterNameEdit.makeFirstResponder(true);
 
 			//Callout for awesome times
-			EnterNameBox.setVisible(!%awesomeMessage);
-			EnterNameAwesomeBox.setVisible(%awesomeMessage);
-			EnterNameAwesomeText.setText("<just:center><bold:30>You beat an <spush><color:FF4444>Awesome " @ (%useLess ? "Time" : "Score") @ "<spop>!" NL
+			EnterNameBox.setVisible(!$Completion::AwesomeMessage);
+			EnterNameAwesomeBox.setVisible($Completion::AwesomeMessage);
+			EnterNameAwesomeText.setText("<just:center><bold:30>You beat an <spush><color:FF4444>Awesome " @ (PlayMissionGui.getMissionInfo().awesomeScore ? "Score" : "Time") @ "<spop>!" NL
 			                             "<font:19>Every PlatinumQuest level has an Awesome Time or Score" SPC
 			                             "that requires plenty of skill to beat. They are based on the staff's best," SPC
 			                             "aimed for the hardcore players, and made to be pretty difficult." @
 			                             "<font:Arial:9>\n\n<font:19><just:center>Are you prepared for the <spush><color:200000>awesome<spop> quest awaiting you?");
 			highScoreNameChanged();
+			$Completion::AwesomeMessage = false;
 		}
 
 	} else {
