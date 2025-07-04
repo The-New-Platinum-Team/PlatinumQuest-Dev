@@ -1497,16 +1497,12 @@ function PlayMissionGui::initInterface(%this) {
 
 	if (mp()) {
 		%this.updateChatPanel(true);
-		PM_DifficultySelector.setActive($Server::Hosting);
-		PM_GameSelector.setActive($Server::Hosting);
 		if ($Server::Hosting) {
 			%this.reactivateMissionList();
 		} else {
 			%this.deactivateMissionList();
 		}
 	} else {
-		PM_DifficultySelector.setActive(true);
-		PM_GameSelector.setActive(true);
 		%this.reactivateMissionList();
 	}
 
@@ -1769,6 +1765,10 @@ function PlayMissionGui::checkEnableStatsButton(%this) {
 }
 
 function PlayMissionGui::setGame(%this, %game) {
+	if (mp() && $Client::Loaded) {
+		MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\');", "");
+		return;
+	}
 	%this.hideSelectors();
 
 	%found = false;
@@ -1785,6 +1785,9 @@ function PlayMissionGui::setGame(%this, %game) {
 		//Unknown game?? Just display the identifier I guess
 		PM_GameSelector.setText(clipPx($DefaultFont["Bold"], 26, %type, 140, true) @ "   ");
 	}
+
+	if (%this.oldCurrentGame $= "")
+		%this.oldCurrentGame = $CurrentGame;
 
 	$CurrentGame = %game;
 	%mode = %this.ml.getGameMode(%game);
@@ -1830,6 +1833,10 @@ function PlayMissionGui::setGame(%this, %game) {
 }
 
 function PlayMissionGui::setMissionType(%this, %type) {
+	if (mp() && $Client::Loaded) {
+		MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\');", "");
+		return;
+	}
 	%this.hideSelectors();
 
 	%found = false;
@@ -1846,6 +1853,9 @@ function PlayMissionGui::setMissionType(%this, %type) {
 		//Unknown difficulty?? Just display the identifier I guess
 		PM_DifficultySelector.setText(clipPx($DefaultFont["Bold"], 26, %type, 140, true) @ "   ");
 	}
+
+	if (%this.oldMissionType $= "")
+		%this.oldMissionType = $MissionType;
 
 	$MissionType = %type;
 
@@ -1959,6 +1969,9 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 
 	//Update the mission info
 	%this.updateMissionInfo();
+
+	%this.oldCurrentGame = "";
+	%this.oldMissionType = "";
 
 	menuSetMission(%file);
 }
@@ -2518,6 +2531,8 @@ function PlayMissionGui::updateCurrentMission(%this) {
 }
 
 function PlayMissionGui::deactivateMissionList(%this) {
+	PM_DifficultySelector.setActive(false);
+	PM_GameSelector.setActive(false);
 	for (%i = 0; %i < %this.buttonFrameList.getSize(); %i ++) {
 		//Name for the button
 		%frame = %this.buttonFrameList.getEntry(%i);
@@ -2536,6 +2551,8 @@ function PlayMissionGui::deactivateMissionList(%this) {
 }
 
 function PlayMissionGui::reactivateMissionList(%this) {
+	PM_DifficultySelector.setActive(true);
+	PM_GameSelector.setActive(true);
 	for (%i = 0; %i < %this.buttonFrameList.getSize(); %i ++) {
 		%frame = %this.buttonFrameList.getEntry(%i);
 		%frame.button.enabled = true;
@@ -3312,6 +3329,7 @@ function PlayMissionGui::play(%this) {
 			} else {
 				//So we can't load two at a time
 				%this.deactivateMissionList();
+				%this.resetCurrentGame();
 
 				commandToServer('LoadMission', %this.getMissionInfo().file);
 			}
@@ -3335,6 +3353,22 @@ function PlayMissionGui::playPack(%this) {
 
 	%queue = createDifficultyMissionQueue(%this.ml, $CurrentGame, $MissionType);
 	menuPlayQueue(%queue);
+}
+
+function PlayMissionGui::resetCurrentGame(%this) {
+	%update = false;
+	if (%this.oldCurrentGame !$= "") {
+		%this.setGame(%this.oldCurrentGame);
+		%this.oldCurrentGame = "";
+		%update = true;
+	}
+	if (%this.oldMissionType !$= "") {
+		%this.setMissionType(%this.oldMissionType);
+		%this.oldMissionType = "";
+		%update = true;
+	}
+	if (%update)
+		%this.showMissionList();
 }
 
 //-----------------------------------------------------------------------------
