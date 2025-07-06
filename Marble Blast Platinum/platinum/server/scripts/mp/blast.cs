@@ -295,6 +295,14 @@ function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
 		if (%client.player.isFrozen)
 			continue;
 
+		if (Mode::callback("shouldDisableBlastShockwave", false, new ScriptObject() {
+			this = %this;
+			other = %client.player;
+			strength = %strength;
+			_delete = true;
+		}))
+			return;
+
 		%theyPos = %client.player.getWorldBoxCenter();
 		%myMod = %this.getDataBlock().blastModifier;
 		%theyMod = %client.player.getDataBlock().blastModifier;
