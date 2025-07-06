@@ -808,7 +808,7 @@ function unspawnGem(%gem, %nocheck) {
 	if ($Hunt::CurrentGemCount > 0)
 		$Hunt::CurrentGemCount --;
 
-	if ($MPPref::Server::CompetitiveMode && %gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
+	if (isCompetitiveMode() && %gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
 		// actually I think "FirstSpawn" is never actually on, lol
 		$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
 		$Hunt::CurrentCompetitiveGemsLeftBehind -= 1;
@@ -816,7 +816,7 @@ function unspawnGem(%gem, %nocheck) {
 			Hunt_CompetitiveAddToTimer($Hunt::Competitive_TimerIncrementOnLeftbehindPickup);
 		}
 	}
-	if ($MPPref::Server::CompetitiveMode && !%gem._leftBehind && $Hunt::Competitive_TimerWaitsForFirstGem && !$Hunt::Competitive_FirstGemOfSpawnCollected && !$Game::FirstSpawn && !%nocheck) {
+	if (isCompetitiveMode() && !%gem._leftBehind && $Hunt::Competitive_TimerWaitsForFirstGem && !$Hunt::Competitive_FirstGemOfSpawnCollected && !$Game::FirstSpawn && !%nocheck) {
 		Hunt_CompetitiveSetTimer($Hunt::Competitive_AutorespawnTime);
 		$Hunt::Competitive_FirstGemOfSpawnCollected = true;
 	}
@@ -824,7 +824,7 @@ function unspawnGem(%gem, %nocheck) {
 	devecho("Unspawn");
 	devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 	devecho($Hunt::CurrentCompetitiveGemsLeftBehind);
-	if ($MPPref::Server::CompetitiveMode && $Game::Running && !%nocheck) {
+	if (isCompetitiveMode() && $Game::Running && !%nocheck) {
 		%remainingPoints = getCurrentSpawnScore() - $Hunt::CurrentCompetitivePointsLeftBehind;
 		%remainingGems = $Hunt::CurrentGemCount - $Hunt::CurrentCompetitiveGemsLeftBehind;
 		if (%remainingGems <= 0) {

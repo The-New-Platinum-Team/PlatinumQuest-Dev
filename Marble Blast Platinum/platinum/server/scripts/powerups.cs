@@ -1425,7 +1425,7 @@ function MegaMarbleItem::onUse(%this, %obj, %user) {
 		}
 	}
 	%timeout = (%obj.timeout > 0 ? %obj.timeout : %this.defaultTimeout);
-	if ($MPPref::Server::CompetitiveMode && mp() && !$Game::isMode["coop"] && $Game::isMode["hunt"]) {
+	if (isCompetitiveMode()) {
 		%timeout = 5000;
 	}
 	cancel(%user.megaSchedule);

@@ -318,11 +318,11 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups || $MPPref::Server::CompetitiveMode) {
+	if (mp() && $MPPref::Server::DoubleSpawnGroups || isCompetitiveMode()) {
 		$MP::ScoreSendingDisabled = true;
 	}
 
-	if (mp() && !$MPPref::Server::CompetitiveMode && !$MPPref::Server::DoubleSpawnGroups) {
+	if (mp() && !isCompetitiveMode() && !$MPPref::Server::DoubleSpawnGroups) {
 		$MP::ScoreSendingDisabled = false;
 	}
 

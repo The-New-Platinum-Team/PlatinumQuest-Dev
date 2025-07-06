@@ -266,7 +266,7 @@ datablock ParticleEmitterData(UltraBlastEmitter) {
 
 function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
 
-	if ($MPPref::Server::CompetitiveMode && !%usingSpecialBlast) {
+	if (isCompetitiveMode() && !%usingSpecialBlast) {
 		return;
 	}
 
