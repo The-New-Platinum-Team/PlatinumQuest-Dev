@@ -41,8 +41,9 @@ function resetModes() {
 function clearModes() {
 	resetModes();
 
-	for (%i = 0; %i < $Server::Modes; %i ++) {
-		%name = $Server::Mode[%i];
+	%modes = $Server::Modes;
+	for (%i = 0; %i < %modes; %i ++) {
+		%name = $Server::Mode[0];
 
 		//Deactivate it
 		deactivateMode(%name);
