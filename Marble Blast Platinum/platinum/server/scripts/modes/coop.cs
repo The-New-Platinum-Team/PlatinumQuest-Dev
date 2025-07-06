@@ -32,6 +32,7 @@ function Mode_coop::onLoad(%this) {
 	%this.registerCallback("shouldRestartOnOOB");
 	%this.registerCallback("getQuickRespawnTimeout");
 	%this.registerCallback("getMaxSpectators");
+	%this.registerCallback("shouldDisableBlastShockwave");
 	%this.registerCallback("getPregameUserRow");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
@@ -86,6 +87,9 @@ function Mode_coop::getQuickRespawnTimeout(%this, %object) {
 function Mode_coop::getMaxSpectators(%this) {
 	//Need at least two players
 	return getRealPlayerCount() - 2;
+}
+function Mode_coop::shouldDisableBlastShockwave(%this) {
+	return true;
 }
 function Mode_coop::getPregameUserRow(%this, %object) {
 	%name = %object.client.getDisplayName();
