@@ -63,22 +63,7 @@ function Mode_coop::shouldResetTime(%this, %object) {
 	return %this.shouldRestartOnOOB(%object);
 }
 function Mode_coop::shouldRestartOnOOB(%this, %object) {
-	//Check if all clients are oob
-	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-		%client = ClientGroup.getObject(%i);
-		if (%client.spectating)
-			continue;
-
-		//Don't check if the respawner went OOB, we know they did
-		if (%client.getId() == %object.client.getId())
-			continue;
-
-		//Don't restart everyone if someone isn't oob
-		if (!%client.isOOB || %client.checkpointed)
-			return false;
-	}
-	//Everyone went oob, so let other modes take care of this
-	return "";
+	return false;
 }
 function Mode_coop::getQuickRespawnTimeout(%this, %object) {
 	//Allow them to respawn instantly
