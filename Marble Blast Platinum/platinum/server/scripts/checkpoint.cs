@@ -272,9 +272,9 @@ function GameConnection::getCheckpointPos(%this,%num,%add) {
 			// Just use the normal spawn trigger code
 			if (%this.quickRespawning)
 				%spawn = %this.getFurthestSpawnTrigger();
-			else if (%this.restarting && $MPPref::Server::CompetitiveMode)
+			else if (%this.restarting && isCompetitiveMode())
 				%spawn = %this.getSharedSpawnTrigger();
-			else if (%this.restarting) // && !$MPPref::Server::CompetitiveMode)
+			else if (%this.restarting) // && !isCompetitiveMode())
 				%spawn = %this.getRandomSpawnTrigger();
 			else
 				%spawn = %this.getSpawnTrigger();

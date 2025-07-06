@@ -204,7 +204,6 @@ function onPostServerVariableSet(%id, %previous, %value) {
 	case "CompetitiveMode":
 		if (%value) {
 			activateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
-			Mode_hunt::respawnTimerLoop();
 			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 				%client = ClientGroup.getObject(%i);
 				%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or fewer gems remain. No quickspawn.");
