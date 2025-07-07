@@ -4346,6 +4346,7 @@ function PlayMissionGui::sendChat(%this) {
 
 	switch$ (%this.chatPanel) {
 	case "global":
+		LBSetChatMessage(" ", PM_ChatEntry);
 		LBSetChatMessage("", PM_ChatEntry);
 		//Don't let them think they can send messages if they're muted (they can't anyway)
 		if ($LB::LoggedIn && $LB::GlobalChatEnabled) {
