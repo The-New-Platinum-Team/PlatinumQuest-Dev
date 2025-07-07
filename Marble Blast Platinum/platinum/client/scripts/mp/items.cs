@@ -181,6 +181,21 @@ function Item::onClientCollision(%this, %marble) {
 	case "MegaMarbleItem" or "MegaMarbleItem_MBU":
 		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
 		alxPlay(PuMegaMarbleVoiceSfx);
+	case "BlastItem" or "BlastItem_MBU":
+		commandToServer('PickupBlast', %this.getSyncId());
+		alxPlay(PuBlastVoiceSfx);
+	case "TeleportItem":
+		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
+		alxPlay(PuTeleportItemVoiceSfx);
+	case "AnvilItem":
+		$MP::MyMarble._setPowerUp(%this.getDatablock(), true, %this);
+		alxPlay(PuAnvilVoiceSfx);
+	case "BubbleItem":
+		commandToServer('PickupBubble', %this.getSyncId());
+		alxPlay(PuBubbleVoiceSfx);
+	case "FireballItem":
+		commandToServer('PickupFireball', %this.getSyncId());
+		alxPlay(PuFireballVoiceSfx);
 	}
 	if ($mvTriggerCount0) {
 		$MP::MyMarble._onPowerUpUsed();
@@ -208,6 +223,8 @@ function ItemData::_getPowerUpId(%this) {
 		return 5;
 	case "MegaMarbleItem" or "MegaMarbleItem_MBU":
 		return 6;
+	case "TeleportItem":
+		return 7;
 	case "AnvilItem":
 		return 8;
 	case "CustomSuperJumpItem_PQ":

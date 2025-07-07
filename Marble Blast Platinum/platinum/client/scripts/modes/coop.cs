@@ -53,16 +53,17 @@ function ClientMode_coop::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_coop::shouldIgnoreItem(%this, %object) {
-	switch$ (%object.this.getDataBlock().getName()) {
+	%name = %object.this.getDataBlock().getName();
+	switch$ (%name) {
 	case  "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or
 			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
-			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
-			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
+			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or
+			"TeleportItem" or "AnvilItem":
 		//PowerUp
 		if (%object.this.respawning) {
 			return true;
@@ -75,19 +76,26 @@ function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 			}
 			return false;
 		}
+	case "BlastItem" or "BlastItem_MBU" or "BubbleItem" or "FireballItem":
+		if (%object.this.respawning) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 function ClientMode_coop::shouldPickupItem(%this, %object) {
-	switch$ (%object.this.getDataBlock().getName()) {
+	%name = %object.this.getDataBlock().getName();
+	switch$ (%name) {
 	case  "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or
 			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
-			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
-			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
+			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or
+			"TeleportItem" or "AnvilItem":
 		//PowerUp
 		if (%object.this.respawning) {
 			return false;
@@ -98,6 +106,12 @@ function ClientMode_coop::shouldPickupItem(%this, %object) {
 				}
 				return true;
 			}
+			return true;
+		}
+	case "BlastItem" or "BlastItem_MBU" or "BubbleItem" or "FireballItem":
+		if (%object.this.respawning) {
+			return false;
+		} else {
 			return true;
 		}
 	}
