@@ -240,6 +240,7 @@ function PlayGui::sendChat(%this) {
 	}
 	PG_LBChatEntry.setValue(" ");
 	PG_LBChatEntry.setValue("");
+	LBSetChatMessage(" ", PG_LBChatEntry);
 	LBSetChatMessage("", PG_LBChatEntry);
 	disableChatHUD();
 }
@@ -349,8 +350,12 @@ function enableChatHUD() {
 	// only lbs
 	if (!$LB::LoggedIn || $LB::username $= "")
 		return;
-	PG_LBChatEntryContainer.setVisible(true);
+	if ($LB::Guest && $chatHudType $= "global") {
+		PG_LBChatEntry.setActive(false);
+		return;
+	}
 
+	PG_LBChatEntryContainer.setVisible(true);
 	if ($Server::ServerType $= "MultiPlayer") {
 		PG_SelectedChatHighlight.setVisible(true);
 		PG_LBExtraMessageHighlight.setVisible(true);
@@ -363,16 +368,19 @@ function enableChatHUD() {
 		PG_LBChatText.setAlpha(1);
 		PG_ServerChatText.setAlpha(0.4);
 		PG_TeamChatText.setAlpha(0.4);
+		PG_LBChatEntry.setActive(true);
 	case "private":
 		%chatType = "Server";
 		PG_LBChatText.setAlpha(0.4);
 		PG_ServerChatText.setAlpha(1);
 		PG_TeamChatText.setAlpha(0.4);
+		PG_LBChatEntry.setActive(true);
 	case "team":
 		%chatType = "Team";
 		PG_LBChatText.setAlpha(0.4);
 		PG_ServerChatText.setAlpha(0.4);
 		PG_TeamChatText.setAlpha(1);
+		PG_LBChatEntry.setActive(true);
 	}
 
 	PG_LBChatEntryText.setText("<bold:24><color:555555>" @ %chatType @ ":");
