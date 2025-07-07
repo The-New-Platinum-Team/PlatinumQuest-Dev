@@ -55,6 +55,7 @@ datablock ItemData(FireballItem) {
 	mass = 1;
 	friction = 1;
 	elasticity = 0.3;
+	coopClient = 1;
 
 	// Dynamic properties defined by the scripts
 	pickupName = "a Fireball PowerUp!";
@@ -93,13 +94,31 @@ function FireballItem::onPickup(%this, %obj, %user, %amount) {
 		return;
 	%user._fireball = %obj;
 
+	if (!Parent::onPickup(%this, %obj, %user, %amount, 1)) {
+		return false;
+	}
+
 	//Don't pick up a fireball with less time
 	if (%user.client.getFireballTime() < %obj.activeTime) {
 		%user.client.fireballInit(%obj.activeTime);
-		return Parent::onPickup(%this, %obj, %user, %amount, 1);
+		return true;
 	}
 	return false;
 	//Fireball::Init(MarbleObject, MarbleObject.fireball);
+}
+
+function serverCmdPickupFireball(%client, %obj) {
+	%powerup = getServerSyncObject(%obj);
+	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
+		if (%client.player._fireballTime !$= "" && %powerup.activeTime < %client.player._fireballTime - (getSimTime() - %client.player._fireballStartTime))
+			return;
+		%client.player._fireball = %powerup;
+
+		//Don't pick up a fireball with less time
+		if (%client.getFireballTime() < %powerup.activeTime) {
+			%client.fireballInit(%powerup.activeTime);
+		}
+	}
 }
 
 //------------------------------------------------

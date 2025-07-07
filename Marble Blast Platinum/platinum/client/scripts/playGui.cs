@@ -920,9 +920,9 @@ package frameAdvance {
 			}
 		}
 
-		if (MPMyMarbleExists() && $mvTriggerCount0 & 1) {
-			$MP::MyMarble._mouseFire();
-		}
+		// if (MPMyMarbleExists() && $mvTriggerCount0 & 1) {
+		// 	$MP::MyMarble._mouseFire();
+		// }
 
 		playbackStep();
 

@@ -1332,6 +1332,14 @@ function BlastItem::onPickup(%this, %obj, %user, %amount) {
 	return true;
 }
 
+function serverCmdPickupBlast(%client, %obj) {
+	%powerup = getServerSyncObject(%obj);
+	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
+		%client.setBlastValue(1);
+		%client.setSpecialBlast(true);
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(doMegaMarbleSfx) {
@@ -1456,6 +1464,13 @@ function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 	}
 }
 
+function serverCmdMegaMarbleUse(%client, %obj) {
+	%powerup = getServerSyncObject(%obj);
+	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
+		MegaMarbleItem.onUse(%powerup, %client.player);
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(PuTeleportItemVoiceSfx) {
@@ -1494,6 +1509,7 @@ datablock ItemData(TeleportItem) {
 	maxInventory = 1;
 	emap = false;
 	radar = 1;
+	coopClient = 1;
 
 	customField[0, "field"  ] = "showHelpOnPickup";
 	customField[0, "type"   ] = "boolean";
@@ -1620,6 +1636,13 @@ function TeleportItem::setLocation(%this, %obj, %user) {
 	%user.teleporterFireNum = %user.client.fireNum;
 }
 
+function serverCmdTeleportUse(%client, %obj) {
+	%powerup = getServerSyncObject(%obj);
+	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
+		TeleportItem.onUse(%powerup, %client.player);
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(PuAnvilVoiceSfx) {
@@ -1657,6 +1680,7 @@ datablock ItemData(AnvilItem) {
 	maxInventory = 1;
 	emap = false;
 	radar = 1;
+	coopClient = 1;
 
 	client = true;
 
@@ -1728,6 +1752,7 @@ datablock ItemData(BubbleItem) {
 	useName = "Bubble PowerUp";
 	maxInventory = 1;
 	radar = 1;
+	coopClient = 1;
 
 	fxEmitter[0] = "ItemBubbleEmitter";
 
@@ -1791,6 +1816,23 @@ function serverCmdBubbleTime(%client, %time) {
 	//Just take their word for it, as long as they don't *increase* their time
 	if (%client.bubbleTime > %time) {
 		%client.bubbleTime = %time;
+	}
+}
+
+function serverCmdPickupBubble(%client, %obj) {
+	%powerup = getServerSyncObject(%obj);
+	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
+		if (%client.bubbleInfinite)
+			return false; //already have infinite, no sense to pick up another one
+
+		//Can't bubble with fireball
+		if (%client._fireballActive) {
+			%client.play2d(bubbleSnuffSfx);
+			//%powerup.respawn();
+			return false;
+		}
+
+		%client.setBubbleTime(%powerup.time, %powerup.infinite);
 	}
 }
 
