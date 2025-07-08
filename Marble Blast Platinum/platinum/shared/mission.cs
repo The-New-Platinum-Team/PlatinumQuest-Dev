@@ -570,6 +570,8 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 
 	//Multiplayer modes
 	if ($Server::ServerType $= "MultiPlayer") {
+		if ($CurrentGame $= "Marbleland" && $MissionType $= "Co-op")
+			%modes = %modes SPC "coop";
 		if ($MP::Server::SpookyGhosts && $MP::CurrentModeInfo.identifier $= "spooky")
 			%modes = %modes SPC "ghosts";
 		if ($MP::Server::SnowballsOnly && $MP::CurrentModeInfo.identifier $= "snowball")

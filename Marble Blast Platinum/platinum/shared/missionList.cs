@@ -1131,7 +1131,7 @@ function MarblelandMissionList::getDifficultyList(%this, %game) {
 		       "King\tKing" NL
 		       "Mega\tMega" NL
 		       "Race\tRace" NL
-		       "Uncategorized\tUncategorized";
+		       "Co-op\tCo-op";
 	}
 
 	switch$ (%game) {
@@ -1222,7 +1222,7 @@ function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 			return true;
 		case "Race":
 			return true;
-		case "Uncategorized":
+		case "Co-op":
 			return true;
 		default:
 			return false;
@@ -1280,9 +1280,10 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 			%mis = marblelandGetMission(%mis); // MarblelandPackages has an id
 		}
 
-		if (%game $= "Marbleland" && %mis.gameType !$= "multi") {
-			continue; // This is for MP
-		}
+
+		// if (%game $= "Marbleland" && %mis.gameType !$= "multi") {
+		// 	continue; // This is for MP
+		// }
 
 		if (%mis.class $= "Array") {
 			continue;
@@ -1305,7 +1306,7 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 				continue;
 			if (%isRace && %difficulty !$= "Race")
 				continue;
-			if (!(%isCollection || %isHunt || %isKing || %isMega || %isRace) && %difficulty !$= "Uncategorized")
+			if (!(%isCollection || %isHunt || %isKing || %isMega || %isRace) && %difficulty !$= "Co-op")
 				continue;
 		}
 
