@@ -418,6 +418,22 @@ function SMD_checkSuccess(%id) {
 	}
 }
 
+function serverCmdSwapMPMarblelandMissionList(%client, %marbleland) {
+	$CurrentGame = %marbleland ? "Marbleland" : "Hunt";
+	if (%client.isHost()) {
+		commandToAll('SwapMissionListMP', %marbleland);
+	}
+}
+
+function serverCmdSetMPMarblelandMission(%client, %type, %file) {
+	$MissionType = %type;
+	$MP::MissionFile = %file;
+	$MP::MissionObj = marblelandGetMission(marblelandGetFileId(%file));
+	if (%client.isHost()) {
+		commandToAllExcept(%client, 'SetMPMarblelandMission', %type, $MP::MissionFile);
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Player list
 //-----------------------------------------------------------------------------
@@ -1086,10 +1102,11 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 		traceGuardEnd();
 	}
 	commandToClient(%client, 'MissionListEnd', %gameName, %difficultyName);
-
-	if ($MissionType $= "Marbleland" && $CurrentGame $= "Marbleland") {
+	
+	if ($CurrentGame $= "Marbleland") {
 		// Swap pls
-		commandToClient(%client, 'SwapMissionListMP');
+		commandToClient(%client, 'SwapMissionListMP', true);
+		commandToClient(%client, 'SetMPMarblelandMission', $MissionType, $MP::MissionFile);
 	}
 
 	if ($MissionType $= "Custom" && !%client.isHost()) {

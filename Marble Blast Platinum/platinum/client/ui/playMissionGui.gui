@@ -1765,7 +1765,7 @@ function PlayMissionGui::checkEnableStatsButton(%this) {
 }
 
 function PlayMissionGui::setGame(%this, %game) {
-	if (mp() && $Client::Loaded) {
+	if (mp() && $Server::Hosting && $Client::Loaded) {
 		MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\');", "");
 		return;
 	}
@@ -1833,7 +1833,7 @@ function PlayMissionGui::setGame(%this, %game) {
 }
 
 function PlayMissionGui::setMissionType(%this, %type) {
-	if (mp() && $Client::Loaded) {
+	if (mp() && $Server::Hosting && $Client::Loaded) {
 		MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\');", "");
 		return;
 	}
@@ -1941,7 +1941,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 		$MP::MissionFile = %info.file;
 		if ($CurrentGame $= "Marbleland") {
 			// Set marbleland mission
-			commandToAll('SetMPMarblelandMission', $MissionType, %idx);
+			commandToServer('SetMPMarblelandMission', $MissionType, %info.file);
 		} else {
 			commandToServer('SetMission', %info.file, $CurrentGame, $MissionType, %this.ml.getGameMode($CurrentGame));
 		}
@@ -4851,26 +4851,27 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 	%this.updateCurrentMission();
 }
 
-function clientCmdSwapMissionListMP() {
-	PlayMissionGui.swapMissionListMP();
+function clientCmdSwapMissionListMP(%marbleland) {
+	PlayMissionGui.swapMissionListMP(%marbleland);
 }
 
-function clientCmdSetMPMarblelandMission(%gameType, %idx) {
+function clientCmdSetMPMarblelandMission(%gameType, %file) {
 	if (mp() && !($Server::Hosting && !$Server::_Dedicated)) {
-		if ($MissionType !$= %gameType)
-			PlayMissionGui.setMissionType(%gameType);
-		PlayMissionGui.setMissionByIndex(%idx);
+		PlayMissionGui.setSelectedMission(marblelandGetMission(marblelandGetFileId(%file)), "Marbleland", %gameType);
 	}
 }
 
 function PlayMissionGui::doSwapMissionListMP(%this) {
 	if (mp() && $Server::Hosting) {
-		// Command this to client too
-		commandToAll('SwapMissionListMP');
+		if ($Client::Loaded) {
+			MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\'); commandToServer(\'SwapMPMarblelandMissionList\');", "");
+			return;
+		}
+		commandToServer('SwapMPMarblelandMissionList', $CurrentGame !$= "Marbleland");
 	}
 }
 
-function PlayMissionGui::swapMissionListMP(%this) {
+function PlayMissionGui::swapMissionListMP(%this, %marbleland) {
 	// Swaps the current MP mission list with the appropriate marbleland mission list
 	if (mp()) {
 		if ($Server::Hosting && !$Server::_Dedicated) {
@@ -4880,14 +4881,13 @@ function PlayMissionGui::swapMissionListMP(%this) {
 		}
 
 		%marblelandList = getMissionList("marbleland");
-		if (%this.ml == %mpList) {
+		if (%marbleland) {
 			%this.ml = %marblelandList;
+			%game = getField(getRecord(%this.getGameList(), 0), 0);
 		} else {
 			%this.ml = %mpList;
+			%game = "Hunt";
 		}
-
-		//Can't find the game? Use a default
-		%game = getField(getRecord(%this.getGameList(), 0), 0);
 		%this.setGame(%game);
 
 		//Check if we have the selected difficulty in the list for our game
@@ -4906,6 +4906,7 @@ function PlayMissionGui::swapMissionListMP(%this) {
 		%this.buildGameList();
 
 		PlayMissionGui.setGame(%game);
+		PlayMissionGui.setMissionByIndex(0);
 		PlayMissionGui.showMissionList();
 	}
 }
