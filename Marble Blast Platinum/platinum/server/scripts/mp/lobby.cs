@@ -419,17 +419,17 @@ function SMD_checkSuccess(%id) {
 }
 
 function serverCmdSwapMPMarblelandMissionList(%client, %marbleland) {
-	$CurrentGame = %marbleland ? "Marbleland" : "Hunt";
 	if (%client.isHost()) {
+		$CurrentGame = %marbleland ? "Marbleland" : "Hunt";
 		commandToAll('SwapMissionListMP', %marbleland);
 	}
 }
 
 function serverCmdSetMPMarblelandMission(%client, %type, %file) {
-	$MissionType = %type;
-	$MP::MissionFile = %file;
-	$MP::MissionObj = marblelandGetMission(marblelandGetFileId(%file));
 	if (%client.isHost()) {
+		$MissionType = %type;
+		$MP::MissionFile = %file;
+		$MP::MissionObj = marblelandGetMission(marblelandGetFileId(%file));
 		commandToAllExcept(%client, 'SetMPMarblelandMission', %type, $MP::MissionFile);
 	}
 }

@@ -4864,7 +4864,7 @@ function clientCmdSetMPMarblelandMission(%gameType, %file) {
 function PlayMissionGui::doSwapMissionListMP(%this) {
 	if (mp() && $Server::Hosting) {
 		if ($Client::Loaded) {
-			MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\'); commandToServer(\'SwapMPMarblelandMissionList\');", "");
+			MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\'); commandToServer(\'SwapMPMarblelandMissionList\' $CurrentGame !$= \"Marbleland\");", "");
 			return;
 		}
 		commandToServer('SwapMPMarblelandMissionList', $CurrentGame !$= "Marbleland");
