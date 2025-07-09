@@ -494,7 +494,7 @@ function URLEncode(%rawString) {
 	// Encode strings to be HTTP safe for URL use
 
 	// Table of characters that are valid in an HTTP URL
-	%validChars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:/.?=_-$(){}~&";
+	%validChars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_~.";
 
 
 	// If the string we are encoding has text... start encoding
