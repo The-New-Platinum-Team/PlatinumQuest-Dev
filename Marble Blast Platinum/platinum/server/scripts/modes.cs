@@ -195,6 +195,9 @@ function loadGameModes() {
 		} else if (fileExt(%file) $= ".cs" && !isFile(%file @ ".dso")) {
 			%name = fileBase(%file);
 		}
+		if (%name $= "") {
+			continue;
+		}
 		loadMode(%name);
 	}
 }
