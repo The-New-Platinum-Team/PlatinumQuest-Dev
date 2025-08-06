@@ -1530,8 +1530,8 @@ function PlayMissionGui::onSleep(%this) {
 //-----------------------------------------------------------------------------
 // Dropdowns
 
-function PlayMissionGui::buildGameList(%this, %season) {
-	switch$(%season) {
+function PlayMissionGui::buildGameList(%this) {
+	switch$(%this.currentHoliday) {
 	case "Frightfest":
 		%nonseason1 = "Hunt";
 		%nonseason2 = "Winterfest";
@@ -4941,7 +4941,7 @@ function PlayMissionGui::disableFrightfest(%this) {
 function PlayMissionGui::activateFrightfest(%this) {
 	%this.enableFrightfest();
 	%this.currentHoliday = "Frightfest";
-	%this.buildGameList("Frightfest");
+	%this.buildGameList();
 	if (%this.winterfest)
 		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
 	else
@@ -4973,7 +4973,7 @@ function PlayMissionGui::disableWinterfest(%this) {
 function PlayMissionGui::activateWinterfest(%this) {
 	%this.enableWinterfest();
 	%this.currentHoliday = "Winterfest";
-	%this.buildGameList("Winterfest");
+	%this.buildGameList();
 	PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
 	%this.setGame("Winterfest"); //Immediately switch game to Winterfest to give feedback on button press
 	%this.showMissionList();     //Refresh mission list in case the current game was already Hunt
@@ -4981,7 +4981,7 @@ function PlayMissionGui::activateWinterfest(%this) {
 
 function PlayMissionGui::deactivateHolidays(%this) {
 	%this.currentHoliday = "Hunt";
-	%this.buildGameList("Hunt");
+	%this.buildGameList();
 	if      (%this.frightfest)
 		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
 	else if (%this.winterfest)
