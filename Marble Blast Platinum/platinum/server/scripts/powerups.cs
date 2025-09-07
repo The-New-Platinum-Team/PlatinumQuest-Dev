@@ -1417,28 +1417,34 @@ function MegaMarbleItem_MBU::onUnuse(%this,%obj,%user,%amount) {
 }
 
 function MegaMarbleItem::onUse(%this, %obj, %user) {
-	if (!%user.client.isMegaMarble()) {
-		if (%user.isFrozen) {
-			%user.iceShard.getDataBlock().unFreeze(%user.iceShard, %user, true);
-			return true;
-		}
-		%user.client.setMegaMarble(true);
-		%ray = ContainerRayCast(%user.getPosition(), VectorSub(%user.getPosition(), VectorMult("-1 -1 -1", getWords(%user.getGravityDir(), 6, 8))), $TypeMasks::InteriorObjectType, %user);
-		if (isObject(getWord(%ray, 0)))
-			%user.client.schedule(10, gravityImpulse, "0 0 -1", "6 6 6");
-
-		if (%user.powerupActive[HelicopterItem.powerUpId]) {
-			%user.client.unmountPlayerImage(HelicopterItem.imageSlot);
-			%user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
-		}
-	}
 	%timeout = (%obj.timeout > 0 ? %obj.timeout : %this.defaultTimeout);
 	if (isCompetitiveMode()) {
 		%timeout = 5000;
 	}
-	cancel(%user.megaSchedule);
-	%user.megaSchedule = %this.schedule(%timeout, "onUnuse", %obj, %user);
-	commandToClient(%user.client, 'PushTimer', 6, getSimTime(), %timeout);
+	if (%timeout > %user._MMTimeout - (getSimTime() - %user._MMStartTime)) {
+		if (!%user.client.isMegaMarble()) {
+			if (%user.isFrozen) {
+				%user.iceShard.getDataBlock().unFreeze(%user.iceShard, %user, true);
+				return true;
+			}
+			%user.client.setMegaMarble(true);
+			%ray = ContainerRayCast(%user.getPosition(), VectorSub(%user.getPosition(), VectorMult("-1 -1 -1", getWords(%user.getGravityDir(), 6, 8))), $TypeMasks::InteriorObjectType, %user);
+			if (isObject(getWord(%ray, 0)))
+				%user.client.schedule(10, gravityImpulse, "0 0 -1", "6 6 6");
+
+			if (%user.powerupActive[HelicopterItem.powerUpId]) {
+				%user.client.unmountPlayerImage(HelicopterItem.imageSlot);
+				%user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
+			}
+		}
+		cancel(%user.megaSchedule);
+		%user.megaSchedule = %this.schedule(%timeout, "onUnuse", %obj, %user);
+		commandToClient(%user.client, 'PushTimer', 6, getSimTime(), %timeout);
+		%user._MMStartTime = getSimTime();
+		%user._MMTimeout = %timeout;
+	} else {
+		serverPlay3D(DoMegaMarbleSfx, %user.getPosition());
+	}
 
 	return Parent::onUse(%this, %obj, %user);
 }

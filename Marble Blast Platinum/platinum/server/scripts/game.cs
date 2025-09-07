@@ -1402,6 +1402,8 @@ function GameConnection::clearAllPowerups(%this) {
 
 	// Cancel checkpoint PU
 	cancel(%this.checkpointPowerupSchedule);
+
+	%this.player._MMTimeout = 0;
 }
 
 //-----------------------------------------------------------------------------
