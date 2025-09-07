@@ -981,10 +981,10 @@ function formatTimeHours(%time) {
 }
 
 function formatTimeHoursMs(%time) {
-	%hours = mFloor(mFloor(%time / 1000) / 3600);
-	%minutes = mFloor(mFloor(%time / 1000) / 60) - (%hours * 60) - (%days * 1440);
-	%seconds = mFloor(%time / 1000) - (%minutes * 60) - (%hours * 3600) - (%days * 86400);
-	%hundredth = mFloor((%time % 1000) / 10);
+	%hours = div64_int(%time, 3600000);
+	%minutes = div64_int(mod64_int(%time, 3600000), 60000);
+	%seconds = div64_int(mod64_int(%time, 60000), 1000);
+	%thousandths = mod64_int(%time, 1000);
 
 	%secondsOne   = %seconds % 10;
 	%secondsTen   = mFloor(%seconds / 10);
@@ -992,20 +992,18 @@ function formatTimeHoursMs(%time) {
 	%minutesTen   = mFloor(%minutes / 10);
 	%hoursOne	  = %hours % 10;
 	%hoursTen     = mFloor(%hours / 10);
-	%hundredthOne = %hundredth % 10;
-	%hundredthTen = (%hundredth - %hundredthOne) / 10;
+	%thousandthsOne = %thousandths % 10;
+	%thousandthsTen = mFloor((%thousandths % 100) / 10);
+	%thousandthsHun = mFloor(%thousandths / 100);
 
-	if ($pref::Thousandths) {
-		return (%hours > 0 ? (%hoursTen > 0 ? %hoursTen : "") @ %hoursOne @ ":" : "") @
-		       %minutesTen @ %minutesOne @ ":" @
-		       %secondsTen @ %secondsOne @ "." @
-		       %hundredthTen @ %hundredthOne @(%time % 10);
-	} else {
-		return (%hours > 0 ? (%hoursTen > 0 ? %hoursTen : "") @ %hoursOne @ ":" : "") @
-		       %minutesTen @ %minutesOne @ ":" @
-		       %secondsTen @ %secondsOne @ "." @
-		       %hundredthTen @ %hundredthOne;
-	}
+	%result = (%hours > 0 ? (%hoursTen > 0 ? %hoursTen : "") @ %hoursOne @ ":" : "") @
+	          %minutesTen @ %minutesOne @ ":" @
+	          %secondsTen @ %secondsOne @ "." @
+	          %thousandthsHun @ %thousandthsTen;
+	if ($pref::Thousandths)
+		%result = %result @ %thousandthsOne;
+
+	return %result;
 }
 
 function formatTimeDays(%time) {
