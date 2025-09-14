@@ -501,7 +501,14 @@ function Radar::AddDot(%object, %bitmap) {
 				}
 			} else if (%class $= "Item") {
 				if (stripos(%name, "GemItem") != -1) {
-					%bitmap = $userMods @ "/client/ui/mp/radar/GemItem" @ %skin @ ".png";
+					if (stripos(%name, "Gift") != -1)
+					{
+						%bitmap = $userMods @ "/client/ui/mp/radar/GiftGemItem" @ %skin @ ".png";
+					}
+					else
+					{
+						%bitmap = $userMods @ "/client/ui/mp/radar/GemItem" @ %skin @ ".png";
+					}
 				} else if (stripos(%name, "CandyItem") == -1) {
 					%skin = "none";
 				}

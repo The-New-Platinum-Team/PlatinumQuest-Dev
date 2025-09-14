@@ -1067,3 +1067,50 @@ datablock StaticShapeData(TheGameBox) {
 	category = "Xmas";
 	renderDistance = "20";
 };
+
+//-----------------------------------------------------------------------------
+
+datablock ItemData(GiftGemItem : GemItem) {
+	shapeFile = "platinum/data/shapes/Xmas/giftbox/Giftbox.dts";
+	category = "Xmas";
+	pickupName = "a gift!";
+};
+
+datablock ItemData(GiftGemItemRed : GemItemRed) {
+	shapeFile = "platinum/data/shapes/Xmas/giftbox/Giftbox.dts";
+	category = "Xmas";
+	pickupName = "a gift!";
+	skin = "red";
+};
+
+datablock ItemData(GiftGemItemYellow : GemItemYellow) {
+	shapeFile = "platinum/data/shapes/Xmas/giftbox/Giftbox.dts";
+	category = "Xmas";
+	pickupName = "a gift!";
+	skin = "yellow";
+};
+
+datablock ItemData(GiftGemItemBlue : GemItemBlue) {
+	shapeFile = "platinum/data/shapes/Xmas/giftbox/Giftbox.dts";
+	category = "Xmas";
+	pickupName = "a gift!";
+	skin = "blue";
+};
+
+function GiftGemItem::onAdd(%this, %obj) {
+	Gem::onAdd(%this, %obj);
+	%obj._huntDatablock = %this.getName();
+}
+function GiftGemItemRed::onAdd(%this, %obj) {
+	Gem::onAdd(%this, %obj);
+	%obj._huntDatablock = %this.getName();
+}
+function GiftGemItemYellow::onAdd(%this, %obj) {
+	Gem::onAdd(%this, %obj);
+	%obj._huntDatablock = %this.getName();
+}
+function GiftGemItemBlue::onAdd(%this, %obj) {
+	Gem::onAdd(%this, %obj);
+	%obj._huntDatablock = %this.getName();
+}
+
