@@ -508,6 +508,9 @@ function EditorDoLoadMission(%file) {
 
 	loadMission(%file, true) ;
 
+	if (!$MissionRunning)
+		return; // Mission failed to load, don't load the editor
+
 	// recreate and open the editor
 	Editor::create();
 	MissionCleanup.add(Editor);
