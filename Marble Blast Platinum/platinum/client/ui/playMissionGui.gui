@@ -3143,21 +3143,22 @@ function PMMenu_FinishQueue(%queue) {
 }
 
 function PlayMissionGui::updatePlayBitmap(%this) {
-	if (RtaSpeedrun.shouldStartRun) {
-		if (RtaSpeedrun.endMission $= "") {
-			%rtaBitmap = "platinum/client/ui/play/buttons/rtaFinale.png";
-			%rtaColor  = "255 128 128";
-		} else {
-			%rtaBitmap = "platinum/client/ui/play/buttons/rtaStart.png";
-			%rtaColor  = "128 255 128";
-		}
-		PM_MissionPlay.bitmap       = %rtaBitmap;
-		PM_MissionPlay.bitmapColor  = %rtaColor;
+	if (PlayMissionGui.shouldPlaySetRtaFinale()) {
+		PM_MissionPlay.bitmap      = "platinum/client/ui/play/buttons/rtaFinale.png";
+		PM_MissionPlay.bitmapColor = "255 128 128";
+	} else if (RtaSpeedrun.shouldStartRun) {
+		PM_MissionPlay.bitmap      = "platinum/client/ui/play/buttons/rtaStart.png";
+		PM_MissionPlay.bitmapColor = "128 255 128";
 	} else {
-		PM_MissionPlay.bitmap       = PM_MissionPlay.originalBitmap;
-		PM_MissionPlay.bitmapColor  = PM_MissionPlay.originalBitmapColor;
+		PM_MissionPlay.bitmap      = PM_MissionPlay.originalBitmap;
+		PM_MissionPlay.bitmapColor = PM_MissionPlay.originalBitmapColor;
 	}
 	PM_MissionPlay.bitmapOffset = PM_MissionPlay.originalBitmapOffset;
+}
+
+//This is actually needed in a few places, unless we want to hardcode the bitmap for the Set Finale button in multiple places
+function PlayMissionGui::shouldPlaySetRtaFinale(%this){
+	return (RtaSpeedrun.shouldStartRun || RtaSpeedrun.isEnabled) && (RtaSpeedrun.endMission $= "");
 }
 
 function PlayMissionGui::onMissionLoaded(%this) {
@@ -3209,7 +3210,7 @@ function PlayMissionGui::play(%this) {
 				commandToServer('LoadMission', %this.getMissionInfo().file);
 			}
 		}
-	} else if (RtaSpeedrun.shouldStartRun && (RtaSpeedrun.endMission $= "")) {
+	} else if (PlayMissionGui.shouldPlaySetRtaFinale()) {
 		RtaSpeedrun.setEnd();
 	} else {
 		//Thanks, controller support
