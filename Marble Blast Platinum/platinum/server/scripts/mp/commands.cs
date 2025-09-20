@@ -84,7 +84,7 @@ function serverCmdMouseFire(%client, %mousefire) {
 
 // for the respond key
 function serverCmdQuickRespawn(%client) {
-	if (!$Game::Finished && $MPPref::AllowQuickRespawn && (!$MPPref::Server::CompetitiveMode || !$Game::isMode["hunt"])) {
+	if (!$Game::Finished && $MPPref::AllowQuickRespawn && !isCompetitiveMode()) {
 		if (%client.canQuickRespawn) {
 			%client.quickRespawnPlayer();
 			%client.setQuickRespawnStatus(false);

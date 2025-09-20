@@ -30,11 +30,11 @@ new GuiControl(StatisticsDlg) {
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		_guiSize = "800 600";
-		defaultControl = "StatsClose";
-		commandSelect = "RootGui.popDialog(StatisticsDlg); PlayMissionGui.showBody();";
-		commandCancel = "RootGui.popDialog(StatisticsDlg); PlayMissionGui.showBody();";
-		commandNameSelect = "Close";
+	_guiSize = "800 600";
+	defaultControl = "StatsClose";
+	commandSelect = "RootGui.popDialog(StatisticsDlg); PlayMissionGui.showBody();";
+	commandCancel = "RootGui.popDialog(StatisticsDlg); PlayMissionGui.showBody();";
+	commandNameSelect = "Close";
 
 	new GuiControl(StatsBody) {
 		profile = "PQWindowProfile";
@@ -45,7 +45,7 @@ new GuiControl(StatisticsDlg) {
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
-			wrap = "0";
+		wrap = "0";
 
 		new GuiBorderButtonCtrl(StatsClose) {
 			profile = "PQButtonProfile";
@@ -76,7 +76,7 @@ new GuiControl(StatisticsDlg) {
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-				defaultText = "<bold:28><just:center>Statistics";
+			defaultText = "<bold:28><just:center>Statistics";
 		};
 		new GuiMLTextCtrl(StatsBodyTextLeft) {
 			profile = "GuiMLTextProfile";
@@ -243,8 +243,8 @@ function StatisticsDlg::display(%this) {
 	} else {
 		if ($CurrentGame !$= "Leaderboards")
 			%left = %left NL
-					%l @ %big @ " " NL
-					%r @ %small @ " ";
+			        %l @ %big @ " " NL
+			        %r @ %small @ " ";
 		else
 			%left = %left;
 	}
@@ -329,18 +329,18 @@ function StatisticsDlg::display(%this) {
 		         %l @ %big @ "Ultimate Times:" @ %r @ %small @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")";
 		if ($pref::ShowAwesomeHints) {
 			%right = %right NL
-		         %l @ %big @ "Awesome Times:"  @ %r @ %small @ %comp["Awesome"]   @ "/" @ %total["Grand"]     @ " (" @ %perc["Awesome"]   @ ")";
+			         %l @ %big @ "Awesome Times:"  @ %r @ %small @ %comp["Awesome"]   @ "/" @ %total["Grand"]     @ " (" @ %perc["Awesome"]   @ ")";
 		}
 		%right = %right NL
 		         %l @ %big @ "Nest Eggs:"      @ %r @ %small @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")";
 
 	case "Leaderboards":
 		%right = %right NL
-				 %l @ %big @ "Platinum Times:" @ %r @ %small @ %comp["Platinum"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Platinum"]  @ ")" NL
-				 %l @ %big @ "Ultimate Times:" @ %r @ %small @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")";
+		         %l @ %big @ "Platinum Times:" @ %r @ %small @ %comp["Platinum"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Platinum"]  @ ")" NL
+		         %l @ %big @ "Ultimate Times:" @ %r @ %small @ %comp["Ultimate"]  @ "/" @ %total["Grand"]     @ " (" @ %perc["Ultimate"]  @ ")";
 		if ($pref::ShowAwesomeHints) {
 			%right = %right NL
-		         %l @ %big @ "Awesome Times:"  @ %r @ %small @ %comp["Awesome"]   @ "/" @ %total["Grand"]     @ " (" @ %perc["Awesome"]   @ ")";
+			         %l @ %big @ "Awesome Times:"  @ %r @ %small @ %comp["Awesome"]   @ "/" @ %total["Grand"]     @ " (" @ %perc["Awesome"]   @ ")";
 		}
 		%right = %right NL
 		         %l @ %big @ "Easter Eggs:"      @ %r @ %small @ %comp["EasterEgg"] @ "/" @ %total["EasterEgg"] @ " (" @ %perc["EasterEgg"] @ ")";

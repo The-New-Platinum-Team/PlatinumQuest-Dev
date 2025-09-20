@@ -41,14 +41,16 @@ datablock AudioProfile(BumperFlat) {
 };
 
 function Bumper::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	%obj.stopThread(0);
 
 	// PQ's triangle bumper has a different animation.
 	if (%this.pqTriangle)
 		%obj.playThread(0, "anim0");
 	else
-		%obj.playThread(0,"push");
+		// For some reason, the other bumpers seemingly work just fine, but this one needs this weird fix to work... ~ Connie
+		%obj.schedule(1, playThread, 0, "push");
 
 	%obj.playAudio(0, %this.sound);
 }
@@ -88,25 +90,22 @@ datablock StaticShapeData(RoundBumper_PQ : RoundBumper) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/bumpers/roundbumper.dts";
 };
 
-datablock StaticShapeData(RoundBumper_MBU)
-{
-   superCategory = "Hazards";
-   category = "Marble_Blast_Ultra/Mobile";	
-   shapeFile = "~/data/shapes_mbu/bumpers/pball_round.dts";
-   scopeAlways = true;
-   sound = BumperDing;
+datablock StaticShapeData(RoundBumper_MBU) {
+	superCategory = "Hazards";
+	category = "Marble_Blast_Ultra/Mobile";
+	shapeFile = "~/data/shapes_mbu/bumpers/pball_round.dts";
+	scopeAlways = true;
+	sound = BumperDing;
 };
 
-function RoundBumper_MBU::onAdd( %this, %obj )
-{
-   %obj.playThread( 0, "idle" );
+function RoundBumper_MBU::onAdd( %this, %obj ) {
+	%obj.playThread( 0, "idle" );
 }
 
-function RoundBumper_Original::onAdd( %this, %obj )
-{
-   if ($pref::spchanges && %obj.isTemperable $= "1")
-	%obj.setDataBlock("RoundBumper_MBU");
-    %obj.playThread( 0, "idle" );
+function RoundBumper_Original::onAdd( %this, %obj ) {
+	if ($pref::spchanges && %obj.isTemperable $= "1")
+		%obj.setDataBlock("RoundBumper_MBU");
+	%obj.playThread( 0, "idle" );
 }
 
 // function RoundBumper_MBU::onEndSequence( %this, %obj, %slot )
@@ -116,22 +115,21 @@ function RoundBumper_Original::onAdd( %this, %obj )
 //    %obj.playThread( 0, "idle" );
 // }
 
-function RoundBumper_MBU::onCollision( %this, %obj, %col ,%vec, %vecLen, %material )
-{
-   // Currently activates when any object hits it.
-   //if( %material $= "BumperMaterial" ) 
-   //{
-      %obj.stopThread( 0 );
-      %obj.playThread( 0, "activate" );
-      %obj.playAudio( 0, %this.sound );
-   	//   %obj.playThread( 0, "idle" );
-	  %obj.idleSch = %obj.schedule(200, playThread, 0, "idle");
-   //}
+function RoundBumper_MBU::onCollision( %this, %obj, %col,%vec, %vecLen, %material ) {
+	// Currently activates when any object hits it.
+	//if( %material $= "BumperMaterial" )
+	//{
+	%obj.stopThread( 0 );
+	%obj.playThread( 0, "activate" );
+	%obj.playAudio( 0, %this.sound );
+	//   %obj.playThread( 0, "idle" );
+	%obj.idleSch = %obj.schedule(200, playThread, 0, "idle");
+	//}
 }
 
 
 if (!$pref::LegacyItems) {
-		datablock StaticShapeData(RoundBumper_Original) {
+	datablock StaticShapeData(RoundBumper_Original) {
 		superCategory = "Hazards";
 		category = "Marble_Blast_Ultra/Mobile";
 		className = "Bumper";
@@ -140,9 +138,9 @@ if (!$pref::LegacyItems) {
 		sound = BumperDing;
 	};
 } else {
-		datablock StaticShapeData(RoundBumper_Original) {
+	datablock StaticShapeData(RoundBumper_Original) {
 		superCategory = "Hazards";
-		category = "Marble_Blast_Ultra/Mobile";	
+		category = "Marble_Blast_Ultra/Mobile";
 		shapeFile = "~/data/shapes/bumpers/pball_round.dts";
 		scopeAlways = true;
 		sound = BumperDing;

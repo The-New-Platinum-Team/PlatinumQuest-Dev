@@ -167,9 +167,9 @@ function getMissionInfo(%file, %partial) {
 
 								//Check if it's a basic quoted string
 								%basic =
-									(getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
-									(getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
-									(stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
+								    (getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
+								    (getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
+								    (stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
 
 								if (%basic) {
 									//Quotes
@@ -246,9 +246,9 @@ function getMissionInfo(%file, %partial) {
 
 									//Check if it's a basic quoted string
 									%basic =
-										(getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
-										(getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
-										(stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
+									    (getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
+									    (getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
+									    (stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
 
 									if (%basic) {
 										//Quotes
@@ -350,18 +350,18 @@ function checkForMaliciousCode(%file) {
 		return 0;
 	}
 
-    if (isFile(%file)) {
-        %fo = new FileObject();
-        if (%fo.openForRead(%file)) {
-            %returnval = 0;
+	if (isFile(%file)) {
+		%fo = new FileObject();
+		if (%fo.openForRead(%file)) {
+			%returnval = 0;
 
-            while (!%fo.isEOF()) {
-                %line = %fo.readLine();
+			while (!%fo.isEOF()) {
+				%line = %fo.readLine();
 
 				//Entirely skip empty lines. ~Connie
-                if (%line $= "") {
-                    continue;
-                }
+				if (%line $= "") {
+					continue;
+				}
 
 				//Once it detects the first part of the mission which is not outside of the main Mission Group, it will skip everything until it gets to the end.
 				//This is done to prevent any possible false positives in help texts, descriptions, start help texts, etc. ~Connie
@@ -376,10 +376,10 @@ function checkForMaliciousCode(%file) {
 				}
 
 				//Forbidden words. ~Connie
-                %keywords = "exec( eval( dump( call( tree( winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
+				%keywords = "exec( eval( dump( call( tree( winconsole dbgsetparameters telnetsetparameters deletefile movefile deletevariables";
 
-                for (%i = 0; %i < getWordCount(%keywords); %i++) {
-                    %keyword = getWord(%keywords, %i);
+				for (%i = 0; %i < getWordCount(%keywords); %i++) {
+					%keyword = getWord(%keywords, %i);
 					%charbeforekeyword = strlwr(getSubStr(%line, strstr(strlwr(%line), %keyword) - 1, 1));
 
 					if (%charbeforekeyword $= "") {
@@ -397,7 +397,7 @@ function checkForMaliciousCode(%file) {
 						}
 
 						continue;
-                    }
+					}
 
 					//Second Check
 					%reworkedkeyword = stripChars(%keyword, "(");
@@ -420,15 +420,15 @@ function checkForMaliciousCode(%file) {
 
 						continue;
 					}
-                }
-            }
+				}
+			}
 
-            %fo.close();
-        }
+			%fo.close();
+		}
 
-        %fo.delete();
-        return %returnval;
-    }
+		%fo.delete();
+		return %returnval;
+	}
 }
 
 
@@ -447,17 +447,17 @@ function resolveMissionGame(%mission) {
 
 	//Check all known games or fallback to the mode
 	return
-	   (strStr(%file, "_pq/") != -1 ? "PlatinumQuest" :
-	    (strStr(%file, "_mbp/") != -1 ? "Platinum" :
-	     (strStr(%file, "_mbg/") != -1 ? "Gold" :
-	      (strStr(%file, "_mbu/") != -1 ? "Ultra" :
-	       (strStr(%file, "_custom/") != -1 ? "Custom" :
-	        ClientMode::callbackForMission(%mission, "getLevelGame", "Custom", %file)
+	    (strStr(%file, "_pq/") != -1 ? "PlatinumQuest" :
+	     (strStr(%file, "_mbp/") != -1 ? "Platinum" :
+	      (strStr(%file, "_mbg/") != -1 ? "Gold" :
+	       (strStr(%file, "_mbu/") != -1 ? "Ultra" :
+	        (strStr(%file, "_custom/") != -1 ? "Custom" :
+	         ClientMode::callbackForMission(%mission, "getLevelGame", "Custom", %file)
+	        )
 	       )
 	      )
 	     )
-	    )
-	   );
+	    );
 }
 
 // Mission Type: Which difficulty/type the mission is in the mission list
@@ -522,11 +522,11 @@ function resolveMissionBitmap(%mission) {
 
 function isBitmap(%file) {
 	return isFile(%file)
-		|| isFile(%file @ ".png")
-		|| isFile(%file @ ".jpg")
-		|| isFile(%file @ ".bmp")
-		|| isFile(%file @ ".dds")
-	;
+	       || isFile(%file @ ".png")
+	       || isFile(%file @ ".jpg")
+	       || isFile(%file @ ".bmp")
+	       || isFile(%file @ ".dds")
+	       ;
 }
 
 //------------------------------------------------------------------------------
@@ -602,13 +602,15 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 
 	//Multiplayer modes
 	if ($Server::ServerType $= "MultiPlayer") {
+		if ($CurrentGame $= "Marbleland" && $MissionType $= "Co-op")
+			%modes = %modes SPC "coop";
 		if ($MP::Server::SpookyGhosts && $MP::CurrentModeInfo.identifier $= "spooky")
 			%modes = %modes SPC "ghosts";
 		if ($MP::Server::SnowballsOnly && $MP::CurrentModeInfo.identifier $= "snowball")
 			%modes = %modes SPC "snowballsonly";
 		// if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
 		// 	%modes = %modes SPC "steal";
-		if (findWord(%modes, "hunt") != -1 && findWord(%modes, "coop") == -1 && $MP::Client::ServerSetting["CompetitiveMode"])
+		if ((!$Server::_Dedicated && $MPPref::Server::CompetitiveMode) || $MP::Client::ServerSetting["CompetitiveMode"])
 			%modes = %modes SPC "competitive";
 	}
 
@@ -668,41 +670,68 @@ function formatGameModes(%modes) {
 
 function resolveMissionModification(%mission) {
 	//Duh
-	if (%mission.modification !$= "") return %mission.modification;
+	if (%mission.modification !$= "")
+		return %mission.modification;
 
-	if (strpos(%mission.file, "missions_pq/") != -1) return "PlatinumQuest";
-	if (strpos(%mission.file, "missions_mbg/") != -1) return "Gold";
-	if (strpos(%mission.file, "missions_mbp/") != -1) return "Platinum";
-	if (strpos(%mission.file, "missions_mbu/") != -1) return "Ultra";
+	if (strpos(%mission.file, "missions_pq/") != -1)
+		return "PlatinumQuest";
+	if (strpos(%mission.file, "missions_mbg/") != -1)
+		return "Gold";
+	if (strpos(%mission.file, "missions_mbp/") != -1)
+		return "Platinum";
+	if (strpos(%mission.file, "missions_mbu/") != -1)
+		return "Ultra";
 
-	if (strpos(%mission.file, "coop/pq_") != -1) return "PlatinumQuest";
-	if (strpos(%mission.file, "coop/gold_") != -1) return "Gold";
-	if (strpos(%mission.file, "coop/platinum_") != -1) return "Platinum";
-	if (strpos(%mission.file, "coop/ultra_") != -1) return "Ultra";
+	if (strpos(%mission.file, "coop/pq_") != -1)
+		return "PlatinumQuest";
+	if (strpos(%mission.file, "coop/gold_") != -1)
+		return "Gold";
+	if (strpos(%mission.file, "coop/platinum_") != -1)
+		return "Platinum";
+	if (strpos(%mission.file, "coop/ultra_") != -1)
+		return "Ultra";
 
 	//Some basic indicators
-	if (%mission.game !$= "" && %mission.game !$= "Custom") return %mission.game;
-	if (%mission.platinumTime !$= "") return "PlatinumQuest"; //Added in PQ
-	if (%mission.awesomeScore !$= "") return "PlatinumQuest";
-	if (%mission.ultimateTime !$= "") return "Platinum";
-	if (%mission.ultimateScore !$= "") return "Platinum";
-	if (%mission.awesomeScore[0] !$= "") return "PlatinumQuest";
-	if (%mission.awesomeScore[1] !$= "") return "PlatinumQuest";
-	if (%mission.platinumScore[0] !$= "") return "Platinum";
-	if (%mission.platinumScore[1] !$= "") return "Platinum";
-	if (%mission.ultimateScore[0] !$= "") return "Platinum";
-	if (%mission.ultimateScore[1] !$= "") return "Platinum";
-	if (%mission.easterEgg) return "Platinum";
+	if (%mission.game !$= "" && %mission.game !$= "Custom")
+		return %mission.game;
+	if (%mission.platinumTime !$= "")
+		return "PlatinumQuest"; //Added in PQ
+	if (%mission.awesomeScore !$= "")
+		return "PlatinumQuest";
+	if (%mission.ultimateTime !$= "")
+		return "Platinum";
+	if (%mission.ultimateScore !$= "")
+		return "Platinum";
+	if (%mission.awesomeScore[0] !$= "")
+		return "PlatinumQuest";
+	if (%mission.awesomeScore[1] !$= "")
+		return "PlatinumQuest";
+	if (%mission.platinumScore[0] !$= "")
+		return "Platinum";
+	if (%mission.platinumScore[1] !$= "")
+		return "Platinum";
+	if (%mission.ultimateScore[0] !$= "")
+		return "Platinum";
+	if (%mission.ultimateScore[1] !$= "")
+		return "Platinum";
+	if (%mission.easterEgg)
+		return "Platinum";
 
 	//Check interiors
 	for (%i = 0; %i < %mission.interiors; %i ++) {
 		%interior = %mission.interior[%i];
-		if (strpos(%interior, "pq_") != -1) return "PlatinumQuest";
-		if (strpos(%interior, "interiors_pq") != -1) return "PlatinumQuest";
-		if (strpos(%interior, "mbp_") != -1) return "Platinum";
-		if (strpos(%interior, "interiors_mbp") != -1) return "Platinum";
-		if (strpos(%interior, "interiors_mbu") != -1) return "Ultra";
-		if (strpos(%interior, "fubargame") != -1) return "Fubar";
+		if (strpos(%interior, "pq_") != -1)
+			return "PlatinumQuest";
+		if (strpos(%interior, "interiors_pq") != -1)
+			return "PlatinumQuest";
+		if (strpos(%interior, "mbp_") != -1)
+			return "Platinum";
+		if (strpos(%interior, "interiors_mbp") != -1)
+			return "Platinum";
+		if (strpos(%interior, "interiors_mbu") != -1)
+			return "Ultra";
+		if (strpos(%interior, "fubargame") != -1)
+			return "Fubar";
 	}
 
 	return "Gold";

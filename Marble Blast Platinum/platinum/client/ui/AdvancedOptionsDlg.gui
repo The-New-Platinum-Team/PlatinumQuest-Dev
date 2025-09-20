@@ -30,40 +30,40 @@ new GuiControl(AdvancedOptionsDlg) {
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		_guiSize = "800 600";
-		defaultControl = "RtaClose";
-		commandSelect = "RootGui.popDialog(AdvancedOptionsDlg);";
-		commandCancel = "RootGui.popDialog(AdvancedOptionsDlg);";
-		commandNameSelect = "Close";
+	_guiSize = "800 600";
+	defaultControl = "RtaClose";
+	commandSelect = "RootGui.popDialog(AdvancedOptionsDlg);";
+	commandCancel = "RootGui.popDialog(AdvancedOptionsDlg);";
+	commandNameSelect = "Close";
 
 	new GuiControl(AdvancedOptionsBody) {
 		profile = "PQWindowProfile";
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "675 405";
+		extent = "675 435";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
-			wrap = "0";
+		wrap = "0";
 
 		new GuiControl(AdvancedOptionsContent) {
 			profile = "PQWindowProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "25 55";
-			extent = "625 345";
+			extent = "625 375";
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
-				wrap = "0";
+			wrap = "0";
 		};
 
 		new GuiBorderButtonCtrl(AdvancedOptionsClose) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 339";
+			position = "350 369";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -88,7 +88,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-				defaultText = "<bold:28><just:center>Advanced Options";
+			defaultText = "<bold:28><just:center>Advanced Options";
 		};
 	};
 };
@@ -113,86 +113,116 @@ function AdvancedOptionsDlg::onWake(%this) {
 $i = -1;
 $AdvancedOptions::Name    [$i++] = "alwaysShowSpeedometer";
 $AdvancedOptions::Title   [$i  ] = "Always Show Speedometer";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the speedometer will always be visible outside of Laps levels.";
 $AdvancedOptions::Variable[$i  ] = "$pref::alwaysShowSpeedometer";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "oobInsults";
 $AdvancedOptions::Title   [$i  ] = "Out of Bounds Insults";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, insults will be shown when the player goes out of bounds.";
 $AdvancedOptions::Variable[$i  ] = "$pref::ShowOOBMessages";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "powerupTimers";
 $AdvancedOptions::Title   [$i  ] = "PowerUp Timers";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the remaining duration of powerups will be shown on the HUD.";
 $AdvancedOptions::Variable[$i  ] = "$pref::powerupTimers";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "powerupsAlwaysOnRadar";
 $AdvancedOptions::Title   [$i  ] = "PowerUps Always on Radar";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, powerups will always be visible on the radar.";
 $AdvancedOptions::Variable[$i  ] = "$pref::powerupsAlwaysOnRadar";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "recordingIndicator";
 $AdvancedOptions::Title   [$i  ] = "Recording Indicator";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, a recording indicator will be shown on the HUD when recording.";
 $AdvancedOptions::Variable[$i  ] = "$pref::recordingIndicator";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "stopRecordingOnMenu";
 $AdvancedOptions::Title   [$i  ] = "Stop Recording On Level Exit";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, recording will stop when the player exits the level.";
 $AdvancedOptions::Variable[$i  ] = "$pref::stopRecordingOnMenu";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "restartReloadsLevels";
 $AdvancedOptions::Title   [$i  ] = "Restart Reloads Levels";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the game will completely restart the level when the player restarts, instead of just resetting the marble.";
 $AdvancedOptions::Variable[$i  ] = "$pref::restartReloadsLevels";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "minimalSpectateUI";
 $AdvancedOptions::Title   [$i  ] = "Minimal Spectator HUD";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the advanced spectator options will be hidden in the spectator UI.";
 $AdvancedOptions::Variable[$i  ] = "$pref::minimalSpectateUI";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "legacyItems";
 $AdvancedOptions::Title   [$i  ] = "Legacy Items";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the shapes in MBU levels will be replaced by their original MBP equivalents.";
 $AdvancedOptions::Variable[$i  ] = "$pref::legacyItems";
 $AdvancedOptions::Command [$i  ] = "AdvancedOptions_legacyItemsFnc();";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "spchanges";
 $AdvancedOptions::Title   [$i  ] = "Use MBU Shapes in MBU Levels";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, MBU levels will use the original MBU shapes.";
 $AdvancedOptions::Variable[$i  ] = "$pref::spchanges";
 $AdvancedOptions::Command [$i  ] = "AdvancedOptions_spchangesFnc();";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "threeDigitGemCounter";
 $AdvancedOptions::Title   [$i  ] = "Always Show Gem Counter Hundreds";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the gem counter will always show three digits, instead of truncating the leading zeroes.";
 $AdvancedOptions::Variable[$i  ] = "$pref::GemCounterAlwaysThreeDigits";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "scorePredictorMaxFactor";
 $AdvancedOptions::Title   [$i  ] = "Don't Cap Score Predictor";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the score predictor will not cap the maximum score at 2x the par time.";
 $AdvancedOptions::Variable[$i  ] = "$AdvOptScorePredictorMaxFactorVar";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Command [$i  ] = "AdvancedOptions_scorePredictorMaxFactorFnc();";
 $AdvancedOptions::Name    [$i++] = "allowEndingScoreLevelsEarly";
 $AdvancedOptions::Title   [$i  ] = "Allow Ending Score Levels Early";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the player can end Hunt and Gem Madness levels early through the pause menu after meeting the Par Score.";
 $AdvancedOptions::Variable[$i  ] = "$pref::AllowEndingScoreLevelsEarly";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "saveDownloadedLevels";
 $AdvancedOptions::Title   [$i  ] = "Save Marbleland Customs Locally";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, downloaded Marbleland levels will be saved to the local disk instead of being deleted after the game is closed.";
 $AdvancedOptions::Variable[$i  ] = "$pref::saveDownloadedLevels";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "normalizeLights";
 $AdvancedOptions::Title   [$i  ] = "Standardize Sunlight";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the sunlight in levels will be standardized to a constant brightness, direction and color.";
 $AdvancedOptions::Variable[$i  ] = "$pref::normalizeLights";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "oobVoice";
 $AdvancedOptions::Title   [$i  ] = "Out of Bounds Sounds";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, sounds will play when the player goes out of bounds.";
 $AdvancedOptions::Variable[$i  ] = "$pref::OOBVoice";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "noFadeIn";
 $AdvancedOptions::Title   [$i  ] = "Disable Fade-In Animation";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the fade-in animation will be disabled when starting a level.";
 $AdvancedOptions::Variable[$i  ] = "$pref::NoFadeIn";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "snoreMarble";
 $AdvancedOptions::Title   [$i  ] = "Marble Snoring";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the marble will make snoring effects when idle.";
 $AdvancedOptions::Variable[$i  ] = "$pref::Snore";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "warpSpeedMusic";
 $AdvancedOptions::Title   [$i  ] = "Warp Speed Music";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the music will speed up based on the player's speed after a certain speed.";
 $AdvancedOptions::Variable[$i  ] = "$pref::warpSpeedMusic";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 $AdvancedOptions::Name    [$i++] = "temporalMusic";
 $AdvancedOptions::Title   [$i  ] = "Temporal Music";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the music speed will be affected by game speed.";
 $AdvancedOptions::Variable[$i  ] = "$pref::temporalMusic";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "allowTaunts";
+$AdvancedOptions::Title   [$i  ] = "Allow Taunts";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, taunts can be heard during Multiplayer.";
+$AdvancedOptions::Variable[$i  ] = "$MPPref::AllowTaunts";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "clientsidePrediction";
+$AdvancedOptions::Title   [$i  ] = "Predict Other Players' Movements";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the game will predict other players' movements in Multiplayer based on their ping, resulting in their positions being more accurate.";
+$AdvancedOptions::Variable[$i  ] = "$pref::clientsidePrediction";
 $AdvancedOptions::Type    [$i  ] = "boolean";
 // $AdvancedOptions::Name    [$i++] = "useLowResGlass";
 // $AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
@@ -216,11 +246,12 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 
 	%curYPos = 0;
-	%rowsPerCol = 10;
+	%rowsPerCol = 11;
 
 	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
 		%name = $AdvancedOptions::Name[%i];
 		%title = $AdvancedOptions::Title[%i];
+		%tooltip = $AdvancedOptions::Tooltip[%i];
 		%type = $AdvancedOptions::Type[%i];
 		%cmd = $AdvancedOptions::Command[%i];
 		%variable = $AdvancedOptions::Variable[%i];
@@ -246,6 +277,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 				buttonType = "ToggleButton";
 				repeatPeriod = "1000";
 				repeatDecay = "1";
+				tooltip = %tooltip;
 			};
 
 			AdvancedOptionsContent.add(%btn);
@@ -258,7 +290,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 
 function AdvancedOptions_spchangesFnc() {
 	if ($pref::spchanges)
-		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
+		MessageBoxOK("The Time Has Come", "With this feature enabled, Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
 }
 
 // function AdvancedOptions_timeTravelTimerFnc() {
@@ -281,6 +313,6 @@ function AdvancedOptions_scorePredictorMaxFactorFnc() {
 function AdvancedOptions_legacyItemsFnc() {
 	if (!$liAssert) {
 		$liAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
+		restartAssert();
 	}
 }

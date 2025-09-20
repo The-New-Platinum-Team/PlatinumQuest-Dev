@@ -27,11 +27,13 @@
 //-----------------------------------------------------------------------------
 
 function Cannon::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	%col.client.enterCannon(%obj);
 }
 function CannonBase::onCollision(%this, %obj, %col) {
-	if (!Parent::onCollision(%this, %obj, %col)) return;
+	if (!Parent::onCollision(%this, %obj, %col))
+		return;
 	if (%obj._cannon) {
 		%col.client.enterCannon(getServerSyncObject(%obj._cannon));
 	}
@@ -740,23 +742,23 @@ function Cannon::initFields(%this, %obj) {
 }
 
 $Editor::Fields["Cannon"] =
-	"useCharge" SPC
-	"chargeTime" SPC
-	"force" SPC
-	"yaw" SPC
-	"pitch" SPC
-	"pitchBoundLow" SPC
-	"pitchBoundHigh" SPC
-	"yawBoundLeft" SPC
-	"yawBoundRight" SPC
-	"yawLimit" SPC
-	"instant" SPC
-	"instantDelayTime" SPC
-	"useBase" SPC
-	"lockTime" SPC
-	"lockCam" SPC
-	"basename" SPC
-	"showReticle" SPC
-	"showAim" SPC
-	"aimSize" SPC
-	"aimTriggers";
+    "useCharge" SPC
+    "chargeTime" SPC
+    "force" SPC
+    "yaw" SPC
+    "pitch" SPC
+    "pitchBoundLow" SPC
+    "pitchBoundHigh" SPC
+    "yawBoundLeft" SPC
+    "yawBoundRight" SPC
+    "yawLimit" SPC
+    "instant" SPC
+    "instantDelayTime" SPC
+    "useBase" SPC
+    "lockTime" SPC
+    "lockCam" SPC
+    "basename" SPC
+    "showReticle" SPC
+    "showAim" SPC
+    "aimSize" SPC
+    "aimTriggers";

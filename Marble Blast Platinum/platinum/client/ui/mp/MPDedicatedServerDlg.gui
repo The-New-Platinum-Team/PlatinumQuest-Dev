@@ -32,7 +32,7 @@ new GuiBitmapCtrl(MPDedicatedServerDlg) {
 	helpTag = "0";
 	bitmap = "~/client/ui/exit/black";
 	wrap = "0";
-		_guiSize = "800 600";
+	_guiSize = "800 600";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -72,7 +72,7 @@ new GuiBitmapCtrl(MPDedicatedServerDlg) {
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-				defaultText = "<bold:28><just:center>Server Settings";
+			defaultText = "<bold:28><just:center>Server Settings";
 		};
 		new GuiScrollCtrl() {
 			profile = "PQScrollProfile";
@@ -127,8 +127,10 @@ function MPDedicatedServerDlg::update(%this, %id) {
 	%checkName = "MPDServerSetting" @ %id @ "Check";
 	%value = %checkName.getValue();
 
+	%idx = %this.setting[%id];
+	%this.setting[%idx, "value"] = %value;
+
 	%this.updateActive();
-	commandToServer('ServerSetting', %id, %value);
 }
 
 function MPDedicatedServerDlg::increment(%this, %id) {
@@ -138,7 +140,6 @@ function MPDedicatedServerDlg::increment(%this, %id) {
 		%this.setting[%idx, "value"] = %this.setting[%idx, "max"];
 
 	%this.updateActive();
-	commandToServer('ServerSetting', %id, %this.setting[%idx, "value"]);
 }
 
 function MPDedicatedServerDlg::decrement(%this, %id) {
@@ -148,14 +149,24 @@ function MPDedicatedServerDlg::decrement(%this, %id) {
 		%this.setting[%idx, "value"] = %this.setting[%idx, "min"];
 
 	%this.updateActive();
-	commandToServer('ServerSetting', %id, %this.setting[%idx, "value"]);
 }
 
 function MPDedicatedServerDlg::open(%this) {
 	RootGui.pushDialog(%this);
 }
 
+// When in the Dedicated Server Settings, do as in the Player-Hosted Server Settings menu; Save all the changed fields at once, when closing the menu. ~ Connie
+function MPDedicatedServerDlg::saveFields(%this) {
+	for (%i = 0; %i < %this.settings; %i++)
+	{
+		%id = %this.setting[%i, "id"];
+		%value = %this.setting[%i, "value"];
+		commandToServer('ServerSetting', %id, %value);
+	}
+}
+
 function MPDedicatedServerDlg::close(%this) {
+	MPDedicatedServerDlg.saveFields();
 	RootGui.popDialog(%this);
 }
 

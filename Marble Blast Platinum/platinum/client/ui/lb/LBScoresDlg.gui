@@ -32,39 +32,43 @@ new GuiBitmapCtrl(LBScoresDlg) {
 	helpTag = "0";
 	bitmap = "~/client/ui/exit/black";
 	wrap = "0";
-		_guiSize = "800 600";
-		pageSize = "15";
-		categoryMap["General"]       = "rating_general";
-		categoryMap["Gold"]          = "rating_mbg";
-		categoryMap["Platinum"]      = "rating_mbp";
-		categoryMap["Ultra"]         = "rating_mbu";
-		categoryMap["PlatinumQuest"] = "rating_pq";
-		categoryMap["Custom"]        = "rating_custom";
-		categoryMap["Multiplayer"]   = "rating_mp";
-		categoryMap["rating_general"] = "General";
-		categoryMap["rating_mbg"]     = "Gold";
-		categoryMap["rating_mbp"]     = "Platinum";
-		categoryMap["rating_mbu"]     = "Ultra";
-		categoryMap["rating_pq"]      = "PlatinumQuest";
-		categoryMap["rating_custom"]  = "Custom";
-		categoryMap["rating_mp"]      = "Multiplayer";
-		defaultControl = "LB_GeneralSingleplayerCategory";
-		commandCancel = "RootGui.popDialog(LBScoresDlg);";
-		commandNameCancel = "Close";
-		//Hack but works
-		commandLT = "if (LB_GeneralPrev.isActive()) { LBScoresDlg.prev(); }";
-		commandRepeatLT = true;
-		commandNameLT = "Previous Page";
-		commandRT = "if (LB_GeneralNext.isActive()) { LBScoresDlg.next(); }";
-		commandRepeatRT = true;
-		commandNameRT = "Next Page";
+	_guiSize = "800 600";
+	pageSize = "15";
+	categoryMap["General"]       = "rating_general";
+	categoryMap["Official"]      = "rating_official";
+	categoryMap["Gold"]          = "rating_mbg";
+	categoryMap["Platinum"]      = "rating_mbp";
+	categoryMap["Ultra"]         = "rating_mbu";
+	categoryMap["PlatinumQuest"] = "rating_pq";
+	categoryMap["Bonus"]         = "rating_bonus";
+	categoryMap["Custom"]        = "rating_custom";
+	categoryMap["Multiplayer"]   = "rating_mp";
+	categoryMap["rating_general"] = "General";
+	categoryMap["rating_official"]= "Official";
+	categoryMap["rating_mbg"]     = "Gold";
+	categoryMap["rating_mbp"]     = "Platinum";
+	categoryMap["rating_mbu"]     = "Ultra";
+	categoryMap["rating_pq"]      = "PlatinumQuest";
+	categoryMap["rating_bonus"]   = "Bonus";
+	categoryMap["rating_custom"]  = "Custom";
+	categoryMap["rating_mp"]      = "Multiplayer";
+	defaultControl = "LB_GeneralSingleplayerCategory";
+	commandCancel = "RootGui.popDialog(LBScoresDlg);";
+	commandNameCancel = "Close";
+	//Hack but works
+	commandLT = "if (LB_GeneralPrev.isActive()) { LBScoresDlg.prev(); }";
+	commandRepeatLT = true;
+	commandNameLT = "Previous Page";
+	commandRT = "if (LB_GeneralNext.isActive()) { LBScoresDlg.next(); }";
+	commandRepeatRT = true;
+	commandNameRT = "Next Page";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "175 43";
-		extent = "450 514";
+		extent = "450 550";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -105,7 +109,7 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			horizSizing = "right";
 			vertSizing = "top";
 			position = "224 370";
-			extent = "199 47";
+			extent = "198 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBScoresDlg.selectGame(\"Multiplayer\");";
@@ -116,14 +120,14 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
 			controlLeft = "LB_GeneralSingleplayerCategory";
-			controlDown = "LB_GeneralCustomCategory";
+			controlDown = "LB_GeneralOfficialCategory";
 		};
 		new GuiBorderButtonCtrl(LB_GeneralGeneralCategory) {
 			profile = "PQButtonPillSmallLeftProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "27 406";
-			extent = "81 47";
+			position = "98 406";
+			extent = "126 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBScoresDlg.selectCategory(\"General\");";
@@ -134,26 +138,44 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
 			controlUp = "LB_GeneralSingleplayerCategory";
-			controlRight = "LB_GeneralGoldCategory";
-			controlDown = "LB_GeneralPrev";
+			controlRight = "LB_GeneralOfficialCategory";
+			controlDown = "LB_GeneralUltraCategory";
 		};
-		new GuiBorderButtonCtrl(LB_GeneralGoldCategory) {
-			profile = "PQButtonPillSmallCenterProfile";
+		new GuiBorderButtonCtrl(LB_GeneralOfficialCategory) {
+			profile = "PQButtonPillSmallRightProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "108 406";
-			extent = "51 47";
+			position = "224 406";
+			extent = "126 47";
 			minExtent = "8 8";
 			visible = "1";
-			command = "LBScoresDlg.selectCategory(\"Gold\");";
+			command = "LBScoresDlg.selectCategory(\"Official\");";
 			helpTag = "0";
-			text = "Gold";
+			text = "Official  ";
 			groupNum = "1";
 			buttonType = "RadioButton";
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
-			controlUp = "LB_GeneralSingleplayerCategory";
+			controlUp = "LB_GeneralMultiplayerCategory";
 			controlLeft = "LB_GeneralGeneralCategory";
+			controlDown = "LB_GeneralPlatinumQuestCategory";
+		};
+		new GuiBorderButtonCtrl(LB_GeneralGoldCategory) {
+			profile = "PQButtonPillSmallLeftProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "27 442";
+			extent = "59 47";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBScoresDlg.selectCategory(\"Gold\");";
+			helpTag = "0";
+			text = "  Gold";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "450";
+			repeatDecay = "0.958";
+			controlUp = "LB_GeneralGeneralCategory";
 			controlRight = "LB_GeneralPlatinumCategory";
 			controlDown = "LB_GeneralPrev";
 		};
@@ -161,7 +183,7 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			profile = "PQButtonPillSmallCenterProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "159 406";
+			position = "86 442";
 			extent = "81 47";
 			minExtent = "8 8";
 			visible = "1";
@@ -172,17 +194,17 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			buttonType = "RadioButton";
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
-			controlUp = "LB_GeneralSingleplayerCategory";
+			controlUp = "LB_GeneralGeneralCategory";
 			controlLeft = "LB_GeneralGoldCategory";
 			controlRight = "LB_GeneralUltraCategory";
-			controlDown = "LB_GeneralClose";
+			controlDown = "LB_GeneralPrev";
 		};
 		new GuiBorderButtonCtrl(LB_GeneralUltraCategory) {
 			profile = "PQButtonPillSmallCenterProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "240 406";
-			extent = "52 47";
+			position = "167 442";
+			extent = "57 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBScoresDlg.selectCategory(\"Ultra\");";
@@ -192,7 +214,7 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			buttonType = "RadioButton";
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
-			controlUp = "LB_GeneralMultiplayerCategory";
+			controlUp = "LB_GeneralGeneralCategory";
 			controlLeft = "LB_GeneralPlatinumCategory";
 			controlRight = "LB_GeneralPlatinumQuestCategory";
 			controlDown = "LB_GeneralClose";
@@ -201,8 +223,8 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			profile = "PQButtonPillSmallCenterProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "292 406";
-			extent = "46 47";
+			position = "224 442";
+			extent = "51 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBScoresDlg.selectCategory(\"PlatinumQuest\");";
@@ -212,8 +234,28 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			buttonType = "RadioButton";
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
-			controlUp = "LB_GeneralMultiplayerCategory";
+			controlUp = "LB_GeneralOfficialCategory";
 			controlLeft = "LB_GeneralUltraCategory";
+			controlRight = "LB_GeneralBonusCategory";
+			controlDown = "LB_GeneralClose";
+		};
+		new GuiBorderButtonCtrl(LB_GeneralBonusCategory) {
+			profile = "PQButtonPillSmallCenterProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "275 442";
+			extent = "63 47";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBScoresDlg.selectCategory(\"Bonus\");";
+			helpTag = "0";
+			text = "Bonus";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "450";
+			repeatDecay = "0.958";
+			controlUp = "LB_GeneralOfficialCategory";
+			controlLeft = "LB_GeneralPlatinumQuestCategory";
 			controlRight = "LB_GeneralCustomCategory";
 			controlDown = "LB_GeneralNext";
 		};
@@ -221,8 +263,8 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			profile = "PQButtonPillSmallRightProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "338 406";
-			extent = "85 47";
+			position = "338 442";
+			extent = "84 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBScoresDlg.selectCategory(\"Custom\");";
@@ -232,15 +274,15 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			buttonType = "RadioButton";
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
-			controlUp = "LB_GeneralMultiplayerCategory";
-			controlLeft = "LB_GeneralPlatinumQuestCategory";
+			controlUp = "LB_GeneralOfficialCategory";
+			controlLeft = "LB_GeneralBonusCategory";
 			controlDown = "LB_GeneralNext";
 		};
 		new GuiBorderButtonCtrl(LB_GeneralPrev) {
 			profile = "PQButtonPillLeftProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "84 442";
+			position = "84 478";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -251,14 +293,14 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			buttonType = "RepeaterButton";
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
-				controlUp = "LB_GeneralGoldCategory";
-				controlRight = "LB_GeneralClose";
+			controlUp = "LB_GeneralPlatinumCategory";
+			controlRight = "LB_GeneralClose";
 		};
 		new GuiBorderButtonCtrl(LB_GeneralClose) {
 			profile = "PQButtonPillCenterProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "178 442";
+			position = "178 478";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -269,15 +311,15 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-			controlUp = "LB_GeneralPlatinumCategory";
-				controlLeft = "LB_GeneralPrev";
-				controlRight = "LB_GeneralNext";
+			controlUp = "LB_GeneralUltraCategory";
+			controlLeft = "LB_GeneralPrev";
+			controlRight = "LB_GeneralNext";
 		};
 		new GuiBorderButtonCtrl(LB_GeneralNext) {
 			profile = "PQButtonPillRightProfile";
 			horizSizing = "left";
 			vertSizing = "top";
-			position = "272 442";
+			position = "272 478";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -288,8 +330,8 @@ new GuiBitmapCtrl(LBScoresDlg) {
 			buttonType = "RepeaterButton";
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
-				controlUp = "LB_GeneralPlatinumQuestCategory";
-				controlLeft = "LB_GeneralClose";
+			controlUp = "LB_GeneralBonusCategory";
+			controlLeft = "LB_GeneralClose";
 		};
 	};
 };
@@ -366,25 +408,30 @@ function LBScoresDlg::updatePage(%this) {
 	if (%this.page <= 0) {
 		%this.page = 0;
 		LB_GeneralPrev.setActive(false);
-	} else if (%this.page >= mFloor(%category.display.getSize() / %this.pageSize)) {
+	}
+	if (%this.page >= mFloor(%category.display.getSize() / %this.pageSize)) {
 		%this.page = mFloor(%category.display.getSize() / %this.pageSize);
 		LB_GeneralNext.setActive(false);
 	}
 
 	LB_GeneralGeneralCategory.setActive(%this.game $= "SinglePlayer");
+	LB_GeneralOfficialCategory.setActive(%this.game $= "SinglePlayer");
 	LB_GeneralPlatinumCategory.setActive(%this.game $= "SinglePlayer");
 	LB_GeneralGoldCategory.setActive(%this.game $= "SinglePlayer");
 	LB_GeneralUltraCategory.setActive(%this.game $= "SinglePlayer");
 	LB_GeneralPlatinumQuestCategory.setActive(%this.game $= "SinglePlayer");
+	LB_GeneralBonusCategory.setActive(%this.game $= "SinglePlayer");
 	LB_GeneralCustomCategory.setActive(%this.game $= "SinglePlayer");
 
 	LB_GeneralSingleplayerCategory.setValue(%this.game $= "SinglePlayer");
 	LB_GeneralMultiplayerCategory.setValue(%this.game $= "Multiplayer");
 	LB_GeneralGeneralCategory.setValue(%this.category $= "General");
+	LB_GeneralOfficialCategory.setValue(%this.category $= "Official");
 	LB_GeneralGoldCategory.setValue(%this.category $= "Gold");
 	LB_GeneralPlatinumCategory.setValue(%this.category $= "Platinum");
 	LB_GeneralUltraCategory.setValue(%this.category $= "Ultra");
 	LB_GeneralPlatinumQuestCategory.setValue(%this.category $= "PlatinumQuest");
+	LB_GeneralBonusCategory.setValue(%this.category $= "Bonus");
 	LB_GeneralCustomCategory.setValue(%this.category $= "Custom");
 
 	ControllerGui.updateButtons();
@@ -401,14 +448,26 @@ function LBScoresDlg::getRatingColumn(%this) {
 
 function LBScoresDlg::showPage(%this) {
 	%title = "";
-	if (%this.category $= "General")		 %title = "General Rankings";
-	if (%this.category $= "Platinum")		%title = "Marble Blast Platinum";
-	if (%this.category $= "Gold")			 %title = "Marble Blast Gold";
-	if (%this.category $= "Ultra")			%title = "Marble Blast Ultra";
-	if (%this.category $= "PlatinumQuest") %title = "PlatinumQuest";
-	if (%this.category $= "Custom")		  %title = "Custom Levels";
-	if (%this.game $= "Multiplayer")		 %title = "Multiplayer Levels";
-	if (%this.game $= "Challenges")		  %title = "Challenge Points";
+	if (%this.category $= "General")
+		%title = "General Rankings";
+	if (%this.category $= "Official")
+		%title = "Official Levels";
+	if (%this.category $= "Platinum")
+		%title = "Marble Blast Platinum";
+	if (%this.category $= "Gold")
+		%title = "Marble Blast Gold";
+	if (%this.category $= "Ultra")
+		%title = "Marble Blast Ultra";
+	if (%this.category $= "PlatinumQuest")
+		%title = "PlatinumQuest";
+	if (%this.category $= "Bonus")
+		%title = "Bonus Levels";
+	if (%this.category $= "Custom")
+		%title = "Custom Levels";
+	if (%this.game $= "Multiplayer")
+		%title = "Multiplayer Levels";
+	if (%this.game $= "Challenges")
+		%title = "Challenge Points";
 
 	if (%this.loading) {
 		%title = "Updating...";
@@ -424,8 +483,10 @@ function LBScoresDlg::showPage(%this) {
 			%rating = %category.rating.getEntry(%index);
 			%username = %category.username.getEntry(%index);
 		}
-		if (%display $= "") %display = $LB::DefaultHSName;
-		if (%rating $= "") %rating = 0;
+		if (%display $= "")
+			%display = $LB::DefaultHSName;
+		if (%rating $= "")
+			%rating = 0;
 
 		%mine = (%username $= $LB::Username);
 		%text = %text NL "<spush>" @ (%mine ? "<color:00cc00>" : LBSpecialColor(%index + 1, true)) @ (%index + 1);

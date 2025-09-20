@@ -91,6 +91,8 @@ copyFile(expandFilename("~/client/lbprefs.cs"), expandFilename("~/client/lbprefs
 exec("./client/mbpPrefs.cs");
 exec("./client/lbprefs.cs");
 
+exec("./client/scripts/migrations.cs");
+
 //This variable can fuck right off. Will crash your game on mission load if this
 // is not empty string.
 $pref::Server::Password = "";
@@ -320,9 +322,9 @@ activatePackage(marble);
 
 function listResolutions() {
 	%deviceList = getDisplayDeviceList();
-	for(%deviceIndex = 0; (%device = getField(%deviceList, %deviceIndex)) !$= ""; %deviceIndex++) {
+	for (%deviceIndex = 0; (%device = getField(%deviceList, %deviceIndex)) !$= ""; %deviceIndex++) {
 		%resList = getResolutionList(%device);
-		for(%resIndex = 0; (%res = getField(%resList, %resIndex)) !$= ""; %resIndex++)
+		for (%resIndex = 0; (%res = getField(%resList, %resIndex)) !$= ""; %resIndex++)
 			echo(%device @ " - " @ getWord(%res, 0) @ " x " @ getWord(%res, 1) @ "(" @ getWord(%res, 2) @ " bpp)");
 	}
 }

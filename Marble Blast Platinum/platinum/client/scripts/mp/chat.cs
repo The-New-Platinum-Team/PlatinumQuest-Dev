@@ -71,6 +71,19 @@ function onServerChat(%user, %message) {
 			return;
 		case "slap":
 			MPAddServerChat(LBSlapMessage(%user, getWord(%message, 1)));
+			return;
+		// case "boo":
+		// 	if ($Server::Hosting)
+		// 		PlayMissionGui.toggleFrightfest();
+		// 	else
+		// 		MPAddServerChat(LBChatColor("admin") @ "You must be the server host to enable Frightfest!");
+		// 	return;
+		// case "hohoho":
+		// 	if ($Server::Hosting)
+		// 		PlayMissionGui.toggleWinterfest();
+		// 	else
+		// 		MPAddServerChat(LBChatColor("admin") @ "You must be the server host to enable Winterfest!");
+		// 	return;
 		}
 	}
 
@@ -109,13 +122,13 @@ function MPAddServerChat(%message) {
 	$MP::ServerChat = $MP::ServerChat @ ($MP::ServerChat $= "" ? "" : "\n") @ "<spush>" @ %message @ "<spop>";
 
 	traceGuard();
-		// Too many chat lines causes some people to crash. This tries to avoid that.
-		if (strlen($MP::ServerChat) > 20000) {
-			while (strlen($MP::ServerChat) > 10000) {
-				popServerChatLine();
-			}
-			%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	// Too many chat lines causes some people to crash. This tries to avoid that.
+	if (strlen($MP::ServerChat) > 20000) {
+		while (strlen($MP::ServerChat) > 10000) {
+			popServerChatLine();
 		}
+		%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	}
 	traceGuardEnd();
 
 	MPUpdateServerChat(%message);
@@ -195,13 +208,13 @@ function addTeamChatLine(%message) {
 	$MP::TeamChat = $MP::TeamChat @ ($MP::TeamChat $= "" ? "" : "\n") @ "<spush>" @ %message @ "<spop>";
 
 	traceGuard();
-		// Too many chat lines causes some people to crash. This tries to avoid that.
-		if (strlen($MP::TeamChat) > 20000) {
-			while (strlen($MP::TeamChat) > 10000) {
-				popTeamChatLine();
-			}
-			%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	// Too many chat lines causes some people to crash. This tries to avoid that.
+	if (strlen($MP::TeamChat) > 20000) {
+		while (strlen($MP::TeamChat) > 10000) {
+			popTeamChatLine();
 		}
+		%message = ""; // Force LBUpdateChat to do a full update (slow!)
+	}
 	traceGuardEnd();
 
 	updateTeamChat(%message);

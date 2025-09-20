@@ -1,26 +1,152 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
-         type = "Custom";
-         game = "Custom";
-         time = "300000";
-         maxGemsPerSpawn = "6";
-         platinumScore1 = "0";
-         gameMode = "collection";
-         music = "Tim Trance.ogg";
+         CustomRadarRule = "63";
+         Radar = "1";
          artist = "Phil";
-         alarmStartTime = "25";
-         level = "7";
-         score0 = "0";
-         name = "Arch Acropolis";
-         ultimateScore0 = "0";
-         score1 = "0";
+         blast = "1";
          desc = "Fly around this bizarre structure! Accuracy, precision and strength are needed.";
-         ultimateScore1 = "0";
-         radiusFromGem = "10";
-         platinumScore0 = "0";
-         overviewHeight = "-15";
+         game = "Platinum";
+         gameMode = "collection";
+         music = "Grudge.ogg";
+         name = "Arch Acropolis";
+         platinumTime = "60000";
+         score = "74";
+         type = "Advanced";
+         ultimateTime = "25000";
+   };
+   new SimGroup(PathNodeGroup) {
+      new StaticShape(CameraPath1) {
+         position = "6.987076 -2.833771 5.849328";
+         rotation = "0.7257755 0.1266644 -0.6761702 28.9449";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "4000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath2) {
+         position = "-4.179485 3.936804 2.793572";
+         rotation = "0.7061462 -0.1112416 0.699273 25.39151";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            Spline = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath3";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath3) {
+         position = "-7.232481 15.33713 0.6493982";
+         rotation = "-0.2457592 0.1399586 0.9591737 61.39805";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath4";
+            useRotation = "1";
+            timeToNext = "3600";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath4) {
+         position = "-10.07975 29.83912 4.844713";
+         rotation = "0.1248554 -0.1735117 0.9768853 109.7897";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath5";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath5) {
+         position = "-1.689516 40.6684 7.094713";
+         rotation = "0.02675351 -0.1082291 0.993766 152.3969";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath6";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath6) {
+         position = "11.88005 38.76237 7.019619";
+         rotation = "0.0001554312 0.000733213 0.9999998 203.9345";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath7";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath7) {
+         position = "20.59576 31.51908 3.434173";
+         rotation = "0.1495618 0.2783457 0.948765 234.0244";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath8";
+            useRotation = "1";
+            timeToNext = "3000";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath8) {
+         position = "20.6493 20.64708 0.9775686";
+         rotation = "-0.1759028 -0.1751506 -0.9687004 91.57626";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath9";
+            useRotation = "1";
+            timeToNext = "3600";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath9) {
+         position = "13.20494 9.432445 0.5628256";
+         rotation = "0.1695066 0.07004875 -0.9830365 45.602";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath10";
+            useRotation = "1";
+            timeToNext = "3400";
+            usePosition = "1";
+      };
+      new StaticShape(CameraPath10) {
+         position = "5.423975 2.376006 3.182237";
+         rotation = "0.7930087 0.03601557 -0.6081449 8.541902";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            placed = "1";
+            reverseRotation = "0";
+            useScale = "0";
+            nextNode = "CameraPath2";
+            useRotation = "1";
+            timeToNext = "3200";
+            usePosition = "1";
+      };
    };
    new Item() {
       position = "18 26 0.5";
@@ -64,7 +190,7 @@ new SimGroup(MissionGroup) {
       fogVolume1 = "-1 7.45949e-31 1.3684e-38";
       fogVolume2 = "-1 1.07208e-14 8.756e-14";
       fogVolume3 = "-1 5.1012e-10 2.05098e-08";
-      materialList = "~/data/skies/Advanced/Advanced_Sky.dml";
+      materialList = "~/data/skies/Expert/Expert_Sky.dml";
       windVelocity = "1 0 0";
       windEffectPrecipitation = "0";
       noRenderBans = "1";
@@ -72,10 +198,10 @@ new SimGroup(MissionGroup) {
       fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
       fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
    };
-   new Sun(Sun) {
+   new Sun() {
       direction = "0.638261 0.459006 -0.61801";
-      color = "1.400000 1.200000 0.400000 1.000000";
-      ambient = "0.300000 0.300000 0.400000 1.000000";
+      color = "0.700000 0.700000 0.700000 1.000000";
+      ambient = "0.100000 0.100000 0.200000 1.000000";
    };
    new InteriorInstance() {
       position = "0 0 0";

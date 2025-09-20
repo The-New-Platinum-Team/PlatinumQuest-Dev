@@ -154,7 +154,7 @@ function PlayGui::onWake(%this) {
 	PGSpeedometer.setVisible(ClientMode::callback("shouldShowSpeedometer", false));
 
 	if ($pref::alwaysshowspeedometer) {
-	    PGSpeedometer.setVisible(1);	
+		PGSpeedometer.setVisible(1);
 	}
 
 	ClientMode::callback("onShowPlayGui", "");
@@ -200,12 +200,12 @@ function PlayGui::onSleep(%this) {
 }
 
 function PlayGui::updateRecordingIndicator(%this) {
-    if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
+	if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
-        RecordingIndicatorIcon.setVisible(true);
+		RecordingIndicatorIcon.setVisible(true);
 	} else {
-	    PG_RecordingIndicator.setVisible(false);
-		RecordingIndicatorIcon.setVisible(false);	
+		PG_RecordingIndicator.setVisible(false);
+		RecordingIndicatorIcon.setVisible(false);
 	}
 }
 
@@ -220,15 +220,21 @@ function PlayGui::stopFPSCounter(%this) {
 // Just more of a shorthand
 function PlayGui::doFPSCounter(%this) {
 	%pingnum = "high";
-	if (ServerConnection.getPing() >= 100) %pingnum = "medium";
-	if (ServerConnection.getPing() >= 250) %pingnum = "low";
-	if (ServerConnection.getPing() >= 500) %pingnum = "matanny";
-	if (ServerConnection.getPing() >= 1000) %pingnum = "unknown";
+	if (ServerConnection.getPing() >= 100)
+		%pingnum = "medium";
+	if (ServerConnection.getPing() >= 250)
+		%pingnum = "low";
+	if (ServerConnection.getPing() >= 500)
+		%pingnum = "matanny";
+	if (ServerConnection.getPing() >= 1000)
+		%pingnum = "unknown";
 	%ups = $fps::modded;
-	if (%ups >= 100) %ups = mRound(%ups) @ " ";
+	if (%ups >= 100)
+		%ups = mRound(%ups) @ " ";
 
 	%fps = $fps::draw;
-	if (%fps >= 100) %fps = mRound(%fps) @ " ";
+	if (%fps >= 100)
+		%fps = mRound(%fps) @ " ";
 
 	%fps = rPad(%fps, 4);
 	%ups = rPad(%ups, 4);
@@ -320,13 +326,23 @@ function PlayGui::updateGems(%this, %updateMax) {
 
 	if ($PlayGuiGem) {
 		// PQ gets its own gem
-		if ($currentGame $= "PlatinumQuest") {
+		if (MissionInfo.game $= "Hunt") {
+			if        (getSubStr(Sky.materialList, 0, 22) $= "platinum/data/skies_pq")  {
+				%skins = "platinum";
+				%dts   = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
+			} else if (getSubStr(Sky.materialList, 0, 23) $= "platinum/data/skies_mbu") {
+				%skins = "red";
+				%dts   = $usermods @ "/data/shapes_mbu/items/gem.dts";
+			} else {
+				%skins = "base black blue green orange platinum purple red turquoise yellow";
+				%dts   = $usermods @ "/data/shapes/items/gem.dts";
+			}
+		} else if (MissionInfo.game $= "PlatinumQuest") {
 			%skins = "platinum";
-			%dts = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
-		} else if
-		   ($currentGame $= "Ultra") {
+			%dts   = $usermods @ "/data/shapes_pq/gameplay/gems/gem.dts";
+		} else if (MissionInfo.game $= "Ultra") {
 			%skins = "red";
-			%dts = $usermods @ "/data/shapes_mbu/items/gem.dts";
+			%dts   = $usermods @ "/data/shapes_mbu/items/gem.dts";
 		} else {
 			%skins = "base black blue green orange platinum purple red turquoise yellow";
 			%dts = $usermods @ "/data/shapes/items/gem.dts";
@@ -347,12 +363,10 @@ function PlayGui::updateGems(%this, %updateMax) {
 		if ($currentGame $= "PlatinumQuest") {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_pq/gameplay/powerups/timetravel.dts";
-		} else if
-		   ($currentGame $= "Ultra") {
+		} else if ($currentGame $= "Ultra") {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_mbu/items/timetravel.dts";
-		} else if
-		   (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
+		} else if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
 			%skins = "mbg";
 			%dts = $usermods @ "/data/shapes/items/timetravel.dts";
 		} else {
@@ -402,8 +416,8 @@ function PlayGui::updateGems(%this, %updateMax) {
 	GemsFoundTen.setNumberColor(%ten, %color);
 	GemsFoundOne.setNumberColor(%one, %color);
 
-	GemsFoundHundred.setVisible(!(%hun == 0) || $pref::GemCounterAlwaysThreeDigits); 
-	GemsFoundTen.setVisible(!(%hun == 0 && %ten == 0) || $pref::GemCounterAlwaysThreeDigits || $pref::GemCounterAlwaysTwoDigits); 
+	GemsFoundHundred.setVisible(!(%hun == 0) || $pref::GemCounterAlwaysThreeDigits);
+	GemsFoundTen.setVisible(!(%hun == 0 && %ten == 0) || $pref::GemCounterAlwaysThreeDigits || $pref::GemCounterAlwaysTwoDigits);
 
 	%this.GemsFoundHundredTracked = %hun;
 	%this.GemsFoundTenTracked = %ten;
@@ -426,13 +440,13 @@ function PlayGui::updateGems(%this, %updateMax) {
 		GemsTotalTen.setPosition("120 0");
 		GemsTotalOne.setPosition("144 0");
 	}
-	
+
 	// Since the counter always displays 3 digits, there's no need for this to be active when that setting is also active. ~ Connie
 	if (!$pref::GemCounterAlwaysThreeDigits) {
 		GemsQuota.setPosition((%max < 10? "157" : (%max < 100? "181" : "205")) + (%hun == 0? -24 : 0) SPC "28");
 		// quota is 37 away by default, 120+37=157 144+37=181, -24 if current gems are 2 digit instead of 3 digit
 	}
-	
+
 	if (%maxNeedsToUpdate) {
 		%one = %max % 10;
 		%ten = ((%max - %one) / 10) % 10;
@@ -596,7 +610,7 @@ function specialBarFor(%id) {
 }
 
 function PlayGui::updateBarPositions(%this) {
-	if (!isObject(ServerConnection) || !isObject(LocalClientConnection.player) || !isObject($MP::MyMarble))
+	if (!isObject(ServerConnection) || !isObject(ServerConnection.getControlObject()) || !isObject($MP::MyMarble))
 		return;
 
 	%trans = $MP::MyMarble.getCameraTransform();
@@ -803,6 +817,8 @@ function PlayGui::refreshRed(%this) {
 	if ($PlayTimerActive && $InPlayGUI) {
 		if (%this.bonusTime || $Editor::Opened || %this.stopped) {
 			$PlayTimerColor = $TimeColor["stopped"];
+			if ($Game::Finished)
+				%this.isAlarmActive = false;
 		} else if (!$pref::parTimeAlarm) {
 			$PlayTimerColor = $TimeColor["normal"];
 			%this.isAlarmActive  = false;
@@ -904,9 +920,9 @@ package frameAdvance {
 			}
 		}
 
-		if (MPMyMarbleExists() && $mvTriggerCount0 & 1) {
-			$MP::MyMarble._mouseFire();
-		}
+		// if (MPMyMarbleExists() && $mvTriggerCount0 & 1) {
+		// 	$MP::MyMarble._mouseFire();
+		// }
 
 		playbackStep();
 
@@ -1147,7 +1163,7 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		PGCountdownTTPoint3.setNumberColor("point", %color);
 		%digits = 6;
 	}
-	
+
 	PGCountdownTTImage.setPosition("348" + %offsetIfThousandths SPC "3");
 	PGCountdownTTFirstDigit.setPosition("375" + %offsetIfThousandths SPC "0");
 	PGCountdownTTFourthDigit.setPosition("429" + %offsetIfThousandths SPC "0");
@@ -1158,7 +1174,7 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 		%digits -= 2;
 	else if (!$pref::Thousandths)
 		%digits -= 1;
-	
+
 	//PGCountdownTTFirstDigit.setVisible(%digits >= 1); // Always true
 	//PGCountdownTTSecondDigit.setVisible(%digits >= 2); // Always true
 	PGCountdownTTThirdDigit.setVisible(%digits >= 3);
@@ -1209,7 +1225,7 @@ function PlayGui::updateCountdownLeft(%this, %delta) {
 		PGCountdownLeftThirdDigitOrDecimal.setNumberColor(9, %color);
 		PGCountdownLeftThirdDigitOrDecimal.setPosition("407" + %leftOffset + %offsetIfThousandths SPC "0");
 	}
-	
+
 	PGCountdownLeftImage.setPosition("344" + %leftOffset + %offsetIfThousandths SPC "3"); // 348 - 4 for this one.
 	PGCountdownLeftFirstDigit.setPosition("375" + %leftOffset + %offsetIfThousandths SPC "0");
 	PGCountdownLeftSecondDigit.setPosition("391" + %leftOffset + %offsetIfThousandths SPC "0");
@@ -1324,7 +1340,7 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 		profile = "GemCollectionMessageProfile";
 		horizSizing = "center";
 		vertSizing = "center";
-		position = %startPos;
+		position = getWords(%startPos, 0, 2);
 		extent = "400 100";
 		minExtent = "8 8";
 		visible = "1";

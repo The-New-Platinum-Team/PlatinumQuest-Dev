@@ -38,8 +38,8 @@ function Mode_mega::onLoad(%this) {
 }
 function Mode_mega::onCollision(%this, %object) {
 	if ($MP::Teammode &&
-		isObject(%object.client1.team) && isObject(%object.client2.team) &&
-		%object.client1.team.getId() == %object.client2.team.getId()) {
+	        isObject(%object.client1.team) && isObject(%object.client2.team) &&
+	        %object.client1.team.getId() == %object.client2.team.getId()) {
 		//Team kill! No points!
 		return;
 	}
@@ -88,8 +88,8 @@ function Mode_mega::updateWinner(%this, %winners) {
 	//Check for other winners
 	for (%i = 1; %i < %count; %i ++) {
 		%client = ClientGroup.getObject(%i);
-			if (%winner == %client)
-				continue;
+		if (%winner == %client)
+			continue;
 		if (%client.gemCount == %winner.gemCount)
 			%winners.addEntry(%client);
 	}

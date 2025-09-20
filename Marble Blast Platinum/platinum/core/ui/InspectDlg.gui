@@ -322,7 +322,7 @@ function Inspector::build(%this, %displayNames) {
 				if ($Inspect::CustomFieldType[%type] !$= "") {
 					%type = $Inspect::CustomFieldType[%type];
 				} else {
-					%type = 1;
+					%type = "string";
 				}
 			}
 		}
@@ -364,7 +364,7 @@ function Inspector::build(%this, %displayNames) {
 			if ($Inspect::CustomFieldType[%type] !$= "") {
 				%type = $Inspect::CustomFieldType[%type];
 			} else {
-				%type = 1;
+				%type = "string";
 			}
 
 			if ($Inspect::CustomField[%class, %i, "class"] !$= "")
@@ -401,7 +401,7 @@ function Inspector::build(%this, %displayNames) {
 				if ($Inspect::CustomFieldType[%type] !$= "") {
 					%type = $Inspect::CustomFieldType[%type];
 				} else {
-					%type = 1;
+					%type = "string";
 				}
 
 				if (%db.customField[%i, "class"] !$= "")
@@ -422,11 +422,11 @@ function Inspector::build(%this, %displayNames) {
 		//Actual entries
 		%count = %this.object.getSize();
 		for (%i = 0; %i < %count; %i ++) {
-			%type  = 1; //String
+			%type  = "string"; //String
 			%value = %this.object.getEntry(%i);
 
 			if (%this.object.__obj[%i] !$= "") {
-				%type = 14; //SimObject
+				%type = "SimObjectPtr"; //SimObject
 			}
 
 			//Add it
@@ -453,7 +453,7 @@ function Inspector::build(%this, %displayNames) {
 	%count = %dynArray.getSize();
 	for (%i = 0; %i < %count; %i ++) {
 		%field = %dynArray.getEntry(%i);
-		%type  = 1; //String
+		%type  = "string"; //String
 		%value = %this.object.getFieldValue(%field);
 
 		if (isObject(%this.fieldEntry[%field]))
@@ -464,7 +464,7 @@ function Inspector::build(%this, %displayNames) {
 			continue;
 		}
 		if (%this.object.__obj[%field] !$= "") {
-			%type = 14; //SimObject
+			%type = "SimObjectPtr"; //SimObject
 		}
 
 		//Add it
@@ -491,16 +491,16 @@ function Inspector::reset(%this) {
 	%this.gui.clear();
 }
 
-$Inspect::CustomFieldType["boolean"] = 3;
+$Inspect::CustomFieldType["boolean"] = "bool";
 $Inspect::CustomFieldType["time"] = 103;
-$Inspect::CustomFieldType["string"] = 1;
-$Inspect::CustomFieldType["enum"] = 10;
-$Inspect::CustomFieldType["GameBaseData"] = 100;
-$Inspect::CustomFieldType["ItemData"] = 101;
-$Inspect::CustomFieldType["TriggerData"] = 102;
-$Inspect::CustomFieldType["ColorI"] = 12;
-$Inspect::CustomFieldType["ColorF"] = 13;
-$Inspect::CustomFieldType["SimObject"] = 14;
+$Inspect::CustomFieldType["string"] = "string";
+$Inspect::CustomFieldType["enum"] = "enumval";
+$Inspect::CustomFieldType["GameBaseData"] = "GameBaseData";
+$Inspect::CustomFieldType["ItemData"] = "ItemData";
+$Inspect::CustomFieldType["TriggerData"] = "TriggerData";
+$Inspect::CustomFieldType["ColorI"] = "ColorI";
+$Inspect::CustomFieldType["ColorF"] = "ColorF";
+$Inspect::CustomFieldType["SimObject"] = "SimObjectPtr";
 
 $Inspect::MathFieldCount["Point2I"] = 2; //TypePoint2I
 $Inspect::MathFieldCount["Point2I"] = 2; //TypePoint2F
@@ -659,10 +659,10 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 		//Specialty case: bitmaps and bitmap buttons will auto size if you set
 		// their extent to 0 0. Only these classes do that.
 		if (%field $= "extent" && (
-		                 %this.object.getClassName() $= "GuiBitmapCtrl" ||
-		                         %this.object.getClassName() $= "GuiBitmapButtonCtrl" ||
-		                                 %this.object.getClassName() $= "GuiBitmapButtonTextCtrl"
-		             )) {
+		                  %this.object.getClassName() $= "GuiBitmapCtrl" ||
+		                      %this.object.getClassName() $= "GuiBitmapButtonCtrl" ||
+		                          %this.object.getClassName() $= "GuiBitmapButtonTextCtrl"
+		              )) {
 			%fieldWidth -= 50;
 			%group.add(new GuiButtonCtrl() {
 				profile = "GuiButtonProfile";

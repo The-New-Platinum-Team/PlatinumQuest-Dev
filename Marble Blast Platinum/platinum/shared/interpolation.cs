@@ -80,10 +80,10 @@ function Node::getPrevNode(%obj, %node, %group) {
 		//Try to find a PathNode that points to this node
 		if (%obj.getClassName() $= "StaticShape" &&
 		                           %obj.getDataBlock().getName() $= "PathNode" &&
-		                                   (
-		                                       (isObject(%obj.nextNode) && %obj.nextNode.getId() == %node.getId()) ||
-		                                       (%obj._nextNodeId !$= "" && %obj._nextNodeId == %node.getSyncId())
-		                                   )
+		                               (
+		                                   (isObject(%obj.nextNode) && %obj.nextNode.getId() == %node.getId()) ||
+		                                   (%obj._nextNodeId !$= "" && %obj._nextNodeId == %node.getSyncId())
+		                               )
 		   )
 			return %obj;
 	}

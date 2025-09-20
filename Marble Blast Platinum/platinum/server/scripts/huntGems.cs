@@ -66,7 +66,7 @@ function spawnHuntGemGroup(%exclude) {
 		return;
 	if ($playingDemo)
 		return;
-	if ($Game::isMode["snowball"] && $MPPref::SnowballsOnly) {
+	if ($Game::isMode["snowball"] && $MPPref::SnowballsOnly && mp()) {
 		hideGems();
 		return;
 	}
@@ -671,6 +671,8 @@ function spawnGem(%gem) {
 		if (!$Server::Dedicated)
 			%gem.setRadarTarget();
 		$Hunt::CurrentGemCount ++;
+
+		cancel(%gem.predictionSchedule);
 	}
 
 	return true;
@@ -806,15 +808,15 @@ function unspawnGem(%gem, %nocheck) {
 	if ($Hunt::CurrentGemCount > 0)
 		$Hunt::CurrentGemCount --;
 
-	if ($MPPref::Server::CompetitiveMode && %gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
-	// actually I think "FirstSpawn" is never actually on, lol
+	if (isCompetitiveMode() && %gem._leftBehind && !$Game::FirstSpawn && !%nocheck)  { // If we do this on the first spawn, these variables might change even though we tried to set them to 0.
+		// actually I think "FirstSpawn" is never actually on, lol
 		$Hunt::CurrentCompetitivePointsLeftBehind -= %gem._huntDatablock.huntExtraValue + 1;
 		$Hunt::CurrentCompetitiveGemsLeftBehind -= 1;
 		if ($Hunt::Competitive_TimerIncrementOnLeftbehindPickup) {
 			Hunt_CompetitiveAddToTimer($Hunt::Competitive_TimerIncrementOnLeftbehindPickup);
 		}
 	}
-	if ($MPPref::Server::CompetitiveMode && !%gem._leftBehind && $Hunt::Competitive_TimerWaitsForFirstGem && !$Hunt::Competitive_FirstGemOfSpawnCollected && !$Game::FirstSpawn && !%nocheck) {
+	if (isCompetitiveMode() && !%gem._leftBehind && $Hunt::Competitive_TimerWaitsForFirstGem && !$Hunt::Competitive_FirstGemOfSpawnCollected && !$Game::FirstSpawn && !%nocheck) {
 		Hunt_CompetitiveSetTimer($Hunt::Competitive_AutorespawnTime);
 		$Hunt::Competitive_FirstGemOfSpawnCollected = true;
 	}
@@ -822,7 +824,7 @@ function unspawnGem(%gem, %nocheck) {
 	devecho("Unspawn");
 	devecho($Hunt::CurrentCompetitivePointsLeftBehind);
 	devecho($Hunt::CurrentCompetitiveGemsLeftBehind);
-	if ($MPPref::Server::CompetitiveMode && $Game::Running && !%nocheck) {
+	if (isCompetitiveMode() && $Game::Running && !%nocheck) {
 		%remainingPoints = getCurrentSpawnScore() - $Hunt::CurrentCompetitivePointsLeftBehind;
 		%remainingGems = $Hunt::CurrentGemCount - $Hunt::CurrentCompetitiveGemsLeftBehind;
 		if (%remainingGems <= 0) {
@@ -847,6 +849,7 @@ function unspawnGem(%gem, %nocheck) {
 	removeGemLight(%gem);
 	%gem.getDataBlock().clearFX(%gem);
 	%gem.hide(true);
+	cancel(%gem.predictionSchedule);
 }
 
 function spawnBackupGem(%gem) {
@@ -923,9 +926,12 @@ function showGems() {
 }
 
 function addGemLight(%gem) {
-	if (!isObject(%gem)) return false;
-	if (isObject(%gem._light)) return false;
-	if (%gem.noLight) return false;
+	if (!isObject(%gem))
+		return false;
+	if (isObject(%gem._light))
+		return false;
+	if (%gem.noLight)
+		return false;
 
 	MissionCleanup.add(%gem._light = new StaticShape() {
 		datablock = "GemLight";
@@ -935,8 +941,8 @@ function addGemLight(%gem) {
 	});
 
 	%gem._light.setSkinName(%gem.getSkinName()); //This was needlessly complicated previously lmfao - Daniel
-	if (%gem.getDataBlock().skin $= "default" || %gem.getDataBlock().skin $= "")
-		// %gem.setSkinName("red");
+	// if (%gem.getDataBlock().skin $= "default" || %gem.getDataBlock().skin $= "")
+	// %gem.setSkinName("red");
 	if (isServerMovingObject(%gem)) {
 		%gem._light.setParent(%gem, "0 0 0 1 0 0 0", true, "0 0 0");
 		//If this is the first spawn, this won't go through
@@ -946,8 +952,10 @@ function addGemLight(%gem) {
 }
 
 function removeGemLight(%gem) {
-	if (!isObject(%gem)) return false;
-	if (!isObject(%gem._light)) return false;
+	if (!isObject(%gem))
+		return false;
+	if (!isObject(%gem._light))
+		return false;
 
 	%gem._light.delete();
 	%gem._light = "";

@@ -471,7 +471,15 @@ function clientCmdValidMission(%file) {
 
 function clientCmdCloseLobby() {
 	$Server::Lobby = false;
-	PG_LBChatEntry.setValue(""); // Clear ingame chat
+	PG_LBChatEntry.setValue(PM_ChatEntry.getValue());
+	switch$ (PlayMissionGui.chatPanel) {
+	case "global":
+		$chatHudType = "global";
+	case "server":
+		$chatHudType = "private";
+	case "team":
+		$chatHudType = "team";
+	}
 	LBSetChatMessage("", PG_LBChatEntry);
 }
 
@@ -540,7 +548,11 @@ function clientCmdMissionListEnd(%gameName, %difficultyName) {
 		}
 
 		if (SearchDlg.isAwake()) {
-			SearchDlg.buildSearch();
+			// Small hack, all levels in "Hunt" will be the same across all clients and don't need to be rebuilt
+			// This prevents "Acropolis 2" from constantly being re-selected while picking on a dedicated server
+			if (%gameName $= $CurrentGame && $CurrentGame !$= "Hunt") {
+				SearchDlg.buildSearch();
+			}
 		}
 	}
 }

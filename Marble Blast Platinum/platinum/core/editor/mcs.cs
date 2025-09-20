@@ -151,7 +151,8 @@ function mcsSectionize() {
 				error("MCS duplicate section: " @ %name);
 				continue;
 			}
-			if (%pos > 0 && getSubStr($MCS::Conts, %pos, 1) $= "\n") %pos ++;
+			if (%pos > 0 && getSubStr($MCS::Conts, %pos, 1) $= "\n")
+				%pos ++;
 			$MCS::SectionBegin[%name] = %pos;
 			echo("MCS found section " @ %name @ " start at " @ %pos);
 		case "END":
@@ -197,8 +198,10 @@ function mcsSectionizeOld() {
 		%endPos += 23; //strlen("//--- PQ WRITE END ---\n")
 
 		//Strip newline as well
-		if (getSubStr($MCS::Conts, %endPos, 1) $= "\n") %endPos ++;
-		if (getSubStr($MCS::Conts, %startPos, 1) $= "\n") %startPos ++;
+		if (getSubStr($MCS::Conts, %endPos, 1) $= "\n")
+			%endPos ++;
+		if (getSubStr($MCS::Conts, %startPos, 1) $= "\n")
+			%startPos ++;
 	} else {
 		//No it's a regular mission
 		%startPos = stripos($MCS::Conts, "//--- OBJECT WRITE BEGIN ---");
@@ -213,8 +216,10 @@ function mcsSectionizeOld() {
 			%endPos += 27; //strlen("//--- OBJECT WRITE END ---\n")
 
 			//Strip newline as well
-			if (getSubStr($MCS::Conts, %endPos, 1) $= "\n") %endPos ++;
-			if (getSubStr($MCS::Conts, %startPos, 1) $= "\n") %startPos ++;
+			if (getSubStr($MCS::Conts, %endPos, 1) $= "\n")
+				%endPos ++;
+			if (getSubStr($MCS::Conts, %startPos, 1) $= "\n")
+				%startPos ++;
 		}
 	}
 
@@ -391,12 +396,18 @@ function mcsFormatMissionInfo() {
 	//Format the custom radar rule
 	%rule = $MCS::CustomRadarRuleTemp;
 	%ruleStr = "$Radar::Flags::None";
-	if ((%rule & (1 << 0)) != 0) %ruleStr = %ruleStr @ " | $Radar::Flags::Gems";
-	if ((%rule & (1 << 1)) != 0) %ruleStr = %ruleStr @ " | $Radar::Flags::TimeTravels";
-	if ((%rule & (1 << 2)) != 0) %ruleStr = %ruleStr @ " | $Radar::Flags::EndPad";
-	if ((%rule & (1 << 3)) != 0) %ruleStr = %ruleStr @ " | $Radar::Flags::Checkpoints";
-	if ((%rule & (1 << 4)) != 0) %ruleStr = %ruleStr @ " | $Radar::Flags::Cannons";
-	if ((%rule & (1 << 5)) != 0) %ruleStr = %ruleStr @ " | $Radar::Flags::Powerups";
+	if ((%rule & (1 << 0)) != 0)
+		%ruleStr = %ruleStr @ " | $Radar::Flags::Gems";
+	if ((%rule & (1 << 1)) != 0)
+		%ruleStr = %ruleStr @ " | $Radar::Flags::TimeTravels";
+	if ((%rule & (1 << 2)) != 0)
+		%ruleStr = %ruleStr @ " | $Radar::Flags::EndPad";
+	if ((%rule & (1 << 3)) != 0)
+		%ruleStr = %ruleStr @ " | $Radar::Flags::Checkpoints";
+	if ((%rule & (1 << 4)) != 0)
+		%ruleStr = %ruleStr @ " | $Radar::Flags::Cannons";
+	if ((%rule & (1 << 5)) != 0)
+		%ruleStr = %ruleStr @ " | $Radar::Flags::Powerups";
 
 	if (%rule != 0) {
 		//22 == strlen("$Radar::Flags::None | ")
@@ -549,10 +560,10 @@ function mcsSearch(%group, %sel) {
 		if (mcsMatch(%obj, %sel))
 			return %obj;
 		if (%class $= "SimGroup") {
-				%sub = mcsSearch(%obj, %sel);
-				if (isObject(%sub))
-					return %sub;
-			}
+			%sub = mcsSearch(%obj, %sel);
+			if (isObject(%sub))
+				return %sub;
+		}
 	}
 	return -1;
 }

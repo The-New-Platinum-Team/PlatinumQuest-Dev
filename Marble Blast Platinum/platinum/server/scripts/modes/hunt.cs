@@ -141,12 +141,7 @@ function Mode_hunt::onMissionReset(%this, %object) {
 		}
 	}
 
-	if ($MPPref::Server::CompetitiveMode) {
-		if (!mp() || $Game::isMode["coop"] || !$Game::isMode["hunt"]) {
-			$MPPref::Server::CompetitiveMode = 0;
-			Hunt_CompetitiveClearTimer();
-			return;
-		}
+	if (isCompetitiveMode()) {
 		if (!$Hunt::Competitive_TimerWaitsForFirstGem) {
 			%this.schedule(3500, startCompetitiveAutorespawn);
 		} else {
@@ -159,7 +154,7 @@ function Mode_hunt::onMissionReset(%this, %object) {
 	}
 }
 function Mode_hunt::onHuntGemSpawn(%this) {
-	if ($MPPref::Server::CompetitiveMode && !$Hunt::Competitive_TimerWaitsForFirstGem) {
+	if (isCompetitiveMode() && !$Hunt::Competitive_TimerWaitsForFirstGem) {
 		%this.startCompetitiveAutorespawn();
 	}
 }

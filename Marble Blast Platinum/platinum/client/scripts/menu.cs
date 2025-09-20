@@ -246,6 +246,8 @@ function menuPlay() {
 	alxStopAll();
 	alxSetChannelVolume(1, $pref::Audio::channelVolume1);
 
+	PlayMissionGui.resetCurrentGame();
+
 	//Start the mission
 	endGame();
 	$Game::Menu = false;

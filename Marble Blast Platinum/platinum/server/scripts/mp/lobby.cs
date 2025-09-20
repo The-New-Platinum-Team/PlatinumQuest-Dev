@@ -160,7 +160,7 @@ function reloadAllPlaymission() {
 function GameConnection::updatePlaymission(%this) {
 	// Basic mission info that is used for playmission
 	traceGuard();
-		%info = $MP::MissionObj.getFields();
+	%info = $MP::MissionObj.getFields();
 	traceGuardEnd();
 	commandToClientLong(%this, 'LobbyMissionInfo', %info, $MP::MissionFile, $CurrentGame, $MissionType, $MP::CurrentMode);
 }
@@ -203,6 +203,7 @@ function lobbyReturn() {
 
 	endMission(true);
 	$Server::Lobby = true;
+	$Server::Loading = false;
 	$Game::Running = false;
 	$missionRunning = false;
 	$Server::SpectateCount = 0;
@@ -417,6 +418,22 @@ function SMD_checkSuccess(%id) {
 	}
 }
 
+function serverCmdSwapMPMarblelandMissionList(%client, %marbleland) {
+	if (%client.isHost()) {
+		$CurrentGame = %marbleland ? "Marbleland" : "Hunt";
+		commandToAll('SwapMissionListMP', %marbleland);
+	}
+}
+
+function serverCmdSetMPMarblelandMission(%client, %type, %file) {
+	if (%client.isHost()) {
+		$MissionType = %type;
+		$MP::MissionFile = %file;
+		$MP::MissionObj = marblelandGetMission(marblelandGetFileId(%file));
+		commandToAllExcept(%client, 'SetMPMarblelandMission', %type, $MP::MissionFile);
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Player list
 //-----------------------------------------------------------------------------
@@ -483,20 +500,20 @@ function GameConnection::updatePlayerlist(%this) {
 		%rating     = %client.rating;
 
 		%playerData =
-			    expandEscape(%client.getUsername())  // 0
-			TAB expandEscape(%client.loadState)      // 1
-			TAB expandEscape(%client.ready)          // 2
-			TAB expandEscape(%host)                  // 3
-			TAB expandEscape(%admim)                 // 4
-			TAB expandEscape(%client.skinChoice)     // 5
-			TAB expandEscape(%team)                  // 6
-			TAB expandEscape(%teamColor)             // 7
-			TAB expandEscape(%ping)                  // 8
-			TAB expandEscape(%nametag)               // 9
-			TAB expandEscape(%specState)             // 10
-			TAB expandEscape(%rating)                // 11
-			TAB %client.index                        // 12
-		;
+		    expandEscape(%client.getUsername())  // 0
+		    TAB expandEscape(%client.loadState)      // 1
+		    TAB expandEscape(%client.ready)          // 2
+		    TAB expandEscape(%host)                  // 3
+		    TAB expandEscape(%admim)                 // 4
+		    TAB expandEscape(%client.skinChoice)     // 5
+		    TAB expandEscape(%team)                  // 6
+		    TAB expandEscape(%teamColor)             // 7
+		    TAB expandEscape(%ping)                  // 8
+		    TAB expandEscape(%nametag)               // 9
+		    TAB expandEscape(%specState)             // 10
+		    TAB expandEscape(%rating)                // 11
+		    TAB %client.index                        // 12
+		    ;
 
 
 		if (%i == 0)
@@ -1077,18 +1094,19 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 		//Send them the file
 
 		traceGuard();
-			%info = getMissionInfo(%mission.file, true).getFields();
-			echo("Info length:" SPC strLen(%info));
+		%info = getMissionInfo(%mission.file, true).getFields();
+		echo("Info length:" SPC strLen(%info));
 
-			//Args are out of order because commandToClientLong puts the long arg in the first arg
-			commandToClientLong(%client, 'MissionListMission', %info, %gameName, %difficultyName);
+		//Args are out of order because commandToClientLong puts the long arg in the first arg
+		commandToClientLong(%client, 'MissionListMission', %info, %gameName, %difficultyName);
 		traceGuardEnd();
 	}
 	commandToClient(%client, 'MissionListEnd', %gameName, %difficultyName);
-
-	if ($MissionType $= "Marbleland" && $CurrentGame $= "Marbleland") {
+	
+	if ($CurrentGame $= "Marbleland") {
 		// Swap pls
-		commandToClient(%client, 'SwapMissionListMP');
+		commandToClient(%client, 'SwapMissionListMP', true);
+		commandToClient(%client, 'SetMPMarblelandMission', $MissionType, $MP::MissionFile);
 	}
 
 	if ($MissionType $= "Custom" && !%client.isHost()) {

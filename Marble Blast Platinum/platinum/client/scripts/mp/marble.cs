@@ -51,6 +51,7 @@ function Marble::_setPowerUp(%this, %data, %reset, %obj, %fields) {
 }
 
 function Marble::_setPowerUpObj(%this, %obj, %fields) {
+	%this._powerUpObj = %obj;
 	%oldFields = %this.getDynamicFieldList();
 	for (%i = 0; %i < getFieldCount(%oldFields); %i ++) {
 		%field = getField(%oldFields, %i);
@@ -99,26 +100,40 @@ function Marble::_onPowerUpUsed(%this, %id) {
 		case 3:
 			%this.mountImage(SuperBounceImage, 0);
 			%this.mountSch = %this.schedule(5000, "unmountImage", 0);
+			PlayGui.pushPowerupTimer(3, getSimTime(), 5000);
 		case 4:
 			%this.mountImage(ShockAbsorberImage, 0);
 			%this.mountSch = %this.schedule(5000, "unmountImage", 0);
+			PlayGui.pushPowerupTimer(4, getSimTime(), 5000);
 		case 5:
-			%this.mountImage((%this.megaMarble ? MegaHelicopterImage : ActualHelicopterImage), 0);
-			%this.mountSch = %this.schedule(5000, "unmountImage", 0);
-		case 6: //Mega
-			if (!%this.megaMarble) {
-				$MegaOldRadius = %this.getCollisionRadius();
-				%this.setCollisionRadius(0.6666);
+			%db = %this._powerUpObj.getDatablock().getName();
+			if (%this.megaMarble) {
+				%image = MegaHelicopterImage;
+			} else if (%db $= "HelicopterItem_PQ") {
+				%image = HelicopterImage_PQ;
+			} else if (%db $= "HelicopterItem_MBU") {
+				if (%this.getCollisionRadius() == 0.3) {
+					%image = HelicopterImage_MBUBall;
+				} else {
+					%image = HelicopterImage_MBU;
+				}
+			} else {
+				%image = ActualHelicopterImage;
 			}
-
-			cancel(%this.unMega);
-			%this.unMega = %this.schedule(10000, "_unMega");
-
-			%this.megaMarble = true;
-			$Client::MegaMarble = true;
-			Physics::reloadLayers();
-
-			%this.setPowerUpId(0, true);
+			%this.mountImage(%image, 0);
+			cancel(%this.mountSch);
+			%this.mountSch = %this.schedule(5000, "unmountImage", 0);
+			PlayGui.pushPowerupTimer(5, getSimTime(), 5000);
+		case 6: //Mega
+			commandToServer('MegaMarbleUse', %this._powerUpObj.getSyncId());
+		case 7: //Teleporter
+			commandToServer('TeleportUse', %this._powerUpObj.getSyncId());
+			if (%this._teleporterLocationSet || %this.isCloaked()) {
+				%this._teleporterLocationSet = false;
+			} else {
+				%this._teleporterLocationSet = true;
+				return;
+			}
 		case 8: // anvil
 			if ($Game::GravityUV !$= "0 0 -1")
 				$MP::MyMarble.applyImpulse("0 0 0", rottoVector($Game::GravityRot, "0 0 20"));
@@ -145,7 +160,6 @@ function Marble::_mouseFire(%this) {
 	if (%this._powerUpId) {
 		%this._onPowerUpUsed();
 	}
-	%this._powerUpId = 0;
 }
 
 function Marble::_respawnPowerup(%this) {
@@ -156,6 +170,8 @@ function Marble::_respawnPowerup(%this) {
 	while (ClientRespawnSet.getCount()) {
 		ClientRespawnSet.getObject(0)._respawnEnd(); //Removes the item from the set too
 	}
+
+	%this._teleporterLocationSet = false;
 }
 
 function Marble::_respawnPowerupOnCheckpoint(%this) {
@@ -176,6 +192,8 @@ function Marble::_respawnPowerupOnCheckpoint(%this) {
 		%this.schedule(500, _setPowerUp, %this._checkpointPowerup, true, %fakePU);
 		%fakePU.schedule(1000, delete);
 	}
+
+	%this._teleporterLocationSet = false;
 }
 
 function Marble::_onActivateCheckpoint(%this) {
@@ -200,22 +218,13 @@ function Marble::_onActivateCheckpoint(%this) {
 	}
 }
 
-function Marble::_unMega(%this) {
-	commandToServer('MegaMarble', false);
-	%this.setCollisionRadius($MegaOldRadius);
-	%this.megaMarble = false;
-	$Client::MegaMarble = false;
-	Physics::reloadLayers();
-}
-
 function Marble::onJump(%this) {
 	//Client-sided
 	$Game::LastJumpTime = $Sim::Time;
 	$Game::Jumped = true;
 	$Game::Jumps ++;
 	%ret = $LB::LoggedIn || $Server::Dedicated;
-	if (%ret && $platform $= "windows")
-	{
+	if (%ret && $platform $= "windows") {
 		anticheatDetect(); // This shit aint exist on mac lmaoo
 	}
 }

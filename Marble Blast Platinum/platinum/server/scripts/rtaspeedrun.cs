@@ -37,6 +37,7 @@ function RtaSpeedrun::create(%this) {
 	%this.setLastSplitTime(-1);
 	%this.setLastEggTime(-1);
 
+	%this.firstMission = "";
 	%this.missionType = "";
 	%this.setMissionTypeBeganTime(0);
 	%this.missionTypeDuration = -1;
@@ -102,7 +103,7 @@ function RtaSpeedrun::updateTimers(%this) {
 				%showGame = false;
 		}
 		if (%lastTime == %this.missionTypeDuration
-			|| %lastTime == %this.currentGameDuration)
+		        || %lastTime == %this.currentGameDuration)
 			%showSplit = false;
 		if (%showCategory && %showGame && (%this.currentGameDuration == %this.missionTypeDuration)) {
 			%showGame = false;
@@ -201,6 +202,7 @@ function RtaSpeedrun::missionStarted(%this) {
 		echo("Speedrun mode began timing!");
 		%this.setIsEnabled(true);
 		%this.setShouldStartRun(false);
+		%this.firstMission = $Server::MissionFile;
 	}
 	if (!%this.isEnabled)
 		return;
@@ -220,6 +222,52 @@ function RtaSpeedrun::missionStarted(%this) {
 	%this.saveProgress();
 }
 
+// Copied from EndGameDlg::getNextLevel but without accounting for unlocks (to prevent false positives)
+// Returns: end of difficulty NL end of game
+function RtaSpeedrun::checkCategoryEnds(%this) {
+	if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
+		devecho("RtaSpeedrun::checkCategoryEnds: 1 1 (early mbl exit)");
+		return true NL true;
+	}
+
+	%endOfMissionType = false;
+	%endOfGame = false;
+
+	//Load next
+	%pmg = PlayMissionGui;
+	%pmSelectedIndex = %pmg.selectedIndex;
+	%currentMissionType = $MissionType;
+
+	%list = %pmg.getMissionList($CurrentGame, %currentMissionType);
+	%pmSelectedIndex ++;
+
+	if (%pmSelectedIndex >= %list.getSize()) {
+		%endOfMissionType = true;
+		//Next list
+		%diffs = %pmg.getDifficultyList($CurrentGame);
+		for (%i = 0; %i < getRecordCount(%diffs); %i ++) {
+			%record = getRecord(%diffs, %i);
+			if (getField(%record, 0) $= %currentMissionType) {
+				%found = true;
+				break;
+			}
+		}
+		if (!%found) {
+			//Unknown difficulty?
+			%endOfGame = true;
+			devecho("RtaSpeedrun::checkCategoryEnds: " @ %endOfMissionType SPC %endOfGame @ " (early unfound diff exit)");
+			return %endOfMissionType NL %endOfGame;
+		}
+		%next = getField(getRecord(%diffs, %i + 1), 0);
+		if (%next $= "") {
+			%endOfGame = true;
+		}
+	}
+
+	devecho("RtaSpeedrun::checkCategoryEnds: " @ %endOfMissionType SPC %endOfGame);
+	return %endOfMissionType NL %endOfGame;
+}
+
 function RtaSpeedrun::missionEnded(%this) {
 	if (!%this.isEnabled)
 		return;
@@ -236,14 +284,15 @@ function RtaSpeedrun::missionEnded(%this) {
 		%isEndOfMissionType = true;
 		%isEndOfCurrentGame = true;
 	} else {
-		%nextMission = EndGameDlg.getNextLevel();
-		if (!isObject(getRecord(%nextMission, 0)) || %this.isGameEndSpecialCase($Server::MissionFile)) {
+		if (%this.isGameEndSpecialCase($Server::MissionFile)) {
 			%isEndOfMissionType = true;
 			%isEndOfCurrentGame = true;
 		} else {
-			%nextMissionType = getRecord(%nextMission, 2);
-			if (%nextMissionType !$= $MissionType)
+			%ends = RtaSpeedrun.checkCategoryEnds();
+			if (getRecord(%ends, 0))
 				%isEndOfMissionType = true;
+			if (getRecord(%ends, 1))
+				%isEndOfCurrentGame = true;
 		}
 	}
 	%this.setLastSplitTime(%this.time);
@@ -282,18 +331,26 @@ function RtaSpeedrun::eggCollected(%this) {
 }
 
 function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
-	// Some games/categories have multiple valid places to represent the "end" of the speedrun/ We want to account for
+	// Some games/categories have multiple valid places to represent the "end" of the speedrun. We want to account for
 	// all of them, and even let the same run count towards each of the categories.
+	%mission = strreplace(%mission, "data/lbmissions_", "data/missions_");
 	switch$ (%mission) {
-		case "platinum/data/missions_mbg/advanced/KingOfTheMountain.mis": return true;
-		case "platinum/data/missions_mbu/advanced/schadenfreude_ultra.mis": return true;
-		case "platinum/data/lbmissions_mbu/advanced/schadenfreude_ultra.mis": return true;
-		case "platinum/data/missions_mbu/advanced/hypercube_ultra.mis": return true;
-		case "platinum/data/missions_mbp/expert/BattlecubeFinale.mis": return true;
-		case "platinum/data/missions_pq/expert/ManicBounce.mcs": return true;
-		case "platinum/data/lbmissions_pq/expert/ManicBounce.mcs": return true;
-		case "platinum/data/missions_pq/bonus/Puzzle11Nightmare.mcs": return true;
-		case "platinum/data/lbmissions_pq/bonus/Puzzle11Nightmare.mcs": return true;
+	case "platinum/data/missions_mbg/advanced/KingOfTheMountain.mis":
+		return true;
+	case "platinum/data/missions_mbg/bonus/cube2_mbuparity.mis":
+		return true;
+	case "platinum/data/missions_mbu/advanced/schadenfreude_ultra.mis":
+		return true;
+	case "platinum/data/missions_mbu/advanced/hypercube_ultra2.mis":
+		return true;
+	case "platinum/data/missions_mbp/expert/BattlecubeFinale.mis":
+		return true;
+	case "platinum/data/missions_pq/expert/ManicBounce.mcs":
+		return true;
+	case "platinum/data/missions_pq/bonus/Puzzle11Nightmare.mcs":
+		return true;
+	case "platinum/data/missions_pq/bonus/SuperSecretPuzzle12.mcs":
+		return true;
 	}
 	return false;
 }
@@ -306,6 +363,7 @@ function RtaSpeedrun::saveProgress(%this) {
 		return;
 	}
 	$RtaProgress::time = %this.time;
+	$RtaProgress::firstMission = %this.firstMission;
 	$RtaProgress::endMission = %this.endMission;
 	$RtaProgress::missionType = %this.missionType;
 	$RtaProgress::missionTypeBeganTime = %this.missionTypeBeganTime;
@@ -322,6 +380,7 @@ function RtaSpeedrun::loadProgress(%this) {
 	}
 	exec(%progressFile);
 	%this.setTime($RtaProgress::time);
+	%this.firstMission = $RtaProgress::firstMission;
 	%this.setEnd($RtaProgress::endMission);
 	%this.missionType = $RtaProgress::missionType;
 	%this.missionTypeBeganTime = $RtaProgress::missionTypeBeganTime;
@@ -338,6 +397,38 @@ function RtaSpeedrun::clearProgress(%this) {
 		deleteFile(%progressFile);
 	if (isFile(%progressFile @ ".dso"))
 		deleteFile(%progressFile @ ".dso");
+}
+
+// Hotkey which restarts an in-progress RTA speedrun
+RtaSpeedrun.restartMessageBoxOpen = false;
+
+function restartRtaSpeedrun(%val) {
+	if (!%val || RtaSpeedrun.restartMessageBoxOpen || !RtaSpeedrun.isEnabled || RtaSpeedrun.firstMission $= "")
+		return;
+
+	%noCallback = "RtaSpeedrun.restartMessageBoxOpen = false;";
+	if (!$gamePaused)
+		%noCallBack = %noCallback SPC "resumeGame();";
+	pauseGame();
+	echo("NO CALLBACK: " @ %noCallBack);
+	RtaSpeedrun.restartMessageBoxOpen = true;
+	MessageBoxYesNo("Restart run?", "Really reset RTA speedrun and restart from the beginning?", "RtaSpeedrun.doRestartRun();", %noCallback);
+}
+
+function RtaSpeedrun::doRestartRun(%this, %missionToLoad) {
+	RtaSpeedrun.restartMessageBoxOpen = false;
+	if ($gamePaused)
+		resumeGame();
+
+	%this.stop();
+	%this.start();
+	%minfo = getMissionInfo(%this.firstMission);
+	if (%minfo == -1) {
+		MessageBoxOk("Error", "Error restarting run, could not get mission information. Please report this!");
+		return;
+	}
+	PlayMissionGui.setSelectedMission(%minfo);
+	loadMission(%this.firstMission);
 }
 
 // Setters for most properties, to update the RTAAutosplitter plugin's values as well

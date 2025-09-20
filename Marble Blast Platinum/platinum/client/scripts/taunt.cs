@@ -186,7 +186,7 @@ function sendTaunt(%number) {
 // keybindings to taunts
 //-----------------------------------------------------------------------------
 
-function taunt1(%val) {
+function taunt1_(%val) {
 	if (%val && $Server::ServerType $= "Multiplayer")
 		sendTaunt(1);
 }

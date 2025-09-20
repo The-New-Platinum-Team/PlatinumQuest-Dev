@@ -37,9 +37,9 @@ function GameConnection::stopTimer(%this) {
 function GameConnection::resetTimer(%this) {
 	commandToClient(%this, 'resetTimer');
 }
-
 function GameConnection::setTimeStopped(%this, %stopped) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	commandToClient(%this, 'setTimeStopped', %stopped);
 }
 
@@ -103,7 +103,8 @@ function GameConnection::addHelpLine(%this, %line, %playBeep) {
 }
 
 function GameConnection::addBubbleLine(%this, %line, %help, %time, %isAHelpTrigger) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	cancel(%this.downsched);
 	commandToClientLong(%this, 'AddBubbleLine', %line, %help, %isAHelpTrigger);
 
@@ -114,7 +115,8 @@ function GameConnection::addBubbleLine(%this, %line, %help, %time, %isAHelpTrigg
 	}
 }
 function GameConnection::hideBubble(%this) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	commandToClient(%this, 'HideBubble');
 }
 
@@ -213,8 +215,16 @@ function GameConnection::radarInit(%this) {
 }
 
 function GameConnection::setMovementKeysEnabled(%this, %enabled) {
-	if (%this.fake) return;
+	if (%this.fake)
+		return;
 	commandToClient(%this, 'EnableMovementKeys', %enabled);
+}
+
+function GameConnection::sendSharedSpawnPoint(%this) {
+	if ($MP::SharedSpawnPointIndex $= "") {
+		chooseSharedSpawnPoint();
+	}
+	commandToClient(%this, 'setSharedSpawnPoint', $MP::SharedSpawnPointIndex);
 }
 
 function GameConnection::setWhiteOut(%this, %whiteout) {
@@ -335,7 +345,7 @@ function GameConnection::getFurthestSpawnTrigger(%this) {
 	// The gem positions are kinda like the marble's pos... I guess?
 	// If this happens, see ya on the other side of the level, sucker
 	if ($Game::IsMode["hunt"] && getRandom(0, 50) > 5)
-		%playerPos = %this.getNearestGem(true).getPosition();
+		%playerPos = %this.getNearestGem(true, false).getPosition();
 
 	if (!isObject(%this.player)) // We don't know *where* we'll spawn!
 		return SpawnPointSet.getObject(getRandom(0, %spawnCount - 1));
@@ -392,9 +402,14 @@ function GameConnection::getSharedSpawnTrigger(%this) {
 	if (($Sim::Time - %this.lastSpawnTime) > 4)
 		%this.lastSpawnTrigger = "";
 
-	// Always gets the first available spawn trigger
-	// Would be nice for the server to randomly pick one and sync to all players, but this will work for now.
-	return SpawnPointSet.getObject(0);
+	if ($MP::SharedSpawnPointIndex $= "") {
+		// We don't have a value here...
+		$MP::SharedSpawnPointIndex = 0;
+	}
+
+	%index = $MP::SharedSpawnPointIndex % %size;
+
+	return SpawnPointSet.getObject(%index);
 }
 
 function GameConnection::pointToNearestGem(%this) {
@@ -406,7 +421,7 @@ function GameConnection::pointToNearestGem(%this) {
 }
 
 function transformToNearestGem(%gravity, %pos, %highestValue) {
-	%nearest = getNearestGem(%pos, %highestValue);
+	%nearest = getNearestGem(%pos, %highestValue, true);
 	if (%nearest == -1)
 		return;
 

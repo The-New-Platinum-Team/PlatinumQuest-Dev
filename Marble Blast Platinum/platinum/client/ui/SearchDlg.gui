@@ -39,8 +39,8 @@ new GuiControl(SearchDlg) {
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		_guiSize = "800 600";
-		loading = "0";
+	_guiSize = "800 600";
+	loading = "0";
 
 	new GuiControl(SG_Window) {
 		profile = "PQWindowProfile";
@@ -221,6 +221,24 @@ new GuiControl(SearchDlg) {
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 		};
+		new GuiCheckBoxCtrl(SearchHuntBonusDC) {
+			profile = "PQCheckboxProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "217 423";
+			extent = "166 27";
+			minExtent = "8 8";
+			visible = "1";
+			active = "1";
+			variable = "$pref::SearchHuntBonusDC";
+			command = "SearchDlg.search();";
+			helpTag = "0";
+			text = "Include Bonus/DC";
+			groupNum = "-1";
+			buttonType = "ToggleButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
 		new GuiBorderButtonCtrl(SearchPlay) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
@@ -282,6 +300,8 @@ function SearchDlg::buildSearch(%this) {
 	// delete objects in search group
 	SearchSet.clear();
 
+	SearchHuntBonusDC.setVisible(mp() && $CurrentGame $= "Hunt");
+
 	// iterate through each difficulty
 	%ml = PlayMissionGui.ml;
 	%difficulties = %ml.getDifficultyList($CurrentGame);
@@ -336,6 +356,8 @@ function SearchDlg::buildSearch(%this) {
 }
 
 function testSearch(%mission, %flags, %query) {
+	if (mp() && $CurrentGame $= "Hunt" && !$pref::SearchHuntBonusDC && (%mission.searchType $= "Bonus" || %mission.searchType $= "Director's Cut" || %mission.searchType $= "DirectorsCut"))
+		return false;
 	return (strStr(%mission.searchName, %query) != -1)
 	       || (strStr(%mission.searchArtist, %query) != -1)
 	       || (strStr(%mission.searchFile, %query) != -1)
@@ -458,12 +480,12 @@ function SearchDlg::random(%this) {
 	%count = SearchMissionList.rowCount();
 	if (!%count)
 		return;
-	%randomNumber = getRandom(0, %count - 1);
+	%randomNumber = stdRandomGetInt(0, %count - 1);
 	SearchMissionList.setSelectedRow(%randomNumber);
 	if (mp()) {
 		// Tell everyone it was indeed random
 		// SearchMissionList is actually internally made by putting each category one after another so the order is messed up, so we cannot use %randomNumber to do this.
-		serverSendChat(LBChatColor("notification") @ "The Host has rolled the random map" SPC getField(SearchMissionList.getRowTextById(SearchMissionList.getSelectedId()), 0) @ ".");
+		commandToServer('RandomMapSelected', getField(SearchMissionList.getRowTextById(SearchMissionList.getSelectedId()), 0));
 	}
 }
 
@@ -477,16 +499,23 @@ function SearchDlg::setStatus(%this, %status, %active) {
 }
 
 function capitalizeModification(%mod) {
-	if (%mod $= "gold") return "Gold";
-	if (%mod $= "platinum") return "Platinum";
-	if (%mod $= "fubar") return "Fubar";
-	if (%mod $= "ultra") return "Ultra";
-	if (%mod $= "platinumquest") return "PlatinumQuest";
+	if (%mod $= "gold")
+		return "Gold";
+	if (%mod $= "platinum")
+		return "Platinum";
+	if (%mod $= "fubar")
+		return "Fubar";
+	if (%mod $= "ultra")
+		return "Ultra";
+	if (%mod $= "platinumquest")
+		return "PlatinumQuest";
 }
 
 function capitalizeGameType(%type) {
-	if (%type $= "single") return "SinglePlayer";
-	if (%type $= "multi") return "Multiplayer";
+	if (%type $= "single")
+		return "SinglePlayer";
+	if (%type $= "multi")
+		return "Multiplayer";
 }
 
 function onSearchPreviewDownloaded(%id, %success, %bmp) {

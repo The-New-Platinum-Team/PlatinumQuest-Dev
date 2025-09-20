@@ -520,8 +520,7 @@ function MarblelandRandomMissionQueue::isUpcomingHidden(%this) {
 }
 
 // For RPC calls, currently used for marbleland
-function onRPCLine(%line)
-{
+function onRPCLine(%line) {
 	echo("RPC Line:" SPC %line);
 	%cmd = getWord(%line, 0);
 	echo("RPC Command:" SPC %cmd);
@@ -531,17 +530,14 @@ function onRPCLine(%line)
 		echo("Marbleland Level:" SPC %level);
 		menuDestroyServer(); // Stop whatever is preloaded so we don't crash
 
-		if (!$Server::Hosting)
-		{
+		if (!$Server::Hosting) {
 			%lookup = marblelandGetMission(%level);
 			if (%lookup !$= "") {
 				%entry = %lookup;
 				RootGui.setContent(LoadingGui);
 				schedule(1000, 0, menuLoadStartMission, %entry.file);
 			}
-		}
-		else
-		{
+		} else {
 			commandToServer('MarblelandPlay', %level);
 		}
 	}

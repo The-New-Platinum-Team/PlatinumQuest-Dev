@@ -5,11 +5,11 @@ function MP_PQ_BattlecubeRevisitedHunt_GetMissionInfo() {
 new ScriptObject() {
 		name = "Battlecube Revisited";
 		type = "Intermediate";
-		level = "17";
+		level = "23";
 		desc = "Conquer gravity in this hexad-faced mayhem!";
 		artist = "Matan";
-		music = "Astrolabe.ogg";
-		game = "Platinum";
+		music = "Tim Trance.ogg";
+		game = "Ultra";
 		gameMode = "Hunt";
 		blast = "1";
 		Time = "300000";
@@ -27,7 +27,6 @@ new ScriptObject() {
 		interiors = "1";
 		maxScore = "147";
 		modification = "Ultra";
-		overviewHeight = "-15";
 		platinumScore0 = "80";
 		platinumScore1 = "140";
 		score0 = "25";
@@ -65,114 +64,20 @@ function MP_PQ_BattlecubeRevisitedHunt_LoadMission() {
 new SimGroup(MissionGroup) {
 
 	new SimGroup(PathNodeGroup) {
-
-		new StaticShape(CameraPath1) {
-			position = "62.7358 73.9987 47.8923";
-			rotation = "-0.123535 -0.244895 0.961647 231.756";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath2";
-				timeToNext = "7000";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				placed = "1";
-		};
-		new StaticShape(CameraPath2) {
-			position = "48.9847 36.007 32.5611";
-			rotation = "0.205163 0.232067 -0.950817 99.9002";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath3";
-				timeToNext = "7000";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				Spline = "1";
-				placed = "1";
-		};
-		new StaticShape(CameraPath3) {
-			position = "17.2013 8.75801 20.3972";
-			rotation = "0.323646 0.145733 -0.934888 51.4352";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath4";
-				timeToNext = "0";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				placed = "1";
-		};
-		new StaticShape(CameraPath4) {
-			position = "7.08166 48.1703 4.68494";
-			rotation = "-0.0565725 -0.211875 0.975658 209.203";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath5";
-				timeToNext = "6000";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				placed = "1";
-		};
-		new StaticShape(CameraPath5) {
-			position = "9.82811 34.6276 2.37446";
-			rotation = "0.00703803 0.0179806 0.999814 222.746";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath6";
-				timeToNext = "5100";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				Spline = "1";
-				placed = "1";
-		};
-		new StaticShape(CameraPath6) {
-			position = "9.46786 21.0133 4.60027";
-			rotation = "0.120852 0.233396 0.964843 233.093";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath7";
-				timeToNext = "0";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				placed = "1";
-		};
-		new StaticShape(CameraPath7) {
-			position = "-17.9823 3.30581 0.671158";
-			rotation = "-0.323473 0.176102 0.929706 60.7041";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath8";
-				timeToNext = "9000";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				placed = "1";
-		};
-		new StaticShape(CameraPath8) {
-			position = "-23.8967 15.305 0.671158";
-			rotation = "-0.230488 0.169166 0.958258 74.8984";
-			scale = "1 1 1";
-			dataBlock = "PathNode";
-				nextNode = "CameraPath1";
-				timeToNext = "0";
-				usePosition = "1";
-				useRotation = "1";
-				useScale = "0";
-				reverseRotation = "0";
-				placed = "1";
-		};
-	};
+      new StaticShape(CameraPath1) {
+         position = "-22.7262 7.59884 26.4881";
+         rotation = "0.435224 -0.183708 0.88138 51.1801";
+         scale = "1 1 1";
+         dataBlock = "PathNode";
+            nextNode = "CameraPath1";
+            placed = "1";
+            reverseRotation = "0";
+            timeToNext = "3000";
+            usePosition = "1";
+            useRotation = "1";
+            useScale = "0";
+      };
+   };
 	new MissionArea(MissionArea) {
 		area = "-360 -648 720 1296";
 		flightCeiling = "300";

@@ -154,15 +154,7 @@ function TDTrigger::onAdd(%this, %obj) {
 
 	if (%obj.targetPitch $= "")        //Change Marble's camera pitch to this.
 		%obj.targetPitch = "NoChange";  //Set to "NoChange" to keep current pitch.
-
-	if (!$Game::isMode["2d"]) {
-		%modes = resolveMissionGameModes($Server::MissionFile, "");
-		%modes = addWord(%modes, "2d");
-		MissionInfo.gameMode = %modes;
-		setGameModes(%modes);
-
-		error("TDTrigger needs 2d mode but it's not listed in MissionInfo. Activating it ourselves");
-	}
+		
 }
 
 function TDTrigger::onEnterTrigger(%this,%trigger,%obj) {

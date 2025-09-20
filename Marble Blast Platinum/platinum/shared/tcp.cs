@@ -494,7 +494,7 @@ function URLEncode(%rawString) {
 	// Encode strings to be HTTP safe for URL use
 
 	// Table of characters that are valid in an HTTP URL
-	%validChars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:/.?=_-$(){}~&";
+	%validChars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_~.";
 
 
 	// If the string we are encoding has text... start encoding
@@ -573,7 +573,7 @@ function LBDefaultQuery(%username, %password) {
 	%username = %username $= "" ? $LB::username : %username;
 
 	traceGuard();
-		%password = %password $= "" ? $LB::Password2 : garbledeguck(%password);
+	%password = %password $= "" ? $LB::Password2 : garbledeguck(%password);
 	traceGuardEnd();
 
 	%key = strRand(40);

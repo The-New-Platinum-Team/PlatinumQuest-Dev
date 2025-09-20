@@ -281,7 +281,7 @@ function loadMissionStage2() {
 			ServerGroup.add(new ScriptObject(MissionInfo));
 
 			traceGuard();
-				MissionInfo.setFields(%info.getFields());
+			MissionInfo.setFields(%info.getFields());
 			traceGuardEnd();
 		} else {
 			//Make sure this doesn't go in MissionGroup
@@ -437,7 +437,6 @@ function onMissionLoadFailed() {
 
 function endMission(%noSend) {
 	$Server::Loaded = false;
-	$Server::Loading = false;
 	$Editor::Enabled = false;
 
 	if (!isObject(MissionGroup))

@@ -626,7 +626,7 @@ new GuiControl(WorldEditorSettingsDlg) {
 			//	vertSizing = "bottom";
 			//	position = "12 110";
 			//	extent = "84 18";
-			//	minExtent = "8 8"; 
+			//	minExtent = "8 8";
 			//	visible = "1";
 			//	helpTag = "0";
 			//	text = "Create Gem Type";
@@ -758,9 +758,12 @@ new GuiControl(WorldEditorSettingsDlg) {
 };
 //--- OBJECT WRITE END ---
 
-WESD_GemType.add("normal", 0); WESD_GemType._value[0] = "normal";
-WESD_GemType.add("pq", 1);     WESD_GemType._value[1] = "pq";
-WESD_GemType.add("fancy", 2);  WESD_GemType._value[2] = "fancy";
+WESD_GemType.add("normal", 0);
+WESD_GemType._value[0] = "normal";
+WESD_GemType.add("pq", 1);
+WESD_GemType._value[1] = "pq";
+WESD_GemType.add("fancy", 2);
+WESD_GemType._value[2] = "fancy";
 
 function WorldEditorSettingsDlg::onWake(%this) {
 	WESD_GemType.setValue(EWorldEditor.gemType);

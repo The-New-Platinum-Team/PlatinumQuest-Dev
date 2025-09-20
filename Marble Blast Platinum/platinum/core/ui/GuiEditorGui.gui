@@ -56,7 +56,7 @@ new GuiControl(GuiEditorGui) {
 	position = "0 0";
 	extent = "800 600";
 	helpPage = "3. GUI Editor";
-		disableControls = "1";
+	disableControls = "1";
 
 	new GuiControl() { // background
 		profile = "BackFillProfile";
@@ -99,8 +99,7 @@ new GuiControl(GuiEditorGui) {
 				position = "0 0";
 				extent = "640 480";
 			};
-			new GuiEditCtrl(GuiEditor)
-			{
+			new GuiEditCtrl(GuiEditor) {
 				profile = "GuiTextEditProfile"; // so it's tabable
 				horizSizing = "right";
 				vertSizing = "bottom";
@@ -255,8 +254,7 @@ function GuiEditorGui::onSleep(%this) {
 }
 
 //----------------------------------------
-function GuiEditorStartCreate()
-{
+function GuiEditorStartCreate() {
 	$guiEditorDuplicate = false;
 	NewGuiDialogClass.setText("GuiControl");
 	NewGuiDialogClass.sort();
@@ -268,8 +266,7 @@ function GuiEditorStartCreate()
 }
 
 //----------------------------------------
-function GuiEditorStartDuplicate()
-{
+function GuiEditorStartDuplicate() {
 	$guiEditorDuplicate = true;
 	NewGuiDialogClass.setText($GuiEditorGui.getClassName());
 	NewGuiDialogClass.sort();
@@ -281,8 +278,7 @@ function GuiEditorStartDuplicate()
 }
 
 //----------------------------------------
-function GuiEditorCreate()
-{
+function GuiEditorCreate() {
 	if ($guiEditorDuplicate) {
 		%name = NewGuiDialogName.getValue();
 		Canvas.popDialog(NewGuiDialog);
@@ -304,17 +300,15 @@ function GuiEditorCreate()
 }
 
 //----------------------------------------
-function GuiEditorSaveGui()
-{
+function GuiEditorSaveGui() {
 	%obj = GuiEditorContent.getObject(0);
-	if(%obj == -1 || %obj.getName() $= "")
+	if (%obj == -1 || %obj.getName() $= "")
 		return;
 	%name = %obj.getName() @ ".gui";
 	getSaveFilename("*.gui", "GuiEditorSaveGuiCallback", %name);
 }
 
-function GuiEditorSaveGuiCallback(%name)
-{
+function GuiEditorSaveGuiCallback(%name) {
 	%obj = GuiEditorContent.getObject(0);
 	%obj.onGuiEditorPreSave();
 
@@ -333,8 +327,7 @@ function GuiEditorSaveGuiCallback(%name)
 	}
 
 	// make sure it is saved...
-	if(!%obj.save(%name))
-	{
+	if (!%obj.save(%name)) {
 		MessageBoxOK("GuiEditor Save Failure", "Failed to save '" @ %name @ "'. The file may be read-only.");
 	}
 	MessageBoxOK("Formatting", "Stripping tabs...");
@@ -414,29 +407,24 @@ function GuiControl::onGuiEditorPostSave(%this) {
 }
 
 //----------------------------------------
-function GuiEdit(%val)
-{
-	if(%val != 0)
+function GuiEdit(%val) {
+	if (%val != 0)
 		return;
 
 	$GuiEditorLastGui = "";
 
 	%content = Canvas.getContent();
 
-	if(%content == GuiEditorGui.getId())
-	{
+	if (%content == GuiEditorGui.getId()) {
 		//GlobalActionMap.bind(mouse, button1, mouselook);
 
 		%obj = GuiEditorContent.getObject(0);
-		if(%obj != -1)
-		{
+		if (%obj != -1) {
 			GuiGroup.add(%obj);
 			RootGui.setContent(%obj);
 			%obj.onGuiEditDone();
 		}
-	}
-	else
-	{
+	} else {
 		if ($GuiEditorPrevSize $= "")
 			$GuiEditorPrevSize = "640 480";
 		//GlobalActionMap.unbind(mouse, button1);
@@ -454,9 +442,9 @@ function GuiEdit(%val)
 $Gui::MenuHeight = 16;
 
 //----------------------------------------
-function GuiEditorOpen(%content)
-{
-	if (!isObject(%content)) return;
+function GuiEditorOpen(%content) {
+	if (!isObject(%content))
+		return;
 
 	if (!$GuiEditorMade) {
 		$GuiEditorMade = true;
@@ -467,7 +455,7 @@ function GuiEditorOpen(%content)
 
 	Canvas.setContent(GuiEditorGui);
 	%content.onGuiEdit();
-	while((%obj = GuiEditorContent.getObject(0)) != -1)
+	while ((%obj = GuiEditorContent.getObject(0)) != -1)
 		GuiGroup.add(%obj); // get rid of anything being edited
 
 	$GuiEditorSelected = "";
@@ -484,7 +472,7 @@ function GuiEditorOpen(%content)
 
 	GuiEditorContent.add(%content);
 
-	if(%content.getName() $= "")
+	if (%content.getName() $= "")
 		%name = "(unnamed) - " @ %content;
 	else
 		%name = %content.getName() @ " - " @ %content;
@@ -568,7 +556,9 @@ function GuiEditorOpen(%content)
 		%obj = GuiGroup.getObject(%i);
 		if (%obj.getName() $= "GuiEditorGui" || %obj.getName() $= "Canvas") //That would be *very* bad
 			continue;
-		%insert = new ScriptObject() {value = %obj.getName();};
+		%insert = new ScriptObject() {
+			value = %obj.getName();
+		};
 		if ((%previous = %guis.containsval(%insert)) != -1) {
 			echo("We have a previous for" SPC %obj.getName() SPC "with obj" SPC %previous);
 			//Remove the old one so we only get the newest
@@ -945,26 +935,22 @@ function GuiEditorFinishOpen(%filename) {
 }
 
 //----------------------------------------
-function GuiEditorContentList::onSelect(%this, %id)
-{
+function GuiEditorContentList::onSelect(%this, %id) {
 	GuiEditorOpen(%id);
 }
 
 //----------------------------------------
-function GuiEditorCreateObject(%object)
-{
+function GuiEditorCreateObject(%object) {
 	// I learned this is possible from T3D, who knew?
 	%obj = new (%object)();
 	GuiEditor.addNewCtrl(%obj);
 }
 
 //----------------------------------------
-function GuiEditorTreeView::onSelect(%this, %obj, %rightMouse)
-{
-	if(%rightMouse)
+function GuiEditorTreeView::onSelect(%this, %obj, %rightMouse) {
+	if (%rightMouse)
 		GuiEditor.setCurrentAddSet(%obj);
-	else
-	{
+	else {
 		$GuiEditorDirty = true;
 		$GuiEditorSelected = %obj;
 		GuiEditorInspectFields.inspector.inspect(%obj);
@@ -974,8 +960,7 @@ function GuiEditorTreeView::onSelect(%this, %obj, %rightMouse)
 }
 
 //----------------------------------------
-function GuiEditorInspectApply()
-{
+function GuiEditorInspectApply() {
 	GuiEditorInspectFields.inspector.apply(GuiEditorInspectName.getValue());
 	$GuiEditorSelected.onInspectApply();
 }
@@ -983,8 +968,7 @@ function GuiEditorInspectApply()
 function GuiControl::onInspectApply() {}
 
 //----------------------------------------
-function GuiEditor::onSelect(%this, %ctrl)
-{
+function GuiEditor::onSelect(%this, %ctrl) {
 	$GuiEditorDirty = true;
 	$GuiEditorSelected = %ctrl;
 	GuiEditorInspectFields.inspector.inspect(%ctrl);
@@ -992,7 +976,7 @@ function GuiEditor::onSelect(%this, %ctrl)
 	GuiEditor.select(%ctrl);
 }
 function GuiEditorDeleteSelected( %val ) {
-	if( %val ) {
+	if ( %val ) {
 		$GuiEditorSelected.getGroup().pushToBack($GuiEditorSelected);
 		GuiEditor.deleteSelection();
 		echo("Delete selected");

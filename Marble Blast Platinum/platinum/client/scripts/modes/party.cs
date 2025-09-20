@@ -177,15 +177,15 @@ function clientCmdSetPartyModes(%modes) {
 Physics::registerLayer("partyFloat", "gravity 4");
 Physics::registerLayer("partyNoJump", "jumpImpulse 0");
 Physics::registerLayer("partyReleasio",
-	"maxRollVelocity 750" NL
-	"angularAcceleration 300" NL
-	"brakingAcceleration 30" NL
-	"gravity 9.5" NL
-	"staticFriction 10.6" NL
-	"kineticFriction 0.6" NL
-	"bounceKineticFriction 0.6" NL
-	"maxDotSlide 1.0" NL
-	"bounceRestitution 1.0" NL
-	"jumpImpulse 12.0" NL
-	"maxForceRadius 50"
-);
+                       "maxRollVelocity 750" NL
+                       "angularAcceleration 300" NL
+                       "brakingAcceleration 30" NL
+                       "gravity 9.5" NL
+                       "staticFriction 10.6" NL
+                       "kineticFriction 0.6" NL
+                       "bounceKineticFriction 0.6" NL
+                       "maxDotSlide 1.0" NL
+                       "bounceRestitution 1.0" NL
+                       "jumpImpulse 12.0" NL
+                       "maxForceRadius 50"
+                      );

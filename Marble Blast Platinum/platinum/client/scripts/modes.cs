@@ -87,6 +87,7 @@ function deactivateClientMode(%name) {
 	if (isPackage(%package) && isActivePackage(%package)) {
 		deactivatePackage(%package);
 	}
+	$Game::IsMode[%name] = false;
 }
 
 function setClientGameModes(%modes) {

@@ -181,54 +181,64 @@ function onPreServerVariableSet(%id, %previous, %value) {
 function onPostServerVariableSet(%id, %previous, %value) {
 	echo(%id NL %previous NL %value);
 	switch$ (%id) {
-		case "ForceSpectators":
+	case "ForceSpectators":
+		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+			ClientGroup.getObject(%i).forceSpectate = %value;
+		}
+	// Score sending is still disabled unless you reset. or if you have 0 gems this session.
+	// (don't want to disable scores if someone realized they have it on at the start and then immediately turned it off)
+	case "DoubleSpawns":
+		if (%value) {
+			$MP::ScoreSendingDisabled = true;
+		} else {
+			$MP::ScoreSendingDisabled = false;
 			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-				ClientGroup.getObject(%i).forceSpectate = %value;
+				if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
+					$MP::ScoreSendingDisabled = true;
+					break;
+				}
 			}
-		// Score sending is still disabled unless you reset. or if you have 0 gems this session.
-		// (don't want to disable scores if someone realized they have it on at the start and then immediately turned it off)
-		case "DoubleSpawns":
-			if (%value) {
+			hideGems();
+			spawnHuntGemGroup(); // Get rid of the old spawns
+		}
+	case "CompetitiveMode":
+		if (%value) {
+			activateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%client = ClientGroup.getObject(%i);
+				%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or fewer gems remain. No quickspawn.");
 				$MP::ScoreSendingDisabled = true;
-			} else {
-				$MP::ScoreSendingDisabled = false;
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
-				hideGems();
-				spawnHuntGemGroup(); // Get rid of the old spawns
 			}
-		case "CompetitiveMode":
-			if (%value) {
-				activateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
-				Mode_hunt::respawnTimerLoop();
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					%client = ClientGroup.getObject(%i);
-					%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or fewer gems remain. No quickspawn.");
-				$MP::ScoreSendingDisabled = true;
-				}
-			} else {
-				deactivateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					%client = ClientGroup.getObject(%i);
-					%client.addBubbleLine("Competitive Mode is now off.");
-				}
-				Hunt_CompetitiveClearTimer();
-				$MP::ScoreSendingDisabled = false;
-				
-				for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-					if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
-						$MP::ScoreSendingDisabled = true;
-						break;
-					}
-				}
+		} else {
+			deactivateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%client = ClientGroup.getObject(%i);
+				%client.addBubbleLine("Competitive Mode is now off.");
+			}
+			Hunt_CompetitiveClearTimer();
+			$MP::ScoreSendingDisabled = false;
 
-				hideGems();
-				spawnHuntGemGroup(); // Get rid of the old spawns
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
+					$MP::ScoreSendingDisabled = true;
+					break;
+				}
 			}
+
+			hideGems();
+			spawnHuntGemGroup(); // Get rid of the old spawns
+		}
+	case "AllowGuests":
+		if (!%value) {
+			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+				%client = ClientGroup.getObject(%i);
+				if (%client.isGuest())
+					%client.schedule(100, delete, "CR_GUEST");
+			}
+			if ($Server::Loading)
+				schedule(100, 0, checkAllClientsLoaded);
+		}
+			
 		// case "StealMode":
 		// 	if (%value) {
 		// 		activateMode("steal");

@@ -107,6 +107,8 @@ function OptionsGui::back(%this) {
 
 function OptionsGui::onWake(%this, %dontDiscard) {
 	buildResolutionList();
+	if ($platform $= "windows")
+		buildRendererList();
 
 	%this.setTab("Graphics");
 
@@ -141,10 +143,10 @@ function OptionsGui::apply(%this) {
 			disableShaders();
 			reloadDts();
 			setDisplayDevice($pref::Video::displayDevice,
-							firstWord($pref::Video::resolution),
-							getWord($pref::Video::resolution, 1),
-							getWord($pref::Video::resolution, 2),
-							$pref::Video::fullScreen);
+			                 firstWord($pref::Video::resolution),
+			                 getWord($pref::Video::resolution, 1),
+			                 getWord($pref::Video::resolution, 2),
+			                 $pref::Video::fullScreen);
 			//OptionsGui::deviceDependent( %this );
 		} else if (%newRes) {
 			disablePostFX();
@@ -152,9 +154,9 @@ function OptionsGui::apply(%this) {
 			disableShaders();
 			reloadDts();
 			setScreenMode(firstWord($pref::Video::resolution),
-						getWord($pref::Video::resolution, 1),
-						getWord($pref::Video::resolution, 2),
-						$pref::Video::fullScreen);
+			              getWord($pref::Video::resolution, 1),
+			              getWord($pref::Video::resolution, 2),
+			              $pref::Video::fullScreen);
 		} else if ($pref::Video::fullScreen != isFullScreen()) {
 			disablePostFX();
 			disableBlur();
@@ -263,11 +265,11 @@ function buildResolutionList() {
 		%res = getWords(getField(%resList, %i), 0, 1);
 
 		//if (!$pref::Video::fullScreen) {
-			// Here they skip resolutions above your desktop res, in case you're playing windowed. Nice GG. Nice.
-			if (firstWord(%res) >= firstWord(%deskRes))
-				continue;
-			if (getWord(%res, 1) >= getWord(%deskRes, 1))
-				continue;
+		// Here they skip resolutions above your desktop res, in case you're playing windowed. Nice GG. Nice.
+		if (firstWord(%res) >= firstWord(%deskRes))
+			continue;
+		if (getWord(%res, 1) >= getWord(%deskRes, 1))
+			continue;
 		// }
 
 		//Lower Bound
@@ -289,6 +291,21 @@ function sortResolution(%a, %b) {
 	return getWord(%a, 1) < getWord(%b, 1);
 }
 
+function buildRendererList() {
+	if (!isObject(OptRenderers)) {
+		Array(OptRenderers);
+	} else {
+		OptRenderers.clear();
+	}
+
+	OptRenderers.addEntry("Auto");
+	%renderers = getCompatibleRenderers();
+	for (%i = 0; %i < getWordCount(%renderers); %i ++) {
+		%renderer = getWord(%renderers, %i);
+		OptRenderers.addEntry(%renderer);
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 function GuiSliderCtrl::getFormattedValue(%this, %min, %max) {
@@ -297,8 +314,10 @@ function GuiSliderCtrl::getFormattedValue(%this, %min, %max) {
 	%thisMin = getWord(%this.range, 0);
 	%thisMax = getWord(%this.range, 1);
 	//In case you're lazy
-	if (%min $= "") %min = %thisMin;
-	if (%max $= "") %max = %thisMax;
+	if (%min $= "")
+		%min = %thisMin;
+	if (%max $= "")
+		%max = %thisMax;
 	//Convert to [0, 1]
 	%value = (%value - %thisMin) / (%thisMax - %thisMin);
 	//Round to ticks
@@ -324,42 +343,59 @@ function GuiSliderCtrl::getJoyTickSize(%this) {
 // Graphics
 
 $i = -1;
-$Options::Name    ["Graphics", $i++] = "screenStyle";
+$Options::Name    ["Graphics", $i++] = "screenStyle"; // Windowed or Fullscreen
 $Options::Title   ["Graphics", $i  ] = "Screen Style";
+$Options::Tooltip ["Graphics", $i  ] = "Choose between Windowed and Fullscreen mode. " NL "Windowed mode allows you to play the game in a window, while Fullscreen mode takes up the entire screen.";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "screenResolution";
 $Options::Title   ["Graphics", $i  ] = "Default Window Size";
+$Options::Tooltip ["Graphics", $i  ] = "Choose the default resolution for the game window. " NL "This will be used when you start the game in Windowed mode. It is not available in Fullscreen mode.";
 $Options::Type    ["Graphics", $i  ] = "value";
+if ($platform $= "windows") {
+	$Options::Name   ["Graphics", $i++] = "graphicsDriver";
+	$Options::Title  ["Graphics", $i  ] = "Graphics Driver";
+	$Options::Tooltip["Graphics", $i  ] = "Choose the graphics driver to use for rendering. " NL "This can affect performance and visual quality.";
+	$Options::Type   ["Graphics", $i  ] = "value";
+}
 $Options::Name    ["Graphics", $i++] = "animateBackground";
 $Options::Title   ["Graphics", $i  ] = "Level Previews";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable animated backgrounds in the level select and the menus. " NL "Disabling this can improve performance on lower-end systems.";
 $Options::Type    ["Graphics", $i  ] = "boolean";
 if (canSupportPostFX()) { //No point supporting reflections if you don't support postfx anyway
 	$Options::Name    ["Graphics", $i++] = "marbleReflections";
 	$Options::Title   ["Graphics", $i  ] = "Marble Reflections";
+	$Options::Tooltip ["Graphics", $i  ] = "Enable or disable reflections on the marble as well as quality of the reflections.";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "textureQuality";
 $Options::Title   ["Graphics", $i  ] = "Texture Quality";
+$Options::Tooltip ["Graphics", $i  ] = "Choose the quality of textures used in the game. " NL "Higher quality textures can improve visual fidelity but may require more memory.";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "interiorShaders";
 $Options::Title   ["Graphics", $i  ] = "Material Quality";
+$Options::Tooltip ["Graphics", $i  ] = "Whether the game should use shaders for materials in interiors. ";
 $Options::Type    ["Graphics", $i  ] = "value";
 if (canSupportPostFX()) {
 	$Options::Name    ["Graphics", $i++] = "postprocessing";
 	$Options::Title   ["Graphics", $i  ] = "Post Processing";
+	$Options::Tooltip ["Graphics", $i  ] = "Enable or disable post-processing effects." NL "Disabling this can improve performance on lower-end systems.";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
 $Options::Name    ["Graphics", $i++] = "vsync";
 $Options::Title   ["Graphics", $i  ] = "Max Framerate";
+$Options::Tooltip ["Graphics", $i  ] = "Set the maximum framerate for the game. " NL "This can help reduce screen tearing and improve performance on lower-end systems.";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "maxFPS";
 $Options::Title   ["Graphics", $i  ] = "Max Tickrate";
+$Options::Tooltip ["Graphics", $i  ] = "Set the maximum tickrate for the game. Tickrate is the rate at which the game updates its physics and logic. ";
 $Options::Type    ["Graphics", $i  ] = "value";
 $Options::Name    ["Graphics", $i++] = "fast";
 $Options::Title   ["Graphics", $i  ] = "Fast Mode";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable fast mode. " NL "It simplifies the cannon trajectories, reduces the radar update rate, disables other players' name tags, and disables certain marble trail effects.";
 $Options::Type    ["Graphics", $i  ] = "boolean";
 $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
+$Options::Tooltip ["Graphics", $i  ] = "Choose the texture pack to use for the game. " NL "Texture packs can change the appearance of the game.";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
 // if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
 // 	$Options::Name    ["Graphics", $i++] = "antiAliasing";
@@ -425,6 +461,7 @@ ParticleSystemArray.addEntry("Marble Blast Ultra" TAB 2);
 
 $Options::Name    ["Audio", 0] = "musicVolume";
 $Options::Title   ["Audio", 0] = "Music Volume";
+$Options::Tooltip ["Audio", 0] = "Adjust the volume of the music in the game. " NL "This affects the music played during gameplay and in menus.";
 $Options::Ctrl    ["Audio", 0] = "slider";
 $Options::Min     ["Audio", 0] = 0;
 $Options::Max     ["Audio", 0] = 100;
@@ -432,6 +469,7 @@ $Options::Ticks   ["Audio", 0] = 20; //Every 5
 $Options::JoyTicks["Audio", 0] = 20; //Every 5
 $Options::Name    ["Audio", 1] = "soundVolume";
 $Options::Title   ["Audio", 1] = "Sound Volume";
+$Options::Tooltip ["Audio", 1] = "Adjust the volume of the sound effects in the game. " NL "This affects the sounds played during gameplay, such as bounce sounds and powerups.";
 $Options::Ctrl    ["Audio", 1] = "slider";
 $Options::Min     ["Audio", 1] = 0;
 $Options::Max     ["Audio", 1] = 100;
@@ -439,24 +477,30 @@ $Options::Ticks   ["Audio", 1] = 20; //Every 5
 $Options::JoyTicks["Audio", 1] = 20; //Every 5
 $Options::Name    ["Audio", 2] = "audioPack";
 $Options::Title   ["Audio", 2] = "Default Sound Pack";
+$Options::Tooltip ["Audio", 2] = "Choose the default sound pack to use for the game. " NL "Sound packs can change the sounds used in the game.";
 $Options::Type    ["Audio", 2] = "value";
 $Options::Name    ["Audio", 3] = "automaticAudio";
 $Options::Title   ["Audio", 3] = "Automatic Audio Swap";
+$Options::Tooltip ["Audio", 3] = "Enable or disable automatic audio swapping. " NL "When enabled, the game will automatically swap audio packs based on the game of the level being played.";
 $Options::Type    ["Audio", 3] = "boolean";
 $Options::Name    ["Audio", 4] = " ";
 $Options::Title   ["Audio", 4] = " ";
 $Options::Ctrl    ["Audio", 4] = "spacer";
 $Options::Name    ["Audio", 5] = "timeTravelSounds";
 $Options::Title   ["Audio", 5] = "Time Travel Sounds";
+$Options::Tooltip ["Audio", 5] = "Enable or disable Time Travel sounds. " NL "When enabled, the game will ticking sounds while a Time Travel powerup is active.";
 $Options::Type    ["Audio", 5] = "boolean";
 $Options::Name    ["Audio", 6] = "parTimeAlarm";
 $Options::Title   ["Audio", 6] = "Par Time Alarm";
+$Options::Tooltip ["Audio", 6] = "Enable or disable the Par Time alarm. " NL "When enabled, the game will play an alarm sound when you are close to the Par Time of the level.";
 $Options::Type    ["Audio", 6] = "boolean";
 $Options::Name    ["Audio", 7] = "finalLapMusic";
 $Options::Title   ["Audio", 7] = "Final Lap Music";
+$Options::Tooltip ["Audio", 7] = "When enabled, the game will speed up the music when you are on the final lap of a level.";
 $Options::Type    ["Audio", 7] = "boolean";
 $Options::Name    ["Audio", 8] = "panicMusic";
 $Options::Title   ["Audio", 8] = "Panic Music";
+$Options::Tooltip ["Audio", 8] = "When enabled, the game will speed up the music while the Par Time alarm is active.";
 $Options::Type    ["Audio", 8] = "boolean";
 
 //-----------------------------------------------------------------------------
@@ -465,24 +509,31 @@ $Options::Type    ["Audio", 8] = "boolean";
 $i = -1;
 $Options::Name    ["Gameplay", $i++] = "thousandths";
 $Options::Title   ["Gameplay", $i  ] = "Timer Precision";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the display of thousandths of a second in the timer. ";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
 $Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the Time Travel timer. " NL "When enabled, the game will display a timer for remaining Time Travel duration while it is active.";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "fpsCounter";
 $Options::Title   ["Gameplay", $i  ] = "Performance Display";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the FPS/TPS counter. " NL "When enabled, the game will display the current frames/ticks per second in the bottom right corner of the screen.";
 $Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "freelook";
 $Options::Title   ["Gameplay", $i  ] = "Free-Look";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable free-look mode. " NL "When enabled, you can look around freely in all directions using the mouse while playing.";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "helptriggers";
 $Options::Title   ["Gameplay", $i  ] = "Help Bubbles";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable help bubbles. ";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "screenshotMode";
 $Options::Title   ["Gameplay", $i  ] = "HUD Visibility";
+$Options::Tooltip ["Gameplay", $i  ] = "Choose what to show in the HUD. " NL "This can be useful for creating clean screenshots without the HUD or chat.";
 $Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "fov";
 $Options::Title   ["Gameplay", $i  ] = "Field of View";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the field of view (FOV) for the camera. " NL "A higher FOV allows you to see more of the environment, while a lower FOV provides a more focused view.";
 $Options::Ctrl    ["Gameplay", $i  ] = "slider";
 $Options::Min     ["Gameplay", $i  ] = 60;
 $Options::Max     ["Gameplay", $i  ] = 140;
@@ -490,6 +541,7 @@ $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
 $Options::Name    ["Gameplay", $i++] = "maxRadarItems";
 $Options::Title   ["Gameplay", $i  ] = "Max Radar Items";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the maximum number of items that can be displayed on the radar. " NL "This can help reduce clutter on the radar in levels with many items.";
 $Options::Ctrl    ["Gameplay", $i  ] = "slider";
 $Options::Min     ["Gameplay", $i  ] = 5;
 $Options::Max     ["Gameplay", $i  ] = 85;
@@ -497,6 +549,7 @@ $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
 $Options::Name    ["Gameplay", $i++] = "particles";
 $Options::Title   ["Gameplay", $i  ] = "Particles";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the number of particles that can be displayed in the game. " NL "This can help improve performance on lower-end systems.";
 $Options::Ctrl    ["Gameplay", $i  ] = "slider";
 $Options::Min     ["Gameplay", $i  ] = 0;
 $Options::Max     ["Gameplay", $i  ] = 200;
@@ -504,9 +557,11 @@ $Options::Ticks   ["Gameplay", $i  ] = 40; //Every 5
 $Options::JoyTicks["Gameplay", $i  ] = 10; //Every 20
 $Options::Name    ["Gameplay", $i++] = "particleSystem";
 $Options::Title   ["Gameplay", $i  ] = "Particle System";
+$Options::Tooltip ["Gameplay", $i  ] = "Choose the particle system to use for the game. " NL "This can change the appearance of particles in the game.";
 $Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "advancedOptions";
 $Options::Title   ["Gameplay", $i  ] = "Advanced Options";
+$Options::Tooltip ["Gameplay", $i  ] = "";
 $Options::Ctrl    ["Gameplay", $i  ] = "button";
 // $Options::Name    ["Gameplay", $i++] = "oobInsults";
 // $Options::Title   ["Gameplay", $i  ] = "OOB Insults";
@@ -552,28 +607,36 @@ FPSCounterArray.addEntry("Show All"       TAB 3);
 $i = -1;
 $Options::Name    ["Online", $i++] = "scorePredictor";
 $Options::Title   ["Online", $i  ] = "Score Predictor";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable the score predictor. " NL "When enabled, the game will predict your score based on your current performance.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "showRecords";
 $Options::Title   ["Online", $i  ] = "Always Show World Record";
+$Options::Tooltip ["Online", $i  ] = "Always show the world record of a level at the end screen.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "profanityFilter";
 $Options::Title   ["Online", $i  ] = "Profanity Filter";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable the profanity filter. " NL "When enabled, the game will filter out profane words in chat messages.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "globalSize";
 $Options::Title   ["Online", $i  ] = "Global Scores Per Page";
+$Options::Tooltip ["Online", $i  ] = "Adjust the number of global scores displayed per page. ";
 $Options::Type    ["Online", $i  ] = "value";
 $Options::Name    ["Online", $i++] = "chatMessageSize";
 $Options::Title   ["Online", $i  ] = "In-Game Lines of Chat";
+$Options::Tooltip ["Online", $i  ] = "Adjust the number of lines of chat displayed in-game. ";
 $Options::Type    ["Online", $i  ] = "value";
 $Options::Name    ["Online", $i++] = "serverPort";
 $Options::Title   ["Online", $i  ] = "Server Port";
+$Options::Tooltip ["Online", $i  ] = "Set the port for hosting multiplayer games. " NL "This is the port that other players will connect to when joining your game.";
 $Options::Ctrl    ["Online", $i  ] = "textbox";
 $Options::Length  ["Online", $i  ] = 5;
 $Options::Name    ["Online", $i++] = "noholepunch";
 $Options::Title   ["Online", $i  ] = "Hole Punching";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable hole punching for multiplayer games. " NL "When enabled, the game will attempt to use hole punching to connect to other players behind NAT.";
 $Options::Type    ["Online", $i  ] = "boolean";
 $Options::Name    ["Online", $i++] = "autoLogin";
 $Options::Title   ["Online", $i  ] = "Auto Login";
+$Options::Tooltip ["Online", $i  ] = "Enable or disable auto login. " NL "When enabled, the game will automatically log you in with the specified username and password.";
 $Options::Type    ["Online", $i  ] = "boolean";
 
 $Options::AutoLoginUserField = $i++;
@@ -581,11 +644,13 @@ $Options::AutoLoginPassField = $i++;
 
 $Options::Name    ["Online", $Options::AutoLoginUserField] = "autoLoginUsername";
 $Options::Title   ["Online", $Options::AutoLoginUserField] = "Auto Login Username";
+$Options::Tooltip ["Online", $Options::AutoLoginUserField] = "The username to use for auto login. " NL "This will be used to automatically log you in when the game starts.";
 $Options::Ctrl    ["Online", $Options::AutoLoginUserField] = "textbox";
 $Options::Length  ["Online", $Options::AutoLoginUserField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginUserField] = ($LBPref::AutoLogin !$= "User");
 $Options::Name    ["Online", $Options::AutoLoginPassField] = "AutoLoginPassword";
 $Options::Title   ["Online", $Options::AutoLoginPassField] = "Auto Login Password";
+$Options::Tooltip ["Online", $Options::AutoLoginPassField] = "The password to use for auto login. " NL "This will be used to automatically log you in when the game starts.";
 $Options::Ctrl    ["Online", $Options::AutoLoginPassField] = "password";
 $Options::Length  ["Online", $Options::AutoLoginPassField] = 255;
 $Options::Disable ["Online", $Options::AutoLoginPassField] = ($LBPref::AutoLogin !$= "User");
@@ -617,7 +682,7 @@ ChatMessageSizeArray.addEntry("6" TAB 6);
 // Graphics Functions.
 
 function Opt_screenResolution_getDisplay() {
-	if ($pref::Video::fullScreen) 
+	if ($pref::Video::fullScreen)
 		return "Not Available";
 
 	if ($Options::ResolutionChanged)
@@ -912,10 +977,8 @@ function Opt_antiAliasing_decrease() {
 	}
 	$pref::Video::AntiAliasing = getField(AntiAliasingQualityArray.getEntry(%index), 1);
 
-	if (%index > 1 && !$aaAssert) {
-		$aaAssert = true;
-		MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
-	}
+	if (%index > 1 && !$aaAssert)
+		antiAliasingAssert();
 }
 
 function Opt_antiAliasing_increase() {
@@ -926,10 +989,13 @@ function Opt_antiAliasing_increase() {
 	}
 	$pref::Video::AntiAliasing = getField(AntiAliasingQualityArray.getEntry(%index), 1);
 
-	if (%index > 1 && !$aaAssert) {
-		$aaAssert = true;
-		MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
-	}
+	if (%index > 1 && !$aaAssert)
+		antiAliasingAssert();
+}
+
+function antiAliasingAssert() {
+	$aaAssert = true;
+	MessageBoxOK("Performance Notice", "With higher levels of anti-aliasing you may experience performace drops. If you experience lag after activating this, try reducing this setting.");
 }
 
 //-----------------------------------------------------------------------------
@@ -962,11 +1028,8 @@ function Opt_maxFPS_decrease() {
 	}
 	$pref::Video::MaxFPS = getField(MaxFPSArray.getEntry(%index), 1);
 
-	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
-		$vsyncAssert = true;
-		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
-			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
-	}
+	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert)
+		vSyncAssert();
 }
 
 function Opt_maxFPS_increase() {
@@ -977,11 +1040,14 @@ function Opt_maxFPS_increase() {
 	}
 	$pref::Video::MaxFPS = getField(MaxFPSArray.getEntry(%index), 1);
 
-	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert) {
-		$vsyncAssert = true;
-		MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible." NL
-			"This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
-	}
+	if ($platform $= "macos" && (%index == 0) && !$vsyncAssert)
+		vSyncAssert();
+}
+
+function vSyncAssert() {
+	$vsyncAssert = true;
+	MessageBoxOK("MacOS Performance Notice", "Unlimited tickrate will make your game compute as fast as possible. " @
+	             "This has been known to turn laptops very hot as macOS doesn't activate the fans until your CPU reaches almost boiling point.");
 }
 
 function Opt_vsync_getDisplay() {
@@ -1017,6 +1083,60 @@ function Opt_vsync_increase() {
 }
 
 
+function Opt_graphicsDriver_getDisplay() {
+	%value = $pref::Video::RendererOverride;
+	if (%value $= "")
+		return "Automatic";
+	return $pref::Video::RendererOverride;
+}
+
+function Opt_graphicsDriver_getValue() {
+	return $pref::Video::RendererOverride;
+}
+
+function Opt_graphicsDriver_decrease() {
+	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
+	if ($pref::Video::RendererOverride $= "")
+		%index = 0;
+
+	%index --;
+	if (%index < 0)
+		%index = OptRenderers.getSize() - 1;
+	if (%index == 0)
+		$pref::Video::RendererOverride = "";
+	else
+		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
+
+	if (!$gdAssert)
+		graphicsDriverAssert();
+}
+
+function Opt_graphicsDriver_increase() {
+	%index = OptRenderers.getIndex($pref::Video::RendererOverride, 1);
+	if ($pref::Video::RendererOverride $= "")
+		%index = 0;
+
+	%index ++;
+	if (%index == OptRenderers.getSize())
+		%index = 0;
+	if (%index == 0)
+		$pref::Video::RendererOverride = "";
+	else
+		$pref::Video::RendererOverride = OptRenderers.getEntry(%index);
+
+	if (!$gdAssert)
+		graphicsDriverAssert();
+}
+
+function graphicsDriverAssert() {
+	$gdAssert = true;
+	MessageBoxOK("Warning", "Please do not change this option unless you know exactly what you are doing. " @
+	       "It is best to leave this option on Automatic unless you are experiencing issues with the game. " NL
+	       "Consequences of changing this option may include the game not starting or not rendering properly." NL "" NL
+	       "<just:center>This option requires you to restart the game." NL "" NL
+	       "You accept all responsibility for changing this option.");
+}
+
 //-----------------------------------------------------------------------------
 
 function Opt_particleSystem_getDisplay() {
@@ -1041,7 +1161,7 @@ function Opt_particleSystem_decrease() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
+		restartAssert();
 	}
 }
 
@@ -1055,11 +1175,15 @@ function Opt_particleSystem_increase() {
 
 	if (!$psAssert) {
 		$psAssert = true;
-		MessageBoxOK("Notice", "This option requires you to restart the game.");
+		restartAssert();
 	}
 }
 
 //-----------------------------------------------------------------------------
+
+function restartAssert() {
+	MessageBoxOK("Notice", "This option requires you to restart the game.");
+}
 
 //-----------------------------------------------------------------------------
 
@@ -1713,7 +1837,7 @@ function Opt_spChanges_increase() {
 	$pref::spchanges = !$pref::spchanges;
 	if ($pref::spchanges)
 		MessageBoxOK("The Time Has Come", "With this feature enabled Marble Blast Ultra Levels will now resemble their 360 counterparts even more in Singleplayer!");
-	
+
 }
 
 //-----------------------------------------------------------------------------
@@ -2037,6 +2161,7 @@ function OptionsGui::buildTab(%this, %tab) {
 		%name = $Options::Name[%tab, %i];
 		%title = $Options::Title[%tab, %i] @ ":";
 		%type = $Options::Type[%tab, %i];
+		%tooltip = $Options::Tooltip[%tab, %i];
 
 		%titleCtrl   = "Options" @ %name @ "Title";
 		%displayCtrl = "Options" @ %name @ "Display";
@@ -2052,43 +2177,43 @@ function OptionsGui::buildTab(%this, %tab) {
 		%whatControl = $Options::Ctrl[%tab, %i];
 
 		switch$ (%whatControl) {
-			case "slider":
-				%valueFont = %valueFontSlider;
-				%tickSize = "$pref::Input::ControlDevice $= \"Joystick\" ? " @ %valueCtrl @ ".getJoyTickSize() :" @ %valueCtrl @ ".getTickSize()";
-				%commandSlider = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getFormattedValue());";
-				%commandLeft   = "opt_" @ %name @ "_decrease(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
-				%commandRight  = "opt_" @ %name @ "_increase(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
-				%commandSlider = %commandSlider @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%commandLeft   = %commandLeft   @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%commandRight  = %commandRight  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%nameLeft = "Decrease";
-				%nameRight = "Increase";
-			case "textbox" or "password":
-				%valueFont = %valueFontTextbox;
-				%commandTextbox = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getValue());";
-				%commandValidate = "opt_" @ %name @ "_validate(" @ %valueCtrl @ ".getValue());";
-				%commandLeft  = "";
-				%commandRight = "";
-				%nameLeft = "";
-				%nameRight = "";
-			case "button":
-				%valueFont = %valueFontButton;
-				%commandButton = "opt_" @ %name @ "_edit();";
-				%commandLeft  = "";
-				%commandRight = "";
-				%nameLeft = "";
-				%nameRight = "";
-			case "spacer":
-				%title = "";
-			default:
-				%valueFont = %valueFontButton;
-				%commandLeft  = "opt_" @ %name @ "_decrease(); ";
-				%commandRight = "opt_" @ %name @ "_increase(); ";
-				%commandLeft  = %commandLeft  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
-				%commandRight = %commandRight @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+		case "slider":
+			%valueFont = %valueFontSlider;
+			%tickSize = "$pref::Input::ControlDevice $= \"Joystick\" ? " @ %valueCtrl @ ".getJoyTickSize() :" @ %valueCtrl @ ".getTickSize()";
+			%commandSlider = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getFormattedValue());";
+			%commandLeft   = "opt_" @ %name @ "_decrease(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
+			%commandRight  = "opt_" @ %name @ "_increase(" @ %tickSize @ ");" @ %valueCtrl @ ".setValue(opt_" @ %name @ "_getValue());";
+			%commandSlider = %commandSlider @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%commandLeft   = %commandLeft   @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%commandRight  = %commandRight  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%nameLeft = "Decrease";
+			%nameRight = "Increase";
+		case "textbox" or "password":
+			%valueFont = %valueFontTextbox;
+			%commandTextbox = "opt_" @ %name @ "_setValue(" @ %valueCtrl @ ".getValue());";
+			%commandValidate = "opt_" @ %name @ "_validate(" @ %valueCtrl @ ".getValue());";
+			%commandLeft  = "";
+			%commandRight = "";
+			%nameLeft = "";
+			%nameRight = "";
+		case "button":
+			%valueFont = %valueFontButton;
+			%commandButton = "opt_" @ %name @ "_edit();";
+			%commandLeft  = "";
+			%commandRight = "";
+			%nameLeft = "";
+			%nameRight = "";
+		case "spacer":
+			%title = "";
+		default:
+			%valueFont = %valueFontButton;
+			%commandLeft  = "opt_" @ %name @ "_decrease(); ";
+			%commandRight = "opt_" @ %name @ "_increase(); ";
+			%commandLeft  = %commandLeft  @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
+			%commandRight = %commandRight @ %displayCtrl @ ".setText(\"" @ %valueFont @ "\" @ opt_" @ %name @ "_getDisplay());";
 
-				%nameLeft = (%type $= "boolean" ? "Toggle" : "Decrease");
-				%nameRight = (%type $= "boolean" ? "Toggle" : "Increase");
+			%nameLeft = (%type $= "boolean" ? "Toggle" : "Decrease");
+			%nameRight = (%type $= "boolean" ? "Toggle" : "Increase");
 		}
 
 		%content.add(new GuiControl(%ctrl) {
@@ -2100,16 +2225,16 @@ function OptionsGui::buildTab(%this, %tab) {
 			minExtent = "8 8";
 			visible = "1";
 			helpTag = "0";
-				controlLSUp = %upCtrl;
-				controlLSDown = %downCtrl;
-				commandRSLeft = %commandLeft;
-				commandRSRight = %commandRight;
-				commandRepeatRSLeft = true;
-				commandRepeatRSRight = true;
-				controlOffset = "6 -6";
-				controlExtent = (%width - 7) SPC (%rowHeight + 12);
-				commandName["RSLeft"] = %nameLeft;
-				commandName["RSRight"] = %nameRight;
+			controlLSUp = %upCtrl;
+			controlLSDown = %downCtrl;
+			commandRSLeft = %commandLeft;
+			commandRSRight = %commandRight;
+			commandRepeatRSLeft = true;
+			commandRepeatRSRight = true;
+			controlOffset = "6 -6";
+			controlExtent = (%width - 7) SPC (%rowHeight + 12);
+			commandName["RSLeft"] = %nameLeft;
+			commandName["RSRight"] = %nameRight;
 
 			new GuiMLTextCtrl(%titleCtrl) {
 				profile = "GuiMLTextProfile";
@@ -2123,159 +2248,160 @@ function OptionsGui::buildTab(%this, %tab) {
 				lineSpacing = "2";
 				allowColorChars = "0";
 				maxChars = "-1";
+				tooltip = %tooltip;
 			};
 		});
 
 		switch$ (%whatControl) {
-			case "slider":
-				%range = $Options::Min[%tab, %i] SPC $Options::Max[%tab, %i];
-				%defaultValue = call("Opt_" @ %name @ "_getValue");
-				%ctrl.add(new GuiBitmapCtrl() {
-					profile = "GuiDefaultProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "400 18";
-					extent = "230 10";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-					bitmap = "~/client/ui/options/slider_bar";
-					wrap = "0";
-				});
-				%ctrl.add(new GuiSliderCtrl(%valueCtrl) {
-					profile = "GuiSliderProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "385 5";
-					extent = "260 35";
-					minExtent = "8 8";
-					visible = "1";
-					altCommand = %commandSlider;
-					helpTag = "0";
-					range = %range;
-					ticks = $Options::Ticks[%tab, %i];
-					joyTicks = $Options::JoyTicks[%tab, %i];
-					value = %defaultValue;
-					bitmap = "~/client/ui/options/slider";
-				});
-				%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
-					profile = "GuiMLTextProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "625 8";
-					extent = "75 14";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-					lineSpacing = "2";
-					allowColorChars = "0";
-					maxChars = "-1";
-				});
-				eval(%commandSlider); // hack to get slider UI to show textbox.
+		case "slider":
+			%range = $Options::Min[%tab, %i] SPC $Options::Max[%tab, %i];
+			%defaultValue = call("Opt_" @ %name @ "_getValue");
+			%ctrl.add(new GuiBitmapCtrl() {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "400 18";
+				extent = "230 10";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "~/client/ui/options/slider_bar";
+				wrap = "0";
+			});
+			%ctrl.add(new GuiSliderCtrl(%valueCtrl) {
+				profile = "GuiSliderProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "385 5";
+				extent = "260 35";
+				minExtent = "8 8";
+				visible = "1";
+				altCommand = %commandSlider;
+				helpTag = "0";
+				range = %range;
+				ticks = $Options::Ticks[%tab, %i];
+				joyTicks = $Options::JoyTicks[%tab, %i];
+				value = %defaultValue;
+				bitmap = "~/client/ui/options/slider";
+			});
+			%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "625 8";
+				extent = "75 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			});
+			eval(%commandSlider); // hack to get slider UI to show textbox.
 
-			case "textbox" or "password":
-				%var = $Options::Var[%tab, %i];
-				%length = $Options::Length[%tab, %i];
-				%defaultValue = call("Opt_" @ %name @ "_getValue");
-				%ctrl.add(new GuiControl() {
-					profile = "PQTextboxBorderProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "381 4";
-					extent = "319 32";
-					minExtent = "21 21";
-					visible = "1";
+		case "textbox" or "password":
+			%var = $Options::Var[%tab, %i];
+			%length = $Options::Length[%tab, %i];
+			%defaultValue = call("Opt_" @ %name @ "_getValue");
+			%ctrl.add(new GuiControl() {
+				profile = "PQTextboxBorderProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "381 4";
+				extent = "319 32";
+				minExtent = "21 21";
+				visible = "1";
 
-					new GuiTextEditCtrl(%valueCtrl) {
-						profile = "PQTextboxProfile";
-						horizSizing = "right";
-						vertSizing = "bottom";
-						position = "3 1";
-						extent = "313 26";
-						minExtent = "8 8";
-						visible = "1";
-						variable = %var;
-						command = %commandTextbox;
-						helpTag = "0";
-						maxLength = %length;
-						maxPixelWidth = "0";
-						validate = %commandValidate;
-						historySize = "0";
-						password = (%whatControl $= "password");
-						tabComplete = "0";
-						sinkAllKeyEvents = "0";
-					};
-				});
-				%valueCtrl.setValue(%defaultValue);
-				eval(%commandTextbox);
+				new GuiTextEditCtrl(%valueCtrl) {
+					profile = "PQTextboxProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "3 1";
+					extent = "313 26";
+					minExtent = "8 8";
+					visible = "1";
+					variable = %var;
+					command = %commandTextbox;
+					helpTag = "0";
+					maxLength = %length;
+					maxPixelWidth = "0";
+					validate = %commandValidate;
+					historySize = "0";
+					password = (%whatControl $= "password");
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+				};
+			});
+			%valueCtrl.setValue(%defaultValue);
+			eval(%commandTextbox);
 
-			case "button":
-				%ctrl.add(new GuiBorderButtonCtrl(%buttonCtrl) {
-					profile = "GuiBorderButtonProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "375 -2";
-					extent = "331 44";
-					minExtent = "8 8";
-					visible = "1";
-					command = %commandButton;
-					helpTag = "0";
-					text = "Edit...";
-					groupNum = "1";
-					buttonType = "PushButton";
-					repeatPeriod = "1000";
-					repeatDecay = "1";
-				});
-				%ctrl.commandSelect = %commandButton;
-				%ctrl.commandNameSelect = "Edit";
-			case "spacer":
-				//Do nothing
-			default:
-				%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
-					profile = "GuiMLTextProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "420 5";
-					extent = "242 14";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-					lineSpacing = "2";
-					allowColorChars = "0";
-					maxChars = "-1";
-				});
-				%ctrl.add(new GuiBorderButtonCtrl(%rightArrow) {
-					profile = "GuiBorderButtonProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "662 -2";
-					extent = "44 44";
-					minExtent = "8 8";
-					visible = "1";
-					command = %commandRight;
-					helpTag = "0";
-					text = ">";
-					groupNum = "1";
-					buttonType = "PushButton";
-					repeatPeriod = "1000";
-					repeatDecay = "1";
-				});
-				%ctrl.add(new GuiBorderButtonCtrl(%leftArrow) {
-					profile = "GuiBorderButtonProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = "375 -2";
-					extent = "44 44";
-					minExtent = "8 8";
-					visible = "1";
-					command = %commandLeft;
-					helpTag = "0";
-					text = "<";
-					groupNum = "1";
-					buttonType = "PushButton";
-					repeatPeriod = "1000";
-					repeatDecay = "1";
-				});
+		case "button":
+			%ctrl.add(new GuiBorderButtonCtrl(%buttonCtrl) {
+				profile = "GuiBorderButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "375 -2";
+				extent = "331 44";
+				minExtent = "8 8";
+				visible = "1";
+				command = %commandButton;
+				helpTag = "0";
+				text = "Edit...";
+				groupNum = "1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
+			%ctrl.commandSelect = %commandButton;
+			%ctrl.commandNameSelect = "Edit";
+		case "spacer":
+		//Do nothing
+		default:
+			%ctrl.add(new GuiMLTextCtrl(%displayCtrl) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "420 5";
+				extent = "242 14";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			});
+			%ctrl.add(new GuiBorderButtonCtrl(%rightArrow) {
+				profile = "GuiBorderButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "662 -2";
+				extent = "44 44";
+				minExtent = "8 8";
+				visible = "1";
+				command = %commandRight;
+				helpTag = "0";
+				text = ">";
+				groupNum = "1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
+			%ctrl.add(new GuiBorderButtonCtrl(%leftArrow) {
+				profile = "GuiBorderButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "375 -2";
+				extent = "44 44";
+				minExtent = "8 8";
+				visible = "1";
+				command = %commandLeft;
+				helpTag = "0";
+				text = "<";
+				groupNum = "1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			});
 		}
 
 		%titleCtrl.setText(%titleFont @ %title);
@@ -2341,10 +2467,14 @@ function getMapDisplayName(%device, %action, %fullText) {
 		} else {
 			if (strstr(%action, "axis") != -1) {
 				switch$ (%action) {
-				case "xaxis": return "Mouse X Axis";
-				case "yaxis": return "Mouse Y Axis";
-				case "zaxis": return "Scroll Wheel";
-				default:      return "??";
+				case "xaxis":
+					return "Mouse X Axis";
+				case "yaxis":
+					return "Mouse Y Axis";
+				case "zaxis":
+					return "Scroll Wheel";
+				default:
+					return "??";
 				}
 			} else {
 				error("Mouse input object other than button or axis passed to getDisplayMapName:" SPC %action @ "!");
@@ -2361,11 +2491,16 @@ function getMapDisplayName(%device, %action, %fullText) {
 
 function getJoystickName(%index) {
 	%type = getJoystickType(%index);
-	if (stripos(%type, "Xbox One") != -1) return "xboxone";
-	if (stripos(%type, "X360") != -1) return "xbox360";
-	if (stripos(%type, "XInput") != -1) return "xbox360"; //Ew but windows
-	if (stripos(%type, "Xbox 360") != -1) return "xbox360";
-	if (stripos(%type, "PS4") != -1) return "ps4";
+	if (stripos(%type, "Xbox One") != -1)
+		return "xboxone";
+	if (stripos(%type, "X360") != -1)
+		return "xbox360";
+	if (stripos(%type, "XInput") != -1)
+		return "xbox360"; //Ew but windows
+	if (stripos(%type, "Xbox 360") != -1)
+		return "xbox360";
+	if (stripos(%type, "PS4") != -1)
+		return "ps4";
 	//TODO: make the configs control this, instead of the other way around
 
 	return "default";
@@ -2392,19 +2527,32 @@ function getDefaultControllerMapName(%action) {
 			%mods = %wordCount > 1 ? getWords(%action, 0, %wordCount - 2) @ " " : "";
 			%object = getWord(%action, %wordCount - 1);
 			switch$ (%object) {
-			case "xpov":   %object = "POV1 x";
-			case "ypov":   %object = "POV1 y";
-			case "upov":   %object = "POV1 up";
-			case "dpov":   %object = "POV1 down";
-			case "lpov":   %object = "POV1 left";
-			case "rpov":   %object = "POV1 right";
-			case "xpov2":  %object = "POV2 x";
-			case "ypov2":  %object = "POV2 y";
-			case "upov2":  %object = "POV2 up";
-			case "dpov2":  %object = "POV2 down";
-			case "lpov2":  %object = "POV2 left";
-			case "rpov2":  %object = "POV2 right";
-			default:       %object = "??";
+			case "xpov":
+				%object = "POV1 x";
+			case "ypov":
+				%object = "POV1 y";
+			case "upov":
+				%object = "POV1 up";
+			case "dpov":
+				%object = "POV1 down";
+			case "lpov":
+				%object = "POV1 left";
+			case "rpov":
+				%object = "POV1 right";
+			case "xpov2":
+				%object = "POV2 x";
+			case "ypov2":
+				%object = "POV2 y";
+			case "upov2":
+				%object = "POV2 up";
+			case "dpov2":
+				%object = "POV2 down";
+			case "lpov2":
+				%object = "POV2 left";
+			case "rpov2":
+				%object = "POV2 right";
+			default:
+				%object = "??";
 			}
 			return %mods @ %object;
 		} else {
@@ -2414,13 +2562,20 @@ function getDefaultControllerMapName(%action) {
 				%mods = %wordCount > 1 ? getWords(%action, 0, %wordCount - 2) @ " " : "";
 				%object = getWord(%action, %wordCount - 1);
 				switch$ (%object) {
-				case "xaxis":  %object = "X Axis";
-				case "yaxis":  %object = "Y Axis";
-				case "zaxis":  %object = "Z Axis";
-				case "rxaxis": %object = "Right X Axis";
-				case "ryaxis": %object = "Right Y Axis";
-				case "rzaxis": %object = "Right Z Axis";
-				default:       %object = "??";
+				case "xaxis":
+					%object = "X Axis";
+				case "yaxis":
+					%object = "Y Axis";
+				case "zaxis":
+					%object = "Z Axis";
+				case "rxaxis":
+					%object = "Right X Axis";
+				case "ryaxis":
+					%object = "Right Y Axis";
+				case "rzaxis":
+					%object = "Right Z Axis";
+				default:
+					%object = "??";
 				}
 				return %mods @ %object;
 			} else {
@@ -2474,28 +2629,42 @@ $Options::HotKey["Keyboard", 20, "Title"]    = "Coop Partner View";
 $Options::HotKey["Keyboard", 20, "Function"] = "toggleCoopView";
 $Options::HotKey["Keyboard", 21, "Title"]    = "Throw Snowball";
 $Options::HotKey["Keyboard", 21, "Function"] = "throwSnowball";
-$Options::HotKey["Keyboard", 22, "Title"]    = "Taunt: Confusion";
-$Options::HotKey["Keyboard", 22, "Function"] = "taunt2";
-$Options::HotKey["Keyboard", 23, "Title"]    = "Taunt: Laughter";
-$Options::HotKey["Keyboard", 23, "Function"] = "taunt3";
-$Options::HotKey["Keyboard", 24, "Title"]    = "Taunt: Mega Marble";
-$Options::HotKey["Keyboard", 24, "Function"] = "taunt5";
-$Options::HotKey["Keyboard", 25, "Title"]    = "Taunt: Come On";
-$Options::HotKey["Keyboard", 25, "Function"] = "taunt7";
-$Options::HotKey["Keyboard", 26, "Title"]    = "Taunt: PQ WHERe";
-$Options::HotKey["Keyboard", 26, "Function"] = "taunt9";
-$Options::HotKey["Keyboard", 27, "Title"]    = "Taunt: Dongers";
-$Options::HotKey["Keyboard", 27, "Function"] = "taunt10";
-$Options::HotKey["Keyboard", 28, "Title"]    = "Taunt: Owned";
-$Options::HotKey["Keyboard", 28, "Function"] = "taunt11";
-$Options::HotKey["Keyboard", 29, "Title"]    = "Taunt: Worth It";
-$Options::HotKey["Keyboard", 29, "Function"] = "taunt12";
-$Options::HotKey["Keyboard", 30, "Title"]    = "Taunt: Good Game";
-$Options::HotKey["Keyboard", 30, "Function"] = "taunt14";
-$Options::HotKey["Keyboard", 31, "Title"]    = "Taunt: Shazbot";
-$Options::HotKey["Keyboard", 31, "Function"] = "taunt15";
-$Options::HotKey["Keyboard", 32, "Title"]    = "Taunt: Blue Steal";
-$Options::HotKey["Keyboard", 32, "Function"] = "taunt16";
+$Options::HotKey["Keyboard", 22, "Title"]    = "Restart RTA Run";
+$Options::HotKey["Keyboard", 22, "Function"] = "restartRtaSpeedrun";
+$Options::HotKey["Keyboard", 23, "Title"]    = "Taunt: Chicken";
+$Options::HotKey["Keyboard", 23, "Function"] = "taunt1_";
+$Options::HotKey["Keyboard", 24, "Title"]    = "Taunt: Confusion";
+$Options::HotKey["Keyboard", 24, "Function"] = "taunt2";
+$Options::HotKey["Keyboard", 25, "Title"]    = "Taunt: Laughter";
+$Options::HotKey["Keyboard", 25, "Function"] = "taunt3";
+$Options::HotKey["Keyboard", 26, "Title"]    = "Taunt: Loserville";
+$Options::HotKey["Keyboard", 26, "Function"] = "taunt4";
+$Options::HotKey["Keyboard", 27, "Title"]    = "Taunt: Mega";
+$Options::HotKey["Keyboard", 27, "Function"] = "taunt5";
+$Options::HotKey["Keyboard", 28, "Title"]    = "Taunt: MP WHERe";
+$Options::HotKey["Keyboard", 28, "Function"] = "taunt6";
+$Options::HotKey["Keyboard", 29, "Title"]    = "Taunt: Come On";
+$Options::HotKey["Keyboard", 29, "Function"] = "taunt7";
+$Options::HotKey["Keyboard", 30, "Title"]    = "Taunt: Pomp";
+$Options::HotKey["Keyboard", 30, "Function"] = "taunt8";
+$Options::HotKey["Keyboard", 31, "Title"]    = "Taunt: PQ WHERe";
+$Options::HotKey["Keyboard", 31, "Function"] = "taunt9";
+$Options::HotKey["Keyboard", 32, "Title"]    = "Taunt: Dongers";
+$Options::HotKey["Keyboard", 32, "Function"] = "taunt10";
+$Options::HotKey["Keyboard", 33, "Title"]    = "Taunt: Owned";
+$Options::HotKey["Keyboard", 33, "Function"] = "taunt11";
+$Options::HotKey["Keyboard", 34, "Title"]    = "Taunt: Worth It";
+$Options::HotKey["Keyboard", 34, "Function"] = "taunt12";
+$Options::HotKey["Keyboard", 35, "Title"]    = "Taunt: La La La";
+$Options::HotKey["Keyboard", 35, "Function"] = "taunt13";
+$Options::HotKey["Keyboard", 36, "Title"]    = "Taunt: Good Game";
+$Options::HotKey["Keyboard", 36, "Function"] = "taunt14";
+$Options::HotKey["Keyboard", 37, "Title"]    = "Taunt: Shazbot";
+$Options::HotKey["Keyboard", 37, "Function"] = "taunt15";
+$Options::HotKey["Keyboard", 38, "Title"]    = "Taunt: Blue Steal";
+$Options::HotKey["Keyboard", 38, "Function"] = "taunt16";
+$Options::HotKey["Keyboard", 39, "Title"]    = "Taunt: Lag";
+$Options::HotKey["Keyboard", 39, "Function"] = "taunt17";
 
 $Options::HotKey["Joystick", 0, "Title"]     = "Jump";
 $Options::HotKey["Joystick", 0, "Function"]  = "joyJump";
@@ -2529,28 +2698,40 @@ $Options::HotKey["Joystick", 14, "Title"]    = "Coop Partner View";
 $Options::HotKey["Joystick", 14, "Function"] = "joyToggleCoopView";
 $Options::HotKey["Joystick", 15, "Title"]    = "Throw Snowball";
 $Options::HotKey["Joystick", 15, "Function"] = "joyThrowSnowball";
-$Options::HotKey["Joystick", 16, "Title"]    = "Confusion Taunt";
-$Options::HotKey["Joystick", 16, "Function"] = "taunt2";
-$Options::HotKey["Joystick", 17, "Title"]    = "Laughter Taunt";
-$Options::HotKey["Joystick", 17, "Function"] = "taunt3";
-$Options::HotKey["Joystick", 18, "Title"]    = "Mega Taunt";
-$Options::HotKey["Joystick", 18, "Function"] = "taunt5";
-$Options::HotKey["Joystick", 19, "Title"]    = "Come On Taunt";
-$Options::HotKey["Joystick", 19, "Function"] = "taunt7";
-$Options::HotKey["Joystick", 20, "Title"]    = "PQ WHERe Taunt";
-$Options::HotKey["Joystick", 20, "Function"] = "taunt9";
-$Options::HotKey["Joystick", 21, "Title"]    = "Dongers Taunt";
-$Options::HotKey["Joystick", 21, "Function"] = "taunt10";
-$Options::HotKey["Joystick", 22, "Title"]    = "Owned Taunt";
-$Options::HotKey["Joystick", 22, "Function"] = "taunt11";
-$Options::HotKey["Joystick", 23, "Title"]    = "Worth It Taunt";
-$Options::HotKey["Joystick", 23, "Function"] = "taunt12";
-$Options::HotKey["Joystick", 24, "Title"]    = "Good Game Taunt";
-$Options::HotKey["Joystick", 24, "Function"] = "taunt14";
-$Options::HotKey["Joystick", 25, "Title"]    = "Shazbot Taunt";
-$Options::HotKey["Joystick", 25, "Function"] = "taunt15";
-$Options::HotKey["Joystick", 26, "Title"]    = "Blue Steal Taunt";
-$Options::HotKey["Joystick", 26, "Function"] = "taunt16";
+$Options::HotKey["Joystick", 16, "Title"]    = "Taunt: Chicken";
+$Options::HotKey["Joystick", 16, "Function"] = "taunt1_";
+$Options::HotKey["Joystick", 17, "Title"]    = "Taunt: Confusion";
+$Options::HotKey["Joystick", 17, "Function"] = "taunt2";
+$Options::HotKey["Joystick", 18, "Title"]    = "Taunt: Laughter";
+$Options::HotKey["Joystick", 18, "Function"] = "taunt3";
+$Options::HotKey["Joystick", 19, "Title"]    = "Taunt: Loserville";
+$Options::HotKey["Joystick", 19, "Function"] = "taunt4";
+$Options::HotKey["Joystick", 20, "Title"]    = "Taunt: Mega";
+$Options::HotKey["Joystick", 20, "Function"] = "taunt5";
+$Options::HotKey["Joystick", 21, "Title"]    = "Taunt: MP WHERe";
+$Options::HotKey["Joystick", 21, "Function"] = "taunt6";
+$Options::HotKey["Joystick", 22, "Title"]    = "Taunt: Come On";
+$Options::HotKey["Joystick", 22, "Function"] = "taunt7";
+$Options::HotKey["Joystick", 23, "Title"]    = "Taunt: Pomp";
+$Options::HotKey["Joystick", 23, "Function"] = "taunt8";
+$Options::HotKey["Joystick", 24, "Title"]    = "Taunt: PQ WHERe";
+$Options::HotKey["Joystick", 24, "Function"] = "taunt9";
+$Options::HotKey["Joystick", 25, "Title"]    = "Taunt: Dongers";
+$Options::HotKey["Joystick", 25, "Function"] = "taunt10";
+$Options::HotKey["Joystick", 26, "Title"]    = "Taunt: Owned";
+$Options::HotKey["Joystick", 26, "Function"] = "taunt11";
+$Options::HotKey["Joystick", 27, "Title"]    = "Taunt: Worth It";
+$Options::HotKey["Joystick", 27, "Function"] = "taunt12";
+$Options::HotKey["Joystick", 28, "Title"]    = "Taunt: La La La";
+$Options::HotKey["Joystick", 28, "Function"] = "taunt13";
+$Options::HotKey["Joystick", 29, "Title"]    = "Taunt: Good Game";
+$Options::HotKey["Joystick", 29, "Function"] = "taunt14";
+$Options::HotKey["Joystick", 30, "Title"]    = "Taunt: Shazbot";
+$Options::HotKey["Joystick", 30, "Function"] = "taunt15";
+$Options::HotKey["Joystick", 31, "Title"]    = "Taunt: Blue Steal";
+$Options::HotKey["Joystick", 31, "Function"] = "taunt16";
+$Options::HotKey["Joystick", 32, "Title"]    = "Taunt: Lag";
+$Options::HotKey["Joystick", 32, "Function"] = "taunt17";
 
 if (isObject(OptionsEventMap))
 	OptionsEventMap.delete();
@@ -2603,11 +2784,14 @@ function OptionsGui::disableJoystick(%this) {
 function isSharedTriggers(%joystickNum) {
 	%count = getField(getJoystickAxes(%joystickNum), 0);
 	//Can't deal with this
-	if ($platform !$= "windows") return false;
+	if ($platform !$= "windows")
+		return false;
 	//Probably should have a console function for this
-	if ($Input::XInput) return false;
+	if ($Input::XInput)
+		return false;
 	//5 fields -- only one trigger axis. Probably shared
-	if (%count == 5) return true;
+	if (%count == 5)
+		return true;
 	//No idea, best to not chance it
 	return false;
 }
@@ -2643,23 +2827,23 @@ function OptionsGui::generateHotkeysList(%this) {
 			}
 
 			OptionsInputHotkeys.add(
-				%box = new GuiControl(%boxName) {
-					profile = "GuiMLTextProfile";
-					horizSizing = "right";
-					vertSizing = "bottom";
-					position = 0 SPC (%row * %height);
-					extent = "400 37";
-					minExtent = "8 8";
-					visible = "1";
-					helpTag = "0";
-						controlSelect = %buttonName;
-						controlUp = %lastBoxName;
-						controlName["Select"] = "Edit";
-						commandRight = "OptionsGui.inputGoRight(\"" @ %boxName @ "\");";
-						commandRepeatRight = true;
-						controlOffset = "0 -4";
-						controlExtent = "400 45";
-				}
+			%box = new GuiControl(%boxName) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = 0 SPC (%row * %height);
+				extent = "400 37";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				controlSelect = %buttonName;
+				controlUp = %lastBoxName;
+				controlName["Select"] = "Edit";
+				commandRight = "OptionsGui.inputGoRight(\"" @ %boxName @ "\");";
+				commandRepeatRight = true;
+				controlOffset = "0 -4";
+				controlExtent = "400 45";
+			}
 			);
 			%lastBoxName.controlDown = %boxName;
 			%lastBoxName = %boxName;
@@ -2677,7 +2861,7 @@ function OptionsGui::generateHotkeysList(%this) {
 					lineSpacing = "2";
 					allowColorChars = "0";
 					maxChars = "-1";
-						defaultText = "<bold:28>" @ %title @ ":";
+					defaultText = "<bold:28>" @ %title @ ":";
 				});
 
 				%addButton = "Opt_Input_Add_" @ %device @ "_" @ %bindFn;
@@ -2696,11 +2880,11 @@ function OptionsGui::generateHotkeysList(%this) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = %buttonName;
-						controlCancel = %box;
-						commandName["Select"] = "Add";
-						commandSelect = "OptionsGui.addBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
-						controlName["Cancel"] = "Cancel";
+					controlLeft = %buttonName;
+					controlCancel = %box;
+					commandName["Select"] = "Add";
+					commandSelect = "OptionsGui.addBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+					controlName["Cancel"] = "Cancel";
 				});
 				%sideButton = %addButton;
 			} else {
@@ -2720,11 +2904,11 @@ function OptionsGui::generateHotkeysList(%this) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = %buttonName;
-						controlCancel = %box;
-						commandName["Select"] = "Remove";
-						commandSelect = "OptionsGui.removeBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
-						controlName["Cancel"] = "Cancel";
+					controlLeft = %buttonName;
+					controlCancel = %box;
+					commandName["Select"] = "Remove";
+					commandSelect = "OptionsGui.removeBinding(\"" @ %bindFn @ "\", \"" @ %title @ "\");";
+					controlName["Cancel"] = "Cancel";
 				});
 				%sideButton = %subButton;
 			}
@@ -3170,9 +3354,9 @@ function OptRemapInputCtrl::onInputEvent(%this, %device, %action) {
 			} else {
 				%prevCmdName = $Options::HotKey[$pref::Input::ControlDevice, %prevMapIndex, "Title"];
 				MessageBoxYesNo("WARNING",
-					"\"" @ %mapName @ "\" is already bound to \""
-					@ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
-					"OptionsGui.redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\");", "");
+				                "\"" @ %mapName @ "\" is already bound to \""
+				                @ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
+				                "OptionsGui.redoMapping(" @ %device @ ", \"" @ %action @ "\", \"" @ %cmd @ "\");", "");
 			}
 			return;
 		}
@@ -3221,9 +3405,9 @@ function OptionsGui::event(%this, %joy, %category, %event, %val) {
 					if ($pref::Input::TriggerAction[%otherTrigger] !$= "" && $pref::Input::TriggerAction[%otherTrigger] !$= %this.remapCommand) {
 						//Yes we do, show a warning
 						MessageBoxYesNo("DirectInput Triggers", "Due to the way Windows reads your controller, you will be unable to press" SPC
-							"both LT and RT at the same time. You can still bind an action to each if you want, but note that pressing both" SPC
-							"at the same time will make neither one of the actions happen. Do you still want to bind this?",
-							"OptionsGui.onJoyRebind(\"" @ %axis @ "\");", "OptionsGui.cancelDITriggerBind();");
+						                "both LT and RT at the same time. You can still bind an action to each if you want, but note that pressing both" SPC
+						                "at the same time will make neither one of the actions happen. Do you still want to bind this?",
+						                "OptionsGui.onJoyRebind(\"" @ %axis @ "\");", "OptionsGui.cancelDITriggerBind();");
 					} else {
 						//Don't have the other one bound, just bind it like normal
 						OptionsGui.onJoyRebind(%axis);
@@ -3288,9 +3472,9 @@ function OptionsGui::onJoyRebind(%this, %action) {
 			} else {
 				%prevCmdName = $Options::HotKey[$pref::Input::ControlDevice, %prevMapIndex, "Title"];
 				MessageBoxYesNo("WARNING",
-					"\"" @ %actionName @ "\" is already bound to \""
-					@ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
-					"OptionsGui.setJoyMapping(\"" @ %action @ "\");", "");
+				                "\"" @ %actionName @ "\" is already bound to \""
+				                @ %prevCmdName @ "\"!\nDo you want to undo this mapping?",
+				                "OptionsGui.setJoyMapping(\"" @ %action @ "\");", "");
 			}
 		}
 	}

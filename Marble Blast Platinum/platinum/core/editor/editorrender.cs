@@ -214,7 +214,7 @@ function Marker::onEditorRender(%this, %editor, %selected, %expanded) {
 
 //function Item::onEditorRender(%this, %editor, %selected, %expanded)
 //{
-//   if(%this.getDataBlock().getName() $= "MineDeployed")
+//   if (%this.getDataBlock().getName() $= "MineDeployed")
 //   {
 //      %editor.consoleFillColor = "0 0 0 0";
 //      %editor.consoleFrameColor = "255 0 0";
@@ -279,14 +279,20 @@ function AlterGravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %e
 		%dz = BoxSizeZ(%box);
 
 		switch$ (%obj.measureAxis) {
-		case "x": %x0 = getWord(%box, 0);
-		case "y": %y0 = getWord(%box, 1);
-		case "z": %z0 = getWord(%box, 2);
+		case "x":
+			%x0 = getWord(%box, 0);
+		case "y":
+			%y0 = getWord(%box, 1);
+		case "z":
+			%z0 = getWord(%box, 2);
 		}
 		switch$ (%obj.GravityAxis) {
-		case "x": %dx = (BoxSizeX(%box) / 50) - 0.001;
-		case "y": %dy = (BoxSizeY(%box) / 50) - 0.001;
-		case "z": %dz = (BoxSizeZ(%box) / 50) - 0.001;
+		case "x":
+			%dx = (BoxSizeX(%box) / 50) - 0.001;
+		case "y":
+			%dy = (BoxSizeY(%box) / 50) - 0.001;
+		case "z":
+			%dz = (BoxSizeZ(%box) / 50) - 0.001;
 		}
 
 		for (%x = %x0; %x <= %x1; %x += %dx) {
@@ -598,6 +604,6 @@ function TeleportTrigger::onEditorRender(%this, %obj, %editor, %selected, %expan
 	if (%selected $= "true") {
 		%teltrig = %obj;
 		%destination = %obj.destination.getId();
-		%editor.renderLine(%teltrig.getWorldBoxCenter(), %destination.getWorldBoxCenter(), 2);	
+		%editor.renderLine(%teltrig.getWorldBoxCenter(), %destination.getWorldBoxCenter(), 2);
 	}
 }

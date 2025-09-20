@@ -46,8 +46,8 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 	bitmap = "~/client/ui/exit/black";
 	useVariable = "0";
 	tile = "0";
-		_guiSize = "800 600";
-		defaultControl = "MPJoinServerList";
+	_guiSize = "800 600";
+	defaultControl = "MPJoinServerList";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -74,9 +74,9 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlUp = "MPJoinServerList";
-				controlLeft = "MPJoinRefresh";
-				controlRight = "MPJoinJoinServer";
+			controlUp = "MPJoinServerList";
+			controlLeft = "MPJoinRefresh";
+			controlRight = "MPJoinJoinServer";
 		};
 		new GuiBorderButtonCtrl(MPJoinRefresh) {
 			profile = "PQButtonProfile";
@@ -93,12 +93,12 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/join/refresh.png";
-				bitmapRotation = "0";
-				tooltip = "Refresh";
-				controlUp = "MPJoinServerList";
-				controlLeft = "MPJoinDirectConnect";
-				controlRight = "MPJoinHostGame";
+			bitmap = "platinum/client/ui/mp/join/refresh.png";
+			bitmapRotation = "0";
+			tooltip = "Refresh";
+			controlUp = "MPJoinServerList";
+			controlLeft = "MPJoinDirectConnect";
+			controlRight = "MPJoinHostGame";
 		};
 		new GuiControl() {
 			profile = "PQPanelProfile";
@@ -206,7 +206,7 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 					columns = "20 310 375 430";
 					fitParentWidth = "1";
 					clipColumnText = "0";
-						controlDown = "MPJoinExit";
+					controlDown = "MPJoinExit";
 				};
 			};
 			new GuiMLTextCtrl(MPJoinListTitle) {
@@ -233,7 +233,7 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 				helpTag = "0";
 				bitmap = "./join/lock";
 				wrap = "0";
-					tooltip = "Password Protected Server";
+				tooltip = "Password Protected Server";
 			};
 		};
 		new GuiBorderButtonCtrl(MPJoinExit) {
@@ -251,8 +251,8 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlUp = "MPJoinServerList";
-				controlRight = "MPJoinDirectConnect";
+			controlUp = "MPJoinServerList";
+			controlRight = "MPJoinDirectConnect";
 		};
 		new GuiBorderButtonCtrl(MPJoinDirectConnect) {
 			profile = "PQButtonProfile";
@@ -269,9 +269,9 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlUp = "MPJoinServerList";
-				controlLeft = "MPJoinExit";
-				controlRight = "MPJoinRefresh";
+			controlUp = "MPJoinServerList";
+			controlLeft = "MPJoinExit";
+			controlRight = "MPJoinRefresh";
 		};
 		new GuiBorderButtonCtrl(MPJoinJoinServer) {
 			profile = "PQButtonProfile";
@@ -288,8 +288,8 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				controlUp = "MPJoinServerList";
-				controlLeft = "MPJoinHostGame";
+			controlUp = "MPJoinServerList";
+			controlLeft = "MPJoinHostGame";
 		};
 	};
 	new GuiBitmapCtrl(MPJoinPasswordPop) {
@@ -617,11 +617,11 @@ function MPJoinServerDlg::update(%this) {
 		if (%loading) {
 
 			%row = clipPx("", 18, "[Loading] " @ $ServerInfo::Name, 290, true) TAB
-					 "" TAB
-					 "" TAB
-					 "" TAB
-					 %i TAB // ServerInfo index stored also
-					 1; // From gg master server
+			       "" TAB
+			       "" TAB
+			       "" TAB
+			       %i TAB // ServerInfo index stored also
+			       1; // From gg master server
 
 			$Master::RowInfo[%i] = %row;
 			MPJoinServerList.addRow(%i, %row);
@@ -631,12 +631,12 @@ function MPJoinServerDlg::update(%this) {
 		} else {
 			%gameTypeInfo = $ServerInfo::GameType;
 			%row = ($ServerInfo::Dedicated ? "\c6" : "") @
-					 clipPx("", 18, "[" @ $ServerInfo::State @ "] " @ $ServerInfo::Name, 290, true) TAB
-					 $ServerInfo::PlayerCount SPC "/" SPC $ServerInfo::MaxPlayers TAB
-					 clipPx("", 18, getField($ServerInfo::GameType, 1), 50, true) TAB
-					 $ServerInfo::Ping TAB
-					 %i TAB // ServerInfo index stored also
-					 1; // From gg master server
+			       clipPx("", 18, "[" @ $ServerInfo::State @ "] " @ $ServerInfo::Name, 290, true) TAB
+			       $ServerInfo::PlayerCount SPC "/" SPC $ServerInfo::MaxPlayers TAB
+			       clipPx("", 18, getField($ServerInfo::GameType, 1), 50, true) TAB
+			       $ServerInfo::Ping TAB
+			       %i TAB // ServerInfo index stored also
+			       1; // From gg master server
 
 			$Master::RowInfo[%i] = %row;
 			MPJoinServerList.addRow(%i, %row);

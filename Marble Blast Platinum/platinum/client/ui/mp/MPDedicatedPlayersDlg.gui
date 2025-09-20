@@ -32,7 +32,7 @@ new GuiBitmapCtrl(MPDedicatedPlayersDlg) {
 	helpTag = "0";
 	bitmap = "~/client/ui/exit/black";
 	wrap = "0";
-		_guiSize = "800 600";
+	_guiSize = "800 600";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -131,7 +131,7 @@ new GuiBitmapCtrl(MPDedicatedPlayersDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				borderColor = "255 204 204";
+			borderColor = "255 204 204";
 		};
 		new GuiBorderButtonCtrl(MPDedicatedPlayersHost) {
 			profile = "PQButtonProfile";
@@ -148,7 +148,7 @@ new GuiBitmapCtrl(MPDedicatedPlayersDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				borderColor = "204 255 204";
+			borderColor = "204 255 204";
 		};
 	};
 };
@@ -170,6 +170,8 @@ function MPDedicatedPlayersDlg::onWake(%this) {
 }
 
 function MPDedicatedPlayersDlg::updatePlayerList(%this) {
+	%selected = MPDedicatedPlayersOnlineList.getRowTextById(MPDedicatedPlayersOnlineList.getSelectedId());
+	%name = getField(%selected, 1);
 	MPDedicatedPlayersOnlineList.clear();
 
 	%count = $MP::ClientIndexMax;
@@ -184,6 +186,15 @@ function MPDedicatedPlayersDlg::updatePlayerList(%this) {
 	}
 	MPDedicatedPlayersOnlineList.sort(0, true);
 	MPDedicatedPlayersOnlineList.setSelectedRow(0);
+	if (%name !$= "") {
+		for (%i = 0; %i < MPDedicatedPlayersOnlineList.rowCount(); %i++) {
+			%rowName = getField(MPDedicatedPlayersOnlineList.getRowText(%i), 1);
+			if (%rowName $= %name) {
+				MPDedicatedPlayersOnlineList.setSelectedRow(%i);
+				break;
+			}
+		}
+	}
 }
 
 function MPDedicatedPlayersDlg::updateButtons(%this) {

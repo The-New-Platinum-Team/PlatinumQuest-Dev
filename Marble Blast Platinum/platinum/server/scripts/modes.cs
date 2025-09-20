@@ -41,8 +41,9 @@ function resetModes() {
 function clearModes() {
 	resetModes();
 
-	for (%i = 0; %i < $Server::Modes; %i ++) {
-		%name = $Server::Mode[%i];
+	%modes = $Server::Modes;
+	for (%i = 0; %i < %modes; %i ++) {
+		%name = $Server::Mode[0];
 
 		//Deactivate it
 		deactivateMode(%name);
@@ -194,6 +195,9 @@ function loadGameModes() {
 		} else if (fileExt(%file) $= ".cs" && !isFile(%file @ ".dso")) {
 			%name = fileBase(%file);
 		}
+		if (%name $= "") {
+			continue;
+		}
 		loadMode(%name);
 	}
 }
@@ -228,6 +232,7 @@ function Mode::registerCallback(%this, %callback) {
 }
 
 function Mode::callback(%this, %callback, %default, %object) {
+	return ModeCallback(%this, %callback, %default, %object);
 	if (%object._delete) {
 		if (!isObject(DeleteGroup)) {
 			RootGroup.add(new SimGroup(DeleteGroup));

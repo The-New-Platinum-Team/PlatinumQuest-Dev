@@ -53,16 +53,17 @@ function ClientMode_coop::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 function ClientMode_coop::shouldIgnoreItem(%this, %object) {
-	switch$ (%object.this.getDataBlock().getName()) {
+	%name = %object.this.getDataBlock().getName();
+	switch$ (%name) {
 	case  "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or
 			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
-			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
-			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
+			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or
+			"TeleportItem" or "AnvilItem":
 		//PowerUp
 		if (%object.this.respawning) {
 			return true;
@@ -75,19 +76,26 @@ function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 			}
 			return false;
 		}
+	case "BlastItem" or "BlastItem_MBU" or "BubbleItem" or "FireballItem":
+		if (%object.this.respawning) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 function ClientMode_coop::shouldPickupItem(%this, %object) {
-	switch$ (%object.this.getDataBlock().getName()) {
+	%name = %object.this.getDataBlock().getName();
+	switch$ (%name) {
 	case  "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or
 			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
 			"SuperBounceItem" or "SuperBounceItem_PQ" or
 			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
 			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
 			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
-			"BlastItem" or "BlastItem_MBU" or
 			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
-			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ":
+			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or
+			"TeleportItem" or "AnvilItem":
 		//PowerUp
 		if (%object.this.respawning) {
 			return false;
@@ -98,6 +106,12 @@ function ClientMode_coop::shouldPickupItem(%this, %object) {
 				}
 				return true;
 			}
+			return true;
+		}
+	case "BlastItem" or "BlastItem_MBU" or "BubbleItem" or "FireballItem":
+		if (%object.this.respawning) {
+			return false;
+		} else {
 			return true;
 		}
 	}
@@ -208,9 +222,9 @@ if (!$Server::Dedicated) {
 		bitmap = "~/client/ui/exit/black";
 		wrap = "0";
 		_guiSize = "800 600";
-			defaultControl = "MPCEndGameLobby";
-			commandAlt1 = "MPCoopEndGameDlg.restart();";
-			commandNameAlt1 = "Restart";
+		defaultControl = "MPCEndGameLobby";
+		commandAlt1 = "MPCoopEndGameDlg.restart();";
+		commandNameAlt1 = "Restart";
 
 		new GuiControl() {
 			profile = "GuiDefaultProfile";
@@ -325,7 +339,7 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlRight = "MPCEndGameRate";
+					controlRight = "MPCEndGameRate";
 				};
 				new GuiBorderButtonCtrl(MPCEndGameRate) {
 					profile = "PQButton28Profile";
@@ -342,8 +356,8 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = "MPCEndGameRestart";
-						controlRight = "MPCEndGameLobby";
+					controlLeft = "MPCEndGameRestart";
+					controlRight = "MPCEndGameLobby";
 				};
 				new GuiBorderButtonCtrl(MPCEndGameLobby) {
 					profile = "PQButton28Profile";
@@ -360,8 +374,8 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = "MPCEndGameRate";
-						controlRight = "MPCEndGameNext";
+					controlLeft = "MPCEndGameRate";
+					controlRight = "MPCEndGameNext";
 				};
 				new GuiBorderButtonCtrl(MPCEndGameNext) {
 					profile = "PQButton28Profile";
@@ -378,7 +392,7 @@ if (!$Server::Dedicated) {
 					buttonType = "PushButton";
 					repeatPeriod = "1000";
 					repeatDecay = "1";
-						controlLeft = "MPCEndGameLobby";
+					controlLeft = "MPCEndGameLobby";
 				};
 			};
 			new GuiControl(MPCEndRateContainer) {
@@ -420,7 +434,7 @@ if (!$Server::Dedicated) {
 					repeatPeriod = "1000";
 					repeatDecay = "1";
 					bitmap = "platinum/client/ui/mp/end/rate-negative";
-						controlRight = "MPCEndRateNeutral";
+					controlRight = "MPCEndRateNeutral";
 				};
 				new GuiBitmapButtonCtrl(MPCEndRateNeutral) {
 					profile = "GuiDefaultProfile";
@@ -438,8 +452,8 @@ if (!$Server::Dedicated) {
 					repeatPeriod = "1000";
 					repeatDecay = "1";
 					bitmap = "platinum/client/ui/mp/end/rate-neutral";
-						controlLeft = "MPCEndRateNegative";
-						controlRight = "MPCEndRatePositive";
+					controlLeft = "MPCEndRateNegative";
+					controlRight = "MPCEndRatePositive";
 				};
 				new GuiBitmapButtonCtrl(MPCEndRatePositive) {
 					profile = "GuiDefaultProfile";
@@ -457,7 +471,7 @@ if (!$Server::Dedicated) {
 					repeatPeriod = "1000";
 					repeatDecay = "1";
 					bitmap = "platinum/client/ui/mp/end/rate-positive";
-						controlLeft = "MPCEndRateNeutral";
+					controlLeft = "MPCEndRateNeutral";
 				};
 			};
 		};
@@ -545,9 +559,12 @@ function MPCoopEndGameDlg::onWake(%this) {
 
 	%text = "";
 	//Show what we need to
-	if (%goldTitle     !$= "" && %goldLabel     !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %goldTitle     SPC %goldType     @ ": " @ %goldLabel     @ "<spop>";
-	if (%platinumTitle !$= "" && %platinumLabel !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %platinumTitle SPC %platinumType @ ": " @ %platinumLabel @ "<spop>";
-	if (%ultimateTitle !$= "" && %ultimateLabel !$= "") %text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %ultimateTitle SPC %ultimateType @ ": " @ %ultimateLabel @ "<spop>";
+	if (%goldTitle     !$= "" && %goldLabel     !$= "")
+		%text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %goldTitle     SPC %goldType     @ ": " @ %goldLabel     @ "<spop>";
+	if (%platinumTitle !$= "" && %platinumLabel !$= "")
+		%text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %platinumTitle SPC %platinumType @ ": " @ %platinumLabel @ "<spop>";
+	if (%ultimateTitle !$= "" && %ultimateLabel !$= "")
+		%text = %text @ (%text $= "" ? "" : "   ") @ "<spush>" @ %ultimateTitle SPC %ultimateType @ ": " @ %ultimateLabel @ "<spop>";
 	%text = "<font:32><color:ffffff><just:center>" @ %text;
 
 	MPCEndGame_ChallengeTimes.setText(%text);
@@ -569,7 +586,7 @@ function MPCoopEndGameDlg::updateActive(%this) {
 	MPCEndGameRestart.setActive($Server::Hosting);
 	%this.commandNameAlt1 = (MPCEndGameRestart.isActive() ? "Restart" : "");
 	%this.commandAlt1 = (MPCEndGameRestart.isActive() ? MPCEndGameRestart.command : "");
-	if (ControllerGui.isJoystick()){
+	if (ControllerGui.isJoystick()) {
 		ControllerGui.updateButtons();
 	}
 }

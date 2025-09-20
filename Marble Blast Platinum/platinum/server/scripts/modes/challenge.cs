@@ -26,7 +26,8 @@ function Mode_challenge::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_challenge::onMissionLoaded(%this, %object) {
-	if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
+	if ($CurrentWeeklyChallenge.noGems)
+		$Game::GemCount = 0;
 }
 function Mode_challenge::onMissionEnded(%this, %object) {
 	//Description:
@@ -35,14 +36,17 @@ function Mode_challenge::onMissionEnded(%this, %object) {
 	// none
 }
 function Mode_challenge::onMissionReset(%this, %object) {
-	if ($CurrentWeeklyChallenge.noGems) $Game::GemCount = 0;
+	if ($CurrentWeeklyChallenge.noGems)
+		$Game::GemCount = 0;
 }
 function Mode_challenge::shouldPickupGem(%this, %object) {
-	if ($CurrentWeeklyChallenge.noGems) return false;
+	if ($CurrentWeeklyChallenge.noGems)
+		return false;
 	return true;
 }
 function Mode_challenge::shouldIgnoreGem(%this, %object) {
-	if ($CurrentWeeklyChallenge.noGems) return true;
+	if ($CurrentWeeklyChallenge.noGems)
+		return true;
 	return false;
 }
 function Mode_challenge::shouldDisablePowerup(%this, %object) {
@@ -53,8 +57,8 @@ function Mode_challenge::shouldPickupPowerup(%this, %object) {
 }
 function Mode_challenge::shouldPickupItem(%this, %object) {
 	switch$ (%object.obj.getDataBlock().getName()) {
-		case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
-			return false;
+	case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
+		return false;
 	}
 	return true;
 }

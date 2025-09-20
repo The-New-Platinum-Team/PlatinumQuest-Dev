@@ -158,9 +158,9 @@ new GuiBitmapCtrl(MPServerDlg) {
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-				bitmap = "platinum/client/ui/mp/join/refresh-small.png";
-				bitmapRotation = "0";
-				tooltip = "Refresh";
+			bitmap = "platinum/client/ui/mp/join/refresh-small.png";
+			bitmapRotation = "0";
+			tooltip = "Refresh";
 		};
 		new GuiControl(MPServerSettingsContainer) {
 			profile = "GuiDefaultProfile";
@@ -222,7 +222,7 @@ new GuiBitmapCtrl(MPServerDlg) {
 					lineSpacing = "2";
 					allowColorChars = "0";
 					maxChars = "512";
-						cursorPosition = "1";
+					cursorPosition = "1";
 				};
 			};
 		};
@@ -532,8 +532,7 @@ function MPServerDlg::updateSpinner(%this) {
 	if (!%this.isAwake())
 		return;
 	if (%this.loading || (MPServerMapRefresh.bitmapRotation % 180) > 0) {
-		MPServerMapRefresh.bitmapRotation -= 10;
-		MPServerMapRefresh.bitmapRotation += 180;
+		MPServerMapRefresh.bitmapRotation += 10;
 		MPServerMapRefresh.bitmapRotation %= 180;
 	}
 }

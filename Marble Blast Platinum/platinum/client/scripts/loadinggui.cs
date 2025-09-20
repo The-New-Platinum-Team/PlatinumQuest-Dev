@@ -114,8 +114,8 @@ function LoadingGui::onWake(%this) {
 		if (mp()) {
 			//See if we have more than one other player
 			%vs = !$Server::Hosting //Not host, so there must be someone else who is
-				|| (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
-				|| ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
+			      || (!$Server::_Dedicated && ClientGroup.getCount() > 1) //Hosting local, another player
+			      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 
 			%index = (%vs ? 0 : 1);
 
@@ -212,12 +212,16 @@ function LoadingGui::onWake(%this) {
 		}
 
 		//Show what we need to
-		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A") %text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
-		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
-		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
+		if (%goldTitle     !$= "" && %goldLabel     !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %goldText @ ":<spop><just:right>" @ %goldLabel;
+		if (%platinumTitle !$= "" && %platinumLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %platinumText @ ":<spop><just:right>" @ %platinumLabel;
+		if (%ultimateTitle !$= "" && %ultimateLabel !$= "N/A")
+			%text = %text NL "<just:left><spush>" @ %ultimateText @ ":<spop><just:right>" @ %ultimateLabel;
 
 		if (%showAwesome) {
-			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A") %text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
+			if (%awesomeTitle !$= "" && %awesomeLabel !$= "N/A")
+				%text = %text NL "<just:left><spush>" @ %awesomeText @ ":<spop><just:right>" @ %awesomeLabel;
 		}
 
 		%text = %text NL "";
@@ -375,6 +379,17 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, adding a 're
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to make objects move on paths, add a 'Path' field to it, and put the name of the pathnode you wish for it to start on inside."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to make an object move on a path when the marble enters a certain area, fill the activation area with a PathTrigger, add an 'object1' field with its value set to the name of the object, and a 'Path1' field with its value set to the name of the pathnode for it to start on. To start multiple paths with the same trigger, add more fields with higher numbers, such as 'object2' and 'Path2', and so on."; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, to add water to a level, fill the space with a WaterPhysicsTrigger, then line the visible edges with WaterPlane or WaterCylinder_slow shapes."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar Mode 2 can be useful for aligning yourself vertically with something far away."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar Mode 3 is useful for getting a decent sense of your surroundings, particularly if there's a lot going on in a large area."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Radar Mode 3 may help you find Gems faster when playing Hunt levels with lots of gravity changes. Remember that you can switch modes mid-match, too!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In the level editor, you can change how long individual time-based PowerUps last by adding a 'timeout' field to them, and entering the length in milliseconds."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When making a custom level, you can change the duration of specific PowerUps in certain areas of your level using MarblePhysModTriggers."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When playing in Competitive Mode, your usual Blast won't be able to knock other players around. This lets you save your Blast Meter for traversing the map, but keep in mind that Ultra Blasts still work as normal."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When playing in Competitive Mode, other players won't be able to push you around with their normal Blast power. Don't let your guard down, though. Their Ultra Blasts can still send you flying!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In multiplayer modes other than Co-op, quick respawning is placed on a 25-second cooldown. It can even be entirely disabled based on the server settings. Take extra care not to get stuck in any holes while playing custom levels!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Type 'boo' in the level select to have some spooky fun all year round!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Type 'hohoho' in the level select to have some jolly fun all year round!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Blast will always send you straight upwards. This makes it useful for turning around on sloped surfaces where jumps would push you sideways."; //Yoshi
 
 $Loading::TipsChance[0] = 0.80;
 
@@ -405,7 +420,7 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: It's 2:50am. Do you know where yo
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: JOHN CENA!!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Hi, Mom!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Puns make everything punstatic!";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: c() , d()";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: d();"; //rip c(); ??? - 2024
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Fetch, Stash, Pull with Rebase, Pop, Resolve Conflicts";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Type 'party' on the main menu to have a party.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Writing these tips crashed the game.";
@@ -417,16 +432,16 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: GO MARBLE DUDE!!";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: This still isn't cannon.cs";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Just Monika.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Refer to this game as 'Marble Blast Platinum Quest' instead of just 'PlatinumQuest' to bother Matan.";
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: After eight years in development, hopefully PQ will have been worth the wait.";
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: After eight years in development, hopefully PQ will have been worth the weight.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: I bet that doesn't sound good from downstairs.";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "u";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: free jojo";
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Marble Blast Instant Marble Gaming Promotion! Type marble to order a free marble courtesy of Matan's Marbles!"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "I don't think you need any hints today."; //Yoshi
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: OOB Is Defeat. Finish Without Gem Is Win. Gem On Marble Is Weak. Marble Is You."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: OOB Is Defeat. Finish Without Gem Is Win. Marble Eat Gem. Marble Is You."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Struggling to set a new best time? Try going faster!"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: @everyone welcome UNDERTALE"; //Yoshi
-$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Every loading tip has an 80% chance to be a tip, a 17% chance to be trivia, or a 3% chance to be a joke. You just wasted one of your rare 3% chances on this tip."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Trivia: Every loading tip has an 80% chance to be a tip, a 17% chance to be trivia, or a 3% chance to be a joke. You just wasted one of your rare 3% chances on this fact."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: lol lol lol jij jaj jej joj jvj jcj jqj joj jkj"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: On a platinum quest to do my platinum best."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "/tableflip PQ crashed! ...Whoops, sorry, force of habit."; //Yoshi
@@ -435,6 +450,12 @@ $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Chess Battle Advanced"; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: There's a super secret setting outside of the options menu! On the main menu, if you hit the 'Quit' button one time, it toggles the game."; //Yoshi
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Beat your enemies in Multiplayer."; //Connie
 $Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Impressed? I increased the height of my text box. Now I can fit more tips onto it! Take a looksy!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njoj"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: SUPER. HOT."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Press Space Bar to open volume view! This will let you see the level in 3 dimensions at a time."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Upon taking damage, marbles will give you a 10% chance to swallow your currently held trinket and gain its effects permanently."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: It's rude to talk about someone who's listening."; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: mew!"; //Yoshi
+$Loading::Tip[1, $Loading::Tips[1] ++] = "Tip: Don't try using any hidden cheat codes. It's not going to work."; //Yoshi
 ////////////////////////////////////// = "Snooping as usual, I see!" //Yoshi
 
 $Loading::TipsChance[1] = 0.03;
@@ -501,6 +522,9 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Upbeat Finale is actually part
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: A few custom levels brought officially into PlatinumQuest used to have custom music. Commonly used tracks are made by Owen Maitzen (aka hPerks) and sonata1219 (aka NaCl586)."; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: One gamemode scrapped in development was called 'Free World', and just served as an exploration gamemode with no objectives and no way to finish. But why not explore levels anyway without a specific gamemode for it?"; //Yoshi
 $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Marble Blast Gold and Platinum previously required you to unlock every level by beating the one before it. However, secret buttons existed to unlock levels automatically. In Gold, it was in the very bottom right corner of the screen, and in Platinum, it was in the hole of the P in its logo."; //Yoshi
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Before Time Travel timers were added for the whole game, Dependency used to have its own implementation of them using the same timer as countdown triggers."; //Yoshi
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Before Custom Pack 8 was implemented into the game, 20th place vote Winter Wisps by Technostar was replaced by the 51st place vote (Repulsion) for being too laggy. Check it out on Marbleland sometime!"; //Yoshi
+$Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Several of PlatinumQuest's multiplayer levels were made by players like you! Make a custom level the community deems good enough, and yours could be next!"; //Yoshi
 
 $Loading::TipsChance[2] = 0.17;
 

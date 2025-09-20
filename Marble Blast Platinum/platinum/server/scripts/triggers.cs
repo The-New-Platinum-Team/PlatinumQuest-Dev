@@ -734,9 +734,12 @@ datablock TriggerData(SetVelocityTrigger) {
 
 function SetVelocityTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%vel = %trigger.velocity;
-	if (%trigger.ignoreX) %vel = setWord(%vel, 0, getWord(%obj.getVelocity(), 0));
-	if (%trigger.ignoreY) %vel = setWord(%vel, 1, getWord(%obj.getVelocity(), 1));
-	if (%trigger.ignoreZ) %vel = setWord(%vel, 2, getWord(%obj.getVelocity(), 2));
+	if (%trigger.ignoreX)
+		%vel = setWord(%vel, 0, getWord(%obj.getVelocity(), 0));
+	if (%trigger.ignoreY)
+		%vel = setWord(%vel, 1, getWord(%obj.getVelocity(), 1));
+	if (%trigger.ignoreZ)
+		%vel = setWord(%vel, 2, getWord(%obj.getVelocity(), 2));
 	%obj.setVelocity(%vel);
 }
 
@@ -874,7 +877,7 @@ if (!isObject(AchievementTriggerSet)) {
 	RootGroup.add(new SimSet(AchievementTriggerSet));
 }
 
-datablock TriggerData(AchievementTrigger){
+datablock TriggerData(AchievementTrigger) {
 	tickPeriodMS = 100;
 };
 
@@ -1016,21 +1019,21 @@ function CountdownStopTrigger::onEnterTrigger(%this, %trigger, %user) {
 //Sound-based triggers, pog
 
 datablock TriggerData(MusicTrigger) {
-    tickPeriodMS = 100;
-    customField[0, "field"  ] = "text";
-    customField[0, "type"   ] = "string";
-    customField[0, "name"   ] = "Music Name";
-    customField[0, "desc"   ] = "What music to play when you enter the trigger.";
+	tickPeriodMS = 100;
+	customField[0, "field"  ] = "text";
+	customField[0, "type"   ] = "string";
+	customField[0, "name"   ] = "Music Name";
+	customField[0, "desc"   ] = "What music to play when you enter the trigger.";
 	customField[1, "field"  ] = "pitch";
-    customField[1, "type"   ] = "float";
-    customField[1, "name"   ] = "Music Pitch";
-    customField[1, "desc"   ] = "What speed to play music at while inside this trigger.";
+	customField[1, "type"   ] = "float";
+	customField[1, "name"   ] = "Music Pitch";
+	customField[1, "desc"   ] = "What speed to play music at while inside this trigger.";
 	customField[1, "default"] = 1;
 };
 
 function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	if (%trigger.text !$= "") {
-    	playMusic(%trigger.text @ ".ogg");
+		playMusic(%trigger.text @ ".ogg");
 		echo("Playing song " @ %trigger.text @ "!");
 	}
 
@@ -1044,16 +1047,16 @@ function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
 }
 
 function MusicTrigger::onLeaveTrigger(%this,%trigger,%obj) {
-	if(%trigger.pitchAltered)
+	if (%trigger.pitchAltered)
 		$GlobalMusicPitchHandler -= %trigger.pitchDiff;
 }
 
 datablock TriggerData(SoundTrigger) {
 	tickPeriodMS = 100;
-    customField[0, "field"  ] = "sfx";
-    customField[0, "type"   ] = "enum";
-    customField[0, "name"   ] = "AudioProfile Name";
-    customField[0, "desc"   ] = "What AudioProfile(sound) to play when you enter the trigger.";
+	customField[0, "field"  ] = "sfx";
+	customField[0, "type"   ] = "enum";
+	customField[0, "name"   ] = "AudioProfile Name";
+	customField[0, "desc"   ] = "What AudioProfile(sound) to play when you enter the trigger.";
 	customEnum["sfx", 0, "value"] = "DoSuperJumpSfx";            //There's gotta be a better way to just get all of the sounds in here without doing *this*. ~ Connie
 	customEnum["sfx", 0, "name" ] = "DoSuperJumpSfx";
 	customEnum["sfx", 1, "value"] = "DoSuperSpeedSfx";
@@ -1088,28 +1091,28 @@ datablock TriggerData(SoundTrigger) {
 // Not multiplayer compatible
 function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
-    switch (%trigger.triggeronce) {
-		case 1:
+	switch (%trigger.triggeronce) {
+	case 1:
 
-            switch (%trigger._hasBeenInOnce[%marble]) {
-				case true:
-				    return;
-				case false:
-				    serverplay2d(%trigger.sfx);
+		switch (%trigger._hasBeenInOnce[%marble]) {
+		case true:
+			return;
+		case false:
+			serverplay2d(%trigger.sfx);
 
-                    if (%trigger.sfx == GotAwesomeSfx) {
-						alxplay(%trigger.sfx);
-					}
-
-		            %trigger._hasBeenInOnce = true;
-			}
-
-		case 0:
-		    serverplay2d(%trigger.sfx);
-
-		    if (%trigger.sfx == GotAwesomeSfx) {
+			if (%trigger.sfx == GotAwesomeSfx) {
 				alxplay(%trigger.sfx);
 			}
+
+			%trigger._hasBeenInOnce = true;
+		}
+
+	case 0:
+		serverplay2d(%trigger.sfx);
+
+		if (%trigger.sfx == GotAwesomeSfx) {
+			alxplay(%trigger.sfx);
+		}
 	}
 }
 
@@ -1122,7 +1125,7 @@ function SoundTrigger::onAdd(%this,%trigger,%obj) {
 }
 
 function SoundTrigger::onMissionReset(%this, %trigger, %obj) {
-    %trigger._hasBeenInOnce = false;
+	%trigger._hasBeenInOnce = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -1130,10 +1133,10 @@ function SoundTrigger::onMissionReset(%this, %trigger, %obj) {
 
 datablock TriggerData(ChangeMarbleSizeTrigger) {
 	tickPeriodMS = 100;
-    customField[0, "field"  ] = "mbsize";
-    customField[0, "type"   ] = "float";
-    customField[0, "name"   ] = "Size";
-    customField[0, "desc"   ] = "0.6666 for Mega Scale, 0.2 for Gold Scale, 0.3 for Ultra Scale, 0.18975 for Normal Scale";
+	customField[0, "field"  ] = "mbsize";
+	customField[0, "type"   ] = "float";
+	customField[0, "name"   ] = "Size";
+	customField[0, "desc"   ] = "0.6666 for Mega Scale, 0.2 for Gold Scale, 0.3 for Ultra Scale, 0.18975 for Normal Scale";
 	customField[0, "default"] = 0.18975;
 	customField[1, "field"  ] = "indicator";
 	customField[1, "type"   ] = "boolean";
@@ -1143,34 +1146,34 @@ datablock TriggerData(ChangeMarbleSizeTrigger) {
 };
 function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
-    if (%trigger.mbsize !$= "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
+	if (%trigger.mbsize !$= "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
 
-        if (%trigger.mbsize < %obj.getCollisionRadius()) { //I think it would be better if the player knew exactly when exactly their marble shrunk, grown, or stayed the same  ~ Connie
-		    //addHelpLine("Oh dear, your marble has shrunk by " @ (%trigger.mbsize * 100) @ "%...");
-		    if (%trigger.indicator == 0) {
-				if (%trigger.mbsize == 0.18975) {
-		    	    addHelpLine("Your marble has returned to normal.");
-			        alxPlay(BubblePopSfx);
-				} else {
-			        addHelpLine("Oh dear, your marble has shrunk...");
-			        serverplay2d(MegaShrinkSfx); 		
-				}
-			}
-	    } else if (%trigger.mbsize > %obj.getCollisionRadius()) { //Same here ^^ ~ Connie
-            //addHelpLine("Oh my, your marble has grown by " @ (%trigger.mbsize * 100) @ "%!");
+		if (%trigger.mbsize < %obj.getCollisionRadius()) { //I think it would be better if the player knew exactly when exactly their marble shrunk, grown, or stayed the same  ~ Connie
+			//addHelpLine("Oh dear, your marble has shrunk by " @ (%trigger.mbsize * 100) @ "%...");
 			if (%trigger.indicator == 0) {
 				if (%trigger.mbsize == 0.18975) {
-		    	    addHelpLine("Your marble has returned to normal.");
-			        alxPlay(BubblePopSfx);
+					addHelpLine("Your marble has returned to normal.");
+					alxPlay(BubblePopSfx);
 				} else {
-                    addHelpLine("Oh my, your marble has grown!"); 
-			        serverplay2d(DoMegaMarbleSfx);
+					addHelpLine("Oh dear, your marble has shrunk...");
+					serverplay2d(MegaShrinkSfx);
 				}
 			}
-	    } else if (%trigger.mbsize == %obj.getCollisionRadius()) { //Same here ^^ ~ Connie
+		} else if (%trigger.mbsize > %obj.getCollisionRadius()) { //Same here ^^ ~ Connie
+			//addHelpLine("Oh my, your marble has grown by " @ (%trigger.mbsize * 100) @ "%!");
 			if (%trigger.indicator == 0) {
-               addHelpLine("Your marble has not changed at all!");
-			   alxPlay(BubblePopSfx);
+				if (%trigger.mbsize == 0.18975) {
+					addHelpLine("Your marble has returned to normal.");
+					alxPlay(BubblePopSfx);
+				} else {
+					addHelpLine("Oh my, your marble has grown!");
+					serverplay2d(DoMegaMarbleSfx);
+				}
+			}
+		} else if (%trigger.mbsize == %obj.getCollisionRadius()) { //Same here ^^ ~ Connie
+			if (%trigger.indicator == 0) {
+				addHelpLine("Your marble has not changed at all!");
+				alxPlay(BubblePopSfx);
 			}
 		}
 
@@ -1178,8 +1181,8 @@ function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
 	} else {
 		if (%trigger.indicator == 0) {
-	        addHelpLine("Your marble has returned to normal.");
-		    alxPlay(BubblePopSfx);
+			addHelpLine("Your marble has returned to normal.");
+			alxPlay(BubblePopSfx);
 		}
 
 		%obj.setCollisionRadius(0.18975);
@@ -1211,10 +1214,10 @@ datablock TriggerData(AccelerationTrigger) {
 
 function AccelerationTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%obj.client.applyImpulse("0 0 0", (
-		(%trigger.xforce / 100) SPC
-		(%trigger.yforce / 100) SPC
-		(%trigger.zforce / 100)
-	));
+	                             (%trigger.xforce / 100) SPC
+	                             (%trigger.yforce / 100) SPC
+	                             (%trigger.zforce / 100)
+	                         ));
 	%this.nextFrame[%obj] = %this.schedule(10, onEnterTrigger, %trigger, %obj);
 }
 
@@ -1261,7 +1264,7 @@ function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
 			noteEnvironment();
 			break;
 		}
-		
+
 		if (%obj.getName() $= "MissionData") {
 			for (%i = 0; %i < MissionData.getCount(); %i ++) {
 				%obj = MissionData.getObject(%i);
@@ -1273,7 +1276,7 @@ function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
 			break;
 		}
 	}
-	
+
 	%sky = Sky.getID();
 	if (%sky.notedSkybox $= "")
 		noteEnvironment(true);
@@ -1288,9 +1291,9 @@ function ChangeEnvironmentTrigger::onEnterTrigger(%this, %trigger, %obj) {
 }
 
 function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
-	if (%trigger.skybox $= "") 
+	if (%trigger.skybox $= "")
 		resetEnvironment(false);
-	else 
+	else
 		resetEnvironment(true);
 }
 
@@ -1398,7 +1401,7 @@ function changeEnvironment(%dirvalue, %colorvalue, %ambvalue, %skybox) {
 	%sky.delete();
 }
 
-function resetEnvironment(%skyreset) {	
+function resetEnvironment(%skyreset) {
 	//Crashes dedicated servers
 	if ($Server::Dedicated)
 		return;

@@ -252,6 +252,14 @@ new SimGroup(MaterialGroup) {
 		friction = 2;
 		restitution = 0.75;
 	};
+
+	// A LAVA WATERFALL!!
+
+	new MaterialProperty(LavaBounceFloorMaterial) {
+		friction = 1;
+		restitution = 2;
+		force = 15;
+	};
 };
 
 // YAY FOR MBP
@@ -259,17 +267,17 @@ new SimGroup(MaterialGroup) {
 addMaterialMapping("", DefaultMaterial);
 
 // Used for levels in Marble Blast Platinum
-addMaterialMapping("grass" , GrassFrictionMaterial);
-addMaterialMapping("ice1" , IceFrictionMaterial);
-addMaterialMapping("rug" ,    RugFrictionMaterial);
-addMaterialMapping("tarmac" ,    TarmacFrictionMaterial);
-addMaterialMapping("carpet" ,    CarpetFrictionMaterial);
-addMaterialMapping("sand" ,    SandFrictionMaterial);
-addMaterialMapping("water" ,    WaterFrictionMaterial);
-addMaterialMapping("floor_bounce" ,    BouncyFrictionMaterial);
-addMaterialMapping("mbp_chevron_friction" ,    RandomForceMaterial);
-addMaterialMapping("mbp_chevron_friction2" ,    RandomForceMaterial);
-addMaterialMapping("mbp_chevron_friction3" ,    RandomForceMaterial);
+addMaterialMapping("grass", GrassFrictionMaterial);
+addMaterialMapping("ice1", IceFrictionMaterial);
+addMaterialMapping("rug",    RugFrictionMaterial);
+addMaterialMapping("tarmac",    TarmacFrictionMaterial);
+addMaterialMapping("carpet",    CarpetFrictionMaterial);
+addMaterialMapping("sand",    SandFrictionMaterial);
+addMaterialMapping("water",    WaterFrictionMaterial);
+addMaterialMapping("floor_bounce",    BouncyFrictionMaterial);
+addMaterialMapping("mbp_chevron_friction",    RandomForceMaterial);
+addMaterialMapping("mbp_chevron_friction2",    RandomForceMaterial);
+addMaterialMapping("mbp_chevron_friction3",    RandomForceMaterial);
 
 // Added to stop the game from popping an error in the console log that it cannot find the
 // material property even though the game runs fine without that minor piece of code
@@ -278,114 +286,115 @@ addMaterialMapping("mbp_chevron_friction3" ,    RandomForceMaterial);
 addMaterialMapping("stripe_caution", DefaultMaterial);
 
 // Used for Mini Marble Golf
-addMaterialMapping("mmg_grass" ,    MMGGrassMaterial);
-addMaterialMapping("mmg_sand" ,    MMGSandMaterial);
-addMaterialMapping("mmg_water" ,    MMGWaterMaterial);
-addMaterialMapping("mmg_ice" ,    MMGIceMaterial);
+addMaterialMapping("mmg_grass",    MMGGrassMaterial);
+addMaterialMapping("mmg_sand",    MMGSandMaterial);
+addMaterialMapping("mmg_water",    MMGWaterMaterial);
+addMaterialMapping("mmg_ice",    MMGIceMaterial);
 
 // Multiplayer
-addMaterialMapping("mmg_ice_shadow" ,    MMGIceShadowMaterial);
-addMaterialMapping("friction_mp_high" ,    HighFrictionMultiplayerMaterial);
-addMaterialMapping("friction_mp_high_shadow" ,    HighFrictionMultiplayerMaterial);
+addMaterialMapping("mmg_ice_shadow",    MMGIceShadowMaterial);
+addMaterialMapping("friction_mp_high",    HighFrictionMultiplayerMaterial);
+addMaterialMapping("friction_mp_high_shadow",    HighFrictionMultiplayerMaterial);
+addMaterialMapping("pq_lava",    LavaBounceFloorMaterial);
 
 // PlatinumQuest
-addMaterialMapping("pq_friction_space" , PQSpaceMaterial);
-addMaterialMapping("pq_friction_ice" , PQIceMaterial);
-addMaterialMapping("pq_friction_ice_with_danger" , PQIceMaterial);
-addMaterialMapping("pq_friction_mud" , PQMudMaterial);
-addMaterialMapping("pq_friction_grass" , PQGrassMaterial);
-addMaterialMapping("pq_friction_sand" , PQSandMaterial);
-addMaterialMapping("pq_friction_bouncy" , PQBouncyMaterial);
-addMaterialMapping("pq_friction_water" , MMGWaterMaterial);
-addMaterialMapping("base.sandhill" , PQSandMaterial);
+addMaterialMapping("pq_friction_space", PQSpaceMaterial);
+addMaterialMapping("pq_friction_ice", PQIceMaterial);
+addMaterialMapping("pq_friction_ice_with_danger", PQIceMaterial);
+addMaterialMapping("pq_friction_mud", PQMudMaterial);
+addMaterialMapping("pq_friction_grass", PQGrassMaterial);
+addMaterialMapping("pq_friction_sand", PQSandMaterial);
+addMaterialMapping("pq_friction_bouncy", PQBouncyMaterial);
+addMaterialMapping("pq_friction_water", MMGWaterMaterial);
+addMaterialMapping("base.sandhill", PQSandMaterial);
 
 // Some DTS textures from MBG
-addMaterialMapping("bumper-rubber" ,    BumperMaterial);
-addMaterialMapping("triang-side" ,      BumperMaterial);
-addMaterialMapping("triang-top" ,      BumperMaterial);
-addMaterialMapping("pball-round-side" , BumperMaterial);
-addMaterialMapping("pball-round-top" , BumperMaterial);
-addMaterialMapping("pball-round-bottm" , BumperMaterial);
-addMaterialMapping("bumper" , BumperMaterial);
-addMaterialMapping("sigil_glow" , BumperMaterial);
-addMaterialMapping("base.button" ,    ButtonMaterial);
-addMaterialMapping("black.button" ,   ButtonMaterial);
-addMaterialMapping("blue.button" ,    ButtonMaterial);
-addMaterialMapping("gray.button" ,    ButtonMaterial);
-addMaterialMapping("green.button" ,   ButtonMaterial);
-addMaterialMapping("magenta.button" , ButtonMaterial);
-addMaterialMapping("mint.button" ,    ButtonMaterial);
-addMaterialMapping("orange.button" ,  ButtonMaterial);
-addMaterialMapping("pink.button" ,    ButtonMaterial);
-addMaterialMapping("purple.button" ,  ButtonMaterial);
-addMaterialMapping("yellow.button" ,  ButtonMaterial);
+addMaterialMapping("bumper-rubber",    BumperMaterial);
+addMaterialMapping("triang-side",      BumperMaterial);
+addMaterialMapping("triang-top",      BumperMaterial);
+addMaterialMapping("pball-round-side", BumperMaterial);
+addMaterialMapping("pball-round-top", BumperMaterial);
+addMaterialMapping("pball-round-bottm", BumperMaterial);
+addMaterialMapping("bumper", BumperMaterial);
+addMaterialMapping("sigil_glow", BumperMaterial);
+addMaterialMapping("base.button",    ButtonMaterial);
+addMaterialMapping("black.button",   ButtonMaterial);
+addMaterialMapping("blue.button",    ButtonMaterial);
+addMaterialMapping("gray.button",    ButtonMaterial);
+addMaterialMapping("green.button",   ButtonMaterial);
+addMaterialMapping("magenta.button", ButtonMaterial);
+addMaterialMapping("mint.button",    ButtonMaterial);
+addMaterialMapping("orange.button",  ButtonMaterial);
+addMaterialMapping("pink.button",    ButtonMaterial);
+addMaterialMapping("purple.button",  ButtonMaterial);
+addMaterialMapping("yellow.button",  ButtonMaterial);
 
 // Back to MBG... BOOOOOOOO
 // Textures listed in BrianH texture document
-addMaterialMapping("grid_warm" ,    DefaultMaterial);
-addMaterialMapping("grid_cool" ,    DefaultMaterial);
-addMaterialMapping("grid_neutral" , DefaultMaterial);
+addMaterialMapping("grid_warm",    DefaultMaterial);
+addMaterialMapping("grid_cool",    DefaultMaterial);
+addMaterialMapping("grid_neutral", DefaultMaterial);
 
-addMaterialMapping("stripe_cool" ,    DefaultMaterial);
-addMaterialMapping("stripe_neutral" , DefaultMaterial);
-addMaterialMapping("stripe_warm" ,    DefaultMaterial);
-addMaterialMapping("tube_cool" ,      DefaultMaterial);
-addMaterialMapping("tube_neutral" ,   DefaultMaterial);
-addMaterialMapping("tube_warm" ,      DefaultMaterial);
+addMaterialMapping("stripe_cool",    DefaultMaterial);
+addMaterialMapping("stripe_neutral", DefaultMaterial);
+addMaterialMapping("stripe_warm",    DefaultMaterial);
+addMaterialMapping("tube_cool",      DefaultMaterial);
+addMaterialMapping("tube_neutral",   DefaultMaterial);
+addMaterialMapping("tube_warm",      DefaultMaterial);
 
-addMaterialMapping("solid_cool1" ,      DefaultMaterial);
-addMaterialMapping("solid_cool2" ,      DefaultMaterial);
-addMaterialMapping("solid_neutral1" ,   DefaultMaterial);
-addMaterialMapping("solid_neutral2" ,   DefaultMaterial);
-addMaterialMapping("solid_warm1" ,      DefaultMaterial);
-addMaterialMapping("solid_warm2" ,      DefaultMaterial);
+addMaterialMapping("solid_cool1",      DefaultMaterial);
+addMaterialMapping("solid_cool2",      DefaultMaterial);
+addMaterialMapping("solid_neutral1",   DefaultMaterial);
+addMaterialMapping("solid_neutral2",   DefaultMaterial);
+addMaterialMapping("solid_warm1",      DefaultMaterial);
+addMaterialMapping("solid_warm2",      DefaultMaterial);
 
-addMaterialMapping("pattern_cool1" ,      DefaultMaterial);
-addMaterialMapping("pattern_cool2" ,      DefaultMaterial);
-addMaterialMapping("pattern_neutral1" ,   DefaultMaterial);
-addMaterialMapping("pattern_neutral2" ,   DefaultMaterial);
-addMaterialMapping("pattern_warm1" ,      DefaultMaterial);
-addMaterialMapping("pattern_warm2" ,      DefaultMaterial);
+addMaterialMapping("pattern_cool1",      DefaultMaterial);
+addMaterialMapping("pattern_cool2",      DefaultMaterial);
+addMaterialMapping("pattern_neutral1",   DefaultMaterial);
+addMaterialMapping("pattern_neutral2",   DefaultMaterial);
+addMaterialMapping("pattern_warm1",      DefaultMaterial);
+addMaterialMapping("pattern_warm2",      DefaultMaterial);
 
-addMaterialMapping("friction_none" ,    NoFrictionMaterial);
-addMaterialMapping("friction_low" ,     LowFrictionMaterial);
-addMaterialMapping("friction_low_shadow" ,     LowFrictionMaterial);
-addMaterialMapping("friction_high" ,    HighFrictionMaterial);
-addMaterialMapping("friction_high_shadow" ,    HighFrictionMaterial);
+addMaterialMapping("friction_none",    NoFrictionMaterial);
+addMaterialMapping("friction_low",     LowFrictionMaterial);
+addMaterialMapping("friction_low_shadow",     LowFrictionMaterial);
+addMaterialMapping("friction_high",    HighFrictionMaterial);
+addMaterialMapping("friction_high_shadow",    HighFrictionMaterial);
 // used for ramps in Escher level [and three fold maze]
-addMaterialMapping("friction_ramp_yellow" ,    VeryHighFrictionMaterial);
+addMaterialMapping("friction_ramp_yellow",    VeryHighFrictionMaterial);
 
 // old textures (to be removed?)
-addMaterialMapping("grid1" , RubberFloorMaterial);
-addMaterialMapping("grid2" , RubberFloorMaterial);
-addMaterialMapping("grid3" , RubberFloorMaterial);
-addMaterialMapping("grid4" , RubberFloorMaterial);
+addMaterialMapping("grid1", RubberFloorMaterial);
+addMaterialMapping("grid2", RubberFloorMaterial);
+addMaterialMapping("grid3", RubberFloorMaterial);
+addMaterialMapping("grid4", RubberFloorMaterial);
 
 // some part textures
-addMaterialMapping("oilslick" , IceMaterial);
-addMaterialMapping("base.slick" , IceMaterial);
-addMaterialMapping("ice.slick" , IceMaterial);
+addMaterialMapping("oilslick", IceMaterial);
+addMaterialMapping("base.slick", IceMaterial);
+addMaterialMapping("ice.slick", IceMaterial);
 
 // Ice Shard
 addMaterialMapping("shard_snow", IceShardMaterial);
 addMaterialMapping("base.shard_ice", IceShardMaterial);
 
 // PQ Hazards
-addMaterialMapping("roundbumper_tex" , PQBouncyMaterial);
-addMaterialMapping("tribumper_tex" , PQBouncyMaterial);
+addMaterialMapping("roundbumper_tex", PQBouncyMaterial);
+addMaterialMapping("tribumper_tex", PQBouncyMaterial);
 
 // PQ Repulsion
-addMaterialMapping("repul_stripe_caution" , MORepulsionMaterial);
-addMaterialMapping("repul_pq_construction_concrete" , MORepulsionMaterial);
-addMaterialMapping("pq_ray_wall_combo_repul" , MOWeakRepulsionMaterial);
+addMaterialMapping("repul_stripe_caution", MORepulsionMaterial);
+addMaterialMapping("repul_pq_construction_concrete", MORepulsionMaterial);
+addMaterialMapping("pq_ray_wall_combo_repul", MOWeakRepulsionMaterial);
 
 // Spooky texturing
-addMaterialMapping("spooky_acidwater" , SpookyWaterMaterial);
-addMaterialMapping("spooky_dirt" , SpookyDirtMaterial);
-addMaterialMapping("spooky_grass" , SpookyGrassMaterial);
+addMaterialMapping("spooky_acidwater", SpookyWaterMaterial);
+addMaterialMapping("spooky_dirt", SpookyDirtMaterial);
+addMaterialMapping("spooky_grass", SpookyGrassMaterial);
 
-addMaterialMapping("XmasIce" ,       MMGIceMaterial);
-addMaterialMapping("XmasIceShadow" , MMGIceMaterial);
+addMaterialMapping("XmasIce",       MMGIceMaterial);
+addMaterialMapping("XmasIceShadow", MMGIceMaterial);
 
 addMaterialMapping("XmasSnow", XmasSnowMaterial);
 addMaterialMapping("XmasSnowShadow", XmasSnowMaterial);
@@ -402,7 +411,8 @@ function adjustFrictions() {
 		} else {
 			HighFrictionMaterial.friction = 1.5;
 			LowFrictionMaterial.friction = 0.2;
-	}	} else {
+		}
+	} else {
 		//Single player stuff goes in here
 		MMGIceMaterial.friction = 0.03;
 

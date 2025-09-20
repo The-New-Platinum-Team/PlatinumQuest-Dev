@@ -133,10 +133,7 @@ function buildPhysmodEmitters(%group) {
 
 		if (%class $= "SimGroup")
 			buildPhysmodEmitters(%obj);
-		else if (%class $= "Trigger" &&
-		         %obj.getDataBlock().getName() $= "MarblePhysModTrigger" &&
-		         !%obj.noEmitters) {
-
+		else if (%class $= "Trigger" && %obj.getDataBlock().getName() $= "MarblePhysModTrigger" && !%obj.noEmitters) {
 			if (%obj._builtEmitters) {
 				continue;
 			}

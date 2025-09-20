@@ -72,31 +72,28 @@ function getRadius(%dim, %object) { //get x/y/z radius of an object's bounding b
 
 //-------------------------------------------------------------------------------------
 
-function isNumber(%str)  //tests whether a string is a number
-{
-  if (%str > 0 || %str < 0)
-    return true;
-  else if (%str $= "0")
-    return true;
-  else
-    return false;
+function isNumber(%str) { //tests whether a string is a number
+	if (%str > 0 || %str < 0)
+		return true;
+	else if (%str $= "0")
+		return true;
+	else
+		return false;
 }
 
-function getBaseName(%name, %flag) //strip trailing numbers from string; alternatively, insert a space between basename and number
-{
-  %len = strlen(%name);
-  %i = 0;
-  while (isNumber(getSubStr(%name, %len - 1 - %i, 1)))
-  {
-    %pos = %len - %i - 1;
-    %i++;
-  }
-  %basename = getSubStr(%name, 0, %pos);
-  if (!%flag)
-    return %basename;
+function getBaseName(%name, %flag) { //strip trailing numbers from string; alternatively, insert a space between basename and number
+	%len = strlen(%name);
+	%i = 0;
+	while (isNumber(getSubStr(%name, %len - 1 - %i, 1))) {
+		%pos = %len - %i - 1;
+		%i++;
+	}
+	%basename = getSubStr(%name, 0, %pos);
+	if (!%flag)
+		return %basename;
 
-  %combined = %basename SPC getSubStr(%name, %pos, 65535);
-  return %combined;
+	%combined = %basename SPC getSubStr(%name, %pos, 65535);
+	return %combined;
 }
 
 //-------------------------------------------------------------------------------------
@@ -179,7 +176,8 @@ function applyrotations(%r1, %r2, %r3, %r4) {
 			%blah = %r3;
 		if (%i == 4)
 			%blah = %r4;
-		if (%blah $= "") break;
+		if (%blah $= "")
+			break;
 		//echo(%blah);
 		if (getWordCount(%blah) == 3)
 			%blah = rotEtoAA(%blah, 1);
@@ -193,7 +191,8 @@ function applyrotations(%r1, %r2, %r3, %r4) {
 		//echo(%qtotal);
 
 		%i++;
-		if (%i > 5) break;
+		if (%i > 5)
+			break;
 	}
 	%finalrot = rotQtoAA(rotQnormalize(%qtotal));
 	//echo(%finalrot);
@@ -344,7 +343,8 @@ function normalOfGravity(%gravity) {
 //-----------------------------------------------------------------
 
 function spawnEmitter(%time, %db, %position, %parentto) {
-	if (%time $= "") %time = 1000;
+	if (%time $= "")
+		%time = 1000;
 	if (!isObject(%db))
 		return;
 	%obj = new ParticleEmitterNode() {

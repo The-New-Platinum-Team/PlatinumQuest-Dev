@@ -92,6 +92,14 @@ function GameConnection::onConnect(%client, %name, %password, %marble, %bologna)
 			HoldGroup.add(%this);
 			return;
 		}
+		if (!$MPPref::Server::AllowGuests && isGuest(%name)) {
+			%client.schedule(1000, delete, "CR_GUEST");
+			if (!isObject(HoldGroup))
+				RootGroup.add(new SimGroup(HoldGroup));
+				
+			HoldGroup.add(%this);
+			return;
+		}
 	}
 
 	%client.connected = true;
@@ -338,7 +346,8 @@ function GameConnection::getDisplayName(%this) {
 // This function is called when a client drops for any reason
 //
 function GameConnection::onDrop(%client, %reason) {
-	if (%client.pinging) return;
+	if (%client.pinging)
+		return;
 	%client.onClientLeaveGame();
 
 	removeFromServerGuidList(%client.guid);
@@ -510,8 +519,7 @@ function GameConnection::startMission(%this) {
 
 function GameConnection::endMission(%this) {
 	%ret = $LB::LoggedIn || $Server::Dedicated;
-	if (%ret && $platform $= "windows")
-	{
+	if (%ret && $platform $= "windows") {
 		anticheatDetect(); // This shit aint exist on mac lmaoo
 	}
 	// Inform the client the mission is done
@@ -521,9 +529,12 @@ function GameConnection::endMission(%this) {
 //--------------------------------------------------------------------------
 
 function GameConnection::backup(%this) {
-	if (!$MPPref::BackupClients) return;
-	if (!%this.connected) return;
-	if (%this.namebase $= "") return;
+	if (!$MPPref::BackupClients)
+		return;
+	if (!%this.connected)
+		return;
+	if (%this.namebase $= "")
+		return;
 
 	FakeClientGroup.add(%fake = new ScriptObject(FakeConnection) {
 		class = "FakeGameConnection";

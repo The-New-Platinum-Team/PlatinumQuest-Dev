@@ -34,26 +34,26 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 	bitmap = "~/client/ui/exit/black";
 	useVariable = "0";
 	tile = "0";
-		_guiSize = "800 600";
-		defaultControl = "LBStatsClose";
-		commandSelect = "RootGui.popDialog(LBStatsDlg);";
-		commandCancel = "RootGui.popDialog(LBStatsDlg);";
-		commandLT = "LBStatsDlg.prevCategory();";
-		commandRT = "LBStatsDlg.nextCategory();";
-		commandNameSelect = "Close";
-		commandNameLT = "Prev Category";
-		commandNameRT = "Next Category";
+	_guiSize = "800 600";
+	defaultControl = "LBStatsClose";
+	commandSelect = "RootGui.popDialog(LBStatsDlg);";
+	commandCancel = "RootGui.popDialog(LBStatsDlg);";
+	commandLT = "LBStatsDlg.prevCategory();";
+	commandRT = "LBStatsDlg.nextCategory();";
+	commandNameSelect = "Close";
+	commandNameLT = "Prev Category";
+	commandNameRT = "Next Category";
 
 	new GuiControl() {
 		profile = "PQWindowProfile";
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "178 61";
-		extent = "443 477";
+		extent = "443 513";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
-			wrap = "0";
+		wrap = "0";
 
 		new GuiMLTextCtrl(LBStatsTitle) {
 			profile = "GuiMLTextProfile";
@@ -101,8 +101,8 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 			profile = "PQButtonPillSmallLeftProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "27 356";
-			extent = "83 47";
+			position = "98 356";
+			extent = "123 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBStatsDlg.selectCategory(\"General\");";
@@ -113,17 +113,33 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
 		};
-		new GuiBorderButtonCtrl(LB_StatsGoldCategory) {
-			profile = "PQButtonPillSmallCenterProfile";
+		new GuiBorderButtonCtrl(LB_StatsOfficialCategory) {
+			profile = "PQButtonPillSmallRightProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "110 356";
-			extent = "48 47";
+			position = "221 356";
+			extent = "123 47";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBStatsDlg.selectCategory(\"Official\");";
+			helpTag = "0";
+			text = "Official  ";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "450";
+			repeatDecay = "0.958";
+		};
+		new GuiBorderButtonCtrl(LB_StatsGoldCategory) {
+			profile = "PQButtonPillSmallLeftProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "27 392";
+			extent = "58 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBStatsDlg.selectCategory(\"Gold\");";
 			helpTag = "0";
-			text = "Gold";
+			text = "  Gold";
 			groupNum = "1";
 			buttonType = "RadioButton";
 			repeatPeriod = "450";
@@ -133,8 +149,8 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 			profile = "PQButtonPillSmallCenterProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "158 356";
-			extent = "81 47";
+			position = "85 392";
+			extent = "80 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBStatsDlg.selectCategory(\"Platinum\");";
@@ -149,8 +165,8 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 			profile = "PQButtonPillSmallCenterProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "239 356";
-			extent = "51 47";
+			position = "165 392";
+			extent = "56 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBStatsDlg.selectCategory(\"Ultra\");";
@@ -165,8 +181,8 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 			profile = "PQButtonPillSmallCenterProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "290 356";
-			extent = "44 47";
+			position = "221 392";
+			extent = "50 47";
 			minExtent = "8 8";
 			visible = "1";
 			command = "LBStatsDlg.selectCategory(\"PlatinumQuest\");";
@@ -177,11 +193,27 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 			repeatPeriod = "450";
 			repeatDecay = "0.958";
 		};
+		new GuiBorderButtonCtrl(LB_StatsBonusCategory) {
+			profile = "PQButtonPillSmallCenterProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "271 392";
+			extent = "62 47";
+			minExtent = "8 8";
+			visible = "1";
+			command = "LBStatsDlg.selectCategory(\"Bonus\");";
+			helpTag = "0";
+			text = "Bonus";
+			groupNum = "1";
+			buttonType = "RadioButton";
+			repeatPeriod = "450";
+			repeatDecay = "0.958";
+		};
 		new GuiBorderButtonCtrl(LB_StatsCustomCategory) {
 			profile = "PQButtonPillSmallRightProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "334 356";
+			position = "333 392";
 			extent = "82 47";
 			minExtent = "8 8";
 			visible = "1";
@@ -197,7 +229,7 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "174 403";
+			position = "174 439";
 			extent = "94 47";
 			minExtent = "8 8";
 			visible = "1";
@@ -217,10 +249,12 @@ function LBStatsDlg::show(%this, %user) {
 	%this.user = %user;
 	%this.category = "General";
 	LB_StatsGeneralCategory.setValue(1);
+	LB_StatsOfficialCategory.setValue(0);
 	LB_StatsGoldCategory.setValue(0);
 	LB_StatsPlatinumCategory.setValue(0);
 	LB_StatsUltraCategory.setValue(0);
 	LB_StatsPlatinumQuestCategory.setValue(0);
+	LB_StatsBonusCategory.setValue(0);
 	LB_StatsCustomCategory.setValue(0);
 
 	statsGetPlayerStats(%user);
@@ -237,23 +271,43 @@ function LBStatsDlg::onSleep(%this) {
 
 function LBStatsDlg::prevCategory(%this) {
 	switch$ (%this.category) {
-		case "General": %this.selectCategory("Custom");
-		case "Gold": %this.selectCategory("General");
-		case "Platinum": %this.selectCategory("Gold");
-		case "Ultra": %this.selectCategory("Platinum");
-		case "PlatinumQuest": %this.selectCategory("Ultra");
-		case "Custom": %this.selectCategory("PlatinumQuest");
+	case "General":
+		%this.selectCategory("Custom");
+	case "Official":
+		%this.selectCategory("General");
+	case "Gold":
+		%this.selectCategory("Official");
+	case "Platinum":
+		%this.selectCategory("Gold");
+	case "Ultra":
+		%this.selectCategory("Platinum");
+	case "PlatinumQuest":
+		%this.selectCategory("Ultra");
+	case "Bonus":
+		%this.selectCategory("PlatinumQuest");
+	case "Custom":
+		%this.selectCategory("Bonus");
 	}
 }
 
 function LBStatsDlg::nextCategory(%this) {
 	switch$ (%this.category) {
-		case "General": %this.selectCategory("Gold");
-		case "Gold": %this.selectCategory("Platinum");
-		case "Platinum": %this.selectCategory("Ultra");
-		case "Ultra": %this.selectCategory("PlatinumQuest");
-		case "PlatinumQuest": %this.selectCategory("Custom");
-		case "Custom": %this.selectCategory("General");
+	case "General":
+		%this.selectCategory("Official");
+	case "Official":
+		%this.selectCategory("Gold");
+	case "Gold":
+		%this.selectCategory("Platinum");
+	case "Platinum":
+		%this.selectCategory("Ultra");
+	case "Ultra":
+		%this.selectCategory("PlatinumQuest");
+	case "PlatinumQuest":
+		%this.selectCategory("Bonus");
+	case "Bonus":
+		%this.selectCategory("Custom");
+	case "Custom":
+		%this.selectCategory("General");
 	}
 }
 
@@ -261,10 +315,12 @@ function LBStatsDlg::selectCategory(%this, %category) {
 	%this.category = %category;
 
 	LB_StatsGeneralCategory.setValue(%category $= "General");
+	LB_StatsOfficialCategory.setValue(%category $= "Official");
 	LB_StatsGoldCategory.setValue(%category $= "Gold");
 	LB_StatsPlatinumCategory.setValue(%category $= "Platinum");
 	LB_StatsUltraCategory.setValue(%category $= "Ultra");
 	LB_StatsPlatinumQuestCategory.setValue(%category $= "PlatinumQuest");
+	LB_StatsBonusCategory.setValue(%category $= "Bonus");
 	LB_StatsCustomCategory.setValue(%category $= "Custom");
 
 	%this.update();
@@ -288,6 +344,13 @@ function LBStatsDlg::update(%this) {
 		%text = %text NL "<just:left>Total Time Travel: <just:right>" @ formatTimeHoursMs(%stats.general.total_bonus);
 		%text = %text NL "<just:left>Total Time: <just:right>" @ formatTimeHoursMs(%stats.general.total_time);
 		%text = %text NL "<just:left>Grand Total: <just:right>" @ formatTimeHoursMs(%stats.general.grand_total);
+	} else if (%this.category $= "Official") {
+		// Official stats
+		// This page is kinda sad... should we put a game rating breakdown here?
+		%text = "<bold:24><just:center>Official Levels Statistics";
+		%text = %text @ "<font:18>\n";
+		%text = %text NL "<just:left>Official Rating: <just:right>" @ formatScore(%stats.official.rating);
+		%text = %text NL "<just:left>Official Ranking: <just:right>" @ formatScore(%stats.official.rank);
 	} else {
 		//Game-specific stats
 		%gameId = %stats.gameIds.getFieldValue(%this.category);
@@ -300,7 +363,7 @@ function LBStatsDlg::update(%this) {
 			%difficulty = %game.difficulties.getEntry(%i);
 			%percent = mFloor(100 * (%difficulty.completion / %difficulty.total_missions)) @ "%";
 			%text = %text NL "<just:left>" @ %difficulty.display @ " Completion: <just:right>"
-				@ %difficulty.completion @ " / " @ %difficulty.total_missions @ " (" @ %percent;
+			        @ %difficulty.completion @ " / " @ %difficulty.total_missions @ " (" @ %percent;
 			if (%difficulty.completion == %difficulty.total_missions) {
 				%text = %text @ " in " @ formatTimeHoursMs(%difficulty.total_time) @ ")";
 			} else {
@@ -310,7 +373,7 @@ function LBStatsDlg::update(%this) {
 		//Total game completion
 		%percent = mFloor(100 * (%game.completion.completion / %game.totals.total_missions)) @ "%";
 		%text = %text NL "<just:left>Game Completion: <just:right>"
-			@ %game.completion.completion @ " / " @ %game.totals.total_missions @ " (" @ %percent;
+		        @ %game.completion.completion @ " / " @ %game.totals.total_missions @ " (" @ %percent;
 		if (%game.completion.completion == %game.totals.total_missions) {
 			%text = %text @ " in " @ formatTimeHoursMs(%game.completion.total_time) @ ")";
 		} else {
@@ -322,23 +385,23 @@ function LBStatsDlg::update(%this) {
 		if (%game.has_platinum_times) {
 			%percent = mFloor(100 * (%game.completion.platinum_count / %game.totals.total_platinums)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.platinum_time_name @ "s: <just:right>"
-				@ mFloor(%game.completion.platinum_count) @ " / " @ mFloor(%game.totals.total_platinums) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.platinum_count) @ " / " @ mFloor(%game.totals.total_platinums) @ " (" @ %percent @ ")";
 		}
 		if (%game.has_ultimate_times) {
 			%percent = mFloor(100 * (%game.completion.ultimate_count / %game.totals.total_ultimates)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.ultimate_time_name @ "s: <just:right>"
-				@ mFloor(%game.completion.ultimate_count) @ " / " @ mFloor(%game.totals.total_ultimates) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.ultimate_count) @ " / " @ mFloor(%game.totals.total_ultimates) @ " (" @ %percent @ ")";
 		}
 		if (%game.has_awesome_times && (%game.completion.awesome_count > 0) && $pref::ShowAwesomeHints) {
 			%percent = mFloor(100 * (%game.completion.awesome_count / %game.totals.total_awesomes)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.awesome_time_name @ "s: <just:right>"
-				@ mFloor(%game.completion.awesome_count) @ " / " @ mFloor(%game.totals.total_awesomes) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.awesome_count) @ " / " @ mFloor(%game.totals.total_awesomes) @ " (" @ %percent @ ")";
 		}
 		//Easter Eggs
-		if (%game.has_easter_eggs) {
+		if (%game.has_easter_eggs && (%game.totals.total_eggs > 0)) {
 			%percent = mFloor(100 * (%game.completion.egg_count / %game.totals.total_eggs)) @ "%";
 			%text = %text NL "<just:left>Total " @ %game.easter_egg_name @ "s: <just:right>"
-				@ mFloor(%game.completion.egg_count) @ " / " @ mFloor(%game.totals.total_eggs) @ " (" @ %percent @ ")";
+			        @ mFloor(%game.completion.egg_count) @ " / " @ mFloor(%game.totals.total_eggs) @ " (" @ %percent @ ")";
 		}
 		%text = %text NL "<just:left>Total Rating: <just:right>" @ formatScore(%game.rating) @ " (Ranked #" @ formatScore(%game.rank) @ ")";
 	}
