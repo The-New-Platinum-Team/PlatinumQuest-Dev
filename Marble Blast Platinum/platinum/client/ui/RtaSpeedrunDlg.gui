@@ -23,30 +23,38 @@
 //--- OBJECT WRITE BEGIN ---
 new GuiControl(RtaSpeedrunDlg) {
 	profile = "GuiDefaultProfile";
-	horizSizing = "width";
-	vertSizing = "height";
+	horizSizing = "right";
+	vertSizing = "bottom";
 	position = "0 0";
 	extent = "800 600";
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-		_guiSize = "800 600";
 		defaultControl = "RtaClose";
 		commandSelect = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
 		commandCancel = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
 		commandNameSelect = "Close";
 
-	new GuiControl(RtaBody) {
-		profile = "PQWindowProfile";
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
 		horizSizing = "center";
 		vertSizing = "center";
-		position = "89 100";
+		position = "0 0";
 		extent = "700 500";
-		minExtent = "61 61";
+		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
-			wrap = "0";
 
+		new GuiControl(RtaSpeedrun_Base) {
+			profile = "PQWindowProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "56 15";
+			extent = "700 500";
+			minExtent = "61 61";
+			visible = "1";
+			helpTag = "0";
+		};
 		new GuiBorderButtonCtrl(RtaClose) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
@@ -217,13 +225,6 @@ new GuiControl(RtaSpeedrunDlg) {
 //--- OBJECT WRITE END ---
 
 function RtaSpeedrunDlg::onWake(%this) {
-	//Try to center this GUI, but don't overlap the dropdowns
-	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(RtaBody.getExtent(), 0) / 2);
-	if (%x < 395) {
-		%x = 395;
-	}
-	RtaBody.setPosition(%x SPC getWord(RtaBody.getPosition(), 1));
-
 	%this.updateStatusText();
 	%this.updateEndText();
 	%this.updateButtons();
