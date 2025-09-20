@@ -157,7 +157,7 @@ function RtaSpeedrun::start(%this) {
 	%this.currentGameDuration = -1;
 
 	%this.updateTimers();
-	PlayMissionGui.resetPlayButton();
+	PlayMissionGui.updatePlayBitmap();
 
 	echo("An RTA speedrun will start when you enter a level, and end when you finish" SPC %this.endMission);
 	echo("Good luck!");
@@ -170,7 +170,7 @@ function RtaSpeedrun::stop(%this) {
 	%this.setIsCrashRecoveryMode(false);
 	%this.updateTimers();
 	%this.clearProgress();
-	PlayMissionGui.resetPlayButton();
+	PlayMissionGui.updatePlayBitmap();
 }
 
 function RtaSpeedrun::setEnd(%this, %arg) {
@@ -187,7 +187,7 @@ function RtaSpeedrun::setEnd(%this, %arg) {
 		%this.receivedMbgWarning = true;
 	}
 
-	PlayMissionGui.resetPlayButton();
+	PlayMissionGui.updatePlayBitmap();
 }
 
 function RtaSpeedrun::missionStarted(%this) {

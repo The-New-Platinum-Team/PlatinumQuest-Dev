@@ -3142,7 +3142,7 @@ function PMMenu_FinishQueue(%queue) {
 	QueueResultsDlg.open(%queue);
 }
 
-function PlayMissionGui::resetPlayButton(%this) {
+function PlayMissionGui::updatePlayBitmap(%this) {
 	if (RtaSpeedrun.shouldStartRun) {
 		if (RtaSpeedrun.endMission $= "") {
 			%rtaBitmap = "platinum/client/ui/play/buttons/rtaFinale.png";
@@ -3161,7 +3161,7 @@ function PlayMissionGui::resetPlayButton(%this) {
 }
 
 function PlayMissionGui::onMissionLoaded(%this) {
-	%this.resetPlayButton();
+	%this.updatePlayBitmap();
 	%this.reactivateMissionList();
 	%this.updateMissionInfo();
 
@@ -3171,7 +3171,7 @@ function PlayMissionGui::onMissionLoaded(%this) {
 }
 
 function PlayMissionGui::onMissionLoadFailed(%this) {
-	%this.resetPlayButton();
+	%this.updatePlayBitmap();
 	%this.reactivateMissionList();
 	%this.updateMissionInfo();
 }
@@ -3654,7 +3654,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 	}
 
 	%this.builtBar[%which] = true;
-	%this.resetPlayButton();
+	%this.updatePlayBitmap();
 }
 
 function PlayMissionGui::toggleExtras(%this) {
@@ -3705,7 +3705,7 @@ function PlayMissionGui::setBarButtonActive(%this, %button, %active) {
 		%button.setActive(%active);
 		%button.bitmapColor = (%active ? %button.profile.fillColor : %button.profile.fillColorNA);
 		if ((%button $= "PM_MissionPlay") && %active)
-			%this.resetPlayButton();
+			%this.updatePlayBitmap();
 	}
 }
 
