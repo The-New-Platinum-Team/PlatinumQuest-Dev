@@ -683,7 +683,7 @@ ChatMessageSizeArray.addEntry("6" TAB 6);
 
 function Opt_screenResolution_getDisplay() {
 	if ($pref::Video::fullScreen)
-		return "Not Available";
+		return "Not Available in Fullscreen";
 
 	if ($Options::ResolutionChanged)
 		return getWord($pref::Video::Resolution, 0) SPC "x" SPC getWord($pref::Video::Resolution, 1);
@@ -733,7 +733,7 @@ function Opt_screenResolution_increase() {
 //-----------------------------------------------------------------------------
 
 function Opt_screenStyle_getDisplay() {
-	return $pref::Video::fullScreen ? "Full Screen" : "Windowed";
+	return $pref::Video::fullScreen ? "Fullscreen" : "Windowed";
 }
 
 function Opt_screenStyle_getValue() {
