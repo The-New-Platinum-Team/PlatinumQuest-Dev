@@ -3340,6 +3340,9 @@ function PlayMissionGui::play(%this) {
 			return;
 		}
 		if ($Menu::Loaded) {
+			if (!$pref::NoFadeIn && !mp()) {
+				$PlayGuiFader = true; // this variable is used for the fader effect in playGui::onWake
+			}
 			menuPlay();
 		} else {
 			%this.loadMission();

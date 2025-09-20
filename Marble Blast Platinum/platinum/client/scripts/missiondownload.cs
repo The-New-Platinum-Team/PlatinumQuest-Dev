@@ -77,9 +77,8 @@ function onMissionDownloadPhase1(%missionName, %musicTrack) {
 	//MessageHud.close();
 	//cls();
 
-	if (!$pref::NoFadeIn) {
-		// this variable is used for the fader effect in playGui::onWake
-		$PlayGuiFader = true;
+	if (!$pref::NoFadeIn && mp()) {
+		$PlayGuiFader = true; // this variable is used for the fader effect in playGui::onWake
 	}
 
 	setLoadProgress(0, 1, 0);
