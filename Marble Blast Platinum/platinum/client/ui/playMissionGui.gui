@@ -1512,11 +1512,7 @@ function PlayMissionGui::initInterface(%this) {
 	}
 	%this.updateMissionList();
 
-	if (mp()) {
-		setDiscordStatus("In a Server Lobby");
-	} else {
-		setDiscordStatus("In Level Select");
-	}
+	PlayMissionGui.updateRichPresence();
 }
 
 function PlayMissionGui::onSleep(%this) {
@@ -5054,4 +5050,23 @@ function PlayMissionGui::toggleWinterfest(%this) {
 		%this.disableWinterfest();
 	else
 		%this.enableWinterfest();
+}
+
+//-----------------------------------------------------------------------------
+
+function PlayMissionGui::updateRichPresence(%this) {
+	if (mp()) {
+		if ($Server::_Dedicated) {
+			%line1 = "In a Dedicated Server";
+		} else if ($Server::Hosting) {
+			%line1 = ($MPPref::Server::Password $= "") ? "Hosting a Server" : "Hosting a Private Server";
+		} else {
+			%line1 = ($MP::ServerPassword $= "") ? "In a Player-Hosted Server" : "In a Private Server"; //No idea if this works, need someone else to help test
+		}
+		%line2 = ($Server::Hosting && !$Server::_Dedicated) ? $Pref::Server::Name : $ServerInfo::Name;
+	} else {
+		%line1 = ml() ? "Browsing Marbleland Customs" : "Level Select";
+		%line2 = lb() ? "Online" : "Offline";
+	}
+	setDiscordStatus(%line2, %line1); //Go ask HiGuy why they're reversed, I don't know
 }
