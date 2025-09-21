@@ -1206,13 +1206,13 @@ function PlayMissionGui::open(%this, %marbleland) {
 			return;
 		}
 		if (!%this.marbleland) {
-			%this.marbleland = 1;
+			%this.marbleland = true;
 			%this.init();
 		}
 		PM_HolidaySelector.setVisible(false);
 	} else {
 		if (%this.marbleland) {
-			%this.marbleland = 0;
+			%this.marbleland = false;
 			%this.init();
 		}
 		if (%this.frightfest || %this.winterfest)
@@ -1249,7 +1249,7 @@ function PlayMissionGui::init(%this) {
 		%game  = ($MPPref::CurrentGame          $= "" ? %defaultGame : $MPPref::CurrentGame);
 		%type  = ($MPPref::MissionType          $= "" ? %defaultType : $MPPref::MissionType);
 		%level = ($MPPref::SelectedMissionIndex $= "" ? 0            : $MPPref::SelectedMissionIndex);
-	} else if (lb() && !%this.marbleland) {
+	} else if (lb() && !ml()) {
 		%this.ml = getMissionList("lb");
 
 		//Default mission list
@@ -1261,7 +1261,7 @@ function PlayMissionGui::init(%this) {
 		%type  = ($LBPref::MissionType          $= "" ? %defaultType : $LBPref::MissionType);
 		%level = ($LBPref::SelectedMissionIndex $= "" ? 0            : $LBPref::SelectedMissionIndex);
 	} else {
-		if (%this.marbleland) {
+		if (ml()) {
 			%this.ml = getMissionList("marbleland");
 		} else {
 			%this.ml = getMissionList("offline");
@@ -1427,7 +1427,7 @@ function PlayMissionGui::onWake(%this) {
 	%this.initInterface();
 
 	//Reload scores if we're opening this after a level (or for the first time)
-	if (lb() && !%this.marbleland) {
+	if (lb() && !ml()) {
 		LBUpdateChat();
 		%this.loadOnlineScores();
 		devecho("Scores1");
@@ -1469,18 +1469,18 @@ function PlayMissionGui::initInterface(%this) {
 		%this.updateServerPlayerList();
 	} else if (lb()) {
 		%this.buildButtonBar("BottomLB");
-		if (%this.marbleland) {
+		if (ml()) {
 			%this.buildButtonBar("ExtraMarblelandLB");
 		} else {
 			%this.buildButtonBar("ExtraLB");
 		}
 	} else {
-		if (%this.marbleland && $CurrentGame $= "Packs") {
+		if (ml() && $CurrentGame $= "Packs") {
 			%this.buildButtonBar("BottomPacks");
 		} else {
 			%this.buildButtonBar("Bottom");
 		}
-		if (%this.marbleland) {
+		if (ml()) {
 			%this.buildButtonBar("ExtraMarbleland");
 		} else {
 			%this.buildButtonBar("Extra");
@@ -1861,7 +1861,7 @@ function PlayMissionGui::setMissionType(%this, %type) {
 
 	%this.missionList = %this.getMissionList($CurrentGame, %type);
 
-	if (%this.marbleland) {
+	if (ml()) {
 		if ($CurrentGame $= "Packs") {
 			%this.buildButtonBar("BottomPacks");
 		} else {
@@ -1914,7 +1914,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 		$MPPref::SelectedMissionIndex = %idx;
 		$MPPref::MissionType = $MissionType;
 		$MPPref::CurrentGame = $CurrentGame;
-	} else if (lb() && !%this.marbleland) {
+	} else if (lb() && !ml()) {
 		$LBPref::SelectedMissionIndex = %idx;
 		$LBPref::MissionType = $MissionType;
 		$LBPref::CurrentGame = $CurrentGame;
@@ -1925,7 +1925,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 	}
 
 	//Update ids if we're online
-	if (lb()&& !%this.marbleland) {
+	if (lb()&& !ml()) {
 		//Do this after a delay so we don't load scores if people click too quickly)
 		cancel(%this.scoreSch);
 		%this.scoreSch = %this.schedule(500, loadOnlineScores);
@@ -1947,7 +1947,7 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 		}
 	}
 
-	if (%this.marbleland) {
+	if (ml()) {
 		if (marblelandHasMission(%info.id)) {
 			%this.setBarButtonActive(PM_MissionDelete, true);
 		} else {
@@ -2315,7 +2315,7 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 		else                                    %frameImage = "./play/frame_unlocked";
 
 		//Check if we have WR for the WR frame
-		if (lb() && !%this.marbleland) {
+		if (lb() && !ml()) {
 			%recordcache = %this.personalScoreListCache.record;
 			if ($CurrentGame $= "challenge") {
 				%recordcache = %this.personalScoreListCache.challengerecord;
@@ -3004,8 +3004,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			if ($CurrentGame $= "challenge") {
 				%recordcache = %this.personalScoreListCache.challengerecord;
 			}
-			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache) && !%this.marbleland
-			        && %recordcache.containsEntry(%info.id)) {
+			if (lb() && !ml() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache) && %recordcache.containsEntry(%info.id)) {
 				%placement = 1;
 			}
 
@@ -3088,9 +3087,9 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	PM_InfoBox.setPosition(%x SPC %y);
 	PM_InfoBox.setExtent(%width SPC %height);
 
-	PM_ScoreModeButtons.setVisible(lb() && %this.showGlobalScores && !%this.marbleland);
+	PM_ScoreModeButtons.setVisible(lb() && !ml() && %this.showGlobalScores);
 	PM_ScoreReplayWatch.setText("");
-	if (lb() && !%this.marbleland) {
+	if (lb() && !ml()) {
 		//Align mode button panel to bottom
 		PM_ScoreModeButtons.resize(0, getWord(PM_MissionInfoPanel.getExtent(), 1) - %modeButtonsHeight, getWord(PM_MissionInfoPanel.getExtent(), 0), %modeButtonsHeight);
 
@@ -3380,6 +3379,7 @@ function PlayMissionGui::exit(%this) {
 	if (mp()) {
 		%this.stopServer();
 	}
+	%this.marbleland = false;
 	RootGui.setContent(lb() ? LBChatGui : MainMenuGui);
 }
 
@@ -4926,7 +4926,7 @@ function PlayMissionGui::enableFrightfest(%this) {
 	%this.frightfest = true;
 	if (%this.currentHoliday $= "Hunt")
 		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
-	if (!%this.marbleland)
+	if (!ml())
 		PM_HolidaySelector.setVisible(true);
 }
 
@@ -4958,7 +4958,7 @@ function PlayMissionGui::enableWinterfest(%this) {
 	%this.winterfest = true;
 	if (%this.currentHoliday $= "Frightfest" || !%this.frightfest)
 		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
-	if (!%this.marbleland)
+	if (!ml())
 		PM_HolidaySelector.setVisible(true);
 }
 
@@ -4996,7 +4996,7 @@ function PlayMissionGui::deactivateHolidays(%this) {
 }
 
 function PlayMissionGui::switchHoliday(%this) {
-	if (!%this.marbleland) {
+	if (!ml()) {
 		echo("Switching holiday! Holiday is currently " @ %this.currentHoliday @ ".");
 		switch$ (%this.currentHoliday) {
 		case "Hunt":
@@ -5019,7 +5019,7 @@ function PlayMissionGui::switchHoliday(%this) {
 
 function PlayMissionGui::checkHolidaySecret(%this) {
 	%typed = PM_HolidayCodeDetector.getValue();
-	if (!%this.marbleland && !lb()) { //Don't activate this in the online singleplayer LS, and servers will use commands in chat
+	if (!lb() && !ml()) { //Don't activate this in the online singleplayer LS, and servers will use commands in chat
 		switch$ (%typed) {
 		case "boo":
 			%this.toggleFrightfest();
