@@ -69,11 +69,10 @@ function clientCmdGameRespawn() {
 
 function updateGameDiscordStatus() {
 	if (!$Game::Menu) { //UIs handle rich presence on their own
-		%missionName = getMissionInfo($Client::MissionFile).name;
-		if (%missionName $= "Super Secret Puzzle 12") {
-			%missionName = "ZZaZZ ZZdZZiZZmZZhZZ ZZvZZ ZZoZZ ZZ ZZsZZlZZhZZsZZoZZaZZiZZ"; //It's a secret to everybody
+		%line1 = getMissionInfo($Client::MissionFile).name;
+		if (%line1 $= "Super Secret Puzzle 12") {
+			%line1 = "ZZaZZ ZZdZZiZZmZZhZZ ZZvZZ ZZoZZ ZZ ZZsZZlZZhZZsZZoZZaZZiZZ"; //It's a secret to everybody
 		}
-		%line1 = %missionName;
 		
 		if (mp()) {
 			if ($SpectateMode) {
