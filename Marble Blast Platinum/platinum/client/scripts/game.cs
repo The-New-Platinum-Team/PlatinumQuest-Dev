@@ -68,22 +68,61 @@ function clientCmdGameRespawn() {
 }
 
 function updateGameDiscordStatus() {
-	if ($Game::Menu) {
-		// Handled by the UI
-	} else if ($playingDemo) {
-		setDiscordStatus("Watching a Replay");
-	} else {
-		%info = getMissionInfo($Client::MissionFile);
-		%name = %info.name;
+	if (!$Game::Menu) { //UIs handle rich presence on their own
+		%missionName = getMissionInfo($Client::MissionFile).name;
+		if (%missionName $= "Super Secret Puzzle 12") {
+			%missionName = "ZZaZZ ZZdZZiZZmZZhZZ ZZvZZ ZZoZZ ZZ ZZsZZlZZhZZsZZoZZaZZiZZ"; //It's a secret to everybody
+		}
+		%line1 = %missionName;
+		
 		if (mp()) {
 			if ($SpectateMode) {
-				setDiscordStatus("Spectating", %name);
+				%line2 = "Spectating";
 			} else {
-				setDiscordStatus("In a Server", %name);
+				if ($Game::isMode["coop"]) {                 //Co-op takes precedence over anything else
+					%line2 = "Playing Co-op";
+				} else if ($Game::isMode["snowballsonly"]) { //Highest priority after Co-op, above Hunt and Collection
+					%line2 = "In a Snowball Fight!";
+				} else if ($Game::isMode["hunt"]) {
+					%line2 = "In a Gem Hunt Match"; //"On a Gem Hunt" would also work, but doesn't seem very fitting
+				} else if ($Game::isMode["collection"]) {
+					%line2 = "In a Collection Race";
+				} else if ($Game::isMode["mega"]) {          //MMW and KotH are secondary modes and should be lower priority than Hunt and Collection
+					%line2 = "In a Mega Marble War!";
+				} else if ($Game::isMode["king"]) {
+					%line2 = "Fighting for King of the Hill";
+				} else {                                     //ok send in the placeholder text
+					%line2 = "Playing Multiplayer";
+				}
 			}
+		} else if (ml()) {         //MP takes precedence over this
+			%line2 = "Playing from Marbleland";
+		} else if ($playingDemo) { //These are just grouped with Marbleland because it looks nice, though :)
+			%line2 = "Watching a Replay";
+		} else if ($Game::isMode["challenge"]) {
+			%line2 = "Weekly Challenge: " @ $CurrentWeeklyChallenge.description;
 		} else {
-			setDiscordStatus("Single Player", %name);
+			%missionDir = strreplace($Client::MissionFile, "platinum/data/", "");
+			%missionDir = getSubStr(%missionDir, 0, strstr(%missionDir, "/")); //Find which folder inside of platinum/data we're in
+			if        ((%missionDir $= "missions_mbg") || (%missionDir $= "lbmissions_mbg")) {
+				%line2 = "Marble Blast Gold Campaign";
+			} else if ((%missionDir $= "missions_mbu") || (%missionDir $= "lbmissions_mbu")) {
+				%line2 = "Marble Blast Ultra Campaign";
+			} else if ((%missionDir $= "missions_mbp") || (%missionDir $= "lbmissions_mbp")) {
+				%line2 = "Marble Blast Platinum Campaign";
+			} else if ((%missionDir $= "missions_pq")  || (%missionDir $= "lbmissions_pq"))  {
+				%line2 = "PlatinumQuest Campaign";
+			} else if ((%missionDir $= "missions_lb")  || (%missionDir $= "lbmissions_custom")) {
+				%line2 = "Leaderboards Custom";
+			} else if ((%missionDir $= "multiplayer") && (strstr($Client::MissionFile, "/custom/") == -1)) {
+				%line2 = "Performing Recon in Singleplayer";
+			} else {
+				//Is this fine language to use? It's *most* (but not all) of the reason to play local customs now that Marbleland exists...
+				%line2 = "Testing a Custom Level";
+			}
 		}
+
+		setDiscordStatus(%line2, %line1); //Go ask HiGuy why they're reversed, I don't know
 	}
 }
 

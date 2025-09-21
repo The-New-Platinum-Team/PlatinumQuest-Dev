@@ -1708,7 +1708,11 @@ function EditorGui::onWake(%this) {
 	//Wait so the canvas size aligns correctly
 	EWorldEditor.schedule(10, buildSpecial);
 
-	setDiscordStatus("In Editor");
+	%line1 = getMissionInfo($Client::MissionFile).name;
+	if (%line1 $= "Super Secret Puzzle 12") {
+		%line1 = "ZZaZZ ZZdZZiZZmZZhZZ ZZvZZ ZZoZZ ZZ ZZsZZlZZhZZsZZoZZaZZiZZ"; //It's a secret to everybody
+	}
+	setDiscordStatus("In the Level Editor", %line1);
 }
 
 function EditorGui::onSleep(%this) {
