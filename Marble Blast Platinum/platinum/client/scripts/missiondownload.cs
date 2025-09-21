@@ -77,7 +77,7 @@ function onMissionDownloadPhase1(%missionName, %musicTrack) {
 	//MessageHud.close();
 	//cls();
 
-	if (!$pref::NoFadeIn && mp()) {
+	if (!$pref::NoFadeIn && (mp() || PlayMissionGui.marbleland)) {
 		$PlayGuiFader = true; // this variable is used for the fader effect in playGui::onWake
 	}
 
