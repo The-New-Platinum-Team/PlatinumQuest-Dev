@@ -485,11 +485,17 @@ function LBChatGui::onWake(%this) {
 	// Back at the chat screen, so have no status.
 	onNextFrame(LBSetMode, 0);
 
-	setDiscordStatus("In Global Lobby");
+	LBChatGui.richPresence[0] = "Global Lobby";
+	LBChatGui.richPresence[1] = "Online";
+	setDiscordStatus(LBChatGui.richPresence[1], LBChatGui.richPresence[0]);
 
 	// Rotate color of challenge button
 	if (!$LBPref::ChallengeOpened)
 		LBRotateChallengeColor();
+}
+
+function LBChatGui::onSleep(%this) {
+	cancel(LBChatGui.resetWebchatRichPresence);
 }
 
 function LBRotateChallengeColor() {
@@ -958,6 +964,10 @@ function LBChatGui::chatUpdate(%this) {
 	}
 
 	LBSendChat.setPosition("0" SPC(30 - getWord(LBSendChat.extent, 1)));
+
+	cancel(LBChatGui.resetWebchatRichPresence);
+	setDiscordStatus("Online", "Chatting in Webchat");
+	LBChatGui.resetWebchatRichPresence = schedule(60000, 0, setDiscordStatus, LBChatGui.richPresence[1], LBChatGui.richPresence[0]);
 }
 
 function LBSetChatMessage(%message, %ctrl) {
@@ -1363,6 +1373,7 @@ function LBChatGui::logout(%this, %finishCmd) {
 	// lock button to avoid spamming
 	LBdisconnect(%finishCmd);
 	LBMessage("Logging Out...", "LB_FinishLogout(\"" @ expandEscape(%finishCmd) @ "\");");
+	setDiscordStatus("Online", "Logging Out...");
 }
 
 function LB_FinishLogout(%cmd) {

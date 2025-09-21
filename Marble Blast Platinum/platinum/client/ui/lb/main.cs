@@ -96,6 +96,8 @@ function initLeaderboards() {
 	case "User":
 		LBLoginGui.login(true);
 	}
+
+	setDiscordStatus("Offline", "Logging In...");
 }
 
 // leaderboard constants init
