@@ -485,6 +485,10 @@ function clientCmdUpdateRichPresencePMG() {
 	PlayMissionGui.updateRichPresence();
 }
 
+function clientCmdUpdateServerPrivacy(%private) {
+	$Server::Private = %private;
+}
+
 //-----------------------------------------------------------------------------
 // CRC Checking
 // CRC validation will check to ensure that clients are not cheating.
