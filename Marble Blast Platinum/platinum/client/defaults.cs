@@ -118,9 +118,9 @@ $pref::parTimeAlarm = 1;
 $pref::recordingIndicator = 1;
 $pref::SearchHuntBonusDC = 1;
 
-$pref::warpSpeedMusic = 1;
-$pref::finalLapMusic  = 1;
-$pref::panicMusic     = 1;
+$pref::warpSpeedMusic = 0;
+$pref::finalLapMusic  = 0;
+$pref::panicMusic     = 0;
 $pref::temporalMusic  = 1;
 
 $Pref::EnableDirectInput = true;
