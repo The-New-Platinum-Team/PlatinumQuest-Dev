@@ -520,7 +520,8 @@ function MPServerDlg::saveFields(%this) {
 	startHeartbeat();
 
 	PlayMissionGui.updateMPButtons();
-	PlayMissionGui.schedule(50, updateRichPresence); //Password probably just doesn't update before this runs or something. Delaying fixes that
+	schedule(50, 0, commandToAll, 'UpdateRichPresencePMG'); //Password probably just doesn't update before this runs or something. Delaying fixes that
+	//commandToAll('UpdateRichPresencePMG');
 }
 
 function MPServerDlg::cancel(%this) {
