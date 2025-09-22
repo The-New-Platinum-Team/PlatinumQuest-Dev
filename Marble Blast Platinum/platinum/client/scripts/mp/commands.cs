@@ -480,6 +480,10 @@ function clientCmdFreezeMarble(%frozen, %position) {
 	$MP::MyMarble.freeze(%frozen, %position);
 }
 
+function clientCmdUpdateRichPresencePMG() {
+	PlayMissionGui.updateRichPresence();
+}
+
 //-----------------------------------------------------------------------------
 // CRC Checking
 // CRC validation will check to ensure that clients are not cheating.
