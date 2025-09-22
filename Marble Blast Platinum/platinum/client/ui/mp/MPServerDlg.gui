@@ -520,8 +520,13 @@ function MPServerDlg::saveFields(%this) {
 	startHeartbeat();
 
 	PlayMissionGui.updateMPButtons();
-	schedule(50, 0, commandToAll, 'UpdateRichPresencePMG'); //Password probably just doesn't update before this runs or something. Delaying fixes that
-	//commandToAll('UpdateRichPresencePMG');
+	MPServerDlg.schedule(50, updateServerPrivacy);
+}
+
+//This needs to be a seperate function because checking the password needs to be delayed for some reason. Thanks PQ
+function MPServerDlg::updateServerPrivacy(%this) {
+	commandToAll('UpdateServerPrivacy', ($MPPref::Server::Password !$= ""));
+	commandToAll('UpdateRichPresencePMG');
 }
 
 function MPServerDlg::cancel(%this) {

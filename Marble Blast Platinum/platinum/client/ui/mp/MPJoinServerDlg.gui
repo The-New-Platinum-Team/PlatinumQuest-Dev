@@ -505,6 +505,7 @@ function MPJoinServerDlg::cancel(%this) {
 //----------------------------------------
 function MPJoinServerDlg::join(%this) {
 	$MP::ServerPassword = "";
+	$Server::Private = false;
 
 	cancelServerQuery();
 	%id = MPJoinServerList.getSelectedId();
@@ -554,6 +555,7 @@ function MPJoinServerDlg::updatePassword(%this) {
 	MPJoinPassword.password = !MPJoinShowPassword.getValue();
 	MPJoinPasswordJoin.setActive(MPJoinPassword.getValue() !$= "");
 	$MP::ServerPassword = MPJoinPassword.getValue();
+	$Server::Private = ($MP::ServerPassword !$= "");
 }
 
 function MPJoinServerDlg::cancelPassword(%this) {

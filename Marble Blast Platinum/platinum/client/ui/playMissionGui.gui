@@ -4280,6 +4280,7 @@ function PlayMissionGui::startServer(%this) {
 
 	$Server::Hosting = true;
 	$Server::Loading = false;
+	$Server::Private = ($MPPref::Server::Password !$= "");
 
 	if ($Pref::Server::Name $= "") {
 		$Pref::Server::Name = $LB::DisplayName @ "\'s Server";
@@ -5059,9 +5060,9 @@ function PlayMissionGui::updateRichPresence(%this) {
 		if ($Server::_Dedicated) {
 			%line1 = "In a Dedicated Server";
 		} else if ($Server::Hosting) {
-			%line1 = ($MPPref::Server::Password $= "") ? "Hosting a Server" : "Hosting a Private Server";
+			%line1 = $Server::Private ? "Hosting a Private Server" : "Hosting a Server";
 		} else {
-			%line1 = ($MP::ServerPassword $= "") ? "In a Player-Hosted Server" : "In a Private Server"; //No idea if this works, need someone else to help test
+			%line1 = $Server::Private ? "In a Private Server" : "In a Player-Hosted Server";
 		}
 		%line2 = ($Server::Hosting && !$Server::_Dedicated) ? $Pref::Server::Name : $ServerInfo::Name;
 	} else {
