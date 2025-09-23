@@ -60,7 +60,7 @@ $pref::RtaShowEggSplits = true;
 $pref::checkLETip = "1";
 $pref::checkTip[1] = "1";
 $pref::FirstRun[$THIS_VERSION] = true;
-$pref::ShowOOBMessages = false;
+$pref::ShowOOBMessages = true;
 
 $Pref::Net::LagThreshold = "400";
 $pref::Net::PacketRateToClient = "32";
@@ -119,8 +119,8 @@ $pref::recordingIndicator = 1;
 $pref::SearchHuntBonusDC = 1;
 
 $pref::warpSpeedMusic = 1;
-$pref::finalLapMusic  = 1;
-$pref::panicMusic     = 1;
+$pref::finalLapMusic  = 0;
+$pref::panicMusic     = 0;
 $pref::temporalMusic  = 1;
 
 $Pref::EnableDirectInput = true;
