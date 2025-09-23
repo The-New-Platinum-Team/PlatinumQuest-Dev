@@ -481,12 +481,9 @@ function clientCmdFreezeMarble(%frozen, %position) {
 	$MP::MyMarble.freeze(%frozen, %position);
 }
 
-function clientCmdUpdateRichPresencePMG() {
-	PlayMissionGui.updateRichPresence();
-}
-
 function clientCmdUpdateServerPrivacy(%private) {
 	$Server::Private = %private;
+	PlayMissionGui.updateRichPresence();
 }
 
 //-----------------------------------------------------------------------------

@@ -103,6 +103,7 @@ function serverSetSetting(%setting, %value) {
 		case "password":
 			//Don't show password updates
 			%printValue = "";
+			commandToAll('UpdateServerPrivacy', (%value !$= ""));
 		}
 
 		//If the changed the value of the setting
