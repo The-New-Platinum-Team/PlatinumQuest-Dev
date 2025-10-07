@@ -143,7 +143,7 @@ function onPhase3Complete() {
 		} else if ((MissionInfo.game $= "Platinum") || ((Sky.materialList $= "platinum/data/skies/Beginner/Beginner_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Intermediate/Intermediate_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Advanced/Advanced_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Expert/Expert_Sky.dml") || (Sky.materialList $= "platinum/data/skies/Bonus/Bonus_Sky.dml") || (Sky.materialList $= "platinum/data/skies/SpaceStation/SpaceStationSky.dml"))) {
 			loadAudioPack(mbp);
 		} else if ((MissionInfo.game $= "PlatinumQuest") || (MissionInfo.modification $= "PlatinumQuest")) {
-			loadAudioPack();
+			loadAudioPack($pref::Audio::AudioPack);
 		}
 	} else if (!$optimizedaudio) {
 		$optimizedaudio = true;
