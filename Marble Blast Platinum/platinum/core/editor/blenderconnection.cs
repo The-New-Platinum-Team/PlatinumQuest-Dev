@@ -67,7 +67,7 @@ function ProcessBlenderGroup(%group, %lock) {
     if(%obj.getClassName() $= "PathedInterior")
       %obj.getDatablock().schedule(50, "onMissionReset", %obj);
     if(%obj.getClassName() $= "SimGroup" || %obj.getClassName() $= "Path")
-      %this.processGroup(%obj);
+      ProcessBlenderGroup(%obj, %lock);
     else
       %obj.locked = %lock;
   }
