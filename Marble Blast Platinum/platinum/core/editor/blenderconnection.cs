@@ -48,6 +48,31 @@ function ConnectBlender() {
   }
 }
 
+function DisconnectBlender() {
+  // Use when you want to free the objects into the mission
+  if(isObject(BlenderInterior_g)) {
+    ProcessBlenderGroup(BlenderInterior_g, false);
+    while(BlenderInterior_g.getCount() > 0)
+      MissionGroup.add(BlenderInterior_g.getObject(0));
+    BlenderInterior_g.delete();
+  }
+  if(isObject(BlenderConnection))
+    BlenderConnection.delete();
+}
+
+function ProcessBlenderGroup(%group, %lock) {
+  // Set lock and start MPs
+  for(%i = 0; %i < %group.getCount(); %i++) {
+    %obj = %group.getObject(%i);
+    if(%obj.getClassName() $= "PathedInterior")
+      %obj.getDatablock().schedule(50, "onMissionReset", %obj);
+    if(%obj.getClassName() $= "SimGroup" || %obj.getClassName() $= "Path")
+      %this.processGroup(%obj);
+    else
+      %obj.locked = %lock;
+  }
+}
+
 function BlenderConnection::onConnectFailed(%this) {
   messageBoxYesNo("No connection", "This feature requires the auto_dif plugin enabled in Blender. Visit GitHub?", "gotoWebPage(\"https://github.com/KeppyMarbles/auto_dif\");");
   %this.delete();
@@ -129,7 +154,7 @@ function BlenderConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %am
       for(%j = 0; %j < MissionGroup.getCount(); %j++) {
         %obj = MissionGroup.getObject(%j);
         if(%obj.interiorFile $= %filePath) {
-          messageBoxOK("Error", %filePath SPC "is currently in use by another InteriorInstance! You'll have to delete it to continue a connection with Blender.");
+          messageBoxOK("Error", %filePath SPC "is currently in use by another InteriorInstance! You'll have to delete it or rename your current project to continue a connection with Blender.");
           return;
         }
       }
@@ -149,19 +174,6 @@ function BlenderConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %am
   
   // Actually install them
   %this.sendCommand("install_difs");
-}
-
-function BlenderConnection::processGroup(%this, %group) {
-  // Lock everything and start MPs
-  for(%i = 0; %i < %group.getCount(); %i++) {
-    %obj = %group.getObject(%i);
-    if(%obj.getClassName() $= "PathedInterior")
-      %obj.getDatablock().schedule(50, "onMissionReset", %obj);
-    if(%obj.getClassName() $= "SimGroup" || %obj.getClassName() $= "Path")
-      %this.processGroup(%obj);
-    else
-      %obj.locked = true;
-  }
 }
 
 function BlenderConnection::addNewInteriors(%this) {
@@ -187,7 +199,7 @@ function BlenderConnection::addNewInteriors(%this) {
       %obj.magicButton();
   }
   %this.newInteriorCount = 0;
-  %this.processGroup(BlenderInterior_g);
+  ProcessBlenderGroup(BlenderInterior_g, true);
   
   // Put the marble back where it was in case it fell
   LocalClientConnection.player.setTransform(%this.marbleTransform);
