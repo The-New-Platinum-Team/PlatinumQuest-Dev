@@ -4308,7 +4308,13 @@ function EWorldEditor::buildSpecial(%this) {
 function EWorldEditor::buildSpecialNone(%this) {
 	%this.addSpecial("Edit Mission Info", "emibutton();");
 	%this.addSpecial("Change Skybox", "csbbutton();");
-	%this.addSpecial("Connect Blender", "ConnectBlender();");
+	if(isObject(BlenderInterior_g) || isObject(BlenderConnection)) {
+		%this.addSpecial("Free Blender Objects", "DisconnectBlender();" SPC %this @ ".buildSpecial();");
+		%this.addSpecial("Reconnect Blender", "ConnectBlender();" SPC %this @ ".buildSpecial();");
+	}
+	else {
+		%this.addSpecial("Connect Blender", "ConnectBlender();" SPC %this @ ".buildSpecial();");
+	}
 }
 
 function EWorldEditor::buildSpecialSingle(%this, %obj) {
