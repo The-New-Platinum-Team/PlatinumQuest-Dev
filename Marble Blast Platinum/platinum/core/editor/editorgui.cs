@@ -4308,6 +4308,7 @@ function EWorldEditor::buildSpecial(%this) {
 function EWorldEditor::buildSpecialNone(%this) {
 	%this.addSpecial("Edit Mission Info", "emibutton();");
 	%this.addSpecial("Change Skybox", "csbbutton();");
+	%this.addSpecial("Connect Blender", "ConnectBlender();");
 }
 
 function EWorldEditor::buildSpecialSingle(%this, %obj) {
