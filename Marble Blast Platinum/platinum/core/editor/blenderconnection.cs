@@ -173,7 +173,7 @@ function BlenderConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %am
   %this.newInteriorCount = %amt;
   
   // Actually install them
-  %this.sendCommand("install_difs");
+  %this.sendCommand("install_difs", $Game::argv[0]);
 }
 
 function BlenderConnection::addNewInteriors(%this) {
@@ -195,6 +195,8 @@ function BlenderConnection::addNewInteriors(%this) {
       echo("Added new interior" SPC %obj);
     
     BlenderInterior_g.add(%obj);
+    
+    // The subs are in the first dif
     if(%i == 0)
       %obj.magicButton();
   }
