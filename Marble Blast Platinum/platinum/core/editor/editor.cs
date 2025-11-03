@@ -102,7 +102,7 @@ function Editor::onAdd(%this) {
 	exec("./editorrender.cs");
 
 	//
-	exec("./blenderconnection.cs");
+	exec("./editorconnection.cs");
 
 	ClientMode::callback("onEditorLoad");
 	Mode::callback("onEditorLoad");

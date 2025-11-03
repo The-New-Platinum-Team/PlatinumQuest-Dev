@@ -1,11 +1,11 @@
 //-----------------------------------------------------------------------------
-// blenderconnection.cs
+// editorconnection.cs
 //
-// Basic idea:
-// 1. Have Blender export DIF on save. Notify PQ.
-// 2. Have PQ delete the related interiors and files. Notify Blender.
-// 3. Have Blender move the new DIFs into the game files. Notify PQ.
-// 4. Have PQ add the interiors back into the mission.
+// Communication steps:
+// 1. External program exports DIF(s) and notifies PQ.
+// 2. PQ deletes the old interiors and DIFs and notifies program.
+// 3. Program moves the new DIFs into the game files and notifies PQ.
+// 4. PQ adds the interiors back into the mission.
 //
 // Copyright (c) 2025 The Platinum Team
 //
@@ -28,95 +28,111 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$BlenderPort = 7654;
-
-function ConnectBlender() {
+function ConnectAutoDIF(%type, %port) {
+  if(%type !$= "Constructor" && %type !$= "Blender") {
+    error("AutoDIF: Unsupported editor type" SPC %type);
+    return;
+  }
+  if(%type $= "Constructor" && $platform !$= "windows") {
+    MessageBoxOK("Error", "This feature is only available on Windows.");
+    return;
+  }
+  
   if(isObject(MissionGroup)) {
-    if(isObject(BlenderConnection)) {
-      BlenderConnection.disconnect();
-      BlenderConnection.delete();
+    if(isObject(AutoDIFConnection)) {
+      AutoDIFConnection.disconnect();
+      AutoDIFConnection.delete();
     }
-    %obj = new TCPObject(BlenderConnection);
-    %obj.connect("127.0.0.1:" @ $BlenderPort);
+    %con = new TCPObject(AutoDIFConnection);
+    %con.connect("127.0.0.1:" @ %port);
+    %con.type = %type;
     
     // Keep the connection confined to the current mission
     if(isObject(MissionCleanup))
-      MissionCleanup.add(BlenderConnection);
+      MissionCleanup.add(AutoDIFConnection);
   }
   else {
-    error("Cannot connect with Blender outside of a level");
+    error("AutoDIF: Cannot connect outside of a level");
   }
 }
 
-function DisconnectBlender() {
+function DisconnectAutoDIF() {
   // Use when you want to free the objects into the mission
-  if(isObject(BlenderInterior_g)) {
-    ProcessBlenderGroup(BlenderInterior_g, false);
-    while(BlenderInterior_g.getCount() > 0)
-      MissionGroup.add(BlenderInterior_g.getObject(0));
-    BlenderInterior_g.delete();
+  if(isObject(AutoInterior_g)) {
+    ProcessInteriorGroup(AutoInterior_g, false);
+    while(AutoInterior_g.getCount() > 0)
+      MissionGroup.add(AutoInterior_g.getObject(0));
+    AutoInterior_g.delete();
   }
-  if(isObject(BlenderConnection))
-    BlenderConnection.delete();
+  if(isObject(AutoDIFConnection))
+    AutoDIFConnection.delete();
 }
 
-function ProcessBlenderGroup(%group, %lock) {
+function ProcessInteriorGroup(%group, %lock) {
   // Set lock and start MPs
   for(%i = 0; %i < %group.getCount(); %i++) {
     %obj = %group.getObject(%i);
     if(%obj.getClassName() $= "PathedInterior")
       %obj.getDatablock().schedule(50, "onMissionReset", %obj);
     if(%obj.getClassName() $= "SimGroup" || %obj.getClassName() $= "Path")
-      ProcessBlenderGroup(%obj, %lock);
+      ProcessInteriorGroup(%obj, %lock);
     else
       %obj.locked = %lock;
   }
 }
 
-function BlenderConnection::onConnectFailed(%this) {
-  messageBoxYesNo("No connection", "This feature requires the auto_dif plugin enabled in Blender. Visit GitHub?", "gotoWebPage(\"https://github.com/KeppyMarbles/auto_dif\");");
+function AutoDIFConnection::onConnectFailed(%this) {
+  messageBoxYesNo("No connection", "This feature requires the auto_dif plugin enabled in" SPC %this.type @ ". Visit GitHub?", "gotoWebPage(\"https://github.com/KeppyMarbles/auto_dif\");");
   %this.delete();
 }
 
-function BlenderConnection::onDisconnect(%this) {
-  messageBoxOK("Blender Disconnected", "Blender was closed or an error occurred.");
+function AutoDIFConnection::onDisconnect(%this) {
+  messageBoxOK(%this.type SPC "Disconnected", %this.type SPC "was closed or an error occurred.");
   %this.delete();
 }
 
-function BlenderConnection::onConnected(%this) {
-  echo("Connected to Blender; requesting scene");
+function AutoDIFConnection::onConnected(%this) {
+  echo("AutoDIF: Connected to" SPC %this.type @ "; requesting scene");
   %this.sendCommand("export_difs");
 }
 
-function BlenderConnection::onLine(%this, %line) {
-  echo("Recieved Blender message:" SPC %line);
+function AutoDIFConnection::onLine(%this, %line) {
+  echo("AutoDIF: Recieved" SPC %this.type SPC "message:" SPC %line);
   %this.recieveCommand(%line);
 }
 
-function BlenderConnection::sendCommand(%this, %name, %a1, %a2, %a3) {
+function AutoDIFConnection::sendCommand(%this, %name, %a1, %a2, %a3) {
   %message = %name;
   for(%i = 1; %a[%i] !$= ""; %i++) {
     %message = %message @ "|" @ %a[%i];
   }
-  echo("Sending message:" SPC %message);
-  %this.send(%message);
+  echo("AutoDIF: Sending message:" SPC %message);
+  if(%this.type $= "Constructor")
+    %this.send(%message @ "\n");
+  else
+    %this.send(%message);
 }
 
-function BlenderConnection::recieveCommand(%this, %msg) {
+function AutoDIFConnection::recieveCommand(%this, %msg) {
   //%msg is in the format "methodName|arg1|arg2|arg3..."
   while(%msg !$= "") {
     %msg = nextToken(%msg, "token", "|");
-    if(%func $= "") {
-      %func = %this @ ".call(\"" @ %token @ "\"";
-    }
+    if(%func $= "")
+      %func = %this @ "." @ %token @ "(";
     else {
-      %func = %func @ "," SPC "\"" @ %token @ "\"";
+      %func = %func @ "\"" @ %token @ "\"";
+      if(%msg !$= "")
+        %func = %func @ ",";
     }
   }
   eval(%func @ ");");
 }
 
-function BlenderConnection::allocateDIFsPart1(%this, %folderPath, %dif_name, %amt) {
+function AutoDIFConnection::notifyError(%this, %message) {
+  messageBoxOK("Error", "From" SPC %this.type @ ":" SPC %message);
+}
+
+function AutoDIFConnection::allocateDIFsPart1(%this, %folderPath, %dif_name, %amt) {
   if(!isObject(MissionGroup)) {
     error("User is not in a mission");
     return;
@@ -131,19 +147,29 @@ function BlenderConnection::allocateDIFsPart1(%this, %folderPath, %dif_name, %am
   %this.marbleTransform = LocalClientConnection.player.getTransform();
   
   // Clear the interior and subobjects
-  echo("Resetting Blender group");
-  while(isObject(BlenderInterior_g))
-    BlenderInterior_g.delete();
-  MissionGroup.add(new SimGroup(BlenderInterior_g));
+  echo("AutoDIF: Resetting Interior group");
+  while(isObject(AutoInterior_g))
+    AutoInterior_g.delete();
+  MissionGroup.add(new SimGroup(AutoInterior_g));
+  AutoInterior_g.type = %this.type;
   
   // Wait a frame before updating the resources
   %this.schedule(20, "allocateDIFsPart2", %folderPath, %dif_name, %amt);
 }
 
-function BlenderConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %amt) {
+function AutoDIFConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %amt) {
   // Delete the old difs and allocate the new ones in the filesystem
   for(%i = 0; true; %i++) {
-    %filePath = %folderPath @ "/" @ %dif_name @ %i @ ".dif";
+    if(%this.type $= "Constructor") {
+      if(%i == 0)
+        %filePath = %folderPath @ "/" @ %dif_name @ ".dif";
+      else
+        %filePath = %folderPath @ "/" @ %dif_name @ "-" @ %i @ ".dif";
+    }
+    else {
+      %filePath = %folderPath @ "/" @ %dif_name @ %i @ ".dif";
+    }
+
     %needsCreate = (%i < %amt);
     %needsDelete = isFile(%filePath);
     
@@ -154,15 +180,16 @@ function BlenderConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %am
       for(%j = 0; %j < MissionGroup.getCount(); %j++) {
         %obj = MissionGroup.getObject(%j);
         if(%obj.interiorFile $= %filePath) {
-          messageBoxOK("Error", %filePath SPC "is currently in use by another InteriorInstance! You'll have to delete it or rename your current project to continue a connection with Blender.");
+          messageBoxOK("Error", %filePath SPC "is currently in use by another InteriorInstance! You'll have to delete it or rename your current project to continue a connection with" SPC %this.type @ ".");
+          AutoInterior_g.delete();
           return;
         }
       }
-      echo("Deleting" SPC %filePath);
+      echo("AutoDIF: Deleting" SPC %filePath);
       deleteFile(%filePath);
     }
     if(%needsCreate) {
-      echo("Creating blank file" SPC %filePath);
+      echo("AutoDIF: Creating blank file" SPC %filePath);
       %touch = new FileObject();
       %touch.openForWrite(%filePath);
       %touch.close();
@@ -173,12 +200,16 @@ function BlenderConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %am
   %this.newInteriorCount = %amt;
   
   // Actually install them
-  %this.sendCommand("install_difs", $Game::argv[0]);
+  %exe_path = $Game::argv[0];
+  if(%this.type $= "Constructor")
+    %exe_path = strreplace(%exe_path, "\\", "/");
+  
+  %this.sendCommand("install_difs", %exe_path);
 }
 
-function BlenderConnection::addNewInteriors(%this) {
-  if(!isObject(BlenderInterior_g)) {
-    error("Blender interior group was not found");
+function AutoDIFConnection::addNewInteriors(%this) {
+  if(!isObject(AutoInterior_g)) {
+    error("AutoDIF: Interior group was not found");
     return;
   }
   // Add in the interiors using the cached filepaths
@@ -192,24 +223,20 @@ function BlenderConnection::addNewInteriors(%this) {
       return;
     }
     else
-      echo("Added new interior" SPC %obj);
+      echo("AutoDIF: Added new interior" SPC %obj);
     
-    BlenderInterior_g.add(%obj);
+    AutoInterior_g.add(%obj);
     
     // The subs are in the first dif
     if(%i == 0)
       %obj.magicButton();
   }
   %this.newInteriorCount = 0;
-  ProcessBlenderGroup(BlenderInterior_g, true);
+  ProcessInteriorGroup(AutoInterior_g, true);
   
   // Put the marble back where it was in case it fell
   LocalClientConnection.player.setTransform(%this.marbleTransform);
   
   // Repause if necessary
   $gamePaused = %this.pauseGame;
-}
-
-function BlenderConnection::notifyError(%this, %message) {
-  messageBoxOK("Error", "From Blender:" SPC %message);
 }
