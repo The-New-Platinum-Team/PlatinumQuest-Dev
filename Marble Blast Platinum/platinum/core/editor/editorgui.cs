@@ -4304,13 +4304,21 @@ function EWorldEditor::buildSpecial(%this) {
 function EWorldEditor::buildSpecialNone(%this) {
 	%this.addSpecial("Edit Mission Info", "emibutton();");
 	%this.addSpecial("Change Skybox", "csbbutton();");
-	if(isObject(BlenderInterior_g) || isObject(BlenderConnection)) {
-		%this.addSpecial("Free Blender Objects", "DisconnectBlender();" SPC %this @ ".buildSpecial();");
-		%this.addSpecial("Reconnect Blender", "ConnectBlender();" SPC %this @ ".buildSpecial();");
-	}
-	else {
-		%this.addSpecial("Connect Blender", "ConnectBlender();" SPC %this @ ".buildSpecial();");
-	}
+  
+  if(isObject(AutoInterior_g)) {
+    if(AutoInterior_g.type $= "Constructor") {
+      %this.addSpecial("Release Constructor Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
+      %this.addSpecial("Reconnect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
+    }
+    else if (AutoInterior_g.type $= "Blender") {
+      %this.addSpecial("Release Blender Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
+      %this.addSpecial("Reconnect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
+    }
+  }
+  else {
+    %this.addSpecial("Connect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
+    %this.addSpecial("Connect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
+  }
 }
 
 function EWorldEditor::buildSpecialSingle(%this, %obj) {
