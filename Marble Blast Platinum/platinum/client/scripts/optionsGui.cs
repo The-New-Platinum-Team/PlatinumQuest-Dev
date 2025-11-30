@@ -495,11 +495,11 @@ $Options::Title   ["Audio", 6] = "Par Time Alarm";
 $Options::Tooltip ["Audio", 6] = "Enable or disable the Par Time alarm. " NL "When enabled, the game will play an alarm sound when you are close to the Par Time of the level.";
 $Options::Type    ["Audio", 6] = "boolean";
 $Options::Name    ["Audio", 7] = "finalLapMusic";
-$Options::Title   ["Audio", 7] = "Final Lap Music";
+$Options::Title   ["Audio", 7] = "Final Lap Music Speed";
 $Options::Tooltip ["Audio", 7] = "When enabled, the game will speed up the music when you are on the final lap of a level.";
 $Options::Type    ["Audio", 7] = "boolean";
 $Options::Name    ["Audio", 8] = "panicMusic";
-$Options::Title   ["Audio", 8] = "Panic Music";
+$Options::Title   ["Audio", 8] = "Alarm Music Speed";
 $Options::Tooltip ["Audio", 8] = "When enabled, the game will speed up the music while the Par Time alarm is active.";
 $Options::Type    ["Audio", 8] = "boolean";
 
@@ -683,7 +683,7 @@ ChatMessageSizeArray.addEntry("6" TAB 6);
 
 function Opt_screenResolution_getDisplay() {
 	if ($pref::Video::fullScreen)
-		return "Not Available";
+		return "Not Available in Fullscreen";
 
 	if ($Options::ResolutionChanged)
 		return getWord($pref::Video::Resolution, 0) SPC "x" SPC getWord($pref::Video::Resolution, 1);
@@ -733,7 +733,7 @@ function Opt_screenResolution_increase() {
 //-----------------------------------------------------------------------------
 
 function Opt_screenStyle_getDisplay() {
-	return $pref::Video::fullScreen ? "Full Screen" : "Windowed";
+	return $pref::Video::fullScreen ? "Fullscreen" : "Windowed";
 }
 
 function Opt_screenStyle_getValue() {
