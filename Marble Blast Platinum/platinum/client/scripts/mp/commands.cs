@@ -481,6 +481,11 @@ function clientCmdFreezeMarble(%frozen, %position) {
 	$MP::MyMarble.freeze(%frozen, %position);
 }
 
+function clientCmdUpdateServerPrivacy(%private) {
+	$Server::Private = %private;
+	PlayMissionGui.updateRichPresence();
+}
+
 //-----------------------------------------------------------------------------
 // CRC Checking
 // CRC validation will check to ensure that clients are not cheating.
