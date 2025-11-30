@@ -149,10 +149,10 @@ function statsGetMissionIdentifier(%mission) {
 		//difficultyId
 
 		%missionData =  "missionFile="      @ URLEncode(%mission.file) @
-		                "&missionName="     @ URLEncode(%mission.name) @
-		                "&missionHash="     @ URLEncode(getMissionHash(%mission)) @
-		                "&missionGamemode=" @ URLEncode(resolveMissionGameModes(%mission, "")) @
-		                "&difficultyId="    @ URLEncode(%mission.difficultyId) ;
+						"&missionName="     @ URLEncode(%mission.name) @
+						"&missionHash="     @ URLEncode(getMissionHash(%mission)) @
+						"&missionGamemode=" @ URLEncode(resolveMissionGameModes(%mission, "")) @
+						"&difficultyId="    @ URLEncode(%mission.difficultyId) ;
 	} else {
 		return "missionId=" @ %mission.id;
 	}
@@ -272,13 +272,13 @@ function statsRecordScore(%mission) {
 
 	//Combine them in a nice bitfield
 	%modifiers =
-	    (%gotEasterEgg  ? $Stats::Modifiers::GotEasterEgg  : 0)
-	    | (%noJumping     ? $Stats::Modifiers::NoJumping     : 0)
-	    | (%specialMode   ? $Stats::Modifiers::SpecialMode   : 0)
-	    | (%noTimeTravels ? $Stats::Modifiers::NoTimeTravels : 0)
-	    | (%quotaHundred  ? $Stats::Modifiers::QuotaHundred  : 0)
-	    | (%gemMadnessAll ? $Stats::Modifiers::GemMadnessAll : 0)
-	    | (%controller    ? $Stats::Modifiers::Controller    : 0);
+		(%gotEasterEgg  ? $Stats::Modifiers::GotEasterEgg  : 0)
+		| (%noJumping     ? $Stats::Modifiers::NoJumping     : 0)
+		| (%specialMode   ? $Stats::Modifiers::SpecialMode   : 0)
+		| (%noTimeTravels ? $Stats::Modifiers::NoTimeTravels : 0)
+		| (%quotaHundred  ? $Stats::Modifiers::QuotaHundred  : 0)
+		| (%gemMadnessAll ? $Stats::Modifiers::GemMadnessAll : 0)
+		| (%controller    ? $Stats::Modifiers::Controller    : 0);
 
 	//Hack
 	%totalBonus = $Time::TotalBonus;
@@ -288,25 +288,25 @@ function statsRecordScore(%mission) {
 
 	//Additional fields
 	%gemFields = "&gemCount=" @ %client.gemsFoundTotal @
-	             "&gems1="    @ %client.gemsFound[1] @
-	             "&gems2="    @ %client.gemsFound[2] @
-	             "&gems5="    @ %client.gemsFound[5] @
-	             "&gems10="   @ %client.gemsFound[10];
+				 "&gems1="    @ %client.gemsFound[1] @
+				 "&gems2="    @ %client.gemsFound[2] @
+				 "&gems5="    @ %client.gemsFound[5] @
+				 "&gems10="   @ %client.gemsFound[10];
 
 	%modeFields = ClientMode::callbackForMission(%mission, "getScoreFields", "");
 
 	%randomIdentifier = randomString(32);
 
 	statsPost("api/Score/RecordScore.php",
-	          statsGetMissionIdentifier(%mission) @
-	          "&score=" @ %score @
-	          "&scoreType=" @ %scoreType @
-	          "&totalBonus=" @ %totalBonus @
-	          "&modifiers=" @ %modifiers @
-	          "&marbleId=" @ %selection @
-	          "&randomIdentifier=" @ %randomIdentifier @
-	          %gemFields @
-	          %modeFields);
+			  statsGetMissionIdentifier(%mission) @
+			  "&score=" @ %score @
+			  "&scoreType=" @ %scoreType @
+			  "&totalBonus=" @ %totalBonus @
+			  "&modifiers=" @ %modifiers @
+			  "&marbleId=" @ %selection @
+			  "&randomIdentifier=" @ %randomIdentifier @
+			  %gemFields @
+			  %modeFields);
 }
 function statsRecordScoreLine(%line) {
 	%command = firstWord(%line);
@@ -369,10 +369,10 @@ function statsRecordChallengeScore(%mission) {
 	%randomIdentifier = randomString(32);
 
 	statsPost("api/Score/RecordChallengeScore.php",
-	          statsGetMissionIdentifier(%mission) @
-	          "&score=" @ %score @
-	          "&randomIdentifier=" @ %randomIdentifier @
-	          %modeFields);
+			  statsGetMissionIdentifier(%mission) @
+			  "&score=" @ %score @
+			  "&randomIdentifier=" @ %randomIdentifier @
+			  %modeFields);
 }
 function statsRecordChallengeScoreLine(%line) {
 	%command = firstWord(%line);
@@ -1101,8 +1101,34 @@ function statsRecordReplayLine(%line, %req) {
 
 //-----------------------------------------------------------------------------
 
-function statsGetReplay(%mission, %type) {
-	statsPost("api/Replay/GetReplay.php", statsGetMissionIdentifier(%mission) @ "&type=" @ %type);
+function LBDownloadReplay::onDownload(%this, %path) {
+	// Check if we are already in a level, *dont* do this when the level is in the middle of loading/we are inside the level
+	if ($Game::Menu && !$Game::Loading) {
+		$replayFromWorldRecord = true;
+		playReplay(%path);
+	}
+}
+
+function LBDownloadReplay::downloadFailed(%this, %path) {
+	MessageBoxOk("Cannot play replay");
+	%this.delete();
+}
+
+function LBDownloadReplay::onDisconnect(%this) {
+	%this.delete();
+}
+
+function statsGetReplay(%mission, %type)  {
+	if ($Game::Menu && !$Game::Loading) {
+		if (isObject(LBDownloadReplay))
+			LBDownloadReplay.delete();
+		
+		new HTTPObject(LBDownloadReplay);
+		%query = statsGetMissionIdentifier(%mission) @ "&type=" @ %type;
+
+		LBDownloadReplay.setDownloadPath("platinum/data/recordings/lb-current.rrec");
+		LBDownloadReplay.get($LBServerInfo::PQServer, $Stats::Path @ "api/Replay/GetReplayBin.php", %query);
+	}
 }
 
 function statsGetReplayLine(%line) {
@@ -1149,11 +1175,11 @@ function statsRecordMatch(%mission) {
 
 	//Generate query data
 	%data = %missionData @
-	        "&players="        @ %players    @
-	        "&port="           @ %port       @
-	        "&scoreType="      @ %type       @
-	        "&totalBonus="     @ %bonus      @
-	        "&modes="          @ %modes      ;
+			"&players="        @ %players    @
+			"&port="           @ %port       @
+			"&scoreType="      @ %type       @
+			"&totalBonus="     @ %bonus      @
+			"&modes="          @ %modes      ;
 
 	if ($MP::TeamMode) {
 		%data = %data @ "&teammode=1";
