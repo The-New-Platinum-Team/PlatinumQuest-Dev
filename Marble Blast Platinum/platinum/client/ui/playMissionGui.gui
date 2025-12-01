@@ -1193,6 +1193,8 @@ new GuiControl(PlayMissionGui) {
 // UI lifecycle
 
 function PlayMissionGui::open(%this, %marbleland) {
+	%this.detectHolidays();
+
 	if (%marbleland) {
 		if ($MarblelandMissionList $= "") {
 			MessageBoxOk("Please wait", "The custom level list has not been loaded yet, please wait...");
@@ -4917,6 +4919,16 @@ function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 
 //-----------------------------------------------------------------------------
 //Holiday chicanery
+
+function PlayMissionGui::detectHolidays(%this) {
+	%month = getCurrentMonth();
+	%day = getCurrentDay();
+
+	if (%month == 10)
+		%this.frightfest = true;
+	if (%month == 12)
+		%this.winterfest = true;
+}
 
 function PlayMissionGui::enableFrightfest(%this) {
 	echo("Boo! Enabling Frightfest...");
