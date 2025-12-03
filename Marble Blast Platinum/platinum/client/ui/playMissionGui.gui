@@ -1217,13 +1217,13 @@ function PlayMissionGui::open(%this, %marbleland) {
 	}
 
 	if (%this.enabledHolidays[$GlobalHoliday] $= "")
-		$this.enabledHolidays[$GlobalHoliday] = true;
+		%this.enableHoliday($GlobalHoliday, true);
 	if (%this.currentHoliday $= "")
 		%this.currentHoliday = "Hunt";
 	if (%this.enabledHolidays["Frightfest"] $= "")
-		%this.enabledHolidays["Frightfest"] = false;
+		%this.enableHoliday("Frightfest", false);
 	if (%this.enabledHolidays["Winterfest"] $= "")
-		%this.enabledHolidays["Winterfest"] = false;
+		%this.enableHoliday("Winterfest", false);
 	%this.updateHolidaySelector();
 
 	Canvas.doHover = true;
@@ -4933,8 +4933,8 @@ function PlayMissionGui::activateHoliday(%this, %holiday) {
 	%this.currentHoliday = %holiday;
 	%this.buildGameList();
 	%this.updateHolidaySelector();
-	%this.setGame(%holiday); //Immediately switch game to the given holiday to give feedback on button press
-	%this.showMissionList(); //Refresh mission list in case the current game was already some variant of Hunt
+	%this.setGame(%holiday);
+	%this.showMissionList();
 }
 
 //Function to quickly toggle the state of a given holiday. Just used by cheats
@@ -5007,12 +5007,20 @@ function PlayMissionGui::updateHolidaySelector(%this) {
 
 	PM_HolidaySelector.setVisible(true);
 
-	if (%this.currentHoliday $= "Frightfest")
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
-	else if (%this.currentHoliday $= "Winterfest")
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
-	else
+	switch$ (%this.currentHoliday) {
+	case "Hunt":
+		if      (%this.enabledHolidays["Frightfest"])
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
+		else if (%this.enabledHolidays["Winterfest"])
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
+	case "Frightfest":
+		if (%this.enabledHolidays["Winterfest"])
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
+		else
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
+	default:
 		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
+	}
 }
 
 //-----------------------------------------------------------------------------
