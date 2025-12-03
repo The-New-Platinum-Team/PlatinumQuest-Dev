@@ -1214,14 +1214,11 @@ function PlayMissionGui::open(%this, %marbleland) {
 			%this.marbleland = 1;
 			%this.init();
 		}
-		PM_HolidaySelector.setVisible(false);
 	} else {
 		if (%this.marbleland) {
 			%this.marbleland = 0;
 			%this.init();
 		}
-		if (%this.frightfest || %this.winterfest)
-			PM_HolidaySelector.setVisible(true);
 	}
 
 	if (%this.currentHoliday $= "")
@@ -1231,8 +1228,7 @@ function PlayMissionGui::open(%this, %marbleland) {
 	if (%this.winterfest $= "")
 		%this.winterfest = false;
 
-	if (lb())
-		PM_HolidaySelector.setVisible(false);
+	%this.updateHolidaySelector();
 
 	Canvas.doHover = true;
 	RootGui.setContent(%this);
@@ -2074,6 +2070,8 @@ function PlayMissionGui::showMissionList(%this) {
 			break;
 		}
 	}
+
+	%this.updateHolidaySelector();
 
 	//Don't let us change missions while loading
 	if ($Client::Loading) {
@@ -4926,31 +4924,22 @@ function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 function PlayMissionGui::enableFrightfest(%this) {
 	echo("Boo! Enabling Frightfest...");
 	%this.frightfest = true;
-	if (%this.currentHoliday $= "Hunt")
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
-	if (!%this.marbleland)
-		PM_HolidaySelector.setVisible(true);
+	%this.updateHolidaySelector();
 }
 
 function PlayMissionGui::disableFrightfest(%this) {
 	echo("Boo! Disabling Frightfest...");
 	%this.frightfest = false;
-	if (%this.currentHoliday $= "Hunt" && %this.winterfest)
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
 	if (%this.currentHoliday $= "Frightfest")
 		%this.switchHoliday();
-	if (!%this.winterfest)
-		PM_HolidaySelector.setVisible(false);
+	%this.updateHolidaySelector();
 }
 
 function PlayMissionGui::activateFrightfest(%this) {
 	%this.enableFrightfest();
 	%this.currentHoliday = "Frightfest";
 	%this.buildGameList();
-	if (%this.winterfest)
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
-	else
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
+	%this.updateHolidaySelector();
 	%this.setGame("Frightfest"); //Immediately switch game to Frightfest to give feedback on button press
 	%this.showMissionList();     //Refresh mission list in case the current game was already Hunt
 }
@@ -4958,43 +4947,32 @@ function PlayMissionGui::activateFrightfest(%this) {
 function PlayMissionGui::enableWinterfest(%this) {
 	echo("Ho ho ho! Enabling Winterfest...");
 	%this.winterfest = true;
-	if (%this.currentHoliday $= "Frightfest" || !%this.frightfest)
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
-	if (!%this.marbleland)
-		PM_HolidaySelector.setVisible(true);
+	%this.updateHolidaySelector();
 }
 
 function PlayMissionGui::disableWinterfest(%this) {
 	echo("Ho ho ho! Disabling Winterfest...");
 	%this.winterfest = false;
-	if (%this.currentHoliday $= "Frightfest")
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
 	if (%this.currentHoliday $= "Winterfest")
 		%this.switchHoliday();
-	if (!%this.frightfest)
-		PM_HolidaySelector.setVisible(false);
+	%this.updateHolidaySelector();
 }
 
 function PlayMissionGui::activateWinterfest(%this) {
 	%this.enableWinterfest();
 	%this.currentHoliday = "Winterfest";
 	%this.buildGameList();
-	PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
 	%this.setGame("Winterfest"); //Immediately switch game to Winterfest to give feedback on button press
 	%this.showMissionList();     //Refresh mission list in case the current game was already Hunt
+	%this.updateHolidaySelector();
 }
 
 function PlayMissionGui::deactivateHolidays(%this) {
 	%this.currentHoliday = "Hunt";
 	%this.buildGameList();
-	if      (%this.frightfest)
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
-	else if (%this.winterfest)
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
-	else
-		PM_HolidaySelector.setVisible(false);
 	%this.setGame("Hunt");   //Immediately switch game to Hunt to give feedback on button press
 	%this.showMissionList(); //Refresh mission list in case the current game was already Hunt
+	%this.updateHolidaySelector();
 }
 
 function PlayMissionGui::switchHoliday(%this) {
@@ -5056,6 +5034,25 @@ function PlayMissionGui::toggleWinterfest(%this) {
 		%this.disableWinterfest();
 	else
 		%this.enableWinterfest();
+}
+
+function PlayMissionGui::updateHolidaySelector(%this) {
+	if (lb()
+			|| (!%this.frightfest && !%this.winterfest) 
+			|| ($CurrentGame !$= "Hunt" && $CurrentGame !$= "Frightfest" && $CurrentGame !$= "Winterfest")
+			|| %this.marbleland) {
+		PM_HolidaySelector.setVisible(false);
+		return;
+	}
+
+	PM_HolidaySelector.setVisible(true);
+
+	if (%this.currentHoliday $= "Frightfest")
+		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
+	else if (%this.currentHoliday $= "Winterfest")
+		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
+	else
+		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
 }
 
 //-----------------------------------------------------------------------------
