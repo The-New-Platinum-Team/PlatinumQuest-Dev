@@ -145,6 +145,11 @@ $pref::Music::Songs["Menu"]   = "Pianoforte.ogg";
 $pref::Music::Songs["XP"]   = "shellXP.ogg";
 $pref::Music::Songs["Game"]   = "*";
 
+$pref::Music::SongsFright["LB"]     = "Halloween Trance.ogg";
+$pref::Music::SongsFright["Menu"]   = "Halloween Trance.ogg";
+$pref::Music::SongsWinter["LB"]     = "Xmas Trance.ogg";
+$pref::Music::SongsWinter["Menu"]   = "Xmas Trance.ogg";
+
 //Graphics
 $pref::Snore = true;
 $pref::AnimatePreviews = true;
