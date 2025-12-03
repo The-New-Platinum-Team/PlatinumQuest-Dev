@@ -24,25 +24,23 @@
 //-----------------------------------------------------------------------------
 
 
-$IsFrightfestEnabled = false;
-$IsWinterfestEnabled = false;
+$GlobalHoliday = "";
 
 
 function detectHolidays() {
 	%month = getCurrentMonth();
-	%day = getCurrentDay();
 
 	if (%month == 10) {
 		echo("Based on system clock, Frightfest enabled!!");
 		MenuHolidayLogo.setBitmap($usermods @ "/client/ui/menu/pq_frightfest");
 		MenuHolidayLogo.setExtent("160 160");
 		MenuHolidayLogo.setVisible(true);
-		$IsFrightfestEnabled = true;
+		$GlobalHoliday = "Frightfest";
 	} else if (%month == 12) {
 		echo("Based on system clock, Winterfest enabled!!");
 		MenuHolidayLogo.setBitmap($usermods @ "/client/ui/menu/pq_winterfest");
 		MenuHolidayLogo.setExtent("200 217");
 		MenuHolidayLogo.setVisible(true);
-		$IsWinterfestEnabled = true;
+		$GlobalHoliday = "Winterfest";
 	}
 }
