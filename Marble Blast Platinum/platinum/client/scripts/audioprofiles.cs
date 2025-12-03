@@ -422,7 +422,13 @@ $Music::Songs["Game"]   = "*";
 
 function getMusicFile(%location) {
 	//Grab the songs for the location
-	%songs = $pref::Music::Songs[%location];
+	if ($IsFrightfestEnabled && ($pref::Music::SongsFright[%location] !$= ""))
+		%songs = $pref::Music::SongsFright[%location];
+	else if ($IsWinterfestEnabled && ($pref::Music::SongsWinter[%location] !$= ""))
+		%songs = $pref::Music::SongsWinter[%location];
+	else 
+		%songs = $pref::Music::Songs[%location];
+
 	if (%songs $= "")
 		%songs = $Music::Songs[%location];
 	if (%songs $= "")

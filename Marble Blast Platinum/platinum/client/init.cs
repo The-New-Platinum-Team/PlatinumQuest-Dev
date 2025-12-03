@@ -253,6 +253,10 @@ function initClient() {
 	addDirectoryOverride("marble/data/", "platinum/data/");
 	addDirectoryOverride("challenge/data/", "platinum/data/");
 
+	// Detect if there's a holiday event
+	exec("./scripts/holidays.cs");
+	detectHolidays();
+
 	// Start up the main menu... this is separated out into a
 	// method for easier mod override.
 	loadMainMenu();
