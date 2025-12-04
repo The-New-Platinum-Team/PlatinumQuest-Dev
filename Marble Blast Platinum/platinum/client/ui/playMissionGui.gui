@@ -1216,7 +1216,7 @@ function PlayMissionGui::open(%this, %marbleland) {
 		}
 	}
 
-	if (%this.enabledHolidays[$GlobalHoliday] $= "")
+	if ($GlobalHoliday !$= "" && %this.enabledHolidays[$GlobalHoliday] $= "")
 		%this.enableHoliday($GlobalHoliday, true);
 	if (%this.currentHoliday $= "")
 		%this.currentHoliday = "Hunt";
