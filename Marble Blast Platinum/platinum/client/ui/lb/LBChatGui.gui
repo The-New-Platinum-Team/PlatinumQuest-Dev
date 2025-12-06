@@ -1127,7 +1127,10 @@ function LBSendChat(%message, %dest) {
 		if (%entry.flair !$= "") {
 			if (%titles !$= "")
 				%titles = %titles @ ", ";
-			%titles = %titles @ "Flair: <bitmap:" @ $usermods @ "/client/ui/lb/chat/flair/" @ %entry.flair @ ".png>";
+			if (isFile("vfs://flairs/" @ %entry.flair @ ".png"))
+				%titles = %titles @ "Flair: <bitmap:__vfs/flairs/" @ %entry.flair @ ".png>";
+			else
+				%titles = %titles @ "Flair: <bitmap:" @ $usermods @ "/client/ui/lb/chat/flair/" @ %entry.flair @ ".png>";
 		}
 
 		//Print their user information

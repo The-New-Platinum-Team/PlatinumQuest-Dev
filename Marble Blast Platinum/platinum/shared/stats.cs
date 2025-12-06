@@ -473,7 +473,7 @@ function statsGetFlairBitmapLine(%line) {
 	%parsed = jsonParse(%line);
 
 	if (%parsed.error $= "") {
-		%path = "platinum/client/ui/lb/chat/flair/" @ %parsed.filename;
+		%path = "vfs://flairs/" @ %parsed.filename;
 
 		%fo = new FileObject();
 		%fo.openForWrite(%path);
