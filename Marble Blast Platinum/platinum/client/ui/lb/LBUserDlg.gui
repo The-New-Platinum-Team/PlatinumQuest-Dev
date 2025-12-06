@@ -453,7 +453,10 @@ function LBUserDlg::updateInfo(%this) {
 
 		//Flair icon
 		if (%stats.titles.flair !$= "") {
-			%flair = $usermods @ "/client/ui/lb/chat/flair/" @ %stats.titles.flair @ ".png";
+			if (isFile("vfs://flairs/" @ %stats.titles.flair @ ".png"))
+				%flair = "vfs://flairs/" @ %stats.titles.flair @ ".png";
+			else
+				%flair = $usermods @ "/client/ui/lb/chat/flair/" @ %stats.titles.flair @ ".png";
 			LBUserFlair.setBitmap(%flair);
 			LBUserFlair.setVisible(true);
 			%tab = 20;
