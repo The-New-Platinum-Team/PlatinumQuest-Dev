@@ -473,8 +473,8 @@ function LBUserDlg::updateInfo(%this) {
 		LBUserNameDetails.setText(%text);
 
 		//Avatar
-		if (isFile($LBPref::AvatarCache[%this.user, "path"])) {
-			LBUserAvatar.setBitmap($LBPref::AvatarCache[%this.user, "path"]);
+		if (isFile("vfs://avatars/avatar" @ %stats.id @ ".png")) {
+			LBUserAvatar.setBitmap("vfs://avatars/avatar" @ %stats.id @ ".png");
 		} else {
 			LBUserAvatar.setBitmap($usermods @ "/client/ui/lb/avatars/nophoto.jpg");
 		}
@@ -556,7 +556,8 @@ function LBUserDlg::onPlayerProfileInfoUpdate(%this, %parsed) {
 }
 
 function LBUserDlg::loadInfo(%this) {
-	if (!isFile($LBPref::AvatarCache[%this.user, "path"])) {
+	%stats = %this.playerProfileInfo[%this.user];
+	if (!isFile("vfs://avatars/avatar" @ %stats.id @ ".png")) {
 		statsGetPlayerAvatar(%this.user);
 	}
 	%this.onPlayerAvatarUpdate();
