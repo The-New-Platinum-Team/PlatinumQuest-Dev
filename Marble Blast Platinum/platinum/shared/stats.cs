@@ -824,7 +824,7 @@ function statsGetPlayerAvatarLine(%line) {
 	%parsed = jsonParse(%line);
 
 	if (%parsed.error $= "") {
-		%path = "vfs://avatars/" @ %parsed.filename;
+		%path = "vfs://avatars/" @ %parsed.filename; // Will always be "avatar<userid>.png"
 
 		%fo = new FileObject();
 		%fo.openForWrite(%path);
@@ -833,9 +833,6 @@ function statsGetPlayerAvatarLine(%line) {
 		}
 		%fo.close();
 		%fo.delete();
-
-		$LBPref::AvatarCache[%parsed.username, "path"] = %path;
-		$LBPref::AvatarCache[%parsed.username, "hash"] = %parsed.hash;
 
 		%parsed.delete();
 
