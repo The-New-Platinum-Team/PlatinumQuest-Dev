@@ -397,6 +397,10 @@ $Options::Name    ["Graphics", $i++] = "texturePack";
 $Options::Title   ["Graphics", $i  ] = "Texture Packs";
 $Options::Tooltip ["Graphics", $i  ] = "Choose the texture pack to use for the game. " NL "Texture packs can change the appearance of the game.";
 $Options::Ctrl    ["Graphics", $i  ] = "button";
+$Options::Name    ["Graphics", $i++] = "automaticUI";
+$Options::Title   ["Graphics", $i  ] = "Automatic UI Swap";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable automatic UI swapping. " NL "When enabled, the game will automatically swap UI texture packs based on the game of the level being played. Be warned that this toggle is heavily experimental.";
+$Options::Type    ["Graphics", $i  ] = "boolean";
 // if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
 // 	$Options::Name    ["Graphics", $i++] = "antiAliasing";
 // 	$Options::Title   ["Graphics", $i  ] = "Anti Aliasing";
@@ -1195,6 +1199,34 @@ function Opt_texturePack_edit() {
 function Opt_advancedOptions_edit() {
 	// Dialog does all the config for us
 	RootGui.pushDialog(AdvancedOptionsDlg);
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_automaticUI_getDisplay() {
+	return $pref::AutomaticUI ? "Enabled" : "Disabled";
+}
+
+function Opt_automaticUI_getValue() {
+	return $pref::AutomaticUI;
+}
+
+function Opt_automaticUI_decrease() {
+	$pref::AutomaticUI = !$pref::AutomaticUI;
+
+	if (!$psAssert) {
+		$psAssert = true;
+		MessageBoxOK("Warning", "Enabling this option does increase loading time if you swap Games too frequently.");
+	}
+}
+
+function Opt_automaticUI_increase() {
+	$pref::AutomaticUI = !$pref::AutomaticUI;
+
+	if (!$psAssert) {
+		$psAssert = true;
+		MessageBoxOK("Warning", "Enabling this option does increase loading time if you swap Games too frequently.");
+	}
 }
 
 //-----------------------------------------------------------------------------
