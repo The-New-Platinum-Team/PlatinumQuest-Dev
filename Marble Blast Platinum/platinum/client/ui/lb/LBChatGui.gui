@@ -1045,7 +1045,7 @@ function LBSendChat(%message, %dest) {
 			return;
 		}
 		%dest = getWord(%message, 1);
-		if (!LBUserListArray.containsEntryAtVariable("username", %uname)) {
+		if (!LBUserListArray.containsEntryAtVariable("username", %dest)) {
 			%row = LBChatColor("usage") @ %dest SPC "is not online!";
 			addLBChatLine(%row);
 			return;
