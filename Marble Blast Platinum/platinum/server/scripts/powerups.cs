@@ -37,6 +37,93 @@
 // PowerUp base class
 //-----------------------------------------------------------------------------
 
+// This is all for the Audio Pack powerup string switches.
+// This one cleans up the "a" and "an"s from the start of the string to fit the useName. ~ Connie
+function cleanUseName(%useName)
+{
+	%name = %usename;
+
+	// Only replace the first "a" and "an"s so in case the name has one of those
+	// later, it doesn't get affected (e.g. "pelican powerup", in case someone makes a 
+	// sound pack with this powerup name). ~ Connie
+	if (strpos(%useName, "a ") == 0 || strpos(%useName, "an ") == 0)
+	{
+		%name = getWords(%useName, 1, getWordCount(%useName));
+	}
+
+	return %name;
+}
+
+// ...and this actually does the useName swapping stuff. ~ Connie
+function getUseName(%useName)
+{
+	if ($Audio::CurrentAudioPack.changepowerupnames == 1)
+	{
+		switch$ (%useName)
+		{
+			// Powerups for all games
+			case "Super Jump PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.superjump $= "")
+					return "Super Jump PowerUp!";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superjump);
+			case "Super Speed PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.superspeed $= "")
+					return "Super Speed PowerUp!";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superspeed);
+			case "Gyrocopter PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.gyrocopter $= "")
+					return "Gyrocopter PowerUp!";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.gyrocopter);
+			case "Super Bounce PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.superbounce $= "")
+					return "Super Bounce PowerUp!";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superbounce);
+			case "Shock Absorber PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.shockabsorber $= "")
+					return "Shock Absorber PowerUp!";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.shockabsorber);
+
+			// MBU & MP Powerups
+			case "Mega Marble PowerUp":
+				if ($Audio::CurrentAudioPack.powerupstrings.megamarble $= "")
+					return "Mega Marble PowerUp";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.megamarble);
+			
+			// PQ Powerups
+			case "Anvil PowerUp":
+				if ($Audio::CurrentAudioPack.powerupstrings.anvil $= "")
+					return "Anvil PowerUp";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.anvil);
+			case "Bubble PowerUp":
+				if ($Audio::CurrentAudioPack.powerupstrings.bubble $= "")
+					return "Bubble PowerUp";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.bubble);
+
+			// Others
+			case "Super Stop PowerUp":
+				if ($Audio::CurrentAudioPack.powerupstrings.superstop $= "")
+					return "Super Stop PowerUp";
+				else
+					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superstop);
+
+			default:
+				return %useName;
+		}
+	}
+	else
+	{
+		return %useName;
+	}
+}
+
 function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	// Dont' pickup the power up if it's the same
 	// one we already have.
@@ -58,7 +145,7 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	%user.client.play2d(%this.pickupAudio);
 	if (%this.powerUpId) {
 		if (%obj.showHelpOnPickup) {
-			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ %this.useName @ "!", false, 5000);
+			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ getUseName(%this.useName) @ "!", false, 5000);
 		}
 
 		%user.client.checkpointFoundPowerup = true;
@@ -1583,9 +1670,15 @@ function TeleportItem::onUse(%this, %obj, %user) {
 
 function TeleportItem::getPickupName(%this, %obj) {
 	if (%obj.keepVelocity) {
-		return "a Transporter PowerUp!";
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.transporter !$= "")
+			return $Audio::CurrentAudioPack.powerupstrings.transporter;
+		else
+			return "a Transporter PowerUp!";
 	} else {
-		return "a Teleporter PowerUp!";
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.teleporter !$= "")
+			return $Audio::CurrentAudioPack.powerupstrings.teleporter;
+		else
+			return "a Teleporter PowerUp!";
 	}
 }
 

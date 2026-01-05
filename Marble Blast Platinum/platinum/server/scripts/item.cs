@@ -110,7 +110,86 @@ function ItemData::onRespawn(%this, %obj) {
 }
 
 function ItemData::getPickupName(%this, %obj) {
-	return %this.pickupName;
+	// When the audio pack is set to change powerup names, do that. ~ Connie
+	if ($Audio::CurrentAudioPack.changepowerupnames == 1)
+	{
+		switch$ (%this.pickupName)
+		{
+			// Powerups for all games
+			case "a Super Jump PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.superjump $= "")
+					return "a Super Jump PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.superjump;
+			case "a Super Speed PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.superspeed $= "")
+					return "a Super Speed PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.superspeed;
+			case "a Super Bounce PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.superbounce $= "")
+					return "a Super Bounce PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.superbounce;
+			case "a Shock Absorber PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.shockabsorber $= "")
+					return "a Shock Absorber PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.shockabsorber;
+			case "a Gravity Modifier!":
+				if ($Audio::CurrentAudioPack.powerupstrings.antigravity $= "")
+					return "a Gravity Modifier!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.antigravity;
+			case "a Gyrocopter PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.gyrocopter $= "")
+					return "a Gyrocopter PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.gyrocopter;
+
+			// MBU & MP Powerups
+			case "a Mega Marble PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.megamarble $= "")
+					return "a Mega Marble PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.megamarble;
+			case "a Blast PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.blast $= "")
+					return "a Blast PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.blast;
+
+			// PQ Powerups - The Teleporter is handled in powerups.cs
+			case "an Anvil PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.anvil $= "")
+					return "an Anvil PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.anvil;
+			case "a Bubble PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.bubble $= "")
+					return "a Bubble PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.bubble;
+			case "a Fireball PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.fireball $= "")
+					return "a Fireball PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.fireball;
+
+			// Others
+			case "a Super Stop PowerUp!":
+				if ($Audio::CurrentAudioPack.powerupstrings.superstop $= "")
+					return "a Super Stop PowerUp!";
+				else
+					return $Audio::CurrentAudioPack.powerupstrings.superstop;
+			default:
+				return %this.pickupName;
+		}
+	}
+	else
+	{
+		return %this.pickupName;
+	}
 }
 
 function ItemData::onPickup(%this,%obj,%user,%amount) {
