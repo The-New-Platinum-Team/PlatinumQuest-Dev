@@ -221,15 +221,23 @@ function Mode_null::onFoundGem(%this, %object) {
 	// amount - int
 	// gem - Item
 
+	// Switch the name from gem to whatever the audio pack has if powerup string changes are enabled. ~ Connie.
+	%gemname = "gem";
+
+	if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.gem !$= "")
+	{
+		%gemname = $Audio::CurrentAudioPack.powerupstrings.gem;
+	}
+
 	%remaining = $Game::gemCount - %object.client.getGemCount();
 	if (%remaining <= 0) {
-		messageClient(%object.client, 'MsgHaveAllGems', "\c0You have all the gems, head for the finish!");
+		messageClient(%object.client, 'MsgHaveAllGems', "\c0You have all the " @ %gemname @ "s, head for the finish!");
 		%object.client.playPitchedSound("gotalldiamonds");
 	} else {
 		if (%remaining == 1) {
-			%msg = "\c0You picked up a gem! Only one gem to go!";
+			%msg = "\c0You picked up a " @ %gemname @ "! Only one " @ %gemname @ " to go!";
 		} else {
-			%msg = "\c0You picked up a gem!  " @ %remaining @ " gems to go!";
+			%msg = "\c0You picked up a " @ %gemname @ "!  " @ %remaining @ " " @ %gemname @ "s to go!";
 		}
 
 		messageClient(%object.client, 'MsgItemPickup', %msg, %remaining);
