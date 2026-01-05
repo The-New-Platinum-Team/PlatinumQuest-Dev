@@ -55,73 +55,13 @@ function cleanUseName(%useName)
 }
 
 // ...and this actually does the useName swapping stuff. ~ Connie
-function getUseName(%useName)
+function PowerUp::getUseName(%this)
 {
-	if ($Audio::CurrentAudioPack.changepowerupnames == 1)
-	{
-		switch$ (%useName)
-		{
-			// Powerups for all games
-			case "Super Jump PowerUp!":
-				if ($Audio::CurrentAudioPack.powerupstrings.superjump $= "")
-					return "Super Jump PowerUp!";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superjump);
-			case "Super Speed PowerUp!":
-				if ($Audio::CurrentAudioPack.powerupstrings.superspeed $= "")
-					return "Super Speed PowerUp!";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superspeed);
-			case "Gyrocopter PowerUp!":
-				if ($Audio::CurrentAudioPack.powerupstrings.gyrocopter $= "")
-					return "Gyrocopter PowerUp!";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.gyrocopter);
-			case "Super Bounce PowerUp!":
-				if ($Audio::CurrentAudioPack.powerupstrings.superbounce $= "")
-					return "Super Bounce PowerUp!";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superbounce);
-			case "Shock Absorber PowerUp!":
-				if ($Audio::CurrentAudioPack.powerupstrings.shockabsorber $= "")
-					return "Shock Absorber PowerUp!";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.shockabsorber);
-
-			// MBU & MP Powerups
-			case "Mega Marble PowerUp":
-				if ($Audio::CurrentAudioPack.powerupstrings.megamarble $= "")
-					return "Mega Marble PowerUp";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.megamarble);
-			
-			// PQ Powerups
-			case "Anvil PowerUp":
-				if ($Audio::CurrentAudioPack.powerupstrings.anvil $= "")
-					return "Anvil PowerUp";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.anvil);
-			case "Bubble PowerUp":
-				if ($Audio::CurrentAudioPack.powerupstrings.bubble $= "")
-					return "Bubble PowerUp";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.bubble);
-
-			// Others
-			case "Super Stop PowerUp":
-				if ($Audio::CurrentAudioPack.powerupstrings.superstop $= "")
-					return "Super Stop PowerUp";
-				else
-					return cleanUseName($Audio::CurrentAudioPack.powerupstrings.superstop);
-
-			default:
-				return %useName;
-		}
+	if ($Audio::CurrentAudioPack.changepowerupnames) {
+		return cleanUseName(%this.getPickupName());
 	}
-	else
-	{
-		return %useName;
-	}
+
+	return %this.useName;
 }
 
 function PowerUp::onPickup(%this,%obj,%user,%amount) {
@@ -145,7 +85,7 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	%user.client.play2d(%this.pickupAudio);
 	if (%this.powerUpId) {
 		if (%obj.showHelpOnPickup) {
-			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ getUseName(%this.useName) @ "!", false, 5000);
+			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ %this.getUseName() @ "!", false, 5000);
 		}
 
 		%user.client.checkpointFoundPowerup = true;
