@@ -299,54 +299,20 @@ if ($pref::AltTildeForConsole) {
 GlobalActionMap.bind(keyboard, pageUp, toggleConsole2);
 
 function reloadGui(%filename) {
-	%file = new FileObject();
-	
-	if(!%file.openForRead(%filename)) {
-		error("reloadGui: Could not open file " @ %filename);
-		%file.delete();
+	%objectName = fileBase(%fileName); // Assume the object name is the same as the filename
+
+	if(%objectName $= "RootGui")
 		return;
-	}
-
-	%foundBlock = false;
-	%objectName = "";
-
-	while(!%file.isEOF()) { 
-		%line = %file.readLine();
-
-		// Find object write block
-		if(strstr(%line, "//--- OBJECT WRITE BEGIN ---") != -1) {
-			%foundBlock = true;
-			continue;
-		}
-
-		if(%foundBlock) {
-			%openParen = strstr(%line, "(");
-			%closeParen = strstr(%line, ")");
-			
-			// If we found valid parentheses, extract the name
-			if(%openParen != -1 && %closeParen != -1) {
-				%nameLen = %closeParen - %openParen - 1;
-				%objectName = getSubStr(%line, %openParen + 1, %nameLen);
-				%objectName = trim(%objectName);
-				break;
-			}
-		}
-	}
-	
-	%file.close();
-	%file.delete();
 
 	// Delete the old object and re-exec
-	if(%objectName !$= "") {
-		if(isObject(%objectName) && %objectName !$= "RootGui") {
-			echo("reloadGui: Deleting" SPC %objectName);
-			%visible = %objectName.isVisible();
-			%parent = %objectName.getParent();
-			%objectName.delete();
-		} 
+	if(isObject(%objectName)) {
+		echo("reloadGui: Deleting" SPC %objectName);
+		%visible = %objectName.isVisible();
+		%parent = %objectName.getParent();
+		%objectName.delete();
 	} 
 	else {
-		warn("reloadGui: Didn't find top-level object in" SPC %filename);
+		error("reloadGui: couldn't find object named" SPC %objectName SPC "to delete");
 	}
 	exec(%filename);
 	
@@ -370,8 +336,7 @@ function toggleHotReload() {
 	}
 }
 
-function hotReloadLoop()
-{
+function hotReloadLoop() {
 	if(!$Con::HotReload)
 		return;
 	
@@ -390,8 +355,7 @@ function hotReloadLoop()
 	}
 	
 	%count = getFieldCount(%changedFilesList);
-	for(%i = 0; %i < %count; %i++)
-	{
+	for(%i = 0; %i < %count; %i++) {
 		%fileToReload = getField(%changedFilesList, %i);
 		echo("Reloading" SPC %fileToReload);
 		if(fileExt(%fileToReload) $= ".gui") 
