@@ -126,6 +126,17 @@ new GuiControl(ConsoleDlg) {
 			accelerator = "up";
 			repeatDecay = 100;
 		};
+		new GuiButtonCtrl(ConsoleHotReload) {
+			profile = "GuiButtonProfile";
+			vertSizing = "top";
+			position = "300 330";
+			extent = "50 20";
+			visible = "1";
+			variable = "$Con::HotReload";
+			text = "Hot Reload";
+			buttonType = "ToggleButton";
+			command = "toggleHotReload();";
+		};
 	};
 };
 //--- OBJECT WRITE END ---
@@ -182,10 +193,10 @@ function ConsoleEntry::eval(%this, %echoCommand) {
 
 	if (%echoCommand $= "echo") {
 		if (getSubStr(%text, strlen(%text)-1, 1) $= ";") {
-			%text = getSubStr(%text, 0, strlen(%text)-1);   // drop semicolon at end if echoed
+			%text = getSubStr(%text, 0, strlen(%text)-1);	 // drop semicolon at end if echoed
 		}
 		if (getSubStr(%text, 0, 4) $= "echo") {
-			%text = getSubStr(%text, 4, strlen(%text)-1);   // drop "echo" at the start
+			%text = getSubStr(%text, 4, strlen(%text)-1);	 // drop "echo" at the start
 		}
 		%text = "echo(" @ %text @ ");";
 	}
@@ -238,7 +249,7 @@ function ToggleConsole(%make) {
 			}
 		} else {
 			// disable console during leaderboard usage
-			///      keep $LB as that is for the login screen
+			///			keep $LB as that is for the login screen
 
 			if (ControllerGui.isJoystick()) {
 				$ConsoleLast = ControllerGui.control;
@@ -287,6 +298,110 @@ if ($pref::AltTildeForConsole) {
 // readding this because tilde support is gone on windows 7
 GlobalActionMap.bind(keyboard, pageUp, toggleConsole2);
 
+function reloadGui(%filename) {
+	%file = new FileObject();
+	
+	if(!%file.openForRead(%filename)) {
+		error("reloadGui: Could not open file " @ %filename);
+		%file.delete();
+		return;
+	}
+
+	%foundBlock = false;
+	%objectName = "";
+
+	while(!%file.isEOF()) { 
+		%line = %file.readLine();
+
+		// Find object write block
+		if(strstr(%line, "//--- OBJECT WRITE BEGIN ---") != -1) {
+			%foundBlock = true;
+			continue;
+		}
+
+		if(%foundBlock) {
+			%openParen = strstr(%line, "(");
+			%closeParen = strstr(%line, ")");
+			
+			// If we found valid parentheses, extract the name
+			if(%openParen != -1 && %closeParen != -1) {
+				%nameLen = %closeParen - %openParen - 1;
+				%objectName = getSubStr(%line, %openParen + 1, %nameLen);
+				%objectName = trim(%objectName);
+				break;
+			}
+		}
+	}
+	
+	%file.close();
+	%file.delete();
+
+	// Delete the old object and re-exec
+	if(%objectName !$= "") {
+		if(isObject(%objectName) && %objectName !$= "RootGui") {
+			echo("reloadGui: Deleting" SPC %objectName);
+			%visible = %objectName.isVisible();
+			%parent = %objectName.getParent();
+			%objectName.delete();
+		} 
+	} 
+	else {
+		warn("reloadGui: Didn't find top-level object in" SPC %filename);
+	}
+	exec(%filename);
+	
+	%objectName.init(); // in case this exists
+	
+	if(%visible) {
+		%objectName.open(); // in case this exists
+		%objectName.onWake();
+	}
+	
+	%parent.add(%objectName); 
+}
+
+function toggleHotReload() {
+	if($Con::HotReload) {
+		echo("Started file watcher");
+		hotReloadLoop();
+	}
+	else {
+		echo("Stopped file watcher");
+	}
+}
+
+function hotReloadLoop()
+{
+	if(!$Con::HotReload)
+		return;
+	
+	%patterns = "*.cs;*.gui";
+	%changedFilesList = ""; 
+	%file = findFirstFileMultiExpr(%pattern);
+	
+	while (%patterns !$= "") {
+		%patterns = nextToken(%patterns, "exp", ";");
+		for(%file = findFirstFile(%exp); %file !$= ""; %file = findNextFile(%exp)) {
+			%currentMod = getFileModifiedTime(%file);
+			if($Con::HotReload::LastMod[%file] !$= "" && $Con::HotReload::LastMod[%file] !$= %currentMod)
+				%changedFilesList = addField(%changedFilesList, %file);
+			$Con::HotReload::LastMod[%file] = %currentMod;
+		}
+	}
+	
+	%count = getFieldCount(%changedFilesList);
+	for(%i = 0; %i < %count; %i++)
+	{
+		%fileToReload = getField(%changedFilesList, %i);
+		echo("Reloading" SPC %fileToReload);
+		if(fileExt(%fileToReload) $= ".gui") 
+			reloadGui(%fileToReload); 
+		else
+			exec(%fileToReload); 
+	}
+	
+	scheduleIgnorePause(1000, hotReloadLoop);
+}
 
 function cheat_win() {
 	if ($Client::GameRunning) {
@@ -489,7 +604,7 @@ package SUPERHOT {
 				if ($Game::State $= "start") {
 					%targetTimeScale = (VectorLen(MPGetMyMarble().getVelocity()) / 20.0) + .5; //.5 at 0 speed, 1 at 10 speed (during RSG)
 				} else {
-					%targetTimeScale = (VectorLen(MPGetMyMarble().getVelocity()) / 15.0);      //1 at 15 speed, floored at 0.1
+					%targetTimeScale = (VectorLen(MPGetMyMarble().getVelocity()) / 15.0);			//1 at 15 speed, floored at 0.1
 					if (%targetTimeScale < 0.1)
 						%targetTimeScale = 0.1;
 				}
