@@ -364,7 +364,8 @@ function hotReloadLoop() {
 			exec(%fileToReload); 
 	}
 	
-	scheduleIgnorePause(1000, hotReloadLoop);
+	cancelIgnorePause($Con::HotReload::Schedule);
+	$Con::HotReload::Schedule = scheduleIgnorePause(1000, hotReloadLoop);
 }
 
 function cheat_win() {
