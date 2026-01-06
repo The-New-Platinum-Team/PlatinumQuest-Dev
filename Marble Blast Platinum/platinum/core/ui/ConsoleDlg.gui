@@ -363,6 +363,11 @@ function hotReloadLoop() {
 		else
 			exec(%fileToReload); 
 	}
+  
+	if ($ScriptError !$= "") {
+		MessageBoxOk("Script Error", $ScriptError);
+		$ScriptError = "";
+	}
 	
 	cancelIgnorePause($Con::HotReload::Schedule);
 	$Con::HotReload::Schedule = scheduleIgnorePause(1000, hotReloadLoop);
