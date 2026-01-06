@@ -193,10 +193,10 @@ function ConsoleEntry::eval(%this, %echoCommand) {
 
 	if (%echoCommand $= "echo") {
 		if (getSubStr(%text, strlen(%text)-1, 1) $= ";") {
-			%text = getSubStr(%text, 0, strlen(%text)-1);	 // drop semicolon at end if echoed
+			%text = getSubStr(%text, 0, strlen(%text)-1);   // drop semicolon at end if echoed
 		}
 		if (getSubStr(%text, 0, 4) $= "echo") {
-			%text = getSubStr(%text, 4, strlen(%text)-1);	 // drop "echo" at the start
+			%text = getSubStr(%text, 4, strlen(%text)-1);   // drop "echo" at the start
 		}
 		%text = "echo(" @ %text @ ");";
 	}
@@ -249,7 +249,7 @@ function ToggleConsole(%make) {
 			}
 		} else {
 			// disable console during leaderboard usage
-			///			keep $LB as that is for the login screen
+			///      keep $LB as that is for the login screen
 
 			if (ControllerGui.isJoystick()) {
 				$ConsoleLast = ControllerGui.control;
@@ -604,7 +604,7 @@ package SUPERHOT {
 				if ($Game::State $= "start") {
 					%targetTimeScale = (VectorLen(MPGetMyMarble().getVelocity()) / 20.0) + .5; //.5 at 0 speed, 1 at 10 speed (during RSG)
 				} else {
-					%targetTimeScale = (VectorLen(MPGetMyMarble().getVelocity()) / 15.0);			//1 at 15 speed, floored at 0.1
+					%targetTimeScale = (VectorLen(MPGetMyMarble().getVelocity()) / 15.0);      //1 at 15 speed, floored at 0.1
 					if (%targetTimeScale < 0.1)
 						%targetTimeScale = 0.1;
 				}
