@@ -328,7 +328,17 @@ function reloadGui(%filename) {
 
 function toggleHotReload() {
 	if($Con::HotReload) {
-		echo("Started file watcher");
+		%patterns = "*.cs;*.gui";
+		%i = 0;
+		while (%patterns !$= "") {
+			%patterns = nextToken(%patterns, "exp", ";");
+			for(%file = findFirstFile(%exp); %file !$= ""; %file = findNextFile(%exp)) {
+				$Con::HotReload::file[%i] = %file;
+				%i++;
+			}
+		}
+		$Con::HotReload::fileCount = %i;
+		echo("Watching" SPC %i SPC "files");
 		hotReloadLoop();
 	}
 	else {
@@ -340,37 +350,32 @@ function hotReloadLoop() {
 	if(!$Con::HotReload)
 		return;
 	
-	%patterns = "*.cs;*.gui";
-	%changedFilesList = ""; 
-	%file = findFirstFileMultiExpr(%pattern);
-	
-	while (%patterns !$= "") {
-		%patterns = nextToken(%patterns, "exp", ";");
-		for(%file = findFirstFile(%exp); %file !$= ""; %file = findNextFile(%exp)) {
-			%currentMod = getFileModifiedTime(%file);
-			if($Con::HotReload::LastMod[%file] !$= "" && $Con::HotReload::LastMod[%file] !$= %currentMod)
-				%changedFilesList = addField(%changedFilesList, %file);
-			$Con::HotReload::LastMod[%file] = %currentMod;
-		}
+	%changedFilesList = "";
+	for(%i = 0; %i < $Con::HotReload::fileCount; %i++) {
+		%file = $Con::HotReload::file[%i];
+		%currentMod = getFileModifiedTime(%file);
+		if($Con::HotReload::LastMod[%file] !$= "" && $Con::HotReload::LastMod[%file] !$= %currentMod)
+			%changedFilesList = addField(%changedFilesList, %file);
+		$Con::HotReload::LastMod[%file] = %currentMod;
 	}
 	
 	%count = getFieldCount(%changedFilesList);
 	for(%i = 0; %i < %count; %i++) {
 		%fileToReload = getField(%changedFilesList, %i);
-		echo("Reloading" SPC %fileToReload);
+		echo("File changed:" SPC %fileToReload);
 		if(fileExt(%fileToReload) $= ".gui") 
 			reloadGui(%fileToReload); 
 		else
-			exec(%fileToReload); 
+			exec(%fileToReload);
 	}
-  
+	
 	if ($ScriptError !$= "") {
 		MessageBoxOk("Script Error", $ScriptError);
 		$ScriptError = "";
 	}
 	
 	cancelIgnorePause($Con::HotReload::Schedule);
-	$Con::HotReload::Schedule = scheduleIgnorePause(1000, hotReloadLoop);
+	$Con::HotReload::Schedule = scheduleIgnorePause(500, hotReloadLoop);
 }
 
 function cheat_win() {
