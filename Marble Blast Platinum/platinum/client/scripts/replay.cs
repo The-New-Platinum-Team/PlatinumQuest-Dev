@@ -605,7 +605,7 @@ function playbackDump(%file, %ghost) {
 	while (%info.readLine()) {
 
 	}
-	//%info.finish();
+	%info.finish();
 	$debugreplay = 0;
 }
 
@@ -681,7 +681,7 @@ function PlaybackInfo::readLine(%this) {
 	if (%this.fo.isEOF()) {
 		if ($debugreplay)
 			echo("EOF");
-		//%this.finish();
+		%this.finish();
 		return false;
 	}
 	if (!%this.playing) {
@@ -778,7 +778,7 @@ function PlaybackInfo::readLine(%this) {
 		if (%this.fo.isEOF()) {
 			if ($debugreplay)
 				echo("EOF");
-			//%this.finish();
+			%this.finish();
 			return false;
 		}
 		if (!%this.playing) {
@@ -1376,16 +1376,10 @@ function PlaybackInfo::readGems(%this) {
 }
 
 function PlaybackGemsFrame::apply(%this, %object, %t) {
-	if (%this.applied) {
+	if (%this.info.ghost || %this.applied) {
 		return;
 	}
 	%this.applied = true;
-	if(%this.info.ghost) {
-		//if(%this.count > %this.info.marble.client.gemCount)
-		//	LocalClientConnection.playPitchedSound("opponentDiamond");
-		//%this.info.marble.client.gemCount = %this.count;
-		return;
-	}
 
 	LocalClientConnection.gemCount = %this.count;
 	$Game::GemCount = %this.max;
