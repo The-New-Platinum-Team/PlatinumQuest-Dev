@@ -55,9 +55,26 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
-			command = "startSelectedDemo();";
+			command = "startSelectedDemo(0);";
 			helpTag = "0";
 			text = "Play";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			controlLeft = "PD_Delete";
+		};
+		new GuiBorderButtonCtrl(PD_race) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "359 412";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "startSelectedDemo(1);";
+			helpTag = "0";
+			text = "Race";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -278,6 +295,7 @@ function PlayDemoGui::onWake(%this) {
 	PD_Delete.setActive(0);
 	PD_DescriptionText.setText("");
 	PD_play.setActive(0);
+	PD_race.setActive(0);
 	%this.setStatus("Search:", true);
 }
 
@@ -349,6 +367,7 @@ function getSelectedDemo() {
 	PD_DescriptionText.setText(%text);
 	PD_play.setActive(1);
 	PD_Delete.setActive(1);
+	PD_race.setActive(1);
 }
 
 function PlayDemoGui::deleteFile(%this) {
@@ -388,13 +407,13 @@ function PlayDemoGui::doDelete(%this, %id) {
 	getSelectedDemo();
 }
 
-function startSelectedDemo() {
+function startSelectedDemo(%ghost) {
 	%id = PD_DemoList.getSelectedId();
 	%row = PD_DemoList.getRowTextById(%id);
 	%demo = getField(%row, 1);
 
 	$replayFromPlayDemoGui = true;
-	playReplay(%demo);
+	playReplay(%demo, %ghost);
 }
 
 function getReplayInfo(%file) {
