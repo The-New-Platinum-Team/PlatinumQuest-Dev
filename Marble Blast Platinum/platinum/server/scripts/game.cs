@@ -358,20 +358,23 @@ function onMissionReset() {
 	}
 	MissionStartup();
 
-	//Stop replays
-	commandToAll('StopReplays');
-	if (isObject(PlaybackGhostGroup)) {
-		while (PlaybackGhostGroup.getCount()) {
-			PlaybackGhostGroup.getObject(0).delete();
+	// Start/stop the rrec race, if set
+	if($Playback::Ghost) {
+		commandToAll('StopReplays');
+		if (isObject(PlaybackGhostGroup)) {
+			while (PlaybackGhostGroup.getCount()) {
+				%player = PlaybackGhostGroup.getObject(0);
+				%player.client.delete();
+				%player.delete();
+			}
+		} else {
+			MissionCleanup.add(new SimGroup(PlaybackGhostGroup));
 		}
-	} else {
-		MissionCleanup.add(new SimGroup(PlaybackGhostGroup));
-	}
-	//Start replays
-	for (%i = 0; %i < MissionInfo.replays; %i ++) {
-		cancel($Playback::GhostSchedule[%i]);
-		%delay = MissionInfo.replayTime[%i];
-		$Playback::GhostSchedule[%i] = schedule(%delay, 0, playbackGhost, MissionInfo.replay[%i], %delay);
+
+		if($Playback::CurrentFile !$= "")
+			playbackGhost($Playback::CurrentFile);
+		else
+			$Playback::Ghost = false;
 	}
 }
 
