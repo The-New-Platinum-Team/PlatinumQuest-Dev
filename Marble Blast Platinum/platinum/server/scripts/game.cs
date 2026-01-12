@@ -359,7 +359,8 @@ function onMissionReset() {
 	MissionStartup();
 
 	// Start/stop the rrec race, if set
-	if($Playback::Ghost) {
+	// MissionInfo.replays has been unused for a long time, but i'll keep it since there's still code for it in the editor ~ Keppy
+	if($Playback::Ghost || MissionInfo.replays > 0) {
 		commandToAll('StopReplays');
 		if (isObject(PlaybackGhostGroup)) {
 			while (PlaybackGhostGroup.getCount()) {
@@ -375,7 +376,14 @@ function onMissionReset() {
 			playbackGhost($Playback::CurrentFile);
 		else
 			$Playback::Ghost = false;
+
+		for (%i = 0; %i < MissionInfo.replays; %i ++) {
+			cancel($Playback::GhostSchedule[%i]);
+			%delay = MissionInfo.replayTime[%i];
+			$Playback::GhostSchedule[%i] = schedule(%delay, 0, playbackGhost, MissionInfo.replay[%i], %delay);
+		}
 	}
+
 }
 
 function SimGroup::onMissionReset(%this) {
