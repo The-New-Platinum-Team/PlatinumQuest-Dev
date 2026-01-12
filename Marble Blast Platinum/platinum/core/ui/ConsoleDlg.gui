@@ -301,9 +301,6 @@ GlobalActionMap.bind(keyboard, pageUp, toggleConsole2);
 function reloadGui(%filename) {
 	%objectName = fileBase(%fileName); // Assume the object name is the same as the filename
 
-	if(%objectName $= "RootGui")
-		return;
-
 	// Delete the old object and re-exec
 	if(isObject(%objectName)) {
 		echo("reloadGui: Deleting" SPC %objectName);
@@ -329,12 +326,18 @@ function reloadGui(%filename) {
 function toggleHotReload() {
 	if($Con::HotReload) {
 		%patterns = "*.cs;*.gui";
+		%blacklist["RootGui.gui"] = true;
+		%blacklist["config.cs"] = true;
+		%blacklist["main.cs"] = true;
+		%blacklist["init.cs"] = true;
 		%i = 0;
 		while (%patterns !$= "") {
 			%patterns = nextToken(%patterns, "exp", ";");
 			for(%file = findFirstFile(%exp); %file !$= ""; %file = findNextFile(%exp)) {
-				$Con::HotReload::file[%i] = %file;
-				%i++;
+				if(!%blacklist[fileName(%file)]) {
+					$Con::HotReload::file[%i] = %file;
+					%i++;
+				}
 			}
 		}
 		$Con::HotReload::fileCount = %i;
