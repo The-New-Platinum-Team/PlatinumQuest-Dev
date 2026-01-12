@@ -324,7 +324,10 @@ function CompleteDemoDlg::dosave(%this) {
 	setModPaths($modPath); //TODO don't reload whole filesystem
 
 	RootGui.popDialog(%this);
-	MessageBoxYesNo("Race", "Race against saved recording?", "$Playback::Ghost = true; $Playback::CurrentFile = \"" @ %final @ "/" @ %baseName @ ".rrec" @ "\";" SPC %this.callback, %this.callback);
+
+	%file = "platinum/data/recordings/" @ fileBase(%final) @ ".rrec/" @ fileBase(%final) @ ".rrec";
+	//TODO only prompt if restarting
+	MessageBoxYesNo("Race", "Race saved recording?", "$Playback::Ghost = true; $Playback::CurrentFile = \"" @ %file @ "\";" SPC %this.callback, %this.callback);
 }
 
 function CompleteDemoDlg::dodelete(%this) {

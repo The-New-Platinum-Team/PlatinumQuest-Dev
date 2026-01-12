@@ -1186,8 +1186,8 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
 
-		%gem = (strStr(%this.db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1);
-		if (%gem) {
+		%notGem = (strStr(%this.db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1);
+		if (%notGem) {
 			if (%col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
 				continue;
 		}
@@ -1199,15 +1199,15 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 		
 		if(%this.info.ghost) {
 			if($pref::ghostReplayItems) {
-				if(%gem) {
-					//LocalClientConnection.playPitchedSound("opponentDiamond");
-				} else {
+				if(%notGem) {
 					%pData = %col.getDataBlock();
 					%pId = %pData._getPowerUpId();
 					if(%pId != 0) {
 						%this.info.marble.powerUpData = %pData;
 						%this.info.marble._powerUpId = %pId;
 					}
+				} else {
+					//LocalClientConnection.playPitchedSound("opponentDiamond");
 				}
 				//%col.setFadeVal(0.75);
 			}
