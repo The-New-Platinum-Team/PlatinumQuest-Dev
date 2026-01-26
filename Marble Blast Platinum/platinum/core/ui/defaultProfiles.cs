@@ -337,8 +337,31 @@ if (!isObject(GuiPackListProfile)) new GuiControlProfile(GuiPackListProfile : Gu
 
 if (!isObject(GuiTreeViewProfile)) new GuiControlProfile(GuiTreeViewProfile) {
 	fontSize = 13;  // dhc - trying a better fit...
-	fontColor = "0 0 0";
-	fontColorHL = "64 150 150";
+	fontColorSEL= "250 250 250"; 
+	fillColorHL = "0 60 150";
+	fontColorNA = "240 240 240";
+	bitmap = "./shll_treeView";
+};
+
+if(!isObject(GuiDirectoryTreeProfile)) new GuiControlProfile ( GuiDirectoryTreeProfile : GuiTreeViewProfile )
+{
+	fontColor = "40 40 40";
+	fontColorSEL= "250 250 250 175"; 
+	fillColorHL = "0 60 150";
+	fontColorNA = "240 240 240";
+	bitmap = "./shll_treeView";
+	fontType = "Arial";
+	fontSize = 14;
+};
+
+if(!isObject(GuiDirectoryFileListProfile)) new GuiControlProfile ( GuiDirectoryFileListProfile )
+{
+	fontColor = "40 40 40";
+	fontColorSEL= "250 250 250 175"; 
+	fillColorHL = "0 60 150";
+	fontColorNA = "240 240 240";
+	fontType = "Arial";
+	fontSize = 14;
 };
 
 if (!isObject(GuiCheckBoxProfile)) new GuiControlProfile(GuiCheckBoxProfile) {
