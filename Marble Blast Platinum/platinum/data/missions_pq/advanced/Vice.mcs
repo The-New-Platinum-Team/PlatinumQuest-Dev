@@ -86,7 +86,7 @@ if (!$Server::Dedicated) {
 				extent = "94 45";
 				minExtent = "8 8";
 				visible = "1";
-				command = "VVNameDlg.dosave();";
+				command = "VVNameDlg.trysave();";
 				helpTag = "0";
 				text = "Save";
 				groupNum = "-1";
@@ -166,13 +166,16 @@ function VVNameDlg::onWake(%this) {
 	%this.checkName();
 }
 
-function VVNameDlg::dosave(%this) {
+function VVNameDlg::trysave(%this) {
 	%filename = "platinum/data/state/vv" @ VVND_Name.getValue() @ ".txt";
 	if (isFile(%filename)) {
-		MessageBoxOk("Error", "That run save already exists.");
+		MessageBoxYesNo("Error", "A saved run with that name already exists. Would you like to overwrite it?", "VVNameDlg.dosave(\"" @ %filename @ "\");");
 		return;
-	}
+	} else
+		%this.dosave(%filename);
+}
 
+function VVNameDlg::dosave(%this, %filename) {
 	vv_saveState(%filename);
 	Canvas.popDialog(%this);
 	EG_Next.setActive(1);
