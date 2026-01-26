@@ -385,7 +385,7 @@ function pitchMusic() {
 	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.noFinalLapMusic && (playGui.lapsComplete == playGui.lapsTotal) && $InPlayGUI)
 		%targetPitch *= 1.12246; //2 semitones
 
-	//Panic Music
+	//Alarm Music
 	if ($pref::panicMusic && playGui.isAlarmActive && $InPlayGUI)
 		%targetPitch *= 1.05946; //1 semitone
 
@@ -423,6 +423,14 @@ $Music::Songs["Game"]   = "*";
 function getMusicFile(%location) {
 	//Grab the songs for the location
 	%songs = $pref::Music::Songs[%location];
+
+	switch$ ($GlobalHoliday) {
+	case "Frightfest":
+		%songs = ($pref::Music::SongsFright[%location] !$= "" ? $pref::Music::SongsFright[%location] : %songs);
+	case "Winterfest":
+		%songs = ($pref::Music::SongsWinter[%location] !$= "" ? $pref::Music::SongsWinter[%location] : %songs);
+	}
+
 	if (%songs $= "")
 		%songs = $Music::Songs[%location];
 	if (%songs $= "")

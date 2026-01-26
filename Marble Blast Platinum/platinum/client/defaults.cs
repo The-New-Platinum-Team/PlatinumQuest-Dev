@@ -60,7 +60,7 @@ $pref::RtaShowEggSplits = true;
 $pref::checkLETip = "1";
 $pref::checkTip[1] = "1";
 $pref::FirstRun[$THIS_VERSION] = true;
-$pref::ShowOOBMessages = false;
+$pref::ShowOOBMessages = true;
 
 $Pref::Net::LagThreshold = "400";
 $pref::Net::PacketRateToClient = "32";
@@ -121,7 +121,7 @@ $pref::SearchHuntBonusDC = 1;
 $pref::warpSpeedMusic = 0;
 $pref::finalLapMusic  = 0;
 $pref::panicMusic     = 0;
-$pref::temporalMusic  = 1;
+$pref::temporalMusic  = 0;
 
 $Pref::EnableDirectInput = true;
 $Pref::Unix::OpenALFrequency = 44100;
@@ -144,6 +144,11 @@ $pref::Music::Songs["LB"]     = "Comforting Mystery.ogg";
 $pref::Music::Songs["Menu"]   = "Pianoforte.ogg";
 $pref::Music::Songs["XP"]   = "shellXP.ogg";
 $pref::Music::Songs["Game"]   = "*";
+
+$pref::Music::SongsFright["LB"]     = "Halloween Trance.ogg";
+//$pref::Music::SongsFright["Menu"]   = "Halloween Trance.ogg";
+$pref::Music::SongsWinter["LB"]     = "Xmas Trance.ogg";
+//$pref::Music::SongsWinter["Menu"]   = "Xmas Trance.ogg";
 
 //Graphics
 $pref::Snore = true;
