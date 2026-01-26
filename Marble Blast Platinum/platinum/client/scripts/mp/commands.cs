@@ -228,6 +228,7 @@ function clientCmdInitSprng(%seed) {
 // Totally not disguised name!
 function clientCmdGameStatus(%status) {
 	$Editor::Opened = %status;
+	updateGameDiscordStatus();
 	if (%status) {
 		$Game::CameraSpeedMultiplier = 1;
 		$Game::MovementSpeedMultiplier = 1;
