@@ -186,7 +186,16 @@ function VVNameDlg::discard(%this) {
 }
 
 function VVNameDlg::checkName(%this) {
+	%this.oldName   = VVND_Name.getValue();
+	%this.oldCursor = VVND_Name.getCursorPos();
+
 	VVND_Name.setValue(alphaNum(VVND_Name.getValue()));
+
+	if (VVND_Name.getValue() $= %this.oldName)
+		VVND_Name.setCursorPos(%this.oldCursor);
+	else
+		VVND_Name.setCursorPos(%this.oldCursor - 1);
+
 	VVND_Save.setActive(VVND_Name.getValue() !$= "");
 }
 
