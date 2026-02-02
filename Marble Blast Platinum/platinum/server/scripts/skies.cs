@@ -118,6 +118,7 @@ if (!$pref::LegacyItems) {
 		superCategory = "Scenery";
 		category = "Astrolabe";
 		shapefile = $usermods @ "/data/shapes_mbu/astrolabe/Astrolabe.dts";
+		renderBin = "SkyShape";
 
 		noBox = "1";
 	};
@@ -133,6 +134,7 @@ if (!$pref::LegacyItems) {
 		skin[0] = "base";
 		skin[1] = "dusk";
 		skin[1] = "wintry";
+		renderBin = "SkyShape";
 
 		noBox = "1";
 	};
