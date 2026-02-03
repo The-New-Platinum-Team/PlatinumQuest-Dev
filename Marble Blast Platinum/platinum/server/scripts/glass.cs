@@ -47,26 +47,32 @@
 // } else {
 datablock StaticShapeData(glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/3x3.dts";
+	renderBin = "TranslucentPreGlow";
 };
 
 datablock StaticShapeData(glass_6shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/6x3.dts";
+	renderBin = "TranslucentPreGlow";
 };
 
 datablock StaticShapeData(glass_9shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/9x3.dts";
+	renderBin = "TranslucentPreGlow";
 };
 
 datablock StaticShapeData(glass_12shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/12x3.dts";
+	renderBin = "TranslucentPreGlow";
 };
 
 datablock StaticShapeData(glass_15shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/15x3.dts";
+	renderBin = "TranslucentPreGlow";
 };
 
 datablock StaticShapeData(glass_18shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/18x3.dts";
+	renderBin = "TranslucentPreGlow";
 };
 // }
 
