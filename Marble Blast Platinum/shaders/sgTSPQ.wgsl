@@ -19,6 +19,11 @@ var normalSampler: sampler;
 var cubeTex: texture_cube<f32>; // diffuse
 @group(2) @binding(1)
 var cubeSampler: sampler;
+// TG_TEX1
+@group(3) @binding(0)
+var refractbuffer: texture_2d<f32>; // for refraction
+@group(3) @binding(1)
+var refractbufferSampler: sampler;
 
 // Simple TSPL Shaders (requiring at most 2 textures)
 
@@ -46,10 +51,12 @@ fn vTS_DefaultMaterial(in : ITRPQVert) -> PQRasterizerData {
    var outLightVecW = step(-0.5, dot(worldNorm, lightDir));
 
    var w = commonUniforms.modelview[2];
+
+   var projectedPosition = calcPos * mvp;
    
    out.clipSpacePosition = calcPos * mvp;
    out.worldSpacePosition = (calcPos * tsUniforms.objectMat);
-   out.modelViewPosition = (calcPos * commonUniforms.modelview).xyz;
+   out.modelViewPosition = projectedPosition.xyw;
    out.uv = in.tex.xy; // (vec4<f32>(in.tex.xy, 0.0,1.0) * tsUniforms.texMats[0]).xy * tsUniforms.miscState.xy;
    out.norm = worldNorm;
    out.camDir = vec4<f32>(camPos.xyz, 1.0);
@@ -73,6 +80,24 @@ fn fTS_DefaultMaterial(in: PQRasterizerData) -> @location(0) vec4<f32> {
    var diffuse = textureSample(diffuseMap, diffuseSampler, calculatedUV);
    var outCol = diffuse;
 
+   if (tsUniforms.fogState.y > 0.5)
+   {
+      // Distortion in pixels; set to 0.0 to disable
+      let distortionPx = 0.3;
+      let distortionUV = (bumpNormal.xy * distortionPx);
+
+      // clipSpacePosition.xy is already in pixels
+      let uv = in.modelViewPosition.xy + distortionUV;
+      let screenUV = uv / in.modelViewPosition.z;
+
+      var refractColor = textureSample(
+         refractbuffer,
+         refractbufferSampler,
+         screenUV * 0.5 + vec2<f32>(0.5, 0.5)
+      );
+      outCol *= refractColor;
+   }
+
    var shading = vec4<f32>(1.08, 1.03, 0.90, 1.0);
    outCol *= (shading * bumpDot) + lightUnit.ambient;
 
@@ -92,7 +117,7 @@ fn fTS_DefaultMaterial(in: PQRasterizerData) -> @location(0) vec4<f32> {
    var shininess = tsUniforms.fogState.x;
    var specular = specularColor * pow(specValue, shininess);
    outCol += specular * diffuse.a;
-   if (tsUniforms.fogState.y < 0.5) {
+   if (tsUniforms.fogState.y < 0.5 && tsUniforms.fogState.z < 0.5) {
       outCol.a = 1.0;
    }
 
