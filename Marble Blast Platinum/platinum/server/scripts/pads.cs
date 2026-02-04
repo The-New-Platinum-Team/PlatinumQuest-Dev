@@ -176,6 +176,7 @@ datablock StaticShapeData(EndPad_MBU : EndPad) {
 
 	playAnimation = true;
 	useShaders = true;
+	mbuAnimation = true;
 };
 
 datablock StaticShapeData(MBU_LightBeam : EndPad) {
