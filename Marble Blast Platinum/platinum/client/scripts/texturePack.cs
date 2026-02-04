@@ -248,8 +248,9 @@ function loadTexturePack(%pack) {
 	%renderBin["Water"] = 7;
 	%renderBin["TranslucentPreGlow"] = 8;
 	%renderBin["Glow"] = 9;
-	%renderBin["Translucent"] = 10;
-	%renderBin["End"] = 11;
+	%renderBin["Refract"] = 10;
+	%renderBin["Translucent"] = 11;
+	%renderBin["End"] = 12;
 
 	if (isObject(%pack.dts_materials)) {
 		%fields = %pack.dts_materials.getDynamicFieldList();
