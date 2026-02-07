@@ -399,7 +399,7 @@ $Options::Tooltip ["Graphics", $i  ] = "Choose the texture pack to use for the g
 $Options::Ctrl    ["Graphics", $i  ] = "button";
 $Options::Name    ["Graphics", $i++] = "automaticUI";
 $Options::Title   ["Graphics", $i  ] = "Automatic UI Swap";
-$Options::Tooltip ["Graphics", $i  ] = "Enable or disable automatic UI swapping. " NL "When enabled, the game will automatically swap UI texture packs based on the game of the level being played. Be warned that this toggle is heavily experimental.";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable automatic UI swapping. " NL "When enabled, the game will automatically swap UI texture packs based on the game of the level being played. Be warned that this toggle is heavily experimental and may cause glitches.";
 $Options::Type    ["Graphics", $i  ] = "boolean";
 // if (canSupportAntiAliasing()) { //This is not available on mac (or at all in 2.10+ lol)
 // 	$Options::Name    ["Graphics", $i++] = "antiAliasing";
