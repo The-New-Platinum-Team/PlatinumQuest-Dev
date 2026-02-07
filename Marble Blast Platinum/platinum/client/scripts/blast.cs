@@ -24,7 +24,6 @@
 //-----------------------------------------------------------------------------
 
 function shouldEnableBlast() {
-
 	if ($Game::IsMode["challenge"]) {
 		if ($CurrentWeeklyChallenge.blast || $CurrentWeeklyChallenge.tripleBlast)
 			return true;
@@ -32,24 +31,19 @@ function shouldEnableBlast() {
 			return false;
 	}
 
-	if (MissionInfo.noBlast) { //Allow missions to disable blast in MP
+	if (MissionInfo.noBlast) //Allow missions to disable blast in MP
 		return false;
-	}
-	if (MissionInfo.blast) { //Allow missions to allow blast
+	if (MissionInfo.blast) //Allow missions to allow blast
 		return true;
-	}
+
 	if ($Server::ServerType $= "Multiplayer") {
-		if ($SpectateMode) { //Don't let people blast as a camera
-			return false;
-		}
-
-		return true; //MP blast by default
+		//Don't let people blast as a camera
+		//MP blast by default
+		return !$SpectateMode;
 	} else {
-		if (MissionInfo.game $= "Ultra") { //All ultra missions should have blast
-			return true;
-		}
-
-		return false; //SP no blast by default
+		//All ultra missions should have blast
+		//SP no blast by default
+		return MissionInfo.game $= "Ultra";
 	}
 }
 
