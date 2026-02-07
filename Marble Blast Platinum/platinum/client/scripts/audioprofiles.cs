@@ -372,22 +372,24 @@ function resumeMusic() {
 }
 
 function pitchMusic() {
-	%targetPitch = 1;
+	%targetPitch  = 1;
 
-	//Warp Speed Music
-	if ($pref::warpSpeedMusic && $InPlayGUI && isObject($MP::MyMarble)) {
-		%targetPitch = (mPow(VectorLen($MP::MyMarble.getVelocity()) / 360, 1/2));
-		if (%targetPitch < 1)
-			%targetPitch = 1;
+	if ($InPlayGUI) {
+		//Warp Speed Music
+		if ($pref::warpSpeedMusic && isObject($MP::MyMarble)) {
+			%targetPitch = (mPow(VectorLen($MP::MyMarble.getVelocity()) / 360, 1/2));
+			if (%targetPitch < 1)
+				%targetPitch = 1;
+		}
+
+		//Final Lap Music
+		if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.noFinalLapMusic && (playGui.lapsComplete == playGui.lapsTotal))
+			%targetPitch *= 1.12246; //2 semitones
+
+		//Alarm Music
+		if ($pref::panicMusic && playGui.isAlarmActive)
+			%targetPitch *= 1.05946; //1 semitone
 	}
-
-	//Final Lap Music
-	if ($pref::finalLapMusic && $Game::isMode["laps"] && !MissionInfo.noFinalLapMusic && (playGui.lapsComplete == playGui.lapsTotal) && $InPlayGUI)
-		%targetPitch *= 1.12246; //2 semitones
-
-	//Alarm Music
-	if ($pref::panicMusic && playGui.isAlarmActive && $InPlayGUI)
-		%targetPitch *= 1.05946; //1 semitone
 
 	//Temporal Music
 	if ($pref::temporalMusic)
@@ -423,6 +425,14 @@ $Music::Songs["Game"]   = "*";
 function getMusicFile(%location) {
 	//Grab the songs for the location
 	%songs = $pref::Music::Songs[%location];
+
+	switch$ ($GlobalHoliday) {
+	case "Frightfest":
+		%songs = ($pref::Music::SongsFright[%location] !$= "" ? $pref::Music::SongsFright[%location] : %songs);
+	case "Winterfest":
+		%songs = ($pref::Music::SongsWinter[%location] !$= "" ? $pref::Music::SongsWinter[%location] : %songs);
+	}
+
 	if (%songs $= "")
 		%songs = $Music::Songs[%location];
 	if (%songs $= "")

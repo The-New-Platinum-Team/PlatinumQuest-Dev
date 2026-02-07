@@ -434,8 +434,12 @@ function LBResolveName(%name, %notitle) {
 		%name = %name SPC %entry.suffix;
 
 	//Flair is added to the front, in front of prefix
-	if (%entry.flair !$= "" && !%notitle)
-		%name = "<bitmap:" @ $usermods @ "/client/ui/lb/chat/flair/" @ %entry.flair @ ".png>" SPC %name;
+	if (%entry.flair !$= "" && !%notitle) {
+		if (isFile("vfs://flairs/" @ %entry.flair @ ".png"))
+			%name = "<bitmap:__vfs/flairs/" @ %entry.flair @ ".png>" SPC %name;
+		else
+			%name = "<bitmap:" @ $usermods @ "/client/ui/lb/chat/flair/" @ %entry.flair @ ".png>" SPC %name;
+	}
 	return %name;
 }
 

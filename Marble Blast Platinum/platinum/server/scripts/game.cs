@@ -941,7 +941,14 @@ function GameConnection::getFinishMessage(%this) {
 		return %message;
 
 	if ($Game::GemCount && %this.getGemCount() < $Game::GemCount) {
-		return "You may not finish without all the gems!";
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.gem !$= "") 
+		{
+			return "You may not finish without all the " @ $Audio::CurrentAudioPack.powerupstrings.gem @ "s!";
+		}
+		else
+		{
+			return "You may not finish without all the gems!";
+		}
 	}
 
 	return "Congratulations! You\'ve finished!";
