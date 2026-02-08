@@ -265,6 +265,18 @@ datablock ShapeBaseImageData(SuperBounceImage_PQ : SuperBounceImage) {
 	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
 };
 
+datablock ItemData(SuperBounceItem_MBU : SuperBounceItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
+
+	shapeFile = "~/data/shapes_mbu/items/superbounce.dts";
+	image = SuperBounceImage_MBU;
+};
+
+datablock ShapeBaseImageData(SuperBounceImage_MBU : SuperBounceImage) {
+	shapeFile = "~/data/shapes_mbu/images/glow_bounce.dts";
+};
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(DoSuperSpeedSfx) {
@@ -386,6 +398,18 @@ datablock ItemData(ShockAbsorberItem_PQ : ShockAbsorberItem) {
 
 datablock ShapeBaseImageData(ShockAbsorberImage_PQ : ShockAbsorberImage) {
 	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
+};
+
+datablock ItemData(ShockAbsorberItem_MBU : ShockAbsorberItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
+
+	shapeFile = "~/data/shapes_mbu/items/shockabsorber.dts";
+	image = ShockAbsorberImage_MBU;
+};
+
+datablock ShapeBaseImageData(ShockAbsorberImage_MBU : ShockAbsorberImage) {
+	shapeFile = "~/data/shapes_mbu/images/glow_bounce.dts";
 };
 
 //-----------------------------------------------------------------------------
