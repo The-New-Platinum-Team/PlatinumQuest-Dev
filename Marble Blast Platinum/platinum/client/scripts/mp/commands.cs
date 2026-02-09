@@ -229,6 +229,7 @@ function clientCmdInitSprng(%seed) {
 // Totally not disguised name!
 function clientCmdGameStatus(%status) {
 	$Editor::Opened = %status;
+	updateGameDiscordStatus();
 	if (%status) {
 		$Game::CameraSpeedMultiplier = 1;
 		$Game::MovementSpeedMultiplier = 1;
@@ -479,6 +480,11 @@ function clientCmdServerSettingsListEnd() {
 
 function clientCmdFreezeMarble(%frozen, %position) {
 	$MP::MyMarble.freeze(%frozen, %position);
+}
+
+function clientCmdUpdateServerPrivacy(%private) {
+	$Server::Private = %private;
+	PlayMissionGui.updateRichPresence();
 }
 
 //-----------------------------------------------------------------------------

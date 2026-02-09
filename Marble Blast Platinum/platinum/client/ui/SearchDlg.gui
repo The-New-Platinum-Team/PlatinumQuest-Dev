@@ -305,7 +305,7 @@ function SearchDlg::buildSearch(%this) {
 	// iterate through each difficulty
 	%ml = PlayMissionGui.ml;
 	%difficulties = %ml.getDifficultyList($CurrentGame);
-	if (PlayMissionGui.marbleland) {
+	if (ml()) {
 
 		%list = %ml.getMissionList($CurrentGame, $MissionType);
 		if (!isObject(%list)) {
@@ -532,7 +532,7 @@ function SearchDlg::onSelect(%this) {
 
 	%mission = getField(SearchMissionList.getRowTextById(%id), 3);
 
-	if (PlayMissionGui.marbleland) {
+	if (ml()) {
 		if (isBitmap("vfs://marbleland/" @ %mission.id)) {
 			SearchLevelImage.setBitmap("vfs://marbleland/" @ %mission.id);
 		} else {

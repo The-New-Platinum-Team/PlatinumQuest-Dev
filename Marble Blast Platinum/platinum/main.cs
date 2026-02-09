@@ -345,3 +345,7 @@ function lb() {
 function mp() {
 	return lb() && $Server::ServerType $= "MultiPlayer";
 }
+
+function ml() {
+	return PlayMissionGui.marbleland;
+}

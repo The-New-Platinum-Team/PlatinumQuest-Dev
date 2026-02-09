@@ -39,7 +39,7 @@ function EndGameDlg::onWake(%this) {
 
 	EG_Next.setVisible(!$Game::Introduction && !$Game::RunCredits);
 
-	if (!isObject(getWord(%this.getNextLevel(), 0))) {
+	if (!isObject(getWord(%this.getNextLevel(false), 0))) {
 		EG_Next.setVisible(false);
 	}
 
@@ -88,7 +88,7 @@ function EndGameDlg::restart(%this) {
 		hideControllerUI();
 }
 
-function EndGameDlg::getNextLevel(%this) {
+function EndGameDlg::getNextLevel(%this, %ignoreUnlocks) {
 	if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
 		return;
 	}
@@ -140,7 +140,7 @@ function EndGameDlg::getNextLevel(%this) {
 		devecho("Next: Can display: " @ Unlock::canDisplayMission(%mission));
 		devecho("Next: Can play: " @ Unlock::canPlayMission(%mission));
 
-		if (Unlock::canDisplayMission(%mission) && Unlock::canPlayMission(%mission))
+		if (Unlock::canDisplayMission(%mission) && (Unlock::canPlayMission(%mission) || %ignoreUnlocks))
 			break;
 	}
 	devecho("Next: Final choice is " @ %mission.name);
@@ -148,12 +148,10 @@ function EndGameDlg::getNextLevel(%this) {
 	return %mission NL %pmSelectedIndex NL %currentMissionType;
 }
 
-
 function EndGameDlg::next(%this) {
 	//If we're waiting to end a recording, do that before anything else
-	if (recordEnd("EndGameDlg.next();")) {
+	if (recordEnd("EndGameDlg.next();"))
 		return;
-	}
 
 	//Apparently you can call this from the intro
 	if ($Game::Introduction) {
@@ -161,10 +159,18 @@ function EndGameDlg::next(%this) {
 		return;
 	}
 
-	%missionMissionIndex = %this.getNextLevel();
-	%mission = getRecord(%missionMissionIndex, 0);
-	%missionIndex = getRecord(%missionMissionIndex, 1);
-	%missionDifficulty = getRecord(%missionMissionIndex, 2);
+	if(!Unlock::canPlayMission(getRecord(%this.getNextLevel(true), 0)))
+		MessageBoxYesNo("Locked!", "The very next level is still locked! Would you like to skip to the next one available?", "RootGui.popDialog(EndGameDlg); EndGameDlg.loadNextLevel();", "");
+	else
+		%this.loadNextLevel();
+}
+
+function EndGameDlg::loadNextLevel(%this) {
+	%missionMissionIndex = %this.getNextLevel(false);
+	%mission             = getRecord(%missionMissionIndex, 0);
+	%missionIndex        = getRecord(%missionMissionIndex, 1);
+	%missionDifficulty   = getRecord(%missionMissionIndex, 2);
+
 	if (isObject(%mission)) {
 		$Client::NextMission = %mission;
 		%file = %mission.file;
@@ -177,9 +183,8 @@ function EndGameDlg::next(%this) {
 		if (lb()) {
 			statsGetPersonalTopScores(%mission);
 		}
-	} else {
+	} else
 		%this.end();
-	}
 }
 
 function NextLevel_StartLoading() {

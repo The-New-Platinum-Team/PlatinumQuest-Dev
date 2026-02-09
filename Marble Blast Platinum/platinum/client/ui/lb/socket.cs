@@ -556,7 +556,7 @@ function LBNetwork::on_block(%this, %line) {
 function LBNetwork::on_flair(%this, %line) {
 	//FLAIR <flair>
 	//Check if we have it
-	if (!isFile("platinum/client/ui/lb/chat/flair/" @ %line @ ".png")) {
+	if (!isFile("vfs://flairs/" @ %line @ ".png") && !isFile("platinum/client/ui/lb/chat/flair/" @ %line @ ".png")) {
 		//Need to download
 		statsGetFlairBitmap(%line);
 	}

@@ -428,6 +428,8 @@ function MPJoinServerDlg::onWake(%this) {
 
 	if (%this.spinInterval $= "")
 		%this.spinInterval = %this.interval(40, "updateSpinner");
+	
+	setDiscordStatus("Online", "Browsing Servers");
 }
 
 function MPJoinServerDlg::updateSpinner(%this) {
@@ -503,6 +505,7 @@ function MPJoinServerDlg::cancel(%this) {
 //----------------------------------------
 function MPJoinServerDlg::join(%this) {
 	$MP::ServerPassword = "";
+	$Server::Private = false;
 
 	cancelServerQuery();
 	%id = MPJoinServerList.getSelectedId();
@@ -533,6 +536,7 @@ function MPJoinServerDlg::join(%this) {
 //----------------------------------------
 function MPJoinServerDlg::exit(%this) {
 	%this.cancel();
+	setDiscordStatus(LBChatGui.richPresence[1], LBChatGui.richPresence[0]);
 	RootGui.setContent(LBChatGui);
 }
 
@@ -551,6 +555,7 @@ function MPJoinServerDlg::updatePassword(%this) {
 	MPJoinPassword.password = !MPJoinShowPassword.getValue();
 	MPJoinPasswordJoin.setActive(MPJoinPassword.getValue() !$= "");
 	$MP::ServerPassword = MPJoinPassword.getValue();
+	$Server::Private = ($MP::ServerPassword !$= "");
 }
 
 function MPJoinServerDlg::cancelPassword(%this) {

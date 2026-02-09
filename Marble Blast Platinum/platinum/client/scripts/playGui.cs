@@ -144,8 +144,7 @@ function PlayGui::onWake(%this) {
 	useScriptCameraTransform(false);
 
 	// update the fader status
-	// this variable is set true in missiondownload.cs
-	PG_Fader.setVisible($PlayGuiFader);
+	PG_Fader.setVisible($PlayGuiFader && ($pref::ScreenshotMode < 2)); //Check screenshot mode now since disabling it later will make this show up late
 	$PlayGuiFader = false;
 
 	$Game::PlayingStart = $Sim::Time;

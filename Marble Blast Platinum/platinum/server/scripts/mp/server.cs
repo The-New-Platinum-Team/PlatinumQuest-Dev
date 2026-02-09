@@ -46,7 +46,9 @@ function serverStartGame() {
 			%client.forceSpectate = true;
 	}
 
-	$Server::Started = true;
+	$Server::Loading  = false;
+	$Server::Loaded   = true;
+	$Server::Started  = true;
 	$Game::FirstSpawn = true;
 
 	updatePlayerlist();
