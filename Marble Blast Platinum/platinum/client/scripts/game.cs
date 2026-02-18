@@ -68,22 +68,75 @@ function clientCmdGameRespawn() {
 }
 
 function updateGameDiscordStatus() {
-	if ($Game::Menu) {
-		// Handled by the UI
-	} else if ($playingDemo) {
-		setDiscordStatus("Watching a Replay");
-	} else {
-		%info = getMissionInfo($Client::MissionFile);
-		%name = %info.name;
-		if (mp()) {
-			if ($SpectateMode) {
-				setDiscordStatus("Spectating", %name);
-			} else {
-				setDiscordStatus("In a Server", %name);
+	if (!$Game::Menu) { //UIs handle rich presence on their own
+		%line1 = getMissionInfo($Client::MissionFile).name;
+		if (%line1 $= "Super Secret Puzzle 12")
+			%line1 = "ZZaZZ ZZdZZiZZmZZhZZ ZZvZZ ZZoZZ ZZ ZZsZZlZZhZZsZZoZZaZZiZZ"; //It's a secret to everybody
+
+		if ($Editor::Opened)
+			%line2 = "Editing Level";
+		else if ($playingDemo)
+			%line2 = "Watching a Replay";
+		else if ($Game::isMode["challenge"])
+			%line2 = "Weekly Challenge: " @ $CurrentWeeklyChallenge.description;
+		else if (mp()) {
+			if ($SpectateMode)
+				%line2 = "Spectating";
+			else {
+				if ($Game::isMode["coop"]) {               //Co-op takes precedence over anything else
+					%missionDir = strreplace($Client::MissionFile, "platinum/data/multiplayer/coop/", "");
+					switch$(getSubStr(%missionDir, 0, strstr(%missionDir, "_"))) { //Get the folder name before the first _
+						case "gold":     %line2 = "Marble Blast Gold Co-op";
+						case "ultra":    %line2 = "Marble Blast Ultra Co-op";
+						case "platinum": %line2 = "Marble Blast Platinum Co-op";
+						case "pq":       %line2 = "PlatinumQuest Co-op";
+						default:         %line2 = "Co-op Custom Level by " @ getMissionInfo($Client::MissionFile).artist;
+					}
+				} else if ($Game::isMode["snowballsonly"]) //Highest priority after Co-op, above Hunt and Collection
+					%line2 = ($MP::TeamMode ? "In a Team Snowball Fight!" : "In a Snowball Fight!");
+				else if ($Game::isMode["hunt"])
+					%line2 = ($MP::TeamMode ? "In a Team Gem Hunt Match" : "In a Gem Hunt Match"); //"On a Gem Hunt" would also work, but doesn't seem very fitting
+				else if ($Game::isMode["collection"])
+					%line2 = "In a Collection Race"; //no teams yet :(
+				else if ($Game::isMode["mega"])            //MMW and KotH are secondary modes and should be lower priority than Hunt and Collection
+					%line2 = ($MP::TeamMode ? "In a Team Mega Marble War!" : "In a Mega Marble War!");
+				else if ($Game::isMode["king"])
+					%line2 = ($MP::TeamMode ? "In a Team King of the Hill Match" : "Fighting for King of the Hill");
+				else                                       //ok send in the placeholder text
+					%line2 = ($MP::TeamMode ? "In a Multiplayer Team Game" : "Playing Multiplayer");
 			}
 		} else {
-			setDiscordStatus("Single Player", %name);
+			%missionDir = strreplace($Client::MissionFile, "platinum/data/", "");
+			%missionDir = getSubStr(%missionDir, 0, strstr(%missionDir, "/")); //Find which folder inside of platinum/data we're in
+			if      ((%missionDir $= "missions_mbg") || (%missionDir $= "lbmissions_mbg"))
+				%line2 = "Marble Blast Gold Singleplayer";
+			else if ((%missionDir $= "missions_mbu") || (%missionDir $= "lbmissions_mbu"))
+				%line2 = "Marble Blast Ultra Singleplayer";
+			else if ((%missionDir $= "missions_mbp") || (%missionDir $= "lbmissions_mbp"))
+				%line2 = "Marble Blast Platinum Singleplayer";
+			else if ((%missionDir $= "missions_pq")  || (%missionDir $= "lbmissions_pq"))
+				%line2 = "PlatinumQuest Singleplayer";
+			else if ((%missionDir $= "missions_lb")  || (%missionDir $= "lbmissions_custom")) {
+				%missionDir = strreplace($Client::MissionFile, "platinum/data/" @ %missionDir @ "/", "");
+				switch$(getSubStr(%missionDir, 0, strstr(%missionDir, "/"))) { //Same deal as above, but within missions_lb or lbmissions_custom
+					case "DirectorsCut":    %line2 = "Marble Blast Platinum Singleplayer";
+					case "levelpacks1-9":   %line2 = "Leaderboards Custom Pack 1";
+					case "levelpacks10-19": %line2 = "Leaderboards Custom Pack 2";
+					case "levelpacks20-29": %line2 = "Leaderboards Custom Pack 3";
+					case "levelpacks30-39": %line2 = "Leaderboards Custom Pack 4";
+					case "levelpacks40-49": %line2 = "Leaderboards Custom Pack 5";
+					case "levelpacks50-59": %line2 = "Leaderboards Custom Pack 6";
+					case "levelpacks60-69": %line2 = "Leaderboards Custom Pack 7";
+					case "pack8":           %line2 = "Leaderboards Custom Pack 8";
+					default:                %line2 = "Leaderboards Custom";
+				}
+			} else if ((%missionDir $= "multiplayer") && (strstr($Client::MissionFile, "/custom/") == -1))
+				%line2 = "Performing Recon in Singleplayer";
+			else
+				%line2 = "Custom Level by " @ getMissionInfo($Client::MissionFile).artist;
 		}
+
+		setDiscordStatus(%line2, %line1); //Go ask HiGuy why they're reversed, I don't know
 	}
 }
 
@@ -981,10 +1034,10 @@ function formatTimeHours(%time) {
 }
 
 function formatTimeHoursMs(%time) {
-	%hours = mFloor(mFloor(%time / 1000) / 3600);
-	%minutes = mFloor(mFloor(%time / 1000) / 60) - (%hours * 60) - (%days * 1440);
-	%seconds = mFloor(%time / 1000) - (%minutes * 60) - (%hours * 3600) - (%days * 86400);
-	%hundredth = mFloor((%time % 1000) / 10);
+	%hours = div64_int(%time, 3600000);
+	%minutes = div64_int(mod64_int(%time, 3600000), 60000);
+	%seconds = div64_int(mod64_int(%time, 60000), 1000);
+	%thousandths = mod64_int(%time, 1000);
 
 	%secondsOne   = %seconds % 10;
 	%secondsTen   = mFloor(%seconds / 10);
@@ -992,20 +1045,18 @@ function formatTimeHoursMs(%time) {
 	%minutesTen   = mFloor(%minutes / 10);
 	%hoursOne	  = %hours % 10;
 	%hoursTen     = mFloor(%hours / 10);
-	%hundredthOne = %hundredth % 10;
-	%hundredthTen = (%hundredth - %hundredthOne) / 10;
+	%thousandthsOne = %thousandths % 10;
+	%thousandthsTen = mFloor((%thousandths % 100) / 10);
+	%thousandthsHun = mFloor(%thousandths / 100);
 
-	if ($pref::Thousandths) {
-		return (%hours > 0 ? (%hoursTen > 0 ? %hoursTen : "") @ %hoursOne @ ":" : "") @
-		       %minutesTen @ %minutesOne @ ":" @
-		       %secondsTen @ %secondsOne @ "." @
-		       %hundredthTen @ %hundredthOne @(%time % 10);
-	} else {
-		return (%hours > 0 ? (%hoursTen > 0 ? %hoursTen : "") @ %hoursOne @ ":" : "") @
-		       %minutesTen @ %minutesOne @ ":" @
-		       %secondsTen @ %secondsOne @ "." @
-		       %hundredthTen @ %hundredthOne;
-	}
+	%result = (%hours > 0 ? (%hoursTen > 0 ? %hoursTen : "") @ %hoursOne @ ":" : "") @
+	          %minutesTen @ %minutesOne @ ":" @
+	          %secondsTen @ %secondsOne @ "." @
+	          %thousandthsHun @ %thousandthsTen;
+	if ($pref::Thousandths)
+		%result = %result @ %thousandthsOne;
+
+	return %result;
 }
 
 function formatTimeDays(%time) {

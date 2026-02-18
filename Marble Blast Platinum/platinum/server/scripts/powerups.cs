@@ -37,6 +37,33 @@
 // PowerUp base class
 //-----------------------------------------------------------------------------
 
+// This is all for the Audio Pack powerup string switches.
+// This one cleans up the "a" and "an"s from the start of the string to fit the useName. ~ Connie
+function cleanUseName(%useName)
+{
+	%name = %usename;
+
+	// Only replace the first "a" and "an"s so in case the name has one of those
+	// later, it doesn't get affected (e.g. "pelican powerup", in case someone makes a 
+	// sound pack with this powerup name). ~ Connie
+	if (strpos(%useName, "a ") == 0 || strpos(%useName, "an ") == 0)
+	{
+		%name = getWords(%useName, 1, getWordCount(%useName));
+	}
+
+	return %name;
+}
+
+// ...and this actually does the useName swapping stuff. ~ Connie
+function PowerUp::getUseName(%this)
+{
+	if ($Audio::CurrentAudioPack.changepowerupnames) {
+		return cleanUseName(%this.getPickupName());
+	}
+
+	return %this.useName;
+}
+
 function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	// Dont' pickup the power up if it's the same
 	// one we already have.
@@ -58,7 +85,7 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	%user.client.play2d(%this.pickupAudio);
 	if (%this.powerUpId) {
 		if (%obj.showHelpOnPickup) {
-			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ %this.useName @ "!", false, 5000);
+			%user.client.addBubbleLine("Press <func:bind mouseFire> to use the " @ %this.getUseName() @ "!", false, 5000);
 		}
 
 		%user.client.checkpointFoundPowerup = true;
@@ -238,6 +265,18 @@ datablock ShapeBaseImageData(SuperBounceImage_PQ : SuperBounceImage) {
 	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
 };
 
+datablock ItemData(SuperBounceItem_MBU : SuperBounceItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
+
+	shapeFile = "~/data/shapes_mbu/items/superbounce.dts";
+	image = SuperBounceImage_MBU;
+};
+
+datablock ShapeBaseImageData(SuperBounceImage_MBU : SuperBounceImage) {
+	shapeFile = "~/data/shapes_mbu/images/glow_bounce.dts";
+};
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(DoSuperSpeedSfx) {
@@ -359,6 +398,18 @@ datablock ItemData(ShockAbsorberItem_PQ : ShockAbsorberItem) {
 
 datablock ShapeBaseImageData(ShockAbsorberImage_PQ : ShockAbsorberImage) {
 	shapeFile = "~/data/shapes_pq/images/glow_bounce.dts";
+};
+
+datablock ItemData(ShockAbsorberItem_MBU : ShockAbsorberItem) {
+	superCategory = "PowerUps";
+	category = "Marble_Blast_Ultra";
+
+	shapeFile = "~/data/shapes_mbu/items/shockabsorber.dts";
+	image = ShockAbsorberImage_MBU;
+};
+
+datablock ShapeBaseImageData(ShockAbsorberImage_MBU : ShockAbsorberImage) {
+	shapeFile = "~/data/shapes_mbu/images/glow_bounce.dts";
 };
 
 //-----------------------------------------------------------------------------
@@ -1417,28 +1468,34 @@ function MegaMarbleItem_MBU::onUnuse(%this,%obj,%user,%amount) {
 }
 
 function MegaMarbleItem::onUse(%this, %obj, %user) {
-	if (!%user.client.isMegaMarble()) {
-		if (%user.isFrozen) {
-			%user.iceShard.getDataBlock().unFreeze(%user.iceShard, %user, true);
-			return true;
-		}
-		%user.client.setMegaMarble(true);
-		%ray = ContainerRayCast(%user.getPosition(), VectorSub(%user.getPosition(), VectorMult("-1 -1 -1", getWords(%user.getGravityDir(), 6, 8))), $TypeMasks::InteriorObjectType, %user);
-		if (isObject(getWord(%ray, 0)))
-			%user.client.schedule(10, gravityImpulse, "0 0 -1", "6 6 6");
-
-		if (%user.powerupActive[HelicopterItem.powerUpId]) {
-			%user.client.unmountPlayerImage(HelicopterItem.imageSlot);
-			%user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
-		}
-	}
 	%timeout = (%obj.timeout > 0 ? %obj.timeout : %this.defaultTimeout);
 	if (isCompetitiveMode()) {
 		%timeout = 5000;
 	}
-	cancel(%user.megaSchedule);
-	%user.megaSchedule = %this.schedule(%timeout, "onUnuse", %obj, %user);
-	commandToClient(%user.client, 'PushTimer', 6, getSimTime(), %timeout);
+	if (%timeout > %user._MMTimeout - (getSimTime() - %user._MMStartTime)) {
+		if (!%user.client.isMegaMarble()) {
+			if (%user.isFrozen) {
+				%user.iceShard.getDataBlock().unFreeze(%user.iceShard, %user, true);
+				return true;
+			}
+			%user.client.setMegaMarble(true);
+			%ray = ContainerRayCast(%user.getPosition(), VectorSub(%user.getPosition(), VectorMult("-1 -1 -1", getWords(%user.getGravityDir(), 6, 8))), $TypeMasks::InteriorObjectType, %user);
+			if (isObject(getWord(%ray, 0)))
+				%user.client.schedule(10, gravityImpulse, "0 0 -1", "6 6 6");
+
+			if (%user.powerupActive[HelicopterItem.powerUpId]) {
+				%user.client.unmountPlayerImage(HelicopterItem.imageSlot);
+				%user.client.mountPlayerImage(HelicopterItem, HelicopterItem.imageSlot);
+			}
+		}
+		cancel(%user.megaSchedule);
+		%user.megaSchedule = %this.schedule(%timeout, "onUnuse", %obj, %user);
+		commandToClient(%user.client, 'PushTimer', 6, getSimTime(), %timeout);
+		%user._MMStartTime = getSimTime();
+		%user._MMTimeout = %timeout;
+	} else {
+		serverPlay3D(DoMegaMarbleSfx, %user.getPosition());
+	}
 
 	return Parent::onUse(%this, %obj, %user);
 }
@@ -1577,9 +1634,15 @@ function TeleportItem::onUse(%this, %obj, %user) {
 
 function TeleportItem::getPickupName(%this, %obj) {
 	if (%obj.keepVelocity) {
-		return "a Transporter PowerUp!";
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.transporter !$= "")
+			return $Audio::CurrentAudioPack.powerupstrings.transporter;
+		else
+			return "a Transporter PowerUp!";
 	} else {
-		return "a Teleporter PowerUp!";
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.teleporter !$= "")
+			return $Audio::CurrentAudioPack.powerupstrings.teleporter;
+		else
+			return "a Teleporter PowerUp!";
 	}
 }
 

@@ -508,6 +508,9 @@ function EditorDoLoadMission(%file) {
 
 	loadMission(%file, true) ;
 
+	if (!$MissionRunning)
+		return; // Mission failed to load, don't load the editor
+
 	// recreate and open the editor
 	Editor::create();
 	MissionCleanup.add(Editor);
@@ -1130,6 +1133,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				rotate = 1;
 				static = 1;
 			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "SuperBounceItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
 		default:
 			%obj = new Item() {
 				dataBlock = "SuperBounceItem";
@@ -1199,6 +1208,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new Item() {
 				dataBlock = "ShockAbsorberItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "ShockAbsorberItem_MBU";
 				rotate = 1;
 				static = 1;
 			};
@@ -1704,16 +1719,12 @@ function EditorGui::onWake(%this) {
 
 	//Wait so the canvas size aligns correctly
 	EWorldEditor.schedule(10, buildSpecial);
-
-	setDiscordStatus("In Editor");
 }
 
 function EditorGui::onSleep(%this) {
 	EditorMap.pop();
 	MoveMap.pop();
 	JoystickMap.pop();
-
-	updateGameDiscordStatus();
 
 	if ($EditorTestCamPath) {
 		$EditorTestCamPath = false;
@@ -4301,6 +4312,21 @@ function EWorldEditor::buildSpecial(%this) {
 function EWorldEditor::buildSpecialNone(%this) {
 	%this.addSpecial("Edit Mission Info", "emibutton();");
 	%this.addSpecial("Change Skybox", "csbbutton();");
+  
+  if(isObject(AutoInterior_g)) {
+    if(AutoInterior_g.type $= "Constructor") {
+      %this.addSpecial("Release Constructor Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
+      %this.addSpecial("Reconnect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
+    }
+    else if (AutoInterior_g.type $= "Blender") {
+      %this.addSpecial("Release Blender Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
+      %this.addSpecial("Reconnect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
+    }
+  }
+  else {
+    %this.addSpecial("Connect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
+    %this.addSpecial("Connect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
+  }
 }
 
 function EWorldEditor::buildSpecialSingle(%this, %obj) {

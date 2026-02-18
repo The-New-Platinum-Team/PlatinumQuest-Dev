@@ -248,13 +248,10 @@ function input_escapeFromGame(%val) {
 		pauseGame();
 
 		if ($Server::ServerType $= "Multiplayer") {
-			if (!$Server::Lobby && !$Game::Pregame)  {
+			if (!$Server::Lobby && !$Game::Pregame)
 				RootGui.pushDialog(MPExitGameDlg);
-				alxPlay(PauseMenuSfx);
-			}
 		} else {
 			RootGui.pushDialog(ExitGameDlg);
-			alxPlay(PauseMenuSfx);
 			alxSetChannelVolume(1, 0); // main_gi
 		}
 	} else {
@@ -369,32 +366,26 @@ function input_usePowerup(%val) {
 }
 
 function input_useBlast(%val) {
-	if (isCannonActive()) {
-		// get out of cannon.
-		commandToServer('Blast');
-		return;
-	}
-
 	$useBlast = %val;
 
-	if ($Client::FireballActive) {
+	if (%val) {
+		if (isCannonActive()) {
+			// get out of cannon.
+			commandToServer('Blast');
+			return;
+		}
+
 		// If we fire blasted, don't do a blast as well.
 		// Or else you will fly like a magical unicorn marble.
-		if (fireballBlast())
+		if ($Client::FireballActive && fireballBlast())
 			return;
-	}
 
-	// No blast if you are frozen for you!
-	if ($Client::Frozen)
-		return;
+		// No blast if you are frozen for you!
+		if ($Client::Frozen || !shouldEnableBlast())
+			return;
 
-	if (!shouldEnableBlast())
-		return;
-
-	if (%val) {
-		if ($MP::BlastValue >= (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) ? 0.33 : $MP::BlastRequiredAmount) && MPMyMarbleExists() != -1) {
+		if ($MP::BlastValue >= (($Game::IsMode["challenge"] && $CurrentWeeklyChallenge.tripleBlast) ? 0.33 : $MP::BlastRequiredAmount) && MPMyMarbleExists() != -1)
 			performBlast();
-		}
 	}
 }
 

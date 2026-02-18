@@ -110,7 +110,16 @@ function ItemData::onRespawn(%this, %obj) {
 }
 
 function ItemData::getPickupName(%this, %obj) {
-	return %this.pickupName;
+	// When the audio pack is set to change powerup names, do that. ~ Connie
+	// Thanks Keppy for the optimization <3
+  	if ($Audio::CurrentAudioPack.changepowerupnames) {
+    	%string = $Audio::CurrentAudioPack.powerupstrings.getFieldValue(%this.getName());
+
+    	if (%string !$= "")
+      		return %string;
+	}
+
+  	return %this.pickupName;
 }
 
 function ItemData::onPickup(%this,%obj,%user,%amount) {

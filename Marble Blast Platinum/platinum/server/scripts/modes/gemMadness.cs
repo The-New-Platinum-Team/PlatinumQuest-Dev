@@ -28,6 +28,7 @@ function Mode_GemMadness::onLoad(%this) {
 	%this.registerCallback("shouldRespawnGems");
 	%this.registerCallback("shouldRestartOnOOB");
 	%this.registerCallback("onOutOfBounds");
+	%this.registerCallback("onMissionReset");
 
 	%this.registerCallback("shouldResetTime");
 	%this.registerCallback("shouldResetGem");
@@ -98,6 +99,10 @@ function Mode_GemMadness::onOutOfBounds(%this, %object) {
 		$Game::FinishClient = %object.client;
 		endGameSetup();
 	}
+}
+function Mode_GemMadness::onMissionReset(%this, %object) {
+	%this.gotAllGems = false;
+	commandToAll('UseTimeScore', false);
 }
 
 function Mode_GemMadness::shouldResetTime(%this, %object) {
