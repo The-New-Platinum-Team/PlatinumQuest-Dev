@@ -600,6 +600,7 @@ function ExitGameDlg::end() {
 }
 
 function ExitGameDlg::onWake(%this) {
+	alxPlay(PauseMenuSfx);
 	%info = getMissionInfo($Client::MissionFile);
 
 	if ($pref::restartReloadsLevels)

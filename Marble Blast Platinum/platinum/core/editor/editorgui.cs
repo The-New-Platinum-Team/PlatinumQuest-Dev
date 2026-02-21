@@ -1133,6 +1133,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 				rotate = 1;
 				static = 1;
 			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "SuperBounceItem_MBU";
+				rotate = 1;
+				static = 1;
+			};
 		default:
 			%obj = new Item() {
 				dataBlock = "SuperBounceItem";
@@ -1202,6 +1208,12 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 		case "PlatinumQuest":
 			%obj = new Item() {
 				dataBlock = "ShockAbsorberItem_PQ";
+				rotate = 1;
+				static = 1;
+			};
+		case "Ultra":
+			%obj = new Item() {
+				dataBlock = "ShockAbsorberItem_MBU";
 				rotate = 1;
 				static = 1;
 			};
@@ -1707,20 +1719,12 @@ function EditorGui::onWake(%this) {
 
 	//Wait so the canvas size aligns correctly
 	EWorldEditor.schedule(10, buildSpecial);
-
-	%line1 = getMissionInfo($Client::MissionFile).name;
-	if (%line1 $= "Super Secret Puzzle 12") {
-		%line1 = "ZZaZZ ZZdZZiZZmZZhZZ ZZvZZ ZZoZZ ZZ ZZsZZlZZhZZsZZoZZaZZiZZ"; //It's a secret to everybody
-	}
-	setDiscordStatus("In the Level Editor", %line1);
 }
 
 function EditorGui::onSleep(%this) {
 	EditorMap.pop();
 	MoveMap.pop();
 	JoystickMap.pop();
-
-	updateGameDiscordStatus();
 
 	if ($EditorTestCamPath) {
 		$EditorTestCamPath = false;

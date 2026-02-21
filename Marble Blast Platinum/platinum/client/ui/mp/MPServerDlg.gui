@@ -38,7 +38,7 @@ new GuiBitmapCtrl(MPServerDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "73 9";
-		extent = "494 461";
+		extent = "494 472";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -47,7 +47,7 @@ new GuiBitmapCtrl(MPServerDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "left";
 			vertSizing = "top";
-			position = "154 389";
+			position = "154 400";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -63,7 +63,7 @@ new GuiBitmapCtrl(MPServerDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "left";
 			vertSizing = "top";
-			position = "248 389";
+			position = "248 400";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -121,7 +121,7 @@ new GuiBitmapCtrl(MPServerDlg) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "width";
 			vertSizing = "top";
-			position = "26 368";
+			position = "26 370";
 			extent = "435 21";
 			minExtent = "8 8";
 			visible = "1";
@@ -130,11 +130,27 @@ new GuiBitmapCtrl(MPServerDlg) {
 			allowColorChars = "0";
 			maxChars = "-1";
 		};
+		new GuiBorderButtonCtrl(MPServerIPShow) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "top";
+			position = "267 357";
+			extent = "201 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MPServerDlg.showIP();";
+			helpTag = "0";
+			text = "Show Address";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
 		new GuiMLTextCtrl(MPServerPortTitle) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "right";
 			vertSizing = "top";
-			position = "26 338";
+			position = "26 337";
 			extent = "197 21";
 			minExtent = "8 8";
 			visible = "1";
@@ -239,7 +255,12 @@ function MPServerDlg::onWake(%this) {
 	MPServerShowPasswords.setValue(false);
 
 	%this.populate();
-	%this.updateIP();
+	%this.updatePortStatus();
+}
+
+function MPServerDlg::onSleep(%this) {
+	MPServerIPShow.setText("Show Address");
+	MPServerIPShow.setVisible(true);
 }
 
 function MPServerDlg::populate(%this) {
@@ -453,7 +474,7 @@ function MPServerDlg::decrementSetting(%this, %idx) {
 }
 
 function MPUpdatePortLabel() {
-	MPServerDlg.updateIP();
+	MPServerDlg.updatePortStatus();
 }
 
 function MPServerDlg::updateActive(%this) {
@@ -479,7 +500,7 @@ function MPServerDlg::updateActive(%this) {
 	MPServerSave.setActive($MP::Server::Temp::Name !$= "");
 }
 
-function MPServerDlg::updateIP(%this) {
+function MPServerDlg::updatePortStatus(%this) {
 	// Various server port forward statuses
 	%status = "<spush><color:ffff66>Loading<spop>";
 	switch$ ($PortStatus) {
@@ -492,9 +513,26 @@ function MPServerDlg::updateIP(%this) {
 	case "global":
 		%status = "<spush><color:66ff66>Successful<spop>";
 	}
+	
 	// Set the displays
 	MPServerPortTitle.setText("<font:18>Port Mapping:<just:right>" @ %status);
-	MPServerIPTitle.setText("<font:18>Server Address:<just:right>" @ $ip @($pref::Server::Port != 28000 ? ":" @ $pref::Server::Port : ""));
+	MPServerDlg.updateIP();
+}
+
+function MPServerDlg::updateIP(%this) {
+	%address = "<font:18>Server Address:<just:right>";
+	if (!MPServerIPShow.visible)
+		%address = %address @ $ip @ ($pref::Server::Port != 28000 ? ":" @ $pref::Server::Port : "");
+	MPServerIPTitle.setText(%address);
+}
+
+function MPServerDlg::showIP(%this) {
+	if (MPServerIPShow.getText() $= "Show Address")
+		MPServerIPShow.setText("Really Show?");
+	else {
+		MPServerIPShow.setVisible(false);
+		MPServerDlg.updateIP();
+	}
 }
 
 function MPServerDlg::open(%this) {
