@@ -86,6 +86,11 @@ function deactivateTexturePack(%packName) {
 
 function reloadTexturePacks() {
 	//Unload everything first
+
+	// unregister all shader stuff
+	clearMaterials();
+	clearTSMaterials();
+
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		unloadTexturePack(%pack);
@@ -117,6 +122,10 @@ function reloadTexturePackFields() {
 }
 
 function unloadTexturePacks() {
+	// unregister all shader stuff
+	clearMaterials();
+	clearTSMaterials();
+
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		unloadTexturePack(%pack);
