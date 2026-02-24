@@ -1,5 +1,4 @@
 #include "stStructs.wgsl"
-#include "sgCommon.wgsl"
 
 @group(0) @binding(0)
 var<uniform> commonUniforms: CommonUniformSet;
