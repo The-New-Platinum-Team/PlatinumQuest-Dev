@@ -5070,8 +5070,19 @@ function clientcmd34onthedancefloor() {
 	Canvas.repaint();
 	%path = strreplace(filePath($Server::MissionFile) @ "/" @ fileBase($Server::MissionFile) @ ".prev.png", "/missions", "/previews");
 	mkdir(filePath(%path), 493); // 0755 (oct)
+	Canvas.repaint();
+
+	schedule(200, 0, "takeSupertempScreenshot", %path);
+}
+
+function takeSupertempScreenshot(%path) {
 	screenshot(%path, 1920, 1080);
 	Canvas.repaint();
+
+	schedule(150, 0, "finishSupertempScreenshot");
+}
+
+function finishSupertempScreenshot() {
 	RootGui.setContent(PlayMissionGui);
 }
 
