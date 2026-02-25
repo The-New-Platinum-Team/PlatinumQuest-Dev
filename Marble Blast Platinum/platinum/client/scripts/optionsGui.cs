@@ -1214,7 +1214,7 @@ function Opt_automaticUI_getValue() {
 function Opt_automaticUI_decrease() {
 	$pref::AutomaticUI = !$pref::AutomaticUI;
 
-	if (!$psAssert) {
+	if ($pref::AutomaticUI && !$psAssert) {
 		$psAssert = true;
 		MessageBoxOK("Warning", "Enabling this option does increase loading time if you swap Games too frequently.");
 	}
