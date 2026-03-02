@@ -340,6 +340,7 @@ function toggleHotReload() {
 				}
 			}
 		}
+		$Con::HotReload::CurrentIndex = 0;
 		$Con::HotReload::fileCount = %i;
 		echo("Watching" SPC %i SPC "files");
 		hotReloadLoop();
@@ -350,35 +351,36 @@ function toggleHotReload() {
 }
 
 function hotReloadLoop() {
-	if(!$Con::HotReload)
+	if(!$Con::HotReload || $Con::HotReload::fileCount <= 0)
 		return;
-	
-	%changedFilesList = "";
-	for(%i = 0; %i < $Con::HotReload::fileCount; %i++) {
-		%file = $Con::HotReload::file[%i];
-		%currentMod = getFileModifiedTime(%file);
-		if($Con::HotReload::LastMod[%file] !$= "" && $Con::HotReload::LastMod[%file] !$= %currentMod)
-			%changedFilesList = addField(%changedFilesList, %file);
-		$Con::HotReload::LastMod[%file] = %currentMod;
-	}
-	
-	%count = getFieldCount(%changedFilesList);
-	for(%i = 0; %i < %count; %i++) {
-		%fileToReload = getField(%changedFilesList, %i);
-		echo("File changed:" SPC %fileToReload);
-		if(fileExt(%fileToReload) $= ".gui") 
-			reloadGui(%fileToReload); 
+
+	if($Con::HotReload::CurrentIndex >= $Con::HotReload::fileCount)
+		$Con::HotReload::CurrentIndex = 0;
+
+	%file = $Con::HotReload::file[$Con::HotReload::CurrentIndex];
+	%currentMod = getFileModifiedTime(%file);
+
+	if($Con::HotReload::LastMod[%file] !$= "" && $Con::HotReload::LastMod[%file] !$= %currentMod) {
+		echo("File changed:" SPC %file);
+
+		if(fileExt(%file) $= ".gui")
+			reloadGui(%file);
 		else
-			exec(%fileToReload);
+			exec(%file);
+
+		if ($ScriptError !$= "") {
+			MessageBoxOk("Script Error", $ScriptError);
+			$ScriptError = "";
+		}
 	}
-	
-	if ($ScriptError !$= "") {
-		MessageBoxOk("Script Error", $ScriptError);
-		$ScriptError = "";
-	}
-	
+
+	$Con::HotReload::LastMod[%file] = %currentMod;
+
+	$Con::HotReload::CurrentIndex++;
+	%delay = 1000 / $Con::HotReload::fileCount;
+
 	cancelIgnorePause($Con::HotReload::Schedule);
-	$Con::HotReload::Schedule = scheduleIgnorePause(500, hotReloadLoop);
+	$Con::HotReload::Schedule = scheduleIgnorePause(%delay, hotReloadLoop);
 }
 
 function cheat_win() {
