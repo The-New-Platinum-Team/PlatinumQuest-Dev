@@ -126,6 +126,17 @@ new GuiControl(ConsoleDlg) {
 			accelerator = "up";
 			repeatDecay = 100;
 		};
+		new GuiButtonCtrl(ConsoleHotReload) {
+			profile = "GuiButtonProfile";
+			vertSizing = "top";
+			position = "300 330";
+			extent = "50 20";
+			visible = "1";
+			variable = "$Con::HotReload";
+			text = "Hot Reload";
+			buttonType = "ToggleButton";
+			command = "toggleHotReload();";
+		};
 	};
 };
 //--- OBJECT WRITE END ---
@@ -287,6 +298,90 @@ if ($pref::AltTildeForConsole) {
 // readding this because tilde support is gone on windows 7
 GlobalActionMap.bind(keyboard, pageUp, toggleConsole2);
 
+function reloadGui(%filename) {
+	%objectName = fileBase(%fileName); // Assume the object name is the same as the filename
+
+	// Delete the old object and re-exec
+	if(isObject(%objectName)) {
+		echo("reloadGui: Deleting" SPC %objectName);
+		%visible = %objectName.isVisible();
+		%parent = %objectName.getParent();
+		%objectName.delete();
+	} 
+	else {
+		error("reloadGui: couldn't find object named" SPC %objectName SPC "to delete");
+	}
+	exec(%filename);
+	
+	%objectName.init(); // in case this exists
+	
+	if(%visible) {
+		%objectName.open(); // in case this exists
+		%objectName.onWake();
+	}
+	
+	%parent.add(%objectName); 
+}
+
+function toggleHotReload() {
+	if($Con::HotReload) {
+		%patterns = "*.cs;*.gui";
+		%blacklist["RootGui.gui"] = true;
+		%blacklist["config.cs"] = true;
+		%blacklist["main.cs"] = true;
+		%blacklist["init.cs"] = true;
+		%i = 0;
+		while (%patterns !$= "") {
+			%patterns = nextToken(%patterns, "exp", ";");
+			for(%file = findFirstFile(%exp); %file !$= ""; %file = findNextFile(%exp)) {
+				if(!%blacklist[fileName(%file)]) {
+					$Con::HotReload::file[%i] = %file;
+					%i++;
+				}
+			}
+		}
+		$Con::HotReload::CurrentIndex = 0;
+		$Con::HotReload::fileCount = %i;
+		echo("Watching" SPC %i SPC "files");
+		hotReloadLoop();
+	}
+	else {
+		echo("Stopped file watcher");
+	}
+}
+
+function hotReloadLoop() {
+	if(!$Con::HotReload || $Con::HotReload::fileCount <= 0)
+		return;
+
+	if($Con::HotReload::CurrentIndex >= $Con::HotReload::fileCount)
+		$Con::HotReload::CurrentIndex = 0;
+
+	%file = $Con::HotReload::file[$Con::HotReload::CurrentIndex];
+	%currentMod = getFileModifiedTime(%file);
+
+	if($Con::HotReload::LastMod[%file] !$= "" && $Con::HotReload::LastMod[%file] !$= %currentMod) {
+		echo("File changed:" SPC %file);
+
+		if(fileExt(%file) $= ".gui")
+			reloadGui(%file);
+		else
+			exec(%file);
+
+		if ($ScriptError !$= "") {
+			MessageBoxOk("Script Error", $ScriptError);
+			$ScriptError = "";
+		}
+	}
+
+	$Con::HotReload::LastMod[%file] = %currentMod;
+
+	$Con::HotReload::CurrentIndex++;
+	%delay = 1000 / $Con::HotReload::fileCount;
+
+	cancelIgnorePause($Con::HotReload::Schedule);
+	$Con::HotReload::Schedule = scheduleIgnorePause(%delay, hotReloadLoop);
+}
 
 function cheat_win() {
 	if ($Client::GameRunning) {
