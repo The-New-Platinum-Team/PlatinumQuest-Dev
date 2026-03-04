@@ -1,25 +1,22 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
-
    new ScriptObject(MissionInfo) {
-         time = "180000";
-         alarmStartTime = "25";
-         artist = "Connie";
-         blast = "1";
-         desc = "Venture upon the fragmented isles and come out on top!";
-         difficulty = "3";
-         game = "Ultra";
-         gameMode = "Hunt";
-         level = "6";
-         maxGemsPerSpawn = "7";
-         music = "Tim Trance.ogg";
-         name = "Fractured Islands";
-         numgems = "1";
-         type = "custom";
-         platinumScore0 = "75";
-         platinumScore1 = "140";
-         ultimateScore = "100";
-         ultimateScore1 = "185";
+      time = "180000";
+      alarmStartTime = "25";
+      artist = "Connie";
+      blast = "1";
+      desc = "Venture upon the fragmented isles and come out on top!";
+      game = "Ultra";
+      gameMode = "Hunt";
+      level = "6";
+      maxGemsPerSpawn = "7";
+      music = "Tim Trance.ogg";
+      name = "Fractured Islands";
+      type = "Intermediate";
+      platinumScore0 = "75";
+      platinumScore1 = "140";
+      ultimateScore = "100";
+      ultimateScore1 = "185";
    };
    new Sky(Sky) {
       position = "336 136 0";
@@ -47,8 +44,8 @@ new SimGroup(MissionGroup) {
       fogVolumeColor1 = "128.000000 128.000000 128.000000 0.000000";
       fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000004";
       fogVolumeColor3 = "128.000000 128.000000 128.000000 14435505.000000";
-         sphereBack = "platinum/data/shapes/skies/dusk/back.png";
-         sphereFront = "platinum/data/shapes/skies/dusk/front.png";
+         sphereFront = $usermods @ "/data/shapes/skies/dusk/front.png";
+         sphereBack = $usermods @ "/data/shapes/skies/dusk/back.png";
    };
    new Sun() {
       direction = "0.573201 0.275357 -0.771764";
@@ -69,23 +66,17 @@ new SimGroup(MissionGroup) {
       showTerrainInside = "0";
    };
    new SimGroup(PathNodeGroup) {
-
       new StaticShape(CameraPath1) {
          position = "-44.3888 36.4752 18.5359";
          rotation = "0.0819853 -0.188224 0.978698 133.823";
          scale = "1 1 1";
          dataBlock = "PathNode";
-            nextNode = "CameraPath2";
-            placed = "1";
-            reverseRotation = "0";
-            timeToNext = "8000";
             usePosition = "1";
             useRotation = "1";
             useScale = "0";
       };
    };
    new SimGroup(SpawnPoints) {
-
       new Trigger() {
          position = "-38.3434 -4.44695 3.11653";
          rotation = "1 0 0 0";
@@ -198,7 +189,6 @@ new SimGroup(MissionGroup) {
       };
    };
    new SimGroup(GemSpawns) {
-
       new Item() {
          position = "48.9912 19.0141 3.09436";
          rotation = "1 0 0 0";
@@ -1765,7 +1755,7 @@ new SimGroup(MissionGroup) {
       dataBlock = "BlastItem_MBU";
       collideable = "0";
       static = "1";
-      rotate = "1";
+      rotate = "0";
          noParticles = "0";
    };
 };
