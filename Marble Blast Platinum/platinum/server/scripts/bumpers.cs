@@ -96,6 +96,7 @@ datablock StaticShapeData(RoundBumper_MBU) {
 	shapeFile = "~/data/shapes_mbu/bumpers/pball_round.dts";
 	scopeAlways = true;
 	sound = BumperDing;
+	useShaders = true;
 };
 
 function RoundBumper_MBU::onAdd( %this, %obj ) {
@@ -136,6 +137,7 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/bumpers/mbgbumperedit.dts";
 		scopeAlways = true;
 		sound = BumperDing;
+		useShaders = true;
 	};
 } else {
 	datablock StaticShapeData(RoundBumper_Original) {

@@ -520,7 +520,7 @@ function EditorDoLoadMission(%file) {
 
 function EditorSaveBeforeLoad() {
 	if (EditorSaveMission())
-		getLoadFilename("~/data/missions*/*.mis\t~/data/missions*/*.mcs", "EditorDoLoadMission");
+		getLoadFilename("*.mis\t*.mcs", "EditorDoLoadMission", "~/data/missions");
 }
 
 function EditorDoNewMission(%saveFirst) {
@@ -544,7 +544,7 @@ function EditorOpenMission() {
 		MessageBoxYesNo("Mission Modified", "Would you like to save changes to the current mission \"" @
 		                $Server::MissionFile @ "\" before opening a new mission?", "EditorSaveBeforeLoad();", "getLoadFilename(\"~/data/missions*/*.mis\\t~/data/missions*/*.mcs\", \"EditorDoLoadMission\");");
 	} else
-		getLoadFilename("~/data/missions*/*.mis\t~/data/missions*/*.mcs", "EditorDoLoadMission");
+		getLoadFilename("*.mis\t*.mcs", "EditorDoLoadMission", "~/data/missions");
 }
 
 function EditorReloadMission(%test) {
@@ -1646,7 +1646,7 @@ function ETerrainEditor::setPaintMaterial(%this, %matIndex) {
 
 function ETerrainEditor::changeMaterial(%this, %matIndex) {
 	EPainter.matIndex = %matIndex;
-	getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", EPainterChangeMat);
+	getLoadFilename("*.png\t*.jpg", EPainterChangeMat, "~/data/terrains");
 }
 
 function EPainterChangeMat(%file) {
@@ -1757,6 +1757,42 @@ function EditorTree::onSelect(%this, %obj) {
 function EditorTree::onUnselect(%this, %obj) {
 	EWorldEditor.unselectObject(%obj);
 	EWorldEditor.buildSpecial();
+}
+
+function EditorTree::onDefineIcons(%this) {
+	EditorTree.buildIconTable(
+		"platinum/core/editor/default:" @
+		"platinum/core/editor/simgroup:" @
+		"platinum/core/editor/simgroup_closed:" @
+		"platinum/core/editor/simgroup_selected:" @
+		"platinum/core/editor/simgroup_selected_closed:" @
+		"platinum/core/editor/audio:" @
+		"platinum/core/editor/camera:" @
+		"platinum/core/editor/fxfoliage:" @
+		"platinum/core/editor/fxlight:" @
+		"platinum/core/editor/fxshapereplicator:" @
+		"platinum/core/editor/fxsunlight:" @
+		"platinum/core/editor/hidden:" @
+		"platinum/core/editor/interior:" @
+		"platinum/core/editor/lightning:" @
+		"platinum/core/editor/shll_icon_passworded_hi:" @
+		"platinum/core/editor/shll_icon_passworded:" @
+		"platinum/core/editor/mission_area:" @
+		"platinum/core/editor/particle:" @
+		"platinum/core/editor/path:" @
+		"platinum/core/editor/pathmarker:" @
+		"platinum/core/editor/physical_area:" @
+		"platinum/core/editor/precipitation:" @
+		"platinum/core/editor/shape:" @
+		"platinum/core/editor/sky:" @
+		"platinum/core/editor/static_shape:" @
+		"platinum/core/editor/sun:" @
+		"platinum/core/editor/terrain:" @
+		"platinum/core/editor/trigger:" @
+		"platinum/core/editor/water:" @
+		"platinum/core/editor/default"
+	);
+	return true;
 }
 
 //------------------------------------------------------------------------------
@@ -2113,6 +2149,7 @@ function Creator::init(%this) {
 	%Mission_Item[3] = "Camera";
 
 	%System_Item[0] = "SimGroup";
+	%System_Item[1] = "Path";
 
 	//%AI_Item[0] = "Objective";
 	//%AI_Item[1] = "NavigationGraph";
@@ -2377,7 +2414,7 @@ function Texture_material_menu::onSelect(%this, %id, %text) {
 
 function Texture::addMaterialTexture() {
 	%root = filePath(terrain.terrainFile);
-	getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", addLoadedMaterial);
+	getLoadFilename("*.png\t*.jpg", addLoadedMaterial, "~/data/terrains");
 }
 
 function addLoadedMaterial(%file) {
@@ -3414,7 +3451,7 @@ function Heightfield::doLoadHeightfield(%name) {
 
 //--------------------------------------
 function Heightfield::setBitmap() {
-	getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", "Heightfield::doSetBitmap");
+	getLoadFilename("*.png\t*.jpg", "Heightfield::doSetBitmap", "~/data/terrains");
 }
 
 //--------------------------------------
@@ -3526,7 +3563,7 @@ function TerrainEditor::swapInLoneMaterial(%this, %name) {
 
 
 function TELoadTerrainButton::onAction(%this) {
-	getLoadFilename("terrains/*.ter", %this @ ".gotFileName");
+	getLoadFilename("*.ter", %this @ ".gotFileName", "~/data/terrains");
 }
 
 function TELoadTerrainButton::gotFileName(%this, %name) {

@@ -239,9 +239,6 @@ function ctrace() {
 function ToggleConsole(%make) {
 	if (%make) {
 		if ($ConsoleActive) {
-			// This gives errors on macos
-			if ($enableDirectInput && $platform !$= "macos")
-				activateKeyboard();
 			RootGui.popDialog(ConsoleDlg);
 			$ConsoleActive = false;
 			if (ControllerGui.isJoystick()) {
@@ -255,9 +252,6 @@ function ToggleConsole(%make) {
 				$ConsoleLast = ControllerGui.control;
 			}
 
-			// This gives errors on macos
-			if ($enableDirectInput && $platform !$= "macos")
-				deactivateKeyboard();
 			RootGui.pushDialog(ConsoleDlg, 99);
 			$ConsoleActive = true;
 

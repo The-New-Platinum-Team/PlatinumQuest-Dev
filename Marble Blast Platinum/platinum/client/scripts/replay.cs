@@ -547,7 +547,7 @@ function PlaybackInfo::start(%this) {
 		}
 		if (!%this.ghost) {
 			//Controlling self, disable everything!
-			Physics::pushLayerName("noInput");
+			//Physics::pushLayerName("noInput");
 			MoveMap.pop();
 			JoystickMap.pop();
 			DemoMap.push();
@@ -571,13 +571,13 @@ function replayToggleCamera(%input) {
 			mouseFire(0);
 			useBlast(0);
 
-			Physics::popLayerName("noInput");
+			// Physics::popLayerName("noInput");
 			MoveMap.push();
 			JoystickMap.push();
 			DemoMap.pop();
 		} else {
 
-			Physics::pushLayerName("noInput");
+			// Physics::pushLayerName("noInput");
 			MoveMap.pop();
 			JoystickMap.pop();
 			DemoMap.push();
@@ -654,7 +654,7 @@ function PlaybackInfo::finish(%this) {
 		}
 	} else {
 		//Controlling self, disable the disabling
-		Physics::popLayerName("noInput");
+		// Physics::popLayerName("noInput");
 		if ($playingDemo) {
 			onDemoPlayDone(false);
 			$playingDemo = false;

@@ -652,7 +652,7 @@ function GameConnection::stateEnd(%this) {
 		%this.player.iceShard.getDatablock().unfreeze(%this.player.iceShard, %this.player, true);
 	}
 
-	if ($Server::ServerType $= "SinglePlayer" && isObject($Game::EndPad))
+	if ($Server::ServerType $= "SinglePlayer" && isObject($Game::EndPad) && !$Game::EndPad.getDatablock().mbuAnimation)
 		startFireWorks($Game::EndPad);
 }
 

@@ -75,6 +75,7 @@ datablock StaticShapeData(Checkpoint_PQ : checkPoint) {
 
 datablock StaticShapeData(Checkpoint_MBU : checkPoint) {
 	shapeFile = "~/data/shapes_mbu/pads/checkpad.dts";
+	useShaders = true;
 };
 
 datablock StaticShapeData(Checkpoint_MBXP : checkPoint) {

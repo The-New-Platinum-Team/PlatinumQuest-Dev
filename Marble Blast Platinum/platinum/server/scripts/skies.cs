@@ -29,6 +29,7 @@ datablock StaticShapeData(Cloudy) {
 	className = "Skies";
 	category = "Skies";
 	shapefile = $usermods @ "/data/shapes/Skies/Cloudy/Cloudy.dts";
+	renderBin = "SkyShape";
 };
 
 function Cloudy::onAdd(%this, %obj) {
@@ -43,6 +44,7 @@ datablock StaticShapeData(Clear) {
 	superCategory = "Scenery";
 	category = "Skies";
 	shapefile = $usermods @ "/data/shapes/Skies/Clear/Clear.dts";
+	renderBin = "SkyShape";
 
 	noBox = "1";
 };
@@ -59,6 +61,7 @@ datablock StaticShapeData(Dusk) {
 	superCategory = "Scenery";
 	category = "Skies";
 	shapefile = $usermods @ "/data/shapes/Skies/Dusk/Dusk.dts";
+	renderBin = "SkyShape";
 
 	noBox = "1";
 };
@@ -75,6 +78,7 @@ datablock StaticShapeData(Wintry) {
 	superCategory = "Scenery";
 	category = "Skies";
 	shapefile = $usermods @ "/data/shapes/Skies/Wintry/Wintry.dts";
+	renderBin = "SkyShape";
 
 	noBox = "1";
 };
@@ -118,6 +122,7 @@ if (!$pref::LegacyItems) {
 		superCategory = "Scenery";
 		category = "Astrolabe";
 		shapefile = $usermods @ "/data/shapes_mbu/astrolabe/Astrolabe.dts";
+		renderBin = "SkyShape";
 
 		noBox = "1";
 	};
@@ -133,6 +138,7 @@ if (!$pref::LegacyItems) {
 		skin[0] = "base";
 		skin[1] = "dusk";
 		skin[1] = "wintry";
+		renderBin = "SkyShape";
 
 		noBox = "1";
 	};

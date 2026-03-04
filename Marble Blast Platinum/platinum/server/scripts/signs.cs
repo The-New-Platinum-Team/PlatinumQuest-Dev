@@ -465,6 +465,7 @@ datablock StaticShapeData(ArrowUp) {
 	mass = 1;
 	friction = 1;
 	elasticity = 0.3;
+	useShaders = true;
 };
 
 function ArrowUp::onAdd(%this,%obj) {
@@ -481,6 +482,7 @@ datablock StaticShapeData(ArrowSide) {
 	mass = 1;
 	friction = 1;
 	elasticity = 0.3;
+	useShaders = true;
 };
 
 function ArrowSide::onAdd(%this,%obj) {
@@ -497,6 +499,7 @@ datablock StaticShapeData(ArrowDown) {
 	mass = 1;
 	friction = 1;
 	elasticity = 0.3;
+	useShaders = true;
 };
 
 function ArrowDown::onAdd(%this,%obj) {
