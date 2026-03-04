@@ -341,6 +341,7 @@ if (!isObject(GuiTreeViewProfile)) new GuiControlProfile(GuiTreeViewProfile) {
 	fillColorHL = "0 60 150";
 	fontColorNA = "240 240 240";
 	bitmap = "./shll_treeView";
+	canKeyFocus = true;
 };
 
 if(!isObject(GuiDirectoryTreeProfile)) new GuiControlProfile ( GuiDirectoryTreeProfile : GuiTreeViewProfile )

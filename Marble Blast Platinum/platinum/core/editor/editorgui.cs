@@ -1744,6 +1744,26 @@ function EditorTree::onInspect(%this, %obj) {
 	InspectorNameEdit.setValue(%obj.getName());
 }
 
+function EditorTree::onObjectDeleteCompleted(%this)
+{
+   EWorldEditor.copySelection();
+   EWorldEditor.deleteSelection();
+}
+
+function EditorTree::onClearSelected(%this)
+{
+   WorldEditor.clearSelection();
+}
+
+function EditorTree::onAddSelection(%this, %obj)
+{
+   EWorldEditor.selectObject(%obj);
+}
+function EditorTree::onRemoveSelection(%this, %obj)
+{
+   EWorldEditor.unselectObject(%obj);
+}
+
 function EditorTree::onSelect(%this, %obj) {
 	if (%obj.getName() $= "MissionInfo") {
 		emibutton();
