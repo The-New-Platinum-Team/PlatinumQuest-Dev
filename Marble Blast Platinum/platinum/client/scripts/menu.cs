@@ -291,6 +291,7 @@ function menuMissionExit() {
 	}
 
 	$Game::Menu = true;
+	$Playback::CurrentFile = "";
 
 	if ($pref::AnimatePreviews) {
 		//No fan noises
