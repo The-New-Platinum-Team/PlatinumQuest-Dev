@@ -76,7 +76,7 @@ function WorldEditor::renderArrow(%this, %start, %end) {
 }
 
 function SpawnSphere::onEditorRender(%this, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		%editor.consoleFrameColor = "255 0 0";
 		%editor.consoleFillColor = "0 0 0 0";
 		%editor.renderSphere(%this.getWorldBoxCenter(), %this.radius, 1);
@@ -84,7 +84,7 @@ function SpawnSphere::onEditorRender(%this, %editor, %selected, %expanded) {
 }
 
 function AudioEmitter::onEditorRender(%this, %editor, %selected, %expanded) {
-	if (%selected $= "true" && %this.is3D && !%this.useProfileDescription) {
+	if (%selected && %this.is3D && !%this.useProfileDescription) {
 		%editor.consoleFillColor = "0 0 0 0";
 
 		%editor.consoleFrameColor = "255 0 0";
@@ -103,7 +103,7 @@ function renderTest() {
 }
 
 function PathedInterior::onEditorRender(%this, %editor, %selected, %expanded) {
-	if (%selected $= "false")
+	if (!%selected)
 		return;
 
 	%group = %this.getGroup();
@@ -112,8 +112,8 @@ function PathedInterior::onEditorRender(%this, %editor, %selected, %expanded) {
 			%group.getObject(%i).onEditorRender(%editor, %selected, %expanded);
 }
 
-function Path::onEditorRender(%this, %editor, %selected, %expanded) {
-	if (%selected $= "false")
+function Path::onEditorRender(%this, %editor, %selected, %expanded, %time) {
+	if (!%selected)
 		return;
 	if (%this.getCount() == 0)
 		return;
@@ -124,15 +124,8 @@ function Path::onEditorRender(%this, %editor, %selected, %expanded) {
 
 	$Editor::LastRender[%this] = $Sim::Time;
 
-	%time = 999999999999;
-	// Test for a TriggerGotoTarget
-	%group = %this.getGroup();
-	%count = %group.getCount();
-	for (%i = 0; %i < %count; %i ++) {
-		%obj = %group.getObject(%i);
-		if (%obj.getClassName() $= "Trigger" && %obj.getDataBlock().getName() $= "TriggerGotoTarget")
-			%time = %obj.targetTime;
-	}
+	if(%time $= "")
+		%time = 999999999999;
 
 	%group = %this;
 	%count = %group.getCount();
@@ -144,10 +137,15 @@ function Path::onEditorRender(%this, %editor, %selected, %expanded) {
 
 		if (%time < 0)
 			break;
-		%amt = 1.0;
-		%time -= %prevObj.msToNext;
-		if (%time < 0) {
-			%amt = (%prevObj.msToNext + %time) / %prevObj.msToNext;
+		%segTime = %prevObj.msToNext;
+
+		if (%time <= %segTime) {
+			%amt = %time / %segTime;
+			%time = -1; // stop next loop
+		} 
+		else {
+			%amt = 1.0;
+			%time -= %segTime;
 		}
 		%amt = max(min(1, %amt), 0);
 
@@ -205,11 +203,12 @@ function Path::onEditorRender(%this, %editor, %selected, %expanded) {
 
 // Yoink'd from PQ
 function Marker::onEditorRender(%this, %editor, %selected, %expanded) {
-	if (%selected $= "false")
+	if (!%selected)
 		return;
 
 	%group = %this.getGroup();
-	%group.onEditorRender(%editor, %selected, %expanded);
+	if(%group.getClassName() $= "Path")
+		%group.onEditorRender(%editor, %selected, %expanded);
 }
 
 //function Item::onEditorRender(%this, %editor, %selected, %expanded)
@@ -264,7 +263,7 @@ function ShapeBaseData::onEditorRender(%this, %obj, %editor, %selected, %expande
 }
 
 function AlterGravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		//Find the normal / radius for the rings
 		%box = %obj.getWorldBox();
 
@@ -311,7 +310,7 @@ function AlterGravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %e
 }
 
 function GravityWellTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		%center = (getWordCount(%obj.custompoint) == 3 ? %obj.custompoint : %obj.getWorldBoxCenter());
 		%radius = GravityPointTrigger_getRadius("GravityPointTrigger", %obj);
 		if (%radius == -1) {
@@ -368,7 +367,7 @@ function GravityWellTrigger::onEditorRender(%this, %obj, %editor, %selected, %ex
 }
 
 function GravityPointTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		%center = (getWordCount(%obj.custompoint) == 3 ? %obj.custompoint : %obj.getWorldBoxCenter());
 		%radius = GravityPointTrigger_getRadius("GravityPointTrigger", %obj);
 		if (%radius == -1) {
@@ -409,7 +408,7 @@ function GravityPointTrigger::onEditorRender(%this, %obj, %editor, %selected, %e
 }
 
 function GravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		//Find the normal / radius for the rings
 		%box = %obj.getWorldBox();
 
@@ -439,7 +438,7 @@ function GravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %expand
 }
 
 function Cannon::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		if (%obj.instant) {
 			%cannon = %obj;
 
@@ -511,13 +510,13 @@ function Cannon::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 }
 
 function HelpBubble::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		%editor.renderSphere(%obj.getPosition(), %obj.triggerRadius, 2);
 	}
 }
 
 function PathNode::onEditorRender(%this, %obj, %editor, %selected, %expanded, %segments, %first, %prev) {
-	if (%selected $= "true") {
+	if (%selected) {
 		//If we're the first node
 		if (%first $= "") {
 			//Some initial conditions
@@ -568,7 +567,7 @@ function PathNode::onEditorRender(%this, %obj, %editor, %selected, %expanded, %s
 }
 
 function BezierHandle::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		if (isObject(%obj.parent)) {
 			%obj.parent.onEditorRender(%editor, %selected, %expanded);
 		}
@@ -601,9 +600,18 @@ function LapsCheckpoint::onEditorRender(%this, %obj, %editor, %selected, %expand
 //Draw a line from a Teleport Trigger to it's destination when selected.
 //Could be useful if a level has many teleport triggers and many destination triggers. ~Connie
 function TeleportTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
-	if (%selected $= "true") {
+	if (%selected) {
 		%teltrig = %obj;
 		%destination = %obj.destination.getId();
 		%editor.renderLine(%teltrig.getWorldBoxCenter(), %destination.getWorldBoxCenter(), 2);
+	}
+}
+
+function TriggerGotoTarget::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
+	if(%selected) {
+		%group = %obj.getGroup();
+		for (%i = 0; %i < %group.getCount(); %i ++)
+			if (%group.getObject(%i).getClassName() $= "Path")
+				%group.getObject(%i).onEditorRender(%editor, %selected, %expanded, %obj.targetTime);
 	}
 }

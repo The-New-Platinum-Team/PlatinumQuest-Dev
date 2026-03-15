@@ -200,7 +200,7 @@ function EndPad_MBU::onAdd(%this, %obj) {
 	MissionCleanup.add(%temp);
 }
 
-function EndPad_MBU::onEditorDrag(%this, %obj) {
+function EndPad_MBU::onEditorSetTransform(%this, %obj) {
 	%obj._mbulightbeam.setTransform(%obj.getTransform());
 	%obj._mbulightbeam.setScale(%obj.getScale());
 }
