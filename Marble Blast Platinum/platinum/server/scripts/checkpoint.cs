@@ -124,7 +124,7 @@ datablock StaticShapeData(SillyGlass : checkPoint) {
 	shapefile = "~/data/shapes_pq/Gameplay/pads/silly_cp_glass.dts";
 };
 
-function Checkpoint_PQ::onEditorDrag(%this, %obj) {
+function Checkpoint_PQ::onEditorSetTransform(%this, %obj) {
 	%obj._glass.setTransform(%obj.getTransform());
 	%obj._glass.setScale(%obj.getScale());
 }
