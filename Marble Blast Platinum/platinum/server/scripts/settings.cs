@@ -208,7 +208,6 @@ function onPostServerVariableSet(%id, %previous, %value) {
 			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 				%client = ClientGroup.getObject(%i);
 				%client.addBubbleLine("Competitive Mode is on. Gems respawn after 20 seconds, and that time drops if 3 or fewer gems remain. No quickspawn.");
-				$MP::ScoreSendingDisabled = true;
 			}
 		} else {
 			deactivateMode("competitive"); // makes the 'mode' appear consistent (there is no code in competitive.cs)
@@ -217,11 +216,9 @@ function onPostServerVariableSet(%id, %previous, %value) {
 				%client.addBubbleLine("Competitive Mode is now off.");
 			}
 			Hunt_CompetitiveClearTimer();
-			$MP::ScoreSendingDisabled = false;
 
 			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 				if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
-					$MP::ScoreSendingDisabled = true;
 					break;
 				}
 			}
