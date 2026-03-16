@@ -354,7 +354,7 @@ function Marker::onEditorSetTransform(%this) {
 		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
 			if(%obj.getClassName() $= "PathedInterior")
 				if(%this == %path.getObject(0) || %obj.getPathPosition() == %obj.getTargetPosition())
-					%obj.refreshPath();
+					%obj.onNextFrame("refreshPath");
 		}
 	}
 }
