@@ -578,7 +578,7 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 			%modes = %modes SPC "snowballsonly";
 		// if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
 		// 	%modes = %modes SPC "steal";
-		if ((!$Server::_Dedicated && $MPPref::Server::CompetitiveMode) || $MP::Client::ServerSetting["CompetitiveMode"])
+		if ($MPPref::Server::CompetitiveMode || $MP::Client::ServerSetting["CompetitiveMode"])
 			%modes = %modes SPC "competitive";
 	}
 
