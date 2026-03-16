@@ -714,7 +714,26 @@ function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
 	%sign = (Mode::callback("timeMultiplier", 1) > 0 ? "-" : "+");
 
 	//Show a message
-	%user.client.displayGemMessage(%sign @(%bonus / 1000) @ "s", %color);
+	// If we're using the MBG or MBP Texture Packs, have it show the original Time Travel text. ~ Connie
+	if (!$TexturePack::MBGHelpUI)
+	{
+		%user.client.displayGemMessage(%sign @(%bonus / 1000) @ "s", %color);
+	}
+	else
+	{
+		%msg = "";
+
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.timetravelitem !$= "")
+		{
+			%msg = "\c0You picked up a " @ %bonus / 1000 @ " second " @ $Audio::CurrentAudioPack.powerupstrings.timetravelitem;
+		}
+		else
+		{
+			%msg = "\c0You picked up a " @ %bonus / 1000 @ " second Time Travel Bonus!";
+		}
+		
+		messageClient(%user.client, 'MsgItemPickup', %msg, %this.getPickupName(%obj));
+	}
 
 	if (%bonus > 0)
 		%user.client.incBonusTime(%bonus);
@@ -834,7 +853,26 @@ function TimePenaltyItem::onPickup(%this,%obj,%user,%amount) {
 	%sign = (Mode::callback("timeMultiplier", 1) > 0 ? "+" : "-");
 
 	//Show a message
-	%user.client.displayGemMessage(%sign @(%penalty / 1000) @ "s", %color);
+	// If we're using the MBG or MBP Texture Packs, have it show the original Time Travel text. ~ Connie
+	if (!$TexturePack::MBGHelpUI)
+	{
+		%user.client.displayGemMessage(%sign @(%penalty / 1000) @ "s", %color);
+	}
+	else
+	{
+		%msg = "";
+		
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.TimePenaltyItem !$= "")
+		{
+			%msg = "\c0You picked up a " @ %bonus / 1000 @ " second " @ $Audio::CurrentAudioPack.powerupstrings.TimePenaltyItem;
+		}
+		else
+		{
+			%msg = "\c0You picked up a " @ (%penalty * -1) / 1000 @ " second Time Penalty!";
+		}
+		
+		messageClient(%user.client, 'MsgItemPickup', %msg, %this.getPickupName(%obj));
+	}
 
 	if (%penalty > 0)
 		%user.client.incBonusTime(-%penalty);

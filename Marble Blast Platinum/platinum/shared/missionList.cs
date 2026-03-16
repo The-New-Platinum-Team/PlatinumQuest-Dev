@@ -1136,7 +1136,8 @@ function MarblelandMissionList::getDifficultyList(%this, %game) {
 
 	switch$ (%game) {
 	case "Levels":
-		return "All\tAlphabetical" NL
+		return "Relevant\tRelevant" NL
+			   "All\tAlphabetical" NL
 		       "Newest\tNewest First" NL
 		       "Installed\tInstalled Only";
 	case "Packs":
@@ -1195,6 +1196,7 @@ function MarblelandMissionList::getDifficultyTree(%this, %game) {
 						file = %mis.file;
 						searchName = %mis.searchName;
 						addedAt = %mis.addedAt;
+						curationScore = %mis.curationScore;
 						downloaded = false;
 						partial = true;
 					});
@@ -1229,6 +1231,8 @@ function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 		}
 	case "Levels":
 		switch$ (%difficulty) {
+		case "Relevant":
+			return true;
 		case "All":
 			return true;
 		case "Newest":
@@ -1252,6 +1256,7 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 	Array(%list);
 
+	%curate = false;
 	%sort = MissionSortSearchName;
 	switch$ (%game) {
 	case "Marbleland":
@@ -1259,6 +1264,10 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 		%sort = MissionSortSearchName;
 	case "Levels":
 		switch$ (%difficulty) {
+		case "Relevant":
+			%ml = $MarblelandMissionList;
+			%sort = MissionSortNewest;
+			%curate = true;
 		case "All":
 			%ml = $MarblelandMissionList;
 			%sort = MissionSortSearchName;
@@ -1340,6 +1349,7 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 			file = %mis.file;
 			searchName = %mis.searchName;
 			addedAt = %mis.addedAt;
+			curationScore = %mis.curationScore;
 			downloaded = false;
 			partial = true;
 		});
@@ -1347,10 +1357,25 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 	%list.sort(%sort);
 
-	//Fix level numbers
 	%count = %list.getSize();
+
+	//Fix level numbers
 	for (%i = 0; %i < %count; %i ++) {
 		%list.getEntry(%i).level = %i + 1;
+	}
+
+	// Curation time! ~ Connie
+	if (%curate)
+	{
+		for (%i = 0; %i < %count; %i++)
+		{
+			if (%list.getEntry(%i).curationScore < -1)
+			{
+				%list.removeEntry(%i);
+				%i--;
+				%count--;
+			}
+		}
 	}
 }
 
@@ -1387,6 +1412,7 @@ function MarblelandMissionList::addInstalledMission(%this, %mis) {
 			file = %mis.file;
 			searchName = %mis.searchName;
 			addedAt = %mis.addedAt;
+			curationScore = %mis.curationScore;
 			downloaded = false;
 			partial = true;
 		});
