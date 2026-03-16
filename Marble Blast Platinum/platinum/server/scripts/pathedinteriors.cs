@@ -221,6 +221,7 @@ function TriggerGotoTarget_onEditorDelete(%this, %trigger) {
 				%obj.setTargetPosition(-1); // Start looping again
 			}
 		}
+		syncMovingPlatforms();
 	}
 }
 
@@ -314,6 +315,7 @@ function Path::recalcTime(%this) {
 			}
 			%builtCumTimes = true;
 		}
+		// Fall back if we can't find the target marker
 		while(%cumTimes[%obj.targetSeqNum] $= "" && %obj.targetSeqNum > 0) {
 			%obj.targetSeqNum--;
 		}
@@ -340,23 +342,20 @@ function Path::setSmoothingType(%this, %type) {
 	%this.update();
 }
 
-function Path::refreshInteriors(%this) {
-	%group = %this.getGroup();
-	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
-		if(%obj.getClassName() $= "PathedInterior") {
-			%obj.refreshPath();
-		}
-	}
-}
-
 function Marker::onEditorSetTransform(%this) {
 	Parent::onEditorSetTransform(%this);
 	%path = %this.getGroup();
 	if(%path.getClassName() $= "Path") {
 		%path.onNextFrame("recalcTime");
 		%path.onNextFrame("update");
-		if(%this == %path.getObject(0))
-			%path.onNextFrame("refreshInteriors");
+
+		// If it's the first marker or there's a stopped platform, we need to update the offset
+		%group = %path.getGroup();
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+			if(%obj.getClassName() $= "PathedInterior")
+				if(%this == %path.getObject(0) || %obj.getPathPosition() == %obj.getTargetPosition())
+					%obj.refreshPath();
+		}
 	}
 }
 
