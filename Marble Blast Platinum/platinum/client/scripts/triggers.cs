@@ -80,6 +80,27 @@ function Trigger::getDistance(%this, %user) {
 function Trigger::getRadius(%this, %user) {
 	return call(%this.getDatablock().getName() @ "_getRadius", %this.getDatablock(), %this, %user);
 }
+function Trigger::onEditorCopy(%this) {
+	return call(%this.getDatablock().getName() @ "_onEditorCopy", %this.getDatablock(), %this);
+}
+function Trigger::onEditorPaste(%this) {
+	return call(%this.getDatablock().getName() @ "_onEditorPaste", %this.getDatablock(), %this);
+}
+function Trigger::onEditorDelete(%this) {
+	return call(%this.getDatablock().getName() @ "_onEditorDelete", %this.getDatablock(), %this);
+}
+
+function Trigger::fit(%this, %obj) {
+	%this.setScale("1 1 1");
+	%x = getRadius("x", %obj) / getRadius("x", %this);
+	%y = getRadius("y", %obj) / getRadius("y", %this);
+	%z = getRadius("z", %obj) / getRadius("z", %this);
+	%this.setScale(%x SPC %y SPC %z);
+	%this.setTransform(%obj.position);
+	%offset = vectorSub(%obj.getWorldBoxCenter(), %this.getWorldBoxCenter());
+	%pos = vectorAdd(%obj.position, %offset);
+	%this.setTransform(%pos);
+}
 
 //-----------------------------------------------------------------------------
 
