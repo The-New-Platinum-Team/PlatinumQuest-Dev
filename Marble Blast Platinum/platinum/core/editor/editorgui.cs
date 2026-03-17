@@ -4964,6 +4964,30 @@ function EWorldEditor::selectGroup(%this, %obj) {
 	}
 }
 
+function EWorldEditor::isMCGroupSelected(%this, %group) {
+	if(!isObject(%group))
+		return false;
+	for(%i = 0; %i < EWorldEditor.getSelectionSize(); %i++) { 
+		%selected[EWorldEditor.getSelectedObject(%i)] = true;
+	}
+	if(%group.getName() !$= "MissionGroup") {
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+			if(%obj.getClassName() $= "Path")
+				for(%j = 0; (%m = %obj.getObject(%j)) != -1; %j++) {
+					if(%selected[%m]) %markerSelected = true;
+				}
+			else if(%obj.getClassName() $= "PathedInterior")
+				if(%selected[%obj]) %piSelected = true;
+		}
+	}
+	return %markerSelected && %piSelected;
+}
+
+function EWorldEditor::noteMCGroupSelected(%this, %group) {
+	// Note if the selected MP elements should be transferred to a new MustChange group.
+	%this.mcGroupIsSelected[%group] = %this.isMCGroupSelected(%group);
+}
+
 function EWorldEditor::addPathTrigger(%this, %marker) {
 	%path = %marker.getGroup();
 	if(%path.getClassName() !$= "Path")

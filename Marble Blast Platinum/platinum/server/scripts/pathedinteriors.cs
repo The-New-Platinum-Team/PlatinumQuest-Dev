@@ -91,9 +91,16 @@ function PathedInterior::recenterPath(%this) {
 }
 
 function PathedInterior::onEditorCopy(%this) {
+	%group = %this.getGroup();
+	if(%group.getName() $= "MustChange_g")
+		EWorldEditor.onNextFrame("noteMCGroupSelected", %group);
 }
 
 function PathedInterior::onEditorPaste(%this) {
+	%group = %this.getGroup();
+	if(EWorldEditor.mcGroupIsSelected[%group] || %group.getName() $= "MissionGroup")
+		MustChange_g::toNewGroup(%group, %this);
+
 	%this.setTargetPosition(%this.initialTargetPosition);
 	if(%this.initialTargetPosition < 0)
 		syncMovingPlatforms();
@@ -225,6 +232,12 @@ function TriggerGotoTarget_onEditorDelete(%this, %trigger) {
 	}
 }
 
+function TriggerGotoTarget_onEditorPaste(%this, %trigger) {
+	%group = %trigger.getGroup();
+	if(EWorldEditor.mcGroupIsSelected[%group] || %group.getName() $= "MissionGroup")
+		MustChange_g::toNewGroup(%group, %trigger);
+}
+
 function TriggerGotoTarget::onInspectApply(%this, %trigger) {
 	if(%trigger.targetSeqNum !$= "") {
 		%path = %this.getPath(%trigger);
@@ -255,6 +268,10 @@ function TriggerGotoDelayTarget::getPath(%this, %trigger) {
 
 function TriggerGotoDelayTarget_onEditorDelete(%this, %trigger) {
 	TriggerGotoTarget_onEditorDelete(TriggerGotoTarget, %trigger);
+}
+
+function TriggerGotoDelayTarget_onEditorPaste(%this, %trigger) {
+	TriggerGotoTarget_onEditorPaste(TriggerGotoTarget, %trigger);
 }
 
 function Path::onMissionReset(%this) {
@@ -367,10 +384,24 @@ function Marker::onInspectApply(%this) {
 	}
 }
 
+function Marker::onEditorCopy(%this) {
+	%group = %this.getGroup().getGroup();
+	if(%group.getName() $= "MustChange_g")
+		EWorldEditor.onNextFrame("noteMCGroupSelected", %group);
+}
+
 function Marker::onEditorPaste(%this) {
 	%path = %this.getGroup();
-	if(%path.getClassName() !$= "Path")
+	if(%path.getClassName() !$= "Path") {
+		MustChange_g::toNewGroup(%path, %this);
 		return;
+	}
+
+	%group = %path.getGroup();
+	if(EWorldEditor.mcGroupIsSelected[%group]) {
+		MustChange_g::toNewGroup(%group, %this);
+		return;
+	}
 
 	for(%i = 0; (%obj = %path.getObject(%i)) != -1; %i++) {
 		if(%this != %obj && %this.seqNum == %obj.seqNum) {
@@ -380,8 +411,6 @@ function Marker::onEditorPaste(%this) {
 	}
 	if(%conflict != 1)
 		return; // Can use this seqNum
-
-	%group = %path.getGroup();
 
 	%num = %this.seqNum;
 	for(%i = 0; (%obj = %path.getObject(%i)) != -1; %i++) {
@@ -465,6 +494,19 @@ function Marker::moveToStart(%this) {
 		%this.setTransform(%group.getObject(0).getTransform());
 		%this.onEditorSetTransform();
 	}
+}
+
+function MustChange_g::toNewGroup(%this, %obj) {
+	if(!isObject(%this._newGroup)) {
+		%this._newGroup = new SimGroup(MustChange_g) {
+			new Path();
+		};
+	}
+	if(%obj.getClassName() $= "Marker")
+		%this._newGroup.getObject(0).add(%obj);
+	else
+		%this._newGroup.add(%obj);
+	onNextFrame("eval", %this @ "._newGroup = -1;");
 }
 
 function syncMovingPlatforms() {
