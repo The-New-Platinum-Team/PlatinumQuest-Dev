@@ -124,6 +124,18 @@ function printStatus() {
 	$printStatus = schedule(100, 0, printStatus);
 }
 
+function redownloadMarblelandLists() {
+	%intervalTime = 60000; // 1 minute, in milliseconds
+	if (getRealPlayerCount() == 0) {
+		// increase the interval time if there are no players to reduce unnecessary downloads
+		%intervalTime = 21600000; // 6 hours, in milliseconds
+	}
+	if (getSimTime() - $Marbleland::LastRetrievalTime > %intervalTime) {
+		echo("Redownloading Marbleland Lists...");
+		marblelandRedownloadLists();
+	}
+}
+
 function dedicatedUpdate() {
 	if (getRealPlayerCount() > 0) {
 		if (!isObject(GameConnection::getHost()) || GameConnection::getHost().isFake()) {
@@ -133,6 +145,7 @@ function dedicatedUpdate() {
 		//No players left, cancel the load
 		lobbyReturn();
 		resetSettings();
+		redownloadMarblelandLists(); // update the marbleland list while we're at it since we have nothing better to do
 	}
 }
 
