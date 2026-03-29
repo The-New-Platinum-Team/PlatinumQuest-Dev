@@ -81,6 +81,21 @@ function onMissionDownloadPhase1(%missionName, %musicTrack) {
 		$PlayGuiFader = true; // this variable is used for the fader effect in playGui::onWake
 	}
 
+	%isGoldLevel = MissionInfo.game $= "Gold";
+	%isMarbleland = marblelandIsMission($Client::MissionFile);
+	if (%isMarbleland && !%isGoldLevel) {
+		%marblelandData = marblelandGetMission(marblelandGetFileId($Client::MissionFile));
+		%isGoldLevel = %marblelandData.modification $= "gold";
+	}
+
+	if (%isGoldLevel) {
+		addInteriorPathOverride("marble/data/interiors", "platinum/data/interiors_mbg");
+		addInteriorPathOverride("platinum/data/interiors", "platinum/data/interiors_mbg");
+	} else {
+		removeInteriorPathOverride("marble/data/interiors");
+		removeInteriorPathOverride("platinum/data/interiors");
+	}
+
 	setLoadProgress(0, 1, 0);
 }
 
@@ -127,15 +142,6 @@ function onPhase3Complete() {
 	//Safe to do this here, should cover SP as well as MP
 
 	//MBG Customs Textures Patch
-	if (!$pref::FastMode) {
-		if (!$skyMBG && Sky.materialList $= "platinum/data/skies/sky_day.dml") {
-			mbgTexPatchActivate();
-			$skyMBG = true;
-		} else if ($skyMBG && Sky.materialList !$= "platinum/data/skies/sky_day.dml") {
-			mbgTexPatchDeactivate();
-			$skyMBG = false;
-		}
-	}
 
 	//Automatic Audio
 	if ($pref::AutomaticAudio) {
@@ -154,58 +160,6 @@ function onPhase3Complete() {
 		loadAudioPack($pref::Audio::AudioPack);
 	}
 }
-
-// Start of MBG Custom Textures Patch
-
-function mbgTexPatchActivate() {
-	swapTextures("platinum/data/interiors/custom_woodblockside", "platinum/data/interiors_mbg/custom_woodblockside");
-	swapTextures("platinum/data/interiors/custom_woodblocktop", "platinum/data/interiors_mbg/custom_woodblocktop");
-	swapTextures("platinum/data/interiors/edge_cool1", "platinum/data/interiors_mbg/edge_cool1");
-	swapTextures("platinum/data/interiors/edge_cool2", "platinum/data/interiors_mbg/edge_cool2");
-	swapTextures("platinum/data/interiors/edge_neutral1", "platinum/data/interiors_mbg/edge_neutral1");
-	swapTextures("platinum/data/interiors/edge_neutral2", "platinum/data/interiors_mbg/edge_neutral2");
-	swapTextures("platinum/data/interiors/edge_warm1", "platinum/data/interiors_mbg/edge_warm1");
-	swapTextures("platinum/data/interiors/edge_warm2", "platinum/data/interiors_mbg/edge_warm2");
-	swapTextures("platinum/data/interiors/edge_white", "platinum/data/interiors_mbg/edge_white");
-	swapTextures("platinum/data/interiors/grid_cool2", "platinum/data/interiors_mbg/grid_cool2");
-	swapTextures("platinum/data/interiors/grid_neutral", "platinum/data/interiors_mbg/grid_neutral");
-	swapTextures("platinum/data/interiors/grid_neutral1", "platinum/data/interiors_mbg/grid_neutral1");
-	swapTextures("platinum/data/interiors/grid_neutral2", "platinum/data/interiors_mbg/grid_neutral2");
-	swapTextures("platinum/data/interiors/grid_neutral4", "platinum/data/interiors_mbg/grid_neutral4");
-	swapTextures("platinum/data/interiors/grid_warm", "platinum/data/interiors_mbg/grid_warm");
-	swapTextures("platinum/data/interiors/grid_warm1", "platinum/data/interiors_mbg/grid_warm1");
-	swapTextures("platinum/data/interiors/stripe_caution", "platinum/data/interiors_mbg/stripe_caution");
-	swapTextures("platinum/data/interiors/tube_cool", "platinum/data/interiors_mbg/tube_cool");
-	swapTextures("platinum/data/interiors/tube_neutral", "platinum/data/interiors_mbg/tube_neutral");
-	swapTextures("platinum/data/interiors/tube_warm", "platinum/data/interiors_mbg/tube_warm");
-	swapTextures("platinum/data/interiors/edge_white2", "platinum/data/interiors_mbg/edge_white2");
-}
-
-function mbgTexPatchDeactivate() {
-	swapTextures("platinum/data/interiors/custom_woodblockside", "platinum/data/interiors/custom_woodblockside");
-	swapTextures("platinum/data/interiors/custom_woodblocktop", "platinum/data/interiors/custom_woodblocktop");
-	swapTextures("platinum/data/interiors/edge_cool1", "platinum/data/interiors/edge_cool1");
-	swapTextures("platinum/data/interiors/edge_cool2", "platinum/data/interiors/edge_cool2");
-	swapTextures("platinum/data/interiors/edge_neutral1", "platinum/data/interiors/edge_neutral1");
-	swapTextures("platinum/data/interiors/edge_neutral2", "platinum/data/interiors/edge_neutral2");
-	swapTextures("platinum/data/interiors/edge_warm1", "platinum/data/interiors/edge_warm1");
-	swapTextures("platinum/data/interiors/edge_warm2", "platinum/data/interiors/edge_warm2");
-	swapTextures("platinum/data/interiors/edge_white", "platinum/data/interiors/edge_white");
-	swapTextures("platinum/data/interiors/grid_cool2", "platinum/data/interiors/grid_cool2");
-	swapTextures("platinum/data/interiors/grid_neutral", "platinum/data/interiors/grid_neutral");
-	swapTextures("platinum/data/interiors/grid_neutral1", "platinum/data/interiors/grid_neutral1");
-	swapTextures("platinum/data/interiors/grid_neutral2", "platinum/data/interiors/grid_neutral2");
-	swapTextures("platinum/data/interiors/grid_neutral4", "platinum/data/interiors/grid_neutral4");
-	swapTextures("platinum/data/interiors/grid_warm", "platinum/data/interiors/grid_warm");
-	swapTextures("platinum/data/interiors/grid_warm1", "platinum/data/interiors/grid_warm1");
-	swapTextures("platinum/data/interiors/stripe_caution", "platinum/data/interiors/stripe_caution");
-	swapTextures("platinum/data/interiors/tube_cool", "platinum/data/interiors/tube_cool");
-	swapTextures("platinum/data/interiors/tube_neutral", "platinum/data/interiors/tube_neutral");
-	swapTextures("platinum/data/interiors/tube_warm", "platinum/data/interiors/tube_warm");
-	swapTextures("platinum/data/interiors/edge_white2", "platinum/data/interiors/edge_white2");
-}
-
-// End of MBG Custom Textures Patch
 
 //----------------------------------------------------------------------------
 

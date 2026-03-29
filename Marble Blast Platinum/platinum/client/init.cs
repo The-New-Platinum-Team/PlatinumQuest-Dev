@@ -254,6 +254,16 @@ function initClient() {
 	addDirectoryOverride("marble/data/", "platinum/data/");
 	addDirectoryOverride("challenge/data/", "platinum/data/");
 
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/mbg", "platinum/data/lbinteriors_mbg");
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/mbp", "platinum/data/lbinteriors_mbp");
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/pq", "platinum/data/lbinteriors_pq");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/mbg", "platinum/data/lbinteriors_mbg");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/custom/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/custom-final/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/PlatinumQuest", "platinum/data/lbinteriors_pq");
+
 	// Detect if there's a holiday event
 	exec("./scripts/holidays.cs");
 	detectHolidays();
