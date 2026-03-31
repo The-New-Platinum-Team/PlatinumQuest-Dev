@@ -384,10 +384,10 @@ function recordGetPathedInteriors(%group, %list) {
 
 //-----------------------------------------------------------------------------
 
-function playReplay(%file, %ghost) {
+function playReplay(%file, %race) {
 	//Read the header from the replay
 	%info = getReplayInfo(%file);
-	if(!%ghost)
+	if(!%race)
 		$playingDemo = true;
 	$demoLB = %info.lb;
 
@@ -403,7 +403,7 @@ function playReplay(%file, %ghost) {
 	echo("Need to load mission " @ %info.missionFile @ " and replay " @ %file);
 
 	$Playback::CurrentFile = %file;
-	$Playback::Ghost = %ghost;
+	$Playback::Ghost = %race;
 
 	//How convenient
 	deactivateMenuHandler("PMMenu");
@@ -550,7 +550,17 @@ function PlaybackInfo::start(%this) {
 			%this.finish();
 			return;
 		}
-		if (!%this.ghost) {
+		if (%this.ghost) {
+			if($Game::isMode["hunt"]) {
+				PGScoreListContainer.setVisible(true);
+
+				%player1 = $pref::highscoreName TAB "0" TAB "0 0 0 0" TAB "0" TAB strreplace(MarbleSelectDlg.getSelection(), "\t", "\\t") TAB "0";
+				%player2 = "Past" SPC %this.author TAB "0"  TAB "0 0 0 0" TAB "1" TAB strreplace(%this.marbleSelection, "\t", "\\t") TAB "0";
+
+				clientCmdScoreListPlayer(%player1 NL %player2);
+			}
+		}
+		else {
 			//Controlling self, disable everything!
 			//Physics::pushLayerName("noInput");
 			MoveMap.pop();
@@ -1206,10 +1216,13 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 						%this.info.marble.powerUpData = %pData;
 						%this.info.marble._powerUpId = %pId;
 					}
+					%col.setFadeVal(0.5);
+					%col.schedule(%col.respawnTime $= "" ? $Item::RespawnTime : %col.respawnTime, "setFadeVal", 1);
 				} else {
-					//LocalClientConnection.playPitchedSound("opponentDiamond");
+					LocalClientConnection.playPitchedSound("opponentDiamond");
+					if(!$Game::isMode["hunt"])
+						%col.setFadeVal(0.5);
 				}
-				//%col.setFadeVal(0.75);
 			}
 		}
 		else
@@ -1376,10 +1389,15 @@ function PlaybackInfo::readGems(%this) {
 }
 
 function PlaybackGemsFrame::apply(%this, %object, %t) {
-	if (%this.info.ghost || %this.applied) {
+	if (%this.applied) {
 		return;
 	}
 	%this.applied = true;
+
+	if (%this.info.ghost) {
+		clientCmdScoreListUpdate(1, %this.count, "0 0 0 0", 0);
+		return;
+	}
 
 	LocalClientConnection.gemCount = %this.count;
 	$Game::GemCount = %this.max;
@@ -1447,12 +1465,16 @@ function PlaybackFrame::applyInput(%this) {
 	%change = (%flags ^ %this.info.lastInput);
 	%this.info.lastInput = %flags;
 
-	if(%this.info.ghost) {
+	if(%this.info.ghost) { 
+		%ghost = %this.info.marble;
 		if (%change & 1 << 0) {
-			if(%this.info.marble.powerUpData.powerUpID) 
-				%this.info.marble.doPowerup(%this.info.marble.powerUpData.powerUpID);
-			%this.info.marble.onPowerUpUsed();
+			if(%ghost.powerUpData.powerUpID !$= "" && %ghost.powerUpData.powerUpID < 6)
+				%ghost.doPowerup(%ghost.powerUpData.powerUpID);
+			%ghost.onPowerUpUsed();
 		}
+		//if(%change & 1 << 4) {
+		//	serverCmdBlast(%this.info.marble.client, $Game::GravityRot);
+		//}
 	}
 	else {
 		if (%change & 1 << 0)
