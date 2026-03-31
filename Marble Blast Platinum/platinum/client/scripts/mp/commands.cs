@@ -59,6 +59,9 @@ function clientCmdSetGemCount(%gems, %best) {
 			recordWriteGems(RecordFO, %gems, PlayGui.maxGems, PlayGui.maxGems, %best);
 		}
 	}
+	if ($Playback::Ghost && PGScoreListContainer.isVisible()) {
+		clientCmdScoreListUpdate(0, %gems, "0 0 0 0", 0);
+	}
 }
 
 function clientCmdSetMaxGems(%gems) {
