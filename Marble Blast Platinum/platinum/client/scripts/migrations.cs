@@ -33,7 +33,7 @@ $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/intermediate/Tilo_Hunt.mcs";
 $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/advanced/Tilo_Hunt.mcs";
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/custom/nuked/KingOfTheRing_Hunt.mis";
-$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/beginner/KingOfTheRing_Hunt.mis";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/KingOfTheRing_Hunt.mis";
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/custom/existing/archipelago.mis";
 $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/Archipelago_Hunt.mis";
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/custon/nuked/BlenderChop_Hunt.mcs";
@@ -91,7 +91,7 @@ $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/beginner/Apex_Hunt.mcs";
 $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/intermediate/Apex_Hunt.mcs";
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/custom/existing/PointsOfTheRadar.mis";
-$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/intermediate/PointsOfTheRadar_Hunt.mis";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/PointsOfTheRadar_Hunt.mis";
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/advanced/SkateParkSquare_Hunt.mcs";
 $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/intermediate/SkateParkSquare_Hunt.mcs";
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/missions_mbu/advanced/hypercube_ultra.mis";
@@ -103,6 +103,20 @@ $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/
 $Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/intermediate/Centroid_Hunt.mis";
 $Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/Centroid_Hunt.mis";
 $Migrations::End2_11_1 = $Migrations::Count;
+// 2.12.0
+$Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/intermediate/BattlecubeRevisited_Hunt.mcs";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/BattlecubeRevisited_Hunt.mcs";
+$Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/advanced/Citadel_Hunt.mcs";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/Citadel_Hunt.mcs";
+$Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/advanced/EyeOfTheStorm_Hunt.mcs";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/EyeOfTheStorm_Hunt.mcs";
+$Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/beginner/InfernoRing_Hunt.mis";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/InfernoRing_Hunt.mis";
+$Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/beginner/KingOfTheRing_Hunt.mis";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/KingOfTheRing_Hunt.mis";
+$Migrations::SourcePath[$Migrations::Count]   = "platinum/data/multiplayer/hunt/intermediate/PointsOfTheRadar_Hunt.mis";
+$Migrations::TargetPath[$Migrations::Count++] = "platinum/data/multiplayer/hunt/bonus/PointsOfTheRadar_Hunt.mis";
+$Migrations::End2_12_0 = $Migrations::Count;
 
 function migrateMissionPrefs(%i) {
 	%oldMission = $Migrations::SourcePath[%i];
@@ -129,6 +143,12 @@ if (!$Pref::Migrated2_11_1) {
 		migrateMissionPrefs(%i);
 	}
 	$Pref::Migrated2_11_1 = true;
+}
+if (!$Pref::Migrated2_12) {
+	for (%i = $Migrations::End2_11_1; %i < $Migrations::End2_12_0; %i++) {
+		migrateMissionPrefs(%i);
+	}
+	$Pref::Migrated2_12 = true;
 }
 
 if (!isObject(MigrationLookup)) {

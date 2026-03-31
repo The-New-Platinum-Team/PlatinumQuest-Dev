@@ -318,12 +318,11 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups || isCompetitiveMode()) {
-		$MP::ScoreSendingDisabled = true;
-	}
-
-	if (mp() && !isCompetitiveMode() && !$MPPref::Server::DoubleSpawnGroups) {
+	if (mp()) {
 		$MP::ScoreSendingDisabled = false;
+		if ($MPPref::Server::DoubleSpawnGroups) {
+			$MP::ScoreSendingDisabled = true;
+		}
 	}
 
 	chooseSharedSpawnPoint();
@@ -663,7 +662,7 @@ function GameConnection::stateEnd(%this) {
 		%this.player.iceShard.getDatablock().unfreeze(%this.player.iceShard, %this.player, true);
 	}
 
-	if ($Server::ServerType $= "SinglePlayer" && isObject($Game::EndPad))
+	if ($Server::ServerType $= "SinglePlayer" && isObject($Game::EndPad) && !$Game::EndPad.getDatablock().mbuAnimation)
 		startFireWorks($Game::EndPad);
 }
 

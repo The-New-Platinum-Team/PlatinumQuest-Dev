@@ -91,6 +91,8 @@ function createNewMission() {
 		%toexec = "/data/missions/templates/UltraTemplate.mis";
 	case "PlatinumQuest":
 		%toexec = "/data/missions/templates/PQTemplate.mis";
+	default:
+		%toexec = "/data/missions/templates/PQTemplate.mis";
 	}
 
 	exec($usermods @ %toexec);

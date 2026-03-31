@@ -419,8 +419,6 @@ function EditorSaveMission() {
 		Terrain.save(Terrain.terrainFile);
 
 	if (EWorldEditor.isDirty || ETerrainEditor.isMissionDirty) {
-		// Update the base transforms of the moving platforms incase the user never hit Apply in the inspector
-		updatePathedInteriorBaseTransforms();
 		deactivatePackage(save);
 		ActivatePackage(save);
 		onMissionReset();
@@ -520,7 +518,7 @@ function EditorDoLoadMission(%file) {
 
 function EditorSaveBeforeLoad() {
 	if (EditorSaveMission())
-		getLoadFilename("~/data/missions*/*.mis\t~/data/missions*/*.mcs", "EditorDoLoadMission");
+		getLoadFilename("*.mis\t*.mcs", "EditorDoLoadMission", "~/data/missions");
 }
 
 function EditorDoNewMission(%saveFirst) {
@@ -544,7 +542,7 @@ function EditorOpenMission() {
 		MessageBoxYesNo("Mission Modified", "Would you like to save changes to the current mission \"" @
 		                $Server::MissionFile @ "\" before opening a new mission?", "EditorSaveBeforeLoad();", "getLoadFilename(\"~/data/missions*/*.mis\\t~/data/missions*/*.mcs\", \"EditorDoLoadMission\");");
 	} else
-		getLoadFilename("~/data/missions*/*.mis\t~/data/missions*/*.mcs", "EditorDoLoadMission");
+		getLoadFilename("*.mis\t*.mcs", "EditorDoLoadMission", "~/data/missions");
 }
 
 function EditorReloadMission(%test) {
@@ -923,13 +921,17 @@ function EditorMenuBar::onEditMenuItemSelect(%this, %itemId, %item) {
 		switch$ (%item) {
 		case "Undo":
 			EWorldEditor.undo();
+			EditorInspector.inspector.updateTransforms();
 		case "Redo":
 			EWorldEditor.redo();
+			EditorInspector.inspector.updateTransforms();
 		case "Copy":
 			EWorldEditor.copySelection();
 		case "Cut":
+			EWorldEditor.cut = true; // For onEditorCopy/onEditorDelete logic
 			EWorldEditor.copySelection();
 			EWorldEditor.deleteSelection();
+			EWorldEditor.cut = false;
 		case "Paste":
 			EWorldEditor.pasteSelection();
 			EWorldEditor.onPaste();
@@ -978,571 +980,307 @@ function EditorGui::setTerrainEditorVisible(%this) {
 function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 	%obj = -1;
 	switch$ (%item) {
-	case "Red Gem":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "GemItemRed_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "GemItemRed_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "GemItemRed";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Yellow Gem":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "GemItemYellow_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "GemItemYellow_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "GemItemYellow";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Blue Gem":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "GemItemBlue_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "GemItemBlue_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "GemItemBlue";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Platinum Gem":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "GemItemPlatinum_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "GemItemPlatinum_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "GemItemPlatinum";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Random Color Gem":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "GemItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "GemItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "GemItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Super Jump":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "SuperJumpItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "SuperJumpItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "SuperJumpItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Super Speed":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "SuperSpeedItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "SuperSpeedItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "SuperSpeedItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Super Bounce":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "SuperBounceItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "SuperBounceItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "SuperBounceItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Time Travel":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "TimeTravelItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "TimeTravelItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		case "Gold":
-			%obj = new Item() {
-				dataBlock = "TimeTravelItem";
-				rotate = 1;
-				static = 1;
-				skin = "mbg";
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "TimeTravelItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Time Penalty":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "TimePenaltyItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Gold":
-			%obj = new Item() {
-				dataBlock = "TimePenaltyItem";
-				rotate = 1;
-				static = 1;
-				skin = "mbgpenalty";
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "TimePenaltyItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "TimePenaltyItem";
-				rotate = 1;
-				static = 1;
-				skin = "penalty";
-			};
-		}
-	case "Shock Absorber":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "ShockAbsorberItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "ShockAbsorberItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "ShockAbsorberItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Gyrocopter":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "HelicopterItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "HelicopterItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "HelicopterItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Anti Gravity Item":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new Item() {
-				dataBlock = "AntiGravityItem_PQ";
-				rotate = 1;
-				static = 1;
-			};
-		case "Ultra":
-			%obj = new Item() {
-				dataBlock = "AntiGravityItem_MBU";
-				rotate = 1;
-				static = 1;
-			};
-		default:
-			%obj = new Item() {
-				dataBlock = "AntiGravityItem";
-				rotate = 1;
-				static = 1;
-			};
-		}
-	case "Start Pad":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "StartPad_PQ";
-			};
-		case "Ultra":
-			%obj = new StaticShape() {
-				dataBlock = "StartPad_MBU";
-			};
-		case "Gold":
-			%obj = new StaticShape() {
-				dataBlock = "StartPad_MBG";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "StartPad";
-			};
-		}
-	case "End Pad":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "EndPad_PQ";
-			};
-		case "Ultra":
-			%obj = new StaticShape() {
-				dataBlock = "EndPad_MBU";
-			};
-		case "Gold":
-			%obj = new StaticShape() {
-				dataBlock = "EndPad_MBG";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "EndPad";
-			};
-		}
-	case "Checkpoint":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "Checkpoint_PQ";
-			};
-		case "Ultra":
-			if ($mbuchecknum == "") {  //Because of the CheckpointTrigger, we want each newly placed Checkpoint to have a different name, so that we "don't confuse" the CheckpointTriggers. ~Connie
-				$mbuchecknum = 1;
+		case "Red Gem":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "GemItemRed_PQ";
+				case "Ultra": %db = "GemItemRed_MBU";
+				default: %db = "GemItemRed";
+			}
+			%class = "Item";
+		case "Yellow Gem":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "GemItemYellow_PQ";
+				case "Ultra": %db = "GemItemYellow_MBU";
+				default: %db = "GemItemYellow";
+			}
+			%class = "Item";
+		case "Blue Gem":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "GemItemBlue_PQ";
+				case "Ultra": %db = "GemItemBlue_MBU";
+				default: %db = "GemItemBlue";
+			}
+			%class = "Item";
+		case "Platinum Gem":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "GemItemPlatinum_PQ";
+				case "Ultra": %db = "GemItemPlatinum_MBU";
+				default: %db = "GemItemPlatinum";
+			}
+			%class = "Item";
+		case "Random Color Gem":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "GemItem_PQ";
+				case "Ultra": %db = "GemItem_MBU";
+				default: %db = "GemItem";
+			}
+			%class = "Item";
+		case "Super Jump":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "SuperJumpItem_PQ";
+				case "Ultra": %db = "SuperJumpItem_MBU";
+				default: %db = "SuperJumpItem";
+			}
+			%class = "Item";
+		case "Super Speed":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "SuperSpeedItem_PQ";
+				case "Ultra": %db = "SuperSpeedItem_MBU";
+				default: %db = "SuperSpeedItem";
+			}
+			%class = "Item";
+		case "Super Bounce":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "SuperBounceItem_PQ";
+				case "Ultra": %db = "SuperBounceItem_MBU";
+				default: %db = "SuperBounceItem";
+			}
+			%class = "Item";
+		case "Time Travel":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "TimeTravelItem_PQ";
+				case "Ultra": %db = "TimeTravelItem_MBU";
+				case "Gold":
+					%db = "TimeTravelItem";
+					%skin = "mbg";
+				default: %db = "TimeTravelItem";
+			}
+			%class = "Item";
+		case "Time Penalty":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "TimePenaltyItem_PQ";
+				case "Ultra": %db = "TimePenaltyItem_MBU";
+				case "Gold":
+					%db = "TimePenaltyItem";
+					%skin = "mbgpenalty";
+				default:
+					%db = "TimePenaltyItem";
+					%skin = "penalty";
+			}
+			%class = "Item";
+		case "Shock Absorber":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "ShockAbsorberItem_PQ";
+				case "Ultra": %db = "ShockAbsorberItem_MBU";
+				default: %db = "ShockAbsorberItem";
+			}
+			%class = "Item";
+		case "Gyrocopter":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "HelicopterItem_PQ";
+				case "Ultra": %db = "HelicopterItem_MBU";
+				default: %db = "HelicopterItem";
+			}
+			%class = "Item";
+		case "Anti Gravity Item":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "AntiGravityItem_PQ";
+				case "Ultra": %db = "AntiGravityItem_MBU";
+				default: %db = "AntiGravityItem";
+			}
+			%class = "Item";
+		case "Start Pad":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "StartPad_PQ";
+				case "Ultra": %db = "StartPad_MBU";
+				case "Gold": %db = "StartPad_MBG";
+				default: %db = "StartPad";
+			}
+			%class = "StaticShape";
+		case "End Pad":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "EndPad_PQ";
+				case "Ultra": %db = "EndPad_MBU";
+				case "Gold": %db = "EndPad_MBG";
+				default: %db = "EndPad";
+			}
+			%class = "StaticShape";
+		case "Checkpoint":
+			switch$ (MissionInfo.game) {
+			case "PlatinumQuest":
+				%db = "Checkpoint_PQ";
+				%class = "StaticShape";
+			case "Ultra":
+				if ($mbuchecknum == "") {  //Because of the CheckpointTrigger, we want each newly placed Checkpoint to have a different name, so that we "don't confuse" the CheckpointTriggers. ~Connie
+					$mbuchecknum = 1;
+				} else {
+					$mbuchecknum += 1;
+				}
+
+				%checkpointname = "UltraCheckpoint" @ $mbuchecknum;
+				%obj = new StaticShape(%checkpointname) {
+					dataBlock = "Checkpoint_MBU";
+				};
+
+				%objchtrig = new Trigger() {           //For the MBU Checkpoint, we will need a CheckpointTrigger, seeing as touching the shape will not trigger the Checkpoint. ~Connie
+					dataBlock = "CheckpointTrigger";
+					polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+					center = "1";
+					position = %obj.getPosition() + "-1 1 0";
+					scale = "2 2 1";
+					respawnPoint = "UltraCheckpoint" @ $mbuchecknum;
+				};
+
+				%objchtrig.setTransform("0 0 0 1 0 0 0");
+				$InstantGroup.add(%objchtrig);
+				EWorldEditor.clearSelection();
+				EWorldEditor.selectObject(%objchtrig);
+				EWorldEditor.dropSelection();
+			case "Gold":
+				if ($mbxpchecknum == "") {     //Same story here; see MBU Checkpoint. ~Connie
+					$mbxpchecknum = 1;
+				} else {
+					$mbxpchecknum += 1;
+				}
+
+				%checkpointname = "XPGoldCheckpoint" @ $mbxpchecknum;
+				%obj = new StaticShape(%checkpointname) {
+					dataBlock = "Checkpoint_MBXP";
+				};
+
+				%objchtrig = new Trigger() {     //Same here; see MBU Checkpoint. ~Connie
+					dataBlock = "CheckpointTrigger";
+					polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
+					center = "1";
+					respawnPoint = "XPGoldCheckpoint" @ $mbxpchecknum;
+				};
+
+				%objchtrig.setTransform("0 0 0 1 0 0 0");
+				$InstantGroup.add(%objchtrig);
+				EWorldEditor.clearSelection();
+				EWorldEditor.selectObject(%objchtrig);
+				EWorldEditor.dropSelection();
+			default:
+				%db = "Checkpoint";
+				%class = "StaticShape";
+			}
+		case "Tornado":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "Tornado_PQ";
+				case "Ultra": %db = "Tornado_MBM";
+				default: %db = "Tornado";
+			}
+			%class = "StaticShape";
+		case "Mine":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "LandMine_PQ";
+				default: %db = "LandMine";
+			}
+			%class = "StaticShape";
+		case "Nuke":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "Nuke_PQ";
+				default: %db = "Nuke";
+			}
+			%class = "StaticShape";
+		case "Bumper":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "RoundBumper_PQ";
+				case "Ultra":  %db = "RoundBumper_MBU";
+				default: %db = "RoundBumper";
+			}
+			%class = "StaticShape";
+		case "Triangle Bumper":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "TriangleBumper_PQ";
+				default: %db = "NukTriangleBumpere";
+			}
+			%class = "StaticShape";
+		case "Duct Fan":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "DuctFan_PQ";
+				case "Ultra":  %db = "DuctFan_MBU";
+				default: %db = "DuctFan";
+			}
+			%class = "StaticShape";
+		case "Trapdoor":
+			switch$ (MissionInfo.game) {
+				case "PlatinumQuest": %db = "Trapdoor_PQ";
+				case "Ultra": %db = "Trapdoor_MBU";
+				case "Gold": 
+					%db = "Trapdoor";
+					%skin = "skin1";
+				default: 
+					%db = "Trapdoor";
+					%skin = "base";
+			}
+			%class = "StaticShape";
+		case "Oil Slick":
+			%db = "OilSlick";
+			%class = "StaticShape";
+		case "Spawn Trigger":
+			%db = "SpawnTrigger";
+			%class = "Trigger";
+		case "Help Text Trigger":
+			%db = "HelpTrigger";
+			%class = "Trigger";
+		case "Out of Bounds Trigger":
+			%db = "OutofBoundsTrigger";
+			%class = "Trigger";
+		case "Teleport & Destination Triggers":
+			if ($desttrigidentif $= "") { //Works in the same way as Checkpoint placements with 2 objects. ~Connie
+				$desttrigidentif = 1;
 			} else {
-				$mbuchecknum += 1;
+				$desttrigidentif += 1;
 			}
 
-			%checkpointname = "UltraCheckpoint" @ $mbuchecknum;
-			%obj = new StaticShape(%checkpointname) {
-				dataBlock = "Checkpoint_MBU";
-			};
-
-			%objchtrig = new Trigger() {           //For the MBU Checkpoint, we will need a CheckpointTrigger, seeing as touching the shape will not trigger the Checkpoint. ~Connie
-				dataBlock = "CheckpointTrigger";
+			%obj = new Trigger() {
+				dataBlock = "TeleportTrigger";
 				polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
 				center = "1";
-				position = %obj.getPosition() + "-1 1 0";
-				scale = "2 2 1";
-				respawnPoint = "UltraCheckpoint" @ $mbuchecknum;
+				destination = "destination" @ $desttrigidentif;
 			};
 
-			%objchtrig.setTransform("0 0 0 1 0 0 0");
-			$InstantGroup.add(%objchtrig);
-			EWorldEditor.clearSelection();
-			EWorldEditor.selectObject(%objchtrig);
-			EWorldEditor.dropSelection();
-		case "Gold":
-			if ($mbxpchecknum == "") {     //Same story here; see MBU Checkpoint. ~Connie
-				$mbxpchecknum = 1;
-			} else {
-				$mbxpchecknum += 1;
-			}
-
-			%checkpointname = "XPGoldCheckpoint" @ $mbxpchecknum;
-			%obj = new StaticShape(%checkpointname) {
-				dataBlock = "Checkpoint_MBXP";
-			};
-
-			%objchtrig = new Trigger() {     //Same here; see MBU Checkpoint. ~Connie
-				dataBlock = "CheckpointTrigger";
+			%objdest = new Trigger("destination" @ $desttrigidentif) {
+				dataBlock = "DestinationTrigger";
 				polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
 				center = "1";
-				respawnPoint = "XPGoldCheckpoint" @ $mbxpchecknum;
 			};
 
-			%objchtrig.setTransform("0 0 0 1 0 0 0");
-			$InstantGroup.add(%objchtrig);
+			%objdest.setTransform("0 0 0 1 0 0 0");
+			$InstantGroup.add(%objdest);
 			EWorldEditor.clearSelection();
-			EWorldEditor.selectObject(%objchtrig);
+			EWorldEditor.selectObject(%objdest);
 			EWorldEditor.dropSelection();
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "Checkpoint";
+		case "Marble Dummy":
+			%obj = new Marble("MarbleDummy") {
+				dataBlock = "DefaultMarble";
+				Controllable = "0";
+				client = "1";
+				powerUpData = "0";
 			};
-		}
-	case "Tornado":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "Tornado_PQ";
+		case "Mega Marble":
+			%db = "MegaMarbleItem";
+			%class = "Item";
+		case "Ultra Blast":
+			%db = "BlastItem";
+			%class = "Item";
+		case "Bounds Trigger":
+			generateWorldBox();
+		case "Gem Group":
+			EWorldEditor.makeGemGroup();
+		case "Camera Marker":
+			EWorldEditor.createCameraMarker();
+		case "PathNode at Selection":
+			EWorldEditor.createPathNodeAtSelection();
+	}
+	switch$ (%class) {
+		case "Item":
+			%obj = new Item() {
+				dataBlock = %db;
+				static = 1;
+				rotate = 1;
 			};
-		case "Ultra":
+		case "StaticShape":
 			%obj = new StaticShape() {
-				dataBlock = "Tornado_MBM";
+				dataBlock = %db;
+				skin = %db;
 			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "Tornado";
+		case "Trigger":
+			%obj = new Trigger() {
+				dataBlock = %db;
+				polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
 			};
-		}
-	case "Mine":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "LandMine_PQ";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "LandMine";
-			};
-		}
-	case "Nuke":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "Nuke_PQ";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "Nuke";
-			};
-		}
-	case "Bumper":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "RoundBumper_PQ";
-			};
-		case "Ultra":
-			%obj = new StaticShape() {
-				dataBlock = "RoundBumper_MBU";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "RoundBumper";
-			};
-		}
-	case "Triangle Bumper":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "TriangleBumper_PQ";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "TriangleBumper";
-			};
-		}
-	case "Duct Fan":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "DuctFan_PQ";
-			};
-		case "Ultra":
-			%obj = new StaticShape() {
-				dataBlock = "DuctFan_MBU";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "DuctFan";
-			};
-		}
-	case "Trapdoor":
-		switch$ (MissionInfo.game) {
-		case "PlatinumQuest":
-			%obj = new StaticShape() {
-				dataBlock = "Trapdoor_PQ";
-				resetTime = 5000;
-			};
-		case "Ultra":
-			%obj = new StaticShape() {
-				dataBlock = "Trapdoor_MBU";
-				resetTime = 5000;
-			};
-		case "Gold":
-			%obj = new StaticShape() {
-				dataBlock = "Trapdoor";
-				resetTime = 5000;
-				skin = "skin1";
-			};
-		default:
-			%obj = new StaticShape() {
-				dataBlock = "Trapdoor";
-				resetTime = 5000;
-				skin = "base";
-			};
-		}
-	case "Oil Slick":
-		%obj = new StaticShape() {
-			dataBlock = "OilSlick";
-		};
-	case "Spawn Trigger":
-		%obj = new Trigger() {
-			dataBlock = "SpawnTrigger";
-			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-			center = "1";
-		};
-	case "Help Text Trigger":
-		%obj = new Trigger() {
-			dataBlock = "HelpTrigger";
-			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-			center = "1";
-			text = "Help Text";
-		};
-	case "Out of Bounds Trigger":
-		%obj = new Trigger() {
-			dataBlock = "OutofBoundsTrigger";
-			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-			center = "1";
-		};
-	case "Teleport & Destination Triggers":
-		if ($desttrigidentif $= "") { //Works in the same way as Checkpoint placements with 2 objects. ~Connie
-			$desttrigidentif = 1;
-		} else {
-			$desttrigidentif += 1;
-		}
-
-		%obj = new Trigger() {
-			dataBlock = "TeleportTrigger";
-			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-			center = "1";
-			destination = "destination" @ $desttrigidentif;
-		};
-
-		%objdest = new Trigger("destination" @ $desttrigidentif) {
-			dataBlock = "DestinationTrigger";
-			polyhedron = "0 0 0 1 0 0 0 -1 0 0 0 1";
-			center = "1";
-		};
-
-		%objdest.setTransform("0 0 0 1 0 0 0");
-		$InstantGroup.add(%objdest);
-		EWorldEditor.clearSelection();
-		EWorldEditor.selectObject(%objdest);
-		EWorldEditor.dropSelection();
-	case "Marble Dummy":
-		%obj = new Marble("MarbleDummy") {
-			dataBlock = "DefaultMarble";
-			Controllable = "0";
-			client = "1";
-			powerUpData = "0";
-		};
-	case "Mega Marble":
-		%obj = new Item() {
-			dataBlock = "MegaMarbleItem";
-			rotate = 1;
-			static = 1;
-		};
-	case "Ultra Blast":
-		%obj = new Item() {
-			dataBlock = "BlastItem";
-			rotate = 1;
-			static = 1;
-		};
-	case "Bounds Trigger":
-		generateWorldBox();
-	case "Gem Group":
-		EWorldEditor.makeGemGroup();
-	case "Camera Marker":
-		EWorldEditor.createCameraMarker();
-	case "PathNode at Selection":
-		EWorldEditor.createPathNodeAtSelection();
 	}
 	if (%obj != -1) {
 		%obj.setTransform("0 0 0 1 0 0 0");
@@ -1646,7 +1384,7 @@ function ETerrainEditor::setPaintMaterial(%this, %matIndex) {
 
 function ETerrainEditor::changeMaterial(%this, %matIndex) {
 	EPainter.matIndex = %matIndex;
-	getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", EPainterChangeMat);
+	getLoadFilename("*.png\t*.jpg", EPainterChangeMat, "~/data/terrains");
 }
 
 function EPainterChangeMat(%file) {
@@ -1744,6 +1482,26 @@ function EditorTree::onInspect(%this, %obj) {
 	InspectorNameEdit.setValue(%obj.getName());
 }
 
+function EditorTree::onObjectDeleteCompleted(%this)
+{
+   EWorldEditor.copySelection();
+   EWorldEditor.deleteSelection();
+}
+
+function EditorTree::onClearSelected(%this)
+{
+   WorldEditor.clearSelection();
+}
+
+function EditorTree::onAddSelection(%this, %obj)
+{
+   EWorldEditor.selectObject(%obj);
+}
+function EditorTree::onRemoveSelection(%this, %obj)
+{
+   EWorldEditor.unselectObject(%obj);
+}
+
 function EditorTree::onSelect(%this, %obj) {
 	if (%obj.getName() $= "MissionInfo") {
 		emibutton();
@@ -1751,12 +1509,70 @@ function EditorTree::onSelect(%this, %obj) {
 	}
 
 	EWorldEditor.selectObject(%obj);
+	EditorInspector.inspector.inspect(%obj);
 	EWorldEditor.buildSpecial();
 }
 
 function EditorTree::onUnselect(%this, %obj) {
 	EWorldEditor.unselectObject(%obj);
 	EWorldEditor.buildSpecial();
+}
+
+function EditorTree::onObjectMoved(%this, %obj, %oldGroup, %newGroup) {
+	switch$ (%obj.getClassName()) {
+		case "PathedInterior":
+			%obj.refreshPath();
+			%obj.onMissionReset();
+		case "Path":
+			for(%i = 0; (%obj = %oldGroup.getObject(%i)) != -1; %i++) {
+				if(%obj.getClassName() $= "PathedInterior") {
+					%obj.refreshPath();
+					%obj.onMissionReset();
+				}
+			}
+			for(%i = 0; (%obj = %newGroup.getObject(%i)) != -1; %i++) {
+				if(%obj.getClassName() $= "PathedInterior") {
+					%obj.refreshPath();
+					%obj.onMissionReset();
+				}
+			}
+	}
+}
+
+function EditorTree::onDefineIcons(%this) {
+	EditorTree.buildIconTable(
+		"platinum/core/editor/default:" @
+		"platinum/core/editor/simgroup:" @
+		"platinum/core/editor/simgroup_closed:" @
+		"platinum/core/editor/simgroup_selected:" @
+		"platinum/core/editor/simgroup_selected_closed:" @
+		"platinum/core/editor/audio:" @
+		"platinum/core/editor/camera:" @
+		"platinum/core/editor/fxfoliage:" @
+		"platinum/core/editor/fxlight:" @
+		"platinum/core/editor/fxshapereplicator:" @
+		"platinum/core/editor/fxsunlight:" @
+		"platinum/core/editor/hidden:" @
+		"platinum/core/editor/interior:" @
+		"platinum/core/editor/lightning:" @
+		"platinum/core/editor/shll_icon_passworded_hi:" @
+		"platinum/core/editor/shll_icon_passworded:" @
+		"platinum/core/editor/mission_area:" @
+		"platinum/core/editor/particle:" @
+		"platinum/core/editor/path:" @
+		"platinum/core/editor/pathmarker:" @
+		"platinum/core/editor/physical_area:" @
+		"platinum/core/editor/precipitation:" @
+		"platinum/core/editor/shape:" @
+		"platinum/core/editor/sky:" @
+		"platinum/core/editor/static_shape:" @
+		"platinum/core/editor/sun:" @
+		"platinum/core/editor/terrain:" @
+		"platinum/core/editor/trigger:" @
+		"platinum/core/editor/water:" @
+		"platinum/core/editor/default"
+	);
+	return true;
 }
 
 //------------------------------------------------------------------------------
@@ -1813,6 +1629,7 @@ function WorldEditor::onDblClick(%this, %obj) {
 
 	//Inspector.inspect(%obj);
 	//InspectorNameEdit.setValue(%obj.getName());
+	%this.onClick(%obj);
 }
 
 function WorldEditor::onClick(%this, %obj) {
@@ -1825,17 +1642,18 @@ function WorldEditor::onClick(%this, %obj) {
 	%this.checkDeselect();
 }
 
-function onEditorDrag() {
-	for (%i = 0; %i < EWorldEditor.getSelectionSize(); %i ++) {
-		%obj = EWorldEditor.getSelectedObject(%i);
+//function onEditorDrag() {
+//	for (%i = 0; %i < EWorldEditor.getSelectionSize(); %i ++) {
+//		%obj = EWorldEditor.getSelectedObject(%i);
+//
+//		//Do something with it
+//		%obj.onEditorDrag();
+//	}
+//}
 
-		//Do something with it
-		%obj.onEditorDrag();
-	}
-}
-
-function SimObject::onEditorDrag(%this) {
-	//Stub
+function SimObject::onEditorSetTransform(%this) {
+	if(%this == EditorInspector.inspector.object)
+		EditorInspector.inspector.updateTransforms();
 }
 
 function WorldEditor::checkDeselect(%this) {
@@ -1976,6 +1794,33 @@ function WorldEditorToolbarDlg::init(%this) {
 	WorldEditorCreatorCheckBox.setValue(WorldEditorToolFrameSet.isMember("EditorToolCreatorGui"));
 }
 
+function compressSingleFolderChains(%node) {
+	if (!isObject(%node) || !%node.isMethod("getSize"))
+		return;
+
+	while (%node.getSize() == 1) {
+		%sub = %node.getEntry(0);
+		
+		if (!isObject(%sub) || !%sub.isMethod("getSize"))
+			break;
+
+		%node.name = %node.name @ " / " @ %sub.name;
+		
+		%subCount = %sub.getSize();
+		%node.clear();
+		for (%i = 0; %i < %subCount; %i++) {
+			%node.addEntry(%sub.getEntry(%i));
+		}
+	}
+
+	%count = %node.getSize();
+	for (%i = 0; %i < %count; %i++) {
+		%child = %node.getEntry(%i);
+		if (isObject(%child) && %child.isMethod("getSize"))
+			compressSingleFolderChains(%child);
+	}
+}
+
 function Creator::init(%this) {
 	%this.clear();
 
@@ -2016,6 +1861,7 @@ function Creator::init(%this) {
 		%file = findNextFile("*.dif");
 	}
 	recurseSort(%base, sortNameOrArray);
+	compressSingleFolderChains(%base);
 
 	// ---------- SHAPES - add in all the shapes now...
 	%base = Array("TreeNode");
@@ -2045,6 +1891,7 @@ function Creator::init(%this) {
 		}
 	}
 	recurseSort(%base, sortNameOrArray);
+	//compressSingleFolders(%base);
 
 	// ---------- Static Shapes
 	%base = Array("TreeNode");
@@ -2079,70 +1926,336 @@ function Creator::init(%this) {
 	}
 
 	recurseSort(%base, sortNameOrArray);
+	compressSingleFolderChains(%base);
 
 	// *** OBJECTS - do the objects now...
-	// Mission/Environment only got 1 code each remaining in them so we'll show those.
-	// See below to see which code we left in each bit.
+	// Group names
 	%objGroup[0] = "Environment";
 	%objGroup[1] = "Mission";
 	%objGroup[2] = "System";
-	//%objGroup[3] = "AI";
 
-	%Environment_Item[0] = "Sky";
-	%Environment_Item[1] = "Sun";
-	%Environment_Item[2] = "LightningTorque";
-	%Environment_Item[3] = "Water";
-	%Environment_Item[4] = "Terrain";
-	%Environment_Item[5] = "AudioEmitter";
-	%Environment_Item[6] = "Precipitation";
-	%Environment_Item[7]  = "ParticleEmitter";
-	%Environment_Item[8]  = "fxSunLight";
-	%Environment_Item[9] = "fxLight";
+	// Environment items
+	%objCount[0] = -1;
+	%objItem[0, %objCount[0]++] = "Sky";
+	%objItem[0, %objCount[0]++] = "Sun";
+	%objItem[0, %objCount[0]++] = "LightningTorque";
+	%objItem[0, %objCount[0]++] = "Water";
+	%objItem[0, %objCount[0]++] = "Terrain";
+	%objItem[0, %objCount[0]++] = "AudioEmitter";
+	%objItem[0, %objCount[0]++] = "Precipitation";
+	%objItem[0, %objCount[0]++] = "ParticleEmitter";
+	%objItem[0, %objCount[0]++] = "fxSunLight";
+	%objItem[0, %objCount[0]++] = "fxLight";
 
-//   %Mission_Item[0] = "MissionArea";
-//   %Mission_Item[1] = "Marker";
-// We don't use the above anymore, so the one below does not need to be in that order anymore.
-//   %Mission_Item[2] = "Trigger";
-//   %Mission_Item[3] = "PhysicalZone";
-//   %Mission_Item[4] = "Camera";
-	//%Mission_Item[5] = "GameType";
-	//%Mission_Item[6] = "Forcefield";
-	%Mission_Item[0] = "MissionArea";
-	%Mission_Item[1] = "Marker";
-	%Mission_Item[2] = "Trigger";
-	%Mission_Item[3] = "Camera";
+	// Mission items
+	%objCount[1] = -1;
+	%objItem[1, %objCount[1]++] = "MissionArea";
+	%objItem[1, %objCount[1]++] = "Marker";
+	%objItem[1, %objCount[1]++] = "Trigger";
+	%objItem[1, %objCount[1]++] = "Camera";
 
-	%System_Item[0] = "SimGroup";
+	// System items
+	%objCount[2] = -1;
+	%objItem[2, %objCount[2]++] = "SimGroup";
 
-	//%AI_Item[0] = "Objective";
-	//%AI_Item[1] = "NavigationGraph";
-
-	// objects group
+	// objects group 
 	%base = Array("TreeNode");
 	%base.name = "Mission Objects";
 	%groups.addEntry(%base);
 
-	// create 'em
-	for (%i = 0; %objGroup[%i] !$= ""; %i++) {
+	// Create groups and populate them
+	for (%i = 0; %i <= 2; %i++) {
 		%grp = Array("TreeNode");
 		%grp.name = %objGroup[%i];
 		%base.addEntry(%grp);
-
-		%groupTag = "%" @ %objGroup[%i] @ "_Item";
-
-		%done = false;
-		for (%j = 0; !%done; %j++) {
-			eval("%itemTag = " @ %groupTag @ %j @ ";");
-			if (%itemTag $= "")
-				%done = true;
-			else
-				%grp.addEntry(%itemTag TAB "build" TAB %itemTag);
+		for (%j = 0; %j <= %objCount[%i]; %j++) {
+			%item = %objItem[%i, %j];
+			%grp.addEntry(%item TAB "build" TAB %item);
 		}
 	}
 
-	%this.recurseInsert(%groups, 0);
+	// ---------- PATHED INTERIORS
+	%base = Array("TreeNode");
+	%base.name = "Pathed Interiors";
+	%groups.addEntry(%base);
 
-	//Clean up
+	// Group names
+	%objGroup[0] = "Marble Blast Gold";
+	%objGroup[1] = "Marble Blast Platinum";
+	%objGroup[2] = "Marble Blast Ultra";
+	%objGroup[3] = "PlatinumQuest";
+
+	// MBG MPs
+	%objCount[0] = -1;
+	%objItem[0, %objCount[0]++] = "a-maze-ing slider" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 10;
+	%objItem[0, %objCount[0]++] = "a-maze-ing wall 1" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "a-maze-ing wall 2" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "a-maze-ing wall 3" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "a-maze-ing wall 4" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "a-maze-ing wall 5" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "a-maze-ing wall 6" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 6;
+	%objItem[0, %objCount[0]++] = "a-maze-ing wall 7" TAB "platinum/data/interiors_mbg/advanced/a-maze-ing.dif" TAB 8;
+	%objItem[0, %objCount[0]++] = "acrobat launcher 1" TAB "platinum/data/interiors_mbg/addon/acrobat1.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "acrobat launcher 2" TAB "platinum/data/interiors_mbg/addon/acrobat1.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "battlements door" TAB "platinum/data/interiors_mbg/addon/battlements.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "battlements elevator" TAB "platinum/data/interiors_mbg/addon/battlements.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "battlements log" TAB "platinum/data/interiors_mbg/addon/battlements.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "compass slider" TAB "platinum/data/interiors_mbg/intermediate/compass_points.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "daedalus elevator" TAB "platinum/data/interiors_mbg/addon/daedalus1.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "darwin's bumper" TAB "platinum/data/interiors_mbg/addon/darwin.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "darwin's platform" TAB "platinum/data/interiors_mbg/addon/darwin.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "freeway cars" TAB "platinum/data/interiors_mbg/intermediate/highway.dif" TAB 9;
+	%objItem[0, %objCount[0]++] = "freeway road 1" TAB "platinum/data/interiors_mbg/intermediate/highway.dif" TAB 19;
+	%objItem[0, %objCount[0]++] = "freeway road 2" TAB "platinum/data/interiors_mbg/intermediate/highway.dif" TAB 22;
+	%objItem[0, %objCount[0]++] = "freeway truck 1" TAB "platinum/data/interiors_mbg/intermediate/highway.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "freeway truck 2" TAB "platinum/data/interiors_mbg/intermediate/highway.dif" TAB 5;
+	%objItem[0, %objCount[0]++] = "freeway truck 3" TAB "platinum/data/interiors_mbg/intermediate/highway.dif" TAB 27;
+	%objItem[0, %objCount[0]++] = "gauntlet bumper" TAB "platinum/data/interiors_mbg/intermediate/gauntlet.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "grand finale elevator" TAB "platinum/data/interiors_mbg/beginner/beginner_finish.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "grand finale platform" TAB "platinum/data/interiors_mbg/beginner/beginner_finish.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "great divide elevator 1" TAB "platinum/data/interiors_mbg/intermediate/greatdivide.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "great divide elevator 2" TAB "platinum/data/interiors_mbg/intermediate/greatdivide.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "great divide elevator 3" TAB "platinum/data/interiors_mbg/intermediate/greatdivide.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "great divide elevator 4" TAB "platinum/data/interiors_mbg/intermediate/greatdivide.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "great divide elevator 5" TAB "platinum/data/interiors_mbg/advanced/greatdivide2.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "great divide elevator 6" TAB "platinum/data/interiors_mbg/advanced/greatdivide2.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "great divide elevator 7" TAB "platinum/data/interiors_mbg/advanced/greatdivide2.dif" TAB 6;
+	%objItem[0, %objCount[0]++] = "great divide elevator 8" TAB "platinum/data/interiors_mbg/advanced/greatdivide2.dif" TAB 8;
+	%objItem[0, %objCount[0]++] = "hoops finish ramp 1" TAB "platinum/data/interiors_mbg/beginner/hoops.dif" TAB 6;
+	%objItem[0, %objCount[0]++] = "hoops finish ramp 2" TAB "platinum/data/interiors_mbg/beginner/hoops.dif" TAB 5;
+	%objItem[0, %objCount[0]++] = "hoops finish ramp 3" TAB "platinum/data/interiors_mbg/beginner/hoops.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "hoops sandpath 1" TAB "platinum/data/interiors_mbg/beginner/hoops.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "hoops sandpath 2" TAB "platinum/data/interiors_mbg/beginner/hoops.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "hoops sandpath 3" TAB "platinum/data/interiors_mbg/beginner/hoops.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "incline lift" TAB "platinum/data/interiors_mbg/advanced/thrillride.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "marble playground platform" TAB "platinum/data/interiors_mbg/beginner/beginner_playground.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "marbletris I cool2" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "marbletris I neutral2" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 8;
+	%objItem[0, %objCount[0]++] = "marbletris I warm1" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 7;
+	%objItem[0, %objCount[0]++] = "marbletris O neutral2" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "marbletris O warm2" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 17;
+	%objItem[0, %objCount[0]++] = "marbletris S cool1" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 14;
+	%objItem[0, %objCount[0]++] = "marbletris T cool1" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 15;
+	%objItem[0, %objCount[0]++] = "marbletris T cool2" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "marbletris T neutral1" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "marbletris T neutral2" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 12;
+	%objItem[0, %objCount[0]++] = "marbletris T warm1" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 16;
+	%objItem[0, %objCount[0]++] = "marbletris Z warm2" TAB "platinum/data/interiors_mbg/intermediate/marbletris.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "money tree elevator" TAB "platinum/data/interiors_mbg/intermediate/tree.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "money tree launcher" TAB "platinum/data/interiors_mbg/intermediate/tree.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "money tree leaf" TAB "platinum/data/interiors_mbg/intermediate/tree.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "moon basket" TAB "platinum/data/interiors_mbg/advanced/tothemoon.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "moon slider" TAB "platinum/data/interiors_mbg/advanced/tothemoon.dif" TAB 10;
+	%objItem[0, %objCount[0]++] = "moon wall 1" TAB "platinum/data/interiors_mbg/advanced/tothemoon.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "moon wall 2" TAB "platinum/data/interiors_mbg/advanced/tothemoon.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "moon wall 3" TAB "platinum/data/interiors_mbg/advanced/tothemoon.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "moon wall 4" TAB "platinum/data/interiors_mbg/advanced/tothemoon.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "natural platform 1" TAB "platinum/data/interiors_mbg/addon/selection0.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "natural platform 2" TAB "platinum/data/interiors_mbg/addon/selection0.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "obstacle course bumper" TAB "platinum/data/interiors_mbg/intermediate/obstacle_course1.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "obstacle course riser" TAB "platinum/data/interiors_mbg/intermediate/obstacle_course1.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "ordeal bumper" TAB "platinum/data/interiors_mbg/addon/ordeal0.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "ordeal platform" TAB "platinum/data/interiors_mbg/addon/ordeal0.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "ordeal riser" TAB "platinum/data/interiors_mbg/addon/ordeal0.dif" TAB 5;
+	%objItem[0, %objCount[0]++] = "party platform" TAB "platinum/data/interiors_mbg/beginner/platformparty.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "pathway bumper" TAB "platinum/data/interiors_mbg/addon/pathways.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "pathway elevator" TAB "platinum/data/interiors_mbg/addon/pathways.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "pinball button 1" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "pinball button 2" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 6;
+	%objItem[0, %objCount[0]++] = "pinball flipper L" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "pinball flipper R" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "pinball launcher 1" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "pinball launcher 2" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "pinball wall 1" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 5;
+	%objItem[0, %objCount[0]++] = "pinball wall 2" TAB "platinum/data/interiors_mbg/addon/pinball0.dif" TAB 9;
+	%objItem[0, %objCount[0]++] = "siege launcher" TAB "platinum/data/interiors_mbg/addon/siege.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "skyscraper elevator 0.5x0.5" TAB "platinum/data/interiors_mbg/intermediate/skyscraper.dif" TAB 11;
+	%objItem[0, %objCount[0]++] = "skyscraper elevator 0.5x2" TAB "platinum/data/interiors_mbg/intermediate/skyscraper.dif" TAB 15;
+	%objItem[0, %objCount[0]++] = "skyscraper elevator 1x1" TAB "platinum/data/interiors_mbg/intermediate/skyscraper.dif" TAB 6;
+	%objItem[0, %objCount[0]++] = "skyscraper elevator 2x1" TAB "platinum/data/interiors_mbg/intermediate/skyscraper.dif" TAB 8;
+	%objItem[0, %objCount[0]++] = "skyscraper elevator 2x2" TAB "platinum/data/interiors_mbg/intermediate/skyscraper.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "skyscraper elevator 2x4" TAB "platinum/data/interiors_mbg/intermediate/skyscraper.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "survival bumper" TAB "platinum/data/interiors_mbg/advanced/survival.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "survival platform" TAB "platinum/data/interiors_mbg/advanced/survival.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "tightrope lift 1" TAB "platinum/data/interiors_mbg/addon/tightrope.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "tightrope lift 2" TAB "platinum/data/interiors_mbg/addon/tightrope.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "tightrope lift 3" TAB "platinum/data/interiors_mbg/addon/tightrope.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "tightrope lift 4" TAB "platinum/data/interiors_mbg/addon/tightrope.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "tower riser 1" TAB "platinum/data/interiors_mbg/addon/towermaze.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "tower riser 2" TAB "platinum/data/interiors_mbg/addon/towermaze.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "tower riser 3" TAB "platinum/data/interiors_mbg/addon/towermaze.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "tower riser 4" TAB "platinum/data/interiors_mbg/addon/towermaze.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "training elevator" TAB "platinum/data/interiors_mbg/beginner/training_elevator.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "training platform" TAB "platinum/data/interiors_mbg/beginner/training_platform.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "twisting block 1" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 8;
+	%objItem[0, %objCount[0]++] = "twisting block 2" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 11;
+	%objItem[0, %objCount[0]++] = "twisting block 3" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 15;
+	%objItem[0, %objCount[0]++] = "twisting peg 1" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "twisting peg 2" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 1;
+	%objItem[0, %objCount[0]++] = "twisting peg 3" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "twisting peg 4" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 3;
+	%objItem[0, %objCount[0]++] = "twisting peg 5" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 4;
+	%objItem[0, %objCount[0]++] = "twisting peg 6" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 5;
+	%objItem[0, %objCount[0]++] = "twisting puck 1" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 17;
+	%objItem[0, %objCount[0]++] = "twisting puck 2" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 18;
+	%objItem[0, %objCount[0]++] = "twisting puck 3" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 19;
+	%objItem[0, %objCount[0]++] = "twisting puck 4" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 20;
+	%objItem[0, %objCount[0]++] = "twisting puck 5" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 21;
+	%objItem[0, %objCount[0]++] = "twisting puck 6" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 22;
+	%objItem[0, %objCount[0]++] = "twisting rock 1" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 6;
+	%objItem[0, %objCount[0]++] = "twisting rock 2" TAB "platinum/data/interiors_mbg/advanced/twisting.dif" TAB 7;
+	%objItem[0, %objCount[0]++] = "wave block" TAB "platinum/data/interiors_mbg/intermediate/the_wave.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "wisp cylinder 1" TAB "platinum/data/interiors_mbg/advanced/willowisp.dif" TAB 0;
+	%objItem[0, %objCount[0]++] = "wisp cylinder 2" TAB "platinum/data/interiors_mbg/advanced/willowisp.dif" TAB 2;
+	%objItem[0, %objCount[0]++] = "wisp cylinder 3" TAB "platinum/data/interiors_mbg/advanced/willowisp.dif" TAB 4;
+	
+	// MBP MPs
+	%objCount[1] = -1;
+	%objItem[1, %objCount[1]++] = "ascent platform" TAB "platinum/data/interiors_MBP/TimelyAscent.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "cardcaddy's fence" TAB "platinum/data/interiors_MBP/Cardcaddy'sDiamondCollection.dif" TAB 39;
+	%objItem[1, %objCount[1]++] = "cardcaddy's launcher" TAB "platinum/data/interiors_MBP/Cardcaddy'sDiamondCollection.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "carpet launcher" TAB "platinum/data/interiors_MBP/FrictionalAscent.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "despair bumper block 1" TAB "platinum/data/interiors_mbp/Despair.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "despair bumper block 2" TAB "platinum/data/interiors_mbp/Despair.dif" TAB 5;
+	%objItem[1, %objCount[1]++] = "despair platform" TAB "platinum/data/interiors_mbp/Despair.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "don't jump bumper" TAB "platinum/data/interiors_MBP/Don'tJump.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "eternity bumper block" TAB "platinum/data/interiors_MBP/RollingToEternity.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "mmg launcher" TAB "platinum/data/interiors_MBP/MMG.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph 1x1" TAB "platinum/data/interiors_MBP/morphmp1.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph arrow" TAB "platinum/data/interiors_MBP/morphmp11.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph beams" TAB "platinum/data/interiors_MBP/morphmp10.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph carrier 1" TAB "platinum/data/interiors_MBP/morphmp8.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph carrier 2" TAB "platinum/data/interiors_MBP/morphmp9.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph end" TAB "platinum/data/interiors_MBP/morphmp5.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph maze" TAB "platinum/data/interiors_MBP/morphmp2.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph playground" TAB "platinum/data/interiors_MBP/morphmp4.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph secret" TAB "platinum/data/interiors_MBP/morphmp7.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph slide" TAB "platinum/data/interiors_MBP/morphmp12.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "morph tower" TAB "platinum/data/interiors_MBP/morphmp3.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "mtm 1x1" TAB "platinum/data/interiors_MBP/MasteringTheMarble.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "mtm block" TAB "platinum/data/interiors_MBP/MasteringTheMarble.dif" TAB 2;
+	%objItem[1, %objCount[1]++] = "nukesweeper secret" TAB "platinum/data/interiors_MBP/NukesweeperRevisited.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "platform race 2 elevator" TAB "platinum/data/interiors_MBP/PlatformRace2.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "platform race elevator" TAB "platinum/data/interiors_MBP/PlatformRace.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "platform race trim" TAB "platinum/data/interiors_MBP/PlatformRace.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "quaked path obstacle" TAB "platinum/data/interiors_MBP/mbp_quakedpath.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "quaked path" TAB "platinum/data/interiors_MBP/mbp_quakedpath.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "rltw step" TAB "platinum/data/interiors_MBP/RollLikeTheWind.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "sandstorm 1x1 hot" TAB "platinum/data/interiors_MBP/mbp_SandStorm.dif" TAB 2;
+	%objItem[1, %objCount[1]++] = "sandstorm 1x1 hot2" TAB "platinum/data/interiors_MBP/mbp_SandStorm.dif" TAB 4;
+	%objItem[1, %objCount[1]++] = "sandstorm 1x1 hot3" TAB "platinum/data/interiors_MBP/mbp_SandStorm.dif" TAB 5;
+	%objItem[1, %objCount[1]++] = "sandstorm 1x1 hot4" TAB "platinum/data/interiors_MBP/mbp_SandStorm.dif" TAB 3;
+	%objItem[1, %objCount[1]++] = "sandstorm launcher" TAB "platinum/data/interiors_MBP/mbp_SandStorm.dif" TAB 6;
+	%objItem[1, %objCount[1]++] = "sandstorm sand" TAB "platinum/data/interiors_MBP/mbp_SandStorm.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "sandstorm trim" TAB "platinum/data/interiors_MBP/mbp_SandStorm.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "space station button" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 4;
+	%objItem[1, %objCount[1]++] = "space station carrier 1" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 2;
+	%objItem[1, %objCount[1]++] = "space station carrier 2" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 3;
+	%objItem[1, %objCount[1]++] = "space station carrier 3" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 14;
+	%objItem[1, %objCount[1]++] = "space station ship" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 7;
+	%objItem[1, %objCount[1]++] = "space station slider 1" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "space station slider 2" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 8;
+	%objItem[1, %objCount[1]++] = "space station wall" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 5;
+	%objItem[1, %objCount[1]++] = "space station wedge" TAB "platinum/data/interiors_mbp/SpaceStation.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "speed attack platform" TAB "platinum/data/interiors_MBP/SpeedAttack2.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "stamina bumper block 1" TAB "platinum/data/interiors_MBP/mbp_stamina.dif" TAB 5;
+	%objItem[1, %objCount[1]++] = "stamina bumper block 2" TAB "platinum/data/interiors_MBP/mbp_stamina.dif" TAB 9;
+	%objItem[1, %objCount[1]++] = "stamina carrier" TAB "platinum/data/interiors_MBP/mbp_stamina.dif" TAB 11;
+	%objItem[1, %objCount[1]++] = "stamina platform 1" TAB "platinum/data/interiors_MBP/mbp_stamina.dif" TAB 3;
+	%objItem[1, %objCount[1]++] = "stamina platform 2" TAB "platinum/data/interiors_MBP/mbp_stamina.dif" TAB 7;
+	%objItem[1, %objCount[1]++] = "stamina slope" TAB "platinum/data/interiors_MBP/mbp_stamina.dif" TAB 2;
+	%objItem[1, %objCount[1]++] = "stamina step" TAB "platinum/data/interiors_MBP/mbp_stamina.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "strategy climb platform" TAB "platinum/data/interiors_MBP/mbp_strategyclimb.dif" TAB 3;
+	%objItem[1, %objCount[1]++] = "strategy climb slider" TAB "platinum/data/interiors_MBP/mbp_strategyclimb.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "training towers ferry" TAB "platinum/data/interiors_MBP/TrainingTowers.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "trig 1x1" TAB "platinum/data/interiors_MBP/mbp_benslvl.dif" TAB 4;
+	%objItem[1, %objCount[1]++] = "trig blocker 1" TAB "platinum/data/interiors_MBP/mbp_benslvl.dif" TAB 6;
+	%objItem[1, %objCount[1]++] = "trig blocker 2" TAB "platinum/data/interiors_MBP/mbp_benslvl.dif" TAB 2;
+	%objItem[1, %objCount[1]++] = "trig blocker 3" TAB "platinum/data/interiors_MBP/mbp_benslvl.dif" TAB 8;
+	%objItem[1, %objCount[1]++] = "trig button 2" TAB "platinum/data/interiors_MBP/mbp_benslvl.dif" TAB 9;
+	%objItem[1, %objCount[1]++] = "trig cylinder" TAB "platinum/data/interiors_MBP/mbp_benslvl.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "trim platform" TAB "platinum/data/interiors_MBP/PlatformMayhem.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "tt training secret" TAB "platinum/data/interiors_MBP/TimeModTraining.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "ttotts blocker" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 4;
+	%objItem[1, %objCount[1]++] = "ttotts carrier 1" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "ttotts carrier 2" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 6;
+	%objItem[1, %objCount[1]++] = "ttotts carrier 3" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 12;
+	%objItem[1, %objCount[1]++] = "ttotts carrier 4" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 13;
+	%objItem[1, %objCount[1]++] = "ttotts carrier 5" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 34;
+	%objItem[1, %objCount[1]++] = "ttotts carrier 6" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 36;
+	%objItem[1, %objCount[1]++] = "ttotts carrier 7" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 37;
+	%objItem[1, %objCount[1]++] = "ttotts extending wall" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "ttotts launcher" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 18;
+	%objItem[1, %objCount[1]++] = "ttotts moving path" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 17;
+	%objItem[1, %objCount[1]++] = "ttotts secret" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 14;
+	%objItem[1, %objCount[1]++] = "ttotts slider 1" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 2;
+	%objItem[1, %objCount[1]++] = "ttotts slider 2" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 10;
+	%objItem[1, %objCount[1]++] = "ttotts slider 3" TAB "platinum/data/interiors_MBP/TheTaleOfTheTallSkyscraper.dif" TAB 16;
+	%objItem[1, %objCount[1]++] = "tttr carrier 1" TAB "platinum/data/interiors_MBP/TheTimeModifierRace.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "tttr carrier 2" TAB "platinum/data/interiors_MBP/TheTimeModifierRace.dif" TAB 1;
+	%objItem[1, %objCount[1]++] = "tttr carrier 3" TAB "platinum/data/interiors_MBP/TheTimeModifierRace.dif" TAB 2;
+	%objItem[1, %objCount[1]++] = "tttr carrier 4" TAB "platinum/data/interiors_MBP/TheTimeModifierRace.dif" TAB 3;
+	%objItem[1, %objCount[1]++] = "tunnel platform" TAB "platinum/data/interiors_MBP/TunnelVision.dif" TAB 0;
+	%objItem[1, %objCount[1]++] = "ultimate tree elevator" TAB "platinum/data/interiors_MBP/UltimateTree.dif" TAB 1;
+
+	// MBU MPs
+	%objCount[2] = -1;
+	%objItem[2, %objCount[2]++] = "acrobat launcher" TAB "platinum/data/interiors_mbu/advanced/acrobat.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "ascent platform" TAB "platinum/data/interiors_mbu/intermediate/ascend.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "battlements door" TAB "platinum/data/interiors_mbu/advanced/battlements.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "battlements elevator" TAB "platinum/data/interiors_mbu/advanced/battlements.dif" TAB 1;
+	%objItem[2, %objCount[2]++] = "battlements log" TAB "platinum/data/interiors_mbu/advanced/battlements.dif" TAB 2;
+	%objItem[2, %objCount[2]++] = "bridge platform" TAB "platinum/data/interiors_mbu/beginner/level_four.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "compass slider" TAB "platinum/data/interiors_mbu/intermediate/compasspoints.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "cube root elevator 1" TAB "platinum/data/interiors_mbu/advanced/cube.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "cube root elevator 2" TAB "platinum/data/interiors_mbu/advanced/cube.dif" TAB 1;
+	%objItem[2, %objCount[2]++] = "cube root elevator 3" TAB "platinum/data/interiors_mbu/advanced/cube.dif" TAB 4;
+	%objItem[2, %objCount[2]++] = "daedalus elevator" TAB "platinum/data/interiors_mbu/advanced/daedalus.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "endurance bumper" TAB "platinum/data/interiors_mbu/advanced/endurance.dif" TAB 1;
+	%objItem[2, %objCount[2]++] = "endurance platform" TAB "platinum/data/interiors_mbu/advanced/endurance.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "gauntlet bumper" TAB "platinum/data/interiors_mbu/intermediate/gauntlet.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "great divide elevator" TAB "platinum/data/interiors_mbu/intermediate/greatdivide2.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "moving up elevator" TAB "platinum/data/interiors_mbu/beginner/level_two.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "natural platform 1" TAB "platinum/data/interiors_mbu/advanced/natural_selection.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "natural platform 2" TAB "platinum/data/interiors_mbu/advanced/natural_selection.dif" TAB 1;
+	%objItem[2, %objCount[2]++] = "obstacle course bumper" TAB "platinum/data/interiors_mbu/intermediate/obstacle.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "obstacle course riser" TAB "platinum/data/interiors_mbu/intermediate/obstacle.dif" TAB 5;
+	%objItem[2, %objCount[2]++] = "ordeal bumper" TAB "platinum/data/interiors_mbu/advanced/ordeal.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "ordeal platform" TAB "platinum/data/interiors_mbu/advanced/ordeal.dif" TAB 3;
+	%objItem[2, %objCount[2]++] = "ordeal riser" TAB "platinum/data/interiors_mbu/advanced/ordeal.dif" TAB 4;
+	%objItem[2, %objCount[2]++] = "party platform" TAB "platinum/data/interiors_mbu/beginner/platformparty.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "schadenfreude bumper" TAB "platinum/data/interiors_mbu/advanced/schadenfreude.dif" TAB 4;
+	%objItem[2, %objCount[2]++] = "schadenfreude elevator" TAB "platinum/data/interiors_mbu/advanced/schadenfreude.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 0.5x0.5 tall" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 11;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 0.5x0.5" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 12;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 1x1 tall" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 6;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 1x1" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 7;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 2x1" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 8;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 2x2" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 2x2" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 2x4" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 4;
+	%objItem[2, %objCount[2]++] = "skyscraper elevator 3x0.5" TAB "platinum/data/interiors_mbu/intermediate/skyscraper.dif" TAB 14;
+	%objItem[2, %objCount[2]++] = "survival bumper" TAB "platinum/data/interiors_mbu/advanced/survival.dif" TAB 1;
+	%objItem[2, %objCount[2]++] = "survival platform" TAB "platinum/data/interiors_mbu/advanced/survival.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "treehouse elevator 1" TAB "platinum/data/interiors_mbu/intermediate/treehouse.dif" TAB 0;
+	%objItem[2, %objCount[2]++] = "treehouse elevator 2" TAB "platinum/data/interiors_mbu/intermediate/treehouse.dif" TAB 1;
+	%objItem[2, %objCount[2]++] = "treehouse elevator 3" TAB "platinum/data/interiors_mbu/intermediate/treehouse.dif" TAB 5;
+
+	// PQ MPs
+	%objCount[3] = -1;
+
+	for (%i = 0; %i <= 3; %i++) {
+		%grp = Array("TreeNode");
+		%grp.name = %objGroup[%i];
+		%base.addEntry(%grp);
+		for (%j = 0; %j <= %objCount[%i]; %j++) {
+			%item = %objItem[%i, %j];
+			%grp.addEntry(getField(%item, 0) TAB "pathedinterior" TAB %item);
+		}
+	}
+
+	// ------- Finalize
+	%this.recurseInsert(%groups, 0);
 	%groups.recurseDelete();
 }
 
@@ -2209,23 +2322,57 @@ function Creator::create(%this, %obj) {
 
 function serverCmdCreate(%client, %type, %value) {
 	switch$ (%type) {
-	case "interior":
-		%obj = createInterior(%value);
-	case "create":
-		%data = (getField(%value, 1));
-		//("GemItemRed")::create("GemItemRed");
-		echo("(nameToId(\"" @ expandEscape(%data) @ "\")).create(\"" @ expandEscape(getField(%value, 1)) @ "\");");
-		%obj = eval("(nameToId(\"" @ expandEscape(%data) @ "\")).create(\"" @ expandEscape(getField(%value, 1)) @ "\");");
-	case "TSStatic":
-		%obj = TSStatic::create(%value);
-	case "build":
-		ObjectBuilderGui.call("build" @ %value);
+		case "interior":
+			%obj = createInterior(%value);
+		case "create":
+			%data = (getField(%value, 1));
+			//("GemItemRed")::create("GemItemRed");
+			echo("(nameToId(\"" @ expandEscape(%data) @ "\")).create(\"" @ expandEscape(getField(%value, 1)) @ "\");");
+			%obj = eval("(nameToId(\"" @ expandEscape(%data) @ "\")).create(\"" @ expandEscape(getField(%value, 1)) @ "\");");
+		case "TSStatic":
+			%obj = TSStatic::create(%value);
+		case "build":
+			ObjectBuilderGui.call("build" @ %value);
+		case "pathedinterior":
+			%obj = new SimGroup(MustChange_g) {
+				new Path() {
+					new Marker() {
+						position = "0 0 0";
+						seqNum = "0";
+						msToNext = "1000";
+						smoothingType = "Accelerate";
+					};
+					new Marker() {
+						position = "0 0 0";
+						seqNum = "1";
+						msToNext = "1000";
+						smoothingType = "Accelerate";
+					};
+				};
+				new PathedInterior(MustChange) {
+					position = "0 0 0";
+					rotation = "1 0 0 0";
+					scale = "1 1 1";
+					dataBlock = "PathedDefault";
+					interiorResource = getField(%value, 1);
+					interiorIndex = getField(%value, 2);
+					basePosition = "0 0 0";
+					baseRotation = "1 0 0 0";
+					baseScale = "1 1 1";
+						initialTargetPosition = "-1";
+				};
+			};
+			%mp = %obj.getObject(1);
+			syncMovingPlatforms();
+			%obj.getObject(0).update();
+			%offset = %mp.getWorldBoxCenter();
+			%mp.setTransform(VectorScale(%offset, -1));
 	}
 
 	if (%client.isHost()) {
 		%obj.setTransform(MatrixMultiply(getWords(%obj.getTransform(), 0, 2) SPC %client.gravityRot, "0 0 0 1 0 0 3.14159"));
 		EWorldEditor.clearSelection();
-		EWorldEditor.selectObject(%obj);
+		EWorldEditor.selectGroup(%obj);
 		if (EWorldEditor.dropType $= "toGround") {
 			EWorldEditor.dropType = "atCamera";
 			EWorldEditor.dropSelection();
@@ -2242,7 +2389,7 @@ function serverCmdCreate(%client, %type, %value) {
 	}
 }
 
-function clientCmdCreate(%syncId, %tries) {
+function clientCmdCreate(%syncId, %tries) { 
 	if (%tries > 20) {
 		MessageBoxOk("Could not create!", "There was an error creating the object!");
 		return;
@@ -2377,7 +2524,7 @@ function Texture_material_menu::onSelect(%this, %id, %text) {
 
 function Texture::addMaterialTexture() {
 	%root = filePath(terrain.terrainFile);
-	getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", addLoadedMaterial);
+	getLoadFilename("*.png\t*.jpg", addLoadedMaterial, "~/data/terrains");
 }
 
 function addLoadedMaterial(%file) {
@@ -3414,7 +3561,7 @@ function Heightfield::doLoadHeightfield(%name) {
 
 //--------------------------------------
 function Heightfield::setBitmap() {
-	getLoadFilename("*/terrains/*.png\t*/terrains/*.jpg\t*/*interiors*/*.png\t*/*interiors*/*.jpg", "Heightfield::doSetBitmap");
+	getLoadFilename("*.png\t*.jpg", "Heightfield::doSetBitmap", "~/data/terrains");
 }
 
 //--------------------------------------
@@ -3526,7 +3673,7 @@ function TerrainEditor::swapInLoneMaterial(%this, %name) {
 
 
 function TELoadTerrainButton::onAction(%this) {
-	getLoadFilename("terrains/*.ter", %this @ ".gotFileName");
+	getLoadFilename("*.ter", %this @ ".gotFileName", "~/data/terrains");
 }
 
 function TELoadTerrainButton::gotFileName(%this, %name) {
@@ -3624,33 +3771,6 @@ function Editor::close(%this) {
 
 	ClientMode::callback("onEditorClosed");
 	Mode::callback("onEditorClosed");
-}
-
-//------------------------------------------------------------------------------
-
-// From now on, if your moving platform's PathedInterior does not have default position/rotation/scale values, their basePosition/Rotation/Scale equivalent(s) will automatically get set
-
-// This function will do the above. It allows the user to alter a moving platform in the editor, and have the changes actually be reflected in gameplay
-function updatePathedInteriorBaseTransforms() {
-	// We will find all of the MustChange groups (they should contain PathedInteriors)
-	for (%i = 0; %i < MissionGroup.getCount(); %i++) {
-		%obj = MissionGroup.getObject(%i); // Get the next object from MissionGroup
-		if (%obj.getName() $= "MustChange_g") { // Follow
-			// Now we'll search for a PathedInterior inside here
-			%count = %obj.getCount(); // Just so we can reuse %obj
-			for (%j = 0; %j < %count; %j++) {
-				%obk = %obj.getObject(%j); // Get the next object from the current MustChange group
-				if (%obk.getClassName() $= "PathedInterior") { // Check if it's a PathedInterior
-					if (%obk.position !$= "0 0 0")
-						%obk.basePosition = %obk.position;
-					if (%obk.rotation !$= "1 0 0 0")
-						%obk.baseRotation = %obk.rotation;
-					if (%obk.scale !$= "1 1 1")
-						%obk.baseScale = %obk.scale;
-				}
-			}
-		}
-	}
 }
 
 //------------------------------------------------------------------------------
@@ -3794,6 +3914,7 @@ function EWorldEditor::dropAtGround(%this) {
 		if (%hit) {
 			%pos = vectorAdd(getWords(%hit, 1, 3), vectorScale(%uvec, (-1 * %drop)));
 			%obj.setTransform(%pos SPC getWords(%obj.getTransform(), 3, 6));
+			%obj.onEditorSetTransform();
 		}
 	}
 }
@@ -3807,6 +3928,7 @@ function EWorldEditor::rotateBy(%this, %rotation) {
 
 		%trans = %obj.getTransform();
 		%obj.setTransform(getWords(%trans, 0, 2) SPC getWords(MatrixMultiply("0 0 0" SPC getWords(%trans, 3, 6), "0 0 0" SPC %rotation), 3, 6));
+		%obj.onEditorSetTransform();
 	}
 }
 
@@ -3818,6 +3940,7 @@ function EWorldEditor::roundCoords(%this) {
 			%pos = %obj.position;
 			%pos = mRound(getWord(%pos, 0) / %this.mouseMoveScale) * %this.mouseMoveScale SPC mRound(getWord(%pos, 1) / %this.mouseMoveScale) * %this.mouseMoveScale SPC mRound(getWord(%pos, 2) / %this.mouseMoveScale) * %this.mouseMoveScale;
 			%obj.setTransform(%pos SPC getWords(%obj.getTransform(), 3, 6));
+			%obj.onEditorSetTransform();
 		}
 	}
 }
@@ -3835,6 +3958,7 @@ function EWorldEditor::malign(%this) {
 			%pos = %obj.position;
 			%pos = getWord(%pos, 0)+(-0.5+getRandom()) SPC getWord(%pos, 1)+(-0.5+getRandom()) / 2 SPC getWord(%pos, 2)+(-0.5+getRandom());
 			%obj.setTransform(%pos SPC getWords(%obj.getTransform(), 3, 6));
+			%obj.onEditorSetTransform();
 		}
 	}
 }
@@ -4313,37 +4437,37 @@ function EWorldEditor::buildSpecialNone(%this) {
 	%this.addSpecial("Edit Mission Info", "emibutton();");
 	%this.addSpecial("Change Skybox", "csbbutton();");
   
-  if(isObject(AutoInterior_g)) {
-    if(AutoInterior_g.type $= "Constructor") {
-      %this.addSpecial("Release Constructor Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
-      %this.addSpecial("Reconnect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
-    }
-    else if (AutoInterior_g.type $= "Blender") {
-      %this.addSpecial("Release Blender Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
-      %this.addSpecial("Reconnect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
-    }
-  }
-  else {
-    %this.addSpecial("Connect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
-    %this.addSpecial("Connect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
-  }
+	if(isObject(AutoInterior_g)) {
+		if(AutoInterior_g.type $= "Constructor") {
+			%this.addSpecial("Release Constructor Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
+			%this.addSpecial("Reconnect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
+		}
+		else if (AutoInterior_g.type $= "Blender") {
+			%this.addSpecial("Release Blender Objects", "DisconnectAutoDIF();" SPC %this @ ".buildSpecial();");
+			%this.addSpecial("Reconnect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
+		}
+	}
+	else {
+		%this.addSpecial("Connect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
+		%this.addSpecial("Connect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
+	}
 }
 
 function EWorldEditor::buildSpecialSingle(%this, %obj) {
 	%type = %obj.getType();
 	%class = %obj.getClassName();
-	if (%type & $TypeMasks::GameBaseObjectType) {
+	if (%type & $TypeMasks::GameBaseObjectType && !%obj.locked) {
 		//Check if it's a special trigger we can make easier
 		%dbName = %obj.getDatablock().getName();
 		switch$ (%dbName) {
-		case "MarblePhysModTrigger":
-			%this.addSpecial("Edit PhysMod Trigger", "epmtbutton(" @ %obj @ ");");
-		case "PathNode":
-			%this.addSpecial("Edit Path Node", "epnbutton(" @ %obj @ ");");
-		case "PathTrigger":
-			%this.addSpecial("Edit Path Trigger", "eptbutton(" @ %obj @ ");");
-		case "PushButton" or "PushButton_PQ" or "PushButtonExtended_PQ" or "PushButtonFlat_PQ":
-			%this.addSpecial("Edit Button", "epbbutton(" @ %obj @ ");");
+			case "MarblePhysModTrigger":
+				%this.addSpecial("Edit PhysMod Trigger", "epmtbutton(" @ %obj @ ");");
+			case "PathNode":
+				%this.addSpecial("Edit Path Node", "epnbutton(" @ %obj @ ");");
+			case "PathTrigger":
+				%this.addSpecial("Edit Path Trigger", "eptbutton(" @ %obj @ ");");
+			case "PushButton" or "PushButton_PQ" or "PushButtonExtended_PQ" or "PushButtonFlat_PQ":
+				%this.addSpecial("Edit Button", "epbbutton(" @ %obj @ ");");
 		}
 		if (%obj.getDatablock().className $= "FadePlatformClass") {
 			%this.addSpecial("Edit Fading Platform", "efpbutton(" @ %obj @ ");");
@@ -4361,21 +4485,55 @@ function EWorldEditor::buildSpecialSingle(%this, %obj) {
 		}
 	}
 	switch$ (%class) {
-	case "Sky":
-		%this.addSpecial("Change Skybox", "csbbutton();");
+		case "Sky":
+			%this.addSpecial("Change Skybox", "csbbutton();");
+		case "PathedInterior":
+			for(%i = 0; (%gobj = %obj.getGroup().getObject(%i)) != -1; %i++) {
+				if(%gobj.getClassName() $= "Trigger") {
+					%usingTrigger = true;
+					break;
+				}
+			}
+			if(!%obj.locked) {
+				%this.addSpecial("Edit Path", "pathbutton(" @ %obj @ ");");
+				if(!%usingTrigger) {
+					%this.addSpecial("Don't Loop", %obj @ ".setTargetPosition(0);" @ %obj @ ".initialTargetPosition = 0; EditorInspector.inspector.inspect(EditorInspector.object);");
+					%this.addSpecial("Loop Backward", %obj @ ".setTargetPosition(-2);" @ %obj @ ".initialTargetPosition = -2; syncMovingPlatforms(); EditorInspector.inspector.inspect(EditorInspector.object);");
+					%this.addSpecial("Loop Forward", %obj @ ".setTargetPosition(-1);" @ %obj @ ".initialTargetPosition = -1; syncMovingPlatforms(); EditorInspector.inspector.inspect(EditorInspector.object);");
+				}
+			}
+			if(%usingTrigger)
+				%this.addSpecial("Reset Position", %obj @ ".onMissionReset();");
+			
+		case "Marker":
+			%this.addSpecial(">", %this @ ".selectMarker(" @ %obj @ "," @ "1" @ ");");
+			%this.addSpecial("<", %this @ ".selectMarker(" @ %obj @ "," @ "-1" @ ");");
+			if(!%obj.locked) {
+				%this.addSpecial("Edit Path", "pathbutton(" @ %obj @ ");");
+				%this.addSpecial("Trigger to Here", %this @ ".addPathTrigger(" @ %obj @ ");");
+				%this.addSpecial("Move To Start", %obj @ ".moveToStart();");
+			}
+
+		case "Trigger":
+			cancel(EWorldEditor.triggerLeaveSch);
+			%enter = %obj.getDataBlock() @ ".onEnterTrigger(" @ %obj @ "," @ LocalClientConnection.player @ ");";
+			%leave = "EWorldEditor.triggerLeaveSch=" @ %obj.getDataBlock() @ ".schedule(1000,onLeaveTrigger," @ %obj @ "," @ LocalClientConnection.player @ ");";  
+			%this.addSpecial("Activate", %enter @ %leave);
 	}
-	%this.addSpecial("Drop to Ground", "EWorldEditor.dropAtGround();");
-	%this.addSpecial("Round Coordinates", "EWorldEditor.roundCoords();");
-	%this.addSpecial("Drop to Ground + Round Coords", "EWorldEditor.dropandround();");
-	%this.addSpecial("Rotate", "EWorldEditor.rotateManually();");
-	%this.addSpecial("Translate", "EWorldEditor.translateManually();");
+	if(!%obj.locked) {
+		%this.addSpecial("Drop to Ground", "EWorldEditor.dropAtGround();");
+		%this.addSpecial("Round Coordinates", "EWorldEditor.roundCoords();");
+		//%this.addSpecial("Drop to Ground + Round Coords", "EWorldEditor.dropandround();");
+		%this.addSpecial("Rotate", "EWorldEditor.rotateManually();");
+		%this.addSpecial("Translate", "EWorldEditor.translateManually();");
+	}
 }
 
 function EWorldEditor::buildSpecialMultiple(%this, %type) {
 	%this.addSpecial("Group Items", "EWorldEditor.groupSelection();");
 	%this.addSpecial("Ungroup Items", "EWorldEditor.ungroupSelection();");
 	if (%type & $TypeMasks::GameBaseObjectType) {
-		%this.addSpecial("Drop to Ground + Round Coords", "EWorldEditor.dropandround();");
+		//%this.addSpecial("Drop to Ground + Round Coords", "EWorldEditor.dropandround();");
 		%this.addSpecial("Round Coordinates", "EWorldEditor.roundCoords();");
 		%this.addSpecial("Drop to Ground", "EWorldEditor.dropAtGround();");
 		%this.addSpecial("Rotate", "EWorldEditor.rotateManually();");
@@ -4456,6 +4614,7 @@ function editorTranslate3dObj(%obj) {
 	} else {
 		%obj.setTransform(VectorAdd(MatrixPos(%obj.getTransform()), %translation) SPC MatrixRot(%obj.getTransform()));
 	}
+	%obj.onEditorSetTransform();
 }
 
 //------------------------------------------------------------------------------
@@ -4547,6 +4706,7 @@ function editorRotate3dObj(%obj) {
 
 	//Revert our original translation
 	%obj.setTransform(MatrixMultiply(%obj.getTransform(), VectorScale(%offset, -1) SPC "1 0 0 0"));
+	%obj.onEditorSetTransform();
 	%obj.forceNetUpdate();
 }
 
@@ -4785,4 +4945,87 @@ function buildDBJson() {
 		}
 	}
 	fwrite("platinum/triggerdatablocks.json", jsonPrint(TLArray));
+}
+
+function EWorldEditor::selectSingle(%this, %obj) {
+  	%this.clearSelection();
+  	EditorTree.onSelect(%obj);
+}
+
+function EWorldEditor::selectGroup(%this, %obj) {
+	if(%obj.getClassName() $= "SimGroup" || %obj.getClassName() $= "Path") {
+		for(%i = 0; %i < %obj.getCount(); %i++) {
+			%g_obj = %obj.getObject(%i);
+			%this.selectGroup(%g_obj);
+		}
+	}
+	else {
+		%this.selectObject(%obj);
+	}
+}
+
+function EWorldEditor::isMCGroupSelected(%this, %group) {
+	if(!isObject(%group))
+		return false;
+	for(%i = 0; %i < EWorldEditor.getSelectionSize(); %i++) { 
+		%selected[EWorldEditor.getSelectedObject(%i)] = true;
+	}
+	if(%group.getName() !$= "MissionGroup") {
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+			if(%obj.getClassName() $= "Path")
+				for(%j = 0; (%m = %obj.getObject(%j)) != -1; %j++) {
+					if(%selected[%m]) %markerSelected = true;
+				}
+			else if(%obj.getClassName() $= "PathedInterior")
+				if(%selected[%obj]) %piSelected = true;
+		}
+	}
+	return %markerSelected && %piSelected;
+}
+
+function EWorldEditor::noteMCGroupSelected(%this, %group) {
+	// Note if the selected MP elements should be transferred to a new MustChange group.
+	%this.mcGroupIsSelected[%group] = %this.isMCGroupSelected(%group);
+}
+
+function EWorldEditor::addPathTrigger(%this, %marker) {
+	%path = %marker.getGroup();
+	if(%path.getClassName() !$= "Path")
+		return;
+	%group = %path.getGroup();
+	%trigger = new Trigger("MustChange_t") {
+		dataBlock = TriggerGotoTarget;
+		targetTime = 1000;
+		IContinueToTTime = 0;
+		instant = 0;
+		polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+	};
+	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+		if(%obj.getClassName() $= "PathedInterior") {
+			%obj.initialTargetPosition = 0;
+			%obj.setPathPosition(%obj.initialPathPosition);
+			%obj.setTargetPosition(0);
+			%mp = %obj;
+		}
+	}
+	%trigger.targetSeqNum = %marker.seqNum;
+	%trigger.fit(%mp);
+	%group.add(%trigger);
+	TriggerGotoTarget.onInspectApply(%trigger);
+	%this.selectSingle(%trigger);
+	//%this.dropSelection(); 
+}
+
+function EWorldEditor::selectMarker(%this, %marker, %amt) {
+	%path = %marker.getGroup();
+	if(%path.getClassName() !$= "Path")
+		return;
+	for(%i = 0; (%obj = %path.getObject(%i)) != -1; %i++) {
+		if(%obj == %marker) {
+			%count = %path.getCount();
+			%idx = (%i + %amt + %count) % %count;
+			EWorldEditor.selectSingle(%path.getObject(%idx));
+			return;
+		}
+	}
 }

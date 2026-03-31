@@ -69,21 +69,16 @@ function clientCbOnMissionEnded() {
 }
 
 package SacredGroundB1 {
-	function SceneObject::getSurfaceVelocity(%this, %marble, %contact, %dist) {
-		if ((strpos(%this.getFieldValue("interiorFile"), "SacredGroundSmallSpike.dif") != -1) ||
-			(strpos(%this.getFieldValue("interiorFile"), "SacredGroundBigSpike.dif") != -1)) {
-			if ($ripperoni) {
-				return Parent::getSurfaceVelocity(%this, %marble, %contact, %dist);
-			}
-
+	function Marble::onCollide(%this, %contactVert, %normal, %surfVel, %contactDist, %obj, %fric, %force, %material) {
+		if ((strpos(%obj.getFieldValue("interiorFile"), "SacredGroundSmallSpike.dif") != -1) ||
+			(strpos(%obj.getFieldValue("interiorFile"), "SacredGroundBigSpike.dif") != -1)) {
 			//Nope
-			commandToServer('Ripperoni', %marble.getSyncId());
+			if ($ripperoni) {
+				return;
+			}
+			commandToServer('Ripperoni', %this.getSyncId());
 			$ripperoni = true;
-
-			return Parent::getSurfaceVelocity(%this, %marble, %contact, %dist);
-		} else {
-			return Parent::getSurfaceVelocity(%this, %marble, %contact, %dist);
-		}
+		} 
 	}
 };
 

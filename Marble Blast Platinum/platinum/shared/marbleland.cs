@@ -31,6 +31,9 @@ function marblelandDownloadMissionList(%callback) {
 
 function MarblelandJSONDownloader::onLine(%this, %line) {
 	echo("Loaded Marbleland MissionList");
+	if (isObject($MarblelandMissionList)) {
+		$MarblelandMissionList.delete();
+	}
 	$MarblelandMissionList = jsonParse(%line);
 	%this.success = 1;
 
@@ -77,6 +80,9 @@ function marblelandDownloadPackList(%callback) {
 
 function MarblelandPacksJSONDownloader::onLine(%this, %line) {
 	echo("Loaded MarblelandPacks MissionList");
+	if (isObject($MarblelandPackList)) {
+		$MarblelandPackList.delete();
+	}
 	$MarblelandPackList = jsonParse(%line);
 	%this.success = 1;
 
@@ -517,6 +523,12 @@ function MarblelandRandomMissionQueue::getMissionInfo(%this, %index) {
 
 function MarblelandRandomMissionQueue::isUpcomingHidden(%this) {
 	return true;
+}
+
+function marblelandRedownloadLists() {
+	marblelandDownloadMissionList();
+	marblelandDownloadPackList();
+	$Marbleland::LastRetrievalTime = getSimTime();
 }
 
 // For RPC calls, currently used for marbleland

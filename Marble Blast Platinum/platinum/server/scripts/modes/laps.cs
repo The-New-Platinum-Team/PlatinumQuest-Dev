@@ -164,8 +164,12 @@ function GameConnection::onNextLap(%this) {
 			%this.addBubbleLine(%message, false, 5000);
 			%this.playPitchedSound("missinggems");
 		} else {
-			// Finish the game
-			endGameSetup();
+			if (%this.canFinish()) {
+				// Finish the game
+				endGameSetup();
+			} else {
+				return;
+			}
 		}
 	}
 
