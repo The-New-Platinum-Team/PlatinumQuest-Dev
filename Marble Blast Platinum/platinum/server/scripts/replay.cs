@@ -33,7 +33,7 @@ function playbackGhost(%file, %time) {
 	%conn.skinChoice = %info.marbleSelection;
 	%conn.updateGhostDatablock();
 
-	%object.setFadeVal(1);
+	//%object.setFadeVal(0.75);
 	%object.forceNetUpdate();
 	PlaybackGhostGroup.add(%object);
 	LocalClientConnection.syncObject(%object, "playbackSyncStart", %file TAB 1 TAB %time);

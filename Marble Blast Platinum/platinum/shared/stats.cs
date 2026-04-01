@@ -1104,6 +1104,7 @@ function LBDownloadReplay::onDownload(%this, %path) {
 		$replayFromWorldRecord = true;
 		playReplay(%path, %this.race);
 	}
+	//%this.delete();
 }
 
 function LBDownloadReplay::downloadFailed(%this, %path) {
@@ -1118,7 +1119,7 @@ function LBDownloadReplay::onDisconnect(%this) {
 function statsGetReplay(%mission, %type, %race)  {
 	if (PlayMissionGui.isAwake() && !$Game::Loading) {
 		if (isObject(LBDownloadReplay))
-			LBDownloadReplay.delete();
+			return;
 		
 		new HTTPObject(LBDownloadReplay);
 		LBDownloadReplay.race = %race;
