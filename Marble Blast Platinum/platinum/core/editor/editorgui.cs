@@ -4435,6 +4435,7 @@ function EWorldEditor::buildSpecial(%this) {
 
 function EWorldEditor::buildSpecialNone(%this) {
 	%this.addSpecial("Edit Mission Info", "emibutton();");
+	%this.addSpecial("Edit Sun", "sunbutton();");
 	%this.addSpecial("Change Skybox", "csbbutton();");
   
 	if(isObject(AutoInterior_g)) {
