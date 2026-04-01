@@ -382,7 +382,6 @@ function onMissionReset() {
 			$Playback::GhostSchedule[%i] = schedule(%delay, 0, playbackGhost, MissionInfo.replay[%i], %delay);
 		}
 	}
-
 }
 
 function SimGroup::onMissionReset(%this) {
