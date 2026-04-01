@@ -554,8 +554,9 @@ function PlaybackInfo::start(%this) {
 			if($Game::isMode["hunt"]) {
 				PGScoreListContainer.setVisible(true);
 
+				%author = %this.author !$= "" ? %this.author : "Player";
 				%player1 = $pref::highscoreName TAB "0" TAB "0 0 0 0" TAB "0" TAB strreplace(MarbleSelectDlg.getSelection(), "\t", "\\t") TAB "0";
-				%player2 = "Past" SPC %this.author TAB "0"  TAB "0 0 0 0" TAB "1" TAB strreplace(%this.marbleSelection, "\t", "\\t") TAB "0";
+				%player2 = "Past" SPC %author TAB "0"  TAB "0 0 0 0" TAB "1" TAB strreplace(%this.marbleSelection, "\t", "\\t") TAB "0";
 
 				clientCmdScoreListPlayer(%player1 NL %player2);
 			}
