@@ -574,7 +574,7 @@ function PlaybackInfo::start(%this) {
 	}
 }
 
-function replayToggleCamera(%input) { 
+function replayToggleCamera(%input) {
 	if (%input) {
 		if (LocalClientConnection.getControlObject() != LocalClientConnection.camera) {
 			$mvLeftAction = 0;
@@ -1216,12 +1216,12 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 						%this.info.marble.powerUpData = %pData;
 						%this.info.marble._powerUpId = %pId;
 					}
-					%col.setFadeVal(0.5);
+					%col.setFadeVal(0.75);
 					%col.schedule(%col.respawnTime $= "" ? $Item::RespawnTime : %col.respawnTime, "setFadeVal", 1);
 				} else {
 					LocalClientConnection.playPitchedSound("opponentDiamond");
 					if(!$Game::isMode["hunt"])
-						%col.setFadeVal(0.5);
+						%col.setFadeVal(0.75);
 				}
 			}
 		}
@@ -1366,7 +1366,7 @@ function PlaybackGravityFrame::apply(%this, %object, %t) {
 	$Playback::DemoFrame = false;
 }
 
-function PlaybackInfo::readGems(%this) {	
+function PlaybackInfo::readGems(%this) {
 	PlaybackFrameGroup.add(%gemsFrame = new ScriptObject() {
 		class = "PlaybackGemsFrame";
 		superClass = "PlaybackFrame";
