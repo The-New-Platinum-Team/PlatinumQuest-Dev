@@ -39,8 +39,14 @@ function sunbutton() {
     LargeFunctionDlg.sun = %sun;
     
     LargeFunctionDlg.init("acceptSun", "Edit Sun", 0);
-    
-    LargeFunctionDlg.addDropMenu("SunPresets", "Main Game Suns:", 5, "Gold\tGold\nExpert\tPlatinum Expert");
+
+    for(%i = 0; $WEPref::sunPresets[%i] !$= ""; %i++) {
+        %name = getField($WEPref::sunPresets[%i], 0);
+        %dropdown = %dropdown @ "\n" @ %name @ "\t" @ %name;
+        LargeFunctionDlg.sunPresets[%name] = $WEPref::sunPresets[%i];
+    }
+
+    LargeFunctionDlg.addDropMenu("SunPresets", "Presets:", 5, %dropdown);
     SunPresets.command = "onSelectSun();";
     
     LargeFunctionDlg.addNote("----------- Sun Color -----------");
@@ -67,73 +73,125 @@ function sunbutton() {
     LargeFunctionDlg.addNote("", 0);
     LargeFunctionDlg.addSlider("SunAzimuthSlider", "Azimuth:", -$pi SPC $pi);
     LargeFunctionDlg.addNote("  \tSouth\t\t\tWest\t\t\tNorth\t\t\tEast", 3);
+
+    LargeFunctionDlg.addButton("SavePresetButton", "Save Preset");
+    LargeFunctionDlg.addButton("DeletePresetButton", "Delete Preset");
     
     SunElevationSlider.ticks = SunAzimuthSlider.ticks = 3;
     SunElevationSlider.extent = SunAzimuthSlider.extent = "220 35";
 
     updateSunSliders();
-    updateSun();
-    activatePackage(cancelSunUpdates);
+    activatePackage(cancelSunChanges);
 }
 
 function onSelectSun() {
-    // TODO save custom presets?
-    switch$ (SunPresets.getValue()) {
-        case "Gold":
-            LargeFunctionDlg.sun.direction = "0.544508 0.439467 -0.714409";
-            LargeFunctionDlg.sun.color = "1.400000 1.200000 0.400000 1.000000";
-            LargeFunctionDlg.sun.ambient = "0.300000 0.300000 0.400000 1.000000";
-        case "Expert":
-            LargeFunctionDlg.sun.color = "0.700000 0.700000 0.700000 1.000000";
-            LargeFunctionDlg.sun.ambient = "0.100000 0.100000 0.200000 1.000000";
-            LargeFunctionDlg.sun.direction = "0.638261 0.459006 -0.61801";
-    }
+    %preset = LargeFunctionDlg.sunPresets[SunPresets.getValue()];
+    LargeFunctionDlg.sun.direction = getField(%preset, 1);
+    LargeFunctionDlg.sun.color = getField(%preset, 2);
+    LargeFunctionDlg.sun.ambient = getField(%preset, 3);
     updateSunSliders();
+    updateEditSun();
+}
+
+function SunRedSlider::onMouseDragged(%this) { updateEditSunColor(); }
+function SunGreenSlider::onMouseDragged(%this) { updateEditSunColor(); }
+function SunBlueSlider::onMouseDragged(%this) { updateEditSunColor(); }
+
+function SunRedAmbientSlider::onMouseDragged(%this) { updateEditSunAmbient(); }
+function SunGreenAmbientSlider::onMouseDragged(%this) { updateEditSunAmbient(); }
+function SunBlueAmbientSlider::onMouseDragged(%this) { updateEditSunAmbient(); }
+
+function SunElevationSlider::onMouseDragged(%this) { updateEditSunDirection(); }
+function SunAzimuthSlider::onMouseDragged(%this) { updateEditSunDirection(); }
+
+function SavePresetButton::onPressed(%this) { SingleValueGui.open(%this); }
+function DeletePresetButton::onPressed(%this) { deleteSunPreset(); }
+
+function SavePresetButton::svcallback(%this, %name, %value) {
+    if(saveSunPreset(%value)) {
+        sunbutton();
+        SunPresets.setValue(%value);
+    }
+}
+
+function updateEditSunDirection() {
+    LargeFunctionDlg.sun.direction = VectorFromAzEl(SunAzimuthSlider.getValue(), SunElevationSlider.getValue()); //TODO fix
+    LargeFunctionDlg.sun.onNextFrame("inspectPostApply");
+}
+
+function updateEditSunColor() {
+    LargeFunctionDlg.sun.color = SunRedSlider.getValue() / 255 SPC SunGreenSlider.getValue() / 255 SPC SunBlueSlider.getValue() / 255;
+    LargeFunctionDlg.sun.onNextFrame("inspectPostApply");
+}
+
+function updateEditSunAmbient() {
+    LargeFunctionDlg.sun.ambient = SunRedAmbientSlider.getValue() / 255 SPC SunGreenAmbientSlider.getValue() / 255 SPC SunBlueAmbientSlider.getValue() / 255;
+    LargeFunctionDlg.sun.onNextFrame("inspectPostApply");
+}
+
+function updateEditSun() {
+    updateEditSunDirection();
+    updateEditSunColor();
+    updateEditSunAmbient();
 }
 
 function updateSunSliders() {
     %sun = LargeFunctionDlg.sun;
 
-    SunRedSlider.value = getWord(%sun.color, 0) * 255;
-    SunGreenSlider.value = getWord(%sun.color, 1) * 255;
-    SunBlueSlider.value = getWord(%sun.color, 2) * 255;
+    SunRedSlider.setValue(getWord(%sun.color, 0) * 255);
+    SunGreenSlider.setValue(getWord(%sun.color, 1) * 255);
+    SunBlueSlider.setValue(getWord(%sun.color, 2) * 255);
     
-    SunRedAmbientSlider.value = getWord(%sun.ambient, 0) * 255;
-    SunGreenAmbientSlider.value = getWord(%sun.ambient, 1) * 255;
-    SunBlueAmbientSlider.value = getWord(%sun.ambient, 2) * 255;
+    SunRedAmbientSlider.setValue(getWord(%sun.ambient, 0) * 255);
+    SunGreenAmbientSlider.setValue(getWord(%sun.ambient, 1) * 255);
+    SunBlueAmbientSlider.setValue(getWord(%sun.ambient, 2) * 255);
 
-    SunAzimuthSlider.value = mAtan(getWord(%sun.direction, 0), getWord(%sun.direction, 1));
-    SunElevationSlider.value = mAtan(getWord(%sun.direction, 2), getWord(%sun.direction, 1));
-    
-    SunRedSlider.inspectPostApply();
-    SunGreenSlider.inspectPostApply();
-    SunBlueSlider.inspectPostApply();
-    
-    SunRedAmbientSlider.inspectPostApply();
-    SunGreenAmbientSlider.inspectPostApply();
-    SunBlueAmbientSlider.inspectPostApply();
-    
-    SunElevationSlider.inspectPostApply();
-    SunAzimuthSlider.inspectPostApply();
-}
+    %x = getWord(%sun.direction, 0);
+    %y = getWord(%sun.direction, 1);
+    %z = getWord(%sun.direction, 2);
 
-function updateSun() {
-    %sun = LargeFunctionDlg.sun;
-    if(isObject(%sun)) {
-        %sun.color = SunRedSlider.value / 255 SPC SunGreenSlider.value / 255 SPC SunBlueSlider.value / 255;
-        %sun.ambient = SunRedAmbientSlider.value / 255 SPC SunGreenAmbientSlider.value / 255 SPC SunBlueAmbientSlider.value / 255;
-        %sun.direction = VectorFromAzEl(SunAzimuthSlider.value, SunElevationSlider.value);
-        %sun.inspectPostApply();
-        cancel(LargeFunctionDlg.sunSch);
-        LargeFunctionDlg.sunSch = schedule(50, 0, "updateSun");
-    }
+    %az = mAtan(%x, %y);
+    %dist = mSqrt(%x*%x + %y*%y);
+    %el = mAtan(%z, %dist);
+
+    SunAzimuthSlider.setValue(%az);
+    SunElevationSlider.setValue(%el);
 }
 
 function acceptSun() {
     LargeFunctionDlg.sunAccepted = true;
 }
 
-package cancelSunUpdates {
+function saveSunPreset(%name) {
+    for(%i = 0; $WEPref::sunPresets[%i] !$= ""; %i++) {
+        if(getField($WEPref::sunPresets[%i], 0) $= %name) {
+            MessageBoxOK("Error", "Preset with that name already exists.");
+            return false;
+        }
+    }
+    $WEPref::sunPresets[%i] = %name TAB LargeFunctionDlg.sun.direction TAB LargeFunctionDlg.sun.color TAB LargeFunctionDlg.sun.ambient;
+    return true;
+}
+
+function deleteSunPreset() {
+    %name = SunPresets.getValue();
+    if (%name $= "") return;
+    MessageBoxYesNo("Delete Preset", "Delete the sun preset '" @ %name @ "'?", "doDeleteSunPreset(\"" @ %name @ "\"); sunbutton();", "");
+}
+
+function doDeleteSunPreset(%name) {
+    for (%i = 0; $WEPref::sunPresets[%i] !$= ""; %i++) {
+        %currentName = getField($WEPref::sunPresets[%i], 0);
+        if (%currentName $= %name)
+            %found = true;
+        if (%found)
+            $WEPref::sunPresets[%i] = $WEPref::sunPresets[%i+1];
+    }
+    if(%found)
+        deleteVariables("$WEPref::sunPresets" @ (%i - 1));
+}
+
+package cancelSunChanges {
     function LargeFunctionDlg::onSleep(%this) {
         if(!LargeFunctionDlg.sunAccepted && isObject(LargeFunctionDlg.sun)) {
             %sun = LargeFunctionDlg.sun;
@@ -142,13 +200,19 @@ package cancelSunUpdates {
             %sun.direction = LargeFunctionDlg.originalSunDirection;
             %sun.inspectPostApply();
         }
-        cancel(LargeFunctionDlg.sunSch);
         LargeFunctionDlg.sun = "";
         LargeFunctionDlg.sunAccepted = false;
-        deactivatePackage(cancelSunUpdates);
+        deactivatePackage(cancelSunChanges);
     }
 };
 
 function VectorFromAzEl(%az, %el) {
-  return mSin(%az)*mCos(%el) SPC mCos(%az)*mCos(%el) SPC mSin(%el);
+    return mSin(%az)*mCos(%el) SPC mCos(%az)*mCos(%el) SPC mSin(%el);
 }
+
+if($WEPref::sunPresets0 $= "")
+    $WEPref::sunPresets0 = "Gold\t0.544508 0.439467 -0.714409\t1.4 1.2 0.4 1\t0.3 0.3 0.4 1";
+if($WEPref::sunPresets1 $= "")
+    $WEPref::sunPresets1 = "Ultra\t0.5732009 0.2753569 -0.7717638\t1.08 1.03 0.9 1\t0.4 0.4 0.5 1";
+if($WEPref::sunPresets2 $= "")
+    $WEPref::sunPresets2 = "Platinum Expert\t0.638261 0.459006 -0.61801\t0.7 0.7 0.7 1\t0.1 0.1 0.2 1";
