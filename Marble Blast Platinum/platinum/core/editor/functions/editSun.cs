@@ -21,9 +21,10 @@
 //-----------------------------------------------------------------------------
 
 function sunbutton() {
-    for(%i = 0; %i < MissionGroup.getCount(); %i++) {
-        %obj = MissionGroup.getObject(%i);
-        if(MissionGroup.getObject(%i).getClassName() $= "Sun") {
+    %group = isObject(MissionData) ? MissionData : MissionGroup;
+    for(%i = 0; %i < %group.getCount(); %i++) {
+        %obj = %group.getObject(%i);
+        if(%obj.getClassName() $= "Sun") {
             %sun = %obj;
             break;
         }
