@@ -501,6 +501,8 @@ function GameConnection::respawnObjects(%this, %group) {
 		else {
 			if (%object._pickUpCheckpoint >= %this.curCheckpointNum && isObject(%object._pickUp) && %object._pickUp.getId() == %this.getId()) {
 				//echo("Respawning gem" SPC %object);
+				if($Playback::Ghost)
+					%object.onNextFrame("setFadeVal", %object.getFadeVal());
 				%object.onMissionReset(); // respawn gem.
 				%object._pickUpCheckpoint = "";
 				%object._pickUp = "";

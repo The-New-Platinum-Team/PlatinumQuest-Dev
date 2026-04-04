@@ -283,7 +283,7 @@ function EditDemoDlg::dosave(%this) {
 		%name = %name SPC "(" @ %num @ ")";
 	}
 
-	setModPaths($modPath);
+	addResPath("platinum/data/recordings");
 	eval(%this.callback);
 	RootGui.popDialog(%this);
 }
