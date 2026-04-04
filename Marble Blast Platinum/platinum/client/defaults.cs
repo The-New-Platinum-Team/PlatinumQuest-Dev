@@ -131,6 +131,8 @@ $pref::CannonAimPrecision = 0.01;
 $pref::CannonAimIterationsFast = 24;
 $pref::CannonAimPrecisionFast = 0.1;
 
+$pref::ghostReplayItems = 1;
+
 //LBPrefs
 
 $LBPref::Server = 0;

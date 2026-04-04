@@ -224,6 +224,11 @@ $AdvancedOptions::Title   [$i  ] = "Temporal Music Speed";
 $AdvancedOptions::Tooltip [$i  ] = "If enabled, the music speed will change to match the game speed.";
 $AdvancedOptions::Variable[$i  ] = "$pref::temporalMusic";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "ghostReplayItems";
+$AdvancedOptions::Title   [$i  ] = "Replay Ghost Uses Items";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the racing ghost will have extra audio and visual effects for items.";
+$AdvancedOptions::Variable[$i  ] = "$pref::ghostReplayItems";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 // $AdvancedOptions::Name    [$i++] = "useLowResGlass";
 // $AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
 // $AdvancedOptions::Variable[$i  ] = "$pref::UseLowResGlass";
@@ -246,7 +251,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 
 	%curYPos = 0;
-	%rowsPerCol = 11;
+	%rowsPerCol = 12;
 
 	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
 		%name = $AdvancedOptions::Name[%i];

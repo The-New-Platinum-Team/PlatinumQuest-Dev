@@ -384,10 +384,11 @@ function recordGetPathedInteriors(%group, %list) {
 
 //-----------------------------------------------------------------------------
 
-function playReplay(%file) {
+function playReplay(%file, %race) {
 	//Read the header from the replay
 	%info = getReplayInfo(%file);
-	$playingDemo = true;
+	if(!%race)
+		$playingDemo = true;
 	$demoLB = %info.lb;
 
 	//Go find it on pmg
@@ -402,6 +403,7 @@ function playReplay(%file) {
 	echo("Need to load mission " @ %info.missionFile @ " and replay " @ %file);
 
 	$Playback::CurrentFile = %file;
+	$Playback::Ghost = %race;
 
 	//How convenient
 	deactivateMenuHandler("PMMenu");
@@ -424,9 +426,11 @@ function Replay_Play() {
 	deactivateMenuHandler("Replay");
 	%file = $Playback::CurrentFile;
 
-	//Get replay marble info
-	%info = getReplayInfo(%file);
-	playbackPlayer(%file, %info.marbleSelection);
+	if(!$Playback::Ghost) {
+		//Get replay marble info
+		%info = getReplayInfo(%file);
+		playbackPlayer(%file, %info.marbleSelection);
+	}
 }
 
 function Replay_MissionLoadFailed() {
@@ -530,6 +534,7 @@ function playbackStart(%object, %file, %ghost, %start) {
 	});
 	%info.fo = new FileObject();
 	%info.marble = %object;
+	echo("the marble is:" SPC %info.marble);
 	%info.file = %file;
 	%info.ghost = %ghost;
 	%info.start = %start;
@@ -545,7 +550,18 @@ function PlaybackInfo::start(%this) {
 			%this.finish();
 			return;
 		}
-		if (!%this.ghost) {
+		if (%this.ghost) {
+			if($Game::isMode["hunt"]) {
+				PGScoreListContainer.setVisible(true);
+
+				%author = %this.author !$= "" ? %this.author : "Player";
+				%player1 = $pref::highscoreName TAB "0" TAB "0 0 0 0" TAB "0" TAB strreplace(MarbleSelectDlg.getSelection(), "\t", "\\t") TAB "0";
+				%player2 = "Past" SPC %author TAB "0"  TAB "0 0 0 0" TAB "1" TAB strreplace(%this.marbleSelection, "\t", "\\t") TAB "0";
+
+				clientCmdScoreListPlayer(%player1 NL %player2);
+			}
+		}
+		else {
 			//Controlling self, disable everything!
 			//Physics::pushLayerName("noInput");
 			MoveMap.pop();
@@ -1080,6 +1096,10 @@ function PlaybackInfo::readMetadata(%this) {
 }
 
 function PlaybackPlatformFrame::apply(%this, %object, %t) {
+	if(%this.info.ghost) {
+		return;
+	}
+
 	%platforms = recordGetPathedInteriors();
 	%count = min(%platforms.getSize(), %this.platforms);
 	for (%i = 0; %i < %count; %i ++) {
@@ -1120,7 +1140,7 @@ function PlaybackInfo::readSpawn(%this) {
 }
 
 function PlaybackSpawnFrame::apply(%this, %object, %t) {
-	if (%this.applied) {
+	if (%this.info.ghost || %this.applied) {
 		return;
 	}
 	%this.applied = true;
@@ -1177,7 +1197,8 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
 
-		if (strStr(%this.db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1) {
+		%notGem = (strStr(%this.db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1);
+		if (%notGem) {
 			if (%col.getDataBlock().getName() !$= %this.db && (%col.getDataBlock().getName() !$= (%this.db @ "_MBU")))
 				continue;
 		}
@@ -1186,7 +1207,32 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 			echo("Hacky pickup of item at " @ %this.position);
 		//Hack
 		$Playback::DemoFrame = true;
-		DefaultMarble.onCollision(LocalClientConnection.player, %col);
+		
+		if(%this.info.ghost) {
+			%ghost = %this.info.marble;
+			if($pref::ghostReplayItems) {
+				if(%notGem) {
+					%pData = %col.getDataBlock();
+					%pId = %pData._getPowerUpId();
+					if(%pId != 0) {
+						%ghost.powerUpData = %pData;
+						%ghost._powerUpId = %pId;
+					}
+					%col.setFadeVal(0.75);
+					%col.schedule(%col.respawnTime $= "" ? $Item::RespawnTime : %col.respawnTime, "setFadeVal", 1);
+				} else {
+					LocalClientConnection.playPitchedSound("opponentDiamond");
+					if(!$Game::isMode["hunt"]) {
+						%col.setFadeVal(0.75);
+						%ghost.checkpointGem[%ghost.checkpointGemCount] = %col;
+						%ghost.checkpointGemCount++;
+					}
+				}
+			}
+		}
+		else
+			DefaultMarble.onCollision(%this.info.marble, %col);
+
 		$Playback::DemoFrame = false;
 	}
 	%objs.delete();
@@ -1232,10 +1278,25 @@ function PlaybackCollisionFrame::apply(%this, %object, %t) {
 
 		if ($debugreplay)
 			echo("Hacky collision of item at " @ %this.position);
-		//Hack
-		$Playback::DemoFrame = true;
-		%this.db.onCollision(%col, LocalClientConnection.player);
-		$Playback::DemoFrame = false;
+		
+		if(%this.info.ghost) {
+			%ghost = %this.info.marble;
+			if($pref::ghostReplayItems) {
+				%col.playAudio(0, %col.getDataBlock().sound);
+				// Hack: fake the ghost checkpoint (TODO: checkpoint triggers?)
+				if(%col.getDataBlock().className $= "CheckPointClass") {
+					if(%ghost.checkpoint != %col) {
+						%ghost.checkpoint = %col;
+						%ghost.checkpointGemCount = 0;
+					}
+				}
+			}	
+		}
+		else {
+			$Playback::DemoFrame = true; //Hack
+			%this.db.onCollision(%col, %this.info.marble);
+			$Playback::DemoFrame = false;
+		}
 	}
 	%objs.delete();
 }
@@ -1262,7 +1323,7 @@ function PlaybackInfo::readPhysics(%this) {
 }
 
 function PlaybackPhysicsFrame::apply(%this, %object, %t) {
-	if (%this.applied) {
+	if (%this.info.ghost || %this.applied) {
 		return;
 	}
 	%this.applied = true;
@@ -1306,7 +1367,7 @@ function PlaybackInfo::readGravity(%this) {
 }
 
 function PlaybackGravityFrame::apply(%this, %object, %t) {
-	if (%this.applied) {
+	if (%this.info.ghost || %this.applied) {
 		return;
 	}
 	%this.applied = true;
@@ -1314,9 +1375,7 @@ function PlaybackGravityFrame::apply(%this, %object, %t) {
 	$Playback::DemoFrame = true;
 	if (%this.instant || !orthoCompare(%this.dir, $Game::GravityDir)) {
 		clientCmdSetGravityDir(%this.dir, %this.instant, %this.rot);
-		if (!%this.info.ghost) {
-			LocalClientConnection.setGravityDir(%this.dir, %this.instant, %this.rot);
-		}
+		LocalClientConnection.setGravityDir(%this.dir, %this.instant, %this.rot);
 	}
 	$Playback::DemoFrame = false;
 }
@@ -1348,6 +1407,11 @@ function PlaybackGemsFrame::apply(%this, %object, %t) {
 		return;
 	}
 	%this.applied = true;
+
+	if (%this.info.ghost) {
+		clientCmdScoreListUpdate(1, %this.count, "0 0 0 0", 0);
+		return;
+	}
 
 	LocalClientConnection.gemCount = %this.count;
 	$Game::GemCount = %this.max;
@@ -1383,8 +1447,9 @@ function PlaybackInfo::readMovement(%this) {
 }
 
 function PlaybackMovementFrame::apply(%this, %object, %t) {
-	if (LocalClientConnection.getControlObject() == LocalClientConnection.camera)
+	if (%this.info.ghost || LocalClientConnection.getControlObject() == LocalClientConnection.camera)
 		return;
+
 	$mvLeftAction = %this.left;
 	$mvRightAction = %this.right;
 	$mvForwardAction = %this.forward;
@@ -1414,16 +1479,35 @@ function PlaybackFrame::applyInput(%this) {
 	%change = (%flags ^ %this.info.lastInput);
 	%this.info.lastInput = %flags;
 
-	if (%change & 1 << 0)
-		usePowerup(!!(%flags & 1 << 0));
-	if (%change & 1 << 2)
-		jump      (!!(%flags & 1 << 2));
-	if (%change & 1 << 3)
-		mouseFire (!!(%flags & 1 << 3));
-	if (%change & 1 << 4)
-		useBlast  (!!(%flags & 1 << 4));
-	if (%change & 1 << 5)
-		forceRespawn(!!(%flags & 1 << 5));
+	if(%this.info.ghost) { 
+		%ghost = %this.info.marble;
+		if (%change & 1 << 0) {
+			if(%ghost.powerUpData.powerUpID !$= "" && %ghost.powerUpData.powerUpID < 6)
+				%ghost.doPowerup(%ghost.powerUpData.powerUpID);
+			%ghost.onPowerUpUsed();
+		}
+		//if(%change & 1 << 4) {
+		//	serverCmdBlast(%this.info.marble.client, $Game::GravityRot);
+		//}
+		if (%change & 1 << 5) {
+			for(%i = 0; %i < %ghost.checkpointGemCount; %i++) {
+				%ghost.checkpointGem[%i].setFadeVal(1);
+			}
+			%ghost.checkpointGemCount = 0;
+		}
+	}
+	else {
+		if (%change & 1 << 0)
+			usePowerup(!!(%flags & 1 << 0));
+		if (%change & 1 << 2)
+			jump      (!!(%flags & 1 << 2));
+		if (%change & 1 << 3)
+			mouseFire (!!(%flags & 1 << 3));
+		if (%change & 1 << 4)
+			useBlast  (!!(%flags & 1 << 4));
+		if (%change & 1 << 5)
+			forceRespawn(!!(%flags & 1 << 5));
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1516,9 +1600,9 @@ function PlaybackSceneObject::apply(%this, %object, %t) {
 	%trans = MatrixPos(%objTrans) SPC MatrixRot(%interp);
 
 	//Only move position if necessary
-	if (VectorDist(MatrixPos(%objTrans), MatrixPos(%interp)) > $ReplayForceThreshold) {
+	if (%this.info.ghost || VectorDist(MatrixPos(%objTrans), MatrixPos(%interp)) > $ReplayForceThreshold) {
 		%trans = %interp;
-		echo("Force move");
+		//echo("Force move");
 	} else {
 		//echo("Delta is " SPC VectorDist(MatrixPos(%objTrans), MatrixPos(%interp)));
 		%trans = MatInterpolate(%objTrans, %interp, 0.5);
@@ -1528,6 +1612,9 @@ function PlaybackSceneObject::apply(%this, %object, %t) {
 
 function PlaybackShapeBase::apply(%this, %object, %t) {
 	PlaybackSceneObject::apply(%this, %object, %t);
+
+	if(%this.info.ghost)
+		return;
 
 	for (%i = 0; %i < 8; %i ++) {
 		%image = %this.mountImage[%i];
@@ -1595,6 +1682,7 @@ function PlaybackMarble::apply(%this, %object, %t) {
 		} else {
 			%object.setCameraYaw(cinterpolate(%this.lastFrame.cameraYaw, %this.cameraYaw, %t, $pi * 2));
 			%object.setCameraPitch(cinterpolate(%this.lastFrame.cameraPitch, %this.cameraPitch, %t, $pi * 2));
+			%this.applyInput();
 		}
 	}
 }

@@ -20,18 +20,20 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-datablock StaticShapeData(ReplayGhost) {
-	shapeFile = "~/data/shapes/balls/ball-superball.dts";
-	scopeAlways = true;
-};
-
 function playbackGhost(%file, %time) {
-	%object = new StaticShape() {
-		position = "0 0 0";
-		rotation = "1 0 0 0";
-		scale = "1 1 1";
-		datablock = ReplayGhost;
+	%object = new Marble() {
+		dataBlock = "DefaultMarble";
+		checkpointGemCount = 0;
 	};
+	%info = getReplayInfo(%file);
+	%conn = new GameConnection() {
+		player = %object;
+	};
+	%object.client = %conn;
+	%conn.skinChoice = %info.marbleSelection;
+	%conn.updateGhostDatablock();
+
+	//%object.setFadeVal(0.75);
 	%object.forceNetUpdate();
 	PlaybackGhostGroup.add(%object);
 	LocalClientConnection.syncObject(%object, "playbackSyncStart", %file TAB 1 TAB %time);
