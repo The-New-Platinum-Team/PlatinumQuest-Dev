@@ -1209,20 +1209,24 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 		$Playback::DemoFrame = true;
 		
 		if(%this.info.ghost) {
+			%ghost = %this.info.marble;
 			if($pref::ghostReplayItems) {
 				if(%notGem) {
 					%pData = %col.getDataBlock();
 					%pId = %pData._getPowerUpId();
 					if(%pId != 0) {
-						%this.info.marble.powerUpData = %pData;
-						%this.info.marble._powerUpId = %pId;
+						%ghost.powerUpData = %pData;
+						%ghost._powerUpId = %pId;
 					}
 					%col.setFadeVal(0.75);
 					%col.schedule(%col.respawnTime $= "" ? $Item::RespawnTime : %col.respawnTime, "setFadeVal", 1);
 				} else {
 					LocalClientConnection.playPitchedSound("opponentDiamond");
-					if(!$Game::isMode["hunt"])
+					if(!$Game::isMode["hunt"]) {
 						%col.setFadeVal(0.75);
+						%ghost.checkpointGem[%ghost.checkpointGemCount] = %col;
+						%ghost.checkpointGemCount++;
+					}
 				}
 			}
 		}
@@ -1276,8 +1280,17 @@ function PlaybackCollisionFrame::apply(%this, %object, %t) {
 			echo("Hacky collision of item at " @ %this.position);
 		
 		if(%this.info.ghost) {
-			if($pref::ghostReplayItems)
+			%ghost = %this.info.marble;
+			if($pref::ghostReplayItems) {
 				%col.playAudio(0, %col.getDataBlock().sound);
+				// Hack: fake the ghost checkpoint (TODO: checkpoint triggers?)
+				if(%col.getDataBlock().className $= "CheckPointClass") {
+					if(%ghost.checkpoint != %col) {
+						%ghost.checkpoint = %col;
+						%ghost.checkpointGemCount = 0;
+					}
+				}
+			}	
 		}
 		else {
 			$Playback::DemoFrame = true; //Hack
@@ -1476,6 +1489,12 @@ function PlaybackFrame::applyInput(%this) {
 		//if(%change & 1 << 4) {
 		//	serverCmdBlast(%this.info.marble.client, $Game::GravityRot);
 		//}
+		if (%change & 1 << 5) {
+			for(%i = 0; %i < %ghost.checkpointGemCount; %i++) {
+				%ghost.checkpointGem[%i].setFadeVal(1);
+			}
+			%ghost.checkpointGemCount = 0;
+		}
 	}
 	else {
 		if (%change & 1 << 0)
