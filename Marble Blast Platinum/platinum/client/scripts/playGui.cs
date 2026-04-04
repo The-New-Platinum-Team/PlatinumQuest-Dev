@@ -888,6 +888,8 @@ package frameAdvance {
 	function onFrameAdvance(%timeDelta) {
 		Parent::onFrameAdvance(%timeDelta);
 
+		$Time::timeDelta = %timeDelta;
+
 		// adjust yaw
 		$cameraYaw += $mvYawLeftSpeed;
 		$cameraYaw -= $mvYawRightSpeed;
