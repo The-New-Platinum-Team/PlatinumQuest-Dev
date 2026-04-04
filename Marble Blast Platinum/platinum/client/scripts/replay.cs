@@ -1186,7 +1186,32 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 			echo("Hacky pickup of item at " @ %this.position);
 		//Hack
 		$Playback::DemoFrame = true;
-		DefaultMarble.onCollision(LocalClientConnection.player, %col);
+		
+		if(%this.info.ghost) {
+			%ghost = %this.info.marble;
+			if($pref::ghostReplayItems) {
+				if(%notGem) {
+					%pData = %col.getDataBlock();
+					%pId = %pData._getPowerUpId();
+					if(%pId != 0) {
+						%ghost.powerUpData = %pData;
+						%ghost._powerUpId = %pId;
+					}
+					%col.setFadeVal(0.75);
+					%col.schedule(%col.respawnTime $= "" ? $Item::RespawnTime : %col.respawnTime, "setFadeVal", 1);
+				} else {
+					LocalClientConnection.playPitchedSound("opponentDiamond");
+					if(!$Game::isMode["hunt"]) {
+						%col.setFadeVal(0.75);
+						%ghost.checkpointGem[%ghost.checkpointGemCount] = %col;
+						%ghost.checkpointGemCount++;
+					}
+				}
+			}
+		}
+		else
+			DefaultMarble.onCollision(%this.info.marble, %col);
+
 		$Playback::DemoFrame = false;
 	}
 	%objs.delete();
@@ -1232,10 +1257,25 @@ function PlaybackCollisionFrame::apply(%this, %object, %t) {
 
 		if ($debugreplay)
 			echo("Hacky collision of item at " @ %this.position);
-		//Hack
-		$Playback::DemoFrame = true;
-		%this.db.onCollision(%col, LocalClientConnection.player);
-		$Playback::DemoFrame = false;
+		
+		if(%this.info.ghost) {
+			%ghost = %this.info.marble;
+			if($pref::ghostReplayItems) {
+				%col.playAudio(0, %col.getDataBlock().sound);
+				// Hack: fake the ghost checkpoint (TODO: checkpoint triggers?)
+				if(%col.getDataBlock().className $= "CheckPointClass") {
+					if(%ghost.checkpoint != %col) {
+						%ghost.checkpoint = %col;
+						%ghost.checkpointGemCount = 0;
+					}
+				}
+			}	
+		}
+		else {
+			$Playback::DemoFrame = true; //Hack
+			%this.db.onCollision(%col, %this.info.marble);
+			$Playback::DemoFrame = false;
+		}
 	}
 	%objs.delete();
 }
@@ -1414,16 +1454,35 @@ function PlaybackFrame::applyInput(%this) {
 	%change = (%flags ^ %this.info.lastInput);
 	%this.info.lastInput = %flags;
 
-	if (%change & 1 << 0)
-		usePowerup(!!(%flags & 1 << 0));
-	if (%change & 1 << 2)
-		jump      (!!(%flags & 1 << 2));
-	if (%change & 1 << 3)
-		mouseFire (!!(%flags & 1 << 3));
-	if (%change & 1 << 4)
-		useBlast  (!!(%flags & 1 << 4));
-	if (%change & 1 << 5)
-		forceRespawn(!!(%flags & 1 << 5));
+	if(%this.info.ghost) { 
+		%ghost = %this.info.marble;
+		if (%change & 1 << 0) {
+			if(%ghost.powerUpData.powerUpID !$= "" && %ghost.powerUpData.powerUpID < 6)
+				%ghost.doPowerup(%ghost.powerUpData.powerUpID);
+			%ghost.onPowerUpUsed();
+		}
+		//if(%change & 1 << 4) {
+		//	serverCmdBlast(%this.info.marble.client, $Game::GravityRot);
+		//}
+		if (%change & 1 << 5) {
+			for(%i = 0; %i < %ghost.checkpointGemCount; %i++) {
+				%ghost.checkpointGem[%i].setFadeVal(1);
+			}
+			%ghost.checkpointGemCount = 0;
+		}
+	}
+	else {
+		if (%change & 1 << 0)
+			usePowerup(!!(%flags & 1 << 0));
+		if (%change & 1 << 2)
+			jump      (!!(%flags & 1 << 2));
+		if (%change & 1 << 3)
+			mouseFire (!!(%flags & 1 << 3));
+		if (%change & 1 << 4)
+			useBlast  (!!(%flags & 1 << 4));
+		if (%change & 1 << 5)
+			forceRespawn(!!(%flags & 1 << 5));
+	}
 }
 
 //-----------------------------------------------------------------------------
