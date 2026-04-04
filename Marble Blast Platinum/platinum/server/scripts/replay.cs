@@ -23,7 +23,7 @@
 function playbackGhost(%file, %time) {
 	%object = new Marble() {
 		dataBlock = "DefaultMarble";
-		mutePowerups = true;
+		checkpointGemCount = 0;
 	};
 	%info = getReplayInfo(%file);
 	%conn = new GameConnection() {
