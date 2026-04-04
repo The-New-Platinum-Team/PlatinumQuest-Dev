@@ -344,7 +344,7 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: When creating a recording, it wil
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If you get a World Record, the game will automatically upload a recording to the server, save one locally, and announce your achievement in #speedrunning on our official Discord server.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If you fall Out of Bounds, press the powerup key to respawn faster! In Hunt levels, if you're carrying a powerup, it will not be consumed.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: If you press the Respawn button in Multiplayer, it will de-activate for 25 seconds. No cheating to get closer to the gems!";
-$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Besides filling the Blast Meter to its maximum power, the Blast Item gives you a small 3% boost!";
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Besides filling the Blast Meter to its maximum power, the Ultra Blast PowerUp gives you a small 3% boost!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: The Mega Marble powerup will make your opponents run in fear! If two Mega Marbles collide, the slower one will get booted away!";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Mega Marbles are very useful for collecting loads of tightly-packed Gems.";
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: The Fireball powerup takes priority over the standard Blast. If you immediately activate Blast after using Fire Blast, then your boost will be much bigger.";
@@ -390,6 +390,9 @@ $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: In multiplayer modes other than C
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Type 'boo' in the level select to have some spooky fun all year round!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Type 'hohoho' in the level select to have some jolly fun all year round!"; //Yoshi
 $Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Blast will always send you straight upwards. This makes it useful for turning around on sloped surfaces where jumps would push you sideways."; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Never forget where you left your Teleporter PowerUp's destination!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Be careful! Falling Out of Bounds will remove your Teleporter PowerUp's destination, even if you've reached a Checkpoint!"; //Yoshi
+$Loading::Tip[0, $Loading::Tips[0] ++] = "Tip: Our official Discord server features a bot that can help set up multiplayer games, facilitates map drafts, and even keeps track of a competitive Gem Hunt ladder!"; //Yoshi
 
 $Loading::TipsChance[0] = 0.80;
 
