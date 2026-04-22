@@ -1231,7 +1231,7 @@ function PlaybackPickupFrame::apply(%this, %object, %t) {
 			}
 		}
 		else
-			DefaultMarble.onCollision(%this.info.marble, %col);
+			DefaultMarble.onCollision(LocalClientConnection.player, %col);
 
 		$Playback::DemoFrame = false;
 	}
