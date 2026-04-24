@@ -1272,6 +1272,7 @@ function PlayGui::updateControls(%this) {
 		Sec_Thousandth_Th.setTimeNumber(%thousandth);
 		PG_NegSign_Th.setVisible(%drawNeg);
 
+		PG_NegSign_Th.setTimeNumber("dash");
 		MinSec_Colon_Th.setTimeNumber("colon");
 		MinSec_Point_Th.setTimeNumber("point");
 	} else {
@@ -1284,6 +1285,7 @@ function PlayGui::updateControls(%this) {
 		Sec_Hundredth.setTimeNumber(%hundredthOne);
 		PG_NegSign.setVisible(%drawNeg);
 
+		PG_NegSign.setTimeNumber("dash");
 		MinSec_Colon.setTimeNumber("colon");
 		MinSec_Point.setTimeNumber("point");
 	}
