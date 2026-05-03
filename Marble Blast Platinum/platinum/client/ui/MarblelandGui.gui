@@ -129,14 +129,34 @@ new GuiControl(MarblelandGui) {
 	};
 
 	// -----------------------------------------------------------------------
-	// Top bar background (y=0 to y=80)
+	// Top bar — three separate panels (left / middle / right)
 	// -----------------------------------------------------------------------
+	new GuiControl() {
+		profile = "PQWindowProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "-10 -11";
+		extent = "400 80";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+	};
 	new GuiControl(ML_TopBar) {
 		profile = "PQWindowProfile";
-		horizSizing = "width";
+		horizSizing = "center";
 		vertSizing = "bottom";
-		position = "0 0";
-		extent = "1024 80";
+		position = "330 -11";
+		extent = "364 80";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+	};
+	new GuiControl() {
+		profile = "PQWindowProfile";
+		horizSizing = "left";
+		vertSizing = "bottom";
+		position = "740 -11";
+		extent = "295 80";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -147,8 +167,8 @@ new GuiControl(MarblelandGui) {
 		profile = "PQTextboxBorderProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";
-		position = "20 16";
-		extent = "220 48";
+		position = "20 9";
+		extent = "220 36";
 		minExtent = "21 21";
 		visible = "1";
 		helpTag = "0";
@@ -159,7 +179,7 @@ new GuiControl(MarblelandGui) {
 		profile = "GuiMLTextProfile";
 		horizSizing = "center";
 		vertSizing = "bottom";
-		position = "212 6";
+		position = "212 -5";
 		extent = "600 36";
 		minExtent = "8 8";
 		visible = "1";
@@ -174,7 +194,7 @@ new GuiControl(MarblelandGui) {
 		profile = "GuiMLTextProfile";
 		horizSizing = "center";
 		vertSizing = "bottom";
-		position = "212 46";
+		position = "212 35";
 		extent = "600 26";
 		minExtent = "8 8";
 		visible = "1";
@@ -189,7 +209,7 @@ new GuiControl(MarblelandGui) {
 		profile = "PQTextboxProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";
-		position = "25 20";
+		position = "25 9";
 		extent = "210 40";
 		minExtent = "8 8";
 		visible = "1";
@@ -210,7 +230,7 @@ new GuiControl(MarblelandGui) {
 		profile = "PQButtonProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";
-		position = "244 18";
+		position = "244 7";
 		extent = "44 44";
 		minExtent = "8 8";
 		visible = "1";
@@ -229,7 +249,7 @@ new GuiControl(MarblelandGui) {
 		profile = "PQButtonProfile";
 		horizSizing = "right";
 		vertSizing = "bottom";
-		position = "292 18";
+		position = "292 7";
 		extent = "80 44";
 		minExtent = "8 8";
 		visible = "1";
@@ -247,7 +267,7 @@ new GuiControl(MarblelandGui) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "left";
 		vertSizing = "bottom";
-		position = "762 16";
+		position = "762 5";
 		extent = "252 48";
 		minExtent = "8 8";
 		visible = "1";
@@ -344,7 +364,7 @@ new GuiControl(MarblelandGui) {
 		horizSizing = "width";
 		vertSizing = "height";
 		position = "0 80";
-		extent = "1024 632";
+		extent = "1024 558";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
@@ -354,12 +374,12 @@ new GuiControl(MarblelandGui) {
 			horizSizing = "width";
 			vertSizing = "height";
 			position = "0 0";
-			extent = "1024 632";
+			extent = "1024 558";
 			minExtent = "8 8";
 			visible = "1";
 			helpTag = "0";
-			colSize = "232";
-			rowSize = "217";
+			colSize = "228";
+			rowSize = "213";
 			colSpacing = "4";
 			rowSpacing = "4";
 			frozen = "0";
@@ -373,7 +393,7 @@ new GuiControl(MarblelandGui) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "0 80";
-		extent = "1024 632";
+		extent = "1024 558";
 		minExtent = "8 8";
 		visible = "0";
 		helpTag = "0";
@@ -384,170 +404,148 @@ new GuiControl(MarblelandGui) {
 	};
 
 	// -----------------------------------------------------------------------
-	// Bottom bar (y=712, h=56): pagination + back button
+	// Pagination nav bar — sits above the bottom button bar (y=638, h=40)
 	// -----------------------------------------------------------------------
-	new GuiControl(ML_BottomBar) {
+	new GuiControl(ML_NavBar) {
 		profile = "PQWindowProfile";
-		horizSizing = "width";
+		horizSizing = "center";
 		vertSizing = "top";
-		position = "0 712";
-		extent = "1024 56";
+		position = "367 638";
+		extent = "320 40";
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
 
-		// Back button (far left)
-		new GuiBorderButtonCtrl(ML_BackButton) {
+		new GuiBorderButtonCtrl(ML_FirstBtn) {
 			profile = "PQButtonPlainProfile";
 			horizSizing = "right";
 			vertSizing = "center";
-			position = "10 8";
-			extent = "120 40";
+			position = "15 1";
+			extent = "36 36";
 			minExtent = "8 8";
 			visible = "1";
-			command = "MarblelandGui.goBack();";
+			command = "MarblelandGui.goFirst();";
 			helpTag = "0";
-			text = "< Back";
+			bitmap = "platinum/client/ui/play/leftrightmax.png";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 		};
 
-		// Nav bar container — horizSizing=center keeps it centered as the window resizes.
-		// Width: |<(36) + gap(4) + <(36) + gap(4) + label(130) + gap(4) + >(36) + gap(4) + >|(36) = 290
-		// Left edge at 1024px: (1024-290)/2 = 367
-		new GuiControl(ML_NavBar) {
-			profile = "GuiDefaultProfile";
-			horizSizing = "center";
-			vertSizing = "center";
-			position = "367 8";
-			extent = "290 40";
-			minExtent = "8 8";
-			visible = "1";
-			helpTag = "0";
-
-			new GuiBorderButtonCtrl(ML_FirstBtn) {
-				profile = "PQButtonPlainProfile";
-				horizSizing = "right";
-				vertSizing = "center";
-				position = "0 1";
-				extent = "36 36";
-				minExtent = "8 8";
-				visible = "1";
-				command = "MarblelandGui.goFirst();";
-				helpTag = "0";
-				bitmap = "platinum/client/ui/play/leftrightmax.png";
-				groupNum = "-1";
-				buttonType = "PushButton";
-				repeatPeriod = "1000";
-				repeatDecay = "1";
-			};
-
-			new GuiBorderButtonCtrl(ML_PrevBtn) {
-				profile = "PQButtonPlainProfile";
-				horizSizing = "right";
-				vertSizing = "center";
-				position = "40 1";
-				extent = "36 36";
-				minExtent = "8 8";
-				visible = "1";
-				command = "MarblelandGui.goPrev();";
-				helpTag = "0";
-				bitmap = "platinum/client/ui/play/leftright.png";
-				groupNum = "-1";
-				buttonType = "PushButton";
-				repeatPeriod = "1000";
-				repeatDecay = "1";
-			};
-
-			new GuiMLTextCtrl(ML_PageLabel) {
-				profile = "GuiMLTextProfile";
-				horizSizing = "right";
-				vertSizing = "center";
-				position = "80 13";
-				extent = "130 36";
-				minExtent = "8 8";
-				visible = "1";
-				helpTag = "0";
-				lineSpacing = "2";
-				allowColorChars = "0";
-				maxChars = "-1";
-				text = "<just:center>1 / 1";
-			};
-
-			new GuiBorderButtonCtrl(ML_NextBtn) {
-				profile = "PQButtonPlainProfile";
-				horizSizing = "right";
-				vertSizing = "center";
-				position = "214 1";
-				extent = "36 36";
-				minExtent = "8 8";
-				visible = "1";
-				command = "MarblelandGui.goNext();";
-				helpTag = "0";
-				bitmap = "platinum/client/ui/play/leftright.png";
-				bitmapRotation = "180";
-				groupNum = "-1";
-				buttonType = "PushButton";
-				repeatPeriod = "1000";
-				repeatDecay = "1";
-			};
-
-			new GuiBorderButtonCtrl(ML_LastBtn) {
-				profile = "PQButtonPlainProfile";
-				horizSizing = "right";
-				vertSizing = "center";
-				position = "254 1";
-				extent = "36 36";
-				minExtent = "8 8";
-				visible = "1";
-				command = "MarblelandGui.goLast();";
-				helpTag = "0";
-				bitmap = "platinum/client/ui/play/leftrightmax.png";
-				bitmapRotation = "180";
-				groupNum = "-1";
-				buttonType = "PushButton";
-				repeatPeriod = "1000";
-				repeatDecay = "1";
-			};
-		};
-
-		// Marble Select button (right side)
-		new GuiBorderButtonCtrl(ML_MarbleBtn) {
+		new GuiBorderButtonCtrl(ML_PrevBtn) {
 			profile = "PQButtonPlainProfile";
-			horizSizing = "left";
+			horizSizing = "right";
 			vertSizing = "center";
-			position = "740 8";
-			extent = "130 40";
+			position = "55 1";
+			extent = "36 36";
 			minExtent = "8 8";
 			visible = "1";
-			command = "RootGui.pushDialog(MarbleSelectDlg);";
+			command = "MarblelandGui.goPrev();";
 			helpTag = "0";
-			text = "Marble";
+			bitmap = "platinum/client/ui/play/leftright.png";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 		};
 
-		// Record toggle button (right of Marble)
-		new GuiBorderButtonCtrl(ML_RecordBtn) {
-			profile = "PQButtonPlainProfile";
-			horizSizing = "left";
+		new GuiMLTextCtrl(ML_PageLabel) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
 			vertSizing = "center";
-			position = "874 8";
-			extent = "140 40";
+			position = "95 2";
+			extent = "130 36";
 			minExtent = "8 8";
 			visible = "1";
-			command = "$Game::Record = !$Game::Record; ML_RecordBtn.setValue($Game::Record);";
 			helpTag = "0";
-			text = "Record";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+			text = "<just:center>1 / 1";
+		};
+
+		new GuiBorderButtonCtrl(ML_NextBtn) {
+			profile = "PQButtonPlainProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "229 1";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.goNext();";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/leftright.png";
+			bitmapRotation = "180";
 			groupNum = "-1";
-			buttonType = "ToggleButton";
+			buttonType = "PushButton";
 			repeatPeriod = "1000";
 			repeatDecay = "1";
 		};
+
+		new GuiBorderButtonCtrl(ML_LastBtn) {
+			profile = "PQButtonPlainProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "269 1";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.goLast();";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/leftrightmax.png";
+			bitmapRotation = "180";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+
+	// -----------------------------------------------------------------------
+	// Extras popup — populated by buildButtonBar("MLExtra") in onWake
+	// -----------------------------------------------------------------------
+	new GuiControl(ML_ExtrasBox) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "341 550";
+		extent = "331 128";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+	};
+
+	// -----------------------------------------------------------------------
+	// Bottom button bar — populated by buildButtonBar("MLBottom") in onWake
+	// -----------------------------------------------------------------------
+	new GuiControl(ML_ButtonBox) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "top";
+		position = "390 678";
+		extent = "244 90";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+	};
+
+	// Options button (bottom right, same layout as PlayMissionGui)
+	new GuiBorderButtonCtrl() {
+		profile = "PQButtonPlainProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "874 693";
+		extent = "140 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "OptionsGui.show(\"exit\");";
+		helpTag = "0";
+		text = "Options";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
 	};
 
 	// -----------------------------------------------------------------------
@@ -575,7 +573,7 @@ new GuiControl(MarblelandGui) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "20 60";
+			position = "20 49";
 			extent = "220 175";
 			minExtent = "8 8";
 			visible = "1";
@@ -1612,24 +1610,57 @@ new GuiControl(MarblelandGui) {
 //=============================================================================
 
 // Tile dimensions — must match the GuiDynamicCtrlArrayCtrl colSize/rowSize
-$ML::TileW        = 232;
-$ML::TileH        = 217;
-$ML::TileImgH     = 180; // Image portion of tile
+$ML::TileW        = 228;
+$ML::TileH        = 215;
+$ML::TileImgH     = 176; // Image portion of tile
 $ML::TileNameH    = 20;  // Level name label height
 $ML::TileAuthorH  = 17;  // Author label height
 
 // Grid layout (must match colSize/rowSize/colSpacing/rowSpacing in the .gui)
-$ML::ColSize      = 232;
-$ML::RowSize      = 217;
+$ML::ColSize      = 228;
+$ML::RowSize      = 213;
 $ML::ColSpacing   = 4;
 $ML::RowSpacing   = 4;
 
 // Grid extent from .gui
 $ML::GridW        = 1024;
-$ML::GridH        = 632;
+$ML::GridH        = 558;
 
 // Computed tiles per page (9 cols × 4 rows = 36)
 $ML::TilesPerPage = 36;
+
+//-----------------------------------------------------------------------------
+// Bottom button bar data (reuses PlayMissionGui's buildButtonBar system)
+//-----------------------------------------------------------------------------
+
+// MLBottom: Menu (opens extras) + Back
+$PMG::BarButton["MLBottom", "Name",    0] = "ML_MenuBtn";
+$PMG::BarButton["MLBottom", "Command", 0] = "MarblelandGui.toggleExtras();";
+$PMG::BarButton["MLBottom", "Bitmap",  0] = "platinum/client/ui/play/buttons/menu.png";
+$PMG::BarButton["MLBottom", "Name",    1] = "ML_BackButton";
+$PMG::BarButton["MLBottom", "Command", 1] = "MarblelandGui.goBack();";
+$PMG::BarButton["MLBottom", "Bitmap",  1] = "platinum/client/ui/play/buttons/back.png";
+$PMG::BarButton["MLBottom", "Count"]   = 2;
+$PMG::BarButton["MLBottom", "Control"] = "ML_ButtonBox";
+
+// MLExtra: Editor + Record + Marble  (shown in ML_ExtrasBox, 1 row)
+$PMG::BarButton["MLExtra", "Name",       0] = "ML_EditorBtn";
+$PMG::BarButton["MLExtra", "Command",    0] = "MarblelandGui.hideExtras(); RootGui.pushDialog(EditorOrNewDlg);";
+$PMG::BarButton["MLExtra", "Bitmap",     0] = "platinum/client/ui/play/buttons/editor.png";
+$PMG::BarButton["MLExtra", "Name",       1] = "ML_RecordBtn";
+$PMG::BarButton["MLExtra", "Command",    1] = "if ($ControllerEvent) { $Game::Record = !$Game::Record; ML_RecordBtn.setValue($Game::Record); }";
+$PMG::BarButton["MLExtra", "Variable",   1] = "$Game::Record";
+$PMG::BarButton["MLExtra", "ButtonType", 1] = "ToggleButton";
+$PMG::BarButton["MLExtra", "HaveTab"] = true;
+$PMG::BarButton["MLExtra", "Bitmap",     1] = "platinum/client/ui/play/buttons/record.png";
+$PMG::BarButton["MLExtra", "Name",       2] = "ML_MarbleBtn";
+$PMG::BarButton["MLExtra", "Command",    2] = "MarblelandGui.hideExtras(); RootGui.pushDialog(MarbleSelectDlg);";
+$PMG::BarButton["MLExtra", "Bitmap",     2] = "platinum/client/ui/play/buttons/marble.png";
+$PMG::BarButton["MLExtra", "Count"]     = 3;
+$PMG::BarButton["MLExtra", "RowCount"]  = 1;
+$PMG::BarButton["MLExtra", "Control"]   = "ML_ExtrasBox";
+$PMG::BarButton["MLExtra", "CommandCancel"]     = "MarblelandGui.hideExtras();";
+$PMG::BarButton["MLExtra", "CommandNameCancel"] = "Close";
 
 // Filter options (index → display label, game, difficulty)
 $ML::FilterCount = 5;
@@ -1681,6 +1712,7 @@ function MarblelandGui_onMissionListLoaded(%success) {
 //-----------------------------------------------------------------------------
 
 function MarblelandGui::onWake(%this) {
+	copyBlurImage(PM_MissionImage.bitmap);
 	%this.setTickable(true);
 
 	if (%this.filterIndex $= "")
@@ -1706,6 +1738,11 @@ function MarblelandGui::onWake(%this) {
 	// Sync auth area (login buttons or profile)
 	%this.updateAuthArea();
 
+	// Build PM-style bottom bar and extras menu, then position them
+	PlayMissionGui.buildButtonBar("MLBottom");
+	PlayMissionGui.buildButtonBar("MLExtra");
+	%this.hideExtras();
+	%this.positionBars();
 	%this.recalculateTileLayout();
 
 	if (isObject($MarblelandMissionList))
@@ -1715,6 +1752,7 @@ function MarblelandGui::onWake(%this) {
 }
 
 function MarblelandGui::onSleep(%this) {
+	%this.hideExtras();
 	%this.setTickable(false);
 	%this.clearGrid();
 	%this.closeDetail();
@@ -1730,12 +1768,54 @@ function MarblelandGui::onSleep(%this) {
 		%this.uploaderLevels.delete();
 		%this.uploaderLevels = "";
 	}
-	ML_BackButton.setText("< Back");
 }
 
 function MarblelandGui::onTick(%this, %delta) {
 	if (!%this.isAwake()) return;
 	%this.updateVisibleIcons();
+}
+
+function MarblelandGui::positionBars(%this) {
+	%w = getWord(MarblelandGui.getExtent(), 0);
+	%h = getWord(MarblelandGui.getExtent(), 1);
+
+	// Bottom button bar
+	%bbw = getWord(ML_ButtonBox.getExtent(), 0);
+	%bby = %h - 90;
+	%bbx = mFloor((%w - %bbw) / 2);
+	ML_ButtonBox.setPosition(%bbx SPC %bby);
+
+	// Pagination nav bar (directly above button bar)
+	%nbw = getWord(ML_NavBar.getExtent(), 0);
+	ML_NavBar.setPosition(mFloor((%w - %nbw) / 2) SPC (%bby - 44));
+
+	// Extras popup: height=128 (bottom-bar-mode buttons start at y=0)
+	// Position so its bottom aligns with the button bar top
+	%ebw = 340;
+	%ebh = 291;
+	ML_ExtrasBox.setExtent(%ebw SPC %ebh);
+	%ebx = mFloor(%bbx + mFloor(%bbw / 2) - mFloor(%ebw / 2)) - 48;
+	%eby = %bby - %ebh;
+	ML_ExtrasBox.setPosition(%ebx SPC %eby);
+}
+
+function MarblelandGui::toggleExtras(%this) {
+	if (ML_ExtrasBox.isVisible())
+		%this.hideExtras();
+	else
+		%this.showExtras();
+}
+
+function MarblelandGui::showExtras(%this) {
+	ML_ExtrasBox.setVisible(1);
+	if (isObject(ML_MenuBtn))
+		ML_MenuBtn.setValue(1);
+}
+
+function MarblelandGui::hideExtras(%this) {
+	ML_ExtrasBox.setVisible(0);
+	if (isObject(ML_MenuBtn))
+		ML_MenuBtn.setValue(0);
 }
 
 function MarblelandGui::recalculateTileLayout(%this) {
@@ -1762,9 +1842,10 @@ function MarblelandGui_ResizeNotify::onParentResized(%this) {
 	}
 }
 
-function MarblelandGui::resizeProperly(%this) 
+function MarblelandGui::resizeProperly(%this)
 {
 	MarblelandGui.buildFilterList();
+	MarblelandGui.positionBars();
 	%extent = ML_LevelGridContainer.getExtent();
 	ML_LevelGrid.resize(0, 0, getWord(%extent, 0), getWord(%extent, 1));
 	MarblelandGui.recalculateTileLayout();
@@ -1845,7 +1926,6 @@ function MarblelandGui::setFilter(%this, %idx) {
 		%this.uploaderLevels = "";
 	}
 	ML_SearchField.setValue($ML::FilterLabel[%idx]);
-	ML_BackButton.setText("< Back");
 	%this.populate();
 }
 
@@ -2548,7 +2628,6 @@ function MarblelandGui::doSearch(%this) {
 	%this.artistFilter = "";
 	%this.viewingPack  = false;
 	%this.currentPack  = "";
-	ML_BackButton.setText("< Back");
 	%this.populate();
 }
 
@@ -3007,7 +3086,6 @@ function MarblelandGui::goBack(%this) {
 		%this.viewingPack = false;
 		%this.currentPack = "";
 		%this.currentPage = 0;
-		ML_BackButton.setText("< Back");
 		%this.populate();
 	} else if (%this.viewingUploader) {
 		%this.viewingUploader = false;
@@ -3018,7 +3096,6 @@ function MarblelandGui::goBack(%this) {
 			%this.uploaderLevels = "";
 		}
 		%this.currentPage = 0;
-		ML_BackButton.setText("< Back");
 		%this.populate();
 	} else {
 		%this.exit();
@@ -3033,7 +3110,6 @@ function MarblelandGui::drillIntoPack(%this, %pack) {
 	%this.viewingPack = true;
 	%this.currentPack = %pack;
 	%this.currentPage = 0;
-	ML_BackButton.setText("< Packs");
 	%this.populatePackLevels();
 }
 
@@ -3121,7 +3197,6 @@ function MarblelandGui::visitUploaderLevels(%this) {
 		%this.uploaderLevels = "";
 	}
 	ML_SearchField.setValue("");
-	ML_BackButton.setText("< Back");
 	%this.showStatus("<just:center><font:22>Loading levels by " @ %username @ "...");
 	marblelandFetchAccountInfo(%userId, "MarblelandGui_onUploaderInfoLoaded");
 }
