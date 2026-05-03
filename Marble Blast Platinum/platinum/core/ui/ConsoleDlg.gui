@@ -53,14 +53,14 @@ new GuiControl(ConsoleDlg) {
 			};
 		};
 
-		new GuiTextEditCtrl("ConsoleEntry") {
+		new GuiConsoleEditCtrl("ConsoleEntry") {
 			profile = "GuiTextEditProfile";
 			position = "0 350";
 			extent = "640 20";
 			altCommand = "ConsoleEntry::eval();";
 			horizSizing = "width";
 			vertSizing = "top";
-			commandUp = "ConsoleEntry.setValue($lastCommand);";
+			historySize = "20";
 		};
 		new GuiButtonCtrl(ConsoleTrace) {
 			profile = "GuiButtonProfile";
@@ -113,23 +113,10 @@ new GuiControl(ConsoleDlg) {
 			buttonType = "PushButton";
 			command = "ConsoleEntry.eval(\"echo\");";
 		};
-		new GuiButtonCtrl(ConsoleLastCommand) {
-			profile = "GuiButtonProfile";
-			vertSizing = "top";
-			position = "250 330";
-			extent = "50 20";
-			visible = "1";
-			text = "Last Cmd";
-			buttonType = "RepeaterButton";
-			command = "ConsoleEntry.setValue($lastCommand);";
-			repeatPeriod = 350;
-			accelerator = "up";
-			repeatDecay = 100;
-		};
 		new GuiButtonCtrl(ConsoleHotReload) {
 			profile = "GuiButtonProfile";
 			vertSizing = "top";
-			position = "300 330";
+			position = "250 330";
 			extent = "50 20";
 			visible = "1";
 			variable = "$Con::HotReload";
@@ -172,7 +159,7 @@ function ConsoleEntry::eval(%this, %echoCommand) {
 		remind("Opening the editor will not save times!", $ReminderDlg::EditorNoSave);
 	}
 
-	//echo("\c3$ " @ %text);
+	echo("\c3$ " @ %text);
 	//for (%i = 0; %i < 12; %i ++) {
 	//	if (stripos(%testExpr,%invalid[%i]) != -1) {
 	//		//echo("\c5Forbidden command.");
@@ -371,7 +358,7 @@ function hotReloadLoop() {
 	$Con::HotReload::LastMod[%file] = %currentMod;
 
 	$Con::HotReload::CurrentIndex++;
-	%delay = 1000 / $Con::HotReload::fileCount;
+	%delay = 500 / $Con::HotReload::fileCount;
 
 	cancelIgnorePause($Con::HotReload::Schedule);
 	$Con::HotReload::Schedule = scheduleIgnorePause(%delay, hotReloadLoop);
