@@ -3660,7 +3660,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 	%count = $PMG::BarButton[%which, "Count"];
 	%rowCount = $PMG::BarButton[%which, "RowCount"];
 
-	if (%bar !$= "PM_ExtrasBox") {
+	if (%bar !$= "PM_ExtrasBox" && %bar !$= "ML_ExtrasBox") {
 		%bar.add(new GuiControl() {
 			profile = "GuiDefaultProfile";
 			horizSizing = "width";
@@ -3735,7 +3735,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 
 		%posY = 0;
 
-		if (%bar $= "PM_ExtrasBox") {
+		if (%bar $= "PM_ExtrasBox" || %bar $= "ML_ExtrasBox") {
 			// 3xN grid
 			%colCount = mCeil(%count / %rowCount);
 			%col = %i % %colCount;
