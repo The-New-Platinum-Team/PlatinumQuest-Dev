@@ -311,12 +311,6 @@ function Path::onMissionReset(%this) {
 	}
 }
 
-function Path::setSpeed(%this, %speed) {
-	%this.speed = %speed;
-	%this.recalcTime();
-	%this.update();
-}
-
 function Path::recalcTime(%this) {
 	// Update triggers
 	%group = %this.getGroup();
@@ -347,16 +341,22 @@ function Path::recalcTime(%this) {
 	for(%i = 1; (%m2 = %this.getObject(%i)) != -1; %i++) {
 		%m1 = %this.getObject(%i-1);
 		%dist = VectorDist(%m1.position, %m2.position);
-		%m1.msToNext = 1000 * (%dist / %this.speed);
+		%m1.msToNext = %dist < 0.01 ? %this.pauseDuration : 1000 * (%dist / %this.speed);
 	}
 }
 
 function Path::setSmoothingType(%this, %type) {
-	for(%i = 0; %i < %this.getCount(); %i++) {
-		%m1 = %this.getObject(%i);
+	for(%i = 0; (%m1 = %this.getObject(%i)) != -1; %i++) {
 		%m1.smoothingType = %type;
 	}
 	%this.update();
+}
+
+function Path::getTotalDuration(%this) {
+	for(%i = 0; %i < %this.getCount()-1; %i++) {
+		%duration += %this.getObject(%i).msToNext;
+	}
+	return %duration;
 }
 
 function Marker::onEditorSetTransform(%this) {
