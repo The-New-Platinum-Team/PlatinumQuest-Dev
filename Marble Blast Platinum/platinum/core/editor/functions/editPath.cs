@@ -44,13 +44,24 @@ function pathbutton(%mpOrMarker) {
     
     LargeFunctionDlg.init("acceptPath", "Edit Path", 0);
 
-    LargeFunctionDlg.addDropMenu("PathSmoothingTypes", "Smoothing", 5, "Spline\tSpline\nLinear\tLinear\nAccelerate\tAccelerate", %path.getObject(0).smoothingType);
+    LargeFunctionDlg.addDropMenu("PathSmoothingTypes", "Smoothing (All Markers)", 5, "Spline\tSpline\nLinear\tLinear\nAccelerate\tAccelerate", %path.getObject(0).smoothingType);
     PathSmoothingTypes.command = "onSelectSmoothingType();";
 
     LargeFunctionDlg.addCheckBox("ConstantSpeedBox", "Normalize Speed", %path.speed !$= "");
 
     LargeFunctionDlg.addSlider("PathSpeedSlider", "Normalized Speed:", "0 20", %path.speed, 2, true);
     PathSpeedSlider.command = "onSelectPathSpeed();";
+    PathSpeedSlider.setVisible(ConstantSpeedBox.getValue());
+
+    LargeFunctionDlg.addSlider("PathPauseDurationSlider", "Pause Duration (s):", "0 10", %path.pauseDuration / 1000, 2, true);
+    PathPauseDurationSlider.command = "onSelectPathPauseDuration();";
+    PathPauseDurationSlider.setVisible(ConstantSpeedBox.getValue());
+
+    LargeFunctionDlg.addNote();
+    LargeFunctionDlg.pathDurationField = LFDWScroll.getObject(LFDWScroll.getCount()-1);
+    pathEditUpdateDuration();
+
+    LargeFunctionDlg.addNote();
 
     LargeFunctionDlg.addButton("PathCenterButton", "Center Path");
     LargeFunctionDlg.addButton("SelectPathButton", "Select Path");
@@ -60,13 +71,26 @@ function pathbutton(%mpOrMarker) {
     activatePackage(cancelPathChanges);
 }
 
+function pathEditUpdateDuration() {
+    LargeFunctionDlg.pathDurationField.setValue("Total Duration:" SPC formatTime(LargeFunctionDlg.path.getTotalDuration()));
+}
+
 function onSelectSmoothingType() {
     LargeFunctionDlg.path.setSmoothingType(PathSmoothingTypes.getValue());
 }
 
 function onSelectPathSpeed() {
-    LargeFunctionDlg.path.setSpeed(max(0.1, PathSpeedSlider.getValue()));
-    ConstantSpeedBox.setValue(true);
+    LargeFunctionDlg.path.speed = max(0.1, PathSpeedSlider.getValue());
+    LargeFunctionDlg.path.recalcTime();
+    LargeFunctionDlg.path.update();
+    pathEditUpdateDuration();
+}
+
+function onSelectPathPauseDuration() {
+    LargeFunctionDlg.path.pauseDuration = PathPauseDurationSlider.getValue() * 1000;
+    LargeFunctionDlg.path.recalcTime();
+    LargeFunctionDlg.path.update();
+    pathEditUpdateDuration();
 }
 
 function ConstantSpeedBox::onPressed(%this, %gui) {
@@ -80,6 +104,9 @@ function ConstantSpeedBox::onPressed(%this, %gui) {
     else {
         onSelectPathSpeed();
     }
+    PathSpeedSlider.setVisible(%this.getValue());
+    PathPauseDurationSlider.setVisible(%this.getValue());
+    pathEditUpdateDuration();
 }
 
 function PathCenterButton::onPressed(%this, %gui) {
