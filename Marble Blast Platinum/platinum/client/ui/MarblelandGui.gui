@@ -748,7 +748,7 @@ new GuiControl(MarblelandGui) {
 					horizSizing = "right";
 					vertSizing = "bottom";
 					position = "0 0";
-					extent = "280 225";
+					extent = "280 216";
 					minExtent = "8 8";
 					visible = "1";
 					helpTag = "0";
@@ -1788,6 +1788,32 @@ function MarblelandGui::onSleep(%this) {
 		%this.uploaderLevels.delete();
 		%this.uploaderLevels = "";
 	}
+	%this.cleanupVfsCache();
+}
+
+function MarblelandGui::cleanupVfsCache(%this) {
+	if (isObject($MarblelandMissionList)) {
+		for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
+			%id = $MarblelandMissionList.getEntry(%i).id;
+			if (isBitmap("vfs://marbleland/" @ %id @ ".jpg"))
+				deleteFile("vfs://marbleland/" @ %id @ ".jpg");
+			if (isBitmap("vfs://marbleland/prev-" @ %id @ ".jpg"))
+				deleteFile("vfs://marbleland/prev-" @ %id @ ".jpg");
+		}
+	}
+	if (isObject($MarblelandPackList)) {
+		for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
+			%id = $MarblelandPackList.getEntry(%i).id;
+			if (isBitmap("vfs://marbleland/pack/" @ %id @ ".jpg"))
+				deleteFile("vfs://marbleland/pack/" @ %id @ ".jpg");
+		}
+	}
+	for (%i = 0; %i < MarblelandCachedAvatars.getSize(); %i++) {
+		%uid = MarblelandCachedAvatars.getEntry(%i);
+		if (isBitmap("vfs://marbleland/avatar-" @ %uid @ ".jpg"))
+			deleteFile("vfs://marbleland/avatar-" @ %uid @ ".jpg");
+	}
+	MarblelandCachedAvatars.clear();
 }
 
 function MarblelandGui::onTick(%this, %delta) {
@@ -2152,28 +2178,17 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 		};
 
 		// Frame overlay (completion-tier border, mirrors PlayMissionGui)
-		new GuiControl() {
+		new GuiBitmapCtrl(%frameCtrlName) {
 			profile    = "GuiDefaultProfile";
 			horizSizing = "width";
-			vertSizing  = "bottom";
-			position   = "-14 -14";
-			extent     = ((%w + 28) SPC (%imgH + 28));
-			minExtent  = ((%w + 28) SPC (%imgH + 28));
+			vertSizing  = "height";
+			position   = "0 0";
+			extent     = (%w SPC %imgH);
+			minExtent  = (%w SPC %imgH);
 			visible    = "1";
 			helpTag    = "0";
-
-			new GuiBitmapCtrl(%frameCtrlName) {
-				profile    = "GuiDefaultProfile";
-				horizSizing = "width";
-				vertSizing  = "height";
-				position   = "0 0";
-				extent     = ((%w + 28) SPC (%imgH + 28));
-				minExtent  = ((%w + 28) SPC (%imgH + 28));
-				visible    = "1";
-				helpTag    = "0";
-				bitmap     = expandFilename("./play/frame_unlocked_n");
-				wrap       = "0";
-			};
+			bitmap     = expandFilename("./play/large_frame_unlocked");
+			wrap       = "0";
 		};
 
 		// Level name (GuiTextCtrl — uses profile font/color)
@@ -2217,7 +2232,7 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 			lineSpacing = "0";
 			allowColorChars = "0";
 			maxChars   = "-1";
-			text       = ("<just:center><font:" @ $DefaultFont["Bold"] @ ":13><color:" @ ((%mission.curationScore > 0) ? "4caf50" : ((%mission.curationScore < 0) ? "f44336" : "ffffff")) @ ">" @ %mission.curationScore);
+			text       = ("<just:center><font:" @ $DefaultFont["Bold"] @ ":13><color:" @ ((%mission.curationScore > 0) ? "4caf50" : ((%mission.curationScore < 0) ? "f44336" : "000000")) @ ">" @ %mission.curationScore);
 		};
 
 		// Downloaded badge (top-right corner of image)
@@ -2267,17 +2282,17 @@ function MarblelandGui::updateTileFrame(%this, %frame) {
 
 	%qual = Unlock::getMissionCompletion(%mission);
 	if (%qual & $Completion::Awesome)
-		%frameImage = "./play/frame_awesome_n";
+		%frameImage = "./play/large_frame_awesome";
 	else if (%qual & $Completion::Ultimate)
-		%frameImage = "./play/frame_ultimate_n";
+		%frameImage = "./play/large_frame_ultimate";
 	else if (%qual & $Completion::Platinum)
-		%frameImage = "./play/frame_platinum_n";
+		%frameImage = "./play/large_frame_platinum";
 	else if (%qual & $Completion::Gold)
-		%frameImage = "./play/frame_gold_n";
+		%frameImage = "./play/large_frame_gold";
 	else if (%qual & $Completion::Par)
-		%frameImage = "./play/frame_completed_n";
+		%frameImage = "./play/large_frame_completed";
 	else
-		%frameImage = "./play/frame_unlocked_n";
+		%frameImage = "./play/large_frame_unlocked";
 
 	%frameCtrl.setBitmap(expandFilename(%frameImage));
 }
@@ -2445,11 +2460,11 @@ function MarblelandGui::selectMission(%this, %frame) {
 	ML_DetailPreview.setBitmap(expandFilename("./play/missingicon"));
 	ML_DetailPreviewLoading.visible = true;
 
-	if (isBitmap("vfs://marbleland/prev-" @ %mission.id @ ".jpg")) {
-		ML_DetailPreview.setBitmap("vfs://marbleland/prev-" @ %mission.id @ ".jpg");
+	if (isBitmap("vfs://marbleland/" @ %mission.id @ ".jpg")) {
+		ML_DetailPreview.setBitmap("vfs://marbleland/" @ %mission.id @ ".jpg");
 		ML_DetailPreviewLoading.visible = false;
 	} else {
-		marblelandDownloadPreview(%mission.id, "MarblelandGui_onPreviewDownloaded", ML_DetailPreview);
+		marblelandDownloadIcon(%mission.id, "MarblelandGui_onPreviewDownloaded", ML_DetailPreview);
 	}
 
 	%this.switchPanel("info");
