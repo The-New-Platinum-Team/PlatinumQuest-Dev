@@ -400,9 +400,10 @@ function MarblelandSignIn::onLine(%this, %line) {
 /// Sign out of Marbleland (clears local credentials)
 /// @param callback void(%success) Callback
 function marblelandSignOut(%callback) {
-	$pref::ML::Token    = "";
-	$pref::ML::Username = "";
-	$pref::ML::UserId   = "";
+	$pref::ML::Token     = "";
+	$pref::ML::Username  = "";
+	$pref::ML::UserId    = "";
+	$pref::ML::IsCurator = "";
 	if (%callback !$= "")
 		schedule(100, 0, %callback, true);
 }

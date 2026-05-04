@@ -72,6 +72,12 @@ new GuiControlProfile(MLBadgeProfile : GuiDefaultProfile) {
 	textOffset = "0 1";
 };
 
+// Curation score overlay on tile bottom bar (curator-only)
+new GuiControlProfile(MLCurationScoreProfile : GuiMLTextProfile) {
+	opaque = false;
+	border = 0;
+};
+
 // Status / count text (inherits ML formatting)
 new GuiControlProfile(MLStatusProfile : GuiMLTextProfile) {
 };
@@ -150,6 +156,19 @@ new GuiControl(MarblelandGui) {
 		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
+
+		new GuiBitmapCtrl(ML_TitleIcon) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "25 20";
+			extent = "40 40";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/marbleland";
+			wrap = "0";
+		};
 	};
 	new GuiControl() {
 		profile = "PQWindowProfile";
@@ -326,7 +345,7 @@ new GuiControl(MarblelandGui) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "right";
 			vertSizing = "center";
-			position = "40 8";
+			position = "40 16";
 			extent = "120 32";
 			minExtent = "8 8";
 			visible = "0";
@@ -454,7 +473,7 @@ new GuiControl(MarblelandGui) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "right";
 			vertSizing = "center";
-			position = "95 2";
+			position = "95 21";
 			extent = "130 36";
 			minExtent = "8 8";
 			visible = "1";
@@ -1721,7 +1740,8 @@ function MarblelandGui::onWake(%this) {
 		%this.currentPage = 0;
 
 	// Set static text via setText (inline text in declarations is not formatted)
-	ML_Title.setText("<just:center><font:" @ $DefaultFont["Bold"] @ ":36><color:111111>MARBLELAND");
+	ML_Title.setText("<just:center><font:" @ $DefaultFont["Bold"] @ ":36><color:111111>Marbleland");
+	%this.updateTileColors();
 	ML_SignInUsernameLabel.setText("<bold:28><color:222222>Username:");
 	ML_SignInPasswordLabel.setText("<bold:28><color:222222>Password:");
 	ML_RegEmailLabel.setText("<bold:28><color:222222>Email:");
@@ -1797,6 +1817,10 @@ function MarblelandGui::positionBars(%this) {
 	%ebx = mFloor(%bbx + mFloor(%bbw / 2) - mFloor(%ebw / 2)) - 48;
 	%eby = %bby - %ebh;
 	ML_ExtrasBox.setPosition(%ebx SPC %eby);
+
+	// Because torque doesn't position them properly
+	ML_ProfileName.setPosition("40 16");
+	ML_PageLabel.setPosition("95 21");
 }
 
 function MarblelandGui::toggleExtras(%this) {
@@ -1834,6 +1858,24 @@ function MarblelandGui::recalculateTileLayout(%this) {
 		return true;
 	}
 	return false;
+}
+
+function MarblelandGui::updateTileColors(%this) {
+	if ($TexturePack::InvertTextColors) {
+		MLTileProfile.fillColor         = "49 49 49 230";
+		MLTileNameProfile.fontColor     = "255 255 255 255";
+		MLTileNameProfile.fontColorHL   = "255 255 255 255";
+		MLTileAuthorProfile.fontColor   = "185 185 185 255";
+		MLTileAuthorProfile.fontColorHL = "185 185 185 255";
+		MLCurationProfile.fontColor         = "255 255 255 255";
+	} else {
+		MLTileProfile.fillColor         = "240 240 240 230";
+		MLTileNameProfile.fontColor     = "20 20 20 255";
+		MLTileNameProfile.fontColorHL   = "20 20 20 255";
+		MLTileAuthorProfile.fontColor   = "60 60 60 255";
+		MLTileAuthorProfile.fontColorHL = "60 60 60 255";
+		MLCurationProfile.fontColor         = "20 20 20 255";
+	}
 }
 
 function MarblelandGui_ResizeNotify::onParentResized(%this) {
@@ -2160,6 +2202,22 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 			helpTag    = "0";
 			text       = clipPx($DefaultFont, 18, %artist, %w - 10, true);
 			truncate   = "0";
+		};
+
+		// Curation score (bottom-right of name+author bar, curator-only)
+		new GuiMLTextCtrl() {
+			profile    = "MLCurationScoreProfile";
+			horizSizing = "left";
+			vertSizing  = "bottom";
+			position   = ((%w - 36) @ " " @ (%imgH + 12));
+			extent     = "36 16";
+			minExtent  = "8 8";
+			visible    = ($pref::ML::IsCurator ? "1" : "0");
+			helpTag    = "0";
+			lineSpacing = "0";
+			allowColorChars = "0";
+			maxChars   = "-1";
+			text       = ("<just:center><font:" @ $DefaultFont["Bold"] @ ":13><color:" @ ((%mission.curationScore > 0) ? "4caf50" : ((%mission.curationScore < 0) ? "f44336" : "ffffff")) @ ">" @ %mission.curationScore);
 		};
 
 		// Downloaded badge (top-right corner of image)
@@ -3368,9 +3426,10 @@ function MarblelandGui_onSignIn(%response, %status) {
 	if (%status $= "success") {
 		%signInInfo = %response.signInInfo;
 		%profile    = %signInInfo.profile;
-		$pref::ML::Token    = %response.token;
-		$pref::ML::Username = %profile.username;
-		$pref::ML::UserId   = %profile.id;
+		$pref::ML::Token     = %response.token;
+		$pref::ML::Username  = %profile.username;
+		$pref::ML::UserId    = %profile.id;
+		$pref::ML::IsCurator = %profile.isCurator;
 		%response.recurseDelete();
 		%this.closeLogin();
 		%this.updateAuthArea();
@@ -3401,9 +3460,10 @@ function MarblelandGui_onRegister(%response, %status) {
 		%signInInfo = %response.signInInfo;
 		if (isObject(%signInInfo)) {
 			%profile = %signInInfo.profile;
-			$pref::ML::Token    = %response.token;
-			$pref::ML::Username = %profile.username;
-			$pref::ML::UserId   = %profile.id;
+			$pref::ML::Token     = %response.token;
+			$pref::ML::Username  = %profile.username;
+			$pref::ML::UserId    = %profile.id;
+			$pref::ML::IsCurator = %profile.isCurator;
 			%response.recurseDelete();
 			%this.closeLogin();
 			%this.updateAuthArea();
