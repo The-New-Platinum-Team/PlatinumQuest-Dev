@@ -784,6 +784,20 @@ new GuiControl(MarblelandGui) {
 						text = "";
 					};
 				};
+
+				// Easter egg icon (bottom-right of preview image)
+				new GuiBitmapCtrl(ML_DetailEggIcon) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "262 192";
+					extent = "18 24";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					bitmap = "";
+					wrap = "0";
+				};
 			};
 
 			// ---- Comments panel (hidden by default) ----
@@ -2128,6 +2142,7 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 	%frameName     = "ML_Tile_"  @ %tileIndex;
 	%iconName      = "ML_Icon_"  @ %tileIndex;
 	%frameCtrlName = "ML_Frame_" @ %tileIndex;
+	%eggName       = "ML_Egg_"   @ %tileIndex;
 
 	%isPack = isObject(%mission.levelIds);
 	%artist = %isPack ? %mission.createdBy.username : (%mission.artist $= "" ? "Unknown Artist" : %mission.artist);
@@ -2144,6 +2159,7 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 		mission    = %mission;
 		iconCtrl   = %iconName;
 		frameCtrl  = %frameCtrlName;
+		eggCtrl    = %eggName;
 		iconLoaded = false;
 
 		// Thumbnail image
@@ -2218,6 +2234,20 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 			text       = ("<just:center><font:" @ $DefaultFont["Bold"] @ ":13><color:" @ ((%mission.curationScore > 0) ? "4caf50" : ((%mission.curationScore < 0) ? "f44336" : "000000")) @ ">" @ %mission.curationScore);
 		};
 
+		// Easter egg icon (bottom-right of image)
+		new GuiBitmapCtrl(%eggName) {
+			profile    = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing  = "bottom";
+			position   = ((%w - 22) @ " " @ (%imgH - 28));
+			extent     = "18 24";
+			minExtent  = "8 8";
+			visible    = (%mission.easterEgg && !%isPack ? "1" : "0");
+			helpTag    = "0";
+			bitmap     = "";
+			wrap       = "0";
+		};
+
 		// Transparent full-tile click handler (must be last / on top)
 		new GuiButtonBaseCtrl() {
 			profile    = "GuiDefaultProfile";
@@ -2264,6 +2294,16 @@ function MarblelandGui::updateTileFrame(%this, %frame) {
 		%frameImage = "./play/large_frame_unlocked";
 
 	%frameCtrl.setBitmap(expandFilename(%frameImage));
+
+	if (isObject(%frame.eggCtrl) && %mission.easterEgg) {
+		%eggFound = $pref::EasterEggTime[%mission.file] !$= "";
+		%frame.eggCtrl.bitmap = %this.getEggBitmap(%mission, %eggFound);
+	}
+}
+
+function MarblelandGui::getEggBitmap(%this, %mission, %found) {
+	%suffix = (%mission.modification $= "platinumquest") ? "_pq_" : "_mbp_";
+	return "platinum/client/ui/play/egg" @ %suffix @ (%found ? "get_ol" : "notfound_ol");
 }
 
 //-----------------------------------------------------------------------------
@@ -2421,6 +2461,15 @@ function MarblelandGui::selectMission(%this, %frame) {
 		marblelandDownloadIcon(%mission.id, "MarblelandGui_onPreviewDownloaded", ML_DetailPreview);
 	}
 
+	// Easter egg icon in detail panel
+	if (%mission.easterEgg) {
+		%eggFound = $pref::EasterEggTime[%mission.file] !$= "";
+		ML_DetailEggIcon.bitmap = %this.getEggBitmap(%mission, %eggFound);
+		ML_DetailEggIcon.visible = true;
+	} else {
+		ML_DetailEggIcon.visible = false;
+	}
+
 	%this.switchPanel("info");
 	%this.updateDetailButtons();
 	ML_DetailOverlay.visible = true;
@@ -2436,10 +2485,9 @@ function MarblelandGui::buildBaseDesc(%this, %mission) {
 		%t = %t NL "<bold:18>Game:<font:16> " @ capitalizeModification(%mission.modification);
 	%t = %t NL "<bold:18>Description:";
 	if (%mission.desc !$= "")
-		%t = %t NL "<font:16>" @ %mission.desc;
+		%t = %t NL "<font:16>" @ expandEscape(%mission.desc);
 	else
 		%t = %t NL "<font:16><spush><color:999999>No description provided.<spop>";
-	%t = %t NL "<bold:18>Has Easter Egg: <font:18>" @ (%mission.hasEasterEgg ? "Yes" : "No");
 	if (%mission.qualifyingTime !$= "")
 		%t = %t NL "<bold:18>Qualifying Time: <font:18>" @ formatTime(%mission.qualifyingTime);
 	if (%mission.goldTime !$= "")
