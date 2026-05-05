@@ -57,21 +57,6 @@ new GuiControlProfile(MLTileAuthorProfile : GuiDefaultProfile) {
 	textOffset = "4 2";
 };
 
-// Small badge (downloaded/needs update indicator)
-new GuiControlProfile(MLBadgeProfile : GuiDefaultProfile) {
-	opaque = true;
-	fillColor = "30 160 60 220";
-	border = 0;
-	fontType = $DefaultFont;
-	fontSize = 14;
-	fontColor = "255 255 255 255";
-	fontColorHL = "255 255 255 255";
-	fontColorSEL = "255 255 255 255";
-	fontColorNA = "255 255 255 255";
-	justify = "center";
-	textOffset = "0 1";
-};
-
 // Curation score overlay on tile bottom bar (curator-only)
 new GuiControlProfile(MLCurationScoreProfile : GuiMLTextProfile) {
 	opaque = false;
@@ -2142,7 +2127,6 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 
 	%frameName     = "ML_Tile_"  @ %tileIndex;
 	%iconName      = "ML_Icon_"  @ %tileIndex;
-	%badgeName     = "ML_Badge_" @ %tileIndex;
 	%frameCtrlName = "ML_Frame_" @ %tileIndex;
 
 	%isPack = isObject(%mission.levelIds);
@@ -2159,7 +2143,6 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 		helpTag    = "0";
 		mission    = %mission;
 		iconCtrl   = %iconName;
-		badgeCtrl  = %badgeName;
 		frameCtrl  = %frameCtrlName;
 		iconLoaded = false;
 
@@ -2235,19 +2218,6 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 			text       = ("<just:center><font:" @ $DefaultFont["Bold"] @ ":13><color:" @ ((%mission.curationScore > 0) ? "4caf50" : ((%mission.curationScore < 0) ? "f44336" : "000000")) @ ">" @ %mission.curationScore);
 		};
 
-		// Downloaded badge (top-right corner of image)
-		new GuiTextCtrl(%badgeName) {
-			profile    = "MLBadgeProfile";
-			horizSizing = "left";
-			vertSizing  = "bottom";
-			position   = ((%w - 22) @ " 2");
-			extent     = "20 14";
-			minExtent  = "8 8";
-			visible    = "0";
-			helpTag    = "0";
-			text       = "DL";
-		};
-
 		// Transparent full-tile click handler (must be last / on top)
 		new GuiButtonBaseCtrl() {
 			profile    = "GuiDefaultProfile";
@@ -2267,7 +2237,6 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 	};
 
 	// Set downloaded badge state and completion frame
-	%this.updateTileBadge(%frameName);
 	%this.updateTileFrame(%frameName);
 
 	return %frameName;
@@ -2295,21 +2264,6 @@ function MarblelandGui::updateTileFrame(%this, %frame) {
 		%frameImage = "./play/large_frame_unlocked";
 
 	%frameCtrl.setBitmap(expandFilename(%frameImage));
-}
-
-function MarblelandGui::updateTileBadge(%this, %frame) {
-	if (!isObject(%frame)) return;
-	%mission = %frame.mission;
-	if (!isObject(%mission) || %mission.id $= "") return;
-	%badge = %frame.badgeCtrl;
-	if (!isObject(%badge)) return;
-
-	if (marblelandHasMission(%mission.id)) {
-		%badge.visible = true;
-		%badge.text    = marblelandMissionNeedsUpdate(%mission.id) ? "UP" : "DL";
-	} else {
-		%badge.visible = false;
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -2506,6 +2460,25 @@ function MarblelandGui::buildBaseDesc(%this, %mission) {
 		%t = %t NL "<bold:18>Gems: <font:18>" @ %mission.gems;
 	if (%mission.hasCustomCode)
 		%t = %t NL "<bold:18><spush><color:CC4400>Warning: <font:18>Uses custom code.<spop>";
+
+	// Local top 5 (only shown if at least one score exists)
+	%hasLocal = false;
+	for (%i = 0; %i < $Game::HighscoreCount; %i++) {
+		%hs = $pref::highScores[%mission.file, %i];
+		if (%hs $= "") break;
+		if (getFieldCount(%hs) == 2) %hs = $ScoreType::Time TAB %hs;
+		%type  = getField(%hs, 0);
+		%score = getField(%hs, 1);
+		%name  = getField(%hs, 2);
+		%val   = (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score));
+		%format  = (%type == $ScoreType::Time ? getScoreFormatting($ScoreType::Time TAB %score, %mission, true) : getScoreFormatting($ScoreType::Score TAB %score, %mission, true));
+		if (!%hasLocal) {
+			%t = %t NL "<bold:18>Local Top " @ $Game::HighscoreCount @ ":<tab:10,250>";
+			%hasLocal = true;
+		}
+		%t = %t NL "<font:16>" @ (%i + 1) @ ".  " TAB %name TAB "<spush>" @ %format @ %val @ "<spop>";
+	}
+
 	%this.baseDescText = %t;
 }
 
@@ -2636,9 +2609,6 @@ function MarblelandGui_onDownloadComplete(%id, %success) {
 		return;
 	}
 
-	if (isObject(%this.selectedFrame))
-		%this.updateTileBadge(%this.selectedFrame);
-
 	%this.updateDetailButtons();
 }
 
@@ -2683,9 +2653,6 @@ function MarblelandGui_onDownloadCompletePlay(%id, %success) {
 		schedule(3000, 0, "MarblelandGui.hideProgressLabel");
 		return;
 	}
-
-	if (isObject(%this.selectedFrame))
-		%this.updateTileBadge(%this.selectedFrame);
 
 	%this.playLevel();
 }
@@ -3079,8 +3046,7 @@ function MarblelandGui::populateLb(%this) {
 	// Tab stops: rank at 0-44, name at 44-390, score right-aligned from 390
 	// ML_DetailLbList is 512px wide; score column starts at 390
 	%tabs = "<tab:44,390>";
-
-	// Header row
+	// Online scores header + rows
 	%t = "<just:left>" @ %tabs @
 	     "<font:" @ $DefaultFont["Bold"] @ ":18>#" TAB
 	     "Name" TAB
