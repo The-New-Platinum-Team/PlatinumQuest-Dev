@@ -585,6 +585,12 @@ function EditorMenu_MissionLoaded() {
 function EditorMenu_Play() {
 	deactivateMenuHandler("EditorMenu");
 
+	schedule(100, 0, delayedEditorOpen);
+
+	RootGui.showPreviewImage(false);
+}
+
+function delayedEditorOpen() {
 	if (!$Editor::Test) {
 		$Editor::Enabled = true;
 		$Editor::Opened = true;
@@ -592,8 +598,6 @@ function EditorMenu_Play() {
 		MissionCleanup.add(Editor);
 		Editor.open();
 	}
-
-	RootGui.showPreviewImage(false);
 }
 
 function EditorTestCameraPath() {
@@ -614,11 +618,14 @@ function EditorIconScreenshot() {
 	if (%gui == -1 || %gui $= "") {
 		%gui = "PlayGui";
 	}
+	Editor.close(); // close the editor
 	doMiniShot("EditorIconScreenshotEnd(" @ %gui @ ");");
 }
 
 function EditorIconScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
+	if (%gui !$= "EditorGui")
+		Editor.open(); // open it back
 	ReturnMarbletoNormal();
 }
 
@@ -632,6 +639,8 @@ function EditorDoPreviewScreenshot() {
 	getCamera().setTransform(CameraPath1.getTransform());
 
 	%path = filePath($Server::MissionFile) @ "/" @ fileBase($Server::MissionFile) @ ".prev.png";
+
+	Editor.close(); // close the editor
 
 	//Get FOV
 	%fov = ClientMode::callback("getMenuCameraFov", 90);
@@ -657,6 +666,8 @@ function EditorDoPreviewScreenshotTakeScreenshot(%path, %gui) {
 
 function EditorDoPreviewScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
+	if (%gui !$= "EditorGui")
+		Editor.open(); // open it back
 	ReturnMarbletoNormal();
 }
 
@@ -3746,7 +3757,9 @@ function Editor::open(%this) {
 	// Load Prefs
 	EditorGui.getPrefs();
 
-	%this.prevContent = RootGui.getContent();
+	%prevContent = RootGui.getContent();
+	if (%prevContent !$= "EditorGui")
+		%this.prevContent = %prevContent;
 	RootGui.setContent(EditorGui);
 
 	$Editor::InEditor = true;
