@@ -158,7 +158,7 @@ function MarblelandDownloader::onDisconnect(%this) {
 /// @param id Level ID
 /// @param callback void(%id, %success, %bmp) Function to call upon completion
 /// @param bmp The bitmap object
-function marblelandDownloadIcon(%id, %callback, %bmp) {
+function marblelandDownloadIcon(%id, %callback, %bmp, %w, %h) {
 	echo("Marbleland icon: " @ %id SPC %callback);
 	%mission = $MarblelandMissionList.lookup[%id];
 
@@ -172,8 +172,12 @@ function marblelandDownloadIcon(%id, %callback, %bmp) {
 	%dl.id = %mission.id;
 	%dl.success = 0;
 	%dl.bmp = %bmp;
+	%resQuery = "";
+	if (%w !$= "" && %h !$= "") {
+		%resQuery = "width=" @ %w @ "&height=" @ %h;
+	}
 	%dl.setDownloadPath("vfs://marbleland/" @ %mission.id @ ".jpg");
-	%dl.get("https://marbleland.vaniverse.io","/api/level/" @ %mission.id @ "/image","");
+	%dl.get("https://marbleland.vaniverse.io","/api/level/" @ %mission.id @ "/image", %resQuery);
 }
 
 function MarblelandIconDownloader::onDownload(%this, %path) {
@@ -276,6 +280,8 @@ function marblelandDownloadAvatar(%userId, %callback, %bmp) {
 
 function MarblelandAvatarDownloader::onDownload(%this, %path) {
 	%this.success = 1;
+	if (MarblelandCachedAvatars.findEntryIndex(%this.userId) == -1)
+		MarblelandCachedAvatars.addEntry(%this.userId);
 }
 
 function MarblelandAvatarDownloader::onDisconnect(%this) {
@@ -622,6 +628,7 @@ function marblelandUsesCustomCode(%mission) {
 //-----------------------------------------------------------------------------
 
 Array(MarblelandLoadedPackages);
+Array(MarblelandCachedAvatars);
 
 /// Reload all download marbleland mission packages
 function marblelandReloadMissions() {
