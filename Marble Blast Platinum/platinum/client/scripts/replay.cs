@@ -392,7 +392,12 @@ function playReplay(%file, %race) {
 	$demoLB = %info.lb;
 
 	//Go find it on pmg
-	%minfo = getMissionInfo(%info.missionFile);
+	// check if it is marbleland
+	if (marblelandIsMission(%info.missionFile)) {
+		%minfo = marblelandGetMission(marblelandGetFileId(%info.missionFile));
+	} else {
+		%minfo = getMissionInfo(%info.missionFile);
+	}
 	if (%minfo == -1) {
 		MessageBoxOk("Error", "Error loading the replay. Check your console.");
 		$playingDemo = 0;
