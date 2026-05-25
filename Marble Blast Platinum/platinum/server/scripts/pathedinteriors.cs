@@ -120,8 +120,8 @@ function PathedInterior::onEditorDelete(%this) {
 	}
 }
 
-function PathedInterior::inspectPostApply(%this) {
-	return;
+function PathedInterior::getTransform(%this) {
+	return %this.position SPC getWords(%this.rotation, 0, 2) SPC mDegToRad(getWord(%this.rotation, 3));
 }
 
 function PathedInterior::onInspectApply(%this) {
@@ -498,8 +498,17 @@ function Marker::moveToStart(%this) {
 
 function MustChange_g::toNewGroup(%this, %obj) {
 	if(!isObject(%this._newGroup)) {
+		for(%i = 0; (%path = %this.getObject(%i)) != -1; %i++) {
+			if(%path.getClassName() $= "Path") {
+				%originalPath = %path;
+				break;
+			}
+		}
 		%this._newGroup = new SimGroup(MustChange_g) {
-			new Path();
+			new Path() {
+				speed = %originalPath.speed;
+				pauseDuration = %originalPath.pauseDuration;
+			};
 		};
 	}
 	if(%obj.getClassName() $= "Marker")
