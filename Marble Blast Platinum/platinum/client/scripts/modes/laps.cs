@@ -47,21 +47,7 @@ function ClientMode_laps::onShowPlayGui(%this) {
 }
 function ClientMode_laps::getBestLapTime(%this) {
 	%info = PlayMissionGui.getMissionInfo();
-	if (lb()) {
-		//Get the best lap time from the lbs
-		%best = 5999999;
-		%cache = PlayMissionGui.personalScoreCache[PlayMissionGui.getMissionInfo().id];
-		if (isObject(%cache)) {
-			%lapCache = %cache.bestLap;
-			if (isObject(%lapCache)) {
-				%best = %lapCache.time;
-			}
-		} else {
-			return "";
-		}
-	} else {
-		%best = ($pref::LapsBestTime[%info.file] $= "" ? 5999999 : $pref::LapsBestTime[%info.file]);
-	}
+	%best = ($pref::LapsBestTime[%info.file] $= "" ? 5999999 : $pref::LapsBestTime[%info.file]);
 
 	return %best;
 }

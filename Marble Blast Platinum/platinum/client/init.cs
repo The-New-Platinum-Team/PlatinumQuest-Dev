@@ -140,6 +140,7 @@ function initClient() {
 	exec("./ui/CompleteDemoDlg.gui");
 	exec("./ui/AchievementsDlg.gui");
 	exec("./ui/SearchDlg.gui");
+	exec("./ui/MarblelandGui.gui");
 	exec("./ui/VersionDlg.gui");
 	exec("./ui/JukeboxDlg.gui");
 	exec("./ui/RenameFileDlg.gui");
