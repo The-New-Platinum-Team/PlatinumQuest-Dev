@@ -634,6 +634,14 @@ function resetSpawnWeights() {
 		%gem = $Gems[%i];
 		%gem._spawnWeight = 0;
 	}
+
+	// Reset the spawn counts for gem groups so we don't get weirdness with gem group spawning
+	if (isObject(GemGroups)) {
+		for (%i = 0; %i < GemGroups.getCount(); %i ++) {
+			%group = GemGroups.getObject(%i);
+			%group._spawnCount = 0;
+		}
+	}
 }
 
 function spawnGem(%gem) {
