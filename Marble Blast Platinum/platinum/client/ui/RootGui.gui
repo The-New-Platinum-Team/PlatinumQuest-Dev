@@ -239,7 +239,7 @@ function RootMenu_LoadProgress(%progress) {
 }
 function RootMenu_MissionExit() {
 	if (!$Game::Introduction) {
-		if (marblelandIsMission($Client::MissionFile)) {
+		if (!$pref::OldMarblelandUI && marblelandIsMission($Client::MissionFile)) {
 			RootGui.setContent(MarblelandGui);
 		} else {
 			RootGui.setContent(PlayMissionGui);
