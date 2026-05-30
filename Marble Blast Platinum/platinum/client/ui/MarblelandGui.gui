@@ -1756,6 +1756,12 @@ $ML::FilterDiff[4]       = "";
 //-----------------------------------------------------------------------------
 
 function MarblelandGui::open(%this) {
+	// check display height
+	%height = getWord($pref::Video::WindowedRes, 1);
+	if (%height < 870) {
+		// just force old UI for small displays
+		$pref::OldMarblelandUI = true;
+	}
 	if ($pref::OldMarblelandUI) {
 		PlayMissionGui.open(true);
 		return;
