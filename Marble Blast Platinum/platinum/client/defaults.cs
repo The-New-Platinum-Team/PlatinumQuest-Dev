@@ -52,9 +52,9 @@ $pref::NoHolePunching = false;
 $pref::NoFadeIn = false;
 $pref::AllowEndingScoreLevelsEarly = true;
 $pref::clientsidePrediction = true;
+$pref::DisableHighScoreNamePopup = 0;
 
 $pref::RtaShowAllSplits = true;
-$pref::RtaSkipNameEntry = true;
 $pref::RtaShowEggSplits = true;
 
 $pref::checkLETip = "1";

@@ -491,7 +491,7 @@ function shouldSkipHighScoreNameEntry() {
 		return false;
 	}
 
-	return $pref::DisableHighScoreNamePopup || ($pref::RtaSkipNameEntry && RtaSpeedrun.isEnabled);
+	return $pref::DisableHighScoreNamePopup;
 }
 
 function clientCmdGameEnd() {
