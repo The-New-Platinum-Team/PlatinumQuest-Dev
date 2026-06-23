@@ -318,12 +318,11 @@ function onMissionReset() {
 	endFireWorks();
 	resetCannons();
 
-	if (mp() && $MPPref::Server::DoubleSpawnGroups || isCompetitiveMode()) {
-		$MP::ScoreSendingDisabled = true;
-	}
-
-	if (mp() && !isCompetitiveMode() && !$MPPref::Server::DoubleSpawnGroups) {
+	if (mp()) {
 		$MP::ScoreSendingDisabled = false;
+		if ($MPPref::Server::DoubleSpawnGroups) {
+			$MP::ScoreSendingDisabled = true;
+		}
 	}
 
 	chooseSharedSpawnPoint();
@@ -358,20 +357,30 @@ function onMissionReset() {
 	}
 	MissionStartup();
 
-	//Stop replays
-	commandToAll('StopReplays');
-	if (isObject(PlaybackGhostGroup)) {
-		while (PlaybackGhostGroup.getCount()) {
-			PlaybackGhostGroup.getObject(0).delete();
+	// Start/stop the rrec race, if set
+	// MissionInfo.replays has been unused for a long time, but i'll keep it since there's still code for it in the editor ~ Keppy
+	if($Playback::Ghost || MissionInfo.replays > 0) {
+		commandToAll('StopReplays');
+		if (isObject(PlaybackGhostGroup)) {
+			while (PlaybackGhostGroup.getCount()) {
+				%player = PlaybackGhostGroup.getObject(0);
+				%player.client.delete();
+				%player.delete();
+			}
+		} else {
+			MissionCleanup.add(new SimGroup(PlaybackGhostGroup));
 		}
-	} else {
-		MissionCleanup.add(new SimGroup(PlaybackGhostGroup));
-	}
-	//Start replays
-	for (%i = 0; %i < MissionInfo.replays; %i ++) {
-		cancel($Playback::GhostSchedule[%i]);
-		%delay = MissionInfo.replayTime[%i];
-		$Playback::GhostSchedule[%i] = schedule(%delay, 0, playbackGhost, MissionInfo.replay[%i], %delay);
+
+		if($Playback::CurrentFile !$= "")
+			playbackGhost($Playback::CurrentFile);
+		else
+			$Playback::Ghost = false;
+
+		for (%i = 0; %i < MissionInfo.replays; %i ++) {
+			cancel($Playback::GhostSchedule[%i]);
+			%delay = MissionInfo.replayTime[%i];
+			$Playback::GhostSchedule[%i] = schedule(%delay, 0, playbackGhost, MissionInfo.replay[%i], %delay);
+		}
 	}
 }
 
@@ -654,7 +663,7 @@ function GameConnection::stateEnd(%this) {
 		%this.player.iceShard.getDatablock().unfreeze(%this.player.iceShard, %this.player, true);
 	}
 
-	if ($Server::ServerType $= "SinglePlayer" && isObject($Game::EndPad))
+	if ($Server::ServerType $= "SinglePlayer" && isObject($Game::EndPad) && !$Game::EndPad.getDatablock().mbuAnimation)
 		startFireWorks($Game::EndPad);
 }
 

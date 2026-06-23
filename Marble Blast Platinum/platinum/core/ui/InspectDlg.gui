@@ -201,6 +201,7 @@ function Inspect(%obj) {
 
 	InspectFields.inspector.inspect(%obj);
 	InspectObjectName.setValue(%obj.getName());
+	InspectorNameEdit.setValue(%obj.getName());
 	InspectTitle.setValue(%obj.getId() @ ": " @ %obj.getName());
 }
 
@@ -265,6 +266,9 @@ function Inspector::inspect(%this, %obj, %displayNames) {
 
 function Inspector::build(%this, %displayNames) {
 	//We need to build up the inspector.
+
+	if(!isObject(%this.object))
+		return;
 
 	//First, get a list of all the object's fields.
 	%members  = %this.object.getMemberFieldList();
@@ -434,6 +438,56 @@ function Inspector::build(%this, %displayNames) {
 		}
 	}
 
+	if (%this.object.getClassName() $= "InteriorInstance") {
+		%count = %this.object.getNumPathFollowers();
+		if(%count)
+			%this.addField("  Pathed Interiors", -1);
+		
+		for (%i = 0; %i < %count; %i++) {
+			%name = %this.object.getPathFollowerName(%i);
+			%this.addField("PathFollower_" @ %i, -1, "", false, %i+1 @ ". " @ %name);
+			%innerWidth = getWord(%this.gui.getExtent(), 0) - 4;
+			%btnWidth = 50;
+			%btnHeight = %this.entryHeight - 2;
+			
+			%this.gui.add(new GuiButtonCtrl() {
+				profile = "GuiButtonProfile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = (%innerWidth - %btnWidth - 4) SPC ((%this.fields - 1) * %this.entryHeight + 1);
+				extent = %btnWidth SPC %btnHeight;
+				visible = "1";
+				text = "Create";
+				command = "EWorldEditor.clearSelection(); EWorldEditor.selectGroup(" @ %this.object @ ".addPathFollower(" @ %i @ ")); syncMovingPlatforms();";
+			});
+		}
+		%count = %this.object.getNumGameEntities();
+		if(%count)
+			%this.addField("  Game Entities", -1);
+
+		for (%i = 0; %i < %count; %i++) {
+			%name = %this.object.getGameEntityGameClass(%i);
+			%db = %this.object.getGameEntityDataBlock(%i);
+			if(%db !$= "")
+				%name = %name @ " - " @ %db;
+			%this.addField("GameEntity_" @ %i, -1, "", false, %i+1 @ ". " @ %name);
+			%innerWidth = getWord(%this.gui.getExtent(), 0) - 4;
+			%btnWidth = 50;
+			%btnHeight = %this.entryHeight - 2;
+
+			%this.gui.add(new GuiButtonCtrl() {
+				profile = "GuiButtonProfile";
+				horizSizing = "left"; // Anchor to the right 
+				vertSizing = "bottom";
+				position = (%innerWidth - %btnWidth - 4) SPC ((%this.fields - 1) * %this.entryHeight + 1);
+				extent = %btnWidth SPC %btnHeight;
+				visible = "1";
+				text = "Create";
+				command = "EWorldEditor.selectSingle(" @ %this.object @ ".addGameEntity(" @ %i @ "));";
+			});
+		}
+	}
+
 	//Dynamic Fields header and add button
 	%this.addField("  Dynamic Fields", -1);
 	%this.gui.add(new GuiButtonCtrl("InspectAddDynamicFieldButton") {
@@ -489,6 +543,31 @@ function Inspector::reset(%this) {
 	%this.fields = 0;
 	//Delete everything inside
 	%this.gui.clear();
+}
+
+function Inspector::updateTransforms(%this) {
+    if (!isObject(%this.object)) return;
+
+    if (isObject(%this.fieldEntry["position"]))
+        %this.fieldEntry["position"].setValue(%this.object.getFieldValue("position"));
+
+    if (isObject(%this.fieldEntry["rotation"]))
+        %this.fieldEntry["rotation"].setValue(%this.object.getFieldValue("rotation"));
+
+    if (isObject(%this.fieldEntry["scale"]))
+        %this.fieldEntry["scale"].setValue(%this.object.getFieldValue("scale"));
+
+    if (isObject(%this.fieldEntry["basePosition"]))
+        %this.fieldEntry["basePosition"].setValue(%this.object.getFieldValue("basePosition"));
+
+    if (isObject(%this.fieldEntry["baseRotation"]))
+        %this.fieldEntry["baseRotation"].setValue(%this.object.getFieldValue("baseRotation"));
+
+    if (isObject(%this.fieldEntry["baseScale"]))
+        %this.fieldEntry["baseScale"].setValue(%this.object.getFieldValue("baseScale"));
+
+    if (isObject(%this.fieldEntry["msToNext"]))
+        %this.fieldEntry["msToNext"].setValue(%this.object.getFieldValue("msToNext"));
 }
 
 $Inspect::CustomFieldType["boolean"] = "bool";

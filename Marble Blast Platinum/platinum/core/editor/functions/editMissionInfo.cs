@@ -352,6 +352,7 @@ function editMissionInfo(%gui) {
 	miAssign(platinumSpawnChance, EMI_Hunt_PGSC,            $Game::isMode["hunt"]);
 
 	miAssign(score,         EMI_ParScore,      !%useTime);
+	miAssign(goldScore,     EMI_GoldScore,     !%useTime);
 	miAssign(platinumScore, EMI_PlatinumScore, !%useTime);
 	miAssign(ultimateScore, EMI_UltimateScore, !%useTime);
 	miAssign(awesomeScore,  EMI_AwesomeScore,  !%useTime);

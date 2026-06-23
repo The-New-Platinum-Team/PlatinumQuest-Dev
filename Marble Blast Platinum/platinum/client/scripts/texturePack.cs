@@ -86,6 +86,11 @@ function deactivateTexturePack(%packName) {
 
 function reloadTexturePacks() {
 	//Unload everything first
+
+	// unregister all shader stuff
+	clearMaterials();
+	clearTSMaterials();
+
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		unloadTexturePack(%pack);
@@ -117,6 +122,10 @@ function reloadTexturePackFields() {
 }
 
 function unloadTexturePacks() {
+	// unregister all shader stuff
+	clearMaterials();
+	clearTSMaterials();
+
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		unloadTexturePack(%pack);
@@ -223,6 +232,74 @@ function loadTexturePack(%pack) {
 			devecho("Glow Material: " @ %field);
 		}
 	}
+
+	/*
+	   { SceneRenderImage::Begin, "Begin"   },
+   { SceneRenderImage::Sky, "Sky" },
+   { SceneRenderImage::SkyShape, "SkyShape" },
+   { SceneRenderImage::Interior, "Interior" },
+   { SceneRenderImage::Mesh, "Mesh" },
+   { SceneRenderImage::Marble, "Marble" },
+   { SceneRenderImage::Shadow, "Shadow" },
+   { SceneRenderImage::Water, "Water" },
+   { SceneRenderImage::TranslucentPreGlow, "TranslucentPreGlow" },
+   { SceneRenderImage::Glow, "Glow" },
+   { SceneRenderImage::Translucent, "Translucent" },
+   { SceneRenderImage::End,  "End" }
+	*/
+	%renderBin["Begin"] = 0;
+	%renderBin["Sky"] = 1;
+	%renderBin["SkyShape"] = 2;
+	%renderBin["Interior"] = 3;
+	%renderBin["Mesh"] = 4;
+	%renderBin["Marble"] = 5;
+	%renderBin["Shadow"] = 6;
+	%renderBin["Water"] = 7;
+	%renderBin["TranslucentPreGlow"] = 8;
+	%renderBin["Glow"] = 9;
+	%renderBin["Refract"] = 10;
+	%renderBin["Translucent"] = 11;
+	%renderBin["End"] = 12;
+
+	if (isObject(%pack.dts_materials)) {
+		%fields = %pack.dts_materials.getDynamicFieldList();
+		%count = getFieldCount(%fields);
+
+		for (%i = 0; %i < %count; %i ++) {
+			%field = getField(%fields, %i);
+			%value = %pack.dts_materials.getFieldValue(%field);
+			if (!isObject(%value)) {
+				continue;
+			}
+
+			%matName = %field;
+			%diffusePath = %value.diffuse;
+			%bumpPath = %value.bump;
+			%specularColor = %value.specular;
+			%specularPower = %value.specularPower;
+			%renderBinValue = %value.renderBin;
+			if (%renderBinValue $= "")
+				%renderBinValue = "Mesh";
+			%cubemapStr = "";
+			%renderPreGlow = %value.renderPreGlow;
+			if (%renderPreGlow $= "")
+				%renderPreGlow = true;
+
+			if (isObject(%value.cubemap))
+			{
+				// Parse this list
+				for (%j = 0; %j < %value.cubemap.getSize(); %j ++)
+				{
+					%cubemapStr = %cubemapStr @ texturePackResolveFile(%pack, %value.cubemap.getEntry(%j));
+					if (%j < %value.cubemap.getSize() - 1)
+						%cubemapStr = %cubemapStr @ ";";
+				}
+			}
+
+			registerTSMaterial(%matName, texturePackResolveFile(%pack, %diffusePath), texturePackResolveFile(%pack, %bumpPath), %specularColor, %specularPower, %renderBin[%renderBinValue], %cubemapStr, %renderPreGlow);
+		}
+	}
+
 	loadTexturePackFields(%pack);
 }
 

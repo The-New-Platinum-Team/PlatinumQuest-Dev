@@ -49,8 +49,9 @@ function ShapeBase::onInspectApply(%this) {
 	%this.getDataBlock().onInspectApply(%this);
 }
 
-function ShapeBase::onEditorDrag(%this) {
-	%this.getDataBlock().onEditorDrag(%this);
+function ShapeBase::onEditorSetTransform(%this) {
+	Parent::onEditorSetTransform(%this);
+	%this.getDataBlock().onEditorSetTransform(%this);
 }
 
 //-----------------------------------------------------------------------------
@@ -67,6 +68,6 @@ function ShapeBaseData::onInspectApply(%this, %obj) {
 	//Stub
 }
 
-function ShapeBaseData::onEditorDrag(%this, %obj) {
+function ShapeBaseData::onEditorSetTransform(%this, %obj) {
 	//Stub
 }

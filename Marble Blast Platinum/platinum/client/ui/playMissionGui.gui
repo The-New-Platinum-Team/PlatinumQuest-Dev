@@ -637,8 +637,8 @@ new GuiControl(PlayMissionGui) {
 					profile = "PMGMLTextProfile";
 					horizSizing = "right";
 					vertSizing = "bottom";
-					position = "332 0";
-					extent = "186 28";
+					position = "275 0";
+					extent = "250 28";
 					minExtent = "8 8";
 					visible = "1";
 					helpTag = "0";
@@ -1233,7 +1233,7 @@ function PlayMissionGui::open(%this, %marbleland) {
 function PlayMissionGui::init(%this) {
 	if (mp()) {
 		if ($Server::Hosting && !$Server::_Dedicated) {
-			%this.ml = getMissionList("mp");
+				%this.ml = getMissionList("mp");
 		} else {
 			%this.ml = getMissionList("server");
 		}
@@ -2684,6 +2684,13 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 		//The header has both "Global Scores" and next/prev text buttons
 		%title = "<bold:48>" @ (%loading ? "Loading Scores..." : %scoresTitle) @ "<just:right><font:" @ %buttonSize @ ">";
+
+		if (%this.globalPage == 0) {
+			%title = %title @ "<spush><color:999999>First<spop> ";
+		} else {
+			%title = %title @ "<a:gamelink firstGlobalPage>First</a> ";
+		}
+
 		if (%this.globalPage == 0) {
 			%title = %title @ "<spush><color:999999>Prev<spop>";
 		} else {
@@ -2697,11 +2704,19 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%columns = %scoreList.columns;
 			%rows = %scoreList.scores;
 
+			%this.maxPage = max(0, mFloor((%rows.getSize() - 1) / %this.scoresPerPage));
+
 			//Too far? Gray it out
-			if (%rows.getSize() <= (%this.globalPage * %this.scoresPerPage) + %this.scoresPerPage) {
+			if (%this.globalPage >= %this.maxPage) {
 				%title = %title SPC "<spush><color:999999>Next<spop>";
 			} else {
 				%title = %title SPC "<a:gamelink nextGlobalPage>Next</a>";
+			}
+
+			if (%this.globalPage >= %this.maxPage) {
+				%title = %title SPC "<spush><color:999999>Last<spop>";
+			} else {
+				%title = %title SPC "<a:gamelink lastGlobalPage>Last</a>";
 			}
 
 			if (%rows.getSize() == 0) {
@@ -3120,7 +3135,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		PM_ScoreModeDD.setValue(%this.globalScoreMode $= "dd");
 
 		if ((%this.globalScoreMode $= "egg" || %this.globalScoreMode $= "") && $CurrentGame !$= "challenge" && !mp()) {
-			PM_ScoreReplayWatch.setText("<just:right><font:21><a:gamelink watchLBReplay>Watch Top Replay</a>");
+			PM_ScoreReplayWatch.setText("<just:right><font:21>Top Replay: <a:gamelink raceLBReplay>Race</a> or <a:gamelink watchLBReplay>Watch</a>");
 		} else {
 			PM_ScoreReplayWatch.setText("");
 		}
@@ -3170,6 +3185,11 @@ function PM_ScoreReplayWatch::onURL(%this, %url) {
 	PM_MissionInfo::onURL(%this, %url);
 }
 
+function PlayMissionGui::firstGlobalPage(%this) {
+   %this.globalPage = 0;
+   %this.updateMissionInfo();
+}
+
 function PlayMissionGui::prevGlobalPage(%this) {
 	%this.globalPage --;
 	%this.updateMissionInfo();
@@ -3180,8 +3200,21 @@ function PlayMissionGui::nextGlobalPage(%this) {
 	%this.updateMissionInfo();
 }
 
+function PlayMissionGui::lastGlobalPage(%this) {
+   %this.globalPage = %this.maxPage;
+   %this.updateMissionInfo();
+}
+
+function PlayMissionGui::startLBReplay(%this, %race) {
+	statsGetReplay(PlayMissionGui.getMissionInfo(), (%this.globalScoreMode $= "egg") ? "Egg" : "Replay", %race);
+}
+
 function PlayMissionGui::watchLBReplay(%this) {
-	statsGetReplay(PlayMissionGui.getMissionInfo(), (%this.globalScoreMode $= "egg") ? "Egg" : "Replay");
+	%this.startLBReplay(false);
+}
+
+function PlayMissionGui::raceLBReplay(%this) {
+	%this.startLBReplay(true);
 }
 
 function PlayMissionGui::onTick(%this, %delta) {
@@ -3642,7 +3675,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 	%count = $PMG::BarButton[%which, "Count"];
 	%rowCount = $PMG::BarButton[%which, "RowCount"];
 
-	if (%bar !$= "PM_ExtrasBox") {
+	if (%bar !$= "PM_ExtrasBox" && %bar !$= "ML_ExtrasBox") {
 		%bar.add(new GuiControl() {
 			profile = "GuiDefaultProfile";
 			horizSizing = "width";
@@ -3717,7 +3750,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 
 		%posY = 0;
 
-		if (%bar $= "PM_ExtrasBox") {
+		if (%bar $= "PM_ExtrasBox" || %bar $= "ML_ExtrasBox") {
 			// 3xN grid
 			%colCount = mCeil(%count / %rowCount);
 			%col = %i % %colCount;

@@ -636,8 +636,8 @@ function PlayGui::updateBarPositions(%this) {
 	%rpix = getPixelSpace(getGuiSpace(%trans, %rpos, getCameraFov()));
 
 	//Offset a bit so we don't cover the marble and so we line up
-	%x = getWord(%rpix, 0) + 20;
-	%y = getWord(%mpix, 1) - 38;
+	%x = mFloor(getWord(%rpix, 0)) + 20;
+	%y = mFloor(getWord(%mpix, 1)) - 38;
 
 	if (%fireball && %bubble) {
 		//Because I know SOMEONE will try this
@@ -887,6 +887,8 @@ $pitchMin = -0.95;
 package frameAdvance {
 	function onFrameAdvance(%timeDelta) {
 		Parent::onFrameAdvance(%timeDelta);
+
+		$Time::timeDelta = %timeDelta;
 
 		// adjust yaw
 		$cameraYaw += $mvYawLeftSpeed;
@@ -1270,6 +1272,7 @@ function PlayGui::updateControls(%this) {
 		Sec_Thousandth_Th.setTimeNumber(%thousandth);
 		PG_NegSign_Th.setVisible(%drawNeg);
 
+		PG_NegSign_Th.setTimeNumber("dash");
 		MinSec_Colon_Th.setTimeNumber("colon");
 		MinSec_Point_Th.setTimeNumber("point");
 	} else {
@@ -1282,6 +1285,7 @@ function PlayGui::updateControls(%this) {
 		Sec_Hundredth.setTimeNumber(%hundredthOne);
 		PG_NegSign.setVisible(%drawNeg);
 
+		PG_NegSign.setTimeNumber("dash");
 		MinSec_Colon.setTimeNumber("colon");
 		MinSec_Point.setTimeNumber("point");
 	}
@@ -1334,6 +1338,8 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 	if ($pref::ScreenshotMode == 2)
 		return;
 	%startCenter = VectorMult(%this.getExtent(), "0.5 0.5");
+	// floor both coords
+	%startCenter = mFloor(getWord(%startCenter, 0)) SPC mFloor(getWord(%startCenter, 1));
 	%startPos = VectorSub(%startCenter, "200 50");
 	%this.add(%obj = new GuiMLTextCtrl() {
 		profile = "GemCollectionMessageProfile";

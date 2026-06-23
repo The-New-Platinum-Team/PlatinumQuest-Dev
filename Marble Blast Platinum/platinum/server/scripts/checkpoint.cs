@@ -75,6 +75,7 @@ datablock StaticShapeData(Checkpoint_PQ : checkPoint) {
 
 datablock StaticShapeData(Checkpoint_MBU : checkPoint) {
 	shapeFile = "~/data/shapes_mbu/pads/checkpad.dts";
+	useShaders = true;
 };
 
 datablock StaticShapeData(Checkpoint_MBXP : checkPoint) {
@@ -123,7 +124,7 @@ datablock StaticShapeData(SillyGlass : checkPoint) {
 	shapefile = "~/data/shapes_pq/Gameplay/pads/silly_cp_glass.dts";
 };
 
-function Checkpoint_PQ::onEditorDrag(%this, %obj) {
+function Checkpoint_PQ::onEditorSetTransform(%this, %obj) {
 	%obj._glass.setTransform(%obj.getTransform());
 	%obj._glass.setScale(%obj.getScale());
 }
@@ -500,6 +501,8 @@ function GameConnection::respawnObjects(%this, %group) {
 		else {
 			if (%object._pickUpCheckpoint >= %this.curCheckpointNum && isObject(%object._pickUp) && %object._pickUp.getId() == %this.getId()) {
 				//echo("Respawning gem" SPC %object);
+				if($Playback::Ghost)
+					%object.onNextFrame("setFadeVal", %object.getFadeVal());
 				%object.onMissionReset(); // respawn gem.
 				%object._pickUpCheckpoint = "";
 				%object._pickUp = "";

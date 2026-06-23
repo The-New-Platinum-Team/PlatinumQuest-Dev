@@ -120,6 +120,8 @@ function Editor::loadFunctions() {
 		exec("./functions/editPathTrigger.cs");
 		exec("./functions/editPhysModTrigger.cs");
 		exec("./functions/editPushButton.cs");
+		exec("./functions/editPath.cs");
+		exec("./functions/editSun.cs");
 		exec("./functions/parentConfig.cs");
 	}
 }

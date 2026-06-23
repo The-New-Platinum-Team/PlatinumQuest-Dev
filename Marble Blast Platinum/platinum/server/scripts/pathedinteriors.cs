@@ -33,7 +33,7 @@ datablock PathedInteriorData(PathedDefault) {
 	customField[1, "default"] = "";
 };
 
-datablock PathedInteriorData(PathedMovingBlock) {
+datablock PathedInteriorData(PathedMovingBlock) { // TODO PathedMovingBlock : PathedDefault?
 	customField[0, "field"  ] = "initialTargetPosition";
 	customField[0, "type"   ] = "int"; //Technically time but can be negative
 	customField[0, "name"   ] = "Initial Target Position";
@@ -67,8 +67,68 @@ function PathedInterior::onTrigger(%this,%temp,%triggerMesg) {
 	if (%triggerMesg == "true")
 		%triggerMesg = -2;
 
-//   echo(%this.delayTargetTime);
 	%this.setTargetPosition(%triggerMesg);
+}
+
+function PathedInterior::getPath(%this) {
+	%group = %this.getGroup();
+	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+		if(%obj.getClassName() $= "Path") {
+			return %obj;
+		}
+	}
+	return -1;
+}
+
+function PathedInterior::recenterPath(%this) {
+	%path = %this.getPath();
+	if(isObject(%path)) {
+		%offset = VectorSub(%this.getWorldBoxCenter(), %path.getObject(0).getWorldBoxCenter());
+		for(%i = 0; (%obj = %path.getObject(%i)) != -1; %i++) {
+			%obj.setTransform(VectorAdd(%offset, %obj.getPosition()));
+		}
+	}
+}
+
+function PathedInterior::onEditorCopy(%this) {
+	%group = %this.getGroup();
+	if(%group.getName() $= "MustChange_g")
+		EWorldEditor.onNextFrame("noteMCGroupSelected", %group);
+}
+
+function PathedInterior::onEditorPaste(%this) {
+	%group = %this.getGroup();
+	if(EWorldEditor.mcGroupIsSelected[%group] || %group.getName() $= "MissionGroup")
+		MustChange_g::toNewGroup(%group, %this);
+
+	%this.setTargetPosition(%this.initialTargetPosition);
+	if(%this.initialTargetPosition < 0)
+		syncMovingPlatforms();
+}
+
+function PathedInterior::onEditorDelete(%this) {
+	%group = %this.getGroup();
+	if(%group.getName() $= "MustChange_g") {
+		if(EWorldEditor.cut)
+			return;
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+			if(%obj != %this && %obj.getClassName() $= "PathedInterior") {
+				return; // Path is still in use
+			}
+		}
+		%group.onNextFrame("delete");
+	}
+}
+
+function PathedInterior::getTransform(%this) {
+	return %this.position SPC getWords(%this.rotation, 0, 2) SPC mDegToRad(getWord(%this.rotation, 3));
+}
+
+function PathedInterior::onInspectApply(%this) {
+	%this.setPathPosition(%this.initialPosition);
+	%this.setTargetPosition(%this.initialTargetPosition);
+	if(%this.initialTargetPosition < 0)
+		syncMovingPlatforms();
 }
 
 datablock TriggerData(TriggerGotoTarget) {
@@ -112,7 +172,6 @@ function TriggerGotoTarget::onEnterTrigger(%this,%trigger,%obj) {
 			}
 		}
 	}
-	// Entering an out of bounds area
 }
 
 function TriggerGotoTarget::onLeaveTrigger(%this, %trigger, %obj) {
@@ -145,6 +204,48 @@ function TriggerGotoTarget::onAdd(%this, %trigger) {
 	//%trigger.delay = 0;    (disabled atm)
 }
 
+function TriggerGotoTarget::getPath(%this, %trigger) {
+	%group = %trigger.getGroup();
+	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+		if(%obj.getClassName() $= "Path") {
+			return %obj;
+		}
+	}
+	return -1;
+}
+
+function TriggerGotoTarget_onEditorDelete(%this, %trigger) {
+	%group = %trigger.getGroup();
+
+	if(%group.getName() !$= "MissionGroup") {
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+			if(%obj != %trigger && %obj.getDataBlock().getName() $= "TriggerGotoTarget")
+				return; // Still using a trigger
+		}
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+			if(%obj.getClassName() $= "PathedInterior") {
+				%obj.initialTargetPosition = -1;
+				%obj.setTargetPosition(-1); // Start looping again
+			}
+		}
+		syncMovingPlatforms();
+	}
+}
+
+function TriggerGotoTarget_onEditorPaste(%this, %trigger) {
+	%group = %trigger.getGroup();
+	if(EWorldEditor.mcGroupIsSelected[%group] || %group.getName() $= "MissionGroup")
+		MustChange_g::toNewGroup(%group, %trigger);
+}
+
+function TriggerGotoTarget::onInspectApply(%this, %trigger) {
+	if(%trigger.targetSeqNum !$= "") {
+		%path = %this.getPath(%trigger);
+		if(isObject(%path))
+			%path.recalcTime();
+	}
+}
+
 datablock TriggerData(TriggerGotoDelayTarget) {
 	tickPeriodMS = 100;
 };
@@ -155,18 +256,26 @@ function TriggerGotoDelayTarget::onEnterTrigger(%this,%trigger,%obj) {
 		if (%plat.getClassName() $= "PathedInterior")
 			%plat.setTargetPosition(%plat.delayTargetTime);
 	}
-	// Entering an out of bounds area
 }
 
 function TriggerGotoDelayTarget::onLeaveTrigger(%this, %trigger, %obj) {
 
 }
 
+function TriggerGotoDelayTarget::getPath(%this, %trigger) {
+	return TriggerGotoTarget.getPath(%trigger);
+}
+
+function TriggerGotoDelayTarget_onEditorDelete(%this, %trigger) {
+	TriggerGotoTarget_onEditorDelete(TriggerGotoTarget, %trigger);
+}
+
+function TriggerGotoDelayTarget_onEditorPaste(%this, %trigger) {
+	TriggerGotoTarget_onEditorPaste(TriggerGotoTarget, %trigger);
+}
 
 function Path::onMissionReset(%this) {
-//	echo("add path:" SPC %this);
-//	echo("looping:" SPC %this.isLooping);
-	if (%this.isLooping) {
+	if (%this.isLooping) { //TODO should just implement this in the engine
 		%this.isLooping = false;
 
 		%first = %this.getObject(0);
@@ -179,9 +288,244 @@ function Path::onMissionReset(%this) {
 			});
 		}
 	}
+	// Populate empty paths if needed
+	if(%this.getCount() < 2) {
+		%group = %this.getGroup();
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++){
+			if(%obj.getClassName() $= "PathedInterior") {
+				if(%this.getCount() < 1) {
+					%this.add(new Marker() {
+						position = %obj.getWorldBoxCenter();
+						msToNext = 1000;
+						seqNum = 0;
+					});
+				}
+				%this.add(new Marker() {
+					position = %this.getObject(0).position;
+					msToNext = 1000;
+					seqNum = 1;
+				});
+				break;
+			}
+		}
+	}
 }
 
-function Marker::onEditorDrag(%this) {
-	//Wow major hack -- update paths so the platforms move
-	pathOnMissionLoadDone();
+function Path::recalcTime(%this) {
+	// Update triggers
+	%group = %this.getGroup();
+	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+		if(%obj.targetSeqNum $= "")
+			continue;
+
+		if(!%builtCumTimes) {
+			%cumTimes[%this.getObject(0).seqNum] = 0;
+			for(%j = 1; (%m2 = %this.getObject(%j)) != -1; %j++) {
+				%m1 = %this.getObject(%j-1);
+				%cumTimes[%m2.seqNum] = %cumTimes[%m1.seqNum] + %m1.msToNext;
+			}
+			%builtCumTimes = true;
+		}
+		// Fall back if we can't find the target marker
+		while(%cumTimes[%obj.targetSeqNum] $= "" && %obj.targetSeqNum > 0) {
+			%obj.targetSeqNum--;
+		}
+
+		%obj.targetTime = %cumTimes[%obj.targetSeqNum];
+	}
+
+	if(%this.speed $= "")
+		return;
+
+	// Update markers
+	for(%i = 1; (%m2 = %this.getObject(%i)) != -1; %i++) {
+		%m1 = %this.getObject(%i-1);
+		%dist = VectorDist(%m1.position, %m2.position);
+		%m1.msToNext = %dist < 0.01 ? %this.pauseDuration : 1000 * (%dist / %this.speed);
+	}
+}
+
+function Path::setSmoothingType(%this, %type) {
+	for(%i = 0; (%m1 = %this.getObject(%i)) != -1; %i++) {
+		%m1.smoothingType = %type;
+	}
+	%this.update();
+}
+
+function Path::getTotalDuration(%this) {
+	for(%i = 0; %i < %this.getCount()-1; %i++) {
+		%duration += %this.getObject(%i).msToNext;
+	}
+	return %duration;
+}
+
+function Marker::onEditorSetTransform(%this) {
+	Parent::onEditorSetTransform(%this);
+	%path = %this.getGroup();
+	if(%path.getClassName() $= "Path") {
+		%path.onNextFrame("recalcTime");
+		%path.onNextFrame("update");
+
+		// If it's the first marker or there's a stopped platform, we need to update the offset
+		%group = %path.getGroup();
+		for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+			if(%obj.getClassName() $= "PathedInterior")
+				if(%this == %path.getObject(0) || %obj.getPathPosition() == %obj.getTargetPosition())
+					%obj.onNextFrame("refreshPath");
+		}
+	}
+}
+
+function Marker::onInspectApply(%this) {
+	%path = %this.getGroup();
+	if(%path.getClassName() $= "Path") {
+		%path.recalcTime();
+		%path.update();
+	}
+}
+
+function Marker::onEditorCopy(%this) {
+	%group = %this.getGroup().getGroup();
+	if(%group.getName() $= "MustChange_g")
+		EWorldEditor.onNextFrame("noteMCGroupSelected", %group);
+}
+
+function Marker::onEditorPaste(%this) {
+	%path = %this.getGroup();
+	if(%path.getClassName() !$= "Path") {
+		MustChange_g::toNewGroup(%path, %this);
+		return;
+	}
+
+	%group = %path.getGroup();
+	if(EWorldEditor.mcGroupIsSelected[%group]) {
+		MustChange_g::toNewGroup(%group, %this);
+		return;
+	}
+
+	for(%i = 0; (%obj = %path.getObject(%i)) != -1; %i++) {
+		if(%this != %obj && %this.seqNum == %obj.seqNum) {
+			%conflict = 1;
+			break;
+		}
+	}
+	if(%conflict != 1)
+		return; // Can use this seqNum
+
+	%num = %this.seqNum;
+	for(%i = 0; (%obj = %path.getObject(%i)) != -1; %i++) {
+		if(%obj.seqNum >= %num + 1) {
+			%obj.seqNum++;
+		}	
+		if(%obj.seqNum < %num) {
+			if(%prev $= "" || %obj.seqNum > %prev.seqNum)
+				%prev = %obj;
+		}
+		if(%obj.seqNum > %num) {
+			if(%next $= "" || %obj.seqNum < %next.seqNum)
+				%next = %obj;
+		}
+	}
+
+	// Update any indexed path triggers
+	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+		if(%obj.targetSeqNum !$= "" && %this.seqNum < %obj.targetSeqNum)
+			%obj.targetSeqNum++;
+	}
+
+	%this.seqNum = %num + 1;
+	
+	%path.onNextFrame("recalcTime");
+	%path.onNextFrame("update");
+}
+
+function Marker::onEditorDelete(%this) {
+	if(EWorldEditor.cut)
+		return; // Assume the user is gonna paste them back
+
+	%path = %this.getGroup();
+	if(%path.getClassName() !$= "Path")
+		return;
+
+	%group = %path.getGroup();
+
+	if(%path.getCount() == 1 && !EWorldEditor.cut) {
+		if(%group.getCount() == 1) {
+			%group.onNextFrame("delete");
+			return;
+		}
+		// Still using this MustChange_g
+		%path.add(new Marker() {
+			position = %this.position;
+			smoothingType = %this.smoothingType;
+		});
+	}
+
+	%num = %this.seqNum;
+
+	for(%i = 0; (%obj = %path.getObject(%i)) != -1; %i++) {
+		if(%obj == %this)
+			continue;
+		if(%obj.seqNum > %num) {
+			%obj.seqNum--;
+			if(%next $= "" || %obj.seqNum < %next.seqNum)
+				%next = %obj;
+		}
+	}
+
+	// Fallback if we deleted the last marker
+	if(%next $= "")
+		%next = %path.getObject(%path.getCount() - 2);
+
+	// Update any indexed path triggers
+	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
+		if(%obj.targetSeqNum !$= "" && %obj.targetSeqNum > 0 && %this.seqNum < %obj.targetSeqNum)
+			%obj.targetSeqNum--;
+	}
+
+	EWorldEditor.onNextFrame("selectSingle", %next);
+	%path.onNextFrame("recalcTime");
+	%path.onNextFrame("update");
+}
+
+function Marker::moveToStart(%this) {
+	%group = %this.getGroup();
+	if(%group.getClassName() $= "Path") {
+		%this.setTransform(%group.getObject(0).getTransform());
+		%this.onEditorSetTransform();
+	}
+}
+
+function MustChange_g::toNewGroup(%this, %obj) {
+	if(!isObject(%this._newGroup)) {
+		for(%i = 0; (%path = %this.getObject(%i)) != -1; %i++) {
+			if(%path.getClassName() $= "Path") {
+				%originalPath = %path;
+				break;
+			}
+		}
+		%this._newGroup = new SimGroup(MustChange_g) {
+			new Path() {
+				speed = %originalPath.speed;
+				pauseDuration = %originalPath.pauseDuration;
+			};
+		};
+	}
+	if(%obj.getClassName() $= "Marker")
+		%this._newGroup.getObject(0).add(%obj);
+	else
+		%this._newGroup.add(%obj);
+	onNextFrame("eval", %this @ "._newGroup = -1;");
+}
+
+function syncMovingPlatforms() {
+	for(%i = 0; (%group = MissionGroup.getObject(%i)) != -1; %i++) {
+		if (%group.getName() $= "MustChange_g") {
+			for(%j = 0; (%obk = %group.getObject(%j)) != -1; %j++) {
+				if (%obk.getClassName() $= "PathedInterior" && (%obk.getTargetPosition() < 0 || %obk.initialTargetPosition < 0)) {
+					%obk.onMissionReset();
+				}
+			}
+		}
+	}
 }

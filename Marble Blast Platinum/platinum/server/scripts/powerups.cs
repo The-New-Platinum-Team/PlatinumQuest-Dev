@@ -714,7 +714,26 @@ function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
 	%sign = (Mode::callback("timeMultiplier", 1) > 0 ? "-" : "+");
 
 	//Show a message
-	%user.client.displayGemMessage(%sign @(%bonus / 1000) @ "s", %color);
+	// If we're using the MBG or MBP Texture Packs, have it show the original Time Travel text. ~ Connie
+	if (!$TexturePack::MBGHelpUI)
+	{
+		%user.client.displayGemMessage(%sign @(%bonus / 1000) @ "s", %color);
+	}
+	else
+	{
+		%msg = "";
+
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.timetravelitem !$= "")
+		{
+			%msg = "\c0You picked up a " @ %bonus / 1000 @ " second " @ $Audio::CurrentAudioPack.powerupstrings.timetravelitem;
+		}
+		else
+		{
+			%msg = "\c0You picked up a " @ %bonus / 1000 @ " second Time Travel Bonus!";
+		}
+		
+		messageClient(%user.client, 'MsgItemPickup', %msg, %this.getPickupName(%obj));
+	}
 
 	if (%bonus > 0)
 		%user.client.incBonusTime(%bonus);
@@ -834,7 +853,26 @@ function TimePenaltyItem::onPickup(%this,%obj,%user,%amount) {
 	%sign = (Mode::callback("timeMultiplier", 1) > 0 ? "+" : "-");
 
 	//Show a message
-	%user.client.displayGemMessage(%sign @(%penalty / 1000) @ "s", %color);
+	// If we're using the MBG or MBP Texture Packs, have it show the original Time Travel text. ~ Connie
+	if (!$TexturePack::MBGHelpUI)
+	{
+		%user.client.displayGemMessage(%sign @(%penalty / 1000) @ "s", %color);
+	}
+	else
+	{
+		%msg = "";
+		
+		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.TimePenaltyItem !$= "")
+		{
+			%msg = "\c0You picked up a " @ %bonus / 1000 @ " second " @ $Audio::CurrentAudioPack.powerupstrings.TimePenaltyItem;
+		}
+		else
+		{
+			%msg = "\c0You picked up a " @ (%penalty * -1) / 1000 @ " second Time Penalty!";
+		}
+		
+		messageClient(%user.client, 'MsgItemPickup', %msg, %this.getPickupName(%obj));
+	}
 
 	if (%penalty > 0)
 		%user.client.incBonusTime(-%penalty);
@@ -1358,6 +1396,7 @@ datablock ShapeBaseImageData(BlastImage) {
 	stateSequence[0]                 = "grow";
 //   stateSound[0] = doBlastSfx;
 	ignoreMountRotation = true;
+	useShaders = true;
 };
 
 function BlastItem_MBU::onAdd(%this, %obj) {
@@ -1947,6 +1986,8 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/images/megamarble.dts";
 
 		fxEmitter[0] = "MegaMarbleMBUEmitter";
+
+		useShaders = true;
 	};
 
 	datablock ItemData(SuperJumpItem_MBU : SuperJumpItem) {
@@ -1954,6 +1995,8 @@ if (!$pref::LegacyItems) {
 		category = "Marble_Blast_Ultra";
 
 		shapeFile = "~/data/shapes_mbu/items/superjump.dts";
+
+		useShaders = true;
 	};
 
 	datablock ItemData(HelicopterItem_MBU : HelicopterItem) {
@@ -1963,6 +2006,8 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/images/helicopter.dts";
 		image = HelicopterImage_MBU;
 		ultraImage = HelicopterImage_MBUBall;
+
+		useShaders = true;
 	};
 
 	datablock ItemData(SuperSpeedItem_MBU : SuperSpeedItem) {
@@ -1970,6 +2015,8 @@ if (!$pref::LegacyItems) {
 		category = "Marble_Blast_Ultra";
 
 		shapeFile = "~/data/shapes_mbu/items/superspeed.dts";
+
+		useShaders = true;
 	};
 
 	datablock ItemData(BlastItem_MBU : BlastItem) {
@@ -1978,6 +2025,7 @@ if (!$pref::LegacyItems) {
 
 		shapeFile = "~/data/shapes_mbu/images/blast.dts";
 
+		useShaders = true;
 		fxEmitter[0] = "BlastMBUEmitter";
 	};
 
@@ -1999,6 +2047,8 @@ if (!$pref::LegacyItems) {
 		noRespawn = true;
 		maxInventory = 1;
 		noPickupMessage = true;
+
+		useShaders = true;
 	};
 
 	datablock ItemData(NoRespawnAntiGravityItem_MBU : NoRespawnAntiGravityItem) {
@@ -2008,6 +2058,8 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
 
 		pickupName = "a Gravity Modifier!";
+
+		useShaders = true;
 	};
 
 	datablock ItemData(AntiGravityItem_MBU : AntiGravityItem) {
@@ -2017,6 +2069,8 @@ if (!$pref::LegacyItems) {
 		shapeFile = "~/data/shapes_mbu/items/antiGravity.dts";
 
 		pickupName = "a Gravity Modifier!";
+
+		useShaders = true;
 	};
 
 	datablock ItemData(TimeTravelItem_MBU : TimeTravelItem) {
@@ -2027,6 +2081,8 @@ if (!$pref::LegacyItems) {
 
 		//For ::timeCheck() to replace if the time is negative
 		replacement = "TimePenaltyItem_MBU";
+
+		useShaders = true;
 	};
 
 	datablock ItemData(TimePenaltyItem_MBU : TimeTravelItem) {
@@ -2042,13 +2098,17 @@ if (!$pref::LegacyItems) {
 		//For the time message
 		messageColor = "ff9999";
 		grayMessageColor = "cccccc";
+
+		useShaders = true;
 	};
 
 	datablock ShapeBaseImageData(HelicopterImage_MBU : ActualHelicopterImage) {
 		shapeFile = "~/data/shapes_mbu/images/helicopter_image.dts";
+		useShaders = true;
 	};
 	datablock ShapeBaseImageData(HelicopterImage_MBUBall : ActualHelicopterImage) {
 		shapeFile = "~/data/shapes_mbu/images/helicopter_image_mbu.dts";
+		useShaders = true;
 	};
 } else {
 	datablock ItemData(MegaMarbleItem_MBU : MegaMarbleItem) {

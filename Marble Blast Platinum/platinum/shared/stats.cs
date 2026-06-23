@@ -1100,10 +1100,11 @@ function statsRecordReplayLine(%line, %req) {
 
 function LBDownloadReplay::onDownload(%this, %path) {
 	// Check if we are already in a level, *dont* do this when the level is in the middle of loading/we are inside the level
-	if ($Game::Menu && !$Game::Loading) {
+	if (PlayMissionGui.isAwake() && !$Game::Loading) {
 		$replayFromWorldRecord = true;
-		playReplay(%path);
+		playReplay(%path, %this.race);
 	}
+	//%this.delete();
 }
 
 function LBDownloadReplay::downloadFailed(%this, %path) {
@@ -1115,12 +1116,13 @@ function LBDownloadReplay::onDisconnect(%this) {
 	%this.delete();
 }
 
-function statsGetReplay(%mission, %type)  {
-	if ($Game::Menu && !$Game::Loading) {
+function statsGetReplay(%mission, %type, %race)  {
+	if (PlayMissionGui.isAwake() && !$Game::Loading) {
 		if (isObject(LBDownloadReplay))
-			LBDownloadReplay.delete();
+			return;
 		
 		new HTTPObject(LBDownloadReplay);
+		LBDownloadReplay.race = %race;
 		%query = statsGetMissionIdentifier(%mission) @ "&type=" @ %type;
 
 		LBDownloadReplay.setDownloadPath("platinum/data/recordings/lb-current.rrec");
