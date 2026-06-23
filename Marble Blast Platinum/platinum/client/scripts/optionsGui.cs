@@ -507,6 +507,18 @@ $Options::Type    ["Audio", 8] = "boolean";
 // Gameplay
 
 $i = -1;
+$Options::Name    ["Gameplay", $i++] = "DisableHighScoreNamePopup";
+$Options::Title   ["Gameplay", $i  ] = "Skip Name Entry";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the prompt to attribute a name to new top scores offline.";
+
+$Options::AutoHighScoreField = $i++;
+$Options::Name    ["Gameplay", $Options::AutoHighScoreField] = "HighScoreName";
+$Options::Title   ["Gameplay", $Options::AutoHighScoreField] = "Top Score Name";
+$Options::Tooltip ["Gameplay", $Options::AutoHighScoreField] = "The name all new top scores will automatically be saved under. If left blank, you will still be required to input a name when saving a top score.";
+$Options::Ctrl    ["Gameplay", $Options::AutoHighScoreField] = "textbox";
+$Options::Length  ["Gameplay", $Options::AutoHighScoreField] = 255;
+$Options::Disable ["Gameplay", $Options::AutoHighScoreField] = (!$pref::DisableHighScoreNamePopup);
+
 $Options::Name    ["Gameplay", $i++] = "thousandths";
 $Options::Title   ["Gameplay", $i  ] = "Timer Precision";
 $Options::Tooltip ["Gameplay", $i  ] = "Adjust the precision of the displayed run timer in-game. This does not affect performance.";
@@ -1484,6 +1496,55 @@ function Opt_freelook_increase() {
 
 //-----------------------------------------------------------------------------
 
+function Opt_DisableHighScoreNamePopup_getDisplay() {
+	return $pref::DisableHighScoreNamePopup ? "Enabled" : "Disabled";
+}
+
+function Opt_DisableHighScoreNamePopup_getValue() {
+	return $pref::DisableHighScoreNamePopup;
+}
+
+function Opt_DisableHighScoreNamePopup_decrease() {
+	$pref::DisableHighScoreNamePopup = !$pref::DisableHighScoreNamePopup;
+
+	$Options::Disable["Gameplay", $Options::AutoHighScoreField] = (!$pref::DisableHighScoreNamePopup);
+	if (ControllerGui.isJoystick()) {
+		%control = ControllerGui.control.getName();
+	}
+	OptionsGui.buildTab("Gameplay");
+	if (ControllerGui.isJoystick()) {
+		ControllerGui.selectControl(%control);
+	}
+}
+
+function Opt_DisableHighScoreNamePopup_increase() {
+	$pref::DisableHighScoreNamePopup = !$pref::DisableHighScoreNamePopup;
+
+	$Options::Disable["Gameplay", $Options::AutoHighScoreField] = (!$pref::DisableHighScoreNamePopup);
+	if (ControllerGui.isJoystick()) {
+		%control = ControllerGui.control.getName();
+	}
+	OptionsGui.buildTab("Gameplay");
+	if (ControllerGui.isJoystick()) {
+		ControllerGui.selectControl(%control);
+	}
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_HighScoreName_getValue() {
+	return $pref::HighScoreName;
+}
+
+function Opt_HighScoreName_setValue(%value) {
+	$pref::HighScoreName = %value;
+}
+
+function Opt_HighScoreName_validate(%value) {
+}
+
+//-----------------------------------------------------------------------------
+
 function Opt_thousandths_getDisplay() {
 	return $pref::Thousandths ? "Thousandths" : "Hundredths";
 }
@@ -2146,6 +2207,7 @@ function OptionsGui::buildTab(%this, %tab) {
 
 	%width = getWord(%content.extent, 0);
 	%rowHeight = 40;
+	%row = -1;
 
 	%titleFont = "<bold:32>";
 	%valueFontButton = "<bold:24><just:center>";
@@ -2220,7 +2282,7 @@ function OptionsGui::buildTab(%this, %tab) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "0" SPC (%i * %rowHeight);
+			position = "0" SPC (%row++ * %rowHeight);
 			extent = %width SPC %rowHeight;
 			minExtent = "8 8";
 			visible = "1";
