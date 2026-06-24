@@ -507,30 +507,6 @@ $Options::Type    ["Audio", 8] = "boolean";
 // Gameplay
 
 $i = -1;
-$Options::Name    ["Gameplay", $i++] = "thousandths";
-$Options::Title   ["Gameplay", $i  ] = "Timer Precision";
-$Options::Tooltip ["Gameplay", $i  ] = "Adjust the precision of the displayed run timer in-game. This does not affect performance.";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
-$Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
-$Options::Tooltip ["Gameplay", $i  ] = "Adjust the precision of the displayed Time Travel duration timer, or disable it entirely.";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "fpsCounter";
-$Options::Title   ["Gameplay", $i  ] = "Performance Display";
-$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the FPS (Frames per Second) and TPS (Ticks per Second) counters shown in the bottom right corner of the screen.";
-$Options::Type    ["Gameplay", $i  ] = "value";
-$Options::Name    ["Gameplay", $i++] = "freelook";
-$Options::Title   ["Gameplay", $i  ] = "Free-Look";
-$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable Free-Look mode. This allows the camera to be moved up and down without holding the dedicated key to do so.";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "helptriggers";
-$Options::Title   ["Gameplay", $i  ] = "Help Bubbles";
-$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable help bubbles.";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
-$Options::Name    ["Gameplay", $i++] = "screenshotMode";
-$Options::Title   ["Gameplay", $i  ] = "HUD Visibility";
-$Options::Tooltip ["Gameplay", $i  ] = "Adjust which parts of the in-game HUD are shown or hidden. This can be useful for creating clean screenshots without the HUD or chat.";
-$Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "fov";
 $Options::Title   ["Gameplay", $i  ] = "Field of View";
 $Options::Tooltip ["Gameplay", $i  ] = "Adjust the FOV (Field of View) of the camera. A higher FOV allows you to see more of the environment, while a lower FOV provides a more focused view.";
@@ -539,6 +515,39 @@ $Options::Min     ["Gameplay", $i  ] = 60;
 $Options::Max     ["Gameplay", $i  ] = 140;
 $Options::Ticks   ["Gameplay", $i  ] = 80; //Every 1
 $Options::JoyTicks["Gameplay", $i  ] = 16; //Every 5
+$Options::Name    ["Gameplay", $i++] = "freelook";
+$Options::Title   ["Gameplay", $i  ] = "Free-Look";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable Free-Look mode. This allows the camera to be moved up and down without holding the dedicated key to do so.";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "thousandths";
+$Options::Title   ["Gameplay", $i  ] = "Timer Precision";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the precision of the displayed run timer in-game. This does not affect performance.";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "timeTravelTimer";
+$Options::Title   ["Gameplay", $i  ] = "Time Travel Timer";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust the precision of the displayed Time Travel duration timer, or disable it entirely.";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "DisableHighScoreNamePopup";
+$Options::Title   ["Gameplay", $i  ] = "Skip Name Entry";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the prompt to attribute a name to new top scores offline.";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+
+$Options::AutoHighScoreField = $i++;
+$Options::Name    ["Gameplay", $Options::AutoHighScoreField] = "HighScoreName";
+$Options::Title   ["Gameplay", $Options::AutoHighScoreField] = "Top Score Name";
+$Options::Tooltip ["Gameplay", $Options::AutoHighScoreField] = "The name all new top scores will automatically be saved under. If left blank, you will still be required to input a name when saving a top score.";
+$Options::Ctrl    ["Gameplay", $Options::AutoHighScoreField] = "textbox";
+$Options::Length  ["Gameplay", $Options::AutoHighScoreField] = 255;
+$Options::Disable ["Gameplay", $Options::AutoHighScoreField] = (!$pref::DisableHighScoreNamePopup);
+
+$Options::Name    ["Gameplay", $i++] = "helptriggers";
+$Options::Title   ["Gameplay", $i  ] = "Help Bubbles";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable help bubbles.";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
+$Options::Name    ["Gameplay", $i++] = "screenshotMode";
+$Options::Title   ["Gameplay", $i  ] = "HUD Visibility";
+$Options::Tooltip ["Gameplay", $i  ] = "Adjust which parts of the in-game HUD are shown or hidden. This can be useful for creating clean screenshots without the HUD or chat.";
+$Options::Type    ["Gameplay", $i  ] = "boolean";
 $Options::Name    ["Gameplay", $i++] = "maxRadarItems";
 $Options::Title   ["Gameplay", $i  ] = "Max Radar Items";
 $Options::Tooltip ["Gameplay", $i  ] = "Adjust the maximum number of items displayed on the radar. This can help reduce clutter on the radar in levels with many items.";
@@ -558,6 +567,10 @@ $Options::JoyTicks["Gameplay", $i  ] = 10; //Every 20
 $Options::Name    ["Gameplay", $i++] = "particleSystem";
 $Options::Title   ["Gameplay", $i  ] = "Particle System";
 $Options::Tooltip ["Gameplay", $i  ] = "Change which game style particle effects will be modeled after.";
+$Options::Type    ["Gameplay", $i  ] = "value";
+$Options::Name    ["Gameplay", $i++] = "fpsCounter";
+$Options::Title   ["Gameplay", $i  ] = "Performance Display";
+$Options::Tooltip ["Gameplay", $i  ] = "Enable or disable the FPS (Frames per Second) and TPS (Ticks per Second) counters shown in the bottom right corner of the screen.";
 $Options::Type    ["Gameplay", $i  ] = "value";
 $Options::Name    ["Gameplay", $i++] = "advancedOptions";
 $Options::Title   ["Gameplay", $i  ] = "Advanced Options";
@@ -1484,6 +1497,55 @@ function Opt_freelook_increase() {
 
 //-----------------------------------------------------------------------------
 
+function Opt_DisableHighScoreNamePopup_getDisplay() {
+	return $pref::DisableHighScoreNamePopup ? "Enabled" : "Disabled";
+}
+
+function Opt_DisableHighScoreNamePopup_getValue() {
+	return $pref::DisableHighScoreNamePopup;
+}
+
+function Opt_DisableHighScoreNamePopup_decrease() {
+	$pref::DisableHighScoreNamePopup = !$pref::DisableHighScoreNamePopup;
+
+	$Options::Disable["Gameplay", $Options::AutoHighScoreField] = (!$pref::DisableHighScoreNamePopup);
+	if (ControllerGui.isJoystick()) {
+		%control = ControllerGui.control.getName();
+	}
+	OptionsGui.buildTab("Gameplay");
+	if (ControllerGui.isJoystick()) {
+		ControllerGui.selectControl(%control);
+	}
+}
+
+function Opt_DisableHighScoreNamePopup_increase() {
+	$pref::DisableHighScoreNamePopup = !$pref::DisableHighScoreNamePopup;
+
+	$Options::Disable["Gameplay", $Options::AutoHighScoreField] = (!$pref::DisableHighScoreNamePopup);
+	if (ControllerGui.isJoystick()) {
+		%control = ControllerGui.control.getName();
+	}
+	OptionsGui.buildTab("Gameplay");
+	if (ControllerGui.isJoystick()) {
+		ControllerGui.selectControl(%control);
+	}
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_HighScoreName_getValue() {
+	return $pref::HighScoreName;
+}
+
+function Opt_HighScoreName_setValue(%value) {
+	$pref::HighScoreName = %value;
+}
+
+function Opt_HighScoreName_validate(%value) {
+}
+
+//-----------------------------------------------------------------------------
+
 function Opt_thousandths_getDisplay() {
 	return $pref::Thousandths ? "Thousandths" : "Hundredths";
 }
@@ -2146,6 +2208,7 @@ function OptionsGui::buildTab(%this, %tab) {
 
 	%width = getWord(%content.extent, 0);
 	%rowHeight = 40;
+	%row = -1;
 
 	%titleFont = "<bold:32>";
 	%valueFontButton = "<bold:24><just:center>";
@@ -2220,7 +2283,7 @@ function OptionsGui::buildTab(%this, %tab) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "0" SPC (%i * %rowHeight);
+			position = "0" SPC (%row++ * %rowHeight);
 			extent = %width SPC %rowHeight;
 			minExtent = "8 8";
 			visible = "1";
