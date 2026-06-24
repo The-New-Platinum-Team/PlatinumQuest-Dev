@@ -114,7 +114,6 @@ function RtaSpeedrun::updateTimers(%this) {
 	if (%this.isDone) {
 		$pref::Thousandths = true;
 		%text = formatTimeHoursMs(%this.time) SPC "Final Time";
-		%this.prevFinalTime = %this.time;
 	} else {
 		%text = formatTimeHoursMs(%this.time);
 	}
@@ -273,10 +272,7 @@ function RtaSpeedrun::missionEnded(%this) {
 		return;
 	if (!$RtaTimeEndsOnEgg && %this.endMission $= $Server::MissionFile) {
 		echo("Just finished the end level! Speedrun mode over");
-		echo("Final time:" SPC %this.time);
-		%this.setIsEnabled(false);
-		%this.setIsDone(true);
-		%this.clearProgress();
+		%this.endRun();
 	}
 	%isEndOfMissionType = false;
 	%isEndOfCurrentGame = false;
@@ -322,9 +318,7 @@ function RtaSpeedrun::eggCollected(%this) {
 	if ($RtaTimeEndsOnEgg && %this.endMission $= $Server::MissionFile) {
 		echo("Just collected the last egg! Speedrun mode over");
 		echo("Final time:" SPC %this.time);
-		%this.setIsEnabled(false);
-		%this.setIsDone(true);
-		%this.clearProgress();
+		%this.endRun();
 	}
 	%this.updateTimers();
 	%this.saveProgress();
@@ -429,6 +423,14 @@ function RtaSpeedrun::doRestartRun(%this, %missionToLoad) {
 	}
 	PlayMissionGui.setSelectedMission(%minfo);
 	loadMission(%this.firstMission);
+}
+
+function RtaSpeedrun::endRun(%this) {
+	echo("Final time:" SPC %this.time);
+	%this.prevFinalTime = %this.time;
+	%this.setIsEnabled(false);
+	%this.setIsDone(true);
+	%this.clearProgress();
 }
 
 // Setters for most properties, to update the RTAAutosplitter plugin's values as well
