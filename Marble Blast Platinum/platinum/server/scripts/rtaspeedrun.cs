@@ -203,6 +203,9 @@ function RtaSpeedrun::missionStarted(%this) {
 		%this.setShouldStartRun(false);
 		%this.firstMission = $Server::MissionFile;
 	}
+	if (%this.isDone && !this.isEnabled) { //Remove onscreen RTA timer on level start if we're not in a run
+		%this.stop();
+	}
 	if (!%this.isEnabled)
 		return;
 	%this.setLastSplitTime(-1);
@@ -317,7 +320,6 @@ function RtaSpeedrun::eggCollected(%this) {
 	%this.setLastEggTime(%this.time);
 	if ($RtaTimeEndsOnEgg && %this.endMission $= $Server::MissionFile) {
 		echo("Just collected the last egg! Speedrun mode over");
-		echo("Final time:" SPC %this.time);
 		%this.endRun();
 	}
 	%this.updateTimers();
