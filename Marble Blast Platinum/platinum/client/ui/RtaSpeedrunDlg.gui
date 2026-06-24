@@ -23,30 +23,38 @@
 //--- OBJECT WRITE BEGIN ---
 new GuiControl(RtaSpeedrunDlg) {
 	profile = "GuiDefaultProfile";
-	horizSizing = "width";
-	vertSizing = "height";
+	horizSizing = "right";
+	vertSizing = "bottom";
 	position = "0 0";
 	extent = "800 600";
 	minExtent = "8 8";
 	visible = "1";
 	helpTag = "0";
-	_guiSize = "800 600";
-	defaultControl = "RtaClose";
-	commandSelect = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
-	commandCancel = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
-	commandNameSelect = "Close";
+		defaultControl = "RtaClose";
+		commandSelect = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+		commandCancel = "RootGui.popDialog(RtaSpeedrunDlg); PlayMissionGui.showBody();";
+		commandNameSelect = "Close";
 
-	new GuiControl(RtaBody) {
-		profile = "PQWindowProfile";
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
 		horizSizing = "center";
 		vertSizing = "center";
-		position = "89 100";
+		position = "0 0";
 		extent = "700 500";
-		minExtent = "61 61";
+		minExtent = "8 8";
 		visible = "1";
 		helpTag = "0";
-		wrap = "0";
 
+		new GuiControl(RtaSpeedrun_Base) {
+			profile = "PQWindowProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "56 15";
+			extent = "700 500";
+			minExtent = "61 61";
+			visible = "1";
+			helpTag = "0";
+		};
 		new GuiBorderButtonCtrl(RtaClose) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
@@ -92,6 +100,19 @@ new GuiControl(RtaSpeedrunDlg) {
 			maxChars = "-1";
 			defaultText = "<font:22><just:center>Not currently active";
 		};
+		new GuiMLTextCtrl(RtaFinalTimeText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 356";
+			extent = "700 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
 		new GuiMLTextCtrl(RtaInformationText) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "left";
@@ -106,24 +127,7 @@ new GuiControl(RtaSpeedrunDlg) {
 			maxChars = "-1";
 			defaultText = "<font:20>This mode allows you to perform real time speedruns! It will automatically remove load times and calculate the final time.\n<just:center><bold:28>Usage\n<just:left><font:20>To setup a speedrun, first use the level selection screen to navigate to the <bold:20>final<font:20> level in the speedrun. Open this RTA menu, select \"Set Final Level\", and select \"Start Speedrun\". Then, navigate to the <bold:20>first<font:20> level in the run. Adjust any other settings you'd like, click Play, and start playing!";
 		};
-		new GuiBorderButtonCtrl(RtaStartButton) {
-			profile = "PQButtonProfile";
-			horizSizing = "right";
-			vertSizing = "top";
-			position = "42 386";
-			extent = "200 45";
-			minExtent = "8 8";
-			visible = "1";
-			command = "RtaSpeedrun.start(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateStatusText();";
-			accelerator = "return";
-			helpTag = "0";
-			text = "Start Speedrun";
-			groupNum = "-1";
-			buttonType = "PushButton";
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-		};
-		new GuiBorderButtonCtrl(RtaStopButton) {
+		new GuiBorderButtonCtrl(RtaMainButton) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "top";
@@ -131,27 +135,10 @@ new GuiControl(RtaSpeedrunDlg) {
 			extent = "200 45";
 			minExtent = "8 8";
 			visible = "1";
-			command = "RtaSpeedrun.stop(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateStatusText();";
+			command = "RtaSpeedrunDlg.press(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateStatusText();";
 			accelerator = "return";
 			helpTag = "0";
-			text = "Stop Speedrun";
-			groupNum = "-1";
-			buttonType = "PushButton";
-			repeatPeriod = "1000";
-			repeatDecay = "1";
-		};
-		new GuiBorderButtonCtrl(RtaRestartButton) {
-			profile = "PQButtonProfile";
-			horizSizing = "right";
-			vertSizing = "top";
-			position = "458 386";
-			extent = "200 45";
-			minExtent = "8 8";
-			visible = "1";
-			command = "RtaSpeedrun.stop(); RtaSpeedrun.start(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateStatusText();";
-			accelerator = "return";
-			helpTag = "0";
-			text = "Restart Speedrun";
+			text = "Start Speedrun";
 			groupNum = "-1";
 			buttonType = "PushButton";
 			repeatPeriod = "1000";
@@ -181,7 +168,7 @@ new GuiControl(RtaSpeedrunDlg) {
 			lineSpacing = "2";
 			allowColorChars = "0";
 			maxChars = "-1";
-			defaultText = "No Ending";
+				defaultText = "<bold:28><just:center>Final Level:\n<font:20>None selected";
 		};
 		new GuiBorderButtonCtrl(RtaSetEndButton) {
 			profile = "PQButtonProfile";
@@ -191,7 +178,7 @@ new GuiControl(RtaSpeedrunDlg) {
 			extent = "200 45";
 			minExtent = "8 8";
 			visible = "1";
-			command = "RtaSpeedrun.setEnd(); RtaSpeedrunDlg.updateEndText();";
+			command = "RtaSpeedrunDlg.setEndButton(); RtaSpeedrunDlg.updateButtons(); RtaSpeedrunDlg.updateEndText();";
 			accelerator = "return";
 			helpTag = "0";
 			text = "Set Final Level";
@@ -222,32 +209,39 @@ new GuiControl(RtaSpeedrunDlg) {
 //--- OBJECT WRITE END ---
 
 function RtaSpeedrunDlg::onWake(%this) {
-	//Try to center this GUI, but don't overlap the dropdowns
-	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(RtaBody.getExtent(), 0) / 2);
-	if (%x < 395) {
-		%x = 395;
-	}
-	RtaBody.setPosition(%x SPC getWord(RtaBody.getPosition(), 1));
-
 	%this.updateStatusText();
 	%this.updateEndText();
 	%this.updateButtons();
 }
 
 function RtaSpeedrunDlg::updateButtons(%this) {
-	if (RtaSpeedrun.isEnabled || RtaSpeedrun.shouldStartRun || RtaSpeedrun.isDone || RtaSpeedrun.isCrashRecoveryMode) {
-		RtaStartButton.setActive(0);
-		RtaStopButton.setActive(1);
-		RtaRestartButton.setActive(!RtaSpeedrun.shouldStartRun);
-	} else {
-		RtaStartButton.setActive(1);
-		RtaStopButton.setActive(0);
-		RtaRestartButton.setActive(RtaSpeedrun.isDone);
+	if (RtaSpeedrun.isEnabled || RtaSpeedrun.shouldStartRun || RtaSpeedrun.isCrashRecoveryMode)
+		RtaMainButton.text = "Stop Speedrun";
+	else {
+		RtaMainButton.text = "Start Speedrun";
 	}
-	if (RtaSpeedrun.isDone) {
-		RtaStopButton.setText("Clear Speedrun");
-	} else {
-		RtaStopButton.setText("Stop Speedrun");
+	if (RtaSpeedrun.isDone) 
+		RtaMainButton.text = "Clear Speedrun";
+
+	if (RtaSpeedrun.endMission $= "")
+		RtaSetEndButton.text = "Set Final Level";
+	else
+		RtaSetEndButton.text = "Reset Final Level";
+}
+
+function RtaSpeedrunDlg::press(%this) {
+	if (RtaMainButton.text $= "Start Speedrun")
+		RtaSpeedrun.start();
+	else
+		RtaSpeedrun.stop();
+}
+
+function RtaSpeedrunDlg::setEndButton(%this) {
+	if (RtaSpeedrun.endMission $= "")
+		RtaSpeedrun.setEnd();
+	else {
+		RtaSpeedrun.endMission = "";
+		PlayMissionGui.updatePlayBitmap();
 	}
 }
 
@@ -263,11 +257,19 @@ function RtaSpeedrunDlg::updateStatusText(%this, %text) {
 		RtaStatusText.setText(%formatting @ "Run will start when next level loads");
 	else
 		RtaStatusText.setText(%formatting @ "Not currently active");
+	
+	if (RtaSpeedrun.prevFinalTime !$= "") {
+		%finalTimeText = %formatting @ "<spush><bold>";
+		if (RtaSpeedrun.shouldStartRun || RtaSpeedrun.isEnabled)
+			%finalTimeText = %finalTimeText @ "Previous ";
+		%finalTimeText = %finalTimeText @ "Final Time:<spop> " @ formatTimeHoursMs(RtaSpeedrun.prevFinalTime);
+		RtaFinalTimeText.setText(%finalTimeText);
+	}
 }
 
 function RtaSpeedrunDlg::updateEndText(%this) {
 	if (RtaSpeedrun.endMission $= "") {
-		RtaEndText.setText("<bold:28><just:center>No Final Level Selected");
+		RtaEndText.setText("<bold:28><just:center>Final Level:\n<font:20>None selected");
 		RtaEndLevelImage.setBitmap("platinum/client/ui/play/missingicon.png");
 		RtaEggTimeCheckbox.setActive(false);
 		return;
@@ -275,7 +277,7 @@ function RtaSpeedrunDlg::updateEndText(%this) {
 	RtaEndText.setText("<bold:28><just:center>Final Level:\n<font:20>" @ RtaSpeedrun.endMissionInfo.name);
 
 	%mission = RtaSpeedrun.endMissionInfo;
-	%bitmap = PlayMissionGui.ml.getMissionPreview(%mission.searchGame, %mission.searchType, %mission);
+	%bitmap  = PlayMissionGui.ml.getMissionPreview(%mission.searchGame, %mission.searchType, %mission);
 
 	if (!isBitmap(%bitmap)) {
 		if (%mission.bitmap_directory !$= "") {
