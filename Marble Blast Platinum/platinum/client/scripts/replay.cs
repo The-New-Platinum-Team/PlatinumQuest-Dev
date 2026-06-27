@@ -651,7 +651,8 @@ function PlaybackFO::applyReplayGhostPickup(%this, %db, %position) {
 	for (%i = 0; %i < %objs.getSize(); %i ++) {
 		%col = %objs.getEntry(%i);
 
-		if (strStr(%db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1) {
+		%notGem = (strStr(%db, "GemItem") == -1 || strStr(%col.getDataBlock().getName(), "GemItem") == -1);
+		if (%notGem) {
 			if ((%col.getType() & $TypeMasks::GameBaseObjectType) && %col.getDataBlock().getName() !$= %db && (%col.getDataBlock().getName() !$= (%db @ "_MBU")))
 				continue;
 		}
@@ -776,26 +777,26 @@ function PlaybackFO::applyReplayGems(%this, %count, %max, %quota, %green) {
 
 function PlaybackFO::applyReplayGhostGems(%this, %count, %max, %quota, %green) {
 	if (%this.info.ghost) {
-		clientCmdScoreListUpdate(1, %this.count, "0 0 0 0", 0);
+		clientCmdScoreListUpdate(1, %count, "0 0 0 0", 0);
 		return;
 	}
 }
 //-----------------------------------------------------------------------------
 
-function RecordRO::applyReplayGhostInput(%this, %flags) {
+function PlaybackFO::applyReplayGhostInput(%this, %flags) {
 	%change = (%flags ^ %this.lastInput);
 	%this.lastInput = %flags;
 
 	if (%change & 1 << 0) {
-		if(%this.marble.powerUpData.powerUpID !$= "" && %this.marble.powerUpData.powerUpID < 6)
-			%this.marble.doPowerup(%this.marble.powerUpData.powerUpID);
-		%this.marble.onPowerUpUsed();
+		if(%this.info.marble.powerUpData.powerUpID !$= "" && %this.info.marble.powerUpData.powerUpID < 6)
+			%this.info.marble.doPowerup(%this.info.marble.powerUpData.powerUpID);
+		%this.info.marble.onPowerUpUsed();
 	}
 	if (%change & 1 << 5) {
-		for(%i = 0; %i < %this.marble.checkpointGemCount; %i++) {
-			%this.marble.checkpointGem[%i].setFadeVal(1);
+		for(%i = 0; %i < %this.info.marble.checkpointGemCount; %i++) {
+			%this.info.marble.checkpointGem[%i].setFadeVal(1);
 		}
-		%this.marble.checkpointGemCount = 0;
+		%this.info.marble.checkpointGemCount = 0;
 	}
 }
 
