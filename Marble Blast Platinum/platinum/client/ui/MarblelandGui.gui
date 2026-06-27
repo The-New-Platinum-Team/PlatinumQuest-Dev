@@ -2681,6 +2681,12 @@ function MarblelandGui::updateDetailButtons(%this) {
 		%loved = $ML::LoveState[%mission.id] $= "1";
 		ML_DetailLoveBtn.bitmap = (%loved ? "./play/love" : "./play/unlove");
 	}
+
+	if (lb() && %mission.hasCustomCode) {
+		ML_DetailPlayBtn.setActive(false);
+		ML_DetailProgressLabel.visible = true;
+		ML_DetailProgressLabel.setText("<just:left><color:111111>Cannot play levels with custom code while logged in for leaderboards.");
+	}
 }
 
 function MarblelandGui::closeDetail(%this) {
@@ -2741,6 +2747,13 @@ function MarblelandGui::updateLevel(%this) {
 function MarblelandGui::playLevel(%this) {
 	%mission = %this.selectedMission;
 	if (!isObject(%mission)) return;
+
+	if (lb() && %mission.hasCustomCode) {
+		// Download first, then play
+		ML_DetailPlayBtn.setActive(false);
+		ML_DetailProgressLabel.visible = true;
+		ML_DetailProgressLabel.setText("<just:left><color:111111>Cannot play levels with custom code while logged in for leaderboards.");
+	}
 
 	if (!marblelandHasMission(%mission.id)) {
 		// Download first, then play
