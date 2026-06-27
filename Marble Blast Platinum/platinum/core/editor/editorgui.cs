@@ -3754,6 +3754,11 @@ function getPrefSetting(%pref, %default) {
 //------------------------------------------------------------------------------
 
 function Editor::open(%this) {
+	$Game::Record = false; // Just...stop recording.
+	if ($Record::Recording) {
+		recordFinish();
+	}
+
 	// Load Prefs
 	EditorGui.getPrefs();
 

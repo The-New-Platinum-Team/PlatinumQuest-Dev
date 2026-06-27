@@ -273,7 +273,7 @@ function getGemAtPosition(%position, %datablock, %grp) {
 	for (%i = 0; %i < %set.getSize(); %i ++) {
 		%obj = %set.getEntry(%i);
 		//If it's correct
-		if (%obj.getClassName() $= "Item" && %obj.getDataBlock().className $= "Gem" && %obj.position $= %position && %obj.getDataBlock().getName() $= %datablock)
+		if (%obj.getClassName() $= "Item" && %obj.getDataBlock().className $= "Gem" && VectorDist(%obj.getPosition(), %position) < 0.0001 && %obj.getDataBlock().getName() $= %datablock)
 			return %obj;
 	}
 	return -1;
@@ -293,7 +293,7 @@ function findObjectsAtPosition(%position, %grp, %array) {
 		//Ignore these
 		if (!(%obj.getType() & ($TypeMasks::GameBaseObjectType | $TypeMasks::InteriorObjectType)))
 			continue;
-		if (%obj.getPosition() $= %position)
+		if (VectorDist(%obj.getPosition(), %position) < 0.0001) // the epsilon
 			%array.addEntry(%obj);
 	}
 

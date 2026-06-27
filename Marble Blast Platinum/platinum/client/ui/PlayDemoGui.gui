@@ -417,9 +417,8 @@ function startSelectedDemo(%race) {
 }
 
 function getReplayInfo(%file) {
-	%fo = new FileObject();
-	if (!%fo.openForRead(%file)) {
-		%fo.close();
+	%fo = new ReplayObject();
+	if (!%fo.openForInfo(%file)) {
 		%fo.delete();
 		return -1;
 	}
@@ -427,7 +426,6 @@ function getReplayInfo(%file) {
 	%obj = new ScriptObject(DemoPlaybackInfo) {
 		class = "DemoInfo";
 		superClass = "PlaybackInfo";
-		fo = %fo;
 		file = %file;
 	};
 	if (!isObject(DemoInfoGroup)) {
@@ -435,12 +433,15 @@ function getReplayInfo(%file) {
 	}
 	DemoInfoGroup.add(%obj);
 
-	if (!%obj.readHeader()) {
-		%obj.delete();
-		return -1;
-	}
+	%obj.name = %fo.name;
+	%obj.author = %fo.author;
+	%obj.desc = %fo.desc;
+	%obj.missionFile = %fo.missionFile;
+	%obj.hasMetadata = %fo.hasMetadata;
+	%obj.mp = %fo.multiplayer;
+	%obj.lb = %fo.leaderboards;
+	%obj.marbleSelection = %fo.marbleSelection;
 
-	%fo.close();
 	%fo.delete();
 
 	if (%obj.name $= "") {

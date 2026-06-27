@@ -261,6 +261,10 @@ function LBLoginGui::onWake(%this) {
 		closeLeaderboards();
 		return;
 	}
+	$Game::Record = false;
+	if ($Record::Recording) {
+		recordFinish();
+	}
 
 	$LB::Guest = false; // we aren't a guest if we are a user!
 	LBLoginUsername.setText("");

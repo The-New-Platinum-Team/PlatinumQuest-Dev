@@ -360,21 +360,25 @@ function onMissionReset() {
 	// Start/stop the rrec race, if set
 	// MissionInfo.replays has been unused for a long time, but i'll keep it since there's still code for it in the editor ~ Keppy
 	if($Playback::Ghost || MissionInfo.replays > 0) {
-		commandToAll('StopReplays');
-		if (isObject(PlaybackGhostGroup)) {
-			while (PlaybackGhostGroup.getCount()) {
-				%player = PlaybackGhostGroup.getObject(0);
-				%player.client.delete();
-				%player.delete();
-			}
-		} else {
-			MissionCleanup.add(new SimGroup(PlaybackGhostGroup));
-		}
+		commandToAll('RestartReplays');
 
-		if($Playback::CurrentFile !$= "")
-			playbackGhost($Playback::CurrentFile);
-		else
+		if($Playback::CurrentFile !$= "") {
+			if (!isObject(PlaybackGhostGroup) || PlaybackGhostGroup.getCount() == 0)
+				playbackGhost($Playback::CurrentFile);
+		} else {
 			$Playback::Ghost = false;
+			if (isObject(PlaybackGhostGroup)) {
+				while (PlaybackGhostGroup.getCount() > 0) {
+					%player = PlaybackGhostGroup.getObject(0);
+					%player.client.delete();
+					%player.delete();
+				}
+			} else {
+				MissionCleanup.add(new SimGroup(PlaybackGhostGroup));
+			}
+
+			commandToAll('StopReplays');
+		}
 
 		for (%i = 0; %i < MissionInfo.replays; %i ++) {
 			cancel($Playback::GhostSchedule[%i]);
