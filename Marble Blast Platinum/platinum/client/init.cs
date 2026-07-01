@@ -150,6 +150,7 @@ function initClient() {
 	exec("./ui/QueueResultsDlg.gui");
 	exec("./ui/RtaSpeedrunDlg.gui");
 	exec("./ui/AdvancedOptionsDlg.gui");
+	exec("./ui/HudLayoutDlg.gui");
 
 	// Gui Scripts
 	exec("./scripts/EndGameDlg.cs");

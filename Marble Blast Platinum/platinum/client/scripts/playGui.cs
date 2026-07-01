@@ -136,6 +136,7 @@ function PlayGui::onWake(%this) {
 	RadarSetMode($Pref::RadarMode);
 	clearMessages();
 	applyGraphicsQuality();
+	%this.applyUISettings();
 
 	%this.positionMessageHud();
 	%this.onNextFrame(positionMessageHud);
@@ -1514,4 +1515,116 @@ function PlayGui::startCountdownLeft(%this, %time, %image) {
 
 function PlayGui::updateRtaSpeedrunTimer(%this, %text) {
 	PG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
+}
+
+function PlayGui::getHudAnchorName(%anchor) {
+	switch (%anchor) {
+	case 0: return "Top Left";
+	case 1: return "Top Center";
+	case 2: return "Top Right";
+	case 3: return "Middle Left";
+	case 4: return "Center";
+	case 5: return "Middle Right";
+	case 6: return "Bottom Left";
+	case 7: return "Bottom Center";
+	case 8: return "Bottom Right";
+	default: return "Center";
+	}
+}
+
+function HudLayout::getPref(%element, %field, %default) {
+	%value = eval("return $pref::HudLayout::" @ %element @ "::" @ %field @ ";");
+	if (%value $= "")
+		return %default;
+	return %value;
+}
+
+function HudLayout::setPref(%element, %field, %value) {
+	eval("$pref::HudLayout::" @ %element @ "::" @ %field @ " = " @ %value @ ";");
+}
+
+function HudLayout::getPresetValue(%preset, %element, %field, %default) {
+	%value = eval("return $HudLayout::" @ %preset @ "::" @ %element @ "::" @ %field @ ";");
+	if (%value $= "")
+		return %default;
+	return %value;
+}
+
+// Resolves a layout value for the active mode: Custom (2) reads saved prefs,
+// other modes read the matching named preset.
+function HudLayout::getModeValue(%mode, %element, %field, %default) {
+	if (%mode == 2)
+		return HudLayout::getPref(%element, %field, %default);
+	return HudLayout::getPresetValue($HudLayout::ModeName[%mode], %element, %field, %default);
+}
+
+function PlayGui::resolveHudAnchorPoint(%anchor, %screenExtent) {
+	%w = getWord(%screenExtent, 0);
+	%h = getWord(%screenExtent, 1);
+	switch (%anchor) {
+	case 0: return "0 0";
+	case 1: return mFloor(%w / 2) SPC "0";
+	case 2: return %w SPC "0";
+	case 3: return "0" SPC mFloor(%h / 2);
+	case 4: return mFloor(%w / 2) SPC mFloor(%h / 2);
+	case 5: return %w SPC mFloor(%h / 2);
+	case 6: return "0" SPC %h;
+	case 7: return mFloor(%w / 2) SPC %h;
+	case 8: return %w SPC %h;
+	default: return mFloor(%w / 2) SPC mFloor(%h / 2);
+	}
+}
+
+function PlayGui::getHudAnchorOffsetForExtent(%anchor, %extent) {
+	%w = getWord(%extent, 0);
+	%h = getWord(%extent, 1);
+	%col = %anchor % 3;          // 0=left, 1=center, 2=right
+	%row = mFloor(%anchor / 3);  // 0=top, 1=middle, 2=bottom
+
+	if (%col == 0)
+		%ox = 0;
+	else if (%col == 1)
+		%ox = mFloor(%w / 2);
+	else
+		%ox = %w;
+
+	if (%row == 0)
+		%oy = 0;
+	else if (%row == 1)
+		%oy = mFloor(%h / 2);
+	else
+		%oy = %h;
+
+	return %ox SPC %oy;
+}
+
+// Positions a HUD control so the point on it matching the anchor (e.g. the
+// top-right corner for a top-right anchor) lands at the anchor plus its offset.
+function PlayGui::applyHudControl(%this, %controlName, %anchor, %offsetX, %offsetY) {
+	if (!isObject(%controlName))
+		return;
+
+	%anchorPos = PlayGui::resolveHudAnchorPoint(%anchor, Canvas.getExtent());
+	%align = PlayGui::getHudAnchorOffsetForExtent(%anchor, %controlName.getExtent());
+	%x = getWord(%anchorPos, 0) + %offsetX - getWord(%align, 0);
+	%y = getWord(%anchorPos, 1) + %offsetY - getWord(%align, 1);
+
+	%controlName.horizSizing = "center";
+	%controlName.vertSizing = "center";
+	%controlName.setPosition(%x SPC %y);
+}
+
+function PlayGui::applyUISettings(%this) {
+	%mode = $pref::HudLayoutMode;
+	if (%mode $= "")
+		%mode = 0;
+
+	for (%i = 0; %i < $HudLayout::ControlCount; %i++) {
+		%control = $HudLayout::ControlName[%i];
+		%key = $HudLayout::ControlKey[%i];
+		%anchor = HudLayout::getModeValue(%mode, %key, "Anchor", 4);
+		%offsetX = HudLayout::getModeValue(%mode, %key, "OffsetX", 0);
+		%offsetY = HudLayout::getModeValue(%mode, %key, "OffsetY", 0);
+		%this.applyHudControl(%control, %anchor, %offsetX, %offsetY);
+	}
 }
