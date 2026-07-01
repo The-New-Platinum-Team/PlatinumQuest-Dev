@@ -1558,6 +1558,32 @@ function HudLayout::getModeValue(%mode, %element, %field, %default) {
 	return HudLayout::getPresetValue($HudLayout::ModeName[%mode], %element, %field, %default);
 }
 
+// Returns the screen extent used as the reference for offset scaling.
+function HudLayout::getReferenceExtent() {
+	if (isObject(PlayGui))
+		return PlayGui.getExtent();
+	return Canvas.getExtent();
+}
+
+// Returns the max pixel distance for a +/-100 slider step for the given anchor
+// and axis. Edge anchors use the full extent; center anchors use half (since
+// the anchor point is in the middle of the screen on that axis).
+function HudLayout::getOffsetScale(%anchor, %axis, %extent) {
+	%col = %anchor % 3;
+	%row = mFloor(%anchor / 3);
+	%w = getWord(%extent, 0);
+	%h = getWord(%extent, 1);
+
+	if (%axis $= "X")
+		%scale = (%col == 1 ? mFloor(%w / 2) : %w);
+	else
+		%scale = (%row == 1 ? mFloor(%h / 2) : %h);
+
+	if (%scale < 1)
+		%scale = 1;
+	return %scale;
+}
+
 function PlayGui::resolveHudAnchorPoint(%anchor, %screenExtent) {
 	%w = getWord(%screenExtent, 0);
 	%h = getWord(%screenExtent, 1);
@@ -1604,13 +1630,22 @@ function PlayGui::applyHudControl(%this, %controlName, %anchor, %offsetX, %offse
 	if (!isObject(%controlName))
 		return;
 
-	%anchorPos = PlayGui::resolveHudAnchorPoint(%anchor, Canvas.getExtent());
+	%extent = PlayGui.getExtent();
+	%anchorPos = PlayGui::resolveHudAnchorPoint(%anchor, %extent);
 	%align = PlayGui::getHudAnchorOffsetForExtent(%anchor, %controlName.getExtent());
 	%x = getWord(%anchorPos, 0) + %offsetX - getWord(%align, 0);
 	%y = getWord(%anchorPos, 1) + %offsetY - getWord(%align, 1);
 
-	%controlName.horizSizing = "center";
-	%controlName.vertSizing = "center";
+	// Set sizing so the control stays anchored correctly when the window resizes.
+	%col = %anchor % 3;
+	%row = mFloor(%anchor / 3);
+	if (%col == 0)      %controlName.horizSizing = "right";   // left edge
+	else if (%col == 1) %controlName.horizSizing = "center";  // center
+	else                %controlName.horizSizing = "left";    // right edge
+	if (%row == 0)      %controlName.vertSizing = "bottom";   // top edge
+	else if (%row == 1) %controlName.vertSizing = "center";   // center
+	else                %controlName.vertSizing = "top";      // bottom edge
+
 	%controlName.setPosition(%x SPC %y);
 }
 
@@ -1618,13 +1653,17 @@ function PlayGui::applyUISettings(%this) {
 	%mode = $pref::HudLayoutMode;
 	if (%mode $= "")
 		%mode = 0;
+	%sliderMax = ($HudLayout::SliderMaxOffset $= "" ? 100 : $HudLayout::SliderMaxOffset);
+	%screenExtent = HudLayout::getReferenceExtent();
 
 	for (%i = 0; %i < $HudLayout::ControlCount; %i++) {
 		%control = $HudLayout::ControlName[%i];
 		%key = $HudLayout::ControlKey[%i];
 		%anchor = HudLayout::getModeValue(%mode, %key, "Anchor", 4);
-		%offsetX = HudLayout::getModeValue(%mode, %key, "OffsetX", 0);
-		%offsetY = HudLayout::getModeValue(%mode, %key, "OffsetY", 0);
+		%offsetXNorm = mClamp(HudLayout::getModeValue(%mode, %key, "OffsetX", 0), -%sliderMax, %sliderMax);
+		%offsetYNorm = mClamp(HudLayout::getModeValue(%mode, %key, "OffsetY", 0), -%sliderMax, %sliderMax);
+		%offsetX = mFloor(%offsetXNorm * HudLayout::getOffsetScale(%anchor, "X", %screenExtent) / %sliderMax);
+		%offsetY = mFloor(%offsetYNorm * HudLayout::getOffsetScale(%anchor, "Y", %screenExtent) / %sliderMax);
 		%this.applyHudControl(%control, %anchor, %offsetX, %offsetY);
 	}
 }
