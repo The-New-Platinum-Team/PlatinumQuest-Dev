@@ -455,12 +455,24 @@ function HudLayoutDlg::buildGUI(%this) {
 			helpTag = "0";
 		};
 
-		// Title - colored dot + black title text
+		// Title - colored square + black title text
+		%colorSwatch = new GuiControl("HudLayoutSwatch" @ %name) {
+			profile = "HudLayoutMarker" @ %name @ "Profile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "8 9";
+			extent = "14 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		};
+		%row.add(%colorSwatch);
+
 		%titleCtrl = new GuiMLTextCtrl("HudLayoutTitle" @ %name) {
 			profile = "GuiMLTextProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "8 2";
+			position = "28 2";
 			extent = "200 30";
 			minExtent = "8 8";
 			visible = "1";
@@ -470,7 +482,7 @@ function HudLayoutDlg::buildGUI(%this) {
 			maxChars = "-1";
 		};
 		%row.add(%titleCtrl);
-		%titleCtrl.setText("<bold:24><color:" @ %color @ ">o<color:000000> " @ %title);
+		%titleCtrl.setText("<bold:24>" @ %title);
 
 		// --- Anchor section (left side, y=40) ---
 		%anchorLabel = new GuiMLTextCtrl("HudLayoutAnchorLabel" @ %name) {
