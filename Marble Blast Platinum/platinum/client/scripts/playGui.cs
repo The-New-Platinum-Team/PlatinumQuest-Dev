@@ -1666,4 +1666,16 @@ function PlayGui::applyUISettings(%this) {
 		%offsetY = mFloor(%offsetYNorm * HudLayout::getOffsetScale(%anchor, "Y", %screenExtent) / %sliderMax);
 		%this.applyHudControl(%control, %anchor, %offsetX, %offsetY);
 	}
+
+	// The timer background bitmap has rounded bottom edges designed to sit at
+	// the top of the screen. Only show it when the timer is anchored to the top
+	// row (anchors 0-2) AND has no vertical offset pulling it away from the edge.
+	%timerAnchor = HudLayout::getModeValue(%mode, "Timer", "Anchor", 4);
+	%timerOffsetYNorm = mClamp(HudLayout::getModeValue(%mode, "Timer", "OffsetY", 0), -%sliderMax, %sliderMax);
+	%timerOffsetY = mFloor(%timerOffsetYNorm * HudLayout::getOffsetScale(%timerAnchor, "Y", %screenExtent) / %sliderMax);
+	%timerOnTop = (%timerAnchor >= 0 && %timerAnchor <= 2 && %timerOffsetY == 0);
+	if (isObject(transparency))
+		transparency.setVisible(%timerOnTop);
+	if (isObject(transparency_Th))
+		transparency_Th.setVisible(%timerOnTop);
 }

@@ -301,7 +301,7 @@ new GuiControl(HudLayoutDlg) {
 
 $HudLayout::ElementCount = 4;
 $HudLayout::ElementName[0] = "Gem";
-$HudLayout::ElementTitle[0] = "Score";
+$HudLayout::ElementTitle[0] = "Gems";
 $HudLayout::ElementColor[0] = "B8860B";
 $HudLayout::ElementName[1] = "Timer";
 $HudLayout::ElementTitle[1] = "Timer";
@@ -319,25 +319,27 @@ $HudLayout::ModeName[1] = "Centered";
 $HudLayout::ModeName[2] = "Custom";
 
 // PlayGui controls driven by the layout system, paired with their element key.
-$HudLayout::ControlCount = 6;
+$HudLayout::ControlCount = 7;
 $HudLayout::ControlName[0] = "PG_GemCounter";
 $HudLayout::ControlKey[0] = "Gem";
-$HudLayout::ControlName[1] = "PG_Timer";
-$HudLayout::ControlKey[1] = "Timer";
-$HudLayout::ControlName[2] = "PG_TimerThousands";
+$HudLayout::ControlName[1] = "PG_HuntCounter";
+$HudLayout::ControlKey[1] = "Gem";
+$HudLayout::ControlName[2] = "PG_Timer";
 $HudLayout::ControlKey[2] = "Timer";
-$HudLayout::ControlName[3] = "HUD_PowerupBackground";
-$HudLayout::ControlKey[3] = "Powerup";
-$HudLayout::ControlName[4] = "HUD_ShowPowerUp";
+$HudLayout::ControlName[3] = "PG_TimerThousands";
+$HudLayout::ControlKey[3] = "Timer";
+$HudLayout::ControlName[4] = "HUD_PowerupBackground";
 $HudLayout::ControlKey[4] = "Powerup";
-$HudLayout::ControlName[5] = "PG_BlastBar";
-$HudLayout::ControlKey[5] = "Blast";
+$HudLayout::ControlName[5] = "HUD_ShowPowerUp";
+$HudLayout::ControlKey[5] = "Powerup";
+$HudLayout::ControlName[6] = "PG_BlastBar";
+$HudLayout::ControlKey[6] = "Blast";
 
 // Slider range shown to the user; values map to real pixels by screen size.
 $HudLayout::SliderMaxOffset = 100;
 
 // Default profile (anchor-first layout)
-// Score: top-left, Timer: top-center, Item: top-right, Blast: bottom-left.
+// Gems: top-left, Timer: top-center, Item: top-right, Blast: bottom-left.
 $HudLayout::Default::Gem::Anchor = 0;
 $HudLayout::Default::Gem::OffsetX = 0;
 $HudLayout::Default::Gem::OffsetY = 0;
@@ -372,8 +374,17 @@ $HudLayout::PreviewOffsetX = 30;
 $HudLayout::PreviewOffsetY = 40;
 
 function HudLayoutDlg::onWake(%this) {
+	// Hide the options dialog behind us so it doesn't peek through the
+	// semi-transparent panels.
+	if (isObject(OptionsGui))
+		OptionsGui.setVisible(false);
 	%this.buildGUI();
 	%this.refreshModeState();
+}
+
+function HudLayoutDlg::onSleep(%this) {
+	if (isObject(OptionsGui))
+		OptionsGui.setVisible(true);
 }
 
 function HudLayoutDlg::updatePreview(%this) {
@@ -413,17 +424,12 @@ function HudLayoutDlg::updatePreview(%this) {
 
 		// Scale the normalized offset to preview pixels using the same logic as
 		// the real HUD, then align the marker so its matching corner/edge/center
-		// sits on the anchor point (marker is 12x12).
+		// sits on the anchor point (marker is 12x12). No clamping: markers can
+		// go beyond the preview screen to reflect real off-screen placement.
 		%scaleX = HudLayout::getOffsetScale(%anchor, "X", %previewExtent);
 		%scaleY = HudLayout::getOffsetScale(%anchor, "Y", %previewExtent);
 		%px = %ax + mFloor(%offsetX * %scaleX / %sliderMax) - %col * 6;
 		%py = %ay + mFloor(%offsetY * %scaleY / %sliderMax) - %row * 6;
-
-		// Clamp inside the preview screen.
-		if (%px < 0) %px = 0;
-		if (%py < 0) %py = 0;
-		if (%px > %pw - 12) %px = %pw - 12;
-		if (%py > %ph - 12) %py = %ph - 12;
 
 		%marker.resize(%ox + %px, %oy + %py, 12, 12);
 	}
