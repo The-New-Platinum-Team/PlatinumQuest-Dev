@@ -1533,18 +1533,18 @@ function PlayGui::getHudAnchorName(%anchor) {
 }
 
 function HudLayout::getPref(%element, %field, %default) {
-	%value = eval("return $pref::HudLayout::" @ %element @ "::" @ %field @ ";");
+	%value = $pref::HudLayout[%element, %field];
 	if (%value $= "")
 		return %default;
 	return %value;
 }
 
 function HudLayout::setPref(%element, %field, %value) {
-	eval("$pref::HudLayout::" @ %element @ "::" @ %field @ " = " @ %value @ ";");
+	$pref::HudLayout[%element, %field] = %value;
 }
 
 function HudLayout::getPresetValue(%preset, %element, %field, %default) {
-	%value = eval("return $HudLayout::" @ %preset @ "::" @ %element @ "::" @ %field @ ";");
+	%value = $HudLayout[%preset, %element, %field];
 	if (%value $= "")
 		return %default;
 	return %value;
