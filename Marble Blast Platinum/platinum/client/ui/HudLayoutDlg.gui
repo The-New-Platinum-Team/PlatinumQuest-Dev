@@ -237,15 +237,15 @@ new GuiControl(HudLayoutDlg) {
 				profile = "GuiMLTextProfile";
 				horizSizing = "center";
 				vertSizing = "bottom";
-				position = "0 250";
-				extent = "300 30";
+				position = "0 240";
+				extent = "300 60";
 				minExtent = "8 8";
 				visible = "1";
 				helpTag = "0";
 				lineSpacing = "4";
 				allowColorChars = "0";
 				maxChars = "-1";
-				defaultText = "<just:center><color:B8860B><bold:16>Score   <color:555555>Time   <color:006622>Item   <color:AA3300>Blast";
+				defaultText = "<just:center><color:B8860B><bold:20>Gems   <color:555555>Time\n<just:center><color:006622><bold:20>Item   <color:AA3300>Blast";
 			};
 		};
 
@@ -424,12 +424,17 @@ function HudLayoutDlg::updatePreview(%this) {
 
 		// Scale the normalized offset to preview pixels using the same logic as
 		// the real HUD, then align the marker so its matching corner/edge/center
-		// sits on the anchor point (marker is 12x12). No clamping: markers can
-		// go beyond the preview screen to reflect real off-screen placement.
+		// sits on the anchor point (marker is 12x12). Clamp to preview bounds.
 		%scaleX = HudLayout::getOffsetScale(%anchor, "X", %previewExtent);
 		%scaleY = HudLayout::getOffsetScale(%anchor, "Y", %previewExtent);
 		%px = %ax + mFloor(%offsetX * %scaleX / %sliderMax) - %col * 6;
 		%py = %ay + mFloor(%offsetY * %scaleY / %sliderMax) - %row * 6;
+
+		// Clamp marker to stay within the preview screen.
+		if (%px < 0) %px = 0;
+		if (%py < 0) %py = 0;
+		if (%px > %pw - 12) %px = %pw - 12;
+		if (%py > %ph - 12) %py = %ph - 12;
 
 		%marker.resize(%ox + %px, %oy + %py, 12, 12);
 	}

@@ -1626,15 +1626,27 @@ function PlayGui::getHudAnchorOffsetForExtent(%anchor, %extent) {
 
 // Positions a HUD control so the point on it matching the anchor (e.g. the
 // top-right corner for a top-right anchor) lands at the anchor plus its offset.
+// The control is clamped to stay fully within the screen bounds.
 function PlayGui::applyHudControl(%this, %controlName, %anchor, %offsetX, %offsetY) {
 	if (!isObject(%controlName))
 		return;
 
 	%extent = PlayGui.getExtent();
+	%screenW = getWord(%extent, 0);
+	%screenH = getWord(%extent, 1);
 	%anchorPos = PlayGui::resolveHudAnchorPoint(%anchor, %extent);
-	%align = PlayGui::getHudAnchorOffsetForExtent(%anchor, %controlName.getExtent());
+	%ctrlExtent = %controlName.getExtent();
+	%ctrlW = getWord(%ctrlExtent, 0);
+	%ctrlH = getWord(%ctrlExtent, 1);
+	%align = PlayGui::getHudAnchorOffsetForExtent(%anchor, %ctrlExtent);
 	%x = getWord(%anchorPos, 0) + %offsetX - getWord(%align, 0);
 	%y = getWord(%anchorPos, 1) + %offsetY - getWord(%align, 1);
+
+	// Clamp so the entire control stays on screen.
+	if (%x < 0) %x = 0;
+	if (%y < 0) %y = 0;
+	if (%x > %screenW - %ctrlW) %x = %screenW - %ctrlW;
+	if (%y > %screenH - %ctrlH) %y = %screenH - %ctrlH;
 
 	// Set sizing so the control stays anchored correctly when the window resizes.
 	%col = %anchor % 3;
