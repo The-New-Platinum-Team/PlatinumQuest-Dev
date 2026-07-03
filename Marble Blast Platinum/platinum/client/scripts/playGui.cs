@@ -1680,14 +1680,36 @@ function PlayGui::applyUISettings(%this) {
 	}
 
 	// The timer background bitmap has rounded bottom edges designed to sit at
-	// the top of the screen. Only show it when the timer is anchored to the top
-	// row (anchors 0-2) AND has no vertical offset pulling it away from the edge.
+	// the top of the screen. Show it when the timer is clamped to the top edge
+	// (regardless of offset), or rotated 180 when clamped to the bottom edge.
 	%timerAnchor = HudLayout::getModeValue(%mode, "Timer", "Anchor", 4);
 	%timerOffsetYNorm = mClamp(HudLayout::getModeValue(%mode, "Timer", "OffsetY", 0), -%sliderMax, %sliderMax);
 	%timerOffsetY = mFloor(%timerOffsetYNorm * HudLayout::getOffsetScale(%timerAnchor, "Y", %screenExtent) / %sliderMax);
-	%timerOnTop = (%timerAnchor >= 0 && %timerAnchor <= 2 && %timerOffsetY == 0);
-	if (isObject(transparency))
-		transparency.setVisible(%timerOnTop);
-	if (isObject(transparency_Th))
-		transparency_Th.setVisible(%timerOnTop);
+	%screenH = getWord(%screenExtent, 1);
+
+	// Compute the clamped Y position the same way applyHudControl does.
+	%timerCtrl = $pref::Thousandths ? "PG_TimerThousands" : "PG_Timer";
+	%timerH = 0;
+	if (isObject(%timerCtrl))
+		%timerH = getWord(%timerCtrl.getExtent(), 1);
+	%timerY = getWord(PlayGui::resolveHudAnchorPoint(%timerAnchor, %screenExtent), 1) + %timerOffsetY;
+	// Apply the same alignment offset applyHudControl uses.
+	%timerRow = mFloor(%timerAnchor / 3);
+	if (%timerRow == 0)      %timerY -= 0;
+	else if (%timerRow == 1) %timerY -= mFloor(%timerH / 2);
+	else                     %timerY -= %timerH;
+	// Clamp
+	if (%timerY < 0) %timerY = 0;
+	if (%timerY > %screenH - %timerH) %timerY = %screenH - %timerH;
+
+	%atTop = (%timerY == 0);
+	%atBottom = (%timerY >= %screenH - %timerH);
+	if (isObject(transparency)) {
+		transparency.setVisible(%atTop || %atBottom);
+		transparency.bitmapRotation = (%atBottom ? "180" : "0");
+	}
+	if (isObject(transparency_Th)) {
+		transparency_Th.setVisible(%atTop || %atBottom);
+		transparency_Th.bitmapRotation = (%atBottom ? "180" : "0");
+	}
 }
