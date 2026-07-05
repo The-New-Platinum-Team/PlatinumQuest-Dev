@@ -626,6 +626,23 @@ function clientCmdMarblelandLoad(%id) {
 
 //-----------------------------------------------------------------------------
 
+function clientCmdSetModeSetting(%gamemode, %name, %value) {
+	%mode = _clientModeGetObject(%gamemode);
+	if (%mode.serverSetting[%name] $= "")
+		return;
+
+	$MP::Client::ModeSetting[%name] = %value;
+}
+
+function clientCmdFinishModeSettings() {
+	PlayMissionGui.updateMissionInfo();
+	MPCustomizeMatchDlg.updateValues();
+}
+
+function clientCmdSetScoreSending(%enable) {
+	$MP::Client::ScoreSendingEnabled = %enable;
+}
+
 function clientCmdPollVote(%desc, %opt1, %opt2) {
 	MPPollDlg.open(%desc, %opt1, %opt2);
 }

@@ -239,6 +239,9 @@ function GameConnection::finishConnect(%client) {
 		if (isObject(ServerPoll) && !%client.pollVoted) {
 			ServerPoll.schedule(500, sendVote, %client);
 		}
+
+		commandToClient(%client, 'SetScoreSending', $MP::ScoreSendingEnabled);
+		%client.sendModeSettings();
 	}
 
 	if ($Server::Dedicated && $Server::Controllable) {

@@ -71,7 +71,7 @@ function GameConnection::updateGhostDatablock(%this) {
 }
 
 function GameConnection::isMegaMarble(%this) {
-	return (isObject(%this.player) && %this.player.megaMarble) || MissionInfo.mega;
+	return (isObject(%this.player) && %this.player.megaMarble) || MissionInfo.mega || (mp() && $MP::ModeSetting["AlwaysMega"]);
 }
 
 function GameConnection::setMegaMarble(%this, %mega) {

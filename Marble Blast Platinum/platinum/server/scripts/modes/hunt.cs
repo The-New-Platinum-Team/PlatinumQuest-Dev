@@ -41,6 +41,8 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("shouldRestorePowerup");
 	%this.registerCallback("shouldPlayRespawnSound");
+	%this.registerCallback("shouldSendScores");
+	%this.registerCallback("onSettingChanged");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_hunt::onActivate(%this) {
@@ -186,4 +188,53 @@ function Mode_hunt::updateWinner(%this, %winners) {
 function Mode_hunt::shouldPlayRespawnSound(%this) {
 	// Hunt mode should not play respawn sound when player respawns from OOB
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+
+function Mode_hunt::shouldSendScores(%this) {
+	return !$MP::ModeSetting["DoubleSpawns"] && !$MP::ModeSetting["SpawnRamp"]; // && !$MP::ModeSetting["PartySpawns"]
+}
+
+function Mode_hunt::onSettingChanged(%this, %object) {
+	switch$ (%object.name) {
+		case "MaxGemsPerSpawn":
+			//Scale up the gem spawn radius alongside the max gems
+			if (!%object.reset) {
+				%maxGems = $MP::MissionObj.maxGemsPerSpawn ? $MP::MissionObj.maxGemsPerSpawn : $Hunt::MaxGemsPerSpawn;
+				%radius = $MP::MissionObj.radiusFromGem ? $MP::MissionObj.radiusFromGem : $Hunt::RadiusFromGem;
+				%multiplier = %object.value / %maxGems;
+				%newRadius = %radius * %multiplier;
+				$MP::ModeSetting["radiusFromGem"] = %newRadius;
+				if (isObject(MissionInfo)) {
+					MissionInfo.radiusFromGem = %newRadius;
+				}
+				serverSendChat(LBChatColor("notification") @ "The Host has changed the maximum gems per spawn to" SPC %object.value SPC "gems.");
+			}
+				
+		case "DoubleSpawns":
+			if (!$Server::Lobby) {
+				hideGems();
+				spawnHuntGemGroup();
+			}
+			if (!%object.reset)
+				serverSendChat(LBChatColor("notification") @ "The Host has" SPC (%object.value ? "enabled" : "disabled") SPC "Double Spawns.");
+
+		case "SpawnRamp":
+			if (!%object.reset)
+				serverSendChat(LBChatColor("notification") @ "The Host has" SPC (%object.value ? "enabled" : "disabled") SPC "the Hunt spawn ramp.");
+
+		// case "PartySpawns":
+		// 	if (%object.value) {
+		// 		activateMode("partyspawns");
+		// 	} else {
+		// 		deactivateMode("partyspawns");
+		// 	}
+		// 	if (!$Server::Lobby) {
+		// 		hideGems();
+		// 		spawnHuntGemGroup();
+		// 	}
+		// 	if (!%object.reset)
+		// 		serverSendChat(LBChatColor("notification") @ "The Host has" SPC (%object.value ? "enabled" : "disabled") SPC "Party Spawns.");
+	}
 }

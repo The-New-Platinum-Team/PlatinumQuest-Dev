@@ -1,0 +1,582 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2026 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+new GuiControl(MPCustomizeMatchDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "61 61";
+	visible = "1";
+	helpTag = "0";
+	rowHeight = "36";
+
+    new GuiControl(MPCustomizeWindow) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "0 0";
+		extent = "620 650";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+
+        new GuiBorderButtonCtrl(MPCustomizeCancel) {
+			profile = "PQButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "168 578";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MPCustomizeMatchDlg.cancel();";
+			helpTag = "0";
+			text = "Cancel";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+        new GuiBorderButtonCtrl(MPCustomizeReset) {
+			profile = "PQButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "262 578";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MPCustomizeMatchDlg.reset();";
+			helpTag = "0";
+			text = "Reset";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(MPCustomizeSave) {
+			profile = "PQButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "356 578";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MPCustomizeMatchDlg.save();";
+			helpTag = "0";
+			text = "Save";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+        new GuiMLTextCtrl(MPCustomizeTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "11 21";
+			extent = "492 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(MPCustomizeFieldsTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "11 70";
+			extent = "492 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(MPCustomizeGlobalTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "11 330";
+			extent = "492 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(MPCustomizeScoreSending) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "11 545";
+			extent = "492 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(MPCustomizeScoreWarning) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "33 545";
+			extent = "492 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiControl(MPCustomizeContainer) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "260 130";
+			extent = "560 435";
+			minExtent = "27 27";
+			visible = "1";
+			helpTag = "0";
+		};
+    };
+};
+
+if (!isObject(MPCustomizeTimeTextboxProfile)) new GuiControlProfile(MPCustomizeTimeTextboxProfile : PQTextboxProfile) {
+	fontType = $DefaultFont["Bold"];
+	fontSize = 18;
+	justify = "left";
+};
+
+if (!isObject(MPCustomizeBorderButtonProfile)) new GuiControlProfile(MPCustomizeBorderButtonProfile : GuiBorderButtonProfile) {
+	fontType = $DefaultFont["Bold"];
+	fontSize = 18;
+	justify = "center";
+};
+
+function MPCustomizeMatchDlg::onWake(%this) {
+	//Get the current gamemode
+	%currentMode = $MP::CurrentMode;
+	%this.gm = _clientModeGetObject(%currentMode);
+	%this.modeInfo = getModeInfo(%currentMode);
+
+	MPCustomizeTitle.setText("<bold:38><just:center>" @ %this.modeInfo.name @ " Customization");
+    MPCustomizeFieldsTitle.setText("<bold:32><just:center>Level Settings" NL "<bold:22>These settings reset after loading a new level.");
+    MPCustomizeGlobalTitle.setText("<bold:32><just:center>Global Settings" NL "<bold:22>These settings do not reset.");
+
+	MPCustomizeContainer.clear();
+	%row = 0;
+	%hasFields = false;
+	%hasGlobal = false;
+	%this.add = 0;
+
+	//Build the level settings first
+	for (%i = 1; %i <= %this.gm.totalSettings; %i ++) {
+		if (!%this.gm.serverSetting[%i, "IsField"])
+			continue;
+
+		%name  = %this.gm.serverSetting[%i, "Name"];
+		%title = %this.gm.serverSetting[%i, "Title"];
+		%type  = %this.gm.serverSetting[%i, "Type"];
+		%row ++;
+
+		switch$ (%type) {
+		case "timeslider":
+			%this.addTimeSlider(%name, %title, %row, true);
+		case "slider":
+			%this.addSlider(%name, %title, %row, true);
+		case "check":
+			%this.addCheckBox(%name, %title, %row, true);
+		}
+		%hasFields = true;
+	}
+
+	MPCustomizeGlobalTitle.setPosition(getWord(MPCustomizeGlobalTitle.getPosition(), 0) SPC 190 + %this.rowHeight * (%row - 1));
+	%this.add = 84;
+
+	//Build the global settings
+	for (%i = 1; %i <= %this.gm.totalSettings; %i ++) {
+		if (%this.gm.serverSetting[%i, "IsField"])
+			continue;
+
+		%name  = %this.gm.serverSetting[%i, "Name"];
+		%title = %this.gm.serverSetting[%i, "Title"];
+		%type  = %this.gm.serverSetting[%i, "Type"];
+		%row ++;
+
+		switch$ (%type) {
+		case "timeslider":
+			%this.addTimeSlider(%name, %title, %row, false);
+		case "slider":
+			%this.addSlider(%name, %title, %row, false);
+		case "check":
+			%this.addCheckBox(%name, %title, %row, false);
+		}
+		%hasGlobal = true;
+	}
+
+	if (%hasGlobal)
+		%this.add = 0;
+
+	//Resize the window based on the amount of settings
+	%height = %this.gm.totalSettings * %this.rowHeight;
+	MPCustomizeWindow.setExtent(620 SPC 362 + %height - %this.add);
+	MPCustomizeWindow.setPosition(getWord(MPCustomizeWindow.getPosition(), 0) SPC RootGui.getHeight() / 2 - MPCustomizeWindow.getHeight() / 2);
+	MPCustomizeContainer.setExtent(560 SPC 147 + %height - %this.add);
+	MPCustomizeScoreSending.setPosition(getWord(MPCustomizeScoreSending.getPosition(), 0) SPC 257 + %height - %this.add);
+	MPCustomizeScoreWarning.setPosition(getWord(MPCustomizeScoreWarning.getPosition(), 0) SPC 233 + %height - %this.add);
+
+	MPCustomizeFieldsTitle.setVisible(%hasFields);
+	MPCustomizeGlobalTitle.setVisible(%hasGlobal);
+
+	//If there are no settings...
+	if (!%hasFields && !%hasGlobal) {
+		MPCustomizeFieldsTitle.setVisible(true);
+		MPCustomizeFieldsTitle.setText("<bold:22><just:center>There are no settings for this gamemode.");
+	}
+
+	%this.updateValues();
+}
+
+function MPCustomizeMatchDlg::addTitle(%this, %name, %title, %y) {
+	%control = "MPCustomize" @ %name @ "Toggle";
+	%titleName = "MPCustomize" @ %name @ "Title";
+
+	MPCustomizeContainer.add(
+		new GuiControl(%control) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "0" SPC (10 + %y);
+			extent = MPCustomizeContainer.getWidth() SPC %this.rowHeight;
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		}
+	);
+
+	%control.add(
+		new GuiMLTextCtrl(%titleName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing = "bottom";
+			position = "0 6";
+			extent = "180 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		}
+	);
+	%titleName.setText("<bold:18><just:right>" @ %title @ ":");
+}
+
+function MPCustomizeMatchDlg::addTimeSlider(%this, %name, %title, %row, %isField) {
+	%control = "MPCustomize" @ %name @ "Toggle";
+	%titleName = "MPCustomize" @ %name @ "Title";
+	%y = (%this.rowHeight * (%row - 1)) + %this.add;
+
+	//Add the setting's title first
+	%this.addTitle(%name, %title, %y);
+
+	%sliderBar = "MPCustomize" @ %name @ "SliderBar";
+	%sliderValue = "MPCustomize" @ %name @ "Value";
+	%sliderDisplay = "MPCustomize" @ %name @ "SliderDisplay";
+	%background = "MPCustomize" @ %name @ "Background";
+
+	%min = %this.gm.serverSetting[%row, "Min"];
+	%max = %this.gm.serverSetting[%row, "Max"];
+	%command = %sliderDisplay @ ".setValue(removeScientificNotation(" @ %sliderValue @ ".getFormattedValue())); MPCustomizeMatchDlg.toggleModified(" @ %row @ ");";
+	
+	//Create a slider and a text edit box
+	%control.add(new GuiBitmapCtrl(%sliderBar) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "198 13";
+		extent = "230 10";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "~/client/ui/options/slider_bar";
+		wrap = "0";
+	});
+	%control.add(new GuiSliderCtrl(%sliderValue) {
+		profile = "GuiSliderProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "183 0";
+		extent = "260 35";
+		minExtent = "8 8";
+		visible = "1";
+		altCommand = %command;
+		helpTag = "0";
+		range = %min SPC %max;
+		ticks = %this.gm.serverSetting[%row, "Ticks"];
+		value = 0;
+		bitmap = "~/client/ui/options/slider";
+	});
+	%control.add(new GuiControl(%background) {
+		profile = "PQPanelProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "431 -7";
+		extent = "103 47";
+		minExtent = "41 41";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiTextEditCtrl(%sliderDisplay) {
+			profile = "MPCustomizeTimeTextboxProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "14 11";
+			extent = "75 14";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MPCustomizeMatchDlg.toggleModified(" @ %row @ ");";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+			maxLength = "255";
+			TimeEntryCtrl = "1";
+		};
+	});
+}
+
+function MPCustomizeMatchDlg::addSlider(%this, %name, %title, %row, %isField) {
+	%control = "MPCustomize" @ %name @ "Toggle";
+	%titleName = "MPCustomize" @ %name @ "Title";
+	%y = (%this.rowHeight * (%row - 1)) + %this.add;
+
+	//Add the setting's title first
+	%this.addTitle(%name, %title, %y);
+
+	%sliderBar = "MPCustomize" @ %name @ "SliderBar";
+	%sliderValue = "MPCustomize" @ %name @ "Value";
+	%sliderDisplay = "MPCustomize" @ %name @ "SliderDisplay";
+
+	%min = %this.gm.serverSetting[%row, "Min"];
+	%max = %this.gm.serverSetting[%row, "Max"];
+	%command = %sliderDisplay @ ".setText(\"<bold:18><just:left>\" @" @ %sliderValue @ ".getFormattedValue()); MPCustomizeMatchDlg.toggleModified(" @ %row @ ");";
+	
+	//Create a slider
+	%control.add(new GuiBitmapCtrl(%sliderBar) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "198 13";
+		extent = "230 10";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		bitmap = "~/client/ui/options/slider_bar";
+		wrap = "0";
+	});
+	%control.add(new GuiSliderCtrl(%sliderValue) {
+		profile = "GuiSliderProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "183 0";
+		extent = "260 35";
+		minExtent = "8 8";
+		visible = "1";
+		altCommand = %command;
+		helpTag = "0";
+		range = %min SPC %max;
+		ticks = %this.gm.serverSetting[%row, "Ticks"];
+		value = 0;
+		bitmap = "~/client/ui/options/slider";
+	});
+	%control.add(new GuiMLTextCtrl(%sliderDisplay) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "448 6";
+		extent = "75 14";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+	});
+}
+
+function MPCustomizeMatchDlg::addCheckBox(%this, %name, %title, %row, %isField) {
+	%control = "MPCustomize" @ %name @ "Toggle";
+	%titleName = "MPCustomize" @ %name @ "Title";
+	%y = (%this.rowHeight * (%row - 1)) + %this.add;
+
+	//Add the setting's title first
+	%this.addTitle(%name, %title, %y);
+
+	%checkBox = "MPCustomize" @ %name @ "Value";
+	%command = "MPCustomizeMatchDlg.toggleModified(" @ %row @ ");";
+
+	//Create a checkbox
+	%titleName.setPosition("115 6");
+	%control.add(new GuiCheckboxCtrl(%checkBox) {
+		profile = "PQCheckboxProfile";
+		horizSizing = "left";
+		vertSizing = "bottom";
+		position = "320 4";
+		extent = "31 31";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		text = "";
+		command = %command;
+		groupNum = "-1";
+		buttonType = "ToggleButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	});
+}
+
+function MPCustomizeMatchDlg::updateValues(%this) {
+	%resetAllowed = false;
+	for (%i = 1; %i <= %this.gm.totalSettings; %i ++) {
+		%name = %this.gm.serverSetting[%i, "Name"];
+		%isField = %this.gm.serverSetting[%i, "IsField"];
+		%type = %this.gm.serverSetting[%i, "Type"];
+		%control = "MPCustomize" @ %name @ "Value";
+
+		if (!%resetAllowed && $MP::Client::ModeSetting[%name] !$= "") {
+			%resetAllowed = true;
+		}
+
+		if (%isField) {
+			//Use the server's value, or the level's field value if the setting was not modified
+			%missionValue = $MP::MissionObj.getFieldValue(%name);
+			%value = $MP::Client::ModeSetting[%name] !$= "" ? $MP::Client::ModeSetting[%name] : %missionValue;
+			//If the value is blank, get a default value from the gamemode
+			if (%value $= "") {
+				%value = ClientMode::callback("getSettingDefault", "", new ScriptObject() {
+					name = %name;
+					_delete = true;
+				});
+				$MP::MissionObj.setFieldValue(%name, %value);
+			}
+		} else {
+			//Use the server's value
+			%value = $MP::Client::ModeSetting[%name];
+		}
+
+		//Lock time fields from being modified mid-game
+		if (%isField && %type $= "timeslider") {
+			%text = "MPCustomize" @ %name @ "SliderDisplay";
+			%control.setActive($Game::Pregame || $Server::Lobby);
+			%text.setActive($Game::Pregame || $Server::Lobby);
+		}
+
+		//If the value for the setting is too high/low, adjust the range of the slider
+		if (%type $= "slider" || %type $= "timeslider") {
+			%max = %this.gm.serverSetting[%i, "Max"];
+			%min = %this.gm.serverSetting[%i, "Min"];
+			%range = %max - %min;
+			if (%value > %max) {
+				%control.ticks /= %range / (%value - %min);
+				%control.range = %min SPC %value;
+			} else if (%value < %min) {
+				%control.ticks /= %range / (%max - %value);
+				%control.range = %value SPC %max;
+			}
+		}
+
+		%control.setValue(%value);
+	}
+
+	MPCustomizeReset.setActive(%resetAllowed);
+
+	if ($MP::Client::ScoreSendingEnabled) {
+		MPCustomizeScoreSending.setText("<bold:22><just:center>Leaderboards and XP are currently <color:009900>enabled<color:000000>.");
+	} else {
+		MPCustomizeScoreSending.setText("<bold:22><just:center>Leaderboards and XP are currently <color:990000>disabled<color:000000>.");
+	}
+	MPCustomizeScoreWarning.setText("");
+}
+
+function MPCustomizeMatchDlg::toggleModified(%this, %row) {
+	//Notify them
+	if ($MP::Client::ScoreSendingEnabled) {
+		MPCustomizeScoreWarning.setText("<bold:22><just:center>Warning: Leaderboards and XP will be <color:990000>disabled<color:000000> if you save!");
+	}
+	// MPCustomizeReset.setActive(true);
+}
+
+function MPCustomizeMatchDlg::reset(%this) {
+	commandToServer('ResetModeSettings');
+}
+
+function MPCustomizeMatchDlg::save(%this) {
+	for (%i = 1; %i <= %this.gm.totalSettings; %i ++) {
+		%name = %this.gm.serverSetting[%i, "Name"];
+		%type = %this.gm.serverSetting[%i, "Type"];
+		%isField = %this.gm.serverSetting[%i, "IsField"];
+		%control = "MPCustomize" @ %name @ "Value";
+
+		//Get the option's value
+		%value = %control.getValue();
+		%text = "MPCustomize" @ %name @ "SliderDisplay";
+		if (isObject(%text)) {
+			if (%type $= "timeslider" && !%text.isActive())
+				continue;
+			%value = %text.getValue();
+		}
+		%value = stripMLControlChars(%value);
+
+		//Get the value for the setting
+		%customizeValue = $MP::Client::ModeSetting[%name];
+		if (%customizeValue $= "") {
+			if (%isField) {
+				%customizeValue = $MP::MissionObj.getFieldValue(%name);
+			} else {
+				%customizeValue = 0;
+			}
+		}
+		
+		//Only send a command if the user modified the setting
+		if (%value !$= %customizeValue) {
+			commandToServer('SetModeSetting', %this.gm.name, %name, %value);
+		}
+	}
+
+	commandToServer('FinishModeSettings');
+
+	RootGui.popDialog(%this);
+    PlayMissionGui.showBody();
+}
+
+function MPCustomizeMatchDlg::cancel(%this) {
+    RootGui.popDialog(%this);
+    PlayMissionGui.showBody();
+}

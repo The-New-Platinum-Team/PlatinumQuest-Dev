@@ -164,9 +164,7 @@ serverAddSetting("ForceSpectators",     "Force Spectators",    "$MPPref::ForceSp
 serverAddSetting("AllowQuickRespawn",   "Allow Quick Respawn", "$MPPref::AllowQuickRespawn",         true,      "check");
 serverAddSetting("AllowTaunts",         "Allow Taunts",        "$MPPref::Server::AllowTaunts",       false,     "check");
 serverAddSetting("AllowGuests",         "Allow Guests",        "$MPPref::Server::AllowGuests",       false,     "check");
-serverAddSetting("DoubleSpawns",        "Double Spawns",       "$MPPref::Server::DoubleSpawnGroups", true,      "check");
 serverAddSetting("CompetitiveMode",     "Competitive Mode",    "$MPPref::Server::CompetitiveMode",   true,      "check");
-// serverAddSetting("StealMode",           "Steal Mode",          "$MPPref::Server::StealMode",   true,     "check");
 
 //Called before a server variable is set
 function onPreServerVariableSet(%id, %previous, %value) {
@@ -185,22 +183,6 @@ function onPostServerVariableSet(%id, %previous, %value) {
 	case "ForceSpectators":
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 			ClientGroup.getObject(%i).forceSpectate = %value;
-		}
-	// Score sending is still disabled unless you reset. or if you have 0 gems this session.
-	// (don't want to disable scores if someone realized they have it on at the start and then immediately turned it off)
-	case "DoubleSpawns":
-		if (%value) {
-			$MP::ScoreSendingDisabled = true;
-		} else {
-			$MP::ScoreSendingDisabled = false;
-			for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
-				if (ClientGroup.getObject(%i).getGemCount() != 0 && $Game::State $= "Go") {
-					$MP::ScoreSendingDisabled = true;
-					break;
-				}
-			}
-			hideGems();
-			spawnHuntGemGroup(); // Get rid of the old spawns
 		}
 	case "CompetitiveMode":
 		if (%value) {
@@ -250,4 +232,187 @@ function onPostServerVariableSet(%id, %previous, %value) {
 		previous = %previous;
 		value = %value;
 	});
+}
+
+//-----------------------------------------------------------------------------
+
+function serverCmdSetModeSetting(%client, %gamemode, %name, %value) {
+	if (!%client.isHost())
+		return;
+	if ($MP::CurrentMode !$= %gamemode)
+		return;
+	setModeSetting(%gamemode, %name, %value);
+}
+
+function serverCmdFinishModeSettings(%client) {
+	if (!%client.isHost())
+		return;
+	commandToAll('FinishModeSettings');
+}
+
+function serverCmdResetModeSettings(%client) {
+	if (!%client.isHost())
+		return;
+	resetModeSettings(true);
+	serverSendChat(LBChatColor("notification") @ "The Host has disabled all gamemode customization.");
+}
+
+function setModeSetting(%gamemode, %name, %value) {
+	%mode = _clientModeGetObject(%gamemode);
+	if (%mode.serverSetting[%name] $= "")
+		return;
+
+	%index = %mode.serverSetting[%name];
+	%type = %mode.serverSetting[%i, "Type"];
+	%isField = %mode.serverSetting[%index, "IsField"];
+
+	//Remember the current gamemode for later
+	if ($MP::CustomizedMode $= "") {
+		$MP::CustomizedMode = %gamemode;
+	}
+
+	//Update the variable
+	$MP::ModeSetting[%name] = %value;
+
+	if (%isField) {
+		//Also set the mission field, if the level was loaded
+		if (isObject(MissionInfo)) {
+			MissionInfo.setFieldValue(%name, %value);
+		}
+		$MP::MatchCustomized = true;
+	}
+
+	if (%name $= "Time") {
+		//Notify everyone
+		serverSendChat(LBChatColor("notification") @ "The Host has changed the level's duration to" SPC formatTime(%value) @ ".");
+	} else {
+		//Let the gamemode do something
+		Mode::callback("onSettingChanged", "", new ScriptObject() {
+			name = %name;
+			value = %value;
+			_delete = true;
+		});
+	}
+
+	setMPScoreSending(false);
+
+	//Send a command to everyone
+	commandToAll('SetModeSetting', $MP::CurrentMode, %name, %value);
+}
+
+function resetModeSettings(%resetGlobal) {
+	%modeName = $MP::CustomizedMode;
+	//Reset global settings automatically if the current gamemode has been changed
+	if (%modeName !$= "" && $MP::CurrentMode !$= %modeName) {
+		%resetGlobal = true;
+	}
+	if (!$MP::MatchCustomized && !%resetGlobal)
+		return;
+
+	%gamemode = _clientModeGetObject(%modeName);
+	%serverMode = _modeGetObject(%modeName);
+	for (%i = 1; %i <= %gamemode.totalSettings; %i ++) {
+		%name    = %gamemode.serverSetting[%i, "Name"];
+		%isField = %gamemode.serverSetting[%i, "IsField"];
+
+		//Assume all global settings are off by default
+		if (!%isField) {
+			if (!%resetGlobal)
+				continue;
+			%serverMode.callback("onSettingChanged", "", new ScriptObject() {
+				name = %name;
+				value = false;
+				reset = true;
+				_delete = true;
+			});
+			$MP::ModeSetting[%name] = "";
+			commandToAll('SetModeSetting', %modeName, %name, "");
+			continue;
+		}
+
+		%value = $MP::ModeSetting[%name];
+		%reset = $MP::MissionObj.getFieldValue(%name);
+
+		//Reset the value if it was modified
+		if (%reset !$= %value) {
+			if (isObject(MissionInfo)) {
+				MissionInfo.setFieldValue(%name, %reset);
+			}
+			//Let the gamemode do something
+			%serverMode.callback("onSettingChanged", "", new ScriptObject() {
+				name = %name;
+				value = %reset;
+				reset = true;
+				_delete = true;
+			});
+			commandToAll('SetModeSetting', %modeName, %name, "");
+		}
+		$MP::ModeSetting[%name] = "";
+
+		//And set this field as well
+		%related = %gamemode.serverSetting[%i, "Related"];
+		if (%related !$= "") {
+			if (isObject(MissionInfo)) {
+				MissionInfo.setFieldValue(%related, $MP::MissionObj.getFieldValue(%related));
+			}
+			$MP::ModeSetting[%related] = "";
+		}
+	}
+	
+	if (%resetGlobal) {
+		$MP::CustomizedMode = "";
+	}
+	$MP::MatchCustomized = false;
+	checkMPScoreSending(true);
+
+	commandToAll('FinishModeSettings');
+}
+
+function applyModeSettings() {
+	if (!$MP::MatchCustomized)
+		return;
+
+	//MissionInfo is only created after a level loads, so its fields can only be modified post-load
+	//So, update MissionInfo's fields to match the settings modified
+	%gamemode = _clientModeGetObject($MP::CustomizedMode);
+	for (%i = 1; %i <= %gamemode.totalSettings; %i ++) {
+		%name = %gamemode.serverSetting[%i, "Name"];
+		if (!%gamemode.serverSetting[%i, "IsField"])
+			continue;
+
+		//Set the field if it does not match
+		%value = $MP::ModeSetting[%name];
+		if (%value !$= "" && %value !$= MissionInfo.getFieldValue(%name)) {
+			MissionInfo.setFieldValue(%name, %value);
+		}
+
+		//And set this field as well
+		%related = %gamemode.serverSetting[%i, "Related"];
+		if (%related !$= "") {
+			%value = $MP::ModeSetting[%related];
+			if (%value !$= "" && %value !$= MissionInfo.getFieldValue(%related)) {
+				MissionInfo.setFieldValue(%related, %value);
+			}
+		}
+	}
+}
+
+function GameConnection::sendModeSettings(%this) {
+	//Send the current mode settings to a player that joins mid-game
+	%gamemode = _clientModeGetObject($MP::CustomizedMode);
+	for (%i = 1; %i <= %gamemode.totalSettings; %i ++) {
+		%name = %gamemode.serverSetting[%i, "Name"];
+		if (%gamemode.serverSetting[%i, "IsField"]) {
+			//Send a command if the field was modified
+			%value = $MP::ModeSetting[%name];
+			if (%value !$= $MP::MissionObj.getFieldValue(%name)) {
+				commandToClient(%this, 'SetModeSetting', $MP::CustomizedMode, %name, %value);
+			}
+		} else {
+			//Send a command if the setting was enabled
+			if ($MP::ModeSetting[%name]) {
+				commandToClient(%this, 'SetModeSetting', $MP::CustomizedMode, %name, true);
+			}
+		}
+	}
 }

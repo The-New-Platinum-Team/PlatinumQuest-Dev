@@ -114,6 +114,9 @@ function initMultiplayer() {
 	// Download dialog
 	exec("~/client/ui/mp/MPDownloadDlg.gui");
 
+	// Gamemode customization
+	exec("~/client/ui/mp/MPCustomizeMatchDlg.gui");
+
 	// Poll creation dialog
 	exec("~/client/ui/mp/MPPollCreateDlg.gui");
 
@@ -122,4 +125,7 @@ function initMultiplayer() {
 
 	//Lists that are used everywhere
 	Array(PlayerList);
+
+	// Mode customization
+	loadModeSettings();
 }

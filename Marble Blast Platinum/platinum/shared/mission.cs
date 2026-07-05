@@ -608,10 +608,10 @@ function resolveMissionGameModes(%mission, %inputmodes) {
 			%modes = %modes SPC "ghosts";
 		if ($MP::Server::SnowballsOnly && $MP::CurrentModeInfo.identifier $= "snowball")
 			%modes = %modes SPC "snowballsonly";
-		// if ($MPPref::Server::StealMode || $MP::Client::ServerSetting["StealMode"])
-		// 	%modes = %modes SPC "steal";
 		if ($MPPref::Server::CompetitiveMode || $MP::Client::ServerSetting["CompetitiveMode"])
 			%modes = %modes SPC "competitive";
+		if ($MP::ModeSetting["Steal"] || $MP::Client::ModeSetting["Steal"])
+			%modes = %modes SPC "steal";
 	}
 
 	return strlwr(%modes);
@@ -662,6 +662,27 @@ function formatGameModes(%modes) {
 	}
 
 	return %modes;
+}
+
+function getMainGameMode(%modes) {
+	if (isObject(%modes)) {
+		%modes = resolveMissionGameModes(%modes);
+	}
+	//The main gamemode of a level is either the first complete mode or a forced mode
+	for (%i = 0; %i < getWordCount(%modes); %i ++) {
+		%mode = getWord(%modes, %i);
+		%modeInfo = getModeInfo(%mode);
+		//Forced mode is the main mode
+		if (%modeInfo.force) {
+			%mainMode = %mode;
+			break;
+		//Complete mode is the main mode (but check the rest for a forced mode)
+		} else if (%modeInfo.complete && !%foundComplete) {
+			%mainMode = %mode;
+			%foundComplete = true;
+		}
+	}
+	return %mainMode;
 }
 
 //-----------------------------------------------------------------------------

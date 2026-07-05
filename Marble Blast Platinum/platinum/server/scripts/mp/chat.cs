@@ -178,6 +178,7 @@ function serverChatCommandUpload(%client, %rest) {
 		%status = !!%rest;
 		if (%status !$= $MPPref::Server::SubmitScores) {
 			$MPPref::Server::SubmitScores = %status;
+			checkMPScoreSending(true);
 			if (%status) {
 				serverSendChat(LBChatColor("notification") @ "An Admin has enabled score submission.");
 			} else {
@@ -277,7 +278,7 @@ function serverChatCommandEnd(%client) {
 			return true;
 		}
 		if ($Game::isMode["coop"]) { //Can be considered cheating in these gamemodes
-			$MP::ScoreSendingDisabled = true;
+			setMPScoreSending(false);
 		}
 		endGameSetup();
 		return true;

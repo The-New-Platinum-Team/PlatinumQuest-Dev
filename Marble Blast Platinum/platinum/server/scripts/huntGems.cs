@@ -198,7 +198,7 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 	//echo("Spawning in groups" SPC %groups);
 	//hideGems();
 
-	if (mp() && $MPPref::Server::SpawnRamp && !$Game::isMode["coop"]) {
+	if (mp() && $MP::ModeSetting["SpawnRamp"] && !$Game::isMode["coop"]) {
 		//Early in the game, exclude high-value gems from being spawned
 		setGemGroups(%groups);
 		%elapsedTime = $Time::ElapsedTime / Mode::callback("getStartTime", 0);
@@ -217,7 +217,7 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 	}
 
 	//Find center gem(s) to spawn group(s)
-	%centerCount = ($MPPref::Server::DoubleSpawnGroups && mp() && !$Game::isMode["coop"]) ? 2 : 1;
+	%centerCount = ($MP::ModeSetting["DoubleSpawns"] && mp() && !$Game::isMode["coop"]) ? 2 : 1;
 	%centers = getCenterGems(%groups, %exclude, %centerCount);
 
 	RootGroup.add(%spawnSet = new SimSet("SpawnSet"));
@@ -439,7 +439,7 @@ function spawnGemGroupSet(%center, %exclude) {
 	%maxLoops = $Hunt::MaxSpawnSearchLoops;
 
 	%maxPoints = 999999;
-	if (mp() && $MPPref::Server::SpawnRamp && !$Game::isMode["coop"]) {
+	if (mp() && $MP::ModeSetting["SpawnRamp"] && !$Game::isMode["coop"]) {
 		%elapsedTime = $Time::ElapsedTime / Mode::callback("getStartTime", 0);
 		%multiplier = 0.75 + (%elapsedTime * 0.75);
 		%maxPoints = max(mFloor((%minPoints * (%spawnCount / 3)) * %multiplier), 4);
@@ -579,7 +579,7 @@ function testSpawn(%gem) {
 	if (getHuntSpawnType() > 1) {
 		return true;
 	}
-	if ($MPPref::Server::SpawnRamp && mp()) {
+	if ($MP::ModeSetting["SpawnRamp"] && mp()) {
 		return true;
 	}
 	// Check for PQ-spawn mechanics

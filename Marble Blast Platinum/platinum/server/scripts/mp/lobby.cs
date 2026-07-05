@@ -85,14 +85,23 @@ function serverSetMission(%file, %game, %difficulty, %forceMode) {
 	$CurrentGame = %game;
 	$MissionType = %difficulty;
 
-	//Set mode
-	%modeInfo = getModeInfo(%forceMode);
-	$MP::CurrentMode = %forceMode;
-	$MP::CurrentModeInfo = %modeInfo;
-
 	//Set mission
 	$MP::MissionObj = %info;
 	$MP::MissionFile = %info.file;
+
+	//Set mode
+	%modeInfo = getModeInfo(%forceMode);
+	if (!%modeInfo.force) {
+		%forceMode = getMainGameMode(%info);
+		%modeInfo = getModeInfo(%forceMode);
+	}
+	$MP::CurrentMode = %forceMode;
+	$MP::CurrentModeInfo = %modeInfo;
+	clearModes();
+	activateMode(%forceMode);
+	
+	resetModeSettings(false);
+	checkMPScoreSending(false);
 
 	if ($Server::Dedicated) {
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -277,6 +286,7 @@ function lobbyRestart() {
 	setGameState("waiting");
 	updateSpectateFull();
 	$Server::SpectateCount = 0;
+	checkMPScoreSending(false);
 
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
