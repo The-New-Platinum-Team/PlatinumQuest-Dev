@@ -81,6 +81,12 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 		return false;
 	}
 
+	//Powerup ping grace
+	%clientPowerups = Mode::callback("shouldUseClientPowerups", false);
+	if (mp() && !%clientPowerups && %obj._finder[%user]) {
+		return false;
+	}
+
 	// Grab it...
 	%user.client.play2d(%this.pickupAudio);
 	if (%this.powerUpId) {
@@ -91,6 +97,20 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 		%user.client.checkpointFoundPowerup = true;
 
 		%user.setPowerUp(%this, false, %obj);
+	}
+
+	//Powerup ping grace
+	if (mp() && !%clientPowerups) {
+		if ($MPPref::Server::PingStealFix > 0 && !%obj._isBackup) {
+			%backup = spawnBackupPowerUp(%obj);
+			%backup._finder[%user] = true;
+		}
+
+		if (%obj._isBackup) {    //To prevent other Backup PU's from making other Backup PU's, leading to Powerup Duplication, which is cringle pringle. ~Connie
+			%user.client.addHelpLine("You picked up " @ %obj.getDatablock().pickupName);  //Fix for the fact the lil help bubble doesn't pop up when you pick up a Backup Powerup. ~Connie
+			%obj._finder[%user] = true;   //In case you're picking up the Backup and haven't picked up the Original. ~Connie
+			return true;      //Basically, this will still let the player pick up the powerup, but it won't remove the Backup Powerup and add another one, because Backups aren't supposed to do that. ~Connie
+		}
 	}
 
 	%pickup = Mode::callback("shouldPickupPowerUp", true, new ScriptObject() {
