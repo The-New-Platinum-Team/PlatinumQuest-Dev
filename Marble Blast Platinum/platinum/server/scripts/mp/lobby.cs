@@ -1132,3 +1132,94 @@ function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 // > Raise your pirates
 
 // PSYCH! Turns out there is more. Thanks, PQbama.
+
+
+//-----------------------------------------------------------------------------
+//--- Multiplayer polls ---
+
+function serverCmdCreatePoll(%client, %desc, %opt1, %opt2) {
+	if (!%client.isHost())
+		return;
+	if (isObject(ServerPoll)) {
+		commandToClient(%client, 'PollExists');
+		return;
+	}
+
+	createServerPoll(%desc, %opt1, %opt2);
+}
+
+function createServerPoll(%desc, %opt1, %opt2) {
+	if (isObject(ServerPoll))
+		return;
+
+	%poll = new ScriptObject(ServerPoll) {
+		class = "Poll";
+		desc = %desc;
+		opt1 = %opt1;
+		opt2 = %opt2;
+		votes1 = 0;
+		votes2 = 0;
+		votesTotal = 0;
+	};
+
+	%poll.schedule(500, allowVoting);
+}
+
+function Poll::allowVoting(%this) {
+	commandToAll('PollVote', %this.desc, %this.opt1, %this.opt2);
+
+	//Default duration for all polls is 60 seconds.
+	%this.pollExpire = %this.schedule(60000, finishPoll);
+}
+
+function Poll::sendVote(%this, %client) {
+	commandToClient(%client, 'PollVote', %this.desc, %this.opt1, %this.opt2);
+}
+
+function serverCmdPollVote(%client, %opt) {
+	if (!isObject(ServerPoll))
+		return;
+	ServerPoll.pollVote(%client, %opt);
+}
+
+function Poll::pollVote(%this, %client, %opt) {
+	if (%client.pollVoted)
+		return;
+
+	%this.votes[%opt] ++;
+	%this.votesTotal ++;
+	%client.pollVoted = true;
+
+	%this.checkPollFinish();
+}
+
+function Poll::checkPollFinish(%this) {
+	%votes = 0;
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%cl = ClientGroup.getObject(%i);
+		if (%cl.pollVoted || %cl.fake)
+			%votes ++;
+	}
+	if (%votes == %count) {
+		cancel(%this.pollExpire);
+		%this.schedule(500, finishPoll);
+	}
+}
+
+function Poll::finishPoll(%this) {
+	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		%cl = ClientGroup.getObject(%i);
+		%cl.pollVoted = false;
+		commandToClient(%cl, 'PollExpire');
+	}
+
+	//Display the results of the poll
+	serverSendChat(LBChatColor("notification") @ "--------------- Poll Results ---------------");
+	serverSendChat(LBChatColor("notification") @ %this.desc);
+	serverSendChat(LBChatColor("notification") @ %this.opt1 @ ":" SPC %this.votes1 SPC (%this.votes1 == 1 ? "vote" : "votes") SPC "(" @ mRound(%this.votes1 / max(%this.votesTotal, 1) * 100) @ "%)");
+	serverSendChat(LBChatColor("notification") @ %this.opt2 @ ":" SPC %this.votes2 SPC (%this.votes2 == 1 ? "vote" : "votes") SPC "(" @ mRound(%this.votes2 / max(%this.votesTotal, 1) * 100) @ "%)");
+	serverSendChat(LBChatColor("notification") @ "--------------------------------------------");
+
+	%this.delete();
+}

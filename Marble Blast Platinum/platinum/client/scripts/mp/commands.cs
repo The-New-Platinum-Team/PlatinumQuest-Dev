@@ -623,3 +623,17 @@ function clientMarblelandDownloadFinished(%id, %success) {
 function clientCmdMarblelandLoad(%id) {
 	marblelandLoad(%id);
 }
+
+//-----------------------------------------------------------------------------
+
+function clientCmdPollVote(%desc, %opt1, %opt2) {
+	MPPollDlg.open(%desc, %opt1, %opt2);
+}
+
+function clientCmdPollExpire() {
+	RootGui.popDialog(MPPollDlg);
+}
+
+function clientCmdPollExists() {
+	MessageBoxOK("Error", "You must wait for the previous poll to finish before starting a new one.");
+}

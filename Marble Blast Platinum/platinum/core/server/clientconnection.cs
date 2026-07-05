@@ -235,6 +235,10 @@ function GameConnection::finishConnect(%client) {
 		commandToAllExcept(%client, 'PrivateMessage', LBChatColor("notification") @ %client.getDisplayName() SPC "has joined the game.");
 		commandToAllExcept(%client, 'alxPlay', PlayerJoinSfx);
 		commandToClient(%client, 'initSprng', $Server::SprngSeed);
+
+		if (isObject(ServerPoll) && !%client.pollVoted) {
+			ServerPoll.schedule(500, sendVote, %client);
+		}
 	}
 
 	if ($Server::Dedicated && $Server::Controllable) {
@@ -557,6 +561,7 @@ function GameConnection::backup(%this) {
 		team = Team::getTeamName(%this.team);
 		spectating = %this.spectating;
 		wins = %this.wins;
+		pollVoted = %this.pollVoted;
 	});
 
 	echo("Backing up " @ %this.getUsername() @ " (id " @ %this.getId() @ ") to fake client id " @ %fake);
@@ -598,6 +603,7 @@ function GameConnection::restore(%this, %name) {
 			%this._spectating = %test.spectating;
 
 			%this.wins = %test.wins;
+			%this.pollVoted = %test.pollVoted;
 
 			// Restore their team
 			%team = %test.team;

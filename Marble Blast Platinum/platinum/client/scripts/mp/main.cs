@@ -114,6 +114,12 @@ function initMultiplayer() {
 	// Download dialog
 	exec("~/client/ui/mp/MPDownloadDlg.gui");
 
+	// Poll creation dialog
+	exec("~/client/ui/mp/MPPollCreateDlg.gui");
+
+	// Poll dialog
+	exec("~/client/ui/mp/MPPollDlg.gui");
+
 	//Lists that are used everywhere
 	Array(PlayerList);
 }
