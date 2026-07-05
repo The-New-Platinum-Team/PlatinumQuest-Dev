@@ -756,11 +756,7 @@ function GameConnection::onClientEnterGame(%this) {
 				%this.setSpectating(true);
 				%this.setGameState("go");
 
-				if ($MPPref::ForceSpectators) {
-					%this.forceSpectate = true;
-				} else {
-					schedule(2000, 0, commandToClient, %this, 'SpectateChoice');
-				}
+				%this.sendSpectateChoice();
 			}
 
 			%this.sendAllPlayerIds();

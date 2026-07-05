@@ -3142,8 +3142,8 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	}
 
 	if (mp()) {
-		PM_ChatBox.setVisible(true);
-		PM_UserlistBox.setVisible(true);
+		// PM_ChatBox.setVisible(true);
+		// PM_UserlistBox.setVisible(true);
 
 		//Magic number city: lots of shadow padding to get stuff to line up
 		%pw = 200; //Playerlist width
@@ -4564,7 +4564,7 @@ function PlayMissionGui::updateMPButtons(%this) {
 	%this.setBarButtonActive(PM_MissionToggleMarbleland, $Server::Hosting);
 	%this.setBarButtonActive(PM_MissionPoll, $Server::Hosting);
 
-	PM_MissionServer.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();");
+	PM_MissionServer.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();") SPC "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody();";
 
 	%this.setBarButtonActive(PM_MissionTeam, $MP::TeamMode);
 	PM_MissionEnableTeams.setValue($MP::TeamMode);
