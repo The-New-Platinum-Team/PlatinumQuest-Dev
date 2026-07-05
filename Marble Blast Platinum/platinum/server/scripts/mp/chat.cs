@@ -241,3 +241,46 @@ function serverChatCommandCancel(%client, %rest) {
 	}
 	return false;
 }
+
+function serverChatCommandEnter(%client) {
+	if (%client.isHost()) {
+		if ((!$Server::Dedicated || !%client.isAdmin()) && %client.loadState != 3) {
+			%client.sendChat(LBChatColor("help") @ "You have to finish loading the level first.");
+			return true;
+		}
+		if ($Game::State $= "End" && !$Server::Lobby) {
+			%client.sendChat(LBChatColor("help") @ "The game has already ended.");
+			return true;
+		}
+		if ($Game::Running && $Server::Started) {
+			%client.sendChat(LBChatColor("help") @ "The game has already started.");
+			return true;
+		}
+		if ($Server::Lobby) { //Enter the game first
+			serverEnterGame();
+		} else {
+			serverStartGame();
+		}
+		return true;
+	}
+	return false;
+}
+
+function serverChatCommandEnd(%client) {
+	if (%client.isHost()) {
+		if ($Game::State $= "End" && !$Server::Lobby) {
+			%client.sendChat(LBChatColor("help") @ "The game has already ended.");
+			return true;
+		}
+		if (!($Game::Running && $Server::Started)) {
+			%client.sendChat(LBChatColor("help") @ "The game has not started yet.");
+			return true;
+		}
+		if ($Game::isMode["coop"]) { //Can be considered cheating in these gamemodes
+			$MP::ScoreSendingDisabled = true;
+		}
+		endGameSetup();
+		return true;
+	}
+	return false;
+}

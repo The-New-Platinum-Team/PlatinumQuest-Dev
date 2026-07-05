@@ -34,6 +34,10 @@ function serverStartGame() {
 		%client = ClientGroup.getObject(%i);
 		%client.setPregame(false);
 
+		if (!%client.ready) {
+			%client.spectating = true;
+		}
+
 		if (%client.spectating) {
 			%client.cancelOverview();
 			%client.setSpectating(true);
