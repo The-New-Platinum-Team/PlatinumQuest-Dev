@@ -378,3 +378,43 @@ function clientCmdGameModeList(%fields, %class, %identifier) {
 		%mode.setFields(%fields);
 	}
 }
+
+//-----------------------------------------------------------------------------
+
+function loadModeSettings() {
+	for (%i = 0; %i < ModeGroup.getCount(); %i ++) {
+		%mode = ModeGroup.getObject(%i);
+		%mode.callback("loadModeSettings");
+
+		//Add a default time (duration) setting for all countdown gamemodes
+		if (%mode.callback("timeMultiplier", 1) < 0) {
+			for (%j = %mode.totalSettings; %j > 0; %j --) {
+				%name = %mode.serverSetting[%j,    "Name"];
+				if (%name $= "Time" || %name $= "")
+					continue;
+				%index = %j + 1;
+				//The time setting should be first, so bump up all the other settings
+				%mode.serverSetting[%index,    "Name"] = %mode.serverSetting[%j,    "Name"];
+				%mode.serverSetting[%index,   "Title"] = %mode.serverSetting[%j,   "Title"];
+				%mode.serverSetting[%index,    "Type"] = %mode.serverSetting[%j,    "Type"];
+				%mode.serverSetting[%index,     "Min"] = %mode.serverSetting[%j,     "Min"];
+				%mode.serverSetting[%index,     "Max"] = %mode.serverSetting[%j,     "Max"];
+				%mode.serverSetting[%index,   "Ticks"] = %mode.serverSetting[%j,   "Ticks"];
+				%mode.serverSetting[%index, "IsField"] = %mode.serverSetting[%j, "IsField"];
+				%mode.serverSetting[%index, "Related"] = %mode.serverSetting[%j, "Related"];
+				%mode.serverSetting[%name]             = %index;
+			}
+			%mode.totalSettings ++;
+
+			//Add the time setting to the setting list
+			%mode.serverSetting[1,    "Name"] = "Time";
+			%mode.serverSetting[1,   "Title"] = "Match Duration";
+			%mode.serverSetting[1,    "Type"] = "timeslider";
+			%mode.serverSetting[1,     "Min"] = 60000;
+			%mode.serverSetting[1,     "Max"] = 480000;
+			%mode.serverSetting[1,   "Ticks"] = 28;
+			%mode.serverSetting[1, "IsField"] = true;
+			%mode.serverSetting["Time"]       = 1;
+		}
+	}
+}

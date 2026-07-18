@@ -1,0 +1,255 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2026 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+new GuiControl(MPPollCreateDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "61 61";
+	visible = "1";
+	helpTag = "0";
+
+	new GuiControl(MPPollCreateWindow) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "0 0";
+		extent = "500 407";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiMLTextCtrl(MPPollCreateTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "11 21";
+			extent = "478 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(MPPollCreateDescTitle) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "11 70";
+			extent = "478 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "center";
+			vertSizing = "height";
+			position = "14 91";
+			extent = "471 152";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiScrollCtrl() {
+				profile = "PQScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "12 12";
+				extent = "447 128";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "dynamic";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "2 0";
+
+				new GuiMLTextEditCtrl(MPPollCreateDesc) {
+					profile = "PQTextboxProfile";
+					horizSizing = "center";
+					vertSizing = "height";
+					position = "2 0";
+					extent = "427 128";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "512";
+						cursorPosition = "1";
+				};
+			};
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "106 241";
+			extent = "363 56";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+		};
+		new GuiControl() {
+			profile = "PQPanelProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "106 276";
+			extent = "363 56";
+			minExtent = "41 41";
+			visible = "1";
+			helpTag = "0";
+		};
+		new GuiTextEditCtrl(MPPollCreateOpt1) {
+			profile = "GuiMediumTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "119 254";
+			extent = "335 31";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiTextEditCtrl(MPPollCreateOpt2) {
+			profile = "GuiMediumTextEditProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "119 289";
+			extent = "335 31";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			maxLength = "255";
+			maxPixelWidth = "0";
+			historySize = "0";
+			password = "0";
+			tabComplete = "0";
+			sinkAllKeyEvents = "0";
+		};
+		new GuiMLTextCtrl(MPPollCreateOpt1Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "39 257";
+			extent = "76 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiMLTextCtrl(MPPollCreateOpt2Title) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "39 292";
+			extent = "76 27";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		new GuiBorderButtonCtrl(MPPollCreateCancel) {
+			profile = "PQButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "157 335";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MPPollCreateDlg.cancel();";
+			helpTag = "0";
+			text = "Cancel";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		new GuiBorderButtonCtrl(MPPollCreateSave) {
+			profile = "PQButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "251 335";
+			extent = "94 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MPPollCreateDlg.createPoll();";
+			helpTag = "0";
+			text = "Create";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+
+function MPPollCreateDlg::onWake(%this) {
+	MPPollCreateTitle.setText("<bold:38><just:center>Create Poll");
+	MPPollCreateDescTitle.setText("<bold:24><just:center>Poll Description:");
+	MPPollCreateOpt1Title.setText("<bold:24>Option 1:");
+	MPPollCreateOpt2Title.setText("<bold:24>Option 2:");
+	MPPollCreateDesc.setValue("");
+	MPPollCreateOpt1.setValue("Yes");
+	MPPollCreateOpt2.setValue("No");
+}
+
+function MPPollCreateDlg::cancel(%this) {
+	RootGui.popDialog(%this);
+	PlayMissionGui.showBody();
+}
+
+function MPPollCreateDlg::createPoll(%this) {
+	%desc = trim(MPPollCreateDesc.getValue());
+	if (%desc $= "") {
+		MessageBoxOK("Missing Info", "The poll must have a description.");
+		return;
+	}
+	%opt1 = trim(MPPollCreateOpt1.getValue());
+	%opt2 = trim(MPPollCreateOpt2.getValue());
+	if (%opt1 $= "" || %opt2 $= "") {
+		MessageBoxOK("Missing Info", "The poll must have two options.");
+		return;
+	}
+
+	commandToServer('CreatePoll', %desc, %opt1, %opt2);
+	RootGui.popDialog(%this);
+	PlayMissionGui.showBody();
+}
+

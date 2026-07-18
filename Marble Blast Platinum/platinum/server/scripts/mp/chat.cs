@@ -178,6 +178,7 @@ function serverChatCommandUpload(%client, %rest) {
 		%status = !!%rest;
 		if (%status !$= $MPPref::Server::SubmitScores) {
 			$MPPref::Server::SubmitScores = %status;
+			checkMPScoreSending(true);
 			if (%status) {
 				serverSendChat(LBChatColor("notification") @ "An Admin has enabled score submission.");
 			} else {
@@ -237,6 +238,49 @@ function serverChatCommandCancel(%client, %rest) {
 		$loadingMission = false;
 		lobbyReturn();
 		cancel($LoadStage2);
+		return true;
+	}
+	return false;
+}
+
+function serverChatCommandEnter(%client) {
+	if (%client.isHost()) {
+		if ((!$Server::Dedicated || !%client.isAdmin()) && %client.loadState != 3) {
+			%client.sendChat(LBChatColor("help") @ "You have to finish loading the level first.");
+			return true;
+		}
+		if ($Game::State $= "End" && !$Server::Lobby) {
+			%client.sendChat(LBChatColor("help") @ "The game has already ended.");
+			return true;
+		}
+		if ($Game::Running && $Server::Started) {
+			%client.sendChat(LBChatColor("help") @ "The game has already started.");
+			return true;
+		}
+		if ($Server::Lobby) { //Enter the game first
+			serverEnterGame();
+		} else {
+			serverStartGame();
+		}
+		return true;
+	}
+	return false;
+}
+
+function serverChatCommandEnd(%client) {
+	if (%client.isHost()) {
+		if ($Game::State $= "End" && !$Server::Lobby) {
+			%client.sendChat(LBChatColor("help") @ "The game has already ended.");
+			return true;
+		}
+		if (!($Game::Running && $Server::Started)) {
+			%client.sendChat(LBChatColor("help") @ "The game has not started yet.");
+			return true;
+		}
+		if ($Game::isMode["coop"]) { //Can be considered cheating in these gamemodes
+			setMPScoreSending(false);
+		}
+		endGameSetup();
 		return true;
 	}
 	return false;

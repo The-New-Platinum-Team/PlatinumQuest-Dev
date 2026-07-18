@@ -96,6 +96,14 @@ function clientCmdSpectateChoice() {
 	MessageBoxYesNo("Join Game in Progress?", "Do you want to join the current game in progress?", "commandToServer(\'Spectate\', false);", "");
 }
 
+function clientCmdForceSpectators() {
+	MessageBoxOK("Force Spectators", "Force Spectators is on, so you cannot join the match.");
+}
+
+function clientCmdSpectateDenied() {
+	MessageBoxOK("Gamemode Spectating", "The current gamemode does not allow you to join the match.");
+}
+
 function clientCmdSpectatePowerUp(%index, %name, %powerup) {
 	devecho("Spectate Powerup" SPC %index @ "/" @ %name SPC "is" SPC %powerup);
 	$MP::ClientPowerUp[%index] = %powerup;

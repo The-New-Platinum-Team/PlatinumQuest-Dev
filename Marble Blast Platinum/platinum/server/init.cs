@@ -120,6 +120,9 @@ function fixDedicatedShit() {
 	exec($usermods @ "/client/scripts/modes.cs");
 	loadClientGameModes();
 
+	// Mode customization
+	loadModeSettings();
+
 	// Server stuff for MP (for initDedicatedServer)
 	exec("./scripts/mp/main.cs");
 

@@ -34,6 +34,10 @@ function serverStartGame() {
 		%client = ClientGroup.getObject(%i);
 		%client.setPregame(false);
 
+		if (!%client.ready) {
+			%client.spectating = true;
+		}
+
 		if (%client.spectating) {
 			%client.cancelOverview();
 			%client.setSpectating(true);
@@ -393,7 +397,7 @@ function serverResetScores() {
 function serverSendScores() {
 	if ($Server::ServerType $= "SinglePlayer")
 		return;
-	if (Mode::callback("shouldSendScores", true)) {
+	if (MPshouldSendScores()) {
 		commandToAll('MasterScoreCount', $Master::Scores);
 		for (%i = 0; %i < $Master::Scores; %i ++) {
 			commandToAll('MasterScorePlayer', %i, $Master::ScorePlayer[%i]);
@@ -432,9 +436,7 @@ function MPsendScores() {
 	}
 	if (MPshouldSendScores()) {
 		// Calculate scores!
-		if (Mode::callback("shouldSendScores", true)) {
-			statsRecordMatch(getMissionList("mp").getMission($CurrentGame, $MissionType, $Server::MissionFile));
-		}
+		statsRecordMatch(getMissionList("mp").getMission($CurrentGame, $MissionType, $Server::MissionFile));
 	}
 	serverSendScores();
 }
@@ -443,11 +445,38 @@ function MPshouldSendScores() {
 	if (!$MPPref::Server::SubmitScores) {
 		return false;
 	}
-	if ($MP::ScoreSendingDisabled) { // If Double Spawns, etc., are turned on
+	if (!$MP::ScoreSendingEnabled) { // If Double Spawns, etc., are turned on
 		return false;
 	}
 
 	return true;
+}
+
+function setMPScoreSending(%enabled) {
+	$MP::ScoreSendingEnabled = %enabled;
+	commandToAll('SetScoreSending', %enabled);
+}
+
+function checkMPScoreSending(%isToggle) {
+	%sendScores = true;
+	//Disable if indicated in prefs
+	if (!$MPPref::Server::SubmitScores) {
+		%sendScores = false;
+	}
+	//Disable if level fields were modified
+	if ($MP::MatchCustomized) {
+		%sendScores = false;
+	}
+	//Disable if toggles are active
+	if (!Mode::callback("shouldSendScores", true)) {
+		%sendScores = false;
+	}
+	//If you turned off a toggle while playing, score sending should still be disabled
+	if (%isToggle && $Game::Running && $Server::Started) {
+		%sendScores = false;
+	}
+
+	setMPScoreSending(%sendScores);
 }
 
 //-----------------------------------------------------------------------------

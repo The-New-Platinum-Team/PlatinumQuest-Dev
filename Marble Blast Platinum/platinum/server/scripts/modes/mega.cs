@@ -34,6 +34,8 @@ function Mode_mega::onLoad(%this) {
 	%this.registerCallback("updateWinner");
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
+	%this.registerCallback("shouldSendScores");
+	%this.registerCallback("onSettingChanged");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 function Mode_mega::onCollision(%this, %object) {
@@ -99,4 +101,34 @@ function Mode_mega::getScoreType(%this) {
 }
 function Mode_mega::getFinalScore(%this, %object) {
 	return $ScoreType::Score TAB %object.client.getGemCount();
+}
+
+//-----------------------------------------------------------------------------
+
+function Mode_mega::shouldSendScores(%this) {
+	return !$MP::ModeSetting["AlwaysMega"] && !$MP::ModeSetting["Steal"];
+}
+
+function Mode_mega::onSettingChanged(%this, %object) {
+	switch$ (%object.name) {
+		case "AlwaysMega":
+			if ($Game::Running && $Server::Started) {
+				for (%i = 0; %i < ClientGroup.getCount(); %i++) {
+					%cl = ClientGroup.getObject(%i);
+					%cl.setMegaMarble(%object.value);
+					%cl.schedule(10, gravityImpulse, "0 0 -1", (%object.value ? "6 6 6" : "-2 -2 -2"));
+				}
+			}
+			if (!%object.reset)
+				serverSendChat(LBChatColor("notification") @ "The Host has" SPC (%object.value ? "enabled" : "disabled") SPC "Always Mega Marble.");
+
+		case "Steal":
+			if (%object.value) {
+				activateMode("steal");
+			} else {
+				deactivateMode("steal");
+			}
+			if (!%object.reset)
+				serverSendChat(LBChatColor("notification") @ "The Host has" SPC (%object.value ? "enabled" : "disabled") SPC "Steal mode.");
+	}
 }

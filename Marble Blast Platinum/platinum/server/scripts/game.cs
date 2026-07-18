@@ -266,15 +266,8 @@ function onMissionLoaded() {
 
 	$Game::GemCount = countGems(MissionGroup);
 
-	// Start the game here if multiplayer...
-	if ($Server::ServerType $= "MultiPlayer") {
-		// amount of spectators
-		$Server::SpectateCount = 0;
-		setGameState("Waiting");
-		startGame();
-		startHeartbeat();
-
-		Time::reset();
+	if ($Server::_ServerType $= "MultiPlayer") {
+		applyModeSettings();
 	}
 
 	MPinitLoops();
@@ -319,10 +312,7 @@ function onMissionReset() {
 	resetCannons();
 
 	if (mp()) {
-		$MP::ScoreSendingDisabled = false;
-		if ($MPPref::Server::DoubleSpawnGroups) {
-			$MP::ScoreSendingDisabled = true;
-		}
+		checkMPScoreSending(false);
 	}
 
 	chooseSharedSpawnPoint();
@@ -756,11 +746,7 @@ function GameConnection::onClientEnterGame(%this) {
 				%this.setSpectating(true);
 				%this.setGameState("go");
 
-				if ($MPPref::ForceSpectators) {
-					%this.forceSpectate = true;
-				} else {
-					schedule(2000, 0, commandToClient, %this, 'SpectateChoice');
-				}
+				%this.sendSpectateChoice();
 			}
 
 			%this.sendAllPlayerIds();

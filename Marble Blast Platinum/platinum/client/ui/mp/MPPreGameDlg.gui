@@ -371,6 +371,22 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 		repeatPeriod = "1000";
 		repeatDecay = "1";
 	};
+	new GuiBorderButtonCtrl(MPPreGameModeCustomization) {
+		profile = "PQButtonPlainProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "575 345";
+		extent = "215 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "RootGui.pushDialog(MPCustomizeMatchDlg);";
+		helpTag = "0";
+		text = "Customize Match";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	};
 	new GuiBorderButtonCtrl() {
 		profile = "PQButtonPlainProfile";
 		horizSizing = "left";
@@ -396,7 +412,6 @@ function MPPreGameDlg::onWake(%this) {
 
 	MPPreGameReady.setValue(false);
 	MPPreGameSpectate.setValue(false);
-	MPPreGameServerSettings.setVisible($Server::Hosting);
 
 	MPPreGameServerSettings.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();");
 
@@ -438,6 +453,8 @@ function MPPreGameDlg::updateActive(%this) {
 	MPPreGameSpectate.setActive(!$MP::SpectateFull);
 	MPPregameKickUsers.setVisible($Server::Hosting);
 	MPPregameTeams.setVisible($MP::TeamMode);
+	MPPreGameServerSettings.setVisible(%isHost);
+	MPPreGameModeCustomization.setVisible(%isHost);
 
 	MPPreGameSpectate.controlRight = (MPPregameTeams.isVisible() ? MPPregameTeams : (MPPregameKickUsers.isVisible() ? MPPregameKickUsers : (MPPreGamePlay.isVisible() ? MPPreGamePlay : MPPreGameExit)));
 	MPPreGameTeams.controlRight = (MPPregameKickUsers.isVisible() ? MPPregameKickUsers : (MPPreGamePlay.isVisible() ? MPPreGamePlay : MPPreGameExit));

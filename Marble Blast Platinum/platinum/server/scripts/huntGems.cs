@@ -198,7 +198,7 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 	//echo("Spawning in groups" SPC %groups);
 	//hideGems();
 
-	if (mp() && $MPPref::Server::SpawnRamp && !$Game::isMode["coop"]) {
+	if (mp() && $MP::ModeSetting["SpawnRamp"] && !$Game::isMode["coop"]) {
 		//Early in the game, exclude high-value gems from being spawned
 		setGemGroups(%groups);
 		%elapsedTime = $Time::ElapsedTime / Mode::callback("getStartTime", 0);
@@ -208,16 +208,16 @@ function spawnHuntGemsInGroup(%groups, %exclude) {
 			//Red/Yellow: Always
 			//Blue: After 25% time
 			//Platinum: After 50% time
-			if (%gem._huntDatablock.huntExtraValue == 4 && %elapsedTime < 0.25) {
+			if (%gem._huntDatablock.huntExtraValue >= 3 && %elapsedTime < 0.25) {
 				%exclude = addWord(%exclude, %gem);
-			} else if (%gem._huntDatablock.huntExtraValue == 9 && %elapsedTime < 0.50) {
+			} else if (%gem._huntDatablock.huntExtraValue >= 6 && %elapsedTime < 0.50) {
 				%exclude = addWord(%exclude, %gem);
 			}
 		}
 	}
 
 	//Find center gem(s) to spawn group(s)
-	%centerCount = ($MPPref::Server::DoubleSpawnGroups && mp() && !$Game::isMode["coop"]) ? 2 : 1;
+	%centerCount = ($MP::ModeSetting["DoubleSpawns"] && mp() && !$Game::isMode["coop"]) ? 2 : 1;
 	%centers = getCenterGems(%groups, %exclude, %centerCount);
 
 	RootGroup.add(%spawnSet = new SimSet("SpawnSet"));
@@ -438,26 +438,15 @@ function spawnGemGroupSet(%center, %exclude) {
 	%minCount = (MissionInfo.minGemsPerSpawn ? MissionInfo.minGemsPerSpawn : $Hunt::MinGemsPerSpawn);
 	%maxLoops = $Hunt::MaxSpawnSearchLoops;
 
-	if (mp() && $MPPref::Server::SpawnRamp && !$Game::isMode["coop"]) {
+	%maxPoints = 999999;
+	if (mp() && $MP::ModeSetting["SpawnRamp"] && !$Game::isMode["coop"]) {
 		%elapsedTime = $Time::ElapsedTime / Mode::callback("getStartTime", 0);
-		%scaled = %minPoints * (%spawnCount / %minCount);
-		%maxPoints = mRound((%minPoints + %scaled * 2 * %elapsedTime));
-		//%minCount = mRound(%minCount * 1.5);
-		%spawnCount = mRound(%spawnCount * (0.75 + %elapsedTime * 0.5));
-
-		devecho("spawnCount: " @ %spawnCount);
-		devecho("spawnRadius: " @ %spawnRadius);
-		devecho("minPoints: " @ %minPoints);
-		devecho("minCount: " @ %minCount);
-		devecho("maxLoops: " @ %maxLoops);
-		devecho("elapsedTime: " @ %elapsedTime);
-		devecho("maxPoints min: " @ (%minPoints + %scaled * 2 * 0));
-		devecho("maxPoints max: " @ (%minPoints + %scaled * 2 * 1));
-		devecho("maxPoints: " @ %maxPoints);
-
-
-	} else {
-		%maxPoints = 9999;
+		%multiplier = 0.75 + (%elapsedTime * 0.75);
+		%maxPoints = max(mFloor((%minPoints * (%spawnCount / 3)) * %multiplier), 4);
+		%spawnRadius = mFloor(%spawnRadius * %multiplier);
+		%minPoints = mFloor(%minPoints * %multiplier);
+		%minCount = max(mFloor(%minCount * %multiplier), 2);
+		%spawnCount = max(mFloor(%spawnCount * %multiplier), 2);
 	}
 
 
@@ -588,6 +577,9 @@ function SortSpawnWeight(%a, %b) {
 function testSpawn(%gem) {
 	//Fake having nice things on the menu
 	if (getHuntSpawnType() > 1) {
+		return true;
+	}
+	if ($MP::ModeSetting["SpawnRamp"] && mp()) {
 		return true;
 	}
 	// Check for PQ-spawn mechanics

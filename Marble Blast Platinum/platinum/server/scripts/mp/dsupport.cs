@@ -145,6 +145,7 @@ function dedicatedUpdate() {
 		//No players left, cancel the load
 		lobbyReturn();
 		resetSettings();
+		resetModeSettings(true);
 		redownloadMarblelandLists(); // update the marbleland list while we're at it since we have nothing better to do
 	}
 }

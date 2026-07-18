@@ -44,6 +44,7 @@ function ClientMode_mega::onLoad(%this) {
 	%this.registerCallback("getDefaultScore");
 	%this.registerCallback("radarGetDotBitmap");
 	%this.registerCallback("nametagRaycast");
+	%this.registerCallback("loadModeSettings");
 }
 function ClientMode_mega::timeMultiplier(%this) {
 	return -1;
@@ -62,4 +63,23 @@ function ClientMode_mega::radarGetDotBitmap(%this, %object) {
 }
 function ClientMode_mega::nametagRaycast(%this) {
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+
+function ClientMode_mega::loadModeSettings(%this) {
+	%i = 0;
+	%this.serverSetting[%i++,  "Name"] = "AlwaysMega";
+	%this.serverSetting[%i,   "Title"] = "Always Mega Marble";
+	%this.serverSetting[%i,    "Type"] = "check";
+	%this.serverSetting[%i, "IsField"] = false;
+	%this.serverSetting["AlwaysMega"] = %i;
+
+	%this.serverSetting[%i++,  "Name"] = "Steal";
+	%this.serverSetting[%i,   "Title"] = "Steal Mode";
+	%this.serverSetting[%i,    "Type"] = "check";
+	%this.serverSetting[%i, "IsField"] = false;
+	%this.serverSetting["Steal"] = %i;
+	
+	%this.totalSettings = %i;
 }
