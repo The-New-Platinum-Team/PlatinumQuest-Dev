@@ -225,21 +225,51 @@ registerSoundKey("opponentDiamond");
 
 function loadMusicKeys() {
 	%pattern = expandFilename("~/client/audio/*.json");
+	%i = -1;
+	%keyedMusicListIndex = 0;
 	for (%file = findFirstFile(%pattern); %file !$= ""; %file = findNextFile(%pattern)) {
+		%i++;
 		%conts = jsonParse(fread(%file));
 
 		if (!isObject(%conts))
 			continue;
 
-		if (fileBase(%file) $= "default") {
+		%music = fileBase(%file);
+		if (%music $= "default") {
+			$OldKeyDefault = %conts;
 			$KeyDefault = %conts;
 		} else {
-			$Key[fileBase(%file)] = %conts;
+			$OldKey[%music] = %conts;
+			$Key[%music] = %conts;
+			$KeyedMusicList[%keyedMusicListIndex] = %music;
+			%keyedMusicListIndex ++;
 		}
 	}
 }
 
 loadMusicKeys();
+
+function patchMusicKeys(%patches) {
+	for (%i = 0; $KeyedMusicList[%i] !$= ""; %i ++) {
+		%music = $KeyedMusicList[%i];
+		%overrides = %patches.getFieldValue(%music);
+		if (%overrides !$= "") {
+			$Key[%music] = %overrides;
+		}
+	}
+	%defaultOverride = %patches.getFieldValue("default");
+	if (%defaultOverride !$= "") {
+		$KeyDefault = %overrides;
+	}
+}
+
+function resetMusicKeys() {
+	for (%i = 0; $KeyedMusicList[%i] !$= ""; %i ++) {
+		%music = $KeyedMusicList[%i];
+		$Key[%music] = $OldKey[%music];
+	}
+	$KeyDefault = $OldKeyDefault;
+}
 
 function playPitchedSound(%sound, %key) {
 	//Ignore on credits
@@ -472,7 +502,6 @@ function loadAudioPack(%packname) {
 		}
 		return;
 	}
-	%pack.dump();
 	warn("Executed Sound Pack" SPC %pack.name SPC "by" SPC %pack.author @ "...");
 	$Audio::CurrentAudioPack = %pack;
 
@@ -501,6 +530,7 @@ function audioPackReset(%grp) {
 					echo("Substituting modified file" SPC %filename SPC "for original audio file" SPC %oldFilename);
 				%obj.filename = %oldFilename;
 			}
+			resetMusicKeys();
 		default:
 			continue;
 		}
@@ -526,7 +556,7 @@ function audioPackIterate(%grp, %pack) {
 				%found = true;
 			} else {
 				//Pitched sounds?
-				%base = fileBase(filePath(%fileName));
+				%base = fileBase(filePath(%filename));
 
 				if (%pack.sounds.getFieldValue(%base) !$= "") {
 					%found = true;
@@ -537,13 +567,28 @@ function audioPackIterate(%grp, %pack) {
 				if (%obj.oldFilename $= "") {
 					%obj.oldFilename = %filename;
 				}
-				%newfilename = $userMods @ "/data/sound/ap_" @ %pack.identifier @ "/" @ %base @ ".wav";
-				echo("Substituting original file" SPC %filename SPC "for new audio file" SPC %newfilename);
-				if (isFile(%newfilename))
-					%obj.filename = %newfilename;
-				else
-					error("Could not find file" SPC %newfilename);
+				%newFilenameBase = $userMods @ "/data/sound/ap_" @ %pack.identifier @ "/" @ %base;
+				%newFilename = %newFilenameBase @ ".wav";
+				if (isFile(%newFilename)) {
+					echo("Substituting original file" SPC %filename SPC "for new audio file" SPC %newFilename);
+					%obj.filename = %newFilename;
+				} else {
+					// unpitched sound wasn't found; try searching for pitched sound
+					%key = fileBase(%filename);
+					%unpitchedNewFilename = %newFilename;
+					%newFilename = %newFilenameBase @ "/" @ %key @ ".wav";
+					if (isFile(%newFilename)) {
+						echo("Substituting original file" SPC %filename SPC "for new audio file" SPC %newFilename);
+						%obj.filename = %newFilename;
+					} else {
+						error("Could not find file" SPC %unpitchedNewFilename SPC "nor" SPC %newFilename);
+					}
+				}
 			}
+
+			// if pitch map overrides are specified, apply them!
+			if (%pack.pitchMapOverrides !$= "")
+				patchMusicKeys(%pack.pitchMapOverrides);
 		default:
 			continue;
 		}
