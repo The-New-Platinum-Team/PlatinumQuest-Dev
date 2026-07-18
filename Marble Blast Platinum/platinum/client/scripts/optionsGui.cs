@@ -576,6 +576,10 @@ $Options::Name    ["Gameplay", $i++] = "advancedOptions";
 $Options::Title   ["Gameplay", $i  ] = "Advanced Options";
 $Options::Tooltip ["Gameplay", $i  ] = "Adjust more niche facets of the game, for players wishing to adjust their experience further.";
 $Options::Ctrl    ["Gameplay", $i  ] = "button";
+$Options::Name    ["Gameplay", $i++] = "hudLayout";
+$Options::Title   ["Gameplay", $i  ] = "HUD Layout";
+$Options::Tooltip ["Gameplay", $i  ] = "Configure anchor points and pixel offsets for gems, timer, item indicator, and blast bar.";
+$Options::Ctrl    ["Gameplay", $i  ] = "button";
 // $Options::Name    ["Gameplay", $i++] = "oobInsults";
 // $Options::Title   ["Gameplay", $i  ] = "OOB Insults";
 // $Options::Type    ["Gameplay", $i  ] = "boolean";
@@ -1208,6 +1212,10 @@ function Opt_texturePack_edit() {
 function Opt_advancedOptions_edit() {
 	// Dialog does all the config for us
 	RootGui.pushDialog(AdvancedOptionsDlg);
+}
+
+function Opt_hudLayout_edit() {
+	RootGui.pushDialog(HudLayoutDlg);
 }
 
 //-----------------------------------------------------------------------------
