@@ -55,6 +55,9 @@ function cleanUseName(%useName)
 }
 
 // ...and this actually does the useName swapping stuff. ~ Connie
+/**
+ * @param {ItemData} %this
+ */
 function PowerUp::getUseName(%this)
 {
 	if ($Audio::CurrentAudioPack.changepowerupnames) {
@@ -64,6 +67,11 @@ function PowerUp::getUseName(%this)
 	return %this.useName;
 }
 
+/**
+ * @param {Powerup} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	// Dont' pickup the power up if it's the same
 	// one we already have.
@@ -106,6 +114,10 @@ function PowerUp::onPickup(%this,%obj,%user,%amount) {
 	return true;
 }
 
+/**
+ * @param {PowerUp} %this
+ * @param {ShapeBase} %user
+ */
 function PowerUp::onUse(%this, %obj, %user) {
 	%user.playAudio(0, %this.activeAudio);
 
@@ -558,6 +570,10 @@ datablock ItemData(RandomPowerUpItem) {
 	customField[1, "default"] = $Game::TimeTravelBonus;
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function RandomPowerUpItem::getPickupName(%this, %obj) {
 	if (%obj.timeBonus !$= "")
 		%time = %obj.timeBonus / 1000;
@@ -567,6 +583,9 @@ function RandomPowerUpItem::getPickupName(%this, %obj) {
 	return "a " @ %time @ " second Time Travel!";
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function RandomPowerUpItem::OnPickup(%this,%obj,%user,%amount) {
 	// for PQ, we can not have a time travel item
 	if (MissionInfo.game $= "PlatinumQuest")
@@ -671,6 +690,10 @@ datablock ItemData(SundialItem_PQ : TimeTravelItem) {
 	replacement = "TimePenaltyItem_PQ";
 };
 
+/**
+ * @param {TimeTravelItem} %this
+ * @param {Item} %obj
+ */
 function TimeTravelItem::onAdd(%this, %obj) {
 	if (%obj.timeBonus $= "")
 		%obj.timeBonus = "5000";
@@ -696,6 +719,11 @@ function TimeTravelItem::onAdd(%this, %obj) {
 	%obj.setSkinName(%obj.skin);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
 	%ret = $LB::LoggedIn || $Server::Dedicated;
 	if (%ret && $platform $= "windows") {
@@ -743,22 +771,40 @@ function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
 	return true;
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function TimeTravelItem_PQ::onAdd(%this, %obj) {
 	return TimeTravelItem::onAdd(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimeTravelItem_PQ::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimeTravelItem_MBU::onAdd(%this, %obj) {
 	return TimeTravelItem::onAdd(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimeTravelItem_MBU::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function SundialItem_PQ::onAdd(%this, %obj) {
 	return TimeTravelItem::onAdd(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function SundialItem_PQ::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
@@ -814,6 +860,10 @@ datablock ItemData(TimePenaltyItem_PQ : TimeTravelItem) {
 // 	grayMessageColor = "cccccc";
 // };
 
+/**
+ * @param {TimeTravelItem} %this
+ * @param {Item} %obj
+ */
 function TimePenaltyItem::onAdd(%this, %obj) {
 	if (%obj.timePenalty $= "")
 		%obj.timePenalty = "5000";
@@ -839,6 +889,11 @@ function TimePenaltyItem::onAdd(%this, %obj) {
 	%this.checkTime(%obj);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function TimePenaltyItem::onPickup(%this,%obj,%user,%amount) {
 	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
 		return false;
@@ -880,16 +935,28 @@ function TimePenaltyItem::onPickup(%this,%obj,%user,%amount) {
 	return true;
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function TimePenaltyItem_PQ::onAdd(%this, %obj) {
 	TimePenaltyItem::onAdd(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimePenaltyItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function TimePenaltyItem_MBU::onAdd(%this, %obj) {
 	TimePenaltyItem::onAdd(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimePenaltyItem_MBU::onPickup(%this, %obj, %user, %amount) {
 	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
 }
@@ -927,32 +994,58 @@ datablock ItemData(RespawningTimePenaltyItem_PQ : TimePenaltyItem_PQ) {
 	replacement = "RespawningTimeTravelItem_PQ";
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function RespawningTimeTravelItem::onAdd(%this, %obj) {
 	TimeTravelItem::onAdd(%this, %obj);
 	if (%obj.respawnTime $= "")
 		%obj.respawnTime = "7000";
 }
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function RespawningTimePenaltyItem::onAdd(%this, %obj) {
 	TimePenaltyItem::onAdd(%this, %obj);
 	if (%obj.respawnTime $= "")
 		%obj.respawnTime = "7000";
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimeTravelItem_PQ::onAdd(%this, %obj) {
 	RespawningTimeTravelItem::onAdd(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimePenaltyItem_PQ::onAdd(%this, %obj) {
 	RespawningTimePenaltyItem::onAdd(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimeTravelItem::onPickup(%this, %obj, %user, %amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimePenaltyItem::onPickup(%this, %obj, %user, %amount) {
 	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimeTravelItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimePenaltyItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
 }
@@ -960,6 +1053,10 @@ function RespawningTimePenaltyItem_PQ::onPickup(%this, %obj, %user, %amount) {
 //-----------------------------------------------------------------------------
 // Negative TTs should become TPs and vice versa
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function TimeTravelItem::checkTime(%this, %obj) {
 	if (%obj.timeBonus >= 0 || %obj.timeBonus $= "") {
 		return;
@@ -971,15 +1068,28 @@ function TimeTravelItem::checkTime(%this, %obj) {
 	%obj.setDataBlock(%replacement);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function TimeTravelItem_PQ::checkTime(%this, %obj) {
 	TimeTravelItem::checkTime(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function SundialItem_PQ::checkTime(%this, %obj) {
 	TimeTravelItem::checkTime(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimeTravelItem_MBU::checkTime(%this, %obj) {
 	TimeTravelItem::checkTime(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function TimePenaltyItem::checkTime(%this, %obj) {
 	if (%obj.timePenalty >= 0 || %obj.timePenalty $= "") {
 		return;
@@ -990,50 +1100,92 @@ function TimePenaltyItem::checkTime(%this, %obj) {
 	%obj.timePenalty = "";
 	%obj.setDataBlock(%replacement);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimePenaltyItem_PQ::checkTime(%this, %obj) {
 	TimePenaltyItem::checkTime(%this, %obj);
 }
 
+/**
+ * @param {TimeTravelItem} %this
+ */
 function TimeTravelItem::onInspectApply(%this, %obj) {
 	Parent::onInspectApply(%this, %obj);
 	%this.checkTime(%obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimeTravelItem_PQ::onInspectApply(%this, %obj) {
 	TimeTravelItem::onInspectApply(%this, %obj);
 }
+/**
+ * @param {TimePenaltyItem} %this
+ */
 function TimePenaltyItem::onInspectApply(%this, %obj) {
 	Parent::onInspectApply(%this, %obj);
 	%this.checkTime(%obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function TimePenaltyItem_PQ::onInspectApply(%this, %obj) {
 	TimePenaltyItem::onInspectApply(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function SundialItem_PQ::onInspectApply(%this, %obj) {
 	TimeTravelItem::onInspectApply(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimeTravelItem::checkTime(%this, %obj, %user, %amount) {
 	TimeTravelItem::checkTime(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimePenaltyItem::checkTime(%this, %obj, %user, %amount) {
 	TimePenaltyItem::checkTime(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimeTravelItem_PQ::checkTime(%this, %obj, %user, %amount) {
 	TimeTravelItem::checkTime(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimePenaltyItem_PQ::checkTime(%this, %obj, %user, %amount) {
 	TimePenaltyItem::checkTime(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimeTravelItem::onInspectApply(%this, %obj, %user, %amount) {
 	TimeTravelItem::onInspectApply(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimePenaltyItem::onInspectApply(%this, %obj, %user, %amount) {
 	TimePenaltyItem::onInspectApply(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimeTravelItem_PQ::onInspectApply(%this, %obj, %user, %amount) {
 	TimeTravelItem::onInspectApply(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function RespawningTimePenaltyItem_PQ::onInspectApply(%this, %obj, %user, %amount) {
 	TimePenaltyItem::onInspectApply(%this, %obj, %user, %amount);
 }
@@ -1082,10 +1234,19 @@ datablock ItemData(AntiGravityItem_PQ : AntiGravityItem) {
 // 	pickupName = "a Gravity Modifier!";
 // };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function AntiGravityItem::onAdd(%this, %obj) {
 	%obj.playThread(0,"Ambient");
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function AntiGravityItem::onPickup(%this,%obj,%user,%amount) {
 	%rotation = getWords(%obj.getTransform(),3);
 	%ortho = vectorOrthoBasis(%rotation);
@@ -1105,17 +1266,29 @@ function AntiGravityItem::onPickup(%this,%obj,%user,%amount) {
 /// I wish datablocks had better subclassing in TorqueScript :l
 /// The following is a workaround for PQ shapes to share the same code
 /// {
+/**
+ * @param {ItemData} %this
+ */
 function AntiGravityItem_PQ::onAdd(%this, %obj) {
 	AntiGravityItem::onAdd(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function AntiGravityItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return AntiGravityItem::onPickup(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function AntiGravityItem_MBU::onAdd(%this, %obj) {
 	AntiGravityItem::onAdd(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function AntiGravityItem_MBU::onPickup(%this, %obj, %user, %amount) {
 	return AntiGravityItem::onPickup(%this, %obj, %user, %amount);
 }
@@ -1143,10 +1316,17 @@ datablock ItemData(EasterEgg) {
 	noPickupMessage = true; // Don't display a message here. We're doing it later.
 };
 
+/**
+ * @param {ItemData} %this
+ */
 function EasterEgg::getPickupName(%this, %obj) {
 	return "an Easter Egg!";
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Type} %user
+ */
 function EasterEgg::onPickup(%this,%obj,%user,%amount) {
 	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
 		return false;
@@ -1168,6 +1348,9 @@ function EasterEgg::onPickup(%this,%obj,%user,%amount) {
 	return true;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdEggStatus(%client, %status, %display, %pickup) {
 	if (%status) {
 		%client.playPitchedSound("easter");
@@ -1249,6 +1432,10 @@ datablock ItemData(NestEgg_PQ) {
 	customField[0, "default"] = "";
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function NestEgg_PQ::onAdd(%this, %obj) {
 	if (%obj.skin $= "")
 		%obj.skin = "base";
@@ -1268,18 +1455,30 @@ function NestEgg_PQ::onAdd(%this, %obj) {
 		%obj.setSkinName("base");
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function NestEgg_PQ::getPickupName(%this, %obj) {
 	return "a Nest Egg!";
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function NestEgg_PQ::onPickup(%this,%obj,%user,%amount) {
 	return EasterEgg::onPickup(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function EasterEgg_MBU::onPickup(%this,%obj,%user,%amount) {
 	return EasterEgg::onPickup(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function EasterEgg_MBG::onPickup(%this,%obj,%user,%amount) {
 	return EasterEgg::onPickup(%this, %obj, %user, %amount);
 }
@@ -1310,10 +1509,19 @@ datablock ItemData(NoRespawnAntiGravityItem) {
 	density = 9001; // actually transfers, used for item collision
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function NoRespawnAntiGravityItem::onAdd(%this, %obj) {
 	%obj.playThread(0,"Ambient");
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function NoRespawnAntiGravityItem::onPickup(%this,%obj,%user,%amount) {
 	%rotation = getWords(%obj.getTransform(),3);
 	%ortho = VectorRemoveNotation(VectorOrthoBasis(%rotation));
@@ -1342,18 +1550,30 @@ datablock ItemData(NoRespawnAntiGravityItem_PQ : NoRespawnAntiGravityItem) {
 // 	pickupName = "a Gravity Modifier!";
 // };
 
+/**
+ * @param {ItemData} %this
+ */
 function NoRespawnAntiGravityItem_PQ::onAdd(%this, %obj) {
 	NoRespawnAntiGravityItem::onAdd(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function NoRespawnAntiGravityItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return NoRespawnAntiGravityItem::onPickup(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function NoRespawnAntiGravityItem_MBU::onAdd(%this, %obj) {
 	NoRespawnAntiGravityItem::onAdd(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function NoRespawnAntiGravityItem_MBU::onPickup(%this, %obj, %user, %amount) {
 	return NoRespawnAntiGravityItem::onPickup(%this, %obj, %user, %amount);
 }
@@ -1399,17 +1619,31 @@ datablock ShapeBaseImageData(BlastImage) {
 	useShaders = true;
 };
 
+/**
+ * @param {ItemData} %this
+ */
 function BlastItem_MBU::onAdd(%this, %obj) {
 	return BlastItem::onAdd(%this, %obj);
 }
+/**
+ * @param {ItemData} %this
+ */
 function BlastItem_MBU::onPickup(%this,%obj,%user,%amount) {
 	return BlastItem::onPickup(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function BlastItem::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Type} %user
+ */
 function BlastItem::onPickup(%this, %obj, %user, %amount) {
 	if (%user.client.disableBlast) {
 		return false;
@@ -1422,6 +1656,9 @@ function BlastItem::onPickup(%this, %obj, %user, %amount) {
 	return true;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdPickupBlast(%client, %obj) {
 	%powerup = getServerSyncObject(%obj);
 	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
@@ -1486,26 +1723,47 @@ datablock ItemData(MegaMarbleItem) {
 	customField[1, "default"] = "10000";
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function MegaMarbleItem::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function MegaMarbleItem_MBU::onAdd(%this, %obj) {
 	return MegaMarbleItem::onAdd(%this, %obj);
 }
 
 //God I fucking love TorqueScript, having to use hacky solutions to make this shit WORK! - daniel
 
+/**
+ * @param {ItemData} %this
+ */
 function MegaMarbleItem_MBU::onPickup(%this,%obj,%user,%amount) {
 	return MegaMarbleItem::onPickup(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function MegaMarbleItem_MBU::onUse(%this,%obj,%user,%amount) {
 	return MegaMarbleItem::onUse(%this, %obj, %user, %amount);
 }
+/**
+ * @param {ItemData} %this
+ */
 function MegaMarbleItem_MBU::onUnuse(%this,%obj,%user,%amount) {
 	return MegaMarbleItem::onUnuse(%this, %obj, %user, %amount);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function MegaMarbleItem::onUse(%this, %obj, %user) {
 	%timeout = (%obj.timeout > 0 ? %obj.timeout : %this.defaultTimeout);
 	if (isCompetitiveMode()) {
@@ -1539,6 +1797,10 @@ function MegaMarbleItem::onUse(%this, %obj, %user) {
 	return Parent::onUse(%this, %obj, %user);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Type} %user
+ */
 function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 	cancel(%user.megaSchedule);
 	%user.client.play2d(MegaShrinkSfx);
@@ -1560,6 +1822,9 @@ function MegaMarbleItem::onUnuse(%this, %obj, %user) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdMegaMarbleUse(%client, %obj) {
 	%powerup = getServerSyncObject(%obj);
 	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
@@ -1630,6 +1895,10 @@ datablock StaticShapeData(WireBall) {
 	shapeFile = "~/data/shapes_pq/Other/wireball.dts";
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function TeleportItem::onAdd(%this, %obj) {
 	if (%obj.teletime $= "")
 		%obj.teletime = 2000;
@@ -1641,6 +1910,10 @@ function TeleportItem::onAdd(%this, %obj) {
 	Parent::onAdd(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function TeleportItem::onInspectApply(%this, %obj) {
 	if (%obj.keepVelocity) {
 		%obj.setSkinName("yellow");
@@ -1649,6 +1922,11 @@ function TeleportItem::onInspectApply(%this, %obj) {
 	}
 }
 
+/**
+ * @param {TeleportItem} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function TeleportItem::onUse(%this, %obj, %user) {
 	if ($powerupLocked) {
 		%this.heldPowerup = %item;
@@ -1671,6 +1949,10 @@ function TeleportItem::onUse(%this, %obj, %user) {
 
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function TeleportItem::getPickupName(%this, %obj) {
 	if (%obj.keepVelocity) {
 		if ($Audio::CurrentAudioPack.changepowerupnames == 1 && $Audio::CurrentAudioPack.powerupstrings.transporter !$= "")
@@ -1685,6 +1967,11 @@ function TeleportItem::getPickupName(%this, %obj) {
 	}
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {ShapeBase} %user
+ */
 function TeleportItem::performTeleport(%this, %obj, %user) {
 	%user.teleporterWire.delete();
 
@@ -1697,6 +1984,11 @@ function TeleportItem::performTeleport(%this, %obj, %user) {
 	commandToClient(%user.client, 'PushTimer', %id, getSimTime(), %user.teleporterTime);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function TeleportItem::finishTeleport(%this, %obj, %user) {
 	%user.setCloaked(false);
 
@@ -1713,6 +2005,11 @@ function TeleportItem::finishTeleport(%this, %obj, %user) {
 	%user.teleporterLocationSet = false;
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function TeleportItem::setLocation(%this, %obj, %user) {
 	//Create a wire marble for showing the location
 	%user.teleporterWire = new StaticShape() {
@@ -1738,6 +2035,9 @@ function TeleportItem::setLocation(%this, %obj, %user) {
 	%user.teleporterFireNum = %user.client.fireNum;
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeleportUse(%client, %obj) {
 	%powerup = getServerSyncObject(%obj);
 	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
@@ -1793,6 +2093,9 @@ datablock ItemData(AnvilItem) {
 	customField[0, "default"] = "0";
 };
 
+/**
+ * @param {ItemData} %this
+ */
 function AnvilItem::getData(%this, %obj) {
 	return "";
 }
@@ -1881,6 +2184,10 @@ datablock ItemData(BubbleItem) {
 // Player has a timer of some sort indicating how much time is left (maybe use progressbar.png, ~\pqport\data\shapes)
 // Level specific code where this powerup is toggleable on/off is not to be done here, but in the specific level(s).
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function BubbleItem::onAdd(%this, %obj) {
 	if (%obj.Infinite $= "")
 		%obj.Infinite = 0;
@@ -1894,6 +2201,11 @@ function BubbleItem::onAdd(%this, %obj) {
 	Parent::onAdd(%this, %obj);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Type} %user
+ */
 function BubbleItem::onPickup(%this, %obj, %user, %amount) {
 	if (%user.client.bubbleInfinite)
 		return false; //already have infinite, no sense to pick up another one
@@ -1914,6 +2226,9 @@ function BubbleItem::onPickup(%this, %obj, %user, %amount) {
 	return true;
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdBubbleTime(%client, %time) {
 	//Just take their word for it, as long as they don't *increase* their time
 	if (%client.bubbleTime > %time) {
@@ -1921,6 +2236,9 @@ function serverCmdBubbleTime(%client, %time) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdPickupBubble(%client, %obj) {
 	%powerup = getServerSyncObject(%obj);
 	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
@@ -1965,6 +2283,10 @@ datablock ItemData(CustomSuperJumpItem_PQ : SuperJumpItem) {
 	customField[1, "default"] = "10";
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function CustomSuperJumpItem_PQ::onAdd(%this, %obj) {
 	if (%obj.power $= "")
 		%obj.power = 10;
@@ -1972,6 +2294,10 @@ function CustomSuperJumpItem_PQ::onAdd(%this, %obj) {
 	%obj.setSync();
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function CustomSuperJumpItem_PQ::getData(%this, %obj) {
 	return "power" TAB %obj.power;
 }
@@ -2257,6 +2583,9 @@ datablock ItemData(SuperStopItem) {
 	maxInventory = 1;
 };
 
+/**
+ * @param {ItemData} %this
+ */
 function SuperStopItem::onUse(%this, %obj, %user) {
 	$MP::MyMarble.setVelocity("0 0 0");
 	$mvTriggerCount1++;

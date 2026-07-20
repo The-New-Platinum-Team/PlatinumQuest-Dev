@@ -59,6 +59,9 @@ function serverSendCallback(%cb, %arg) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendCallback(%this, %cb, %arg) {
 	commandToClient(%this, addTaggedString("cb" @ %cb), %arg);
 }

@@ -158,6 +158,9 @@ function menuOnMissionLoadFailed() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MissionQueue} %queue
+ */
 function menuPlayQueue(%queue) {
 	echo("*** Menu play queue: " @ %queue.class SPC %queue.getName() SPC %queue.getId());
 	$Menu::Queue = %queue;

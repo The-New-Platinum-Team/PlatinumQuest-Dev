@@ -24,6 +24,9 @@ new ScriptObject(RtaSpeedrun) {
 	class = "RtaSpeedrun";
 };
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::create(%this) {
 	%this.setIsValid(false);
 	%this.setShouldStartRun(false);
@@ -61,6 +64,9 @@ function RtaSpeedrun::create(%this) {
 RtaSpeedrun.schedule(100, create);
 
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::onFrameAdvanceWithPause(%this, %timeDelta) {
 	if (%this.isEnabled && !($Client::Loading || $Game::Loading || $Menu::Loading)) {
 		%this.setTime(add64_int(%this.time, %timeDelta / getTimeScale()));
@@ -69,6 +75,9 @@ function RtaSpeedrun::onFrameAdvanceWithPause(%this, %timeDelta) {
 }
 
 package RtaSpeedrunFrameAdvance {
+	/**
+	 * @param {Type} %timeDelta
+	 */
 	function onFrameAdvanceWithPause(%timeDelta) {
 		Parent::onFrameAdvanceWithPause(%timeDelta);
 		RtaSpeedrun.onFrameAdvanceWithPause(%timeDelta);
@@ -76,6 +85,9 @@ package RtaSpeedrunFrameAdvance {
 };
 activatePackage(RtaSpeedrunFrameAdvance);
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::updateTimers(%this) {
 	if (!%this.isEnabled && !%this.isDone) {
 		if (%this.shouldStartRun || %this.isCrashRecoveryMode)
@@ -133,12 +145,18 @@ function RtaSpeedrun::updateTimers(%this) {
 	%this.setTimerText(%text);
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setTimerText(%this, %text) {
 	PlayGui.updateRtaSpeedrunTimer(%text);
 	PlayMissionGui.updateRtaSpeedrunTimer(%text);
 	LoadingGui.updateRtaSpeedrunTimer(%text);
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::start(%this) {
 	%this.setShouldStartRun(true);
 	%this.setIsEnabled(false);
@@ -162,6 +180,9 @@ function RtaSpeedrun::start(%this) {
 	echo("Good luck!");
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::stop(%this) {
 	%this.setShouldStartRun(false);
 	%this.setIsEnabled(false);
@@ -171,6 +192,9 @@ function RtaSpeedrun::stop(%this) {
 	%this.clearProgress();
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setEnd(%this, %arg) {
 	if (%arg $= "") {
 		%this.endMissionInfo = PlayMissionGui.getMissionInfo();
@@ -185,6 +209,9 @@ function RtaSpeedrun::setEnd(%this, %arg) {
 	}
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::missionStarted(%this) {
 	RTAAS_setCurrentMission($Server::MissionFile);
 	if (%this.isCrashRecoveryMode) {
@@ -218,6 +245,9 @@ function RtaSpeedrun::missionStarted(%this) {
 
 // Copied from EndGameDlg::getNextLevel but without accounting for unlocks (to prevent false positives)
 // Returns: end of difficulty NL end of game
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::checkCategoryEnds(%this) {
 	if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
 		devecho("RtaSpeedrun::checkCategoryEnds: 1 1 (early mbl exit)");
@@ -262,6 +292,9 @@ function RtaSpeedrun::checkCategoryEnds(%this) {
 	return %endOfMissionType NL %endOfGame;
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::missionEnded(%this) {
 	if (!%this.isEnabled)
 		return;
@@ -298,6 +331,9 @@ function RtaSpeedrun::missionEnded(%this) {
 	%this.saveProgress();
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::missionRestarted(%this) {
 	if (!%this.isEnabled)
 		return;
@@ -309,6 +345,9 @@ function RtaSpeedrun::missionRestarted(%this) {
 	%this.saveProgress();
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::eggCollected(%this) {
 	if (!%this.isEnabled)
 		return;
@@ -324,6 +363,9 @@ function RtaSpeedrun::eggCollected(%this) {
 	%this.saveProgress();
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
 	// Some games/categories have multiple valid places to represent the "end" of the speedrun. We want to account for
 	// all of them, and even let the same run count towards each of the categories.
@@ -349,6 +391,9 @@ function RtaSpeedrun::isGameEndSpecialCase(%this, %mission) {
 	return false;
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::saveProgress(%this) {
 	if (%this.isCrashRecoveryMode)
 		return;
@@ -367,6 +412,9 @@ function RtaSpeedrun::saveProgress(%this) {
 	export("$RtaProgress::*", "~/client/rtaProgress.cs", False);
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::loadProgress(%this) {
 	%progressFile = "platinum/client/rtaProgress.cs";
 	if (!isFile(%progressFile)) {
@@ -385,6 +433,9 @@ function RtaSpeedrun::loadProgress(%this) {
 	return true;
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::clearProgress(%this) {
 	%progressFile = "platinum/client/rtaProgress.cs";
 	if (isFile(%progressFile))
@@ -409,6 +460,9 @@ function restartRtaSpeedrun(%val) {
 	MessageBoxYesNo("Restart run?", "Really reset RTA speedrun and restart from the beginning?", "RtaSpeedrun.doRestartRun();", %noCallback);
 }
 
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::doRestartRun(%this, %missionToLoad) {
 	RtaSpeedrun.restartMessageBoxOpen = false;
 	if ($gamePaused)
@@ -426,42 +480,72 @@ function RtaSpeedrun::doRestartRun(%this, %missionToLoad) {
 }
 
 // Setters for most properties, to update the RTAAutosplitter plugin's values as well
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setIsValid(%this, %isValid) {
 	%this.isValid = %isValid;
 	RTAAS_setIsValid(%this.isValid);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setIsEnabled(%this, %isEnabled) {
 	%this.isEnabled = %isEnabled;
 	RTAAS_setIsEnabled(%this.isEnabled);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setIsDone(%this, %isDone) {
 	%this.isDone = %isDone;
 	RTAAS_setIsDone(%this.isDone);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setShouldStartRun(%this, %shouldStartRun) {
 	%this.shouldStartRun = %shouldStartRun;
 	RTAAS_setShouldStartRun(%this.shouldStartRun);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setIsCrashRecoveryMode(%this, %isCrashRecoveryMode) {
 	%this.isCrashRecoveryMode = %isCrashRecoveryMode;
 	RTAAS_setIsCrashRecoveryMode(%this.isCrashRecoveryMode);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setTime(%this, %time) {
 	%this.time = %time;
 	RTAAS_setTime(%this.time);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setLastSplitTime(%this, %time) {
 	%this.lastSplitTime = %time;
 	RTAAS_setLastSplitTime(%this.lastSplitTime);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setLastEggTime(%this, %time) {
 	%this.lastEggTime = %time;
 	RTAAS_setLastEggTime(%this.lastEggTime);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setMissionTypeBeganTime(%this, %time) {
 	%this.missionTypeBeganTime = %time;
 	RTAAS_setMissionTypeBeganTime(%this.missionTypeBeganTime);
 }
+/**
+ * @param {RtaSpeedrun} %this
+ */
 function RtaSpeedrun::setCurrentGameBeganTime(%this, %time) {
 	%this.currentGameBeganTime = %time;
 	RTAAS_setCurrentGameBeganTime(%this.currentGameBeganTime);

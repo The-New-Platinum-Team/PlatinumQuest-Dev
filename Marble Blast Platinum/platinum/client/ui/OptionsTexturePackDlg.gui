@@ -225,15 +225,24 @@ function SortTexturePack(%a, %b) {
 	return stricmp(getField(%a, 0), getField(%b, 0)) < 0;
 }
 
+/**
+ * @param {OptionsTexturePackDlg} %this
+ */
 function OptionsTexturePackDlg::onWake(%this) {
 	buildTexturePackArray();
 	%this.buildLists();
 }
 
+/**
+ * @param {OptionsTexturePackDlg} %this
+ */
 function OptionsTexturePackDlg::close(%this) {
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {OptionsTexturePackDlg} %this
+ */
 function OptionsTexturePackDlg::buildLists(%this) {
 	OTPD_PackListContent.clear();
 	OTPD_ActiveListContent.clear();
@@ -454,6 +463,9 @@ function OptionsTexturePackDlg::buildLists(%this) {
 	}
 }
 
+/**
+ * @param {OptionsTexturePackDlg} %this
+ */
 function OptionsTexturePackDlg::activatePack(%this, %pack) {
 	%found = false;
 	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
@@ -471,6 +483,9 @@ function OptionsTexturePackDlg::activatePack(%this, %pack) {
 	$Options::TexturePackDirty = true;
 }
 
+/**
+ * @param {OptionsTexturePackDlg} %this
+ */
 function OptionsTexturePackDlg::movePackDown(%this, %pack) {
 	%found = false;
 	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
@@ -492,6 +507,9 @@ function OptionsTexturePackDlg::movePackDown(%this, %pack) {
 	$Options::TexturePackDirty = true;
 }
 
+/**
+ * @param {OptionsTexturePackDlg} %this
+ */
 function OptionsTexturePackDlg::movePackUp(%this, %pack) {
 	%found = false;
 	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {
@@ -513,6 +531,9 @@ function OptionsTexturePackDlg::movePackUp(%this, %pack) {
 	$Options::TexturePackDirty = true;
 }
 
+/**
+ * @param {OptionsTexturePackDlg} %this
+ */
 function OptionsTexturePackDlg::deactivatePack(%this, %pack) {
 	%found = false;
 	for (%i = 0; $pref::Video::TexturePack[%i] !$= ""; %i ++) {

@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_snowball::onLoad(%this) {
 	%this.registerCallback("onCreatePlayer");
 	%this.registerCallback("onMissionLoaded");
@@ -31,16 +34,29 @@ function Mode_snowball::onLoad(%this) {
 	%this.registerCallback("modifyPlayerScoreData");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_snowball} %this
+ */
 function Mode_snowball::onMissionLoaded(%this) {
 	initSnow();
 	initSnowParticles();
 }
+/**
+ * @param {Mode_snowball} %this
+ */
 function Mode_snowball::onMissionEnded(%this) {
 	resetSnowParticles();
 }
+/**
+ * @param {Mode_snowball} %this
+ * @param {Type} %object
+ */
 function Mode_snowball::onPlayerJoin(%this, %object) {
 	commandToClient(%object.client, 'SnowballsOnly', $MP::Server::SnowballsOnly);
 }
+/**
+ * @param {Mode_snowball} %this
+ */
 function Mode_snowball::onMissionReset(%this) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -48,10 +64,18 @@ function Mode_snowball::onMissionReset(%this) {
 		ClientGroup.getObject(%i).snowballhits = 0;
 	}
 }
+/**
+ * @param {Mode_snowball} %this
+ */
 function Mode_snowball::onCreatePlayer(%this, %data) {
+	/** @type {GameConnection} */
 	%client = %data.client;
 	%client.createGhostHat(SantaHatImage, SantaHatLargeImage);
 }
+/**
+ * @param {Mode_snowball} %this
+ * @param {Type} %object
+ */
 function Mode_snowball::modifyPlayerScoreData(%this, %object) {
 	%data = %object.data @ "&scores[snowballs][]=" @ %object.client.snowballs;
 	%data = %data @ "&scores[snowballhits][]=" @ %object.client.snowballhits;
@@ -59,6 +83,14 @@ function Mode_snowball::modifyPlayerScoreData(%this, %object) {
 }
 
 package Mode_snowball {
+	/**
+	 * @param {Mode} %this
+	 * @param {Type} %ice
+	 * @param {Type} %marble
+	 * @param {Type} %unused1
+	 * @param {Type} %unused2
+	 * @param {Type} %material
+	 */
 	function IceShard::onCollision(%this, %ice, %marble, %unused1, %unused2, %material) {
 		if (!Parent::onCollision(%this, %ice, %marble, %unused1, %unused2, %material))
 			return;
@@ -69,6 +101,9 @@ package Mode_snowball {
 	}
 };
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSnowballsOnly(%client, %enable) {
 	if (%client.isHost()) {
 		$MP::Server::SnowballsOnly = %enable;
@@ -125,10 +160,18 @@ datablock ParticleEmitterData(SnowballCollisionEmitter) {
 datablock StaticShapeData(ThrownSnowball) {
 	shapeFile = "~/data/shapes/Xmas/snowball/snowball.dts";
 };
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ThrownSnowball::onAdd(%this, %obj) {
 	%obj.setSkinName("uskin31");
 }
 
+/**
+ * @param {ThrownSnowball} %this
+ * @param {StaticShape} %obj
+ */
 function ThrownSnowball::updateThrow(%this, %obj) {
 	//Update the position of the snowball
 	%oldPos = getWords(%obj.getTransform(), 0, 2);
@@ -219,6 +262,10 @@ function ThrownSnowball::updateThrow(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ThrownSnowball::collide(%this, %obj, %position, %normal) {
 	//Calculate the axis/angle for the collision normal
 	%normal = VectorNormalize(%normal);
@@ -246,6 +293,10 @@ function ThrownSnowball::collide(%this, %obj, %position, %normal) {
 	%obj.delete();
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ThrownSnowball::throw(%this, %obj, %yawPitch, %gravity) {
 	%yaw   = getWord(%yawPitch, 0);
 	%pitch = getWord(%yawPitch, 1);
@@ -259,6 +310,9 @@ function ThrownSnowball::throw(%this, %obj, %yawPitch, %gravity) {
 	%this.schedule($SnowballTick, "updateThrow", %obj);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdThrowSnowball(%client, %direction, %position) {
 	if (%client.state $= "End" || $Game::State $= "End") {
 		return;
@@ -337,6 +391,9 @@ function resetSnowParticles() {
 	UltraBlastSmoke.revertSnow();
 }
 
+/**
+ * @param {ParticleData} %this
+ */
 function ParticleData::applySnow(%this) {
 	if (!%this.snow) {
 		%this.snow = true;
@@ -351,6 +408,9 @@ function ParticleData::applySnow(%this) {
 	}
 }
 
+/**
+ * @param {ParticleData} %this
+ */
 function ParticleData::revertSnow(%this) {
 	if (%this.snow) {
 		%this.snow = false;
@@ -446,6 +506,9 @@ datablock StaticShapeData(SantaHatLargeImage) {
 	emap = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function SantaHatImage::onAdd(%this, %obj) {
 	//Something
 }
@@ -465,11 +528,20 @@ datablock AudioProfile(SnowGlobeSfx) {
 	preload = true;
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function SnowGlobe::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.rotate = 0;
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Type} %user
+ */
 function SnowGlobe::onPickup(%this, %obj, %user, %amount) {
 	//Save time for easter egg races
 	if (Mode::callback("timeMultiplier", 1) > 0) {
@@ -523,21 +595,37 @@ datablock StaticShapeData(ChristmasLights9T) {
 	renderDistance = "20";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasLights2T::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasLights3T::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasLights6T::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasLights9T::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
@@ -580,26 +668,46 @@ datablock StaticShapeData(ChristmasTreeSnowyLong) {
 	renderDistance = "80";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasTreeDecorated::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasTreeNormal::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasTreeNormalDark::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasTreeSnowy::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ChristmasTreeSnowyLong::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
@@ -727,6 +835,10 @@ datablock StaticShapeData(GiftCrateTeared) {
 	renderDistance = "30";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function GiftCrateNormalOpen::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -736,6 +848,10 @@ function GiftCrateNormalOpen::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function GiftCrateBigNormal::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -745,6 +861,10 @@ function GiftCrateBigNormal::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function GiftCrateNormalClosed::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -754,6 +874,10 @@ function GiftCrateNormalClosed::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function GiftCrateNormal::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -763,6 +887,10 @@ function GiftCrateNormal::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function GiftCrateTeared::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -818,6 +946,10 @@ datablock StaticShapeData(Mistletoes) {
 	renderDistance = "40";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Mistletoes::onAdd(%this, %obj) {
 	%obj.setSkinName(%obj.skin);
 }
@@ -890,6 +1022,10 @@ datablock StaticShapeData(Snowman) {
 	renderDistance = "50";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Snowman::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -1017,6 +1153,10 @@ datablock StaticShapeData(SockwNobody) {
 	renderDistance = "20";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function SockwGame::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -1026,6 +1166,10 @@ function SockwGame::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function SockwGift::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];
@@ -1035,6 +1179,10 @@ function SockwGift::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function SockwNobody::onAdd(%this, %obj) {
 	if (%obj.skin $= "") {
 		%skin = %this.skin[getRandom(0, %this.skins - 1)];

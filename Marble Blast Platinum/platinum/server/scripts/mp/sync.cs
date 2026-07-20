@@ -51,6 +51,9 @@ function serverCleanSyncObjects() {
 	}
 }
 
+/**
+ * @param {NetObject} %this
+ */
 function NetObject::setSync(%this, %finishCmd, %arg0) {
 	//Damnit
 	%this = %this.getId();
@@ -79,12 +82,18 @@ function NetObject::setSync(%this, %finishCmd, %arg0) {
 }
 
 //Resend the sync object using the same parameters as when it was first synced
+/**
+ * @param {NetObject} %this
+ */
 function NetObject::resync(%this) {
 	if (%this._sync) {
 		%this.setSync(%this._syncCmd, %this._syncArg0);
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::testSyncObjects(%this) {
 	for (%i = 0; %i < $Server::SyncObjects; %i ++) {
 		%obj = $Server::SyncObject[%i];
@@ -97,6 +106,9 @@ function GameConnection::testSyncObjects(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendSyncObjects(%this) {
 	serverCleanSyncObjects();
 
@@ -112,6 +124,10 @@ function GameConnection::sendSyncObjects(%this) {
 	%this.sentSyncObjects = true;
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {ShapeBase} %object
+ */
 function GameConnection::syncObject(%this, %object, %finishCmd, %arg0) {
 	%db = (%object.getType() & $TypeMasks::GameBaseObjectType) ? %object.getDataBlock().getName() @ " / " : "";
 	devecho("Sending sync object " @ %object @ " to " @ %this @ " cmd " @ %finishCmd @ " of type " @ %db @ %object.getParentClasses());
@@ -143,6 +159,9 @@ function GameConnection::syncObject(%this, %object, %finishCmd, %arg0) {
 	//commandToClient(%this, 'SyncObjectTest', %object.getSyncId(), %finishCmd, %arg0);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSyncObjectResend(%client, %id, %finishCmd, %arg0) {
 	%object = getServerSyncObject(%id);
 	if (isObject(%object)) {
@@ -179,6 +198,9 @@ function serverCmdSyncObjectUpdate(%client, %id) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSyncObjectComplete(%client, %which, %total) {
 	%client.onSyncObjectComplete(%total);
 	if (%total == %client.syncObjects) {

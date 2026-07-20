@@ -450,6 +450,9 @@ LBCmdAddHandler("thegame", LBCmdTheGameHandler);
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::onWake(%this) {
 	if ($Game::Offline) {
 		closeLeaderboards();
@@ -494,6 +497,9 @@ function LBChatGui::onWake(%this) {
 		LBRotateChallengeColor();
 }
 
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::onSleep(%this) {
 	cancel(LBChatGui.resetWebchatRichPresence);
 }
@@ -514,6 +520,9 @@ function LBRotateChallengeColor() {
 }
 
 // show welcome message
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::welcomeMessage(%this) {
 	// only show the welcome message once!
 	if ($LB::FirstTimeForChatGui) {
@@ -735,6 +744,9 @@ function addLBChatLine(%message) {
 	LBUpdateChat(%message);
 }
 
+/**
+ * @param {Type} %message
+ */
 function LBUpdateChat(%message) {
 	if (%message $= "") {
 		%text = "<font:\x10:\x11>" @ $LB::ChatText;
@@ -811,14 +823,23 @@ function LBChatOpenURL(%url) {
 	MessageBoxYesNo("Go to Web Page?", "Do you want to go to the web page \"" @ %pre @ "\"? Remember: Only open links from people you trust!", "gotoWebPage(\"" @ %url @ "\");", "");
 }
 
+/**
+ * @param {LBChatText} %this
+ */
 function LBChatText::onURL(%this, %url) {
 	LBChatOpenURL(%url);
 }
 
+/**
+ * @param {PG_LBChatText} %this
+ */
 function PG_LBChatText::onURL(%this, %url) {
 	LBChatOpenURL(%url);
 }
 
+/**
+ * @param {PM_LBChatText} %this
+ */
 function PM_LBChatText::onURL(%this, %url) {
 	LBChatOpenURL(%url);
 }
@@ -933,6 +954,9 @@ function styleify(%message, %access) {
 //-----------------------------------------------------------------------------
 
 // send chat
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::sendChat(%this) {
 	%message = trim(LBSendChat.getValue());
 	if (%message !$= "" && $LB::LoggedIn && !$LB::Guest) {
@@ -942,6 +966,9 @@ function LBChatGui::sendChat(%this) {
 	LBSetChatMessage("");
 }
 
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::chatUpdate(%this) {
 	%message = LBSendChat.getValue();
 
@@ -979,6 +1006,9 @@ function LBSetChatMessage(%message, %ctrl) {
 		PM_ChatEntry.setValue(%message);
 }
 
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::setEnableChatEntry(%this, %enabled) {
 	$LB::GlobalChatEnabled = %enabled;
 
@@ -988,7 +1018,7 @@ function LBChatGui::setEnableChatEntry(%this, %enabled) {
 
 	//Hide the ingame chat if it's open
 	if (!%enabled && $chatHudType $= "global") {
-		diableChatHUD(true);
+		disableChatHUD(true);
 	}
 	PG_LBChatEntry.setActive(%enabled);
 }
@@ -1154,6 +1184,9 @@ function LBSendChat(%message, %dest) {
 }
 
 // show me chat
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::showMeChat(%this,%line,%username,%message) {
 	// figure out the status
 	%status = $LB::Status;
@@ -1240,6 +1273,9 @@ function LBSlapMessage(%from, %to) {
 //-----------------------------------------------------------------------------
 
 // update the list!
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::updateUserlist(%this) {
 	%text = "<lmargin:4><font:24>Users Online";
 
@@ -1328,6 +1364,9 @@ function LBChatGui::updateUserlist(%this) {
 	}
 }
 
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::onClickUserlist(%this, %index) {
 	%user = LBUserListArray.getEntry(%index).username;
 	if (isGuest(%user))
@@ -1368,6 +1407,9 @@ function LBSetModeForMe(%status) {
 //-----------------------------------------------------------------------------
 
 // logout function so i stop having to say "kick me"
+/**
+ * @param {LBChatGui} %this
+ */
 function LBChatGui::logout(%this, %finishCmd) {
 	if ($Server::ServerType !$= "")
 		disconnect();

@@ -25,6 +25,9 @@
 // The PlayGui also contains the hud controls.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::onWake(%this) {
 	%this.doFPSCounter();
 
@@ -160,6 +163,9 @@ function PlayGui::onWake(%this) {
 	ClientMode::callback("onShowPlayGui", "");
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::onSleep(%this) {
 	%this.stopFPSCounter();
 	%this.stopCountdown();
@@ -199,6 +205,9 @@ function PlayGui::onSleep(%this) {
 		showControllerUI();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateRecordingIndicator(%this) {
 	if ($pref::recordingIndicator && $Game::Record && !mp() && !$playingDemo) {
 		PG_RecordingIndicator.setVisible(true);
@@ -213,11 +222,17 @@ function PlayGui::updateRecordingIndicator(%this) {
 // the text on frame advance since it's just wasting CPU and could possibly be contributing
 // to the crashing going on
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::stopFPSCounter(%this) {
 	cancel(%this.fpsCounterSched);
 }
 
 // Just more of a shorthand
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::doFPSCounter(%this) {
 	%pingnum = "high";
 	if (ServerConnection.getPing() >= 100)
@@ -252,6 +267,9 @@ function PlayGui::doFPSCounter(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setMessage(%this,%bitmap,%timer) {
 	// Set the center message bitmap
 	%dir = $userMods @ "/client/ui/game/state/";
@@ -269,6 +287,9 @@ function PlayGui::setMessage(%this,%bitmap,%timer) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setPowerUp(%this,%shapeFile,%skinName) {
 	// Update the power up hud control
 	if (%shapeFile $= "")
@@ -277,6 +298,9 @@ function PlayGui::setPowerUp(%this,%shapeFile,%skinName) {
 		HUD_ShowPowerUp.setModel(%shapeFile, %skinName);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::lockPowerup(%this, %locked) {
 	if (%locked)
 		HUD_PowerupBackground.setBitmap($userMods @ "/client/ui/game/powerup_locked.png");
@@ -300,12 +324,18 @@ function quotaCompleteParty() { // code half taken from \platinum\client\ui\Main
 	$quotacompleteparty = schedule(10, 0, quotaCompleteParty);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setMaxGems(%this,%count) {
 	%prevMax = %this.maxGems;
 	%this.maxGems = %count;
 	%this.updateGems(%prevMax == %this.maxGems);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setGemCount(%this,%count,%green) {
 	%this.gemCount = %count;
 	%this.gemGreen = %green;
@@ -313,6 +343,9 @@ function PlayGui::setGemCount(%this,%count,%green) {
 }
 
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateGems(%this, %updateMax) {
 	%count = %this.gemCount;
 	%max = %this.maxGems;
@@ -498,11 +531,18 @@ function PlayGui::updateGems(%this, %updateMax) {
 //-----------------------------------------------------------------------------
 // Bars
 
+/**
+ * @param {PlayGui} %this
+
+ */
 function PlayGui::setBlastValue(%this, %value) {
 	%this.blastValue = %value;
 	%this.updateBlastBar();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateBlastBar(%this) {
 	//Empty: 5 5 0   17
 	//Full:  5 5 110 17
@@ -533,6 +573,9 @@ function PlayGui::updateBlastBar(%this) {
 	PG_BlastBar.setVisible(!$SpectateMode && shouldEnableBlast());
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateBubbleBar(%this) {
 	if ($Game::BubbleInfinite) {
 		PG_BubbleContainer.setVisible(true);
@@ -555,6 +598,9 @@ function PlayGui::updateBubbleBar(%this) {
 }
 
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateFireballBar(%this) {
 	if ($Client::FireballActive) {
 		PG_FireballContainer.setVisible(true);
@@ -609,6 +655,9 @@ function specialBarFor(%id) {
 	return expandFilename("~/client/ui/game/specials/gray");
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateBarPositions(%this) {
 	if (!isObject(ServerConnection) || !isObject(ServerConnection.getControlObject()) || !isObject($MP::MyMarble))
 		return;
@@ -700,6 +749,9 @@ function PlayGui::updateBarPositions(%this) {
 function clientCmdPushTimer(%whichpowerup, %timer, %duration) {
 	PlayGui.pushPowerupTimer(%whichpowerup, %timer, %duration);
 }
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::clearPowerupTimers(%this) {
 	for (%i = 0; %i < %this.powerupTimersLength; %i ++) { // Cancel all the schedules.
 		cancel(%this.powerupTimersSchedules[%i]);
@@ -707,6 +759,9 @@ function PlayGui::clearPowerupTimers(%this) {
 	%this.powerupTimersLength = 0;
 	%this.powerupTimersTrueLength = 0;
 }
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::pushPowerupTimer(%this, %whichpowerup, %time, %duration) {
 	if (!$pref::powerupTimers)
 		return;
@@ -744,6 +799,9 @@ function PlayGui::pushPowerupTimer(%this, %whichpowerup, %time, %duration) {
 	%this.powerupTimersSchedules[%curIndex] = %this.schedule(%duration, popPowerupTimer, %curIndex);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::popPowerupTimer(%this, %index) { // The powerup ID does not matter in this case.
 	%this.powerupTimersId[%index] = -1;
 	%this.powerupTimersTrueLength --;
@@ -763,11 +821,17 @@ function PlayGui::popPowerupTimer(%this, %index) { // The powerup ID does not ma
 //-----------------------------------------------------------------------------
 // Elapsed Timer Display
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setTime(%this,%dt) {
 	%this.currentTime = %dt;
 	%this.updateControls();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::resetTimer(%this,%dt) {
 	$PlayTimerColor = $TimeColor["stopped"];
 	$PlayTimerFailedText = false;
@@ -793,12 +857,18 @@ function PlayGui::resetTimer(%this,%dt) {
 	%this.stopTimer();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::adjustTimer(%this,%dt) {
 	%this.totalTime = add64_int(%this.totalTime, %dt);
 	%this.currentTime = add64_int(%this.currentTime, %dt);
 	%this.updateControls();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setBonusTime(%this, %time) {
 	%this.bonusTime = %time;
 	if (alxIsPlaying($BonusSfx) && !%time)
@@ -807,12 +877,18 @@ function PlayGui::setBonusTime(%this, %time) {
 		$BonusSfx = alxPlay(TimeTravelLoopSfx);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::addBonusTime(%this, %dt) {
 	%this.bonusTime = add64_int(%this.bonusTime, %dt);
 	if ($pref::timeTravelSounds && $BonusSfx $= "" && !alxIsPlaying($PlayTimerAlarmHandle))
 		$BonusSfx = alxPlay(TimeTravelLoopSfx);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::refreshRed(%this) {
 	if ($PlayTimerActive && $InPlayGUI) {
 		if (%this.bonusTime || $Editor::Opened || %this.stopped) {
@@ -870,6 +946,9 @@ function PlayGui::refreshRed(%this) {
 	}
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::startTimer(%this) {
 	$PlayTimerActive = true;
 	if (MissionInfo.alarmStartTime)
@@ -1015,6 +1094,9 @@ activatePackage(frameAdvance);
 
 // -----------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::stopTimer(%this) {
 	$PlayTimerColor = $TimeColor["stopped"];
 	if (alxIsPlaying($PlayTimerAlarmHandle))
@@ -1028,6 +1110,9 @@ function PlayGui::stopTimer(%this) {
 	}
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setTimeStopped(%this, %stopped) {
 	%this.stopped = %stopped;
 
@@ -1041,6 +1126,9 @@ function PlayGui::setTimeStopped(%this, %stopped) {
 	%this.refreshRed();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateTimer(%this, %timeInc) {
 	if (%this.stopped) {
 		// HACK: If inside Time Stop trigger, keep time stopped by adding bonus time
@@ -1090,6 +1178,9 @@ function clientCmdUpdateTimeTravelCountdown() {
 	PlayGui.updateTimeTravelCountdown();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateTimeTravelCountdown(%this) {
 	if (!$pref::timeTravelTimer || %this.bonusTime == 0) {
 		PGCountdownTT.setVisible(false);
@@ -1187,6 +1278,9 @@ function PlayGui::updateTimeTravelCountdown(%this) {
 	PGCountdownTT.setVisible(%this.bonusTime);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateCountdownLeft(%this, %delta) {
 	PGCountdownLeft.setVisible(%this.runningCountdownLeft && %this.countdownLeftTime > 0);
 	if (!%this.runningCountdownLeft) {
@@ -1239,6 +1333,9 @@ function PlayGui::updateCountdownLeft(%this, %delta) {
 	PGCountdownLeftSecondDigit.setVisible(%secondsLeft >= 10);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateControls(%this) {
 	%this.refreshRed();
 
@@ -1311,13 +1408,22 @@ $numberPaths["colon"] = $userMods @ "/client/ui/game/numbers/colon.png";
 $numberPaths["dash"] = $userMods @ "/client/ui/game/numbers/dash.png";
 $numberPaths["slash"] = $userMods @ "/client/ui/game/numbers/slash.png";
 
+/**
+ * @param {GuiBitmapCtrl} %this
+ */
 function GuiBitmapCtrl::setNumber(%this,%number) {
 	%this.setBitmap($numberPaths[%number]);
 }
+/**
+ * @param {GuiBitmapCtrl} %this
+ */
 function GuiBitmapCtrl::setTimeNumber(%this,%number) {
 	%this.setBitmap($numberPaths[%number]);
 	%this.bitmapColor = $PlayTimerColor;
 }
+/**
+ * @param {GuiBitmapCtrl} %this
+ */
 function GuiBitmapCtrl::setNumberColor(%this,%number,%color) {
 	%this.setBitmap($numberPaths[%number]);
 	%this.bitmapColor = %color;
@@ -1335,6 +1441,9 @@ function refreshCenterTextCtrl() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::displayGemMessage(%this, %amount, %color) {
 	if ($pref::ScreenshotMode == 2)
 		return;
@@ -1365,6 +1474,9 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 	%obj.schedule(700, "delete");
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateGemMessage(%this, %obj, %num) {
 	if (%num >= 60 || !isObject(%obj))
 		return;
@@ -1378,6 +1490,9 @@ function PlayGui::updateGemMessage(%this, %obj, %num) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateLaps(%this) {
 	%completeOne = (%this.lapsComplete % 10);
 	%totalOne = (%this.lapsTotal % 10);
@@ -1391,11 +1506,17 @@ function PlayGui::updateLaps(%this) {
 	PGLapsLabel.setBitmap("platinum/client/ui/game/laps/laps_label");
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setLapsComplete(%this, %complete) {
 	%this.lapsComplete = %Complete;
 	%this.updateLaps();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::setLapsTotal(%this, %total) {
 	%this.lapsTotal = %total;
 	%this.updateLaps();
@@ -1403,6 +1524,10 @@ function PlayGui::setLapsTotal(%this, %total) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+
+ */
 function PlayGui::showEggTime(%this, %time) {
 	%pq = ($CurrentGame $= "PlatinumQuest" || ($CurrentGame $= "Custom" && $MissionType $= "PlatinumQuest") || MissionInfo.game $= "PlatinumQuest");
 
@@ -1419,11 +1544,17 @@ function PlayGui::showEggTime(%this, %time) {
 	%this.hideEggSch = %this.schedule(5000, hideEggTime);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateEggTime(%this) {
 	%down = ($Game::isMode["laps"] || %this.runningCountdown);
 	PG_EggTimeBox.setPosition(getWord(PG_EggTimeBox.position, 0) SPC (%down ? 100 : 60));
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::hideEggTime(%this) {
 	%this.showingEggTime = false;
 	cancel(%this.hideEggSch);
@@ -1432,6 +1563,9 @@ function PlayGui::hideEggTime(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::startCountdown(%this, %time, %image) {
 	PGCountdownImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
 	PGCountdownThImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
@@ -1443,6 +1577,9 @@ function PlayGui::startCountdown(%this, %time, %image) {
 	}
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::stopCountdown(%this) {
 	%this.runningCountdown = false;
 	%this.runningCountdownLeft = false;
@@ -1452,6 +1589,9 @@ function PlayGui::stopCountdown(%this) {
 	}
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateCountdown(%this, %delta) {
 	%this.countdownTime = %this.countdownTime - %delta;
 
@@ -1507,12 +1647,18 @@ function PlayGui::updateCountdown(%this, %delta) {
 	}
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::startCountdownLeft(%this, %time, %image) {
 	PGCountdownLeftImage.setBitmap("platinum/client/ui/game/countdown/" @ %image);
 	%this.countdownLeftTime = %time;
 	%this.runningCountdownLeft = true;
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateRtaSpeedrunTimer(%this, %text) {
 	PG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }
@@ -1627,6 +1773,10 @@ function PlayGui::getHudAnchorOffsetForExtent(%anchor, %extent) {
 // Positions a HUD control so the point on it matching the anchor (e.g. the
 // top-right corner for a top-right anchor) lands at the anchor plus its offset.
 // The control is clamped to stay fully within the screen bounds.
+/**
+ * @param {PlayGui} %this
+ * @param {GuiControl} %controlName
+ */
 function PlayGui::applyHudControl(%this, %controlName, %anchor, %offsetX, %offsetY) {
 	if (!isObject(%controlName))
 		return;
@@ -1661,6 +1811,9 @@ function PlayGui::applyHudControl(%this, %controlName, %anchor, %offsetX, %offse
 	%controlName.setPosition(%x SPC %y);
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::applyUISettings(%this) {
 	%mode = $pref::HudLayoutMode;
 	if (%mode $= "")

@@ -351,6 +351,9 @@ new GuiBitmapCtrl(MPEndGameDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::onWake(%this) {
 	disableChatHUD();
 	if (ControllerGui.isJoystick()) {
@@ -367,6 +370,9 @@ function MPEndGameDlg::onWake(%this) {
 	MPEndRateContainer.setVisible(0);
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::updateActive(%this) {
 	MPEndGameRestart.setActive($Server::Hosting);
 	%this.commandNameAlt1 = (MPEndGameRestart.isActive() ? "Restart" : "");
@@ -376,6 +382,9 @@ function MPEndGameDlg::updateActive(%this) {
 	}
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::updateScores(%this) {
 	%snow = $Game::isMode["snowball"];
 	%spooky = $Game::isMode["spooky"];
@@ -989,6 +998,9 @@ function MPEndGameDlg::updateScores(%this) {
 	MPEndGameTitle.setText(%text);
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::lobby(%this) {
 	if ($Server::Hosting && !%this.force) {
 		%this.force = true;
@@ -999,10 +1011,16 @@ function MPEndGameDlg::lobby(%this) {
 	}
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::restart(%this) {
 	commandToServer('LobbyRestart');
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::showRate(%this) {
 	MPEndButtonsContainer.setVisible(0);
 	MPEndRateContainer.setVisible(1);
@@ -1017,6 +1035,9 @@ function clientCmdCloseEndGame() {
 	ClientMode::callback("closeEndGame");
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::updateRating(%this) {
 	MPEndRateTitle.setText("<just:center><color:ffffff><font:18>Rate This Level");
 
@@ -1040,6 +1061,9 @@ function MPEndGameDlg::updateRating(%this) {
 	}
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::rate(%this, %choice) {
 	//Rate the level:
 	// -1: Negative / Dislike
@@ -1057,6 +1081,9 @@ function MPEndGameDlg::rate(%this, %choice) {
 	}
 }
 
+/**
+ * @param {MPEndGameDlg} %this
+ */
 function MPEndGameDlg::UpdateGems(%this) {
 	//Based off of playGui's similar function - Yoshi
 	if (MissionInfo.game $= "Hunt") {

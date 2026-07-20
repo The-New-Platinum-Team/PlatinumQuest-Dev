@@ -24,6 +24,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdSetSpectate(%client, %spectate) {
 	// FOR Force Spectate:
 	// we allow to switch only if they are going INTO spectate,
@@ -96,6 +99,9 @@ function updateSpectateFull() {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSpectate(%client, %spectating) {
 	if (%spectating $= "")
 		%spectating = !%client.spectating;
@@ -106,6 +112,9 @@ function serverCmdSpectate(%client, %spectating) {
 		%client.setSpectating(%spectating);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setSpectating(%this, %spectating) {
 	%this.spectating = %spectating;
 
@@ -147,11 +156,17 @@ function finishSpectate(%client) {
 	commandToClient(%client, 'GoSpectateNow');
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdGoSpectateAck(%client) {
 	//They're spectating now, delete their player
 	%client.deletePlayer();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::startOverview(%this) {
 	%this.overview = true;
 	%this.spectating = false;
@@ -177,6 +192,9 @@ function GameConnection::startOverview(%this) {
 	activateMovingObjects(true);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stopOverview(%this) {
 	%this.overview = false;
 	%this.spectating = false;
@@ -211,6 +229,9 @@ function GameConnection::stopOverview(%this) {
 	commandToClient(%this, 'FinishOverview', $MPPref::OverviewFinishSpeed * 1000, %aimPos, %finalPos, getField(%pos, 2));
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::finishOverview(%this, %pos) {
 	commandToClient(%this, 'StopOverview');
 	%this.spawnPoint = %pos;
@@ -221,6 +242,9 @@ function GameConnection::finishOverview(%this, %pos) {
 	commandToAll('FixGhost');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::cancelOverview(%this, %pos) {
 	%this.overview = false;
 	%this.restarting = false;

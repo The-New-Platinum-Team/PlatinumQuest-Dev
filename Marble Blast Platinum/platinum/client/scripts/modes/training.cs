@@ -36,10 +36,16 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_training) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_training::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
+/**
+ * @param {ClientMode} %time
+ */
 function clientCmdTrainingTime(%time) {
 	addHelpLine("Got winning points in " @ formatTime(%time));
 }

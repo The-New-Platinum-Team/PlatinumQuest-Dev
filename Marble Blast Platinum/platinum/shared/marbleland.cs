@@ -29,6 +29,9 @@ function marblelandDownloadMissionList(%callback) {
 	%dl.get("https://marbleland.vaniverse.io","/api/level/list","");
 }
 
+/**
+ * @param {MarblelandJSONDownloader} %this
+ */
 function MarblelandJSONDownloader::onLine(%this, %line) {
 	echo("Loaded Marbleland MissionList");
 	if (isObject($MarblelandMissionList)) {
@@ -60,6 +63,9 @@ function MarblelandJSONDownloader::onLine(%this, %line) {
 	}
 }
 
+/**
+ * @param {MarblelandJSONDownloader} %this
+ */
 function MarblelandJSONDownloader::onDisconnect(%this) {
 	if (%this.callback !$= "") {
 		schedule(100, 0, %this.callback, %this.success);
@@ -78,6 +84,9 @@ function marblelandDownloadPackList(%callback) {
 	%dl.get("https://marbleland.vaniverse.io","/api/pack/list","");
 }
 
+/**
+ * @param {MarblelandPacksJSONDownloader} %this
+ */
 function MarblelandPacksJSONDownloader::onLine(%this, %line) {
 	echo("Loaded MarblelandPacks MissionList");
 	if (isObject($MarblelandPackList)) {
@@ -97,6 +106,9 @@ function MarblelandPacksJSONDownloader::onLine(%this, %line) {
 	}
 }
 
+/**
+ * @param {MarblelandPacksJSONDownloader} %this
+ */
 function MarblelandPacksJSONDownloader::onDisconnect(%this) {
 	if (%this.callback !$= "") {
 		schedule(100, 0, %this.callback, %this.success);
@@ -128,6 +140,9 @@ function marblelandDownload(%id, %callback) {
 	%dl.get("https://marbleland.vaniverse.io", "/api/level/" @ %mission.id @ "/mbpak", "assuming=none&append-id-to-mis=1");
 }
 
+/**
+ * @param {MarblelandDownloader} %this
+ */
 function MarblelandDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 
@@ -143,6 +158,9 @@ function MarblelandDownloader::onDownload(%this, %path) {
 	getMissionList("marbleland").addInstalledMission(%mission);
 }
 
+/**
+ * @param {MarblelandDownloader} %this
+ */
 function MarblelandDownloader::onDisconnect(%this) {
 	echo("Marbleland download status: " @ %this.id @ " success: " @ %this.success);
 	if (%this.callback !$= "") {
@@ -180,10 +198,16 @@ function marblelandDownloadIcon(%id, %callback, %bmp, %w, %h) {
 	%dl.get("https://marbleland.vaniverse.io","/api/level/" @ %mission.id @ "/image", %resQuery);
 }
 
+/**
+ * @param {MarblelandIconDownloader} %this
+ */
 function MarblelandIconDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 }
 
+/**
+ * @param {MarblelandIconDownloader} %this
+ */
 function MarblelandIconDownloader::onDisconnect(%this) {
 	echo("Marbleland icon download status: " @ %this.id @ " success: " @ %this.success);
 	if (%this.callback !$= "") {
@@ -215,10 +239,16 @@ function marblelandDownloadPreview(%id, %callback, %bmp) {
 	%dl.get("https://marbleland.vaniverse.io","/api/level/" @ %mission.id @ "/prev-image","width=" @ getWord(getResolution(), 0) @ "&height=" @ getWord(getResolution(), 1));
 }
 
+/**
+ * @param {MarblelandPreviewDownloader} %this
+ */
 function MarblelandPreviewDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 }
 
+/**
+ * @param {MarblelandPreviewDownloader} %this
+ */
 function MarblelandPreviewDownloader::onDisconnect(%this) {
 	echo("Marbleland preview download status: " @ %this.id @ " success: " @ %this.success);
 	if (%this.callback !$= "") {
@@ -250,10 +280,16 @@ function marblelandDownloadPackIcon(%id, %callback, %bmp) {
 	%dl.get("https://marbleland.vaniverse.io","/api/pack/" @ %pack.id @ "/image","");
 }
 
+/**
+ * @param {MarblelandPackIconDownloader} %this
+ */
 function MarblelandPackIconDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 }
 
+/**
+ * @param {MarblelandPackIconDownloader} %this
+ */
 function MarblelandPackIconDownloader::onDisconnect(%this) {
 	echo("Marbleland icon download status: " @ %this.id @ " success: " @ %this.success);
 	if (%this.callback !$= "") {
@@ -278,12 +314,18 @@ function marblelandDownloadAvatar(%userId, %callback, %bmp) {
 	%dl.get("https://marbleland.vaniverse.io","/api/account/" @ %userId @ "/avatar","size=40");
 }
 
+/**
+ * @param {MarblelandAvatarDownloader} %this
+ */
 function MarblelandAvatarDownloader::onDownload(%this, %path) {
 	%this.success = 1;
 	if (MarblelandCachedAvatars.findEntryIndex(%this.userId) == -1)
 		MarblelandCachedAvatars.addEntry(%this.userId);
 }
 
+/**
+ * @param {MarblelandAvatarDownloader} %this
+ */
 function MarblelandAvatarDownloader::onDisconnect(%this) {
 	echo("Marbleland avatar download status: " @ %this.userId @ " success: " @ %this.success);
 	if (%this.callback !$= "") {
@@ -313,6 +355,9 @@ function marblelandFetchExtendedInfo(%id, %callback) {
 	%dl.get("https://marbleland.vaniverse.io","/api/level/" @ %id @ "/extended-info","");
 }
 
+/**
+ * @param {MarblelandExtendedInfoDownloader} %this
+ */
 function MarblelandExtendedInfoDownloader::onLine(%this, %line) {
 	echo("Loaded Marbleland Extended Info for " @ %this.id);
 	%info = jsonParse(%line);
@@ -366,6 +411,9 @@ function marblelandSignUp(%email, %username, %password, %callback) {
 	%j.delete();
 }
 
+/**
+ * @param {MarblelandSignUp} %this
+ */
 function MarblelandSignUp::onLine(%this, %line) {
 	echo("Marbleland sign up response: " @ %line);
 	%response = jsonParse(%line);
@@ -392,6 +440,9 @@ function marblelandSignIn(%username, %password, %callback) {
 	%j.delete();
 }
 
+/**
+ * @param {MarblelandSignIn} %this
+ */
 function MarblelandSignIn::onLine(%this, %line) {
 	echo("Marbleland sign in response: " @ %line);
 	%response = jsonParse(%line);
@@ -426,6 +477,9 @@ function marblelandFetchAccountInfo(%userId, %callback) {
 	%dl.get("https://marbleland.vaniverse.io", "/api/account/" @ %userId @ "/info", "");
 }
 
+/**
+ * @param {MarblelandAccountInfoDownloader} %this
+ */
 function MarblelandAccountInfoDownloader::onLine(%this, %line) {
 	echo("Loaded Marbleland Account Info for " @ %this.userId);
 	%info = jsonParse(%line);
@@ -434,6 +488,9 @@ function MarblelandAccountInfoDownloader::onLine(%this, %line) {
 		schedule(100, 0, %this.callback, %this.userId, %info);
 }
 
+/**
+ * @param {MarblelandAccountInfoDownloader} %this
+ */
 function MarblelandAccountInfoDownloader::onDisconnect(%this) {
 	if (!%this.success && %this.callback !$= "")
 		schedule(100, 0, %this.callback, %this.userId, "");
@@ -456,6 +513,9 @@ function marblelandPostComment(%levelId, %content, %callback) {
 	%j.delete();
 }
 
+/**
+ * @param {MarblelandCommentPoster} %this
+ */
 function MarblelandCommentPoster::onLine(%this, %line) {
 	echo("Marbleland post comment response: " @ %line);
 	%data = jsonParse(%line);
@@ -473,6 +533,9 @@ function MarblelandCommentPoster::onLine(%this, %line) {
 	%this.destroy();
 }
 
+/**
+ * @param {MarblelandCommentPoster} %this
+ */
 function MarblelandCommentPoster::onDisconnect(%this) {
 	if (!%this.success && %this.callback !$= "")
 		schedule(100, 0, %this.callback, false, "");
@@ -491,6 +554,9 @@ function marblelandLove(%levelId, %callback) {
 	%dl.patch("https://marbleland.vaniverse.io", "/api/level/" @ %levelId @ "/love", "", "");
 }
 
+/**
+ * @param {MarblelandLevelLover} %this
+ */
 function MarblelandLevelLover::onLine(%this, %line) {
 	echo("Marbleland love response: " @ %line);
 	%data = jsonParse(%line);
@@ -507,6 +573,9 @@ function MarblelandLevelLover::onLine(%this, %line) {
 	%this.destroy();
 }
 
+/**
+ * @param {MarblelandLevelLover} %this
+ */
 function MarblelandLevelLover::onDisconnect(%this) {
 	if (!%this.success && %this.callback !$= "")
 		schedule(100, 0, %this.callback, false);
@@ -525,6 +594,9 @@ function marblelandUnlove(%levelId, %callback) {
 	%dl.patch("https://marbleland.vaniverse.io", "/api/level/" @ %levelId @ "/unlove", "", "");
 }
 
+/**
+ * @param {MarblelandLevelUnlover} %this
+ */
 function MarblelandLevelUnlover::onLine(%this, %line) {
 	echo("Marbleland unlove response: " @ %line);
 	%data = jsonParse(%line);
@@ -541,6 +613,9 @@ function MarblelandLevelUnlover::onLine(%this, %line) {
 	%this.destroy();
 }
 
+/**
+ * @param {MarblelandLevelUnlover} %this
+ */
 function MarblelandLevelUnlover::onDisconnect(%this) {
 	if (!%this.success && %this.callback !$= "")
 		schedule(100, 0, %this.callback, false);
@@ -609,6 +684,9 @@ function marblelandMissionNeedsUpdate(%id) {
 /// Check if a given marbleland mission uses custom code
 /// @param mission Mission ID
 /// @return True if that mission uses custom code
+/**
+ * @param {Type} %mission
+ */
 function marblelandUsesCustomCode(%mission) {
 
 	if (%mission.file !$= "") {
@@ -713,10 +791,16 @@ function marblelandSubmit(%mission, %user, %score, %scoreType) {
 	MarblelandSubmitter.post("https://marbleblast.com","/pq/leader/api/Score/RecordMarblelandScore.php", "", "mission=" @ URLEncode(%mission) @ "&username=" @ URLEncode(%user) @ "&score=" @ %score @ "&scoreType=" @ %scoreType);
 }
 
+/**
+ * @param {MarblelandSubmitter} %this
+ */
 function MarblelandSubmitter::onLine(%this, %line) {
 	fwrite("platinum/json/marblelandSubmit.json", %line);
 }
 
+/**
+ * @param {MarblelandSubmitter} %this
+ */
 function MarblelandSubmitter::onDisconnect(%this) {
 	%this.destroy();
 }
@@ -734,6 +818,9 @@ function marblelandGetScores(%mission, %callback) {
 	MarblelandRetriever.get("https://marbleblast.com", "/pq/leader/api/Score/GetMarblelandScores.php", "mission=" @ URLEncode(%mission));
 }
 
+/**
+ * @param {MarblelandRetriever} %this
+ */
 function MarblelandRetriever::onLine(%this, %line) {
 	if (%this.cancelled)
 		return;
@@ -746,6 +833,9 @@ function MarblelandRetriever::onLine(%this, %line) {
 	%this.success = 1;
 }
 
+/**
+ * @param {MarblelandRetriever} %this
+ */
 function MarblelandRetriever::onDisconnect(%this) {
 	if (!%this.success && !%this.cancelled) {
 		if (%this.callback !$= "") {
@@ -757,6 +847,9 @@ function MarblelandRetriever::onDisconnect(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @returns {ScriptObject}
+ */
 function createMarblelandPacksMissionQueue(%pack) {
 	RootGroup.add(%queue = new ScriptObject(PackQueue) {
 		class = "MarblelandPacksMissionQueue";
@@ -766,20 +859,32 @@ function createMarblelandPacksMissionQueue(%pack) {
 	return %queue;
 }
 
+/**
+ * @param {MarblelandPacksMissionQueue} %this
+ */
 function MarblelandPacksMissionQueue::getQueueName(%this) {
 	return %this.pack.name;
 }
 
+/**
+ * @param {MarblelandPacksMissionQueue} %this
+ */
 function MarblelandPacksMissionQueue::getMissionCount(%this) {
 	return %this.pack.levelIds.getSize();
 }
 
+/**
+ * @param {MarblelandPacksMissionQueue} %this
+ */
 function MarblelandPacksMissionQueue::getMissionInfo(%this, %index) {
 	%missionId = %this.pack.levelIds.getEntry(%index);
 	%mission = marblelandGetMission(%missionId);
 	return %mission;
 }
 
+/**
+ * @param {MarblelandPacksMissionQueue} %this
+ */
 function MarblelandPacksMissionQueue::onEnd(%this, %completed) {
 	MissionQueue::onEnd(%this, %completed);
 }
@@ -791,6 +896,9 @@ function startRandomMissionList(%count) {
 	menuPlayQueue(%queue.getId());
 }
 
+/**
+ * @returns {ScriptObject}
+ */
 function createMarblelandRandomMissionQueue(%count) {
 	%queue = new ScriptObject(MarblelandRandomMissionQueue) {
 		class = "MarblelandRandomMissionQueue";
@@ -832,19 +940,31 @@ function createMarblelandRandomMissionQueue(%count) {
 	return %queue;
 }
 
+/**
+ * @param {MarblelandRandomMissionQueue} %this
+ */
 function MarblelandRandomMissionQueue::getQueueName(%this) {
 	return %this.count @ " Random Levels";
 }
 
+/**
+ * @param {MarblelandRandomMissionQueue} %this
+ */
 function MarblelandRandomMissionQueue::getMissionCount(%this) {
 	return %this.count;
 }
 
+/**
+ * @param {MarblelandRandomMissionQueue} %this
+ */
 function MarblelandRandomMissionQueue::getMissionInfo(%this, %index) {
 	%mission = marblelandGetMission(%this.missions[%index]);
 	return %mission;
 }
 
+/**
+ * @param {MarblelandRandomMissionQueue} %this
+ */
 function MarblelandRandomMissionQueue::isUpcomingHidden(%this) {
 	return true;
 }

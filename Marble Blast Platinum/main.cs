@@ -315,6 +315,9 @@ for ($i = 1; $i < $Game::argc; $i++)  {
 		error("Error: Unkown command line argument: " @ $Game::argv[$i]);
 }
 
+/**
+ * @param {GuiMLTextCtrl} %this
+ */
 function GuiMLTextCtrl::onURL(%this, %url) {
 	if (strPos(%url, ":") == -1)
 		%url = "http://" @ %url;

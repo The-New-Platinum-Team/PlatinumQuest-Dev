@@ -38,6 +38,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_free) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_free::onLoad(%this) {
 	%this.registerCallback("onShowPlayGui");
 	%this.registerCallback("shouldUpdateGems");
@@ -45,20 +48,32 @@ function ClientMode_free::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_free} %this
+ */
 function ClientMode_free::onShowPlayGui(%this) {
 	PGScoreListContainer.setVisible(false);
 }
+/**
+ * @param {ClientMode_free} %this
+ */
 function ClientMode_free::shouldUpdateGems(%this) {
 	PG_Timer.setVisible(false);
 	PG_TimerThousands.setVisible(false);
 	PG_GemCounter.setVisible(false);
 	return false;
 }
+/**
+ * @param {ClientMode_free} %this
+ */
 function ClientMode_free::updateControls(%this) {
 	PG_Timer.setVisible(false);
 	PG_TimerThousands.setVisible(false);
 	PG_GemCounter.setVisible(false);
 }
+/**
+ * @param {ClientMode_free} %this
+ */
 function ClientMode_free::timeMultiplier(%this) {
 	return 0;
 }

@@ -279,6 +279,9 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 //--- OBJECT WRITE END ---
 
 
+/**
+ * @param {MPExitGameDlg} %this
+ */
 function MPExitGameDlg::onWake(%this) {
 	alxPlay(PauseMenuSfx);
 	if (ControllerGui.isJoystick()) {
@@ -291,6 +294,9 @@ function MPExitGameDlg::onWake(%this) {
 	%this.force = false;
 }
 
+/**
+ * @param {MPExitGameDlg} %this
+ */
 function MPExitGameDlg::updateActive(%this) {
 	MPExitTeams.setActive($MP::TeamMode);
 	MPExitServer.setActive($Server::Hosting);
@@ -305,9 +311,15 @@ function MPExitGameDlg::updateActive(%this) {
 }
 
 
+/**
+ * @param {MPExitGameDlg} %this
+ */
 function MPExitGameDlg::onSleep(%this) {
 }
 
+/**
+ * @param {MPExitGameDlg} %this
+ */
 function MPExitGameDlg::exit(%this) {
 	if (%this.force || !$Server::Hosting) {
 		disconnect();

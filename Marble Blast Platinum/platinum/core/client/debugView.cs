@@ -31,11 +31,17 @@
 
 //$DebugView::UseTimeStamps = 1;
 
+/**
+ * @param {DebugView} %gui
+ */
 function DebugView::getTime(%gui) {
 	%ret = "[" @ timeSinceLoad() @ "]: ";
 	return %ret;
 }
 
+/**
+ * @param {DebugView} %gui
+ */
 function DebugView::onAdd(%gui) {
 	if (%gui.useTimeStamps $= "")
 		%gui.useTimeStamps = 1;
@@ -46,24 +52,39 @@ function DebugView::onAdd(%gui) {
 	}
 }
 
+/**
+ * @param {DebugView} %gui
+ */
 function DebugView::error(%gui, %string) {
 	%gui.ConsoleBump(%string, %wipe, "0.9 0 0");
 }
 
+/**
+ * @param {DebugView} %gui
+ */
 function DebugView::warn(%gui, %string) {
 	%gui.ConsoleBump(%string, %wipe, "1.0 0.4 0.4");
 }
 
+/**
+ * @param {DebugView} %gui
+ */
 function DebugView::echo(%gui, %string, %wipe, %color) {
 	if (%color $= "")
 		%color = "0 0 0";
 	%gui.ConsoleBump(%string, %wipe, %color);
 }
 
+/**
+ * @param {DebugView} %this
+ */
 function DebugView::success(%gui, %string, %wipe) {
 	%gui.ConsoleBump(%string, %wipe, "0 0.6 0");
 }
 
+/**
+ * @param {DebugView} %this
+ */
 function DebugView::clearAll(%gui) {
 	%count = %gui.getMaxLines();
 	for (%i = 0; %i < %count; %i++)
@@ -72,6 +93,9 @@ function DebugView::clearAll(%gui) {
 	%gui.onAdd(); //quick hack to clear stored values
 }
 
+/**
+ * @param {DebugView} %this
+ */
 function DebugView::consoleBump(%gui, %string, %wipe, %color) {
 	if (%gui.useTimeStamps)
 		%string = %gui.getTime() @ %string;
@@ -96,6 +120,9 @@ function DebugView::consoleBump(%gui, %string, %wipe, %color) {
 	}
 }
 
+/**
+ * @param {DebugView} %this
+ */
 function DebugView::getMaxLines(%gui) {
 	%y = getWord(%gui.extent, 1);
 

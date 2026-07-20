@@ -25,6 +25,9 @@
 //
 
 
+/**
+ * @param {SimObject} %object
+ */
 function openParentConfigDlg(%object) {
 	LargeFunctionDlg.PCD_Object = %object;
 	LargeFunctionDlg.init("acceptParentConfig", "Parent Configuration", 1);
@@ -44,11 +47,19 @@ function openParentConfigDlg(%object) {
 	LargeFunctionDlg.addCheckBox("PCD_SetParent", "setParent on accept? (otherwise, you will need to restart to see changes)", 1);
 }
 
+/**
+ * @param {PCD_Remove} %this
+ * @param {Type} %gui
+ */
 function PCD_Remove::onPressed(%this, %gui) {
 	//Stop!
 	%gui.PCD_Object.setParent("");
 }
 
+/**
+ * @param {PCD_LCO} %this
+ * @param {Type} %gui
+ */
 function PCD_LCO::onPressed(%this, %gui) {
 	%object = %gui.PCD_Object;
 	%parent = PCD_Parent.getValue();
@@ -58,6 +69,9 @@ function PCD_LCO::onPressed(%this, %gui) {
 	}
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function acceptParentConfig(%gui) {
 	%parent = PCD_Parent.getValue();
 	if (!isObject(%parent))
@@ -65,6 +79,7 @@ function acceptParentConfig(%gui) {
 	else if (isNumber(%parent))
 		ASSERT("Parent Error", "The \"Parent object name\" is a numeric ID; please use a name for your parent object.");
 	else {
+		/** @type {SceneObject} */
 		%object = %gui.PCD_Object;
 		%object.parent = %parent;
 		%object.parentSimple = PCD_Simple.getValue();

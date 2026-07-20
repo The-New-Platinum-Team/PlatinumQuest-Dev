@@ -90,18 +90,27 @@ function toggleParticleEditor(%val) {
 }
 
 
+/**
+ * @param {ParticleEditor} %this
+ */
 function ParticleEditor::startup(%this) {
 	$ParticleEditor::activeEditor.updateControls();
 	if (!isObject($ParticleEditor::emitterNode))
 		%this.resetEmitterNode();
 }
 
+/**
+ * @param {ParticleEditor} %this
+ */
 function ParticleEditor::initEditor(%this) {
 	%this.refreshDatablocks(1);
 	PEE_EmitterSelector.setSelected(0);
 	%this.openEmitterPane();
 }
 
+/**
+ * @param {ParticleEditor} %this
+ */
 function ParticleEditor::refreshDatablocks(%this, %init) {
 	if (%init) {
 		echo("Initializing ParticleEmitterData and ParticleData DataBlocks...");
@@ -182,6 +191,9 @@ function ParticleEditor::refreshDatablocks(%this, %init) {
 }
 
 
+/**
+ * @param {PE_EmitterEditor} %this
+ */
 function PE_EmitterEditor::updateControls(%this) {
 	%id = PEE_EmitterSelector.getSelected();
 	if (%id == 0)
@@ -215,6 +227,9 @@ function PE_EmitterEditor::updateControls(%this) {
 	$ParticleEditor::currParticle = getField(%data.particles, 0);
 }
 
+/**
+ * @param {PE_ParticleEditor} %this
+ */
 function PE_ParticleEditor::updateControls(%this) {
 	%id = PEP_ParticleSelector.getSelected();
 	if (%id == 0)
@@ -250,6 +265,9 @@ function PE_ParticleEditor::updateControls(%this) {
 	$ParticleEditor::currParticle =   %data;
 }
 
+/**
+ * @param {ParticleEditor} %this
+ */
 function ParticleEditor::openEmitterPane(%this) {
 	PE_Window.setText("Particle Editor - Emitters");
 	PE_EmitterEditor.setVisible(true);
@@ -260,6 +278,9 @@ function ParticleEditor::openEmitterPane(%this) {
 	$ParticleEditor::activeEditor = PE_EmitterEditor;
 }
 
+/**
+ * @param {ParticleEditor} %this
+ */
 function ParticleEditor::openParticlePane(%this) {
 	PE_Window.setText("Particle Editor - Particles");
 	PE_EmitterEditor.setVisible(false);
@@ -316,6 +337,9 @@ function ParticleEditor::openParticlePane(%this) {
 	$ParticleEditor::activeEditor = PE_ParticleEditor;
 }
 
+/**
+ * @param {PE_EmitterEditor} %this
+ */
 function PE_EmitterEditor::updateEmitter(%this) {
 	$ParticleEditor::currEmitter.ejectionPeriodMS = PEE_ejectionPeriodMS.getValue();
 	$ParticleEditor::currEmitter.periodVarianceMS = PEE_periodVarianceMS.getValue();
@@ -363,6 +387,9 @@ function PE_EmitterEditor::updateEmitter(%this) {
 	//$ParticleEditor::currEmitter.reload();
 }
 
+/**
+ * @param {PE_ParticleEditor} %this
+ */
 function PE_ParticleEditor::updateParticle(%this) {
 	$ParticleEditor::currParticle.dragCoefficient      = PEP_dragCoefficient.getValue();
 	$ParticleEditor::currParticle.windCoefficient      = PEP_windCoefficient.getValue();
@@ -400,15 +427,24 @@ function PE_ParticleEditor::updateParticle(%this) {
 	//$ParticleEditor::currParticle.reload();
 }
 
+/**
+ * @param {PE_EmitterEditor} %this
+ */
 function PE_EmitterEditor::onNewEmitter(%this) {
 	ParticleEditor.updateEmitterNode();
 	PE_EmitterEditor.updateControls();
 }
 
+/**
+ * @param {PE_ParticleEditor} %this
+ */
 function PE_ParticleEditor::onNewParticle(%this) {
 	PE_ParticleEditor.updateControls();
 }
 
+/**
+ * @param {ParticleEditor} %this
+ */
 function ParticleEditor::resetEmitterNode(%this) {
 	%tform = ServerConnection.getControlObject().getEyeTransform();
 	%vec = VectorNormalize(ServerConnection.getControlObject().getForwardVector());
@@ -467,6 +503,9 @@ function ParticleEditor::updateEmitterNode() {
 	$ParticleEditor::clientEmitterNode = $ParticleEditor::emitterNode+1;
 }
 
+/**
+ * @param {PE_EmitterEditor} %this
+ */
 function PE_EmitterEditor::save(%this) {
 	PE_ParticleEditor.save();
 
@@ -499,6 +538,9 @@ function PE_EmitterEditor::save(%this) {
 	//%file.delete();
 }
 
+/**
+ * @param {PE_ParticleEditor} %this
+ */
 function PE_ParticleEditor::save(%this) {
 	%mod = $currentMod;
 	if (%mod $= "") {
@@ -649,6 +691,9 @@ function ParticleEditor::ToggleLog() {
 	PEDBorder.setVisible($ParticleEditor::Log);
 }
 
+/**
+ * @param {ParticleEditor} %gui
+ */
 function ParticleEditor::SingleValueEdit(%gui, %valueName) {
 	%prefix = %gui.getPrefix();
 	%obj = %prefix @ %valueName;
@@ -664,6 +709,9 @@ function ParticleEditor::SingleValueEdit(%gui, %valueName) {
 	SingleValueGui.open(%gui, %valueName, %obj.getValue(), %x SPC %y);
 }
 
+/**
+ * @param {ParticleEditor} %gui
+ */
 function ParticleEditor::svcallback(%gui, %name, %value) {
 	%prefix = %gui.getPrefix();
 	%obj = %prefix @ %name;
@@ -678,6 +726,9 @@ function ParticleEditor::svcallback(%gui, %name, %value) {
 		PE_ParticleEditor.updateParticle();
 }
 
+/**
+ * @param {Type} %db
+ */
 function ParticleEditor::PETimeLineDlgCallback(%gui, %db) {
 	if (!isObject(%db)) {
 		PED.error("PETimeLineDlgCallback: Datablock doesn't exist!");
@@ -707,6 +758,9 @@ function ParticleEditor::onNewTexture(%gui) {
 
 
 // dirty hack because the GuiTextEditSliderCtrl doesn't send its command
+/**
+ * @param {ParticleEditor} %gui
+ */
 function ParticleEditor::loop(%gui) {
 	if (%gui.getGroup() != Canvas.getID())
 		return;
@@ -750,6 +804,9 @@ function ParticleEditor::loop(%gui) {
 // - Can be rotated about the X axis until -0.9
 // - After that point, it flips about the emitter's origin
 
+/**
+ * @param {SceneObject} %obj
+ */
 function petest(%obj, %edges) {
 	for (%i = 0; %i < 5; %i++) {
 		%testobj = "PETest" @ %i;
@@ -875,6 +932,9 @@ function petest(%obj, %edges) {
 
 // Emitter data should have theta min/max at equidistant positions from "90"
 
+/**
+ * @param {ParticleEmitterNode} %this
+ */
 function ParticleEmitterNode::aimNode(%this, %pitch, %yaw) {
 	// applyrotations("0 90 0", "25 0 0", "0 90 0");
 	// PITCH, 0 TO 180 --^      YAW       REQUIRED
@@ -916,6 +976,9 @@ function ParticleEmitterNode::aimNode(%this, %pitch, %yaw) {
 	%this.setTransform(%t);
 }
 
+/**
+ * @param {SceneObject} %node
+ */
 function aimThisNode(%node) {
 	FindSCCamera();
 	%uvec = vectorScale(vectorSub(%node.getPosition(), $SCCamera.getPosition()), -1);

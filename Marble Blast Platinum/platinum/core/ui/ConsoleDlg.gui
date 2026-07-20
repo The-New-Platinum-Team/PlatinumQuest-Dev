@@ -130,6 +130,10 @@ new GuiControl(ConsoleDlg) {
 
 $ConsoleActive = false;
 
+/**
+ * @param {Type} %this
+ * @param {Type} %echoCommand
+ */
 function ConsoleEntry::eval(%this, %echoCommand) {
 	%text = ConsoleEntry.getValue();
 	if (%text $= "")
@@ -223,6 +227,9 @@ function ctrace() {
 	trace($tracing);
 }
 
+/**
+ * @param {Type} %make
+ */
 function ToggleConsole(%make) {
 	if (%make) {
 		if ($ConsoleActive) {
@@ -264,6 +271,9 @@ function toggleConsoleEditor() {
 // causes the first key to be unmapped. This is an attempt to fix the win7 bug
 // (fixed below) and keep support for other OSes
 
+/**
+ * @param {Type} %make
+ */
 function toggleConsole2(%make) {
 	toggleConsole(%make);
 }
@@ -279,6 +289,9 @@ if ($pref::AltTildeForConsole) {
 // readding this because tilde support is gone on windows 7
 GlobalActionMap.bind(keyboard, pageUp, toggleConsole2);
 
+/**
+ * @param {Type} %filename
+ */
 function reloadGui(%filename) {
 	%objectName = fileBase(%fileName); // Assume the object name is the same as the filename
 
@@ -425,6 +438,9 @@ package Mew {
 	function restoreDiagonals() {
 		Physics::popLayerName("diagonull");
 	}
+	/**
+	 * @param {Type} %val
+	 */
 	function input_moveLeft(%val) {
 		Parent::input_moveLeft(%val);
 		if (!$Cheats::Mew) {
@@ -437,6 +453,9 @@ package Mew {
 		}
 	}
 
+	/**
+	 * @param {Type} %val
+	 */
 	function input_moveRight(%val) {
 		Parent::input_moveRight(%val);
 		if (!$Cheats::Mew) {
@@ -449,6 +468,9 @@ package Mew {
 		}
 	}
 
+	/**
+	 * @param {Type} %time_or_whatever
+	 */
 	function onFrameAdvance(%time_or_whatever) {
 		Parent::onFrameAdvance(%time_or_whatever);
 		if (!$Cheats::Mew || !MPGetMyMarble()) {
@@ -556,6 +578,9 @@ function cheat_hot() {
 	}
 }
 package SUPERHOT {
+	/**
+	 * @param {Type} %time_or_whatever
+	 */
 	function onFrameAdvance(%time_or_whatever) {
 		Parent::onFrameAdvance(%time_or_whatever);
 		if ($Cheats::Hot) {

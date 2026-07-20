@@ -39,6 +39,9 @@ $TcpObject::retryCount     = 5;
 $TcpObject::queryStart     = getRealTime();
 $TcpObject::totalQueries   = 0;
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::get(%this, %server, %file, %values, %timer) {
 	%this.auto = true;
 	%this.file = %file @(%values !$= "" ? "?" @ %values : "");
@@ -54,6 +57,9 @@ function TCPObject::get(%this, %server, %file, %values, %timer) {
 	//%this.scheduleIgnorePause($TcpObject::reconnectTimer, "reconnect");
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::post(%this, %server, %file, %values, %timer) {
 	%this.auto = true;
 	%this.file = %file;
@@ -71,6 +77,9 @@ function TCPObject::post(%this, %server, %file, %values, %timer) {
 	//%this.scheduleIgnorePause($TcpObject::reconnectTimer, "reconnect"); // used for mac support, as reconnecting allows tcp sockets to work
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::reconnect(%this) {
 	if (!%this.auto || %this.destroying)
 		return;
@@ -92,6 +101,9 @@ function TCPObject::reconnect(%this) {
 	%this.connect(%this.server);
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::recreate(%this) {
 	error("TCP Object getting recreated");
 	return;
@@ -104,6 +116,9 @@ function TCPObject::recreate(%this) {
 	%this.delete();
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onConnected(%this) {
 	if (!%this.auto || %this.destroying)
 		return;
@@ -122,6 +137,9 @@ function TCPObject::onConnected(%this) {
 	%this.echo("Connected", "Status");
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onLine(%this, %line) {
 	if (!%this.auto || %this.destroying)
 		return;
@@ -203,6 +221,9 @@ function clearAllCookies(%host) {
 	deleteVariables("$cookie*");
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::getCookies(%this) {
 	if ($cookies[%this.host] > 0)
 		%this.cookie = "Cookie:";
@@ -213,6 +234,9 @@ function TCPObject::getCookies(%this) {
 	}
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::performGet(%this, %file, %host) {
 	if (!%this.auto || %this.destroying)
 		return;
@@ -244,6 +268,9 @@ function TCPObject::performGet(%this, %file, %host) {
 	%this.receivingHeaders = true;
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::performPost(%this, %file, %host, %values) {
 	if (!%this.auto || %this.destroying)
 		return;
@@ -277,6 +304,9 @@ function TCPObject::performPost(%this, %file, %host, %values) {
 	%this.receivingHeaders = true;
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::retryGet(%this,%count,%file,%host) {
 	if (!%this.auto || %this.destroying)
 		return;
@@ -302,6 +332,9 @@ function TCPObject::retryGet(%this,%count,%file,%host) {
 	%this.retry = %this.scheduleIgnorePause(%this.Timer, "retryGet", %count + 1, %file, %host);
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::retryPost(%this, %count, %file, %host, %values) {
 	if (!%this.auto || %this.destroying)
 		return;
@@ -328,6 +361,9 @@ function TCPObject::retryPost(%this, %count, %file, %host, %values) {
 	%this.retry = %this.scheduleIgnorePause(%this.retryTimer, "retryPost", %count + 1, %file, %host, %values);
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onDisconnect(%this) {
 	if (!%this.auto)
 		return;
@@ -337,6 +373,9 @@ function TCPObject::onDisconnect(%this) {
 	%this.echo("Disconnected", "Status");
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::cancel(%this, %dontDis) {
 	if (!%this.auto)
 		return;
@@ -351,31 +390,52 @@ function TCPObject::cancel(%this, %dontDis) {
 	//%this.delete();
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onFinish(%this) {
 	// Nothing, just a template for overriding it
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onRetrySend(%this) {
 	// Nothing here, override this!
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onReconnect(%this) {
 	// Another overridable
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onDNSFailed(%this) {
 	%this.cancel();
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onConnectFailed(%this) {
 	%this.cancel();
 }
 
 // Cannot remember which one it is
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::onConnectionFailed(%this) {
 	%this.cancel();
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::echo(%this, %text, %abbr) {
 	if (!isObject(%this))
 		return;
@@ -390,6 +450,9 @@ function TCPObject::echo(%this, %text, %abbr) {
 	devecho(%text);
 }
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::dump(%this) {
 	// I choose to override this because we do not want the client
 	// to be able to view our queries.  This is for data security, because
@@ -586,6 +649,9 @@ function LBDefaultQuery(%username, %password) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {TCPObject} %this
+ */
 function TCPObject::destroy(%this) {
 	//%this.disconnect();
 	if (!%this.shhhhh && $LBShowSigs)
@@ -597,6 +663,9 @@ function TCPObject::destroy(%this) {
 	%this.destroySch = %this.scheduleIgnorePause(500, "delete");
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::destroy(%this) {
 	%this.disconnect();
 	//%this.schedule(500, "delete");
@@ -613,6 +682,9 @@ function checkPort() {
 	PortChecker.get($portCheckServer, $portCheckFile, "port=" @ $pref::Server::Port);
 }
 
+/**
+ * @param {PortChecker} %this
+ */
 function PortChecker::onLine(%this,%line) {
 	Parent::onLine(%this,%line);
 	if (firstWord(%line) $= "PORT") { //Port status
@@ -630,6 +702,9 @@ function PortChecker::onLine(%this,%line) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {GuiControl} %gui
+ */
 function trackGuiOpen(%gui) {
 	%name = (isObject(%gui) ? %gui.getName() : %gui);
 //	echo("Tracking open:" SPC %name);

@@ -111,6 +111,9 @@ new GuiControl(RootGui) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {RootGui} %this
+ */
 function RootGui::onWake(%this) {
 	//No fan noises
 	alxSetChannelVolume(1, 0);
@@ -125,18 +128,28 @@ function RootGui::onWake(%this) {
 	%this.resetDisplay();
 }
 
+/**
+ * @param {RootGui} %this
+ */
 function RootGui::resetDisplay(%this) {
 	//Cleanup camera fov
 	resetCameraFov();
 	applyGraphicsQuality();
 }
 
+/**
+ * @param {RootGui} %this
+ */
 function RootGui::getContent(%this) {
 	if (Canvas.getCount() == 1)
 		return Canvas.getObject(0);
 	return Canvas.getObject(1);
 }
 
+/**
+ * @param {RootGui} %this
+ * @param {GuiControl} %ctrl
+ */
 function RootGui::setContent(%this, %ctrl) {
 	if (%this.getContent().getId() == %ctrl.getId()) {
 		//Just pop all of the dialogs we have
@@ -151,20 +164,37 @@ function RootGui::setContent(%this, %ctrl) {
 	Canvas.pushDialog(%ctrl);
 }
 
+/**
+ * @param {RootGui} %this
+ * @param {GuiControl} %ctrl
+ */
 function RootGui::pushDialog(%this, %ctrl) {
 	%ctrl.setExtent(Canvas.getExtent());
 	Canvas.pushDialog(%ctrl);
 }
 
+/**
+ * @param {RootGui} %this
+ * @param {GuiControl} %ctrl
+ */
 function RootGui::popDialog(%this, %ctrl) {
 	// Push to back first so it doesn't rearrange the other dialogs
 	Canvas.pushToBack(%ctrl);
 	Canvas.popDialog(%ctrl);
 }
 
+/**
+ * @param {RootGui} %this
+ */
 function GuiControl::onWake(%this) {}
+/**
+ * @param {RootGui} %this
+ */
 function GuiControl::onSleep(%this) {}
 
+/**
+ * @param {RootGui} %this
+ */
 function RootGui::showPreviewImage(%this, %show) {
 	%this.previewImage = %show;
 	if (%show) {
@@ -197,6 +227,9 @@ function RootGui::showPreviewImage(%this, %show) {
 	}
 }
 
+/**
+ * @param {GuiBitmapCtrl} %bmp
+ */
 function onMarblelandPreviewDownloaded(%id, %success, %bmp) {
 	if (%success) {
 		%bmp.setBitmap("vfs://marbleland/prev-" @ %id @ ".jpg");

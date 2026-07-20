@@ -22,13 +22,23 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_free::onLoad(%this) {
 	%this.registerCallback("shouldRestartOnOOB");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_free} %this
+ */
 function Mode_free::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_free} %this
+ * @param {Type} %object
+ */
 function Mode_free::onGameState(%this, %object) {
 	if (%object.state $= "Start")
 		%object.client.player.setMode(Normal);

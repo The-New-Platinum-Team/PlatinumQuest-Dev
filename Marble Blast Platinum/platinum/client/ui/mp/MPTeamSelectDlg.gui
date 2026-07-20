@@ -134,22 +134,34 @@ new GuiBitmapCtrl(MPTeamSelectDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPTeamSelectDlg} %this
+ */
 function MPTeamSelectDlg::onWake(%this) {
 	MPTeamChatTitle.setText("<bold:28><just:center>Team Chat");
 	MPTeamInfoTitle.setText("<bold:28><just:center>Team Info");
 }
 
+/**
+ * @param {MPTeamSelectDlg} %this
+ */
 function MPTeamSelectDlg::open(%this) {
 	RootGui.pushDialog(%this);
 	%this.updateTeam();
 	commandToServer('TeamList');
 }
 
+/**
+ * @param {MPTeamSelectDlg} %this
+ */
 function MPTeamSelectDlg::close(%this) {
 	RootGui.popDialog(%this);
 	PlayMissionGui.showBody();
 }
 
+/**
+ * @param {MPTeamSelectDlg} %this
+ */
 function MPTeamSelectDlg::updateTeam(%this) {
 	MPTeamJoinLeave.command = "MPTeamSelectDlg." @ ($MP::TeamDefault ? "joinTeam" : "teamOptions") @ "();";
 	MPTeamJoinLeave.text = ($MP::TeamDefault ? "Join" : "Options");
@@ -185,11 +197,17 @@ function MPTeamSelectDlg::updateTeam(%this) {
 	MPTeamJoinDlg.updateTeam();
 }
 
+/**
+ * @param {MPTeamSelectDlg} %this
+ */
 function MPTeamSelectDlg::joinTeam(%this) {
 	// Push the join team dialog
 	MPTeamJoinDlg.open();
 }
 
+/**
+ * @param {MPTeamSelectDlg} %this
+ */
 function MPTeamSelectDlg::teamOptions(%this) {
 	// Push the team options dialog
 	MPTeamOptionsDlg.open();

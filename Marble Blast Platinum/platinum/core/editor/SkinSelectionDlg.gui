@@ -140,12 +140,18 @@ if (!isObject(SkinArray)) {
 	RootGroup.add(Array(SkinArray));
 }
 
+/**
+ * @param {ShapeBase} %object
+ */
 function showSkinSelectionDlg(%object) {
 	$SkinEditorObject = %object;
 	$SkinEditorIndex = 0;
 	RootGui.pushDialog(SkinSelectionDlg);
 }
 
+/**
+ * @param {SkinSelectionDlg} %this
+ */
 function SkinSelectionDlg::onWake(%this) {
 	// set model viewer.
 	%skin = trim($SkinEditorObject.skin) $= "" ? "base" : $SkinEditorObject.skin;
@@ -158,6 +164,9 @@ function SkinSelectionDlg::onWake(%this) {
 	%this.buildSkinList();
 }
 
+/**
+ * @param {SkinSelectionDlg} %this
+ */
 function SkinSelectionDlg::buildSkinList(%this) {
 	SkinSelectionList.clear();
 	SkinArray.clear();
@@ -194,6 +203,9 @@ function SkinSelectionDlg::buildSkinList(%this) {
 	$SkinEditorIndex = 0;
 }
 
+/**
+ * @param {SkinSelectionDlg} %this
+ */
 function SkinSelectionDlg::prev(%this) {
 	$SkinEditorIndex--;
 	if ($SkinEditorIndex < 0)
@@ -203,6 +215,9 @@ function SkinSelectionDlg::prev(%this) {
 	SkinSelectionList.setSelected($SkinEditorIndex);
 }
 
+/**
+ * @param {SkinSelectionDlg} %this
+ */
 function SkinSelectionDlg::next(%this) {
 	$SkinEditorIndex++;
 	if ($SkinEditorIndex >= SkinArray.getSize())
@@ -212,6 +227,9 @@ function SkinSelectionDlg::next(%this) {
 	SkinSelectionList.setSelected($SkinEditorIndex);
 }
 
+/**
+ * @param {SkinSelectionDlg} %this
+ */
 function SkinSelectionDlg::confirm(%this) {
 	%skin = SkinArray.getEntryByIndex($SkinEditorIndex);
 	EWorldEditor.applySkin(%skin);
@@ -219,6 +237,9 @@ function SkinSelectionDlg::confirm(%this) {
 	$SkinEditorObject = -1;
 }
 
+/**
+ * @param {SkinSelectionDlg} %this
+ */
 function SkinSelectionList::onSelect(%this, %id, %text) {
 	$SkinEditorIndex = %id;
 	%skin = SkinArray.getEntryByIndex($SkinEditorIndex);

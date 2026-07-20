@@ -23,6 +23,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_spooky::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onMissionEnded");
@@ -31,22 +34,38 @@ function Mode_spooky::onLoad(%this) {
 	%this.registerCallback("onActivate");
 	%this.registerCallback("onDeactivate");
 }
+/**
+ * @param {Mode_spooky} %this
+ */
 function Mode_spooky::onMissionEnded(%this) {
 	// cancel event schedules
 	cancel($lightningLoop);
 }
+/**
+ * @param {Mode_spooky} %this
+ */
 function Mode_spooky::onMissionReset(%this) {
 	startLightning();
 }
+/**
+ * @param {Mode_spooky} %this
+ * @param {Type} %object
+ */
 function Mode_spooky::onCreatePlayer(%this, %object) {
 	%object.client.createGhostHat(WitchHat, WitchHatBig);
 }
+/**
+ * @param {Mode_spooky} %this
+ */
 function Mode_spooky::onActivate(%this) {
 	SnoreParticle.colors[0] = "0.787402 0.000000 0.000000 1.000000";
 	SnoreParticle.colors[1] = "0.787402 0.000000 0.000000 1.000000";
 	SnoreParticle.colors[2] = "1.000000 0.000000 0.000000 0.000000";
 	SnoreParticle.colors[3] = "1.000000 0.000000 0.000000 1.000000";
 }
+/**
+ * @param {Mode_spooky} %this
+ */
 function Mode_spooky::onDeactivate(%this) {
 	SnoreParticle.colors[0] = "0.787402 1.000000 0.787402 1.000000";
 	SnoreParticle.colors[1] = "0.787402 1.000000 0.787402 1.000000";
@@ -56,6 +75,9 @@ function Mode_spooky::onDeactivate(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSpookyGhosts(%client, %enable) {
 	if (%client.isHost()) {
 		$MP::Server::SpookyGhosts = %enable;
@@ -213,6 +235,10 @@ datablock StaticShapeData(Bat) {
 	renderDistance = "100";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Bat::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 }
@@ -231,6 +257,10 @@ datablock StaticShapeData(CandyCollectable) {
 	shapefile = $usermods @ "/data/shapes/Halloween/candy_collectable.dts";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function CandyCollectable::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 }
@@ -287,6 +317,10 @@ datablock StaticShapeData(Vermontry) {
 	noBox = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Vermontry::onAdd(%this, %obj) {
 	%obj.playThread(0, "Rotate");
 }
@@ -302,6 +336,10 @@ datablock StaticShapeData(HalloweenLights2U) {
 	renderDistance = "20";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function HalloweenLights2U::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
@@ -315,6 +353,10 @@ datablock StaticShapeData(HalloweenLights3U) {
 	renderDistance = "20";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function HalloweenLights3U::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
@@ -328,6 +370,10 @@ datablock StaticShapeData(HalloweenLights6U) {
 	renderDistance = "20";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function HalloweenLights6U::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
@@ -341,6 +387,10 @@ datablock StaticShapeData(HalloweenLights9U) {
 	renderDistance = "20";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function HalloweenLights9U::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%obj.playThread(1, "ambient2");
@@ -370,10 +420,18 @@ datablock ItemData(CandyCornItem) {
 	maxInventory = 0;
 };
 
+/**
+ * @param {ItemData} %this
+ */
 function CandyCornItem::onAdd(%this, %obj) {
 
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Type} %user
+ */
 function CandyCornItem::onPickup(%this, %obj, %user, %amount) {
 	%time = (Mode::callback("getStartTime", 0) - $Time::CurrentTime) + $Time::TotalBonus;
 
@@ -416,18 +474,34 @@ datablock ItemData(CandyItemBlue : GemItemBlue) {
 	skin = "black";
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function CandyItem::onAdd(%this, %obj) {
 	Gem::onAdd(%this, %obj);
 	%obj._huntDatablock = %this.getName();
 }
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function CandyItemRed::onAdd(%this, %obj) {
 	Gem::onAdd(%this, %obj);
 	%obj._huntDatablock = %this.getName();
 }
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function CandyItemYellow::onAdd(%this, %obj) {
 	Gem::onAdd(%this, %obj);
 	%obj._huntDatablock = %this.getName();
 }
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
 function CandyItemBlue::onAdd(%this, %obj) {
 	Gem::onAdd(%this, %obj);
 	%obj._huntDatablock = %this.getName();

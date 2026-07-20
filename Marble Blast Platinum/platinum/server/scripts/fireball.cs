@@ -73,6 +73,10 @@ datablock ItemData(FireballItem) {
 	customField[0, "default"] = "7000";
 };
 
+/**
+ * @param {FireballItem} %this
+ * @param {Item} %obj
+ */
 function FireballItem::onAdd(%this, %obj) {
 	echo("FIREBALLITEM::ONADD: THIS ("@%this@") OBJ ("@%obj@")");
 	if (%obj.activeTime $= "")
@@ -88,6 +92,11 @@ function FireballItem::onAdd(%this, %obj) {
 	%this.initFX(%obj);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Type} %user
+ */
 function FireballItem::onPickup(%this, %obj, %user, %amount) {
 	echo("FIREBALLITEM::ONPICKUP: THIS ("@%this@") OBJ ("@%obj@") %user ("@%user@")");
 	if (%user._fireballTime !$= "" && %obj.activeTime < %user._fireballTime - (getSimTime() - %user._fireballStartTime))
@@ -107,6 +116,9 @@ function FireballItem::onPickup(%this, %obj, %user, %amount) {
 	//Fireball::Init(MarbleObject, MarbleObject.fireball);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdPickupFireball(%client, %obj) {
 	%powerup = getServerSyncObject(%obj);
 	if (Mode::callback("shouldUseClientPowerups", false) && isObject(%powerup)) {
@@ -123,12 +135,20 @@ function serverCmdPickupFireball(%client, %obj) {
 
 //------------------------------------------------
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdFireballBlast(%client, %position) {
 	if (%client.player._fireballActive) {
 		%client.player._fireball.getDataBlock().blast(%client.player._fireball, %client.player);
 	}
 }
 
+/**
+ * @param {FireballItem} %this
+ * @param {Type} %item
+ * @param {SceneObject} %marble
+ */
 function FireballItem::Blast(%this, %item, %marble) {
 	%time = %marble._fireballTime - (getSimTime() - %marble._fireballStartTime);
 
@@ -169,6 +189,11 @@ function FireballItem::Blast(%this, %item, %marble) {
 	spawnEmitter(1000, Fireball4Emitter, %pos);
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {ShapeBase} %ice
+ * @param {Type} %marble
+ */
 function FireballItem::addIceShard(%this, %item, %ice, %marble) {
 	%ice.setDamageState("Destroyed");
 	%ice.getDatablock().clearFX(%ice);
@@ -178,6 +203,11 @@ function FireballItem::addIceShard(%this, %item, %ice, %marble) {
 	%ice._pickUpCheckpoint = %marble.client.curCheckpointNum;
 }
 
+/**
+ * @param {FireballItem} %this
+ * @param {SceneObject} %marble
+ * @param {SceneObject} %ice
+ */
 function FireballItem::IceCollision(%this, %item, %marble, %ice) {
 	//sent here from iceshard collision if fireball is active
 	echo("FIREBALL::ICECOLLISION: MARBLE ("@%marble@") ICE ("@%ice@")");
@@ -209,6 +239,9 @@ function FireballItem::IceCollision(%this, %item, %marble, %ice) {
 	return true;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::fireballExpire(%this) {
 	if (!%this.player._fireballActive)
 		return;
@@ -224,10 +257,16 @@ function GameConnection::fireballExpire(%this) {
 	commandToClient(%this, 'FireballExpire');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setFireballTime(%this, %time) {
 	commandToClient(%this, 'SetFireballTime', %time);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::fireballInit(%this, %time) {
 	//called when fireball is activated
 	%this.player._fireballActive = 1;
@@ -249,6 +288,9 @@ function GameConnection::fireballInit(%this, %time) {
 	%this.player._fireballSchedule = %this.schedule(%time, "fireballExpire");
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getFireballTime(%this) {
 	return max(0, %this.player._fireballTime - (getSimTime() - %this.player._fireballStartTime));
 }

@@ -1192,6 +1192,9 @@ new GuiControl(PlayMissionGui) {
 //-----------------------------------------------------------------------------
 // UI lifecycle
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::open(%this, %marbleland) {
 	if (%marbleland) {
 		if ($MarblelandMissionList $= "") {
@@ -1230,6 +1233,9 @@ function PlayMissionGui::open(%this, %marbleland) {
 	RootGui.setContent(%this);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::init(%this) {
 	if (mp()) {
 		if ($Server::Hosting && !$Server::_Dedicated) {
@@ -1306,6 +1312,7 @@ function PlayMissionGui::init(%this) {
 	}
 
 	%this.buildMissionList(%game, %type);
+	/** @type {Array} */
 	%list = %this.getMissionList(%game, %type);
 
 	//Is their level past the end (removed stuff)
@@ -1380,6 +1387,9 @@ function PlayMissionGui::init(%this) {
 	echo("   Mission: " @ %info.name);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onWake(%this) {
 	// Reload marbleland packages
 	marblelandReloadMissions();
@@ -1448,6 +1458,9 @@ function PlayMissionGui::onWake(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::initInterface(%this) {
 	//If we have already seen the credits, show the option to see them again
 	if ($pref::Congratulated) {
@@ -1510,6 +1523,9 @@ function PlayMissionGui::initInterface(%this) {
 	PlayMissionGui.updateRichPresence();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onSleep(%this) {
 	deactivateMenuHandler(PMMenu);
 	Canvas.doHover = false;
@@ -1521,6 +1537,9 @@ function PlayMissionGui::onSleep(%this) {
 //-----------------------------------------------------------------------------
 // Dropdowns
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::buildGameList(%this) {
 	switch$(%this.currentHoliday) {
 	case "Frightfest":
@@ -1587,6 +1606,9 @@ function PlayMissionGui::buildGameList(%this) {
 	%this.buildDifficultyList();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::buildDifficultyList(%this) {
 	if (%this.useCustomDifficultyList()) {
 		%this.buildCustomDifficultyList();
@@ -1646,6 +1668,9 @@ function PlayMissionGui::buildDifficultyList(%this) {
 	PM_DifficultyContainer.setExtent(158 SPC %extent);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::buildCustomDifficultyList(%this) {
 	%diffs = %this.getDifficultyList($CurrentGame);
 
@@ -1676,6 +1701,9 @@ function PlayMissionGui::buildCustomDifficultyList(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::selectCustomDifficulty(%this) {
 	%id = PM_CustomDifficultyScroll.getSelectedId();
 	%diff = getField(PM_CustomDifficultyScroll.getRowTextById(%id), 1);
@@ -1683,10 +1711,16 @@ function PlayMissionGui::selectCustomDifficulty(%this) {
 	PlayMissionGui.showMissionList();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::useCustomDifficultyList(%this) {
 	return %this.ml.shouldUseDifficultyTree($CurrentGame);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showGames(%this) {
 	PM_GameList.setVisible(!PM_GameList.isVisible());
 	PM_GameSelector.setValue(PM_GameList.isVisible());
@@ -1705,6 +1739,9 @@ function PlayMissionGui::showGames(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showDifficulties(%this) {
 	if (%this.useCustomDifficultyList()) {
 		PM_CustomDifficultyList.setVisible(!PM_CustomDifficultyList.isVisible());
@@ -1726,6 +1763,9 @@ function PlayMissionGui::showDifficulties(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::hideSelectors(%this) {
 	PM_DifficultyList.setVisible(false);
 	PM_DifficultySelector.setValue(false);
@@ -1740,6 +1780,9 @@ function PlayMissionGui::hideSelectors(%this) {
 //-----------------------------------------------------------------------------
 // Selections
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::checkEnableStatsButton(%this) {
 	switch$ ($CurrentGame) {
 	case "Custom":
@@ -1755,6 +1798,10 @@ function PlayMissionGui::checkEnableStatsButton(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %game
+ */
 function PlayMissionGui::setGame(%this, %game) {
 	if (mp() && $Server::Hosting && $Client::Loaded) {
 		MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\');", "");
@@ -1823,6 +1870,10 @@ function PlayMissionGui::setGame(%this, %game) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %type
+ */
 function PlayMissionGui::setMissionType(%this, %type) {
 	if (mp() && $Server::Hosting && $Client::Loaded) {
 		MessageBoxYesNo("Cancel Load", "You already have a mission loaded. Do you want to cancel the load?", "commandToServer(\'LobbyReturn\');", "");
@@ -1861,6 +1912,12 @@ function PlayMissionGui::setMissionType(%this, %type) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %mission
+ * @param {Type} %game
+ * @param {Type} %type
+ */
 function PlayMissionGui::setSelectedMission(%this, %mission, %game, %type) {
 	if (%game $= "") {
 		%game = resolveMissionGame(%mission);
@@ -1876,6 +1933,7 @@ function PlayMissionGui::setSelectedMission(%this, %mission, %game, %type) {
 		%this.activateHoliday($CurrentGame);
 
 	//Find the mission in our list
+	/** @type {Array} */
 	%list = %this.getMissionList(%game, %type);
 
 	for (%i = 0; %i < %list.getSize(); %i ++) {
@@ -1889,8 +1947,13 @@ function PlayMissionGui::setSelectedMission(%this, %mission, %game, %type) {
 	error("Could not find mission " @ %mission.file);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %idx
+ */
 function PlayMissionGui::setMissionByIndex(%this, %idx) {
 	//Mission list name
+	/** @type {Array} */
 	%list = %this.getMissionList($CurrentGame, $MissionType);
 	%info = %list.getEntry(%idx);
 
@@ -1968,10 +2031,14 @@ function PlayMissionGui::setMissionByIndex(%this, %idx) {
 //-----------------------------------------------------------------------------
 // Mission List interface
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showMissionList(%this) {
 	PM_MissionListScrolling.clear();
 
 	//Mission list name
+	/** @type {Array} */
 	%list = %this.getMissionList($CurrentGame, $MissionType);
 
 	//Make sure we have a mission list
@@ -2071,6 +2138,10 @@ function PlayMissionGui::showMissionList(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %positionIndex
+ */
 function PlayMissionGui::getMissionFrameBounds(%this, %positionIndex) {
 	//(340px - 22px) / 3 == 106px
 	%width = 340;
@@ -2096,6 +2167,12 @@ function PlayMissionGui::getMissionFrameBounds(%this, %positionIndex) {
 	return %guiPosition SPC %extent;
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %level
+ * @param {Type} %idx
+ * @param {Type} %positionIndex
+ */
 function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %positionIndex) {
 	devecho("PlayMissionGui::createMissionListFrame(" @ %this @ ", " @ %level @ ", " @ %idx @ ", " @ %positionIndex @ ")");
 	%padInsideX = 5;
@@ -2286,6 +2363,10 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %positionIn
 	return %frameName;
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {GuiControl} %frame
+ */
 function PlayMissionGui::updateMissionFrame(%this, %frame) {
 	%level = %frame.mission;
 
@@ -2307,8 +2388,10 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 
 		//Check if we have WR for the WR frame
 		if (lb() && !%this.marbleland) {
+			/** @type {Array} */
 			%recordcache = %this.personalScoreListCache.record;
 			if ($CurrentGame $= "challenge") {
+				/** @type {Array} */
 				%recordcache = %this.personalScoreListCache.challengerecord;
 			}
 			if (isObject(%this.personalScoreListCache) && isObject(%recordcache)
@@ -2338,6 +2421,10 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 	%frame.iconFrame.setBitmap(expandFilename(%frameImage));
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {GuiBitmapCtrl} %hover
+ */
 function PlayMissionGui::updateMissionHover(%this, %hover) {
 	if (%this.getMissionInfo() == %hover.mission) {
 		%hover.setBitmap(expandFilename("./play/menuhover_d"));
@@ -2348,6 +2435,9 @@ function PlayMissionGui::updateMissionHover(%this, %hover) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::trySetMissionByIndex(%this, %idx) {
 	%this.hideSelectors();
 	%frame = %this.buttonFrameList.frame[%idx];
@@ -2366,6 +2456,10 @@ function PlayMissionGui::trySetMissionByIndex(%this, %idx) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %ctrl
+ */
 function PlayMissionGui::controllerHighlightMission(%this, %ctrl) {
 	if (%ctrl $= "") {
 		%ctrl = %this.controllerSelect;
@@ -2383,6 +2477,10 @@ function PlayMissionGui::controllerHighlightMission(%this, %ctrl) {
 	%this.commandStart = PM_MissionPlay.command;
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {GuiControl} %frame
+ */
 function PlayMissionGui::showMissionIcon(%this, %frame) {
 	%level = %frame.mission;
 
@@ -2423,6 +2521,10 @@ function PlayMissionGui::showMissionIcon(%this, %frame) {
 	PM_MissionListScrolling.add(%frame);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {GuiControl} %frame
+ */
 function PlayMissionGui::hideMissionIcon(%this, %frame) {
 	//Offscreen, remove it
 	PM_MissionListButtons.add(%frame);
@@ -2433,12 +2535,18 @@ function PlayMissionGui::hideMissionIcon(%this, %frame) {
 	}
 }
 
+/**
+ * @param {GuiBitmapCtrl} %bmp
+ */
 function onDownloadIcon(%id, %success, %bmp) {
 	if (%success) {
 		%bmp.setBitmap("vfs://marbleland/" @ %id @ ".jpg");
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateMissionIcons(%this) {
 	%yStart = -getWord(PM_MissionListScrolling.position, 1);
 	%yEnd = %yStart + getWord(PM_MissionScroll.extent, 1);
@@ -2458,6 +2566,7 @@ function PlayMissionGui::updateMissionIcons(%this) {
 		%this.hideMissionIcon(%frame);
 	}
 
+	/** @type {Array} */
 	%list = %this.getMissionList($CurrentGame, $MissionType);
 
 	%frameHeight = getWord(%this.getMissionFrameBounds(0), 3);
@@ -2482,6 +2591,7 @@ function PlayMissionGui::updateMissionIcons(%this) {
 		%frame = %this.buttonFrameList.frame[%missionIndex];
 		if (!isObject(%frame)) {
 			// Create frame
+			/** @type {Array} */
 			%mission = %list.getEntry(%missionIndex);
 			PM_MissionListButtons.add(%frame = %this.createMissionListFrame(%mission, %missionIndex, %positionIndex));
 			%this.buttonFrameList.addEntry(%frame);
@@ -2495,6 +2605,9 @@ function PlayMissionGui::updateMissionIcons(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateMissionList(%this) {
 	%yStart = -getWord(PM_MissionListScrolling.extent, 1);
 	%yEnd = %yStart + getWord(PM_MissionListScrolling.extent, 1);
@@ -2509,6 +2622,9 @@ function PlayMissionGui::updateMissionList(%this) {
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateCurrentMission(%this) {
 	//Just iterate and update them all
 	for (%i = 0; %i < PM_MissionListScrolling.getCount(); %i ++) {
@@ -2521,6 +2637,9 @@ function PlayMissionGui::updateCurrentMission(%this) {
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::deactivateMissionList(%this) {
 	PM_DifficultySelector.setActive(false);
 	PM_GameSelector.setActive(false);
@@ -2541,6 +2660,9 @@ function PlayMissionGui::deactivateMissionList(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::reactivateMissionList(%this) {
 	PM_DifficultySelector.setActive(true);
 	PM_GameSelector.setActive(true);
@@ -2557,6 +2679,11 @@ function PlayMissionGui::reactivateMissionList(%this) {
 //-----------------------------------------------------------------------------
 // Mission Info interface
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %info
+ * @param {Type} %found
+ */
 function PlayMissionGui::getEggIcon(%this, %info, %found) {
 	%egg = "";
 	if (%info.easterEgg) {
@@ -2570,6 +2697,9 @@ function PlayMissionGui::getEggIcon(%this, %info, %found) {
 	return ClientMode::callbackForMission(%info, "getEggIcon", %egg, %found);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateMissionInfo(%this) {
 	//No point in updating offscreen, and we'll just cause errors when we reflow
 	if (!%this.isAwake())
@@ -3006,8 +3136,10 @@ function PlayMissionGui::updateMissionInfo(%this) {
 
 			%placement = 0;
 			//Same logic as updateMissionFrame, mark as world record if we have the record
+			/** @type {Array} */
 			%recordcache = %this.personalScoreListCache.record;
 			if ($CurrentGame $= "challenge") {
+				/** @type {Array} */
 				%recordcache = %this.personalScoreListCache.challengerecord;
 			}
 			if (lb() && %i == 0 && isObject(%this.personalScoreListCache) && isObject(%recordcache) && !%this.marbleland
@@ -3164,59 +3296,105 @@ function PlayMissionGui::updateMissionInfo(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %url
+ */
 function PM_MissionInfo::onURL(%this, %url) {
 	%url = getWord(%url, 1);
 	PlayMissionGui.call(%url);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %url
+ */
 function PM_MissionScoresInfo::onURL(%this, %url) {
 	PM_MissionInfo::onURL(%this, %url);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %url
+ */
 function PM_MissionTitle::onURL(%this, %url) {
 	PM_MissionInfo::onURL(%this, %url);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %url
+ */
 function PM_MissionScoresTitle::onURL(%this, %url) {
 	PM_MissionInfo::onURL(%this, %url);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %url
+ */
 function PM_ScoreReplayWatch::onURL(%this, %url) {
 	PM_MissionInfo::onURL(%this, %url);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::firstGlobalPage(%this) {
    %this.globalPage = 0;
    %this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::prevGlobalPage(%this) {
 	%this.globalPage --;
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::nextGlobalPage(%this) {
 	%this.globalPage ++;
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::lastGlobalPage(%this) {
    %this.globalPage = %this.maxPage;
    %this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %race
+ */
 function PlayMissionGui::startLBReplay(%this, %race) {
 	statsGetReplay(PlayMissionGui.getMissionInfo(), (%this.globalScoreMode $= "egg") ? "Egg" : "Replay", %race);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::watchLBReplay(%this) {
 	%this.startLBReplay(false);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::raceLBReplay(%this) {
 	%this.startLBReplay(true);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %delta
+ */
 function PlayMissionGui::onTick(%this, %delta) {
 	if (!%this.isAwake())
 		return;
@@ -3252,12 +3430,18 @@ function PlayMissionGui::onTick(%this, %delta) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showBody(%this) {
 	PM_InfoBox.setVisible(1);
 	PM_ChatBox.setVisible(mp());
 	PM_UserlistBox.setVisible(mp());
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::hideBody(%this) {
 	PM_InfoBox.setVisible(0);
 	PM_ChatBox.setVisible(0);
@@ -3267,6 +3451,9 @@ function PlayMissionGui::hideBody(%this) {
 //-----------------------------------------------------------------------------
 // Mission loading and playing
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::loadMission(%this) {
 	%list = %this.getMissionList($CurrentGame, $MissionType);
 	%file = %this.getMissionInfo().file;
@@ -3293,15 +3480,24 @@ function PMMenu_StartLoading() {
 		PlayMissionGui.onStartLoading();
 }
 
+/**
+ * @param {Type} %progress
+ */
 function PMMenu_LoadProgress(%progress) {
 	if (PlayMissionGui.isAwake())
 		PlayMissionGui.onLoadProgress(%progress);
 }
 
+/**
+ * @param {Type} %queue
+ */
 function PMMenu_FinishQueue(%queue) {
 	QueueResultsDlg.open(%queue);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onMissionLoaded(%this) {
 	PM_MissionPlay.bitmap = PM_MissionPlay.originalBitmap;
 	PM_MissionPlay.bitmapOffset = PM_MissionPlay.originalBitmapOffset;
@@ -3315,6 +3511,9 @@ function PlayMissionGui::onMissionLoaded(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onMissionLoadFailed(%this) {
 	PM_MissionPlay.bitmap = PM_MissionPlay.originalBitmap;
 	PM_MissionPlay.bitmapOffset = PM_MissionPlay.originalBitmapOffset;
@@ -3324,6 +3523,9 @@ function PlayMissionGui::onMissionLoadFailed(%this) {
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onStartLoading(%this) {
 	PM_MissionPlay.bitmap = expandFilename("./play/loader/loader_0");
 	PM_MissionPlay.bitmapOffset = "12 -14";
@@ -3331,10 +3533,17 @@ function PlayMissionGui::onStartLoading(%this) {
 	Canvas.repaint();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %progress
+ */
 function PlayMissionGui::onLoadProgress(%this, %progress) {
 	PM_MissionPlay.bitmap = expandFilename("./play/loader/loader_" @ mRound(%progress * 16));
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::play(%this) {
 	if ($Menu::Loading)
 		return;
@@ -3374,6 +3583,9 @@ function PlayMissionGui::play(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::playPack(%this) {
 	if ($Menu::Loading || $Client::Loading)
 		return;
@@ -3382,6 +3594,9 @@ function PlayMissionGui::playPack(%this) {
 	menuPlayQueue(%queue);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::resetCurrentGame(%this) {
 	%update = false;
 	if (%this.oldCurrentGame !$= "") {
@@ -3400,6 +3615,9 @@ function PlayMissionGui::resetCurrentGame(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::exit(%this) {
 	if (mp()) {
 		%this.stopServer();
@@ -3409,6 +3627,9 @@ function PlayMissionGui::exit(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onGuiEditorPreSave(%this) {
 	PM_MissionListScrolling.clear();
 	PM_GameScroll.clear();
@@ -3432,6 +3653,9 @@ function PlayMissionGui::onGuiEditorPreSave(%this) {
 	%this.showGlobalScores = "";
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onGuiEditorPostSave(%this) {
 	%this.init();
 }
@@ -3653,6 +3877,10 @@ $PMG::BarButton["BottomMP", "Control"] = "PM_ButtonBox";
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %which
+ */
 function PlayMissionGui::buildButtonBar(%this, %which) {
 	%bar = $PMG::BarButton[%which, "Control"];
 	%bar.clear();
@@ -3822,6 +4050,9 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 	%this.builtBar[%which] = true;
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::toggleExtras(%this) {
 	if (PM_ExtrasBox.isVisible())
 		%this.hideExtras();
@@ -3829,6 +4060,9 @@ function PlayMissionGui::toggleExtras(%this) {
 		%this.showExtras();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showExtras(%this) {
 	PM_ExtrasBox.setVisible(1);
 	PM_MissionExtras.setValue(1);
@@ -3839,16 +4073,25 @@ function PlayMissionGui::showExtras(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::hideExtras(%this) {
 	PM_ExtrasBox.setVisible(0);
 	PM_MissionExtras.setValue(0);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::startCredits(%this) {
 	$Game::Menu = false;
 	menuStartCredits();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showAchievements(%this) {
 	if (lb()) {
 		LBAchievementsDlg.show($LB::Username);
@@ -3857,6 +4100,9 @@ function PlayMissionGui::showAchievements(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showStatistics(%this) {
 	if (lb()) {
 		LBStatsDlg.show($LB::Username);
@@ -3865,6 +4111,10 @@ function PlayMissionGui::showStatistics(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {GuiButtonCtrl} %button
+ */
 function PlayMissionGui::setBarButtonActive(%this, %button, %active) {
 	if (isObject(%button)) {
 		%button.setActive(%active);
@@ -3876,26 +4126,48 @@ function PlayMissionGui::setBarButtonActive(%this, %button, %active) {
 // Helper methods since I cbf to remember who owns what
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayMissionGui} %this
+ * @returns {Array}
+ */
 function PlayMissionGui::getGameList(%this) {
 	return %this.ml.getGameList();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %game
+ * @returns {Array}
+ */
 function PlayMissionGui::getDifficultyList(%this, %game) {
 	return %this.ml.getDifficultyList(%game);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @returns {MissionList}
+ */
 function PlayMissionGui::getMissionList(%this, %game, %difficulty) {
 	return %this.ml.getMissionList(%game, %difficulty);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::getBitmapDirectory(%this, %game, %difficulty) {
 	return %this.ml.getBitmapDirectory(%game, %difficulty);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::buildMissionList(%this, %game, %difficulty) {
 	return %this.ml.buildMissionList(%game, %difficulty);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::buildAllMissionLists(%this) {
 	//Don't do this on servers, you'll try to download all their missions and it'll be bad
 	if (mp() && !($Server::Hosting && !$Server::_Dedicated)) {
@@ -3936,6 +4208,9 @@ function PlayMissionGui::buildAllMissionLists(%this) {
 }
 
 //Get the current mission info object
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::getMissionInfo(%this) {
 	return %this.selectedMission;
 }
@@ -3943,6 +4218,9 @@ function PlayMissionGui::getMissionInfo(%this) {
 //-----------------------------------------------------------------------------
 // Leaderboards connection and online scores
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::loadOnlineScores(%this) {
 	//Reset current scores
 	if (%this.getMissionInfo().id !$= "") {
@@ -3978,23 +4256,36 @@ function PlayMissionGui::loadOnlineScores(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %mode
+ */
 function PlayMissionGui::setScoreMode(%this, %mode) {
 	%this.globalScoreMode = ($ThisControl.getValue() ? %mode : "");
 	%this.globalPage = %this.getInitialScoresPage();
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::showGlobalScores(%this) {
 	%this.showGlobalScores = true;
 	%this.globalPage = %this.getInitialScoresPage();
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::hideGlobalScores(%this) {
 	%this.showGlobalScores = false;
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::getInitialScoresPage(%this) {
 	%id = %this.getMissionInfo().id;
 	if (%this.isMarblelandMission())
@@ -4023,6 +4314,10 @@ function PlayMissionGui::getInitialScoresPage(%this) {
 	return 0;
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %scores
+ */
 function PlayMissionGui::onOnlineScoreUpdate(%this, %scores) {
 	%this.globalScoreCache[%scores.missionId] = %scores;
 	%this.globalScoreCacheLoading[%scores.missionId] = false;
@@ -4055,6 +4350,10 @@ function PlayMissionGui::onOnlineScoreUpdate(%this, %scores) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %scores
+ */
 function PlayMissionGui::onOnlineChallengeScoreUpdate(%this, %scores) {
 	%this.globalChallengeScoreCache[%scores.missionId] = %scores;
 	%this.globalChallengeScoreCacheLoading[%scores.missionId] = false;
@@ -4087,6 +4386,10 @@ function PlayMissionGui::onOnlineChallengeScoreUpdate(%this, %scores) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %mission
+ */
 function PlayMissionGui::onOnlineScoreFailed(%this, %mission) {
 	if (%mission.id !$= "") {
 		%this.globalScoreCache[%mission.id] = "";
@@ -4096,6 +4399,10 @@ function PlayMissionGui::onOnlineScoreFailed(%this, %mission) {
 	%this.updateCurrentMission();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %mission
+ */
 function PlayMissionGui::onOnlineChallengeScoreFailed(%this, %mission) {
 	if (%mission.id !$= "") {
 		%this.globalChallengeScoreCache[%mission.id] = "";
@@ -4105,6 +4412,11 @@ function PlayMissionGui::onOnlineChallengeScoreFailed(%this, %mission) {
 	%this.updateCurrentMission();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %scores
+ * @param {Type} %challenge
+ */
 function PlayMissionGui::onPersonalScoreUpdate(%this, %scores, %challenge) {
 	if (%challenge) {
 		%this.personalScoreCache[%scores.missionId, "challenge"] = %scores;
@@ -4118,6 +4430,11 @@ function PlayMissionGui::onPersonalScoreUpdate(%this, %scores, %challenge) {
 	%this.updateCurrentMission();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %mission
+ * @param {Type} %challenge
+ */
 function PlayMissionGui::onPersonalScoreFailed(%this, %mission, %challenge) {
 	if (%mission.id !$= "") {
 		if (%challenge) {
@@ -4133,6 +4450,10 @@ function PlayMissionGui::onPersonalScoreFailed(%this, %mission, %challenge) {
 	%this.updateCurrentMission();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %scores
+ */
 function PlayMissionGui::onOnlineScoreModeUpdate(%this, %scores) {
 	%this.globalScoreModeCache[%scores.missionId] = %scores;
 	%this.globalScoreModeCacheLoading[%scores.missionId] = false;
@@ -4142,6 +4463,10 @@ function PlayMissionGui::onOnlineScoreModeUpdate(%this, %scores) {
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %mission
+ */
 function PlayMissionGui::onOnlineScoreModeFailed(%this, %mission) {
 	if (%mission.id !$= "") {
 		%this.globalScoreModeCache[%mission.id] = "";
@@ -4151,10 +4476,17 @@ function PlayMissionGui::onOnlineScoreModeFailed(%this, %mission) {
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %scores
+ */
 function PlayMissionGui::onPersonalScoreListUpdate(%this, %scores) {
 	%this.personalScoreListCache = %scores;
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::copyOnlinePrefs(%this) {
 	//Update offline scores list
 	%games = %this.ml.getGameList();
@@ -4168,6 +4500,7 @@ function PlayMissionGui::copyOnlinePrefs(%this) {
 		for (%j = 0; %j < %dcount; %j ++) {
 			%difficulty = getRecord(%difficulties, %j);
 			%difficultyName = getField(%difficulty, 0);
+			/** @type {Array} */
 			%missions = %this.ml.getMissionList(%gameName, %difficultyName);
 
 			if (!isObject(%missions)) {
@@ -4243,17 +4576,25 @@ function PlayMissionGui::copyOnlinePrefs(%this) {
 	savePrefs();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %eggs
+ */
 function PlayMissionGui::onEasterEggUpdate(%this, %eggs) {
 	%this.onlineEasterEggCache = %eggs;
 	%this.updateMissionInfo();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::clearOnlineCache(%this) {
 	//Delete everything we got
 	%this.onlineEasterEggCache.recurseDelete();
 	%this.personalScoreListCache.recurseDelete();
 
 	//Clean up score caches
+	/** @type {Array} */
 	%games = %this.ml.onlineMissionList.games;
 	if (!isObject(%games))
 		continue;
@@ -4263,6 +4604,7 @@ function PlayMissionGui::clearOnlineCache(%this) {
 		if (!isObject(%difficulties))
 			continue;
 		for (%j = 0; %j < %difficulties.getSize(); %j ++) {
+			/** @type {Array} */
 			%difficulty = %difficulties.getEntry(%j);
 			%missions = %difficulty.missions;
 			if (!isObject(%missions))
@@ -4293,6 +4635,9 @@ function PlayMissionGui::clearOnlineCache(%this) {
 // MP Stuff
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::startServer(%this) {
 	if ($Game::Menu) {
 		menuDestroyServer();
@@ -4342,6 +4687,9 @@ function PlayMissionGui::startServer(%this) {
 	%this.init();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::stopServer(%this) {
 	if ($Server::Hosting) {
 		// Take them off the master server
@@ -4359,6 +4707,9 @@ function PlayMissionGui::stopServer(%this) {
 // Chat interface
 
 // send chat
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::sendChat(%this) {
 	if (!lb()) {
 		return;
@@ -4387,6 +4738,9 @@ function PlayMissionGui::sendChat(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::chatUpdate(%this) {
 	if (%this.chatPanel $= "global") {
 		%message = PM_ChatEntry.getValue();
@@ -4411,6 +4765,10 @@ function PlayMissionGui::chatUpdate(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %toggled
+ */
 function PlayMissionGui::updateChatPanel(%this, %toggled) {
 	if (%this.chatPanel $= "") {
 		%this.chatPanel = "server";
@@ -4478,11 +4836,18 @@ function PlayMissionGui::updateChatPanel(%this, %toggled) {
 	PM_TeamChatContainer.schedule(200, scrollToBottom);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %type
+ */
 function PlayMissionGui::toggleChat(%this, %type) {
 	%this.chatPanel = %type;
 	%this.updateChatPanel(true);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::notifyGlobalChat(%this) {
 	if (%this.chatPanel $= "global") {
 		return;
@@ -4491,6 +4856,9 @@ function PlayMissionGui::notifyGlobalChat(%this) {
 	PM_ChatToggleTeamGlobal.borderColor = "100 255 100";
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::notifyServerChat(%this) {
 	if (%this.chatPanel $= "server") {
 		return;
@@ -4499,6 +4867,9 @@ function PlayMissionGui::notifyServerChat(%this) {
 	PM_ChatToggleTeamServer.borderColor = "100 255 100";
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::notifyTeamChat(%this) {
 	if (%this.chatPanel $= "team") {
 		return;
@@ -4509,11 +4880,17 @@ function PlayMissionGui::notifyTeamChat(%this) {
 //-----------------------------------------------------------------------------
 // Teams interface
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateTeams(%this) {
 	%this.updateMPButtons();
 	%this.updateTeamUserlist();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateTeamUserlist(%this) {
 	%text = "<lmargin:4><spush><font:24>Team <spush><color:" @ getTeamColor($MP::TeamColor) @ ">" @ $MP::TeamName @ "<spop>:<spop><font:17><lmargin:7>";
 	%count = TeamPlayerList.getSize();
@@ -4534,10 +4911,17 @@ function PlayMissionGui::updateTeamUserlist(%this) {
 	PM_TeamUserList.setText(%text);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::toggleTeamsMode(%this) {
 	%this.setTeamsMode(!$MP::TeamMode);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %on
+ */
 function PlayMissionGui::setTeamsMode(%this, %on) {
 	$MP::TeamMode = %on;
 	commandToServer('SetTeamMode', %on);
@@ -4547,6 +4931,9 @@ function PlayMissionGui::setTeamsMode(%this, %on) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateMPButtons(%this) {
 	if (!mp()) {
 		error("updateMPButtons called not in MP");
@@ -4575,6 +4962,9 @@ function PlayMissionGui::updateMPButtons(%this) {
 	%this.setBarButtonActive(PM_MissionPlay, $Server::Hosting);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onMPMissionLoaded(%this) {
 	$Client::Loading = false;
 	$Client::Loaded = true;
@@ -4587,6 +4977,9 @@ function PlayMissionGui::onMPMissionLoaded(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onMPStartLoading(%this) {
 	$Client::Loading = true;
 	$Client::Loaded = false;
@@ -4595,6 +4988,9 @@ function PlayMissionGui::onMPStartLoading(%this) {
 	%this.updateServerPlayerList();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::onMPLoadFailed(%this) {
 	$Client::Loading = false;
 	$Client::Loaded = false;
@@ -4611,6 +5007,9 @@ function PlayMissionGui::onMPLoadFailed(%this) {
 //-----------------------------------------------------------------------------
 // Server player list
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::clearServerPlayerList(%this) {
 	PM_MPUserList.clear();
 	%count = $MP::ClientIndexMax;
@@ -4625,6 +5024,9 @@ function PlayMissionGui::clearServerPlayerList(%this) {
 	PM_MPUserList.resize(0, 0, 1, 1);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateServerPlayerList(%this) {
 	%start = getWord(PM_MPUserList.position, 1);
 	%count = $MP::ClientIndexMax;
@@ -4742,6 +5144,10 @@ function PlayMissionGui::updateServerPlayerList(%this) {
 	%this.updateLoadProgress(0);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %delta
+ */
 function PlayMissionGui::updateLoadProgress(%this, %delta) {
 	if (!%this.isAwake() || $pref::FastMode)
 		return;
@@ -4820,6 +5226,9 @@ function PlayMissionGui::updateLoadProgress(%this, %delta) {
 //-----------------------------------------------------------------------------
 // Marbleland stuff
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::deleteMission(%this) {
 	if (%this.isMarblelandMission()) {
 		if ($Menu::CurrentlyLoadedMission $= %this.getMissionInfo().file) {
@@ -4836,10 +5245,17 @@ function PlayMissionGui::deleteMission(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::isMarblelandMission(%this) {
 	return marblelandGetFileId(%this.getMissionInfo().file) !$= "";
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %scores
+ */
 function PlayMissionGui::onMarblelandScoreUpdate(%this, %scores) {
 	%this.globalScoreCache[%scores.missionId] = %scores;
 	%this.globalScoreCacheLoading[%scores.missionId] = false;
@@ -4849,6 +5265,9 @@ function PlayMissionGui::onMarblelandScoreUpdate(%this, %scores) {
 	%this.updateCurrentMission();
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::loadMarblelandScores(%this) {
 	//Reset current scores
 	if (%this.getMissionInfo().file !$= "") {
@@ -4864,6 +5283,11 @@ function PlayMissionGui::loadMarblelandScores(%this) {
 	MarblelandGetScores(%this.getMissionInfo().file, PMG_onMarbleLandScoresLoaded);
 }
 
+/**
+ * @param {Type} %success
+ * @param {Type} %mission
+ * @param {Type} %scoreData
+ */
 function PMG_onMarbleLandScoresLoaded(%success, %mission, %scoreData) {
 	if (%success) {
 		PlayMissionGui.onMarblelandScoreUpdate(%scoreData);
@@ -4872,6 +5296,10 @@ function PMG_onMarbleLandScoresLoaded(%success, %mission, %scoreData) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %mission
+ */
 function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 	%this.globalScoreCache[%mission] = "";
 	%this.globalScoreCacheLoading[%mission] = false;
@@ -4879,16 +5307,26 @@ function PlayMissionGui::onMarblelandScoreFailed(%this, %mission) {
 	%this.updateCurrentMission();
 }
 
+/**
+ * @param {Type} %marbleland
+ */
 function clientCmdSwapMissionListMP(%marbleland) {
 	PlayMissionGui.swapMissionListMP(%marbleland);
 }
 
+/**
+ * @param {Type} %gameType
+ * @param {Type} %file
+ */
 function clientCmdSetMPMarblelandMission(%gameType, %file) {
 	if (mp() && !($Server::Hosting && !$Server::_Dedicated)) {
 		PlayMissionGui.setSelectedMission(marblelandGetMission(marblelandGetFileId(%file)), "Marbleland", %gameType);
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::doSwapMissionListMP(%this) {
 	if (mp() && $Server::Hosting) {
 		if ($Client::Loaded) {
@@ -4899,6 +5337,10 @@ function PlayMissionGui::doSwapMissionListMP(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %marbleland
+ */
 function PlayMissionGui::swapMissionListMP(%this, %marbleland) {
 	// Swaps the current MP mission list with the appropriate marbleland mission list
 	if (mp()) {
@@ -4939,6 +5381,10 @@ function PlayMissionGui::swapMissionListMP(%this, %marbleland) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %text
+ */
 function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 	PM_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }
@@ -4947,6 +5393,11 @@ function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 //Holiday chicanery
 
 //Controls whether a given holiday will appear in the holiday selector's cycle or not
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %holiday
+ * @param {Type} %enabled
+ */
 function PlayMissionGui::enableHoliday(%this, %holiday, %enabled) {
 	%this.enabledHolidays[%holiday] = %enabled;
 
@@ -4957,6 +5408,10 @@ function PlayMissionGui::enableHoliday(%this, %holiday, %enabled) {
 }
 
 //Controls which holiday's level set is actually active in the level select
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %holiday
+ */
 function PlayMissionGui::activateHoliday(%this, %holiday) {
 	if (%holiday $= "Frightfest" || %holiday $= "Winterfest")
 		%this.enableHoliday(%holiday, true);
@@ -4971,6 +5426,10 @@ function PlayMissionGui::activateHoliday(%this, %holiday) {
 }
 
 //Function to quickly toggle the state of a given holiday. Just used by cheats
+/**
+ * @param {PlayMissionGui} %this
+ * @param {Type} %holiday
+ */
 function PlayMissionGui::toggleHoliday(%this, %holiday) {
 	%this.enableHoliday(%holiday, !%this.enabledHolidays[%holiday]);
 
@@ -4986,6 +5445,9 @@ function PlayMissionGui::toggleHoliday(%this, %holiday) {
 	echo(%cheat @ %holiday @ " is now " @ %enabled);
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::checkHolidaySecret(%this) {
 	%typed = PM_HolidayCodeDetector.getValue();
 	if (!%this.marbleland && !lb()) { //Don't activate this in the online singleplayer LS, and servers will use commands in chat
@@ -5009,6 +5471,9 @@ function PlayMissionGui::checkHolidaySecret(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::switchHoliday(%this) {
 	if (!%this.marbleland) {
 		echo("Switching holiday from current holiday " @ %this.currentHoliday @ ".");
@@ -5029,6 +5494,9 @@ function PlayMissionGui::switchHoliday(%this) {
 	}
 }
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateHolidaySelector(%this) {
 	if (lb()
 			|| (!%this.enabledHolidays["Frightfest"] && !%this.enabledHolidays["Winterfest"]) 
@@ -5058,6 +5526,9 @@ function PlayMissionGui::updateHolidaySelector(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayMissionGui} %this
+ */
 function PlayMissionGui::updateRichPresence(%this) {
 	if (mp()) {
 		if ($Server::_Dedicated) {

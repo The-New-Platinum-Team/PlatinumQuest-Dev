@@ -36,6 +36,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_ghosts) {
 	hasMissions = 0;
 });
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_ghosts::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }

@@ -20,6 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_competitive::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }

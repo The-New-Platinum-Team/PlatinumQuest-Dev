@@ -72,6 +72,9 @@ function serverBlastUpdate() {
 // Blast function
 // Where the knitty gritty is done
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdBlast(%client, %gravity) {
 	// CANCEL THE CANNON.
 	if (%client.isInCannon()) {
@@ -264,6 +267,9 @@ datablock ParticleEmitterData(UltraBlastEmitter) {
 	particles        = "UltraBlastSmoke";
 };
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
 
 	if (isCompetitiveMode() && !%usingSpecialBlast) {
@@ -321,6 +327,9 @@ function Marble::sendShockwave(%this, %strength, %usingSpecialBlast) {
 }
 
 // TODO: UTALIZE THE GRAVITY (its getGravityDir() but MP friendly)
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::makeBlastParticle(%this, %gravity) {
 	%this.player.sendShockwave(%this.blastValue * (%this.usingSpecialBlast ? $MP::BlastRechargeShockwaveStrength : $MP::BlastShockwaveStrength), %this.usingSpecialBlast);
 

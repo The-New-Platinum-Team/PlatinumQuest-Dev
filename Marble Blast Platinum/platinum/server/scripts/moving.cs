@@ -139,6 +139,10 @@ datablock StaticShapeData(BezierHandle) {
 	noBox = 1;
 };
 
+/**
+ * @param {Node} %this
+ * @param {SceneObject} %obj
+ */
 function Node::onAdd(%this, %obj) {
 	if (!isObject(PathNodeGroup)) {
 		new SimGroup(PathNodeGroup);
@@ -213,6 +217,10 @@ function Node::onAdd(%this, %obj) {
 	%obj.placed = 1;
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function BezierHandle::onAdd(%this, %obj) {
 	%obj.setSync();
 }
@@ -262,12 +270,17 @@ function resetMovingObjectsFast() {
 
 }
 
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::findMovingObjects(%this) {
 	%count = %this.getCount();
 	for (%i = 0; %i < %count; %i ++) {
+		/** @type {SceneObject} */
 		%obj = %this.getObject(%i);
 
 		if (%obj.getClassName() $= "SimGroup") {
+			/** @type {SimGroup} */
 			%obj.findMovingObjects();
 		} else if (%obj.path !$= "") {
 			%obj.moveOnPath(%obj.path);
@@ -275,12 +288,17 @@ function SimGroup::findMovingObjects(%this) {
 	}
 }
 
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::findParentedObjects(%this) {
 	%count = %this.getCount();
 	for (%i = 0; %i < %count; %i ++) {
+		/** @type {SceneObject} */
 		%obj = %this.getObject(%i);
 
 		if (%obj.getClassName() $= "SimGroup") {
+			/** @type {SimGroup} */
 			%obj.findParentedObjects();
 		} else if (isObject(%obj.parent) || isObject(%obj._parent)) {
 			%obj.beginParenting();
@@ -288,6 +306,9 @@ function SimGroup::findParentedObjects(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendMovingObjects(%this) {
 	for (%i = 0; %i < ServerMovingObjectSet.getCount(); %i ++) {
 		%object = ServerMovingObjectSet.getObject(%i);
@@ -300,6 +321,9 @@ function GameConnection::sendMovingObjects(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::resetPath(%this) {
 	//Reset objects to their initial positions
 	if (%this._initialPathPosition !$= "")
@@ -309,6 +333,9 @@ function SceneObject::resetPath(%this) {
 	%this._pathPosition = 0;
 }
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::moveOnPath(%this, %firstNode) {
 	// flag before updating path, this marks the object as a moving object
 	%this._moving = true;
@@ -334,6 +361,9 @@ function SceneObject::moveOnPath(%this, %firstNode) {
 	%this.setSync("moveOnPath", %this._pathSyncId);
 }
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::cancelMoving(%this) {
 	%this._moving = false;
 	%this._pathPosition = 0;
@@ -358,6 +388,9 @@ function updateServerMovingObjects(%delta) {
 	}
 }
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::updatePathPosition(%this, %delta) {
 	if (!isObject(%this._pathNode)) {
 		//End of the path. Stop.
@@ -407,6 +440,9 @@ if (!isObject(ServerParentedObjectSet)) {
 	RootGroup.add(new SimSet(ServerParentedObjectSet));
 }
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::beginParenting(%this) {
 	%parent = isObject(%this.parent) ? %this.parent : %this._parent;
 	objectToParent(%this, %parent, %this.parentModTrans, %this.parentSimple, %this.parentOffset, %this.parentNoRot);
@@ -476,11 +512,17 @@ function updateServerParentedObjects(%delta) {
 // Related member functions
 
 // All 3d game world objects
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::setParent(%this, %parent, %transform, %simple, %offset, %noRot) {
 	objectToParent(%this, %parent, %transform, %simple, %offset, %noRot);
 }
 
 // Objects needing their server object updated:
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::setParent(%this, %parent, %transform, %simple, %offset, %noRot) {
 	if ($Game::JustLoadedMission)
 		schedule(1000, 0, "objectToParent", %this, %parent, %transform, %simple, %offset, %noRot);
@@ -488,6 +530,9 @@ function ShapeBase::setParent(%this, %parent, %transform, %simple, %offset, %noR
 		objectToParent(%this, %parent, %transform, %simple, %offset, %noRot);
 }
 
+/**
+ * @param {fxLight} %this
+ */
 function fxLight::setParent(%this, %parent, %transform, %simple, %offset, %noRot) {
 	if ($Game::JustLoadedMission)
 		schedule(1000, 0, "objectToParent", %this, %parent, %transform, 1, %offset, %noRot);
@@ -495,6 +540,9 @@ function fxLight::setParent(%this, %parent, %transform, %simple, %offset, %noRot
 		objectToParent(%this, %parent, %transform, 1, %offset, %noRot);
 }
 
+/**
+ * @param {ParticleEmitterNode} %this
+ */
 function ParticleEmitterNode::setParent(%this, %parent, %transform, %simple, %offset, %noRot) {
 	if ($Game::JustLoadedMission)
 		schedule(1000, 0, "objectToParent", %this, %parent, %transform, 1, %offset, %noRot);
@@ -502,6 +550,10 @@ function ParticleEmitterNode::setParent(%this, %parent, %transform, %simple, %of
 		objectToParent(%this, %parent, %transform, 1, %offset, %noRot);
 }
 
+/**
+ * @param {SceneObject} %object
+ * @param {SceneObject} %parent
+ */
 function objectToParent(%object, %parent, %transform, %simple, %offset, %noRot) {
 	//Make sure this object is actually parented (it may not be because recursion)
 	if (!isObject(%parent)) {
@@ -538,6 +590,9 @@ function objectToParent(%object, %parent, %transform, %simple, %offset, %noRot) 
 	ServerParentedObjectSet.add(%object);
 }
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::stopParenting(%this) {
 	ServerParentedObjectSet.remove(%this);
 	%this._parent = "";
@@ -553,6 +608,9 @@ function activateMovingObjects(%active) {
 	commandToAll('ActivateMovingObjects', %active);
 }
 
+/**
+ * @param {Type} %obj
+ */
 function isServerMovingObject(%obj) {
 	return (%obj._moving || isObject(%obj.path) || isObject(%obj.parent) || isObject(%obj._parent));
 }

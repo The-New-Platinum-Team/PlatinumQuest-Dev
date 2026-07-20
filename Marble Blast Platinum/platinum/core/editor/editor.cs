@@ -66,6 +66,9 @@ function Editor::create() {
 }
 
 
+/**
+ * @param {Editor} %this
+ */
 function Editor::onAdd(%this) {
 	// Basic stuff
 	exec("./cursors.cs");

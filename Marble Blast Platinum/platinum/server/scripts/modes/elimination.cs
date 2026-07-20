@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_elimination::onLoad(%this) {
 	%this.registerCallback("onPlayerJoin");
 	%this.registerCallback("onClientEnterGame");
@@ -33,15 +36,26 @@ function Mode_elimination::onLoad(%this) {
 	%this.registerCallback("shouldSetSpectate");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_elimination} %this
+ * @param {Type} %object
+ */
 function Mode_elimination::onPlayerJoin(%this, %object) {
 	%object.client.eliminated = true;
 }
+/**
+ * @param {Mode_elimination} %this
+ * @param {Type} %object
+ */
 function Mode_elimination::onClientEnterGame(%this, %object) {
 	if (%object.client.eliminated) {
 		%object.client.setToggleCamera(true);
 		%object.client.deletePlayer();
 	}
 }
+/**
+ * @param {Mode_elimination} %this
+ */
 function Mode_elimination::onMissionReset(%this, %object) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -49,15 +63,28 @@ function Mode_elimination::onMissionReset(%this, %object) {
 		%client.eliminated = %client.spectating;
 	}
 }
+/**
+ * @param {Mode_elimination} %this
+ */
 function Mode_elimination::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_elimination} %this
+ * @param {Type} %object
+ */
 function Mode_elimination::shouldSetSpectate(%this, %object) {
 	return !%object.client.eliminated;
 }
+/**
+ * @param {Mode_elimination} %this
+ */
 function Mode_elimination::getStartTime(%this, %object) {
 	return MissionInfo.eliminationTime $= "" ? 60000 : MissionInfo.eliminationTime;
 }
+/**
+ * @param {Mode_elimination} %this
+ */
 function Mode_elimination::onTimeExpire(%this, %object) {
 	//Find the player with the least points
 	%count = ClientGroup.getCount();

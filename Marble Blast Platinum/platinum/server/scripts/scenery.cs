@@ -135,6 +135,10 @@ datablock StaticShapeData(OrbitingClouds) {
 	customField[0, "default"] = "0";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function OrbitingClouds::onAdd(%this, %obj) {
 	if (!%obj.reverse)
 		%obj.playThread(0, "orbit");
@@ -290,6 +294,10 @@ datablock StaticShapeData(Flowers) {
 	customField[0, "default"] = "";
 };
 
+/**
+ * @param {Scenery} %this
+ * @param {ShapeBase} %obj
+ */
 function Scenery::onAdd(%this, %obj) {
 	if (%obj.skin !$= "") {
 		%obj.setSkinName(%obj.skin);
@@ -584,6 +592,10 @@ datablock StaticShapeData(Rock04 : Rock01) {
 	shapeFile = "~/data/shapes_pq/Scenery/Nature/Rock04.dts";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Rock01::onAdd(%this, %obj) {
 	if (%obj.skin $= "" || %obj.skin $= "base") {
 		if (getRandom() < 0.01) {

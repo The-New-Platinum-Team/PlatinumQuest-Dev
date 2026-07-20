@@ -126,12 +126,18 @@ new GuiControl(ManualGui) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {ManualGui} %this
+ */
 function ManualGui::onWake(%this) {
 	%this.populateList();
 	%this.selectPage(1);
 	ManualPageList.setSelectedRow(0);
 }
 
+/**
+ * @param {ManualGui} %this
+ */
 function ManualGui::populateList(%this) {
 	ManualPageList.clear();
 	%search = $usermods @ "/client/ui/help/pages/*.txt";
@@ -143,6 +149,9 @@ function ManualGui::populateList(%this) {
 	ManualPageList.sortNumerical(1, true);
 }
 
+/**
+ * @param {ManualGui} %this
+ */
 function ManualGui::selectPage(%this, %page) {
 	%file = $usermods @ "/client/ui/help/pages/" @ %page @ ".txt";
 	%conts = fread(%file);
@@ -150,6 +159,9 @@ function ManualGui::selectPage(%this, %page) {
 	trackGuiOpen("Manual-" @ %page);
 }
 
+/**
+ * @param {ManualGui} %this
+ */
 function ManualGui::updatePage(%this) {
 	%this.selectPage(getField(ManualPageList.getRowTextById(ManualPageList.getSelectedId()), 1));
 }

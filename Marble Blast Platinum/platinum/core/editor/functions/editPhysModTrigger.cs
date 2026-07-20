@@ -20,6 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Type} %obj
+ */
 function epmtbutton(%obj) {
 	LargeFunctionDlg.init("editPhysModTrigger", "Edit PhysMod Trigger", 1);
 	$Editor::PhysModTrigger = %obj;
@@ -157,6 +160,9 @@ function epmtbutton(%obj) {
 	LargeFunctionDlg.addNote("When using a Gyrocopter, Air Acceleration will be multiplied by this factor.", 2);
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function editPhysModTrigger(%gui) {
 	%obj = $Editor::PhysModTrigger;
 	%obj.noEmitters = PhysMod_noEmitters.getValue();

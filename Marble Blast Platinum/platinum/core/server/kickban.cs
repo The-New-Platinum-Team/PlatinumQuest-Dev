@@ -22,6 +22,9 @@
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function kick(%client) {
 	// Tell people
 	messageAll('MsgAdminForce', '\c2The Host has kicked %1.', %client.getDisplayName());
@@ -43,6 +46,9 @@ function kick(%client) {
 	MPPlayersDlg.updatePlayerList();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function ban(%client) {
 	// Tell people
 	messageAll('MsgAdminForce', '\c2The Host has banned %1.', %client.getDisplayName());

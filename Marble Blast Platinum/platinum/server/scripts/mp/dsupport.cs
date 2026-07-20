@@ -149,6 +149,9 @@ function dedicatedUpdate() {
 	}
 }
 
+/**
+ * @param {SimObject} %oldHost
+ */
 function dedicatedFindNewHost(%oldHost) {
 	//resetSettings();
 	if (isObject(%oldHost)) {
@@ -173,6 +176,9 @@ function dedicatedFindNewHost(%oldHost) {
 	MPinitLoops();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::injectScripts(%this) {
 	//Nope
 }
@@ -229,6 +235,9 @@ function resetSettings() {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendInfo(%this) {
 	saveSettings();
 
@@ -238,6 +247,9 @@ function GameConnection::sendInfo(%this) {
 	%this.sendGameModes();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendGameModes(%this) {
 	for (%i = 0; %i < ModeInfoGroup.getCount(); %i ++) {
 		%mode = ModeInfoGroup.getObject(%i);

@@ -243,6 +243,9 @@ new GuiControl(MPDownloadDlg) {
 // Window Opening
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::show(%this) {
 	if ($Server::Hosting && !$Server::_Dedicated) {
 		%this.showHost();
@@ -251,6 +254,9 @@ function MPDownloadDlg::show(%this) {
 	}
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::showHost(%this) {
 	MPDH_Title.setText("<bold:32><just:center>Offer Mission for Download");
 	MPDH_RestrictTitle.setText("<font:24><just:center>Restrict Access");
@@ -272,6 +278,9 @@ function MPDownloadDlg::showHost(%this) {
 	%this.updating = false;
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::showClient(%this) {
 	MPDC_Title.setText("<bold:32><just:center>Download Mission");
 
@@ -285,6 +294,9 @@ function MPDownloadDlg::showClient(%this) {
 // Host Window
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::readFile(%this) {
 	if (%this.fo $= "") {
 		%this.fo = new FileObject();
@@ -315,6 +327,9 @@ function MPDownloadDlg::readFile(%this) {
 		%this.schedule(1, readFile);
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::setupPlayers(%this) {
 	MPDH_RestrictScroll.clear();
 
@@ -379,6 +394,9 @@ function MPDownloadDlg::setupPlayers(%this) {
 	%this.update();
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::allow(%this, %box) {
 	(MPDH_Box @ %box).client.canDownload[$MP::MissionFile] = (MPDH_Allow @ %box).getValue();
 	commandToClient((MPDH_Box @ %box).client, 'CanDownloadMission', $MP::MissionFile, (MPDH_Allow @ %box).getValue());
@@ -389,6 +407,9 @@ function MPDownloadDlg::allow(%this, %box) {
 	%this.update();
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::update(%this) {
 	//Prevent inf loops
 	if (%this.updating)
@@ -427,6 +448,9 @@ function MPDownloadDlg::update(%this) {
 	%this.updating = false;
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::allowAll(%this) {
 	if (MPDH_AllowAll.getValue()) {
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -446,6 +470,9 @@ function MPDownloadDlg::allowAll(%this) {
 // Client Window
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::startDownload(%this) {
 	commandToServer('RequestMissionFile', $MP::MissionFile);
 	MPDC_Info.setText("<font:24><just:center>Starting Download");
@@ -454,16 +481,25 @@ function MPDownloadDlg::startDownload(%this) {
 	MPDC_Download.setActive(false);
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::downloadStart(%this) {
 	MPDC_Info.setText("<font:24><just:center>Starting Download");
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::downloadFinish(%this) {
 	MPDC_Info.setText("<font:24><just:center>Download Finished");
 	MPDC_Close.setActive(true);
 	MPDC_Download.setActive(true);
 }
 
+/**
+ * @param {MPDownloadDlg} %this
+ */
 function MPDownloadDlg::downloadError(%this) {
 	MPDC_Info.setText("<font:24><just:center>Error with Download");
 	MPDC_Close.setActive(true);

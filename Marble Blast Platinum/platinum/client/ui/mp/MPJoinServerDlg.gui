@@ -413,6 +413,9 @@ new GuiChunkedBitmapCtrl(MPJoinServerDlg) {
 $Master::ServerRowIndexField = 4;
 
 //----------------------------------------
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::onWake(%this) {
 	// Double check the status. Tried setting this the control
 	// inactive to start with, but that didn't seem to work.
@@ -432,6 +435,9 @@ function MPJoinServerDlg::onWake(%this) {
 	setDiscordStatus("Online", "Browsing Servers");
 }
 
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::updateSpinner(%this) {
 	if (!%this.isAwake())
 		return;
@@ -442,6 +448,9 @@ function MPJoinServerDlg::updateSpinner(%this) {
 }
 
 //----------------------------------------
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::query(%this) {
 	MPJoinRefresh.setActive(false);
 	%this.loading = true;
@@ -466,6 +475,9 @@ function MPJoinServerDlg::query(%this) {
 }
 
 //----------------------------------------
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::queryGG(%this) {
 	//Use our master
 
@@ -495,6 +507,9 @@ function MPJoinServerDlg::queryGG(%this) {
 }
 
 //----------------------------------------
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::cancel(%this) {
 	cancelServerQuery();
 	if (%this.querying) {
@@ -503,6 +518,9 @@ function MPJoinServerDlg::cancel(%this) {
 }
 
 //----------------------------------------
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::join(%this) {
 	$MP::ServerPassword = "";
 	$Server::Private = false;
@@ -534,6 +552,9 @@ function MPJoinServerDlg::join(%this) {
 }
 
 //----------------------------------------
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::exit(%this) {
 	%this.cancel();
 	setDiscordStatus(LBChatGui.richPresence[1], LBChatGui.richPresence[0]);
@@ -542,6 +563,11 @@ function MPJoinServerDlg::exit(%this) {
 
 //----------------------------------------
 
+/**
+ * @param {MPJoinServerDlg} %this
+ * @param {Type} %ip
+ * @param {Type} %invalid
+ */
 function MPJoinServerDlg::pushPassword(%this, %ip, %invalid) {
 	%this.joinIP = %ip;
 	MPJoinPasswordPop.setVisible(true);
@@ -551,6 +577,9 @@ function MPJoinServerDlg::pushPassword(%this, %ip, %invalid) {
 	%this.updatePassword();
 }
 
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::updatePassword(%this) {
 	MPJoinPassword.password = !MPJoinShowPassword.getValue();
 	MPJoinPasswordJoin.setActive(MPJoinPassword.getValue() !$= "");
@@ -558,10 +587,16 @@ function MPJoinServerDlg::updatePassword(%this) {
 	$Server::Private = ($MP::ServerPassword !$= "");
 }
 
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::cancelPassword(%this) {
 	%this.popPassword();
 }
 
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::joinPassword(%this) {
 	//So apparently this method gets the event for pressing enter on the GUI,
 	// and keeps trying to join blank servers. Let's not.
@@ -576,6 +611,9 @@ function MPJoinServerDlg::joinPassword(%this) {
 	%this.cancelPassword();
 }
 
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::popPassword(%this) {
 	MPJoinPasswordPop.setVisible(false);
 	MPJoinShowPassword.setValue(false);
@@ -584,6 +622,9 @@ function MPJoinServerDlg::popPassword(%this) {
 
 //----------------------------------------
 
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::directConnect(%this) {
 	if ($MP::EnableDirectConnect)
 		RootGui.pushDialog(MPDirectConnectDlg);
@@ -591,6 +632,9 @@ function MPJoinServerDlg::directConnect(%this) {
 
 //----------------------------------------
 
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::hostMission(%this) {
 	if ($Game::Offline)
 		return;
@@ -598,6 +642,9 @@ function MPJoinServerDlg::hostMission(%this) {
 }
 
 //----------------------------------------
+/**
+ * @param {MPJoinServerDlg} %this
+ */
 function MPJoinServerDlg::update(%this) {
 	// Copy the servers into the server list.
 	%selected = MPJoinServerList.getSelectedId();

@@ -4,6 +4,9 @@
 
 //All modes are a subclass of Mode. Every mode will have a ScriptObject
 // created for it which will have onLoad called when a user loads the mode.
+/**
+ * @param {Mode} %this
+ */
 function Mode_challenge::onLoad(%this) {
 	//Register the mode for all of the callbacks which it will need to use.
 	// The null mode registers for all callbacks, and has documentation on
@@ -25,36 +28,65 @@ function Mode_challenge::onLoad(%this) {
 
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_challenge} %this
+ */
 function Mode_challenge::onMissionLoaded(%this, %object) {
 	if ($CurrentWeeklyChallenge.noGems)
 		$Game::GemCount = 0;
 }
+/**
+ * @param {Mode_challenge} %this
+ */
 function Mode_challenge::onMissionEnded(%this, %object) {
 	//Description:
 	// Called from onMissionEnded.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_challenge} %this
+ */
 function Mode_challenge::onMissionReset(%this, %object) {
 	if ($CurrentWeeklyChallenge.noGems)
 		$Game::GemCount = 0;
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Item} %object
+ */
 function Mode_challenge::shouldPickupGem(%this, %object) {
 	if ($CurrentWeeklyChallenge.noGems)
 		return false;
 	return true;
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Item} %object
+ */
 function Mode_challenge::shouldIgnoreGem(%this, %object) {
 	if ($CurrentWeeklyChallenge.noGems)
 		return true;
 	return false;
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Item} %object
+ */
 function Mode_challenge::shouldDisablePowerup(%this, %object) {
 	return $CurrentWeeklyChallenge.noPowerups $= "1";
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Item} %object
+ */
 function Mode_challenge::shouldPickupPowerup(%this, %object) {
 	return $CurrentWeeklyChallenge.noPowerups !$= "1";
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Item} %object
+ */
 function Mode_challenge::shouldPickupItem(%this, %object) {
 	switch$ (%object.obj.getDataBlock().getName()) {
 	case "EasterEgg" or "EasterEgg_MBG" or "EasterEgg_MBU" or "NestEgg_PQ":
@@ -62,6 +94,10 @@ function Mode_challenge::shouldPickupItem(%this, %object) {
 	}
 	return true;
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Marble} %object
+ */
 function Mode_challenge::getMarbleSize(%this, %object) {
 
 	%marbleSizeMult = 1.0;
@@ -73,6 +109,10 @@ function Mode_challenge::getMarbleSize(%this, %object) {
 	else
 		return %object.client.player.getDataBlock().scale * %marbleSizeMult;
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Marble} %object
+ */
 function Mode_challenge::getUltraMarbleSize(%this, %object) {
 	%marbleSizeMult = 1.0;
 	if ($CurrentWeeklyChallenge.marbleSizeMult !$= "")
@@ -80,6 +120,10 @@ function Mode_challenge::getUltraMarbleSize(%this, %object) {
 
 	return %object.client.player.getDataBlock().ultraScale * %marbleSizeMult;
 }
+/**
+ * @param {Mode_challenge} %this
+ * @param {Marble} %object
+ */
 function Mode_challenge::canFinish(%this, %object) {
 	//Description:
 	// Called to determine if a player is allowed to finish the level.

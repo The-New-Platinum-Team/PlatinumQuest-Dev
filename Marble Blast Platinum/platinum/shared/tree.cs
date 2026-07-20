@@ -20,6 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Array} %root
+ */
 function TreeBuild(%root, %path) {
 	%slash = strpos(%path, "/");
 	if (%slash == -1) {
@@ -52,6 +55,9 @@ function TreeBuild(%root, %path) {
 	return TreeBuild(%next, %rest);
 }
 
+/**
+ * @param {Array} %root
+ */
 function TreeGet(%root, %path) {
 	%slash = strpos(%path, "/");
 	if (%slash == -1) {
@@ -77,6 +83,9 @@ function TreeGet(%root, %path) {
 	return -1;
 }
 
+/**
+ * @param {Array} %root
+ */
 function TreePath(%root, %node) {
 	%path = "";
 	while (%node.getId() != %root.getId()) {
@@ -86,6 +95,9 @@ function TreePath(%root, %node) {
 	return %path;
 }
 
+/**
+ * @param {Array} %obj
+ */
 function TreeNode(%obj) {
 	%t = Array("TreeNode");
 	if (isObject(%obj)) {
@@ -94,6 +106,10 @@ function TreeNode(%obj) {
 	return %t;
 }
 
+/**
+ * @param {Array} %root
+ * @param {Array} %node
+ */
 function TreeDepth(%root, %node) {
 	%depth = 0;
 	while (%node.getId() != %root.getId()) {
@@ -103,6 +119,10 @@ function TreeDepth(%root, %node) {
 	return %depth;
 }
 
+/**
+ * @param {Array} %root
+ * @param {Array} %node
+ */
 function TreeCollapseDepth(%root, %node) {
 	%depth = 0;
 	while (%node.getId() != %root.getId()) {
@@ -115,6 +135,10 @@ function TreeCollapseDepth(%root, %node) {
 	return %depth;
 }
 
+/**
+ * @param {Array} %root
+ * @param {Array} %node
+ */
 function TreeCollapsePath(%root, %node) {
 	%path = "";
 	while (%node.getId() != %root.getId()) {
@@ -128,6 +152,9 @@ function TreeCollapsePath(%root, %node) {
 	return %path;
 }
 
+/**
+ * @param {Array} %array
+ */
 function recurseSort(%array, %fn) {
 	%array.sort(%fn);
 

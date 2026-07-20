@@ -49,6 +49,11 @@ if (!isObject(WaterMarbleIsInSet)) {
 
 /// Called whenever the marble enters a water trigger.
 /// @arg marble The marble object entering the trigger.
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function WaterPhysicsTrigger_onClientEnterTrigger(%this, %trigger, %marble) {
 	if (!isObject(%marble.waterIsInSet)) {
 		%marble.waterIsInSet = new SimSet(WaterIsInSet);
@@ -61,12 +66,22 @@ function WaterPhysicsTrigger_onClientEnterTrigger(%this, %trigger, %marble) {
 	updateClientWater();
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function WaterPhysicsTrigger_onClientStayTrigger(%this, %trigger, %marble) {
 	//Nothing
 }
 
 /// Called whenever the marble leaves a water trigger.
 /// @arg marble The marble object leaving the trigger.
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function WaterPhysicsTrigger_onClientLeaveTrigger(%this, %trigger, %marble) {
 	%marble.waterIsInSet.remove(%trigger);
 	updateClientWater();
@@ -76,6 +91,10 @@ function WaterPhysicsTrigger_onClientLeaveTrigger(%this, %trigger, %marble) {
 /// If you are transitioning from one water trigger to the next, this callback
 /// is not fired, as it will be seamless.
 /// It will only be called on the first water trigger is entered.
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ */
 function WaterPhysicsTrigger_onEnterWater(%this, %trigger) {
 	// apply water physics
 	Physics::pushLayerName("water");
@@ -165,6 +184,7 @@ function updateClientWater() {
 
 	%size = PlayerList.getSize();
 	for (%i = 0; %i < %size; %i ++) {
+		/** @type {Marble} */
 		%player = PlayerList.getEntry(%i).player;
 		if (!isObject(%player))
 			continue;
@@ -238,12 +258,16 @@ function updateClientWater() {
 ///         object's position, or -1 if the control object is not inside of a
 ///         water trigger.
 /// @see updateClientWater
+/**
+ * @param {SimSet} %set
+ */
 function findClosestWaterTrigger(%set, %pos) {
 	%closestTrigger = -1;
 	%checkDist = 999999;
 	%count = %set.getCount();
 
 	for (%i = 0; %i < %count; %i++) {
+		/** @type {Trigger} */
 		%trigger = %set.getObject(%i);
 		%check = VectorDist(%trigger.getWorldBoxCenter(), %pos);
 		if (%check <= %checkDist) {
@@ -261,9 +285,13 @@ function findClosestWaterTrigger(%set, %pos) {
 ///         false if it is not. It can return false even if the control object
 ///         is not touching any water.
 /// @see updateClientWater
+/**
+ * @param {SimSet} %set
+ */
 function performWaterOverlay(%set, %cameraPos) {
 	%count = %set.getCount();
 	for (%i = 0; %i < %count; %i++) {
+		/** @type {Trigger} */
 		%trigger = %set.getObject(%i);
 
 		// Check if the camera position is inside of the trigger we can do

@@ -23,6 +23,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_tag::onLoad(%this) {
 	%this.registerCallback("shouldResetTime");
 	%this.registerCallback("shouldRestartOnOOB");
@@ -34,24 +37,44 @@ function Mode_tag::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_tag} %this
+ */
 function Mode_tag::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_tag} %this
+ */
 function Mode_tag::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_tag} %this
+ */
 function Mode_tag::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {Mode_tag} %this
+ * @param {Type} %object
+ */
 function Mode_tag::onRespawnPlayer(%this, %object) {
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		ClientGroup.getObject(%i).setTag(false);
 	}
 	%object.client.setTag(true);
 }
+/**
+ * @param {Mode_tag} %this
+ * @param {Type} %object
+ */
 function Mode_tag::onFoundGem(%this, %object) {
 	%object.client.playPitchedSound("gotDiamond");
 }
+/**
+ * @param {Mode_tag} %this
+ */
 function Mode_tag::onMissionReset(%this, %object) {
 	for (%clientIndex = 0; %clientIndex < %count; %clientIndex++) {
 		%cl = ClientGroup.getObject(%clientIndex);
@@ -59,9 +82,16 @@ function Mode_tag::onMissionReset(%this, %object) {
 			%cl.respawnPlayer(%cl.spawnPoint);
 	}
 }
+/**
+ * @param {Mode_tag} %this
+ */
 function Mode_tag::getStartTime(%this) {
 	return (MissionInfo.time ? MissionInfo.time : 300000);
 }
+/**
+ * @param {Mode_tag} %this
+ * @param {Type} %object
+ */
 function Mode_tag::onBlast(%this, %object) {
 	%mePos = %object.this.getWorldBoxCenter();
 	%theyPos = %object.other.getWorldBoxCenter();
@@ -70,6 +100,9 @@ function Mode_tag::onBlast(%this, %object) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setTag(%this, %isTagger) {
 	if (!$Game::isMode["tag"])
 		return;
@@ -100,10 +133,16 @@ function GameConnection::setTag(%this, %isTagger) {
 	updateScores();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::taggerTimeoutEnd(%this) {
 	%this.taggerTimeout = false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::taggerUpdate(%this) {
 	if (!%this.tagger)
 		return;
@@ -120,6 +159,10 @@ function GameConnection::taggerUpdate(%this) {
 	updateScores();
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {GameConnection} %client
+ */
 function GameConnection::onTag(%this, %client) {
 	if (!$Game::isMode["tag"])
 		return;
@@ -138,6 +181,10 @@ function GameConnection::onTag(%this, %client) {
 	}
 }
 
+/**
+ * @param {Marble} %this
+ * @param {Marble} %opponent
+ */
 function Marble::getBlastRadius(%this, %strength, %opponent) {
 	%maxRadius = (MissionInfo.tagRadius ? MissionInfo.tagRadius : 15);
 	echo("maxrad was" SPC %maxRadius);

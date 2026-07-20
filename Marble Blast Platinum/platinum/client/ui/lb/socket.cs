@@ -92,6 +92,9 @@ function LBguestConnect() {
 // LBNetwork Base Functionality
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::onConnected(%this) {
 	%this.echo("LBNetwork::onConnected Connected!");
 	cancelIgnorePause($LB::ReloginSchedule);
@@ -107,6 +110,9 @@ function LBNetwork::onConnected(%this) {
 	%this.scheduleIgnorePause(1000, identify);
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::onDisconnect(%this) {
 	%this.echo("LBNetwork::onDisconnect Disconnected!");
 	error("LBNetwork Disconnected!");
@@ -120,6 +126,9 @@ function LBNetwork::onDisconnect(%this) {
 	%this.delete();
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::pingDisconnect(%this) {
 	%this.echo("LBNetwork::pingDisconnect Disconnected!");
 	error("LBNetwork Disconnected: Timeout!");
@@ -133,6 +142,9 @@ function LBNetwork::pingDisconnect(%this) {
 	%this.delete();
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::scheduleRelogin(%this) {
 	%this.shouldRelog = false;
 
@@ -165,11 +177,17 @@ function LBRelogin() {
 	$LB::ReloginSchedule = scheduleIgnorePause(5000, LBRelogin);
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::delete(%this) {
 	%this.send("DISCONNECT");
 	Parent::delete(%this);
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::send(%this, %data) {
 	%this.echo(trim(%data), "Send");
 	echo("LBNetwork << " @ %data);
@@ -180,6 +198,9 @@ function LBNetwork::send(%this, %data) {
 // LBNetwork Functions
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::identify(%this) {
 	if ($Game::Offline)
 		return;
@@ -223,6 +244,9 @@ function LBNetwork::identify(%this) {
 	savePrefs();
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::finishLogin(%this) {
 	if ($Game::Offline)
 		return;
@@ -287,14 +311,23 @@ function LBOnLoadProgress() {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::sendChat(%this, %message, %destination) {
 	%this.send("CHAT" SPC encodeName(%destination) SPC %message @ "\r\n");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::setMode(%this, %location) {
 	%this.send("LOCATION" SPC %location @ "\r\n");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::ping(%this, %data) {
 	%this.send("PING" SPC %data @ "\r\n");
 	$LB::PingTime = $Sim::Time;
@@ -306,26 +339,44 @@ function LBNetwork::ping(%this, %data) {
 	%this.pingDisconnect = %this.scheduleIgnorePause(10000, "pingDisconnect");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::pong(%this, %data) {
 	%this.send("PONG" SPC %data @ "\r\n");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::addFriend(%this, %friend) {
 	%this.send("FRIEND" SPC encodeName(%friend) @ "\r\n");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::deleteFriend(%this, %friend) {
 	%this.send("FRIENDDEL" SPC encodeName(%friend) @ "\r\n");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::listFriends(%this) {
 	%this.send("FRIENDLIST\r\n");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::blockUser(%this, %user) {
 	%this.send("BLOCK" SPC encodeName(%user) @ "\r\n");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::unblockUser(%this, %user) {
 	%this.send("UNBLOCK" SPC encodeName(%user) @ "\r\n");
 }
@@ -334,6 +385,10 @@ function LBNetwork::unblockUser(%this, %user) {
 // LBNetwork line parsing
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {LBNetwork} %this
+
+ */
 function LBNetwork::onLine(%this, %line) {
 	if (%this.disconnected)
 		return;
@@ -387,6 +442,9 @@ function LBNetwork::onLine(%this, %line) {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_identify(%this, %line) {
 	//IDENTIFY <status>
 	//Status can be any of the following:
@@ -419,6 +477,9 @@ function LBNetwork::on_identify(%this, %line) {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_info(%this, %line) {
 	//INFO <info type> <info data>
 	//Type can be any of the following:
@@ -460,18 +521,27 @@ function LBNetwork::on_info(%this, %line) {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_winter(%this, %line) {
 	if ($Game::Offline)
 		return;
 	$LB::WinterMode = true;
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_2spooky(%this, %line) {
 	if ($Game::Offline)
 		return;
 	$LB::SpookyMode = true;
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_logged(%this, %line) {
 	if ($Game::Offline)
 		return;
@@ -488,6 +558,9 @@ function LBNetwork::on_logged(%this, %line) {
 	%this.finishLogin();
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_accepttos(%this, %line) {
 	if ($Game::Offline)
 		return;
@@ -495,6 +568,9 @@ function LBNetwork::on_accepttos(%this, %line) {
 	RootGui.setContent(LBTermsDlg);
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_friend(%this, %line) {
 	//FRIEND <type> [name]
 	//We'll get one of the following:
@@ -524,6 +600,9 @@ function LBNetwork::on_friend(%this, %line) {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_block(%this, %line) {
 	//BLOCK <type> [name]
 	//We'll get one of the following:
@@ -553,6 +632,9 @@ function LBNetwork::on_block(%this, %line) {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_flair(%this, %line) {
 	//FLAIR <flair>
 	//Check if we have it
@@ -562,6 +644,9 @@ function LBNetwork::on_flair(%this, %line) {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_user(%this, %line) {
 	//USER <type> [name]
 	//We'll get one of the following:
@@ -705,6 +790,9 @@ function sortUserlistItems(%a, %b) {
 	return stricmp(%a.display, %b.display) < 0;
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_chat(%this, %line) {
 	if ($LB::Relogin) {
 //		echo("Chat during relogin!");
@@ -714,17 +802,26 @@ function LBNetwork::on_chat(%this, %line) {
 	LBParseChat(%line);
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_notify(%this, %line) {
 	//Punt this over to LBChatGui
 	LBParseNotify(%line);
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_shutdown(%this, %line) {
 	//That's never a good sign
 	LB_FinishLogout();
 	LBAssert("Shutdown!","The leaderboards server has just shut down. Please reconnect later!");
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_ping(%this, %line) {
 	if ($Game::Offline) //If they've managed to get this far offline, color me impressed.
 		return;
@@ -735,6 +832,9 @@ function LBNetwork::on_ping(%this, %line) {
 	%this.pingSchedule = %this.scheduleIgnorePause(30000, "ping", getSimTime() SPC getRealTime());
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_pong(%this, %line) {
 	if (%line $= %this.lastPing) {
 		//Grab pingtime
@@ -745,12 +845,18 @@ function LBNetwork::on_pong(%this, %line) {
 	}
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_pingtime(%this, %line) {
 	//PINGTIME <time>
 	%time = getWord(%line, 0);
 	$LB::Ping = mRound(%time * 1000);
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_status(%this, %line) {
 	//<id> <text>
 	%id = firstWord(%line);
@@ -759,6 +865,9 @@ function LBNetwork::on_status(%this, %line) {
 	$LB::FoundStatus[%id] = true;
 }
 
+/**
+ * @param {LBNetwork} %this
+ */
 function LBNetwork::on_color(%this, %line) {
 	//<id> <text>
 	%id = firstWord(%line);

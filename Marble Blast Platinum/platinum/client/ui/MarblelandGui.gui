@@ -1755,6 +1755,9 @@ $ML::FilterDiff[4]       = "";
 // Entry point
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::open(%this) {
 	// check display height
 	%height = getWord($pref::Video::WindowedRes, 1);
@@ -1784,6 +1787,9 @@ function MarblelandGui_onMissionListLoaded(%success) {
 // Lifecycle
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::onWake(%this) {
 	copyBlurImage(PM_MissionImage.bitmap);
 	%this.setTickable(true);
@@ -1831,6 +1837,9 @@ function MarblelandGui::onWake(%this) {
 		%this.showStatus("Loading Marbleland level list...");
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::onSleep(%this) {
 	%this.hideExtras();
 	%this.setTickable(false);
@@ -1851,6 +1860,9 @@ function MarblelandGui::onSleep(%this) {
 	%this.cleanupVfsCache();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::cleanupVfsCache(%this) {
 	if (isObject($MarblelandMissionList)) {
 		for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
@@ -1876,11 +1888,17 @@ function MarblelandGui::cleanupVfsCache(%this) {
 	MarblelandCachedAvatars.clear();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::onTick(%this, %delta) {
 	if (!%this.isAwake()) return;
 	%this.updateVisibleIcons();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::positionBars(%this) {
 	%w = getWord(MarblelandGui.getExtent(), 0);
 	%h = getWord(MarblelandGui.getExtent(), 1);
@@ -1909,6 +1927,9 @@ function MarblelandGui::positionBars(%this) {
 	ML_PageLabel.setPosition("95 21");
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::toggleExtras(%this) {
 	if (ML_ExtrasBox.isVisible())
 		%this.hideExtras();
@@ -1916,18 +1937,27 @@ function MarblelandGui::toggleExtras(%this) {
 		%this.showExtras();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::showExtras(%this) {
 	ML_ExtrasBox.setVisible(1);
 	if (isObject(ML_MenuBtn))
 		ML_MenuBtn.setValue(1);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::hideExtras(%this) {
 	ML_ExtrasBox.setVisible(0);
 	if (isObject(ML_MenuBtn))
 		ML_MenuBtn.setValue(0);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::recalculateTileLayout(%this) {
 	%ext   = ML_LevelGridContainer.getExtent();
 	%gridW = getWord(%ext, 0);
@@ -1946,6 +1976,9 @@ function MarblelandGui::recalculateTileLayout(%this) {
 	return false;
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updateTileColors(%this) {
 	if ($TexturePack::InvertTextColors) {
 		MLTileProfile.fillColor         = "49 49 49 230";
@@ -1964,12 +1997,18 @@ function MarblelandGui::updateTileColors(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui_ResizeNotify::onParentResized(%this) {
 	if (MarblelandGui.isAwake()) {
 		MarblelandGui.schedule(25, "resizeProperly");
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::resizeProperly(%this)
 {
 	MarblelandGui.buildFilterList();
@@ -1987,6 +2026,9 @@ function MarblelandGui::resizeProperly(%this)
 // Filter dropdown — same pattern as PM_GameList
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::buildFilterList(%this) {
 	ML_FilterScroll.clear();
 	%h = 35;
@@ -2027,17 +2069,27 @@ function MarblelandGui::buildFilterList(%this) {
 	ML_FilterContainer.setExtent("220 " @ %listH);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::toggleFilter(%this) {
 	%visible = !ML_FilterPopupDismiss.visible;
 	ML_FilterPopupDismiss.visible = %visible;
 	ML_FilterDropBtn.setValue(%visible);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::hideFilter(%this) {
 	ML_FilterPopupDismiss.visible = false;
 	ML_FilterDropBtn.setValue(false);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ * @param {Type} %idx
+ */
 function MarblelandGui::setFilter(%this, %idx) {
 	%this.hideFilter();
 	%this.filterIndex     = %idx;
@@ -2061,6 +2113,9 @@ function MarblelandGui::setFilter(%this, %idx) {
 // Populate the level grid (current page only — no scrolling)
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::populate(%this) {
 	if (%this.viewingPack) {
 		%this.populatePackLevels();
@@ -2142,6 +2197,9 @@ function MarblelandGui::populate(%this) {
 	%this.updateVisibleIcons();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::populatePacks(%this) {
 	if (!isObject($MarblelandPackList) || $MarblelandPackList.getSize() == 0) {
 		%this.showStatus("<just:center><font:22>No packs available.\nPack list may still be loading.");
@@ -2193,6 +2251,9 @@ function MarblelandGui::populatePacks(%this) {
 // Tile creation
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 	%w     = $ML::TileW;
 	%h     = $ML::TileH;
@@ -2333,8 +2394,13 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 	return %frameName;
 }
 
+/**
+ * @param {MarblelandGui} %this
+ * @param {GuiControl} %frame
+ */
 function MarblelandGui::updateTileFrame(%this, %frame) {
 	if (!isObject(%frame)) return;
+	/** @type {GuiBitmapCtrl} */
 	%frameCtrl = %frame.frameCtrl;
 	if (!isObject(%frameCtrl)) return;
 	%mission = %frame.mission;
@@ -2362,6 +2428,9 @@ function MarblelandGui::updateTileFrame(%this, %frame) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::getEggBitmap(%this, %mission, %found) {
 	%suffix = (%mission.modification $= "platinumquest") ? "_pq_" : "_mbp_";
 	return "platinum/client/ui/play/egg" @ %suffix @ (%found ? "get_ol" : "notfound_ol");
@@ -2371,6 +2440,9 @@ function MarblelandGui::getEggBitmap(%this, %mission, %found) {
 // Lazy icon loading (driven by onTick)
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updateVisibleIcons(%this) {
 	// GuiDynamicCtrlArrayCtrl children are always "visible" in extent — load all on page
 	for (%i = 0; %i < ML_LevelGrid.getCount(); %i++) {
@@ -2408,11 +2480,17 @@ function MarblelandGui::updateVisibleIcons(%this) {
 	}
 }
 
+/**
+ * @param {GuiBitmapCtrl} %iconCtrl
+ */
 function MarblelandGui_onIconDownloaded(%id, %success, %iconCtrl) {
 	if (!%success || !isObject(%iconCtrl)) return;
 	%iconCtrl.setBitmap("vfs://marbleland/" @ %id @ ".jpg");
 }
 
+/**
+ * @param {GuiBitmapCtrl} %iconCtrl
+ */
 function MarblelandGui_onPackIconDownloaded(%id, %success, %iconCtrl) {
 	if (!%success || !isObject(%iconCtrl)) return;
 	%iconCtrl.setBitmap("vfs://marbleland/pack/" @ %id @ ".jpg");
@@ -2422,6 +2500,9 @@ function MarblelandGui_onPackIconDownloaded(%id, %success, %iconCtrl) {
 // Pagination
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goFirst(%this) {
 	if (%this.currentPage > 0) {
 		%this.currentPage = 0;
@@ -2429,6 +2510,9 @@ function MarblelandGui::goFirst(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goPrev(%this) {
 	if (%this.currentPage > 0) {
 		%this.currentPage--;
@@ -2436,6 +2520,9 @@ function MarblelandGui::goPrev(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goNext(%this) {
 	if (%this.currentPage < %this.totalPages - 1) {
 		%this.currentPage++;
@@ -2443,6 +2530,9 @@ function MarblelandGui::goNext(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goLast(%this) {
 	if (%this.currentPage < %this.totalPages - 1) {
 		%this.currentPage = %this.totalPages - 1;
@@ -2450,6 +2540,9 @@ function MarblelandGui::goLast(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updatePageLabel(%this, %total) {
 	%pages = mCeil(%total / $ML::TilesPerPage);
 	%page  = %this.currentPage + 1;
@@ -2462,6 +2555,9 @@ function MarblelandGui::updatePageLabel(%this, %total) {
 	ML_LastBtn.setActive(%hasNext);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updateBrowsingLabel(%this, %total) {
 	%searchText   = trim(%this.searchText);
 	%artistFilter = trim(%this.artistFilter);
@@ -2489,6 +2585,10 @@ function MarblelandGui::updateBrowsingLabel(%this, %total) {
 // Level detail popup
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ * @param {GuiControl} %frame
+ */
 function MarblelandGui::selectMission(%this, %frame) {
 	if (!isObject(%frame)) return;
 	%mission = %frame.mission;
@@ -2545,6 +2645,9 @@ function MarblelandGui::selectMission(%this, %frame) {
 	marblelandFetchExtendedInfo(%mission.id, "MarblelandGui_onExtendedInfoLoaded");
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::buildBaseDesc(%this, %mission) {
 	%t = "<bold:24>" @ %mission.name;
 	%t = %t NL "<bold:21>Author:<font:21> " @ %mission.artist;
@@ -2645,11 +2748,17 @@ function MarblelandGui_onExtendedInfoLoaded(%id, %success) {
 		%this.populateHints();
 }
 
+/**
+ * @param {GuiBitmapCtrl} %bmp
+ */
 function MarblelandGui_onUploaderAvatarLoaded(%userId, %success, %bmp) {
 	if (!%success || !isObject(%bmp)) return;
 	%bmp.setBitmap("vfs://marbleland/avatar-" @ %userId @ ".jpg");
 }
 
+/**
+ * @param {GuiBitmapCtrl} %bmp
+ */
 function MarblelandGui_onPreviewDownloaded(%id, %success, %bmp) {
 	ML_DetailPreviewLoading.visible = false;
 	if (!isObject(%bmp)) return;
@@ -2662,6 +2771,9 @@ function MarblelandGui_onPreviewDownloaded(%id, %success, %bmp) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updateDetailButtons(%this) {
 	%mission = %this.selectedMission;
 	if (!isObject(%mission)) return;
@@ -2683,6 +2795,9 @@ function MarblelandGui::updateDetailButtons(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::closeDetail(%this) {
 	ML_DetailOverlay.visible  = false;
 	%this.selectedMission     = "";
@@ -2703,6 +2818,9 @@ function MarblelandGui::closeDetail(%this) {
 // Download / play
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::downloadLevel(%this) {
 	%mission = %this.selectedMission;
 	if (!isObject(%mission)) return;
@@ -2731,6 +2849,9 @@ function MarblelandGui::hideProgressLabel() {
 	ML_DetailProgressLabel.visible = false;
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updateLevel(%this) {
 	%mission = %this.selectedMission;
 	if (!isObject(%mission)) return;
@@ -2738,6 +2859,9 @@ function MarblelandGui::updateLevel(%this) {
 	%this.downloadLevel();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::playLevel(%this) {
 	%mission = %this.selectedMission;
 	if (!isObject(%mission)) return;
@@ -2776,6 +2900,9 @@ function MarblelandGui_onDownloadCompletePlay(%id, %success) {
 // Search
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::doSearch(%this) {
 	%this.searchText   = ML_SearchField.getValue();
 	%this.filterIndex  = 0;
@@ -2790,6 +2917,9 @@ function MarblelandGui::doSearch(%this) {
 // Reload
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::reloadList(%this) {
 	%this.showStatus("Reloading level list from Marbleland...");
 	marblelandDownloadMissionList("MarblelandGui.onMissionListLoaded");
@@ -2800,6 +2930,9 @@ function MarblelandGui::reloadList(%this) {
 // Utility
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::clearGrid(%this) {
 	while (ML_LevelGrid.getCount() > 0) {
 		%obj = ML_LevelGrid.getObject(0);
@@ -2807,6 +2940,9 @@ function MarblelandGui::clearGrid(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::showStatus(%this, %msg) {
 	ML_LevelGrid.visible     = false;
 	ML_StatusMessage.visible = true;
@@ -2818,6 +2954,9 @@ $ML::LbPerPage        = 15;
 $ML::CommentEntryInitH = 44; // generous initial height; reLayoutComments compacts after reflow
 $ML::CommentEntryMinH  = 44;  // minimum (enough to show 36px avatar + padding)
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::switchPanel(%this, %panel) {
 	ML_DetailInfoPanel.visible     = (%panel $= "info");
 	ML_DetailCommentsPanel.visible = (%panel $= "comments");
@@ -2846,6 +2985,9 @@ function MarblelandGui::switchPanel(%this, %panel) {
 // Comments panel
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::showCommentsStatus(%this, %msg) {
 	// Clear the container and show a single status text row
 	%this.clearCommentsContainer();
@@ -2873,12 +3015,18 @@ function MarblelandGui::showCommentsStatus(%this, %msg) {
 	ML_CommentLastBtn.setActive(false);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::clearCommentsContainer(%this) {
 	cancel(%this.commentLayoutSch);
 	while (ML_DetailCommentsContainer.getCount() > 0)
 		ML_DetailCommentsContainer.getObject(0).delete();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::reLayoutComments(%this) {
 	%container = ML_DetailCommentsContainer;
 	%y = 0;
@@ -2901,6 +3049,9 @@ function MarblelandGui::reLayoutComments(%this) {
 	%container.setExtent("596 " @ %y);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::populateComments(%this) {
 	%info = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
 	if (!isObject(%info)) {
@@ -2947,6 +3098,9 @@ function MarblelandGui::populateComments(%this) {
 	ML_CommentLastBtn.setActive(%hasNext);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::createCommentEntry(%this, %comment, %y) {
 	%entryName  = "ML_CE_" @ %comment.id;
 	%avatarName = "ML_CA_" @ %comment.author.id;
@@ -3010,10 +3164,16 @@ function MarblelandGui::createCommentEntry(%this, %comment, %y) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandCommentAuthor::onURL(%this, %url) {
 	MarblelandGui.schedule(10, getWord(%url, 1), getWord(%url, 2));
 }
 
+/**
+ * @param {GuiBitmapCtrl} %bmp
+ */
 function MarblelandGui_onCommentAvatarLoaded(%userId, %success, %bmp) {
 	if (!%success || !isObject(%bmp)) return;
 	%bmp.setBitmap("vfs://marbleland/avatar-" @ %userId @ ".jpg");
@@ -3027,6 +3187,9 @@ function MarblelandGui_onCommentAvatarLoaded(%userId, %success, %bmp) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goCommentFirst(%this) {
 	if (%this.commentPage > 0) {
 		%this.commentPage = 0;
@@ -3034,6 +3197,9 @@ function MarblelandGui::goCommentFirst(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goCommentPrev(%this) {
 	if (%this.commentPage > 0) {
 		%this.commentPage--;
@@ -3041,6 +3207,9 @@ function MarblelandGui::goCommentPrev(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goCommentNext(%this) {
 	%info  = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
 	%total = isObject(%info) && isObject(%info.comments) ? %info.comments.getSize() : 0;
@@ -3051,6 +3220,9 @@ function MarblelandGui::goCommentNext(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goCommentLast(%this) {
 	%info  = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
 	%total = isObject(%info) && isObject(%info.comments) ? %info.comments.getSize() : 0;
@@ -3061,6 +3233,9 @@ function MarblelandGui::goCommentLast(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::submitComment(%this) {
 	if ($pref::ML::Username $= "") {
 		ML_DetailCommentInput.setValue("");
@@ -3073,6 +3248,9 @@ function MarblelandGui::submitComment(%this) {
 	marblelandPostComment(%this.selectedMission.id, %content, "MarblelandGui_onCommentPosted");
 }
 
+/**
+ * @param {JSONObject} %newComments
+ */
 function MarblelandGui_onCommentPosted(%success, %newComments) {
 	%this = MarblelandGui;
 	ML_DetailAddCommentBtn.setActive(true);
@@ -3103,6 +3281,9 @@ function MarblelandGui_onCommentPosted(%success, %newComments) {
 // Leaderboard panel
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::loadLbScores(%this) {
 	%mission = %this.selectedMission;
 	if (!isObject(%mission) || %mission.file $= "") {
@@ -3135,6 +3316,9 @@ function MarblelandGui_onLbLoaded(%success, %mission, %scoreData) {
 	%this.populateLb();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::showLbStatus(%this, %msg) {
 	ML_DetailLbList.setText("<just:center><font:18><color:888888>" @ %msg);
 	ML_LbFirstBtn.setActive(false);
@@ -3143,6 +3327,9 @@ function MarblelandGui::showLbStatus(%this, %msg) {
 	ML_LbLastBtn.setActive(false);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::populateLb(%this) {
 	%scores = isObject(%this.lbScoreData) ? %this.lbScoreData.scores : "";
 	%total  = isObject(%scores) ? %scores.getSize() : 0;
@@ -3194,6 +3381,9 @@ function MarblelandGui::populateLb(%this) {
 }
 
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goLbFirst(%this) {
 	if (%this.lbPage > 0) {
 		%this.lbPage = 0;
@@ -3201,6 +3391,9 @@ function MarblelandGui::goLbFirst(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goLbPrev(%this) {
 	if (%this.lbPage > 0) {
 		%this.lbPage--;
@@ -3208,6 +3401,9 @@ function MarblelandGui::goLbPrev(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goLbNext(%this) {
 	%scores = isObject(%this.lbScoreData) ? %this.lbScoreData.scores : "";
 	%total  = isObject(%scores) ? %scores.getSize() : 0;
@@ -3218,6 +3414,9 @@ function MarblelandGui::goLbNext(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goLbLast(%this) {
 	%scores = isObject(%this.lbScoreData) ? %this.lbScoreData.scores : "";
 	%total  = isObject(%scores) ? %scores.getSize() : 0;
@@ -3228,6 +3427,9 @@ function MarblelandGui::goLbLast(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::exit(%this) {
 	%this.closeDetail();
 	%this.hideFilter();
@@ -3238,6 +3440,9 @@ function MarblelandGui::exit(%this) {
 // Back navigation
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::openSearch(%this) {
 	PlayMissionGui.marbleland = 1;
 	PlayMissionGui.ml = getMissionList("marbleland");
@@ -3246,6 +3451,9 @@ function MarblelandGui::openSearch(%this) {
 	RootGui.pushDialog(SearchDlg);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::goBack(%this) {
 	if (%this.viewingPack) {
 		%this.viewingPack = false;
@@ -3271,6 +3479,9 @@ function MarblelandGui::goBack(%this) {
 // Pack drill-down
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::drillIntoPack(%this, %pack) {
 	%this.viewingPack = true;
 	%this.currentPack = %pack;
@@ -3278,6 +3489,9 @@ function MarblelandGui::drillIntoPack(%this, %pack) {
 	%this.populatePackLevels();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::populatePackLevels(%this) {
 	%this.clearGrid();
 	%this.closeDetail();
@@ -3287,6 +3501,7 @@ function MarblelandGui::populatePackLevels(%this) {
 		return;
 	}
 
+	/** @type {Array} */
 	%levelIds = %pack.levelIds;
 	if (!isObject(%levelIds) || %levelIds.getSize() == 0) {
 		%this.showStatus("<just:center><font:22>This pack has no levels.");
@@ -3336,18 +3551,27 @@ function MarblelandGui::populatePackLevels(%this) {
 // Uploader profile (artist filter)
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function ML_DetailAuthorName::onURL(%this, %url) {
 	%cmd = getWord(%url, 1);
 	MarblelandGui.call(%cmd);
 }
 
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::visitCommentAuthor(%this, %userId) {
 	%this.selectedUploaderUsername = $ML::CommentAuthorName[%userId];
 	%this.selectedUploaderUserId   = %userId;
 	%this.visitUploaderLevels();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::visitUploaderLevels(%this) {
 	%username = %this.selectedUploaderUsername;
 	%userId   = %this.selectedUploaderUserId;
@@ -3366,6 +3590,10 @@ function MarblelandGui::visitUploaderLevels(%this) {
 	marblelandFetchAccountInfo(%userId, "MarblelandGui_onUploaderInfoLoaded");
 }
 
+/**
+ * @param {Type} %userId
+ * @param {JSONObject} %info
+ */
 function MarblelandGui_onUploaderInfoLoaded(%userId, %info) {
 	%this = MarblelandGui;
 	if (!%this.viewingUploader || %this.uploaderUserId != %userId) {
@@ -3378,6 +3606,7 @@ function MarblelandGui_onUploaderInfoLoaded(%userId, %info) {
 	}
 	// Build level list from uploadedLevels, matching against our mission list
 	Array(ML_UploaderLevelList);
+	/** @type {Array} */
 	%levels = %info.uploadedLevels;
 	if (isObject(%levels)) {
 		for (%i = 0; %i < %levels.getSize(); %i++) {
@@ -3392,9 +3621,13 @@ function MarblelandGui_onUploaderInfoLoaded(%userId, %info) {
 	%this.populateUploaderLevels();
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::populateUploaderLevels(%this) {
 	%this.clearGrid();
 	%this.closeDetail();
+	/** @type {Array} */
 	%levels = %this.uploaderLevels;
 	if (!isObject(%levels) || %levels.getSize() == 0) {
 		%this.showStatus("<just:center><font:22>No levels found for " @ %this.uploaderUsername @ ".");
@@ -3425,6 +3658,9 @@ function MarblelandGui::populateUploaderLevels(%this) {
 // Hints panel
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::populateHints(%this) {
 	%info = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
 	if (!isObject(%info)) {
@@ -3456,6 +3692,9 @@ function MarblelandGui::populateHints(%this) {
 // Login / account
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updateAuthArea(%this) {
 	%loggedIn = $pref::ML::Username !$= "";
 	ML_LoginBtn.visible    = !%loggedIn;
@@ -3477,25 +3716,40 @@ function MarblelandGui::updateAuthArea(%this) {
 	}
 }
 
+/**
+ * @param {GuiBitmapCtrl} %bmp
+ */
 function MarblelandGui_onOwnAvatarLoaded(%userId, %success, %bmp) {
 	if (!%success || !isObject(%bmp)) return;
 	%bmp.setBitmap("vfs://marbleland/avatar-" @ %userId @ ".jpg");
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::openLogin(%this) {
 	%this.setLoginMode("signin");
 	ML_LoginOverlay.visible = true;
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::openRegister(%this) {
 	%this.setLoginMode("register");
 	ML_LoginOverlay.visible = true;
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::closeLogin(%this) {
 	ML_LoginOverlay.visible = false;
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::setLoginMode(%this, %mode) {
 	ML_SignInForm.visible   = (%mode $= "signin");
 	ML_RegisterForm.visible = (%mode $= "register");
@@ -3515,6 +3769,9 @@ function MarblelandGui::setLoginMode(%this, %mode) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::doSignIn(%this) {
 	%username = trim(ML_LoginUsername.getValue());
 	%password = ML_LoginPassword.getValue();
@@ -3547,6 +3804,9 @@ function MarblelandGui_onSignIn(%response, %status) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::doRegister(%this) {
 	%email    = trim(ML_RegEmail.getValue());
 	%username = trim(ML_RegUsername.getValue());
@@ -3586,6 +3846,9 @@ function MarblelandGui_onRegister(%response, %status) {
 	}
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::doSignOut(%this) {
 	marblelandSignOut("MarblelandGui_onSignOut");
 }
@@ -3598,6 +3861,9 @@ function MarblelandGui_onSignOut(%success) {
 // Love / unlove
 //=============================================================================
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::updateDetailAuthorName(%this) {
 	ML_DetailAuthorName.setText(
 		"<font:" @ $DefaultFont["Bold"] @ ":21><color:111111><a:gamelink visitUploaderLevels>" @ %this.selectedUploaderUsername @ "</a>" NL
@@ -3606,6 +3872,9 @@ function MarblelandGui::updateDetailAuthorName(%this) {
 	);
 }
 
+/**
+ * @param {MarblelandGui} %this
+ */
 function MarblelandGui::toggleDetailLove(%this) {
 	%mission = %this.selectedMission;
 	if (!isObject(%mission) || %mission.id $= "") return;

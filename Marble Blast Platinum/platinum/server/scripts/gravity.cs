@@ -36,6 +36,10 @@ datablock TriggerData(GravityTrigger) {
 	customField[1, "default"] = "1 0 0 0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function GravityTrigger::onAdd(%this, %obj) {
 	if (%obj.SimRotation $= "")
 		%obj.SimRotation = "1 0 0 0";
@@ -46,10 +50,17 @@ function GravityTrigger::onAdd(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function GravityTrigger::onInspectApply(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function GravityTrigger::getCustomFields(%this, %obj) {
 	return
 	    "SimRotation" TAB
@@ -106,6 +117,10 @@ datablock TriggerData(AlterGravityTrigger) {
 	customEnum["GravityAxis", 2, "name" ] = "Z";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function AlterGravityTrigger::onAdd(%this, %obj) {
 	if (%obj.MeasureAxis $= "")
 		%obj.MeasureAxis = "x";
@@ -128,10 +143,17 @@ function AlterGravityTrigger::onAdd(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function AlterGravityTrigger::onInspectApply(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function AlterGravityTrigger::getCustomFields(%this, %obj) {
 	return
 	    "MeasureAxis"        TAB
@@ -186,6 +208,10 @@ datablock TriggerData(GravityWellTrigger) {
 	customField[5, "default"] = "";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function GravityWellTrigger::onAdd(%this,%obj) {
 	if (%obj.Axis $= "")
 		%obj.Axis = "x";
@@ -203,10 +229,17 @@ function GravityWellTrigger::onAdd(%this,%obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function GravityWellTrigger::onInspectApply(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function GravityWellTrigger::getCustomFields(%this, %obj) {
 	return
 	    "Axis"        TAB
@@ -251,6 +284,10 @@ datablock TriggerData(GravityPointTrigger) {
 	customField[4, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function GravityPointTrigger::onAdd(%this,%obj) {
 	if (%obj.CustomPoint $= "")
 		%obj.CustomPoint = " ";
@@ -266,10 +303,17 @@ function GravityPointTrigger::onAdd(%this,%obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function GravityPointTrigger::onInspectApply(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function GravityPointTrigger::getCustomFields(%this, %obj) {
 	return
 	    "CustomPoint" TAB

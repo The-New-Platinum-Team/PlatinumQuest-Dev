@@ -256,6 +256,9 @@ new GuiControl(LBLoginGui) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::onWake(%this) {
 	if ($Game::Offline) {
 		closeLeaderboards();
@@ -281,6 +284,9 @@ function LBLoginGui::onWake(%this) {
 // this enables/disables the login button,
 //       we make sure that both the username and password fields
 //       are not empty
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::enableLogin(%this) {
 	%username = LBLoginUsername.getValue();
 	%password = LBLoginPassword.getValue();
@@ -319,6 +325,9 @@ function LBLoginGui::enableLogin(%this) {
 }
 
 // remember username code here
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::rememberUsername(%this) {
 	LBLoginPassword.makeFirstResponder(false);
 
@@ -343,6 +352,9 @@ function LBLoginGui::rememberUsername(%this) {
 }
 
 // login button
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::login(%this, %auto) {
 	if (!%auto && (!%this.online || %this.checking))
 		return;
@@ -375,6 +387,9 @@ function LBLoginGui::login(%this, %auto) {
 	setTimeScale(1.0);
 }
 
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::onLoginStatus(%this, %info) {
 	if (!%info.success) {
 		switch$ (%info.reason) {
@@ -434,6 +449,9 @@ function LBLoginGui::onLoginStatus(%this, %info) {
 	}
 }
 
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::guestLogin(%this) {
 	LBguestConnect();
 	LBMessage("Connecting...", "LBdisconnect();");
@@ -448,6 +466,9 @@ function leaveLeaderboards() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::checkServer(%this) {
 	if (%this.checking)
 		%this.error = "Still trying...";
@@ -460,6 +481,9 @@ function LBLoginGui::checkServer(%this) {
 	$LB::CheckSch = %this.schedule(10000, "checkServer");
 }
 
+/**
+ * @param {LBLoginGui} %this
+ */
 function LBLoginGui::onServerStatus(%this, %parsed) {
 	cancel($LB::CheckSch);
 

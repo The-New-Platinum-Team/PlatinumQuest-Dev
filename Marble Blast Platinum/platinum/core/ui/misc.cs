@@ -52,6 +52,10 @@ function shadow(%offset, %color) {
 	return %string;
 }
 
+/**
+ * @param {Canvas} %this
+ * @returns {GuiCursor}
+ */
 function Canvas::getCursor(%this) {
 	//return %this.activeCursor;
 	return DefaultCursor;
@@ -59,6 +63,9 @@ function Canvas::getCursor(%this) {
 
 // Returns the lowest GUI object that isn't obstructed by other GUIs
 
+/**
+ * @param {GuiCanvas} %this
+ */
 function Canvas::getCursorContent(%this) {
 	for (%i = %this.getCount() - 1; %i >= 0; %i --) {
 		%active = %this.getObject(%i);
@@ -68,12 +75,16 @@ function Canvas::getCursorContent(%this) {
 	}
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::cursorLowestMember(%this, %offset) {
 	if (%offset $= "")
 		%offset = "0 0";  //0 0 is top left corner
 
 	//Guis are layered from the bottom up, so start at the end of the list
 	for (%i = %this.getCount()-1; %i > -1; %i--) {
+		/** @type {GuiControl} */
 		%obj = %this.getObject(%i);
 		if (!%obj.isVisible())
 			continue;
@@ -102,6 +113,9 @@ function GuiControl::cursorLowestMember(%this, %offset) {
 	return -1;
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::isHover(%this) {
 	%content = Canvas._cursorContent;
 	if (!isObject(%content) || !isObject(%this))
@@ -179,10 +193,16 @@ activatePackage(CanvasHover);
 //-------------------------------------------------
 
 //WTF why is this trying to happen
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::getAbsolutePosition(%this) {
 	return "0 0";
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::getAbsolutePosition(%this) {
 	if (!isObject(%this.getGroup())) {
 		return "0 0";

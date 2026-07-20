@@ -40,6 +40,10 @@ datablock ParticleEmitterNodeData(MPPowerupNode) {
 // %isPowerup is optional and lets us know if the particle if from a powerup
 // this is used so that we can hide particles if they are our own on the client
 // %rotation allows you to specify the emitter rotation for direction-based particles
+/**
+ * @param {GameConnection} %this
+ * @param {Type} %emitter
+ */
 function GameConnection::transferParticles(%this, %emitter, %isEnginePowerup, %rotation) {
 	// failsafe checks to make sure this doesn't happen if we don't need it
 	if (!isObject(%this.player) || !isObject(%emitter))

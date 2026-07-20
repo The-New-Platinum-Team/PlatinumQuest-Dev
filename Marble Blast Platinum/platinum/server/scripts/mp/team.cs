@@ -90,6 +90,9 @@ function Team::createTeam(%name, %leader, %permanent, %private, %description, %c
 // true  if team deletion was successful
 // false if there was an error
 
+/**
+ * @param {SimSet} %team
+ */
 function Team::deleteTeam(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -133,6 +136,10 @@ function Team::deleteTeam(%team) {
 // true  if the player was added to the team
 // false if there was an error
 
+/**
+ * @param {SimSet} %newTeam
+ * @param {Type} %player
+ */
 function Team::addPlayer(%newTeam, %player) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -217,6 +224,10 @@ function Team::addPlayer(%newTeam, %player) {
 // true  if the player was removed from the team
 // false if there was an error
 
+/**
+ * @param {SimSet} %team
+ * @param {SimObject} %player
+ */
 function Team::removePlayer(%team, %player) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -367,6 +378,9 @@ function Team::getPlayerTeam(%player) {
 // <string> of the team name
 // false    if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::getTeamName(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -388,6 +402,9 @@ function Team::getTeamName(%team) {
 // true  if the name was changed
 // false if there was an error
 
+/**
+ * @param {SimObject} %team
+ */
 function Team::setTeamName(%team, %name) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -422,6 +439,9 @@ function Team::setTeamName(%team, %name) {
 // <string> of the team description
 // false    if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::getTeamDescription(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -443,6 +463,9 @@ function Team::getTeamDescription(%team) {
 // true  if the description was changed
 // false if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::setTeamDescription(%team, %description) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -471,6 +494,9 @@ function Team::setTeamDescription(%team, %description) {
 // <int> of the team color
 // false if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::getTeamColor(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -492,6 +518,9 @@ function Team::getTeamColor(%team) {
 // true  if the color was changed
 // false if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::setTeamColor(%team, %color) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -517,6 +546,9 @@ function Team::setTeamColor(%team, %color) {
 // Returns:
 // <int> The score of the team
 
+/**
+ * @param {SimSet} %team
+ */
 function Team::getTeamScore(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -541,6 +573,9 @@ function Team::getTeamScore(%team) {
 // Returns:
 // <int> The score of the team
 
+/**
+ * @param {SimObject} %team
+ */
 function Team::getTeamPlace(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -570,6 +605,9 @@ function Team::getTeamPlace(%team) {
 // true  if the team is private
 // false if the team is public or if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::getTeamPrivate(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -591,6 +629,9 @@ function Team::getTeamPrivate(%team) {
 // true  if the private status was changed
 // false if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::setTeamPrivate(%team, %private) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -617,6 +658,9 @@ function Team::setTeamPrivate(%team, %private) {
 // true  if that team is a default team
 // false if it is not a default team, or if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::isDefaultTeam(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -628,6 +672,10 @@ function Team::isDefaultTeam(%team) {
 	return %team.permanent;
 }
 
+/**
+ * @param {SimObject} %team
+ * @param {Type} %player
+ */
 function Team::getTeamRole(%team, %player) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -662,6 +710,10 @@ function Team::getTeamRole(%team, %player) {
 // true  if the leader was changed
 // false if there was an error
 
+/**
+ * @param {Type} %team
+ * @param {SimObject} %newLeader
+ */
 function Team::setTeamLeader(%team, %newLeader) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -692,6 +744,9 @@ function Team::setTeamLeader(%team, %newLeader) {
 // <id>  of the team leader
 // false if there was an error
 
+/**
+ * @param {Type} %team
+ */
 function Team::getTeamLeader(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -713,6 +768,10 @@ function Team::getTeamLeader(%team) {
 // true  if that player is the leader of that team
 // false if they are not the leader, or if there was an error
 
+/**
+ * @param {Type} %team
+ * @param {SimObject} %player
+ */
 function Team::isTeamLeader(%team, %player) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -746,6 +805,9 @@ function Team::isTeamLeader(%team, %player) {
 // false if there was an error
 //
 
+/**
+ * @param {SimSet} %team
+ */
 function Team::resolveLeader(%team) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -802,6 +864,9 @@ function Team::resolveLeader(%team) {
 // true  if the method was called on all players
 // false if there was an error
 
+/**
+ * @param {SimSet} %team
+ */
 function Team::call(%team, %method, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10) {
 	// Always want to make sure that these exist
 	Team::check();
@@ -884,6 +949,9 @@ function Team::fix() {
 // <id> of the client with the given name
 // -1   if no clients with that name exist
 
+/**
+ * @param {SimObject} %name
+ */
 function GameConnection::resolveName(%name) {
 	// If we passed in a GameConnection, we just want the id
 	if (isObject(%name) && %name.getClassName() $= "GameConnection")
@@ -946,6 +1014,9 @@ function Team::createDefaultTeam() {
 // Returns:
 // <int> for the team strength
 // <false> on failure
+/**
+ * @param {SimSet} %team
+ */
 function Team::getTeamStrength(%team) {
 	// Always want to make sure that these exist
 	Team::check();

@@ -160,6 +160,10 @@ datablock StaticShapeData(FadePlatformIce : FadePlatform) {
 	skin[0] = ""; //Don't allow skinning
 };
 
+/**
+ * @param {FadePlatformClass} %this
+ * @param {ShapeBase} %obj
+ */
 function FadePlatformClass::onAdd(%this, %obj) {
 	// Default variables
 	if (%obj.skin $= "")
@@ -222,6 +226,10 @@ function FadePlatformClass::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {FadePlatformClass} %this
+ * @param {Type} %obj
+ */
 function FadePlatformClass::onRemove(%this, %obj) {
 	// Cancel schedules to avoid console spam
 	cancel(%obj._hideSch);
@@ -229,6 +237,10 @@ function FadePlatformClass::onRemove(%this, %obj) {
 }
 
 //Visually fade out
+/**
+ * @param {FadePlatformClass} %this
+ * @param {ShapeBase} %obj
+ */
 function FadePlatformClass::fadeOut(%this, %obj, %instant) {
 	if (!isObject(%obj))
 		return;
@@ -250,6 +262,10 @@ function FadePlatformClass::fadeOut(%this, %obj, %instant) {
 }
 
 //Visually fade in
+/**
+ * @param {FadePlatformClass} %this
+ * @param {ShapeBase} %obj
+ */
 function FadePlatformClass::fadeIn(%this, %obj, %instant) {
 	if (!isObject(%obj))
 		return;
@@ -273,6 +289,10 @@ function FadePlatformClass::fadeIn(%this, %obj, %instant) {
 }
 
 //Fade out and then loop to fading in after invisibleTime
+/**
+ * @param {FadePlatformClass} %this
+ * @param {FadePlatform} %obj
+ */
 function FadePlatformClass::fadeOutLoop(%this, %obj) {
 	if (!isObject(%obj))
 		return;
@@ -282,6 +302,10 @@ function FadePlatformClass::fadeOutLoop(%this, %obj) {
 }
 
 //Fade in and then loop to fading out after visibleTime
+/**
+ * @param {FadePlatformClass} %this
+ * @param {Type} %obj
+ */
 function FadePlatformClass::fadeInLoop(%this, %obj) {
 	if (!isObject(%obj))
 		return;
@@ -290,6 +314,10 @@ function FadePlatformClass::fadeInLoop(%this, %obj) {
 	%obj._toggleSch = %this.schedule(%obj.fadeInTime + %obj.visibleTime, "fadeOutLoop", %obj);
 }
 
+/**
+ * @param {FadePlatformClass} %this
+ * @param {ShapeBase} %obj
+ */
 function FadePlatformClass::onCollision(%this, %obj, %col) {
 	if (!Parent::onCollision(%this, %obj, %col))
 		return;
@@ -325,6 +353,10 @@ function FadePlatformClass::onCollision(%this, %obj, %col) {
 	}
 }
 
+/**
+ * @param {FadePlatformClass} %this
+ * @param {ShapeBase} %obj
+ */
 function FadePlatformClass::onMissionReset(%this, %obj) {
 	switch$ (%obj.functionality) {
 	case "fading":

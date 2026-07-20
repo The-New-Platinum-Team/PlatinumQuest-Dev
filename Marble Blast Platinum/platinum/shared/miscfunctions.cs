@@ -55,6 +55,9 @@ function pythag(%a, %b) { //Pythagorean theorem
 
 //-------------------------------------------------------------------------------------
 
+/**
+ * @param {SceneObject} %object
+ */
 function getRadius(%dim, %object) { //get x/y/z radius of an object's bounding box
 	if (%dim $= "x") {
 		%word = 0;
@@ -199,6 +202,9 @@ function applyrotations(%r1, %r2, %r3, %r4) {
 	return %finalrot;
 }
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::getRotation(%this) {
 	return getWords(%this.getTransform(), 3, 6);
 }
@@ -247,6 +253,9 @@ function timeSinceLoad() {
 
 //-------------------------------------------------------------------------------------
 
+/**
+ * @param {Sun} %this
+ */
 function Sun::onAdd(%this, %run) {
 	if (!%run) {
 		%this.schedule(250, "onAdd", 1);
@@ -362,6 +371,9 @@ function spawnEmitter(%time, %db, %position, %parentto) {
 
 //-----------------------------------------------------------------
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::getEstCameraTransform(%this) {
 	if (!isObject(%this))
 		return "0 0 0 1 0 0 0";

@@ -7,6 +7,9 @@
 //-----------------------------------------------------------------------------
 // Hook into the mission editor.
 
+/**
+ * @returns {StaticShape}
+ */
 function StaticShapeData::create(%data) {
 	// The mission editor invokes this method when it wants to create
 	// an object of the given datablock type.
@@ -16,6 +19,10 @@ function StaticShapeData::create(%data) {
 	return %obj;
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {ShapeBase} %obj
+ */
 function StaticShapeData::onInspectApply(%this, %obj) {
 	// Force that shit.
 	%obj.setSkinName(%obj.skin);
@@ -23,6 +30,9 @@ function StaticShapeData::onInspectApply(%this, %obj) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {StaticShape} %this
+ */
 function StateShape::trigger(%this,%mesg) {
 	// Punt over to our datablock
 	%this.getDatablock().trigger(%this,%mesg);

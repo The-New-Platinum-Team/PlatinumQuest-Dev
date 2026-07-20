@@ -283,12 +283,18 @@ if (!isObject(SearchSet)) {
 	RootGroup.add(SearchSet);
 }
 
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::onWake(%this) {
 	SearchHeader.setText("<bold:18><tab:250,320>Name\tAuthor");
 
 	%this.buildSearch();
 }
 
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::buildSearch(%this) {
 	%this.setStatus("Loading...", false);
 
@@ -378,6 +384,9 @@ function getSearchRow(%obj) {
 //
 // Note: I use different for loops because that way it only
 // has to check the searchType only once.
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::search(%this) {
 	SearchMissionList.clear();
 	%key = strlwr(trim(SearchEdit.getValue()));
@@ -417,6 +426,9 @@ function SearchDlg::search(%this) {
 // auto-select a row in the mission list, ect.
 //
 // This code is about the only thing left from the old SearchDlg
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::finalize(%this) {
 	if (SearchMissionList.rowCount()) {
 		SearchMissionList.sort(0);
@@ -431,6 +443,9 @@ function SearchDlg::finalize(%this) {
 }
 
 // this function will play the selected mission.
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::StartMission(%this) {
 	%id = SearchMissionList.getSelectedId();
 	if (!SearchMissionList.isRowActive(%id)) {
@@ -449,11 +464,17 @@ function SearchDlg::StartMission(%this) {
 }
 
 // quick start when the enter key is pressed
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::entryStart(%this) {
 	if (SearchMissionList.getSelectedId() != -1)
 		%this.StartMission();
 }
 
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::clearSearch(%this) {
 	SearchEdit.setValue("");
 	SearchDlg.search();
@@ -476,6 +497,9 @@ function getSearchMissionInfo(%info, %game, %type) {
 }
 
 // in case the user wants to do a random search
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::random(%this) {
 	%count = SearchMissionList.rowCount();
 	if (!%count)
@@ -489,6 +513,9 @@ function SearchDlg::random(%this) {
 	}
 }
 
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::setStatus(%this, %status, %active) {
 	SearchTitle.setText("<font:24><color:696969>" @ %status);
 	SearchEdit.setVisible(%active);
@@ -518,12 +545,18 @@ function capitalizeGameType(%type) {
 		return "Multiplayer";
 }
 
+/**
+ * @param {GuiBitmapCtrl} %bmp
+ */
 function onSearchPreviewDownloaded(%id, %success, %bmp) {
 	if (%success) {
 		%bmp.setBitmap("vfs://marbleland/" @ %id);
 	}
 }
 
+/**
+ * @param {SearchDlg} %this
+ */
 function SearchDlg::onSelect(%this) {
 	%id = SearchMissionList.getSelectedId();
 	if (!SearchMissionList.isRowActive(%id)) {

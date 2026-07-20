@@ -245,6 +245,9 @@ new GuiChunkedBitmapCtrl(LBStatsDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::show(%this, %user) {
 	%this.user = %user;
 	%this.category = "General";
@@ -261,14 +264,23 @@ function LBStatsDlg::show(%this, %user) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::onWake(%this) {
 	%this.update();
 }
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::onSleep(%this) {
 	PlayMissionGui.showBody();
 }
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::prevCategory(%this) {
 	switch$ (%this.category) {
 	case "General":
@@ -290,6 +302,9 @@ function LBStatsDlg::prevCategory(%this) {
 	}
 }
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::nextCategory(%this) {
 	switch$ (%this.category) {
 	case "General":
@@ -311,6 +326,9 @@ function LBStatsDlg::nextCategory(%this) {
 	}
 }
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::selectCategory(%this, %category) {
 	%this.category = %category;
 
@@ -326,6 +344,9 @@ function LBStatsDlg::selectCategory(%this, %category) {
 	%this.update();
 }
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::update(%this) {
 	%stats = %this.stats[%this.user];
 	if (!isObject(%stats)) {
@@ -409,6 +430,9 @@ function LBStatsDlg::update(%this) {
 	LBStatsInfo.setText(%text);
 }
 
+/**
+ * @param {LBStatsDlg} %this
+ */
 function LBStatsDlg::onPlayerStatsUpdate(%this, %parsed) {
 	%this.stats[%parsed.username] = %parsed;
 	%this.update();

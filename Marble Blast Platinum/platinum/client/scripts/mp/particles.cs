@@ -38,6 +38,9 @@ if (!isObject(ClientMovingEmitterSet)) {
 	RootGroup.add(ClientMovingEmitterSet);
 }
 
+/**
+ * @param {ParticleEmitterNode} %emitter
+ */
 function onUnpackTrailEmitter(%emitter, %n) {
 	if (!isObject(ServerConnection))
 		return;
@@ -103,6 +106,7 @@ function updateEmitterPositions() {
 	%count = ClientMovingEmitterSet.getCount();
 	%removeAmount = 0;
 	for (%i = 0; %i < %count; %i ++) {
+		/** @type {SceneObject} */
 		%obj = ClientMovingEmitterSet.getObject(%i);
 
 		// the ghost object got deleted, so we need to remove this from

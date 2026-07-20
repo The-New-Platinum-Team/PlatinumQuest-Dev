@@ -94,20 +94,55 @@ function onSelectSun() {
     updateEditSun();
 }
 
+/**
+ * @param {SunRedSlider} %this
+ */
 function SunRedSlider::onMouseDragged(%this) { updateEditSunColor(); }
+/**
+ * @param {SunGreenSlider} %this
+ */
 function SunGreenSlider::onMouseDragged(%this) { updateEditSunColor(); }
+/**
+ * @param {SunBlueSlider} %this
+ */
 function SunBlueSlider::onMouseDragged(%this) { updateEditSunColor(); }
 
+/**
+ * @param {SunRedAmbientSlider} %this
+ */
 function SunRedAmbientSlider::onMouseDragged(%this) { updateEditSunAmbient(); }
+/**
+ * @param {SunGreenAmbientSlider} %this
+ */
 function SunGreenAmbientSlider::onMouseDragged(%this) { updateEditSunAmbient(); }
+/**
+ * @param {SunBlueAmbientSlider} %this
+ */
 function SunBlueAmbientSlider::onMouseDragged(%this) { updateEditSunAmbient(); }
 
+/**
+ * @param {SunElevationSlider} %this
+ */
 function SunElevationSlider::onMouseDragged(%this) { updateEditSunDirection(); }
+/**
+ * @param {SunAzimuthSlider} %this
+ */
 function SunAzimuthSlider::onMouseDragged(%this) { updateEditSunDirection(); }
 
+/**
+ * @param {SavePresetButton} %this
+ */
 function SavePresetButton::onPressed(%this) { SingleValueGui.open(%this); }
+/**
+ * @param {DeletePresetButton} %this
+ */
 function DeletePresetButton::onPressed(%this) { deleteSunPreset(); }
 
+/**
+ * @param {SavePresetButton} %this
+ * @param {Type} %name
+ * @param {Type} %value
+ */
 function SavePresetButton::svcallback(%this, %name, %value) {
     if(saveSunPreset(%value)) {
         sunbutton();
@@ -193,6 +228,9 @@ function doDeleteSunPreset(%name) {
 }
 
 package cancelSunChanges {
+    /**
+     * @param {Type} %this
+     */
     function LargeFunctionDlg::onSleep(%this) {
         if(!LargeFunctionDlg.sunAccepted && isObject(LargeFunctionDlg.sun)) {
             %sun = LargeFunctionDlg.sun;

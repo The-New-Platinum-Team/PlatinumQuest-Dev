@@ -599,6 +599,9 @@ function ExitGameDlg::end() {
 	}
 }
 
+/**
+ * @param {ExitGameDlg} %this
+ */
 function ExitGameDlg::onWake(%this) {
 	alxPlay(PauseMenuSfx);
 	%info = getMissionInfo($Client::MissionFile);
@@ -960,6 +963,9 @@ function ExitGameDlg::onWake(%this) {
 	}
 }
 
+/**
+ * @param {ExitGameDlg} %this
+ */
 function ExitGameDlg::showExtras(%this) {
 	ExitGameExtraButtons.setVisible(1);
 	ExitGameMainButtons.setVisible(0);
@@ -969,6 +975,9 @@ function ExitGameDlg::showExtras(%this) {
 	}
 }
 
+/**
+ * @param {ExitGameDlg} %this
+ */
 function ExitGameDlg::hideExtras(%this) {
 	ExitGameExtraButtons.setVisible(0);
 	ExitGameMainButtons.setVisible(1);
@@ -978,6 +987,9 @@ function ExitGameDlg::hideExtras(%this) {
 	}
 }
 
+/**
+ * @param {ExitGameDlg} %this
+ */
 function ExitGameDlg::toggleExtras(%this) {
 	if (ExitGameExtraButtons.isVisible())
 		%this.hideExtras();
@@ -986,6 +998,9 @@ function ExitGameDlg::toggleExtras(%this) {
 }
 
 
+/**
+ * @param {ExitGameDlg} %this
+ */
 function ExitGameDlg::onSleep(%this) {
 	//if ($Game::DoPushMoveMap) {
 	//	MoveMap.push();
@@ -993,12 +1008,18 @@ function ExitGameDlg::onSleep(%this) {
 	//}
 }
 
+/**
+ * @param {ExitGameDlg} %this
+ */
 function ExitGameDlg::close(%this) {
 	if (ExitGameExtraButtons.isVisible())
 		%this.hideExtras();
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {ExitGameDlg} %this
+ */
 function ExitGameDlg::doMidGameRecord(%this) {
 	if ($Game::Record) {
 		if (!%this.hasShownRecordingWarning) {

@@ -26,36 +26,60 @@
 //------------------------------------------------------------------------------
 // GameConnection Commands
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::startTimer(%this) {
 	commandToClient(%this, 'startTimer');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stopTimer(%this) {
 	commandToClient(%this, 'stopTimer');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::resetTimer(%this) {
 	commandToClient(%this, 'resetTimer');
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setTimeStopped(%this, %stopped) {
 	if (%this.fake)
 		return;
 	commandToClient(%this, 'setTimeStopped', %stopped);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setMessage(%this, %message, %timeout) {
 	commandToClient(%this, 'setMessage', %message, %timeout);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::playPitchedSound(%this, %sound) {
 	commandToClient(%this, 'playPitchedSound', %sound);
 }
 
 // sets quick respawn status
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setQuickRespawnStatus(%this, %status) {
 	%this.canQuickRespawn = %status;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getGemCount(%this) {
 	return Mode::callback("getGemCount", %this.gemCount, new ScriptObject() {
 		client = %this;
@@ -63,10 +87,16 @@ function GameConnection::getGemCount(%this) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::activateAchievement(%this, %catId, %achId) {
 	commandToClient(%this, 'ActivateAchievement', %catId, %achId);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setGemCount(%this, %gems) {
 	if ($Server::ServerType $= "MultiPlayer") {
 		%count = ClientGroup.getCount();
@@ -90,18 +120,30 @@ function GameConnection::setGemCount(%this, %gems) {
 	commandToClient(%this, 'setGemCount', %gems, %best);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setMaxGems(%this, %gems) {
 	commandToClient(%this, 'setMaxGems', %gems);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::displayGemMessage(%this, %amount, %color) {
 	commandToClient(%this, 'displayGemMessage', %amount, %color);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::addHelpLine(%this, %line, %playBeep) {
 	commandToClientLong(%this, 'addHelpLine', %line, %playBeep);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::addBubbleLine(%this, %line, %help, %time, %isAHelpTrigger) {
 	if (%this.fake)
 		return;
@@ -114,40 +156,67 @@ function GameConnection::addBubbleLine(%this, %line, %help, %time, %isAHelpTrigg
 		%this.downsched = %this.schedule(%time, hideBubble);
 	}
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::hideBubble(%this) {
 	if (%this.fake)
 		return;
 	commandToClient(%this, 'HideBubble');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::adjustTimer(%this, %time) {
 	commandToClient(%this, 'adjustTimer', %time);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::addBonusTime(%this, %time) {
 	commandToClient(%this, 'addBonusTime', %time);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setBonusTime(%this, %time) {
 	commandToClient(%this, 'setBonusTime', %time);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setTime(%this, %time) {
 	commandToClient(%this, 'setTime', %time);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setPowerUp(%this, %powerUp, %powerUpId, %skinName) {
 	commandToClient(%this, 'setPowerUp', %powerUp, %powerUpId, %skinName);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setCameraFov(%this, %fov) {
 	commandToClient(%this, 'setCameraFov', %fov);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setCameraDistance(%this, %time, %smooth, %distance) {
 	commandToClient(%this, 'setCameraDistance', %time, %smooth, %distance);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setGravityDir(%this, %dir, %reset, %rot) {
 	%this.gravityDir = %dir;
 	%this.gravityRot = %rot;
@@ -161,65 +230,107 @@ function GameConnection::setGravityDir(%this, %dir, %reset, %rot) {
 	commandToClient(%this, 'setGravityDir', %dir, %reset, %rot);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::applyImpulse(%this, %position, %impulse) {
 	commandToClient(%this, 'ApplyImpulse', %position, %impulse);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::gravityImpulse(%this, %position, %impulse) {
 	commandToClient(%this, 'GravityImpulse', %position, %impulse);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setMarbleVelocity(%this, %velocity) {
 	commandToClient(%this, 'SetMarbleVelocity', %velocity);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::freezeMarble(%this, %frozen, %position) {
 	commandToClient(%this, 'FreezeMarble', %frozen, %position);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setBubbleTime(%this, %time, %infinite) {
 	%this.bubbleTime = %time;
 	%this.bubbleInfinite = %infinite;
 	commandToClient(%this, 'SetBubbleTime', %time, %infinite);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::activateBubble(%this, %active) {
 	commandToClient(%this, 'ActivateBubble', %active);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::fixGhost(%this) {
 	commandToClient(%this, 'FixGhost');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::endGameSetup(%this) {
 	commandToClient(%this, 'EndGameSetup');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::incrementOOBCounter(%this) {
 	commandToClient(%this, 'incrementOOBCounter');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setBlastValue(%this, %blastValue) {
 	%this.blastValue = %blastValue;
 	commandToClient(%this, 'setBlastValue', %blastValue);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setSpecialBlast(%this, %specialBlast) {
 	%this.usingSpecialBlast = %specialBlast;
 	commandToClient(%this, 'setSpecialBlast', %specialBlast);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::radarInit(%this) {
 	commandToClient(%this, 'RadarStart');
 	commandToClient(%this, 'RadarBuildSearch');
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setMovementKeysEnabled(%this, %enabled) {
 	if (%this.fake)
 		return;
 	commandToClient(%this, 'EnableMovementKeys', %enabled);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendSharedSpawnPoint(%this) {
 	if ($MP::SharedSpawnPointIndex $= "") {
 		chooseSharedSpawnPoint();
@@ -227,10 +338,16 @@ function GameConnection::sendSharedSpawnPoint(%this) {
 	commandToClient(%this, 'setSharedSpawnPoint', $MP::SharedSpawnPointIndex);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setWhiteOut(%this, %whiteout) {
 	%this.player.setWhiteOut(max(%this.player.getWhiteOut(), %whiteout));
 }
 
+/**
+ * @param {SimSet} %grp
+ */
 function updateSpawnSet(%grp) {
 	if (!isObject(SpawnPointSet)) {
 		new SimSet(SpawnPointSet);
@@ -245,6 +362,9 @@ function updateSpawnSet(%grp) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::spawningBlocked(%this) {
 	if (%this.spawningBlocked) {
 		return true;
@@ -273,6 +393,9 @@ function GameConnection::spawningBlocked(%this) {
 	return !isObject(StartPoint);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::blockSpawning(%this, %time) {
 	//Used for consistency mode calcuations, actual blocking uses a schedule
 	%this.lastSpawnTime = $Sim::Time;
@@ -281,10 +404,16 @@ function GameConnection::blockSpawning(%this, %time) {
 	%this.spawningBlocked = true;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::unblockSpawning(%this) {
 	%this.spawningBlocked = false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getSpawnTrigger(%this) {
 	if (!isObject(SpawnPointSet))
 		return -1;
@@ -326,6 +455,9 @@ function GameConnection::getSpawnTrigger(%this) {
 	return %closest;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getFurthestSpawnTrigger(%this) {
 	if (!isObject(SpawnPointSet))
 		return -1;
@@ -377,6 +509,9 @@ function GameConnection::getFurthestSpawnTrigger(%this) {
 	return %furthest;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getRandomSpawnTrigger(%this) {
 	if (!isObject(SpawnPointSet))
 		return -1;
@@ -391,6 +526,9 @@ function GameConnection::getRandomSpawnTrigger(%this) {
 	return SpawnPointSet.getObject(getRandom(0, %size - 1));
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getSharedSpawnTrigger(%this) {
 	if (!isObject(SpawnPointSet))
 		return -1;
@@ -412,6 +550,9 @@ function GameConnection::getSharedSpawnTrigger(%this) {
 	return SpawnPointSet.getObject(%index);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::pointToNearestGem(%this) {
 	%pos = %this.player.getPosition();
 	%yp = transformToNearestGem(%this.player.getGravityRot(), %pos, true);
@@ -439,16 +580,25 @@ function transformToNearestGem(%gravity, %pos, %highestValue) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::marblelandHasMission(%this, %id, %callback) {
 	%this.marblelandHasMissionCallback[%id] = %callback;
 	commandToClient(%this, 'MarblelandHasMission', %id);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::marblelandDownload(%this, %id, %callback) {
 	%this.marblelandDownloadCallback[%id] = %callback;
 	commandToClient(%this, 'MarblelandDownload', %id);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::marblelandLoad(%this, %id) {
 	commandToClient(%this, 'MarblelandLoad', %id);
 }

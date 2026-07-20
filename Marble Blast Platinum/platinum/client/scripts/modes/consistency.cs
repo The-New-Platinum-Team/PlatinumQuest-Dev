@@ -37,6 +37,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_consistency) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_consistency::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("onActivate");
@@ -44,15 +47,27 @@ function ClientMode_consistency::onLoad(%this) {
 	%this.registerCallback("shouldShowSpeedometer");
 	%this.registerCallback("updateSpeedometer");
 }
+/**
+ * @param {ClientMode_consistency} %this
+ */
 function ClientMode_consistency::onActivate(%this) {
 	PGConsMarker.setVisible(1);
 }
+/**
+ * @param {ClientMode_consistency} %this
+ */
 function ClientMode_consistency::onDeactivate(%this) {
 	PGConsMarker.setVisible(0);
 }
+/**
+ * @param {ClientMode_consistency} %this
+ */
 function ClientMode_consistency::shouldShowSpeedometer(%this) {
 	return true;
 }
+/**
+ * @param {ClientMode_consistency} %this
+ */
 function ClientMode_consistency::updateSpeedometer(%this, %velocity) {
 	PGConsMarker.setPosition(0 SPC getWord(PGSPDBackground.position, 1) + 857 - 8 * MissionInfo.MinimumSpeed);
 	if (%velocity > MissionInfo.MinimumSpeed) {

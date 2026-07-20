@@ -196,10 +196,17 @@ function reloadClientGameModes() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode::registerCallback(%this, %callback) {
 	%this.hasCallback[%callback] = true;
 }
 
+/**
+ * @param {ClientMode} %this
+ * @param {ScriptObject} %object
+ */
 function ClientMode::callback(%this, %callback, %default, %object) {
 	return ClientModeCallback(%this, %callback, %default, %object);
 	if (%object._delete) {
@@ -259,6 +266,9 @@ function ClientMode::callback(%this, %callback, %default, %object) {
 	}
 }
 
+/**
+ * @param {ScriptObject} %object
+ */
 function ClientMode::callbackModeList(%modes, %callback, %default, %object) {
 	if (%object._delete) {
 		if (!isObject(DeleteGroup)) {
@@ -299,6 +309,9 @@ function ClientMode::callbackModeList(%modes, %callback, %default, %object) {
 	}
 }
 
+/**
+ * @param {ScriptObject} %object
+ */
 function ClientMode::callbackForMission(%mission, %callback, %default, %object) {
 	%modes = resolveMissionGameModes(%mission, %mission.gameMode);
 	return ClientMode::callbackModeList(%modes, %callback, %default, %object);
@@ -320,6 +333,9 @@ function _clientModeGetPackage(%name) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @returns {ModeInfo}
+ */
 function getModeInfo(%identifier) {
 	//Check first for identifier
 	for (%i = 0; %i < ModeInfoGroup.getCount(); %i ++) {
@@ -349,10 +365,16 @@ function resolveGameModeFile(%identifier) {
 	}
 }
 
+/**
+ * @returns {ModeInfo}
+ */
 function _modeGetInfoName(%name) {
 	return "ModeInfo_" @ %name;
 }
 
+/**
+ * @returns {ModeInfo}
+ */
 function _modeGetInfo(%name) {
 	return nameToId(_modeGetInfoName(%name));
 }

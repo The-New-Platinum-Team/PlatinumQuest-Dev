@@ -195,6 +195,9 @@ function cnmbutton() {
 	%modes.delete();
 }
 
+/**
+ * @returns {SimSet}
+ */
 function createEmptyMission(%name) {
 	$Editor::Enabled = 1; // Because I don't know which var to use anymore D:
 

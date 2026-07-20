@@ -43,6 +43,10 @@ function MPupdateHats() {
 	}
 }
 
+/**
+ * @param {StaticShape} %hat
+ * @param {Marble} %marble
+ */
 function MPUpdateHat(%hat, %marble) {
 	%velocity = %marble.getVelocity();
 	%speed = VectorLen(%velocity);
@@ -81,6 +85,9 @@ function MPUpdateHat(%hat, %marble) {
 	}
 }
 
+/**
+ * @param {StaticShape} %hat
+ */
 function MPFindHat(%hat, %marbleId) {
 	if ($Server::Lobby)
 		return;

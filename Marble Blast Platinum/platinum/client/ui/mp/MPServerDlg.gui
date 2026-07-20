@@ -246,6 +246,9 @@ new GuiBitmapCtrl(MPServerDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::onWake(%this) {
 	MPServerTitle.setText("<bold:28><just:center>Server Settings");
 	MPServerDescTitle.setText("<font:18><just:center>Server Info");
@@ -258,11 +261,17 @@ function MPServerDlg::onWake(%this) {
 	%this.updatePortStatus();
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::onSleep(%this) {
 	MPServerIPShow.setText("Show Address");
 	MPServerIPShow.setVisible(true);
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::populate(%this) {
 	%rowHeight = 29;
 	MPServerSettingsContainer.clear();
@@ -421,6 +430,9 @@ function MPServerDlg::populate(%this) {
 	}
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::incrementSetting(%this, %idx) {
 	%id   = $MP::Server::Setting[%idx, "id"];
 	%max  = $MP::Server::Setting[%idx, "max"];
@@ -447,6 +459,9 @@ function MPServerDlg::incrementSetting(%this, %idx) {
 	%titleName.setText("<font:18><just:left>" @ %name @ ":" SPC %val);
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::decrementSetting(%this, %idx) {
 	%id   = $MP::Server::Setting[%idx, "id"];
 	%min  = $MP::Server::Setting[%idx, "min"];
@@ -477,6 +492,9 @@ function MPUpdatePortLabel() {
 	MPServerDlg.updatePortStatus();
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::updateActive(%this) {
 	for (%i = 0; %i < $MP::Server::Settings; %i ++) {
 		%id       = $MP::Server::Setting[%i, "id"];
@@ -500,6 +518,9 @@ function MPServerDlg::updateActive(%this) {
 	MPServerSave.setActive($MP::Server::Temp::Name !$= "");
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::updatePortStatus(%this) {
 	// Various server port forward statuses
 	%status = "<spush><color:ffff66>Loading<spop>";
@@ -519,6 +540,9 @@ function MPServerDlg::updatePortStatus(%this) {
 	MPServerDlg.updateIP();
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::updateIP(%this) {
 	%address = "<font:18>Server Address:<just:right>";
 	if (!MPServerIPShow.visible)
@@ -526,6 +550,9 @@ function MPServerDlg::updateIP(%this) {
 	MPServerIPTitle.setText(%address);
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::showIP(%this) {
 	if (MPServerIPShow.getText() $= "Show Address")
 		MPServerIPShow.setText("Really Show?");
@@ -535,10 +562,16 @@ function MPServerDlg::showIP(%this) {
 	}
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::open(%this) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::saveFields(%this) {
 	RootGui.popDialog(%this);
 	PlayMissionGui.showBody();
@@ -560,12 +593,18 @@ function MPServerDlg::saveFields(%this) {
 	PlayMissionGui.updateMPButtons();
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::cancel(%this) {
 	RootGui.popDialog(%this);
 	PlayMissionGui.showBody();
 	MPServerDescField.setValue($Pref::Server::Info);
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::updateSpinner(%this) {
 	if (!%this.isAwake())
 		return;
@@ -575,6 +614,9 @@ function MPServerDlg::updateSpinner(%this) {
 	}
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::refreshPortMapping(%this) {
 	$PortStatus = "";
 	checkPort();
@@ -587,6 +629,9 @@ function MPServerDlg::refreshPortMapping(%this) {
 		%this.spinInterval = %this.interval(40, "updateSpinner");
 }
 
+/**
+ * @param {MPServerDlg} %this
+ */
 function MPServerDlg::portMappingFinished(%this) {
 	MPServerMapRefresh.setActive(true);
 	MPUpdatePortLabel();

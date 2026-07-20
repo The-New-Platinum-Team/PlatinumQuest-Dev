@@ -22,12 +22,18 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiTextEditCtrl} %ctrl
+ */
 function TimeEntryCtrl(%ctrl, %args) {
 	%ctrl.command = "TimeEntryCtrlUpdate(" @ %ctrl @ ");";
 	%ctrl.setValue(formatTime(0));
 	TimeEntryCtrlUpdate(%ctrl);
 }
 
+/**
+ * @param {GuiTextEditCtrl} %ctrl
+ */
 function TimeEntryCtrlUpdate(%ctrl) {
 	//Strip non-numbers and stuff off
 	%val = %ctrl.getValue2();
@@ -104,6 +110,9 @@ function TimeEntryCtrlUpdate(%ctrl) {
 
 //Override the default set/get methods for our custom controls so they seem like
 // you're actually entering ms instead of a formatted time.
+/**
+ * @param {GuiTextEditCtrl} %this
+ */
 function GuiTextEditCtrl::getValue(%this) {
 	%val = Parent::getValue(%this);
 	if (%this.TimeEntryCtrl) {
@@ -111,6 +120,9 @@ function GuiTextEditCtrl::getValue(%this) {
 	}
 	return %val;
 }
+/**
+ * @param {GuiTextEditCtrl} %this
+ */
 function GuiTextEditCtrl::setValue(%this, %value) {
 	if (%this.TimeEntryCtrl) {
 		Parent::setValue(%this, formatTime(%value));
@@ -120,9 +132,15 @@ function GuiTextEditCtrl::setValue(%this, %value) {
 }
 
 //Hackarounds so we can avoid the hacks above
+/**
+ * @param {GuiTextEditCtrl} %this
+ */
 function GuiTextEditCtrl::getValue2(%this) {
 	return Parent::getValue(%this);
 }
+/**
+ * @param {GuiTextEditCtrl} %this
+ */
 function GuiTextEditCtrl::setValue2(%this, %value) {
 	Parent::setValue(%this, %value);
 }

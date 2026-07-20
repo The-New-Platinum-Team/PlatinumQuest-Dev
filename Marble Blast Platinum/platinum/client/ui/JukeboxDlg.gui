@@ -210,15 +210,24 @@ function toggleJukebox(%make) {
 			RootGui.pushDialog(JukeboxDlg);
 	}
 }
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::onWake(%this) {
 	$JukeboxDlg::active = true;
 	JukeBox_SongTitle.setText("<bold:28><just:center>Title:");
 	%this.getSongList();
 	%this.selectPlayingSong();
 }
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::onSleep(%this) {
 	$JukeboxDlg::active = false;
 }
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::selectPlayingSong(%this) {
 	if (alxIsPlaying($currentMusicHandle)) {
 		$JukeBoxDlg::isPlaying = true;
@@ -242,6 +251,9 @@ function JukeboxDlg::selectPlayingSong(%this) {
 	}
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::update(%this) {
 	if ($JukeboxDlg::playingId == 0)
 		JukeBoxDlg_prev.setActive(false);
@@ -254,6 +266,9 @@ function JukeboxDlg::update(%this) {
 		JukeBoxDlg_next.setActive(true);
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::prevSong(%this) {
 	if ($JukeboxDlg::playingId == 0)
 		return;
@@ -264,6 +279,9 @@ function JukeboxDlg::prevSong(%this) {
 	%this.play();
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::toggleSong(%this) {
 	if ($JukeboxDlg::isPlaying) {
 		%this.stop();
@@ -273,10 +291,16 @@ function JukeboxDlg::toggleSong(%this) {
 	}
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::selectSong(%this) {
 	%this.play();
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::nextSong(%this) {
 	if ($JukeboxDlg::playingId == ($JukeboxDlg::SongNum - 1))
 		return;
@@ -287,6 +311,9 @@ function JukeboxDlg::nextSong(%this) {
 	%this.play();
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::play(%this) {
 	JukeBoxDlg_stop.setVisible(true);
 	JukeBoxDlg_play.setVisible(false);
@@ -303,6 +330,9 @@ function JukeboxDlg::play(%this) {
 	%this.update();
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::stop(%this) {
 	JukeBoxDlg_stop.setVisible(false);
 	JukeBoxDlg_play.setVisible(true);
@@ -311,6 +341,9 @@ function JukeboxDlg::stop(%this) {
 	JukeBox_SongAuthor.setText("<font:24><just:center>Stopped");
 }
 
+/**
+ * @param {JukeboxDlg} %this
+ */
 function JukeboxDlg::getSongList(%this) {
 	if (!$JukeboxDlg::musicFound) {
 		JukeBox_SongList.clear();

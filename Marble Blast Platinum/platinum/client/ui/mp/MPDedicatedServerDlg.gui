@@ -104,11 +104,17 @@ new GuiBitmapCtrl(MPDedicatedServerDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::onWake(%this) {
 	%this.generateSettings();
 	%this.updateActive();
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::updateActive(%this) {
 	for (%i = 0; %i < %this.settings; %i ++) {
 		if (%this.setting[%i, "type"] $= "number") {
@@ -123,6 +129,9 @@ function MPDedicatedServerDlg::updateActive(%this) {
 	}
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::update(%this, %id) {
 	%checkName = "MPDServerSetting" @ %id @ "Check";
 	%value = %checkName.getValue();
@@ -133,6 +142,9 @@ function MPDedicatedServerDlg::update(%this, %id) {
 	%this.updateActive();
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::increment(%this, %id) {
 	%idx = %this.setting[%id];
 	%this.setting[%idx, "value"] ++;
@@ -142,6 +154,9 @@ function MPDedicatedServerDlg::increment(%this, %id) {
 	%this.updateActive();
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::decrement(%this, %id) {
 	%idx = %this.setting[%id];
 	%this.setting[%idx, "value"] --;
@@ -151,11 +166,17 @@ function MPDedicatedServerDlg::decrement(%this, %id) {
 	%this.updateActive();
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::open(%this) {
 	RootGui.pushDialog(%this);
 }
 
 // When in the Dedicated Server Settings, do as in the Player-Hosted Server Settings menu; Save all the changed fields at once, when closing the menu. ~ Connie
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::saveFields(%this) {
 	for (%i = 0; %i < %this.settings; %i++)
 	{
@@ -165,15 +186,24 @@ function MPDedicatedServerDlg::saveFields(%this) {
 	}
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::close(%this) {
 	MPDedicatedServerDlg.saveFields();
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::resetSettings(%this) {
 	%this.settings = 0;
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::addSetting(%this, %id, %name, %value, %type, %min, %max) {
 	%this.setting[%id] = %this.settings;
 	%this.setting[%this.settings] = %id;
@@ -187,6 +217,9 @@ function MPDedicatedServerDlg::addSetting(%this, %id, %name, %value, %type, %min
 	%this.settings ++;
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::generateSettings(%this) {
 	MPDServerSettingsBox.clear();
 	for (%i = 0; %i < %this.settings; %i ++) {
@@ -198,6 +231,9 @@ function MPDedicatedServerDlg::generateSettings(%this) {
 	}
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::addBooleanLabel(%this, %id) {
 	%labelName = "MPDServerSetting" @ %id @ "Label";
 	%checkName = "MPDServerSetting" @ %id @ "Check";
@@ -251,6 +287,9 @@ function MPDedicatedServerDlg::addBooleanLabel(%this, %id) {
 	MPDServerSettingsBox.setExtent(285 SPC (31 * MPDServerSettingsBox.getCount()));
 }
 
+/**
+ * @param {MPDedicatedServerDlg} %this
+ */
 function MPDedicatedServerDlg::addNumericLabel(%this, %id) {
 	%labelName = "MPDServerSetting" @ %id @ "Label";
 	%minusName = "MPDServerSetting" @ %id @ "Minus";

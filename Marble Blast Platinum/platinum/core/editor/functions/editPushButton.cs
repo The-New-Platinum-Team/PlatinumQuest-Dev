@@ -23,6 +23,9 @@
 $EPBDefault["triggerObject"] = "ObjectName";
 $EPBDefault["objectMethod"] = "doThis(%param1, %param2, %etc)";
 
+/**
+ * @param {Type} %obj
+ */
 function epbbutton(%obj) {
 	LargeFunctionDlg.init("editPushButton", "Edit Button", 1);
 	$Editor::PushButton = %obj;
@@ -53,6 +56,9 @@ function epbbutton(%obj) {
 	}
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function editPushButton(%gui) {
 	%obj = $Editor::PushButton;
 

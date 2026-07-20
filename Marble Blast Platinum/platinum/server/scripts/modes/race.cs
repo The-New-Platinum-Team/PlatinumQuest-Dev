@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_race::onLoad(%this) {
 	%this.registerCallback("shouldPickupGem");
 	%this.registerCallback("shouldPickupPowerUp");
@@ -37,30 +40,58 @@ function Mode_race::onLoad(%this) {
 	%this.registerCallback("getQuickRespawnTimeout");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldRespawnGems(%this, %object) {
 	return true;
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldPickupGem(%this, %object) {
 	commandToClient(%object.user.client, 'GemPickup', %object.obj.getSyncId());
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldDisablePowerup(%this, %object) {
 	//Stuff that is handled by the client
 	return %object.this.coopClient;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldPickupPowerup(%this, %object) {
 	//Stuff that is handled by the client
 	return !%object.this.coopClient;
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldUseClientPowerups(%this) {
 	return true;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldResetGem(%this, %object) {
 	if (!isObject(%object.obj.staticgem)) {
 		MissionCleanup.add(%object.obj.staticgem = new StaticShape() {
@@ -74,6 +105,10 @@ function Mode_race::shouldResetGem(%this, %object) {
 	%object.obj.hide(false);
 	return true;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::onFoundGem(%this, %object) {
 	%remaining = $Game::gemCount - %object.client.getGemCount();
 	if (%remaining <= 0) {
@@ -89,9 +124,16 @@ function Mode_race::onFoundGem(%this, %object) {
 		%object.client.playPitchedSound("gotDiamond");
 	}
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldTotalGemCount(%this) {
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Array} %winners
+ */
 function Mode_race::updateWinner(%this, %winners) {
 	//In race mode, whoever has the most gems or finishes first wins
 	if ($Game::GemCount == 0) {
@@ -118,6 +160,9 @@ function Mode_race::updateWinner(%this, %winners) {
 		}
 	}
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::getQuickRespawnTimeout(%this, %object) {
 	//Allow them to respawn instantly
 	return 0;

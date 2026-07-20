@@ -20,6 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setTab(%this, %tab) {
 	OptionsGraphicsPanel.setVisible(%tab $= "Graphics");
 	OptionsGameplayPanel.setVisible(%tab $= "Gameplay");
@@ -75,6 +78,9 @@ function OptionsGui::setTab(%this, %tab) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::show(%this, %content) {
 	%this.content = %content;
 	if (%content $= "exit") {
@@ -86,6 +92,9 @@ function OptionsGui::show(%this, %content) {
 
 // redoing the Home button because this
 //       gui is now used for lb support
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::back(%this) {
 	if (%this.content $= "exit") {
 		//Make sure we can still play
@@ -105,6 +114,9 @@ function OptionsGui::back(%this) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::onWake(%this, %dontDiscard) {
 	buildResolutionList();
 	if ($platform $= "windows")
@@ -123,6 +135,9 @@ function OptionsGui::onWake(%this, %dontDiscard) {
 	copyBlurImage(PM_MissionImage.bitmap);
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::apply(%this) {
 	updateFrameController();
 	savePrefs();
@@ -308,6 +323,9 @@ function buildRendererList() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiSliderCtrl} %this
+ */
 function GuiSliderCtrl::getFormattedValue(%this, %min, %max) {
 	//Raw value
 	%value = %this.getValue();
@@ -327,12 +345,18 @@ function GuiSliderCtrl::getFormattedValue(%this, %min, %max) {
 	return %value;
 }
 
+/**
+ * @param {GuiSliderCtrl} %this
+ */
 function GuiSliderCtrl::getTickSize(%this) {
 	%thisMin = getWord(%this.range, 0);
 	%thisMax = getWord(%this.range, 1);
 	return (%thisMax - %thisMin) / %this.ticks;
 }
 
+/**
+ * @param {GuiSliderCtrl} %this
+ */
 function GuiSliderCtrl::getJoyTickSize(%this) {
 	%thisMin = getWord(%this.range, 0);
 	%thisMax = getWord(%this.range, 1);
@@ -1419,6 +1443,9 @@ function Opt_audioPack_increase() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::updateChannelVolume(%this, %channel) {
 	if (%channel < 1 || %channel > 8)
 		return;
@@ -2210,6 +2237,9 @@ function Opt_autoLoginPassword_validate(%value) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::buildTab(%this, %tab) {
 	%content = ("Options" @ %tab @ "Content");
 	%content.clear();
@@ -2813,6 +2843,9 @@ $Options::Events["JoyAxis"]   = "xaxis yaxis zaxis rxaxis ryaxis rzaxis xpov ypo
 $Options::Events["Key"]       = "a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 backspace tab return enter shift ctrl alt pause capslock escape space pagedown pageup end home left up right down print insert delete help win_lwindow win_rwindow win_apps cmd opt lopt ropt numpad0 numpad1 numpad2 numpad3 numpad4 numpad5 numpad6 numpad7 numpad8 numpad9 numpadmult numpadadd numpadsep numpadminus numpaddecimal numpaddivide numpadenter f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15 f16 f17 f18 f19 f20 f21 f22 f23 f24 numlock scrolllock lshift rshift lcontrol rcontrol lalt ralt tilde minus equals lbracket rbracket backslash semicolon apostrophe comma period slash lessthan";
 $Options::Events["Mouse"]     = "xaxis yaxis zaxis button0 button1 button2 button3 button4 button5 button6 button7 button8";
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::buildEvents(%this, %device, %category) {
 	for (%joy = 0; getJoystickAxes(%joy) !$= ""; %joy ++) {
 		for (%i = 0; %i < getWordCount($Options::Events[%category]); %i ++) {
@@ -2829,6 +2862,9 @@ OptionsGui.buildEvents("joystick", "JoyAxis");
 OptionsGui.buildEvents("keyboard", "Key");
 OptionsGui.buildEvents("mouse",    "Mouse");
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::enableJoystick(%this) {
 	// this screws my computer up, making this a pref
 	if ($Pref::EnableDirectInput)
@@ -2842,6 +2878,9 @@ function OptionsGui::enableJoystick(%this) {
 	//GamePadMap.pop();
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::disableJoystick(%this) {
 	// this screws my computer up, making this a pref
 	if ($Pref::EnableDirectInput)
@@ -2871,6 +2910,9 @@ function getBindFunction(%function, %index) {
 	return %function @ (%index == 0 ? "" : %index);
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::generateHotkeysList(%this) {
 	%height = 37;
 
@@ -2935,6 +2977,7 @@ function OptionsGui::generateHotkeysList(%this) {
 					defaultText = "<bold:28>" @ %title @ ":";
 				});
 
+				/** @type {GuiBorderButtonCtrl} */
 				%addButton = "Opt_Input_Add_" @ %device @ "_" @ %bindFn;
 				%box.add(new GuiBorderButtonCtrl(%addButton) {
 					profile = "PQButton26Profile";
@@ -2959,6 +3002,7 @@ function OptionsGui::generateHotkeysList(%this) {
 				});
 				%sideButton = %addButton;
 			} else {
+				/** @type {GuiBorderButtonCtrl} */
 				%subButton = "Opt_Input_Sub_" @ %device @ "_" @ %bindFn;
 				%box.add(new GuiBorderButtonCtrl(%subButton) {
 					profile = "PQButton26Profile";
@@ -3062,6 +3106,9 @@ function OptionsGui::generateHotkeysList(%this) {
 	OptionsControlsKeyboardPanel.setVisible(!ControllerGui.isJoystick());
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setControlDevice(%this, %device) {
 	$pref::Input::ControlDevice = %device;
 
@@ -3076,6 +3123,9 @@ function OptionsGui::setControlDevice(%this, %device) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::inputGoRight(%this, %box) {
 	OptionsControlsInvertLX.controlLeft = %box;
 	OptionsControlsInvertLY.controlLeft = %box;
@@ -3086,6 +3136,9 @@ function OptionsGui::inputGoRight(%this, %box) {
 	ControllerGui.selectControl(OptionsControlsInvertLX);
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::updateControlDisplay(%this) {
 	for (%i = 0; $Options::HotKey["Keyboard", %i, "Title"] !$= ""; %i ++) {
 		%function = $Options::HotKey["Keyboard", %i, "Function"];
@@ -3227,43 +3280,70 @@ function OptionsGui::updateControlDisplay(%this) {
 	%this.updateKeyboardSpeed();
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setJoystickMovement(%this, %stick, %which) {
 	$pref::Input::Joystick::RightStickMovement = (%stick $= "LS" && %which $= "Camera") || (%stick $= "RS" && %which $= "Movement");
 	%this.updateControlDisplay();
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::updateJoystickSpeedX(%this) {
 	%value = OptionsControlsJoystickSpeedXSlider.getFormattedValue(10, 90);
 	OptionsControlsJoystickSpeedXTitle.setText("<bold:24>X: <just:right>" @ %value);
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::updateJoystickSpeedY(%this) {
 	%value = OptionsControlsJoystickSpeedYSlider.getFormattedValue(10, 90);
 	OptionsControlsJoystickSpeedYTitle.setText("<bold:24>Y: <just:right>" @ %value);
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::updateMouseSpeed(%this) {
 	opt_keyboardSpeed_setValue(OptionskeyboardSpeedValue.getFormattedValue());
 	OptionskeyboardSpeedDisplay.setText("<bold:24><just:right>" @ opt_keyboardSpeed_getDisplay());
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::updateKeyboardSpeed(%this) {
 	opt_mouseSpeed_setValue(OptionsmouseSpeedValue.getFormattedValue());
 	OptionsmouseSpeedDisplay.setText("<bold:24><just:right>" @ opt_mouseSpeed_getDisplay());
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setYAxis(%this, %value) {
 	%this.eventValue[0, "JoyAxis",  "yaxis"] = %value;
 	%this.updateControlDisplay();
 }
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setRYAxis(%this, %value) {
 	%this.eventValue[0, "JoyAxis", "ryaxis"] = %value;
 	%this.updateControlDisplay();
 }
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setXAxis(%this, %value) {
 	%this.eventValue[0, "JoyAxis",  "xaxis"] = %value;
 	%this.updateControlDisplay();
 }
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setRXAxis(%this, %value) {
 	%this.eventValue[0, "JoyAxis", "rxaxis"] = %value;
 	%this.updateControlDisplay();
@@ -3271,6 +3351,10 @@ function OptionsGui::setRXAxis(%this, %value) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {OptionsGui} %this
+ * @param {GuiControl} %ctrl
+ */
 function OptionsGui::addBinding(%this, %ctrl, %name) {
 	%map = ($pref::Input::ControlDevice $= "Joystick") ? JoystickMap : MoveMap;
 
@@ -3286,6 +3370,10 @@ function OptionsGui::addBinding(%this, %ctrl, %name) {
 	%this.remap(%bindFn, %name);
 }
 
+/**
+ * @param {OptionsGui} %this
+ * @param {GuiControl} %ctrl
+ */
 function OptionsGui::removeBinding(%this, %ctrl, %name) {
 	if ($pref::Input::ControlDevice $= "Joystick") {
 		//TODO: DI triggers
@@ -3298,6 +3386,10 @@ function OptionsGui::removeBinding(%this, %ctrl, %name) {
 	%this.generateHotkeysList();
 }
 
+/**
+ * @param {OptionsGui} %this
+ * @param {GuiControl} %ctrl
+ */
 function OptionsGui::remap(%this, %ctrl, %name) {
 	if ($pref::Input::ControlDevice $= "Joystick") {
 		//Joystick rebinding
@@ -3318,6 +3410,9 @@ function OptionsGui::remap(%this, %ctrl, %name) {
 	Canvas.pushDialog(RemapDlg);
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::closeRemap(%this) {
 	Canvas.popDialog(RemapDlg);
 
@@ -3328,6 +3423,9 @@ function OptionsGui::closeRemap(%this) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::checkBindings(%this) {
 	%map = ($pref::Input::ControlDevice $= "Joystick") ? JoystickMap : MoveMap;
 
@@ -3356,6 +3454,9 @@ function OptionsGui::checkBindings(%this) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::redoMapping(%this, %device, %action, %cmd) {
 	if (%this.joyRemapping) {
 		%this.setJoyMapping(%action);
@@ -3365,6 +3466,9 @@ function OptionsGui::redoMapping(%this, %device, %action, %cmd) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::onNewBinding(%this) {
 	%this.checkBindings();
 	%this.updateControlDisplay();
@@ -3385,6 +3489,9 @@ function findRemapCmdIndex(%command) {
 	return -1;
 }
 
+/**
+ * @param {OptRemapInputCtrl} %this
+ */
 function OptRemapInputCtrl::onInputEvent(%this, %device, %action) {
 	error("** onInputEvent called - device = " @ %device @ ", action = " @ %action @ " **");
 
@@ -3434,6 +3541,9 @@ function OptRemapInputCtrl::onInputEvent(%this, %device, %action) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::exportJoystick(%this, %target, %category) {
 	for (%joy = 0; getJoystickAxes(%joy) !$= ""; %joy ++) {
 		for (%i = 0; %i < getWordCount($Options::Events[%category]); %i ++) {
@@ -3445,6 +3555,9 @@ function OptionsGui::exportJoystick(%this, %target, %category) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::event(%this, %joy, %category, %event, %val) {
 	%this.eventValue[%joy, %category, %event] = %val;
 
@@ -3504,6 +3617,9 @@ function OptionsGui::event(%this, %joy, %category, %event, %val) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::cancelDITriggerBind(%this) {
 	%this.remapDInput = false;
 	%this.remapDInputTrigger = "";
@@ -3512,6 +3628,9 @@ function OptionsGui::cancelDITriggerBind(%this) {
 	%this.remapJoystick(%this.remapName, %this.remapCommand);
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::onJoyRebind(%this, %action) {
 	%this.closeRemap();
 
@@ -3551,6 +3670,9 @@ function OptionsGui::onJoyRebind(%this, %action) {
 	}
 }
 
+/**
+ * @param {OptionsGui} %this
+ */
 function OptionsGui::setJoyMapping(%this, %action) {
 	if (!%this.joyRemapping) {
 		echo("setJoyMapping when not mapping");

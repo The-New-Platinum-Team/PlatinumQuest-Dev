@@ -12,6 +12,9 @@
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::damage(%this, %sourceObject, %position, %damage, %damageType) {
 	// All damage applied by one object to another should go through this
 	// method. This function is provided to allow objects some chance of
@@ -25,6 +28,9 @@ function ShapeBase::damage(%this, %sourceObject, %position, %damage, %damageType
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::setDamageDt(%this, %damageAmount, %damageType) {
 	// This function is used to apply damage over time.  The damage
 	// is applied at a fixed rate (50 ms).  Damage could be applied
@@ -38,6 +44,9 @@ function ShapeBase::setDamageDt(%this, %damageAmount, %damageType) {
 		%obj.damageSchedule = "";
 }
 
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::clearDamageDt(%this) {
 	if (%obj.damageSchedule !$= "") {
 		cancel(%obj.damageSchedule);
@@ -45,10 +54,16 @@ function ShapeBase::clearDamageDt(%this) {
 	}
 }
 
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::onInspectApply(%this) {
 	%this.getDataBlock().onInspectApply(%this);
 }
 
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::onEditorSetTransform(%this) {
 	Parent::onEditorSetTransform(%this);
 	%this.getDataBlock().onEditorSetTransform(%this);
@@ -58,16 +73,25 @@ function ShapeBase::onEditorSetTransform(%this) {
 // ShapeBase datablock
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::damage(%this, %obj, %position, %source, %amount, %damageType) {
 	// Ignore damage by default. This empty method is here to
 	// avoid console warnings.
 }
 
 
+/**
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::onInspectApply(%this, %obj) {
 	//Stub
 }
 
+/**
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::onEditorSetTransform(%this, %obj) {
 	//Stub
 }

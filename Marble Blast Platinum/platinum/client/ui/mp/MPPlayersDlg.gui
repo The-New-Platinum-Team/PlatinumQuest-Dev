@@ -239,6 +239,9 @@ new GuiBitmapCtrl(MPPlayersDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::show(%this) {
 	if ($Server::_Dedicated) {
 		MPDedicatedPlayersDlg.show();
@@ -248,11 +251,17 @@ function MPPlayersDlg::show(%this) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::close(%this) {
 	RootGui.popDialog(%this);
 	PlayMissionGui.showBody();
 }
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::onWake(%this) {
 	MPPlayersTitle.setText("<bold:28><just:center>Player List");
 	MPPlayersListTitle.setText("<bold:24><just:center>Online Players");
@@ -261,6 +270,9 @@ function MPPlayersDlg::onWake(%this) {
 	%this.updateButtons();
 }
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::updatePlayerList(%this) {
 	if ($Server::_Dedicated) {
 		MPDedicatedPlayersDlg.updatePlayerList();
@@ -300,6 +312,9 @@ function MPPlayersDlg::updatePlayerList(%this) {
 	MPPlayersBannedList.setSelectedRow(0);
 }
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::updateButtons(%this) {
 	MPPlayersKick.setActive(MPPlayersOnlineList.rowCount() && (MPPlayersOnlineList.getSelectedId() != -1));
 	MPPlayersBan.setActive(MPPlayersOnlineList.rowCount() && (MPPlayersOnlineList.getSelectedId() != -1));
@@ -307,6 +322,9 @@ function MPPlayersDlg::updateButtons(%this) {
 }
 
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::kick(%this) {
 	%selected = MPPlayersOnlineList.getRowTextById(MPPlayersOnlineList.getSelectedId());
 	%name = getField(%selected, 1);
@@ -314,6 +332,9 @@ function MPPlayersDlg::kick(%this) {
 	commandToServer('KickUser', %name);
 }
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::ban(%this) {
 	%selected = MPPlayersOnlineList.getRowTextById(MPPlayersOnlineList.getSelectedId());
 	%name = getField(%selected, 1);
@@ -321,6 +342,9 @@ function MPPlayersDlg::ban(%this) {
 	commandToServer('BanUser', %name);
 }
 
+/**
+ * @param {MPPlayersDlg} %this
+ */
 function MPPlayersDlg::unban(%this) {
 	%selected = MPPlayersBannedList.getRowTextById(MPPlayersBannedList.getSelectedId());
 	%name = getField(%selected, 1);

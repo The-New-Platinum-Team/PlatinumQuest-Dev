@@ -32,6 +32,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_steal) {
 	desc = "Blast near opponents to steal their points!";
 });
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_steal::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }

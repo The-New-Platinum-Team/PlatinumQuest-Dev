@@ -23,6 +23,9 @@
 //-----------------------------------------------------------------------------
 
 package ServerTime {
+	/**
+	 * @param {Type} %delta
+	 */
 	function onFrameAdvance(%delta) {
 		Parent::onFrameAdvance(%delta);
 
@@ -158,6 +161,9 @@ function Time::setBonusTime(%time) {
 //--------------------------------------------------------------------------
 // Sync the clock on the client.
 
+/**
+ * @param {NetConnection} %client
+ */
 function GameConnection::syncClock(%client, %time, %bonus, %total) {
 	if (%time $= "")
 		%time = $Time::CurrentTime;

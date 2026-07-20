@@ -246,6 +246,9 @@ new GuiControl(MarbleSelectDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::init(%this) {
 	%this.lists = array(MarbleSelectListsArray);
 
@@ -276,6 +279,9 @@ function sortMarbleList(%a, %b) {
 	return %aIndex < %bIndex;
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::getMarbleList(%this, %name) {
 	for (%i = 0; %i < %this.lists.getSize(); %i ++) {
 		%list = %this.lists.getEntry(%i);
@@ -286,6 +292,9 @@ function MarbleSelectDlg::getMarbleList(%this, %name) {
 	return -1;
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::addMarbleList(%this, %list) {
 	if (isObject(%this.getMarbleList(%list.name))) {
 		error("Marble pack " @ %list.name @ " already exists.");
@@ -295,6 +304,9 @@ function MarbleSelectDlg::addMarbleList(%this, %list) {
 	return true;
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::loadMarblePack(%this, %file) {
 	%parsed = jsonParse(fread(%file));
 	if (!isObject(%parsed)) {
@@ -311,6 +323,9 @@ function MarbleSelectDlg::loadMarblePack(%this, %file) {
 	echo("Loaded marble pack: " @ %file);
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::generateOfficialMarbleList(%this) {
 	%spec = $usermods @ "/data/shapes/balls/*.json";
 	for (%file = findFirstFile(%spec); %file !$= ""; %file = findNextFile(%spec)) {
@@ -322,6 +337,9 @@ function MarbleSelectDlg::generateOfficialMarbleList(%this) {
 	}
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::generateCustomMarbleList(%this) {
 	if (!isObject(CustomMarbleListGroup))
 		RootGroup.add(new SimGroup(CustomMarbleListGroup));
@@ -429,6 +447,9 @@ function MarbleSelectDlg::generateCustomMarbleList(%this) {
 }
 
 // When the GUI is shown
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::onWake(%this) {
 	//Try to center this GUI, but don't overlap the dropdowns
 	%width = getWord(PM_MarbleSelect.getExtent(), 0);
@@ -443,6 +464,9 @@ function MarbleSelectDlg::onWake(%this) {
 	%this.loadPrefs();
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::loadPrefs(%this) {
 	if (mp()) {
 		// Load prefs, search for skins and marbles
@@ -524,6 +548,9 @@ function MarbleSelectDlg::loadPrefs(%this) {
 }
 
 // When the GUI is hidden
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::onSleep(%this) {
 	%this.savePrefs();
 	savePrefs();
@@ -535,6 +562,9 @@ function MarbleSelectDlg::onSleep(%this) {
 	}
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::savePrefs(%this) {
 	if (mp()) {
 		// Save prefs for referencing later
@@ -555,6 +585,9 @@ function MarbleSelectDlg::savePrefs(%this) {
 }
 
 // Used from other scripts, gets the custom marble data
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::getSelection(%this) {
 	// Get the category list of marbles
 	%list = %this.getMarbleList(%this.category);
@@ -581,6 +614,9 @@ function MarbleSelectDlg::getSelection(%this) {
 }
 
 // Update the interface
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::update(%this) {
 	// Gui controls:
 	// MS_TitleText - Title text (above the marble), used for category names
@@ -622,6 +658,9 @@ function MarbleSelectDlg::update(%this) {
 }
 
 // When a new marble is selected
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::selectMarble(%this, %marble) {
 	%this.marbleChoice = %marble;
 	%this.update();
@@ -629,6 +668,9 @@ function MarbleSelectDlg::selectMarble(%this, %marble) {
 }
 
 // When a new category is selected
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::selectCategory(%this, %category) {
 	// Get the category array for referencing
 	%list = %this.getMarbleList(%category);
@@ -648,6 +690,9 @@ function MarbleSelectDlg::selectCategory(%this, %category) {
 }
 
 // Selects the next marble
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::next(%this) {
 	// Increment
 	%choice = %this.marbleChoice + 1;
@@ -661,6 +706,9 @@ function MarbleSelectDlg::next(%this) {
 }
 
 // Selects the previous marble
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::prev(%this) {
 	// Decrement
 	%choice = %this.marbleChoice - 1;
@@ -678,6 +726,9 @@ function MarbleSelectDlg::prev(%this) {
 }
 
 // Selects the next category
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::nextCat(%this) {
 	// Increment
 	%choice = %this.categoryChoice + 1;
@@ -696,6 +747,9 @@ function MarbleSelectDlg::nextCat(%this) {
 }
 
 // Selects the previous category
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::prevCat(%this) {
 	// Decrement
 	%choice = %this.categoryChoice - 1;
@@ -717,6 +771,9 @@ function MarbleSelectDlg::prevCat(%this) {
 	%this.selectCategory(%list.name);
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::getOnlineMarbleId(%this) {
 	// Get the category list of marbles
 	%list = %this.getMarbleList(%this.category);
@@ -727,6 +784,9 @@ function MarbleSelectDlg::getOnlineMarbleId(%this) {
 	return %marble.id;
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::setOnlineMarbleList(%this, %parsed) {
 	if (!isObject(OnlineMarbleListGroup))
 		RootGroup.add(new SimGroup(OnlineMarbleListGroup));
@@ -796,12 +856,16 @@ function MarbleSelectDlg::setOnlineMarbleList(%this, %parsed) {
 	%this.onWake();
 }
 
+/**
+ * @param {MarbleSelectDlg} %this
+ */
 function MarbleSelectDlg::setOnlineMarbleId(%this, %id) {
 	%marbleId = getWord(%id, 1);
 
 	%listName = %this.list["name-id", getWord(%id, 0)];
 	%this.selectCategory(%listName);
 
+	/** @type {Array} */
 	%list = %this.list[%listName];
 	%count = %list.getSize();
 	for (%i = 0; %i < %count; %i ++) {

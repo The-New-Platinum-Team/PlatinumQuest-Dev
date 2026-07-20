@@ -381,6 +381,9 @@ datablock ParticleEmitterNodeData(FireWorkNode) {
 	timeMultiple = 1;
 };
 
+/**
+ * @param {SceneObject} %pad
+ */
 function startFireWorks(%pad) {
 
 	// Create the cleanup group

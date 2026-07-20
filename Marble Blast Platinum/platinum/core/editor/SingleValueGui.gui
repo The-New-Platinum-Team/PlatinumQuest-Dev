@@ -119,6 +119,10 @@ new GuiControl(SingleValueGui) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {GuiControl} %gui
+ * @param {GuiControl} %target
+ */
 function SingleValueGui::open(%gui, %target, %name, %value, %addme) {
 	if (!isObject(%target))
 		error("SV Gui has no target; it will most likely do nothing.");
@@ -143,6 +147,9 @@ function SingleValueGui::open(%gui, %target, %name, %value, %addme) {
 	SVTextEdit.setSelectionRange(0, 100000);
 }
 
+/**
+ * @param {GuiControl} %gui
+ */
 function SingleValueGui::accept(%gui) {
 	if (isObject(%gui.target))
 		%gui.target.svcallback(getWord(SVText.getValue(), 1), SVTextEdit.getValue());
@@ -150,6 +157,9 @@ function SingleValueGui::accept(%gui) {
 	SingleValueGui.close();
 }
 
+/**
+ * @param {GuiControl} %gui
+ */
 function SingleValueGui::close(%gui) {
 	if (%gui.softclose)
 		%gui.setVisible(0);

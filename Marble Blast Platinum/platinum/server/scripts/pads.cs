@@ -79,6 +79,10 @@ datablock StaticShapeData(StartPad_MBU : StartPad) {
 	useShaders = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function StartPad_MBU::onMissionReset(%this, %obj) {
 	if (!$Game::Menu) {
 		%obj.stopThread(0);
@@ -86,12 +90,20 @@ function StartPad_MBU::onMissionReset(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function StartPad_MBM::onAdd(%this,%obj) {
 	if ($pref::spchanges && %obj.isTemperable $= "1")
 		%obj.setDataBlock("StartPad_MBU");
 	return StartPadClass::onAdd(%this, %obj);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function EndPad_MBM::onAdd(%this,%obj) {
 	if (($pref::spchanges && %obj.isTemperable $= "1") || ($Server::MissionFile $= ($usermods @ "/data/missions/templates/UltraTemplate.mis") && %obj.tochange == 1)) {   //Because the Ultra Template level needs to have the MBM End Pad (it will crash when making a new level with the MBU Pad), there is a simple mechanism in place to switch out the MBM pad in that level with an MBU pad. ~Connie
 		%obj.setDataBlock("EndPad_MBU");
@@ -101,6 +113,10 @@ function EndPad_MBM::onAdd(%this,%obj) {
 	}
 }
 
+/**
+ * @param {StartPadClass} %this
+ * @param {ShapeBase} %obj
+ */
 function StartPadClass::onAdd(%this, %obj) {
 	$Game::StartPad = %obj;
 	%obj.setName("StartPoint");
@@ -185,6 +201,10 @@ datablock StaticShapeData(MBU_LightBeam : EndPad) {
 	useShaders = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function EndPad_MBU::onAdd(%this, %obj) {
 	$Game::EndPad = %obj;
 	%obj.setName("EndPoint");
@@ -200,16 +220,28 @@ function EndPad_MBU::onAdd(%this, %obj) {
 	MissionCleanup.add(%temp);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function EndPad_MBU::onEditorSetTransform(%this, %obj) {
 	%obj._mbulightbeam.setTransform(%obj.getTransform());
 	%obj._mbulightbeam.setScale(%obj.getScale());
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function EndPad_MBU::onInspectApply(%this, %obj) {
 	%obj._mbulightbeam.setTransform(%obj.getTransform());
 	%obj._mbulightbeam.setScale(%obj.getScale());
 }
 
+/**
+ * @param {EndPadClass} %this
+ * @param {ShapeBase} %obj
+ */
 function EndPadClass::onAdd(%this, %obj) {
 	$Game::EndPad = %obj;
 	%obj.setName("EndPoint");

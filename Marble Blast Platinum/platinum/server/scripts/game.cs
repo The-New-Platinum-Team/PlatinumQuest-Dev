@@ -384,6 +384,9 @@ function onMissionReset() {
 	}
 }
 
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::onMissionReset(%this) {
 	if (%this.resetting) //It's apparently inside itself.. Shit
 		return;
@@ -394,9 +397,15 @@ function SimGroup::onMissionReset(%this) {
 	%this.resetting = "";
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::onMissionReset(%this) {
 }
 
+/**
+ * @param {GameBase} %this
+ */
 function GameBase::onMissionReset(%this) {
 	%this.getDataBlock().initFX(%this);
 	%this.getDataBlock().onMissionReset(%this);
@@ -539,6 +548,9 @@ function setGameState(%state) {
 	call("serverState" @ %state);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setGameState(%this, %state) {
 	if ($Server::Lobby)
 		return;
@@ -557,6 +569,9 @@ function GameConnection::setGameState(%this, %state) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stateWaiting(%this) {
 	%this.setMessage("");
 	%this.schedule(500, setMessage, "waiting");
@@ -593,6 +608,9 @@ function serverStateEnd() {
 	Time::stop();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stateStart(%this) {
 	%this.setMessage("");
 	%this.setGemCount(%this.getGemCount());
@@ -614,6 +632,9 @@ function GameConnection::stateStart(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stateReady(%this) {
 	//Because it activates when we leave spectator
 	%this.spawnTime = $Time::CurrentTime;
@@ -628,6 +649,9 @@ function GameConnection::stateReady(%this) {
 
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stateSet(%this) {
 	%this.play2d(SetVoiceSfx);
 	%this.setMessage("set");
@@ -637,6 +661,9 @@ function GameConnection::stateSet(%this) {
 		%this.stateSchedule = %this.schedule(1500, "setGameState", "Go");
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stateGo(%this) {
 	%this.play2d(GetRollingVoiceSfx);
 	%this.setMessage("go", 2000);
@@ -649,6 +676,9 @@ function GameConnection::stateGo(%this) {
 	%this.player.setMode(Normal);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stateEnd(%this) {
 	%this.lastScore = %this.gemCount;
 	%this.playing = false;
@@ -674,6 +704,9 @@ function GameConnection::stateEnd(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::incBonusTime(%this,%dt) {
 	Time::addBonusTime(%dt);
 
@@ -691,6 +724,9 @@ function GameConnection::incBonusTime(%this,%dt) {
 }
 
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onClientEnterGame(%this) {
 	// Create a new camera object.
 	%this.camera = new Camera() {
@@ -795,6 +831,9 @@ function GameConnection::onClientEnterGame(%this) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onClientLeaveGame(%this) {
 	if (%this.player.isFrozen) {
 		%this.player.iceShard.getDatablock().unfreeze(%this.player.iceShard, %this.player, true);
@@ -822,6 +861,9 @@ function GameConnection::onClientLeaveGame(%this) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::deletePlayer(%this) {
 	// delete the trail emitter
 	for (%i = 0; %i < %this.player.trailEmitters; %i ++) {
@@ -842,6 +884,9 @@ function GameConnection::deletePlayer(%this) {
 	%this.player = "";
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendEndGameScores(%this) {
 	%score = Mode::callback("getFinalScore", $ScoreType::Time TAB $Time::CurrentTime, new ScriptObject() {
 		client = %this;
@@ -851,6 +896,9 @@ function GameConnection::sendEndGameScores(%this) {
 	commandToClient(%this, 'EndGameSetup', %score, $Time::ElapsedTime, $Time::TotalBonus, $Game::FinishClient.index);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::resetStats(%this) {
 	// Reset game stats
 	%this.bonusTime = 0;
@@ -877,6 +925,9 @@ function GameConnection::resetStats(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onEnterPad(%this) {
 	if (Mode::callback("onEnterPad", false, new ScriptObject() {
 		client = %this;
@@ -909,6 +960,9 @@ function GameConnection::onEnterPad(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::canFinish(%this) {
 	//Can finish on OOB only if
 	// - Not PQ
@@ -929,6 +983,9 @@ function GameConnection::canFinish(%this) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getFinishMessage(%this) {
 	//OOB finish is fucking stupid because of backwards compatibility.
 	// There's not really any good message we can put here that won't be wrong
@@ -963,6 +1020,9 @@ function GameConnection::getFinishMessage(%this) {
 	return "Congratulations! You\'ve finished!";
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onLeavePad(%this) {
 	Mode::callback("onLeavePad", "", new ScriptObject() {
 		client = %this;
@@ -973,6 +1033,9 @@ function GameConnection::onLeavePad(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onOutOfBounds(%this, %hideMessage) {
 	if ($Game::State $= "End")
 		return;
@@ -1024,13 +1087,23 @@ function GameConnection::onOutOfBounds(%this, %hideMessage) {
 	serverCbOnOutOfBounds(%this);
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::onOOBClick(%this) {
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onDestroyed(%this) {
 	//Nothing
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {Item} %gem
+ */
 function GameConnection::onFoundGem(%this,%amount,%gem) {
 	%ret = $LB::LoggedIn || $Server::Dedicated;
 	if (%ret && $platform $= "windows") {
@@ -1066,6 +1139,9 @@ function GameConnection::onFoundGem(%this,%amount,%gem) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::spawnPlayer(%this, %spawnPoint) {
 	// Combination create player and drop him somewhere
 	if (%spawnPoint $= "")
@@ -1083,6 +1159,9 @@ function GameConnection::spawnPlayer(%this, %spawnPoint) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::startGame(%this) {
 	// Give the client control of the player
 	%this.setControlObject(%this.player);
@@ -1161,6 +1240,9 @@ function restartLevel(%exitgame) {
 	RtaSpeedrun.missionRestarted();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::quickRespawnPlayer(%this) {
 	// If we're finished, don't respawn.
 	if ($Game::State $= "End")
@@ -1187,10 +1269,16 @@ function GameConnection::quickRespawnPlayer(%this) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stopRespawn(%this) {
 	%this.respawning = false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::respawnFromOOB(%this) {
 	// If we're finished, don't respawn.
 	if (%ret && $platform $= "windows") {
@@ -1216,6 +1304,9 @@ function GameConnection::respawnFromOOB(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::respawnPlayer(%this, %respawnPos) {
 	// specators don't need this in mp
 	if (%ret && $platform $= "windows") {
@@ -1331,6 +1422,9 @@ function GameConnection::respawnPlayer(%this, %respawnPos) {
 	return %respawnPos;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::restartLevel(%this) {
 	%this.player.oldPowerupData = "";
 	%this.player.oldPowerupObj = "";
@@ -1360,6 +1454,9 @@ function GameConnection::restartLevel(%this) {
 
 //Disable any currently active inventory powerups on the player. Note this does
 // not include non-inventory powerups like the fireball and bubble
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::clearInventoryPowerups(%this) {
 	if (!isObject(%this.player))
 		return;
@@ -1403,6 +1500,9 @@ function GameConnection::clearInventoryPowerups(%this) {
 }
 
 //Reset all powerups, calls clearInventoryPowerups and then clears bubble/fireball
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::clearAllPowerups(%this) {
 	%this.clearInventoryPowerups();
 
@@ -1424,6 +1524,9 @@ function GameConnection::clearAllPowerups(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getMarbleChoice(%this) {
 	%choice = %this.skinChoice;
 
@@ -1436,6 +1539,9 @@ function GameConnection::getMarbleChoice(%this) {
 	return %db TAB %skin TAB %normalize;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::createPlayer(%this, %spawnPoint) {
 	if (isObject(%this.player))  {
 		// The client should not have a player currently
@@ -1516,6 +1622,9 @@ function GameConnection::createPlayer(%this, %spawnPoint) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendPlayerId(%this) {
 	//Don't send if we don't have a player
 	if (!isObject(%this.player))
@@ -1525,6 +1634,9 @@ function GameConnection::sendPlayerId(%this) {
 	commandToAll('GhostId', %this.index, %this.player.getSyncId());
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendAllPlayerIds(%this) {
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
@@ -1536,6 +1648,9 @@ function GameConnection::sendAllPlayerIds(%this) {
 // Support functions
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {SimGroup} %group
+ */
 function countGems(%group) {
 	// Count up all gems out there are in the world
 	%gems = 0;
@@ -1551,6 +1666,9 @@ function countGems(%group) {
 	return %gems;
 }
 
+/**
+ * @param {SimGroup} %group
+ */
 function countVisibleGems(%group) {
 	// Count up all gems out there are in the world
 	%gems = 0;
@@ -1566,6 +1684,9 @@ function countVisibleGems(%group) {
 	return %gems;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getNearestGem(%this, %highestValue, %filterLeftBehind) {
 	if (isObject(%this.player)) {
 		return getNearestGem(%this.player.getTransform(), %highestValue, %filterLeftBehind);

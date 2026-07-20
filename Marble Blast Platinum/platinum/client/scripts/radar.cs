@@ -168,6 +168,9 @@ function RadarBuildSearch() {
 	$RadarBuild = schedule(1000, 0, "RadarBuildSearch");
 }
 
+/**
+ * @param {SceneObject} %object
+ */
 function Radar::AddTarget(%object, %bitmap) {
 	if (!shouldShowRadar())
 		return;
@@ -183,6 +186,9 @@ function Radar::AddTarget(%object, %bitmap) {
 	TargetGroup.add(%script);
 }
 
+/**
+ * @param {SceneObject} %object
+ */
 function Radar::RemoveTarget(%object) {
 	if (isObject(%object))
 		%script = "RadarTarget" @ %object.getID();
@@ -229,6 +235,9 @@ function Radar::ClearTargets() {
 }
 
 /// Called back from C++
+/**
+ * @param {GuiBitmapCtrl} %dot
+ */
 function Radar::setDot(%dot, %pos, %extent, %bitmap, %reset) {
 	if (%reset) {
 		%dot.bitmapRotation = "";
@@ -367,6 +376,9 @@ function radarShouldShowFinish(%items) {
 	return ClientMode::callback("radarShowShouldFinish", false, %items);
 }
 
+/**
+ * @param {ShapeBase} %object
+ */
 function radarShouldShow(%object) {
 	//Ask the mode first
 	if (!ClientMode::callback("radarShouldShowObject", true, %object)) {
@@ -459,6 +471,10 @@ function radarShouldShow(%object) {
 	return isFile(%bitmap);
 }
 
+/**
+ * @param {ShapeBase} %object
+ * @returns {GuiBitmapCtrl}
+ */
 function Radar::AddDot(%object, %bitmap) {
 	if (!shouldShowRadar())
 		return;
@@ -539,6 +555,9 @@ $RadarColor["turquoise"] = "51 255 255 255";
 $RadarColor["black"]     = "0 0 0 255";
 $RadarColor["platinum"]  = "128 128 128 255";
 
+/**
+ * @param {GuiBitmapCtrl} %dot
+ */
 function RadarSetDotColor(%dot, %skin, %angle) {
 	%dot.setBitmap("platinum/client/ui/mp/radar/Pointer.png");
 	%dot.bitmapRotation = -mRadToDeg(%angle);

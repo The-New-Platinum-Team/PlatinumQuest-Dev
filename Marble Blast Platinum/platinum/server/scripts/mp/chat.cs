@@ -27,11 +27,17 @@ function serverSendChat(%message) {
 	commandToAll('PrivateMessage', %message);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendChat(%this, %message) {
 	commandToClient(%this, 'PrivateMessage', %message);
 }
 
 // private chat
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdPrivateChat(%client, %message) {
 	if ($Editor::Opened && EWorldEditor.checkChat(%client, %message))
 		return;
@@ -61,10 +67,16 @@ function serverCmdPrivateChat(%client, %message) {
 	commandToAllExcept(%client, 'PrivateMessage', %client.getUsername(), %message);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdTeamChat(%client, %message) {
 	commandToTeam(%client.team, 'TeamChat', %client.getUsername(), Team::getTeamName(%client.team), Team::isTeamLeader(%client.team, %client), %message);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdRandomMapSelected(%client, %mapName) {
 	if (!%client.isHost())
 		return; // Get outta here
@@ -72,6 +84,9 @@ function serverCmdRandomMapSelected(%client, %mapName) {
 }
 
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::checkSpam(%this) {
 	if (%this.getAddress() $= "local")
 		return false;
@@ -91,10 +106,16 @@ function GameConnection::checkSpam(%this) {
 	return false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::unmessage(%this) {
 	%this.messages --;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::mute(%this) {
 	%this.spamming = true;
 	%this.spamTime = getRealTime();
@@ -103,6 +124,9 @@ function GameConnection::mute(%this) {
 	commandToClient(%this, 'PrivateMessage', LBChatColor("notification") @ "You have been muted for spamming. You will be unmuted in 25 seconds.");
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::unspam(%this) {
 	%this.spamming = false;
 	commandToClient(%this, 'PrivateMessage', LBChatColor("notification") @ "You have been unmuted.");
@@ -118,16 +142,25 @@ function runServerChatCommand(%client, %message) {
 	return false;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandPing(%client, %rest) {
 	%client.sendChat(LBChatColor("help") @ "Pong!");
 	return true;
 }
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandStatus(%client, %rest) {
 	%client.sendChat(LBChatColor("help") @ "Server Status:");
 	%client.sendChat(LBChatColor("help") @ "Uptime: " @ $Sim::Time @ " seconds");
 	%client.sendChat(LBChatColor("help") @ "Missions Loaded: " @ $missionSequence);
 	return true;
 }
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandAdmin(%client, %rest) {
 	if ($Server::Dedicated) {
 		if (%client.isAdmin()) {
@@ -142,6 +175,9 @@ function serverChatCommandAdmin(%client, %rest) {
 	}
 	return false;
 }
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandHost(%client, %rest) {
 	if ($Server::Dedicated && %client.isAdmin()) {
 		%name = trim(%rest);
@@ -173,6 +209,9 @@ function serverChatCommandHost(%client, %rest) {
 	}
 	return false;
 }
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandUpload(%client, %rest) {
 	if (%client.isAdmin()) {
 		%status = !!%rest;
@@ -188,6 +227,9 @@ function serverChatCommandUpload(%client, %rest) {
 	}
 	return false;
 }
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandKick(%client, %rest) {
 	if (%client.isAdmin()) {
 		%name = trim(%rest);
@@ -209,6 +251,9 @@ function serverChatCommandKick(%client, %rest) {
 	}
 	return false;
 }
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandBan(%client, %rest) {
 	if (%client.isAdmin()) {
 		%name = trim(%rest);
@@ -230,6 +275,9 @@ function serverChatCommandBan(%client, %rest) {
 	}
 	return false;
 }
+/**
+ * @param {GameConnection} %client
+ */
 function serverChatCommandCancel(%client, %rest) {
 	if (%client.isAdmin() || (%client.isHost() && $Server::Dedicated)) {
 		%client.sendChat(LBChatColor("help") @ "Cancelling mission load/play...");

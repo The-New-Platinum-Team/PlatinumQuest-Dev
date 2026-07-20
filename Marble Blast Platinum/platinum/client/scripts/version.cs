@@ -20,6 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Array} %parsed
+ */
 function onVersionCheck(%parsed) {
 	%latest = %parsed.getEntry(0).version;
 

@@ -22,11 +22,18 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_haste::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("canFinish");
 	%this.registerCallback("getFinishMessage");
 }
+/**
+ * @param {Mode_haste} %this
+ * @param {Type} %object
+ */
 function Mode_haste::canFinish(%this, %object) {
 	//Make sure they're going fast enough
 	if (VectorLen(%object.client.player.getVelocity()) < MissionInfo.SpeedToQualify) {
@@ -35,6 +42,10 @@ function Mode_haste::canFinish(%this, %object) {
 	//Unknown, let the other modes decide
 	return "";
 }
+/**
+ * @param {Mode_haste} %this
+ * @param {Type} %object
+ */
 function Mode_haste::getFinishMessage(%this, %object) {
 	//Make sure they're going fast enough
 	if (VectorLen(%object.client.player.getVelocity()) < MissionInfo.SpeedToQualify) {

@@ -66,22 +66,37 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_stampede) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_tag::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("onEndGameSetup");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_tag} %this
+ */
 function ClientMode_tag::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {ClientMode_tag} %this
+ */
 function ClientMode_tag::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }
 
+/**
+ * @param {ClientMode_keepAway} %this
+ */
 function ClientMode_keepAway::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
+/**
+ * @param {ClientMode_stampede} %this
+ */
 function ClientMode_stampede::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }

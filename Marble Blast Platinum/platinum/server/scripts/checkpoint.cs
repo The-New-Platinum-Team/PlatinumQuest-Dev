@@ -82,26 +82,44 @@ datablock StaticShapeData(Checkpoint_MBXP : checkPoint) {
 	shapeFile = "~/data/shapes/pads/checkpoint.dts";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Checkpoint_MBU::onMissionReset(%this, %obj) {
 	if (!$Game::Menu) {
 		%obj.setThreadDir(0,false);
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Checkpoint_MBU::onActivateCheckpoint(%this, %obj) {
 	if (!$Game::Menu) {
 		%obj.setThreadDir(0,false);
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function Checkpoint_MBXP::onMissionReset(%this, %obj) {
 	return Checkpoint_MBU::onMissionReset(%this, %obj);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function Checkpoint_MBXP::onActivateCheckpoint(%this, %obj) {
 	return Checkpoint_MBU::onActivateCheckpoint(%this, %obj);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Checkpoint_PQ::onAdd(%this, %obj) {
 	%rotation = %obj.getRotation();
 	%rotation = getWords(%rotation, 0, 2) SPC mRadToDeg(getWord(%rotation, 3));
@@ -124,17 +142,30 @@ datablock StaticShapeData(SillyGlass : checkPoint) {
 	shapefile = "~/data/shapes_pq/Gameplay/pads/silly_cp_glass.dts";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Checkpoint_PQ::onEditorSetTransform(%this, %obj) {
 	%obj._glass.setTransform(%obj.getTransform());
 	%obj._glass.setScale(%obj.getScale());
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Checkpoint_PQ::onInspectApply(%this, %obj) {
 	%obj._glass.setTransform(%obj.getTransform());
 	%obj._glass.setScale(%obj.getScale());
 }
 
 // CHECKPOINT BUTTON
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {Type} %col
+ */
 function CheckpointTrigger::onEnterTrigger(%this,%obj,%col) {
 	if (%col.noPickup || %col._warping) {
 		return;
@@ -151,11 +182,20 @@ function CheckpointTrigger::onEnterTrigger(%this,%obj,%col) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function CheckpointTrigger::onMissionReset(%this, %obj) {
 	if (%obj.unusable $= "1" && $TexturePack::MBXP)
 		%obj.unusable = 0;
 }
 
+/**
+ * @param {CheckPointClass} %this
+ * @param {Type} %obj
+ * @param {Type} %col
+ */
 function CheckPointClass::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {
 	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material))
 		return;
@@ -172,6 +212,10 @@ function CheckPointClass::onCollision(%this,%obj,%col,%vec, %vecLen, %material) 
 	}
 }
 
+/**
+ * @param {CheckPointClass} %this
+ * @param {GameBase} %obj
+ */
 function CheckPointClass::onAdd( %this, %obj ) {
 	if (%obj.chkcollide $= "")
 		%obj.chkcollide = "1";
@@ -182,6 +226,10 @@ function CheckPointClass::onAdd( %this, %obj ) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {Type} %object
+ */
 function GameConnection::setCheckpointButton(%this, %object) {
 	if (Mode::callback("shouldDisableCheckpoint", false, new ScriptObject() {
 		client = %this;
@@ -201,6 +249,10 @@ function GameConnection::setCheckpointButton(%this, %object) {
 	%this.setCheckpoint(%object, %object);
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {ShapeBase} %object
+ */
 function GameConnection::setCheckpointTrigger(%this, %object) {
 	if (Mode::callback("shouldDisableCheckpoint", false, new ScriptObject() {
 		client = %this;
@@ -232,6 +284,9 @@ function GameConnection::setCheckpointTrigger(%this, %object) {
 // CALM YO BUTT
 // I FIXED DIS STUPID abuse where you would spawn at 0 0 300
 // horray for simsets?
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getCheckpointPos(%this,%num,%add) {
 	%defaultGrav = "1 0 0 3.141592653589793238462643383279502884";
 	%defaultPos = "0 0 300 1 0 0 0";
@@ -240,6 +295,7 @@ function GameConnection::getCheckpointPos(%this,%num,%add) {
 	//Where will we spawn?
 
 	//Check if the game mode has a spawn for us
+	/** @type {GameBase} */
 	%spawn = Mode::callback("getCheckpointPos", "", new ScriptObject() {
 		client = %this;
 		num = %num;
@@ -261,6 +317,7 @@ function GameConnection::getCheckpointPos(%this,%num,%add) {
 		return %spawn;
 	} else if (isObject(%this.checkpointPad)) {
 		//Checkpoints trump all other spawn points
+		/** @type {GameBase} */
 		%spawn = %this.checkpointPad;
 		devecho("getCheckpointPos: Using checkpoint pad for spawn platform");
 	} else {
@@ -278,6 +335,7 @@ function GameConnection::getCheckpointPos(%this,%num,%add) {
 			else if (%this.restarting) // && !isCompetitiveMode())
 				%spawn = %this.getRandomSpawnTrigger();
 			else
+				/** @type {GameBase} */
 				%spawn = %this.getSpawnTrigger();
 
 			//Update the trigger so we don't have a mess of people at the same point
@@ -350,6 +408,10 @@ function GameConnection::getCheckpointPos(%this,%num,%add) {
 	return %position SPC %rotation TAB %gravity TAB %pitch;
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {Type} %object
+ */
 function GameConnection::setCheckpoint(%this, %object, %respawnPoint) {
 	if (!isObject(%respawnPoint)) {
 		%respawnPoint = %object;
@@ -390,6 +452,9 @@ function GameConnection::setCheckpoint(%this, %object, %respawnPoint) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setPowerUpOnCheckpoint(%this, %powerup, %obj) {
 	//If you get a PowerUp in the 0.5s after respawning
 	if (%this.checkpointFoundPowerup)
@@ -398,6 +463,9 @@ function GameConnection::setPowerUpOnCheckpoint(%this, %powerup, %obj) {
 	%this.player.setPowerUp(%powerup, true, %obj);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::respawnOnCheckpoint(%this) {
 	// Reset the player back to the last checkpoint
 	cancel(%this.respawnSchedule);
@@ -490,10 +558,15 @@ function GameConnection::respawnOnCheckpoint(%this) {
 }
 
 // Respawn gems not in checkpoint.
+/**
+ * @param {GameConnection} %this
+ * @param {SimSet} %group
+ */
 function GameConnection::respawnObjects(%this, %group) {
 	devecho("Starting respawnObjects.");
 	// Count up all gems out there are in the world
 	for (%i = 0; %i < %group.getCount(); %i++) {
+		/** @type {staticShape} */
 		%object = %group.getObject(%i);
 		%type = %object.getClassName();
 		if (%type $= "SimGroup")
@@ -520,6 +593,9 @@ function GameConnection::respawnObjects(%this, %group) {
 	%this.gemPickupCount = 0;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::resetCheckpoint(%this) {
 	cancel(%this.checkpointPowerupSchedule);
 
@@ -540,6 +616,9 @@ function GameConnection::resetCheckpoint(%this) {
 	%this.resetCheckpointGemCount();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::resetCheckpointGemCount(%this) {
 	%this.checkPointGemCount = 0;
 	%this.checkPointGemsFound[1] = 0;
@@ -549,6 +628,9 @@ function GameConnection::resetCheckpointGemCount(%this) {
 	%this.checkPointGemsFoundTotal = 0;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::restoreCheckpointGemCount(%this) {
 	%this.gemCount = %this.checkPointGemCount;
 	%this.gemsFound[1] = %this.checkPointGemsFound[1];
@@ -558,6 +640,9 @@ function GameConnection::restoreCheckpointGemCount(%this) {
 	%this.gemsFoundTotal  = %this.checkPointGemsFoundTotal;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::saveCheckpointGemCount(%this) {
 	%this.checkPointGemCount = %this.gemCount;
 	%this.checkPointGemsFound[1] = %this.gemsFound[1];
@@ -567,6 +652,9 @@ function GameConnection::saveCheckpointGemCount(%this) {
 	%this.checkPointGemsFoundTotal = %this.gemsFoundTotal;
 }
 
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::onCheckpointReset(%this) {
 	if (%this.cpresetting) //It's apparently inside itself.. Shit
 		return;
@@ -577,13 +665,22 @@ function SimGroup::onCheckpointReset(%this) {
 	%this.cpresetting = "";
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::onCheckpointReset(%this) {
 }
 
+/**
+ * @param {GameBase} %this
+ */
 function GameBase::onCheckpointReset(%this) {
 	%this.getDataBlock().onCheckpointReset(%this);
 }
 
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::onActivateCheckpoint(%this) {
 	if (%this.cpactivate) //It's apparently inside itself.. Shit
 		return;
@@ -594,9 +691,15 @@ function SimGroup::onActivateCheckpoint(%this) {
 	%this.cpactivate = "";
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::onActivateCheckpoint(%this) {
 }
 
+/**
+ * @param {GameBase} %this
+ */
 function GameBase::onActivateCheckpoint(%this) {
 	%this.getDataBlock().onActivateCheckpoint(%this);
 }
@@ -605,6 +708,9 @@ function trot() {
 	Withall("SpawnTrigger", "ttrot(%this);", MissionGroup);
 }
 
+/**
+ * @param {SceneObject} %trig
+ */
 function ttrot(%trig) {
 	%trans = %trig.getTransform();
 	%pos = MatrixPos(%trans);

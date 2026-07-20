@@ -23,11 +23,18 @@
 // Go'way said I had to make this its own mode. And I think he's a pretty cool
 // guy so I'm doing that for him.
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_steal::onLoad(%this) {
 	%this.registerCallback("onBlast");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 
+/**
+ * @param {Mode_steal} %this
+ * @param {Type} %object
+ */
 function Mode_steal::onBlast(%this, %object) {
 	if ($Game::State !$= "End") {
 		%mePos = %object.this.getWorldBoxCenter();

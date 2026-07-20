@@ -53,6 +53,9 @@ function serverAddSetting(%id, %name, %variable, %public, %type, %min, %max) {
 	$MP::Server::Setting[%index, "max"]      = %max;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdServerSetting(%client, %setting, %value) {
 	%id = $MP::Server::Setting[%setting];
 	if (%id $= "") {
@@ -134,6 +137,9 @@ function serverSetSetting(%setting, %value) {
 	return "";
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendSettingsList(%this) {
 	commandToClient(%this, 'ServerSettingsList');
 	for (%i = 0; %i < $MP::Server::Settings; %i ++) {

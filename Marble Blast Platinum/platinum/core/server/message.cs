@@ -46,6 +46,9 @@ function messageTeam(%team, %msgType, %msgString, %a1, %a2, %a3, %a4, %a5, %a6, 
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function messageTeamExcept(%client, %msgType, %msgString, %a1, %a2, %a3, %a4, %a5, %a6, %a7, %a8, %a9, %a10, %a11, %a12, %a13) {
 	%team = %client.team;
 	%count = ClientGroup.getCount();

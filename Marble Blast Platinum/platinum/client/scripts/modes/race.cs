@@ -46,6 +46,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_race) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_race::onLoad(%this) {
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("onRespawnOnCheckpoint");
@@ -56,16 +59,29 @@ function ClientMode_race::onLoad(%this) {
 	%this.registerCallback("radarShouldShowObject");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_race} %this
+ */
 function ClientMode_race::onRespawnPlayer(%this) {
 	racingOnRespawn();
 	$Client::RaceLastCP = 0;
 }
+/**
+ * @param {ClientMode_race} %this
+ */
 function ClientMode_race::onRespawnOnCheckpoint(%this) {
 	racingOnRespawnAtCheckpoint($Client::RaceLastCP);
 }
+/**
+ * @param {ClientMode_race} %this
+ */
 function ClientMode_race::onActivateCheckpoint(%this) {
 	$Client::RaceLastCP ++;
 }
+/**
+ * @param {ClientMode_race} %this
+ * @param {ScriptObject} %object
+ */
 function ClientMode_race::shouldIgnoreItem(%this, %object) {
 	switch$ (%object.this.getDataBlock().getName()) {
 	case "SuperJumpItem" or
@@ -92,6 +108,10 @@ function ClientMode_race::shouldIgnoreItem(%this, %object) {
 	}
 	return true;
 }
+/**
+ * @param {ClientMode_race} %this
+ * @param {ScriptObject} %object
+ */
 function ClientMode_race::shouldPickupItem(%this, %object) {
 	switch$ (%object.this.getDataBlock().getName()) {
 	case "SuperJumpItem" or
@@ -118,9 +138,16 @@ function ClientMode_race::shouldPickupItem(%this, %object) {
 	}
 	return false;
 }
+/**
+ * @param {ClientMode_race} %this
+ */
 function ClientMode_race::shouldUseClientPowerups(%this) {
 	return true;
 }
+/**
+ * @param {ClientMode_race} %this
+ * @param {ShapeBase} %object
+ */
 function ClientMode_race::radarShouldShowObject(%this, %object) {
 	return !%object.isCloaked() && !%object.isHidden();
 }

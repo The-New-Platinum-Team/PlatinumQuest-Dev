@@ -230,6 +230,9 @@ new GuiControl(CompleteDemoDlg) {
 //--- OBJECT WRITE END ---
 // AWESOME GUI
 
+/**
+ * @param {CompleteDemoDlg} %this
+ */
 function CompleteDemoDlg::open(%this, %callback) {
 	error("Opening CompleteDemoDlg");
 	%this.callback = %callback;
@@ -255,6 +258,9 @@ function CompleteDemoDlg::open(%this, %callback) {
 	EnterDemoFileEdit.setValue(%title);
 }
 
+/**
+ * @param {CompleteDemoDlg} %this
+ */
 function CompleteDemoDlg::dosave(%this) {
 	%author = EnterDemoAuthor.getValue();
 	%name = EnterDemoFileEdit.getValue();
@@ -333,6 +339,9 @@ function CompleteDemoDlg::dosave(%this) {
 		eval(%this.callback);
 }
 
+/**
+ * @param {CompleteDemoDlg} %this
+ */
 function CompleteDemoDlg::dodelete(%this) {
 	//Make sure not to save
 	$Record::NeedSave = false;

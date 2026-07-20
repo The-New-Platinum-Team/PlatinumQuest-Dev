@@ -10,6 +10,9 @@
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSAD(%client, %password) {
 	if (!(%client.isSuperAdmin && %client.isAdmin) && %password !$= "" && %password $= $Pref::Server::AdminPassword) {
 		%client.isAdmin = true;

@@ -433,6 +433,9 @@ function checkForMaliciousCode(%file) {
 
 
 // Mission Game: What game category it is in the mission list
+/**
+ * @param {Type} %mission
+ */
 function resolveMissionGame(%mission) {
 	if (%mission.game !$= "") {
 		return %mission.game;
@@ -461,6 +464,9 @@ function resolveMissionGame(%mission) {
 }
 
 // Mission Type: Which difficulty/type the mission is in the mission list
+/**
+ * @param {Type} %mission
+ */
 function resolveMissionType(%mission) {
 	if (isObject(%mission)) {
 		%file = %mission.file;
@@ -492,6 +498,9 @@ function resolveMissionFile(%name) {
 	return %mission;
 }
 
+/**
+ * @param {Type} %mission
+ */
 function resolveMissionBitmap(%mission) {
 	if (!isObject(%mission))
 		%mission = getMissionInfo(%mission);
@@ -668,6 +677,9 @@ function formatGameModes(%modes) {
 // Guess what modification a mission is from
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Type} %mission
+ */
 function resolveMissionModification(%mission) {
 	//Duh
 	if (%mission.modification !$= "")
@@ -783,6 +795,9 @@ function findNextMission(%pattern) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Type} %mission
+ */
 function getMissionHash(%mission) {
 	if (isObject(%mission))
 		%mission = %mission.file;

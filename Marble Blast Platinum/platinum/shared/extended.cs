@@ -134,6 +134,9 @@ package Tickable {
 	// 	}
 	// }
 
+	/**
+	 * @param {GuiMLTextEditCtrl} %this
+	 */
 	function GuiMLTextEditCtrl::setValue(%this, %newValue) {
 		// We have to not jump around
 		%oldPos = %this.getCursorPosition();
@@ -146,6 +149,9 @@ package Tickable {
 	}
 };
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::setTickable(%this, %tickable) {
 	if (!isObject(TickSet))
 		RootGroup.add(new SimSet(TickSet));
@@ -156,10 +162,16 @@ function SimObject::setTickable(%this, %tickable) {
 		TickSet.remove(%this);
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::onTick(%this, %delta) {
 	//Stub - override me!
 }
 
+/**
+ * @param {GuiMLTextEditCtrl} %this
+ */
 function GuiMLTextEditCtrl::onAdd(%this) {
 	Parent::onAdd(%this);
 	// %this.setTickable(true);
@@ -177,6 +189,9 @@ function getChangePosition(%message1, %message2) {
 }
 
 // returns the full count of a parent simgroup
+/**
+ * @param {SimSet} %this
+ */
 function SimSet::getObjectCount(%this) {
 	%val = 0;
 	%count = %this.getCount();
@@ -190,6 +205,11 @@ function SimSet::getObjectCount(%this) {
 	return %val;
 }
 
+/**
+ * @param {SimSet} %this
+ * @param {SimSet} %add
+ * @returns {SimSet}
+ */
 function SimSet::getSet(%this, %add) {
 	if (%add $= "")
 		RootGroup.add(%add = new SimSet(ResultSet));
@@ -205,6 +225,9 @@ function SimSet::getSet(%this, %add) {
 // allows a search itteration through a sim group.  If there are
 // child groups, it will also search through those.
 // It returns a list of objects associated with the specified class.
+/**
+ * @param {SimSet} %this
+ */
 function SimSet::search(%this, %class) {
 	if (%this.search)
 		return;
@@ -224,6 +247,9 @@ function SimSet::search(%this, %class) {
 }
 
 // Calls a function on all members of a SimSet
+/**
+ * @param {SimSet} %this
+ */
 function SimSet::withAll(%this, %cmd, %a1, %a2, %a3, %a4, %a5, %a6, %a7) {
 	// We don't want infinite recursions
 	if (%this.withAll)
@@ -241,6 +267,9 @@ function SimSet::withAll(%this, %cmd, %a1, %a2, %a3, %a4, %a5, %a6, %a7) {
 	%this.withAll = false;
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::interval(%this, %interval, %cmd, %a1, %a2, %a3, %a4, %a5, %a6, %a7, %a8, %a9) {
 	if (!isObject(%this))
 		return;
@@ -258,6 +287,9 @@ function SimObject::interval(%this, %interval, %cmd, %a1, %a2, %a3, %a4, %a5, %a
 	return $intervals;
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::reinterval(%this, %num, %interval, %cmd, %a1, %a2, %a3, %a4, %a5, %a6, %a7, %a8, %a9) {
 	if (!isObject(%this))
 		return;
@@ -455,6 +487,9 @@ function sampleArgList(%length, %this) {
 	return %list;
 }
 
+/**
+ * @param {FileObject} %this
+ */
 function FileObject::destroy(%this) {
 	%this.close();
 	%this.delete();
@@ -552,10 +587,15 @@ function withAll(%type,%code,%group) {
 	%set.delete();
 }
 
+/**
+ * @param {BanList} %set
+ * @param {SimSet} %group
+ */
 function addAll(%type,%set,%group) {
 	if (%group $= "")
 		%group = MissionGroup;
 	for (%i = 0; %i < %group.getCount(); %i ++) {
+		/** @type {GameBase} */
 		%object = %group.getObject(%i);
 		%class = %object.getClassName();
 		if (%class $= "SimGroup" || %class $= "Path")
@@ -573,12 +613,18 @@ function addAll(%type,%set,%group) {
 	}
 }
 
+/**
+ * @param {GuiMLTextCtrl} %this
+ */
 function GuiMLTextCtrl::onAdd(%this) {
 	Parent::onAdd(%this);
 	if (%this.defaultText !$= "") {
 		%this.setText(%this.defaultText);
 	}
 }
+/**
+ * @param {GuiMLTextCtrl} %this
+ */
 function GuiMLTextCtrl::onInspectApply(%this) {
 	Parent::onInspectApply(%this);
 	if (%this.defaultText !$= "") {
@@ -586,6 +632,9 @@ function GuiMLTextCtrl::onInspectApply(%this) {
 	}
 }
 
+/**
+ * @param {SimSet} %this
+ */
 function SimSet::toArray(%this) {
 	%array = Array(ToArrayArray);
 	%array.schedule(1000, delete); //Clean up if we don't need it
@@ -596,6 +645,11 @@ function SimSet::toArray(%this) {
 	return %array;
 }
 
+/**
+ * @param {SimSet} %this
+ * @param {BanList} %list
+ * @returns {SimSet}
+ */
 function SimSet::allSubs(%this, %list) {
 	if (!isObject(%list)) {
 		RootGroup.add(%list = new SimSet(AllSubsSet));
@@ -621,6 +675,11 @@ function SimSet::allSubs(%this, %list) {
 	return %list;
 }
 
+/**
+ * @param {SimSet} %this
+ * @param {SimSet} %set
+ * @returns {SimSet}
+ */
 function SimSet::merge(%this, %set) {
 	RootGroup.add(%newSet = new SimSet(MergeSet));
 	for (%i = 0; %i < %this.getCount(); %i ++) {
@@ -632,22 +691,32 @@ function SimSet::merge(%this, %set) {
 	return %newSet;
 }
 
+/**
+ * @param {SimSet} %this
+ * @param {SimSet} %set
+ */
 function SimSet::addAll(%this, %set) {
 	for (%i = 0; %i < %set.getCount(); %i ++) {
 		%this.add(%set.getObject(%i));
 	}
 }
 
+/**
+ * @param {ShapeBase} %obj
+ */
 function BoxableObjects(%obj) {
 	return (%obj.getClassName() $= "InteriorInstance" ||
 			  %obj.getClassName() $= "PathedInterior" ||
 			  %obj.getClassName() $= "SimGroup" ||
 	        (%obj.getClassName() $= "StaticShape" &&
-	        !%obj.getDatablock().noBox
+				!%obj.getDatablock().noBox
 	        )
 	       );
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::getFields(%this, %dynamicOnly) {
 	//Get all the object's fields
 	if (%dynamicOnly)
@@ -676,6 +745,9 @@ function SimObject::getFields(%this, %dynamicOnly) {
 	return %finalList;
 }
 
+/**
+ * @param {GameBase} %this
+ */
 function GameBase::getDynamicFieldList(%this) {
 	%fields = Parent::getDynamicFieldList(%this);
 	%dbextra = %this.getDataBlock().getCustomFields(%this);
@@ -690,10 +762,16 @@ function GameBase::getDynamicFieldList(%this) {
 	return %fields;
 }
 
+/**
+ * @param {GameBaseData} %this
+ */
 function GameBaseData::getCustomFields(%this, %obj) {
 	return "";
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::setFields(%this, %fields) {
 	%count = getRecordCount(%fields);
 	for (%i = 0; %i < %count; %i ++) {
@@ -708,11 +786,17 @@ function SimObject::setFields(%this, %fields) {
 }
 
 package GuiMLTextHelper {
+	/**
+	 * @param {GuiMLTextCtrl} %this
+	 */
 	function GuiMLTextCtrl::setText(%this, %text) {
 		%this.unformattedText = %text;
 		%text = %this.resolveTextFunctions(%text);
 		Parent::setText(%this, %text);
 	}
+	/**
+	 * @param {GuiMLTextCtrl} %this
+	 */
 	function GuiMLTextCtrl::getText(%this) {
 		if (%this.unformattedText !$= "") {
 			return %this.unformattedText;
@@ -720,6 +804,9 @@ package GuiMLTextHelper {
 		return Parent::getText(%this);
 	}
 
+	/**
+	 * @param {GuiMLTextCtrl} %this
+	 */
 	function GuiMLTextCtrl::addText(%this, %text, %reflow) {
 		%this.unformattedText = %this.unformattedText @ %text;
 		%text = %this.resolveTextFunctions(%text);
@@ -773,6 +860,9 @@ function invertColor(%color) {
 	return %r @ %g @ %b;
 }
 
+/**
+ * @param {GuiMLTextCtrl} %this
+ */
 function GuiMLTextCtrl::evalTextFunc(%this, %text) {
 	%func = getWord(%text, 0);
 	switch$ (%func) {
@@ -811,6 +901,9 @@ function GuiMLTextCtrl::evalTextFunc(%this, %text) {
 	}
 }
 
+/**
+ * @param {GuiMLTextCtrl} %this
+ */
 function GuiMLTextCtrl::onURL(%this, %url) {
 	if (strPos(%url, ":") == -1)
 		%url = "http://" @ %url;
@@ -833,10 +926,16 @@ function isFont(%font) {
 	};
 }
 
+/**
+ * @param {ScriptObject} %this
+ */
 function ScriptObject::recurseDelete(%this) {
 	%this.delete();
 }
 
+/**
+ * @param {JSONObject} %this
+ */
 function JSONObject::recurseDelete(%this) {
 	//Block infinite recursion
 	if (%this._recurseDelete)
@@ -855,6 +954,9 @@ function JSONObject::recurseDelete(%this) {
 	%this.delete();
 }
 
+/**
+ * @param {Array} %this
+ */
 function Array::recurseDelete(%this) {
 	//Block infinite recursion
 	if (%this._recurseDelete)
@@ -871,10 +973,16 @@ function Array::recurseDelete(%this) {
 	%this.delete();
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::scheduleIgnorePause(%this, %time, %function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8) {
 	return scheduleIgnorePause(%time, "SimObjectCall", %this, %function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8);
 }
 
+/**
+ * @param {SimObject} %object
+ */
 function SimObjectCall(%object, %function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8) {
 	if (!isObject(%object))
 		return;
@@ -898,12 +1006,18 @@ function SimObjectCall(%object, %function, %arg1, %arg2, %arg3, %arg4, %arg5, %a
 	else %object.call(%function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8);
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::onNextFrame(%this, %function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8) {
 	onNextFrame("SimObjectCall", %this, %function, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8);
 }
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::getWorldBox(%this) {
 	if (!isObject(%this))
 		return "";
@@ -935,6 +1049,9 @@ function SimGroup::getWorldBox(%this) {
 //-----------------------------------------------------------------------------
 
 package CheckboxesAreStupid {
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::setActive(%this, %active) {
 		if (!%active && isObject(%this.profile.disableProfile)) {
 			%this.setProfile(%this.profile.disableProfile);
@@ -951,12 +1068,19 @@ activatePackage(CheckboxesAreStupid);
 //-----------------------------------------------------------------------------
 
 package SimGroupClearIsWrong {
+	/**
+	 * @param {SimGroup} %this
+	 */
 	function SimGroup::clear(%this) {
 		while (%this.getCount()) {
 			%this.getObject(0).delete();
 		}
 		//Don't need default behavior because this does the same thing
 	}
+	/**
+	 * @param {SimGroup} %this
+	 * @param {SimObject} %obj
+	 */
 	function SimGroup::remove(%this, %obj) {
 		//Don't need default behavior because this does the same thing
 		%obj.delete();

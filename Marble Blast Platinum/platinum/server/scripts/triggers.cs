@@ -35,10 +35,16 @@ datablock TriggerData(DefaultTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::isPointInside(%this, %point, %checkBoundsToo) {
 	return isPointInsideBox(%point, %this.getWorldBox(), %checkBoundsToo);
 }
 
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::setBounds(%this, %box) {
 	%this.polyhedron = "0 0 0 1 0 0 0 1 0 0 0 1";
 	%trans = BoxMin(%box);
@@ -49,37 +55,61 @@ function Trigger::setBounds(%this, %box) {
 
 //-------------------------------------
 
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::onMissionReset(%this) {
 	%this.getDataBlock().onMissionReset(%this);
 }
+/**
+ * @param {TriggerData} %this
+ */
 function TriggerData::onMissionReset(%this, %obj) {
 
 }
 
 //-------------------------------------
 
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::onInspectApply(%this) {
 	%this.getDataBlock().onInspectApply(%this);
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function TriggerData::onInspectApply(%this, %obj) {
 
 }
 
 //-------------------------------------
 
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::onCheckpointReset(%this) {
 	%this.getDataBlock().onCheckpointReset(%this);
 }
+/**
+ * @param {TriggerData} %this
+ */
 function TriggerData::onCheckpointReset(%this, %obj) {
 
 }
 
 //-------------------------------------
 
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::onActivateCheckpoint(%this) {
 	%this.getDataBlock().onActivateCheckpoint(%this);
 }
+/**
+ * @param {TriggerData} %this
+ */
 function TriggerData::onActivateCheckpoint(%this, %obj) {
 
 }
@@ -90,6 +120,11 @@ datablock TriggerData(InBoundsTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function InBoundsTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	if (%obj.noPickup)
 		return;
@@ -104,6 +139,11 @@ datablock TriggerData(OutOfBoundsTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function OutOfBoundsTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	if (%obj.noPickup)
 		return;
@@ -139,6 +179,10 @@ datablock TriggerData(HelpTrigger) {
 	customField[3, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function HelpTrigger::onAdd(%this, %obj) {
 	if (%obj.text $= "")
 		%obj.text = "Help Text";
@@ -150,6 +194,11 @@ function HelpTrigger::onAdd(%this, %obj) {
 		%obj.extended = 0;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function HelpTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	if (!%trigger.displayonce || %trigger._resettime != $Game::ResetTime) {
 		%trigger._resettime = $Game::ResetTime;
@@ -167,6 +216,11 @@ function HelpTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function HelpTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	//It will disappear itself if the trigger doesn't persist
 	if (%trigger.persistTime !$= "") {
@@ -193,6 +247,10 @@ datablock TriggerData(SpawnTrigger) {
 	customField[1, "default"] = "1";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function SpawnTrigger::onAdd(%this, %obj) {
 	if (!isObject(SpawnPointSet)) {
 		new SimSet(SpawnPointSet);
@@ -204,11 +262,19 @@ function SpawnTrigger::onAdd(%this, %obj) {
 		%obj.gravity = "0";
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function SpawnTrigger::blockSpawning(%this, %obj) {
 	%obj._block = true;
 	%this.schedule(1000, "unblockSpawning", %obj);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function SpawnTrigger::unblockSpawning(%this, %obj) {
 	%obj._block = false;
 }
@@ -217,6 +283,10 @@ datablock StaticShapeData(SpawnPoint) {
 	shapeFile = "~/data/shapes_pq/Other/SpawnPoint.dts";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function SpawnPoint::onAdd(%this, %obj) {
 	%obj = nameToId(%obj);
 	MissionGroup.add(%trigger = new Trigger(%obj.getName()) {
@@ -239,6 +309,10 @@ datablock TriggerData(NoMovementKeysTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function NoMovementKeysTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%obj.client.movementTriggers ++;
 	if (%obj.client.movementTriggers == 1) {
@@ -246,6 +320,10 @@ function NoMovementKeysTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function NoMovementKeysTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	%obj.client.movementTriggers --;
 	if (%obj.client.movementTriggers == 0) {
@@ -290,6 +368,11 @@ datablock TriggerData(RepetitiveTriggerGotoTarget) {
 	customField[5, "default"] = "";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {SimObject} %trigger
+ * @param {Type} %obj
+ */
 function RepetitiveTriggerGotoTarget::onEnterTrigger(%this,%trigger,%obj) {
 	if ($Game::isMode["laps"] && (%trigger.ActivateOnLap > 0) && (%trigger.ActivateOnLap > %obj.client.lapsCounter))
 		return;
@@ -308,21 +391,30 @@ function RepetitiveTriggerGotoTarget::onEnterTrigger(%this,%trigger,%obj) {
 	if (%trigger._Triggered == 1 && %trigger.NumTimesToRepeat != 0 && (%trigger._entercount[%obj] - %trigger.NumTimesToTrigger) % %trigger.NumTimesToRepeat != 0)
 		return;
 
+	/** @type {SimGroup} */
 	%grp = %trigger.getGroup();
 	for (%i = 0; (%plat = %grp.getObject(%i)) != -1; %i++) {
 		if (%plat.getClassName() $= "PathedInterior") {
 			if (%trigger.delayTargetTime !$= "")
 				%plat.delayTargetTime = %trigger.delayTargetTime;
+			/** @type {PathedInterior} */
 			%plat.setTargetPosition(%trigger.targetTime);
 			%trigger._Triggered = 1;
 		}
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function RepetitiveTriggerGotoTarget::onLeaveTrigger(%this,%trigger,%obj) {
 
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function RepetitiveTriggerGotoTarget::onAdd(%this, %obj) {
 	if (%obj.NumTimesToTrigger $= "")
 		%obj.NumTimesToTrigger = " ";
@@ -339,6 +431,10 @@ function RepetitiveTriggerGotoTarget::onAdd(%this, %obj) {
 	%obj._enters = 0;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function RepetitiveTriggerGotoTarget::onMissionReset(%this,%trigger) {
 	for (%i = 0; %i < %trigger._enters; %i ++) {
 		%obj = %trigger._enternum[%i];
@@ -363,13 +459,22 @@ datablock TriggerData(UsePowerupTrigger) {
 	customField[0, "default"] = "SuperJumpItem";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function UsePowerupTrigger::onEnterTrigger(%this,%trigger,%obj) {
+	/** @type {Powerup} */
 	%powerup = %trigger.powerup;
 
 	commandToClient(%obj.client, 'doPowerUp', %powerup.powerUpId);
 	%powerup.onUse(%trigger, %obj);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function UsePowerupTrigger::onAdd(%this, %obj) {
 	if (%obj.powerup $= "")
 		%obj.powerup = "SuperJumpItem";
@@ -391,6 +496,11 @@ datablock TriggerData(GemChangeTrigger) {
 	customField[0, "default"] = -1;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {Type} %obj
+ */
 function GemChangeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	if (%trigger.gemBonus $= "")
 		%trigger.gemBonus = -1; // made default, the "-1" here and in the later part of the code, are because -1 is the default
@@ -431,6 +541,11 @@ datablock TriggerData(TimeTravelTrigger) {
 	customField[0, "default"] = $Game::TimeTravelBonus;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {Type} %obj
+ */
 function TimeTravelTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	if (%trigger.timeBonus $= "")
 		%trigger.timeBonus = $Game::TimeTravelBonus;
@@ -454,6 +569,10 @@ datablock TriggerData(TimeStopTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function TimeStopTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	//Don't do this in MP
 	if ($Server::ServerType $= "MultiPlayer")
@@ -469,6 +588,10 @@ function TimeStopTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function TimeStopTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	//Don't do this in MP
 	if ($Server::ServerType $= "MultiPlayer")
@@ -520,6 +643,10 @@ datablock TriggerData(CameraDistanceTrigger) {
 	customField[4, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function CameraDistanceTrigger::onAdd(%this, %obj) {
 	if (%obj.Time $= "")
 		%obj.Time = "1000";
@@ -566,6 +693,10 @@ datablock TriggerData(AlignmentTrigger) {
 	customField[3, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function AlignmentTrigger::onAdd(%this, %obj) {
 	if (%obj.X $= "")      //Align marble to a position (useful for 2d)
 		%obj.X = "none";    //Input:         Output:
@@ -595,6 +726,10 @@ datablock TriggerData(PathTrigger) {
 	customField[0, "default"] = "true";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function PathTrigger::onEnterTrigger(%this, %trigger, %obj) {
 	if (%trigger.TriggerOnce && %trigger._resetTime == $Game::ResetTime)
 		return;
@@ -611,6 +746,10 @@ function PathTrigger::onEnterTrigger(%this, %trigger, %obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function PathTrigger::onAdd(%this, %obj) {
 	//if (%obj.NumTimesToTrigger $= "")
 	//	%obj.NumTimesToTrigger = "1";
@@ -628,6 +767,11 @@ datablock TriggerData(EventConnectionTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {Type} %user
+ */
 function EventConnectionTrigger::onEnterTrigger(%this, %trigger, %user) {
 	//Don't let us hit the same trigger twice in a row
 	if (%user.client.lastEventTrigger == %trigger)
@@ -649,6 +793,11 @@ function EventConnectionTrigger::onEnterTrigger(%this, %trigger, %user) {
 		%user.client.addHelpLine(%trigger.rolloverText);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {GameConnection} %client
+ */
 function EventConnectionTrigger::onEventLine(%this, %trigger, %line, %client) {
 	//Send text when it goes through
 	if (%trigger.text[%line] !$= "") {
@@ -667,6 +816,10 @@ datablock TriggerData(FinishTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function FinishTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	if (Mode::callback("onEnterPad", false, new ScriptObject() {
 		client = %obj.client;
@@ -696,10 +849,18 @@ datablock TriggerData(LockPowerupTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function LockPowerupTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	commandToClient(%obj.client, 'LockPowerup', true);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function LockPowerupTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	commandToClient(%obj.client, 'LockPowerup', false);
 }
@@ -732,6 +893,11 @@ datablock TriggerData(SetVelocityTrigger) {
 	customField[3, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {ShapeBase} %obj
+ */
 function SetVelocityTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%vel = %trigger.velocity;
 	if (%trigger.ignoreX)
@@ -743,6 +909,10 @@ function SetVelocityTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%obj.setVelocity(%vel);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function SetVelocityTrigger::onAdd(%this, %obj) {
 	if (%obj.Velocity $= "")
 		%obj.Velocity = "0 0 0";
@@ -776,6 +946,11 @@ datablock TriggerData(CancelVelocityTrigger) {
 	customField[2, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {ShapeBase} %obj
+ */
 function CancelVelocityTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%vel = %obj.getVelocity();
 
@@ -786,6 +961,10 @@ function CancelVelocityTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%obj.setVelocity(%velx SPC %vely SPC %velz);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function CancelVelocityTrigger::onAdd(%this, %obj) {
 	if (%obj.CancelX $= "")
 		%obj.CancelX = "0";
@@ -804,6 +983,10 @@ datablock TriggerData(DisableShapeForceTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function DisableShapeForceTrigger::onEnterTrigger(%this,%trigger,%marble) {
 	%i = 0;
 	while (isObject(%trigger.target[%i++])) {
@@ -811,6 +994,10 @@ function DisableShapeForceTrigger::onEnterTrigger(%this,%trigger,%marble) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function DisableShapeForceTrigger::onLeaveTrigger(%this,%trigger,%marble) {
 	%i = 0;
 	while (isObject(%trigger.target[%i++])) {
@@ -818,6 +1005,10 @@ function DisableShapeForceTrigger::onLeaveTrigger(%this,%trigger,%marble) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function DisableShapeForceTrigger::onAdd(%this, %obj) {
 	if (%obj.invert $= "")
 		%obj.invert = 0;
@@ -834,6 +1025,10 @@ datablock TriggerData(BubbleUseTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function BubbleUseTrigger::onAdd(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
@@ -860,6 +1055,10 @@ datablock TriggerData(CameraTrigger) {
 	customField[2, "default"] = "1";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function CameraTrigger::onAdd(%this, %obj) {
 	if (%obj.pitch $= "")
 		%obj.pitch = "NoChange";
@@ -881,6 +1080,10 @@ datablock TriggerData(AchievementTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function AchievementTrigger::onAdd(%this, %obj) {
 	if (%obj.ordered $= "")
 		%obj.ordered = "0";
@@ -898,6 +1101,10 @@ function AchievementTrigger::onAdd(%this, %obj) {
 	AchievementTriggerSet.add(%obj);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function AchievementTrigger::onMissionReset(%this, %obj) {
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
@@ -906,6 +1113,10 @@ function AchievementTrigger::onMissionReset(%this, %obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function AchievementTrigger::onCheckpointReset(%this, %obj) {
 	if (!%obj.resetOnCheckpoint)
 		return;
@@ -917,6 +1128,10 @@ function AchievementTrigger::onCheckpointReset(%this, %obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function AchievementTrigger::onActivateCheckpoint(%this, %obj) {
 	if (!%obj.resetOnCheckpoint)
 		return;
@@ -928,6 +1143,11 @@ function AchievementTrigger::onActivateCheckpoint(%this, %obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {SimObject} %trigger
+ * @param {Type} %user
+ */
 function AchievementTrigger::onEnterTrigger(%this, %trigger, %user) {
 	if (%trigger.ordered) {
 		if (%user.client.nextAchievementTrigger == %trigger.index) {
@@ -995,6 +1215,11 @@ datablock TriggerData(CountdownStartTrigger) {
 	customField[3, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {Type} %user
+ */
 function CountdownStartTrigger::onEnterTrigger(%this, %trigger, %user) {
 	if (%trigger.activateOnce && %trigger._resetTime == $Game::ResetTime)
 		return;
@@ -1011,6 +1236,10 @@ datablock TriggerData(CountdownStopTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %user
+ */
 function CountdownStopTrigger::onEnterTrigger(%this, %trigger, %user) {
 	cancel(%user.countdownSch);
 	commandToAll('StartCountdown', 0); //Lazy
@@ -1031,6 +1260,10 @@ datablock TriggerData(MusicTrigger) {
 	customField[1, "default"] = 1;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	if (%trigger.text !$= "") {
 		playMusic(%trigger.text @ ".ogg");
@@ -1046,6 +1279,10 @@ function MusicTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function MusicTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	if (%trigger.pitchAltered)
 		$GlobalMusicPitchHandler -= %trigger.pitchDiff;
@@ -1089,6 +1326,10 @@ datablock TriggerData(SoundTrigger) {
 };
 
 // Not multiplayer compatible
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
 	switch (%trigger.triggeronce) {
@@ -1116,6 +1357,11 @@ function SoundTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {Type} %obj
+ */
 function SoundTrigger::onAdd(%this,%trigger,%obj) {
 	if (%obj.triggerOnce $= "") {
 		%obj.triggerOnce = "0";
@@ -1124,6 +1370,10 @@ function SoundTrigger::onAdd(%this,%trigger,%obj) {
 	%trigger._hasBeenInOnce = false;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function SoundTrigger::onMissionReset(%this, %trigger, %obj) {
 	%trigger._hasBeenInOnce = false;
 }
@@ -1144,6 +1394,11 @@ datablock TriggerData(ChangeMarbleSizeTrigger) {
 	customField[1, "desc"   ] = "If ticked then the help text & SFX won't play.";
 	customField[1, "default"] = "0";
 };
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {MarbleData} %obj
+ */
 function ChangeMarbleSizeTrigger::onEnterTrigger(%this,%trigger,%obj) {
 
 	if (%trigger.mbsize !$= "") { //This is to fix a weird bug, it works now so *shrug* ~ Connie
@@ -1212,6 +1467,11 @@ datablock TriggerData(AccelerationTrigger) {
 	customField[2, "default"] = "0";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ * @param {Type} %obj
+ */
 function AccelerationTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%obj.client.applyImpulse("0 0 0", (
 	                             (%trigger.xforce / 100) SPC
@@ -1221,6 +1481,9 @@ function AccelerationTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%this.nextFrame[%obj] = %this.schedule(10, onEnterTrigger, %trigger, %obj);
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function AccelerationTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	cancel(%this.nextFrame[%obj]);
 }
@@ -1257,6 +1520,10 @@ datablock TriggerData(ChangeEnvironmentTrigger) {
 	customField[3, "default"] = "";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {SimObject} %obj
+ */
 function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
 	for (%i = 0; %i < MissionGroup.getCount(); %i ++) {
 		%obj = MissionGroup.getObject(%i);
@@ -1282,14 +1549,25 @@ function ChangeEnvironmentTrigger::onAdd(%this, %trigger, %obj) {
 		noteEnvironment(true);
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function ChangeEnvironmentTrigger::onRemove(%this, %trigger, %obj) {
 	resetEnvironment(true);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function ChangeEnvironmentTrigger::onEnterTrigger(%this, %trigger, %obj) {
 	changeEnvironment(%trigger.dirvalue, %trigger.colorvalue, %trigger.ambvalue, %trigger.skybox);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
 	if (%trigger.skybox $= "")
 		resetEnvironment(false);
@@ -1297,6 +1575,9 @@ function ChangeEnvironmentTrigger::onMissionReset(%this, %trigger, %obj) {
 		resetEnvironment(true);
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function ChangeEnvironmentTrigger::onCheckpointReset(%this, %obj) {
 	//Reset environment to last checkpoint (SP only)
 	if (!mp()) {
@@ -1304,6 +1585,10 @@ function ChangeEnvironmentTrigger::onCheckpointReset(%this, %obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function ChangeEnvironmentTrigger::onActivateCheckpoint(%this, %obj) {
 	if (!mp()) {
 		for (%i = 0; %i < MissionGroup.getCount(); %i ++) {

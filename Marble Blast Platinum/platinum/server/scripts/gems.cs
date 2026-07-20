@@ -42,6 +42,10 @@ $GemSkinColors[8] = "turquoise";
 $GemSkinColors[9] = "black";
 $GemSkinColors[10] = "platinum";
 
+/**
+ * @param {GameBaseData} %this
+ * @param {ShapeBase} %obj
+ */
 function Gem::onAdd(%this,%obj) {
 	if (%this.skin !$= "") {
 		%obj.setSkinName(%this.skin);
@@ -66,6 +70,11 @@ function Gem::onAdd(%this,%obj) {
 }
 
 // TODO: allow fancy gem to have points in hunt/gem madness in PQ
+/**
+ * @param {Gem} %this
+ * @param {GameBase} %obj
+ * @param {Type} %user
+ */
 function Gem::onPickup(%this,%obj,%user,%amount) {
 	%pickup = Mode::callback("shouldPickupGem", true, new ScriptObject() {
 		this = %this;
@@ -122,6 +131,10 @@ function Gem::onPickup(%this,%obj,%user,%amount) {
 	return true;
 }
 
+/**
+ * @param {Gem} %this
+ * @param {Type} %obj
+ */
 function Gem::onMissionReset(%this, %obj) {
 	%reset = Mode::callback("shouldResetGem", true, new ScriptObject() {
 		this = %this;
@@ -142,6 +155,10 @@ function Gem::onMissionReset(%this, %obj) {
 	return Parent::onMissionReset(%this, %obj);
 }
 
+/**
+ * @param {Gem} %this
+ * @param {ShapeBase} %obj
+ */
 function Gem::onInspectApply(%this, %obj) {
 	if (%obj.getSkinName() $= "base") {
 		%obj._huntDatablock = "GemItem";
@@ -865,6 +882,10 @@ if (!$pref::LegacyItems) {
 // Rollback netcode jank
 
 
+/**
+ * @param {Marble} %this
+ * @param {ShapeBase} %gem
+ */
 function Marble::onPredictCollision(%this, %gem, %marble) 
 {
 	if ($Server::ServerType $= "MultiPlayer" && strStr(%gem.getDataBlock().getName(), "GemItem") != -1) {
@@ -878,6 +899,9 @@ function Marble::onPredictCollision(%this, %gem, %marble)
 	}
 }
 
+/**
+ * @param {ShapeBase} %gem
+ */
 function unhidePredictionGem(%gem) 
 {
 	if (isObject(%gem)) {

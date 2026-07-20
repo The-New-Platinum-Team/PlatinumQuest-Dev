@@ -332,16 +332,31 @@ function Physics::registerLayer(%name, %fields) {
 	});
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %marble
+ */
 function MarblePhysModTrigger_onClientEnterTrigger(%this, %trigger, %marble) {
 	if (%marble !$= $MP::MyMarble || %trigger.disabled)
 		return;
 	$PhysModTrigger[%trigger] = Physics::pushLayer(%trigger.fieldCache);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %marble
+ */
 function MarblePhysModTrigger_onClientStayTrigger(%this, %trigger, %marble) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %marble
+ */
 function MarblePhysModTrigger_onClientLeaveTrigger(%this, %trigger, %marble) {
 	if (%marble !$= $MP::MyMarble || %trigger.disabled)
 		return;

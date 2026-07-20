@@ -195,6 +195,9 @@ new GuiControl(InspectDlg) {
 
 exec("./InspectAddFieldDlg.gui");
 
+/**
+ * @param {SimObject} %obj
+ */
 function Inspect(%obj) {
 	RootGui.popDialog("InspectDlg");
 	RootGui.pushDialog("InspectDlg", 30);
@@ -214,20 +217,34 @@ function InspectApply(%editor) {
 	}
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::onInspectApply(%this) {
 	//Stub
 }
 
+/**
+ * @param {InspectTreeView} %this
+ * @param {SimObject} %obj
+ */
 function InspectTreeView::onSelect(%this, %obj) {
 	Inspect(%obj);
 }
 
+/**
+ * @param {SimObject} %obj
+ */
 function Tree(%obj) {
 	RootGui.popDialog("InspectDlg");
 	RootGui.pushDialog("InspectDlg", 20);
 	InspectTreeView.open(%obj);
 }
 
+/**
+ * @param {Inspector}  %this
+ * @param {SimObject} %obj
+ */
 function Inspector::addDynamicField(%this, %obj) {
 	InspectAddFieldDlg.object = %obj;
 	InspectAddFieldDlg.inspector = %this;
@@ -236,6 +253,9 @@ function Inspector::addDynamicField(%this, %obj) {
 	RootGui.pushDialog(InspectAddFieldDlg, 99);
 }
 
+/**
+ * @param {InspectAddFieldDlg} %this
+ */
 function InspectAddFieldDlg::doAction(%this) {
 	if (InspectAddFieldName.getValue() $= "" || InspectAddFieldValue.getValue() $= "")
 		return;
@@ -243,6 +263,9 @@ function InspectAddFieldDlg::doAction(%this) {
 	%this.inspector.inspect(%this.object);
 }
 
+/**
+ * @param {GuiControl} %gui
+ */
 function MakeInspector(%gui) {
 	if (isObject(%gui.inspector))
 		return;
@@ -259,11 +282,18 @@ function MakeInspector(%gui) {
 	%gui.inspector = %insp;
 }
 
+/**
+ * @param {Inspector} %this
+ * @param {SimObject} %obj
+ */
 function Inspector::inspect(%this, %obj, %displayNames) {
 	%this.object = %obj;
 	%this.build(%displayNames $= "" ? true : %displayNames);
 }
 
+/**
+ * @param {Inspector} %this
+ */
 function Inspector::build(%this, %displayNames) {
 	//We need to build up the inspector.
 
@@ -531,6 +561,9 @@ function Inspector::build(%this, %displayNames) {
 	%dynArray.delete();
 }
 
+/**
+ * @param {Inspector} %this
+ */
 function Inspector::reset(%this) {
 	for (%i = 0; %i < %this.fields; %i ++) {
 		%name = %this.field[%i];
@@ -545,6 +578,9 @@ function Inspector::reset(%this) {
 	%this.gui.clear();
 }
 
+/**
+ * @param {Inspector} %this
+ */
 function Inspector::updateTransforms(%this) {
     if (!isObject(%this.object)) return;
 
@@ -609,6 +645,9 @@ $Inspect::TypeClass[100] = GameBaseData;
 $Inspect::TypeClass[101] = ItemData;
 $Inspect::TypeClass[102] = TriggerData;
 
+/**
+ * @param {Inspector} %this
+ */
 function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %tooltip) {
 	if (%field $= "") {
 		%this.fields ++;
@@ -982,6 +1021,10 @@ function Inspector::addField(%this, %field, %type, %value, %dynamic, %title, %to
 	%this.fields ++;
 }
 
+/**
+ * @param {Inspector} %this
+ * @param {SimObject} %object
+ */
 function Inspector::getEnumRecords(%this, %object, %field) {
 	%classValues = %object.getFieldEnumValues(%field);
 	%fieldCount = getFieldCount(%classValues);
@@ -1009,6 +1052,9 @@ function Inspector::getEnumRecords(%this, %object, %field) {
 	return %records;
 }
 
+/**
+ * @param {Inspector} %this
+ */
 function Inspector::apply(%this, %name) {
 	//And because this is provided too
 	%this.object.setName(%name);
@@ -1021,6 +1067,7 @@ function Inspector::apply(%this, %name) {
 			continue;
 
 		//Make sure we had something to change, otherwise we'd apply for blank values
+		/** @type {GuiTextEditCtrl} */
 		%entry = %this.fieldEntry[%field];
 		if (!isObject(%entry))
 			continue;
@@ -1049,6 +1096,9 @@ function Inspector::apply(%this, %name) {
 	%this.inspect(%this.object);
 }
 
+/**
+ * @param {Inspector} %this
+ */
 function Inspector::chooseFile(%this, %index) {
 	%this.currentField = %index;
 	getLoadFilename("*.png\t*.jpg\t*.bmp", "InspectChooseFile");
@@ -1058,15 +1108,22 @@ function InspectChooseFile(%name) {
 	Inspector.finishChooseFile(%name);
 }
 
+/**
+ * @param {Inspector} %this
+ */
 function Inspector::finishChooseFile(%this, %name) {
 	%index = %this.currentField;
 	%this.currentField = "";
 
 	%field = %this.field[%index];
+	/** @type {GuiTextEditCtrl} */
 	%entry = %this.fieldEntry[%field];
 	%entry.setValue(%name);
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function InspectMathEntry::setValue(%this, %value) {
 	//Figure out how many words each box should get
 	%words = getWordCount(%value);
@@ -1085,6 +1142,9 @@ function InspectMathEntry::setValue(%this, %value) {
 	}
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function InspectMathEntry::getValue(%this) {
 	//Concatenate all objects
 	%subs = %this.getCount();
@@ -1098,14 +1158,23 @@ function InspectMathEntry::getValue(%this) {
 	return %val;
 }
 
+/**
+ * @param {GuiButtonCtrl} %this
+ */
 function InspectFileEntry::setValue(%this, %value) {
 	%this.setText(%value);
 }
 
+/**
+ * @param {GuiButtonCtrl} %this
+ */
 function InspectFileEntry::getValue(%this) {
 	return %this.getText();
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function InspectMathEntry::updateSize(%this) {
 	cancel(%this.sizeSch);
 
@@ -1120,6 +1189,9 @@ function InspectMathEntry::updateSize(%this) {
 	%this.sizeSch = %this.schedule(100, "updateSize");
 }
 
+/**
+ * @param {InspectEnumEntry} %this
+ */
 function InspectEnumEntry::getValue(%this) {
 	%value = Parent::getValue(%this);
 	for (%i = 0; %this._enumName[%i] !$= ""; %i ++) {
@@ -1130,6 +1202,9 @@ function InspectEnumEntry::getValue(%this) {
 	return %value;
 }
 
+/**
+ * @param {InspectEnumEntry} %this
+ */
 function InspectEnumEntry::setValue(%this, %value) {
 	for (%i = 0; %this._enumValue[%i] !$= ""; %i ++) {
 		if (%this._enumValue[%i] $= %value) {
@@ -1139,23 +1214,38 @@ function InspectEnumEntry::setValue(%this, %value) {
 	Parent::setValue(%this, %value);
 }
 
+/**
+ * @param {GuiBitmapCtrl} %this
+ */
 function GuiBitmapCtrl::inspectPostApply(%this) {
 	Parent::inspectPostApply(%this);
 	%this.setBitmap(%this.bitmap);
 }
+/**
+ * @param {GuiBitmapButtonCtrl} %this
+ */
 function GuiBitmapButtonCtrl::inspectPostApply(%this) {
 	Parent::inspectPostApply(%this);
 	%this.setBitmap(%this.bitmap);
 }
+/**
+ * @param {GuiChunkedBitmapCtrl} %this
+ */
 function GuiChunkedBitmapCtrl::inspectPostApply(%this) {
 	Parent::inspectPostApply(%this);
 	%this.setBitmap(%this.bitmap);
 }
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::inspectPostApply(%this) {
 	Parent::inspectPostApply(%this);
 	%this.setTransform(%this.getTransform());
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::setInspectField(%this, %field, %value) {
 	%this.inspectPreApply();
 	%this.setFieldValue(%field, %value);

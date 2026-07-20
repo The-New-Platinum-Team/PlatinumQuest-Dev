@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_king::onLoad(%this) {
 	%this.registerCallback("onMissionReset");
 	%this.registerCallback("onFoundGem");
@@ -34,40 +37,78 @@ function Mode_king::onLoad(%this) {
 	%this.registerCallback("getFinalScore");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_king} %this
+ */
 function Mode_king::onMissionReset(%this) {
 	MPupdateCollisionKing();
 }
+/**
+ * @param {Mode_king} %this
+ * @param {Type} %object
+ */
 function Mode_king::onFoundGem(%this, %object) {
 //	%object.client.playPitchedSound("gotDiamond");
 }
+/**
+ * @param {Mode_king} %this
+ */
 function Mode_king::getStartTime(%this) {
 	return (MissionInfo.time ? MissionInfo.time : 300000);
 }
+/**
+ * @param {Mode_king} %this
+ */
 function Mode_king::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_king} %this
+ */
 function Mode_king::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_king} %this
+ */
 function Mode_king::shouldRespawnGems(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_king} %this
+ */
 function Mode_king::getScoreType(%this) {
 	return $ScoreType::Score;
 }
+/**
+ * @param {Mode_king} %this
+ * @param {Type} %object
+ */
 function Mode_king::getFinalScore(%this, %object) {
 	return $ScoreType::Score TAB %object.client.getGemCount();
 }
+/**
+ * @param {Mode_king} %this
+ */
 function Mode_king::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::enterKingTrigger(%this, %trigger) {
 	%this.kingTrigger = %trigger;
 	%this.updateKingTrigger();
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::leaveKingTrigger(%this, %trigger) {
 	%this.kingTrigger = false;
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updateKingTrigger(%this) {
 	cancel(%this.kingSchedule);
 	if (!$Game::Finished) {
@@ -143,6 +184,10 @@ datablock ParticleEmitterNodeData(KingTrigEmitterNode) {
 	timeMultiple = 1;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {SceneObject} %trigger
+ */
 function KingTrigger::onAdd(%this, %trigger) {
 	%pos = %trigger.getTransform();
 	%scale = %trigger.getScale();   //buildKingTrigger() or whatever it was called in here now. ~Connie
@@ -188,6 +233,10 @@ function KingTrigger::onAdd(%this, %trigger) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %trigger
+ */
 function KingTrigger::onInspectApply(%this, %trigger) {
 	for (%d = 0; %d < 16; %d++) {
 		%trigger.ParticleEmitter[%d].getID().delete();   //Get rid of them all. ~Connie
@@ -196,12 +245,20 @@ function KingTrigger::onInspectApply(%this, %trigger) {
 	KingTrigger::onAdd(%this, %trigger);   //Then add them back. ~Connie
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function KingTrigger::onEnterTrigger(%this, %trigger, %obj) {
 	%obj.client.enterKingTrigger(%trigger);
 	messageClient(%obj.client, 'MsgKTrigOne', "You have entered the King Trigger!");
 	%obj.client.playPitchedSound("gotDiamond");
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function KingTrigger::onLeaveTrigger(%this, %trigger, %obj) {
 	%obj.client.leaveKingTrigger(%trigger);
 	messageClient(%obj.client, 'MsgKTrigTwo', "You have exited the King Trigger!");

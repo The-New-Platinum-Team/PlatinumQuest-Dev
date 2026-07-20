@@ -207,25 +207,40 @@ new GuiBitmapCtrl(MPTeamJoinDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::open(%this) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::close(%this) {
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::onWake(%this) {
 	// Title
 	MPTeamJoinTitle.setText("<bold:28><just:center>Join Team");
 	%this.updateTeamList();
 }
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::create(%this) {
 	// Pass it on, the more dialogs, the merrier!
 	MPTeamCreateDlg.open();
 }
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::updateTeamList(%this) {
 	MPTeamJoinList.clear();
 
@@ -243,6 +258,9 @@ function MPTeamJoinDlg::updateTeamList(%this) {
 	%this.infoTeam();
 }
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::infoTeam(%this) {
 	%selectedTeam = stripCols(MPTeamJoinList.getRowTextById(MPTeamJoinList.getSelectedId()));
 	$MP::TeamInfoLoading = true;
@@ -251,6 +269,9 @@ function MPTeamJoinDlg::infoTeam(%this) {
 	%this.updateTeam();
 }
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::updateTeam(%this) {
 	// Update team information
 	if ($MP::TeamInfoLoading || $MP::TeamInfoName $= "" || $MP::TeamInfoName $= 0) {
@@ -273,6 +294,9 @@ function MPTeamJoinDlg::updateTeam(%this) {
 	}
 }
 
+/**
+ * @param {MPTeamJoinDlg} %this
+ */
 function MPTeamJoinDlg::joinTeam(%this) {
 	%selectedTeam = stripCols(MPTeamJoinList.getRowTextById(MPTeamJoinList.getSelectedId()));
 	commandToServer('TeamJoin', %selectedTeam);

@@ -115,6 +115,7 @@ function clientCmdMegaMarble(%mega) {
 }
 
 function clientCmdUpdateMarbleShape(%marble) {
+	/** @type {Marble} */
 	%obj = getClientSyncObject(%marble);
 	if (isObject(%obj)) {
 		%obj.reloadShader();
@@ -239,6 +240,9 @@ function clientCmdGameStatus(%status) {
 	}
 }
 
+/**
+ * @param {Item} %item
+ */
 function clientCmdNoCollision(%item) {
 	if (isObject(%item))
 		%item.hide(false);
@@ -343,6 +347,9 @@ function clientCmdGhostId(%index, %id) {
 	fixGhost();
 }
 
+/**
+ * @param {Marble} %marble
+ */
 function onNewMarble(%marble, %index) {
 	PlayerList.getEntry(%index).player = %marble;
 	%marble.index = %index;

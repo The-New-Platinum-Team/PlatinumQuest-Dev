@@ -22,6 +22,11 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {SceneObject} %user
+ */
 function CameraDistanceTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	//Don't care if other people use this
 	if (!MPMyMarbleExists() || %user.getId() != MPGetMyMarble().getId())
@@ -31,10 +36,20 @@ function CameraDistanceTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	CDT(%trigger.time, %trigger.smooth, %trigger.distance);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {SceneObject} %user
+ */
 function CameraDistanceTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {SceneObject} %user
+ */
 function CameraDistanceTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	//Don't care if other people use this
 	if (!MPMyMarbleExists() || %user.getId() != MPGetMyMarble().getId())
@@ -151,6 +166,11 @@ function CDTReset() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function CameraTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	if (%trigger.pitch !$= "" && %trigger.pitch !$= "NoChange")
 		%user.setCameraPitch(%trigger.useRadians ? %trigger.pitch : mDegToRad(%trigger.pitch));
@@ -158,10 +178,20 @@ function CameraTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 		%user.setCameraYaw(%trigger.useRadians ? %trigger.yaw : mDegToRad(%trigger.yaw));
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function CameraTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function CameraTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	//Nothing
 }
@@ -270,12 +300,19 @@ function useScriptCameraTransform(%use) {
 	PG_ShowCtrl.setVisibleDistance(%distance);
 }
 
+/**
+ * @param {PG_ShowCtrl} %this
+ */
 function PG_ShowCtrl::onRender(%this) {
 	if (isObject($Client::ColCannon)) {
 		updateCannonAim(%this);
 	}
 }
 
+/**
+ * @param {SimGroup} %group
+ * @returns {Sky}
+ */
 function findSky(%group) {
 	%count = %group.getCount();
 	for (%i = 0; %i < %count; %i ++) {

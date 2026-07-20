@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateSpeedometer(%this) {
 	//We need a marble to calculate velocity!
 	if (!MPMyMarbleExists())

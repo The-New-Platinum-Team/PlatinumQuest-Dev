@@ -605,16 +605,27 @@ if (!$Server::Dedicated) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarbleData} %this
+ */
 function MarbleData::onAdd(%this, %obj) {
 	//echo("New Marble: " @ %obj);
 }
 
+/**
+ * @param {MarbleData} %this
+ */
 function MarbleData::onTrigger(%this, %obj, %triggerNum, %val) {
 }
 
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarbleData} %this
+ * @param {Marble} %obj
+ * @param {GameBase} %col
+ */
 function MarbleData::onCollision(%this,%obj,%col) {
 	if (%obj.noPickup || ($playingDemo && !$Playback::DemoFrame))
 		return;
@@ -640,6 +651,11 @@ function MarbleData::onCollision(%this,%obj,%col) {
 	}
 }
 
+/**
+ * @param {GameBaseData} %this
+ * @param {SceneObject} %obj
+ * @param {GameBase} %col
+ */
 function GameBaseData::onCollision(%this, %obj, %col, %vec, %vecLen, %material) {
 	if (%col.noPickup || ($playingDemo && !$Playback::DemoFrame))
 		return false;
@@ -656,22 +672,42 @@ function GameBaseData::onCollision(%this, %obj, %col, %vec, %vecLen, %material) 
 // The following event callbacks are punted over to the connection
 // for processing
 
+/**
+ * @param {MarbleData} %this
+ * @param {Type} %object
+ */
 function MarbleData::onEnterPad(%this,%object) {
 	%object.client.onEnterPad();
 }
 
+/**
+ * @param {MarbleData} %this
+ * @param {Type} %object
+ */
 function MarbleData::onLeavePad(%this,%object) {
 	%object.client.onLeavePad();
 }
 
+/**
+ * @param {MarbleData} %this
+ * @param {Type} %object
+ */
 function MarbleData::onStartPenalty(%this,%object) {
 	%object.client.onStartPenalty();
 }
 
+/**
+ * @param {MarbleData} %this
+ * @param {Type} %object
+ */
 function MarbleData::onOutOfBounds(%this,%object) {
 	%object.client.onOutOfBounds();
 }
 
+/**
+ * @param {MarbleData} %this
+ * @param {Type} %object
+ */
 function MarbleData::setCheckpoint(%this,%object,%check) {
 	%object.client.setCheckpoint(%check);
 }
@@ -680,6 +716,11 @@ function MarbleData::setCheckpoint(%this,%object,%check) {
 // Marble object
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Marble} %this
+ * @param {SimObject} %item
+ * @param {ShapeBase} %obj
+ */
 function Marble::setPowerUp(%this,%item,%reset,%obj) {
 	if (%this.lockPowerup) {
 		%this.heldPowerup = %item;
@@ -731,20 +772,33 @@ function Marble::setPowerUp(%this,%item,%reset,%obj) {
 		%this.setPowerUpId(%item.powerUpId,%reset);
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::getPowerUp(%this) {
 	return (isObject(%this.powerUpData) ? %this.powerUpData.getId() : %this.powerUpData);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::activatePowerup(%this, %powerUpId) {
 	%this.player.powerupActive[%powerupId] = true;
 	commandToClient(%this, 'ActivatePowerUp', %powerUpId);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::deactivatePowerup(%this, %powerUpId) {
 	%this.player.powerupActive[%powerupId] = false;
 	commandToClient(%this, 'DeactivatePowerUp', %powerUpId);
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {Type} %powerUp
+ */
 function GameConnection::mountPlayerImage(%this, %powerUp, %slot) {
 	%image = %powerUp.image;
 	if (%this.isMegaMarble() && %powerUp.megaImage !$= "") {
@@ -759,11 +813,17 @@ function GameConnection::mountPlayerImage(%this, %powerUp, %slot) {
 	%this.player.mountImage(%image, %slot);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::unmountPlayerImage(%this, %slot) {
 	%this.player.unmountImage(%slot);
 }
 
 // changed %obj to %this
+/**
+ * @param {Marble} %this
+ */
 function Marble::onPowerUpUsed(%this) {
 	%used = true;
 	if (isObject(%this.powerUpData)) {
@@ -794,10 +854,16 @@ function Marble::onPowerUpUsed(%this) {
 	%this.oldPowerupObj = "";
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdUsePowerup(%client) {
 	%client.player.onPowerUpUsed();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdOnPowerUpUsed(%client, %id) {
 	//They used the pup; do stuff from it
 	if (Mode::callback("shouldUseClientPowerups", false)) {
@@ -806,6 +872,9 @@ function serverCmdOnPowerUpUsed(%client, %id) {
 	}
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::lockPowerup(%this, %time, %reset) {
 //	HUD_PowerupFrame.setBitmap("pqport/client/ui/PlayGui/powerup_locked.png");
 	%this.lockPowerup = 1;
@@ -818,6 +887,9 @@ function Marble::lockPowerup(%this, %time, %reset) {
 		%this.unlockSchedule = %this.schedule(%time, "unlockPowerup");
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::unlockPowerup(%this, %time) {
 	cancel(%this.unlockSchedule);
 	if (%time) {
@@ -834,6 +906,9 @@ function Marble::unlockPowerup(%this, %time) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {SimObject} %datablock
+ */
 function onMarbleDataPreSend(%datablock) {
 	if ($Server::_Dedicated)
 		return;
@@ -848,6 +923,9 @@ function onMarbleDataPreSend(%datablock) {
 	}
 }
 
+/**
+ * @param {SimObject} %datablock
+ */
 function onMarbleDataPostSend(%datablock) {
 	if ($Server::_Dedicated)
 		return;
@@ -865,6 +943,10 @@ function onMarbleDataPostSend(%datablock) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Marble} %this
+ * @returns {ParticleEmitterNode}
+ */
 function Marble::assignNewTrailEmitter(%this, %slot, %type, %emitter) {
 	%emit = new ParticleEmitterNode() {
 		datablock = ParticleTrailNode;

@@ -119,6 +119,9 @@ function fixGhost() {
 
 /// Freezes or thaws the marble object.
 /// @arg frozen Sets whether the marble is frozen or thawed
+/**
+ * @param {Marble} %this
+ */
 function Marble::freeze(%this, %frozen, %mode) {
 	if (%mode $= "")
 		%mode = true;

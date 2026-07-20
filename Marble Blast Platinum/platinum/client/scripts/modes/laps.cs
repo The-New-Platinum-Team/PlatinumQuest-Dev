@@ -34,6 +34,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_laps) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_laps::onLoad(%this) {
 	%this.registerCallback("onShowPlayGui");
 	%this.registerCallback("updatePlayMission");
@@ -42,15 +45,24 @@ function ClientMode_laps::onLoad(%this) {
 	%this.registerCallback("onMissionReset");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_laps} %this
+ */
 function ClientMode_laps::onShowPlayGui(%this) {
 	PGLapsCounter.setVisible(1);
 }
+/**
+ * @param {ClientMode_laps} %this
+ */
 function ClientMode_laps::getBestLapTime(%this) {
 	%info = PlayMissionGui.getMissionInfo();
 	%best = ($pref::LapsBestTime[%info.file] $= "" ? 5999999 : $pref::LapsBestTime[%info.file]);
 
 	return %best;
 }
+/**
+ * @param {ClientMode_laps} %this
+ */
 function ClientMode_laps::updatePlayMission(%this, %location) {
 	switch$ (%location) {
 	case "sp":
@@ -72,6 +84,9 @@ function ClientMode_laps::updatePlayMission(%this, %location) {
 		PM_MissionScoresInfo.setText(%text);
 	}
 }
+/**
+ * @param {ClientMode_laps} %this
+ */
 function ClientMode_laps::updateEndGame(%this) {
 	%info = PlayMissionGui.getMissionInfo();
 	if ($Game::BestCurrentLap >= 0) {
@@ -82,9 +97,15 @@ function ClientMode_laps::updateEndGame(%this) {
 
 	EG_TopTimesText.addText(%text, true);
 }
+/**
+ * @param {ClientMode_laps} %this
+ */
 function ClientMode_laps::onMissionReset(%this) {
 	$Game::BestCurrentLap = -1;
 }
+/**
+ * @param {ClientMode_laps} %this
+ */
 function ClientMode_laps::getScoreFields(%this) {
 	//Give them our best lap if we have one... (we should, right?)
 	if ($Game::BestCurrentLap >= 0)

@@ -227,10 +227,17 @@ function reloadGameModes() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode::registerCallback(%this, %callback) {
 	%this.hasCallback[%callback] = true;
 }
 
+/**
+ * @param {Mode} %this
+ * @param {SimObject} %object
+ */
 function Mode::callback(%this, %callback, %default, %object) {
 	return ModeCallback(%this, %callback, %default, %object);
 	if (%object._delete) {

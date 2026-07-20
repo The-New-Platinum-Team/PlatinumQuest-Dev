@@ -48,6 +48,9 @@ function handleConnectionErrorMessage(%msgType, %msgString, %msgError) {
 // GameConnection client callbacks
 //----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::initialControlSet(%this) {
 	echo("*** Initial Control Object");
 
@@ -77,12 +80,18 @@ function GameConnection::initialControlSet(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setLagIcon(%this, %state) {
 	if (%this.getAddress() $= "local")
 		return;
 	LagIcon.setVisible(%state $= "true");
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onConnectionAccepted(%this) {
 
 	// Called on the new connection object after connect() succeeds.
@@ -92,12 +101,18 @@ function GameConnection::onConnectionAccepted(%this) {
 	clientCbOnServerJoin();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onConnectionTimedOut(%this) {
 	// Called when an established connection times out
 	disconnectedCleanup(false);
 	MessageBoxOK("TIMED OUT", "The server connection has timed out.");
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onConnectionDropped(%this, %msg) {
 	switch$ (%msg) {
 	case "CR_INVALID_PROTOCOL_VERSION":
@@ -145,6 +160,9 @@ function GameConnection::onConnectionDropped(%this, %msg) {
 	MessageBoxOK("DISCONNECT", "The server has dropped the connection:" NL %error);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onConnectionError(%this, %msg) {
 	// General connection error, usually raised by ghosted objects
 	// initialization problems, such as missing files.  We'll display
@@ -160,6 +178,9 @@ function GameConnection::onConnectionError(%this, %msg) {
 // occur before one exists.
 //----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onConnectRequestRejected(%this, %msg) {
 	switch$ (%msg) {
 	case "CR_INVALID_PROTOCOL_VERSION":
@@ -193,6 +214,9 @@ function GameConnection::onConnectRequestRejected(%this, %msg) {
 	MessageBoxOK("REJECTED", %error);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onConnectRequestTimedOut(%this) {
 	disconnectedCleanup(false);
 	MessageBoxOK("TIMED OUT", "Your connection to the server timed out.");

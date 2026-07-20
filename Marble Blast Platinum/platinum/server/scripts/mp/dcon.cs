@@ -24,6 +24,9 @@
 //------------------------------------------------------------------------------
 
 package dcon {
+	/**
+	 * @param {Type} %a0
+	 */
 	function eval(%a0) {
 		//If it's a dcon function, execute it
 		if (dcon::func(getWord(%a0, 0)) != -1) {
@@ -34,6 +37,9 @@ package dcon {
 		Parent::eval(%a0);
 	}
 
+	/**
+	 * @param {Type} %func
+	 */
 	function dcon::eval(%func) {
 		//Check if the function exists, also get the function number
 		if ((%i = dcon::func(getWord(%func, 0))) != -1) {
@@ -84,6 +90,9 @@ package dcon {
 	}
 
 	//Prints the usage of a function
+	/**
+	 * @param {Type} %func
+	 */
 	function dcon::usage(%func) {
 		if ((%i = dcon::func(getWord(%func, 0))) != -1) {
 			echo("| Usage:" SPC getField($dcon::func[%i], 3));
@@ -92,6 +101,9 @@ package dcon {
 	}
 
 	//Gets the number of a function
+	/**
+	 * @param {Type} %name
+	 */
 	function dcon::func(%name) {
 		for (%i = 0; %i < $dcon::funcc; %i ++) {
 			if (getField($dcon::func[%i], 0) $= %name)
@@ -106,6 +118,14 @@ package dcon {
 	//Usage: "Usage" string that shows function possibilities
 	//Help: One-line help text
 	//Page: Multi-line specific help
+	/**
+	 * @param {Type} %name
+	 * @param {Type} %args
+	 * @param {Type} %long
+	 * @param {Type} %usage
+	 * @param {Type} %help
+	 * @param {Type} %page
+	 */
 	function dcon::addFunc(%name, %args, %long, %usage, %help, %page) {
 		$dcon::func[$dcon::funcc] = %name TAB %args TAB %long TAB %usage TAB %help TAB %page;
 		$dcon::funcc ++;
@@ -116,6 +136,9 @@ package dcon {
 	//---------------------------------------------------------------------------
 
 	//Print help for a function
+	/**
+	 * @param {Type} %func
+	 */
 	function dconhelp(%func) {
 		echo("|------------------------------------------------------");
 		if (%func $= "" || %func * 1 != 0) {
@@ -154,6 +177,9 @@ package dcon {
 		echo("|------------------------------------------------------");
 	}
 
+	/**
+	 * @param {Type} %command
+	 */
 	function dcondcon(%command) {
 		echo("|------------------------------------------------------");
 		if (%command $= "")
@@ -207,6 +233,9 @@ package dcon {
 		echo("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 
+	/**
+	 * @param {Type} %person
+	 */
 	function dconkick(%person) {
 		echo("|------------------------------------------------------");
 		if (%person $= "")
@@ -220,6 +249,9 @@ package dcon {
 		echo("|------------------------------------------------------");
 	}
 
+	/**
+	 * @param {Type} %person
+	 */
 	function dconban(%person) {
 		echo("|------------------------------------------------------");
 		if (%person $= "")
@@ -233,6 +265,9 @@ package dcon {
 		echo("|------------------------------------------------------");
 	}
 
+	/**
+	 * @param {Type} %person
+	 */
 	function dconbanip(%person) {
 		echo("|------------------------------------------------------");
 		if (%person $= "")
@@ -246,6 +281,9 @@ package dcon {
 		echo("|------------------------------------------------------");
 	}
 
+	/**
+	 * @param {Type} %person
+	 */
 	function dconrespawn(%person) {
 		echo("|------------------------------------------------------");
 		if (%person $= "")
@@ -262,6 +300,9 @@ package dcon {
 		echo("|------------------------------------------------------");
 	}
 
+	/**
+	 * @param {Type} %command
+	 */
 	function dconmaster(%command) {
 		echo("|------------------------------------------------------");
 		if (%command $= "")
@@ -297,6 +338,9 @@ package dcon {
 		echo("|------------------------------------------------------");
 	}
 
+	/**
+	 * @param {Type} %mission
+	 */
 	function dconmission(%mission) {
 		if (%mission $= "")
 			dcon::usage("mission");
@@ -324,6 +368,10 @@ package dcon {
 		}
 	}
 
+	/**
+	 * @param {Type} %variable
+	 * @param {Type} %value
+	 */
 	function dconset(%variable, %value) {
 		if (%variable $= "" || %value $= "")
 			dcon::usage("set");
@@ -483,6 +531,10 @@ package dcon {
 		echo("|------------------------------------------------------");
 	}
 
+	/**
+	 * @param {Type} %str
+	 * @param {Type} %times
+	 */
 	function strrepeat(%str, %times) {
 		%finish = "";
 		for (%i = 0; %i < %times; %i ++)

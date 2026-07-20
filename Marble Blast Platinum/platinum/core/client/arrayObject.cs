@@ -31,6 +31,9 @@ if (!isObject(JSONGroup)) {
 }
 
 // Get the index of the first object with %value at field %field
+/**
+ * @param {Array} %this
+ */
 function Array::getIndexByField(%this, %value, %field) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		if (getField(%this.getEntry(%i), %field) $= %value)
@@ -40,6 +43,9 @@ function Array::getIndexByField(%this, %value, %field) {
 }
 
 // Get the index of the first object with %value at record %record
+/**
+ * @param {Array} %this
+ */
 function Array::getIndexByRecord(%this, %value, %record) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		if (getRecord(%this.getEntry(%i), %record) $= %value)
@@ -49,6 +55,9 @@ function Array::getIndexByRecord(%this, %value, %record) {
 }
 
 // Get the first object with %value at field %field
+/**
+ * @param {Array} %this
+ */
 function Array::getEntryByField(%this, %value, %field) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		if (getField(%this.getEntry(%i), %field) $= %value)
@@ -58,6 +67,9 @@ function Array::getEntryByField(%this, %value, %field) {
 }
 
 // Get the first object with %value at record %record
+/**
+ * @param {Array} %this
+ */
 function Array::getEntryByRecord(%this, %value, %record) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		if (getRecord(%this.getEntry(%i), %record) $= %value)
@@ -67,6 +79,9 @@ function Array::getEntryByRecord(%this, %value, %record) {
 }
 
 // Get the first object with %value at variable %var
+/**
+ * @param {Array} %this
+ */
 function Array::getEntryByVariable(%this, %var, %value) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		if (isObject(%this.getEntry(%i)) && %this.getEntry(%i).getFieldValue(%var) $= %value)
@@ -76,6 +91,9 @@ function Array::getEntryByVariable(%this, %var, %value) {
 }
 
 // get the index of the specified entry
+/**
+ * @param {Array} %this
+ */
 function Array::getIndexByEntry(%this, %value) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		if (%this.getEntry(%i) $= %value)
@@ -85,10 +103,16 @@ function Array::getIndexByEntry(%this, %value) {
 }
 
 // Shorthand again!
+/**
+ * @param {Array} %this
+ */
 function Array::getIndex(%this, %value) {
 	return %this.getIndexByEntry(%value);
 }
 
+/**
+ * @param {Array} %this
+ */
 function Array::containsEntryAtField(%this, %entry, %field) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		%ientry = getField(%this.getEntry(%i), %field);
@@ -99,10 +123,16 @@ function Array::containsEntryAtField(%this, %entry, %field) {
 }
 
 // I like shortness
+/**
+ * @param {Array} %this
+ */
 function Array::containsField(%this, %entry, %field) {
 	return %this.containsEntryAtField(%entry, %field);
 }
 
+/**
+ * @param {Array} %this
+ */
 function Array::containsEntryAtRecord(%this, %entry, %record) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		%ientry = getRecord(%this.getEntry(%i), %record);
@@ -113,11 +143,17 @@ function Array::containsEntryAtRecord(%this, %entry, %record) {
 }
 
 // I like shortness
+/**
+ * @param {Array} %this
+ */
 function Array::containsRecord(%this, %entry, %record) {
 	return %this.containsEntryAtRecord(%entry, %record);
 }
 
 
+/**
+ * @param {Array} %this
+ */
 function Array::containsEntryAtVariable(%this, %var, %entry) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		if (!isObject(%this.getEntry(%i)))
@@ -130,6 +166,9 @@ function Array::containsEntryAtVariable(%this, %var, %entry) {
 }
 
 // I like shortness
+/**
+ * @param {Array} %this
+ */
 function Array::containsVariable(%this, %var, %entry) {
 	return %this.containsEntryAtVariable(%var, %entry);
 }
@@ -143,6 +182,9 @@ function compareStringLesser(%a, %b) {
 }
 
 //This is really ugly, but the only way to support engine methods that need a fixed number of arguments
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::_call(%this, %func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9) {
 	if (%arg9 !$= "")
 		return %this.call(%func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9);
@@ -167,6 +209,9 @@ function SimObject::_call(%this, %func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5
 	return %this.call(%func);
 }
 
+/**
+ * @param {SimObject} %obj
+ */
 function funccall(%func, %obj, %i, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9) {
 	//Member functions have a "%this." at the front
 	if (strpos(%func, "%this.") == 0) {
@@ -181,6 +226,9 @@ function funccall(%func, %obj, %i, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %ar
 }
 
 // Call a function on each element in a list
+/**
+ * @param {Array} %this
+ */
 function Array::forEach(%this, %func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9) {
 	for (%i = 0; %i < %this.getSize(); %i ++) {
 		funccall(%func, %this.getEntry(%i), %i, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9);
@@ -188,6 +236,9 @@ function Array::forEach(%this, %func, %arg0, %arg1, %arg2, %arg3, %arg4, %arg5, 
 }
 
 // Return a new list with the result of calling a function on each element
+/**
+ * @param {Array} %this
+ */
 function Array::map(%this, %func) {
 	%newList = Array(MapArray);
 	%newList.schedule(1000, delete); //Clean up if we don't need it
@@ -198,6 +249,9 @@ function Array::map(%this, %func) {
 }
 
 // Return a new list with the entries from this list which match a given function
+/**
+ * @param {Array} %this
+ */
 function Array::filter(%this, %func) {
 	%newList = Array(FilterArray);
 	%newList.schedule(1000, delete); //Clean up if we don't need it
@@ -210,6 +264,9 @@ function Array::filter(%this, %func) {
 }
 
 // Calls a function over every value in the array, but accumulated left-to-right and stored in a parameter.
+/**
+ * @param {Array} %this
+ */
 function Array::reduce(%this, %func, %initial) {
 	%val = %initial;
 	for (%i = 0; %i < %this.getSize(); %i ++) {

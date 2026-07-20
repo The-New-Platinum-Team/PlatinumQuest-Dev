@@ -35,6 +35,9 @@
 //
 //------------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::loadLobby(%this) {
 	if ($Server::ServerType $= "SinglePlayer")
 		return;
@@ -54,6 +57,9 @@ function GameConnection::loadLobby(%this) {
 	%this.resetStats();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSetMission(%client, %file, %game, %difficulty, %forceMode) {
 	if (%client.isHost()) {
 		if ($Server::Dedicated) {
@@ -127,6 +133,9 @@ function serverSetMission(%file, %game, %difficulty, %forceMode) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdInteriorStatus(%client, %interior, %index, %crc) {
 	// Make sure they have the right interior
 	%serverCRC = getFileCRC(%interior);
@@ -137,6 +146,9 @@ function serverCmdInteriorStatus(%client, %interior, %index, %crc) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSetTeamMode(%client, %teammode) {
 	if (%client.isHost()) {
 		$MP::TeamMode = %teammode;
@@ -157,6 +169,9 @@ function reloadAllPlaymission() {
 	updatePlayerList();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updatePlaymission(%this) {
 	// Basic mission info that is used for playmission
 	traceGuard();
@@ -165,6 +180,9 @@ function GameConnection::updatePlaymission(%this) {
 	commandToClientLong(%this, 'LobbyMissionInfo', %info, $MP::MissionFile, $CurrentGame, $MissionType, $MP::CurrentMode);
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdMissionFileCheck(%client, %file, %crc) {
 	%client.missionCRC[%file] = %crc;
 	if (getFileCRC(%file) $= %crc)
@@ -173,6 +191,9 @@ function serverCmdMissionFileCheck(%client, %file, %crc) {
 		%client.missionFailed[%file] = true;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdLobbyReturn(%client) {
 	if (%client.isHost()) {
 		lobbyReturn();
@@ -238,6 +259,9 @@ function lobbyReturn() {
 	updatePlayerlist();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdLobbyRestart(%client) {
 	if (%client.isHost()) {
 		commandToAll('CloseEndGame');
@@ -245,6 +269,9 @@ function serverCmdLobbyRestart(%client) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdRestartLevel(%client) {
 	if (%client.isHost()) {
 		commandToAll('CloseEndGame');
@@ -296,6 +323,9 @@ function lobbyRestart() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMarblelandPlay(%client, %id) {
 	if (%client.isHost()) {
 		if (!isObject(marblelandGetMission(%id))) {
@@ -317,6 +347,9 @@ function SMP_downloadComplete(%id, %success) {
 }
 
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMarblelandDownload(%client, %id) {
 	if (%client.isHost()) {
 		if (!isObject(marblelandGetMission(%id))) {
@@ -328,12 +361,18 @@ function serverCmdMarblelandDownload(%client, %id) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMarblelandDownloadStatus(%client, %id, %success) {
 	if (%client.marblelandDownloadCallback[%id] !$= "") {
 		%client.call(%client.marblelandDownloadCallback[%id], %id, %success);
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMarblelandHasMissionStatus(%client, %id, %success) {
 	if (%client.marblelandHasMissionCallback[%id] !$= "") {
 		%client.call(%client.marblelandHasMissionCallback[%id], %id, %success);
@@ -388,6 +427,9 @@ function SMD_serverDownloadComplete(%id, %success) {
 	SMD_checkSuccess(%id);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::lobbyMarblelandDownloadComplete(%this, %id, %success) {
 	echo(%this.getDisplayName() @ " downloaded " @ %id @ " with success: " @ %success);
 	%this.marblelandSuccess[%id] = %success;
@@ -418,6 +460,9 @@ function SMD_checkSuccess(%id) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSwapMPMarblelandMissionList(%client, %marbleland) {
 	if (%client.isHost()) {
 		$CurrentGame = %marbleland ? "Marbleland" : "Hunt";
@@ -425,6 +470,9 @@ function serverCmdSwapMPMarblelandMissionList(%client, %marbleland) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdSetMPMarblelandMission(%client, %type, %file) {
 	if (%client.isHost()) {
 		$MissionType = %type;
@@ -456,6 +504,9 @@ function _updatePlayerList() {
 		commandToServer('refreshPlayerList');
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdRefreshPlayerList(%client) {
 	if (!%client.isHost()) {
 		%client.updatePlayerlist();
@@ -474,11 +525,17 @@ function refreshPlayerList() {
 	updateReadyUserList();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdUpdatePlayerlist(%client) {
 	// Punt this over to the GameConnection object (easier this way)
 	%client.updatePlayerlist();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updatePlayerlist(%this) {
 	// Send them the complete player list and ready states
 	%this.playerlistSend ++;
@@ -528,6 +585,9 @@ function GameConnection::updatePlayerlist(%this) {
 	%this.updateScores();
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdMissionLoadProgress(%client, %progress, %state) {
 	if (%state != %client.loadState) // Detach this!
 		onNextFrame(updatePlayerlist);
@@ -542,6 +602,9 @@ function serverCmdMissionLoadProgress(%client, %progress, %state) {
 	%client.lastProgress = %last;
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdMissionLoadFile(%client, %file) {
 	%client.loadingFile = %file;
 }
@@ -549,6 +612,9 @@ function serverCmdMissionLoadFile(%client, %file) {
 //-----------------------------------------------------------------------------
 // Team Support
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updateTeam(%this) {
 	if ($Server::ServerType $= "SinglePlayer")
 		return;
@@ -585,10 +651,16 @@ function GameConnection::updateTeam(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdTeamList(%client) {
 	%client.sendTeamList();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendTeamList(%this) {
 	if ($Server::ServerType $= "SinglePlayer")
 		return;
@@ -656,6 +728,9 @@ function refreshTeams() {
 	updatePlayerlist();
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamLeave(%client) {
 	// You left a team, sending you back to the default team!
 	Team::removePlayer(%client.team);
@@ -663,6 +738,9 @@ function serverCmdTeamLeave(%client) {
 	refreshTeams();
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamDelete(%client) {
 	// Why would you ever want to delete your team?
 	%team = %client.team;
@@ -673,6 +751,9 @@ function serverCmdTeamDelete(%client) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamNameUpdate(%client, %name) {
 	%team = %client.team;
 	if (Team::isTeamLeader(%team, %client) && !Team::isDefaultTeam(%team)) {
@@ -682,6 +763,9 @@ function serverCmdTeamNameUpdate(%client, %name) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamColorUpdate(%client, %color) {
 	%team = %client.team;
 	if (Team::isTeamLeader(%team, %client) && !Team::isDefaultTeam(%team)) {
@@ -691,6 +775,9 @@ function serverCmdTeamColorUpdate(%client, %color) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamDescUpdateStart(%client) {
 	%team = %client.team;
 	if (Team::isTeamLeader(%team, %client) && !Team::isDefaultTeam(%team)) {
@@ -700,6 +787,9 @@ function serverCmdTeamDescUpdateStart(%client) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamDescUpdatePart(%client, %part) {
 	%team = %client.team;
 	if (Team::isTeamLeader(%team, %client) && !Team::isDefaultTeam(%team)) {
@@ -710,6 +800,9 @@ function serverCmdTeamDescUpdatePart(%client, %part) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamDescUpdateEnd(%client) {
 	%team = %client.team;
 	if (Team::isTeamLeader(%team, %client) && !Team::isDefaultTeam(%team)) {
@@ -729,6 +822,9 @@ function serverCmdTeamDescUpdateEnd(%client) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamPrivateUpdate(%client, %private) {
 	%team = %client.team;
 	if (Team::isTeamLeader(%team, %client) && !Team::isDefaultTeam(%team)) {
@@ -737,6 +833,9 @@ function serverCmdTeamPrivateUpdate(%client, %private) {
 	}
 }
 
+/**
+ * @param {SimSet} %team
+ */
 function serverCmdTeamInfo(%client, %team) {
 	%team = Team::getTeam(%team);
 	if (%team == -1)
@@ -757,6 +856,7 @@ function serverCmdTeamInfo(%client, %team) {
 	commandToClient(%client, 'TeamInfoPlayerListStart');
 	%count = %team.getCount();
 	for (%i = 0; %i < %count; %i ++) {
+		/** @type {GameConnection} */
 		%player = %team.getObject(%i);
 		commandToClient(%client, 'TeamInfoPlayerListPlayer', %player.getUsername(), Team::isTeamLeader(%team, %player));
 	}
@@ -765,6 +865,9 @@ function serverCmdTeamInfo(%client, %team) {
 	commandToClient(%client, 'TeamInfoEnd');
 }
 
+/**
+ * @param {Type} %team
+ */
 function serverCmdTeamJoin(%client, %team) {
 	%team = Team::getTeam(%team);
 
@@ -786,6 +889,9 @@ function serverCmdTeamCreate(%client, %name, %private, %color) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdTeamInvite(%client, %player) {
 	%team = %client.team;
 	if (Team::isTeamLeader(%team, %client)) {
@@ -798,6 +904,10 @@ function serverCmdTeamInvite(%client, %player) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ * @param {Type} %team
+ */
 function serverCmdTeamInviteAccept(%client, %team) {
 	%team = Team::getTeam(%team);
 
@@ -814,6 +924,10 @@ function serverCmdTeamInviteAccept(%client, %team) {
 	//echo(%team.leader.getUsername() SPC "invited" SPC %client.getUsername());
 }
 
+/**
+ * @param {GameConnection} %client
+ * @param {Type} %team
+ */
 function serverCmdTeamInviteDecline(%client, %team) {
 	%team = Team::getTeam(%team);
 
@@ -823,6 +937,9 @@ function serverCmdTeamInviteDecline(%client, %team) {
 	commandToClient(%team.leader, 'TeamInviteDecline', %client.getUsername());
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamPromote(%client, %player) {
 	// Dunno why you would want to do this
 	%team = %client.team;
@@ -836,6 +953,9 @@ function serverCmdTeamPromote(%client, %player) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdTeamKick(%client, %player) {
 	%team = %client.team;
 
@@ -890,6 +1010,9 @@ function updateTeamMode() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdKickUser(%client, %name) {
 	if (%client.isHost()) {
 		%player = GameConnection::resolveName(%name);
@@ -903,6 +1026,9 @@ function serverCmdKickUser(%client, %name) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdBanUser(%client, %name) {
 	// Banning is not allowed on dedicated servers.
 	if (%client.isHost() && !$Server::Dedicated) {
@@ -917,6 +1043,9 @@ function serverCmdBanUser(%client, %name) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdUnbanUser(%client, %name) {
 	// Banning is not allowed on dedicated servers.
 	if (%client.isHost() && !$Server::Dedicated) {
@@ -927,6 +1056,9 @@ function serverCmdUnbanUser(%client, %name) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMakeHost(%client, %name) {
 	if (%client.isHost()) {
 		%player = GameConnection::resolveName(%name);
@@ -946,6 +1078,9 @@ function serverCmdMakeHost(%client, %name) {
 //-----------------------------------------------------------------------------
 // Mission Loading A.K.A the fun Section
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdLoadMission(%client, %file) {
 	if (%client.isHost()) {
 		serverLoadMission(%file);
@@ -977,6 +1112,9 @@ function serverLoadMission(%file) {
 	loadMission(%file);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onFinishLoading(%this) {
 	%this.loadState = 3; //Ready
 	updatePlayerlist();
@@ -1015,6 +1153,9 @@ function checkAllClientsLoaded() {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdEnterGame(%client) {
 	if (%client.isHost()) {
 		serverEnterGame();
@@ -1045,6 +1186,9 @@ function serverEnterGame() {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendDifficultyList(%this) {
 	commandToClient(%this, 'DifficultyListStart');
 
@@ -1075,6 +1219,9 @@ function GameConnection::sendDifficultyList(%this) {
 	commandToClient(%this, 'DifficultyListEnd');
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdGetMissionList(%client, %gameName, %difficultyName) {
 	//Find all levels and let them know
 	%ml = getMissionList("mp");

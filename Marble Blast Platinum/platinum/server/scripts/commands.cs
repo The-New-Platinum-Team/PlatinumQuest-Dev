@@ -33,6 +33,9 @@
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdToggleCamera(%client) {
 	// we want spectating now.
 	if ($Editor::Opened || $Server::ServerType $= "SinglePlayer" || %client.spectating || $playingDemo) {
@@ -41,6 +44,9 @@ function serverCmdToggleCamera(%client) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdDropPlayerAtCamera(%client) {
 	if ($Editor::Opened) {
 		%client.player.setTransform(%client.camera.getTransform());
@@ -50,6 +56,9 @@ function serverCmdDropPlayerAtCamera(%client) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdDropCameraAtPlayer(%client) {
 	if ($Editor::Opened) {
 		%client.camera.setTransform(%client.player.getEstCameraTransform());

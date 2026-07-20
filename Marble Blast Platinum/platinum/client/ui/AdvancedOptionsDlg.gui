@@ -99,6 +99,9 @@ $AdvOptTimeTravelTimerVar = $pref::timeTravelTimer > 0;
 $AdvOptTimeTravelTimerPreciseVar = $pref::timeTravelTimer == 2;
 $AdvOptScorePredictorMaxFactorVar = !$pref::scorePredictorMaxFactor;
 
+/**
+ * @param {AdvancedOptionsDlg} %this
+ */
 function AdvancedOptionsDlg::onWake(%this) {
 	//Try to center this GUI, but don't overlap the dropdowns
 	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(AdvancedOptionsBody.getExtent(), 0) / 2);
@@ -247,6 +250,9 @@ $AdvancedOptions::Type    [$i  ] = "boolean";
 // $AdvancedOptions::Title   [$i  ] = "Par Time Alarm";
 // $AdvancedOptions::Variable[$i  ] = "$pref::parTimeAlarm";
 
+/**
+ * @param {AdvancedOptionsDlg} %this
+ */
 function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 

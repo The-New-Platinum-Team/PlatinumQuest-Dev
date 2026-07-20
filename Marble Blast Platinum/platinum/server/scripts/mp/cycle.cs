@@ -65,6 +65,9 @@ function cycle0Start() {
 	cycleCountdown("Voting ends", $Cycle::Time[0], cycle0Finish);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::cycle0Start(%this) {
 	%this.setHost(true);
 	%this.sendChat("Select a mission and press Preload to vote for it!");
@@ -72,11 +75,17 @@ function GameConnection::cycle0Start(%this) {
 	%this.cycle0Vote = "";
 }
 
+/**
+ * @param {Type} %client
+ */
 function cycle0Switch(%client, %file, %game, %difficulty, %forceMode) {
 	//Probably nothing
 	error(%client.namebase @ " switches to " @ %file);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function cycle0Vote(%client, %file) {
 	if (isScriptFile(%client.cycle0Vote)) {
 
@@ -165,6 +174,9 @@ function cycle1Start(%file) {
 	serverLoadMission(%file);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::cycle1Start(%this) {
 	%this.setHost(false);
 }
@@ -230,12 +242,21 @@ package CycleServer {
 		Parent::checkAllClientsLoaded();
 		cycle1CheckLoad();
 	}
+	/**
+	 * @param {GameConnection} %client
+	 */
 	function serverCmdSetMission(%client, %file, %game, %difficulty, %forceMode) {
 		cycle0Switch(%client, %file, %game, %difficulty, %forceMode);
 	}
+	/**
+	 * @param {GameConnection} %client
+	 */
 	function serverCmdLoadMission(%client, %file) {
 		cycle0Vote(%client, %file);
 	}
+	/**
+	 * @param {GameConnection} %client
+	 */
 	function GameConnection::finishConnect(%client) {
 		Parent::finishConnect(%client);
 
@@ -248,6 +269,9 @@ package CycleServer {
 		}
 	}
 
+	/**
+	 * @param {GameConnection} %client
+	 */
 	function serverCmdReady(%client, %ready) {
 		Parent::serverCmdReady(%client, %ready);
 		updateReadyUserList();
@@ -299,7 +323,12 @@ function cycleFormatCountdown(%time, %name) {
 	return %name @ " in " @ (%time / 1000) @ "...";
 }
 
+/**
+ * @param {MissionList} %ml
+ * @param {Array} %collection
+ */
 function collectMissions(%ml, %game, %difficulty, %collection) {
+	/** @type {Array} */
 	%list = %ml.getMissionList(%game, %difficulty);
 	if (!isObject(%list)) {
 		%ml.buildMissionList(%game, %difficulty);

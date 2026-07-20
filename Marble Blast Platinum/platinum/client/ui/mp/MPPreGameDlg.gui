@@ -390,6 +390,9 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::onWake(%this) {
 	commandToServer('SetSpectate', false);
 	$SpectateMode = false;
@@ -417,12 +420,18 @@ function MPPreGameDlg::onWake(%this) {
 	%this.overrideInterval = %this.interval(100, "updateActive");
 }
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::override(%this) {
 	%this.override = true;
 	%this.updateInfo();
 	cancelInterval(%this.overrideInterval);
 }
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::updateOverride(%this) {
 	%text = "Play";
 	if (!(%this.readyCount == %this.playerCount || %this.override)) {
@@ -432,6 +441,9 @@ function MPPreGameDlg::updateOverride(%this) {
 	MPPreGamePlay.setText(%text);
 }
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::updateActive(%this) {
 	%isHost = $Server::Hosting;
 	MPPreGamePlay.setVisible(%isHost);
@@ -449,6 +461,9 @@ function MPPreGameDlg::updateActive(%this) {
 	%this.updateOverride();
 }
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::ready(%this) {
 	%ready = MPPreGameReady.getValue();
 
@@ -457,10 +472,16 @@ function MPPreGameDlg::ready(%this) {
 }
 
 // spectate
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::spectate(%this) {
 	commandToServer('SetSpectate', MPPreGameSpectate.getValue());
 }
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::play(%this) {
 	// only let the host start the match!
 	if ($Server::Hosting) {
@@ -471,6 +492,9 @@ function MPPreGameDlg::play(%this) {
 	}
 }
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::leave(%this) {
 	if ($Server::Hosting && !%this.force) {
 		commandToServer('LobbyReturn');
@@ -481,6 +505,9 @@ function MPPreGameDlg::leave(%this) {
 }
 
 // update the userlist for the clients
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::update(%this) {
 	MPPreGameUserList.clear();
 
@@ -550,6 +577,9 @@ function MPPreGameDlg::update(%this) {
 	%this.updateInfo();
 }
 
+/**
+ * @param {MPPreGameDlg} %this
+ */
 function MPPreGameDlg::updateInfo(%this) {
 	//%this.mapName
 	//%this.serverName

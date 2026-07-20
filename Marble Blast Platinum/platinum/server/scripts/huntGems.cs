@@ -418,10 +418,18 @@ function getCenterGems(%groups, %exclude, %count) {
 	return %ret;
 }
 
+/**
+ * @param {Type} %a
+ * @param {Type} %b
+ */
 function SortHuntValue(%a, %b) {
 	return %a._huntDatablock.huntExtraValue > %b._huntDatablock.huntExtraValue;
 }
 
+/**
+ * @param {SceneObject} %center
+ * @returns {SimSet}
+ */
 function spawnGemGroupSet(%center, %exclude) {
 	RootGroup.add(%spawnSet = new SimSet(SpawnSet));
 
@@ -581,10 +589,17 @@ function spawnGemGroupSet(%center, %exclude) {
 	return %spawnSet;
 }
 
+/**
+ * @param {Type} %a
+ * @param {Type} %b
+ */
 function SortSpawnWeight(%a, %b) {
 	return %a._weight > %b._weight;
 }
 
+/**
+ * @param {GameBase} %gem
+ */
 function testSpawn(%gem) {
 	//Fake having nice things on the menu
 	if (getHuntSpawnType() > 1) {
@@ -644,6 +659,9 @@ function resetSpawnWeights() {
 	}
 }
 
+/**
+ * @param {ShapeBase} %gem
+ */
 function spawnGem(%gem) {
 	if (!isObject(%gem))
 		return false;
@@ -712,6 +730,9 @@ function getLeftBehindGems() {
 	}
 	return %score;
 }
+/**
+ * @param {Type} %gem
+ */
 function Hunt_CompetitiveMarkGemAsLeftbehind(%gem) {
 	%gem._leftBehind = true;
 	%gem._light.setSkinName("black");
@@ -806,6 +827,9 @@ $Hunt::Competitive_AutorespawnCurrentSpawnAction = -1;
 
 $Hunt::Competitive_LeftbehindsDisappearAfterOneSpawn = 0;
 
+/**
+ * @param {ShapeBase} %gem
+ */
 function unspawnGem(%gem, %nocheck) {
 	if (!isObject(%gem))
 		return;
@@ -860,6 +884,10 @@ function unspawnGem(%gem, %nocheck) {
 	cancel(%gem.predictionSchedule);
 }
 
+/**
+ * @param {Type} %gem
+ * @returns {Item}
+ */
 function spawnBackupGem(%gem) {
 	MissionCleanup.add(%obj = new Item() {
 		position = %gem.position;
@@ -879,6 +907,10 @@ function spawnBackupGem(%gem) {
 }
 
 //Gonna have both the Ping Grace Gem and Ping Grace Powerup code here for convenience's sake. ~Connie
+/**
+ * @param {Item} %powerup
+ * @returns {Item}
+ */
 function spawnBackupPowerUp(%powerup) {
 	MissionCleanup.add(%obj = new Item() {
 		position = %powerup.position;
@@ -896,6 +928,11 @@ function spawnBackupPowerUp(%powerup) {
 	return %obj;
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function BackupGem::onPickup(%this, %obj, %user, %amount) {
 	if (!%obj._finder[%user]) {
 		%obj._finder[%user] = true;
@@ -933,6 +970,9 @@ function showGems() {
 	}
 }
 
+/**
+ * @param {ShapeBase} %gem
+ */
 function addGemLight(%gem) {
 	if (!isObject(%gem))
 		return false;
@@ -959,6 +999,9 @@ function addGemLight(%gem) {
 	return %gem._light;
 }
 
+/**
+ * @param {Type} %gem
+ */
 function removeGemLight(%gem) {
 	if (!isObject(%gem))
 		return false;
@@ -971,6 +1014,9 @@ function removeGemLight(%gem) {
 
 // copied gem group function from emerald*
 // This was originally in emerald, moved to opal, then PR, then elite, now it's here! Hooray!
+/**
+ * @param {SimSet} %group
+ */
 function makeGemGroup(%group, %reset) {
 	//echo("Making gem group for group" SPC %group);
 	if (%reset) {
@@ -979,6 +1025,7 @@ function makeGemGroup(%group, %reset) {
 	// Get all gems out there are in the world
 	%count = %group.getCount();
 	for (%i = 0; %i < %count; %i++) {
+		/** @type {Item} */
 		%object = %group.getObject(%i);
 		%type = %object.getClassName();
 		if (%type $= "SimGroup") {
@@ -1015,6 +1062,9 @@ function updateGemCount() {
 }
 
 // Average all group element positions
+/**
+ * @param {SimSet} %this
+ */
 function SimSet::getPosition(%this) {
 	%center = "";
 	%elements = %this.getCount();

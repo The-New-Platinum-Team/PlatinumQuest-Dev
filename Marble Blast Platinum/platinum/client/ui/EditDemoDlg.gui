@@ -228,6 +228,9 @@ new GuiControl(EditDemoDlg) {
 //--- OBJECT WRITE END ---
 // AWESOME GUI
 
+/**
+ * @param {EditDemoDlg} %this
+ */
 function EditDemoDlg::open(%this, %recordfile, %callback) {
 	error("Opening EditDemoDlg");
 
@@ -242,6 +245,9 @@ function EditDemoDlg::open(%this, %recordfile, %callback) {
 	%this.callback = %callback;
 }
 
+/**
+ * @param {EditDemoDlg} %this
+ */
 function EditDemoDlg::dosave(%this) {
 	%author = EditEnterDemoAuthor.getValue();
 	%name = EditEnterDemoFileEdit.getValue();
@@ -288,6 +294,9 @@ function EditDemoDlg::dosave(%this) {
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {EditDemoDlg} %this
+ */
 function EditDemoDlg::cancel(%this) {
 	RootGui.popDialog(%this);
 }

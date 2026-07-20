@@ -162,10 +162,16 @@ if (!isObject(MigrationLookup)) {
 	}
 }
 
+/**
+ * @param {ScriptObject} %this
+ */
 function StringMap::has(%this, %key) {
 	return %this.getFieldValue(%key) !$= "";
 }
 
+/**
+ * @param {ScriptObject} %this
+ */
 function StringMap::get(%this, %key) {
 	return %this.getFieldValue(%key);
 }

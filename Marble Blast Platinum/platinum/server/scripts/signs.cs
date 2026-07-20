@@ -30,6 +30,10 @@
 // Sign base class
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Sign::onAdd(%this,%obj) {
 	if (%this.skin !$= "")
 		%obj.setSkinName(%this.skin);
@@ -175,6 +179,10 @@ datablock StaticShapeData(SignFinish) {
 	elasticity = 0.3;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function SignFinish::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 }
@@ -361,6 +369,10 @@ datablock StaticShapeData(RegularFinishlinesign) {
 	elasticity = 0.3;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function RegularFinishlinesign::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 }
@@ -381,6 +393,10 @@ datablock StaticShapeData(ConsFinishlinesign) {
 	fxEmitter[1] = "FinishEmitterBlack";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ConsFinishlinesign::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 }
@@ -401,6 +417,10 @@ datablock StaticShapeData(ConsFinishlinesignNocrane) {
 	fxEmitter[1] = "FinishEmitterBlack";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ConsFinishlinesignNocrane::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 }
@@ -468,6 +488,10 @@ datablock StaticShapeData(ArrowUp) {
 	useShaders = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ArrowUp::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 }
@@ -485,6 +509,10 @@ datablock StaticShapeData(ArrowSide) {
 	useShaders = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ArrowSide::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 }
@@ -502,6 +530,10 @@ datablock StaticShapeData(ArrowDown) {
 	useShaders = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ArrowDown::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 }

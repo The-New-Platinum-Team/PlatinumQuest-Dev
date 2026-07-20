@@ -64,6 +64,10 @@ datablock StaticShapeData(HelpBubble) {
 	customField[5, "default"] = "3";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function HelpBubble::onAdd(%this, %obj) {
 	if (!isObject(HelpBubbleGroup)) {
 		new SimGroup(HelpBubbleGroup);
@@ -96,6 +100,10 @@ function HelpBubble::onAdd(%this, %obj) {
 	%obj.playThread(0, "bubble", 1);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function HelpBubble::onMissionReset(%this, %obj) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i++) {
@@ -109,6 +117,11 @@ function HelpBubble::onMissionReset(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {Type} %bubble
+ * @param {Type} %marble
+ */
 function HelpBubble::onEnterRadius(%this, %bubble, %marble) {
 	echo("HelpBubble::onEnterRadius:" SPC %this SPC %bubble SPC %marble);
 	if (%marble._lastHelper !$= %bubble) {
@@ -122,6 +135,11 @@ function HelpBubble::onEnterRadius(%this, %bubble, %marble) {
 	%marble.client.addBubbleLine(%bubble.text, %bubble.extended, 0, true);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {Type} %bubble
+ * @param {SimObject} %marble
+ */
 function HelpBubble::onLeaveRadius(%this, %bubble, %marble) {
 	echo("HelpBubble::onLeaveRadius:" SPC %this SPC %bubble SPC %marble);
 	if (%bubble.persistTime > 0) {

@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_2d::onLoad(%this) {
 	%this.registerCallback("onSpawnPlayer");
 	%this.registerCallback("onRespawnPlayer");
@@ -30,10 +33,16 @@ function Mode_2d::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 
+/**
+ * @param {Mode_2d} %this
+ */
 function Mode_2d::onMissionLoaded(%this) {
 	%this.detectCamera();
 }
 
+/**
+ * @param {Mode_2d} %this
+ */
 function Mode_2d::detectCamera(%this) {
 	echo("[Mode 2d]: MissionInfo " @ MissionInfo.getId() @ " camera plane is " @ MissionInfo.cameraPlane);
 	if (MissionInfo.cameraPlane $= "") {
@@ -56,6 +65,9 @@ function Mode_2d::detectCamera(%this) {
 	}
 }
 
+/**
+ * @param {Mode_2d} %this
+ */
 function Mode_2d::onMissionEnded(%this) {
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);
@@ -65,6 +77,10 @@ function Mode_2d::onMissionEnded(%this) {
 	}
 	%this.targetYaw = "";
 }
+/**
+ * @param {Mode_2d} %this
+ * @param {Marble} %object
+ */
 function Mode_2d::onSpawnPlayer(%this, %object) {
 	%this.detectCamera();
 
@@ -75,6 +91,10 @@ function Mode_2d::onSpawnPlayer(%this, %object) {
 		%object.client.start2D(%this.targetYaw, MissionInfo.invertCameraPlane, MissionInfo.initialCameraDistance);
 	}
 }
+/**
+ * @param {Mode_2d} %this
+ * @param {Marble} %object
+ */
 function Mode_2d::onRespawnPlayer(%this, %object) {
 	%this.detectCamera();
 
@@ -88,12 +108,18 @@ function Mode_2d::onRespawnPlayer(%this, %object) {
 
 //make FOV 100, make auto FOV changer based on res
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::start2D(%this, %yaw, %inverted, %cameraDistance) {
 	%this.player.setCameraYaw(%yaw);
 	%this.active2D = true; //Because fields can't start with a number
 	commandToClient(%this, 'Start2D', %yaw, %inverted, %cameraDistance);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::stop2D(%this, %resetCamera) {
 	%this.active2D = false;
 	commandToClient(%this, 'Stop2D', %resetCamera);
@@ -136,6 +162,10 @@ datablock TriggerData(TDTrigger) {
 	customField[5, "default"] = "NoChange";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function TDTrigger::onAdd(%this, %obj) {
 	if (%obj.Plane $= "")              //Plane to lock to 2d. Uses xz if left blank.
 		%obj.Plane = "xz";              //Also accepts degree values.
@@ -157,6 +187,11 @@ function TDTrigger::onAdd(%this, %obj) {
 		
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function TDTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	//Figure out what the camera yaw should be
 	switch$ (%trigger.plane) {
@@ -179,6 +214,11 @@ function TDTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%obj.client.start2D(%targetYaw, %trigger.InvertDirection, %trigger.CamDistance $= "NoChange" ? "" : %trigger.CamDistance);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function TDTrigger::onLeaveTrigger(%this,%trigger,%obj) {
 	if (%trigger.KeepEffectOnLeave)
 		return;
@@ -192,6 +232,11 @@ datablock TriggerData(StopTDTrigger) {
 	tickPeriodMS = 100;
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function StopTDTrigger::onEnterTrigger(%this,%trigger,%obj) {
 	%obj.client.stop2D(true);
 }

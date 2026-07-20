@@ -154,7 +154,7 @@ new GuiChunkedBitmapCtrl(LBUserDlg) {
 					helpTag = "0";
 					enumerate = "0";
 					resizeCell = "1";
-					columns = "0";
+					columns = "1";
 					fitParentWidth = "1";
 					clipColumnText = "0";
 				};
@@ -294,6 +294,9 @@ new GuiChunkedBitmapCtrl(LBUserDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::show(%this, %user) {
 	%this.user = trim(stripCols(%user));
 	RootGui.pushDialog(%this);
@@ -304,6 +307,9 @@ function LBUserDlg::show(%this, %user) {
 	LBUserBlock.setActive(!$LB::Guest);
 }
 
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::onWake(%this) {
 	%this.updateBlockFriend();
 	LBUserStatsTitle.setText("<font:24><just:center>User Information");
@@ -317,6 +323,9 @@ function LBUserDlg::onWake(%this) {
 }
 
 // decide to activate or deactive the button
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::updateBlockFriend(%this) {
 	%friend = false;
 	for (%i = 0; %i < $LB::FriendListCount; %i ++) {
@@ -341,18 +350,27 @@ function LBUserDlg::updateBlockFriend(%this) {
 }
 
 // view achievements
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::showAchievements(%this) {
 	Canvas.popDialog(LBUserDlg);
 	LBAchievementsDlg.show(%this.user);
 }
 
 // view statistics
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::showStatistics(%this) {
 	Canvas.popDialog(LBUserDlg);
 	LBStatsDlg.show(%this.user);
 }
 
 // Block the person
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::blockUser(%this) {
 	%block = false;
 	for (%i = 0; %i < $LB::BlockListCount; %i ++) {
@@ -388,6 +406,9 @@ function LBUserDlg::blockUser(%this) {
 }
 
 // add a friend
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::addFriend(%this) {
 	%friend = false;
 	for (%i = 0; %i < $LB::FriendListCount; %i ++) {
@@ -423,6 +444,9 @@ function LBUserDlg::addFriend(%this) {
 }
 
 // when a friend is selected
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::selectFriend(%this) {
 	cancel(%this.dblreset);
 	if (%this.dbl) {
@@ -435,11 +459,17 @@ function LBUserDlg::selectFriend(%this) {
 	}
 }
 
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::resetDbl(%this) {
 	%this.dbl = false;
 	cancel(%this.dblreset);
 }
 
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::updateInfo(%this) {
 	%stats = %this.playerProfileInfo[%this.user];
 
@@ -546,15 +576,24 @@ function LBUserDlg::updateInfo(%this) {
 	}
 }
 
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::onPlayerAvatarUpdate(%this) {
 	%this.updateInfo();
 }
 
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::onPlayerProfileInfoUpdate(%this, %parsed) {
 	%this.playerProfileInfo[%parsed.username] = %parsed;
 	%this.updateInfo();
 }
 
+/**
+ * @param {LBUserDlg} %this
+ */
 function LBUserDlg::loadInfo(%this) {
 	%stats = %this.playerProfileInfo[%this.user];
 	if (!isFile("vfs://avatars/avatar" @ %stats.id @ ".png")) {

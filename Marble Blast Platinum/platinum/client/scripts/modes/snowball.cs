@@ -35,10 +35,16 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_snowball) {
 	teams = 1;
 });
 
+/**
+ * @param {ModeInfo} %this
+ */
 function ModeInfo_snowball::isAvailable(%this) {
 	return !!$LB::WinterMode;
 }
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_snowball::onLoad(%this) {
 	%this.registerCallback("onFrameAdvance");
 	%this.registerCallback("updatePlayMission");
@@ -47,10 +53,16 @@ function ClientMode_snowball::onLoad(%this) {
 	%this.registerCallback("onDeactivate");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_snowball} %this
+ */
 function ClientMode_snowball::onFrameAdvance(%this, %timeDelta) {
 	extrapolateSnowBalls();
 }
 
+/**
+ * @param {ClientMode_snowball} %this
+ */
 function ClientMode_snowball::onActivate(%this) {
 	if ($Server::Dedicated) {
 		//TFW dedicated servers call client code
@@ -65,6 +77,9 @@ function snowballTexturePackActivate() {
 	reloadTexturePackFields();
 }
 
+/**
+ * @param {ClientMode_snowball} %this
+ */
 function ClientMode_snowball::onDeactivate(%this) {
 	if ($Server::Dedicated) {
 		//TFW dedicated servers call client code
@@ -79,12 +94,18 @@ function snowballTexturePackDeactivate() {
 	reloadTexturePackFields();
 }
 
+/**
+ * @param {ClientMode_snowball} %this
+ */
 function ClientMode_snowball::getEggIcon(%this, %found) {
 	%egg = "platinum/data/texture_packs/snowball/egg_snowglobe_";
 	%egg = %egg @ (%found ? "get_ol" : "notfound_ol");
 	return %egg;
 }
 
+/**
+ * @param {ClientMode_snowball} %this
+ */
 function ClientMode_snowball::updatePlayMission(%this, %location) {
 	switch$ (%location) {
 	case "sp":
@@ -225,6 +246,9 @@ function extrapolateSnowBalls() {
 }
 
 ///@server called whenever a packet is received for this object
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::onServerTransformUpdate(%this) {
 	if (getRealTime() - %this.lastLerp < ServerConnection.getPing() / 2)
 		return;

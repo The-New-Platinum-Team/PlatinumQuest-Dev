@@ -250,6 +250,9 @@ new GuiControl(NewGuiDialog) {
 	};
 };
 
+/**
+ * @param {Type} %this
+ */
 function GuiEditorGui::onSleep(%this) {
 }
 
@@ -308,6 +311,9 @@ function GuiEditorSaveGui() {
 	getSaveFilename("*.gui", "GuiEditorSaveGuiCallback", %name);
 }
 
+/**
+ * @param {Type} %name
+ */
 function GuiEditorSaveGuiCallback(%name) {
 	%obj = GuiEditorContent.getObject(0);
 	%obj.onGuiEditorPreSave();
@@ -397,16 +403,25 @@ function GuiEditorSaveGuiCallback(%name) {
 	MessageBoxOK("Saved", "Saved GUI to '" @ %name @ "'.");
 }
 
+/**
+ * @param {Type} %this
+ */
 function GuiControl::onGuiEditorPreSave(%this) {
 	%this.tooltipPos = "";
 	%this.showingTooltip = "";
 }
 
+/**
+ * @param {Type} %this
+ */
 function GuiControl::onGuiEditorPostSave(%this) {
 
 }
 
 //----------------------------------------
+/**
+ * @param {Type} %val
+ */
 function GuiEdit(%val) {
 	if (%val != 0)
 		return;
@@ -442,6 +457,9 @@ function GuiEdit(%val) {
 $Gui::MenuHeight = 16;
 
 //----------------------------------------
+/**
+ * @param {GuiControl} %content
+ */
 function GuiEditorOpen(%content) {
 	if (!isObject(%content))
 		return;
@@ -636,6 +654,9 @@ function GuiEditorOpen(%content) {
 	GuiEditorMenu.addMenuItem("Move", "Space Vertically", 19, "Ctrl 7");
 }
 
+/**
+ * @param {GuiControl} %grp
+ */
 function sortByAlpha(%grp) {
 	%ngrp = new SimGroup(SortGroup);
 	while (%grp.getCount())
@@ -652,6 +673,9 @@ function sortByAlpha(%grp) {
 	%ngrp.delete();
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::onMenuSelect(%this, %menuId, %menu) {
 	if (%menu $= "File")
 		%this.setMenuItemEnable("File", "Save", true);
@@ -659,6 +683,9 @@ function GuiEditorMenu::onMenuSelect(%this, %menuId, %menu) {
 		%this.setMenuItemEnable("Edit", "Paste", isFile($Gui::clipboardFile));
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::onMenuItemSelect(%this, %menuId, %menu, %itemId, %item) {
 	switch$ (%menu) {
 	case "File":
@@ -681,6 +708,9 @@ function GuiEditorMenu::onMenuItemSelect(%this, %menuId, %menu, %itemId, %item) 
 	}
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::fileMenu(%this, %itemId, %item) {
 	switch$ (%item) {
 	case "New...":
@@ -703,6 +733,9 @@ function GuiEditorMenu::fileMenu(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::editMenu(%this, %itemId, %item) {
 	switch$ (%item) {
 	case "Copy":
@@ -719,6 +752,9 @@ function GuiEditorMenu::editMenu(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::sizeMenu(%this, %itemId, %item) {
 	// " 640 x 480"
 	%width  = getWord(%item, 1);
@@ -734,6 +770,9 @@ function GuiEditorMenu::sizeMenu(%this, %itemId, %item) {
 	$GuiEditorPrevSize = %width SPC %height;
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::moveMenu(%this, %itemId, %item) {
 	%selected = $GuiEditorSelected;
 	echo("Item:" SPC %item SPC %itemID SPC "obj" SPC $GuiEditorSelected);
@@ -825,6 +864,9 @@ function GuiEditorMenu::moveMenu(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::contentMenu(%this, %itemId, %item) {
 	if ($GuiEditorDirty) {
 		MessageBoxYesNo("Discard Changes?", "Your Gui has unsaved changes! Click yes to discard changes and switch to" SPC %item, "GuiEditorOpen(" @ %item @ ");", "");
@@ -834,6 +876,9 @@ function GuiEditorMenu::contentMenu(%this, %itemId, %item) {
 	GuiEditorOpen(%item);
 }
 
+/**
+ * @param {GuiEditorMenu} %this
+ */
 function GuiEditorMenu::controlsMenu(%this, %itemId, %item) {
 	GuiEditorCreateObject(%item);
 }
@@ -907,6 +952,10 @@ function GuiEditorPaste() {
 
 //----------------------------------------
 
+/**
+ * @param {Type} %type
+ * @param {Type} %profile
+ */
 function GuiEditorWrapControl(%type, %profile) {
 	if (isObject($GuiEditorSelected)) {
 		%obj = $GuiEditorSelected;
@@ -935,6 +984,9 @@ function GuiEditorFinishOpen(%filename) {
 }
 
 //----------------------------------------
+/**
+ * @param {GuiEditorContentList} %this
+ */
 function GuiEditorContentList::onSelect(%this, %id) {
 	GuiEditorOpen(%id);
 }
@@ -947,6 +999,10 @@ function GuiEditorCreateObject(%object) {
 }
 
 //----------------------------------------
+/**
+ * @param {GuiEditorTreeView} %this
+ * @param {GuiControl} %obj
+ */
 function GuiEditorTreeView::onSelect(%this, %obj, %rightMouse) {
 	if (%rightMouse)
 		GuiEditor.setCurrentAddSet(%obj);
@@ -968,6 +1024,10 @@ function GuiEditorInspectApply() {
 function GuiControl::onInspectApply() {}
 
 //----------------------------------------
+/**
+ * @param {GuiEditor} %this
+ * @param {GuiControl} %ctrl
+ */
 function GuiEditor::onSelect(%this, %ctrl) {
 	$GuiEditorDirty = true;
 	$GuiEditorSelected = %ctrl;
@@ -996,9 +1056,18 @@ function GuiEditorAddToObj() {
 
 GlobalActionMap.bind(keyboard, "f10", GuiEdit);
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::onGuiEdit(%this) {}
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::onGuiEditDone(%this) {}
 
+/**
+ * @param {SimGroup} %this
+ */
 function SimGroup::containsval(%this, %item) {
 	for (%i = 0; %i < %this.getCount(); %i ++) {
 		if (%this.getObject(%i).value $= %item.value)

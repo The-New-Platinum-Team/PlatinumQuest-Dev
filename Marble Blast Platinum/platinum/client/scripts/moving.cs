@@ -37,6 +37,9 @@ if (!isObject(ClientMovingObjects)) {
 	RootGroup.add(ClientMovingObjects);
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function moveOnPath(%obj) {
 	echo("moveOnPath() :: Moving " @ %obj);
 	%id = %obj.getSyncId();
@@ -56,6 +59,9 @@ function moveOnPath(%obj) {
 	}
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function cancelMoving(%obj) {
 	echo("cancelMoving() :: Stopping " @ %obj);
 	%id = %obj.getSyncId();
@@ -69,6 +75,7 @@ function updateClientMovingObjects(%delta) {
 	%count = ClientMovingObjects.getSize();
 	for (%i = 0; %i < %count; %i++) {
 		%id = ClientMovingObjects.getEntry(%i);
+		/** @type {SceneObject} */
 		%obj = getClientSyncObject(%id);
 
 		if (!isObject(%obj)) {
@@ -80,7 +87,9 @@ function updateClientMovingObjects(%delta) {
 		if ($Game::State $= "End" && %obj.StopWhenFinished)
 			continue;
 
+		/** @type {SceneObject} */
 		%node = getClientSyncObject(%obj._pathSyncId);
+		/** @type {SceneObject} */
 		%prev = getClientSyncObject(%obj._pathPrevSyncId);
 
 		//Nothing to travel on, bail
@@ -136,6 +145,9 @@ if (!isObject(ClientParentedObjects)) {
 	RootGroup.add(ClientParentedObjects);
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function beginParenting(%obj, %parentId) {
 	%objId = %obj.getSyncId();
 
@@ -145,10 +157,16 @@ function beginParenting(%obj, %parentId) {
 	}
 }
 
+/**
+ * @param {SceneObject} %objId
+ */
 function clientCmdStopParenting(%objId) {
 	ClientParentedObjects.removeMatching(%objId);
 }
 
+/**
+ * @param {SceneObject} %objId
+ */
 function stopParenting(%objId) {
 	ClientParentedObjects.removeMatching(%objId);
 }
@@ -209,6 +227,10 @@ function stopParenting(%objId) {
 //0 = full bounce, 1 = go straight through. This value made the least salt.
 $shardBounce = 0.2;
 
+/**
+ * @param {ShapeBase} %this
+ * @param {Marble} %marble
+ */
 function SceneObject::getSurfaceVelocity(%this, %marble, %point, %distance) {
 	return SceneObjectgetSurfaceVelocity(%this, %marble, %point, %distance);
 	if (%this.getClassName() $= "StaticShape"

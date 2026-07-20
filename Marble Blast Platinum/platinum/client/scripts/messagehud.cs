@@ -24,6 +24,9 @@
 // Enter Chat Message Hud
 //----------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::positionMessageHud(%this) {
 	//Sizing variables
 	%w             = getWord(%this.getExtent(), 0);
@@ -104,6 +107,9 @@ function PlayGui::positionMessageHud(%this) {
 	%this.updateMessageHud();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::updateMessageHud(%this) {
 	showSpectatorMenu($SpectateMode);
 
@@ -228,6 +234,9 @@ function LBscrollChat() {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::sendChat(%this) {
 	%message = trim(PG_LBChatEntry.getValue());
 	devecho("Send chat: " @ %message);
@@ -249,6 +258,9 @@ function PlayGui::sendChat(%this) {
 	disableChatHUD();
 }
 
+/**
+ * @param {PlayGui} %this
+ */
 function PlayGui::chatUpdate(%this) {
 	%message = PG_LBChatEntry.getValue();
 

@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_laps::onLoad(%this) {
 	%this.registerCallback("onBeforeMissionLoad");
 	%this.registerCallback("onResetStats");
@@ -32,12 +35,22 @@ function Mode_laps::onLoad(%this) {
 	%this.registerCallback("getCheckpointPos");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_laps} %this
+ */
 function Mode_laps::onBeforeMissionLoad(%this) {
 	$Laps::LastCheckpointNumber = 0;
 }
+/**
+ * @param {Mode_laps} %this
+ * @param {Type} %object
+ */
 function Mode_laps::onResetStats(%this, %object) {
 	%object.client.resetLaps();
 }
+/**
+ * @param {Mode_laps} %this
+ */
 function Mode_laps::onMissionLoaded(%this) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -46,6 +59,9 @@ function Mode_laps::onMissionLoaded(%this) {
 	}
 	commandToAll('SetLapsTotal', MissionInfo.lapsNumber);
 }
+/**
+ * @param {Mode_laps} %this
+ */
 function Mode_laps::onMissionReset(%this) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -54,12 +70,20 @@ function Mode_laps::onMissionReset(%this) {
 	}
 	commandToAll('SetLapsTotal', MissionInfo.lapsNumber);
 }
+/**
+ * @param {Mode_laps} %this
+ * @param {Type} %object
+ */
 function Mode_laps::onActivateCheckpoint(%this, %object) {
 	%object.client.checkpointLapsCPCheck = %object.client.lapsCPCheck;
 	%object.client.checkpointLapsCounter = %object.client.lapsCounter;
 	%object.client.checkpointLapsHitLastCP = %object.client.lapsHitLastCP;
 	%object.client.checkpointLapsStartTime = %object.client.lapsStartTime;
 }
+/**
+ * @param {Mode_laps} %this
+ * @param {Type} %object
+ */
 function Mode_laps::onRespawnOnCheckpoint(%this, %object) {
 	%object.client.lapsCPCheck = %object.client.checkpointLapsCPCheck;
 	%object.client.lapsCounter = %object.client.checkpointLapsCounter;
@@ -67,6 +91,10 @@ function Mode_laps::onRespawnOnCheckpoint(%this, %object) {
 	%object.client.lapsStartTime = %object.client.checkpointLapsStartTime;
 	commandToClient(%object.client, 'SetLapsComplete', %object.client.lapsCounter);
 }
+/**
+ * @param {Mode_laps} %this
+ * @param {Type} %object
+ */
 function Mode_laps::getCheckpointPos(%this, %object) {
 	//Don't override a checkpoint if we have one
 	if (MissionInfo.noLapsCheckpoint)
@@ -137,6 +165,9 @@ datablock TriggerData(LapsCheckpoint) {
 	customField[4, "default"] = "";
 };
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::resetLaps(%this) {
 	%this.lapsCounter = 1;
 	%this.lapsLastTime = 0;
@@ -156,6 +187,9 @@ function GameConnection::resetLaps(%this) {
 	commandToClient(%this, 'SetLapsComplete', 1);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onNextLap(%this) {
 	if (%this.lapsCounter >= MissionInfo.lapsNumber) {
 		// If we have not collected all of the gems, you can't finish you fool!
@@ -186,6 +220,10 @@ function GameConnection::onNextLap(%this) {
 	return true;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Type} %obj
+ */
 function LapsCounterTrigger::onEnterTrigger(%this, %trigger, %obj) {
 	if (%obj.client.lapsHitLastCP == 1) {
 		// Increment Lap Counter and reset Checkpoint number checker
@@ -206,6 +244,11 @@ function LapsCounterTrigger::onEnterTrigger(%this, %trigger, %obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {SimObject} %trigger
+ * @param {Type} %obj
+ */
 function LapsCheckpoint::onEnterTrigger(%this, %trigger, %obj) {
 	// Find the last Checkpoint in the lap
 	%highest = $Laps::LastCheckpointNumber;
@@ -239,6 +282,10 @@ function LapsCheckpoint::onEnterTrigger(%this, %trigger, %obj) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {Type} %trigger
+ */
 function GameConnection::activateLapsCheckpoint(%this, %trigger) {
 	if (%this.isOOB && %trigger.disableOOB)
 		return;
@@ -268,6 +315,9 @@ function GameConnection::activateLapsCheckpoint(%this, %trigger) {
 	devecho("[Mode laps]: Activate laps checkpoint");
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function LapsCheckpoint::checkGroup(%this, %obj) {
 	//Make sure this goes into the laps group
 	if (!isObject(LapsGroup)) {
@@ -276,6 +326,10 @@ function LapsCheckpoint::checkGroup(%this, %obj) {
 	LapsGroup.add(%obj);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function LapsCheckpoint::onAdd(%this, %obj) {
 	//Need to schedule this because the group could be created after the object
 	%this.onNextFrame(checkGroup, %obj);
@@ -301,10 +355,17 @@ function LapsCheckpoint::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function LapsCheckpoint::onMissionReset(%this, %obj) {
 	$Laps::LastCheckpointNumber = max($Laps::LastCheckpointNumber, %obj.checkpointNumber);
 }
 
+/**
+ * @param {TriggerData} %this
+ */
 function LapsCounterTrigger::checkGroup(%this, %obj) {
 	//Make sure this goes into the laps group
 	if (!isObject(LapsGroup)) {
@@ -313,6 +374,10 @@ function LapsCounterTrigger::checkGroup(%this, %obj) {
 	LapsGroup.add(%obj);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function LapsCounterTrigger::onAdd(%this, %obj) {
 	//Need to schedule this because the group could be created after the object
 	%this.onNextFrame(checkGroup, %obj);

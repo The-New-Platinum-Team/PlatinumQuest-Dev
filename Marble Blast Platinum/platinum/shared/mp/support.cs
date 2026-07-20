@@ -31,9 +31,13 @@ function commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7,
 		commandToClient(ClientGroup.getObject(%i), %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
 }
 
+/**
+ * @param {GameConnection} %exception
+ */
 function commandToAllExcept(%exception, %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
+		/** @type {GameConnection} */
 		%client = ClientGroup.getObject(%i);
 
 		if (%client == %exception)
@@ -43,6 +47,9 @@ function commandToAllExcept(%exception, %command, %arg1, %arg2, %arg3, %arg4, %a
 	}
 }
 
+/**
+ * @param {SimGroup} %team
+ */
 function commandToTeam(%team, %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10) {
 	if (!$MP::TeamMode)
 		return commandToAll(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10);
@@ -56,6 +63,9 @@ function commandToTeam(%team, %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6
 }
 
 // commands to a client by ping
+/**
+ * @param {GameConnection} %client
+ */
 function commandToClientByPing(%client, %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10) {
 	%ping = %client.getPing();
 
@@ -72,6 +82,7 @@ function commandToClientByPing(%client, %command, %arg1, %arg2, %arg3, %arg4, %a
 function commandToAllByPing(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10)  {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
+		/** @type {GameConnection} */
 		%client = ClientGroup.getObject(%i);
 		%ping = %client.getPing();
 
@@ -87,6 +98,9 @@ function commandToAllByPing(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, 
 
 // command to all by ping, will not send the commandToClient until the ping time.
 // Exception: do not send to the exception.
+/**
+ * @param {GameConnection} %exception
+ */
 function commandToAllExceptByPing(%exception, %command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7, %arg8, %arg9, %arg10)  {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -122,6 +136,9 @@ function commandToJeff(%command, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6, %arg7
 //-----------------------------------------------------------------------------
 
 // Server end
+/**
+ * @param {GameConnection} %client
+ */
 function commandToClientLong(%client, %cmd, %arg, %arg1, %arg2, %arg3, %arg4, %arg5, %arg6) {
 	%parts = mCeil(strlen(%arg) / 255);
 	if (%parts == 1) {
@@ -265,12 +282,17 @@ function VectorRound(%vec, %places) {
 	return %vec;
 }
 
+/**
+ * @param {GameBaseData} %datablock
+ * @param {SimSet} %grp
+ */
 function getGemAtPosition(%position, %datablock, %grp) {
 	%set = findObjectsAtPosition(%position, %grp);
 	%set.onNextFrame("delete"); //Memory mgmt
 
 	//We might have more than one gem
 	for (%i = 0; %i < %set.getSize(); %i ++) {
+		/** @type {GameBase} */
 		%obj = %set.getEntry(%i);
 		//If it's correct
 		if (%obj.getClassName() $= "Item" && %obj.getDataBlock().className $= "Gem" && %obj.position $= %position && %obj.getDataBlock().getName() $= %datablock)
@@ -279,6 +301,11 @@ function getGemAtPosition(%position, %datablock, %grp) {
 	return -1;
 }
 
+/**
+ * @param {SimGroup} %grp
+ * @param {Array} %array
+ * @returns {Array}
+ */
 function findObjectsAtPosition(%position, %grp, %array) {
 	if (%array $= "")
 		%array = Array(FindAtPositionArray);
@@ -300,6 +327,10 @@ function findObjectsAtPosition(%position, %grp, %array) {
 	return %array;
 }
 
+/**
+ * @param {SimGroup} %grp
+ * @param {Array} %array
+ */
 function findObjectsNearPosition(%position, %distance, %grp, %array) {
 	if (%array $= "")
 		%array = Array(FindNearPositionArray);
@@ -320,6 +351,9 @@ function findObjectsNearPosition(%position, %distance, %grp, %array) {
 	return %array;
 }
 
+/**
+ * @returns {Sky}
+ */
 function getCurrentSky() {
 	%count = ServerConnection.getCount();
 	for (%i = 0; %i < %count; %i ++) {

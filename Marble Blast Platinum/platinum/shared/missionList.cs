@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @returns {MissionList}
+ */
 function getMissionList(%type) {
 	if (!isObject(MissionListGroup))
 		RootGroup.add(new SimGroup(MissionListGroup));
@@ -73,6 +76,9 @@ function getMissionList(%type) {
 
 /// Get a newline-separated list of all available Games
 /// @return List of Games in the format (Id TAB DisplayName)
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getGameList(%this) {
 	error(%this.class @ "::getGameList unimplemented!");
 	return "NA" TAB "N/A";
@@ -81,6 +87,9 @@ function MissionList::getGameList(%this) {
 /// Get a newline-separated list of all available Difficulties for a given Game
 /// @param game Id of game to list
 /// @return List of Difficulties in the format (Id TAB DisplayName)
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getDifficultyList(%this, %game) {
 	error(%this.class @ "::getDifficultyList unimplemented!");
 	return "NA" TAB "N/A";
@@ -90,6 +99,9 @@ function MissionList::getDifficultyList(%this, %game) {
 /// @param game Id of game
 /// @param difficulty Id of difficulty
 /// @return True if that game/difficulty exists
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::hasMissionList(%this, %game, %difficulty) {
 	error(%this.class @ "::hasMissionList unimplemented!");
 	return false;
@@ -101,6 +113,9 @@ function MissionList::hasMissionList(%this, %game, %difficulty) {
 /// entries are MissionInfo ScriptObjects.
 /// @param game Id of game to build
 /// @param difficulty Id of difficulty to build
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::buildMissionList(%this, %game, %difficulty) {
 	error(%this.class @ "::buildMissionList unimplemented!");
 	%list = %this.getMissionList(%game, %difficulty);
@@ -111,6 +126,9 @@ function MissionList::buildMissionList(%this, %game, %difficulty) {
 /// @param game Id of game
 /// @param difficulty Id of difficulty
 /// @return Path of directory
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getMissionDirectory(%this, %game, %difficulty) {
 	error(%this.class @ "::getMissionDirectory unimplemented!");
 	return "platinum/data/missions/custom/";
@@ -120,6 +138,9 @@ function MissionList::getMissionDirectory(%this, %game, %difficulty) {
 /// @param game Id of game
 /// @param difficulty Id of difficulty
 /// @return Path of directory
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getBitmapDirectory(%this, %game, %difficulty) {
 	error(%this.class @ "::getBitmapDirectory unimplemented!");
 	return "platinum/data/missions/custom/";
@@ -129,6 +150,9 @@ function MissionList::getBitmapDirectory(%this, %game, %difficulty) {
 /// @param game Id of game
 /// @param difficulty Id of difficulty
 /// @return Path of directory
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getPreviewDirectory(%this, %game, %difficulty) {
 	error(%this.class @ "::getPreviewDirectory unimplemented!");
 	return "platinum/data/previews/custom/";
@@ -139,6 +163,9 @@ function MissionList::getPreviewDirectory(%this, %game, %difficulty) {
 /// @param game Id of game
 /// @param difficulty Id of difficulty
 /// @return Space separated list of game modes
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getGameMode(%this, %game, %difficulty) {
 	error(%this.class @ "::getGameMode unimplemented!");
 	return "";
@@ -148,6 +175,9 @@ function MissionList::getGameMode(%this, %game, %difficulty) {
 /// them should be run.
 /// @param game Id of game
 /// @return True if achievements should be checked
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::shouldCheckAchievements(%this, %game) {
 	error(%this.class @ "::shouldCheckAchievements unimplemented!");
 	return false;
@@ -158,6 +188,9 @@ function MissionList::shouldCheckAchievements(%this, %game) {
 //-----------------------------------------------------------------------------
 
 //Get the mission list object's name.
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getMissionList(%this, %game, %difficulty) {
 	if (%game $= "") {
 		error("getMissionList: blank game");
@@ -170,6 +203,9 @@ function MissionList::getMissionList(%this, %game, %difficulty) {
 	return "ML_" @ %this.getId() @ "_" @ alphaNum(%game) @ "_" @ alphaNum(%difficulty);
 }
 
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getGameName(%this, %search) {
 	%games = %this.getGameList();
 	%gcount = getRecordCount(%games);
@@ -184,6 +220,9 @@ function MissionList::getGameName(%this, %search) {
 	return "";
 }
 
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getDifficultyName(%this, %game, %search) {
 	%difficulties = %this.getDifficultyList(%game);
 	%dcount = getRecordCount(%difficulties);
@@ -198,6 +237,9 @@ function MissionList::getDifficultyName(%this, %game, %search) {
 	return "";
 }
 
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getMission(%this, %game, %difficulty, %file) {
 	if (%game $= "") {
 		error("getMission: blank game");
@@ -208,6 +250,7 @@ function MissionList::getMission(%this, %game, %difficulty, %file) {
 		%difficulty = $MissionType;
 	}
 
+	/** @type {Array} */
 	%list = %this.getMissionList(%game, %difficulty);
 	if (!isObject(%list)) {
 		%this.buildMissionList(%game, %difficulty);
@@ -222,6 +265,9 @@ function MissionList::getMission(%this, %game, %difficulty, %file) {
 	return -1;
 }
 
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getMissionPreview(%this, %game, %difficulty, %mission) {
 	%file = %mission.file;
 	if (%mission.previews_directory !$= "") {
@@ -238,10 +284,24 @@ function MissionList::getMissionPreview(%this, %game, %difficulty, %mission) {
 	return %prev;
 }
 
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::getDifficultyTreeNode(%this, %game, %path) {
 	return TreeGet(%this.getDifficultyTree(%game), %path);
 }
 
+/**
+ * @param {MissionList} %this
+ */
+function MissionList::getDifficultytree(%this, %game) {
+
+}
+
+/**
+ * @param {MissionList} %this
+ * @param {Array} %array
+ */
 function MissionList::buildDifficultyTreeRecurse(%this, %root, %array) {
 	%count = %array.getSize();
 	//This will have missions if the last item is not an array
@@ -258,6 +318,9 @@ function MissionList::buildDifficultyTreeRecurse(%this, %root, %array) {
 	}
 }
 
+/**
+ * @param {MissionList} %this
+ */
 function MissionList::dumpMissions(%this) {
 	%games = %this.getGameList();
 	%gcount = getRecordCount(%games);
@@ -274,6 +337,7 @@ function MissionList::dumpMissions(%this) {
 			echo("   Difficulty " @ %difficulty @ ":");
 			%this.buildMissionList(%gameName, %difficultyName);
 
+			/** @type {Array} */
 			%missions = %this.getMissionList(%gameName, %difficultyName);
 			for (%k = 0; %k < %missions.getSize(); %k ++) {
 				%mission = %missions.getEntry(%k);
@@ -287,6 +351,9 @@ function MissionList::dumpMissions(%this) {
 // Strictly offline SP mission list
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::loadGames(%this) {
 	%this.games = Array(OfflineMissionListGames);
 
@@ -328,14 +395,24 @@ function OfflineMissionList::loadGames(%this) {
 	}
 }
 
+/**
+ * @param {Type} %a
+ * @param {Type} %b
+ */
 function compareMissionListGame(%a, %b) {
 	return %a.order < %b.order;
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::getGameList(%this) {
 	return %this.gameList;
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::getDifficultyList(%this, %game) {
 	if (%game $= "") {
 		error("getDifficultyList: blank game");
@@ -352,10 +429,16 @@ function OfflineMissionList::getDifficultyList(%this, %game) {
 	return %this.difficultyList[%game];
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::shouldUseDifficultyTree(%this, %game) {
 	return %game $= "Custom";
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::getDifficultyTree(%this, %game) {
 	if (!isObject(%this.customDifficultyTree)) {
 		return %this.buildCustomDifficultyTree();
@@ -363,6 +446,9 @@ function OfflineMissionList::getDifficultyTree(%this, %game) {
 	return %this.customDifficultyTree;
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::buildCustomDifficultyTree(%this) {
 	%difficulties = TreeNode();
 
@@ -437,6 +523,9 @@ function OfflineMissionList::buildCustomDifficultyTree(%this) {
 	return %this.customDifficultyTree;
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::getMissionDirectory(%this, %game, %difficulty) {
 	if (%game $= "") {
 		error("getMissionDirectory: blank game");
@@ -453,6 +542,9 @@ function OfflineMissionList::getMissionDirectory(%this, %game, %difficulty) {
 	return %this.difficulty[%game, %difficulty].missionDirectory;
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::getBitmapDirectory(%this, %game, %difficulty) {
 	if (%game $= "") {
 		error("getBitmapDirectory: blank game");
@@ -469,6 +561,9 @@ function OfflineMissionList::getBitmapDirectory(%this, %game, %difficulty) {
 	return %this.difficulty[%game, %difficulty].bitmapDirectory;
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::getPreviewDirectory(%this, %game, %difficulty) {
 	if (%game $= "") {
 		error("getPreviewDirectory: blank game");
@@ -485,6 +580,9 @@ function OfflineMissionList::getPreviewDirectory(%this, %game, %difficulty) {
 	return %this.difficulty[%game, %difficulty].previewDirectory;
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::buildMissionList(%this, %game, %difficulty) {
 	if (%game $= "") {
 		error("buildMissionList: blank game");
@@ -496,6 +594,7 @@ function OfflineMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 
 	//Mission list name
+	/** @type {Array} */
 	%list = %this.getMissionList(%game, %difficulty);
 
 	//We need to delete the list if we have one already
@@ -507,6 +606,7 @@ function OfflineMissionList::buildMissionList(%this, %game, %difficulty) {
 	MissionListGroup.add(%list);
 
 	if (%this.game[%game].custom) {
+		/** @type {Array} */
 		%node = %this.getDifficultyTreeNode(%game, %difficulty);
 		%count = %node.getSize();
 		for (%i = 0; %i < %count; %i ++) {
@@ -556,8 +656,12 @@ function OfflineMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::hasMissionList(%this, %game, %difficulty) {
 	if (%this.game[%game].custom) {
+		/** @type {Array} */
 		%node = %this.getDifficultyTreeNode(%game, %difficulty);
 		if (!isObject(%node)) {
 			return false;
@@ -570,10 +674,16 @@ function OfflineMissionList::hasMissionList(%this, %game, %difficulty) {
 }
 
 //Offline mission lists don't do game modes
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::getGameMode(%this, %game) {
 	return "";
 }
 
+/**
+ * @param {OfflineMissionList} %this
+ */
 function OfflineMissionList::shouldCheckAchievements(%this, %game) {
 	// Everything but custom
 	return (%game !$= "Custom");
@@ -583,6 +693,9 @@ function OfflineMissionList::shouldCheckAchievements(%this, %game) {
 // Server-controlled game, difficulty, and mission lists
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::setOnlineMissionList(%this, %list) {
 	//Since it was being put into MissionCleanup
 	RootGroup.add(%list);
@@ -598,10 +711,14 @@ function OnlineMissionList::setOnlineMissionList(%this, %list) {
 	return true;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::buildMissionLookup(%this) {
 	//Build a lookup list of all game and difficulty names and ids so we can
 	// get their JSONObjects with only the id or name
 
+	/** @type {Array} */
 	%games = %this.onlineMissionList.games;
 	for (%i = 0; %i < %games.getSize(); %i ++) {
 		%game = %games.getEntry(%i);
@@ -610,6 +727,7 @@ function OnlineMissionList::buildMissionLookup(%this) {
 		%this.lookupGame[%game.id] = %game;
 		%this.lookupGame[%game.name] = %game;
 
+		/** @type {Array} */
 		%difficulties = %game.difficulties;
 		for (%j = 0; %j < %difficulties.getSize(); %j ++) {
 			%difficulty = %difficulties.getEntry(%j);
@@ -637,12 +755,19 @@ function OnlineMissionList::buildMissionLookup(%this) {
 	}
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::shouldUseDifficultyTree(%this, %game) {
 	return false;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::getGameList(%this) {
 	//List of all games
+	/** @type {Array} */
 	%games = %this.onlineMissionList.games;
 	%list = "";
 	for (%i = 0; %i < %games.getSize(); %i ++) {
@@ -657,6 +782,9 @@ function OnlineMissionList::getGameList(%this) {
 	return %list;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::getDifficultyList(%this, %gameName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -666,6 +794,7 @@ function OnlineMissionList::getDifficultyList(%this, %gameName) {
 	%game = %this.lookupGame[%gameName];
 
 	//All the difficulties for this game
+	/** @type {Array} */
 	%difficulties = %game.difficulties;
 
 	%list = "";
@@ -678,6 +807,9 @@ function OnlineMissionList::getDifficultyList(%this, %gameName) {
 	return %list;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::getMissionDirectory(%this, %game, %difficulty) {
 	if (%game $= "") {
 		%game = $CurrentGame;
@@ -689,6 +821,9 @@ function OnlineMissionList::getMissionDirectory(%this, %game, %difficulty) {
 	return %this.lookupDifficulty[%game, %difficulty].directory;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::getBitmapDirectory(%this, %game, %difficulty) {
 	if (%game $= "") {
 		%game = $CurrentGame;
@@ -700,6 +835,9 @@ function OnlineMissionList::getBitmapDirectory(%this, %game, %difficulty) {
 	return %this.lookupDifficulty[%game, %difficulty].bitmap_directory;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::getPreviewDirectory(%this, %game, %difficulty) {
 	if (%game $= "") {
 		%game = $CurrentGame;
@@ -711,6 +849,9 @@ function OnlineMissionList::getPreviewDirectory(%this, %game, %difficulty) {
 	return %this.lookupDifficulty[%game, %difficulty].previews_directory;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 	if (%game $= "") {
 		%game = $CurrentGame;
@@ -725,6 +866,7 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 
 	if (%difficultyObj.is_local) {
 		OfflineMissionList::buildMissionList(%this, %game, %difficulty);
+		/** @type {Array} */
 		%list = %this.getMissionList(%game, %difficulty);
 
 		//Fix level numbers
@@ -745,6 +887,7 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 		%list.sort(MissionSortName);
 	} else {
 		//Mission list name
+		/** @type {Array} */
 		%list = %this.getMissionList(%game, %difficulty);
 
 		//We need to delete the list if we have one already
@@ -756,6 +899,7 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 		MissionListGroup.add(%list);
 
 		//For the LB, use the server's sorting for the missions
+		/** @type {Array} */
 		%missionList = %difficultyObj.missions;
 
 		//Preload all MCS files first because otherwise rebuilding the hash tables will take forever
@@ -857,10 +1001,16 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::hasMissionList(%this, %game, %difficulty) {
 	return findFirstMission(%this.getMissionDirectory(%game, %difficulty) @ "/*") !$= "";
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::getGameMode(%this, %game) {
 	if (%game $= "") {
 		%game = $CurrentGame;
@@ -873,7 +1023,11 @@ function OnlineMissionList::getGameMode(%this, %game) {
 	return %mode;
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::getMissionById(%this, %id) {
+	/** @type {Array} */
 	%games = %this.onlineMissionList.games;
 	for (%i = 0; %i < %games.getSize(); %i ++) {
 		%game = %games.getEntry(%i);
@@ -883,6 +1037,7 @@ function OnlineMissionList::getMissionById(%this, %id) {
 			%difficulty = %difficulties.getEntry(%j);
 			%difficultyName = %difficulty.name;
 
+			/** @type {Array} */
 			%ml = %this.getMissionList(%gameName, %difficultyName);
 			if (!isObject(%ml)) {
 				%this.buildMissionList(%gameName, %difficultyName);
@@ -900,7 +1055,11 @@ function OnlineMissionList::getMissionById(%this, %id) {
 	}
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::dumpMissions(%this) {
+	/** @type {Array} */
 	%games = %this.onlineMissionList.games;
 	for (%i = 0; %i < %games.getSize(); %i ++) {
 		%game = %games.getEntry(%i);
@@ -924,6 +1083,9 @@ function OnlineMissionList::dumpMissions(%this) {
 	}
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::clearOnlineCache(%this) {
 	//Clean up the mission list itself
 	%this.onlineMissionList.recurseDelete();
@@ -939,6 +1101,9 @@ function OnlineMissionList::clearOnlineCache(%this) {
 	%this.recurseDelete();
 }
 
+/**
+ * @param {OnlineMissionList} %this
+ */
 function OnlineMissionList::shouldCheckAchievements(%this, %game) {
 	return true;
 }
@@ -948,6 +1113,9 @@ function OnlineMissionList::shouldCheckAchievements(%this, %game) {
 // Multiplayer Mission List is a little weirder
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::clear(%this) {
 	//Clean up any mission SimGroups
 	for (%i = 0; %i < MissionListGroup.getCount(); %i ++) {
@@ -962,12 +1130,18 @@ function ServerMissionList::clear(%this) {
 	%this.difficultyList = "";
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::addGame(%this, %gameName, %gameDisplay) {
 	devecho(%this SPC "addGame:" SPC %gameName SPC %gameDisplay);
 	%this.gameList = addRecord(%this.gameList, %gameName TAB %gameDisplay);
 	%this.difficultyList[%gameName] = "";
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::addDifficulty(%this, %gameName, %difficultyName, %difficultyDisplay, %directory, %bitmapDir, %previewDir, %gameMode) {
 	devecho(%this SPC "addDifficulty:" SPC %gameName SPC %difficultyName SPC %difficultyDisplay);
 	%this.difficultyList[%gameName] = addRecord(%this.difficultyList[%gameName], %difficultyName TAB %difficultyDisplay);
@@ -979,6 +1153,9 @@ function ServerMissionList::addDifficulty(%this, %gameName, %difficultyName, %di
 	%this.missionListLoading[%gameName, %difficultyName] = false;
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::addMission(%this, %gameName, %difficultyName, %info) {
 	MissionInfoGroup.add(%mission = new ScriptObject());
 	%mission.setFields(%info);
@@ -994,6 +1171,9 @@ function ServerMissionList::addMission(%this, %gameName, %difficultyName, %info)
 	%list.addEntry(%mission);
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::clearMisisons(%this, %gameName, %difficultyName) {
 	if (isObject(%this.missionList[%gameName, %difficultyName])) {
 		%this.missionList[%gameName, %difficultyName].delete();
@@ -1005,19 +1185,31 @@ function ServerMissionList::clearMisisons(%this, %gameName, %difficultyName) {
 	MissionListGroup.add(%list);
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::doneMissions(%this, %gameName, %difficultyName) {
 	%this.missionListLoaded[%gameName, %difficultyName] = true;
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::getGameList(%this) {
 	//List of all games
 	return %this.gameList;
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::shouldUseDifficultyTree(%this, %game) {
 	return false;
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::getDifficultyList(%this, %gameName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -1026,6 +1218,9 @@ function ServerMissionList::getDifficultyList(%this, %gameName) {
 	return %this.difficultyList[%gameName];
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::getMissionDirectory(%this, %gameName, %difficultyName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -1036,6 +1231,9 @@ function ServerMissionList::getMissionDirectory(%this, %gameName, %difficultyNam
 	return %this.difficulty[%gameName, %difficultyName, "Directory"];
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::getBitmapDirectory(%this, %gameName, %difficultyName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -1046,6 +1244,9 @@ function ServerMissionList::getBitmapDirectory(%this, %gameName, %difficultyName
 	return %this.difficulty[%gameName, %difficultyName, "BitmapDir"];
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::getPreviewDirectory(%this, %gameName, %difficultyName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -1056,6 +1257,9 @@ function ServerMissionList::getPreviewDirectory(%this, %gameName, %difficultyNam
 	return %this.difficulty[%gameName, %difficultyName, "PreviewDir"];
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::getGameMode(%this, %gameName, %difficultyName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -1066,10 +1270,16 @@ function ServerMissionList::getGameMode(%this, %gameName, %difficultyName) {
 	return %this.difficulty[%gameName, %difficultyName, "GameMode"];
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::hasMissionList(%this, %gameName, %difficultyName) {
 	return true; //Sure we do
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::getMissionList(%this, %gameName, %difficultyName) {
 	if (%gameName $= "") {
 		%gameName = $CurrentGame;
@@ -1098,6 +1308,9 @@ function ServerMissionList::getMissionList(%this, %gameName, %difficultyName) {
 	return MissionList::getMissionList(%this, %gameName, %difficultyName);
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::buildMissionList(%this, %gameName, %difficultyName) {
 	if (!%this.missionListLoaded[%gameName, %difficultyName]) {
 		if (!%this.missionListLoading[%gameName, %difficultyName]) {
@@ -1109,12 +1322,18 @@ function ServerMissionList::buildMissionList(%this, %gameName, %difficultyName) 
 	}
 }
 
+/**
+ * @param {ServerMissionList} %this
+ */
 function ServerMissionList::shouldCheckAchievements(%this, %game) {
 	return false;
 }
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::getGameList(%this) {
 	if (mp()) {
 		return "Marbleland\tMarbleland";
@@ -1124,6 +1343,9 @@ function MarblelandMissionList::getGameList(%this) {
 	}
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::getDifficultyList(%this, %game) {
 	if (mp()) {
 		return "Hunt\tHunt" NL
@@ -1148,6 +1370,9 @@ function MarblelandMissionList::getDifficultyList(%this, %game) {
 	}
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::getDifficultyTree(%this, %game) {
 	switch$ (%game) {
 	case "Packs":
@@ -1210,6 +1435,9 @@ function MarblelandMissionList::getDifficultyTree(%this, %game) {
 	}
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 	switch$ (%game) {
 	case "Marbleland":
@@ -1249,7 +1477,11 @@ function MarblelandMissionList::hasMissionList(%this, %game, %difficulty) {
 	}
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
+	/** @type {Array} */
 	%list = %this.getMissionList(%game, %difficulty);
 	if (isObject(%list)) {
 		%list.delete();
@@ -1278,6 +1510,7 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 			%ml = MarblelandPackages;
 		}
 	case "Packs":
+		/** @type {Array} */
 		%ml = %this.getDifficultyTreeNode(%game, %difficulty);
 		%sort = MissionSortLevel;
 	}
@@ -1379,7 +1612,11 @@ function MarblelandMissionList::buildMissionList(%this, %game, %difficulty) {
 	}
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::addInstalledMission(%this, %mis) {
+	/** @type {Array} */
 	%list = %this.getMissionList("Levels", "Installed");
 	if (isObject(%list)) {
 		MissionInfoGroup.add(%info = new ScriptObject() {
@@ -1427,26 +1664,44 @@ function MarblelandMissionList::addInstalledMission(%this, %mis) {
 	}
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::shouldUseDifficultyTree(%this, %game) {
 	return %game $= "Packs";
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::getMissionDirectory(%this, %game, %difficulty) {
 	return "platinum/data/missions/marbleland/";
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::getBitmapDirectory(%this, %game, %difficulty) {
 	return "platinum/data/missions/marbleland/";
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::getPreviewDirectory(%this, %game, %difficulty) {
 	return "platinum/data/missions/marbleland/";
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::getGameMode(%this, %game, %difficulty) {
 	return "";
 }
 
+/**
+ * @param {MarblelandMissionList} %this
+ */
 function MarblelandMissionList::shouldCheckAchievements(%this, %game) {
 	return false;
 }

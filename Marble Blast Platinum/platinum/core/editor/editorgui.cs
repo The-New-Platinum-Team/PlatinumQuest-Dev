@@ -127,10 +127,16 @@ function EditorGui::setPrefs() {
 	export("$WEpref*", $Editor::PrefsFile);
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::onSleep(%this) {
 	%this.setPrefs();
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::init(%this) {
 	%this.getPrefs();
 
@@ -356,6 +362,9 @@ function EditorGui::init(%this) {
 
 //Add a menu bar item, only if the key is not in your config.
 // For Whirligig who uses 4 to roll forward and ended up creating lots of SpawnTriggers.
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::addMenuItemConf(%this, %menu, %menuItemText, %menuItemId, %accelerator, %checkGroup) {
 	%command = MoveMap.getCommand("keyboard", %accelerator);
 	if (%command !$= "") {
@@ -622,6 +631,9 @@ function EditorIconScreenshot() {
 	doMiniShot("EditorIconScreenshotEnd(" @ %gui @ ");");
 }
 
+/**
+ * @param {GuiControl} %gui
+ */
 function EditorIconScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
 	if (%gui !$= "EditorGui")
@@ -659,11 +671,17 @@ function EditorDoPreviewScreenshot() {
 	schedule(200, 0, EditorDoPreviewScreenshotTakeScreenshot, %path, %gui);
 }
 
+/**
+ * @param {GuiControl} %gui
+ */
 function EditorDoPreviewScreenshotTakeScreenshot(%path, %gui) {
 	screenShot(%path, getWord(getResolution(), 0), getWord(getResolution(), 1));
 	schedule(150, 0, EditorDoPreviewScreenshotEnd, %gui);
 }
 
+/**
+ * @param {GuiControl} %gui
+ */
 function EditorDoPreviewScreenshotEnd(%gui) {
 	RootGui.setContent(%gui);
 	if (%gui !$= "EditorGui")
@@ -675,6 +693,9 @@ function ReturnMarbletoNormal() {
 	$MP::MyMarble.scale = "1 1 1"; //When you are done taking the preview/icon picture, return the marble to it's normal size. ~Connie
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onMenuSelect(%this, %menuId, %menu) {
 	if (%menu $= "File") {
 		%editingHeightfield = ETerrainEditor.isVisible() && EHeightField.isVisible();
@@ -728,6 +749,9 @@ function EditorMenuBar::onMenuSelect(%this, %menuId, %menu) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onMenuItemSelect(%this, %menuId, %menu, %itemId, %item) {
 	switch$ (%menu) {
 	case "File":
@@ -751,6 +775,9 @@ function EditorMenuBar::onMenuItemSelect(%this, %menuId, %menu, %itemId, %item) 
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onFileMenuItemSelect(%this, %itemId, %item) {
 	switch$ (%item) {
 	case "New Mission...":
@@ -780,6 +807,9 @@ function EditorMenuBar::onFileMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onCameraMenuItemSelect(%this, %itemId, %item) {
 	switch$ (%item) {
 	case "Drop Camera at Player":
@@ -800,6 +830,9 @@ function EditorMenuBar::onCameraMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onActionMenuItemSelect(%this, %itemId, %item) {
 	EditorMenuBar.setMenuItemChecked("Action", %item, true);
 	switch$(%item) {
@@ -854,6 +887,9 @@ function EditorMenuBar::onActionMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onBrushMenuItemSelect(%this, %itemId, %item) {
 	EditorMenuBar.setMenuItemChecked("Brush", %item, true);
 	switch$(%item) {
@@ -873,6 +909,9 @@ function EditorMenuBar::onBrushMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onWorldMenuItemSelect(%this, %itemId, %item) {
 	// edit commands for world editor...
 	switch$ (%item) {
@@ -920,6 +959,9 @@ function EditorMenuBar::onWorldMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onEditMenuItemSelect(%this, %itemId, %item) {
 	if (%item $= "World Editor Settings...")
 		RootGui.pushDialog(WorldEditorSettingsDlg);
@@ -956,6 +998,9 @@ function EditorMenuBar::onEditMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onWindowMenuItemSelect(%this, %itemId, %item) {
 	switch$ (%item) {
 	case "Particle Editor":
@@ -965,6 +1010,9 @@ function EditorMenuBar::onWindowMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::setWorldEditorVisible(%this) {
 	EWorldEditor.setVisible(true);
 	ETerrainEditor.setVisible(false);
@@ -974,6 +1022,9 @@ function EditorGui::setWorldEditorVisible(%this) {
 	EWorldEditor.makeFirstResponder(true);
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::setTerrainEditorVisible(%this) {
 	if (!ETerrainEditor.visible)
 		ETerrainEditor.checkForTerrain(true);
@@ -988,6 +1039,9 @@ function EditorGui::setTerrainEditorVisible(%this) {
 	EPainter.setVisible(false);
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 	%obj = -1;
 	switch$ (%item) {
@@ -1302,6 +1356,9 @@ function EditorMenuBar::onCreateMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorMenuBar} %this
+ */
 function EditorMenuBar::onSpecialMenuItemSelect(%this, %itemId, %item) {
 	switch$ (%item) {
 	case "Make GemGroup":
@@ -1328,6 +1385,9 @@ function EditorMenuBar::onSpecialMenuItemSelect(%this, %itemId, %item) {
 	}
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::setEditor(%this, %editor) {
 	EditorMenuBar.setMenuItemBitmap("Window", %this.currentEditor, -1);
 	EditorMenuBar.setMenuItemBitmap("Window", %editor, 0);
@@ -1378,6 +1438,9 @@ function EditorGui::setEditor(%this, %editor) {
 	}
 }
 
+/**
+ * @param {ETerrainEditor} %this
+ */
 function ETerrainEditor::setPaintMaterial(%this, %matIndex) {
 	ETerrainEditor.paintMaterial = EPainter.mat[%matIndex];
 
@@ -1393,6 +1456,9 @@ function ETerrainEditor::setPaintMaterial(%this, %matIndex) {
 	}
 }
 
+/**
+ * @param {ETerrainEditor} %this
+ */
 function ETerrainEditor::changeMaterial(%this, %matIndex) {
 	EPainter.matIndex = %matIndex;
 	getLoadFilename("*.png\t*.jpg", EPainterChangeMat, "~/data/terrains");
@@ -1414,6 +1480,9 @@ function EPainterChangeMat(%file) {
 	("ETerrainMaterialPaint" @ EPainter.matIndex).performClick();
 }
 
+/**
+ * @param {EPainter} %this
+ */
 function EPainter::setup(%this) {
 	EditorMenuBar.onActionMenuItemSelect(0, "Paint Material");
 	%mats = ETerrainEditor.getTerrainMaterials();
@@ -1437,6 +1506,9 @@ function EPainter::setup(%this) {
 	ETerrainMaterialPaint0.performClick();
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::getHelpPage(%this) {
 	switch$ (%this.currentEditor) {
 	case "World Editor" or "World Editor Inspector" or "World Editor Creator":
@@ -1444,6 +1516,9 @@ function EditorGui::getHelpPage(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::dropSelection(%this) {
 	if (%this.dropType $= "toGround")
 		%this.dropAtGround();
@@ -1455,6 +1530,9 @@ function EWorldEditor::dropSelection(%this) {
 	}
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::onWake(%this) {
 	if ($pref::Input::ControlDevice $= "Joystick") {
 		JoystickMap.push();
@@ -1470,6 +1548,9 @@ function EditorGui::onWake(%this) {
 	EWorldEditor.schedule(10, buildSpecial);
 }
 
+/**
+ * @param {EditorGui} %this
+ */
 function EditorGui::onSleep(%this) {
 	EditorMap.pop();
 	MoveMap.pop();
@@ -1482,10 +1563,17 @@ function EditorGui::onSleep(%this) {
 	}
 }
 
+/**
+ * @param {EditorTree} %this
+ */
 function EditorTree::init(%this) {
 	%this.open(MissionGroup);
 }
 
+/**
+ * @param {EditorTree} %this
+ * @param {SimObject} %obj
+ */
 function EditorTree::onInspect(%this, %obj) {
 	EditorInspector.inspector.inspect(%obj, EWorldEditor.descriptiveFieldNames);
 	EditorInspector.object = %obj;
@@ -1493,26 +1581,42 @@ function EditorTree::onInspect(%this, %obj) {
 	InspectorNameEdit.setValue(%obj.getName());
 }
 
+/**
+ * @param {EditorTree} %this
+ */
 function EditorTree::onObjectDeleteCompleted(%this)
 {
    EWorldEditor.copySelection();
    EWorldEditor.deleteSelection();
 }
 
+/**
+ * @param {EditorTree} %this
+ */
 function EditorTree::onClearSelected(%this)
 {
    WorldEditor.clearSelection();
 }
 
+/**
+ * @param {EditorTree} %this
+ */
 function EditorTree::onAddSelection(%this, %obj)
 {
    EWorldEditor.selectObject(%obj);
 }
+/**
+ * @param {EditorTree} %this
+ */
 function EditorTree::onRemoveSelection(%this, %obj)
 {
    EWorldEditor.unselectObject(%obj);
 }
 
+/**
+ * @param {EditorTree} %this
+ * @param {SimObject} %obj
+ */
 function EditorTree::onSelect(%this, %obj) {
 	if (%obj.getName() $= "MissionInfo") {
 		emibutton();
@@ -1524,25 +1628,37 @@ function EditorTree::onSelect(%this, %obj) {
 	EWorldEditor.buildSpecial();
 }
 
+/**
+ * @param {EditorTree} %this
+ */
 function EditorTree::onUnselect(%this, %obj) {
 	EWorldEditor.unselectObject(%obj);
 	EWorldEditor.buildSpecial();
 }
 
+/**
+ * @param {EditorTree} %this
+ * @param {SimObject} %obj
+ * @param {SimGroup} %oldGroup
+ * @param {SimGroup} %newGroup
+ */
 function EditorTree::onObjectMoved(%this, %obj, %oldGroup, %newGroup) {
 	switch$ (%obj.getClassName()) {
 		case "PathedInterior":
+			/** @type {PathedInterior} */
 			%obj.refreshPath();
 			%obj.onMissionReset();
 		case "Path":
 			for(%i = 0; (%obj = %oldGroup.getObject(%i)) != -1; %i++) {
 				if(%obj.getClassName() $= "PathedInterior") {
+					/** @type {PathedInterior} */
 					%obj.refreshPath();
 					%obj.onMissionReset();
 				}
 			}
 			for(%i = 0; (%obj = %newGroup.getObject(%i)) != -1; %i++) {
 				if(%obj.getClassName() $= "PathedInterior") {
+					/** @type {PathedInterior} */
 					%obj.refreshPath();
 					%obj.onMissionReset();
 				}
@@ -1550,6 +1666,9 @@ function EditorTree::onObjectMoved(%this, %obj, %oldGroup, %newGroup) {
 	}
 }
 
+/**
+ * @param {EditorTree} %this
+ */
 function EditorTree::onDefineIcons(%this) {
 	EditorTree.buildIconTable(
 		"platinum/core/editor/default:" @
@@ -1590,14 +1709,21 @@ function EditorTree::onDefineIcons(%this) {
 // Functions
 //------------------------------------------------------------------------------
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::createSubs(%this) {
 	for (%i = 0; %i < %this.getSelectionSize(); %i++) {
 		%obj = %this.getSelectedObject(%i);
 		if (%obj.getClassName() $= "InteriorInstance")
+			/** @type {InteriorInstance} */
 			%obj.magicButton();
 	}
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::init(%this) {
 	// add objclasses which we do not want to collide with
 	%this.ignoreObjClass(Sky);
@@ -1634,6 +1760,10 @@ function WorldEditor::init(%this) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {WorldEditor} %this
+ * @param {SceneObject} %obj
+ */
 function WorldEditor::onDblClick(%this, %obj) {
 	// Commented out because making someone double click to do this is stupid
 	// and has the possibility of moving hte object
@@ -1643,6 +1773,10 @@ function WorldEditor::onDblClick(%this, %obj) {
 	%this.onClick(%obj);
 }
 
+/**
+ * @param {WorldEditor} %this
+ * @param {SceneObject} %obj
+ */
 function WorldEditor::onClick(%this, %obj) {
 	EditorInspector.inspector.inspect(%obj, EWorldEditor.descriptiveFieldNames);
 	EditorInspector.object = %obj;
@@ -1662,11 +1796,17 @@ function WorldEditor::onClick(%this, %obj) {
 //	}
 //}
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::onEditorSetTransform(%this) {
 	if(%this == EditorInspector.inspector.object)
 		EditorInspector.inspector.updateTransforms();
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::checkDeselect(%this) {
 	cancel(%this.deselectSch);
 	%this.deselectSch = %this.schedule(100, checkDeselect);
@@ -1680,10 +1820,16 @@ function WorldEditor::checkDeselect(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::onUnselectAll(%this) {
 	%this.buildSpecial();
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::onPaste(%this) {
 	//Select the pasted object if we have one
 	if (%this.getSelectionSize() > 0) {
@@ -1706,26 +1852,44 @@ function EWorldEditor::onPaste(%this) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::export(%this) {
 	getSaveFilename("~/editor/*.mac", %this @ ".doExport", "selection.mac");
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::doExport(%this, %file) {
 	missionGroup.save("~/editor/" @ %file, true);
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::import(%this) {
 	getLoadFilename("~/editor/*.mac", %this @ ".doImport");
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::doImport(%this, %file) {
 	exec("~/editor/" @ %file);
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::onGuiUpdate(%this, %text) {
 
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::getSelectionLockCount(%this) {
 	%ret = 0;
 	for (%i = 0; %i < %this.getSelectionSize(); %i++) {
@@ -1736,6 +1900,9 @@ function WorldEditor::getSelectionLockCount(%this) {
 	return %ret;
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::getSelectionHiddenCount(%this) {
 	%ret = 0;
 	for (%i = 0; %i < %this.getSelectionSize(); %i++) {
@@ -1746,6 +1913,9 @@ function WorldEditor::getSelectionHiddenCount(%this) {
 	return %ret;
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::dropCameraToSelection(%this) {
 	if (%this.getSelectionSize() == 0)
 		return;
@@ -1762,6 +1932,9 @@ function WorldEditor::dropCameraToSelection(%this) {
 }
 
 // * pastes the selection at the same place (used to move obj from a group to another)
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::moveSelectionInPlace(%this) {
 	%saveDropType = %this.dropType;
 	%this.dropType = "atCentroid";
@@ -1771,6 +1944,9 @@ function WorldEditor::moveSelectionInPlace(%this) {
 	%this.dropType = %saveDropType;
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::addSelectionToAddGroup(%this) {
 	for (%i = 0; %i < %this.getSelectionSize(); %i++) {
 		%obj = %this.getSelectedObject(%i);
@@ -1779,10 +1955,14 @@ function WorldEditor::addSelectionToAddGroup(%this) {
 
 }
 // resets the scale and rotation on the selection set
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::resetTransforms(%this) {
 	%this.addUndoState();
 
 	for (%i = 0; %i < %this.getSelectionSize(); %i++) {
+		/** @type {SceneObject} */
 		%obj = %this.getSelectedObject(%i);
 		%transform = %obj.getTransform();
 
@@ -1798,6 +1978,9 @@ function WorldEditor::resetTransforms(%this) {
 }
 
 
+/**
+ * @param {WorldEditorToolbarDlg} %this
+ */
 function WorldEditorToolbarDlg::init(%this) {
 	WorldEditorInspectorCheckBox.setValue(WorldEditorToolFrameSet.isMember("EditorToolInspectorGui"));
 	WorldEditorMissionAreaCheckBox.setValue(WorldEditorToolFrameSet.isMember("EditorToolMissionAreaGui"));
@@ -1805,6 +1988,9 @@ function WorldEditorToolbarDlg::init(%this) {
 	WorldEditorCreatorCheckBox.setValue(WorldEditorToolFrameSet.isMember("EditorToolCreatorGui"));
 }
 
+/**
+ * @param {Array} %node
+ */
 function compressSingleFolderChains(%node) {
 	if (!isObject(%node) || !%node.isMethod("getSize"))
 		return;
@@ -1832,6 +2018,9 @@ function compressSingleFolderChains(%node) {
 	}
 }
 
+/**
+ * @param {Creator} %this
+ */
 function Creator::init(%this) {
 	%this.clear();
 
@@ -2270,6 +2459,10 @@ function Creator::init(%this) {
 	%groups.recurseDelete();
 }
 
+/**
+ * @param {Creator} %this
+ * @param {Array} %array
+ */
 function Creator::recurseInsert(%this, %array, %parentId) {
 	%count = %array.getSize();
 	for (%i = 0; %i < %count; %i ++) {
@@ -2283,6 +2476,9 @@ function Creator::recurseInsert(%this, %array, %parentId) {
 	}
 }
 
+/**
+ * @returns {InteriorInstance}
+ */
 function createInterior(%name) {
 	%obj = new InteriorInstance() {
 		position = "0 0 0";
@@ -2293,6 +2489,9 @@ function createInterior(%name) {
 	return (%obj);
 }
 
+/**
+ * @param {Creator} %this
+ */
 function Creator::onAction(%this) {
 //   %this.currentSel = -1;
 //   %this.currentRoot = -1;
@@ -2317,6 +2516,9 @@ function Creator::onAction(%this) {
 	commandToServer('Create', %action, %rest);
 }
 
+/**
+ * @param {Creator} %this
+ */
 function Creator::create(%this, %obj) {
 	if (%obj == -1 || %obj == 0)
 		return;
@@ -2331,6 +2533,9 @@ function Creator::create(%this, %obj) {
 	EWorldEditor.dropSelection();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdCreate(%client, %type, %value) {
 	switch$ (%type) {
 		case "interior":
@@ -2417,6 +2622,9 @@ function clientCmdCreate(%syncId, %tries) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdCreateItemUpdate(%client, %field, %value) {
 	%obj = %client.createItem;
 	if (!isObject(%obj))
@@ -2427,6 +2635,9 @@ function serverCmdCreateItemUpdate(%client, %field, %value) {
 	eval(%obj @ "." @ alphaNum(%field) @ " = \"" @ expandEscape(%value) @ "\";");
 }
 
+/**
+ * @returns {TSStatic}
+ */
 function TSStatic::create(%shapeName) {
 	%obj = new TSStatic() {
 		shapeName = %shapeName;
@@ -2434,20 +2645,32 @@ function TSStatic::create(%shapeName) {
 	return (%obj);
 }
 
+/**
+ * @param {TSStatic} %this
+ */
 function TSStatic::damage(%this) {
 	// prevent console error spam
 }
 
+/**
+ * @param {TerraformerGui} %this
+ */
 function TerraformerGui::init(%this) {
 	TerraformerHeightfieldGui.init();
 	TerraformerTextureGui.init();
 }
 
+/**
+ * @param {TerraformerGui} %this
+ */
 function TerraformerGui::onWake(%this) {
 	// Only the canvas level gui's get wakes, so udpate manually.
 	TerraformerTextureGui.update();
 }
 
+/**
+ * @param {TerraformerGui} %this
+ */
 function TerraformerGui::onSleep(%this) {
 	%this.setPrefs();
 }
@@ -2503,11 +2726,17 @@ function TextureInit() {
 	}
 }
 
+/**
+ * @param {TerraformerTextureGui} %this
+ */
 function TerraformerTextureGui::refresh(%this) {
 }
 
 
 //--------------------------------------
+/**
+ * @param {Texture_material_menu} %this
+ */
 function Texture_material_menu::onSelect(%this, %id, %text) {
 	%this.setText("Materials");
 
@@ -2551,6 +2780,9 @@ function addLoadedMaterial(%file) {
 }
 
 //--------------------------------------
+/**
+ * @param {Texture_material} %this
+ */
 function Texture_material::onSelect(%this, %id, %text) {
 	Texture::saveMaterial();
 	if (%id != $selectedMaterial) {
@@ -2572,6 +2804,9 @@ function Texture_material::onSelect(%this, %id, %text) {
 
 
 //--------------------------------------
+/**
+ * @param {Texture_operation_menu} %this
+ */
 function Texture_operation_menu::onSelect(%this, %id, %text) {
 	%this.setText("Placement Operations");
 	%id = -1;
@@ -2603,6 +2838,9 @@ function Texture_operation_menu::onSelect(%this, %id, %text) {
 
 
 //--------------------------------------
+/**
+ * @param {Texture_operation} %this
+ */
 function Texture_operation::onSelect(%this, %id, %text) {
 	Texture::saveOperation();
 	if (%id !$= $selectedTextureOperation) {
@@ -3030,6 +3268,9 @@ function Texture::showTab(%id) {
 
 $TerraformerHeightfieldDir = "common/editor/heightScripts";
 
+/**
+ * @param {tab_Blend} %this
+ */
 function tab_Blend::reset(%this) {
 	blend_option.clear();
 	blend_option.add("Add", 0);
@@ -3039,6 +3280,9 @@ function tab_Blend::reset(%this) {
 	blend_option.add("Multiply", 4);
 }
 
+/**
+ * @param {tab_fBm} %this
+ */
 function tab_fBm::reset(%this) {
 	fBm_detail.clear();
 	fBm_detail.add("Very Low", 0);
@@ -3048,6 +3292,9 @@ function tab_fBm::reset(%this) {
 	fBm_detail.add("Very High", 4);
 }
 
+/**
+ * @param {tab_RMF} %this
+ */
 function tab_RMF::reset(%this) {
 	rmf_detail.clear();
 	rmf_detail.add("Very Low", 0);
@@ -3057,6 +3304,9 @@ function tab_RMF::reset(%this) {
 	rmf_detail.add("Very High", 4);
 }
 
+/**
+ * @param {tab_terrainFile} %this
+ */
 function tab_terrainFile::reset(%this) {
 	// update tab controls..
 	terrainFile_textList.clear();
@@ -3156,6 +3406,9 @@ function TerraformerInit() {
 }
 
 //--------------------------------------
+/**
+ * @param {Heightfield_options} %this
+ */
 function Heightfield_options::onSelect(%this, %_id, %text) {
 	Heightfield_options.setText("Operation");
 	%id = -1;
@@ -3303,6 +3556,9 @@ function Heightfield::eval(%id) {
 }
 
 //--------------------------------------
+/**
+ * @returns {GuiTextListCtrl}
+ */
 function Heightfield::add(%entry) {
 	Heightfield::saveTab();
 	Heightfield::hideTab();
@@ -3373,6 +3629,9 @@ function Heightfield::onDelete(%id) {
 
 
 //--------------------------------------
+/**
+ * @param {Heightfield_operation} %this
+ */
 function Heightfield_operation::onSelect(%this, %id, %text) {
 	Heightfield::saveTab();
 	Heightfield::hideTab();
@@ -3646,6 +3905,9 @@ function ExportHeightfield::onAction() {
 // Functions
 //------------------------------------------------------------------------------
 
+/**
+ * @param {TerrainEditor} %this
+ */
 function TerrainEditor::onGuiUpdate(%this, %text) {
 	%mouseBrushInfo = " (Mouse Brush) #: " @ getWord(%text, 0) @ "  avg: " @ getWord(%text, 1);
 	%selectionInfo = " (Selection) #: " @ getWord(%text, 2) @ "  avg: " @ getWord(%text, 3);
@@ -3656,11 +3918,17 @@ function TerrainEditor::onGuiUpdate(%this, %text) {
 	TESelectionInfo1.setValue(%selectionInfo);
 }
 
+/**
+ * @param {TerrainEditor} %this
+ */
 function TerrainEditor::offsetBrush(%this, %x, %y) {
 	%curPos = %this.getBrushPos();
 	%this.setBrushPos(getWord(%curPos, 0) + %x, getWord(%curPos, 1) + %y);
 }
 
+/**
+ * @param {TerrainEditor} %this
+ */
 function TerrainEditor::swapInLoneMaterial(%this, %name) {
 	// swapped?
 	if (%this.baseMaterialsSwapped $= "true") {
@@ -3683,10 +3951,16 @@ function TerrainEditor::swapInLoneMaterial(%this, %name) {
 //------------------------------------------------------------------------------
 
 
+/**
+ * @param {TELoadTerrainButton} %this
+ */
 function TELoadTerrainButton::onAction(%this) {
 	getLoadFilename("*.ter", %this @ ".gotFileName", "~/data/terrains");
 }
 
+/**
+ * @param {TELoadTerrainButton} %this
+ */
 function TELoadTerrainButton::gotFileName(%this, %name) {
 	//
 	%pos = "0 0 0";
@@ -3713,14 +3987,23 @@ function TELoadTerrainButton::gotFileName(%this, %name) {
 	ETerrainEditor.attachTerrain();
 }
 
+/**
+ * @param {TerrainEditorSettingsGui} %this
+ */
 function TerrainEditorSettingsGui::onWake(%this) {
 	TESoftSelectFilter.setValue(ETerrainEditor.softSelectFilter);
 }
 
+/**
+ * @param {TerrainEditorSettingsGui} %this
+ */
 function TerrainEditorSettingsGui::onSleep(%this) {
 	ETerrainEditor.softSelectFilter = TESoftSelectFilter.getValue();
 }
 
+/**
+ * @param {TESettingsApplyButton} %this
+ */
 function TESettingsApplyButton::onAction(%this) {
 	ETerrainEditor.softSelectFilter = TESoftSelectFilter.getValue();
 	ETerrainEditor.resetSelWeights(true);
@@ -3753,6 +4036,9 @@ function getPrefSetting(%pref, %default) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {Editor} %this
+ */
 function Editor::open(%this) {
 	// Load Prefs
 	EditorGui.getPrefs();
@@ -3770,6 +4056,9 @@ function Editor::open(%this) {
 	Mode::callback("onEditorOpened");
 }
 
+/**
+ * @param {Editor} %this
+ */
 function Editor::close(%this) {
 	// Save prefs
 	EditorGui.setPrefs();
@@ -3805,6 +4094,9 @@ function generateWorldBox() {
 	MissionGroup.add(Bounds);
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::makeGemGroup(%this) {
 	if (!isObject(GemGroups))
 		MissionGroup.add(new SimGroup(GemGroups));
@@ -3820,6 +4112,9 @@ function EWorldEditor::makeGemGroup(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::destroyGemGroups(%this) {
 	if (%this.getSelectionSize()) {
 		for (%i = 0; %i < %this.getSelectionSize(); %i ++) {
@@ -3841,6 +4136,9 @@ function EWorldEditor::destroyGemGroups(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::createCameraMarker(%this) {
 	if (!isObject(PathNodeGroup))
 		MissionGroup.add(new SimGroup(PathNodeGroup));
@@ -3870,8 +4168,12 @@ function EWorldEditor::createCameraMarker(%this) {
 	nameToId("CameraPath" @(%id - 1)).nextNode = %obj.getName();
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::createPathNodeAtSelection(%this) {
 	for (%i = 0; %i < %this.getSelectionSize(); %i++) {
+		/** @type {SceneObject} */
 		%iobj = %this.getSelectedObject(%i);
 		%obj = new StaticShape() {
 			position = %iobj.position;
@@ -3898,12 +4200,16 @@ function EWorldEditor::createPathNodeAtSelection(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::dropAtGround(%this) {
 	%local = true;
 	%count = %this.getSelectionSize();
 	EWorldEditor.addUndoState();
 
 	for (%i = 0; %i < %count; %i++) {
+		/** @type {GameBase} */
 		%obj = %this.getSelectedObject(%i);
 		%db = %obj.getDatablock();
 		%drop = 0;
@@ -3932,11 +4238,15 @@ function EWorldEditor::dropAtGround(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::rotateBy(%this, %rotation) {
 	%rotation = setWord(%rotation, 3, mDegToRad(getWord(%rotation, 3)));
 	%count = %this.getSelectionSize();
 
 	for (%i = 0; %i < %count; %i++) {
+		/** @type {SceneObject} */
 		%obj = %this.getSelectedObject(%i);
 
 		%trans = %obj.getTransform();
@@ -3945,10 +4255,14 @@ function EWorldEditor::rotateBy(%this, %rotation) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::roundCoords(%this) {
 	if (%this.getSelectionSize()) {
 		EWorldEditor.addUndoState();
 		for (%i = 0; %i < %this.getSelectionSize(); %i ++) {
+			/** @type {SceneObject} */
 			%obj = %this.getSelectedObject(%i);
 			%pos = %obj.position;
 			%pos = mRound(getWord(%pos, 0) / %this.mouseMoveScale) * %this.mouseMoveScale SPC mRound(getWord(%pos, 1) / %this.mouseMoveScale) * %this.mouseMoveScale SPC mRound(getWord(%pos, 2) / %this.mouseMoveScale) * %this.mouseMoveScale;
@@ -3958,15 +4272,22 @@ function EWorldEditor::roundCoords(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::dropandround(%this) {
 	EWorldEditor.roundCoords();
 	EWorldEditor.dropAtGround();
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::malign(%this) {
 	if (%this.getSelectionSize()) {
 		EWorldEditor.addUndoState();
 		for (%i = 0; %i < %this.getSelectionSize(); %i ++) {
+			/** @type {SceneObject} */
 			%obj = %this.getSelectedObject(%i);
 			%pos = %obj.position;
 			%pos = getWord(%pos, 0)+(-0.5+getRandom()) SPC getWord(%pos, 1)+(-0.5+getRandom()) / 2 SPC getWord(%pos, 2)+(-0.5+getRandom());
@@ -3976,13 +4297,20 @@ function EWorldEditor::malign(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::skinSelection(%this) {
 	showSkinSelectionDlg(%this.getSelectedObject(0));
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::applySkin(%this, %skin) {
 	if (%this.getSelectionSize()) {
 		for (%i = 0; %i < %this.getSelectionSize(); %i ++) {
+			/** @type {ShapeBase} */
 			%obj = %this.getSelectedObject(%i);
 			%obj.inspectPreApply();
 
@@ -3997,6 +4325,9 @@ function EWorldEditor::applySkin(%this, %skin) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::groupSelection(%this) {
 	if (%this.getSelectionSize()) {
 		$InstantGroup.add(%group = new SimGroup());
@@ -4007,6 +4338,9 @@ function EWorldEditor::groupSelection(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::ungroupSelection(%this) {
 	if (%this.getSelectionSize()) {
 		for (%i = 0; %i < %this.getSelectionSize(); %i ++) {
@@ -4018,6 +4352,10 @@ function EWorldEditor::ungroupSelection(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {EWorldEditor} %this
+ * @param {Type} %client
+ */
 function EWorldEditor::checkChat(%this, %client, %message) {
 	switch$ (%message) {
 	case "/v1":
@@ -4146,6 +4484,9 @@ function editorExpand() {
 	EWSpecialBox.setWidth(getWord(Canvas.getExtent(), 0) - %w);
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::toggleMovingObjects(%this) {
 	activateMovingObjects(!$Server::MovingObjectsActive);
 	EMovingObjectsCheck.setValue($Server::MovingObjectsActive);
@@ -4153,6 +4494,9 @@ function EWorldEditor::toggleMovingObjects(%this) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::init(%this) {
 	%this.clear();
 	for (%i = 0; %i < MissionInfo.replays; %i ++) {
@@ -4160,6 +4504,9 @@ function EWActiveReplayList::init(%this) {
 	}
 }
 
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::addReplay(%this, %index, %file, %time) {
 	%this.setHeight((%index + 1) * 40);
 	%this.add(new GuiControl("EWReplayBox" @ %index) {
@@ -4260,14 +4607,23 @@ function EWActiveReplayList::addReplay(%this, %index, %file, %time) {
 	("EWReplayEdit" @ %index).makeFirstResponder(false);
 }
 
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::editReplay(%this, %index) {
 	("EWReplayEdit" @ %index).setProfile(GuiTextEditWarnProfile);
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::cancelEditReplay(%this, %index) {
 	("EWReplayEdit" @ %index).setValue(MissionInfo.replay[%index]);
 	("EWReplayEdit" @ %index).setProfile(GuiTextEditProfile);
 	("EWReplayEdit" @ %index).makeFirstResponder(false);
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::updateReplay(%this, %index) {
 	%replayValue = ("EWReplayEdit" @ %index).getValue();
 	if (isFile(%replayValue)) {
@@ -4280,14 +4636,23 @@ function EWActiveReplayList::updateReplay(%this, %index) {
 		("EWReplayEdit" @ %index).setProfile(GuiTextEditDangerProfile);
 	}
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::editReplayTime(%this, %index) {
 	("EWReplayTime" @ %index).setProfile(GuiTextEditWarnProfile);
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::cancelEditReplayTime(%this, %index) {
 	("EWReplayTime" @ %index).setValue(MissionInfo.replayTime[%index]);
 	("EWReplayTime" @ %index).setProfile(GuiTextEditProfile);
 	("EWReplayTime" @ %index).makeFirstResponder(false);
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::updateReplayTime(%this, %index) {
 	%timeValue = ("EWReplayTime" @ %index).getValue();
 	MissionInfo.replayTime[%index] = %timeValue;
@@ -4296,6 +4661,9 @@ function EWActiveReplayList::updateReplayTime(%this, %index) {
 	("EWReplayTime" @ %index).schedule(2000, setProfile, GuiTextEditProfile);
 	EWorldEditor.isDirty = true;
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::selectReplay(%this, %index) {
 	%this.selectReplay = %index;
 	getLoadFilename("*.rrec", "EWSelectReplay");
@@ -4305,6 +4673,9 @@ function EWSelectReplay(%replay) {
 	("EWReplayEdit" @ %index).setValue(%replay);
 	EWorldEditor.isDirty = true;
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::deleteReplay(%this, %index) {
 	("EWReplayBox" @ %index).delete();
 
@@ -4320,6 +4691,9 @@ function EWActiveReplayList::deleteReplay(%this, %index) {
 	EWorldEditor.isDirty = true;
 }
 
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::createNew(%this) {
 	%file = filePath($Server::MissionFile) @ "/" @ fileBase($Server::MissionFile) @ "_" @(MissionInfo.replays + 0) @ ".rrec";
 	getSaveFilename("*.rrec", "EWCreateNewReplay", %file);
@@ -4327,12 +4701,18 @@ function EWActiveReplayList::createNew(%this) {
 function EWCreateNewReplay(%replay) {
 	MessageBoxOk("Start Replay", "The replay will start when you close this window <spush><bold>and the editor<spop>, and will stop when you <spush><bold>reopen the editor<spop> press enter.", "EWActiveReplayList.startRecording(\"" @ %replay @ "\");");
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::startRecording(%this, %replay) {
 	%this.replayLocation = %replay;
 	EditorMap.bindCmd(keyboard, "enter", "EWActiveReplayList.stopRecording();", "");
 	recordStart($MP::MyMarble, %replay);
 	$Record::Started = true;
 }
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::stopRecording(%this) {
 	recordFinish();
 	MessageBoxOk("Replay Done", "The replay has been saved to " @ %this.replayLocation);
@@ -4344,6 +4724,9 @@ function EWActiveReplayList::stopRecording(%this) {
 	EWorldEditor.isDirty = true;
 }
 
+/**
+ * @param {EWActiveReplayList} %this
+ */
 function EWActiveReplayList::addExisting(%this) {
 	getLoadFilename("*.rrec", "EWAddExistingReplay");
 }
@@ -4360,6 +4743,9 @@ function EWAddExistingReplay(%replay) {
 //------------------------------------------------------------------------------
 // Terrain Creation functions ~ Connie
 
+/**
+ * @param {ETerrainEditor} %this
+ */
 function ETerrainEditor::checkForTerrain(%this, %checkforfile) {
 	if (!isObject(terrain)) {
 		// %checkforfile TRUE = it will check if createdTerrains already has a terrain block with the same name as the mission file.
@@ -4378,6 +4764,9 @@ function ETerrainEditor::checkForTerrain(%this, %checkforfile) {
 	}
 }
 
+/**
+ * @param {ETerrainEditor} %this
+ */
 function ETerrainEditor::addTerrain(%this, %file) {
 	if (!%file) {
 		%templateterrfile = "platinum/data/terrains/template.ter";
@@ -4409,6 +4798,9 @@ function ETerrainEditor::addTerrain(%this, %file) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::buildSpecial(%this) {
 	%count = %this.getSelectionSize();
 	%this.clearSpecial();
@@ -4422,7 +4814,9 @@ function EWorldEditor::buildSpecial(%this) {
 	if (%count > 1) {
 		%type = 2147483647;
 		for (%i = 1; %i < %count; %i ++) {
+			/** @type {GameBase} */
 			%obj1 = %this.getSelectedObject(%i - 1);
+			/** @type {GameBase} */
 			%obj2 = %this.getSelectedObject(%i);
 
 			%type &= %obj1.getType();
@@ -4446,6 +4840,9 @@ function EWorldEditor::buildSpecial(%this) {
 	%this.buildSpecialSingle(%this.getSelectedObject(0));
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::buildSpecialNone(%this) {
 	%this.addSpecial("Edit Mission Info", "emibutton();");
 	%this.addSpecial("Edit Sun", "sunbutton();");
@@ -4467,6 +4864,10 @@ function EWorldEditor::buildSpecialNone(%this) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ * @param {GameBase} %obj
+ */
 function EWorldEditor::buildSpecialSingle(%this, %obj) {
 	%type = %obj.getType();
 	%class = %obj.getClassName();
@@ -4543,6 +4944,9 @@ function EWorldEditor::buildSpecialSingle(%this, %obj) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::buildSpecialMultiple(%this, %type) {
 	%this.addSpecial("Group Items", "EWorldEditor.groupSelection();");
 	%this.addSpecial("Ungroup Items", "EWorldEditor.ungroupSelection();");
@@ -4555,6 +4959,9 @@ function EWorldEditor::buildSpecialMultiple(%this, %type) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::applyAllSelection(%this, %function) {
 	%count = %this.getSelectionSize();
 	for (%i = 0; %i < %count; %i ++) {
@@ -4563,11 +4970,17 @@ function EWorldEditor::applyAllSelection(%this, %function) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::clearSpecial(%this) {
 	EWSpecialScroll.setWidth(getWord(EWSpecialBox.getExtent(), 0) - 4);
 	EWSpecialScroll.clear();
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::addSpecial(%this, %name, %action) {
 	if (EWSpecialScroll.getCount() == 0)
 		%start = getWord(EWSpecialBox.getExtent(), 0);
@@ -4596,6 +5009,9 @@ function EWorldEditor::addSpecial(%this, %name, %action) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::translateManually(%this) {
 	LargeFunctionDlg.init("editorTranslate3d", "Translate Manually", 1);
 	LargeFunctionDlg.addNote("Move the selected object(s) along the following axes:");
@@ -4617,10 +5033,16 @@ function editorTranslate3d() {
 	Canvas.popDialog(LargeFunctionDlg);
 }
 
+/**
+ * @param {ET3D_Local} %this
+ */
 function ET3D_Local::onPressed(%this) {
 	//I don't care
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function editorTranslate3dObj(%obj) {
 	%translation = ET3D_TransX.getValue() SPC ET3D_TransY.getValue() SPC ET3D_TransZ.getValue();
 	if (ET3D_Local.getValue()) {
@@ -4633,6 +5055,9 @@ function editorTranslate3dObj(%obj) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::rotateManually(%this) {
 	LargeFunctionDlg.init("editorRotate3d", "Rotate Manually", 1);
 	LargeFunctionDlg.addNote("Rotate the selected object(s) along the following axes (in degrees, -360 to 360):");
@@ -4684,10 +5109,16 @@ function editorRotate3d() {
 	Canvas.popDialog(LargeFunctionDlg);
 }
 
+/**
+ * @param {ER3D_Local} %this
+ */
 function ER3D_Local::onPressed(%this) {
 	//I don't care
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function editorRotate3dObj(%obj) {
 	%matrix = MatrixInverse(MatrixCreateFromEuler(mDegToRad(ER3D_RotX.getValue()) SPC mDegToRad(ER3D_RotY.getValue()) SPC mDegToRad(ER3D_RotZ.getValue())));
 
@@ -4726,6 +5157,9 @@ function editorRotate3dObj(%obj) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %obj
+ */
 function changeGemColor(%obj, %color) {
 	%db = %obj.getDatablock().getName();
 	switch$ (%db) {
@@ -4789,6 +5223,9 @@ function changeGemColor(%obj, %color) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::focusOnSelection(%this) {
 	if (%this.getSelectionSize() == 0) {
 		//Get bounds of entire level
@@ -4961,11 +5398,18 @@ function buildDBJson() {
 	fwrite("platinum/triggerdatablocks.json", jsonPrint(TLArray));
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::selectSingle(%this, %obj) {
   	%this.clearSelection();
   	EditorTree.onSelect(%obj);
 }
 
+/**
+ * @param {EWorldEditor} %this
+ * @param {SimSet} %obj
+ */
 function EWorldEditor::selectGroup(%this, %obj) {
 	if(%obj.getClassName() $= "SimGroup" || %obj.getClassName() $= "Path") {
 		for(%i = 0; %i < %obj.getCount(); %i++) {
@@ -4978,6 +5422,10 @@ function EWorldEditor::selectGroup(%this, %obj) {
 	}
 }
 
+/**
+ * @param {EWorldEditor} %this
+ * @param {SimSet} %group
+ */
 function EWorldEditor::isMCGroupSelected(%this, %group) {
 	if(!isObject(%group))
 		return false;
@@ -4997,15 +5445,23 @@ function EWorldEditor::isMCGroupSelected(%this, %group) {
 	return %markerSelected && %piSelected;
 }
 
+/**
+ * @param {EWorldEditor} %this
+ */
 function EWorldEditor::noteMCGroupSelected(%this, %group) {
 	// Note if the selected MP elements should be transferred to a new MustChange group.
 	%this.mcGroupIsSelected[%group] = %this.isMCGroupSelected(%group);
 }
 
+/**
+ * @param {EWorldEditor} %this
+ * @param {Marker} %marker
+ */
 function EWorldEditor::addPathTrigger(%this, %marker) {
 	%path = %marker.getGroup();
 	if(%path.getClassName() !$= "Path")
 		return;
+	/** @type {SimGroup} */
 	%group = %path.getGroup();
 	%trigger = new Trigger("MustChange_t") {
 		dataBlock = TriggerGotoTarget;
@@ -5017,7 +5473,9 @@ function EWorldEditor::addPathTrigger(%this, %marker) {
 	for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
 		if(%obj.getClassName() $= "PathedInterior") {
 			%obj.initialTargetPosition = 0;
+			/** @type {PathedInterior} */
 			%obj.setPathPosition(%obj.initialPathPosition);
+			/** @type {PathedInterior} */
 			%obj.setTargetPosition(0);
 			%mp = %obj;
 		}
@@ -5030,7 +5488,12 @@ function EWorldEditor::addPathTrigger(%this, %marker) {
 	//%this.dropSelection(); 
 }
 
+/**
+ * @param {EWorldEditor} %this
+ * @param {Marker} %marker
+ */
 function EWorldEditor::selectMarker(%this, %marker, %amt) {
+	/** @type {SimGroup} */
 	%path = %marker.getGroup();
 	if(%path.getClassName() !$= "Path")
 		return;

@@ -80,6 +80,9 @@ $Spooky::GhostFace[6] = "oooo";
 $Spooky::GhostFace[7] = "scared";
 $Spooky::GhostFaceCount = 8;
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_ghosts::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onMissionLoaded");
@@ -91,17 +94,30 @@ function Mode_ghosts::onLoad(%this) {
 	%this.registerCallback("modifyScoreData");
 }
 
+/**
+ * @param {Mode_ghosts} %this
+ * @param {Type} %object
+ */
 function Mode_ghosts::modifyScoreData(%this, %object) {
 	return %object.data @ "&extraModes[]=ghosts";
 }
 
+/**
+ * @param {Mode_ghosts} %this
+ */
 function Mode_ghosts::onMissionLoaded(%this) {
 	updateScaryGhosts();
 }
+/**
+ * @param {Mode_ghosts} %this
+ */
 function Mode_ghosts::onMissionEnded(%this) {
 	// cancel event schedules
 	cancel($Spooky::ScaryGhostSchedule);
 }
+/**
+ * @param {Mode_ghosts} %this
+ */
 function Mode_ghosts::onMissionReset(%this) {
 	// put them in place!
 	// they respawn in a circle, but do not spawn in a circle.
@@ -114,17 +130,27 @@ function Mode_ghosts::onMissionReset(%this) {
 	for (%i = 0; %i < %count; %i++)
 		ClientGroup.getObject(%i).ghostImmunityTimer = 0;
 }
+/**
+ * @param {Mode_ghosts} %this
+ */
 function Mode_ghosts::onCreatePlayer(%this) {
 	$Spooky::GhostCountPerPlayer = MissionInfo.ghostsPerPlayer ? MissionInfo.ghostsPerPlayer : 1;
 
 	for (%i = 0; %i < $Spooky::GhostCountPerPlayer; %i++)
 		createAScaryGhost();
 }
+/**
+ * @param {Mode_ghosts} %this
+ */
 function Mode_ghosts::onClientLeaveGame(%this) {
 	// just delete a ghost, depending on how many per player
 	for (%i = 0; %i < $Spooky::GhostCountPerPlayer; %i++)
 		SpookyGhostSet.getObject(0).delete();
 }
+/**
+ * @param {Mode_ghosts} %this
+ * @param {SceneObject} %obj
+ */
 function Mode_ghosts::onOutOfBounds(%this, %obj) {
 	// get scared.
 	// set to true when frightened by a ghost.
@@ -143,6 +169,10 @@ datablock StaticShapeData(ScaryGhost) {
 	emap = false;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ScaryGhost::onAdd(%this, %obj) {
 	%obj.playThread(0, "ambient");
 	%this.schedule(getRandom(5000, 10000), "spookySound", %obj);
@@ -313,6 +343,9 @@ function scaryGhostCheckCollision() {
 	}
 }
 
+/**
+ * @param {Type} %obj
+ */
 function SpookyState::waiting(%obj) {
 	// Untracks players or gems that could have been being tracked.
 	// basically does a reset
@@ -346,6 +379,9 @@ function SpookyState::waiting(%obj) {
 	}
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function SpookyState::findPlayer(%obj, %alreadyTrackingGem) {
 	%clientCount = ClientGroup.getCount();
 	%pos = %obj.getPosition();
@@ -389,6 +425,9 @@ function SpookyState::findPlayer(%obj, %alreadyTrackingGem) {
 	return false;
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function SpookyState::trackPlayer(%obj) {
 	// If the following object left or Disconnected, stop following
 	if (!isObject(%obj.following)) {
@@ -418,6 +457,9 @@ function SpookyState::trackPlayer(%obj) {
 	moveSpookyGhost(%obj);
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function SpookyState::findGem(%obj) {
 	// find closet non-hidden gem.
 	%max = 999999999;
@@ -450,6 +492,9 @@ function SpookyState::findGem(%obj) {
 	}
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function SpookyState::trackGem(%obj) {
 	// If the following object got deleted.
 	if (!isObject(%obj.following)) {
@@ -481,6 +526,9 @@ function SpookyState::trackGem(%obj) {
 	moveSpookyGhost(%obj);
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function SpookyState::wander(%obj) {
 	// Try to go somewhere random
 	if (%obj.trackPoint $= "") {
@@ -507,6 +555,9 @@ function SpookyState::wander(%obj) {
 	moveSpookyGhost(%obj);
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function moveSpookyGhost(%obj) {
 	// move the ghost towards the player in units per second
 	if (%obj.state == $Spooky::State::eWander) {
@@ -682,6 +733,10 @@ datablock AudioProfile(GhostSoundAirhorn) {
 // datablock AudioProfile(GhostSoundScary5) { filename = "~/data/sound/ghost/g115.wav"; description = AudioDefault3D; preload = true; };		// Yeti 2
 
 // Map ghost sounds to ghosts.
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function ScaryGhost::spookySound(%this, %obj) {
 	cancel(%this.spookySoundSch[%obj]);
 

@@ -337,6 +337,9 @@ new GuiBitmapCtrl(LBScoresDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::onWake(%this) {
 	if (%this.category $= "") {
 		LB_GeneralGeneralCategory.setValue(true);
@@ -357,10 +360,16 @@ function LBScoresDlg::onWake(%this) {
 	%this.updatePage();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::onSleep(%this) {
 	%this.reset();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::reset(%this) {
 	%this.page = 0;
 	%this.loading = false;
@@ -377,16 +386,25 @@ function LBScoresDlg::reset(%this) {
 	}
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::next(%this) {
 	%this.page ++;
 	%this.updatePage();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::prev(%this) {
 	%this.page --;
 	%this.updatePage();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::selectCategory(%this, %category) {
 	%this.category = %category;
 	%this.page = 0;
@@ -394,6 +412,9 @@ function LBScoresDlg::selectCategory(%this, %category) {
 	%this.updatePage();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::selectGame(%this, %game) {
 	%this.game = %game;
 	%this.page = 0;
@@ -401,6 +422,9 @@ function LBScoresDlg::selectGame(%this, %game) {
 	%this.updatePage();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::updatePage(%this) {
 	LB_GeneralPrev.setActive(true);
 	LB_GeneralNext.setActive(true);
@@ -439,6 +463,9 @@ function LBScoresDlg::updatePage(%this) {
 	%this.showPage();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::getRatingColumn(%this) {
 	if (%this.game $= "Multiplayer") {
 		return "rating_mp";
@@ -446,6 +473,9 @@ function LBScoresDlg::getRatingColumn(%this) {
 	return %this.categoryMap[%this.category];
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::showPage(%this) {
 	%title = "";
 	if (%this.category $= "General")
@@ -501,12 +531,18 @@ function LBScoresDlg::showPage(%this) {
 	LB_GeneralScoresText.setText(%text);
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::loadData(%this) {
 	statsGetTopPlayers();
 	%this.loading = true;
 	%this.showPage();
 }
 
+/**
+ * @param {LBScoresDlg} %this
+ */
 function LBScoresDlg::onTopPlayersUpdate(%this, %parsed) {
 	%this.topPlayerCache = %parsed;
 

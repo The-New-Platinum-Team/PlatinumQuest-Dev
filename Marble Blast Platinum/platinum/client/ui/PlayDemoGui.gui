@@ -285,11 +285,17 @@ new GuiChunkedBitmapCtrl(PlayDemoGui) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::open(%this, %lb) {
 	%this.isLB = %lb;
 	Canvas.pushDialog(%this);
 }
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::onWake(%this) {
 	PlayDemoGui.buildDemoList();
 	PD_Delete.setActive(0);
@@ -299,6 +305,9 @@ function PlayDemoGui::onWake(%this) {
 	%this.setStatus("Search:", true);
 }
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::buildDemoList(%this) {
 
 	if (!isObject(ReplaySearchSet)) {
@@ -370,6 +379,9 @@ function getSelectedDemo() {
 	PD_race.setActive(1);
 }
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::deleteFile(%this) {
 	%id = PD_DemoList.getSelectedId();
 	%row = PD_DemoList.getRowTextById(%id);
@@ -381,6 +393,9 @@ function PlayDemoGui::deleteFile(%this) {
 	MessageBoxYesNo("Delete Recording?", "Do you want to delete the recording \"" @ %name @ "\"?", "PlayDemoGui.doDelete(" @ %id @ ");", "");
 }
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::editFile(%this) {
 	%id = PD_DemoList.getSelectedId();
 	%row = PD_DemoList.getRowTextById(%id);
@@ -390,6 +405,9 @@ function PlayDemoGui::editFile(%this) {
 	EditDemoDlg.open(%info, "PlayDemoGui.buildDemoList();");
 }
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::doDelete(%this, %id) {
 	%row = PD_DemoList.getRowTextById(%id);
 	%file = getField(%row, 1);
@@ -460,11 +478,17 @@ function getReplayInfo(%file) {
 
 // Search
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::clearSearch(%this) {
 	PDSearchEdit.setValue("");
 	PlayDemoGui.search();
 }
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::setStatus(%this, %status, %active) {
 	PDSearchTitle.setText("<font:24><color:696969>" @ %status);
 	PDSearchEdit.setVisible(%active);
@@ -480,6 +504,9 @@ function testReplaySearch(%info, %flags, %query) {
 	       || (strStr(%info.searchMissionFile, %query) != -1);
 }
 
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::search(%this) {
 	PD_DemoList.clear();
 	%key = strlwr(trim(PDSearchEdit.getValue()));
@@ -520,6 +547,9 @@ function PlayDemoGui::search(%this) {
 // auto-select a row in the mission list, ect.
 //
 // This code is about the only thing left from the old SearchDlg
+/**
+ * @param {PlayDemoGui} %this
+ */
 function PlayDemoGui::finalize(%this) {
 	PD_Delete.setActive(0);
 	PD_DescriptionText.setText("");

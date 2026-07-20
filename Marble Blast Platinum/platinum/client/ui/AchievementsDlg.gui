@@ -314,6 +314,9 @@ new GuiControl(AchievementsDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {AchievementsDlg} %this
+ */
 function AchievementsDlg::onWake(%this) {
 	//Try to center this GUI, but don't overlap the dropdowns
 	%x = (getWord(Canvas.getExtent(), 0) / 2) - (getWord(AchievBody.getExtent(), 0) / 2);
@@ -326,6 +329,9 @@ function AchievementsDlg::onWake(%this) {
 	%this.loadList();
 }
 
+/**
+ * @param {AchievementsDlg} %this
+ */
 function AchievementsDlg::loadList(%this) {
 	AchievList.clear();
 	AchievList.setHeight(0);
@@ -378,6 +384,9 @@ function sortAchievements(%a, %b) {
 	return $Achievement::Order[%aCatId, %aId] < $Achievement::Order[%bCatId, %bId];
 }
 
+/**
+ * @param {AchievementsDlg} %this
+ */
 function AchievementsDlg::addCategory(%this, %catId, %catName) {
 	%w = getWord(AchievList.getExtent(), 0);
 	%h = 40;
@@ -427,14 +436,20 @@ function AchievementsDlg::addCategory(%this, %catId, %catName) {
 	AchievList.setHeight(%y + %h);
 }
 
+/**
+ * @param {AchievementsDlg} %this
+ */
 function AchievementsDlg::addAchievement(%this, %catId, %id, %earned, %achName, %achDesc, %achLevel) {
 	%w = getWord(AchievList.getExtent(), 0);
 	%h = 80;
 	%x = 0;
 	%y = getWord(AchievList.getExtent(), 1);
 
+	/** @type {GuiControl} */
 	%boxName = "AchievBox_" @ %catId @ "_" @ %id;
+	/** @type {GuiBitmapCtrl} */
 	%imgName = "AchievImg_" @ %catId @ "_" @ %id;
+	/** @type {GuiMLTextCtrl} */
 	%textName = "AchievText_" @ %catId @ "_" @ %id;
 
 	%box = new GuiControl(%boxName) {
@@ -495,6 +510,9 @@ function AchievementsDlg::addAchievement(%this, %catId, %id, %earned, %achName, 
 //-----------------------------------------------------------------------------
 // Achievement-specific section
 
+/**
+ * @param {AchievementsDlg} %this
+ */
 function AchievementsDlg::update(%this, %catId, %id) {
 	//Reset all to shown in case we unlock the ability to see any
 	for (%catId = 0; %catId < $Achievement::Category::Count; %catId ++) {
