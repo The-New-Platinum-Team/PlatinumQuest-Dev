@@ -1821,6 +1821,13 @@ function WorldEditor::checkDeselect(%this) {
 }
 
 /**
+ * @param {WorldEditor} %this
+ */
+function WorldEditor::onUnselectAll(%this) {
+	%this.buildSpecial();
+}
+
+/**
  * @param {EWorldEditor} %this
  */
 function EWorldEditor::onUnselectAll(%this) {
@@ -2652,29 +2659,6 @@ function TSStatic::damage(%this) {
 	// prevent console error spam
 }
 
-/**
- * @param {TerraformerGui} %this
- */
-function TerraformerGui::init(%this) {
-	TerraformerHeightfieldGui.init();
-	TerraformerTextureGui.init();
-}
-
-/**
- * @param {TerraformerGui} %this
- */
-function TerraformerGui::onWake(%this) {
-	// Only the canvas level gui's get wakes, so udpate manually.
-	TerraformerTextureGui.update();
-}
-
-/**
- * @param {TerraformerGui} %this
- */
-function TerraformerGui::onSleep(%this) {
-	%this.setPrefs();
-}
-
 $nextTextureId = 1;
 $nextTextureRegister = 1000;
 $selectedMaterial = -1;
@@ -2734,32 +2718,6 @@ function TerraformerTextureGui::refresh(%this) {
 
 
 //--------------------------------------
-/**
- * @param {Texture_material_menu} %this
- */
-function Texture_material_menu::onSelect(%this, %id, %text) {
-	%this.setText("Materials");
-
-	// FORMAT
-	//   material name
-	//   register
-	//     operation
-	//       name
-	//       tab name
-	//       register
-	//       distortion register
-	//       {field,value}, ...
-	//     operation
-	//       ...
-	Texture::saveMaterial();
-	Texture::hideTab();
-	%id = Texture::addMaterial(%text @ "\t" @ $nextTextureRegister++);
-
-	if (%id != -1) {
-		Texture_material.setSelectedById(%id);
-		Texture::addOperation("Fractal Distortion\ttab_DistortMask\t" @ $nextTextureRegister++ @ "\t0\tdmask_interval\t20\tdmask_rough\t0\tdmask_seed\t" @ terraFormer.generateSeed() @ "\tdmask_filter\t0.00000 0.00000 0.13750 0.487500 0.86250 1.00000 1.00000");
-	}
-}
 
 
 function Texture::addMaterialTexture() {

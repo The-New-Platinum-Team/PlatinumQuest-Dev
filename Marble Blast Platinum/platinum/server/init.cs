@@ -126,10 +126,6 @@ function fixDedicatedShit() {
 	// Marbles
 	exec($usermods @ "/server/scripts/mp/marbleList.cs");
 
-	// Validate ignition so we can play
-	if ($platform $= "x86UNIX")
-		new IgnitionObject().validate();
-
 	$Server::Started = true;
 	schedule(1000, 0, initDedicatedServer);
 }

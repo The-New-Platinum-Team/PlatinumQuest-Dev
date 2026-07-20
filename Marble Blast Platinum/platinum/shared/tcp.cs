@@ -667,7 +667,7 @@ function TCPObject::destroy(%this) {
  * @param {GameConnection} %this
  */
 function GameConnection::destroy(%this) {
-	%this.disconnect();
+	%this.delete();
 	//%this.schedule(500, "delete");
 }
 

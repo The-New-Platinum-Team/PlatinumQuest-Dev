@@ -1929,9 +1929,9 @@ function TeleportItem::onInspectApply(%this, %obj) {
  */
 function TeleportItem::onUse(%this, %obj, %user) {
 	if ($powerupLocked) {
-		%this.heldPowerup = %item;
-		%this.powerUpData = "";
-		%this.setPowerUpId("0", %reset);
+		%user.heldPowerup = %item;
+		%user.powerUpData = "";
+		%user.setPowerUpId("0", %reset);
 		return;
 	} else {
 		if (%user.teleporterFireNum == %user.client.fireNum)

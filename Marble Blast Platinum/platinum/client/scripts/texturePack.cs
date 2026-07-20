@@ -101,7 +101,7 @@ function reloadTexturePacks() {
 		loadTexturePack(%pack);
 	}
 
-	unloadTimerTextures();
+	//  unloadTimerTextures();
 	reloadShaders();
 	reloadGlowShaders();
 	reloadPostFX();
@@ -132,7 +132,7 @@ function unloadTexturePacks() {
 	}
 	ActiveTexturePacks.clear();
 
-	unloadTimerTextures();
+	// unloadTimerTextures();
 	reloadShaders();
 	reloadGlowShaders();
 	reloadPostFX();

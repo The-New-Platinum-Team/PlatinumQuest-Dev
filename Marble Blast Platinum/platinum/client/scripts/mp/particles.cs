@@ -127,7 +127,7 @@ function updateEmitterPositions() {
 		ClientMovingEmitterSet.remove(%remove[%i]);
 
 	// trail emitters
-	updateTrailEmitters();
+	// updateTrailEmitters();
 }
 
 // this function updates the trail emitters to the correct positions

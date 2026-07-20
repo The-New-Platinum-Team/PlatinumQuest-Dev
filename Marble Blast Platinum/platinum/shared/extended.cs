@@ -463,7 +463,7 @@ $fileExec[$con::file] = getFileCRC($con::file);
 function mungeEmAll(%path) {
 	for (%file = findFirstFile(%path @ "/*.png"); %file !$= ""; %file = findNextFile(%path @ "/*.png")) {
 		echo("\c3Munging file" SPC %file);
-		texMunge(%file);
+		// texMunge(%file);
 	}
 
 	echo("\c3Munging done!");

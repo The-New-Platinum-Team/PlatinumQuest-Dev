@@ -198,12 +198,12 @@ function serverCmdSyncObjectUpdate(%client, %id) {
 	}
 }
 
-/**
- * @param {GameConnection} %client
- */
-function serverCmdSyncObjectComplete(%client, %which, %total) {
-	%client.onSyncObjectComplete(%total);
-	if (%total == %client.syncObjects) {
-		%client.onAllSyncObjectsComplete();
-	}
-}
+// /**
+//  * @param {GameConnection} %client
+//  */
+// function serverCmdSyncObjectComplete(%client, %which, %total) {
+// 	%client.onSyncObjectComplete(%total);
+// 	if (%total == %client.syncObjects) {
+// 		%client.onAllSyncObjectsComplete();
+// 	}
+// }

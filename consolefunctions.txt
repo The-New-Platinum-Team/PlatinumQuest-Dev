@@ -1,0 +1,1158 @@
+namespace Global {
+
+   /*! @name Audio
+   
+   Functions dealing with the OpenAL audio layer.
+
+@see www.OpenAL.org for what these functions do. Variances from posted     behaviour is described below.
+   @{ */
+   /*! Initializes the audio driver. */
+   virtual bool OpenALInitDriver() {}
+   virtual void OpenALShutdownDriver() {}
+   virtual void OpenALRegisterExtensions() {}
+   /*! 
+
+This wraps alGetString(). */
+   virtual string alGetString(string item) {}
+   virtual int alxGetWaveLen(string filename) {}
+   /*!  or (profile, x,y,z) or (description, filename) or (description, filename, x,y,z) */
+   virtual int alxCreateSource(profile) {}
+   virtual void alxSourcef(handle, ALenum, value) {}
+   /*! 
+
+@note You can replace the last three parameters with a string, "x y z" */
+   virtual void alxSource3f(handle, ALenum, x, y, z) {}
+   virtual void alxSourcei(handle, ALenum, value) {}
+   virtual float alxGetSourcef(handle, ALenum) {}
+   virtual string alxGetSource3f(handle, ALenum) {}
+   virtual int alxGetSourcei(handle, ALenum) {}
+   /*!  or alxPlay(profile) or alxPlay(profile, x,y,z) */
+   virtual int alxPlay(handle) {}
+   virtual void alxStop(int handle) {}
+   virtual void alxStopAll() {}
+   virtual bool alxIsPlaying(handle) {}
+   /*! alxListener(ALenum, value) */
+   virtual void alxListenerf() {}
+   /*!  or alListener3f(ALenum, x, y, z) */
+   virtual void alListener3f(ALenum, "x y z") {}
+   virtual float alxGetListenerf(Alenum) {}
+   virtual string alGetListener3f(Alenum) {}
+   virtual int alGetListeneri(Alenum) {}
+   /*! 
+
+@param  channel_id  ID of channel to fetch volume from.
+@return Volume of channel. */
+   virtual int alxGetChannelVolume(int channel_id) {}
+   /*! 
+
+@param channel_id  ID of channel to set volume on.
+@param volume      New volume of channel, from 0.0f-1.0f */
+   virtual bool alxSetChannelVolume(int channel_id, float volume) {}
+   /// @}
+
+   virtual void traceGuard() {}
+   virtual void traceGuardEnd() {}
+   virtual void dumpCodeblockStats() {}
+
+   /*! @name Clipboard
+   
+   Miscellaneous functions to control the clipboard and clear the console.
+   @{ */
+   virtual void cls() {}
+   virtual string getClipboard() {}
+   /*! string */
+   virtual bool setClipboard() {}
+   /// @}
+
+   virtual void setPrintTime(%print) {}
+
+   /*! @name ConsoleDoc
+   
+   Console self-documentation functions. These output psuedo C++ suitable for feeeding through Doxygen or another auto documentation tool.
+   @{ */
+   /*! bool dumpScript = true, bool dumpEngine = true */
+   virtual void dumpConsoleClasses() {}
+   /*! bool dumpScript = true, bool dumpEngine = true */
+   virtual void dumpConsoleFunctions() {}
+   /// @}
+
+   virtual string expandFilename(string filename) {}
+
+   /*! @name StringFunctions
+   
+   General string manipulation functions.
+   @{ */
+   /*! Returns a copy of str with the first character capitalized. */
+   virtual string upperFirst(string str) {}
+   /*! Case sensitive string compare. */
+   virtual int strcmp(string one, string two) {}
+   /*! Case insensitive string compare. */
+   virtual int stricmp(string one, string two) {}
+   /*! Calculate the length of a string in characters. */
+   virtual int strlen(string str) {}
+   /*!  Returns the start of the sub string two in one or -1 if not found. */
+   virtual int strstr(string one, string two) {}
+   /*!  Find needle in hay, starting offset bytes in. */
+   virtual int strpos(string hay, string needle, int offset=0) {}
+   virtual string ltrim(string value) {}
+   virtual string rtrim(string value) {}
+   virtual string trim(string) {}
+   /*!  Remove all the characters in chars from value. */
+   virtual string stripChars(string value, string chars) {}
+   /*!  - remove TorqueML color codes from the string. */
+   virtual string stripColorCodes(stringtoStrip) {}
+   /*!  Convert string to lower case. */
+   virtual string strlwr(string) {}
+   /*!  Convert string to upper case. */
+   virtual string strupr(string) {}
+   virtual string strchr(string,char) {}
+   virtual string strreplace(string source, string from, string to) {}
+   /*!  Returns the substring of str, starting at start, and continuing to either the end of the string, or numChars characters, whichever comes first. */
+   virtual string getSubStr(string str, int start, int numChars) {}
+   virtual string stripTrailingSpaces( string ) {}
+   /// @}
+
+
+   /*! @name FieldManipulators
+   
+   Functions to manipulate data returned in the form of "x y z".
+   @{ */
+   virtual string getWord(string text, int index) {}
+   virtual string getWords(string text, int index, int endIndex=INF) {}
+   virtual string setWord(text, index, replace) {}
+   virtual string removeWord(text, index) {}
+   virtual int getWordCount(text) {}
+   virtual string getField(text, index) {}
+   virtual string getFields(text, index [,endIndex]) {}
+   virtual string setField(text, index, replace) {}
+   virtual string removeField(text, index) {}
+   virtual int getFieldCount(text) {}
+   virtual string getRecord(text, index) {}
+   virtual string getRecords(text, index [,endIndex]) {}
+   virtual string setRecord(text, index, replace) {}
+   virtual string removeRecord(text, index) {}
+   virtual int getRecordCount(text) {}
+   virtual string firstWord(text) {}
+   virtual string restWords(text) {}
+   /*! nextToken(str,token,delim) */
+   virtual string NextToken() {}
+   /// @}
+
+
+   /*! @name TaggedStrings
+   
+   Functions dealing with tagging/detagging strings.
+   @{ */
+   virtual string detag(textTagString) {}
+   virtual string getTag(textTagString) {}
+   /// @}
+
+
+   /*! @name Output
+   
+   Functions to output to the console.
+   @{ */
+   virtual void echo(text [, ... ]) {}
+   virtual void warn(text [, ... ]) {}
+   virtual void error(text [, ... ]) {}
+   virtual string expandEscape(text) {}
+   virtual string collapseEscape(text) {}
+   virtual void setLogMode(mode) {}
+   virtual void setEchoFileLoads(bool) {}
+   /// @}
+
+   /*!  End execution of Torque. */
+   virtual void quit() {}
+   /*!  - Quit, showing the provided error message. This is equivalent to an AssertISV. */
+   virtual void quitWithErrorMessage(msg) {}
+   /*!  - Open a URL in the user's favorite web browser. */
+   virtual void gotoWebPage( address ) {}
+
+   /*! @name MetaScripting
+   
+   Functions that let you manipulate the scripting engine programmatically.
+   @{ */
+   virtual string call(funcName [,args ...]) {}
+   virtual bool compile(fileName) {}
+   virtual bool exec(fileName [, nocalls [,journalScript]]) {}
+   virtual string eval(consoleString) {}
+   virtual void export(searchString [, fileName [,append]]) {}
+   virtual void deleteVariables(wildCard) {}
+   virtual void trace(bool) {}
+   /// @}
+
+
+   /*! @name InputManagement
+   
+   Functions that let you deal with input from scripts
+   @{ */
+   /*! Deactivate input. (ie, ungrab the mouse so the user can do other things. */
+   virtual void deactivateDirectInput() {}
+   /*! Activate input. (ie, grab the mouse again so the user can play our game. */
+   virtual void activateDirectInput() {}
+   /// @}
+
+
+   /*! @name FileSystem
+   
+   Functions allowing you to search for files, read them, write them, and access their properties.
+   @{ */
+   /*!  Returns the first file in the directory system matching the given pattern. */
+   virtual string findFirstFile(string pattern) {}
+   /*!  Returns the next file matching a search begun in findFirstFile. */
+   virtual string findNextFile(string pattern) {}
+   /*! returns the number of files in the directory tree that match the given pattern */
+   virtual int getFileCount(string pattern) {}
+   /*!  Returns the first file in the directory system matching the given pattern. */
+   virtual string findFirstFileMultiExpr(string pattern) {}
+   /*!  Returns the next file matching a search begun in findFirstFile. */
+   virtual string findNextFileMultiExpr(string pattern) {}
+   /*! returns the number of files in the directory tree that match the given pattern */
+   virtual int getFileCountMultiExpr(string pattern) {}
+   virtual int getFileCRC(filename) {}
+   virtual bool isFile(fileName) {}
+   virtual bool isWriteableFileName(fileName) {}
+   virtual string fileExt(fileName) {}
+   virtual string fileBase(fileName) {}
+   virtual string fileName(filePathName) {}
+   virtual string filePath(fileName) {}
+   virtual bool pathCopy(fromFile, toFile [, nooverwrite = true]) {}
+   virtual string getDirectoryList(%path, %depth) {}
+   /*!  returns filesize or -1 if no file */
+   virtual int fileSize(fileName) {}
+   virtual string getCurrentDirectory() {}
+   virtual void restartInstance() {}
+   virtual bool createPath("file name or path name") {}
+   virtual bool fileDelete('path') {}
+   /*!  - Returns the platform timestamp as a large integer string. */
+   virtual string getFileModifiedTime(filename) {}
+   /// @}
+
+
+   /*! @name DateTime
+   
+   For Date and Time
+   @{ */
+   /*! getSystemTimeStamp() */
+   virtual string getSystemTimestamp() {}
+   /*!  (Y-m-d) */
+   virtual string getCurrentDate() {}
+   virtual string getCurrentDay() {}
+   virtual string getCurrentMonth() {}
+   virtual string getCurrentYear() {}
+   /// @}
+
+   /*! Print the call stack. */
+   virtual void backtrace() {}
+
+   /*! @name Packages
+   
+   Functions relating to the control of packages.
+   @{ */
+   virtual bool isPackage(packageName) {}
+   virtual void activatePackage(packageName) {}
+   virtual void deactivatePackage(packageName) {}
+   /// @}
+
+
+   /*! @name SimFunctions
+   
+   Sim Functions
+   @{ */
+   /*! string objectName */
+   virtual int nameToID() {}
+   /*! handle */
+   virtual bool isObject() {}
+   /*! eventID */
+   virtual void cancel() {}
+   /*! cancel(objectId) */
+   virtual void cancelAll() {}
+   /*! eventID */
+   virtual bool isEventPending() {}
+   /*! eventID */
+   virtual int getEventTimeLeft() {}
+   /*! eventID */
+   virtual int getScheduleDuration() {}
+   /*! eventID */
+   virtual int getTimeSinceStart() {}
+   /*! t , objID || 0 , functionName, arg0, ... , argN */
+   virtual int schedule() {}
+   /// @}
+
+   virtual void deleteDataBlocks() {}
+   virtual int getSimTime() {}
+   /*! Initialize and open the telnet console.
+
+@param port        Port to listen on for console connections (0 will shut down listening).
+@param consolePass Password for read/write access to console.
+@param listenPass  Password for read access to console.@param remoteEcho  [optional] Enable echoing back to the client, off by default. */
+   virtual void telnetSetParameters(int port, string consolePass, string listenPass, bool remoteEcho) {}
+   /*! Open a debug server port on the specified port, requiring the specified password, and optionally waiting for the debug client to connect. */
+   virtual void dbgSetParameters(int port, string password, bool waitForClient) {}
+   /*! Returns true if a script debugging client is connected else return false. */
+   virtual bool dbgIsConnected() {}
+   /*! Forcibly disconnects any attached script debugging client. */
+   virtual void dbgDisconnect() {}
+   /*! Write a chunk hierarchy to a file. */
+   virtual bool saveChunkFile(SimChunk chunk, Filename file) {}
+   /*! Read a chunk hierarchy from a file. */
+   virtual int loadChunkFile(Filename file) {}
+   /*! @brief Enables logging of the connection protocols
+
+When enabled a lot of network debugging information is sent to the console.
+@param enabled True to enable, false to disable
+@ingroup Networking */
+   virtual void DNetSetLogging(bool enabled) {}
+   virtual void addDirectoryOverride(old, new) {}
+   virtual void removeDirectoryOverride(old, new) {}
+   virtual void addResPath(path, [ignoreZips=false]?) {}
+   /*! pathExpression */
+   virtual void removeResPath() {}
+   /*!  path  */
+   virtual void setModPaths() {}
+   virtual string getModPaths() {}
+   virtual void purgeResources() {}
+   virtual bool isUsingVFS() {}
+   /*! pngFilename, [quality ]? */
+   virtual int png2jpg() {}
+   /*!  Populate the font cache for the specified font with characters from the specified string.@param faceName The font's name
+@param size The size of the font.
+@param string The string to use to fill font cache
+@return No return value. */
+   virtual void populateFontCacheString(faceName, size, string) {}
+   /*!  - Populate the font cache for the specified font with Unicode code points in the specified range. Note we only support BMP-0, so code points range from 0 to 65535.@param faceName The name of the font
+@param size The size of the font.
+@param rangeStart The initial Unicode point
+@param rangeEnd The final Unicode point in range
+@return No return value */
+   virtual void populateFontCacheRange(faceName, size, rangeStart, rangeEnd) {}
+   /*!  Dump a full description of all cached fonts, along with info on the codepoints each contains.
+@return No return value */
+   virtual void dumpFontCacheStatus() {}
+   /*!  force all cached fonts toserialize themselves to the cache.@return No return value */
+   virtual void writeFontCache() {}
+   /*!  Populate the font cache for all fonts with characters from the specified string.
+@param inString The string to use to set the font caches
+@return No return value. */
+   virtual void populateAllFontCacheString(string inString) {}
+   /*!  Populate the font cache for all fonts with Unicode code points in the specified range. Note we only support BMP-0, so code points range from 0 to 65535.
+@param rangeStart, rangeEnd The range of the unicode points to populate caches with
+@return No return value */
+   virtual void populateAllFontCacheRange(rangeStart, rangeEnd) {}
+   /*!  - Export specified font to the specified filename as a PNG. The image can then be processed in Photoshop or another tool and reimported using importCachedFont. Characters in the font areexported as one long strip.
+@param fontName The name of the font to export.
+@param size The size of the font
+@param fileName The export file name.
+@param padding Desired padding settings.
+@param kerning Kerning settings (space between elements)
+@return No return value. */
+   virtual void exportCachedFont(fontName, size, fileName, padding, kerning) {}
+   /*!  Import an image strip from exportCachedFont. Call with the same parameters you called exportCachedFont.@param fontName The name of the font to import.
+@param size The size of the font
+@param fileName The imported file name.
+@param padding Desired padding settings.
+@param kerning Kerning settings (space between elements)
+@return No return value. */
+   virtual void importCachedFont(fontName, size, fileName, padding, kerning) {}
+   /*!  Copy the specified old font to a new name. The new copy will not have a platform font backing it, and so will never have characters added to it. But this is useful for making copies of fonts to add postprocessing effects to via exportCachedFont.
+@param oldFontName The original font.
+@param oldFontSize The original font's size property.
+@param newFontName The name to set the copy to.
+@return No return value. */
+   virtual void duplicateCachedFont(oldFontName, oldFontSize, newFontName) {}
+   virtual void fontAtlasTest() {}
+   virtual void flushTextureCache() {}
+   virtual int clearTextureHolds() {}
+   /*!  Sets mipmap reduction level, n ranges from 0-5. */
+   virtual void setOpenGLMipReduction( n ) {}
+   virtual void setOpenGLSkyMipReduction(0-5) {}
+   virtual void setOpenGLInteriorMipReduction(0-5) {}
+   /*! setTextureCompressionHint(GL_DONT_CARE|GL_FASTEST|GL_NICEST); */
+   virtual void setOpenGLTextureCompressionHint() {}
+   virtual void setOpenGLAnisotropy(0-1) {}
+   virtual void dumpTextureManagerMetrics() {}
+   virtual void swapTextures(original, [new]) {}
+   /*!  Set up a material mapping. See MaterialPropertyMap for details. */
+   virtual bool addMaterialMapping(string matName, matprop) {}
+   virtual string filterString(baseString,replacementChars) {}
+   virtual bool containsBadWords(text) {}
+   virtual float calcExplosionCoverage(Point3F source, SceneObject originator, bitset coverageMask) {}
+   virtual void StartFoliageReplication() {}
+   virtual void StartClientReplication() {}
+   virtual void cleanupEmitters() {}
+   virtual void setParticleMaxDistance(%dist) {}
+
+   /*! @name GameFunctions
+   
+   General game functionality.
+   @{ */
+   virtual void screenShot(file[, width, height]) {}
+   virtual void screenShotRegion(file, w, h, [, width, height]) {}
+   virtual string strToPlayerName( string ) {}
+   /// @}
+
+
+   /*! @name Containers
+   
+   Spatial query functions. <b>Server side only!</b>
+   @{ */
+   /*! @brief Find objects matching the bitmask type within a box centered at point, with extents x, y, z.
+
+@returns The first object found, or an empty string if nothing was found.  Thereafter, you can get more results using containerFindNext().@see containerFindNext
+@ingroup Game */
+   virtual string containerFindFirst(int mask, Point3F point, float x, float y, float z) {}
+   /*! @brief Get more results from a previous call to containerFindFirst().
+
+@note You must call containerFindFirst() to begin the search.
+@returns The next object found, or an empty string if nothing else was found.
+@see containerFindFirst()
+@ingroup Game */
+   virtual string containerFindNext() {}
+   /// @}
+
+
+   /*! @name CameraFunctions
+   
+   Functions controlling the global camera properties defined in main.cc.
+   @{ */
+   /*! @brief Set the default FOV for a camera.
+@param defaultFOV The default field of view in degrees
+@ingroup CameraSystem */
+   virtual void setDefaultFov() {}
+   /*! @brief Set the zoom speed of the camera.
+This affects how quickly the camera changes from one field of view to another.
+@param speed The camera's zoom speed in ms per 90deg FOV change
+@ingroup CameraSystem */
+   virtual void setZoomSpeed() {}
+   /*! @brief Set the FOV of the camera.
+@param FOV The camera's new FOV in degrees
+@ingroup CameraSystem */
+   virtual void setFov() {}
+   /// @}
+
+   virtual void snapToggle() {}
+
+   /*! @name Platform
+   
+   General platform functions.
+   @{ */
+   /*! Lock the mouse (or not, depending on the argument's value) to the window. */
+   virtual void lockMouse(bool isLocked) {}
+   /*! Set the network port for the game to use. */
+   virtual bool setNetPort(int port) {}
+   virtual void closeNetPort() {}
+   virtual bool isAddressTypeAvailable(protocol) {}
+   /*! Save the journal to the specified file. */
+   virtual void saveJournal(string filename) {}
+   /*! Begin playback of a journal from a specified field, optionally breaking at the start. */
+   virtual void playJournal(string filename, bool break=false) {}
+   /*! Return the current real time in milliseconds.
+
+Real time is platform defined; typically time since the computer booted. */
+   virtual int getRealTime() {}
+   /// @}
+
+   virtual void playDemo(path) {}
+   virtual void recordDemo(path) {}
+   virtual void stopDemo() {}
+   virtual void crashGame() {}
+   virtual void setGravityDir(gravity, snap) {}
+   virtual string getGravityDir() {}
+   virtual void setSuperJumpVelocity(F32 value) {}
+   virtual float getSuperJumpVelocity() {}
+   virtual void setSuperSpeedVelocity(F32 value) {}
+   virtual float getSuperSpeedVelocity() {}
+   virtual void setSuperBounceImage(const char *value) {}
+   virtual string getSuperBounceImage() {}
+   virtual void setSuperBounceRestitution(F32 value) {}
+   virtual float getSuperBounceRestitution() {}
+   virtual void setShockAbsorberImage(const char *value) {}
+   virtual string getShockAbsorberImage() {}
+   virtual void setShockAbsorberRestitution(F32 value) {}
+   virtual float getShockAbsorberRestitution() {}
+   virtual void setHelicopterImage(const char *value) {}
+   virtual string getHelicopterImage() {}
+   virtual void setHelicopterGravityMultiplier(F32 value) {}
+   virtual float getHelicopterGravityMultiplier() {}
+   virtual void setHelicopterAirAccelerationMultiplier(F32 value) {}
+   virtual float getHelicopterAirAccelerationMultiplier() {}
+   virtual void enableInterpolation() {}
+   /*! Get the MissionArea object, if any.
+
+@ingroup enviroMisc
+
+ */
+   virtual int getMissionAreaServerObject() {}
+
+   /*! @name Net
+   
+   Functions for use with the network; tagged strings and remote commands.
+   @{ */
+   /*!  Use the commandToServer function to issue a remote procedure call the server.
+All arguments may be in tagged or non-tagged format. See 'Remote Procedure Call Samples' below
+@param func The suffix of the remote procedure name to be executed on the client.
+@param arg1 ... argn - Optional arguments to be passed to the remote procedure.
+@return No return value. */
+   virtual void commandToServer( func [ , arg1, ... , argn ] ) {}
+   /*!  Use the commandToClient function to issue a remote procedure call on a client.
+All arguments (excluding client) may be in tagged or non-tagged format. See 'Remote Procedure Call Samples' below
+@param client The numeric ID of a client gameConnection.
+@param func The suffix of the remote procedure name to be executed on the client.
+@param arg1 ... argn - Optional arguments to be passed to the remote procedure.
+@return No return value. */
+   virtual void commandToClient( client, func [ , arg1, ... , argn ] ) {}
+   /*!  Use the removeTaggedSTring function to remove a previously tagged string from the NetStringTable.
+@param tag A number tag ID.
+@return No return value */
+   virtual void removeTaggedString( tag ) {}
+   /*!  Use the addTaggedString function to tag a new string and add it to the NetStringTable.
+@param string The string to tagged and placed in the NetStringTable. Tagging ignores case, so tagging the same string (excluding case differences) will be ignored as a duplicated tag.
+@return Returns a string (containing a numeric value) equivalent to the string ID for the newly tagged string */
+   virtual string addTaggedString( string ) {}
+   /*!  Use the getTaggedString function to convert a tag to a string. This is not the same a detag() which can only be used within the context of a function that receives a tag. This function can be used any time and anywhere to convert a tag to a string.
+@param tag A numeric tag ID.
+@return Returns the string corresponding to the tag ID */
+   virtual string getTaggedString( tag ) {}
+   /*!  Use the buildTaggedString function to build a tagged string using the specified format.
+@param enable A boolean value. If set to true, network packet logging is enabled, otherwise it is disabled.
+@return No return value */
+   virtual string buildTaggedString( format , <arg1, ...arg9> ) {}
+   /// @}
+
+   /*! Send a SimpleNetObject message to the specified connection. */
+   virtual void msg(NetConnection id, string message) {}
+
+   /*! @name ServerQuery
+   
+   Functions which allow you to query the LAN or a master server for online games.
+   @{ */
+   /*!  Use the queryLANServers function to establish whether any game servers of the required specification(s) are available on the local area network (LAN).
+@param port Look for any game servers advertising at this port. Set to 0 if you don't care what port the game server is using.
+@param flags Look for any game servers with these special flags set. Set to 0 for no flags.
+@param gametype Look for any game servers playing a game type that matches this string. Set to the NULL string to look for any game type.
+@param missiontype Look for any game servers playing a mission type that matches this string. Set to the NULL string to look for any mission type.
+@param minplayers Look for any game servers with this number of players or more. Set to 0 for no lower limit.
+@param maxplayers Look for any game servers with this number of players or fewer. Set to 0 for no upper limit.
+@param maxbots Look for any game servers with this number of AI controlled players or fewer. Set to 0 for no limit.
+@param regionmask Look for any master servers, on our master server list, in this region. Set to 0 to examine all regions.
+@param maxping Look for any game servers with a PING rate equal to or lower than this. Set to 0 for no upper PING limit.
+@param mincpu Look for any game servers with a CPU (clock speed) equal or greater than this. Set to 0 for no CPU (clock speed) limit.
+@param filterflags Look for any game servers with this game version number or higher. Set to 0 to find all versions.
+@return No return value.
+@sa getServerCount, queryMasterServer, setServerInfo, stopServerQuery */
+   virtual void queryLanServers( port , flags , gametype , missiontype , minplayers , maxplayers , maxbots , regionmask , maxping , mincpu , filterflags ) {}
+   /*!  Use the queryMasterServer function to query all master servers in the master server list and to establish if they are aware of any game servers that meet the specified requirements, as established by the arguments passed to this function.
+In order for this function to do anything, a list of master servers must have been previously specified. This list may contain one or more server addresses. A call to this function will search all servers in the list. To specify a list, simply create a set of array entries like this:
+$pref::Master[0] = "2:192.168.123.15:28002";
+$pref::Master[1] = "2:192.168.123.2:28002";
+The format of these values is ==> Region Number : IP Address : Port Number
+These values should be specified in either the client's or the server's preferences file (prefs.cs). You may specifiy it elsewhere, however be sure that it is specified prior to this function being called and before any other functions that rely on it.
+@param flags Look for any game servers with these special flags set. Set to 0 for no flags.
+@param gametype Look for any game servers playing a game type that matches this string. Set to the NULL string to look for any game type.
+@param missiontype Look for any game servers playing a mission type that matches this string. Set to the NULL string to look for any mission type.
+@param minplayers Look for any game servers with this number of players or more. Set to 0 for no lower limit.
+@param maxplayers Look for any game servers with this number of players or fewer. Set to 0 for no upper limit.
+@param maxbots Look for any game servers with this number of AI controlled players or fewer. Set to 0 for no limit.
+@param regionmask Look for any master servers, on our master server list, in this region. Set to 0 to examine all regions.
+@param maxping Look for any game servers with a PING rate equal to or lower than this. Set to 0 for no upper PING limit.
+@param mincpu Look for any game servers with a CPU (clock speed) equal or greater than this. Set to 0 for no CPU (clock speed) limit.
+@param filterflags Look for any game servers with this game version number or higher. Set to 0 to find all versions.
+@return No return value.
+@sa getServerCount, queryLANServers, setServerInfo, startHeartbeat, stopServerQuery */
+   virtual void queryMasterServer( flags , gametype , missiontype , minplayers , maxplayers , maxbots , regionmask , maxping , mincpu , filterflags ) {}
+   /*!  Use the querySingleServer function to re-query a previously queried lan server, OR a game server found with queryLANServers or with queryMasterServer and selected with setServerInfo. This will refresh the information stored by TGE about this server. It will not however modify the values of the $ServerInfo::* global variables.
+@param address The IP address and Port to re-query, i.e. "192.168.123.2:28000".
+@param flags No longer used.
+@return No return value.
+@sa getServerCount, queryLANServers, queryMasterServer, setServerInfo, stopServerQuery */
+   virtual void querySingleServer( address [ , flags ] ) {}
+   /*!  Use the cancelServerQuery function to cancel a previous query*() call.
+@return No return value.
+@sa queryLANServers, queryMasterServer, querySingleServer */
+   virtual void cancelServerQuery() {}
+   /*!  Use the stopServerQuery function to cancel any outstanding server queries.
+@return No return value.
+@sa queryLANServers, queryMasterServer, querySingleServer */
+   virtual void stopServerQuery() {}
+   /*!  Use the startHeartbeat function to start advertising this game serer to any master servers on the master server list.
+In order for this function to do anything, a list of master servers must have been previously specified. This list may contain one or more server addresses. Once this function is called, the game server will re-advertise itself to all the master servers on its master server lits every two minutes. To specify a list, simply create a set of array entries like this:
+$pref::Master[0] = "2:192.168.123.15:28002";
+$pref::Master[1] = "2:192.168.123.2:28002";
+The format of these values is ==> Region Number : IP Address : Port Number
+These values should be specified in either the client's or the server's preferences file (prefs.cs). You may specifiy it elsewhere, however be sure that it is specified prior to this function being called and before any other functions that rely on it.
+@return No return value.
+@sa queryMasterServer, stopHeartbeat */
+   virtual void startHeartbeat() {}
+   /*!  Use the startHeartbeat function to stop advertising this game serer to any master servers on the master server list.
+@return No return value.
+@sa queryMasterServer, startHeartbeat */
+   virtual void stopHeartbeat() {}
+   /*!  Use the getServerCount function to determine the number of game servers found on the last queryLANServers() or queryMasterServer() call.
+This value is important because it allows us to properly index when calling setServerInfo().
+@return Returns a numeric value equal to the number of game servers found on the last queryLANServers() or queryMasterServer() call. Returns 0 if the function was not called, or none were found.
+@sa queryLANServers, queryMasterServer, setServerInfo */
+   virtual int getServerCount() {}
+   /*!  Use the setServerInfo function to set the values of the $ServerInfo::* global variables with information for a server found with queryLANServers or with queryMasterServer.
+@param index The index of the server to get information about.
+@return Will return true if the information was successfully set, false otherwise.
+@sa getServerCount, queryLANServers, queryMasterServer, querySingleServer */
+   virtual bool setServerInfo( index ) {}
+   virtual bool isLocalAddress(addr) {}
+   /// @}
+
+   virtual void setShadowDetailLevel(val 0...1) {}
+
+   /*! @name ShowTool
+   
+   Functions for controlling the show tool.
+   @{ */
+   virtual void showShapeLoad(string shapeName, bool faceCamera) {}
+   virtual void showSequenceLoad(string sequenceFile, string sequenceName=NULL) {}
+   virtual void showSelectSequence() {}
+   virtual void showSetDetailSlider() {}
+   virtual void showUpdateThreadControl() {}
+   virtual void showPlay(int threadNum = -1) {}
+   virtual void showStop(int threadNum = -1) {}
+   virtual void showSetScale(int threadNum, float scale) {}
+   virtual void showSetPos(int threadNum, float pos) {}
+   virtual void showNewThread() {}
+   virtual void showDeleteThread(int threadNum) {}
+   virtual void showToggleRoot() {}
+   virtual void showToggleStick() {}
+   /*!  t or T to orbit, else free-fly. */
+   virtual void showSetCamera(char orbitShape) {}
+   /*!  Set to t or T. */
+   virtual void showSetKeyboard(char moveShape) {}
+   virtual void showTurnLeft(float amt) {}
+   virtual void showTurnRight(float amt) {}
+   virtual void showSetLightDirection() {}
+   /// @}
+
+   virtual bool isDebugBuild() {}
+   virtual int getVersionNumber() {}
+   virtual string getVersionString() {}
+   virtual string getCompileTimeString() {}
+   virtual string getBuildString() {}
+   /*!  Use the stripMLControlChars function to remove all Torque Markup-Language (ML) symbols from sourceString.
+This may not remove <br> correctly, so check before you trust this function.
+@param sourceString The string to be modified.
+@return Returns a copy of sourceString with all the ML symbols removed, or the original string if no ML symbols were present.
+@sa stripChars */
+   virtual string StripMLControlChars( sourceString ) {}
+   /*! Create the game window/canvas, with the specified window title. */
+   virtual bool createCanvas(string windowTitle) {}
+   virtual void setWindowTitle(string windowTitle) {}
+   virtual string getFastCameraTransform() {}
+   /*! Create the game window/canvas, with the specified window title. */
+   virtual bool createEffectCanvas(string windowTitle) {}
+   /*! @brief Gets the primary LangTable used by the game
+
+@return ID of the core LangTable
+@ingroup Localization */
+   virtual int getCoreLangTable() {}
+   /*! @brief Sets the primary LangTable used by the game
+
+@param LangTable ID of the core LangTable
+@ingroup Localization */
+   virtual void setCoreLangTable(string LangTable) {}
+
+   /*! @name Interiors
+   
+   
+   @{ */
+   /*!  or (float x, float y, float z) */
+   virtual bool isPointInside(Point3F pos) {}
+   /*!  Adds a texture path override for interior loading. When an interior's texture path contains 'from', it is replaced with 'to' and tried before the original path. */
+   virtual void addInteriorPathOverride(string from, string to) {}
+   /*!  Removes the first path override whose 'from' string matches the argument. */
+   virtual void removeInteriorPathOverride(string from) {}
+   /*!  Removes all interior texture path overrides. */
+   virtual void clearInteriorPathOverrides() {}
+   /// @}
+
+   /*! setSimulatingPathedInteriors(bool simulating); */
+   virtual void setSimuatingPathedInteriors() {}
+
+   /*! @name GeneralMath
+   
+   General math functions. Use these whenever possible, as they'll run much faster than script equivalents.
+   @{ */
+   /*! float a, float b, float c */
+   virtual string mSolveQuadratic() {}
+   /*! float a, float b, float c, float d */
+   virtual string mSolveCubic() {}
+   /*! float a, float b, float c, float d, float e */
+   virtual string mSolveQuartic() {}
+   /*! val */
+   virtual int mFloor() {}
+   /*! val */
+   virtual int mCeil() {}
+   /*! val , numDecimals */
+   virtual string mFloatLength() {}
+   /*! val */
+   virtual float mAbs() {}
+   /*! val */
+   virtual float mSqrt() {}
+   /*! val , power */
+   virtual float mPow() {}
+   /*! val */
+   virtual float mLog() {}
+   /*! val */
+   virtual float mSin() {}
+   /*! val */
+   virtual float mCos() {}
+   /*! val */
+   virtual float mTan() {}
+   /*! val */
+   virtual float mAsin() {}
+   /*! val */
+   virtual float mAcos() {}
+   /*! val */
+   virtual float mAtan() {}
+   /*! val */
+   virtual float mRadToDeg() {}
+   /*! val */
+   virtual float mDegToRad() {}
+   /*! a, b */
+   virtual float mGetMin() {}
+   /*! a, b */
+   virtual float mGetMax() {}
+   virtual string bits() {}
+   virtual string bit() {}
+   virtual string bitInverse() {}
+   /*! mask, bit */
+   virtual int addBitToMask() {}
+   /*! mask, bit */
+   virtual int removeBitFromMask() {}
+   /// @}
+
+   /*! vecA , vecB */
+   virtual string VectorAdd() {}
+   /*! vecA , vecB */
+   virtual string VectorSub() {}
+   /*! vec , scale */
+   virtual string VectorScale() {}
+   /*! vec */
+   virtual string VectorNormalize() {}
+   /*! vecA , vecB */
+   virtual float VectorDot() {}
+   /*! vecA , vecB */
+   virtual string VectorCross() {}
+   /*! vecA , vecB */
+   virtual float VectorDist() {}
+   /*! vec */
+   virtual float VectorLen() {}
+   /*! vec */
+   virtual string VectorOrthoBasis() {}
+   /*! posVec , rotVec */
+   virtual string MatrixCreate() {}
+   /*! rotVec */
+   virtual string MatrixCreateFromEuler() {}
+   /*! transformA , transformB */
+   virtual string MatrixMultiply() {}
+   /*! transform , vector */
+   virtual string MatrixMulVector() {}
+   /*! transform , point */
+   virtual string MatrixMulPoint() {}
+   /*! box */
+   virtual string getBoxCenter() {}
+   /*! startSeed */
+   virtual void setRandomSeed() {}
+   virtual int getRandomSeed() {}
+   /*! [ min ]?,[ max ]? */
+   virtual float getRandom() {}
+   /*! min, max */
+   virtual float getRandomF() {}
+   virtual void initDiscord(appId) {}
+   virtual void setDiscordStatus(general[, detailed]) {}
+   virtual void startDiscordTimer([secsRemaining]) {}
+   virtual void stopDiscordTimer() {}
+   virtual void setDiscordPartySize(currentSize, maxSize) {}
+   virtual void setLargeDiscordImage(key[, tooltip]) {}
+   virtual void setSmallDiscordImage(key[, tooltip]) {}
+   /*!  - Get the file's size, in bytes */
+   virtual string getFileSize(file) {}
+   /*!  - Delete a file from the filesystem. */
+   virtual bool deleteFile(file) {}
+   /*!  - Move a file from one place to another. */
+   virtual bool moveFile(from, to) {}
+   /*!  - Create a copy of a file. */
+   virtual bool copyFile(from, to) {}
+   /*!  - Create an empty directory */
+   virtual bool mkdir(directory, [mode]) {}
+   /*!  - Change a file's mode */
+   virtual bool chmod(file, mode) {}
+   /*!  - Create a blank file */
+   virtual bool touch(file, [mode]) {}
+   /*!  - Create symbolic links */
+   virtual bool createSymlink(from, to) {}
+   virtual int zip(string path) {}
+   virtual string getFileSHA256(path) {}
+   virtual string getMissionSHA256(path) {}
+   virtual string base64decode(base64 data) {}
+   virtual string base64encode(string data) {}
+   virtual void enableFrameRateUnlock(enabled) {}
+   virtual void setTickInterval(msec) {}
+   virtual void setMaxFPS(msec) {}
+   virtual void setTimeScale(scale) {}
+   virtual float getTimeScale() {}
+   virtual int scheduleIgnorePause(time, function [, args]) {}
+   /*! cancelScheduleIgnorePause(handle); */
+   virtual void cancelIgnorePause() {}
+   virtual bool isEventPendingIgnorePause(handle) {}
+   virtual void correctNextFrame() {}
+   virtual void onNextFrame(function [, args]) {}
+   virtual void copyBlurImage(imagePath) {}
+   virtual void blurInit(extent, passes, vertShader, fragShader) {}
+   virtual void unloadBlur() {}
+   virtual void reloadDts() {}
+   virtual void registerGlowMaterial(name, [alphaMultiplier]) {}
+   /*! uregisterGlowMaterial(name) */
+   virtual void unregisterGlowMaterial() {}
+   virtual void reloadGlowShaders() {}
+   virtual void reloadShaders() {}
+   virtual void dumpRegisteredShaders() {}
+   virtual string getRegisteredShaders() {}
+   virtual string getRegisteredShaderInfo(shader) {}
+   virtual string getRegisteredMaterials(shader) {}
+   virtual string getRegisteredMaterialInfo(material) {}
+   virtual string getActiveMaterials() {}
+   virtual void registerShader(name, vertexShader, fragmentShader) {}
+   virtual void dumpRegisteredMaterials() {}
+   virtual void registerMaterialTextures(baseTexture, normalTexture, specularTexture, [shader], [reflectivity], [textureScale]) {}
+   virtual void registerMaterial(texture, [materialInfo]) {}
+   /*! replaceDiffuseTexture(oldTexture, [newTexture]); */
+   virtual void replaceMaterials() {}
+   /*! registerMaterialTextures(name, baseTexture, normalTexture, specularColor, specularPower, [renderBin], [cubemapFacesCSV], [renderPreGlow]) */
+   virtual void registerTSMaterial() {}
+   virtual void clearMaterials() {}
+   virtual void clearTSMaterials() {}
+   /*! dumpMaterialRefCounts() */
+   virtual void dumpMaterialRefcounts() {}
+   virtual void destroyShaders() {}
+   virtual void flushInteriorRenderBuffers() {}
+   virtual void enableGraphicsExtender() {}
+   virtual void disableGraphicsExtender() {}
+   virtual void enableInteriorRenderBuffers() {}
+   virtual void disableInteriorRenderBuffers() {}
+   virtual void loadSkyboxTextures() {}
+   virtual void cleanupReflectiveMarble() {}
+   virtual string glGetExtensions() {}
+   virtual bool glTestExtension(extension) {}
+   virtual void enableShaders() {}
+   virtual void disableShaders() {}
+   virtual void reloadPostFX() {}
+   virtual void setPostFXShader(vert, frag) {}
+   virtual string getAntiAliasingInfo() {}
+   virtual void highresScreenshot(extent, dest) {}
+   virtual void enablePostFX() {}
+   virtual void disablePostFX() {}
+   virtual void reloadSphere() {}
+   virtual int textLen(%text, %font, %size) {}
+   virtual string jsonParse(string json) {}
+   virtual string jsonPrint(value) {}
+   virtual bool regexMatch(testString, pattern [, matches]) {}
+   /*! regexMatch(testString, pattern, replacement); */
+   virtual string regexReplace() {}
+   virtual int Array([name, obj1, ...]) {}
+   virtual int joystickAddMap() {}
+   virtual void joystickMapSetAxis(S32 mapId, S32 realAxis, const char *virtualAxis) {}
+   virtual void joystickMapActivate(S32 mapId) {}
+   virtual void dumpControllers() {}
+   virtual string getJoystickType(U32 joystickNum) {}
+   virtual void loadMBPackage(package) {}
+   virtual void unloadMBPackage(package) {}
+   virtual bool isLoadedMBPackage(package) {}
+   virtual bool deletePackage(file) {}
+   virtual void loadMBPackageMis(file) {}
+   virtual void unloadMBPackageMis(file) {}
+   virtual string GameGetCameraTransform() {}
+   virtual string clientContainerRayCast(Point3F start, Point3F end, U32 typeMask) {}
+   virtual void setVariable(name, value) {}
+   virtual string getVariable(string varName) {}
+   virtual void listDump() {}
+   virtual string getTypeName(U32 type) {}
+   virtual bool isFunction(string funcName) {}
+   virtual int stripos(haystack, needle, [offset]) {}
+   virtual int stristr(haystack, needle) {}
+   virtual string stripNot(input, allowedChars) {}
+   /*! ClientMode::callback(%this, %callback, %default, %object) */
+   virtual string ClientModeCallback() {}
+   /*! Mode::callback(%this, %callback, %default, %object) */
+   virtual string ModeCallback() {}
+   virtual string Node_getNextNode(%obj, %node) {}
+   /*! Node_getNextNode(%obj, %node) */
+   virtual bool Node_isBranching() {}
+   virtual int Node_getPrevNode(%obj, %node, %group) {}
+   virtual float Node_getAdjustedProgress(%obj, %node, %t) {}
+   virtual int Node_getBezierHandle1(%obj, %node) {}
+   virtual int Node_getBezierHandle2(%obj, %node) {}
+   virtual string Node_getPointList(%obj, %node, %prev) {}
+   virtual string Node_getPathPosition(%obj, %node, %prev, %t) {}
+   virtual float Node_getPathTime(%obj, %node) {}
+   virtual string Node_getPathRotation(%obj, %node, %prev, %t) {}
+   virtual string Node_getPathScale(%obj, %node, %prev, %t) {}
+   virtual string Node_getPathTransform(%obj, %node, %prev, %t) {}
+   virtual void Node_updatePath(%obj, %node, %prev, %position) {}
+   /*! updateclientParentedObjects(%delta) */
+   virtual void updateClientParentedObjects() {}
+   virtual string calcParentModeTrans(%object, %parent) {}
+   virtual string SceneObjectgetSurfaceVelocity(this, marble, point, distance) {}
+   virtual void _updateEmitterPositions() {}
+   virtual void _innerRadarBuildSearch(%marblePos, %showCallback, %showFinishCallback) {}
+   virtual void _innerRadarLoop(%targetGroup, %marblePos, %cameraTransform, %fov, %canvasResolution, %marbleCameraYaw) {}
+   virtual void RadarClearTargets() {}
+   virtual void editRREC(path, destpath, name, author, desc) {}
+   virtual int getClientSyncObject(%ghostId) {}
+   virtual int getServerSyncObject(%ghostId) {}
+   virtual void clearSyncTodo() {}
+   virtual string getGuiSpace(MatrixF transform, Point3F worldSpace, F32 fov) {}
+   virtual string VectorProj(Point3F u, Point3F v) {}
+   virtual float VectorProjLen(Point3F u, Point3F v) {}
+   virtual string VectorRej(Point3F u, Point3F v) {}
+   virtual string MatrixInverse(MatrixF mat) {}
+   virtual string VectorRotate(Point3F vec, Point3F axis, F32 angle) {}
+   virtual string VectorCrossSpecial(Point3F u, Point3F v) {}
+   virtual float VectorAngle(Point3F u, Point3F v) {}
+   virtual string VectorAxis(Point3F u, Point3F v) {}
+   virtual string VectorRot(Point3F u, Point3F v) {}
+   virtual string MatrixDivide(MatrixF mat1, MatrixF mat2) {}
+   virtual string RotInterpolate(AngAxisF rot1, AngAxisF rot2, F32 t) {}
+   virtual string MatInterpolate(MatrixF mat1, MatrixF mat2, F32 t) {}
+   virtual string removeScientificNotation(F32 val) {}
+   virtual string mFact(U32 val) {}
+   /*! float number, float min, float max */
+   virtual float mClamp() {}
+   virtual bool isPointInsideBox(%point, %box [, %checkBoundsToo]) {}
+   virtual string VectorScale2(Point3F u, Point3F v) {}
+   virtual float getThatDistance(Point3F posOld, Point3F posNew, bool xyd) {}
+   virtual string rotAAtoQ(AngAxisF aa) {}
+   virtual string rotQadd(QuatF q1, QuatF q2) {}
+   virtual string rotQmultiply(QuatF q1, QuatF q2) {}
+   virtual string rotQnormalize(QuatF q) {}
+   virtual string rotQinvert(QuatF q) {}
+   virtual string rotQtoVector(QuatF q, VectorF v) {}
+   virtual string rotQtoAA(QuatF q) {}
+   virtual string rotToVector(AngAxisF aa, VectorF v) {}
+   virtual string rotEtoAA(EulerF euler, bool radians) {}
+   virtual string rotVectorToAA(VectorF v) {}
+   virtual bool isOffScreen(Point2F point) {}
+   virtual float mBez(U32 n, U32 i, F32 u) {}
+   virtual string VectorBezier(F32 u, VectorF v1 TAB [VectorF v2 TAB [...]]) {}
+   virtual string VectorBezierDeriv(F32 u, VectorF v1 TAB [VectorF v2 [TAB ...]]) {}
+   virtual string RotBezier(F32 u, AngAxisF a1 TAB [AngAxisF a2 [TAB ...]]) {}
+   virtual string RotationFromOrtho(OrthoF ortho) {}
+   virtual string BoxUnion(%a, %b) {}
+   virtual string BoxIntersection(%a, %b) {}
+   virtual bool BoxIntersectionTest(%a, %b) {}
+   virtual string BoxInvert(%box) {}
+   virtual string BoxInvertEp(%a) {}
+   virtual bool BoxInvertedEp(%a) {}
+   virtual bool BoxInverted(%box) {}
+   virtual bool BoxInterceptsBox(%a, %b) {}
+   virtual string BoxSize(%box) {}
+   virtual string BoxCenter(%box) {}
+   virtual float BoxLength(%box) {}
+   virtual string BoxAddVector(%box, %vec) {}
+   virtual string BoxSubVector(%box, %vec) {}
+   virtual float max(%a, %b, [%c, ...]) {}
+   virtual float min(%a, %b, [%c, ...]) {}
+   virtual string add64(a, b) {}
+   virtual string sub64(a, b) {}
+   virtual string mult64(a, b) {}
+   virtual string div64(a, b) {}
+   virtual string pow64(a, b) {}
+   virtual string mod64(a, b) {}
+   virtual string max64(a, b) {}
+   virtual string min64(a, b) {}
+   virtual string floor64(a) {}
+   virtual string ceil64(a) {}
+   virtual string round64(a) {}
+   virtual string add64_int(a, b) {}
+   virtual string sub64_int(a, b) {}
+   virtual string mult64_int(a, b) {}
+   virtual string div64_int(a, b) {}
+   virtual string pow64_int(a, b) {}
+   virtual string mod64_int(a, b) {}
+   virtual string max64_int(a, b) {}
+   virtual string min64_int(a, b) {}
+   virtual void anticheatDetect() {}
+   virtual void RTAAS_setIsValid(isValid) {}
+   virtual void RTAAS_setIsEnabled(isEnabled) {}
+   virtual void RTAAS_setIsDone(isDone) {}
+   virtual void RTAAS_setShouldStartRun(shouldStartRun) {}
+   virtual void RTAAS_setShouldInterpolateTime(shouldInterpolateTime) {}
+   virtual void RTAAS_setIsCrashRecoveryMode(isCrashRecoveryMode) {}
+   virtual void RTAAS_setTime(timeInMs) {}
+   virtual void RTAAS_setLastSplitTime(timeInMs) {}
+   virtual void RTAAS_setLastEggTime(timeInMs) {}
+   /*! RTAAS_setMissionTypeBeginTime(timeInMs) */
+   virtual void RTAAS_setMissionTypeBeganTime() {}
+   virtual void RTAAS_setCurrentGameBeganTime(timeInMs) {}
+   virtual void RTAAS_setCurrentMission(currentMission) {}
+   virtual void stdRandomSetSeed() {}
+   virtual int stdRandomGetInt() {}
+   /*! cursorShapeName */
+   virtual void inputPushCursor() {}
+   virtual void inputPopCursor() {}
+   virtual string getLocalTime() {}
+   virtual string createUUID() {}
+   virtual string getTemporaryDirectory() {}
+   virtual string getTemporaryFileName() {}
+   virtual string getUserDataDirectory() {}
+   virtual string getUserHomeDirectory() {}
+   virtual bool activateKeyboard() {}
+   virtual void deactivateKeyboard() {}
+   virtual void enableMouse() {}
+   virtual void disableMouse() {}
+   virtual bool enableJoystick() {}
+   virtual void disableJoystick() {}
+   virtual void echoInputState() {}
+
+   /*! @name Video
+   
+   Video control functions.
+   @{ */
+   /*! deviceName, [width]?, [height]?, [bpp]?, [fullScreen]? */
+   virtual bool setDisplayDevice() {}
+   /*! width , height , bpp , fullScreen */
+   virtual bool setScreenMode() {}
+   virtual bool toggleFullScreen() {}
+   virtual bool isFullScreen() {}
+   virtual bool switchBitDepth() {}
+   virtual bool prevResolution() {}
+   virtual bool nextResolution() {}
+   virtual string getRes() {}
+   /*! width , height , bpp */
+   virtual bool setRes() {}
+   /*! Get the width, height, and bitdepth of the screen. */
+   virtual string getResolution() {}
+   virtual bool setResolution( int width, int height, int bpp=NULL ) {}
+   virtual string getDesktopResolution() {}
+   virtual string getDisplayDeviceList() {}
+   /*! devicename */
+   virtual string getResolutionList() {}
+   virtual string getVideoDriverInfo() {}
+   /*! devicename */
+   virtual bool isDeviceFullScreenOnly() {}
+   /*! gamma */
+   virtual void videoSetGammaCorrection() {}
+   /*! enable */
+   virtual bool setVerticalSync() {}
+   virtual void minimizeWindow() {}
+   virtual void restoreWindow() {}
+   /// @}
+
+
+   /*! @name Profiler
+   
+   Profiler functionality.
+   @{ */
+   /*! string markerName, bool enable */
+   virtual void profilerMarkerEnable() {}
+   /*! enable */
+   virtual void profilerEnable() {}
+   virtual void profilerDump() {}
+   /*! string filename */
+   virtual void profilerDumpToFile() {}
+   virtual void profilerReset() {}
+   /// @}
+
+   /*! Resets GL lighting. */
+   virtual void resetLighting() {}
+   /*! Relight the scene.
+
+If mode is "forceAlways", the lightmaps will be regenerated regardless of whether lighting cache files can be written to. If mode is "forceWritable", then the lightmaps will be regenerated only if the lighting cache files can be written. */
+   virtual bool lightScene(script_function completeCallback=NULL, string mode="") {}
+
+   /*! @name NetInterface
+   
+   Global control functions for the netInterfaces.
+   @{ */
+   /*! enable */
+   virtual void allowConnections() {}
+   /// @}
+
+   virtual void clearServerPaths() {}
+   virtual void clearClientPaths() {}
+
+   /*! @name Containers
+   
+   Functions for ray casting and spatial queries.
+
+@note These only work server-side.
+   @{ */
+   /*! See if any objects of given types are present in box of given extent.
+
+@note Extent parameter is last since only one radius is often needed. If one radius is provided, the yRadius and zRadius are assumed to be the same.
+@param  mask   Indicates the type of objects we are checking against.
+@param  center Center of box.
+@param  xRadius See above.
+@param  yRadius See above.
+@param  zRadius See above. */
+   virtual bool containerBoxEmpty(bitset mask, Point3F center, float xRadius, float yRadius, float zRadius) {}
+   /*! Start a search for items within radius of pos, filtering by bitset mask. */
+   virtual void initContainerRadiusSearch(Point3F pos, float radius, bitset mask) {}
+   /*! Get next item from a search started with initContainerRadiusSearch. */
+   virtual int containerSearchNext() {}
+   /*! Get distance of the center of the current item from the center of the current initContainerRadiusSearch. */
+   virtual float containerSearchCurrDist() {}
+   /*! Get the distance of the closest point of the current item from the center of the current initContainerRadiusSearch. */
+   virtual float containerSearchCurrRadiusDist() {}
+   /*! Cast a ray from start to end, checking for collision against items matching mask.
+
+If exempt is specified, then it is temporarily excluded from collision checks (For instance, you might want to exclude the player if said player was firing a weapon.)
+@returns A string containing either null, if nothing was struck, or these fields:
+            - The ID of the object that was struck.
+            - The x, y, z position that it was struck.
+            - The x, y, z of the normal of the face that was struck. */
+   virtual string containerRayCast( Point3F start, Point3F end, bitset mask, SceneObject exempt=NULL ) {}
+   /// @}
+
+   /*! Load all path information from interiors. */
+   virtual void pathOnMissionLoadDone() {}
+   /*!  - makes a test terrain file - arguments after the fileName are the names of the initial terrain materials. */
+   virtual void makeTestTerrain(string fileName, ...) {}
+   /*!  - gets the terrain height at the specified position. */
+   virtual float getTerrainHeight(Point2I pos) {}
+   virtual void displayVRAMUsage() {}
+   /*! path */
+   virtual void addPlatformFontDirectory() {}
+   /*! name, old size, new size */
+   virtual void adjustPlatformFontSize() {}
+   /*! old name, new name */
+   virtual void adjustPlatformFontName() {}
+   /*! Register a card profile with the card profile manager.
+
+Most of the parameters are fairly self-explanatory and very internal to the rendering code; however there are a few of note:
+@param vendor   The vendor string the card claims.
+@param renderer The renderer string the card claims.
+@param proFile  Name of the file where further configuration information is kept. */
+   virtual void addCardProfile(string vendor, string renderer,bool safeMode, bool lockArray, bool subImage, bool fogTexture,bool noEnvColor, bool clipHigh, bool deleteContext, bool texCompressbool interiorLock, bool skipFirstFog, bool only16,bool noArraysAlpha, string proFile) {}
+   /*!  Register with the profile manager what rendering mode is preferred with the specified card. */
+   virtual void addOSCardProfile(string vendor, string renderer) {}
+   /*! getCompatibleRenderers */
+   virtual string getCompatibleRenderers() {}
+   virtual void enableWinConsole() {}
+   virtual bool shellExecute() {}
+   virtual int shellExecuteBlocking() {}
+   virtual void openFolder() {}
+
+   /*! @name InputManagement
+   
+   Functions that let you deal with input from scripts
+   @{ */
+   virtual bool isJoystickDetected() {}
+   virtual string getJoystickAxes() {}
+   virtual int getJoystickCount() {}
+   /*! Install the math library with specified extensions.
+
+Possible parameters are:
+    - 'DETECT' Autodetect math lib settings.
+    - 'C' Enable the C math routines. C routines are always enabled.
+    - 'FPU' Enable floating point unit routines.
+    - 'MMX' Enable MMX math routines.
+    - 'SSE' Enable SSE math routines.
+ */
+   virtual void mathInit( ... ) {}
+};

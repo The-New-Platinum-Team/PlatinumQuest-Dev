@@ -342,7 +342,7 @@ function disconnectedCleanup(%auto) {
 
 	// Dump anything we're not using
 	clearTextureHolds();
-	unloadTimerTextures();
+	// unloadTimerTextures();
 	purgeResources();
 	cleanupEmitters();
 	stopDemo();

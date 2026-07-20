@@ -149,21 +149,8 @@ function OptionsGui::apply(%this) {
 	cleanupReflectiveMarble();
 
 	if ($Options::ResolutionChanged) {
-		%newDisplay = ($pref::Video::displayDevice !$= getDisplayDeviceName());
 		%newRes = ($pref::Video::resolution !$= getResolution());
-
-		if (%newDisplay) {
-			disablePostFX();
-			disableBlur();
-			disableShaders();
-			reloadDts();
-			setDisplayDevice($pref::Video::displayDevice,
-			                 firstWord($pref::Video::resolution),
-			                 getWord($pref::Video::resolution, 1),
-			                 getWord($pref::Video::resolution, 2),
-			                 $pref::Video::fullScreen);
-			//OptionsGui::deviceDependent( %this );
-		} else if (%newRes) {
+		if (%newRes) {
 			disablePostFX();
 			disableBlur();
 			disableShaders();
@@ -3625,7 +3612,7 @@ function OptionsGui::cancelDITriggerBind(%this) {
 	%this.remapDInputTrigger = "";
 
 	//Restart the remapping
-	%this.remapJoystick(%this.remapName, %this.remapCommand);
+	// %this.remapJoystick(%this.remapName, %this.remapCommand);
 }
 
 /**
