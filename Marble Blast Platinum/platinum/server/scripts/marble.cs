@@ -443,6 +443,10 @@ datablock MarbleData(DefaultMarble) {
 	jumpImpulse = ($Game::JumpImpulse $= "" ? 7.5 : $Game::JumpImpulse);
 	maxForceRadius = 50;
 
+	cameraDecay = 4;
+	cameraLag = 0.2;
+	cameraLagMaxOffset = 4.2;
+
 	scale      = 0.18975;
 	goldScale  = 0.2;
 	ultraScale = 0.3;
