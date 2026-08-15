@@ -233,6 +233,14 @@ $AdvancedOptions::Name    [$i++] = "oldMarblelandUI";
 $AdvancedOptions::Title   [$i  ] = "Use List View for Marbleland";
 $AdvancedOptions::Variable[$i  ] = "$pref::OldMarblelandUI";
 $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "dynamicCamera";
+$AdvancedOptions::Title   [$i  ] = "Dynamic Camera";
+$AdvancedOptions::Variable[$i  ] = "$pref::Marble::EnableDynamicCamera";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "cameraFX";
+$AdvancedOptions::Title   [$i  ] = "Camera FX";
+$AdvancedOptions::Variable[$i  ] = "$pref::Marble::EnableCameraFX";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 // $AdvancedOptions::Name    [$i++] = "timeTravelTimer";
 // $AdvancedOptions::Title   [$i  ] = "Time Travel Timer";
 // $AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerVar";
@@ -251,7 +259,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 
 	%curYPos = 0;
-	%rowsPerCol = 12;
+	%rowsPerCol = 13;
 
 	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
 		%name = $AdvancedOptions::Name[%i];
