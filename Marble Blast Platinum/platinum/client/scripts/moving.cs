@@ -210,6 +210,7 @@ function stopParenting(%objId) {
 $shardBounce = 0.2;
 
 function SceneObject::getSurfaceVelocity(%this, %marble, %point, %distance) {
+	return SceneObjectgetSurfaceVelocity(%this, %marble, %point, %distance);
 	if (%this.getClassName() $= "StaticShape"
 		&& stristr(%this.getDatablock().getName(), "IceShard") != -1) {
 

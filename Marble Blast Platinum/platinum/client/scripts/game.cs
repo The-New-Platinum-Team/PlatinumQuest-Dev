@@ -482,6 +482,18 @@ function recordScore() {
 	}
 }
 
+function shouldSkipHighScoreNameEntry() {
+	if (lb()) {
+		return true;
+	}
+
+	if ($pref::HighScoreName $= "") {
+		return false;
+	}
+
+	return $pref::DisableHighScoreNamePopup;
+}
+
 function clientCmdGameEnd() {
 	if ($Client::PlayingDemo || $playingDemo) {
 		return;
@@ -528,7 +540,7 @@ function clientCmdGameEnd() {
 		else
 			%msgIn = " fifth";
 
-		if (($pref::DisableHighScoreNamePopup || ($pref::RtaSkipNameEntry && RtaSpeedrun.isEnabled)) && $pref::HighScoreName !$= "") {
+		if (shouldSkipHighScoreNameEntry()) {
 			EnterNameDlg.setVisible(false);
 			EnterNameEdit.makeFirstResponder(false);
 		} else {

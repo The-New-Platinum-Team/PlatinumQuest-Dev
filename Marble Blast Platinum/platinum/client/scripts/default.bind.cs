@@ -530,19 +530,19 @@ function moveBackward(%val) {
 }
 
 function turnLeft(%val) {
-	input_turnLeft(%val ? $Pref::Input::KeyboardTurnSpeed : 0);
+	input_turnLeft(%val ? $Pref::Input::KeyboardTurnSpeed * ($Time::timeDelta / 16) : 0); // 16 = 1000/60
 }
 
 function turnRight(%val) {
-	input_turnRight(%val ? $Pref::Input::KeyboardTurnSpeed : 0);
+	input_turnRight(%val ? $Pref::Input::KeyboardTurnSpeed * ($Time::timeDelta / 16) : 0); // 16 = 1000/60
 }
 
 function panUp(%val) {
-	input_panUp(%val ? $Pref::Input::KeyboardTurnSpeed : 0);
+	input_panUp(%val ? $Pref::Input::KeyboardTurnSpeed * ($Time::timeDelta / 16) : 0); // 16 = 1000/60
 }
 
 function panDown(%val) {
-	input_panDown(%val ? $Pref::Input::KeyboardTurnSpeed : 0);
+	input_panDown(%val ? $Pref::Input::KeyboardTurnSpeed * ($Time::timeDelta / 16) : 0); // 16 = 1000/60
 }
 
 function escapeFromGame(%val) {

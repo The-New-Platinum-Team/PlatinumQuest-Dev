@@ -308,7 +308,7 @@ function radarSwitch(%val) {
 	if (!shouldShowRadar())
 		return;
 
-	%forceOn = MissionInfo.forceRadar;
+	//%forceOn = MissionInfo.forceRadar;
 	%mode = $pref::RadarMode;
 
 	//Find the next mode

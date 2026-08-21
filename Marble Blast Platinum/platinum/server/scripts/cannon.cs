@@ -141,7 +141,7 @@ function Cannon::onAdd(%this, %obj) {
 	echo("[Cannon Server]: Adding cannon" SPC %obj @ "/" @ %id SPC "with transform (" @ %trans @ ")");
 }
 
-function Cannon::onEditorDrag(%this, %obj) {
+function Cannon::onEditorSetTransform(%this, %obj) {
 	%trans = %obj.getTransform();
 	%obj._baseTrans = %trans;
 
@@ -158,7 +158,7 @@ function Cannon::onEditorDrag(%this, %obj) {
 	}
 }
 
-function CannonBase::onEditorDrag(%this, %obj) {
+function CannonBase::onEditorSetTransform(%this, %obj) {
 	%baseTrans = %obj.getTransform();
 	%cannon = $Server::Cannon[%obj._id];
 

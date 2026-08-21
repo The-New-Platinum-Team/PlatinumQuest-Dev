@@ -1,0 +1,852 @@
+//-----------------------------------------------------------------------------
+// HUD Layout Options
+//-----------------------------------------------------------------------------
+
+// Colored marker profiles for preview squares (must be defined before GUI objects)
+if (!isObject(HudLayoutMarkerGemProfile)) new GuiControlProfile(HudLayoutMarkerGemProfile) {
+	opaque = true;
+	border = false;
+	fillColor = "184 134 11";
+};
+if (!isObject(HudLayoutMarkerTimerProfile)) new GuiControlProfile(HudLayoutMarkerTimerProfile) {
+	opaque = true;
+	border = false;
+	fillColor = "85 85 85";
+};
+if (!isObject(HudLayoutMarkerPowerupProfile)) new GuiControlProfile(HudLayoutMarkerPowerupProfile) {
+	opaque = true;
+	border = false;
+	fillColor = "0 102 34";
+};
+if (!isObject(HudLayoutMarkerBlastProfile)) new GuiControlProfile(HudLayoutMarkerBlastProfile) {
+	opaque = true;
+	border = false;
+	fillColor = "170 51 0";
+};
+if (!isObject(HudLayoutDisabledRowProfile)) new GuiControlProfile(HudLayoutDisabledRowProfile) {
+	opaque = true;
+	border = false;
+	fillColor = "170 170 170 120";
+};
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(HudLayoutDlg) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "width";
+	vertSizing = "height";
+	position = "0 0";
+	extent = "800 600";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	_guiSize = "800 600";
+	defaultControl = "HudLayoutClose";
+	commandSelect = "RootGui.popDialog(HudLayoutDlg);";
+	commandCancel = "RootGui.popDialog(HudLayoutDlg);";
+	commandNameSelect = "Close";
+
+	new GuiControl(HudLayoutBody) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "10 10";
+		extent = "780 580";
+		minExtent = "61 61";
+		visible = "1";
+		helpTag = "0";
+		wrap = "0";
+
+		new GuiMLTextCtrl(HudLayoutTitleText) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "center";
+			vertSizing = "bottom";
+			position = "0 10";
+			extent = "780 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+			defaultText = "<bold:32><just:center>HUD Layout";
+		};
+
+		new GuiMLTextCtrl(HudLayoutModeLabel) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "200 52";
+			extent = "160 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+			defaultText = "<bold:24>Layout Mode:";
+		};
+
+		new GuiMLTextCtrl(HudLayoutModeDisplay) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "370 52";
+			extent = "140 32";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+
+		new GuiBorderButtonCtrl(HudLayoutModeLeft) {
+			profile = "GuiBorderButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "520 48";
+			extent = "44 44";
+			minExtent = "8 8";
+			visible = "1";
+			command = "HudLayoutDlg::modeDecrease();";
+			helpTag = "0";
+			text = "<";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+
+		new GuiBorderButtonCtrl(HudLayoutModeRight) {
+			profile = "GuiBorderButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "570 48";
+			extent = "44 44";
+			minExtent = "8 8";
+			visible = "1";
+			command = "HudLayoutDlg::modeIncrease();";
+			helpTag = "0";
+			text = ">";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+
+		// Preview panel (left side)
+		new GuiControl(HudLayoutPreviewPanel) {
+			profile = "PQWindowProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "20 100";
+			extent = "300 420";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			new GuiMLTextCtrl(HudLayoutPreviewTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "0 8";
+				extent = "300 28";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+				defaultText = "<bold:24><just:center>Preview";
+			};
+
+			// Preview screen border box
+			new GuiControl(HudLayoutPreviewScreen) {
+				profile = "GuiSolidDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "30 40";
+				extent = "240 180";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+
+			// Center crosshair
+			new GuiMLTextCtrl(HudLayoutPreviewCenter) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "30 40";
+				extent = "30 24";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+				defaultText = "<bold:18><just:center><color:888888>+";
+			};
+
+			// Colored square markers (12x12 each)
+			new GuiControl(HudLayoutPreviewGem) {
+				profile = "HudLayoutMarkerGemProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "30 40";
+				extent = "12 12";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+
+			new GuiControl(HudLayoutPreviewTimer) {
+				profile = "HudLayoutMarkerTimerProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "30 40";
+				extent = "12 12";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+
+			new GuiControl(HudLayoutPreviewPowerup) {
+				profile = "HudLayoutMarkerPowerupProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "30 40";
+				extent = "12 12";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+
+			new GuiControl(HudLayoutPreviewBlast) {
+				profile = "HudLayoutMarkerBlastProfile";
+				horizSizing = "left";
+				vertSizing = "top";
+				position = "30 40";
+				extent = "12 12";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+			};
+
+			new GuiMLTextCtrl(HudLayoutPreviewLegend) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "0 240";
+				extent = "300 60";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "4";
+				allowColorChars = "0";
+				maxChars = "-1";
+				defaultText = "<just:center><color:B8860B><bold:20>Gems   <color:555555>Time\n<just:center><color:006622><bold:20>Item   <color:AA3300>Blast";
+			};
+		};
+
+		// Controls panel (right side)
+		new GuiControl(HudLayoutContent) {
+			profile = "PQWindowProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "330 100";
+			extent = "440 420";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		};
+
+		new GuiBorderButtonCtrl(HudLayoutReset) {
+			profile = "GuiBorderButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "240 518";
+			extent = "180 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "HudLayoutDlg.resetDefaults();";
+			helpTag = "0";
+			text = "Reset Defaults";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+
+		new GuiBorderButtonCtrl(HudLayoutClose) {
+			profile = "GuiBorderButtonProfile";
+			horizSizing = "left";
+			vertSizing = "top";
+			position = "440 518";
+			extent = "104 46";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RootGui.popDialog(HudLayoutDlg);";
+			accelerator = "return";
+			helpTag = "0";
+			text = "Back";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+$HudLayout::ElementCount = 4;
+$HudLayout::ElementName[0] = "Gem";
+$HudLayout::ElementTitle[0] = "Gems";
+$HudLayout::ElementColor[0] = "B8860B";
+$HudLayout::ElementName[1] = "Timer";
+$HudLayout::ElementTitle[1] = "Timer";
+$HudLayout::ElementColor[1] = "555555";
+$HudLayout::ElementName[2] = "Powerup";
+$HudLayout::ElementTitle[2] = "Item";
+$HudLayout::ElementColor[2] = "006622";
+$HudLayout::ElementName[3] = "Blast";
+$HudLayout::ElementTitle[3] = "Blast";
+$HudLayout::ElementColor[3] = "AA3300";
+
+$HudLayout::ModeCount = 3;
+$HudLayout::ModeName[0] = "Default";
+$HudLayout::ModeName[1] = "Centered";
+$HudLayout::ModeName[2] = "Custom";
+
+// PlayGui controls driven by the layout system, paired with their element key.
+$HudLayout::ControlCount = 7;
+$HudLayout::ControlName[0] = "PG_GemCounter";
+$HudLayout::ControlKey[0] = "Gem";
+$HudLayout::ControlName[1] = "PG_HuntCounter";
+$HudLayout::ControlKey[1] = "Gem";
+$HudLayout::ControlName[2] = "PG_Timer";
+$HudLayout::ControlKey[2] = "Timer";
+$HudLayout::ControlName[3] = "PG_TimerThousands";
+$HudLayout::ControlKey[3] = "Timer";
+$HudLayout::ControlName[4] = "HUD_PowerupBackground";
+$HudLayout::ControlKey[4] = "Powerup";
+$HudLayout::ControlName[5] = "HUD_ShowPowerUp";
+$HudLayout::ControlKey[5] = "Powerup";
+$HudLayout::ControlName[6] = "PG_BlastBar";
+$HudLayout::ControlKey[6] = "Blast";
+
+// Slider range shown to the user; values map to real pixels by screen size.
+$HudLayout::SliderMaxOffset = 100;
+
+// Default profile (anchor-first layout)
+// Gems: top-left, Timer: top-center, Item: top-right, Blast: bottom-left.
+$HudLayout["Default","Gem", "Anchor"] = 0;
+$HudLayout["Default","Gem", "OffsetX"] = 0;
+$HudLayout["Default","Gem", "OffsetY"] = 0;
+$HudLayout["Default","Timer", "Anchor"] = 1;
+$HudLayout["Default","Timer", "OffsetX"] = 0;
+$HudLayout["Default","Timer", "OffsetY"] = 0;
+$HudLayout["Default","Powerup", "Anchor"] = 2;
+$HudLayout["Default","Powerup", "OffsetX"] = 0;
+$HudLayout["Default","Powerup", "OffsetY"] = 0;
+$HudLayout["Default","Blast", "Anchor"] = 6;
+$HudLayout["Default","Blast", "OffsetX"] = 0;
+$HudLayout["Default","Blast", "OffsetY"] = 0;
+
+// Centered profile
+$HudLayout["Centered","Gem", "Anchor"] = 0;
+$HudLayout["Centered","Gem", "OffsetX"] = 0;
+$HudLayout["Centered","Gem", "OffsetY"] = 0;
+$HudLayout["Centered","Timer", "Anchor"] = 1;
+$HudLayout["Centered","Timer", "OffsetX"] = 0;
+$HudLayout["Centered","Timer", "OffsetY"] = 0;
+$HudLayout["Centered","Powerup", "Anchor"] = 4;
+$HudLayout["Centered","Powerup", "OffsetX"] = 0;
+$HudLayout["Centered","Powerup", "OffsetY"] = 68;
+$HudLayout["Centered","Blast", "Anchor"] = 4;
+$HudLayout["Centered","Blast", "OffsetX"] = 0;
+$HudLayout["Centered","Blast", "OffsetY"] = 80;
+
+// Preview area within HudLayoutPreviewPanel (300x420)
+$HudLayout::PreviewWidth = 240;
+$HudLayout::PreviewHeight = 180;
+$HudLayout::PreviewOffsetX = 30;
+$HudLayout::PreviewOffsetY = 40;
+
+function HudLayoutDlg::onWake(%this) {
+	// Hide the options dialog behind us so it doesn't peek through the
+	// semi-transparent panels.
+	if (isObject(OptionsGui))
+		OptionsGui.setVisible(false);
+	%this.buildGUI();
+	%this.refreshModeState();
+}
+
+function HudLayoutDlg::onSleep(%this) {
+	if (isObject(OptionsGui))
+		OptionsGui.setVisible(true);
+}
+
+function HudLayoutDlg::updatePreview(%this) {
+	%mode = $pref::HudLayoutMode;
+	if (%mode $= "")
+		%mode = 0;
+
+	%pw = $HudLayout::PreviewWidth;
+	%ph = $HudLayout::PreviewHeight;
+	%ox = $HudLayout::PreviewOffsetX;
+	%oy = $HudLayout::PreviewOffsetY;
+	%sliderMax = ($HudLayout::SliderMaxOffset $= "" ? 100 : $HudLayout::SliderMaxOffset);
+	%previewExtent = %pw SPC %ph;
+
+	// Position the center crosshair at the center of the preview screen
+	if (isObject(HudLayoutPreviewCenter)) {
+		%cx = %ox + mFloor(%pw / 2) - 15;
+		%cy = %oy + mFloor(%ph / 2) - 12;
+		HudLayoutPreviewCenter.resize(%cx, %cy, 30, 24);
+	}
+
+	for (%i = 0; %i < $HudLayout::ElementCount; %i++) {
+		%name = $HudLayout::ElementName[%i];
+		%marker = "HudLayoutPreview" @ %name;
+		if (!isObject(%marker))
+			continue;
+
+		%anchor = HudLayout::getModeValue(%mode, %name, "Anchor", 4);
+		%offsetX = HudLayout::getModeValue(%mode, %name, "OffsetX", 0);
+		%offsetY = HudLayout::getModeValue(%mode, %name, "OffsetY", 0);
+
+		// Anchor location within the preview (col/row: 0 = left/top, 2 = right/bottom).
+		%col = %anchor % 3;
+		%row = mFloor(%anchor / 3);
+		%ax = mFloor(%col * %pw / 2);
+		%ay = mFloor(%row * %ph / 2);
+
+		// Scale the normalized offset to preview pixels using the same logic as
+		// the real HUD, then align the marker so its matching corner/edge/center
+		// sits on the anchor point (marker is 12x12). Clamp to preview bounds.
+		%scaleX = HudLayout::getOffsetScale(%anchor, "X", %previewExtent);
+		%scaleY = HudLayout::getOffsetScale(%anchor, "Y", %previewExtent);
+		%px = %ax + mFloor(%offsetX * %scaleX / %sliderMax) - %col * 6;
+		%py = %ay + mFloor(%offsetY * %scaleY / %sliderMax) - %row * 6;
+
+		// Clamp marker to stay within the preview screen.
+		if (%px < 0) %px = 0;
+		if (%py < 0) %py = 0;
+		if (%px > %pw - 12) %px = %pw - 12;
+		if (%py > %ph - 12) %py = %ph - 12;
+
+		%marker.resize(%ox + %px, %oy + %py, 12, 12);
+	}
+}
+
+function HudLayoutDlg::buildGUI(%this) {
+	HudLayoutContent.clear();
+
+	%rowHeight = 104;
+	for (%i = 0; %i < $HudLayout::ElementCount; %i++) {
+		%name = $HudLayout::ElementName[%i];
+		%title = $HudLayout::ElementTitle[%i];
+		%color = $HudLayout::ElementColor[%i];
+		%y = %i * %rowHeight;
+		%row = new GuiControl("HudLayoutRow" @ %name) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "0" SPC %y;
+			extent = "440 100";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		};
+
+		// Title - colored square + black title text
+		%colorSwatch = new GuiControl("HudLayoutSwatch" @ %name) {
+			profile = "HudLayoutMarker" @ %name @ "Profile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "8 9";
+			extent = "14 14";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+		};
+		%row.add(%colorSwatch);
+
+		%titleCtrl = new GuiMLTextCtrl("HudLayoutTitle" @ %name) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "28 2";
+			extent = "200 30";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		%row.add(%titleCtrl);
+		%titleCtrl.setText("<bold:24>" @ %title);
+
+		// --- Anchor section (left side, y=40) ---
+		%anchorLabel = new GuiMLTextCtrl("HudLayoutAnchorLabel" @ %name) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "8 44";
+			extent = "60 26";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		%row.add(%anchorLabel);
+		%anchorLabel.setText("<bold:20>Anchor");
+
+		%row.add(new GuiBorderButtonCtrl("HudLayoutAnchorDec" @ %name) {
+			profile = "GuiBorderButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "72 40";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "HudLayoutDlg.shiftAnchor(\"" @ %name @ "\", -1);";
+			helpTag = "0";
+			text = "<";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "400";
+			repeatDecay = "1";
+		});
+
+		%anchorValue = new GuiMLTextCtrl("HudLayoutAnchorValue" @ %name) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "112 44";
+			extent = "90 26";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		%row.add(%anchorValue);
+
+		%row.add(new GuiBorderButtonCtrl("HudLayoutAnchorInc" @ %name) {
+			profile = "GuiBorderButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "206 40";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "HudLayoutDlg.shiftAnchor(\"" @ %name @ "\", 1);";
+			helpTag = "0";
+			text = ">";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "400";
+			repeatDecay = "1";
+		});
+
+		// --- X slider (right of anchor, same row y=40) ---
+		%xLabel = new GuiMLTextCtrl("HudLayoutOffsetXLabel" @ %name) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "252 44";
+			extent = "20 26";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		%row.add(%xLabel);
+		%xLabel.setText("<bold:20>X");
+
+		// X slider bar background
+		%row.add(new GuiBitmapCtrl("HudLayoutOffsetXBar" @ %name) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "274 53";
+			extent = "100 10";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "~/client/ui/options/slider_bar";
+			wrap = "0";
+		});
+
+		// X slider
+		%row.add(new GuiSliderCtrl("HudLayoutOffsetXSlider" @ %name) {
+			profile = "GuiSliderProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "264 40";
+			extent = "120 36";
+			minExtent = "8 8";
+			visible = "1";
+			altCommand = "HudLayoutDlg.sliderChanged(\"" @ %name @ "\", \"X\");";
+			helpTag = "0";
+			range = "-100 100";
+			ticks = 200;
+			value = 0;
+			bitmap = "~/client/ui/options/slider";
+		});
+
+		%row.add(new GuiMLTextCtrl("HudLayoutOffsetXDisplay" @ %name) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "390 44";
+			extent = "50 26";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		});
+
+		// --- Y slider (below X, y=70) ---
+		%yLabel = new GuiMLTextCtrl("HudLayoutOffsetYLabel" @ %name) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "252 74";
+			extent = "20 26";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		%row.add(%yLabel);
+		%yLabel.setText("<bold:20>Y");
+
+		// Y slider bar background
+		%row.add(new GuiBitmapCtrl("HudLayoutOffsetYBar" @ %name) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "274 83";
+			extent = "100 10";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "~/client/ui/options/slider_bar";
+			wrap = "0";
+		});
+
+		// Y slider
+		%row.add(new GuiSliderCtrl("HudLayoutOffsetYSlider" @ %name) {
+			profile = "GuiSliderProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "264 70";
+			extent = "120 36";
+			minExtent = "8 8";
+			visible = "1";
+			altCommand = "HudLayoutDlg.sliderChanged(\"" @ %name @ "\", \"Y\");";
+			helpTag = "0";
+			range = "-100 100";
+			ticks = 200;
+			value = 0;
+			bitmap = "~/client/ui/options/slider";
+		});
+
+		%row.add(new GuiMLTextCtrl("HudLayoutOffsetYDisplay" @ %name) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "390 74";
+			extent = "50 26";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		});
+
+		// Disabled overlay shown in Default/Centered modes
+		%row.add(new GuiControl("HudLayoutDisabledOverlay" @ %name) {
+			profile = "HudLayoutDisabledRowProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "0 0";
+			extent = "440 100";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+		});
+
+		HudLayoutContent.add(%row);
+		%this.refreshRow(%name);
+	}
+}
+
+function HudLayoutDlg::refreshModeState(%this) {
+	%mode = $pref::HudLayoutMode;
+	if (%mode $= "")
+		%mode = 0;
+	HudLayoutModeDisplay.setText("<bold:24>" @ $HudLayout::ModeName[%mode]);
+	%this.refreshEnabledState();
+}
+
+// Pushes the current layout to the live HUD if the player is in a level.
+function HudLayoutDlg::applyToPlayGui(%this) {
+	if (isObject(PlayGui) && RootGui.getContent() == PlayGui.getId())
+		PlayGui.applyUISettings();
+}
+
+function HudLayoutDlg::refreshEnabledState(%this) {
+	%mode = $pref::HudLayoutMode;
+	if (%mode $= "")
+		%mode = 0;
+
+	// Only Custom mode is editable; presets are shown read-only behind an overlay.
+	%custom = (%mode == 2);
+	for (%i = 0; %i < $HudLayout::ElementCount; %i++) {
+		%name = $HudLayout::ElementName[%i];
+		%row = "HudLayoutRow" @ %name;
+		%overlay = "HudLayoutDisabledOverlay" @ %name;
+		if (isObject(%row))
+			%row.setActive(%custom);
+		if (isObject(%overlay))
+			%overlay.setVisible(!%custom);
+
+		if (%custom)
+			%this.refreshRow(%name);
+		else
+			%this.loadRowFromPreset(%name, $HudLayout::ModeName[%mode]);
+	}
+
+	%this.updatePreview();
+	%this.applyToPlayGui();
+}
+
+// Writes the given values into a row's controls. UpdatingUI guards against the
+// slider altCommand firing while we set values programmatically.
+function HudLayoutDlg::setRowValues(%this, %name, %anchor, %offsetX, %offsetY) {
+	$HudLayout::UpdatingUI = true;
+
+	%anchorCtrl = "HudLayoutAnchorValue" @ %name;
+	%xSlider = "HudLayoutOffsetXSlider" @ %name;
+	%xDisplay = "HudLayoutOffsetXDisplay" @ %name;
+	%ySlider = "HudLayoutOffsetYSlider" @ %name;
+	%yDisplay = "HudLayoutOffsetYDisplay" @ %name;
+
+	if (isObject(%anchorCtrl))
+		%anchorCtrl.setText("<bold:20>" @ PlayGui::getHudAnchorName(%anchor));
+	if (isObject(%xSlider))
+		%xSlider.setValue(%offsetX);
+	if (isObject(%xDisplay))
+		%xDisplay.setText("<bold:20>" @ %offsetX);
+	if (isObject(%ySlider))
+		%ySlider.setValue(%offsetY);
+	if (isObject(%yDisplay))
+		%yDisplay.setText("<bold:20>" @ %offsetY);
+
+	$HudLayout::UpdatingUI = false;
+}
+
+function HudLayoutDlg::loadRowFromPreset(%this, %name, %preset) {
+	%this.setRowValues(%name,
+		HudLayout::getPresetValue(%preset, %name, "Anchor", 4),
+		HudLayout::getPresetValue(%preset, %name, "OffsetX", 0),
+		HudLayout::getPresetValue(%preset, %name, "OffsetY", 0));
+}
+
+function HudLayoutDlg::modeDecrease() {
+	%mode = $pref::HudLayoutMode;
+	if (%mode $= "")
+		%mode = 0;
+	%mode--;
+	if (%mode < 0)
+		%mode = $HudLayout::ModeCount - 1;
+	$pref::HudLayoutMode = %mode;
+	HudLayoutDlg.refreshModeState();
+}
+
+function HudLayoutDlg::modeIncrease() {
+	%mode = $pref::HudLayoutMode;
+	if (%mode $= "")
+		%mode = 0;
+	%mode++;
+	if (%mode >= $HudLayout::ModeCount)
+		%mode = 0;
+	$pref::HudLayoutMode = %mode;
+	HudLayoutDlg.refreshModeState();
+}
+
+function HudLayoutDlg::refreshRow(%this, %name) {
+	%this.setRowValues(%name,
+		HudLayout::getPref(%name, "Anchor", 4),
+		HudLayout::getPref(%name, "OffsetX", 0),
+		HudLayout::getPref(%name, "OffsetY", 0));
+}
+
+function HudLayoutDlg::shiftAnchor(%this, %name, %delta) {
+	%mode = $pref::HudLayoutMode;
+	if (%mode !$= "2")
+		return;
+
+	%anchor = mFloor(HudLayout::getPref(%name, "Anchor", 4) + %delta);
+	if (%anchor < 0) {
+		%anchor = 8;
+	} else if (%anchor > 8) {
+		%anchor = 0;
+	}
+	HudLayout::setPref(%name, "Anchor", %anchor);
+
+	// Offsets are relative to the anchor, so reset them when it moves.
+	HudLayout::setPref(%name, "OffsetX", 0);
+	HudLayout::setPref(%name, "OffsetY", 0);
+
+	%this.refreshRow(%name);
+	%this.updatePreview();
+	%this.applyToPlayGui();
+}
+
+function HudLayoutDlg::sliderChanged(%this, %name, %axis) {
+	%mode = $pref::HudLayoutMode;
+	if (%mode !$= "2" || $HudLayout::UpdatingUI)
+		return;
+
+	%slider = "HudLayoutOffset" @ %axis @ "Slider" @ %name;
+	%display = "HudLayoutOffset" @ %axis @ "Display" @ %name;
+	%value = mFloor(%slider.getValue() + 0.5);
+
+	HudLayout::setPref(%name, "Offset" @ %axis, %value);
+
+	if (isObject(%display))
+		%display.setText("<bold:20>" @ %value);
+
+	%this.updatePreview();
+	%this.applyToPlayGui();
+}
+
+// Copies the Default preset into the saved (Custom) prefs.
+function HudLayoutDlg::resetDefaults(%this) {
+	for (%i = 0; %i < $HudLayout::ElementCount; %i++) {
+		%name = $HudLayout::ElementName[%i];
+		HudLayout::setPref(%name, "Anchor", HudLayout::getPresetValue("Default", %name, "Anchor", 4));
+		HudLayout::setPref(%name, "OffsetX", HudLayout::getPresetValue("Default", %name, "OffsetX", 0));
+		HudLayout::setPref(%name, "OffsetY", HudLayout::getPresetValue("Default", %name, "OffsetY", 0));
+		%this.refreshRow(%name);
+	}
+
+	%this.updatePreview();
+	%this.applyToPlayGui();
+}

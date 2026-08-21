@@ -140,6 +140,7 @@ function initClient() {
 	exec("./ui/CompleteDemoDlg.gui");
 	exec("./ui/AchievementsDlg.gui");
 	exec("./ui/SearchDlg.gui");
+	exec("./ui/MarblelandGui.gui");
 	exec("./ui/VersionDlg.gui");
 	exec("./ui/JukeboxDlg.gui");
 	exec("./ui/RenameFileDlg.gui");
@@ -150,6 +151,7 @@ function initClient() {
 	exec("./ui/QueueResultsDlg.gui");
 	exec("./ui/RtaSpeedrunDlg.gui");
 	exec("./ui/AdvancedOptionsDlg.gui");
+	exec("./ui/HudLayoutDlg.gui");
 
 	// Gui Scripts
 	exec("./scripts/EndGameDlg.cs");
@@ -253,6 +255,16 @@ function initClient() {
 	//Anything else we probably can't save, but why not try?
 	addDirectoryOverride("marble/data/", "platinum/data/");
 	addDirectoryOverride("challenge/data/", "platinum/data/");
+
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/mbg", "platinum/data/lbinteriors_mbg");
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/mbp", "platinum/data/lbinteriors_mbp");
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/lbinteriors_custom/pq", "platinum/data/lbinteriors_pq");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/mbg", "platinum/data/lbinteriors_mbg");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/custom/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/custom-final/mbu", "platinum/data/lbinteriors_mbu");
+	addInteriorPathOverride("platinum/data/multiplayer/interiors/PlatinumQuest", "platinum/data/lbinteriors_pq");
 
 	// Detect if there's a holiday event
 	exec("./scripts/holidays.cs");

@@ -1,0 +1,3631 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2022 The Platinum Team
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+// Tile frame background (semi-transparent dark)
+new GuiControlProfile(MLTileProfile : GuiDefaultProfile) {
+	opaque = true;
+	fillColor = "18 18 28 220";
+	border = 0;
+};
+
+// Tile level name label (white text over dark semi-transparent bg)
+new GuiControlProfile(MLTileNameProfile : GuiDefaultProfile) {
+	opaque = true;
+	fillColor = "0 0 0 160";
+	border = 0;
+	fontType = $DefaultFont;
+	fontSize = 16;
+	fontColor = "255 255 255 255";
+	fontColorHL = "255 255 255 255";
+	fontColorSEL = "255 255 255 255";
+	fontColorNA = "160 160 160 255";
+	justify = "left";
+	textOffset = "4 3";
+};
+
+// Tile author label (light gray text, transparent bg)
+new GuiControlProfile(MLTileAuthorProfile : GuiDefaultProfile) {
+	opaque = true;
+	fillColor = "0 0 0 140";
+	border = 0;
+	fontType = $DefaultFont;
+	fontSize = 14;
+	fontColor = "185 185 185 255";
+	fontColorHL = "185 185 185 255";
+	fontColorSEL = "185 185 185 255";
+	fontColorNA = "120 120 120 255";
+	justify = "left";
+	textOffset = "4 2";
+};
+
+// Curation score overlay on tile bottom bar (curator-only)
+new GuiControlProfile(MLCurationScoreProfile : GuiMLTextProfile) {
+	opaque = false;
+	border = 0;
+};
+
+// Status / count text (inherits ML formatting)
+new GuiControlProfile(MLStatusProfile : GuiMLTextProfile) {
+};
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(MarblelandGui) {
+	profile = "GuiDefaultProfile";
+	horizSizing = "right";
+	vertSizing = "bottom";
+	position = "0 0";
+	extent = "1024 768";
+	minExtent = "8 8";
+	visible = "1";
+	helpTag = "0";
+	_guiSize = "1024 768";
+
+	new GuiScriptNotifyCtrl(MarblelandGui_ResizeNotify) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "1024 768";
+		minExtent = "8 8";
+		visible = "1";
+		onParentResized = true;
+		helpTag = "0";
+	};
+
+	// -----------------------------------------------------------------------
+	// Background (blur + dark fill)
+	// -----------------------------------------------------------------------
+	new GuiControl() {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "1024 768";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		blur = "1";
+
+		new GuiBitmapCtrl() {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 0";
+			extent = "1024 768";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./game/hudfill.png";
+			wrap = "0";
+		};
+	};
+
+	// -----------------------------------------------------------------------
+	// Top bar — three separate panels (left / middle / right)
+	// -----------------------------------------------------------------------
+	new GuiControl() {
+		profile = "PQWindowProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "-10 -11";
+		extent = "400 80";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+	};
+	new GuiControl(ML_TopBar) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "bottom";
+		position = "330 -11";
+		extent = "364 80";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBitmapCtrl(ML_TitleIcon) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "25 20";
+			extent = "40 40";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/marbleland";
+			wrap = "0";
+		};
+	};
+	new GuiControl() {
+		profile = "PQWindowProfile";
+		horizSizing = "left";
+		vertSizing = "bottom";
+		position = "740 -11";
+		extent = "295 80";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+	};
+
+	// Search/filter input border (left side)
+	new GuiControl() {
+		profile = "PQTextboxBorderProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "20 9";
+		extent = "220 36";
+		minExtent = "21 21";
+		visible = "1";
+		helpTag = "0";
+	};
+
+	// Title (centered; text set in onWake)
+	new GuiMLTextCtrl(ML_Title) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "center";
+		vertSizing = "bottom";
+		position = "212 -5";
+		extent = "600 36";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+	};
+
+	// Browsing context label (centered below title; text set in script)
+	new GuiMLTextCtrl(ML_BrowsingLabel) {
+		profile = "GuiMLTextProfile";
+		horizSizing = "center";
+		vertSizing = "bottom";
+		position = "212 35";
+		extent = "600 26";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars = "-1";
+	};
+
+	// Search/filter input
+	new GuiTextEditCtrl(ML_SearchField) {
+		profile = "PQTextboxProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "25 9";
+		extent = "210 40";
+		minExtent = "8 8";
+		visible = "1";
+		altCommand = "MarblelandGui.doSearch();";
+		escapeCommand = "ML_SearchField.setValue(\"\"); MarblelandGui.doSearch();";
+		helpTag = "0";
+		maxLength = "255";
+		maxPixelWidth = "0";
+		historySize = "0";
+		password = "0";
+		tabComplete = "0";
+		sinkAllKeyEvents = "0";
+		placeholder = "Search...";
+	};
+
+	// Filter dropdown toggle button ("v")
+	new GuiBorderButtonCtrl(ML_FilterDropBtn) {
+		profile = "PQButtonProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "244 7";
+		extent = "44 44";
+		minExtent = "8 8";
+		visible = "1";
+		command = "MarblelandGui.toggleFilter();";
+		helpTag = "0";
+		bitmap = "platinum/client/ui/play/leftright.png";
+		bitmapRotation = "90";
+		groupNum = "-1";
+		buttonType = "ToggleButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	};
+
+	// Search button
+	new GuiBorderButtonCtrl(ML_SearchButton) {
+		profile = "PQButtonProfile";
+		horizSizing = "right";
+		vertSizing = "bottom";
+		position = "292 7";
+		extent = "80 44";
+		minExtent = "8 8";
+		visible = "1";
+		command = "MarblelandGui.doSearch();";
+		helpTag = "0";
+		text = "Search";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	};
+
+	// Auth area (top-right): Login+Register buttons OR avatar+name+sign-out
+	new GuiControl(ML_AuthArea) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "bottom";
+		position = "762 5";
+		extent = "252 48";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		// Logged-out: Sign In
+		new GuiBorderButtonCtrl(ML_LoginBtn) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "0 0";
+			extent = "122 48";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.openLogin();";
+			helpTag = "0";
+			text = "Sign In";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+		// Logged-out: Register
+		new GuiBorderButtonCtrl(ML_RegisterBtn) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "126 0";
+			extent = "126 48";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.openRegister();";
+			helpTag = "0";
+			text = "Register";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+
+		// Logged-in: Avatar
+		new GuiBitmapCtrl(ML_ProfileAvatar) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "0 6";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			bitmap = "./play/missingicon";
+			wrap = "0";
+		};
+		// Logged-in: Username (text set in script)
+		new GuiMLTextCtrl(ML_ProfileName) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "40 16";
+			extent = "120 32";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+		};
+		// Logged-in: Sign Out
+		new GuiBorderButtonCtrl(ML_SignOutBtn) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "158 0";
+			extent = "96 48";
+			minExtent = "8 8";
+			visible = "0";
+			command = "MarblelandGui.doSignOut();";
+			helpTag = "0";
+			text = "Sign Out";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+
+	// -----------------------------------------------------------------------
+	// Level grid container — fixed size, used to measure available space
+	// ML_LevelGrid is a child that resizes with content; we read the
+	// container's extent to compute cols/rows.
+	// -----------------------------------------------------------------------
+	new GuiControl(ML_LevelGridContainer) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 80";
+		extent = "1024 558";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiDynamicCtrlArrayControl(ML_LevelGrid) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing = "height";
+			position = "0 0";
+			extent = "1024 558";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			colSize = "228";
+			rowSize = "213";
+			colSpacing = "4";
+			rowSpacing = "4";
+			frozen = "0";
+			centered = "1";
+		};
+	};
+
+	// Status message — shown when no levels found or while loading
+	new GuiMLTextCtrl(ML_StatusMessage) {
+		profile = "MLStatusProfile";
+		horizSizing = "center";
+		vertSizing = "center";
+		position = "0 80";
+		extent = "1024 558";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+		lineSpacing = "6";
+		allowColorChars = "0";
+		maxChars = "-1";
+		text = "";
+	};
+
+	// -----------------------------------------------------------------------
+	// Pagination nav bar — sits above the bottom button bar (y=638, h=40)
+	// -----------------------------------------------------------------------
+	new GuiControl(ML_NavBar) {
+		profile = "PQWindowProfile";
+		horizSizing = "center";
+		vertSizing = "top";
+		position = "367 638";
+		extent = "320 40";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+
+		new GuiBorderButtonCtrl(ML_FirstBtn) {
+			profile = "PQButtonPlainProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "15 1";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.goFirst();";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/leftrightmax.png";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+
+		new GuiBorderButtonCtrl(ML_PrevBtn) {
+			profile = "PQButtonPlainProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "55 1";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.goPrev();";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/leftright.png";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+
+		new GuiMLTextCtrl(ML_PageLabel) {
+			profile = "GuiMLTextProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "95 21";
+			extent = "130 36";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars = "-1";
+			text = "<just:center>1 / 1";
+		};
+
+		new GuiBorderButtonCtrl(ML_NextBtn) {
+			profile = "PQButtonPlainProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "229 1";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.goNext();";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/leftright.png";
+			bitmapRotation = "180";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+
+		new GuiBorderButtonCtrl(ML_LastBtn) {
+			profile = "PQButtonPlainProfile";
+			horizSizing = "right";
+			vertSizing = "center";
+			position = "269 1";
+			extent = "36 36";
+			minExtent = "8 8";
+			visible = "1";
+			command = "MarblelandGui.goLast();";
+			helpTag = "0";
+			bitmap = "platinum/client/ui/play/leftrightmax.png";
+			bitmapRotation = "180";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+		};
+	};
+
+	// -----------------------------------------------------------------------
+	// Extras popup — populated by buildButtonBar("MLExtra") in onWake
+	// -----------------------------------------------------------------------
+	new GuiControl(ML_ExtrasBox) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "341 550";
+		extent = "331 128";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+	};
+
+	// -----------------------------------------------------------------------
+	// Bottom button bar — populated by buildButtonBar("MLBottom") in onWake
+	// -----------------------------------------------------------------------
+	new GuiControl(ML_ButtonBox) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "center";
+		vertSizing = "top";
+		position = "390 678";
+		extent = "338 90";
+		minExtent = "8 8";
+		visible = "1";
+		helpTag = "0";
+	};
+
+	// Options button (bottom right, same layout as PlayMissionGui)
+	new GuiBorderButtonCtrl() {
+		profile = "PQButtonPlainProfile";
+		horizSizing = "left";
+		vertSizing = "top";
+		position = "874 693";
+		extent = "140 65";
+		minExtent = "8 8";
+		visible = "1";
+		command = "OptionsGui.show(\"exit\");";
+		helpTag = "0";
+		text = "Options";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+	};
+
+	// -----------------------------------------------------------------------
+	// Filter dropdown popup (same pattern as PM_GameList)
+	// Shown when ML_FilterSelector is toggled
+	// -----------------------------------------------------------------------
+	new GuiButtonBaseCtrl(ML_FilterPopupDismiss) {
+		profile = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "1024 768";
+		minExtent = "8 8";
+		visible = "0";
+		command = "MarblelandGui.hideFilter();";
+		helpTag = "0";
+		text = "";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+
+		// Translucent dropdown panel — matches PM_GameList position/style
+		new GuiBitmapCtrl(ML_FilterList) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "20 49";
+			extent = "220 175";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+			bitmap = "./lb/play/pc_trans/0";
+			wrap = "0";
+
+			new GuiScrollCtrl(ML_FilterContainer) {
+				profile = "GuiPhilScrollProfile";
+				horizSizing = "width";
+				vertSizing = "height";
+				position = "0 0";
+				extent = "220 175";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				willFirstRespond = "1";
+				hScrollBar = "alwaysOff";
+				vScrollBar = "dynamic";
+				constantThumbHeight = "0";
+				childMargin = "0 0";
+
+				// Items are added dynamically in buildFilterList()
+				new GuiControl(ML_FilterScroll) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "220 175";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+				};
+			};
+		};
+	};
+
+	// -----------------------------------------------------------------------
+	// Level detail overlay (shown when a tile is clicked)
+	// -----------------------------------------------------------------------
+	new GuiButtonBaseCtrl(ML_DetailOverlay) {
+		profile = "GuiModelessDialogProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "1024 768";
+		minExtent = "8 8";
+		visible = "0";
+		command = "MarblelandGui.closeDetail();";
+		helpTag = "0";
+		text = "";
+		groupNum = "-1";
+		buttonType = "PushButton";
+		repeatPeriod = "1000";
+		repeatDecay = "1";
+
+		// Centered dialog
+		// Panels (info / comments / leaderboard) share the same slot (x=70,y=8,w=616,h=225)
+		new GuiControl(ML_DetailDialog) {
+			profile = "PQWindowProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "162 204";
+			extent = "710 360";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			// Left column — I / C / L square buttons (52×52, 4px gap; x=14+52+4=70 for panels)
+			new GuiBorderButtonCtrl(ML_DetailInfoBtn) {
+				profile = "PQButtonPlainProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "14 18";
+				extent = "52 52";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.switchPanel(\"info\");";
+				helpTag = "0";
+				text = "";
+				bitmap = "./play/info";
+				groupNum = "7";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+			new GuiBorderButtonCtrl(ML_DetailCommentsBtn) {
+				profile = "PQButtonPlainProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "14 74";
+				extent = "52 52";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.switchPanel(\"comments\");";
+				helpTag = "0";
+				text = "";
+				bitmap = "./play/comments";
+				groupNum = "7";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+			new GuiBorderButtonCtrl(ML_DetailLbBtn) {
+				profile = "PQButtonPlainProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "14 130";
+				extent = "52 52";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.switchPanel(\"lb\");";
+				helpTag = "0";
+				text = "";
+				bitmap = "./play/leaderboard";
+				groupNum = "7";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+			new GuiBorderButtonCtrl(ML_DetailHintsBtn) {
+				profile = "PQButtonPlainProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "14 186";
+				extent = "52 52";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.switchPanel(\"hints\");";
+				helpTag = "0";
+				text = "";
+				bitmap = "./play/hints";
+				groupNum = "7";
+				buttonType = "RadioButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+
+			// ---- Info panel (default visible) ----
+			// preview (left 280px) + full description scroll (right 332px)
+			new GuiControl(ML_DetailInfoPanel) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "70 21";
+				extent = "616 272";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+
+				new GuiBitmapCtrl(ML_DetailPreview) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "280 216";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					bitmap = "./play/missingicon";
+					wrap = "0";
+				};
+				new GuiMLTextCtrl(ML_DetailPreviewLoading) {
+					profile = "MLStatusProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 100";
+					extent = "280 25";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+					text = "<just:center>Loading preview...";
+				};
+				new GuiScrollCtrl(ML_DetailDescScroll) {
+					profile = "PQScrollProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "284 0";
+					extent = "332 275";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "alwaysOff";
+					vScrollBar = "dynamic";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiMLTextCtrl(ML_DetailDesc) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "312 14";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "3";
+						allowColorChars = "0";
+						maxChars = "-1";
+						text = "";
+					};
+				};
+
+				// Easter egg icon (bottom-right of preview image)
+				new GuiBitmapCtrl(ML_DetailEggIcon) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "262 192";
+					extent = "18 24";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					bitmap = "";
+					wrap = "0";
+				};
+			};
+
+			// ---- Comments panel (hidden by default) ----
+			// top: comment list (full width) + pagination
+			// bottom: text input + submit button
+			new GuiControl(ML_DetailCommentsPanel) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "70 21";
+				extent = "616 272";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+
+				new GuiMLTextCtrl(ML_DetailCommentsName) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "616 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+					text = "";
+				};
+
+				// Comment list scroll (full width, top)
+				new GuiScrollCtrl(ML_DetailCommentsScroll) {
+					profile = "PQScrollProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 28";
+					extent = "616 170";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "alwaysOff";
+					vScrollBar = "dynamic";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiControl(ML_DetailCommentsContainer) {
+						profile = "GuiDefaultProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "596 14";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+					};
+				};
+
+				// Pagination (cluster w=240, centered in 616px → x=188)
+				new GuiBorderButtonCtrl(ML_CommentFirstBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "188 202";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goCommentFirst();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftrightmax.png";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+				new GuiBorderButtonCtrl(ML_CommentPrevBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "228 202";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goCommentPrev();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftright.png";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+				new GuiMLTextCtrl(ML_CommentPageLabel) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "268 204";
+					extent = "80 24";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+					text = "<just:center>1 / 1";
+				};
+				new GuiBorderButtonCtrl(ML_CommentNextBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "352 202";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goCommentNext();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftright.png";
+					bitmapRotation = "180";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+				new GuiBorderButtonCtrl(ML_CommentLastBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "392 202";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goCommentLast();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftrightmax.png";
+					bitmapRotation = "180";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+
+				// Comment input area (bottom)
+				new GuiControl() {
+					profile = "PQTextboxBorderProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 234";
+					extent = "510 38";
+					minExtent = "21 21";
+					visible = "1";
+					helpTag = "0";
+				};
+				new GuiTextEditCtrl(ML_DetailCommentInput) {
+					profile = "PQTextboxProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "5 238";
+					extent = "500 30";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					maxLength = "255";
+					maxPixelWidth = "0";
+					historySize = "0";
+					password = "0";
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+					placeholder = "Write a comment...";
+				};
+				new GuiBorderButtonCtrl(ML_DetailAddCommentBtn) {
+					profile = "PQButtonProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "514 234";
+					extent = "102 38";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.submitComment();";
+					helpTag = "0";
+					text = "Post";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+			};
+
+			// ---- Leaderboard panel (hidden by default) ----
+			// stacked |</< on left, list in center, >/>) on right, version label below list
+			new GuiControl(ML_DetailLbPanel) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "70 21";
+				extent = "616 272";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+
+				new GuiMLTextCtrl(ML_DetailLbName) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "616 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+					text = "";
+				};
+
+				// Left nav (stacked, vertically centered)
+				new GuiBorderButtonCtrl(ML_LbFirstBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 159";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goLbFirst();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftrightmax.png";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+				new GuiBorderButtonCtrl(ML_LbPrevBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "0 119";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goLbPrev();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftright.png";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+
+				// Leaderboard list (x=40: 36+4, w=532, h=221)
+				new GuiScrollCtrl(ML_DetailLbScroll) {
+					profile = "PQScrollProfile";
+					horizSizing = "right";
+					vertSizing = "height";
+					position = "40 28";
+					extent = "532 221";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "alwaysOff";
+					vScrollBar = "dynamic";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiMLTextCtrl(ML_DetailLbList) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "512 14";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "3";
+						allowColorChars = "0";
+						maxChars = "-1";
+						text = "";
+					};
+				};
+
+				// Right nav (x=576: 40+532+4)
+				new GuiBorderButtonCtrl(ML_LbNextBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "576 119";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goLbNext();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftright.png";
+					bitmapRotation = "180";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+				new GuiBorderButtonCtrl(ML_LbLastBtn) {
+					profile = "PQButtonPlainProfile";
+					horizSizing = "right";
+					vertSizing = "bottom";
+					position = "576 159";
+					extent = "36 36";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.goLbLast();";
+					helpTag = "0";
+					bitmap = "platinum/client/ui/play/leftrightmax.png";
+					bitmapRotation = "180";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+			};
+
+			// ---- Hints panel (hidden by default) ----
+			new GuiControl(ML_DetailHintsPanel) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "70 21";
+				extent = "616 272";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+
+				new GuiMLTextCtrl(ML_DetailHintsName) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "616 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+					text = "";
+				};
+
+				new GuiScrollCtrl(ML_DetailHintsScroll) {
+					profile = "PQScrollProfile";
+					horizSizing = "width";
+					vertSizing = "height";
+					position = "0 28";
+					extent = "616 244";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					willFirstRespond = "1";
+					hScrollBar = "alwaysOff";
+					vScrollBar = "dynamic";
+					constantThumbHeight = "0";
+					childMargin = "0 0";
+
+					new GuiMLTextCtrl(ML_DetailHintsText) {
+						profile = "GuiMLTextProfile";
+						horizSizing = "width";
+						vertSizing = "bottom";
+						position = "0 0";
+						extent = "596 14";
+						minExtent = "8 8";
+						visible = "1";
+						helpTag = "0";
+						lineSpacing = "4";
+						allowColorChars = "0";
+						maxChars = "-1";
+						text = "";
+					};
+				};
+			};
+
+			// Close button (top-right)
+			new GuiBorderButtonCtrl(ML_DetailCloseBtn) {
+				profile = "PQButton26Profile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "666 8";
+				extent = "36 36";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.closeDetail();";
+				helpTag = "0";
+				text = "X";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+
+			// Author row (below panels; y=297)
+			new GuiBitmapCtrl(ML_DetailAuthorIcon) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "70 297";
+				extent = "40 40";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				bitmap = "./play/missingicon";
+				wrap = "0";
+			};
+			new GuiMLTextCtrl(ML_DetailAuthorName) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "114 297";
+				extent = "256 40";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+				text = "";
+			};
+
+			// Progress label + update btn share same slot (x=380: 486-106), exclusive
+			new GuiMLTextCtrl(ML_DetailProgressLabel) {
+				profile = "MLStatusProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "370 297";
+				extent = "112 40";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+				text = "<just:left>Downloading...";
+			};
+			new GuiBorderButtonCtrl(ML_DetailUpdateBtn) {
+				profile = "PQButtonPlainProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "370 297";
+				extent = "112 40";
+				minExtent = "8 8";
+				visible = "0";
+				command = "MarblelandGui.updateLevel();";
+				helpTag = "0";
+				text = "Update";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+			new GuiBorderButtonCtrl(ML_DetailPlayBtn) {
+				profile = "PQButtonPlainProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "482 293";
+				extent = "158 48";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.playLevel();";
+				helpTag = "0";
+				text = "Play";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+			new GuiBorderButtonCtrl(ML_DetailLoveBtn) {
+				profile = "PQButtonPlainProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "644 293";
+				extent = "48 48";
+				minExtent = "8 8";
+				visible = "0";
+				command = "MarblelandGui.toggleDetailLove();";
+				helpTag = "0";
+				bitmap = "./play/unlove";
+				text = "";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+		};
+	};
+
+	// -----------------------------------------------------------------------
+	// Login / register overlay
+	// -----------------------------------------------------------------------
+	new GuiControl(ML_LoginOverlay) {
+		profile = "GuiModelessDialogProfile";
+		horizSizing = "width";
+		vertSizing = "height";
+		position = "0 0";
+		extent = "1024 768";
+		minExtent = "8 8";
+		visible = "0";
+		helpTag = "0";
+
+		new GuiControl(ML_LoginDialog) {
+			profile = "PQWindowProfile";
+			horizSizing = "center";
+			vertSizing = "center";
+			position = "262 144";
+			extent = "500 480";
+			minExtent = "8 8";
+			visible = "1";
+			helpTag = "0";
+
+			// Close button (top-right)
+			new GuiBorderButtonCtrl() {
+				profile = "PQButton26Profile";
+				horizSizing = "left";
+				vertSizing = "bottom";
+				position = "456 10";
+				extent = "36 36";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.closeLogin();";
+				helpTag = "0";
+				text = "X";
+				groupNum = "-1";
+				buttonType = "PushButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+
+			// Title (set via setText in script)
+			new GuiMLTextCtrl(ML_LoginTitle) {
+				profile = "GuiMLTextProfile";
+				horizSizing = "center";
+				vertSizing = "bottom";
+				position = "100 10";
+				extent = "300 40";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+				lineSpacing = "2";
+				allowColorChars = "0";
+				maxChars = "-1";
+			};
+
+			// Mode tabs: Sign In | Register
+			new GuiBorderButtonCtrl(ML_LoginTabSignIn) {
+				profile = "PQButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "30 58";
+				extent = "210 38";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.setLoginMode(\"signin\");";
+				helpTag = "0";
+				text = "Sign In";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+			new GuiBorderButtonCtrl(ML_LoginTabRegister) {
+				profile = "PQButtonProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "250 58";
+				extent = "220 38";
+				minExtent = "8 8";
+				visible = "1";
+				command = "MarblelandGui.setLoginMode(\"register\");";
+				helpTag = "0";
+				text = "Register";
+				groupNum = "-1";
+				buttonType = "ToggleButton";
+				repeatPeriod = "1000";
+				repeatDecay = "1";
+			};
+
+			// ---- Sign-in form ----
+			new GuiControl(ML_SignInForm) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "30 104";
+				extent = "440 330";
+				minExtent = "8 8";
+				visible = "1";
+				helpTag = "0";
+
+				// Username label (set via setText)
+				new GuiMLTextCtrl(ML_SignInUsernameLabel) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "440 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiControl() {
+					profile = "PQTextboxBorderProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 28";
+					extent = "440 38";
+					minExtent = "21 21";
+					visible = "1";
+					helpTag = "0";
+				};
+				new GuiTextEditCtrl(ML_LoginUsername) {
+					profile = "PQTextboxProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "5 32";
+					extent = "430 30";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					maxLength = "255";
+					maxPixelWidth = "0";
+					historySize = "0";
+					password = "0";
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+					placeholder = "Username or email";
+				};
+				// Password label (set via setText)
+				new GuiMLTextCtrl(ML_SignInPasswordLabel) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 74";
+					extent = "440 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiControl() {
+					profile = "PQTextboxBorderProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 102";
+					extent = "440 38";
+					minExtent = "21 21";
+					visible = "1";
+					helpTag = "0";
+				};
+				new GuiTextEditCtrl(ML_LoginPassword) {
+					profile = "PQTextboxProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "5 106";
+					extent = "430 30";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					maxLength = "255";
+					maxPixelWidth = "0";
+					historySize = "0";
+					password = "1";
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+					placeholder = "Password";
+				};
+				new GuiMLTextCtrl(ML_SignInStatus) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 146";
+					extent = "440 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiBorderButtonCtrl(ML_LoginSignInBtn) {
+					profile = "PQButtonProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 176";
+					extent = "440 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.doSignIn();";
+					helpTag = "0";
+					text = "Sign In";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+			};
+
+			// ---- Register form (hidden by default) ----
+			new GuiControl(ML_RegisterForm) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "width";
+				vertSizing = "bottom";
+				position = "30 104";
+				extent = "440 360";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+
+				// Email label (set via setText)
+				new GuiMLTextCtrl(ML_RegEmailLabel) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 0";
+					extent = "440 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiControl() {
+					profile = "PQTextboxBorderProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 28";
+					extent = "440 38";
+					minExtent = "21 21";
+					visible = "1";
+					helpTag = "0";
+				};
+				new GuiTextEditCtrl(ML_RegEmail) {
+					profile = "PQTextboxProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "5 32";
+					extent = "430 30";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					maxLength = "255";
+					maxPixelWidth = "0";
+					historySize = "0";
+					password = "0";
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+					placeholder = "Email address";
+				};
+				// Username label (set via setText)
+				new GuiMLTextCtrl(ML_RegUsernameLabel) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 74";
+					extent = "440 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiControl() {
+					profile = "PQTextboxBorderProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 102";
+					extent = "440 38";
+					minExtent = "21 21";
+					visible = "1";
+					helpTag = "0";
+				};
+				new GuiTextEditCtrl(ML_RegUsername) {
+					profile = "PQTextboxProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "5 106";
+					extent = "430 30";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					maxLength = "255";
+					maxPixelWidth = "0";
+					historySize = "0";
+					password = "0";
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+					placeholder = "Username";
+				};
+				// Password label (set via setText)
+				new GuiMLTextCtrl(ML_RegPasswordLabel) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 148";
+					extent = "440 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiControl() {
+					profile = "PQTextboxBorderProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 176";
+					extent = "440 38";
+					minExtent = "21 21";
+					visible = "1";
+					helpTag = "0";
+				};
+				new GuiTextEditCtrl(ML_RegPassword) {
+					profile = "PQTextboxProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "5 180";
+					extent = "430 30";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					maxLength = "255";
+					maxPixelWidth = "0";
+					historySize = "0";
+					password = "1";
+					tabComplete = "0";
+					sinkAllKeyEvents = "0";
+					placeholder = "Password";
+				};
+				new GuiMLTextCtrl(ML_RegisterStatus) {
+					profile = "GuiMLTextProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 220";
+					extent = "440 26";
+					minExtent = "8 8";
+					visible = "1";
+					helpTag = "0";
+					lineSpacing = "2";
+					allowColorChars = "0";
+					maxChars = "-1";
+				};
+				new GuiBorderButtonCtrl(ML_RegisterSubmitBtn) {
+					profile = "PQButtonProfile";
+					horizSizing = "width";
+					vertSizing = "bottom";
+					position = "0 250";
+					extent = "440 45";
+					minExtent = "8 8";
+					visible = "1";
+					command = "MarblelandGui.doRegister();";
+					helpTag = "0";
+					text = "Create Account";
+					groupNum = "-1";
+					buttonType = "PushButton";
+					repeatPeriod = "1000";
+					repeatDecay = "1";
+				};
+			};
+		};
+	};
+};
+//--- OBJECT WRITE END ---
+
+//=============================================================================
+// MarblelandGui Scripting
+//=============================================================================
+
+// Tile dimensions — must match the GuiDynamicCtrlArrayCtrl colSize/rowSize
+$ML::TileW        = 228;
+$ML::TileH        = 215;
+$ML::TileImgH     = 176; // Image portion of tile
+$ML::TileNameH    = 20;  // Level name label height
+$ML::TileAuthorH  = 17;  // Author label height
+
+// Grid layout (must match colSize/rowSize/colSpacing/rowSpacing in the .gui)
+$ML::ColSize      = 228;
+$ML::RowSize      = 213;
+$ML::ColSpacing   = 4;
+$ML::RowSpacing   = 4;
+
+// Grid extent from .gui
+$ML::GridW        = 1024;
+$ML::GridH        = 558;
+
+// Computed tiles per page (9 cols × 4 rows = 36)
+$ML::TilesPerPage = 36;
+
+//-----------------------------------------------------------------------------
+// Bottom button bar data (reuses PlayMissionGui's buildButtonBar system)
+//-----------------------------------------------------------------------------
+
+// MLBottom: Menu (opens extras) + Back
+$PMG::BarButton["MLBottom", "Name",    0] = "ML_SearchBtn";
+$PMG::BarButton["MLBottom", "Command", 0] = "MarblelandGui.hideExtras(); MarblelandGui.openSearch();";
+$PMG::BarButton["MLBottom", "Bitmap",  0] = "platinum/client/ui/play/buttons/search.png";
+$PMG::BarButton["MLBottom", "Name",    1] = "ML_MenuBtn";
+$PMG::BarButton["MLBottom", "Command", 1] = "MarblelandGui.toggleExtras();";
+$PMG::BarButton["MLBottom", "Bitmap",  1] = "platinum/client/ui/play/buttons/menu.png";
+$PMG::BarButton["MLBottom", "Name",    2] = "ML_BackButton";
+$PMG::BarButton["MLBottom", "Command", 2] = "MarblelandGui.goBack();";
+$PMG::BarButton["MLBottom", "Bitmap",  2] = "platinum/client/ui/play/buttons/back.png";
+
+$PMG::BarButton["MLBottom", "Count"]   = 3;
+$PMG::BarButton["MLBottom", "Control"] = "ML_ButtonBox";
+
+// MLExtra: Editor + Record + Marble  (shown in ML_ExtrasBox, 1 row)
+$PMG::BarButton["MLExtra", "Name",       0] = "ML_EditorBtn";
+$PMG::BarButton["MLExtra", "Command",    0] = "MarblelandGui.hideExtras(); RootGui.pushDialog(EditorOrNewDlg);";
+$PMG::BarButton["MLExtra", "Bitmap",     0] = "platinum/client/ui/play/buttons/editor.png";
+$PMG::BarButton["MLExtra", "Name",       1] = "ML_RecordBtn";
+$PMG::BarButton["MLExtra", "Command",    1] = "if ($ControllerEvent) { $Game::Record = !$Game::Record; ML_RecordBtn.setValue($Game::Record); }";
+$PMG::BarButton["MLExtra", "Variable",   1] = "$Game::Record";
+$PMG::BarButton["MLExtra", "ButtonType", 1] = "ToggleButton";
+$PMG::BarButton["MLExtra", "HaveTab"] = true;
+$PMG::BarButton["MLExtra", "Bitmap",     1] = "platinum/client/ui/play/buttons/record.png";
+$PMG::BarButton["MLExtra", "Name",       2] = "ML_MarbleBtn";
+$PMG::BarButton["MLExtra", "Command",    2] = "MarblelandGui.hideExtras(); RootGui.pushDialog(MarbleSelectDlg);";
+$PMG::BarButton["MLExtra", "Bitmap",     2] = "platinum/client/ui/play/buttons/marble.png";
+$PMG::BarButton["MLExtra", "Count"]     = 3;
+$PMG::BarButton["MLExtra", "RowCount"]  = 1;
+$PMG::BarButton["MLExtra", "Control"]   = "ML_ExtrasBox";
+$PMG::BarButton["MLExtra", "CommandCancel"]     = "MarblelandGui.hideExtras();";
+$PMG::BarButton["MLExtra", "CommandNameCancel"] = "Close";
+
+// Filter options (index → display label, game, difficulty)
+$ML::FilterCount = 5;
+$ML::FilterLabel[0]      = "Relevant";
+$ML::FilterGame[0]       = "Levels";
+$ML::FilterDiff[0]       = "Relevant";
+
+$ML::FilterLabel[1]      = "Newest First";
+$ML::FilterGame[1]       = "Levels";
+$ML::FilterDiff[1]       = "Newest";
+
+$ML::FilterLabel[2]      = "All Levels";
+$ML::FilterGame[2]       = "Levels";
+$ML::FilterDiff[2]       = "All";
+
+$ML::FilterLabel[3]      = "Installed Only";
+$ML::FilterGame[3]       = "Levels";
+$ML::FilterDiff[3]       = "Installed";
+
+$ML::FilterLabel[4]      = "Packs";
+$ML::FilterGame[4]       = "Packs";
+$ML::FilterDiff[4]       = "";
+
+//-----------------------------------------------------------------------------
+// Entry point
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::open(%this) {
+	// check display height
+	%height = getWord($pref::Video::WindowedRes, 1);
+	if (%height < 870 || $pref::OldMarblelandUI) { // just force old UI for small displays
+		PlayMissionGui.open(true);
+		return;
+	}
+	RootGui.setContent(%this);
+	if (!isObject($MarblelandMissionList)) {
+		%this.showStatus("Loading Marbleland level list...");
+		if (!isObject(MarblelandJSONDownloader))
+			marblelandDownloadMissionList("MarblelandGui_onMissionListLoaded");
+		if (!isObject(MarblelandPacksJSONDownloader))
+			marblelandDownloadPackList();
+	}
+}
+
+function MarblelandGui_onMissionListLoaded(%success) {
+	if (!%success) {
+		MarblelandGui.showStatus("<just:center><font:22>Failed to load level list.\nPlease check your connection and try again.");
+		return;
+	}
+	MarblelandGui.populate();
+}
+
+//-----------------------------------------------------------------------------
+// Lifecycle
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::onWake(%this) {
+	copyBlurImage(PM_MissionImage.bitmap);
+	%this.setTickable(true);
+
+	// Set marbleland context so end-game Next button and SearchDlg work correctly
+	PlayMissionGui.marbleland = 1;
+	PlayMissionGui.ml = getMissionList("marbleland");
+	$CurrentGame = "Levels";
+	$MissionType = "All";
+
+	if (%this.filterIndex $= "")
+		%this.filterIndex = 0;
+	if (%this.currentPage $= "")
+		%this.currentPage = 0;
+
+	// Set static text via setText (inline text in declarations is not formatted)
+	ML_Title.setText("<just:center><font:" @ $DefaultFont["Bold"] @ ":36><color:111111>Marbleland");
+	%this.updateTileColors();
+	ML_SignInUsernameLabel.setText("<bold:28><color:222222>Username:");
+	ML_SignInPasswordLabel.setText("<bold:28><color:222222>Password:");
+	ML_RegEmailLabel.setText("<bold:28><color:222222>Email:");
+	ML_RegUsernameLabel.setText("<bold:28><color:222222>Username:");
+	ML_RegPasswordLabel.setText("<bold:28><color:222222>Password:");
+	ML_LoginTitle.setText("<just:center><bold:48><color:222222>Log In");
+
+	// Build the filter dropdown item list (same button style as PM_GameList)
+	%this.buildFilterList();
+
+	// Sync field with current filter label
+	ML_SearchField.setValue($ML::FilterLabel[%this.filterIndex]);
+
+	// Sync auth area (login buttons or profile)
+	%this.updateAuthArea();
+
+	// Build PM-style bottom bar and extras menu, then position them
+	PlayMissionGui.buildButtonBar("MLBottom");
+	PlayMissionGui.buildButtonBar("MLExtra");
+	%this.hideExtras();
+	%this.positionBars();
+	%this.recalculateTileLayout();
+
+	if (isObject($MarblelandMissionList))
+		%this.populate();
+	else
+		%this.showStatus("Loading Marbleland level list...");
+}
+
+function MarblelandGui::onSleep(%this) {
+	%this.hideExtras();
+	%this.setTickable(false);
+	%this.clearGrid();
+	%this.closeDetail();
+	%this.hideFilter();
+	%this.closeLogin();
+	%this.viewingPack     = false;
+	%this.currentPack     = "";
+	%this.artistFilter    = "";
+	%this.viewingUploader = false;
+	%this.uploaderUsername = "";
+	%this.uploaderUserId   = "";
+	if (isObject(%this.uploaderLevels)) {
+		%this.uploaderLevels.delete();
+		%this.uploaderLevels = "";
+	}
+	%this.cleanupVfsCache();
+}
+
+function MarblelandGui::cleanupVfsCache(%this) {
+	if (isObject($MarblelandMissionList)) {
+		for (%i = 0; %i < $MarblelandMissionList.getSize(); %i++) {
+			%id = $MarblelandMissionList.getEntry(%i).id;
+			if (isBitmap("vfs://marbleland/" @ %id @ ".jpg"))
+				deleteFile("vfs://marbleland/" @ %id @ ".jpg");
+			if (isBitmap("vfs://marbleland/prev-" @ %id @ ".jpg"))
+				deleteFile("vfs://marbleland/prev-" @ %id @ ".jpg");
+		}
+	}
+	if (isObject($MarblelandPackList)) {
+		for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
+			%id = $MarblelandPackList.getEntry(%i).id;
+			if (isBitmap("vfs://marbleland/pack/" @ %id @ ".jpg"))
+				deleteFile("vfs://marbleland/pack/" @ %id @ ".jpg");
+		}
+	}
+	for (%i = 0; %i < MarblelandCachedAvatars.getSize(); %i++) {
+		%uid = MarblelandCachedAvatars.getEntry(%i);
+		if (isBitmap("vfs://marbleland/avatar-" @ %uid @ ".jpg"))
+			deleteFile("vfs://marbleland/avatar-" @ %uid @ ".jpg");
+	}
+	MarblelandCachedAvatars.clear();
+}
+
+function MarblelandGui::onTick(%this, %delta) {
+	if (!%this.isAwake()) return;
+	%this.updateVisibleIcons();
+}
+
+function MarblelandGui::positionBars(%this) {
+	%w = getWord(MarblelandGui.getExtent(), 0);
+	%h = getWord(MarblelandGui.getExtent(), 1);
+
+	// Bottom button bar
+	%bbw = getWord(ML_ButtonBox.getExtent(), 0);
+	%bby = %h - 90;
+	%bbx = mFloor((%w - %bbw) / 2);
+	ML_ButtonBox.setPosition(%bbx SPC %bby);
+
+	// Pagination nav bar (directly above button bar)
+	%nbw = getWord(ML_NavBar.getExtent(), 0);
+	ML_NavBar.setPosition(mFloor((%w - %nbw) / 2) SPC (%bby - 44));
+
+	// Extras popup: height=128 (bottom-bar-mode buttons start at y=0)
+	// Position so its bottom aligns with the button bar top
+	%ebw = 340;
+	%ebh = 291;
+	ML_ExtrasBox.setExtent(%ebw SPC %ebh);
+	%ebx = mFloor(%bbx + mFloor(%bbw / 2) - mFloor(%ebw / 2));
+	%eby = %bby - %ebh;
+	ML_ExtrasBox.setPosition(%ebx SPC %eby);
+
+	// Because torque doesn't position them properly
+	ML_ProfileName.setPosition("40 16");
+	ML_PageLabel.setPosition("95 21");
+}
+
+function MarblelandGui::toggleExtras(%this) {
+	if (ML_ExtrasBox.isVisible())
+		%this.hideExtras();
+	else
+		%this.showExtras();
+}
+
+function MarblelandGui::showExtras(%this) {
+	ML_ExtrasBox.setVisible(1);
+	if (isObject(ML_MenuBtn))
+		ML_MenuBtn.setValue(1);
+}
+
+function MarblelandGui::hideExtras(%this) {
+	ML_ExtrasBox.setVisible(0);
+	if (isObject(ML_MenuBtn))
+		ML_MenuBtn.setValue(0);
+}
+
+function MarblelandGui::recalculateTileLayout(%this) {
+	%ext   = ML_LevelGridContainer.getExtent();
+	%gridW = getWord(%ext, 0);
+	%gridH = getWord(%ext, 1);
+	%cols  = mFloor(%gridW / ($ML::ColSize + $ML::ColSpacing));
+	%rows  = mFloor(%gridH / ($ML::RowSize + $ML::RowSpacing));
+	if (%cols < 1) %cols = 1;
+	if (%rows < 1) %rows = 1;
+	%newPerPage = %cols * %rows;
+	if (%newPerPage != $ML::TilesPerPage) {
+		$ML::TilesPerPage = %newPerPage;
+		$ML::GridW = %gridW;
+		$ML::GridH = %gridH;
+		return true;
+	}
+	return false;
+}
+
+function MarblelandGui::updateTileColors(%this) {
+	if ($TexturePack::InvertTextColors) {
+		MLTileProfile.fillColor         = "49 49 49 230";
+		MLTileNameProfile.fontColor     = "255 255 255 255";
+		MLTileNameProfile.fontColorHL   = "255 255 255 255";
+		MLTileAuthorProfile.fontColor   = "185 185 185 255";
+		MLTileAuthorProfile.fontColorHL = "185 185 185 255";
+		MLCurationProfile.fontColor         = "255 255 255 255";
+	} else {
+		MLTileProfile.fillColor         = "240 240 240 230";
+		MLTileNameProfile.fontColor     = "20 20 20 255";
+		MLTileNameProfile.fontColorHL   = "20 20 20 255";
+		MLTileAuthorProfile.fontColor   = "60 60 60 255";
+		MLTileAuthorProfile.fontColorHL = "60 60 60 255";
+		MLCurationProfile.fontColor         = "20 20 20 255";
+	}
+}
+
+function MarblelandGui_ResizeNotify::onParentResized(%this) {
+	if (MarblelandGui.isAwake()) {
+		MarblelandGui.schedule(25, "resizeProperly");
+	}
+}
+
+function MarblelandGui::resizeProperly(%this)
+{
+	MarblelandGui.buildFilterList();
+	MarblelandGui.positionBars();
+	%extent = ML_LevelGridContainer.getExtent();
+	ML_LevelGrid.resize(0, 0, getWord(%extent, 0), getWord(%extent, 1));
+	MarblelandGui.recalculateTileLayout();
+	if (ML_LevelGridContainer.visible) {
+		MarblelandGui.currentPage = 0;
+		MarblelandGui.populate();
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Filter dropdown — same pattern as PM_GameList
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::buildFilterList(%this) {
+	ML_FilterScroll.clear();
+	%h = 35;
+
+	for (%i = 0; %i < $ML::FilterCount; %i++) {
+		%btnName  = "ML_FilterBtn_" @ %i;
+		%btnNameU = "ML_FilterBtn_" @ (%i - 1);
+		%btnNameD = "ML_FilterBtn_" @ (%i + 1);
+
+		ML_FilterScroll.add(new GuiBitmapButtonTextCtrl(%btnName) {
+			profile   = "PMDifficultyButtonProfile";
+			horizSizing = "left";
+			vertSizing  = "bottom";
+			position  = ("1 " @ (%i * %h));
+			extent    = ("218 " @ %h);
+			minExtent = "8 8";
+			visible   = "1";
+			helpTag   = "0";
+			text      = $ML::FilterLabel[%i];
+			command   = "MarblelandGui.setFilter(" @ %i @ ");";
+			groupNum  = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay  = "1";
+			bitmap    = "./play/difficulty";
+			controlUp   = %btnNameU;
+			controlDown = %btnNameD;
+			commandCancel = "MarblelandGui.hideFilter();";
+			commandNameCancel = "Close";
+		});
+	}
+
+	%totalH = %h * $ML::FilterCount;
+	ML_FilterScroll.setExtent("220 " @ %totalH);
+
+	%listH = min(%totalH, getWord(Canvas.getExtent(), 1) - 80);
+	ML_FilterList.setExtent("220 " @ %listH);
+	ML_FilterContainer.setExtent("220 " @ %listH);
+}
+
+function MarblelandGui::toggleFilter(%this) {
+	%visible = !ML_FilterPopupDismiss.visible;
+	ML_FilterPopupDismiss.visible = %visible;
+	ML_FilterDropBtn.setValue(%visible);
+}
+
+function MarblelandGui::hideFilter(%this) {
+	ML_FilterPopupDismiss.visible = false;
+	ML_FilterDropBtn.setValue(false);
+}
+
+function MarblelandGui::setFilter(%this, %idx) {
+	%this.hideFilter();
+	%this.filterIndex     = %idx;
+	%this.currentPage     = 0;
+	%this.searchText      = "";
+	%this.artistFilter    = "";
+	%this.viewingPack     = false;
+	%this.currentPack     = "";
+	%this.viewingUploader = false;
+	%this.uploaderUsername = "";
+	%this.uploaderUserId   = "";
+	if (isObject(%this.uploaderLevels)) {
+		%this.uploaderLevels.delete();
+		%this.uploaderLevels = "";
+	}
+	ML_SearchField.setValue($ML::FilterLabel[%idx]);
+	%this.populate();
+}
+
+//-----------------------------------------------------------------------------
+// Populate the level grid (current page only — no scrolling)
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::populate(%this) {
+	if (%this.viewingPack) {
+		%this.populatePackLevels();
+		return;
+	}
+	if (%this.viewingUploader) {
+		%this.populateUploaderLevels();
+		return;
+	}
+
+	%this.clearGrid();
+	%this.closeDetail();
+
+	%idx   = %this.filterIndex;
+	%game  = $ML::FilterGame[%idx];
+	%diff  = $ML::FilterDiff[%idx];
+
+	if (%game $= "Packs") {
+		%this.populatePacks();
+		return;
+	}
+
+	%ml = getMissionList("marbleland");
+	%ml.buildMissionList(%game, %diff);
+	%list = %ml.getMissionList(%game, %diff);
+
+	if (!isObject(%list)) {
+		%this.showStatus("<just:center><font:22>No levels found.");
+		return;
+	}
+
+	// Build search-filtered index array
+	%searchText   = strlwr(trim(%this.searchText));
+	%artistFilter = strlwr(trim(%this.artistFilter));
+
+	Array(ML_FilteredList);
+	for (%i = 0; %i < %list.getSize(); %i++) {
+		%m = %list.getEntry(%i);
+		if (%searchText !$= "") {
+			if (strpos(strlwr(%m.name),   %searchText) == -1 &&
+			    strpos(strlwr(%m.artist), %searchText) == -1)
+				continue;
+		}
+		if (%artistFilter !$= "") {
+			if (strpos(strlwr(%m.artist), %artistFilter) == -1)
+				continue;
+		}
+		ML_FilteredList.addEntry(%m);
+	}
+
+	%total = ML_FilteredList.getSize();
+	if (%total == 0) {
+		ML_FilteredList.delete();
+		%this.showStatus("<just:center><font:22>No levels matched your search.");
+		return;
+	}
+
+	// Clamp page
+	%this.totalPages = mCeil(%total / $ML::TilesPerPage);
+	if (%this.currentPage >= %this.totalPages)
+		%this.currentPage = %this.totalPages - 1;
+
+	%pageStart = %this.currentPage * $ML::TilesPerPage;
+	%pageEnd   = min(%pageStart + $ML::TilesPerPage, %total);
+
+	for (%i = %pageStart; %i < %pageEnd; %i++) {
+		%mission = ML_FilteredList.getEntry(%i);
+		%frame   = %this.createTile(%i - %pageStart, %mission);
+		ML_LevelGrid.add(%frame);
+	}
+
+	ML_FilteredList.delete();
+
+	// Update UI
+	%this.updatePageLabel(%total);
+	%this.updateBrowsingLabel(%total);
+	ML_StatusMessage.visible = false;
+	ML_LevelGrid.visible     = true;
+	%this.updateVisibleIcons();
+}
+
+function MarblelandGui::populatePacks(%this) {
+	if (!isObject($MarblelandPackList) || $MarblelandPackList.getSize() == 0) {
+		%this.showStatus("<just:center><font:22>No packs available.\nPack list may still be loading.");
+		return;
+	}
+
+	%searchText = strlwr(trim(%this.searchText));
+
+	Array(ML_FilteredList);
+	for (%i = 0; %i < $MarblelandPackList.getSize(); %i++) {
+		%p = $MarblelandPackList.getEntry(%i);
+		if (%searchText !$= "") {
+			if (strpos(%p.searchName,   %searchText) == -1 &&
+			    strpos(%p.searchArtist, %searchText) == -1)
+				continue;
+		}
+		ML_FilteredList.addEntry(%p);
+	}
+
+	%total = ML_FilteredList.getSize();
+	if (%total == 0) {
+		ML_FilteredList.delete();
+		%this.showStatus("<just:center><font:22>No packs matched your search.");
+		return;
+	}
+
+	%this.totalPages = mCeil(%total / $ML::TilesPerPage);
+	if (%this.currentPage >= %this.totalPages)
+		%this.currentPage = %this.totalPages - 1;
+
+	%pageStart = %this.currentPage * $ML::TilesPerPage;
+	%pageEnd   = min(%pageStart + $ML::TilesPerPage, %total);
+
+	for (%i = %pageStart; %i < %pageEnd; %i++) {
+		%pack  = ML_FilteredList.getEntry(%i);
+		%frame = %this.createTile(%i - %pageStart, %pack);
+		ML_LevelGrid.add(%frame);
+	}
+
+	ML_FilteredList.delete();
+
+	%this.updatePageLabel(%total);
+	ML_BrowsingLabel.setText("<just:center><font:16><color:555555>Packs  <color:888888>-  <color:555555>" @ %total @ " packs");
+	ML_StatusMessage.visible = false;
+	ML_LevelGrid.visible     = true;
+}
+
+//-----------------------------------------------------------------------------
+// Tile creation
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::createTile(%this, %tileIndex, %mission) {
+	%w     = $ML::TileW;
+	%h     = $ML::TileH;
+	%imgH  = $ML::TileImgH;
+	%nameH = $ML::TileNameH;
+	%authH = $ML::TileAuthorH;
+
+	%frameName     = "ML_Tile_"  @ %tileIndex;
+	%iconName      = "ML_Icon_"  @ %tileIndex;
+	%frameCtrlName = "ML_Frame_" @ %tileIndex;
+	%eggName       = "ML_Egg_"   @ %tileIndex;
+
+	%isPack = isObject(%mission.levelIds);
+	%artist = %isPack ? %mission.createdBy.username : (%mission.artist $= "" ? "Unknown Artist" : %mission.artist);
+
+	new GuiControl(%frameName) {
+		profile    = "MLTileProfile";
+		horizSizing = "right";
+		vertSizing  = "bottom";
+		position   = "0 0"; // GuiDynamicCtrlArrayCtrl handles placement
+		extent     = (%w SPC %h);
+		minExtent  = (%w SPC %h);
+		visible    = "1";
+		helpTag    = "0";
+		mission    = %mission;
+		iconCtrl   = %iconName;
+		frameCtrl  = %frameCtrlName;
+		eggCtrl    = %eggName;
+		iconLoaded = false;
+
+		// Thumbnail image
+		new GuiBitmapCtrl(%iconName) {
+			profile    = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing  = "bottom";
+			position   = "0 0";
+			extent     = (%w SPC %imgH);
+			minExtent  = (%w SPC %imgH);
+			visible    = "1";
+			helpTag    = "0";
+			bitmap     = expandFilename("./play/missingicon");
+			wrap       = "0";
+		};
+
+		// Frame overlay (completion-tier border, mirrors PlayMissionGui)
+		new GuiBitmapCtrl(%frameCtrlName) {
+			profile    = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing  = "height";
+			position   = "0 0";
+			extent     = (%w SPC %imgH);
+			minExtent  = (%w SPC %imgH);
+			visible    = "1";
+			helpTag    = "0";
+			bitmap     = expandFilename("./play/large_frame_unlocked");
+			wrap       = "0";
+		};
+
+		// Level name (GuiTextCtrl — uses profile font/color)
+		new GuiTextCtrl() {
+			profile    = "MLTileNameProfile";
+			horizSizing = "width";
+			vertSizing  = "bottom";
+			position   = ("3 " @ %imgH);
+			extent     = ((%w - 3) SPC %nameH);
+			minExtent  = "8 8";
+			visible    = "1";
+			helpTag    = "0";
+			text       = clipPx($DefaultFont, 18, %mission.name, %w - 10, true);
+			truncate   = "0";
+		};
+
+		// Author (GuiTextCtrl — uses profile font/color)
+		new GuiTextCtrl() {
+			profile    = "MLTileAuthorProfile";
+			horizSizing = "width";
+			vertSizing  = "bottom";
+			position   = ("3 " @ (%imgH + %nameH));
+			extent     = ((%w - 3) SPC %authH);
+			minExtent  = "8 8";
+			visible    = "1";
+			helpTag    = "0";
+			text       = clipPx($DefaultFont, 18, %artist, %w - 10, true);
+			truncate   = "0";
+		};
+
+		// Curation score (bottom-right of name+author bar, curator-only)
+		new GuiMLTextCtrl() {
+			profile    = "MLCurationScoreProfile";
+			horizSizing = "left";
+			vertSizing  = "bottom";
+			position   = ((%w - 36) @ " " @ (%imgH + 12));
+			extent     = "36 16";
+			minExtent  = "8 8";
+			visible    = ($pref::ML::IsCurator ? "1" : "0");
+			helpTag    = "0";
+			lineSpacing = "0";
+			allowColorChars = "0";
+			maxChars   = "-1";
+			text       = ("<just:center><font:" @ $DefaultFont["Bold"] @ ":13><color:" @ ((%mission.curationScore > 0) ? "4caf50" : ((%mission.curationScore < 0) ? "f44336" : "000000")) @ ">" @ %mission.curationScore);
+		};
+
+		// Easter egg icon (bottom-right of image)
+		new GuiBitmapCtrl(%eggName) {
+			profile    = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing  = "bottom";
+			position   = ((%w - 22) @ " " @ (%imgH - 28));
+			extent     = "18 24";
+			minExtent  = "8 8";
+			visible    = (%mission.easterEgg && !%isPack ? "1" : "0");
+			helpTag    = "0";
+			bitmap     = "";
+			wrap       = "0";
+		};
+
+		// Transparent full-tile click handler (must be last / on top)
+		new GuiButtonBaseCtrl() {
+			profile    = "GuiDefaultProfile";
+			horizSizing = "width";
+			vertSizing  = "height";
+			position   = "0 0";
+			extent     = (%w SPC %h);
+			visible    = "1";
+			command    = "MarblelandGui.selectMission(" @ %frameName @ ");";
+			helpTag    = "0";
+			text       = "";
+			groupNum   = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay  = "1";
+		};
+	};
+
+	// Set downloaded badge state and completion frame
+	%this.updateTileFrame(%frameName);
+
+	return %frameName;
+}
+
+function MarblelandGui::updateTileFrame(%this, %frame) {
+	if (!isObject(%frame)) return;
+	%frameCtrl = %frame.frameCtrl;
+	if (!isObject(%frameCtrl)) return;
+	%mission = %frame.mission;
+	if (!isObject(%mission) || %mission.id $= "") return;
+
+	%qual = Unlock::getMissionCompletion(%mission);
+	if (%qual & $Completion::Awesome)
+		%frameImage = "./play/large_frame_awesome";
+	else if (%qual & $Completion::Ultimate)
+		%frameImage = "./play/large_frame_ultimate";
+	else if (%qual & $Completion::Platinum)
+		%frameImage = "./play/large_frame_platinum";
+	else if (%qual & $Completion::Gold)
+		%frameImage = "./play/large_frame_gold";
+	else if (%qual & $Completion::Par)
+		%frameImage = "./play/large_frame_completed";
+	else
+		%frameImage = "./play/large_frame_unlocked";
+
+	%frameCtrl.setBitmap(expandFilename(%frameImage));
+
+	if (isObject(%frame.eggCtrl) && %mission.easterEgg) {
+		%eggFound = $pref::EasterEggTime[%mission.file] !$= "";
+		%frame.eggCtrl.bitmap = %this.getEggBitmap(%mission, %eggFound);
+	}
+}
+
+function MarblelandGui::getEggBitmap(%this, %mission, %found) {
+	%suffix = (%mission.modification $= "platinumquest") ? "_pq_" : "_mbp_";
+	return "platinum/client/ui/play/egg" @ %suffix @ (%found ? "get_ol" : "notfound_ol");
+}
+
+//-----------------------------------------------------------------------------
+// Lazy icon loading (driven by onTick)
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::updateVisibleIcons(%this) {
+	// GuiDynamicCtrlArrayCtrl children are always "visible" in extent — load all on page
+	for (%i = 0; %i < ML_LevelGrid.getCount(); %i++) {
+		%frame = ML_LevelGrid.getObject(%i);
+		if (!isObject(%frame) || %frame.iconLoaded) continue;
+
+		%mission = %frame.mission;
+		%isPack = isObject(%mission.levelIds);
+
+		if (%isPack) {
+			%iconCtrl = %frame.iconCtrl;
+			if (!isObject(%iconCtrl)) continue;
+
+			%frame.iconLoaded = true; // Mark before async download to avoid re-queuing
+
+			if (isBitmap("vfs://marbleland/pack/" @ %mission.id @ ".jpg")) {
+				%iconCtrl.setBitmap("vfs://marbleland/pack/" @ %mission.id @ ".jpg");
+			} else {
+				marblelandDownloadPackIcon(%mission.id, "MarblelandGui_onPackIconDownloaded", %iconCtrl);
+			}
+		} else {
+			if (!isObject(%mission) || %mission.id $= "") continue;
+
+			%iconCtrl = %frame.iconCtrl;
+			if (!isObject(%iconCtrl)) continue;
+
+			%frame.iconLoaded = true; // Mark before async download to avoid re-queuing
+
+			if (isBitmap("vfs://marbleland/" @ %mission.id @ ".jpg")) {
+				%iconCtrl.setBitmap("vfs://marbleland/" @ %mission.id @ ".jpg");
+			} else {
+				marblelandDownloadIcon(%mission.id, "MarblelandGui_onIconDownloaded", %iconCtrl);
+			}
+		}
+	}
+}
+
+function MarblelandGui_onIconDownloaded(%id, %success, %iconCtrl) {
+	if (!%success || !isObject(%iconCtrl)) return;
+	%iconCtrl.setBitmap("vfs://marbleland/" @ %id @ ".jpg");
+}
+
+function MarblelandGui_onPackIconDownloaded(%id, %success, %iconCtrl) {
+	if (!%success || !isObject(%iconCtrl)) return;
+	%iconCtrl.setBitmap("vfs://marbleland/pack/" @ %id @ ".jpg");
+}
+
+//-----------------------------------------------------------------------------
+// Pagination
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::goFirst(%this) {
+	if (%this.currentPage > 0) {
+		%this.currentPage = 0;
+		%this.populate();
+	}
+}
+
+function MarblelandGui::goPrev(%this) {
+	if (%this.currentPage > 0) {
+		%this.currentPage--;
+		%this.populate();
+	}
+}
+
+function MarblelandGui::goNext(%this) {
+	if (%this.currentPage < %this.totalPages - 1) {
+		%this.currentPage++;
+		%this.populate();
+	}
+}
+
+function MarblelandGui::goLast(%this) {
+	if (%this.currentPage < %this.totalPages - 1) {
+		%this.currentPage = %this.totalPages - 1;
+		%this.populate();
+	}
+}
+
+function MarblelandGui::updatePageLabel(%this, %total) {
+	%pages = mCeil(%total / $ML::TilesPerPage);
+	%page  = %this.currentPage + 1;
+	ML_PageLabel.setText("<just:center><color:111111><font:16>" @ %page @ " / " @ %pages);
+	%hasPrev = %this.currentPage > 0;
+	%hasNext = %this.currentPage < %pages - 1;
+	ML_FirstBtn.setActive(%hasPrev);
+	ML_PrevBtn.setActive(%hasPrev);
+	ML_NextBtn.setActive(%hasNext);
+	ML_LastBtn.setActive(%hasNext);
+}
+
+function MarblelandGui::updateBrowsingLabel(%this, %total) {
+	%searchText   = trim(%this.searchText);
+	%artistFilter = trim(%this.artistFilter);
+
+	if (%artistFilter !$= "") {
+		ML_BrowsingLabel.setText(
+			"<just:center><font:16><color:555555>Levels by <color:222222>" @ %artistFilter @
+			"<color:888888>  -  <color:555555>" @ %total @ " levels"
+		);
+	} else if (%searchText !$= "") {
+		ML_BrowsingLabel.setText(
+			"<just:center><font:16><color:555555>Search: <color:222222>" @ %searchText @
+			"<color:888888>  -  <color:555555>" @ %total @ " levels"
+		);
+	} else {
+		%filterLabel = $ML::FilterLabel[%this.filterIndex];
+		if (%filterLabel $= "") %filterLabel = "All Levels";
+		ML_BrowsingLabel.setText(
+			"<just:center><font:16><color:555555>" @ %filterLabel @ "  <color:888888>-  <color:555555>" @ %total @ " levels"
+		);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Level detail popup
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::selectMission(%this, %frame) {
+	if (!isObject(%frame)) return;
+	%mission = %frame.mission;
+	if (!isObject(%mission)) return;
+
+	// Pack tiles drill into the pack instead of showing detail
+	if (isObject(%mission.levelIds)) {
+		%this.drillIntoPack(%mission);
+		return;
+	}
+
+	%this.selectedMission = %mission;
+	%this.selectedFrame   = %frame;
+
+	// Build and show base description immediately (from LevelInfo fields)
+	%this.buildBaseDesc(%mission);
+	ML_DetailDesc.setText(%this.baseDescText);
+
+	// Author row — placeholder until extendedInfo arrives
+	ML_DetailAuthorIcon.setBitmap(expandFilename("./play/missingicon"));
+	ML_DetailAuthorName.setText("<font:" @ $DefaultFont @ ":18><color:888888>Loading...");
+
+	// Reset preview
+	ML_DetailPreview.setBitmap(expandFilename("./play/missingicon"));
+	ML_DetailPreviewLoading.visible = true;
+
+	if (isBitmap("vfs://marbleland/" @ %mission.id @ ".jpg")) {
+		ML_DetailPreview.setBitmap("vfs://marbleland/" @ %mission.id @ ".jpg");
+		ML_DetailPreviewLoading.visible = false;
+	} else {
+		marblelandDownloadIcon(%mission.id, "MarblelandGui_onPreviewDownloaded", ML_DetailPreview);
+	}
+
+	// Easter egg icon in detail panel
+	if (%mission.easterEgg) {
+		%eggFound = $pref::EasterEggTime[%mission.file] !$= "";
+		ML_DetailEggIcon.bitmap = %this.getEggBitmap(%mission, %eggFound);
+		ML_DetailEggIcon.visible = true;
+	} else {
+		ML_DetailEggIcon.visible = false;
+	}
+
+	// Level name in all panels
+	%nameText = "<font:" @ $DefaultFont["Bold"] @ ":21>" @ %mission.name;
+	ML_DetailCommentsName.setText(%nameText);
+	ML_DetailLbName.setText(%nameText);
+	ML_DetailHintsName.setText(%nameText);
+
+	%this.switchPanel("info");
+	%this.updateDetailButtons();
+	ML_DetailOverlay.visible = true;
+
+	// Fetch extended info (uploader, remarks, comments, downloads, loves)
+	marblelandFetchExtendedInfo(%mission.id, "MarblelandGui_onExtendedInfoLoaded");
+}
+
+function MarblelandGui::buildBaseDesc(%this, %mission) {
+	%t = "<bold:24>" @ %mission.name;
+	%t = %t NL "<bold:21>Author:<font:21> " @ %mission.artist;
+	if (%mission.modification !$= "")
+		%t = %t NL "<bold:21>Game:<font:18> " @ capitalizeModification(%mission.modification);
+	%t = %t NL "<bold:21>Description:";
+	if (%mission.desc !$= "")
+		%t = %t NL "<font:18>" @ expandEscape(%mission.desc);
+	else
+		%t = %t NL "<font:18><spush><color:999999>No description provided.<spop>";
+	if (%mission.qualifyingTime !$= "")
+		%t = %t NL "<bold:21>Qualifying Time: <font:21>" @ formatTime(%mission.qualifyingTime);
+	if (%mission.goldTime !$= "")
+		%t = %t NL "<bold:21>Gold Time: <font:21>" @ formatTime(%mission.goldTime);
+	if (%mission.platinumTime !$= "")
+		%t = %t NL "<bold:21>Platinum Time: <font:21>" @ formatTime(%mission.platinumTime);
+	if (%mission.ultimateTime !$= "")
+		%t = %t NL "<bold:21>Ultimate Time: <font:21>" @ formatTime(%mission.ultimateTime);
+	if (%mission.qualifyingScore !$= "")
+		%t = %t NL "<bold:21>Qualifying Score: <font:21>" @ %mission.qualifyingScore;
+	if (%mission.goldScore !$= "")
+		%t = %t NL "<bold:21>Gold Score: <font:21>" @ %mission.goldScore;
+	if (%mission.platinumScore !$= "")
+		%t = %t NL "<bold:21>Platinum Score: <font:21>" @ %mission.platinumScore;
+	if (%mission.ultimateScore !$= "")
+		%t = %t NL "<bold:21>Ultimate Score: <font:21>" @ %mission.ultimateScore;
+	if (%mission.gems > 0)
+		%t = %t NL "<bold:21>Gems: <font:21>" @ %mission.gems;
+	if (%mission.hasCustomCode)
+		%t = %t NL "<bold:21><spush><color:CC4400>Warning: <font:21>Uses custom code.<spop>";
+
+	// Local top 5 (only shown if at least one score exists)
+	%hasLocal = false;
+	for (%i = 0; %i < $Game::HighscoreCount; %i++) {
+		%hs = $pref::highScores[%mission.file, %i];
+		if (%hs $= "") break;
+		if (getFieldCount(%hs) == 2) %hs = $ScoreType::Time TAB %hs;
+		%type  = getField(%hs, 0);
+		%score = getField(%hs, 1);
+		%name  = getField(%hs, 2);
+		%val   = (%type == $ScoreType::Time ? formatTime(%score) : formatScore(%score));
+		%format  = (%type == $ScoreType::Time ? getScoreFormatting($ScoreType::Time TAB %score, %mission, true) : getScoreFormatting($ScoreType::Score TAB %score, %mission, true));
+		if (!%hasLocal) {
+			%t = %t NL "<bold:21>Local Top " @ $Game::HighscoreCount @ ":<tab:10,230>";
+			%hasLocal = true;
+		}
+		%t = %t NL "<font:18>" @ (%i + 1) @ ".  " TAB %name TAB "<spush>" @ %format @ %val @ "<spop>";
+	}
+
+	%this.baseDescText = %t;
+}
+
+function MarblelandGui_onExtendedInfoLoaded(%id, %success) {
+	%this = MarblelandGui;
+	if (!isObject(%this.selectedMission) || %this.selectedMission.id != %id) return;
+
+	%info = $MarblelandMissionList.lookup[%id].extendedInfo;
+	if (!%success || !isObject(%info)) {
+		ML_DetailAuthorName.setText("<font:" @ $DefaultFont @ ":18><color:888888>Unknown uploader");
+		return;
+	}
+
+	// Append remarks to description if present
+	%desc = %this.baseDescText;
+	if (%info.remarks !$= "")
+		%desc = %desc NL "<bold:21>Remarks:<font:18> " @ %info.remarks;
+	ML_DetailDesc.setText(%desc);
+
+	// Store love state and update detail button
+	$ML::LoveState[%id] = %info.lovedByYou ? "1" : "0";
+	if ($pref::ML::Username !$= "") {
+		ML_DetailLoveBtn.visible = true;
+		ML_DetailLoveBtn.bitmap = (%info.lovedByYou ? "./play/love" : "./play/unlove");
+	}
+
+	// Uploader row: name + downloads + loves
+	%uploader  = %info.addedBy;
+	%this.selectedUploaderUsername = %uploader.username;
+	%this.selectedUploaderUserId   = %uploader.id;
+	%this.detailDownloads          = %info.downloads;
+	%this.detailLoves              = %info.lovedCount;
+	%this.updateDetailAuthorName();
+
+	if (%uploader.hasAvatar) {
+		%uid = %uploader.id;
+		if (isBitmap("vfs://marbleland/avatar-" @ %uid @ ".jpg"))
+			ML_DetailAuthorIcon.setBitmap("vfs://marbleland/avatar-" @ %uid @ ".jpg");
+		else
+			marblelandDownloadAvatar(%uid, "MarblelandGui_onUploaderAvatarLoaded", ML_DetailAuthorIcon);
+	}
+
+	// Refresh whichever panel is currently open
+	if (%this.activePanel $= "comments")
+		%this.populateComments();
+	else if (%this.activePanel $= "lb")
+		%this.loadLbScores();
+	else if (%this.activePanel $= "hints")
+		%this.populateHints();
+}
+
+function MarblelandGui_onUploaderAvatarLoaded(%userId, %success, %bmp) {
+	if (!%success || !isObject(%bmp)) return;
+	%bmp.setBitmap("vfs://marbleland/avatar-" @ %userId @ ".jpg");
+}
+
+function MarblelandGui_onPreviewDownloaded(%id, %success, %bmp) {
+	ML_DetailPreviewLoading.visible = false;
+	if (!isObject(%bmp)) return;
+	if (%success) {
+		%bmp.setBitmap("vfs://marbleland/prev-" @ %id @ ".jpg");
+	} else if (isBitmap("vfs://marbleland/" @ %id @ ".jpg")) {
+		%bmp.setBitmap("vfs://marbleland/" @ %id @ ".jpg");
+	} else {
+		%bmp.setBitmap(expandFilename("./play/missingicon"));
+	}
+}
+
+function MarblelandGui::updateDetailButtons(%this) {
+	%mission = %this.selectedMission;
+	if (!isObject(%mission)) return;
+
+	%dl  = marblelandHasMission(%mission.id);
+	%upd = %dl && marblelandMissionNeedsUpdate(%mission.id);
+
+	ML_DetailPlayBtn.visible       = true;
+	ML_DetailUpdateBtn.visible     = %upd;
+	ML_DetailProgressLabel.visible = false;
+	ML_DetailPlayBtn.setText("Play");
+
+	// Love button: only visible when logged in, reflects known love state
+	%loggedIn = $pref::ML::Username !$= "";
+	ML_DetailLoveBtn.visible = %loggedIn;
+	if (%loggedIn) {
+		%loved = $ML::LoveState[%mission.id] $= "1";
+		ML_DetailLoveBtn.bitmap = (%loved ? "./play/love" : "./play/unlove");
+	}
+}
+
+function MarblelandGui::closeDetail(%this) {
+	ML_DetailOverlay.visible  = false;
+	%this.selectedMission     = "";
+	%this.selectedFrame       = "";
+	%this.activePanel         = "";
+	%this.commentPage         = 0;
+	%this.lbPage              = 0;
+	if (isObject(%this.lbScoreData))
+		%this.lbScoreData.recurseDelete();
+	%this.lbScoreData         = "";
+	%this.baseDescText        = "";
+	%this.detailDownloads     = 0;
+	%this.detailLoves         = 0;
+	%this.clearCommentsContainer();
+}
+
+//-----------------------------------------------------------------------------
+// Download / play
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::downloadLevel(%this) {
+	%mission = %this.selectedMission;
+	if (!isObject(%mission)) return;
+
+	ML_DetailProgressLabel.visible = true;
+	ML_DetailProgressLabel.setText("<just:left><color:111111>Downloading...");
+
+	marblelandDownload(%mission.id, "MarblelandGui_onDownloadComplete");
+}
+
+function MarblelandGui_onDownloadComplete(%id, %success) {
+	%this = MarblelandGui;
+	ML_DetailProgressLabel.visible = false;
+
+	if (!%success) {
+		ML_DetailProgressLabel.visible = true;
+		ML_DetailProgressLabel.setText("<color:CC0000>Download failed. Please try again.");
+		schedule(3000, 0, "MarblelandGui.hideProgressLabel");
+		return;
+	}
+
+	%this.updateDetailButtons();
+}
+
+function MarblelandGui::hideProgressLabel() {
+	ML_DetailProgressLabel.visible = false;
+}
+
+function MarblelandGui::updateLevel(%this) {
+	%mission = %this.selectedMission;
+	if (!isObject(%mission)) return;
+	marblelandDelete(%mission.id);
+	%this.downloadLevel();
+}
+
+function MarblelandGui::playLevel(%this) {
+	%mission = %this.selectedMission;
+	if (!isObject(%mission)) return;
+
+	if (!marblelandHasMission(%mission.id)) {
+		// Download first, then play
+		ML_DetailPlayBtn.setActive(false);
+		ML_DetailProgressLabel.visible = true;
+		ML_DetailProgressLabel.setText("<just:left><color:111111>Downloading...");
+		marblelandDownload(%mission.id, "MarblelandGui_onDownloadCompletePlay");
+		return;
+	}
+
+	%this.closeDetail();
+	marblelandLoad(%mission.id);
+	RootGui.setContent(LoadingGui);
+	schedule(1000, 0, menuLoadStartMission, %mission.file);
+}
+
+function MarblelandGui_onDownloadCompletePlay(%id, %success) {
+	%this = MarblelandGui;
+	ML_DetailProgressLabel.visible = false;
+	ML_DetailPlayBtn.setActive(true);
+
+	if (!%success) {
+		ML_DetailProgressLabel.visible = true;
+		ML_DetailProgressLabel.setText("<color:CC0000>Download failed. Please try again.");
+		schedule(3000, 0, "MarblelandGui.hideProgressLabel");
+		return;
+	}
+
+	%this.playLevel();
+}
+
+//-----------------------------------------------------------------------------
+// Search
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::doSearch(%this) {
+	%this.searchText   = ML_SearchField.getValue();
+	%this.filterIndex  = 0;
+	%this.currentPage  = 0;
+	%this.artistFilter = "";
+	%this.viewingPack  = false;
+	%this.currentPack  = "";
+	%this.populate();
+}
+
+//-----------------------------------------------------------------------------
+// Reload
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::reloadList(%this) {
+	%this.showStatus("Reloading level list from Marbleland...");
+	marblelandDownloadMissionList("MarblelandGui.onMissionListLoaded");
+	marblelandDownloadPackList();
+}
+
+//-----------------------------------------------------------------------------
+// Utility
+//-----------------------------------------------------------------------------
+
+function MarblelandGui::clearGrid(%this) {
+	while (ML_LevelGrid.getCount() > 0) {
+		%obj = ML_LevelGrid.getObject(0);
+		%obj.delete();
+	}
+}
+
+function MarblelandGui::showStatus(%this, %msg) {
+	ML_LevelGrid.visible     = false;
+	ML_StatusMessage.visible = true;
+	ML_StatusMessage.setText(%msg);
+}
+
+$ML::CommentsPerPage  = 8;
+$ML::LbPerPage        = 15;
+$ML::CommentEntryInitH = 44; // generous initial height; reLayoutComments compacts after reflow
+$ML::CommentEntryMinH  = 44;  // minimum (enough to show 36px avatar + padding)
+
+function MarblelandGui::switchPanel(%this, %panel) {
+	ML_DetailInfoPanel.visible     = (%panel $= "info");
+	ML_DetailCommentsPanel.visible = (%panel $= "comments");
+	ML_DetailLbPanel.visible       = (%panel $= "lb");
+	ML_DetailHintsPanel.visible    = (%panel $= "hints");
+	ML_DetailInfoBtn.setValue(%panel $= "info");
+	ML_DetailCommentsBtn.setValue(%panel $= "comments");
+	ML_DetailLbBtn.setValue(%panel $= "lb");
+	ML_DetailHintsBtn.setValue(%panel $= "hints");
+	%this.activePanel = %panel;
+
+	if (%panel $= "comments") {
+		%info = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
+		if (isObject(%info))
+			%this.populateComments();
+		else
+			%this.showCommentsStatus("Loading comments...");
+	} else if (%panel $= "lb") {
+		%this.loadLbScores();
+	} else if (%panel $= "hints") {
+		%this.populateHints();
+	}
+}
+
+//=============================================================================
+// Comments panel
+//=============================================================================
+
+function MarblelandGui::showCommentsStatus(%this, %msg) {
+	// Clear the container and show a single status text row
+	%this.clearCommentsContainer();
+	%el = new GuiMLTextCtrl() {
+		profile    = "GuiMLTextProfile";
+		horizSizing = "width";
+		vertSizing  = "bottom";
+		position   = "0 8";
+		extent     = "596 20";
+		minExtent  = "8 2";
+		visible    = "1";
+		helpTag    = "0";
+		lineSpacing = "2";
+		allowColorChars = "0";
+		maxChars   = "-1";
+		text       = "<just:center><color:888888><font:18>" @ %msg;
+	};
+	%el.setText(%el.text); // force reflow so container gets correct height
+	ML_DetailCommentsContainer.add(%el);
+	ML_DetailCommentsContainer.setExtent("596 40");
+	ML_CommentPageLabel.setText("<just:center><color:111111>- / -");
+	ML_CommentFirstBtn.setActive(false);
+	ML_CommentPrevBtn.setActive(false);
+	ML_CommentNextBtn.setActive(false);
+	ML_CommentLastBtn.setActive(false);
+}
+
+function MarblelandGui::clearCommentsContainer(%this) {
+	cancel(%this.commentLayoutSch);
+	while (ML_DetailCommentsContainer.getCount() > 0)
+		ML_DetailCommentsContainer.getObject(0).delete();
+}
+
+function MarblelandGui::reLayoutComments(%this) {
+	%container = ML_DetailCommentsContainer;
+	%y = 0;
+	for (%i = 0; %i < %container.getCount(); %i++) {
+		%entry = %container.getObject(%i);
+		if (!isObject(%entry)) continue;
+
+		%textCtrl = %entry.commentTextCtrl;
+		if (!isObject(%textCtrl)) continue;
+
+		// Actual reflowed height reported by the ML text control
+		%textH   = getWord(%textCtrl.extent, 1);
+		%entryH  = max(%textH + 6, $ML::CommentEntryMinH);
+
+		%entry.resize(0, %y, 596, %entryH);
+		%textCtrl.resize(42, 2, 550, %textH);
+
+		%y = %y + %entryH + 2;
+	}
+	%container.setExtent("596 " @ %y);
+}
+
+function MarblelandGui::populateComments(%this) {
+	%info = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
+	if (!isObject(%info)) {
+		%this.showCommentsStatus("Comments unavailable.");
+		return;
+	}
+
+	%comments = %info.comments;
+	%total = isObject(%comments) ? %comments.getSize() : 0;
+
+	if (%total == 0) {
+		%this.showCommentsStatus("No comments yet.");
+		return;
+	}
+
+	%pages = mCeil(%total / $ML::CommentsPerPage);
+	if (%this.commentPage $= "") %this.commentPage = 0;
+	if (%this.commentPage >= %pages) %this.commentPage = %pages - 1;
+
+	%start = %this.commentPage * $ML::CommentsPerPage;
+	%end   = min(%start + $ML::CommentsPerPage, %total);
+
+	%this.clearCommentsContainer();
+	cancel(%this.commentLayoutSch);
+
+	for (%i = %start; %i < %end; %i++) {
+		%c = %comments.getEntry(%i);
+		// Initial y uses large spacing; reLayoutComments corrects after text reflows
+		%this.createCommentEntry(%c, (%i - %start) * $ML::CommentEntryInitH);
+	}
+
+	%count = %end - %start;
+	ML_DetailCommentsContainer.setExtent("596 " @ (%count * $ML::CommentEntryInitH));
+	// Defer one tick so GuiMLTextCtrl can reflow text and report its real height
+	%this.commentLayoutSch = %this.schedule(100, reLayoutComments);
+
+	%page     = %this.commentPage + 1;
+	%hasPrev  = %this.commentPage > 0;
+	%hasNext  = %this.commentPage < %pages - 1;
+	ML_CommentPageLabel.setText("<just:center><color:111111>" @ %page @ " / " @ %pages);
+	ML_CommentFirstBtn.setActive(%hasPrev);
+	ML_CommentPrevBtn.setActive(%hasPrev);
+	ML_CommentNextBtn.setActive(%hasNext);
+	ML_CommentLastBtn.setActive(%hasNext);
+}
+
+function MarblelandGui::createCommentEntry(%this, %comment, %y) {
+	%entryName  = "ML_CE_" @ %comment.id;
+	%avatarName = "ML_CA_" @ %comment.author.id;
+	%textName   = "MarblelandCommentAuthor";
+
+	$ML::CommentAuthorName[%comment.author.id] = %comment.author.username;
+
+	ML_DetailCommentsContainer.add(new GuiControl(%entryName) {
+		profile    = "GuiDefaultProfile";
+		horizSizing = "width";
+		vertSizing  = "bottom";
+		position   = ("0 " @ %y);
+		extent     = ("596 " @ $ML::CommentEntryInitH);
+		minExtent  = "8 8";
+		visible    = "1";
+		helpTag    = "0";
+
+		// Avatar (36×36)
+		new GuiBitmapCtrl(%avatarName) {
+			profile    = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing  = "bottom";
+			position   = "2 2";
+			extent     = "36 36";
+			minExtent  = "8 8";
+			visible    = "1";
+			helpTag    = "0";
+			bitmap     = expandFilename("./play/missingicon");
+			wrap       = "0";
+		};
+	});
+	%textName = new GuiMLTextCtrl(%textName) { // Name + content text — tall initial height lets text reflow freely
+			profile    = "GuiMLTextProfile";
+			horizSizing = "width";
+			vertSizing  = "bottom";
+			position   = "42 2";
+			extent     = ("550 " @ $ML::CommentEntryInitH);
+			minExtent  = "8 2";
+			visible    = "1";
+			helpTag    = "0";
+			lineSpacing = "2";
+			allowColorChars = "0";
+			maxChars   = "-1";
+			text       = (
+				"<font:" @ $DefaultFont["Bold"] @ ":18><a:gamelink visitCommentAuthor " @ %comment.author.id @ ">" @ %comment.author.username @ "</a>" @
+				"<font:" @ $DefaultFont @ ":18><color:" @ ($TexturePack::InvertTextColors ? "aaaaaa" : "888888") @ ">" NL
+				"<font:" @ $DefaultFont @ ":18><color:" @ ($TexturePack::InvertTextColors ? "dddddd" : "222222") @ ">" @ %comment.content
+			);
+		};
+	%entryName.add(%textName);
+	%entryName.commentTextCtrl = %textName;
+
+
+	// Load avatar — reuse cached bitmap if already downloaded
+	if (%comment.author.hasAvatar) {
+		%uid = %comment.author.id;
+		if (isBitmap("vfs://marbleland/avatar-" @ %uid @ ".jpg"))
+			%avatarName.setBitmap("vfs://marbleland/avatar-" @ %uid @ ".jpg");
+		else
+			marblelandDownloadAvatar(%uid, "MarblelandGui_onCommentAvatarLoaded", %avatarName);
+	}
+}
+
+function MarblelandCommentAuthor::onURL(%this, %url) {
+	MarblelandGui.schedule(10, getWord(%url, 1), getWord(%url, 2));
+}
+
+function MarblelandGui_onCommentAvatarLoaded(%userId, %success, %bmp) {
+	if (!%success || !isObject(%bmp)) return;
+	%bmp.setBitmap("vfs://marbleland/avatar-" @ %userId @ ".jpg");
+	// Update all other comment entries for the same author that are currently visible
+	%container = ML_DetailCommentsContainer;
+	for (%i = 0; %i < %container.getCount(); %i++) {
+		%entry = %container.getObject(%i);
+		%av = "ML_CA_" @ %userId;
+		if (isObject(%av) && %av.getParent() == %entry)
+			%av.setBitmap("vfs://marbleland/avatar-" @ %userId @ ".jpg");
+	}
+}
+
+function MarblelandGui::goCommentFirst(%this) {
+	if (%this.commentPage > 0) {
+		%this.commentPage = 0;
+		%this.populateComments();
+	}
+}
+
+function MarblelandGui::goCommentPrev(%this) {
+	if (%this.commentPage > 0) {
+		%this.commentPage--;
+		%this.populateComments();
+	}
+}
+
+function MarblelandGui::goCommentNext(%this) {
+	%info  = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
+	%total = isObject(%info) && isObject(%info.comments) ? %info.comments.getSize() : 0;
+	%pages = mCeil(%total / $ML::CommentsPerPage);
+	if (%this.commentPage < %pages - 1) {
+		%this.commentPage++;
+		%this.populateComments();
+	}
+}
+
+function MarblelandGui::goCommentLast(%this) {
+	%info  = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
+	%total = isObject(%info) && isObject(%info.comments) ? %info.comments.getSize() : 0;
+	%pages = mCeil(%total / $ML::CommentsPerPage);
+	if (%this.commentPage < %pages - 1) {
+		%this.commentPage = %pages - 1;
+		%this.populateComments();
+	}
+}
+
+function MarblelandGui::submitComment(%this) {
+	if ($pref::ML::Username $= "") {
+		ML_DetailCommentInput.setValue("");
+		ML_DetailCommentInput.placeholder = "Sign in to post comments";
+		return;
+	}
+	%content = trim(ML_DetailCommentInput.getValue());
+	if (%content $= "") return;
+	ML_DetailAddCommentBtn.setActive(false);
+	marblelandPostComment(%this.selectedMission.id, %content, "MarblelandGui_onCommentPosted");
+}
+
+function MarblelandGui_onCommentPosted(%success, %newComments) {
+	%this = MarblelandGui;
+	ML_DetailAddCommentBtn.setActive(true);
+	if (!%success) {
+		ML_DetailCommentInput.setValue("Failed to post. Try again.");
+		if (isObject(%newComments)) %newComments.recurseDelete();
+		return;
+	}
+	ML_DetailCommentInput.setValue("");
+	if (isObject(%this.selectedMission)) {
+		%id   = %this.selectedMission.id;
+		%info = $MarblelandMissionList.lookup[%id].extendedInfo;
+		if (isObject(%info)) {
+			if (isObject(%info.comments)) %info.comments.recurseDelete();
+			%info.comments = %newComments;
+		} else if (isObject(%newComments)) {
+			%newComments.recurseDelete();
+		}
+	} else if (isObject(%newComments)) {
+		%newComments.recurseDelete();
+	}
+	%this.commentPage = 0;
+	if (%this.activePanel $= "comments")
+		%this.populateComments();
+}
+
+//=============================================================================
+// Leaderboard panel
+//=============================================================================
+
+function MarblelandGui::loadLbScores(%this) {
+	%mission = %this.selectedMission;
+	if (!isObject(%mission) || %mission.file $= "") {
+		%this.showLbStatus("No leaderboard available for this level.");
+		return;
+	}
+	%this.showLbStatus("Loading scores...");
+	marblelandGetScores(%mission.file, "MarblelandGui_onLbLoaded");
+}
+
+function MarblelandGui_onLbLoaded(%success, %mission, %scoreData) {
+	%this = MarblelandGui;
+	if (!isObject(%this.selectedMission) || %this.selectedMission.file !$= %mission) {
+		if (isObject(%scoreData)) %scoreData.recurseDelete();
+		return;
+	}
+
+	// Delete old score data before replacing
+	if (isObject(%this.lbScoreData))
+		%this.lbScoreData.recurseDelete();
+
+	if (!%success || !isObject(%scoreData)) {
+		%this.lbScoreData = "";
+		%this.showLbStatus("Failed to load scores.");
+		return;
+	}
+
+	%this.lbScoreData = %scoreData;
+	%this.lbPage      = 0;
+	%this.populateLb();
+}
+
+function MarblelandGui::showLbStatus(%this, %msg) {
+	ML_DetailLbList.setText("<just:center><font:18><color:888888>" @ %msg);
+	ML_LbFirstBtn.setActive(false);
+	ML_LbPrevBtn.setActive(false);
+	ML_LbNextBtn.setActive(false);
+	ML_LbLastBtn.setActive(false);
+}
+
+function MarblelandGui::populateLb(%this) {
+	%scores = isObject(%this.lbScoreData) ? %this.lbScoreData.scores : "";
+	%total  = isObject(%scores) ? %scores.getSize() : 0;
+
+	if (%total == 0) {
+		%this.showLbStatus("No scores recorded yet.");
+		return;
+	}
+
+	%pages = mCeil(%total / $ML::LbPerPage);
+	if (%this.lbPage >= %pages) %this.lbPage = %pages - 1;
+
+	%start = %this.lbPage * $ML::LbPerPage;
+	%end   = min(%start + $ML::LbPerPage, %total);
+
+	// Tab stops: rank at 0-44, name at 44-390, score right-aligned from 390
+	// ML_DetailLbList is 512px wide; score column starts at 390
+	%tabs = "<tab:44,390>";
+
+	// Online scores header + rows
+	%t = "<just:left>" @ %tabs @
+	     "<font:" @ $DefaultFont["Bold"] @ ":21>#" TAB
+	     "Name" TAB
+	     "<just:right>Score";
+
+	for (%i = %start; %i < %end; %i++) {
+		%entry = %scores.getEntry(%i);
+		%place = %entry.placement;
+		%name  = %entry.username;
+		%sc    = %entry.score;
+		%type  = %entry.score_type;
+		%val   = (%type $= "time") ? formatTime(%sc) : %sc;
+
+		%scoreType = (%type $= "time") ? $ScoreType::Time : $ScoreType::Score;
+		%color = getScoreFormatting(%scoreType TAB %sc, %this.selectedMission, true, %place);
+
+		%t = %t NL "<just:left><font:" @ $DefaultFont @ ":21>" @
+		     %place TAB %name TAB "<just:right><spush>" @ %color @ %val @ "<spop>";
+	}
+	ML_DetailLbList.setText(%t);
+
+	%page    = %this.lbPage + 1;
+	%hasPrev = %this.lbPage > 0;
+	%hasNext = %this.lbPage < %pages - 1;
+	ML_LbFirstBtn.setActive(%hasPrev);
+	ML_LbPrevBtn.setActive(%hasPrev);
+	ML_LbNextBtn.setActive(%hasNext);
+	ML_LbLastBtn.setActive(%hasNext);
+}
+
+
+function MarblelandGui::goLbFirst(%this) {
+	if (%this.lbPage > 0) {
+		%this.lbPage = 0;
+		%this.populateLb();
+	}
+}
+
+function MarblelandGui::goLbPrev(%this) {
+	if (%this.lbPage > 0) {
+		%this.lbPage--;
+		%this.populateLb();
+	}
+}
+
+function MarblelandGui::goLbNext(%this) {
+	%scores = isObject(%this.lbScoreData) ? %this.lbScoreData.scores : "";
+	%total  = isObject(%scores) ? %scores.getSize() : 0;
+	%pages  = mCeil(%total / $ML::LbPerPage);
+	if (%this.lbPage < %pages - 1) {
+		%this.lbPage++;
+		%this.populateLb();
+	}
+}
+
+function MarblelandGui::goLbLast(%this) {
+	%scores = isObject(%this.lbScoreData) ? %this.lbScoreData.scores : "";
+	%total  = isObject(%scores) ? %scores.getSize() : 0;
+	%pages  = mCeil(%total / $ML::LbPerPage);
+	if (%this.lbPage < %pages - 1) {
+		%this.lbPage = %pages - 1;
+		%this.populateLb();
+	}
+}
+
+function MarblelandGui::exit(%this) {
+	%this.closeDetail();
+	%this.hideFilter();
+	RootGui.setContent(lb() ? LBChatGui : MainMenuGui);
+}
+
+//=============================================================================
+// Back navigation
+//=============================================================================
+
+function MarblelandGui::openSearch(%this) {
+	PlayMissionGui.marbleland = 1;
+	PlayMissionGui.ml = getMissionList("marbleland");
+	$CurrentGame = "Levels";
+	$MissionType = "All";
+	RootGui.pushDialog(SearchDlg);
+}
+
+function MarblelandGui::goBack(%this) {
+	if (%this.viewingPack) {
+		%this.viewingPack = false;
+		%this.currentPack = "";
+		%this.currentPage = 0;
+		%this.populate();
+	} else if (%this.viewingUploader) {
+		%this.viewingUploader = false;
+		%this.uploaderUsername = "";
+		%this.uploaderUserId   = "";
+		if (isObject(%this.uploaderLevels)) {
+			%this.uploaderLevels.delete();
+			%this.uploaderLevels = "";
+		}
+		%this.currentPage = 0;
+		%this.populate();
+	} else {
+		%this.exit();
+	}
+}
+
+//=============================================================================
+// Pack drill-down
+//=============================================================================
+
+function MarblelandGui::drillIntoPack(%this, %pack) {
+	%this.viewingPack = true;
+	%this.currentPack = %pack;
+	%this.currentPage = 0;
+	%this.populatePackLevels();
+}
+
+function MarblelandGui::populatePackLevels(%this) {
+	%this.clearGrid();
+	%this.closeDetail();
+	%pack = %this.currentPack;
+	if (!isObject(%pack)) {
+		%this.showStatus("<just:center><font:22>Pack not found.");
+		return;
+	}
+
+	%levelIds = %pack.levelIds;
+	if (!isObject(%levelIds) || %levelIds.getSize() == 0) {
+		%this.showStatus("<just:center><font:22>This pack has no levels.");
+		return;
+	}
+
+	Array(ML_PackLevelList);
+	for (%i = 0; %i < %levelIds.getSize(); %i++) {
+		%id      = %levelIds.getEntry(%i);
+		%mission = $MarblelandMissionList.lookup[%id];
+		if (isObject(%mission))
+			ML_PackLevelList.addEntry(%mission);
+	}
+
+	%total = ML_PackLevelList.getSize();
+	if (%total == 0) {
+		ML_PackLevelList.delete();
+		%this.showStatus("<just:center><font:22>No levels found in pack.");
+		return;
+	}
+
+	%this.totalPages = mCeil(%total / $ML::TilesPerPage);
+	if (%this.currentPage >= %this.totalPages)
+		%this.currentPage = %this.totalPages - 1;
+
+	%pageStart = %this.currentPage * $ML::TilesPerPage;
+	%pageEnd   = min(%pageStart + $ML::TilesPerPage, %total);
+
+	for (%i = %pageStart; %i < %pageEnd; %i++) {
+		%mission = ML_PackLevelList.getEntry(%i);
+		%frame   = %this.createTile(%i - %pageStart, %mission);
+		ML_LevelGrid.add(%frame);
+	}
+	ML_PackLevelList.delete();
+
+	%this.updatePageLabel(%total);
+	ML_BrowsingLabel.setText(
+		"<just:center><font:16><color:555555>Pack: <color:222222>" @ %pack.name @
+		"<color:888888>  -  <color:555555>" @ %total @ " levels"
+	);
+	ML_StatusMessage.visible = false;
+	ML_LevelGrid.visible     = true;
+	%this.updateVisibleIcons();
+}
+
+//=============================================================================
+// Uploader profile (artist filter)
+//=============================================================================
+
+function ML_DetailAuthorName::onURL(%this, %url) {
+	%cmd = getWord(%url, 1);
+	MarblelandGui.call(%cmd);
+}
+
+
+function MarblelandGui::visitCommentAuthor(%this, %userId) {
+	%this.selectedUploaderUsername = $ML::CommentAuthorName[%userId];
+	%this.selectedUploaderUserId   = %userId;
+	%this.visitUploaderLevels();
+}
+
+function MarblelandGui::visitUploaderLevels(%this) {
+	%username = %this.selectedUploaderUsername;
+	%userId   = %this.selectedUploaderUserId;
+	if (%username $= "" || %userId $= "") return;
+	%this.closeDetail();
+	%this.viewingUploader    = true;
+	%this.uploaderUsername   = %username;
+	%this.uploaderUserId     = %userId;
+	%this.currentPage        = 0;
+	if (isObject(%this.uploaderLevels)) {
+		%this.uploaderLevels.delete();
+		%this.uploaderLevels = "";
+	}
+	ML_SearchField.setValue("");
+	%this.showStatus("<just:center><font:22>Loading levels by " @ %username @ "...");
+	marblelandFetchAccountInfo(%userId, "MarblelandGui_onUploaderInfoLoaded");
+}
+
+function MarblelandGui_onUploaderInfoLoaded(%userId, %info) {
+	%this = MarblelandGui;
+	if (!%this.viewingUploader || %this.uploaderUserId != %userId) {
+		if (isObject(%info)) %info.recurseDelete();
+		return;
+	}
+	if (!isObject(%info)) {
+		%this.showStatus("<just:center><font:22>Failed to load uploader levels.");
+		return;
+	}
+	// Build level list from uploadedLevels, matching against our mission list
+	Array(ML_UploaderLevelList);
+	%levels = %info.uploadedLevels;
+	if (isObject(%levels)) {
+		for (%i = 0; %i < %levels.getSize(); %i++) {
+			%entry = %levels.getEntry(%i);
+			%mission = $MarblelandMissionList.lookup[%entry.id];
+			if (isObject(%mission))
+				ML_UploaderLevelList.addEntry(%mission);
+		}
+	}
+	%info.recurseDelete();
+	%this.uploaderLevels = ML_UploaderLevelList;
+	%this.populateUploaderLevels();
+}
+
+function MarblelandGui::populateUploaderLevels(%this) {
+	%this.clearGrid();
+	%this.closeDetail();
+	%levels = %this.uploaderLevels;
+	if (!isObject(%levels) || %levels.getSize() == 0) {
+		%this.showStatus("<just:center><font:22>No levels found for " @ %this.uploaderUsername @ ".");
+		return;
+	}
+	%total = %levels.getSize();
+	%this.totalPages = mCeil(%total / $ML::TilesPerPage);
+	if (%this.currentPage >= %this.totalPages)
+		%this.currentPage = %this.totalPages - 1;
+	%pageStart = %this.currentPage * $ML::TilesPerPage;
+	%pageEnd   = min(%pageStart + $ML::TilesPerPage, %total);
+	for (%i = %pageStart; %i < %pageEnd; %i++) {
+		%mission = %levels.getEntry(%i);
+		%frame   = %this.createTile(%i - %pageStart, %mission);
+		ML_LevelGrid.add(%frame);
+	}
+	%this.updatePageLabel(%total);
+	ML_BrowsingLabel.setText(
+		"<just:center><font:16><color:555555>Levels by <color:222222>" @ %this.uploaderUsername @
+		"<color:888888>  -  <color:555555>" @ %total @ " levels"
+	);
+	ML_StatusMessage.visible = false;
+	ML_LevelGrid.visible     = true;
+	%this.updateVisibleIcons();
+}
+
+//=============================================================================
+// Hints panel
+//=============================================================================
+
+function MarblelandGui::populateHints(%this) {
+	%info = $MarblelandMissionList.lookup[%this.selectedMission.id].extendedInfo;
+	if (!isObject(%info)) {
+		ML_DetailHintsText.setText("<just:center><font:18><color:888888>Loading hints...");
+		return;
+	}
+
+	%t = "";
+	if (%info.generalHint !$= "")
+		%t = %t NL "<bold:21>Hint:<font:18> " @ %info.generalHint;
+	if (%info.ultimateHint !$= "")
+		%t = %t NL "<bold:21>Ultimate Hint:<font:18> " @ %info.ultimateHint;
+	if (%info.awesomeHint !$= "")
+		%t = %t NL "<bold:21>Awesome Hint:<font:18> " @ %info.awesomeHint;
+	if (%info.eggHint !$= "")
+		%t = %t NL "<bold:21>Egg Hint:<font:18> " @ %info.eggHint;
+	if (%info.easterEggHint !$= "")
+		%t = %t NL "<bold:21>Easter Egg Hint:<font:18> " @ %info.easterEggHint;
+	if (%info.trivia !$= "")
+		%t = %t NL "<bold:21>Trivia:<font:18> " @ %info.trivia;
+
+	if (%t $= "")
+		%t = "<just:center><font:18><color:888888>No hints available.";
+
+	ML_DetailHintsText.setText(trim(%t));
+}
+
+//=============================================================================
+// Login / account
+//=============================================================================
+
+function MarblelandGui::updateAuthArea(%this) {
+	%loggedIn = $pref::ML::Username !$= "";
+	ML_LoginBtn.visible    = !%loggedIn;
+	ML_RegisterBtn.visible = !%loggedIn;
+	// Refresh love button in detail dialog if open
+	if (ML_DetailOverlay.visible && isObject(%this.selectedMission))
+		%this.updateDetailButtons();
+	ML_ProfileAvatar.visible = %loggedIn;
+	ML_ProfileName.visible   = %loggedIn;
+	ML_SignOutBtn.visible    = %loggedIn;
+	if (%loggedIn) {
+		ML_ProfileName.setText("<font:" @ $DefaultFont["Bold"] @ ":16><color:111111>" @ $pref::ML::Username);
+		if ($pref::ML::UserId !$= "") {
+			if (isBitmap("vfs://marbleland/avatar-" @ $pref::ML::UserId @ ".jpg"))
+				ML_ProfileAvatar.setBitmap("vfs://marbleland/avatar-" @ $pref::ML::UserId @ ".jpg");
+			else
+				marblelandDownloadAvatar($pref::ML::UserId, "MarblelandGui_onOwnAvatarLoaded", ML_ProfileAvatar);
+		}
+	}
+}
+
+function MarblelandGui_onOwnAvatarLoaded(%userId, %success, %bmp) {
+	if (!%success || !isObject(%bmp)) return;
+	%bmp.setBitmap("vfs://marbleland/avatar-" @ %userId @ ".jpg");
+}
+
+function MarblelandGui::openLogin(%this) {
+	%this.setLoginMode("signin");
+	ML_LoginOverlay.visible = true;
+}
+
+function MarblelandGui::openRegister(%this) {
+	%this.setLoginMode("register");
+	ML_LoginOverlay.visible = true;
+}
+
+function MarblelandGui::closeLogin(%this) {
+	ML_LoginOverlay.visible = false;
+}
+
+function MarblelandGui::setLoginMode(%this, %mode) {
+	ML_SignInForm.visible   = (%mode $= "signin");
+	ML_RegisterForm.visible = (%mode $= "register");
+	ML_LoginTabSignIn.setValue(%mode $= "signin");
+	ML_LoginTabRegister.setValue(%mode $= "register");
+	ML_SignInStatus.setText("");
+	ML_RegisterStatus.setText("");
+	if (%mode $= "signin") {
+		ML_LoginTitle.setText("<just:center><bold:48><color:222222>Log In");
+		ML_LoginUsername.setValue("");
+		ML_LoginPassword.setValue("");
+	} else {
+		ML_LoginTitle.setText("<just:center><bold:48><color:222222>Create Account");
+		ML_RegEmail.setValue("");
+		ML_RegUsername.setValue("");
+		ML_RegPassword.setValue("");
+	}
+}
+
+function MarblelandGui::doSignIn(%this) {
+	%username = trim(ML_LoginUsername.getValue());
+	%password = ML_LoginPassword.getValue();
+	if (%username $= "" || %password $= "") {
+		ML_SignInStatus.setText("<color:CC0000>Enter username and password.");
+		return;
+	}
+	ML_SignInStatus.setText("<font:16><color:888888>Signing in...");
+	ML_LoginSignInBtn.setActive(false);
+	marblelandSignIn(%username, %password, "MarblelandGui_onSignIn");
+}
+
+function MarblelandGui_onSignIn(%response, %status) {
+	%this = MarblelandGui;
+	ML_LoginSignInBtn.setActive(true);
+	if (%status $= "success") {
+		%signInInfo = %response.signInInfo;
+		%profile    = %signInInfo.profile;
+		$pref::ML::Token     = %response.token;
+		$pref::ML::Username  = %profile.username;
+		$pref::ML::UserId    = %profile.id;
+		$pref::ML::IsCurator = %profile.isCurator;
+		%response.recurseDelete();
+		%this.closeLogin();
+		%this.updateAuthArea();
+	} else {
+		%reason = %response.reason;
+		%response.recurseDelete();
+		ML_SignInStatus.setText("<color:CC0000>Sign in failed: " @ %reason);
+	}
+}
+
+function MarblelandGui::doRegister(%this) {
+	%email    = trim(ML_RegEmail.getValue());
+	%username = trim(ML_RegUsername.getValue());
+	%password = ML_RegPassword.getValue();
+	if (%email $= "" || %username $= "" || %password $= "") {
+		ML_RegisterStatus.setText("<color:CC0000>Fill in all fields.");
+		return;
+	}
+	ML_RegisterStatus.setText("<font:16><color:888888>Creating account...");
+	ML_RegisterSubmitBtn.setActive(false);
+	marblelandSignUp(%email, %username, %password, "MarblelandGui_onRegister");
+}
+
+function MarblelandGui_onRegister(%response, %status) {
+	%this = MarblelandGui;
+	ML_RegisterSubmitBtn.setActive(true);
+	if (%status $= "success") {
+		%signInInfo = %response.signInInfo;
+		if (isObject(%signInInfo)) {
+			%profile = %signInInfo.profile;
+			$pref::ML::Token     = %response.token;
+			$pref::ML::Username  = %profile.username;
+			$pref::ML::UserId    = %profile.id;
+			$pref::ML::IsCurator = %profile.isCurator;
+			%response.recurseDelete();
+			%this.closeLogin();
+			%this.updateAuthArea();
+		} else {
+			%msg = %response.message;
+			%response.recurseDelete();
+			ML_RegisterStatus.setText("<font:16><color:118833>" @ %msg);
+		}
+	} else {
+		%reason = %response.reason;
+		%response.recurseDelete();
+		ML_RegisterStatus.setText("<color:CC0000>" @ %reason);
+	}
+}
+
+function MarblelandGui::doSignOut(%this) {
+	marblelandSignOut("MarblelandGui_onSignOut");
+}
+
+function MarblelandGui_onSignOut(%success) {
+	MarblelandGui.updateAuthArea();
+}
+
+//=============================================================================
+// Love / unlove
+//=============================================================================
+
+function MarblelandGui::updateDetailAuthorName(%this) {
+	ML_DetailAuthorName.setText(
+		"<font:" @ $DefaultFont["Bold"] @ ":21><color:111111><a:gamelink visitUploaderLevels>" @ %this.selectedUploaderUsername @ "</a>" NL
+		"<font:" @ $DefaultFont @ ":18><color:555555>Plays: <color:111111>" @ %this.detailDownloads @
+		"  <color:555555>Loves: <color:111111>" @ %this.detailLoves
+	);
+}
+
+function MarblelandGui::toggleDetailLove(%this) {
+	%mission = %this.selectedMission;
+	if (!isObject(%mission) || %mission.id $= "") return;
+	if ($pref::ML::Username $= "") return;
+
+	%id    = %mission.id;
+	%loved = $ML::LoveState[%id] $= "1";
+	if (%loved) {
+		marblelandUnlove(%id, "MarblelandGui_onLoveToggled");
+		%this.detailLoves--;
+	} else {
+		marblelandLove(%id, "MarblelandGui_onLoveToggled");
+		%this.detailLoves++;
+	}
+	// Optimistic update
+	$ML::LoveState[%id] = %loved ? "0" : "1";
+	ML_DetailLoveBtn.bitmap = ($ML::LoveState[%id] $= "1" ? "./play/love" : "./play/unlove");
+	%this.updateDetailAuthorName();
+}
+
+function MarblelandGui_onLoveToggled(%success) {
+	// No-op: optimistic update already applied
+}

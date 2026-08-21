@@ -41,7 +41,7 @@ new GuiControl(AdvancedOptionsDlg) {
 		horizSizing = "center";
 		vertSizing = "center";
 		position = "89 100";
-		extent = "675 435";
+		extent = "675 475";
 		minExtent = "61 61";
 		visible = "1";
 		helpTag = "0";
@@ -63,7 +63,7 @@ new GuiControl(AdvancedOptionsDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "center";
 			vertSizing = "top";
-			position = "350 369";
+			position = "350 409";
 			extent = "94 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -224,10 +224,15 @@ $AdvancedOptions::Title   [$i  ] = "Temporal Music Speed";
 $AdvancedOptions::Tooltip [$i  ] = "If enabled, the music speed will change to match the game speed.";
 $AdvancedOptions::Variable[$i  ] = "$pref::temporalMusic";
 $AdvancedOptions::Type    [$i  ] = "boolean";
-// $AdvancedOptions::Name    [$i++] = "useLowResGlass";
-// $AdvancedOptions::Title   [$i  ] = "Use Low Resolution Glass";
-// $AdvancedOptions::Variable[$i  ] = "$pref::UseLowResGlass";
-// $AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "ghostReplayItems";
+$AdvancedOptions::Title   [$i  ] = "Replay Ghost Uses Items";
+$AdvancedOptions::Tooltip [$i  ] = "If enabled, the racing ghost will have extra audio and visual effects for items.";
+$AdvancedOptions::Variable[$i  ] = "$pref::ghostReplayItems";
+$AdvancedOptions::Type    [$i  ] = "boolean";
+$AdvancedOptions::Name    [$i++] = "oldMarblelandUI";
+$AdvancedOptions::Title   [$i  ] = "Use List View for Marbleland";
+$AdvancedOptions::Variable[$i  ] = "$pref::OldMarblelandUI";
+$AdvancedOptions::Type    [$i  ] = "boolean";
 // $AdvancedOptions::Name    [$i++] = "timeTravelTimer";
 // $AdvancedOptions::Title   [$i  ] = "Time Travel Timer";
 // $AdvancedOptions::Variable[$i  ] = "$AdvOptTimeTravelTimerVar";
@@ -246,7 +251,7 @@ function AdvancedOptionsDlg::buildGUI(%this) {
 	AdvancedOptionsContent.clear();
 
 	%curYPos = 0;
-	%rowsPerCol = 11;
+	%rowsPerCol = 12;
 
 	for (%i = 0; $AdvancedOptions::Name[%i] !$= ""; %i ++) {
 		%name = $AdvancedOptions::Name[%i];

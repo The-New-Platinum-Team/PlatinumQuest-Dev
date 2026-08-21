@@ -136,6 +136,7 @@ function PlayGui::onWake(%this) {
 	RadarSetMode($Pref::RadarMode);
 	clearMessages();
 	applyGraphicsQuality();
+	%this.applyUISettings();
 
 	%this.positionMessageHud();
 	%this.onNextFrame(positionMessageHud);
@@ -636,8 +637,8 @@ function PlayGui::updateBarPositions(%this) {
 	%rpix = getPixelSpace(getGuiSpace(%trans, %rpos, getCameraFov()));
 
 	//Offset a bit so we don't cover the marble and so we line up
-	%x = getWord(%rpix, 0) + 20;
-	%y = getWord(%mpix, 1) - 38;
+	%x = mFloor(getWord(%rpix, 0)) + 20;
+	%y = mFloor(getWord(%mpix, 1)) - 38;
 
 	if (%fireball && %bubble) {
 		//Because I know SOMEONE will try this
@@ -887,6 +888,8 @@ $pitchMin = -0.95;
 package frameAdvance {
 	function onFrameAdvance(%timeDelta) {
 		Parent::onFrameAdvance(%timeDelta);
+
+		$Time::timeDelta = %timeDelta;
 
 		// adjust yaw
 		$cameraYaw += $mvYawLeftSpeed;
@@ -1270,6 +1273,7 @@ function PlayGui::updateControls(%this) {
 		Sec_Thousandth_Th.setTimeNumber(%thousandth);
 		PG_NegSign_Th.setVisible(%drawNeg);
 
+		PG_NegSign_Th.setTimeNumber("dash");
 		MinSec_Colon_Th.setTimeNumber("colon");
 		MinSec_Point_Th.setTimeNumber("point");
 	} else {
@@ -1282,6 +1286,7 @@ function PlayGui::updateControls(%this) {
 		Sec_Hundredth.setTimeNumber(%hundredthOne);
 		PG_NegSign.setVisible(%drawNeg);
 
+		PG_NegSign.setTimeNumber("dash");
 		MinSec_Colon.setTimeNumber("colon");
 		MinSec_Point.setTimeNumber("point");
 	}
@@ -1334,6 +1339,8 @@ function PlayGui::displayGemMessage(%this, %amount, %color) {
 	if ($pref::ScreenshotMode == 2)
 		return;
 	%startCenter = VectorMult(%this.getExtent(), "0.5 0.5");
+	// floor both coords
+	%startCenter = mFloor(getWord(%startCenter, 0)) SPC mFloor(getWord(%startCenter, 1));
 	%startPos = VectorSub(%startCenter, "200 50");
 	%this.add(%obj = new GuiMLTextCtrl() {
 		profile = "GemCollectionMessageProfile";
@@ -1508,4 +1515,201 @@ function PlayGui::startCountdownLeft(%this, %time, %image) {
 
 function PlayGui::updateRtaSpeedrunTimer(%this, %text) {
 	PG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
+}
+
+function PlayGui::getHudAnchorName(%anchor) {
+	switch (%anchor) {
+	case 0: return "Top Left";
+	case 1: return "Top Center";
+	case 2: return "Top Right";
+	case 3: return "Middle Left";
+	case 4: return "Center";
+	case 5: return "Middle Right";
+	case 6: return "Bottom Left";
+	case 7: return "Bottom Center";
+	case 8: return "Bottom Right";
+	default: return "Center";
+	}
+}
+
+function HudLayout::getPref(%element, %field, %default) {
+	%value = $pref::HudLayout[%element, %field];
+	if (%value $= "")
+		return %default;
+	return %value;
+}
+
+function HudLayout::setPref(%element, %field, %value) {
+	$pref::HudLayout[%element, %field] = %value;
+}
+
+function HudLayout::getPresetValue(%preset, %element, %field, %default) {
+	%value = $HudLayout[%preset, %element, %field];
+	if (%value $= "")
+		return %default;
+	return %value;
+}
+
+// Resolves a layout value for the active mode: Custom (2) reads saved prefs,
+// other modes read the matching named preset.
+function HudLayout::getModeValue(%mode, %element, %field, %default) {
+	if (%mode == 2)
+		return HudLayout::getPref(%element, %field, %default);
+	return HudLayout::getPresetValue($HudLayout::ModeName[%mode], %element, %field, %default);
+}
+
+// Returns the screen extent used as the reference for offset scaling.
+function HudLayout::getReferenceExtent() {
+	if (isObject(PlayGui))
+		return PlayGui.getExtent();
+	return Canvas.getExtent();
+}
+
+// Returns the max pixel distance for a +/-100 slider step for the given anchor
+// and axis. Edge anchors use the full extent; center anchors use half (since
+// the anchor point is in the middle of the screen on that axis).
+function HudLayout::getOffsetScale(%anchor, %axis, %extent) {
+	%col = %anchor % 3;
+	%row = mFloor(%anchor / 3);
+	%w = getWord(%extent, 0);
+	%h = getWord(%extent, 1);
+
+	if (%axis $= "X")
+		%scale = (%col == 1 ? mFloor(%w / 2) : %w);
+	else
+		%scale = (%row == 1 ? mFloor(%h / 2) : %h);
+
+	if (%scale < 1)
+		%scale = 1;
+	return %scale;
+}
+
+function PlayGui::resolveHudAnchorPoint(%anchor, %screenExtent) {
+	%w = getWord(%screenExtent, 0);
+	%h = getWord(%screenExtent, 1);
+	switch (%anchor) {
+	case 0: return "0 0";
+	case 1: return mFloor(%w / 2) SPC "0";
+	case 2: return %w SPC "0";
+	case 3: return "0" SPC mFloor(%h / 2);
+	case 4: return mFloor(%w / 2) SPC mFloor(%h / 2);
+	case 5: return %w SPC mFloor(%h / 2);
+	case 6: return "0" SPC %h;
+	case 7: return mFloor(%w / 2) SPC %h;
+	case 8: return %w SPC %h;
+	default: return mFloor(%w / 2) SPC mFloor(%h / 2);
+	}
+}
+
+function PlayGui::getHudAnchorOffsetForExtent(%anchor, %extent) {
+	%w = getWord(%extent, 0);
+	%h = getWord(%extent, 1);
+	%col = %anchor % 3;          // 0=left, 1=center, 2=right
+	%row = mFloor(%anchor / 3);  // 0=top, 1=middle, 2=bottom
+
+	if (%col == 0)
+		%ox = 0;
+	else if (%col == 1)
+		%ox = mFloor(%w / 2);
+	else
+		%ox = %w;
+
+	if (%row == 0)
+		%oy = 0;
+	else if (%row == 1)
+		%oy = mFloor(%h / 2);
+	else
+		%oy = %h;
+
+	return %ox SPC %oy;
+}
+
+// Positions a HUD control so the point on it matching the anchor (e.g. the
+// top-right corner for a top-right anchor) lands at the anchor plus its offset.
+// The control is clamped to stay fully within the screen bounds.
+function PlayGui::applyHudControl(%this, %controlName, %anchor, %offsetX, %offsetY) {
+	if (!isObject(%controlName))
+		return;
+
+	%extent = PlayGui.getExtent();
+	%screenW = getWord(%extent, 0);
+	%screenH = getWord(%extent, 1);
+	%anchorPos = PlayGui::resolveHudAnchorPoint(%anchor, %extent);
+	%ctrlExtent = %controlName.getExtent();
+	%ctrlW = getWord(%ctrlExtent, 0);
+	%ctrlH = getWord(%ctrlExtent, 1);
+	%align = PlayGui::getHudAnchorOffsetForExtent(%anchor, %ctrlExtent);
+	%x = getWord(%anchorPos, 0) + %offsetX - getWord(%align, 0);
+	%y = getWord(%anchorPos, 1) + %offsetY - getWord(%align, 1);
+
+	// Clamp so the entire control stays on screen.
+	if (%x < 0) %x = 0;
+	if (%y < 0) %y = 0;
+	if (%x > %screenW - %ctrlW) %x = %screenW - %ctrlW;
+	if (%y > %screenH - %ctrlH) %y = %screenH - %ctrlH;
+
+	// Set sizing so the control stays anchored correctly when the window resizes.
+	%col = %anchor % 3;
+	%row = mFloor(%anchor / 3);
+	if (%col == 0)      %controlName.horizSizing = "right";   // left edge
+	else if (%col == 1) %controlName.horizSizing = "center";  // center
+	else                %controlName.horizSizing = "left";    // right edge
+	if (%row == 0)      %controlName.vertSizing = "bottom";   // top edge
+	else if (%row == 1) %controlName.vertSizing = "center";   // center
+	else                %controlName.vertSizing = "top";      // bottom edge
+
+	%controlName.setPosition(%x SPC %y);
+}
+
+function PlayGui::applyUISettings(%this) {
+	%mode = $pref::HudLayoutMode;
+	if (%mode $= "")
+		%mode = 0;
+	%sliderMax = ($HudLayout::SliderMaxOffset $= "" ? 100 : $HudLayout::SliderMaxOffset);
+	%screenExtent = HudLayout::getReferenceExtent();
+
+	for (%i = 0; %i < $HudLayout::ControlCount; %i++) {
+		%control = $HudLayout::ControlName[%i];
+		%key = $HudLayout::ControlKey[%i];
+		%anchor = HudLayout::getModeValue(%mode, %key, "Anchor", 4);
+		%offsetXNorm = mClamp(HudLayout::getModeValue(%mode, %key, "OffsetX", 0), -%sliderMax, %sliderMax);
+		%offsetYNorm = mClamp(HudLayout::getModeValue(%mode, %key, "OffsetY", 0), -%sliderMax, %sliderMax);
+		%offsetX = mFloor(%offsetXNorm * HudLayout::getOffsetScale(%anchor, "X", %screenExtent) / %sliderMax);
+		%offsetY = mFloor(%offsetYNorm * HudLayout::getOffsetScale(%anchor, "Y", %screenExtent) / %sliderMax);
+		%this.applyHudControl(%control, %anchor, %offsetX, %offsetY);
+	}
+
+	// The timer background bitmap has rounded bottom edges designed to sit at
+	// the top of the screen. Show it when the timer is clamped to the top edge
+	// (regardless of offset), or rotated 180 when clamped to the bottom edge.
+	%timerAnchor = HudLayout::getModeValue(%mode, "Timer", "Anchor", 4);
+	%timerOffsetYNorm = mClamp(HudLayout::getModeValue(%mode, "Timer", "OffsetY", 0), -%sliderMax, %sliderMax);
+	%timerOffsetY = mFloor(%timerOffsetYNorm * HudLayout::getOffsetScale(%timerAnchor, "Y", %screenExtent) / %sliderMax);
+	%screenH = getWord(%screenExtent, 1);
+
+	// Compute the clamped Y position the same way applyHudControl does.
+	%timerCtrl = $pref::Thousandths ? "PG_TimerThousands" : "PG_Timer";
+	%timerH = 0;
+	if (isObject(%timerCtrl))
+		%timerH = getWord(%timerCtrl.getExtent(), 1);
+	%timerY = getWord(PlayGui::resolveHudAnchorPoint(%timerAnchor, %screenExtent), 1) + %timerOffsetY;
+	// Apply the same alignment offset applyHudControl uses.
+	%timerRow = mFloor(%timerAnchor / 3);
+	if (%timerRow == 0)      %timerY -= 0;
+	else if (%timerRow == 1) %timerY -= mFloor(%timerH / 2);
+	else                     %timerY -= %timerH;
+	// Clamp
+	if (%timerY < 0) %timerY = 0;
+	if (%timerY > %screenH - %timerH) %timerY = %screenH - %timerH;
+
+	%atTop = (%timerY == 0);
+	%atBottom = (%timerY >= %screenH - %timerH);
+	if (isObject(transparency)) {
+		transparency.setVisible(%atTop || %atBottom);
+		transparency.bitmapRotation = (%atBottom ? "180" : "0");
+	}
+	if (isObject(transparency_Th)) {
+		transparency_Th.setVisible(%atTop || %atBottom);
+		transparency_Th.bitmapRotation = (%atBottom ? "180" : "0");
+	}
 }

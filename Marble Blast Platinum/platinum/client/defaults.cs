@@ -52,9 +52,22 @@ $pref::NoHolePunching = false;
 $pref::NoFadeIn = false;
 $pref::AllowEndingScoreLevelsEarly = true;
 $pref::clientsidePrediction = true;
+$pref::DisableHighScoreNamePopup = 0;
+$pref::HudLayoutMode = 0;
+$pref::HudLayout["Gem", "Anchor"] = 0;
+$pref::HudLayout["Gem", "OffsetX"] = 0;
+$pref::HudLayout["Gem", "OffsetY"] = 0;
+$pref::HudLayout["Timer", "Anchor"] = 1;
+$pref::HudLayout["Timer", "OffsetX"] = 0;
+$pref::HudLayout["Timer", "OffsetY"] = 0;
+$pref::HudLayout["Powerup", "Anchor"] = 2;
+$pref::HudLayout["Powerup", "OffsetX"] = 0;
+$pref::HudLayout["Powerup", "OffsetY"] = 0;
+$pref::HudLayout["Blast", "Anchor"] = 6;
+$pref::HudLayout["Blast", "OffsetX"] = 0;
+$pref::HudLayout["Blast", "OffsetY"] = 0;
 
 $pref::RtaShowAllSplits = true;
-$pref::RtaSkipNameEntry = true;
 $pref::RtaShowEggSplits = true;
 
 $pref::checkLETip = "1";
@@ -130,6 +143,8 @@ $pref::CannonAimIterations = 125;
 $pref::CannonAimPrecision = 0.01;
 $pref::CannonAimIterationsFast = 24;
 $pref::CannonAimPrecisionFast = 0.1;
+
+$pref::ghostReplayItems = 1;
 
 //LBPrefs
 
