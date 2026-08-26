@@ -163,6 +163,7 @@ function MPinitLoops() {
 	MPUpdateGhostCollision();
 	serverBlastUpdate();
 	MPSyncClocks();
+	MPScoreLoop();
 	// We want this to be called!
 	schedule(1000, 0, MPUpdateGhostCollision);
 }
@@ -675,6 +676,24 @@ function GameConnection::stateEnd(%this) {
 //-----------------------------------------------------------------------------
 
 function GameConnection::incBonusTime(%this,%dt) {
+	if (shouldUseIndividualClocks()) {
+		//Only this client's own clock is affected; no global broadcast
+		if (%dt < 0) {
+			//Penalties have no pool to spend down over time like a positive
+			//bonus does - apply them immediately instead of feeding a
+			//negative value into bonusTime, which advanceClock's spend-down
+			//loop (mp/time.cs) assumes is always >= 0.
+			%this.totalBonus += %dt;
+			%this.clockTime = add64_int(%this.clockTime, -%dt);
+			if (%this.clockTime > 5999999)
+				%this.clockTime = 5999999;
+		} else {
+			%this.bonusTime += %dt;
+		}
+		%this.syncClock();
+		return;
+	}
+
 	Time::addBonusTime(%dt);
 
 	if ($Server::ServerType $= "MultiPlayer") {
@@ -848,7 +867,10 @@ function GameConnection::sendEndGameScores(%this) {
 		_delete = true;
 	});
 
-	commandToClient(%this, 'EndGameSetup', %score, $Time::ElapsedTime, $Time::TotalBonus, $Game::FinishClient.index);
+	//Each client's own bonus total under individual clocks; the shared one otherwise
+	%bonus = shouldUseIndividualClocks() ? %this.totalBonus : $Time::TotalBonus;
+
+	commandToClient(%this, 'EndGameSetup', %score, $Time::ElapsedTime, %bonus, $Game::FinishClient.index);
 }
 
 function GameConnection::resetStats(%this) {
@@ -856,6 +878,7 @@ function GameConnection::resetStats(%this) {
 	%this.bonusTime = 0;
 	%this.gemCount = 0;
 	%this.totalBonus = 0;
+	%this.oobCount = 0;
 
 	%this.gemsFound[1] = 0;
 	%this.gemsFound[2] = 0;
@@ -1010,6 +1033,7 @@ function GameConnection::onOutOfBounds(%this, %hideMessage) {
 	commandToClient(%this, 'LockPowerup', true);
 
 	%this.incrementOOBCounter(); // Moved to clientCmds
+	%this.oobCount++;
 	%this.sendCallback("OnOutOfBounds");
 
 	if (!isEventPending(%this.respawnSchedule)) {
@@ -1178,6 +1202,7 @@ function GameConnection::quickRespawnPlayer(%this) {
 	// So... they want to quick respawn, do they?
 	// They're not getting off *that* easy. No spawn abusing!
 	%this.quickRespawning = true;
+	%this.oobCount++; // Counts the same as falling OOB on the end screen
 	%this.respawnFromOOB();
 	%this.quickRespawning = false;
 
@@ -1302,8 +1327,16 @@ function GameConnection::respawnPlayer(%this, %respawnPos) {
 		client = %this;
 		_delete = true;
 	});
-	if (%respawn && $Server::ServerType $= "MultiPlayer") {
+	//PQ Gem Madness levels keep gems banked forever once grabbed, even in
+	//race mode - don't roll them back or bring the gem objects back either
+	if (%respawn && $Server::ServerType $= "MultiPlayer" && MissionInfo.pqSourceMode !$= "GemMadness") {
+		%oldGemCount = %this.getGemCount();
 		%this.restoreCheckpointGemCount();
+
+		%lost = %oldGemCount - %this.getGemCount();
+		if (%lost > 0)
+			commandToAll('GemCountLoss', %this.index, %lost);
+
 		%this.respawnObjects(MissionGroup);
 	}
 

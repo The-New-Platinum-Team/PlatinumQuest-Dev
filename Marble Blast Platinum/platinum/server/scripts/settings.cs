@@ -180,7 +180,6 @@ function onPreServerVariableSet(%id, %previous, %value) {
 
 //Called after a server variable is set
 function onPostServerVariableSet(%id, %previous, %value) {
-	echo(%id NL %previous NL %value);
 	switch$ (%id) {
 	case "ForceSpectators":
 		for (%i = 0; %i < ClientGroup.getCount(); %i ++) {

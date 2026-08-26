@@ -196,6 +196,11 @@ function initClient() {
 		checkDefaultBinds();
 	}
 
+	// Race mode categories, pointing at the existing co-op mission folders.
+	// Must run before lb/main.cs below - that's what triggers login, which
+	// immediately fetches and parses the multiplayer mission list.
+	exec($usermods @ "/shared/mp/raceCoopMissions.cs");
+
 	// load leaderboard main script!
 	exec("./ui/lb/main.cs");
 	initBadWords();

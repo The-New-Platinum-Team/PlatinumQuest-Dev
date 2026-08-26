@@ -69,6 +69,12 @@ function clientCmdScoreListPlayer(%list) {
 		%index = getField(%record, 3);
 		%skin = collapseEscape(getField(%record, 4));
 		%bonus = getField(%record, 5);
+		%scoreType = getField(%record, 6);
+		%pendingBonus = getField(%record, 7);
+		%gemCount = getField(%record, 8);
+		%oobCount = getField(%record, 9);
+		%dnf = getField(%record, 10);
+		%scoredByGems = getField(%record, 11);
 
 		%obj = new ScriptObject() {
 			name = %name;
@@ -77,6 +83,13 @@ function clientCmdScoreListPlayer(%list) {
 			skin = %skin;
 			gems = %gems;
 			bonus = %bonus;
+			scoreType = %scoreType;
+			pendingBonus = %pendingBonus;
+			gemCount = %gemCount;
+			oobCount = %oobCount;
+			dnf = %dnf;
+			scoredByGems = %scoredByGems;
+			oobFlash = false;
 		};
 		ScoreObjectGroup.add(%obj);
 		ScoreList.addEntry(%obj);
@@ -87,7 +100,7 @@ function clientCmdScoreListPlayer(%list) {
 	scoreListUpdate();
 }
 
-function clientCmdScoreListUpdate(%index, %score, %gems, %bonus) {
+function clientCmdScoreListUpdate(%index, %score, %gems, %bonus, %scoreType, %pendingBonus, %gemCount, %oobCount, %dnf, %scoredByGems) {
 	//Delete all player objects in the list
 	%player = ScoreList.player[%index];
 	if (!isObject(%player))
@@ -95,8 +108,69 @@ function clientCmdScoreListUpdate(%index, %score, %gems, %bonus) {
 	%player.score = %score;
 	%player.gems = %gems;
 	%player.bonus = %bonus;
+	%player.scoreType = %scoreType;
+	%player.pendingBonus = %pendingBonus;
+	%player.gemCount = %gemCount;
+	%player.oobCount = %oobCount;
+	%player.dnf = %dnf;
+	%player.scoredByGems = %scoredByGems;
 
 	scoreListUpdate();
+}
+
+//Sent by Mode_race::onOutOfBounds - briefly flashes the player's name red on
+//everyone's live standings, then reverts itself after half a second.
+function clientCmdRaceOOBFlash(%index) {
+	%player = ScoreList.player[%index];
+	if (!isObject(%player))
+		return;
+	%player.oobFlash = true;
+	scoreListUpdate();
+	schedule(500, 0, "clearRaceOOBFlash", %index);
+}
+
+function clearRaceOOBFlash(%index) {
+	%player = ScoreList.player[%index];
+	if (isObject(%player))
+		%player.oobFlash = false;
+	scoreListUpdate();
+}
+
+//Sent by GameConnection::respawnOnCheckpoint/respawnPlayer whenever a
+//checkpoint or start-pad fallback costs someone gems - pops a small "-N"
+//next to their gem count on the live standings that rises and fades out.
+//The popup control itself is pre-declared alongside PGScoreGems (see
+//scoreListUpdate) so this just has to drive an existing, already-awake
+//control instead of constructing one on the fly.
+function clientCmdGemCountLoss(%index, %lost) {
+	%popup = "PGGemLossPopup" @ %index;
+	if (!isObject(%popup))
+		return;
+
+	cancel(%popup.fadeSchedule);
+	%popup.startX = getWord(%popup.getPosition(), 0);
+	%popup.startY = getWord(%popup.getPosition(), 1);
+	%popup.setText("<font:28><color:cc7766>-" @ %lost);
+
+	gemLossPopupFade(%popup, 1.0);
+}
+
+function gemLossPopupFade(%popup, %fade) {
+	if (!isObject(%popup))
+		return;
+
+	%popup.setAlpha(%fade);
+	//Rises and drifts right together for a diagonal motion
+	%travelled = (1 - %fade) * 18;
+	%popup.setPosition((%popup.startX + %travelled) SPC (%popup.startY - %travelled));
+
+	%nextFade = %fade - 0.05;
+	if (%nextFade > 0) {
+		%popup.fadeSchedule = schedule(32, 0, gemLossPopupFade, %popup, %nextFade);
+	} else {
+		%popup.setText("");
+		%popup.setPosition(%popup.startX SPC %popup.startY);
+	}
 }
 
 function clientCmdScoreListTeamPlayer(%list) {
@@ -619,21 +693,39 @@ function scoreListUpdate() {
 		%players = $MP::ScorePlayers;
 		%rowIdx = 0;
 
+		//Time-scored modes (e.g. race) rank by gem count first (most gems
+		//first), falling back to lowest-time as a tiebreaker - this settles
+		//into a pure time ranking once everyone's converged on the same gem
+		//count, which is exactly what the final standings should look like.
+		//Everything else (e.g. Hunt) just ranks highest-score-first.
+		%timeMode = (%players > 0) && (ScoreList.getEntry(0).scoreType == $ScoreType::Time);
+
 		// Sort it!
 		%used = Array(ScoresUsedPlayersArray);
 		for (%i = 0; %i < %players; %i ++) {
-			%bestScore = -9999;
+			%bestScore = %timeMode ? 999999999 : -9999;
+			%bestGems = -1;
 			%bestIdx = -1;
 			for (%j = 0; %j < %players; %j ++) {
 				%player = ScoreList.getEntry(%j).name;
 				%score  = ScoreList.getEntry(%j).score;
 				if (%used.containsEntry(%player))
 					continue;
-				if (%score > %bestScore) {
-					%bestScore = %score;
-					%bestIdx = %j;
-				} else
-					continue;
+				if (%timeMode) {
+					%gemCountJ = ScoreList.getEntry(%j).gemCount;
+					if (%bestIdx == -1 || %gemCountJ > %bestGems || (%gemCountJ == %bestGems && %score < %bestScore)) {
+						%bestScore = %score;
+						%bestGems = %gemCountJ;
+						%bestIdx = %j;
+					} else
+						continue;
+				} else {
+					if (%score > %bestScore) {
+						%bestScore = %score;
+						%bestIdx = %j;
+					} else
+						continue;
+				}
 			}
 
 			%player = ScoreList.getEntry(%bestIdx).name;
@@ -641,6 +733,11 @@ function scoreListUpdate() {
 			%index  = ScoreList.getEntry(%bestIdx).index;
 			%marble = ScoreList.getEntry(%bestIdx).skin;
 			%gems   = ScoreList.getEntry(%bestIdx).gems;
+			%pendingBonus = ScoreList.getEntry(%bestIdx).pendingBonus;
+			%gemCount = ScoreList.getEntry(%bestIdx).gemCount;
+			%dnf = ScoreList.getEntry(%bestIdx).dnf;
+			%scoredByGems = ScoreList.getEntry(%bestIdx).scoredByGems;
+			%oobFlash = ScoreList.getEntry(%bestIdx).oobFlash;
 			%state  = isObject(PlayerList) ? PlayerList.getEntryByVariable("name", %player).specState : 0;
 			%ping   = isObject(PlayerList) ? PlayerList.getEntryByVariable("name", %player).ping : 0;
 
@@ -719,20 +816,36 @@ function scoreListUpdate() {
 				new GuiControl(PGScoreContainer @ %index) {
 					profile = "GuiMLTextProfile";
 					position = "0 0";
-					extent = 300 SPC %pgitemHeight;
+					extent = 460 SPC %pgitemHeight;
 					visible = "1";
 
 					new GuiMLTextCtrl(PGScoreText @ %index) {
 						profile = "GuiMLTextProfile";
 						position = "8 3";
-						extent = "235 14";
+						extent = "300 14";
+						visible = "1";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+					new GuiMLTextCtrl(PGScoreGems @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "314 3";
+						extent = "85 14";
+						visible = "1";
+						lineSpacing = "2";
+						maxChars = "-1";
+					};
+					new GuiMLTextCtrl(PGGemLossPopup @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "366 -3";
+						extent = "40 14";
 						visible = "1";
 						lineSpacing = "2";
 						maxChars = "-1";
 					};
 					new GuiObjectView(PGPlayerMarble @ %index) {
 						profile = "GuiDefaultProfile";
-						position = "260 -2";
+						position = "403 -2";
 						extent = "48 48";
 						visible = "1";
 						model = $usermods @ "/data/shapes/balls/ball-superball.dts";
@@ -742,7 +855,7 @@ function scoreListUpdate() {
 					};
 					new GuiBitmapCtrl(PGPlayerPing @ %index) {
 						profile = "GuiMLTextProfile";
-						position = "239 4";
+						position = "382 4";
 						extent = "32 32";
 						visible = "1";
 						lineSpacing = "2";
@@ -763,6 +876,7 @@ function scoreListUpdate() {
 			%scoreTextP   = "MPScoreTextP"     @ %index;
 
 			%pgscoreText  = "PGScoreText"      @ %index;
+			%pgscoreGems  = "PGScoreGems"      @ %index;
 			%pgobjectView = "PGPlayerMarble"   @ %index;
 			%pgcontainer  = "PGScoreContainer" @ %index;
 			%pgpingctrl   = "PGPlayerPing"     @ %index;
@@ -770,7 +884,7 @@ function scoreListUpdate() {
 			// Resize these to be at the correct position
 			//                  x  y                        w    h
 			%container.resize(0, %rowIdx * %itemHeight,   630, %itemHeight);
-			%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 300, %itemHeight);
+			%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 460, %itemHeight);
 			%container.player   = %player;
 			%pgcontainer.player = %player;
 
@@ -802,6 +916,12 @@ function scoreListUpdate() {
 			%gems5     = mFloor(getWord(%gems, 2));
 			%gems10    = mFloor(getWord(%gems, 3));
 
+			//Flash a player's name, timer, and gem count red for a moment
+			//right after they go OOB
+			%oobColorTag = %oobFlash ? "<color:ff4444>" : "";
+
+			%pgscoreGems.setText(%pgfont @ "<just:center>" @ %oobColorTag @ %gemCount @ "/" @ PlayGui.maxGems);
+
 			%gems1  = %gems1  $= "" || %gems1  == 0 ? "0" : %gems1;
 			%gems2  = %gems2  $= "" || %gems2  == 0 ? "0" : %gems2;
 			%gems5  = %gems5  $= "" || %gems5  == 0 ? "0" : %gems5;
@@ -828,10 +948,23 @@ function scoreListUpdate() {
 			      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
-			%nameWidth = 200 - (15 * strlen(%score));
+			if (%timeMode && %dnf)
+				%displayScore = "DNF";
+			else if (%timeMode && %scoredByGems)
+				%displayScore = %gemCount @ "/" @ PlayGui.maxGems;
+			else
+				%displayScore = %timeMode ? formatTime(%score) : %score;
 
-			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %score);
-			%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score);
+			//Time strings are a consistent length, so give the name a fixed
+			//budget instead of shrinking it as the score field grows
+			%nameWidth = %timeMode ? 170 : 200 - (15 * strlen(%displayScore));
+
+			//Match the green the personal timer shows while a time bonus is actively counting down,
+			//unless they just went OOB - that red takes priority over the bonus green
+			%scoreColorTag = %oobFlash ? %oobColorTag : ((%timeMode && %pendingBonus > 0) ? "<color:88ffcc>" : "");
+
+			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %displayScore);
+			%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC "<spush>" @ %oobColorTag @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<spop><just:right>" @ %pgface @ %scoreColorTag @ %displayScore);
 
 			%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 			%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";

@@ -130,6 +130,11 @@ function GameConnection::setSpectating(%this, %spectating) {
 		// make keys enabled again for controlling the client!
 		commandToClient(%this, 'FinishSpectating');
 
+		Mode::callback("onStartPlaying", "", new ScriptObject() {
+			client = %this;
+			_delete = true;
+		});
+
 		// we got rid of a spectator.  Update the ghosts already!
 		schedule(500, 0, commandToAll, 'FixGhost');
 	}
