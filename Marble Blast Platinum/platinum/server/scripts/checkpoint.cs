@@ -461,17 +461,13 @@ function GameConnection::respawnOnCheckpoint(%this) {
 	%this.setGravityDir(%ortho, true, getField(%pos, 1));
 
 	%oldGemCount = %this.getGemCount();
-	//PQ Gem Madness levels keep gems banked forever once grabbed, even in
-	//race mode - don't roll them back or bring the gem objects back either
-	if (MissionInfo.pqSourceMode !$= "GemMadness") {
-		%this.restoreCheckpointGemCount();
+	%this.restoreCheckpointGemCount();
 
-		%lost = %oldGemCount - %this.getGemCount();
-		if (%lost > 0)
-			commandToAll('GemCountLoss', %this.index, %lost);
+	%lost = %oldGemCount - %this.getGemCount();
+	if (%lost > 0)
+		commandToAll('GemCountLoss', %this.index, %lost);
 
-		%this.respawnObjects(MissionGroup); // Respawn gems.
-	}
+	%this.respawnObjects(MissionGroup); // Respawn gems.
 
 	%this.blastValue = %this.checkpointBlast;
 	%this.setBlastValue(%this.blastValue);

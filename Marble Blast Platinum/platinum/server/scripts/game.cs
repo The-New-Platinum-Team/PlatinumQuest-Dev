@@ -679,10 +679,7 @@ function GameConnection::incBonusTime(%this,%dt) {
 	if (shouldUseIndividualClocks()) {
 		//Only this client's own clock is affected; no global broadcast
 		if (%dt < 0) {
-			//Penalties have no pool to spend down over time like a positive
-			//bonus does - apply them immediately instead of feeding a
-			//negative value into bonusTime, which advanceClock's spend-down
-			//loop (mp/time.cs) assumes is always >= 0.
+			//Penalties apply immediately
 			%this.totalBonus += %dt;
 			%this.clockTime = add64_int(%this.clockTime, -%dt);
 			if (%this.clockTime > 5999999)
@@ -1327,9 +1324,7 @@ function GameConnection::respawnPlayer(%this, %respawnPos) {
 		client = %this;
 		_delete = true;
 	});
-	//PQ Gem Madness levels keep gems banked forever once grabbed, even in
-	//race mode - don't roll them back or bring the gem objects back either
-	if (%respawn && $Server::ServerType $= "MultiPlayer" && MissionInfo.pqSourceMode !$= "GemMadness") {
+	if (%respawn && $Server::ServerType $= "MultiPlayer") {
 		%oldGemCount = %this.getGemCount();
 		%this.restoreCheckpointGemCount();
 

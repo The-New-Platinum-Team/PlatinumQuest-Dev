@@ -808,8 +808,6 @@ function MPEndGameDlg::updateScores(%this) {
 			%bonus    = ScoreList.getEntry(%bestIdx).bonus;
 			%oobCount = ScoreList.getEntry(%bestIdx).oobCount;
 			%dnf      = ScoreList.getEntry(%bestIdx).dnf;
-			%scoredByGems = ScoreList.getEntry(%bestIdx).scoredByGems;
-			%gemCount = ScoreList.getEntry(%bestIdx).gemCount;
 
 			// Size of score rows
 			%itemHeight   = 44;
@@ -956,8 +954,6 @@ function MPEndGameDlg::updateScores(%this) {
 			//The gem-score tier thresholds don't mean anything for a time value
 			if (%timeMode && %dnf) {
 				%score = "DNF";
-			} else if (%timeMode && %scoredByGems) {
-				%score = %gemCount @ "/" @ PlayGui.maxGems;
 			} else if (%timeMode) {
 				%score = formatTime(%score);
 			} else if (%score < MissionInfo.score[%scoreIdx] && MissionInfo.score[%scoreIdx]) {

@@ -45,9 +45,7 @@ package ServerTime {
 
 activatePackage(ServerTime);
 
-//Whether each client should run their own independent clock (their own
-//bonus/penalty time, unaffected by what other clients pick up) instead of
-//everyone sharing the one global clock.
+//Independent or shared clock
 function shouldUseIndividualClocks() {
 	return ($Server::ServerType $= "MultiPlayer") && Mode::callback("shouldUseIndividualClocks", false);
 }
@@ -119,16 +117,12 @@ function Time::advance(%delta) {
 	}
 }
 
-//Advances this client's own clock. Mirrors the global bonus/current time
-//logic in Time::advance, but scoped to one client so time bonuses only
-//affect the player who picked them up. Modes with individual clocks handle
-//their own end conditions (e.g. race uses the finish pad), so unlike the
-//shared clock this never ends the game on its own.
+//Mirrors Time::advance's bonus/current time logic, scoped to one client.
+//Never ends the game itself - modes with individual clocks handle their own
+//end condition (race uses the finish pad).
 function GameConnection::advanceClock(%this, %delta, %mult) {
-	// Only a positive bonusTime is a "pool" to spend down over time; negative
-	// deltas (penalties) are applied immediately in incBonusTime and should
-	// never reach bonusTime, but guard against != 0 dragging a negative
-	// value through this loop's math regardless.
+	// Only positive bonusTime is a pool to spend down; negatives are applied
+	// immediately elsewhere, but guard here regardless
 	if (%this.bonusTime > 0) {
 		if (%this.bonusTime > %delta) {
 			%this.totalBonus += %delta;

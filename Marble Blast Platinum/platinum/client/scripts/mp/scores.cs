@@ -74,7 +74,6 @@ function clientCmdScoreListPlayer(%list) {
 		%gemCount = getField(%record, 8);
 		%oobCount = getField(%record, 9);
 		%dnf = getField(%record, 10);
-		%scoredByGems = getField(%record, 11);
 
 		%obj = new ScriptObject() {
 			name = %name;
@@ -88,7 +87,6 @@ function clientCmdScoreListPlayer(%list) {
 			gemCount = %gemCount;
 			oobCount = %oobCount;
 			dnf = %dnf;
-			scoredByGems = %scoredByGems;
 			oobFlash = false;
 		};
 		ScoreObjectGroup.add(%obj);
@@ -100,7 +98,7 @@ function clientCmdScoreListPlayer(%list) {
 	scoreListUpdate();
 }
 
-function clientCmdScoreListUpdate(%index, %score, %gems, %bonus, %scoreType, %pendingBonus, %gemCount, %oobCount, %dnf, %scoredByGems) {
+function clientCmdScoreListUpdate(%index, %score, %gems, %bonus, %scoreType, %pendingBonus, %gemCount, %oobCount, %dnf) {
 	//Delete all player objects in the list
 	%player = ScoreList.player[%index];
 	if (!isObject(%player))
@@ -113,13 +111,11 @@ function clientCmdScoreListUpdate(%index, %score, %gems, %bonus, %scoreType, %pe
 	%player.gemCount = %gemCount;
 	%player.oobCount = %oobCount;
 	%player.dnf = %dnf;
-	%player.scoredByGems = %scoredByGems;
 
 	scoreListUpdate();
 }
 
-//Sent by Mode_race::onOutOfBounds - briefly flashes the player's name red on
-//everyone's live standings, then reverts itself after half a second.
+//Briefly flashes a player's name red on the live standings after going OOB
 function clientCmdRaceOOBFlash(%index) {
 	%player = ScoreList.player[%index];
 	if (!isObject(%player))
@@ -136,12 +132,6 @@ function clearRaceOOBFlash(%index) {
 	scoreListUpdate();
 }
 
-//Sent by GameConnection::respawnOnCheckpoint/respawnPlayer whenever a
-//checkpoint or start-pad fallback costs someone gems - pops a small "-N"
-//next to their gem count on the live standings that rises and fades out.
-//The popup control itself is pre-declared alongside PGScoreGems (see
-//scoreListUpdate) so this just has to drive an existing, already-awake
-//control instead of constructing one on the fly.
 function clientCmdGemCountLoss(%index, %lost) {
 	%popup = "PGGemLossPopup" @ %index;
 	if (!isObject(%popup))
@@ -693,11 +683,8 @@ function scoreListUpdate() {
 		%players = $MP::ScorePlayers;
 		%rowIdx = 0;
 
-		//Time-scored modes (e.g. race) rank by gem count first (most gems
-		//first), falling back to lowest-time as a tiebreaker - this settles
-		//into a pure time ranking once everyone's converged on the same gem
-		//count, which is exactly what the final standings should look like.
-		//Everything else (e.g. Hunt) just ranks highest-score-first.
+		//Time-scored modes (race) rank by gem count first, then lowest time
+		//as a tiebreaker; everything else ranks highest-score-first
 		%timeMode = (%players > 0) && (ScoreList.getEntry(0).scoreType == $ScoreType::Time);
 
 		// Sort it!
@@ -736,7 +723,6 @@ function scoreListUpdate() {
 			%pendingBonus = ScoreList.getEntry(%bestIdx).pendingBonus;
 			%gemCount = ScoreList.getEntry(%bestIdx).gemCount;
 			%dnf = ScoreList.getEntry(%bestIdx).dnf;
-			%scoredByGems = ScoreList.getEntry(%bestIdx).scoredByGems;
 			%oobFlash = ScoreList.getEntry(%bestIdx).oobFlash;
 			%state  = isObject(PlayerList) ? PlayerList.getEntryByVariable("name", %player).specState : 0;
 			%ping   = isObject(PlayerList) ? PlayerList.getEntryByVariable("name", %player).ping : 0;
@@ -916,8 +902,7 @@ function scoreListUpdate() {
 			%gems5     = mFloor(getWord(%gems, 2));
 			%gems10    = mFloor(getWord(%gems, 3));
 
-			//Flash a player's name, timer, and gem count red for a moment
-			//right after they go OOB
+			//Flash name, timer, and gem count red for a moment after going OOB
 			%oobColorTag = %oobFlash ? "<color:ff4444>" : "";
 
 			%pgscoreGems.setText(%pgfont @ "<just:center>" @ %oobColorTag @ %gemCount @ "/" @ PlayGui.maxGems);
@@ -950,8 +935,6 @@ function scoreListUpdate() {
 
 			if (%timeMode && %dnf)
 				%displayScore = "DNF";
-			else if (%timeMode && %scoredByGems)
-				%displayScore = %gemCount @ "/" @ PlayGui.maxGems;
 			else
 				%displayScore = %timeMode ? formatTime(%score) : %score;
 

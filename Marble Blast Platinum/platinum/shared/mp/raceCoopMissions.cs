@@ -1,22 +1,13 @@
 //-----------------------------------------------------------------------------
 // Race Co-op Missions
 //
-// Adds "Race" categories to the multiplayer mission list, one per mod, by
-// pointing directly at the existing co-op mission directories and forcing
-// force_gamemode = "race" on the category - no mission files are copied.
+// Adds "Race" categories to the MP mission list by pointing at the existing
+// co-op directories - no mission files are copied. overrides/ holds race-only
+// edits that replace a same-named coop file for Race (Co-op keeps its
+// original); directors_all/ holds hand-picked levels with no coop equivalent;
+// $RaceCoop::Excluded hides specific coop levels from Race only.
 //
-// Two small local folders sit alongside the co-op catalog:
-//   overrides/    - race-specific edits (e.g. platforms retimed so players
-//                   don't get stranded) that replace a same-named coop file
-//                   for Race only; Co-op keeps its original.
-//   directors_all/ - hand-picked levels with no co-op equivalent.
-//
-// $RaceCoop::Excluded lists coop levels that shouldn't appear in Race at all
-// (tutorials, levels that don't work in the race format, or levels that
-// already have their own slot under Race (Director's Edits)).
-//
-// USAGE: add a row to $RaceCoop::Games - modId, display name, difficulty
-// folder suffixes, and the base directory to read those folders from.
+// Add a row to $RaceCoop::Games to register a mod.
 //-----------------------------------------------------------------------------
 
 $RaceCoop::CoopDirectory     = "platinum/data/multiplayer/coop";
@@ -33,8 +24,7 @@ $RaceCoop::GameCount = 4;
 
 $RaceCoop::DifficultyDisplay["all"] = "All Levels";
 
-// Levels excluded from Race entirely (not suited to the race format, or
-// already featured with their own edit under Race (Director's Edits)).
+// Levels excluded from Race (due to being trivial or broken)
 $RaceCoop::Excluded["Nukesweeper.mis"]           = true;
 $RaceCoop::Excluded["NukesweeperRevisited.mis"]  = true;
 $RaceCoop::Excluded["Elevator.mis"]              = true;
@@ -72,8 +62,7 @@ $RaceCoop::Excluded["LearnTheBouncyFloor.mis"]   = true;
 package RaceCoopMissions {
 
 function statsGetMissionListChallengeLine(%line, %req) {
-	// Let the real handler run first - this is what parses and stores the
-	// live Marbleland categories, unmodified.
+	// Let the real handler parse the live Marbleland categories first
 	Parent::statsGetMissionListChallengeLine(%line, %req);
 
 	if (%req.gameType $= "Multiplayer" && !$RaceCoop::AddedFlag) {
@@ -81,8 +70,7 @@ function statsGetMissionListChallengeLine(%line, %req) {
 	}
 }
 
-// Race categories read their mission list straight from a source directory
-// (co-op's, or Director's Edits' own) instead of a server-sent list.
+// Race categories read from a source directory instead of a server-sent list
 function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 	%difficultyObj = %this.lookupDifficulty[%game, %difficulty];
 	if (%difficultyObj.race_coop_source !$= "") {

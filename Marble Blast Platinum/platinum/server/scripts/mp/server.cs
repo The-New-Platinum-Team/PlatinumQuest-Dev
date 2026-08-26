@@ -186,10 +186,8 @@ function updateScores() {
 	}
 }
 
-//Returns TYPE TAB VALUE for this client's current standing, using whatever
-//the active mode considers a "score" (gem count, race time, etc). Reuses
-//getFinalScore since for the modes that matter here (race), it already
-//reports a live in-progress value, not just an end-of-match one.
+//Returns TYPE TAB VALUE for this client's current standing; reuses
+//getFinalScore since race already reports a live in-progress value
 function getClientScoreRecord(%client) {
 	return Mode::callback("getFinalScore", $ScoreType::Score TAB %client.gemCount, new ScriptObject() {
 		client = %client;
@@ -294,7 +292,6 @@ function GameConnection::updateScores(%this) {
 			          TAB %client.getGemCount()
 			          TAB %client.oobCount
 			          TAB %client.raceDNF
-			          TAB %client.raceScoredByGems
 			          ;
 
 			if (%list $= "")
@@ -334,7 +331,7 @@ function updateSingleScore(%client) {
 		%scoreType = getField(%scoreRecord, 0);
 		%score = getField(%scoreRecord, 1);
 		%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
-		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus, %scoreType, %client.bonusTime, %client.getGemCount(), %client.oobCount, %client.raceDNF, %client.raceScoredByGems);
+		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus, %scoreType, %client.bonusTime, %client.getGemCount(), %client.oobCount, %client.raceDNF);
 	}
 }
 
@@ -565,10 +562,7 @@ function MPSyncClocks() {
 	$MP::Schedule::ClockSync = schedule(5000, 0, MPSyncClocks);
 }
 
-//Time-scored modes (e.g. race) change every frame, not just on discrete
-//events like a gem pickup, so the standings need their own regular refresh
-//to actually look live. Modes scored by count don't need this; gem pickups
-//already trigger an update.
+//Race standings update regularly
 function MPScoreLoop() {
 	cancel($MP::Schedule::Scores);
 	if ($Server::ServerType $= "MultiPlayer" && Mode::callback("getScoreType", $ScoreType::Score) == $ScoreType::Time) {
