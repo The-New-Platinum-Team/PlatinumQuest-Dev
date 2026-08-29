@@ -110,6 +110,11 @@ function initDedicated() {
 }
 
 function fixDedicatedShit() {
+	// Race mode categories, pointing at the existing co-op mission folders.
+	// Must run before lb/main.cs below - that's what triggers login, which
+	// immediately fetches and parses the multiplayer mission list.
+	exec($usermods @ "/shared/mp/raceCoopMissions.cs");
+
 	// Things we need
 	exec($usermods @ "/client/ui/lb/main.cs");
 

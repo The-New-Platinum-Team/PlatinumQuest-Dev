@@ -742,7 +742,7 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 			%mission.downloaded = true;
 		}
 
-		%list.sort(MissionSortName);
+		%list.sort(MissionSortLevel);
 	} else {
 		//Mission list name
 		%list = %this.getMissionList(%game, %difficulty);

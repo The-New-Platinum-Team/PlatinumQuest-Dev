@@ -326,8 +326,12 @@ function GameConnection::makeBlastParticle(%this, %gravity) {
 
 	// get the blast particles
 	if (((Sky.materialList $= "platinum/data/skies_mbu/beginner/sky_beginner.dml") || (Sky.materialList $= "platinum/data/skies_mbu/intermediate/sky_intermediate.dml") || (Sky.materialList $= "platinum/data/skies_mbu/advanced/sky_advanced.dml")) && !$pref::LegacyItems) {
-		%this.player.unmountImage(0);
-		%this.mountSch = %this.player.schedule(25, "mountImage", BlastImage, 0); //This is so fucking scuffed but it works. - Daniel
+		// Skip on modes with client-handled powerups (race) - they use this
+		// same image slot locally and this would stomp it with nothing to restore
+		if (!Mode::callback("shouldUseClientPowerups", false)) {
+			%this.player.unmountImage(0);
+			%this.mountSch = %this.player.schedule(25, "mountImage", BlastImage, 0); //This is so fucking scuffed but it works. - Daniel
+		}
 		%emitter = (%this.usingSpecialBlast ? MBUUltraBlastEmitter : MBUBlastEmitter);
 		%this.transferParticles(%emitter, false, %gravity);
 	} else {

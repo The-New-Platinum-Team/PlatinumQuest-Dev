@@ -45,6 +45,11 @@ package ServerTime {
 
 activatePackage(ServerTime);
 
+//Independent or shared clock
+function shouldUseIndividualClocks() {
+	return ($Server::ServerType $= "MultiPlayer") && Mode::callback("shouldUseIndividualClocks", false);
+}
+
 function Time::advance(%delta) {
 	//Some modes run the timer backwards
 	%mult = ClientMode::callback("timeMultiplier", 1);
@@ -56,6 +61,18 @@ function Time::advance(%delta) {
 	if ($Time::TimerRunning) {
 		//Elapsed time includes time travel
 		$Time::ElapsedTime = add64_int($Time::ElapsedTime, %delta);
+
+		if (shouldUseIndividualClocks()) {
+			//Each client eats their own bonus time and advances their own clock
+			%count = ClientGroup.getCount();
+			for (%i = 0; %i < %count; %i ++) {
+				%client = ClientGroup.getObject(%i);
+				if (%client.spectating)
+					continue;
+				%client.advanceClock(%delta, %mult);
+			}
+			return;
+		}
 
 		//Take off any bonus time from our final time
 		if ($Time::BonusTime != 0) {
@@ -100,6 +117,32 @@ function Time::advance(%delta) {
 	}
 }
 
+//Mirrors Time::advance's bonus/current time logic, scoped to one client.
+//Never ends the game itself - modes with individual clocks handle their own
+//end condition (race uses the finish pad).
+function GameConnection::advanceClock(%this, %delta, %mult) {
+	// Only positive bonusTime is a pool to spend down; negatives are applied
+	// immediately elsewhere, but guard here regardless
+	if (%this.bonusTime > 0) {
+		if (%this.bonusTime > %delta) {
+			%this.totalBonus += %delta;
+			%this.bonusTime -= %delta;
+			%delta = 0;
+		} else {
+			%this.totalBonus += %this.bonusTime;
+			%delta -= %this.bonusTime;
+			%this.bonusTime = 0;
+		}
+	}
+
+	%this.clockTime = add64_int(%this.clockTime, %delta * %mult);
+
+	if (%this.clockTime > 5999999)
+		%this.clockTime = 5999999;
+	if (%this.clockTime < 0)
+		%this.clockTime = 0;
+}
+
 //Sync all clients' times
 function Time::sync() {
 	syncClients();
@@ -134,6 +177,17 @@ function Time::reset() {
 	$Time::ElapsedTime = 0;
 	$Time::TimerRunning = false;
 	$Time::TotalTime = 0;
+
+	if (shouldUseIndividualClocks()) {
+		%count = ClientGroup.getCount();
+		for (%i = 0; %i < %count; %i ++) {
+			%client = ClientGroup.getObject(%i);
+			%client.clockTime = $Time::CurrentTime;
+			%client.bonusTime = 0;
+			%client.totalBonus = 0;
+		}
+	}
+
 	//Update all clients
 	ClientGroup.forEach("%this.resetTimer");
 	Time::sync();
@@ -159,10 +213,11 @@ function Time::setBonusTime(%time) {
 // Sync the clock on the client.
 
 function GameConnection::syncClock(%client, %time, %bonus, %total) {
+	%individual = shouldUseIndividualClocks();
 	if (%time $= "")
-		%time = $Time::CurrentTime;
+		%time = %individual ? %client.clockTime : $Time::CurrentTime;
 	if (%bonus $= "")
-		%bonus = $Time::BonusTime;
+		%bonus = %individual ? %client.bonusTime : $Time::BonusTime;
 	if (%total $= "")
 		%total = $Time::TotalTime;
 

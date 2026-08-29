@@ -54,7 +54,26 @@ function ClientMode_race::onLoad(%this) {
 	%this.registerCallback("shouldPickupItem");
 	%this.registerCallback("shouldUseClientPowerups");
 	%this.registerCallback("radarShouldShowObject");
+	%this.registerCallback("onMissionReset");
+	%this.registerCallback("shouldEnableBlast");
+	%this.registerCallback("shouldUpdateBlast");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
+}
+// Race mode -- blast only enabled on Ultra, disabled in platinum and gold
+function ClientMode_race::shouldEnableBlast(%this) {
+	return MissionInfo.game $= "Ultra";
+}
+function ClientMode_race::shouldUpdateBlast(%this) {
+	return shouldEnableBlast() && MPMyMarbleExists();
+}
+function ClientMode_race::onMissionReset(%this) {
+	//TMs reset like gems on full level restart
+	%count = ServerConnection.getCount();
+	for (%i = 0; %i < %count; %i ++) {
+		%obj = ServerConnection.getObject(%i);
+		if (%obj.getDataBlock().getClassName() $= "ItemData")
+			%obj.raceClaimed = false;
+	}
 }
 function ClientMode_race::onRespawnPlayer(%this) {
 	racingOnRespawn();
@@ -68,15 +87,16 @@ function ClientMode_race::onActivateCheckpoint(%this) {
 }
 function ClientMode_race::shouldIgnoreItem(%this, %object) {
 	switch$ (%object.this.getDataBlock().getName()) {
-	case "SuperJumpItem" or
-			"SuperSpeedItem" or
-			"SuperBounceItem" or
-			"ShockAbsorberItem" or
-			"HelicopterItem" or
-			"MegaMarbleItem" or
-			"BlastItem" or
-			"AntiGravityItem" or
-			"NoRespawnAntiGravityItem":
+	case "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or "CustomSuperJumpItem_PQ" or
+			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
+			"SuperBounceItem" or "SuperBounceItem_PQ" or
+			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
+			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
+			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
+			"BlastItem" or "BlastItem_MBU" or
+			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
+			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or "NoRespawnAntiGravityItem_MBU" or
+			"TeleportItem" or "AnvilItem" or "BubbleItem":
 		//PowerUp
 		if (%object.this.respawning) {
 			return true;
@@ -94,16 +114,16 @@ function ClientMode_race::shouldIgnoreItem(%this, %object) {
 }
 function ClientMode_race::shouldPickupItem(%this, %object) {
 	switch$ (%object.this.getDataBlock().getName()) {
-	case "SuperJumpItem" or
-			"SuperSpeedItem" or
-			"SuperBounceItem" or
-			"ShockAbsorberItem" or
-			"HelicopterItem" or
-			"MegaMarbleItem" or
-			"BlastItem" or
-			"AntiGravityItem" or
-			"NoRespawnAntiGravityItem":
-		//PowerUp
+	case "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or "CustomSuperJumpItem_PQ" or
+			"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
+			"SuperBounceItem" or "SuperBounceItem_PQ" or
+			"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
+			"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
+			"MegaMarbleItem" or "MegaMarbleItem_MBU" or
+			"BlastItem" or "BlastItem_MBU" or
+			"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
+			"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or "NoRespawnAntiGravityItem_MBU" or
+			"TeleportItem" or "AnvilItem" or "BubbleItem":
 		if (%object.this.respawning) {
 			return false;
 		} else {
@@ -132,12 +152,20 @@ function clientCmdGemPickup(%id) {
 	Radar::RemoveTarget(%gem);
 }
 
+// TMs don't respawn upon death
+function clientCmdTimeItemPickup(%id) {
+	%item = getClientSyncObject(%id);
+	%item.hide(true);
+	%item.raceClaimed = true;
+	Radar::RemoveTarget(%item);
+}
+
 function racingOnRespawn() {
 	%count = ServerConnection.getCount();
 
 	for (%i = 0; %i < %count; %i ++) {
 		%obj = ServerConnection.getObject(%i);
-		if (%obj.getDataBlock().getClassName() $= "ItemData") {
+		if (%obj.getDataBlock().getClassName() $= "ItemData" && !%obj.raceClaimed) {
 			%obj.hide(false);
 			%obj._checkpoint = 0;
 			%obj.startFade(0, 0, false);
@@ -150,7 +178,7 @@ function racingOnRespawnAtCheckpoint() {
 
 	for (%i = 0; %i < %count; %i ++) {
 		%obj = ServerConnection.getObject(%i);
-		if (%obj.getDataBlock().getClassName() $= "ItemData" && %obj._checkpoint >= $Client::RaceLastCP) {
+		if (%obj.getDataBlock().getClassName() $= "ItemData" && !%obj.raceClaimed && %obj._checkpoint >= $Client::RaceLastCP) {
 			%obj.hide(false);
 			%obj._checkpoint = 0;
 			%obj.startFade(0, 0, false);

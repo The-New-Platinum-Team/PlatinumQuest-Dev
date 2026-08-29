@@ -186,6 +186,15 @@ function updateScores() {
 	}
 }
 
+//Returns TYPE TAB VALUE for this client's current standing; reuses
+//getFinalScore since race already reports a live in-progress value
+function getClientScoreRecord(%client) {
+	return Mode::callback("getFinalScore", $ScoreType::Score TAB %client.gemCount, new ScriptObject() {
+		client = %client;
+		_delete = true;
+	});
+}
+
 function dumpScores() {
 	echo("Scores Update:");
 	%count = ClientGroup.getCount();
@@ -267,7 +276,9 @@ function GameConnection::updateScores(%this) {
 			%client = %set.getObject(%i);
 			if (isRealClient(%client) && !%client.connected)
 				continue;
-			%score = %client.gemCount;
+			%scoreRecord = getClientScoreRecord(%client);
+			%scoreType = getField(%scoreRecord, 0);
+			%score = getField(%scoreRecord, 1);
 			%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
 
 			%record = expandEscape(%client.getUsername())
@@ -276,6 +287,11 @@ function GameConnection::updateScores(%this) {
 			          TAB %client.index
 			          TAB expandEscape(%client.skinChoice)
 			          TAB %client.totalBonus
+			          TAB %scoreType
+			          TAB %client.bonusTime
+			          TAB %client.getGemCount()
+			          TAB %client.oobCount
+			          TAB %client.raceDNF
 			          ;
 
 			if (%list $= "")
@@ -311,9 +327,11 @@ function updateSingleScore(%client) {
 		commandToAll('ScoreListTeamPlayerUpdate', Team::getTeamName(%team), %client.getUsername(), %score, %client.index, %skinChoice, %gems);
 		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus);
 	} else {
-		%score = %client.gemCount;
+		%scoreRecord = getClientScoreRecord(%client);
+		%scoreType = getField(%scoreRecord, 0);
+		%score = getField(%scoreRecord, 1);
 		%gems = %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10];
-		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus);
+		commandToAll('ScoreListUpdate', %client.index, %score, %gems, %client.totalBonus, %scoreType, %client.bonusTime, %client.getGemCount(), %client.oobCount, %client.raceDNF);
 	}
 }
 
@@ -542,6 +560,15 @@ function MPSyncClocks() {
 	cancel($MP::Schedule::ClockSync);
 	syncClients();
 	$MP::Schedule::ClockSync = schedule(5000, 0, MPSyncClocks);
+}
+
+//Race standings update regularly
+function MPScoreLoop() {
+	cancel($MP::Schedule::Scores);
+	if ($Server::ServerType $= "MultiPlayer" && Mode::callback("getScoreType", $ScoreType::Score) == $ScoreType::Time) {
+		updateScores();
+	}
+	$MP::Schedule::Scores = schedule(1000, 0, MPScoreLoop);
 }
 
 //-----------------------------------------------------------------------------
