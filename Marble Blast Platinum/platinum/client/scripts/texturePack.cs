@@ -112,12 +112,12 @@ function reloadTexturePacks() {
 	PlayGui.updateGems(true);
 }
 
-//Faster version of reloadTexturePacks that doesn't do any of the bitmap swapping or
 // slower flushing of textures
 function reloadTexturePackFields() {
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
 		loadTexturePackFields(%pack);
+
 	}
 }
 

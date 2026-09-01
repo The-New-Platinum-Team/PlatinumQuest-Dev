@@ -105,7 +105,7 @@ function ClientMode_spooky::onActivate(%this) {
 }
 function spookyTexturePackActivate() {
 	activateTexturePack("spooky");
-	reloadTexturePackFields();
+	reloadTexturePacksHot(true, true);
 }
 
 function ClientMode_spooky::onDeactivate(%this) {
@@ -119,7 +119,7 @@ function ClientMode_spooky::onDeactivate(%this) {
 }
 function spookyTexturePackDeactivate() {
 	deactivateTexturePack("spooky");
-	reloadTexturePackFields();
+	reloadTexturePacksHot(true, true);
 }
 
 function ClientMode_spooky::updatePlayMission(%this, %location) {
