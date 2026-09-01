@@ -112,14 +112,50 @@ function reloadTexturePacks() {
 	PlayGui.updateGems(true);
 }
 
-// slower flushing of textures
-function reloadTexturePackFields() {
+//Faster version of reloadTexturePacks that only updates certain elements when needed
+//Could split into reloadTexturePackFields and reloadTexturePackBitmapSwaps (plus other functions),
+	//but let's not iterate through the whole list of texture packs multiple times please
+function reloadTexturePacksHot(%reloadBitmapSwaps, %reloadFields) {
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
-		loadTexturePackFields(%pack);
+		
+		if (%reloadBitmapSwaps) {
+			unloadTexturePackBitmapSwaps(%pack);
+		}
+		//Fields don't need to be unloaded first
+	}
 
+	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
+		%pack = ActiveTexturePacks.getEntry(%i);
+
+		if (%reloadBitmapSwaps) {
+			loadTexturePackBitmapSwaps(%pack);
+		}
+		if (%reloadFields) {
+			loadTexturePackFields(%pack);
+		}
+	}
+
+	if (%reloadBitmapSwaps) {
+		unloadTimerTextures();
+		clearTextureHolds();
+		purgeResources();
+		activatePackage(FlushTextureCacheOnNextLevelLoad);
+		PlayGui.updateGems(true);
 	}
 }
+
+//Doing this while a level is loading causes issues
+//Waiting until the level loads guarantees this works in singleplayer and in servers
+//Maybe there's a less fucked up way to do this? This originates as a fix for Frightfest water
+package FlushTextureCacheOnNextLevelLoad {
+	function clientCmdGameStart() {
+		Parent::clientCmdGameStart();
+		schedule(250, 0, flushTextureCache);
+		deactivatePackage(FlushTextureCacheOnNextLevelLoad);
+		playTaunt(1);
+	}
+};
 
 function unloadTexturePacks() {
 	// unregister all shader stuff
