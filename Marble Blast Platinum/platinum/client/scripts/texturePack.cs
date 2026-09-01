@@ -459,6 +459,15 @@ function loadTexturePackFonts(%pack) {
 }
 
 function unloadTexturePack(%pack) {
+	unloadTexturePackBitmapSwaps(%pack);
+	unloadTexturePackPostFX(%pack);
+	unloadTexturePackMaterialReplacements(%pack);
+	unloadTexturePackGlowMaterials(%pack);
+	unloadTexturePackColorSwaps(%pack);
+	unloadTexturePackFonts(%pack);
+}
+
+function unloadTexturePackBitmapSwaps(%pack) {
 	if (isObject(%pack.bitmap_swaps)) {
 		%fields = %pack.bitmap_swaps.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -471,10 +480,16 @@ function unloadTexturePack(%pack) {
 			$TexturePack::SwapTextures[%field] = "";
 		}
 	}
+}
+
+function unloadTexturePackPostFX(%pack) {
 	if (isObject(%pack.postfx)) {
 		$TexturePack::PostFX::ShaderV = "";
 		$TexturePack::PostFX::ShaderF = "";
 	}
+}
+
+function unloadTexturePackMaterialReplacements(%pack) {
 	if (isObject(%pack.material_replacements)) {
 		%fields = %pack.material_replacements.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -485,6 +500,9 @@ function unloadTexturePack(%pack) {
 			replaceMaterials(%field);
 		}
 	}
+}
+
+function unloadTexturePackGlowMaterials(%pack) {
 	if (isObject(%pack.glow_materials)) {
 		%fields = %pack.glow_materials.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -495,6 +513,9 @@ function unloadTexturePack(%pack) {
 			devecho("Unglow Material: " @ %field);
 		}
 	}
+}
+
+function unloadTexturePackColorSwaps(%pack) {
 	if (isObject(%pack.color_swaps)) {
 		%objects = %pack.color_swaps.getDynamicFieldList();
 		%count = getFieldCount(%objects);
@@ -518,6 +539,9 @@ function unloadTexturePack(%pack) {
 			}
 		}
 	}
+}
+
+function unloadTexturePackFonts(%pack) {
 	if (%pack.fonts) {
 		if ($TexturePack::OldFont !$= "") {
 			$DefaultFont = $TexturePack::OldFont;
