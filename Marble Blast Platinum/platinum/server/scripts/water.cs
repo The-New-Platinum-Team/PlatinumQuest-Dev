@@ -31,7 +31,22 @@ datablock StaticShapeData(WaterPlane) {
 	emap = false;
 	animation = false;
 	isScaled = false;
+
+	skinCount = 2;
+	skin[0] = "base";
+	skin[1] = "green";
+
+	customField[0, "field"  ] = "skin";
+	customField[0, "type"   ] = "string";
+	customField[0, "name"   ] = "Skin Name";
+	customField[0, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[0, "default"] = "";
 };
+
+function WaterPlane::onAdd(%this, %obj) {
+	if (%obj.skin !$= "")
+		%obj.setSkinName(%obj.skin);
+}
 
 datablock StaticShapeData(WaterCylinder : WaterPlane) {
 	shapeFile = "~/data/shapes_pq/Other/CylinderWater.dts";
@@ -48,17 +63,29 @@ datablock StaticShapeData(WaterCylinder_slow : WaterPlane) {
 datablock TriggerData(WaterPhysicsTrigger) {
 	tickPeriod = 100;
 
+	skinCount = 2;
+	skin[0] = base;
+	skin[1] = green;
+
 	customField[0, "field"  ] = "VelocityMultiplier";
 	customField[0, "type"   ] = "float";
 	customField[0, "name"   ] = "Velocity Multiplier";
 	customField[0, "desc"   ] = "Multiply marble velocity by this factor when entering the water trigger.";
 	customField[0, "default"] = "0.5";
+	customField[1, "field"  ] = "skin";
+	customField[1, "type"   ] = "string";
+	customField[1, "name"   ] = "Skin Name";
+	customField[1, "desc"   ] = "Which skin to use (see skin selector).";
+	customField[1, "default"] = "";
 };
 
 function WaterPhysicsTrigger::onAdd(%this, %obj) {
 	// Changes velocity of the marble whenever you are under water
 	if (%obj.VelocityMultiplier $= "")
 		%obj.VelocityMultiplier = 0.5;
+	
+	if (%obj.skin !$= "")
+		%obj.setSkinName(%obj.skin);
 
 	%obj.setSync("onReceiveTrigger");
 }
