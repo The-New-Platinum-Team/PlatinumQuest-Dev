@@ -138,35 +138,53 @@ function ClientMode_spooky::updatePlayMission(%this, %location) {
 }
 
 function ClientMode_spooky::getEggIcon(%this, %found) {
-	%egg = "platinum/data/texture_packs/spooky/candy";
-	%egg = %egg @ (%found ? "" : "_nf");
+	%egg = "platinum/client/ui/play/frames/spooky/candy_";
+	%egg = %egg @ (%found ? "get_ol" : "notfound_ol");
 	return %egg;
 }
 
-
-//This is so hacky it spooks your judging words right out of your mouth.
-// ...
-// I'm sorry
-package SpookyLevelSelect {
-	function PlayMissionGui::updateMissionFrame(%this, %frame) {
-		Parent::updateMissionFrame(%this, %frame);
-		if (strpos(%frame.mission.gamemode, "spooky") != -1) {
-			%image = %frame.button.bitmap;
-			%new = strReplace(%image, "client/ui/play", "data/texture_packs/spooky");
-			%frame.button.setBitmap(%new);
-		}
-	}
-};
-activatePackage(SpookyLevelSelect);
+// Hooray, I killed the hacks! I guess. -Yoshi
+// //This is so hacky it spooks your judging words right out of your mouth.
+// // ...
+// // I'm sorry
+// package SpookyLevelSelect {
+// 	function PlayMissionGui::updateMissionFrame(%this, %frame) {
+// 		Parent::updateMissionFrame(%this, %frame);
+// 		if (strpos(%frame.mission.gamemode, "spooky") != -1) {
+// 			%image = %frame.button.bitmap;
+// 			%new = strReplace(%image, "client/ui/play", "data/texture_packs/spooky");
+// 			%frame.button.setBitmap(%new);
+// 		}
+// 	}
+// };
+// activatePackage(SpookyLevelSelect);
 
 function clientCmdCandyCorn(%time) {
-	%saved = PlayMissionGui.onlineEasterEggCache.getFieldValue(PlayMissionGui.getMissionInfo().id);
+	statsRecordEgg(PlayMissionGui.getMissionInfo(), %time);
 
-	if (%time < %saved || %saved $= "") {
-		PlayMissionGui.onlineEasterEggCache.setFieldValue(PlayMissionGui.getMissionInfo().id, %time);
+	PlayGui.showEggTime(%time);
+
+	//Record the egg
+	$Game::EasterEgg = true;
+	$Game::EasterEggTime = %time;
+
+	%first = ($pref::EasterEggTime[$Server::MissionFile] $= "");
+	if ($pref::EasterEggTime[$Server::MissionFile] $= "") {
+		$pref::EasterEggTime[$Server::MissionFile] = %time;
+	} else {
+		$pref::EasterEggTime[$Server::MissionFile] = min(%time, $pref::EasterEggTime[$Server::MissionFile]);
 	}
 
-	statsRecordEgg(PlayMissionGui.getMissionInfo(), %time);
+	if (lb()) {
+		%saved = PlayMissionGui.onlineEasterEggCache.getFieldValue(PlayMissionGui.getMissionInfo().id);
+
+		if (%time < %saved || %saved $= "") {
+			PlayMissionGui.onlineEasterEggCache.setFieldValue(PlayMissionGui.getMissionInfo().id, %time);
+		}
+
+		statsRecordEgg(PlayMissionGui.getMissionInfo(), %time);
+	}
+	savePrefs();
 }
 
 // //RIP Threefolder

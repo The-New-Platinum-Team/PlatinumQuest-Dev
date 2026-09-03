@@ -2291,19 +2291,22 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 
 	//If they can't play, show a different image
 	%unlocked = Unlock::canPlayMission(%level);
-	if (%unlocked) {
+	if (!%unlocked) {
+		%frameImage = "locked";
+	} else {
 		%qual = Unlock::getMissionCompletion(%level);
-		if (%qual & $Completion::Awesome)
-			%frameImage = "./play/frame_awesome";
+		if      (%qual & $Completion::Awesome)
+			%frameImage = "awesome";
 		else if (%qual & $Completion::Ultimate)
-			%frameImage = "./play/frame_ultimate";
+			%frameImage = "ultimate";
 		else if (%qual & $Completion::Platinum)
-			%frameImage = "./play/frame_platinum";
+			%frameImage = "platinum";
 		else if (%qual & $Completion::Gold)
-			%frameImage = "./play/frame_gold";
+			%frameImage = "gold";
 		else if (%qual & $Completion::Par)
-			%frameImage = "./play/frame_completed";
-		else                                    %frameImage = "./play/frame_unlocked";
+			%frameImage = "completed";
+		else
+			%frameImage = "unlocked";
 
 		//Check if we have WR for the WR frame
 		if (lb() && !%this.marbleland) {
@@ -2314,7 +2317,7 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 			if (isObject(%this.personalScoreListCache) && isObject(%recordcache)
 			        && %recordcache.containsEntry(%level.id)) {
 				//Oh cool, we do
-				%frameImage = "./play/frame_record";
+				%frameImage = "record";
 			}
 		}
 
@@ -2324,17 +2327,23 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 			$pref::ShowAwesomeHints = true;
 		}
 
-		%frame.egg.visible = %level.easterEgg;
-		if ($CurrentGame $= "challenge") {
-			%frame.egg.visible = false;
+		%eggCollected      = %qual & $Completion::EasterEgg;
+		%frame.egg.setVisible(%eggCollected || (%level.easterEgg && ($CurrentGame !$= "challenge")));
+		%frame.egg.setBitmap(%this.getEggIcon(%level, %eggCollected));
+	}
+
+	%frameGroup = "";
+	if (%unlocked) {
+		switch$($CurrentGame) {
+		case "Frightfest":
+			%frameGroup = "spooky/";
+		// case "Winterfest":
+		// 	%frameGroup = "snowball/";
 		}
-		%bitmap = %this.getEggIcon(%level, %qual & $Completion::EasterEgg);
-		%frame.egg.bitmap = %bitmap;
-	} else {
-		%frameImage = "./play/frame_locked";
 	}
 
 	%this.updateMissionHover(%frame.hover);
+	%frameImage = "./play/frames/" @ %frameGroup @ "frame_" @ %frameImage;
 	%frame.iconFrame.setBitmap(expandFilename(%frameImage));
 }
 
@@ -2560,7 +2569,7 @@ function PlayMissionGui::reactivateMissionList(%this) {
 function PlayMissionGui::getEggIcon(%this, %info, %found) {
 	%egg = "";
 	if (%info.easterEgg) {
-		%egg = "platinum/client/ui/play/egg";
+		%egg = "platinum/client/ui/play/frames/egg";
 		%modification = resolveMissionModification(%info);
 		%game = resolveMissionGame(%info);
 		%type = resolveMissionType(%info);
