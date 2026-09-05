@@ -289,7 +289,7 @@ function getMissionInfo(%file, %partial) {
 										%info.interiors ++;
 									}
 								}
-								if ((stristr(%line, "easteregg") != -1) || (stristr(%line, "nestegg_pq") != -1)) // easter egg!
+								if ((stristr(%line, "easteregg") != -1) || (stristr(%line, "nestegg_pq") != -1) || (stristr(%line, "candycornitem") != -1) || (stristr(%line, "snowglobe") != -1)) // easter egg!
 									%info.easterEgg = true;
 								else if (stristr(%line, "gemitem") != -1) // gems!
 									%info.gems ++;

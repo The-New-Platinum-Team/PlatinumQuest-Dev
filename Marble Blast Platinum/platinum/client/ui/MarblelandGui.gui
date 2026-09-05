@@ -2303,7 +2303,7 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 			position   = ((%w - 22) @ " " @ (%imgH - 28));
 			extent     = "18 24";
 			minExtent  = "8 8";
-			visible    = (%mission.easterEgg && !%isPack ? "1" : "0");
+			visible    = (playMissionGui.showMissionHasEgg(%mission) && !%isPack ? "1" : "0");
 			helpTag    = "0";
 			bitmap     = "";
 			wrap       = "0";

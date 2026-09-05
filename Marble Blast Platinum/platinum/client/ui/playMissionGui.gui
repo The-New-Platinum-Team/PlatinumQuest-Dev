@@ -2327,9 +2327,8 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 			$pref::ShowAwesomeHints = true;
 		}
 
-		%eggCollected      = %qual & $Completion::EasterEgg;
-		%frame.egg.setVisible(%eggCollected || (%level.easterEgg && ($CurrentGame !$= "challenge")));
-		%frame.egg.setBitmap(%this.getEggIcon(%level, %eggCollected));
+		%frame.egg.setVisible(%this.showMissionHasEgg(%level));
+		%frame.egg.setBitmap(%this.getEggIcon(%level, %qual & $Completion::EasterEgg));
 	}
 
 	%frameGroup = "";
@@ -2345,6 +2344,23 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 	%this.updateMissionHover(%frame.hover);
 	%frameImage = "./play/frames/" @ %frameGroup @ "frame_" @ %frameImage;
 	%frame.iconFrame.setBitmap(expandFilename(%frameImage));
+}
+
+function PlayMissionGui::showMissionHasEgg(%this, %mission) {
+	//We could do this in one line, but it's a bit unreadable. So have YandereDev code, to show you that this order of operations is indeed as intended.
+	%qual = Unlock::getMissionCompletion(%mission);
+
+	if (%mission.surrogate !$= "") {
+		return false; //If the mission has a surrogate (aka it's Vice) then don't show them SHIT.
+	}
+	if ($CurrentGame $= "challenge") {
+		return false; //Never show eggs during challenges, if one does somehow show up.
+	}
+	if (%qual & $Completion::EasterEgg) {
+		return true; //Always show an egg if we've collected one, even if the mission says there isn't one.
+	}
+
+	return %mission.easterEgg; //Otherwise, just do what the mission says.
 }
 
 function PlayMissionGui::updateMissionHover(%this, %hover) {
@@ -3029,7 +3045,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%text2 = %text2 NL "<spush><just:left>" @ %name @ "<just:right>" @ %formatted @ "<spop>";
 		}
 
-		if (%info.easterEgg && $CurrentGame !$= "challenge") {
+		if (%this.showMissionHasEgg(%info)) {
 			%egg = %this.getEggIcon(%info, $hs["eggFound"]);
 			%text2 = %text2 NL "<spush><just:left><bitmap:" @ %egg @ "><just:right>" @ formatTime(getField($hs["egg"], 0)) @ "<spop>";
 		}
@@ -3109,7 +3125,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		//Align mode button panel to bottom
 		PM_ScoreModeButtons.resize(0, getWord(PM_MissionInfoPanel.getExtent(), 1) - %modeButtonsHeight, getWord(PM_MissionInfoPanel.getExtent(), 0), %modeButtonsHeight);
 
-		%hasModeEgg = %info.easterEgg && $CurrentGame !$= "challenge";
+		%hasModeEgg = %this.showMissionHasEgg(%info);
 		%hasModeLap = stripos(%info.gameMode, "laps") != -1;
 		%hasModeQuota100 = stripos(%info.gameMode, "quota") != -1;
 		%hasModeDD = %info.dd;
