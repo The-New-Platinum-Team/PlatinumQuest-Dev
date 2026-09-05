@@ -614,6 +614,10 @@ function EditorTestCameraPath() {
 
 function EditorIconScreenshot() {
 	$MP::MyMarble.scale = "0 0 0"; //Make the Marble practically invisible so it isn't visible in the preview. ~Connie
+	if ($Game::isMode["hunt"]) {
+		hideGems(); //How hasn't this been added yet -Yoshi
+	}
+
 	%gui = RootGui.getContent();
 	if (%gui == -1 || %gui $= "") {
 		%gui = "PlayGui";
@@ -631,6 +635,10 @@ function EditorIconScreenshotEnd(%gui) {
 
 function EditorPreviewScreenshot() {
 	$MP::MyMarble.scale = "0 0 0"; //Same here. ~Connie
+	if ($Game::isMode["hunt"]) {
+		hideGems(); //How hasn't this been added yet -Yoshi
+	}
+
 	LocalClientConnection.setToggleCamera(true);
 	schedule(100, 0, EditorDoPreviewScreenshot);
 }
