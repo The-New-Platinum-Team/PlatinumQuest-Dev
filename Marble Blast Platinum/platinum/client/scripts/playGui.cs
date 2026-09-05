@@ -1404,9 +1404,13 @@ function PlayGui::setLapsTotal(%this, %total) {
 //-----------------------------------------------------------------------------
 
 function PlayGui::showEggTime(%this, %time) {
-	%eggIcon   = "egg_mbp";
-	%textColor = "4580ff";
 	switch$ ($CurrentGame) {
+	case "Gold":
+		%eggIcon   = "egg_mbg";
+		%textColor = "fefefe";
+	case "Ultra":
+		%eggIcon   = "egg_mbu";
+		%textColor = "000000";
 	case "PlatinumQuest":
 		%eggIcon   = "egg_pq";
 		%textColor = "cccc99";
@@ -1416,6 +1420,9 @@ function PlayGui::showEggTime(%this, %time) {
 	case "Winterfest":
 		%eggIcon   = "snowball/egg_snowglobe";
 		%textColor = "c9ffc6";
+	default:
+		%eggIcon   = "egg_mbp";
+		%textColor = "4580ff";
 	}
 
 	PG_EggIcon.setBitmap("platinum/client/ui/play/frames/" @ %eggIcon @ "_big.png");

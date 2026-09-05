@@ -2583,14 +2583,27 @@ function PlayMissionGui::reactivateMissionList(%this) {
 // Mission Info interface
 
 function PlayMissionGui::getEggIcon(%this, %info, %found) {
-	%egg = "";
-	if (%info.easterEgg) {
-		%egg = "platinum/client/ui/play/frames/egg";
-		%modification = resolveMissionModification(%info);
-		%game = resolveMissionGame(%info);
-		%type = resolveMissionType(%info);
-		%egg = %egg @ ((%modification $= "PlatinumQuest" || (%game $= "Custom" && %type $= "PlatinumQuest") || %info.game $= "PlatinumQuest") ? "_pq_" : "_mbp_");
-		%egg = %egg @ (%found ? "get_ol" : "notfound_ol");
+	if (%this.showMissionHasEgg(%info)) {
+		%game = resolveMissionModification(%info);
+		if ((%game !$= "Gold") && (%game !$= "Ultra") && (%game !$= "Platinum") && (%game !$= "PlatinumQuest")) {
+			%game = resolveMissionGame(%info); //Check game for customs
+			if ((%game !$= "Gold") && (%game !$= "Ultra") && (%game !$= "Platinum") && (%game !$= "PlatinumQuest")) {
+				%game = resolveMissionType(%info); //Check... type? For customs made by DUNDERHEADS.
+			}
+		}
+
+		switch$ (%game) {
+		case "Gold":
+			%egg = "mbg";
+		case "Ultra":
+			%egg = "mbu";
+		case "PlatinumQuest":
+			%egg = "pq";
+		default:
+			%egg = "mbp";
+		}
+
+		%egg = "platinum/client/ui/play/frames/egg_" @ %egg @ (%found ? "_get_ol" : "_notfound_ol");
 	}
 	return ClientMode::callbackForMission(%info, "getEggIcon", %egg, %found);
 }
