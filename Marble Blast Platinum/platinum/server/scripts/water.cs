@@ -27,6 +27,7 @@ datablock StaticShapeData(WaterPlane) {
 	category = "Water";
 	className = "Water";
 	shapeFile = "~/data/shapes_pq/Gameplay/water.dts";
+	renderBin = "Water";
 
 	emap = false;
 	animation = false;
