@@ -2342,17 +2342,17 @@ function MarblelandGui::updateTileFrame(%this, %frame) {
 
 	%qual = Unlock::getMissionCompletion(%mission);
 	if (%qual & $Completion::Awesome)
-		%frameImage = "./play/large_frame_awesome";
+		%frameImage = "./play/frames/large_frame_awesome";
 	else if (%qual & $Completion::Ultimate)
-		%frameImage = "./play/large_frame_ultimate";
+		%frameImage = "./play/frames/large_frame_ultimate";
 	else if (%qual & $Completion::Platinum)
-		%frameImage = "./play/large_frame_platinum";
+		%frameImage = "./play/frames/large_frame_platinum";
 	else if (%qual & $Completion::Gold)
-		%frameImage = "./play/large_frame_gold";
+		%frameImage = "./play/frames/large_frame_gold";
 	else if (%qual & $Completion::Par)
-		%frameImage = "./play/large_frame_completed";
+		%frameImage = "./play/frames/large_frame_completed";
 	else
-		%frameImage = "./play/large_frame_unlocked";
+		%frameImage = "./play/frames/large_frame_unlocked";
 
 	%frameCtrl.setBitmap(expandFilename(%frameImage));
 
