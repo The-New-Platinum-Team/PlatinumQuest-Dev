@@ -2332,12 +2332,12 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 	}
 
 	%frameGroup = "";
-	if (%unlocked) {
-		switch$($CurrentGame) {
+	if ((%frameImage $= "platinum") || (%frameImage $= "ultimate") || (%frameImage $= "record")) { //We only have different frames for these 3
+		switch$ ($CurrentGame) {
 		case "Frightfest":
 			%frameGroup = "spooky/";
-		// case "Winterfest":
-		// 	%frameGroup = "snowball/";
+		case "Winterfest":
+			%frameGroup = "snowball/";
 		}
 	}
 
