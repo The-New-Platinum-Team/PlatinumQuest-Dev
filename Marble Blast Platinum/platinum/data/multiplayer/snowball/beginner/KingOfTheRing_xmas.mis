@@ -956,5 +956,38 @@ new SimGroup(MissionGroup) {
       scale = "0.5 0.5 0.5";
       dataBlock = "SnowPatch3";
    };
+   new Trigger(snowglobeTP) {
+      position = "-0.75 0.75 -1.5";
+      rotation = "1 0 0 0";
+      scale = "1.5 1.5 0.5";
+      dataBlock = "TeleportTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+         centerDestPoint = "1";
+         delay = "500";
+         destination = "snowglobeDest";
+         DisplayGemsMessage = "0";
+         inverseVelocity = "0";
+         keepAngular = "0";
+         keepCamera = "0";
+         keepVelocity = "0";
+         silent = "0";
+   };
+   new Trigger(snowglobeDest) {
+      position = "-0.5 0.5 1000";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "DestinationTrigger";
+      polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
+   };
+   new Item() {
+      position = "0 0 1000.25";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "SnowGlobe";
+      collidable = "0";
+      static = "1";
+      rotate = "0";
+         noRespawn = "0";
+   };
 };
 //--- OBJECT WRITE END ---
