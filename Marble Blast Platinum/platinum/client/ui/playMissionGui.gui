@@ -308,7 +308,7 @@ new GuiControl(PlayMissionGui) {
 		command = "PlayMissionGui.switchHoliday();";
 		helpTag = "0";
 		text = "";
-		bitmap = "platinum/client/ui/play/buttons/hunt.png";
+		bitmap = "platinum/client/ui/play/hunt.png";
 		groupNum = "-1";
 		buttonType = "PushButton";
 		repeatPeriod = "1000";
@@ -5081,16 +5081,16 @@ function PlayMissionGui::updateHolidaySelector(%this) {
 	switch$ (%this.currentHoliday) {
 	case "Hunt":
 		if      (%this.enabledHolidays["Frightfest"])
-			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/frightfest.png";
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/frightfest.png";
 		else if (%this.enabledHolidays["Winterfest"])
-			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/winterfest.png";
 	case "Frightfest":
 		if (%this.enabledHolidays["Winterfest"])
-			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/winterfest.png";
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/winterfest.png";
 		else
-			PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
+			PM_HolidaySelector.bitmap = "platinum/client/ui/play/hunt.png";
 	default:
-		PM_HolidaySelector.bitmap = "platinum/client/ui/play/buttons/hunt.png";
+		PM_HolidaySelector.bitmap = "platinum/client/ui/play/hunt.png";
 	}
 }
 
