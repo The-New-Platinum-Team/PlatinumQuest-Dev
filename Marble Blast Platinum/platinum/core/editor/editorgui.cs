@@ -1622,7 +1622,6 @@ function EditorTree::onSelect(%this, %obj) {
 		emibutton();
 		return;
 	}
-
 	EWorldEditor.selectObject(%obj);
 	EditorInspector.inspector.inspect(%obj);
 	EWorldEditor.buildSpecial();
@@ -4841,6 +4840,9 @@ function EWorldEditor::buildSpecialSingle(%this, %obj) {
 				%this.addSpecial("Edit Path Trigger", "eptbutton(" @ %obj @ ");");
 			case "PushButton" or "PushButton_PQ" or "PushButtonExtended_PQ" or "PushButtonFlat_PQ":
 				%this.addSpecial("Edit Button", "epbbutton(" @ %obj @ ");");
+			case "WaterPhysicsTrigger":
+				%this.addSpecial("Make Borders", "makeWaterBorders(" @ %obj @ ");");
+
 		}
 		if (%obj.getDatablock().className $= "FadePlatformClass") {
 			%this.addSpecial("Edit Fading Platform", "efpbutton(" @ %obj @ ");");
@@ -5177,6 +5179,81 @@ function changeGemColor(%obj, %color) {
 		%obj.setSkinName(strlwr(%color));
 		%obj.onInspectApply();
 	}
+}
+
+/**
+ * @param {Trigger} %obj
+ */
+function makeWaterBorders(%obj) {
+	%box = %obj.getWorldBox();
+	// Need to add six WaterCylinders
+	%minPos = getWords(%box, 0, 3);
+	%maxPos = getWords(%box, 3, 6);
+	%boxSize = VectorSub(%maxPos, %minPos);
+	%boxSizeX = getWord(%boxSize, 0);
+	%boxSizeY = getWord(%boxSize, 1);
+	%boxSizeZ = getWord(%boxSize, 2);
+
+	%objPos = %obj.getPosition();
+
+	%posX = getWord(%objPos, 0);
+	%posY = getWord(%objPos, 1);
+	%posZ = getWord(%objPos, 2);
+
+	// Top
+	%o = new StaticShape() {
+      position = ((%posX + %boxSizeX / 2) SPC (%posY - %boxSizeY / 2) SPC (%posZ + %boxSizeZ));
+      rotation = "1 0 0 0";
+      scale = ((%boxSizeX / 2) SPC (%boxSizeY / 2) SPC 0.0001);
+      dataBlock = "WaterCylinder_slow";
+   };
+   $InstantGroup.add(%o);
+
+	// Bottom
+	%o = new StaticShape() {
+      position = ((%posX + %boxSizeX / 2) SPC (%posY - %boxSizeY / 2) SPC (%posZ));
+      rotation = "1 0 0 0";
+      scale = ((%boxSizeX / 2) SPC (%boxSizeY / 2) SPC 0.0001);
+      dataBlock = "WaterCylinder_slow";
+   };
+   $InstantGroup.add(%o);
+
+   // +X
+	%o = new StaticShape() {
+      position = ((%posX + %boxSizeX) SPC (%posY - %boxSizeY / 2) SPC (%posZ + %boxSizeZ / 2));
+      rotation = "-0.577349 0.577352 -0.57735 240";
+      scale = ((%boxSizeY / 2) SPC (%boxSizeZ / 2) SPC 0.0001);
+      dataBlock = "WaterCylinder_slow";
+   };
+   $InstantGroup.add(%o);
+
+    // -X
+	%o = new StaticShape() {
+      position = ((%posX) SPC (%posY - %boxSizeY / 2) SPC (%posZ + %boxSizeZ / 2));
+      rotation = "0.57735 0.577351 -0.57735 120";
+      scale = ((%boxSizeY / 2) SPC (%boxSizeZ / 2) SPC 0.0001);
+      dataBlock = "WaterCylinder_slow";
+   };
+   $InstantGroup.add(%o);
+
+
+   // +Y
+	%o = new StaticShape() {
+      position = ((%posX + %boxSizeX / 2) SPC (%posY - %boxSizeY) SPC (%posZ + %boxSizeZ / 2));
+      rotation =  "0 0.707107 -0.707106 180";
+      scale = ((%boxSizeX / 2) SPC (%boxSizeZ / 2) SPC 0.0001);
+      dataBlock = "WaterCylinder_slow";
+   };
+   $InstantGroup.add(%o);
+
+    // -Y
+	%o = new StaticShape() {
+      position = ((%posX + %boxSizeX / 2) SPC (%posY) SPC (%posZ + %boxSizeZ / 2));
+      rotation = "1 0 0 90";
+      scale = ((%boxSizeX / 2) SPC (%boxSizeZ / 2) SPC 0.0001);
+      dataBlock = "WaterCylinder_slow";
+   };
+   $InstantGroup.add(%o);
 }
 
 //-----------------------------------------------------------------------------
