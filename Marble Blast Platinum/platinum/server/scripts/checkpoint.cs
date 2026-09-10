@@ -460,7 +460,13 @@ function GameConnection::respawnOnCheckpoint(%this) {
 	%ortho = VectorRemoveNotation(%ortho);
 	%this.setGravityDir(%ortho, true, getField(%pos, 1));
 
+	%oldGemCount = %this.getGemCount();
 	%this.restoreCheckpointGemCount();
+
+	%lost = %oldGemCount - %this.getGemCount();
+	if (%lost > 0)
+		commandToAll('GemCountLoss', %this.index, %lost);
+
 	%this.respawnObjects(MissionGroup); // Respawn gems.
 
 	%this.blastValue = %this.checkpointBlast;

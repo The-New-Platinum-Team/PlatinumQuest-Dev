@@ -423,7 +423,7 @@ function PlayGui::updateGems(%this, %updateMax) {
 	%this.GemsFoundTenTracked = %ten;
 	%this.GemsFoundOneTracked = %one;
 
-	if (%hun != 0 || $pref::GemCounterAlwaysThreeDigits) { // Move the slash and everything over.
+	if (%hun != 0 || %ten != 0 || $pref::GemCounterAlwaysThreeDigits) { // Move the slash and everything over.
 		GemsFoundHundred.setPosition("30 0");
 		GemsFoundTen.setPosition("54 0");
 		GemsFoundOne.setPosition("78 0"); // 78 + 23 = 101
@@ -443,7 +443,7 @@ function PlayGui::updateGems(%this, %updateMax) {
 
 	// Since the counter always displays 3 digits, there's no need for this to be active when that setting is also active. ~ Connie
 	if (!$pref::GemCounterAlwaysThreeDigits) {
-		GemsQuota.setPosition((%max < 10? "157" : (%max < 100? "181" : "205")) + (%hun == 0? -24 : 0) SPC "28");
+		GemsQuota.setPosition((%max < 10? "157" : (%max < 100? "181" : "205")) + (%hun == 0 && %ten == 0? -24 : 0) SPC "28");
 		// quota is 37 away by default, 120+37=157 144+37=181, -24 if current gems are 2 digit instead of 3 digit
 	}
 

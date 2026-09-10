@@ -31,6 +31,12 @@ function shouldEnableBlast() {
 			return false;
 	}
 
+	//Let the current mode override blast availability outright
+	%modeOverride = ClientMode::callback("shouldEnableBlast", "");
+	if (%modeOverride !$= "")
+		return %modeOverride;
+
+
 	if (MissionInfo.noBlast) //Allow missions to disable blast in MP
 		return false;
 	if (MissionInfo.blast) //Allow missions to allow blast

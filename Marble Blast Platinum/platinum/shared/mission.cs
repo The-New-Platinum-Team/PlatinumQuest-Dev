@@ -90,7 +90,6 @@ function getMissionInfo(%file, %partial) {
 		%fileHash = getMissionHash(%file);
 		//Super fast caching so we don't have to read the file again
 		%info = $Mission::Info[%origfile];
-		// echo(isObject(%info) SPC $Mission::Info[%origfile] SPC %origfile);
 		if (isObject(%info)) {
 			if (%partial) {
 				//Partial won't care whether or not it's fully loaded
@@ -167,9 +166,9 @@ function getMissionInfo(%file, %partial) {
 
 								//Check if it's a basic quoted string
 								%basic =
-								    (getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
-								    (getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
-								    (stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
+									(getSubStr(%value, 0, 1) $= "\"") && //Quotes are the first character
+									(getSubStr(%value, strlen(%value) - 1, strlen(%value)) $= "\"") && //Quotes are the last character
+									(stripos(%value, "\"", 1) == strlen(%value) - 1); //There are no quotes in between
 
 								if (%basic) {
 									//Quotes

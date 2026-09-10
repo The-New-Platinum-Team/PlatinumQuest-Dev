@@ -163,6 +163,7 @@ function MPinitLoops() {
 	MPUpdateGhostCollision();
 	serverBlastUpdate();
 	MPSyncClocks();
+	MPScoreLoop();
 	// We want this to be called!
 	schedule(1000, 0, MPUpdateGhostCollision);
 }
@@ -675,6 +676,21 @@ function GameConnection::stateEnd(%this) {
 //-----------------------------------------------------------------------------
 
 function GameConnection::incBonusTime(%this,%dt) {
+	if (shouldUseIndividualClocks()) {
+		//Only this client's own clock is affected; no global broadcast
+		if (%dt < 0) {
+			//Penalties apply immediately
+			%this.totalBonus += %dt;
+			%this.clockTime = add64_int(%this.clockTime, -%dt);
+			if (%this.clockTime > 5999999)
+				%this.clockTime = 5999999;
+		} else {
+			%this.bonusTime += %dt;
+		}
+		%this.syncClock();
+		return;
+	}
+
 	Time::addBonusTime(%dt);
 
 	if ($Server::ServerType $= "MultiPlayer") {
@@ -848,7 +864,10 @@ function GameConnection::sendEndGameScores(%this) {
 		_delete = true;
 	});
 
-	commandToClient(%this, 'EndGameSetup', %score, $Time::ElapsedTime, $Time::TotalBonus, $Game::FinishClient.index);
+	//Each client's own bonus total under individual clocks; the shared one otherwise
+	%bonus = shouldUseIndividualClocks() ? %this.totalBonus : $Time::TotalBonus;
+
+	commandToClient(%this, 'EndGameSetup', %score, $Time::ElapsedTime, %bonus, $Game::FinishClient.index);
 }
 
 function GameConnection::resetStats(%this) {
@@ -856,6 +875,7 @@ function GameConnection::resetStats(%this) {
 	%this.bonusTime = 0;
 	%this.gemCount = 0;
 	%this.totalBonus = 0;
+	%this.oobCount = 0;
 
 	%this.gemsFound[1] = 0;
 	%this.gemsFound[2] = 0;
@@ -1010,6 +1030,7 @@ function GameConnection::onOutOfBounds(%this, %hideMessage) {
 	commandToClient(%this, 'LockPowerup', true);
 
 	%this.incrementOOBCounter(); // Moved to clientCmds
+	%this.oobCount++;
 	%this.sendCallback("OnOutOfBounds");
 
 	if (!isEventPending(%this.respawnSchedule)) {
@@ -1178,6 +1199,7 @@ function GameConnection::quickRespawnPlayer(%this) {
 	// So... they want to quick respawn, do they?
 	// They're not getting off *that* easy. No spawn abusing!
 	%this.quickRespawning = true;
+	%this.oobCount++; // Counts the same as falling OOB on the end screen
 	%this.respawnFromOOB();
 	%this.quickRespawning = false;
 
@@ -1303,7 +1325,13 @@ function GameConnection::respawnPlayer(%this, %respawnPos) {
 		_delete = true;
 	});
 	if (%respawn && $Server::ServerType $= "MultiPlayer") {
+		%oldGemCount = %this.getGemCount();
 		%this.restoreCheckpointGemCount();
+
+		%lost = %oldGemCount - %this.getGemCount();
+		if (%lost > 0)
+			commandToAll('GemCountLoss', %this.index, %lost);
+
 		%this.respawnObjects(MissionGroup);
 	}
 
