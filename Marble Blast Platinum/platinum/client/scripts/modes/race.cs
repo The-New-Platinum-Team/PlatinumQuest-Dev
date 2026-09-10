@@ -63,9 +63,6 @@ function ClientMode_race::onLoad(%this) {
 function ClientMode_race::shouldEnableBlast(%this) {
 	return MissionInfo.game $= "Ultra";
 }
-function ClientMode_race::shouldUpdateBlast(%this) {
-	return shouldEnableBlast() && MPMyMarbleExists();
-}
 function ClientMode_race::onMissionReset(%this) {
 	//TMs reset like gems on full level restart
 	%count = ServerConnection.getCount();

@@ -50,14 +50,10 @@ function Mode_race::onLoad(%this) {
 	%this.registerCallback("getScoreType");
 	%this.registerCallback("getFinalScore");
 	%this.registerCallback("getQuickRespawnTimeout");
-	%this.registerCallback("shouldUseIndividualClocks");
 	%this.registerCallback("onFrameAdvance");
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("onRespawnOnCheckpoint");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
-}
-function Mode_race::shouldUseIndividualClocks(%this) {
-	return true;
 }
 function Mode_race::shouldRespawnGems(%this, %object) {
 	return true;

@@ -47,7 +47,7 @@ activatePackage(ServerTime);
 
 //Independent or shared clock
 function shouldUseIndividualClocks() {
-	return ($Server::ServerType $= "MultiPlayer") && Mode::callback("shouldUseIndividualClocks", false);
+	return ($Server::ServerType $= "MultiPlayer") && $Game::IsMode["race"];
 }
 
 function Time::advance(%delta) {

@@ -564,6 +564,9 @@ function MPSyncClocks() {
 
 //Race standings update regularly
 function MPScoreLoop() {
+	// Don't do this in SP
+	if ($Server::ServerType !$= "MultiPlayer")
+		return;
 	cancel($MP::Schedule::Scores);
 	if ($Server::ServerType $= "MultiPlayer" && Mode::callback("getScoreType", $ScoreType::Score) == $ScoreType::Time) {
 		updateScores();
