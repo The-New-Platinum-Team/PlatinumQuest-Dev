@@ -144,7 +144,9 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 		$pref::EasterEggTime[$Server::MissionFile] = min(%time, $pref::EasterEggTime[$Server::MissionFile]);
 	}
 
-	if (lb()) {
+	%isMarbleland = marblelandIsMission($Client::MissionFile);
+
+	if (lb() && !%isMarbleland) {
 		%saved = PlayMissionGui.onlineEasterEggCache.getFieldValue(PlayMissionGui.getMissionInfo().id);
 
 		if (%time < %saved || %saved $= "") {

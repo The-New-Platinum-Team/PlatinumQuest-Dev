@@ -623,11 +623,11 @@ function EditorTestCameraPath() {
 
 function EditorIconScreenshot() {
 	$MP::MyMarble.scale = "0 0 0"; //Make the Marble practically invisible so it isn't visible in the preview. ~Connie
+	Editor.close(); // close the editor
 	%gui = RootGui.getContent();
 	if (%gui == -1 || %gui $= "") {
 		%gui = "PlayGui";
 	}
-	Editor.close(); // close the editor
 	doMiniShot("EditorIconScreenshotEnd(" @ %gui @ ");");
 }
 
