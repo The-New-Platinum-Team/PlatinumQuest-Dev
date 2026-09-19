@@ -44,11 +44,6 @@ datablock StaticShapeData(WaterPlane) {
 	customField[0, "default"] = "";
 };
 
-function WaterPlane::onAdd(%this, %obj) {
-	if (%obj.skin !$= "")
-		%obj.setSkinName(%obj.skin);
-}
-
 datablock StaticShapeData(WaterCylinder : WaterPlane) {
 	shapeFile = "~/data/shapes_pq/Other/CylinderWater.dts";
 	animation = true;
@@ -92,6 +87,9 @@ function WaterPhysicsTrigger::onAdd(%this, %obj) {
 }
 
 function Water::onAdd(%this, %obj) {
+	if (%obj.skin !$= "")
+		%obj.setSkinName(%obj.skin);
+	
 	// water animations.
 	if (%this.animation)
 		%obj.playThread(0, "ambient");
