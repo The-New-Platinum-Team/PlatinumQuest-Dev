@@ -253,6 +253,11 @@ new SimGroup(MaterialGroup) {
 		restitution = 0.75;
 	};
 
+	new MaterialProperty(SpookyGooMaterial) {
+		friction = 0.01;
+		restitution = 0.8;
+	};
+
 	// A LAVA WATERFALL!!
 
 	new MaterialProperty(LavaBounceFloorMaterial) {
@@ -392,6 +397,7 @@ addMaterialMapping("pq_ray_wall_combo_repul", MOWeakRepulsionMaterial);
 addMaterialMapping("spooky_acidwater", SpookyWaterMaterial);
 addMaterialMapping("spooky_dirt", SpookyDirtMaterial);
 addMaterialMapping("spooky_grass", SpookyGrassMaterial);
+addMaterialMapping("spooky_goo", SpookyGooMaterial);
 
 addMaterialMapping("XmasIce",       MMGIceMaterial);
 addMaterialMapping("XmasIceShadow", MMGIceMaterial);
