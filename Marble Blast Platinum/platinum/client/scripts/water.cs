@@ -137,13 +137,9 @@ function onLeaveWater() {
 /// @see onFrameAdvance, WaterTrigger::onEnterWater, WaterTrigger::onLeaveWater
 function updateClientWater() {
 	%cameraPos = MatrixPos(getCameraTransform());
-	if (%cameraPos == -1) {
+	if (%cameraPos == -1 || !MPMyMarbleExists()) {
 		UnderwaterOL.setVisible(false);
-		return;
-	}
-
-	if (!MPMyMarbleExists()) {
-		UnderwaterOL.setVisible(false);
+		UnderwaterOL.setBitmap("platinum/client/ui/game/underwaterOL/base.png");
 		return;
 	}
 
@@ -269,12 +265,16 @@ function performWaterOverlay(%set, %cameraPos) {
 		// Check if the camera position is inside of the trigger we can do
 		// the overlay for the water effect
 		if (%trigger.isPointInside(%cameraPos)) {
+			%waterColor = findClosestWaterTrigger(%set, %cameraPos).skin;
+			%waterColor = (%waterColor $= "") ? "base" : %waterColor;
+			UnderwaterOL.setBitmap("platinum/client/ui/game/underwaterOL/" @ %waterColor @ ".png");
 			UnderwaterOL.setVisible(true);
 			return true;
 		}
 	}
 
 	UnderwaterOL.setVisible(false);
+	UnderwaterOL.setBitmap("platinum/client/ui/game/underwaterOL/base.png");
 	return false;
 }
 

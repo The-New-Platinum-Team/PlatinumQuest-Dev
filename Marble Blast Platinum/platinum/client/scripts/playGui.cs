@@ -1404,11 +1404,25 @@ function PlayGui::setLapsTotal(%this, %total) {
 //-----------------------------------------------------------------------------
 
 function PlayGui::showEggTime(%this, %time) {
-	%pq = ($CurrentGame $= "PlatinumQuest" || ($CurrentGame $= "Custom" && $MissionType $= "PlatinumQuest") || MissionInfo.game $= "PlatinumQuest");
+	switch$ ($CurrentGame) {
+	case "Gold":
+		%eggIcon   = "egg_mbg";
+	case "Ultra":
+		%eggIcon   = "egg_mbu";
+	case "PlatinumQuest":
+		%eggIcon   = "egg_pq";
+	case "Frightfest":
+		%eggIcon   = "spooky/candy";
+	case "Winterfest":
+		%eggIcon   = "snowball/egg_snowglobe";
+	default:
+		%eggIcon   = "egg_mbp";
+	}
+	%textColor = getEggColor();
 
-	PG_EggIcon.setBitmap("platinum/client/ui/play/egg" @ (%pq ? "_pq_big" : "_mbp_big"));
+	PG_EggIcon.setBitmap("platinum/client/ui/play/frames/" @ %eggIcon @ "_big.png");
 	PG_EggTimeBox.setVisible(true);
-	PG_EggTimeDisplay.setText("<color:" @ (%pq ? "cccc99" : "4580ff") @ "><shadow:1:1><shadowcolor:0000007f><bold:28>" @ formatTime(%time));
+	PG_EggTimeDisplay.setText("<color:" @ %textColor @ "><shadow:1:1><shadowcolor:0000007f><bold:28>" @ formatTime(%time));
 
 	%this.showingEggTime = true;
 	%this.updateEggTime();

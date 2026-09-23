@@ -313,7 +313,11 @@ function mcsPrepareMissionInfo() {
 	//Try and find an easteregg / nest egg
 	%egg1 = mcsSearch(MissionGroup, "datablock=EasterEgg");
 	%egg2 = mcsSearch(MissionGroup, "datablock=NestEgg_PQ");
-	MissionInfo.easterEgg = (isObject(%egg1) || isObject(%egg2));
+	%egg3 = mcsSearch(MissionGroup, "datablock=EasterEgg_MBU");
+	%egg4 = mcsSearch(MissionGroup, "datablock=EasterEgg_MBG");
+	%egg5 = mcsSearch(MissionGroup, "datablock=CandyCornItem");
+	%egg6 = mcsSearch(MissionGroup, "datablock=SnowGlobe");
+	MissionInfo.easterEgg = (isObject(%egg1) || isObject(%egg2) || isObject(%egg3) || isObject(%egg4) || isObject(%egg5) || isObject(%egg6));
 
 	//How many gems we have
 	%gems = mcsSearchAll(MissionGroup, "datablockClass=Gem");

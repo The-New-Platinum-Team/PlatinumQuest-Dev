@@ -289,7 +289,7 @@ function getMissionInfo(%file, %partial) {
 										%info.interiors ++;
 									}
 								}
-								if ((stristr(%line, "easteregg") != -1) || (stristr(%line, "nestegg_pq") != -1)) // easter egg!
+								if ((stristr(%line, "easteregg") != -1) || (stristr(%line, "nestegg_pq") != -1) || (stristr(%line, "candycornitem") != -1) || (stristr(%line, "snowglobe") != -1)) // easter egg!
 									%info.easterEgg = true;
 								else if (stristr(%line, "gemitem") != -1) // gems!
 									%info.gems ++;
@@ -431,6 +431,22 @@ function checkForMaliciousCode(%file) {
 	}
 }
 
+function getEggColor() {
+	switch$ ($CurrentGame) {
+	case "Gold":
+		return "fefefe";
+	case "Ultra":
+		return "000000";
+	case "PlatinumQuest":
+		return "cccc99";
+	case "Frightfest":
+		return "eb7100";
+	case "Winterfest":
+		return "c9ffc6";
+	default:
+		return "4580ff";
+	}
+}
 
 // Mission Game: What game category it is in the mission list
 function resolveMissionGame(%mission) {

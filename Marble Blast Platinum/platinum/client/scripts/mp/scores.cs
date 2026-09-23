@@ -170,8 +170,8 @@ function scoreListUpdate() {
 	%snow = $Game::isMode["snowball"];
 	%spooky = $Game::isMode["spooky"];
 
-	%platinumLabel = (%spooky ? "Spooky" : (%snow ? "Platinum" : "Chilly"));
-	%ultimateLabel = (%spooky ? "Scary"  : (%snow ? "Ultimate" : "Frozen"));
+	%platinumLabel = (%spooky ? "Spooky" : (%snow ? "Chilly" : "Platinum"));
+	%ultimateLabel = (%spooky ? "Scary"  : (%snow ? "Frozen" : "Ultimate"));
 
 	%platinumColor = (%spooky ? "FF8000" : (%snow ? "EEEEEE" : "CCCCCC"));
 	%ultimateColor = (%spooky ? "CC2222" : (%snow ? "22CCFF" : "FFCC22"));

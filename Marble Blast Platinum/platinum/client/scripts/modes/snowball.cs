@@ -62,7 +62,7 @@ function ClientMode_snowball::onActivate(%this) {
 }
 function snowballTexturePackActivate() {
 	activateTexturePack("snowball");
-	reloadTexturePackFields();
+	reloadTexturePacksHot(false, true);
 }
 
 function ClientMode_snowball::onDeactivate(%this) {
@@ -76,11 +76,11 @@ function ClientMode_snowball::onDeactivate(%this) {
 }
 function snowballTexturePackDeactivate() {
 	deactivateTexturePack("snowball");
-	reloadTexturePackFields();
+	reloadTexturePacksHot(false, true);
 }
 
 function ClientMode_snowball::getEggIcon(%this, %found) {
-	%egg = "platinum/data/texture_packs/snowball/egg_snowglobe_";
+	%egg = "platinum/client/ui/play/frames/snowball/egg_snowglobe_";
 	%egg = %egg @ (%found ? "get_ol" : "notfound_ol");
 	return %egg;
 }

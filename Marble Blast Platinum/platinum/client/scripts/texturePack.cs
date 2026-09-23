@@ -112,14 +112,50 @@ function reloadTexturePacks() {
 	PlayGui.updateGems(true);
 }
 
-//Faster version of reloadTexturePacks that doesn't do any of the bitmap swapping or
-// slower flushing of textures
-function reloadTexturePackFields() {
+//Faster version of reloadTexturePacks that only updates certain elements when needed
+//Could split into reloadTexturePackFields and reloadTexturePackBitmapSwaps (plus other functions),
+	//but let's not iterate through the whole list of texture packs multiple times please
+function reloadTexturePacksHot(%reloadBitmapSwaps, %reloadFields) {
 	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
 		%pack = ActiveTexturePacks.getEntry(%i);
-		loadTexturePackFields(%pack);
+		
+		if (%reloadBitmapSwaps) {
+			unloadTexturePackBitmapSwaps(%pack);
+		}
+		//Fields don't need to be unloaded first
+	}
+
+	for (%i = 0; %i < ActiveTexturePacks.getSize(); %i ++) {
+		%pack = ActiveTexturePacks.getEntry(%i);
+
+		if (%reloadBitmapSwaps) {
+			loadTexturePackBitmapSwaps(%pack);
+		}
+		if (%reloadFields) {
+			loadTexturePackFields(%pack);
+		}
+	}
+
+	if (%reloadBitmapSwaps) {
+		unloadTimerTextures();
+		clearTextureHolds();
+		purgeResources();
+		activatePackage(FlushTextureCacheOnNextLevelLoad);
+		PlayGui.updateGems(true);
 	}
 }
+
+//Doing this while a level is loading causes issues
+//Waiting until the level loads guarantees this works in singleplayer and in servers
+//Maybe there's a less fucked up way to do this? This originates as a fix for Frightfest water
+package FlushTextureCacheOnNextLevelLoad {
+	function clientCmdGameStart() {
+		Parent::clientCmdGameStart();
+		schedule(250, 0, flushTextureCache);
+		deactivatePackage(FlushTextureCacheOnNextLevelLoad);
+		playTaunt(1);
+	}
+};
 
 function unloadTexturePacks() {
 	// unregister all shader stuff
@@ -142,6 +178,30 @@ function unloadTexturePacks() {
 }
 
 function loadTexturePack(%pack) {
+	loadTexturePackShaders(%pack);
+	loadTexturePackPostFX(%pack);
+	loadTexturePackMaterials(%pack);
+	loadTexturePackTextureMaterials(%pack);
+	loadTexturePackMaterialReplacements(%pack);
+	loadTexturePackBitmapSwaps(%pack);
+	loadTexturePackGlowMaterials(%pack);
+	loadTexturePackDTSMaterials(%pack);
+	loadTexturePackFields(%pack);
+}
+
+function loadTexturePackFields(%pack) {
+	loadTexturePackTimerColors(%pack);
+	loadTexturePackColorSwaps(%pack);
+	loadTexturePackInvertText(%pack);
+	loadTexturePackMBGHelp(%pack);
+	loadTexturePackMBXPCheck(%pack);
+	loadTexturePackFonts(%pack);
+
+	//Find all the GuiMLTextCtrls and update their text
+	texturePackRecurse(GuiGroup);
+}
+
+function loadTexturePackShaders(%pack) {
 	if (isObject(%pack.shaders)) {
 		%fields = %pack.shaders.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -158,10 +218,16 @@ function loadTexturePack(%pack) {
 			registerShader(%field, %vertex, %fragment);
 		}
 	}
+}
+
+function loadTexturePackPostFX(%pack) {
 	if (isObject(%pack.postfx)) {
 		$TexturePack::PostFX::ShaderV = texturePackResolveFile(%pack, %pack.postfx.shaderV);
 		$TexturePack::PostFX::ShaderF = texturePackResolveFile(%pack, %pack.postfx.shaderF);
 	}
+}
+
+function loadTexturePackMaterials(%pack) {
 	if (isObject(%pack.materials)) {
 		%fields = %pack.materials.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -178,6 +244,9 @@ function loadTexturePack(%pack) {
 			MaterialGroup.add(%value);
 		}
 	}
+}
+
+function loadTexturePackTextureMaterials(%pack) {
 	if (isObject(%pack.texture_materials)) {
 		%fields = %pack.texture_materials.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -190,6 +259,9 @@ function loadTexturePack(%pack) {
 			registerMaterial(%field, %real);
 		}
 	}
+}
+
+function loadTexturePackMaterialReplacements(%pack) {
 	if (isObject(%pack.material_replacements)) {
 		%fields = %pack.material_replacements.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -202,6 +274,9 @@ function loadTexturePack(%pack) {
 			replaceMaterials(%field, %real);
 		}
 	}
+}
+
+function loadTexturePackBitmapSwaps(%pack) {
 	if (isObject(%pack.bitmap_swaps)) {
 		%fields = %pack.bitmap_swaps.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -221,6 +296,9 @@ function loadTexturePack(%pack) {
 			}
 		}
 	}
+}
+
+function loadTexturePackGlowMaterials(%pack) {
 	if (isObject(%pack.glow_materials)) {
 		%fields = %pack.glow_materials.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -232,9 +310,11 @@ function loadTexturePack(%pack) {
 			devecho("Glow Material: " @ %field);
 		}
 	}
+}
 
+function loadTexturePackDTSMaterials(%pack) {
 	/*
-	   { SceneRenderImage::Begin, "Begin"   },
+   { SceneRenderImage::Begin, "Begin"   },
    { SceneRenderImage::Sky, "Sky" },
    { SceneRenderImage::SkyShape, "SkyShape" },
    { SceneRenderImage::Interior, "Interior" },
@@ -299,16 +379,17 @@ function loadTexturePack(%pack) {
 			registerTSMaterial(%matName, texturePackResolveFile(%pack, %diffusePath), texturePackResolveFile(%pack, %bumpPath), %specularColor, %specularPower, %renderBin[%renderBinValue], %cubemapStr, %renderPreGlow);
 		}
 	}
-
-	loadTexturePackFields(%pack);
 }
 
-function loadTexturePackFields(%pack) {
+function loadTexturePackTimerColors(%pack){
 	if (isObject(%pack.timer_color)) {
 		$TimeColor["normal"] = %pack.timer_color.normal;
 		$TimeColor["danger"] = %pack.timer_color.danger;
 		$TimeColor["stopped"] = %pack.timer_color.stopped;
 	}
+}
+
+function loadTexturePackColorSwaps(%pack) {
 	if (isObject(%pack.color_swaps)) {
 		%objects = %pack.color_swaps.getDynamicFieldList();
 		%count = getFieldCount(%objects);
@@ -333,19 +414,31 @@ function loadTexturePackFields(%pack) {
 			}
 		}
 	}
+}
+
+function loadTexturePackInvertText(%pack) {
 	if (%pack.invert_text_colors !$= "") {
 		$TexturePack::InvertTextColors = %pack.invert_text_colors;
 	}
+}
+
+function loadTexturePackMBGHelp(%pack) {
 	if (%pack.mbg_help_ui !$= "") {
 		$TexturePack::MBGHelpUI = %pack.mbg_help_ui;
 	} else {
 		$TexturePack::MBGHelpUI = "";
 	}
+}
+
+function loadTexturePackMBXPCheck(%pack) {
 	if (%pack.mbxp_setskip !$= "") {
 		$TexturePack::MBXP = %pack.mbxp_setskip;
 	} else {
 		$TexturePack::MBXP = "";
 	}
+}
+
+function loadTexturePackFonts(%pack) {
 	if (%pack.fonts) {
 		// Save existing fonts first, for restoring later
 		if ($TexturePack::OldFont $= "") {
@@ -399,11 +492,18 @@ function loadTexturePackFields(%pack) {
 			$DefaultFont["SmallItalic"] = %pack.fonts.smallItalic;
 		}
 	}
-	//Find all the GuiMLTextCtrls and update their text
-	texturePackRecurse(GuiGroup);
 }
 
 function unloadTexturePack(%pack) {
+	unloadTexturePackBitmapSwaps(%pack);
+	unloadTexturePackPostFX(%pack);
+	unloadTexturePackMaterialReplacements(%pack);
+	unloadTexturePackGlowMaterials(%pack);
+	unloadTexturePackColorSwaps(%pack);
+	unloadTexturePackFonts(%pack);
+}
+
+function unloadTexturePackBitmapSwaps(%pack) {
 	if (isObject(%pack.bitmap_swaps)) {
 		%fields = %pack.bitmap_swaps.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -416,10 +516,16 @@ function unloadTexturePack(%pack) {
 			$TexturePack::SwapTextures[%field] = "";
 		}
 	}
+}
+
+function unloadTexturePackPostFX(%pack) {
 	if (isObject(%pack.postfx)) {
 		$TexturePack::PostFX::ShaderV = "";
 		$TexturePack::PostFX::ShaderF = "";
 	}
+}
+
+function unloadTexturePackMaterialReplacements(%pack) {
 	if (isObject(%pack.material_replacements)) {
 		%fields = %pack.material_replacements.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -430,6 +536,9 @@ function unloadTexturePack(%pack) {
 			replaceMaterials(%field);
 		}
 	}
+}
+
+function unloadTexturePackGlowMaterials(%pack) {
 	if (isObject(%pack.glow_materials)) {
 		%fields = %pack.glow_materials.getDynamicFieldList();
 		%count = getFieldCount(%fields);
@@ -440,6 +549,9 @@ function unloadTexturePack(%pack) {
 			devecho("Unglow Material: " @ %field);
 		}
 	}
+}
+
+function unloadTexturePackColorSwaps(%pack) {
 	if (isObject(%pack.color_swaps)) {
 		%objects = %pack.color_swaps.getDynamicFieldList();
 		%count = getFieldCount(%objects);
@@ -463,6 +575,9 @@ function unloadTexturePack(%pack) {
 			}
 		}
 	}
+}
+
+function unloadTexturePackFonts(%pack) {
 	if (%pack.fonts) {
 		if ($TexturePack::OldFont !$= "") {
 			$DefaultFont = $TexturePack::OldFont;

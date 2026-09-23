@@ -2303,7 +2303,7 @@ function MarblelandGui::createTile(%this, %tileIndex, %mission) {
 			position   = ((%w - 22) @ " " @ (%imgH - 28));
 			extent     = "18 24";
 			minExtent  = "8 8";
-			visible    = (%mission.easterEgg && !%isPack ? "1" : "0");
+			visible    = (playMissionGui.showMissionHasEgg(%mission) && !%isPack ? "1" : "0");
 			helpTag    = "0";
 			bitmap     = "";
 			wrap       = "0";
@@ -2342,17 +2342,17 @@ function MarblelandGui::updateTileFrame(%this, %frame) {
 
 	%qual = Unlock::getMissionCompletion(%mission);
 	if (%qual & $Completion::Awesome)
-		%frameImage = "./play/large_frame_awesome";
+		%frameImage = "./play/frames/large_frame_awesome";
 	else if (%qual & $Completion::Ultimate)
-		%frameImage = "./play/large_frame_ultimate";
+		%frameImage = "./play/frames/large_frame_ultimate";
 	else if (%qual & $Completion::Platinum)
-		%frameImage = "./play/large_frame_platinum";
+		%frameImage = "./play/frames/large_frame_platinum";
 	else if (%qual & $Completion::Gold)
-		%frameImage = "./play/large_frame_gold";
+		%frameImage = "./play/frames/large_frame_gold";
 	else if (%qual & $Completion::Par)
-		%frameImage = "./play/large_frame_completed";
+		%frameImage = "./play/frames/large_frame_completed";
 	else
-		%frameImage = "./play/large_frame_unlocked";
+		%frameImage = "./play/frames/large_frame_unlocked";
 
 	%frameCtrl.setBitmap(expandFilename(%frameImage));
 
@@ -2364,7 +2364,7 @@ function MarblelandGui::updateTileFrame(%this, %frame) {
 
 function MarblelandGui::getEggBitmap(%this, %mission, %found) {
 	%suffix = (%mission.modification $= "platinumquest") ? "_pq_" : "_mbp_";
-	return "platinum/client/ui/play/egg" @ %suffix @ (%found ? "get_ol" : "notfound_ol");
+	return "platinum/client/ui/play/frames/egg" @ %suffix @ (%found ? "get_ol" : "notfound_ol");
 }
 
 //-----------------------------------------------------------------------------
