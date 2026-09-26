@@ -251,7 +251,13 @@ function EditDemoDlg::dosave(%this) {
 
 	%filepath = %record.file;
 
-	editRREC(%filepath, "platinum/data/recordings/tempedit.rrec", %name, %author, %desc); // Edit the rrec
+	%replayObj = new ReplayObject();
+	%replayObj.open(%filepath);
+	%replayObj.name = %name;
+	%replayObj.author = %author;
+	%replayObj.desc = %desc;
+	%replayObj.write(%filepath);
+
 	%fb = fileBase(%filepath);
 	%zipfilepath = "platinum/data/recordings/" @ %fb @ ".rrec/" @ %fb @ ".rrec";
 	if (%zipfilepath $= %filepath) { // Our rrec is in a zip

@@ -360,10 +360,10 @@ function PlayGui::updateGems(%this, %updateMax) {
 
 	if ($PlayGuiTT) {
 		// PQ gets its own TT
-		if ($currentGame $= "PlatinumQuest") {
+		if (MissionInfo.game $= "PlatinumQuest") {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_pq/gameplay/powerups/timetravel.dts";
-		} else if ($currentGame $= "Ultra") {
+		} else if (MissionInfo.game $= "Ultra") {
 			%skins = "base";
 			%dts = $usermods @ "/data/shapes_mbu/items/timetravel.dts";
 		} else if (Sky.materialList $= "platinum/data/skies/sky_day.dml") {
@@ -926,7 +926,7 @@ package frameAdvance {
 		// 	$MP::MyMarble._mouseFire();
 		// }
 
-		playbackStep();
+		playbackStep(%timeDelta);
 
 		if (RootGui.getContent().getName() $= "PlayGui")
 			PlayGui.updateMessageHud();

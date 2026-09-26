@@ -32,9 +32,13 @@ function playbackGhost(%file, %time) {
 	%object.client = %conn;
 	%conn.skinChoice = %info.marbleSelection;
 	%conn.updateGhostDatablock();
+	%info.delete();
 
 	//%object.setFadeVal(0.75);
 	%object.forceNetUpdate();
+	if (!isObject(PlaybackGhostGroup)) {
+		MissionCleanup.add(new SimGroup(PlaybackGhostGroup));
+	}
 	PlaybackGhostGroup.add(%object);
 	LocalClientConnection.syncObject(%object, "playbackSyncStart", %file TAB 1 TAB %time);
 }
