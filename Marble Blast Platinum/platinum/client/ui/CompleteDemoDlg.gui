@@ -282,38 +282,11 @@ function CompleteDemoDlg::dosave(%this) {
 	%tmp = %file @ ".tmp";
 	moveFile(%file, %tmp);
 
-	%fr = new FileObject();
-	if (!%fr.openForRead(%tmp)) {
-		error("Couldn't open file for reading");
-		return;
-	}
-	%fw = new FileObject();
-	if (!%fw.openForWrite(%final)) {
-		error("Couldn't open file for writing");
-		return;
-	}
-
-	//Copy header
-	%fw.writeRawS16(%fr.readRawS16());
-	%fw.writeRawS16(%fr.readRawS16());
-	%fw.writeRawString8(%fr.readRawString8());
-	%fw.writeRawString8(%fr.readRawString8());
-
-	//Change to mark as having metadata
-	%flags = %fr.readRawU8();
-	%flags |= 1;
-	%fw.writeRawU8(%flags);
-
-	//Write metadata
-	recordWriteMetadata(%fw, %author, %name, %desc);
-
-	//Write the rest of the everything
-	%fw.writeBase64(%fr.readBase64());
-
-	%fr.close();
-	%fw.close();
-	%fr.delete();
-	%fw.delete();
+	%replay = new ReplayObject();
+	%replay.open(%tmp);
+	recordWriteMetadata(%replay, %author, %name, %desc);
+	%replay.write(%final);
+	%replay.delete();
 
 	deleteFile(%tmp);
 
