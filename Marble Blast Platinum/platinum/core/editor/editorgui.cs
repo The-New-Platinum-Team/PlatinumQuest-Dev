@@ -50,7 +50,7 @@ function EditorGui::getPrefs() {
 	EWorldEditor.renderPlaneHashes = getPrefSetting($WEpref::renderPlaneHashes, true);
 	EWorldEditor.gridColor = getPrefSetting($WEpref::gridColor, "255 255 255 20");
 	EWorldEditor.planeDim = getPrefSetting($WEpref::planeDim, 500);
-	EWorldEditor.gridSize = getPrefSetting($WEpref::gridSize, "1 1 1");
+	EWorldEditor.gridSize = getPrefSetting($WEpref::newgridSize, "0.25 0.25 0.25");
 	EWorldEditor.renderPopupBackground = getPrefSetting($WEpref::renderPopupBackground, true);
 	EWorldEditor.popupBackgroundColor = getPrefSetting($WEpref::popupBackgroundColor, "100 100 100");
 	EWorldEditor.popupTextColor = getPrefSetting($WEpref::popupTextColor, "255 255 0");
@@ -94,7 +94,7 @@ function EditorGui::setPrefs() {
 	$WEpref::renderPlaneHashes = EWorldEditor.renderPlaneHashes;
 	$WEpref::gridColor = EWorldEditor.GridColor;
 	$WEpref::planeDim = EWorldEditor.planeDim;
-	$WEpref::gridSize = EWorldEditor.GridSize;
+	$WEpref::newgridSize = EWorldEditor.GridSize;
 	$WEpref::renderPopupBackground = EWorldEditor.renderPopupBackground;
 	$WEpref::popupBackgroundColor = EWorldEditor.PopupBackgroundColor;
 	$WEpref::popupTextColor = EWorldEditor.PopupTextColor;
