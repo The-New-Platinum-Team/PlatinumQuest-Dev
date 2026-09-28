@@ -341,6 +341,11 @@ function loadTexturePackFields(%pack) {
 	} else {
 		$TexturePack::MBGHelpUI = "";
 	}
+	if (%pack.mbu_help_ui !$= "") {
+		$TexturePack::MBUHelpUI = %pack.mbu_help_ui;
+	} else {
+		$TexturePack::MBUHelpUI = "";
+	}
 	if (%pack.mbxp_setskip !$= "") {
 		$TexturePack::MBXP = %pack.mbxp_setskip;
 	} else {
