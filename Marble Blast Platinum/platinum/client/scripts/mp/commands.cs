@@ -458,6 +458,8 @@ function clientCmdServerSetting(%setting, %value) {
 		$Server::ForceSpectators = %value;
 	case "MaxPlayers":
 		$Server::MaxPlayers = %value;
+	case "RaceModeCoop":
+		$MPPref::Server::RaceModeCoop = %value;
 	}
 }
 
