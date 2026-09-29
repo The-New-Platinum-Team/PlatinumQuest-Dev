@@ -450,6 +450,7 @@ function LBResolveName(%name, %notitle) {
 // <color:FFCC33> - Whisper
 // <color:CC9900> - Notification
 // <color:669900> - welcome message
+// <color:b86609> - Welcome message (Frightfest)
 
 //-----------------------------------------------------------------------------
 // New colors system allows for having the same text be different colors
@@ -579,12 +580,12 @@ LBRegisterChatColor("mod",          "0000CC", "0000CC", "000099");
 LBRegisterChatColor("admin",        "CC0000", "CC0000", "990000");
 LBRegisterChatColor("whisperfrom",  "999999", "999999", "CCCCCC");
 LBRegisterChatColor("whispermsg",   "804300", "804300", "FFCC33");
-LBRegisterChatColor("notification", "CC9900", "CC9900", "FFEE99");
-LBRegisterChatColor("welcome",      "669900", "669900", "99FF99");
-LBRegisterChatColor("help",         "669900", "669900", "99FF99");
+LBRegisterChatColor("notification", "B86609", "B86609", "FFEE99");
+LBRegisterChatColor("welcome",      "B86609", "B86609", "99FF99");
+LBRegisterChatColor("help",         "B86609", "B86609", "99FF99");
 LBRegisterChatColor("lagout",       "FF0000", "FF0000", "FF6666");
 LBRegisterChatColor("usage",        "999999", "999999", "CCCCCC");
-LBRegisterChatColor("server",       "0000FF", "0000FF", "000099");
+LBRegisterChatColor("server",       "5d00ff", "5d00ff", "000099");
 LBRegisterChatColor("me",           "8000FF", "8000FF", "8000FF");
 LBRegisterChatColor("visible",      "009900", "009900", "66FF66");
 LBRegisterChatColor("invisible",    "999999", "999999", "CCCCCC");

@@ -178,7 +178,8 @@ function scoreListUpdate() {
 
 	$MP::ScoreUpdate ++;
 
-	%color[1] = "<color:CFB52B>";
+//	%color[1] = "<color:CFB52B>"; Normal, commented for Frightfest.
+	%color[1] = "<color:B86609>";
 	%color[2] = "<color:CDCDCD>";
 	%color[3] = "<color:D19275>";
 
