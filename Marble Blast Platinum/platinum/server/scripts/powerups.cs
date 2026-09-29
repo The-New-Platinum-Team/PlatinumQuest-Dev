@@ -701,8 +701,25 @@ function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
 	if (%ret && $platform $= "windows") {
 		anticheatDetect(); // This shit aint exist on mac lmaoo
 	}
-	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
+
+	// Some modes (race) want each player to collect their own copy instead
+	// of the item vanishing globally the first time anyone touches it
+	if ($Server::ServerType $= "MultiPlayer" && %user.client.timeItemPickup[%obj]) {
 		return false;
+	}
+	%pickup = Mode::callback("shouldPickupTimeItem", true, new ScriptObject() {
+		this = %this;
+		obj = %obj;
+		user = %user;
+		amount = %amount;
+		_delete = true;
+	});
+	if (%pickup) {
+		if (!Parent::onPickup(%this, %obj, %user, %amount)) {
+			return false;
+		}
+	} else if ($Server::ServerType $= "MultiPlayer") {
+		%user.client.timeItemPickup[%obj] = true;
 	}
 
 	if (!Mode::callback("shouldAllowTTs", true)) {
@@ -738,8 +755,23 @@ function TimeTravelItem::onPickup(%this,%obj,%user,%amount) {
 	if (%bonus > 0)
 		%user.client.incBonusTime(%bonus);
 
-	commandToAll('UpdateTimeTravelCountdown'); // main_gi v4.2.3
+	// Under individual clocks only this client's countdown badge changed
+	if (shouldUseIndividualClocks())
+		commandToClient(%user.client, 'UpdateTimeTravelCountdown');
+	else
+		commandToAll('UpdateTimeTravelCountdown'); // main_gi v4.2.3
 
+	return true;
+}
+
+// Mirrors Gem::onMissionReset: clear the per-client dedup guard on restart
+function TimeTravelItem::onMissionReset(%this, %obj) {
+	if ($Server::ServerType $= "MultiPlayer") {
+		%count = ClientGroup.getCount();
+		for (%i = 0; %i < %count; %i ++) {
+			ClientGroup.getObject(%i).timeItemPickup[%obj] = 0;
+		}
+	}
 	return true;
 }
 
@@ -749,11 +781,17 @@ function TimeTravelItem_PQ::onAdd(%this, %obj) {
 function TimeTravelItem_PQ::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
 }
+function TimeTravelItem_PQ::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
+}
 function TimeTravelItem_MBU::onAdd(%this, %obj) {
 	return TimeTravelItem::onAdd(%this, %obj);
 }
 function TimeTravelItem_MBU::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
+}
+function TimeTravelItem_MBU::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
 }
 
 function SundialItem_PQ::onAdd(%this, %obj) {
@@ -761,6 +799,9 @@ function SundialItem_PQ::onAdd(%this, %obj) {
 }
 function SundialItem_PQ::onPickup(%this,%obj,%user,%amount) {
 	return TimeTravelItem::onPickup(%this, %obj, %user, %amount);
+}
+function SundialItem_PQ::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
 }
 
 //-----------------------------------------------------------------------------
@@ -840,8 +881,23 @@ function TimePenaltyItem::onAdd(%this, %obj) {
 }
 
 function TimePenaltyItem::onPickup(%this,%obj,%user,%amount) {
-	if (!Parent::onPickup(%this, %obj, %user, %amount)) {
+	//See TimeTravelItem::onPickup for why this doesn't just call Parent::onPickup directly
+	if ($Server::ServerType $= "MultiPlayer" && %user.client.timeItemPickup[%obj]) {
 		return false;
+	}
+	%pickup = Mode::callback("shouldPickupTimeItem", true, new ScriptObject() {
+		this = %this;
+		obj = %obj;
+		user = %user;
+		amount = %amount;
+		_delete = true;
+	});
+	if (%pickup) {
+		if (!Parent::onPickup(%this, %obj, %user, %amount)) {
+			return false;
+		}
+	} else if ($Server::ServerType $= "MultiPlayer") {
+		%user.client.timeItemPickup[%obj] = true;
 	}
 
 	if (!Mode::callback("shouldAllowTTs", true)) {
@@ -880,11 +936,28 @@ function TimePenaltyItem::onPickup(%this,%obj,%user,%amount) {
 	return true;
 }
 
+function TimePenaltyItem::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
+}
+
 function TimePenaltyItem_PQ::onAdd(%this, %obj) {
 	TimePenaltyItem::onAdd(%this, %obj);
 }
 function TimePenaltyItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
+}
+function TimePenaltyItem_PQ::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
+}
+
+function TimePenaltyItem_MBU::onAdd(%this, %obj) {
+	TimePenaltyItem::onAdd(%this, %obj);
+}
+function TimePenaltyItem_MBU::onPickup(%this, %obj, %user, %amount) {
+	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
+}
+function TimePenaltyItem_MBU::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
 }
 
 function TimePenaltyItem_MBU::onAdd(%this, %obj) {
@@ -955,6 +1028,19 @@ function RespawningTimeTravelItem_PQ::onPickup(%this, %obj, %user, %amount) {
 }
 function RespawningTimePenaltyItem_PQ::onPickup(%this, %obj, %user, %amount) {
 	return TimePenaltyItem::onPickup(%this, %obj, %user, %amount);
+}
+
+function RespawningTimeTravelItem::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
+}
+function RespawningTimePenaltyItem::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
+}
+function RespawningTimeTravelItem_PQ::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
+}
+function RespawningTimePenaltyItem_PQ::onMissionReset(%this, %obj) {
+	return TimeTravelItem::onMissionReset(%this, %obj);
 }
 
 //-----------------------------------------------------------------------------

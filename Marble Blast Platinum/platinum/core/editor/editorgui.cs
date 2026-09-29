@@ -50,7 +50,7 @@ function EditorGui::getPrefs() {
 	EWorldEditor.renderPlaneHashes = getPrefSetting($WEpref::renderPlaneHashes, true);
 	EWorldEditor.gridColor = getPrefSetting($WEpref::gridColor, "255 255 255 20");
 	EWorldEditor.planeDim = getPrefSetting($WEpref::planeDim, 500);
-	EWorldEditor.gridSize = getPrefSetting($WEpref::gridSize, "10 10 10");
+	EWorldEditor.gridSize = getPrefSetting($WEpref::newgridSize, "0.25 0.25 0.25");
 	EWorldEditor.renderPopupBackground = getPrefSetting($WEpref::renderPopupBackground, true);
 	EWorldEditor.popupBackgroundColor = getPrefSetting($WEpref::popupBackgroundColor, "100 100 100");
 	EWorldEditor.popupTextColor = getPrefSetting($WEpref::popupTextColor, "255 255 0");
@@ -73,9 +73,9 @@ function EditorGui::getPrefs() {
 	EWorldEditor.faceSelectColor = getPrefSetting($WEpref::faceSelectColor, "0 0 100 100");
 	EWorldEditor.renderSelectionBox = getPrefSetting($WEpref::renderSelectionBox, true);
 	EWorldEditor.selectionBoxColor = getPrefSetting($WEpref::selectionBoxColor, "255 255 0");
-	EWorldEditor.snapToGrid = getPrefSetting($WEpref::snapToGrid, false);
-	EWorldEditor.snapRotations = getPrefSetting($WEpref::snapRotations, false);
-	EWorldEditor.rotationSnap = getPrefSetting($WEpref::rotationSnap, "15");
+	EWorldEditor.snapToGrid = getPrefSetting($WEpref::newsnapToGrid, true);
+	EWorldEditor.snapRotations = getPrefSetting($WEpref::newsnapRotations, true);
+	EWorldEditor.rotationSnap = getPrefSetting($WEpref::newrotationSnap, "15");
 	EWorldEditor.descriptiveFieldNames = getPrefSetting($WEpref::descriptiveFieldNames, true);
 	EWorldEditor.gemType = getPrefSetting($WEpref::gemType, "pq");
 
@@ -94,7 +94,7 @@ function EditorGui::setPrefs() {
 	$WEpref::renderPlaneHashes = EWorldEditor.renderPlaneHashes;
 	$WEpref::gridColor = EWorldEditor.GridColor;
 	$WEpref::planeDim = EWorldEditor.planeDim;
-	$WEpref::gridSize = EWorldEditor.GridSize;
+	$WEpref::newgridSize = EWorldEditor.GridSize;
 	$WEpref::renderPopupBackground = EWorldEditor.renderPopupBackground;
 	$WEpref::popupBackgroundColor = EWorldEditor.PopupBackgroundColor;
 	$WEpref::popupTextColor = EWorldEditor.PopupTextColor;
@@ -117,9 +117,9 @@ function EditorGui::setPrefs() {
 	$WEpref::raceSelectColor = EWorldEditor.faceSelectColor;
 	$WEpref::renderSelectionBox = EWorldEditor.renderSelectionBox;
 	$WEpref::selectionBoxColor = EWorldEditor.selectionBoxColor;
-	$WEpref::snapToGrid = EWorldEditor.snapToGrid;
-	$WEpref::snapRotations = EWorldEditor.snapRotations;
-	$WEpref::rotationSnap = EWorldEditor.rotationSnap;
+	$WEpref::newsnapToGrid = EWorldEditor.snapToGrid;
+	$WEpref::newsnapRotations = EWorldEditor.snapRotations;
+	$WEpref::newrotationSnap = EWorldEditor.rotationSnap;
 	$WEpref::descriptiveFieldNames = EWorldEditor.descriptiveFieldNames;
 	$WEpref::gemType = EWorldEditor.gemType;
 
@@ -614,6 +614,10 @@ function EditorTestCameraPath() {
 
 function EditorIconScreenshot() {
 	$MP::MyMarble.scale = "0 0 0"; //Make the Marble practically invisible so it isn't visible in the preview. ~Connie
+	if ($Game::isMode["hunt"]) {
+		hideGems(); //How hasn't this been added yet -Yoshi
+	}
+
 	%gui = RootGui.getContent();
 	if (%gui == -1 || %gui $= "") {
 		%gui = "PlayGui";
@@ -631,6 +635,10 @@ function EditorIconScreenshotEnd(%gui) {
 
 function EditorPreviewScreenshot() {
 	$MP::MyMarble.scale = "0 0 0"; //Same here. ~Connie
+	if ($Game::isMode["hunt"]) {
+		hideGems(); //How hasn't this been added yet -Yoshi
+	}
+
 	LocalClientConnection.setToggleCamera(true);
 	schedule(100, 0, EditorDoPreviewScreenshot);
 }
@@ -3754,6 +3762,11 @@ function getPrefSetting(%pref, %default) {
 //------------------------------------------------------------------------------
 
 function Editor::open(%this) {
+	$Game::Record = false; // Just...stop recording.
+	if ($Record::Recording) {
+		recordFinish();
+	}
+
 	// Load Prefs
 	EditorGui.getPrefs();
 

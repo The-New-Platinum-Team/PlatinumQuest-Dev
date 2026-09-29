@@ -122,10 +122,10 @@ function emibutton(%revert) {
 		if (%use["gemmadness"]) {
 			LargeFunctionDlg.addNote("\c5-- Challenge Times --");
 			LargeFunctionDlg.addNote("These apply only if their corresponding score is blank");
-			LargeFunctionDlg.addTextEditField("EMI_GoldTime", "Gold Time:", MissionInfo.goldTime, 100, -1);
-			LargeFunctionDlg.addTextEditField("EMI_PlatinumTime", "Platinum time:", MissionInfo.platinumTime, 100, -1);
-			LargeFunctionDlg.addTextEditField("EMI_UltimateTime", "Ultimate time:", MissionInfo.ultimateTime, 100, -1);
-			LargeFunctionDlg.addTextEditField("EMI_AwesomeTime", "Awesome time:", MissionInfo.awesomeTime, 100, -1);
+			LargeFunctionDlg.addTimeEditField("EMI_GoldTime", "Gold Time:", MissionInfo.goldTime, 100, -1);
+			LargeFunctionDlg.addTimeEditField("EMI_PlatinumTime", "Platinum time:", MissionInfo.platinumTime, 100, -1);
+			LargeFunctionDlg.addTimeEditField("EMI_UltimateTime", "Ultimate time:", MissionInfo.ultimateTime, 100, -1);
+			LargeFunctionDlg.addTimeEditField("EMI_AwesomeTime", "Awesome time:", MissionInfo.awesomeTime, 100, -1);
 		}
 	}
 
