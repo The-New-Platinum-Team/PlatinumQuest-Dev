@@ -286,7 +286,8 @@ function clientCmdShowLoadScreen() {
 		setLoadProgress(0, 0, 0);
 
 		//PMG does loading in MP
-		RootGui.setContent(PlayMissionGui);
+		if (!PlayMissionGui.isAwake())
+			RootGui.setContent(PlayMissionGui);
 		PlayMissionGui.onMPStartLoading();
 	} else {
 		// Need to pop up the loading gui to display this stuff.
@@ -299,7 +300,8 @@ function clientCmdMissionLoadFailed() {
 		menuOnMissionLoadFailed();
 	} else if (mp()) {
 		//Problems
-		RootGui.setContent(PlayMissionGui);
+		if (!PlayMissionGui.isAwake())
+			RootGui.setContent(PlayMissionGui);
 		PlayMissionGui.onMPLoadFailed();
 	} else {
 		// We've failed, go back to PMG

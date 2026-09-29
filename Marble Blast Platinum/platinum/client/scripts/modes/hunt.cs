@@ -45,6 +45,8 @@ function ClientMode_hunt::onLoad(%this) {
 	%this.registerCallback("onClientLeaveGame");
 	%this.registerCallback("onMissionLoaded");
 	%this.registerCallback("getGemColor");
+	%this.registerCallback("loadModeSettings");
+	%this.registerCallback("getSettingDefault");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
@@ -174,4 +176,47 @@ function ClientMode_hunt::onEndGameSetup(%this) {
 }
 function ClientMode_hunt::getDefaultScore(%this) {
 	return $ScoreType::Score TAB 0 TAB "Matan W.";
+}
+
+//-----------------------------------------------------------------------------
+
+function ClientMode_hunt::loadModeSettings(%this) {
+	%i = 0;
+	%this.serverSetting[%i++,  "Name"] = "MaxGemsPerSpawn";
+	%this.serverSetting[%i,   "Title"] = "Max Gems Per Spawn";
+	%this.serverSetting[%i,    "Type"] = "slider";
+	%this.serverSetting[%i,     "Min"] = 3;
+	%this.serverSetting[%i,     "Max"] = 20;
+	%this.serverSetting[%i,   "Ticks"] = 17;
+	%this.serverSetting[%i, "IsField"] = true;
+	%this.serverSetting[%i, "Related"] = "RadiusFromGem";
+	%this.serverSetting["MaxGemsPerSpawn"] = %i;
+
+	%this.serverSetting[%i++,  "Name"] = "DoubleSpawns";
+	%this.serverSetting[%i,   "Title"] = "Double Spawns";
+	%this.serverSetting[%i,    "Type"] = "check";
+	%this.serverSetting[%i, "IsField"] = false;
+	%this.serverSetting["DoubleSpawns"] = %i;
+
+	%this.serverSetting[%i++,  "Name"] = "SpawnRamp";
+	%this.serverSetting[%i,   "Title"] = "Spawn Ramp";
+	%this.serverSetting[%i,    "Type"] = "check";
+	%this.serverSetting[%i, "IsField"] = false;
+	%this.serverSetting["SpawnRamp"] = %i;
+
+	// %this.serverSetting[%i++,  "Name"] = "PartySpawns";
+	// %this.serverSetting[%i,   "Title"] = "Party Spawns";
+	// %this.serverSetting[%i,    "Type"] = "check";
+	// %this.serverSetting[%i, "IsField"] = false;
+	// %this.serverSetting["PartySpawns"] = %i;
+
+	%this.totalSettings = %i;
+}
+
+function ClientMode_hunt::getSettingDefault(%this, %object) {
+	switch$ (%object.name) {
+		case "MaxGemsPerSpawn":
+			return 7;
+	}
+	return "";
 }

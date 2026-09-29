@@ -183,14 +183,8 @@ $MPPref::Server::SubmitScores = true;
 //Let other players pick up collected gems for this amount of time
 $MPPref::Server::PingStealFix = 250;
 
-//If we should spawn 2 groups of gems at once
-$MPPref::Server::DoubleSpawnGroups = false;
-
 //20s timer and remaining gems
 $MPPref::Server::CompetitiveMode = false;
-
-//Steal Mode shouldn't be enabled by default
-$MPPref::Server::StealMode = false;
 
 //-----------------------------------------------------------------------------
 // Prefs

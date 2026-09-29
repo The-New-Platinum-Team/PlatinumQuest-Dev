@@ -23,7 +23,10 @@
 //-----------------------------------------------------------------------------
 
 function TimeEntryCtrl(%ctrl, %args) {
-	%ctrl.command = "TimeEntryCtrlUpdate(" @ %ctrl @ ");";
+	if (!%ctrl.hasTimeCmd) {
+		%ctrl.command = %ctrl.command @ "TimeEntryCtrlUpdate(" @ %ctrl @ ");";
+		%ctrl.hasTimeCmd = true;
+	}
 	%ctrl.setValue(formatTime(0));
 	TimeEntryCtrlUpdate(%ctrl);
 }
@@ -131,7 +134,11 @@ function unpunctuateTime(%time) {
 	return stripChars(%time, ".:");
 }
 function punctuateTime(%time) {
-	return getSubStr(%time, 0, 2) @ ":" @ getSubStr(%time, 2, 2) @ "." @ getSubStr(%time, 4, 3);
+	//The amount of seconds cannot be above 59
+	%seconds = min(getSubStr(%time, 2, 2), 59);
+	if (%seconds < 10)
+		%seconds = "0" @ %seconds;
+	return getSubStr(%time, 0, 2) @ ":" @ %seconds @ "." @ getSubStr(%time, 4, 3);
 }
 
 function unformatTime(%formatted) {

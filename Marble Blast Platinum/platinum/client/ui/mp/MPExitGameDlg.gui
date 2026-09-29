@@ -117,7 +117,7 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "198 166";
+			position = "219 166";
 			extent = "45 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -129,6 +129,26 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			repeatDecay = "1";
 			bitmap = "platinum/client/ui/mp/play/settings";
 			tooltip = "Server Settings";
+			controlLeft = "MPExitTeams";
+			controlRight = "MPExitPlayers";
+			controlUp = "MPExitReturn";
+		};
+		new GuiBorderButtonCtrl(MPExitModeCustomization) {
+			profile = "PQButtonProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "155 166";
+			extent = "45 45";
+			minExtent = "8 8";
+			visible = "1";
+			command = "RootGui.pushDialog(MPCustomizeMatchDlg);";
+			helpTag = "0";
+			groupNum = "-1";
+			buttonType = "PushButton";
+			repeatPeriod = "1000";
+			repeatDecay = "1";
+			bitmap = "platinum/client/ui/mp/play/customizematch";
+			tooltip = "Customize Match";
 			controlLeft = "MPExitTeams";
 			controlRight = "MPExitPlayers";
 			controlUp = "MPExitReturn";
@@ -188,7 +208,7 @@ new GuiBitmapCtrl(MPExitGameDlg) {
 			profile = "PQButtonProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
-			position = "113 166";
+			position = "91 166";
 			extent = "45 45";
 			minExtent = "8 8";
 			visible = "1";
@@ -297,6 +317,7 @@ function MPExitGameDlg::updateActive(%this) {
 	MPExitPlayers.setActive($Server::Hosting);
 	MPExitRestart1.setActive($Server::Hosting);
 	MPExitRestart2.setActive($Server::Hosting);
+	MPExitModeCustomization.setActive($Server::Hosting);
 	MPExitTitle.setText("<bold:28><just:center>Ingame Options");
 	MPExitServer.command = ($Server::_Dedicated ? "MPDedicatedServerDlg.open();" : "MPServerDlg.open();");
 

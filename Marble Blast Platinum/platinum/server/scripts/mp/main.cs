@@ -73,6 +73,10 @@ function initMultiplayerServer() {
 
 	// "Cycle server" where it auto plays itself
 	exec("./cycle.cs");
+
+	// Leaderboards score sending
+	$MP::ScoreSendingEnabled = $MPPref::Server::SubmitScores;
+	$MP::Client::ScoreSendingEnabled = $MPPref::Server::SubmitScores;
 }
 
 //-----------------------------------------------------------------------------

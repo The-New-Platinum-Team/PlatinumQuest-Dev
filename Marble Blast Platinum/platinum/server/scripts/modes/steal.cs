@@ -29,28 +29,32 @@ function Mode_steal::onLoad(%this) {
 }
 
 function Mode_steal::onBlast(%this, %object) {
-	if ($Game::State !$= "End") {
-		%mePos = %object.this.getWorldBoxCenter();
-		%theyPos = %object.other.getWorldBoxCenter();
+	if ($Game::State $= "End")
+		return;
 
-		%stealRad = %object.this.client.blastValue * 6;
-		%stealRad += (%object.this.client.getPing() * 0.05);
+	%mePos = %object.this.getWorldBoxCenter();
+	%theyPos = %object.other.getWorldBoxCenter();
 
-		if (VectorDist(%mePos, %theyPos) < %stealRad) {
-			//Steal their points
-			%steal = (%object.this.client.blastValue * 5);
-			if (%object.this.client.isMegaMarble()) {
-				%steal *= 2;
-			}
-			%steal = mRound(min(%steal, %object.other.client.gemCount));
+	//Blast radius: 3-6 tiles
+	%blastRadius = 6 + (%object.this.client.blastValue - 0.2) * 7.5;
+	if (VectorDist(%mePos, %theyPos) < %blastRadius) {
+		//Steal their points
+		%steal = (%object.this.client.blastValue * 2);
+		
+		// if (%object.this.client.usingTripleBlast) 
+		// 	%steal = 1;
+		
+		if (%object.other.client.isMegaMarble())
+			%steal *= 0.25;
+			
+		%steal = mRound(min(%steal, %object.other.client.gemCount));
 
-			if (%steal > 0) {
-				%object.this.client.onFoundGem(%steal);
-				%object.other.client.onFoundGem(-%steal);
+		if (%steal > 0) {
+			%object.this.client.onFoundGem(%steal);
+			%object.other.client.onFoundGem(-%steal);
 
-				%object.this.client.displayGemMessage("+" @ %steal, "88ff88");
-				%object.other.client.displayGemMessage("-" @ %steal, "ff8888");
-			}
+			%object.this.client.displayGemMessage("+" @ %steal, "99ff99");
+			%object.other.client.displayGemMessage("-" @ %steal, "ff9999");
 		}
 	}
 }

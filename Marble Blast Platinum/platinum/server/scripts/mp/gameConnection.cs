@@ -437,6 +437,20 @@ function transformToNearestGem(%gravity, %pos, %highestValue) {
 	return %angle TAB %pitch;
 }
 
+function GameConnection::sendSpectateChoice(%this) {
+	if ($MPPref::ForceSpectators) {
+		%this.forceSpectate = true;
+		schedule(2000, 0, commandToClient, %this, 'ForceSpectators');
+	} else if (!Mode::callback("shouldSetSpectate", true, new ScriptObject() {
+		client = %this;
+		_delete = true;
+	})) {
+		schedule(2000, 0, commandToClient, %this, 'SpectateDenied');
+	} else {
+		schedule(2000, 0, commandToClient, %this, 'SpectateChoice');
+	}
+}
+
 //-----------------------------------------------------------------------------
 
 function GameConnection::marblelandHasMission(%this, %id, %callback) {

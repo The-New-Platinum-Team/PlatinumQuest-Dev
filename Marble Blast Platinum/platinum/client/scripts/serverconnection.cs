@@ -331,6 +331,11 @@ function disconnectedCleanup(%auto) {
 	PlayerList.clear();
 	PlayerObjectGroup.clear();
 
+	deleteVariables("$MP::Client::ServerSetting*");
+	
+	deleteVariables("$MP::ModeSetting*");
+	deleteVariables("$MP::Client::ModeSetting*");
+
 	if (%needInit) {
 		PlayMissionGui.init();
 	}
