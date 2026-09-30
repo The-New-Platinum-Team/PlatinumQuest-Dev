@@ -2229,7 +2229,7 @@ function PlayMissionGui::createMissionListFrame(%this, %level, %idx, %positionIn
 			buttonType = "RadioButton"; //So it doesn't unselect
 			repeatPeriod = "1000";
 			repeatDecay = "1";
-			bitmap = "./play/frame_locked";
+			bitmap = "./play/frames/frame_locked";
 			hasMission = true;
 			mission = %level;
 			button = %buttonName;
@@ -2291,19 +2291,22 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 
 	//If they can't play, show a different image
 	%unlocked = Unlock::canPlayMission(%level);
-	if (%unlocked) {
+	if (!%unlocked) {
+		%frameImage = "locked";
+	} else {
 		%qual = Unlock::getMissionCompletion(%level);
-		if (%qual & $Completion::Awesome)
-			%frameImage = "./play/frame_awesome";
+		if      (%qual & $Completion::Awesome)
+			%frameImage = "awesome";
 		else if (%qual & $Completion::Ultimate)
-			%frameImage = "./play/frame_ultimate";
+			%frameImage = "ultimate";
 		else if (%qual & $Completion::Platinum)
-			%frameImage = "./play/frame_platinum";
+			%frameImage = "platinum";
 		else if (%qual & $Completion::Gold)
-			%frameImage = "./play/frame_gold";
+			%frameImage = "gold";
 		else if (%qual & $Completion::Par)
-			%frameImage = "./play/frame_completed";
-		else                                    %frameImage = "./play/frame_unlocked";
+			%frameImage = "completed";
+		else
+			%frameImage = "unlocked";
 
 		//Check if we have WR for the WR frame
 		if (lb() && !%this.marbleland) {
@@ -2314,7 +2317,7 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 			if (isObject(%this.personalScoreListCache) && isObject(%recordcache)
 			        && %recordcache.containsEntry(%level.id)) {
 				//Oh cool, we do
-				%frameImage = "./play/frame_record";
+				%frameImage = "record";
 			}
 		}
 
@@ -2324,18 +2327,40 @@ function PlayMissionGui::updateMissionFrame(%this, %frame) {
 			$pref::ShowAwesomeHints = true;
 		}
 
-		%frame.egg.visible = %level.easterEgg;
-		if ($CurrentGame $= "challenge") {
-			%frame.egg.visible = false;
+		%frame.egg.setVisible(%this.showMissionHasEgg(%level));
+		%frame.egg.setBitmap(%this.getEggIcon(%level, %qual & $Completion::EasterEgg));
+	}
+
+	%frameGroup = "";
+	if ((%frameImage $= "platinum") || (%frameImage $= "ultimate") || (%frameImage $= "record")) { //We only have different frames for these 3
+		switch$ ($CurrentGame) {
+		case "Frightfest":
+			%frameGroup = "spooky/";
+		case "Winterfest":
+			%frameGroup = "snowball/";
 		}
-		%bitmap = %this.getEggIcon(%level, %qual & $Completion::EasterEgg);
-		%frame.egg.bitmap = %bitmap;
-	} else {
-		%frameImage = "./play/frame_locked";
 	}
 
 	%this.updateMissionHover(%frame.hover);
+	%frameImage = "./play/frames/" @ %frameGroup @ "frame_" @ %frameImage;
 	%frame.iconFrame.setBitmap(expandFilename(%frameImage));
+}
+
+function PlayMissionGui::showMissionHasEgg(%this, %mission) {
+	//We could do this in one line, but it's a bit unreadable. So have YandereDev code, to show you that this order of operations is indeed as intended.
+	%qual = Unlock::getMissionCompletion(%mission);
+
+	if (%mission.surrogate !$= "") {
+		return false; //If the mission has a surrogate (aka it's Vice) then don't show them SHIT.
+	}
+	if ($CurrentGame $= "challenge") {
+		return false; //Never show eggs during challenges, if one does somehow show up.
+	}
+	if (%qual & $Completion::EasterEgg) {
+		return true; //Always show an egg if we've collected one, even if the mission says there isn't one.
+	}
+
+	return %mission.easterEgg; //Otherwise, just do what the mission says.
 }
 
 function PlayMissionGui::updateMissionHover(%this, %hover) {
@@ -2558,14 +2583,27 @@ function PlayMissionGui::reactivateMissionList(%this) {
 // Mission Info interface
 
 function PlayMissionGui::getEggIcon(%this, %info, %found) {
-	%egg = "";
-	if (%info.easterEgg) {
-		%egg = "platinum/client/ui/play/egg";
-		%modification = resolveMissionModification(%info);
-		%game = resolveMissionGame(%info);
-		%type = resolveMissionType(%info);
-		%egg = %egg @ ((%modification $= "PlatinumQuest" || (%game $= "Custom" && %type $= "PlatinumQuest") || %info.game $= "PlatinumQuest") ? "_pq_" : "_mbp_");
-		%egg = %egg @ (%found ? "get_ol" : "notfound_ol");
+	if (%this.showMissionHasEgg(%info)) {
+		%game = resolveMissionModification(%info);
+		if ((%game !$= "Gold") && (%game !$= "Ultra") && (%game !$= "Platinum") && (%game !$= "PlatinumQuest")) {
+			%game = resolveMissionGame(%info); //Check game for customs
+			if ((%game !$= "Gold") && (%game !$= "Ultra") && (%game !$= "Platinum") && (%game !$= "PlatinumQuest")) {
+				%game = resolveMissionType(%info); //Check... type? For customs made by DUNDERHEADS.
+			}
+		}
+
+		switch$ (%game) {
+		case "Gold":
+			%egg = "mbg";
+		case "Ultra":
+			%egg = "mbu";
+		case "PlatinumQuest":
+			%egg = "pq";
+		default:
+			%egg = "mbp";
+		}
+
+		%egg = "platinum/client/ui/play/frames/egg_" @ %egg @ (%found ? "_get_ol" : "_notfound_ol");
 	}
 	return ClientMode::callbackForMission(%info, "getEggIcon", %egg, %found);
 }
@@ -3020,7 +3058,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 			%text2 = %text2 NL "<spush><just:left>" @ %name @ "<just:right>" @ %formatted @ "<spop>";
 		}
 
-		if (%info.easterEgg && $CurrentGame !$= "challenge") {
+		if (%this.showMissionHasEgg(%info)) {
 			%egg = %this.getEggIcon(%info, $hs["eggFound"]);
 			%text2 = %text2 NL "<spush><just:left><bitmap:" @ %egg @ "><just:right>" @ formatTime(getField($hs["egg"], 0)) @ "<spop>";
 		}
@@ -3100,7 +3138,7 @@ function PlayMissionGui::updateMissionInfo(%this) {
 		//Align mode button panel to bottom
 		PM_ScoreModeButtons.resize(0, getWord(PM_MissionInfoPanel.getExtent(), 1) - %modeButtonsHeight, getWord(PM_MissionInfoPanel.getExtent(), 0), %modeButtonsHeight);
 
-		%hasModeEgg = %info.easterEgg && $CurrentGame !$= "challenge";
+		%hasModeEgg = %this.showMissionHasEgg(%info);
 		%hasModeLap = stripos(%info.gameMode, "laps") != -1;
 		%hasModeQuota100 = stripos(%info.gameMode, "quota") != -1;
 		%hasModeDD = %info.dd;

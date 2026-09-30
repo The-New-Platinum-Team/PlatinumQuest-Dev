@@ -283,6 +283,7 @@ datablock StaticShapeData(Vermontry) {
 	className = "Halloween";
 	category = "Halloween";
 	shapefile = $usermods @ "/data/shapes/Halloween/Vermontry/Vermontry.dts";
+	renderBin = "SkyShape";
 
 	noBox = true;
 };
