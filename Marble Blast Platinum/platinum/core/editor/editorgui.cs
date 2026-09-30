@@ -1473,6 +1473,7 @@ function EditorGui::onWake(%this) {
 	%this.setEditor(%this.currentEditor);
 
 	EMovingObjectsCheck.setValue($Server::MovingObjectsActive);
+	ESnappingCheck.setValue($WEpref::newsnapToGrid);
 
 	//Wait so the canvas size aligns correctly
 	EWorldEditor.schedule(10, buildSpecial);
@@ -1527,9 +1528,15 @@ function EditorTree::onSelect(%this, %obj) {
 		return;
 	}
 
+	if (EWorldEditor.lastSelectionSource !$= "EditorTree") {
+		EWorldEditor.clearSelection();
+	}
+
 	EWorldEditor.selectObject(%obj);
 	EditorInspector.inspector.inspect(%obj);
 	EWorldEditor.buildSpecial();
+
+	EWorldEditor.lastSelectionSource = "EditorTree";
 }
 
 function EditorTree::onUnselect(%this, %obj) {
@@ -1657,6 +1664,7 @@ function WorldEditor::onClick(%this, %obj) {
 	ECreateSubsBtn.setVisible(%obj.getClassName() $= "InteriorInstance");
 	InspectorNameEdit.setValue(%obj.getName());
 	EWorldEditor.buildSpecial();
+	EWorldEditor.lastSelectionSource = "WorldEditor";
 
 	%this.checkDeselect();
 }
@@ -4162,6 +4170,14 @@ function editorExpand() {
 function EWorldEditor::toggleMovingObjects(%this) {
 	activateMovingObjects(!$Server::MovingObjectsActive);
 	EMovingObjectsCheck.setValue($Server::MovingObjectsActive);
+}
+
+function EWorldEditor::toggleSnapping(%this) {
+	$WEpref::newsnapToGrid = !$WEpref::newsnapToGrid;
+	$WEpref::newsnapRotations = $WEpref::newsnapToGrid ;
+	EWorldEditor.snapToGrid = $WEpref::newsnapToGrid;
+	EWorldEditor.snapRotations = $WEpref::newsnapRotations;
+	ESnappingCheck.setValue($WEpref::newsnapToGrid);
 }
 
 //------------------------------------------------------------------------------
