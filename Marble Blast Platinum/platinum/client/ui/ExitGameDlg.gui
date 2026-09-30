@@ -673,6 +673,13 @@ function ExitGameDlg::onWake(%this) {
 	//Figure out what times/scores it needs
 	%defined = "Gold Platinum Ultra PlatinumQuest LBCustom";
 	%game = ((findWord(%defined, $CurrentGame) == -1) ? resolveMissionModification(%info) : $CurrentGame);
+	
+	%eggThemeColor = getEggColor();
+	%eggThemeColor = (%eggThemeColor $= "000000") ? "" : "<shadow:1:1><shadowcolor:000000bf><color:" @ %eggThemeColor @ ">";
+
+	%recordTitle   = "<shadow:1:1><shadowcolor:000000bf><color:0060f0>Record";
+	%eggRecordTitle = %eggThemeColor @ "Egg Record";
+
 	switch$ (%game) {
 	case "Gold":
 		//Need qualify and gold times
@@ -718,9 +725,6 @@ function ExitGameDlg::onWake(%this) {
 		%awesomeTitle = "<shadow:1:1><shadowcolor:000000bf><color:FF4444>Awesome";
 	}
 
-	%recordTitle   = "<shadow:1:1><shadowcolor:000000bf><color:0060f0>Record";
-	%eggRecordTitle = "<shadow:1:1><shadowcolor:000000bf><color:0060f0>" @ %eggThemeColor @ "Egg Record";
-
 	//Get the world record
 	%record = -1;
 	if (lb()) {
@@ -754,10 +758,8 @@ function ExitGameDlg::onWake(%this) {
 	%pbColor = getScoreFormatting($hs[0], %info, "", (%record == getField($hs[0], 1))? 1 : 2); // If record is unset, it would be -1 and never trigger.
 	%pbEggLabel = removeLeadingZerosFromTime(formatTime(getField($hs["egg"], 0)));
 
-	%eggThemeColor = (%game $= "PlatinumQuest") ? "<color:cccc99>" : "<color:4580ff>";
-
 	%pbTitle = "<shadow:1:1><shadowcolor:000000bf>Personal Best";
-	%pbEggTitle = "<shadow:1:1><shadowcolor:000000bf>" @ %eggThemeColor @ "Egg Best";
+	%pbEggTitle = %eggThemeColor @ "Egg Best";
 
 	if (getField($hs[0], 2) $= "Matan W." && (%pbType == 0 && getSubStr(%pbLabel, 0, 5) $= "99:59") || (%pbType == 1 && getField($hs[0], 1) == 0)) {
 		ExitGameInfoPersonalBestTitle.setVisible(false);
@@ -776,7 +778,7 @@ function ExitGameDlg::onWake(%this) {
 		ExitGameInfoPersonalBestModeTitle.setVisible(true);
 		ExitGameInfoPersonalBestModeTime.setVisible(true);
 		if (lb()) {
-			ExitGameInfoRecordModeTitle.setText("<just:center><font:24>" @ %eggThemeColor @ %eggRecordTitle);
+			ExitGameInfoRecordModeTitle.setText("<just:center><font:24>" @ %eggRecordTitle);
 			ExitGameInfoRecordModeTime.setText("<just:center><font:32>" @ %eggRecordLabel);
 			ExitGameInfoRecordModeTitle.setVisible(true);
 			ExitGameInfoRecordModeTime.setVisible(true);
