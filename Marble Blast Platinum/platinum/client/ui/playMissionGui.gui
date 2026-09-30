@@ -3303,17 +3303,26 @@ function PMMenu_FinishQueue(%queue) {
 }
 
 function PlayMissionGui::updatePlayBitmap(%this) {
-	if (PlayMissionGui.shouldPlaySetRtaFinale()) {
-		PM_MissionPlay.bitmap      = "platinum/client/ui/play/buttons/rtaFinale.png";
-		PM_MissionPlay.bitmapColor = "255 128 128";
-	} else if (RtaSpeedrun.shouldStartRun) {
-		PM_MissionPlay.bitmap      = "platinum/client/ui/play/buttons/rtaStart.png";
-		PM_MissionPlay.bitmapColor = "128 255 128";
-	} else {
-		PM_MissionPlay.bitmap      = PM_MissionPlay.originalBitmap;
-		PM_MissionPlay.bitmapColor = PM_MissionPlay.originalBitmapColor;
-	}
+	PM_MissionPlay.bitmap       = PM_MissionPlay.originalBitmap;
+	PM_MissionPlay.bitmapColor  = PM_MissionPlay.originalBitmapColor;
 	PM_MissionPlay.bitmapOffset = PM_MissionPlay.originalBitmapOffset;
+	PM_MissionPlay.borderColor  = "255 255 255 255";
+
+	if (PlayMissionGui.shouldPlaySetRtaFinale()) {
+		PM_MissionPlay.bitmap = "platinum/client/ui/play/buttons/rtaFinale.png";
+		%this.setPlayColor($TimeColor["danger"]);
+	} else if (RtaSpeedrun.shouldStartRun) {
+		PM_MissionPlay.bitmap = "platinum/client/ui/play/buttons/rtaStart.png";
+		%this.setPlayColor($TimeColor["stopped"]);
+	}
+}
+
+function PlayMissionGui::setPlayColor(%this, %color) {
+	if ($TexturePack::InvertTextColors) {
+		PM_MissionPlay.bitmapColor = %color;
+	} else {
+		PM_MissionPlay.borderColor = %color;
+	}
 }
 
 //This is actually needed in a few places, unless we want to hardcode the bitmap for the Set Finale button in multiple places
