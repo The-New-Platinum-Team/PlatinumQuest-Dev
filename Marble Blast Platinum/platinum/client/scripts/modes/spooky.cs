@@ -166,11 +166,7 @@ function ClientMode_spooky::getEggIcon(%this, %found) {
 // // ...
 // // I'm sorry
 // package SpookyLevelSelect {
-// 	/**
-	 * @param {PlayMissionGui} %this
-	 * @param {GuiControl} %frame
-	 */
-	function PlayMissionGui::updateMissionFrame(%this, %frame) {
+// 	function PlayMissionGui::updateMissionFrame(%this, %frame) {
 // 		Parent::updateMissionFrame(%this, %frame);
 // 		if (strpos(%frame.mission.gamemode, "spooky") != -1) {
 // 			%image = %frame.button.bitmap;
