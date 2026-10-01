@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$ReplayVersion = 28;
+$ReplayVersion = 29;
 
 $RecordTag["time"] = 1;
 $RecordTag["position"] = 2;
