@@ -157,6 +157,7 @@ function RtaSpeedrun::start(%this) {
 	%this.currentGameDuration = -1;
 
 	%this.updateTimers();
+	PlayMissionGui.updatePlayBitmap();
 
 	echo("An RTA speedrun will start when you enter a level, and end when you finish" SPC %this.endMission);
 	echo("Good luck!");
@@ -169,6 +170,7 @@ function RtaSpeedrun::stop(%this) {
 	%this.setIsCrashRecoveryMode(false);
 	%this.updateTimers();
 	%this.clearProgress();
+	PlayMissionGui.updatePlayBitmap();
 }
 
 function RtaSpeedrun::setEnd(%this, %arg) {
@@ -179,10 +181,13 @@ function RtaSpeedrun::setEnd(%this, %arg) {
 	}
 	%this.endMission = %this.endMissionInfo.file;
 	echo("The last level of the RTA speedrun set to" SPC %this.endMission);
+
 	if (!%this.receivedMbgWarning && (stripos(%this.endMission, "data/missions_mbg/") != -1 || stripos(%this.endMission, "data/lbmissions_mbg/") != -1)) {
 		ASSERT("Warning", "You have selected a Marble Blast Gold level as the final level. In order for a run to be valid on speedrun.com/mbg, it can't be done in PQ, it must be done in vanilla MBG. Feel free to run it if you would like, just be aware that it will not be verified. If it's part of a larger speedrun with multiple games (e.g. a colored name speedrun) which you plan on ending in MBG, then feel free to ignore this warning.");
 		%this.receivedMbgWarning = true;
 	}
+
+	PlayMissionGui.updatePlayBitmap();
 }
 
 function RtaSpeedrun::missionStarted(%this) {
@@ -197,6 +202,9 @@ function RtaSpeedrun::missionStarted(%this) {
 		%this.setIsEnabled(true);
 		%this.setShouldStartRun(false);
 		%this.firstMission = $Server::MissionFile;
+	}
+	if (%this.isDone && !this.isEnabled) { //Remove onscreen RTA timer on level start if we're not in a run
+		%this.stop();
 	}
 	if (!%this.isEnabled)
 		return;
@@ -267,10 +275,7 @@ function RtaSpeedrun::missionEnded(%this) {
 		return;
 	if (!$RtaTimeEndsOnEgg && %this.endMission $= $Server::MissionFile) {
 		echo("Just finished the end level! Speedrun mode over");
-		echo("Final time:" SPC %this.time);
-		%this.setIsEnabled(false);
-		%this.setIsDone(true);
-		%this.clearProgress();
+		%this.endRun();
 	}
 	%isEndOfMissionType = false;
 	%isEndOfCurrentGame = false;
@@ -315,10 +320,7 @@ function RtaSpeedrun::eggCollected(%this) {
 	%this.setLastEggTime(%this.time);
 	if ($RtaTimeEndsOnEgg && %this.endMission $= $Server::MissionFile) {
 		echo("Just collected the last egg! Speedrun mode over");
-		echo("Final time:" SPC %this.time);
-		%this.setIsEnabled(false);
-		%this.setIsDone(true);
-		%this.clearProgress();
+		%this.endRun();
 	}
 	%this.updateTimers();
 	%this.saveProgress();
@@ -423,6 +425,14 @@ function RtaSpeedrun::doRestartRun(%this, %missionToLoad) {
 	}
 	PlayMissionGui.setSelectedMission(%minfo);
 	loadMission(%this.firstMission);
+}
+
+function RtaSpeedrun::endRun(%this) {
+	echo("Final time:" SPC %this.time);
+	%this.prevFinalTime = %this.time;
+	%this.setIsEnabled(false);
+	%this.setIsDone(true);
+	%this.clearProgress();
 }
 
 // Setters for most properties, to update the RTAAutosplitter plugin's values as well

@@ -3340,11 +3340,36 @@ function PMMenu_FinishQueue(%queue) {
 	QueueResultsDlg.open(%queue);
 }
 
-function PlayMissionGui::onMissionLoaded(%this) {
-	PM_MissionPlay.bitmap = PM_MissionPlay.originalBitmap;
+function PlayMissionGui::updatePlayBitmap(%this) {
+	PM_MissionPlay.bitmap       = PM_MissionPlay.originalBitmap;
+	PM_MissionPlay.bitmapColor  = PM_MissionPlay.originalBitmapColor;
 	PM_MissionPlay.bitmapOffset = PM_MissionPlay.originalBitmapOffset;
-	PM_MissionPlay.bitmapColor = PM_MissionPlay.originalBitmapColor;
+	PM_MissionPlay.borderColor  = "255 255 255 255";
 
+	if (PlayMissionGui.shouldPlaySetRtaFinale()) {
+		PM_MissionPlay.bitmap = "platinum/client/ui/play/buttons/rtaFinale.png";
+		%this.setPlayColor($TimeColor["danger"]);
+	} else if (RtaSpeedrun.shouldStartRun) {
+		PM_MissionPlay.bitmap = "platinum/client/ui/play/buttons/rtaStart.png";
+		%this.setPlayColor($TimeColor["stopped"]);
+	}
+}
+
+function PlayMissionGui::setPlayColor(%this, %color) {
+	if ($TexturePack::InvertTextColors) {
+		PM_MissionPlay.bitmapColor = %color;
+	} else {
+		PM_MissionPlay.borderColor = %color;
+	}
+}
+
+//This is actually needed in a few places, unless we want to hardcode the bitmap for the Set Finale button in multiple places
+function PlayMissionGui::shouldPlaySetRtaFinale(%this){
+	return (RtaSpeedrun.shouldStartRun || RtaSpeedrun.isEnabled) && (RtaSpeedrun.endMission $= "");
+}
+
+function PlayMissionGui::onMissionLoaded(%this) {
+	%this.updatePlayBitmap();
 	%this.reactivateMissionList();
 	%this.updateMissionInfo();
 
@@ -3354,10 +3379,7 @@ function PlayMissionGui::onMissionLoaded(%this) {
 }
 
 function PlayMissionGui::onMissionLoadFailed(%this) {
-	PM_MissionPlay.bitmap = PM_MissionPlay.originalBitmap;
-	PM_MissionPlay.bitmapOffset = PM_MissionPlay.originalBitmapOffset;
-	PM_MissionPlay.bitmapColor = PM_MissionPlay.originalBitmapColor;
-
+	%this.updatePlayBitmap();
 	%this.reactivateMissionList();
 	%this.updateMissionInfo();
 }
@@ -3396,6 +3418,8 @@ function PlayMissionGui::play(%this) {
 				commandToServer('LoadMission', %this.getMissionInfo().file);
 			}
 		}
+	} else if (PlayMissionGui.shouldPlaySetRtaFinale()) {
+		RtaSpeedrun.setEnd();
 	} else {
 		//Thanks, controller support
 		if (!Unlock::canPlayMission(%this.getMissionInfo())) {
@@ -3530,7 +3554,7 @@ $PMG::BarButton["ExtraMarbleland", "Bitmap",     4] = "platinum/client/ui/play/b
 $PMG::BarButton["ExtraMarbleland", "Name",       5] = "PM_MissionRtaSpeedrun";
 $PMG::BarButton["ExtraMarbleland", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
 $PMG::BarButton["ExtraMarbleland", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
-$PMG::BarButton["ExtraMarbleland", "Count"] = 6;
+$PMG::BarButton["ExtraMarbleland", "Count"] = 6; //Increases to 7 after showing the credits
 $PMG::BarButton["ExtraMarbleland", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarbleland", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarbleland", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -3557,7 +3581,7 @@ $PMG::BarButton["ExtraMarblelandLB", "Bitmap",     4] = "platinum/client/ui/play
 $PMG::BarButton["ExtraMarblelandLB", "Name",       5] = "PM_MissionRtaSpeedrun";
 $PMG::BarButton["ExtraMarblelandLB", "Command",    5] = "PlayMissionGui.hideExtras(); PlayMissionGui.hideBody(); RootGui.pushDialog(RtaSpeedrunDlg);";
 $PMG::BarButton["ExtraMarblelandLB", "Bitmap",     5] = "platinum/client/ui/play/buttons/rta.png";
-$PMG::BarButton["ExtraMarblelandLB", "Count"] = 6;
+$PMG::BarButton["ExtraMarblelandLB", "Count"] = 6; //Increases to 7 after showing the credits
 $PMG::BarButton["ExtraMarblelandLB", "HaveTab"] = true;
 $PMG::BarButton["ExtraMarblelandLB", "Control"] = "PM_ExtrasBox";
 $PMG::BarButton["ExtraMarblelandLB", "CommandCancel"] = "PlayMissionGui.hideExtras(); ControllerGui.selectControl(PM_MissionExtras);";
@@ -3858,6 +3882,7 @@ function PlayMissionGui::buildButtonBar(%this, %which) {
 	}
 
 	%this.builtBar[%which] = true;
+	%this.updatePlayBitmap();
 }
 
 function PlayMissionGui::toggleExtras(%this) {
@@ -3907,6 +3932,8 @@ function PlayMissionGui::setBarButtonActive(%this, %button, %active) {
 	if (isObject(%button)) {
 		%button.setActive(%active);
 		%button.bitmapColor = (%active ? %button.profile.fillColor : %button.profile.fillColorNA);
+		if ((%button $= "PM_MissionPlay") && %active)
+			%this.updatePlayBitmap();
 	}
 }
 
@@ -4976,6 +5003,9 @@ function PlayMissionGui::swapMissionListMP(%this, %marbleland) {
 		PlayMissionGui.showMissionList();
 	}
 }
+
+//-----------------------------------------------------------------------------
+// RTA mode stuff
 
 function PlayMissionGui::updateRtaSpeedrunTimer(%this, %text) {
 	PM_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
