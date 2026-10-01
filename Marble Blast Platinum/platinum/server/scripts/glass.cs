@@ -95,6 +95,10 @@ datablock StaticShapeData(ForceFieldBumper : ForceFieldPost) {
 	playAnimation = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Empty::onAdd(%this, %obj) {
 	if ($TexturePack::MBXP && %obj.realDataBlock $= "ForceFieldPost" && !lb()) {
 		%obj.setDataBlock("ForceFieldPost");
@@ -111,6 +115,10 @@ function Empty::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {ForceFieldClass} %this
+ * @param {ShapeBase} %obj
+ */
 function ForceFieldClass::onAdd(%this, %obj) {
 	if (%this.playAnimation)
 		%obj.playThread(0,"ambient_ifl");
@@ -128,6 +136,10 @@ datablock StaticShapeData(StartPad_MBXP : StartPad) {
 	playAnimation = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function EndPad_MBXP::onAdd(%this, %obj) {
 	$Game::EndPad = %obj;
 	%obj.setName("EndPoint");
@@ -136,6 +148,10 @@ function EndPad_MBXP::onAdd(%this, %obj) {
 	%obj.playThread(2, "effect_vis");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function StartPad_MBXP::onAdd(%this, %obj) {
 	$Game::StartPad = %obj;
 	%obj.setName("StartPoint");

@@ -136,14 +136,23 @@ new GuiBitmapCtrl(MPTeamInviteDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPTeamInviteDlg} %this
+ */
 function MPTeamInviteDlg::open(%this) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {MPTeamInviteDlg} %this
+ */
 function MPTeamInviteDlg::close(%this) {
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {MPTeamInviteDlg} %this
+ */
 function MPTeamInviteDlg::onWake(%this) {
 	// Title
 	MPTeamInviteTitle.setText("<bold:28><just:center>Invite Players");
@@ -151,11 +160,17 @@ function MPTeamInviteDlg::onWake(%this) {
 	%this.updateActive();
 }
 
+/**
+ * @param {MPTeamInviteDlg} %this
+ */
 function MPTeamInviteDlg::updateActive(%this) {
 	%player = getField(MPTeamInviteList.getRowTextById(MPTeamInviteList.getSelectedId()), 1);
 	MPTeamInviteButton.setActive(%player !$= "");
 }
 
+/**
+ * @param {MPTeamInviteDlg} %this
+ */
 function MPTeamInviteDlg::updatePlayerList(%this) {
 	MPTeamInviteList.clear();
 
@@ -174,6 +189,9 @@ function MPTeamInviteDlg::updatePlayerList(%this) {
 	MPTeamInviteButton.setActive(%count > 0);
 }
 
+/**
+ * @param {MPTeamInviteDlg} %this
+ */
 function MPTeamInviteDlg::invite(%this) {
 	%player = getField(MPTeamInviteList.getRowTextById(MPTeamInviteList.getSelectedId()), 1);
 	commandToServer('TeamInvite', %player);

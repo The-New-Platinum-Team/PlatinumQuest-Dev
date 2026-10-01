@@ -24,6 +24,9 @@ $EPTDefault["Object"] = "Object Name";
 $EPTDefault["Path"] = "Path Node Name";
 $EPTDefault["InitialPosition"] = "0";
 
+/**
+ * @param {Type} %obj
+ */
 function eptbutton(%obj) {
 	LargeFunctionDlg.init("editPathTrigger", "Edit Trigger", 1);
 	$Editor::PathTrigger = %obj;
@@ -55,6 +58,9 @@ function eptbutton(%obj) {
 	}
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function editPathTrigger(%gui) {
 	%obj = $Editor::PathTrigger;
 

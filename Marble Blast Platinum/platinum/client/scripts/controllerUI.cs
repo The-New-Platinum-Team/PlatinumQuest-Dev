@@ -77,6 +77,10 @@ $Controller::JoystickMakeValue = 0.8;
 
 //Override the canvas methods so we can update when the window changes
 package ControllerUI {
+	/**
+	 * @param {RootGui} %this
+	 * @param {GuiControl} %ctrl
+	 */
 	function RootGui::setContent(%this, %ctrl) {
 		ControllerGui.saveControls();
 		Canvas.popDialog(ControllerGui);
@@ -84,6 +88,10 @@ package ControllerUI {
 		Canvas.detectControls(true);
 	}
 
+	/**
+	 * @param {GuiCanvas} %this
+	 * @param {GuiControl} %ctrl
+	 */
 	function GuiCanvas::pushDialog(%this, %ctrl) {
 		//Ignore ControllerGui
 		if (%ctrl.getId() == ControllerGui.getId()) {
@@ -96,6 +104,10 @@ package ControllerUI {
 		%this.detectControls(true);
 	}
 
+	/**
+	 * @param {GuiCanvas} %this
+	 * @param {GuiControl} %ctrl
+	 */
 	function GuiCanvas::popDialog(%this, %ctrl) {
 		//Ignore ControllerGui
 		if (%ctrl.getId() == ControllerGui.getId()) {
@@ -108,6 +120,10 @@ package ControllerUI {
 		%this.detectControls(false);
 	}
 
+	/**
+	 * @param {GuiCanvas} %this
+	 * @param {Type} %layer
+	 */
 	function GuiCanvas::popLayer(%this, %layer) {
 		ControllerGui.saveControls();
 		Parent::popLayer(%this, %layer);
@@ -115,6 +131,9 @@ package ControllerUI {
 	}
 };
 
+/**
+ * @param {GuiCanvas} %this
+ */
 function GuiCanvas::detectControls(%this, %needPush) {
 	//Recursion protection
 	if (%this.detectingControls)
@@ -123,6 +142,7 @@ function GuiCanvas::detectControls(%this, %needPush) {
 
 	//Go backwards so we get the topmost gui
 	for (%i = %this.getCount() - 1; %i >= 0; %i --) {
+		/** @type {GuiControl} */
 		%window = %this.getObject(%i);
 		//Ignore some stuff like ControllerGui
 		if (%window.noControls)
@@ -155,12 +175,18 @@ function GuiCanvas::detectControls(%this, %needPush) {
 	}
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::saveControls(%this) {
 	if (isObject(%this.root) && isObject(%this.control)) {
 		%this.root._lastControl = %this.control;
 	}
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::enableControls(%this) {
 	Canvas.pushDialog(ControllerGui);
 
@@ -170,22 +196,38 @@ function GuiControl::enableControls(%this) {
 	ControllerGui.selectControl(%control);
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::disableControls(%this) {
 	Canvas.popDialog(ControllerGui);
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::isBeingControlled(%this) {
 	return isObject(ControllerGui.root) && ControllerGui.root.getId() == %this.getId();
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::setRoot(%this, %root) {
 	%this.root = %root;
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::isJoystick(%this) {
 	return $pref::Input::ControlDevice $= "Joystick";
 }
 
+/**
+ * @param {ControllerGui} %this
+ * @param {GuiControl} %control
+ */
 function ControllerGui::selectControl(%this, %control) {
 	if (!%this.isAwake()) {
 		Canvas.pushDialog(%this);
@@ -205,6 +247,10 @@ function ControllerGui::selectControl(%this, %control) {
 	%this.updateButtons();
 }
 
+/**
+ * @param {ControllerGui} %this
+ * @param {GuiControl} %base
+ */
 function ControllerGui::updateScroll(%this, %base, %pos, %extent) {
 	%parent = %base.getGroup();
 	if (!isObject(%parent) || !isObject(%base))
@@ -242,6 +288,9 @@ function ControllerGui::updateScroll(%this, %base, %pos, %extent) {
 	}
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::updateHighlight(%this) {
 	cancelIgnorePause(%this.highlightSch);
 	if (!%this.isJoystick()) {
@@ -264,6 +313,9 @@ function ControllerGui::updateHighlight(%this) {
 	%this.highlightSch = %this.scheduleIgnorePause(100, updateHighlight);
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::getControlBox(%this) {
 	//Top left pixel of the control
 	%origin = %this.getAbsolutePosition();
@@ -283,10 +335,16 @@ function GuiControl::getControlBox(%this) {
 	return getWords(%origin, 0, 1) SPC getWords(%extent, 0, 1);
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::getScrollVisibleBox(%this) {
 	return "0 0" SPC %this.extent;
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::updateButtons(%this) {
 	%this.clearActionButtons();
 
@@ -351,11 +409,17 @@ function sortActionEvents(%a, %b) {
 	return getRecord(%a, 0).getId() > getRecord(%b, 0).getId();
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::clearActionButtons(%this) {
 	%this.actionStart = 0;
 	ControllerButtons.clear();
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::addActionButton(%this, %event, %name) {
 	%bitmap = getJoystickBindingBitmap("joystick0" TAB %event);
 	if (!isBitmap(%bitmap)) {
@@ -391,6 +455,9 @@ function ControllerGui::addActionButton(%this, %event, %name) {
 // Custom methods for various controls
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiSliderCtrl} %this
+ */
 function GuiSliderCtrl::RSRight(%this) {
 	if (%this.variable !$= "") {
 		%tick = %this.getJoyTickSize();
@@ -412,6 +479,9 @@ function GuiSliderCtrl::RSRight(%this) {
 		return true;
 	}
 }
+/**
+ * @param {GuiSliderCtrl} %this
+ */
 function GuiSliderCtrl::RSLeft(%this) {
 	if (%this.variable !$= "") {
 		%tick = %this.getJoyTickSize();
@@ -436,6 +506,9 @@ function GuiSliderCtrl::RSLeft(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiScrollCtrl} %this
+ */
 function GuiScrollCtrl::Up(%this) {
 	if (%this.vScrollBar $= "alwaysOff") {
 		return false;
@@ -445,6 +518,9 @@ function GuiScrollCtrl::Up(%this) {
 	return true;
 }
 
+/**
+ * @param {GuiScrollCtrl} %this
+ */
 function GuiScrollCtrl::Down(%this) {
 	if (%this.vScrollBar $= "alwaysOff") {
 		return false;
@@ -454,6 +530,9 @@ function GuiScrollCtrl::Down(%this) {
 	return true;
 }
 
+/**
+ * @param {GuiScrollCtrl} %this
+ */
 function GuiScrollCtrl::Left(%this) {
 	if (%this.hScrollBar $= "alwaysOff") {
 		return false;
@@ -463,6 +542,9 @@ function GuiScrollCtrl::Left(%this) {
 	return true;
 }
 
+/**
+ * @param {GuiScrollCtrl} %this
+ */
 function GuiScrollCtrl::Right(%this) {
 	if (%this.hScrollBar $= "alwaysOff") {
 		return false;
@@ -474,6 +556,9 @@ function GuiScrollCtrl::Right(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiRadioCtrl} %this
+ */
 function GuiRadioCtrl::Select(%this) {
 	if (!%this.isActive()) {
 		return false;
@@ -486,6 +571,9 @@ function GuiRadioCtrl::Select(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiCheckBoxCtrl} %this
+ */
 function GuiCheckBoxCtrl::Select(%this) {
 	if (!%this.isActive()) {
 		return false;
@@ -498,6 +586,9 @@ function GuiCheckBoxCtrl::Select(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::getControlBox(%this) {
 	if (%this._selecting) {
 		%offset = %this.getRowOrigin(%this._selectedRow);
@@ -520,6 +611,9 @@ function GuiTextListCtrl::getControlBox(%this) {
 	}
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::getScrollVisibleBox(%this) {
 	if (%this._selecting) {
 		%offset = %this.getRowOrigin(%this._selectedRow);
@@ -531,6 +625,9 @@ function GuiTextListCtrl::getScrollVisibleBox(%this) {
 	return %offset SPC %extent;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::Select(%this) {
 	if (%this._selecting) {
 		%this.controlUp = %this._controlUp;
@@ -555,6 +652,9 @@ function GuiTextListCtrl::Select(%this) {
 	return true;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::Cancel(%this) {
 	if (%this._selecting) {
 		%this.controlUp = %this._controlUp;
@@ -568,6 +668,9 @@ function GuiTextListCtrl::Cancel(%this) {
 	return false;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::Up(%this) {
 	if (%this._selecting) {
 		%index = %this._selectedRow;
@@ -581,6 +684,9 @@ function GuiTextListCtrl::Up(%this) {
 	return false;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::Down(%this) {
 	if (%this._selecting) {
 		%index = %this._selectedRow;
@@ -594,6 +700,9 @@ function GuiTextListCtrl::Down(%this) {
 	return false;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::RSUp(%this) {
 	%selected = %this.getSelectedId();
 	%index = (%selected == -1 ? 0 : (%this.getRowNumById(%selected) - 1));
@@ -606,6 +715,9 @@ function GuiTextListCtrl::RSUp(%this) {
 	return false;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::RSDown(%this) {
 	%selected = %this.getSelectedId();
 	%index = (%selected == -1 ? 0 : (%this.getRowNumById(%selected) + 1));
@@ -618,12 +730,18 @@ function GuiTextListCtrl::RSDown(%this) {
 	return false;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::getRowOrigin(%this, %num) {
 	%pos = %this.profile.fontSize + 4;
 
 	return "0" SPC %pos * %num;
 }
 
+/**
+ * @param {GuiTextListCtrl} %this
+ */
 function GuiTextListCtrl::getRowSize(%this) {
 	return getWord(%this.extent, 0) SPC (%this.profile.fontSize + 4);
 }
@@ -674,6 +792,9 @@ function showControllerUI() {
 	Canvas.pushToBack(ControllerGui);
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::action(%this, %action1, %action2, %value, %make) {
 	if ($debugInput) {
 		echo("ACTION:" SPC %action1 SPC %action2 SPC %value SPC %make);
@@ -695,15 +816,24 @@ function ControllerGui::action(%this, %action1, %action2, %value, %make) {
 	}
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::startRepeat(%this, %action1, %action2, %value) {
 	%this.repeatPeriod[%action1, %action2] = 450;
 	%this.repeatTimer[%action1, %action2] = %this.schedule(%this.repeatPeriod[%action1, %action2], repeat, %action1, %action2, %value);
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::stopRepeat(%this, %action1, %action2, %value) {
 	cancel(%this.repeatTimer[%action1, %action2]);
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::repeat(%this, %action1, %action2, %value) {
 	cancel(%this.repeatTimer[%action1, %action2]);
 	if (%this.doAction(%action1, %action2, %value)) {
@@ -712,6 +842,9 @@ function ControllerGui::repeat(%this, %action1, %action2, %value) {
 	}
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::doAction(%this, %action1, %action2, %value) {
 	//Action 1 gets priority always
 	if (%action1 !$= "") {
@@ -784,6 +917,9 @@ function ControllerGui::doAction(%this, %action1, %action2, %value) {
 	return false;
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::getActionInfo(%this, %action1, %action2) {
 	if ($debugInput) {
 		echo("getActionInfo " @ %action1 SPC %action2);
@@ -846,6 +982,10 @@ function ControllerGui::getActionInfo(%this, %action1, %action2) {
 	return "";
 }
 
+/**
+ * @param {ControllerGui} %this
+ * @param {GuiControl} %control
+ */
 function ControllerGui::getControlName(%this, %control, %action) {
 	if ($debugInput) {
 		echo("getControlName " @ %control SPC %action);
@@ -863,6 +1003,10 @@ function ControllerGui::getControlName(%this, %control, %action) {
 	return "";
 }
 
+/**
+ * @param {ControllerGui} %this
+ * @param {GuiControl} %control
+ */
 function ControllerGui::getCommandName(%this, %control, %action) {
 	if ($debugInput) {
 		echo("getCommandName " @ %control SPC %action);
@@ -882,6 +1026,9 @@ new ActionMap(ControllerUIMap);
 $Controller::Events["JoyButton"] = "button0 button1 button2 button3 button4 button5 button6 button7 button8 button9 button10 button11 button12 button13 button14 button15 button16 button17 button18 button19 button20 button21 button22 button23 button24 button25 button26 button27 button28 button29 button30 button31";
 $Controller::Events["JoyAxis"]   = "xaxis yaxis zaxis rxaxis ryaxis rzaxis xpov ypov upov dpov lpov rpov xpov2 ypov2 upov2 dpov2 lpov2 rpov2";
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::buildEvents(%this, %category) {
 	//For all joysticks that we have connected, create events
 	for (%joy = 0; getJoystickAxes(%joy) !$= ""; %joy ++) {
@@ -929,6 +1076,9 @@ if ($platform $= "windows") {
 	$Controller::Action1["button6"] = "Alt4";
 }
 
+/**
+ * @param {ControllerGui} %this
+ */
 function ControllerGui::event(%this, %joy, %category, %event, %val) {
 	%last = %this.eventValue[%joy, %category, %event];
 	%this.eventValue[%joy, %category, %event] = %val;

@@ -77,11 +77,22 @@ $_presavefield[$_presavefields++] = "is_custom";
 $_presavefield[$_presavefields++] = "sort_index";
 $_presavefield[$_presavefields++] = "unformattedText";
 
+/**
+ * @param {SimDatablock} %this
+ */
 function SimDatablock::_presave(%this, %obj) {}
+/**
+ * @param {SimDatablock} %this
+ * @param {Type} %obj
+ */
 function SimDatablock::_postsave(%this, %obj) {}
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::_presave(%this) {
 	if (%this.getType() & $TypeMasks::GameBaseObjectType) {
+		/** @type {GameBase} */
 		%this.getDatablock()._presave(%this);
 	}
 	%fields = %this.getDynamicFieldList();
@@ -107,12 +118,19 @@ function SimObject::_presave(%this) {
 	}
 
 	// Iterate all the items
-	if (%this.getClassName() $= "SimGroup")
-		for (%i = 0; %i < %this.getCount(); %i ++)
-			%this.getObject(%i)._presave();
+	if (%this.getClassName() $= "SimGroup") {
+		/** @type {SimGroup} */
+		%grp = %this;
+		for (%i = 0; %i < %grp.getCount(); %i ++)
+			%grp.getObject(%i)._presave();
+	}
 }
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::_postSave(%this) {
 	if (%this.getType() & $TypeMasks::GameBaseObjectType) {
+		/** @type {GameBase} */
 		%this.getDatablock()._postSave(%this);
 	}
 	for (%i = 0; %i < $_presaveTemp[%this.getId(), "count"]; %i ++) {
@@ -133,13 +151,19 @@ function SimObject::_postSave(%this) {
 	deleteVariables("$_presave" @ %this.getID() @ "_*");
 
 	// Iterate all the items
-	if (%this.getClassName() $= "SimGroup")
-		for (%i = 0; %i < %this.getCount(); %i ++)
-			%this.getObject(%i)._postsave();
+	if (%this.getClassName() $= "SimGroup") {
+		/** @type {SimGroup} */
+		%grp = %this;
+		for (%i = 0; %i < %grp.getCount(); %i ++)
+			%grp.getObject(%i)._postsave();
+	}
 }
 
 activatePackage(Save);
 
+/**
+ * @param {GameBase} %this
+ */
 function SimObject::getSaveFields(%this) {
 	%fields = $Editor::Fields[%this.getName()];
 	if (%fields $= "" && (%this.getType() & $TypeMasks::GameBaseObjectType))
@@ -155,6 +179,9 @@ function SimObject::getSaveFields(%this) {
 	return %fields;
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::saveFieldCompare(%this, %aname, %avalue, %bname, %bvalue) {
 	%fields = %this.getSaveFields();
 

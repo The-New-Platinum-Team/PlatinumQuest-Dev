@@ -68,9 +68,13 @@ function DisconnectAutoDIF() {
     AutoDIFConnection.delete();
 }
 
+/**
+ * @param {SimSet} %group
+ */
 function ProcessInteriorGroup(%group, %lock) {
   // Set lock and start MPs
   for(%i = 0; %i < %group.getCount(); %i++) {
+    /** @type {GameBase} */
     %obj = %group.getObject(%i);
     if(%obj.getClassName() $= "PathedInterior")
       %obj.getDatablock().schedule(50, "onMissionReset", %obj);
@@ -81,26 +85,41 @@ function ProcessInteriorGroup(%group, %lock) {
   }
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::onConnectFailed(%this) {
   messageBoxYesNo("No connection", "This feature requires the auto_dif plugin enabled in" SPC %this.type @ ". Visit GitHub?", "gotoWebPage(\"https://github.com/KeppyMarbles/auto_dif\");");
   %this.delete();
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::onDisconnect(%this) {
   messageBoxOK(%this.type SPC "Disconnected", %this.type SPC "was closed or an error occurred.");
   %this.delete();
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::onConnected(%this) {
   echo("AutoDIF: Connected to" SPC %this.type @ "; requesting scene");
   %this.sendCommand("export_difs");
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::onLine(%this, %line) {
   echo("AutoDIF: Recieved" SPC %this.type SPC "message:" SPC %line);
   %this.recieveCommand(%line);
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::sendCommand(%this, %name, %a1, %a2, %a3) {
   %message = %name;
   for(%i = 1; %a[%i] !$= ""; %i++) {
@@ -113,6 +132,9 @@ function AutoDIFConnection::sendCommand(%this, %name, %a1, %a2, %a3) {
     %this.send(%message);
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::recieveCommand(%this, %msg) {
   //%msg is in the format "methodName|arg1|arg2|arg3..."
   while(%msg !$= "") {
@@ -128,10 +150,16 @@ function AutoDIFConnection::recieveCommand(%this, %msg) {
   eval(%func @ ");");
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::notifyError(%this, %message) {
   messageBoxOK("Error", "From" SPC %this.type @ ":" SPC %message);
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::allocateDIFsPart1(%this, %folderPath, %dif_name, %amt) {
   if(!isObject(MissionGroup)) {
     error("User is not in a mission");
@@ -157,6 +185,9 @@ function AutoDIFConnection::allocateDIFsPart1(%this, %folderPath, %dif_name, %am
   %this.schedule(20, "allocateDIFsPart2", %folderPath, %dif_name, %amt);
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %amt) {
   // Delete the old difs and allocate the new ones in the filesystem
   for(%i = 0; true; %i++) {
@@ -207,6 +238,9 @@ function AutoDIFConnection::allocateDIFsPart2(%this, %folderPath, %dif_name, %am
   %this.sendCommand("install_difs", %exe_path);
 }
 
+/**
+ * @param {AutoDIFConnection} %this
+ */
 function AutoDIFConnection::addNewInteriors(%this) {
   if(!isObject(AutoInterior_g)) {
     error("AutoDIF: Interior group was not found");

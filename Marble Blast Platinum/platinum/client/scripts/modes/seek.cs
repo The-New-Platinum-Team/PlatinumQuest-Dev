@@ -38,6 +38,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_seek) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_seek::onLoad(%this) {
 	%this.registerCallback("nametagDistance");
 	%this.registerCallback("nametagRaycast");
@@ -46,16 +49,28 @@ function ClientMode_seek::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
+/**
+ * @param {ClientMode_seek} %this
+ */
 function ClientMode_seek::nametagDistance(%this) {
 	%time = ($Game::SeekGrace ? $Game::SeekGrace : 20000);
 	return (PlayGui.currentTime < %time ? 2000 : 0);
 }
+/**
+ * @param {ClientMode_seek} %this
+ */
 function ClientMode_seek::nametagRaycast(%this) {
 	return false;
 }
+/**
+ * @param {ClientMode_seek} %this
+ */
 function ClientMode_seek::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {ClientMode_seek} %this
+ */
 function ClientMode_seek::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }

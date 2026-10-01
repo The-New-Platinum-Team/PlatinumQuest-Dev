@@ -504,6 +504,9 @@ function MPsendImageFile() {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendMissionScript(%this) {
 	for (%i = 0; %i < %client.sentFiles; %i ++) {
 		%client.sentFile[%client.sentFile[%i]] = "";
@@ -526,6 +529,9 @@ function GameConnection::sendMissionScript(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMissionScriptError(%client, %file, %dso) {
 	if (%dso) {
 		error("Client" SPC %client.getUsername() SPC "does not have compiled script" SPC %file @ ". You need to send it to them.");

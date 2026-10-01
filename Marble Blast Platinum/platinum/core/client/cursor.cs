@@ -61,6 +61,9 @@ package CanvasCursor {
 // have the .noCursor attribute set, the cursor is turned off, otherwise it is
 // turned on.
 
+	/**
+	 * @param {GuiCanvas} %this
+	 */
 	function GuiCanvas::checkCursor(%this) {
 		%cursorShouldBeOn = false;
 		for (%i = 0; %i < %this.getCount(); %i++) {
@@ -87,28 +90,46 @@ package CanvasCursor {
 // In this case the parent calls should point to the built in versions
 // of GuiCanvas functions.
 
+	/**
+	 * @param {GuiCanvas} %this
+	 * @param {GuiControl} %ctrl
+	 */
 	function GuiCanvas::setContent(%this, %ctrl) {
 		Parent::setContent(%this, %ctrl);
 		%this.checkCursor();
 		trackGuiOpen(%ctrl);
 	}
 
+	/**
+	 * @param {GuiCanvas} %this
+	 * @param {GuiControl} %ctrl
+	 */
 	function GuiCanvas::pushDialog(%this, %ctrl) {
 		Parent::pushDialog(%this, %ctrl);
 		%this.checkCursor();
 		trackGuiOpen(%ctrl);
 	}
 
+	/**
+	 * @param {GuiCanvas} %this
+	 * @param {GuiControl} %ctrl
+	 */
 	function GuiCanvas::popDialog(%this, %ctrl) {
 		Parent::popDialog(%this, %ctrl);
 		%this.checkCursor();
 	}
 
+	/**
+	 * @param {GuiCanvas} %this
+	 */
 	function GuiCanvas::popLayer(%this, %layer) {
 		Parent::popLayer(%this, %layer);
 		%this.checkCursor();
 	}
 
+	/**
+	 * @param {GuiCanvas} %this
+	 */
 	function GuiCanvas::repaint(%this) {
 		//So we can find this in trace logs
 		Parent::repaint(%this);

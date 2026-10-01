@@ -172,6 +172,9 @@ function MPupdateGhostCollision() {
 	$MP::Schedule::Collision = schedule($MP::Collision::Delta, 0, "MPupdateGhostCollision");
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::getFrontPosition(%this) {
 	%center = %this.getWorldBoxCenter();
 	%diff = %this.client.posDiff;
@@ -180,6 +183,9 @@ function Marble::getFrontPosition(%this) {
 	return VectorAdd(%center, %diff);
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::getBackPosition(%this) {
 	%center = %this.getWorldBoxCenter();
 	%diff = %this.client.posDiff;
@@ -188,6 +194,9 @@ function Marble::getBackPosition(%this) {
 	return VectorSub(%center, %diff);
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::getWidth(%this) {
 	return VectorDot(%this.scale, "0.2 0.2 0.2") / 3;
 }

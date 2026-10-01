@@ -20,6 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {EndGameDlg} %this
+ */
 function EndGameDlg::onWake(%this) {
 	if (ControllerGui.isJoystick())
 		showControllerUI();
@@ -57,6 +60,9 @@ function EndGameDlg::onWake(%this) {
 	EG_Replay.setActive(true);
 }
 
+/**
+ * @param {EndGameDlg} %this
+ */
 function EndGameDlg::end(%this) {
 	//If we're waiting to end a recording, do that before anything else
 	if (recordEnd("EndGameDlg.end();")) {
@@ -75,6 +81,9 @@ function EndGameDlg::end(%this) {
 	}
 }
 
+/**
+ * @param {EndGameDlg} %this
+ */
 function EndGameDlg::restart(%this) {
 	//If we're waiting to end a recording, do that before anything else
 	if (recordEnd("EndGameDlg.restart();")) {
@@ -88,6 +97,9 @@ function EndGameDlg::restart(%this) {
 		hideControllerUI();
 }
 
+/**
+ * @param {EndGameDlg} %this
+ */
 function EndGameDlg::getNextLevel(%this, %ignoreUnlocks) {
 	if (marblelandGetFileId(PlayMissionGui.getMissionInfo().file) !$= "") {
 		return;
@@ -148,6 +160,9 @@ function EndGameDlg::getNextLevel(%this, %ignoreUnlocks) {
 	return %mission NL %pmSelectedIndex NL %currentMissionType;
 }
 
+/**
+ * @param {EndGameDlg} %this
+ */
 function EndGameDlg::next(%this) {
 	//If we're waiting to end a recording, do that before anything else
 	if (recordEnd("EndGameDlg.next();"))
@@ -165,6 +180,9 @@ function EndGameDlg::next(%this) {
 		%this.loadNextLevel();
 }
 
+/**
+ * @param {EndGameDlg} %this
+ */
 function EndGameDlg::loadNextLevel(%this) {
 	%missionMissionIndex = %this.getNextLevel(false);
 	%mission             = getRecord(%missionMissionIndex, 0);

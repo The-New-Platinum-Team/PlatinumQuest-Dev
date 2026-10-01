@@ -20,12 +20,19 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {SceneObject} %mpOrMarker
+ */
 function pathbutton(%mpOrMarker) {
     if(%mpOrMarker.getClassName() $= "Marker" && %mpOrMarker.getGroup().getClassName() $= "Path") {
+        /** @type {Path} */
         %path = %mpOrMarker.getGroup();
     }
-    else if(%mpOrMarker.getClassName() $= "PathedInterior") {
-        %path = %mpOrMarker.getPath();
+    else if( %mpOrMarker.getClassName() $= "PathedInterior") {
+        /** @type {PathedInterior} */
+        %mp = %mpOrMarker;
+        /** @type {Path} */
+        %path = %mp.getPath();
     }
     if (!isObject(%path)) {
         error("Could not find path");
@@ -93,6 +100,9 @@ function onSelectPathPauseDuration() {
     pathEditUpdateDuration();
 }
 
+/**
+ * @param {GuiTextEditCtrl} %this
+ */
 function ConstantSpeedBox::onPressed(%this, %gui) {
     if(!%this.getValue()) {
         LargeFunctionDlg.path.speed = "";
@@ -109,12 +119,17 @@ function ConstantSpeedBox::onPressed(%this, %gui) {
     pathEditUpdateDuration();
 }
 
+/**
+ * @param {PathCenterButton} %this
+ * @param {GuiControl} %gui
+ */
 function PathCenterButton::onPressed(%this, %gui) {
     if(isObject(%gui.pathedInterior))
         %gui.pathedInterior.recenterPath();
     else if (isObject(%group = %gui.path.getGroup())) {
         for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
             if(%obj.getClassName() $= "PathedInterior") {
+                /** @type {PathedInterior} */
                 %obj.recenterPath();
                 break;
             }
@@ -122,13 +137,25 @@ function PathCenterButton::onPressed(%this, %gui) {
     }
 }
 
+/**
+ * @param {SelectPathButton} %this
+ * @param {GuiControl} %gui
+ */
 function SelectPathButton::onPressed(%this, %gui) {
     EWorldEditor.clearSelection();
     EWorldEditor.selectGroup(%gui.path);
 }
 
+/**
+ * @param {SelectMPsButton} %this
+ * @param {GuiControl} %gui
+ */
 function SelectMPsButton::onPressed(%this, %gui) {
     EWorldEditor.clearSelection();
+    /** @type {SimGroup} */
+    %group = 0;
+    /** @type {PathedInterior} */
+    %obj = 0;
     if (isObject(%group = %gui.path.getGroup())) {
         for(%i = 0; (%obj = %group.getObject(%i)) != -1; %i++) {
             if(%obj.getClassName() $= "PathedInterior") {
@@ -144,6 +171,9 @@ function acceptPath() {
 }
 
 package cancelPathChanges {
+    /**
+     * @param {LargeFunctionDlg} %this
+     */
     function LargeFunctionDlg::onSleep(%this) {
         if(!LargeFunctionDlg.pathAccepted && isObject(LargeFunctionDlg.path)) {
             for(%i = 0; (%obj = LargeFunctionDlg.path.getObject(%i)) != -1; %i++) {

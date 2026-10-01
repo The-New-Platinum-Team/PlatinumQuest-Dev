@@ -43,6 +43,9 @@
 // permission to start each phase.  When a client is ready for a phase,
 // it responds with MissionStartPhase[1-3]Ack.
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::loadMission(%this) {
 	// Send over the information that will display the server info
 	// when we learn it got there, we'll send the data blocks
@@ -66,6 +69,9 @@ function GameConnection::loadMission(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onMarblelandHasMission(%this, %id, %success) {
 	if (%id !$= marblelandGetFileId($Server::MissionFile))
 		return;
@@ -77,6 +83,9 @@ function GameConnection::onMarblelandHasMission(%this, %id, %success) {
 	%this.marblelandDownload(%id, onMarblelandDownloadComplete, %success);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onMarblelandDownloadComplete(%this, %success) {
 	if (!%success) {
 		%this.delete("Could not download mission " @ $Server::MissionFile);
@@ -88,6 +97,9 @@ function GameConnection::onMarblelandDownloadComplete(%this, %success) {
 	                $Server::MissionFile, MissionGroup.musicTrack);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMissionStartPhase1Ack(%client, %seq) {
 	// Make sure to ignore calls from a previous mission load
 	if (%seq != $missionSequence || !$MissionRunning)
@@ -105,6 +117,9 @@ function serverCmdMissionStartPhase1Ack(%client, %seq) {
 	%client.transmitDataBlocks($missionSequence);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onDataBlocksDone(%this, %missionSequence) {
 	// Make sure to ignore calls from a previous mission load
 	if (%missionSequence != $missionSequence)
@@ -123,6 +138,9 @@ function GameConnection::onDataBlocksDone(%this, %missionSequence) {
 	commandToClient(%this, 'MissionStartPhase2', $missionSequence, $Server::MissionFile);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMissionStartPhase2Ack(%client, %seq) {
 	// Make sure to ignore calls from a previous mission load
 	if (%seq != $missionSequence || !$MissionRunning)
@@ -139,6 +157,9 @@ function serverCmdMissionStartPhase2Ack(%client, %seq) {
 
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function GameConnection::clientWantsGhostAlwaysRetry(%client) {
 	if ($MissionRunning)
 		%client.activateGhosting();
@@ -153,6 +174,9 @@ function GameConnection::onGhostAlwaysObjectsReceived(%client) {
 	commandToClient(%client, 'MissionStartPhase3', $missionSequence, $Server::MissionFile);
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMissionStartPhase3Ack(%client, %seq) {
 	// Make sure to ignore calls from a previous mission load
 	if (%seq != $missionSequence || !$MissionRunning)
@@ -164,6 +188,9 @@ function serverCmdMissionStartPhase3Ack(%client, %seq) {
 	%client.sendSyncObjects();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdAllSyncObjectsComplete(%client, %seq) {
 	// Make sure to ignore calls from a previous mission load
 	if (%seq != $missionSequence || !$MissionRunning)

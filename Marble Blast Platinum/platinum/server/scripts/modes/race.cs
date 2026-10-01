@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_race::onLoad(%this) {
 	%this.registerCallback("onMissionLoaded");
 	%this.registerCallback("onMissionReset");
@@ -55,15 +58,28 @@ function Mode_race::onLoad(%this) {
 	%this.registerCallback("onRespawnOnCheckpoint");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldRespawnGems(%this, %object) {
 	return true;
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldPickupGem(%this, %object) {
 	commandToClient(%object.user.client, 'GemPickup', %object.obj.getSyncId());
 	return false;
@@ -74,17 +90,32 @@ function Mode_race::shouldPickupTimeItem(%this, %object) {
 	commandToClient(%object.user.client, 'TimeItemPickup', %object.obj.getSyncId());
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldDisablePowerup(%this, %object) {
 	//Stuff that is handled by the client
 	return %object.this.coopClient;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldPickupPowerup(%this, %object) {
 	//Stuff that is handled by the client
 	return !%object.this.coopClient;
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldUseClientPowerups(%this) {
 	return true;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::shouldResetGem(%this, %object) {
 	if (!isObject(%object.obj.staticgem)) {
 		MissionCleanup.add(%object.obj.staticgem = new StaticShape() {
@@ -101,6 +132,10 @@ function Mode_race::shouldResetGem(%this, %object) {
 function Mode_race::canFinish(%this, %object) {
 	return !($Game::GemCount && %object.client.getGemCount() < $Game::GemCount);
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Type} %object
+ */
 function Mode_race::onFoundGem(%this, %object) {
 	%required = $Game::GemCount;
 	%remaining = %required - %object.client.getGemCount();
@@ -138,9 +173,16 @@ function Mode_race::restoreGemPickupState(%this, %client) {
 		%client.gemPickup[%gem] = (%client._raceGemCheckpoint[%gem] < %client.curCheckpointNum);
 	}
 }
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::shouldTotalGemCount(%this) {
 	return false;
 }
+/**
+ * @param {Mode_race} %this
+ * @param {Array} %winners
+ */
 function Mode_race::onMissionLoaded(%this) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -148,6 +190,10 @@ function Mode_race::onMissionLoaded(%this) {
 		%client.resetRaceStats();
 	}
 }
+
+/**
+ * @param {Mode_race} %this
+ */
 function Mode_race::onMissionReset(%this) {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i ++) {

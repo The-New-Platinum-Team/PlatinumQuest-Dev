@@ -373,6 +373,9 @@ $HudLayout::PreviewHeight = 180;
 $HudLayout::PreviewOffsetX = 30;
 $HudLayout::PreviewOffsetY = 40;
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::onWake(%this) {
 	// Hide the options dialog behind us so it doesn't peek through the
 	// semi-transparent panels.
@@ -382,11 +385,17 @@ function HudLayoutDlg::onWake(%this) {
 	%this.refreshModeState();
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::onSleep(%this) {
 	if (isObject(OptionsGui))
 		OptionsGui.setVisible(true);
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::updatePreview(%this) {
 	%mode = $pref::HudLayoutMode;
 	if (%mode $= "")
@@ -440,6 +449,9 @@ function HudLayoutDlg::updatePreview(%this) {
 	}
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::buildGUI(%this) {
 	HudLayoutContent.clear();
 
@@ -696,6 +708,9 @@ function HudLayoutDlg::buildGUI(%this) {
 	}
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::refreshModeState(%this) {
 	%mode = $pref::HudLayoutMode;
 	if (%mode $= "")
@@ -705,11 +720,17 @@ function HudLayoutDlg::refreshModeState(%this) {
 }
 
 // Pushes the current layout to the live HUD if the player is in a level.
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::applyToPlayGui(%this) {
 	if (isObject(PlayGui) && RootGui.getContent() == PlayGui.getId())
 		PlayGui.applyUISettings();
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::refreshEnabledState(%this) {
 	%mode = $pref::HudLayoutMode;
 	if (%mode $= "")
@@ -738,6 +759,9 @@ function HudLayoutDlg::refreshEnabledState(%this) {
 
 // Writes the given values into a row's controls. UpdatingUI guards against the
 // slider altCommand firing while we set values programmatically.
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::setRowValues(%this, %name, %anchor, %offsetX, %offsetY) {
 	$HudLayout::UpdatingUI = true;
 
@@ -761,6 +785,9 @@ function HudLayoutDlg::setRowValues(%this, %name, %anchor, %offsetX, %offsetY) {
 	$HudLayout::UpdatingUI = false;
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::loadRowFromPreset(%this, %name, %preset) {
 	%this.setRowValues(%name,
 		HudLayout::getPresetValue(%preset, %name, "Anchor", 4),
@@ -790,6 +817,9 @@ function HudLayoutDlg::modeIncrease() {
 	HudLayoutDlg.refreshModeState();
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::refreshRow(%this, %name) {
 	%this.setRowValues(%name,
 		HudLayout::getPref(%name, "Anchor", 4),
@@ -797,6 +827,9 @@ function HudLayoutDlg::refreshRow(%this, %name) {
 		HudLayout::getPref(%name, "OffsetY", 0));
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::shiftAnchor(%this, %name, %delta) {
 	%mode = $pref::HudLayoutMode;
 	if (%mode !$= "2")
@@ -819,6 +852,9 @@ function HudLayoutDlg::shiftAnchor(%this, %name, %delta) {
 	%this.applyToPlayGui();
 }
 
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::sliderChanged(%this, %name, %axis) {
 	%mode = $pref::HudLayoutMode;
 	if (%mode !$= "2" || $HudLayout::UpdatingUI)
@@ -838,6 +874,9 @@ function HudLayoutDlg::sliderChanged(%this, %name, %axis) {
 }
 
 // Copies the Default preset into the saved (Custom) prefs.
+/**
+ * @param {HudLayoutDlg} %this
+ */
 function HudLayoutDlg::resetDefaults(%this) {
 	for (%i = 0; %i < $HudLayout::ElementCount; %i++) {
 		%name = $HudLayout::ElementName[%i];

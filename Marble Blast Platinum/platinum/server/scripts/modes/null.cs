@@ -24,6 +24,9 @@
 
 //All modes are a subclass of Mode. Every mode will have a ScriptObject
 // created for it which will have onLoad called when a user loads the mode.
+/**
+ * @param {Mode} %this
+ */
 function Mode_null::onLoad(%this) {
 	//Register the mode for all of the callbacks which it will need to use.
 	// The null mode registers for all callbacks, and has documentation on
@@ -100,6 +103,9 @@ function Mode_null::onLoad(%this) {
 
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onCreateGhost(%this, %object) {
 	//Description:
 	// Called from GameConnection::createGhost when a player's ghost is
@@ -107,6 +113,9 @@ function Mode_null::onCreateGhost(%this, %object) {
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getCheckpointPos(%this, %object) {
 	//Description:
 	// Called from respawnPlayer to get where the player will respawn.
@@ -118,42 +127,63 @@ function Mode_null::getCheckpointPos(%this, %object) {
 	//Returns
 	// Matrix TAB rot TAB pitch
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onMissionLoaded(%this, %object) {
 	//Description:
 	// Called from onMissionLoaded.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onMissionEnded(%this, %object) {
 	//Description:
 	// Called from onMissionEnded.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onMissionReset(%this, %object) {
 	//Description:
 	// Called from onMissionReset.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onStartGame(%this, %object) {
 	//Description:
 	// Called from startGame.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onEndGameSetup(%this, %object) {
 	//Description:
 	// Called from endGameSetup.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onEndGame(%this, %object) {
 	//Description:
 	// Called from endGame.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onGameState(%this, %object) {
 	//Description:
 	// Called when a client has their game state set (setGameState)
@@ -161,24 +191,36 @@ function Mode_null::onGameState(%this, %object) {
 	// client - GameConnection
 	// state - string
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onClientEnterGame(%this, %object) {
 	//Description:
 	// Called when a client enters the game. (onClientEnterGame)
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onClientLeaveGame(%this, %object) {
 	//Description:
 	// Called when a client leaves the game. (onClientLeaveGame)
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onResetStats(%this, %object) {
 	//Description:
 	// Called when a client's stats are reset (resetStats)
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldTotalGemCount(%this, %object) {
 	//Description:
 	// Called in onEnterPad to see if the game should total all players
@@ -189,6 +231,9 @@ function Mode_null::shouldTotalGemCount(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onEnterPad(%this, %object) {
 	//Description:
 	// Called when a client enters a pad. (onEnterPad) If it returns true the
@@ -200,18 +245,28 @@ function Mode_null::onEnterPad(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onLeavePad(%this, %object) {
 	//Description:
 	// Called when a client leaves a pad. (onLeavePad)
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onOutOfBounds(%this, %object) {
 	//Description:
 	// Called when a client goes Out of Bounds.
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::onFoundGem(%this, %object) {
 	//Description:
 	// Called when a client finds a gem. This method should display any
@@ -244,6 +299,10 @@ function Mode_null::onFoundGem(%this, %object) {
 		%object.client.playPitchedSound("gotDiamond");
 	}
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::getGemCount(%this, %object) {
 	//Description:
 	// Called to get how many gems a client has. Note this is how many they appear
@@ -265,6 +324,9 @@ function Mode_null::getGemCount(%this, %object) {
 	}
 	return %gemCount;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onSpawnPlayer(%this, %object) {
 	//Description:
 	// Called when a client's player is spawned initially. (spawnPlayer)
@@ -272,18 +334,27 @@ function Mode_null::onSpawnPlayer(%this, %object) {
 	// client - GameConnection
 	// spawnPoint - Matrix TAB yaw TAB pitch
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onRestartLevel(%this, %object) {
 	//Description:
 	// Called when the level is restarted. (restartLevel)
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onQuickRespawnPlayer(%this, %object) {
 	//Description:
 	// Called when a client quick respawns. (quickRespawnPlayer)
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldRestartOnOOB(%this, %object) {
 	//Description:
 	// Called to determine if the game should be reset when a client is
@@ -295,6 +366,9 @@ function Mode_null::shouldRestartOnOOB(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldResetTime(%this, %object) {
 	//Description:
 	// Called to determine if a client's time should be reset when respawning
@@ -305,6 +379,9 @@ function Mode_null::shouldResetTime(%this, %object) {
 	// true/false
 	return $Server::ServerType $= "SinglePlayer";
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onRespawnPlayer(%this, %object) {
 	//Description:
 	// Called when a client respawns. (respawnPlayer)
@@ -312,6 +389,9 @@ function Mode_null::onRespawnPlayer(%this, %object) {
 	// client - GameConnection
 	// spawnPoint - Matrix TAB rot TAB pitch
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onCreatePlayer(%this, %object) {
 	//Description:
 	// Called when a client's player is created. (createPlayer)
@@ -319,6 +399,9 @@ function Mode_null::onCreatePlayer(%this, %object) {
 	// client - GameConnection
 	// spawnPoint - Matrix TAB rot TAB pitch
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldPickupGem(%this, %object) {
 	//Description:
 	// Called to determine if a client should pick up a gem.
@@ -331,6 +414,9 @@ function Mode_null::shouldPickupGem(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldIgnoreGem(%this, %object) {
 	//Description:
 	// Called to determine if a client should ignore a gem after picking it
@@ -345,6 +431,9 @@ function Mode_null::shouldIgnoreGem(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldStoreGem(%this, %object) {
 	//Description:
 	// Called to determine if a client should store pickup information
@@ -358,6 +447,9 @@ function Mode_null::shouldStoreGem(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldResetGem(%this, %object) {
 	//Description:
 	// Called to determine if a gem should be respawned in onMissionReset.
@@ -368,6 +460,9 @@ function Mode_null::shouldResetGem(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldDisablePoweup(%this, %object) {
 	//Description:
 	// Called to determine if a PowerUp should be disabled for a client.
@@ -381,6 +476,9 @@ function Mode_null::shouldDisablePoweup(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldPickupPowerup(%this, %object) {
 	//Description:
 	// Called to determine if a player should pick up a PowerUp. Unlike the
@@ -395,18 +493,27 @@ function Mode_null::shouldPickupPowerup(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onPlayerJoin(%this, %object) {
 	//Description:
 	// Called when a client joins the server. (finishConnect)
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onPlayerLeave(%this, %object) {
 	//Description:
 	// Called when a client leaves the server (onDrop)
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onCollision(%this, %object) {
 	//Description:
 	// Called when two marbles collide.
@@ -414,6 +521,9 @@ function Mode_null::onCollision(%this, %object) {
 	// client1 - GameConnection
 	// client2 - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::updateWinner(%this, %object) {
 	//Description:
 	// Called to determine the order of winners when a game is finished.
@@ -423,6 +533,9 @@ function Mode_null::updateWinner(%this, %object) {
 	//Note:
 	// Add clients to the array; mutate it and don't return anything
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onUpdateGhost(%this, %object) {
 	//Description:
 	// Called when a client's ghost is updated. This could be when they
@@ -431,6 +544,9 @@ function Mode_null::onUpdateGhost(%this, %object) {
 	//Parameters:
 	// client - GameConnection
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getStartTime(%this, %object) {
 	//Description:
 	// Called to determine the initial time for a level, could be duration
@@ -441,6 +557,9 @@ function Mode_null::getStartTime(%this, %object) {
 	// integer
 	return 0;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldResetPath(%this, %object) {
 	//Description:
 	// Called to determine if an Item / PathedInterior should reset itself
@@ -453,6 +572,9 @@ function Mode_null::shouldResetPath(%this, %object) {
 	// Always reset in SP, only on restart for MP
 	return $MP::Restarting || $Server::ServerType $= "SinglePlayer";
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldPickupItem(%this, %object) {
 	//Description:
 	// Called to determine if a client should pick up an item.
@@ -465,6 +587,9 @@ function Mode_null::shouldPickupItem(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldAllowTTs(%this, %object) {
 	//Description:
 	// Called to determine if the game mode allows Time Travels. If false
@@ -475,12 +600,18 @@ function Mode_null::shouldAllowTTs(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onHuntGemSpawn(%this, %object) {
 	//Description:
 	// Called when a set of gems is spawned using the hunt code.
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onBlast(%this, %object) {
 	//Description:
 	// Called when a client blasts, with a strength of how much the blast will
@@ -490,6 +621,9 @@ function Mode_null::onBlast(%this, %object) {
 	// other - GameConnection
 	// strength - float
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onServerChat(%this, %object) {
 	//Description:
 	// Called when a client sends a chat message. If true is returned, the
@@ -501,6 +635,9 @@ function Mode_null::onServerChat(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldSetSpectate(%this, %object) {
 	//Description:
 	// Called when a client tries to spectate. This will determine if they can
@@ -511,6 +648,9 @@ function Mode_null::shouldSetSpectate(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onTimeExpire(%this, %object) {
 	//Description:
 	// Called when the timer reaches 00:00.000 ingame. If true is returned,
@@ -523,6 +663,9 @@ function Mode_null::onTimeExpire(%this, %object) {
 	//If the current mode is not a countdown mode, then don't do anything.
 	return (Mode::callback("timeMultiplier", 1) <= 0);
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::timeMultiplier(%this, %object) {
 	//Description:
 	// Called to determine which direction the timer should run (forwards
@@ -535,6 +678,9 @@ function Mode_null::timeMultiplier(%this, %object) {
 	//Default behavior is forwards at 1x
 	return 1;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldUseUltraMarble(%this, %object) {
 	//Description:
 	// Called to determine if a player's marble should use an MBU-sized marble
@@ -545,6 +691,10 @@ function Mode_null::shouldUseUltraMarble(%this, %object) {
 	// true/false
 	return !!MissionInfo.useUltraMarble;
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::getMarbleSize(%this, %object) {
 	//Description:
 	// Called to determine the radius of a player for normal levels
@@ -561,6 +711,10 @@ function Mode_null::getMarbleSize(%this, %object) {
 	else
 		return %object.client.player.getDataBlock().scale;
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::getUltraMarbleSize(%this, %object) {
 	//Description:
 	// Called to determine the radius of a player for MBU levels
@@ -572,6 +726,10 @@ function Mode_null::getUltraMarbleSize(%this, %object) {
 
 	return %object.client.player.getDataBlock().ultraScale;
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::getMegaMarbleSize(%this, %object) {
 	//Description:
 	// Called to determine the radius of a player for mega marbles
@@ -583,6 +741,9 @@ function Mode_null::getMegaMarbleSize(%this, %object) {
 
 	return %object.client.player.getDataBlock().megaScale;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getQuickRespawnTimeout(%this, %object) {
 	//Description:
 	// Called to determine how long a player's quick respawn should be locked.
@@ -593,6 +754,9 @@ function Mode_null::getQuickRespawnTimeout(%this, %object) {
 
 	return $MP::QuickSpawnTimeout;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getMaxSpectators(%this) {
 	//Description:
 	// Called to determine the maximum number of people who can spectate on
@@ -604,6 +768,9 @@ function Mode_null::getMaxSpectators(%this) {
 
 	return getRealPlayerCount() - 1;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getPregameUserRow(%this, %object) {
 	//Description:
 	// Gets the row that should be displayed on the pre-game screen for a player.
@@ -615,6 +782,9 @@ function Mode_null::getPregameUserRow(%this, %object) {
 	//Blank string just uses the server default
 	return "";
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldUseClientPowerups(%this) {
 	//Description:
 	// Called to determine if the mode should use client-sided powerups.
@@ -624,6 +794,9 @@ function Mode_null::shouldUseClientPowerups(%this) {
 	// true/false
 	return $MP::FastPowerups;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldSendScores(%this) {
 	//Description:
 	// Called to determine if the game should calculate multiplayer scores.
@@ -633,6 +806,10 @@ function Mode_null::shouldSendScores(%this) {
 	// true/false
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::modifyPlayerScoreData(%this, %object) {
 	//Description:
 	// Called when sending scores; allows modes to modify the data sent to
@@ -645,6 +822,10 @@ function Mode_null::modifyPlayerScoreData(%this, %object) {
 
 	return %object.data;
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::modifyScoreData(%this, %object) {
 	//Description:
 	// Called when sending scores; allows modes to modify the data sent to
@@ -656,6 +837,9 @@ function Mode_null::modifyScoreData(%this, %object) {
 
 	return %object.data;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onFrameAdvance(%this, %delta) {
 	//Description:
 	// Called on every tick of the timer. Note that delta is not an object
@@ -663,6 +847,9 @@ function Mode_null::onFrameAdvance(%this, %delta) {
 	//Parameters:
 	// delta - float
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::shouldRestorePowerup(%this, %object) {
 	//Description:
 	// Called when respawning to determine if we should save the user's powerup
@@ -672,6 +859,10 @@ function Mode_null::shouldRestorePowerup(%this, %object) {
 
 	return false;
 }
+/**
+ * @param {Mode_null} %this
+ * @param {Type} %object
+ */
 function Mode_null::canFinish(%this, %object) {
 	//Description:
 	// Called to determine if a player is allowed to finish the level.
@@ -682,6 +873,9 @@ function Mode_null::canFinish(%this, %object) {
 
 	return !($Game::GemCount && %object.client.getGemCount() < $Game::GemCount);
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getFinishMessage(%this, %object) {
 	//Description:
 	// Called to get the message for why you cannot finish.
@@ -692,6 +886,9 @@ function Mode_null::getFinishMessage(%this, %object) {
 
 	return "";
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onBeforeMissionLoad(%this) {
 	//Description:
 	// Called right before the mission is executed, so modes can reset stuff
@@ -699,6 +896,9 @@ function Mode_null::onBeforeMissionLoad(%this) {
 	//Parameters:
 	// none
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onActivateCheckpoint(%this, %object) {
 	//Description:
 	// Called to get the message for why you cannot finish.
@@ -706,6 +906,9 @@ function Mode_null::onActivateCheckpoint(%this, %object) {
 	// client - GameConnection
 	// obj - SceneObject
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getScoreType(%this) {
 	//Description:
 	// Called to determine if a final score is a time or a score
@@ -716,6 +919,9 @@ function Mode_null::getScoreType(%this) {
 
 	return $ScoreType::Time;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::getFinalScore(%this, %object) {
 	//Description:
 	// Called to determine if a final score is a time or a score
@@ -726,6 +932,9 @@ function Mode_null::getFinalScore(%this, %object) {
 
 	return $ScoreType::Time TAB $Time::CurrentTime;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onPreServerVariableSet(%this, %object) {
 	//Description:
 	// Called to determine if a server variable update should be allowed
@@ -738,6 +947,9 @@ function Mode_null::onPreServerVariableSet(%this, %object) {
 
 	return true;
 }
+/**
+ * @param {Mode_null} %this
+ */
 function Mode_null::onPostServerVariableSet(%this, %object) {
 	//Description:
 	// Called after a server variable update has happened

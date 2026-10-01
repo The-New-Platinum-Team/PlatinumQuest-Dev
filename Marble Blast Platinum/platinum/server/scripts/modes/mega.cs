@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_mega::onLoad(%this) {
 	%this.registerCallback("onCollision");
 	%this.registerCallback("getStartTime");
@@ -36,6 +39,10 @@ function Mode_mega::onLoad(%this) {
 	%this.registerCallback("getFinalScore");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_mega} %this
+ * @param {Type} %object
+ */
 function Mode_mega::onCollision(%this, %object) {
 	if ($MP::Teammode &&
 	        isObject(%object.client1.team) && isObject(%object.client2.team) &&
@@ -51,27 +58,52 @@ function Mode_mega::onCollision(%this, %object) {
 		%object.client2.gemsFound[1] ++;
 	}
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::getStartTime(%this) {
 	return (MissionInfo.time ? MissionInfo.time : 300000);
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::shouldResetGem(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::shouldRespawnGems(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::shouldRestorePowerup(%this, %object) {
 	return true;
 }
+/**
+ * @param {Mode_mega} %this
+ * @param {Array} %winners
+ */
 function Mode_mega::updateWinner(%this, %winners) {
 	//The player with the most points wins
 	%winner = ClientGroup.getObject(0);
@@ -94,9 +126,16 @@ function Mode_mega::updateWinner(%this, %winners) {
 			%winners.addEntry(%client);
 	}
 }
+/**
+ * @param {Mode_mega} %this
+ */
 function Mode_mega::getScoreType(%this) {
 	return $ScoreType::Score;
 }
+/**
+ * @param {Mode_mega} %this
+ * @param {Type} %object
+ */
 function Mode_mega::getFinalScore(%this, %object) {
 	return $ScoreType::Score TAB %object.client.getGemCount();
 }

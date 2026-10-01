@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("onActivate");
 	%this.registerCallback("shouldStoreGem");
@@ -45,6 +48,9 @@ function Mode_hunt::onLoad(%this) {
 	%this.registerCallback("shouldPlayRespawnSound");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::onActivate(%this) {
 	// Hack: this will allow hunt mode to start out with a group
 	// instead of all of them appearing. This is only used for
@@ -53,6 +59,9 @@ function Mode_hunt::onActivate(%this) {
 		$Server::SpawnGroups = true;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function huntStoreGem(%client, %huntExtraValue, %color) {
 	if (!%client.disableGems[%huntExtraValue + 1]) {
 		%client.gemCount += %huntExtraValue;
@@ -64,6 +73,10 @@ function huntStoreGem(%client, %huntExtraValue, %color) {
 	%client.displayGemMessage((%huntExtraValue+1 >= 0? "+":"") @ (%huntExtraValue + 1), %color);
 }
 
+/**
+ * @param {Mode_hunt} %this
+ * @param {Type} %object
+ */
 function Mode_hunt::shouldStoreGem(%this, %object) {
 	huntStoreGem(%object.user.client, %object.obj._huntDatablock.huntExtraValue, %object.obj._huntDatablock.messageColor);
 
@@ -77,6 +90,9 @@ function Mode_hunt::shouldStoreGem(%this, %object) {
 	return false;
 }
 
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::startCompetitiveAutorespawn(%this) {
 	cancel($Hunt_CompetitiveAutorespawn);
 	%this.respawnTimer = $Hunt::Competitive_AutorespawnTime;
@@ -89,6 +105,10 @@ function Mode_hunt::startCompetitiveAutorespawn(%this) {
 	}
 }
 
+/**
+ * @param {Mode_hunt} %this
+ * @param {Type} %object
+ */
 function Mode_hunt::shouldPickupPowerUp(%this, %object, %user) {
 	if (mp() && !$Game::isMode["coop"]) {
 		if ($MPPref::Server::PingStealFix > 0 && !%object.obj._isBackup) {
@@ -108,6 +128,10 @@ function Mode_hunt::shouldPickupPowerUp(%this, %object, %user) {
 	}
 }
 
+/**
+ * @param {Mode_hunt} %this
+ * @param {Type} %object
+ */
 function Mode_hunt::shouldDisablePowerup(%this, %object, %user) {
 	if (mp() && !$Game::isMode["coop"]) {
 		if (!%object.obj._finder[%object.user]) {
@@ -120,6 +144,9 @@ function Mode_hunt::shouldDisablePowerup(%this, %object, %user) {
 	}
 }
 
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::onMissionReset(%this, %object) {
 	resetSpawnWeights();
 	hideGems();
@@ -153,47 +180,93 @@ function Mode_hunt::onMissionReset(%this, %object) {
 		}
 	}
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::onHuntGemSpawn(%this) {
 	if (isCompetitiveMode() && !$Hunt::Competitive_TimerWaitsForFirstGem) {
 		%this.startCompetitiveAutorespawn();
 	}
 }
+/**
+ * @param {Mode_hunt} %this
+ * @param {Type} %object
+ */
 function Mode_hunt::onRespawnPlayer(%this, %object) {
 	%object.client.pointToNearestGem();
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::getStartTime(%this) {
 	return (MissionInfo.time ? MissionInfo.time : 300000);
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::shouldResetGem(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::shouldRespawnGems(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::shouldRestorePowerup(%this, %object) {
 	return true;
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::getScoreType(%this) {
 	return $ScoreType::Score;
 }
+/**
+ * @param {Mode_hunt} %this
+ * @param {Type} %object
+ */
 function Mode_hunt::getFinalScore(%this, %object) {
 	return $ScoreType::Score TAB %object.client.getGemCount();
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {Mode_hunt} %this
+ * @param {Type} %object
+ */
 function Mode_hunt::onFoundGem(%this, %object) {
 	%object.client.playPitchedSound("gotDiamond" @ (%object.gem._huntDatablock.huntExtraValue + 1));
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::shouldTotalGemCount(%this) {
 	return false;
 }
+/**
+ * @param {Mode_hunt} %this
+ * @param {Array} %winners
+ */
 function Mode_hunt::updateWinner(%this, %winners) {
 	//In Hunt mode, the player with the most gems wins
 	%winner = ClientGroup.getObject(0);
@@ -216,6 +289,9 @@ function Mode_hunt::updateWinner(%this, %winners) {
 			%winners.addEntry(%client);
 	}
 }
+/**
+ * @param {Mode_hunt} %this
+ */
 function Mode_hunt::shouldPlayRespawnSound(%this) {
 	// Hunt mode should not play respawn sound when player respawns from OOB
 	return false;

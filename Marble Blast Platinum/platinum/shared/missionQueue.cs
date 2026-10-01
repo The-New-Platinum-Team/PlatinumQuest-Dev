@@ -28,6 +28,9 @@
 
 /// Get the name of the queue
 /// @return Queue display name
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::getQueueName(%this) {
 	error("MissionQueue::getQueueName unimplemented");
 	return "Unnamed";
@@ -35,6 +38,9 @@ function MissionQueue::getQueueName(%this) {
 
 /// Get the total number of missions in the queue
 /// @return Total number of missions
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::getMissionCount(%this) {
 	error("MissionQueue::getMissionCount unimplemented");
 	return 0;
@@ -42,6 +48,9 @@ function MissionQueue::getMissionCount(%this) {
 
 /// Get a MissionInfo ScriptObject for the mission in the queue at the given index
 /// @return Mission info
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::getMissionInfo(%this, %index) {
 	error("MissionQueue::getMissionInfo unimplemented");
 	return 0;
@@ -49,11 +58,17 @@ function MissionQueue::getMissionInfo(%this, %index) {
 
 /// Determine if upcoming missions are hidden to the player
 /// @return True if missions should be hidden
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::isUpcomingHidden(%this) {
 	return false;
 }
 
 /// Callback for when you start playing the Queue
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::onPlay(%this) {
 	// You probably want to put this at the start of your override:
 	// MissionQueue::onPlay(%this);
@@ -67,6 +82,9 @@ function MissionQueue::onPlay(%this) {
 
 /// Callback for when you finish playing the last level in the Queue
 /// @param completed If the player completed every level (ie did not exit early)
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::onEnd(%this, %completed) {
 	// You probably want to put this at the start of your override:
 	// MissionQueue::onEnd(%this, %completed);
@@ -76,6 +94,9 @@ function MissionQueue::onEnd(%this, %completed) {
 
 /// Callback for when you start playing a level in the Queue
 /// @param index Index of level to start playing
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::onPlayMission(%this, %index) {
 	// You probably want to put this at the start of your override:
 	// MissionQueue::onPlayMission(%this, %index);
@@ -86,6 +107,9 @@ function MissionQueue::onPlayMission(%this, %index) {
 /// Callback for when you finish playing a level in the Queue
 /// @param index Index of level finished
 /// @param completed If the player completed the level (ie did not exit)
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::onEndMission(%this, %index, %completed) {
 	// You probably want to put this at the start of your override:
 	// MissionQueue::onEndMission(%this, %index, %completed);
@@ -123,10 +147,16 @@ function MissionQueue::onEndMission(%this, %index, %completed) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::getMissionFile(%this, %index) {
 	return %this.getMissionInfo(%index).file;
 }
 
+/**
+ * @param {MissionQueue} %this
+ */
 function MissionQueue::export(%this, %path) {
 	// Load all levels
 	%j = new ScriptObject(MissionQueueExport) {
@@ -196,6 +226,9 @@ function MissionQueue::export(%this, %path) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @returns {ImportedMissionQueue}
+ */
 function MissionQueue::import(%path) {
 	if (!isFile(%path))
 		return;
@@ -226,24 +259,40 @@ function MissionQueue::import(%path) {
 	return %q;
 }
 
+/**
+ * @param {ImportedMissionQueue} %this
+ */
 function ImportedMissionQueue::getQueueName(%this) {
 	return %this.data.name;
 }
 
+/**
+ * @param {ImportedMissionQueue} %this
+ */
 function ImportedMissionQueue::getMissionCount(%this) {
 	return %this.data.missionCount;
 }
 
+/**
+ * @param {ImportedMissionQueue} %this
+ */
 function ImportedMissionQueue::getMissionInfo(%this, %index) {
 	return getMissionInfo(%this.data.missionFile.getEntry(%index));
 }
 
+/**
+ * @param {ImportedMissionQueue} %this
+ */
 function ImportedMissionQueue::isUpcomingHidden(%this) {
 	return %this.data.upcomingHidden;
 }
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Missionist} %ml
+ * @returns {ScriptObject}
+ */
 function createDifficultyMissionQueue(%ml, %game, %difficulty) {
 	%queue = new ScriptObject(DifficultyQueue) {
 		class = "DifficultyMissionQueue";
@@ -266,18 +315,30 @@ function createDifficultyMissionQueue(%ml, %game, %difficulty) {
 	return %queue;
 }
 
+/**
+ * @param {DifficultyMissionQueue} %this
+ */
 function DifficultyMissionQueue::getQueueName(%this) {
 	return %this.ml.getGameName(%this.game) @ " - " @ %this.ml.getDifficultyName(%this.game, %this.difficulty);
 }
 
+/**
+ * @param {DifficultyMissionQueue} %this
+ */
 function DifficultyMissionQueue::getMissionCount(%this) {
 	return %this.missions.getSize();
 }
 
+/**
+ * @param {DifficultyMissionQueue} %this
+ */
 function DifficultyMissionQueue::getMissionInfo(%this, %index) {
 	return %this.missions.getEntry(%index);
 }
 
+/**
+ * @param {DifficultyMissionQueue} %this
+ */
 function DifficultyMissionQueue::isUpcomingHidden(%this) {
 	return false;
 }

@@ -26,6 +26,10 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {StaticShape} %cannon
+ * @param {StaticShape} %base
+ */
 function cannonAdded(%cannon, %base) {
 	devecho("[Cannon Client]: Found cannon" SPC %cannon.getSyncId() @ ", base" SPC %base);
 	$Client::Cannon[%cannon._id] = %cannon;
@@ -35,7 +39,9 @@ function cannonAdded(%cannon, %base) {
 function clientCmdResetCannons(%count) {
 	//Cannons start at index 1
 	for (%i = 1; %i <= %count; %i ++) {
+		/** @type {StaticShape} */
 		%cannon = $Client::Cannon[%i];
+		/** @type {StaticShape} */
 		%base   = getClientSyncObject(%cannon._base);
 
 		%yaw   = mDegToRad(%cannon.yaw);
@@ -66,6 +72,7 @@ function clientCmdResetCannons(%count) {
 function checkCannons() {
 	%count = $Client::Cannons;
 	for (%id = 1; %id <= %count; %id ++) {
+		/** @type {StaticShape} */
 		%cannon = $Client::Cannon[%id];
 		if (!isObject(%cannon)) {
 			//Try to find the cannon
@@ -490,6 +497,7 @@ function updateCannonView(%delta) {
 
 function updateCannonUI(%delta) {
 	//Check if we have an active cannon
+	/** @type {StaticShape} */
 	%cannon = $Client::ColCannon;
 	if (isObject(%cannon)) {
 		//Get its color for the interface
@@ -560,6 +568,9 @@ function updateCannonUI(%delta) {
 	}
 }
 
+/**
+ * @param {ShowTSCtrl} %ctrl
+ */
 function updateCannonAim(%ctrl) {
 	%cannon = $Client::ColCannon;
 	if (!%cannon.showAim) {

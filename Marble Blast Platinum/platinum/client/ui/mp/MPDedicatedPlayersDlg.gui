@@ -154,21 +154,33 @@ new GuiBitmapCtrl(MPDedicatedPlayersDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPDedicatedPlayersDlg} %this
+ */
 function MPDedicatedPlayersDlg::show(%this) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {MPDedicatedPlayersDlg} %this
+ */
 function MPDedicatedPlayersDlg::close(%this) {
 	RootGui.popDialog(%this);
 	PlayMissionGui.showBody();
 }
 
+/**
+ * @param {MPDedicatedPlayersDlg} %this
+ */
 function MPDedicatedPlayersDlg::onWake(%this) {
 	MPDedicatedPlayersTitle.setText("<bold:28><just:center>Player List");
 	%this.updatePlayerList();
 	%this.updateButtons();
 }
 
+/**
+ * @param {MPDedicatedPlayersDlg} %this
+ */
 function MPDedicatedPlayersDlg::updatePlayerList(%this) {
 	%selected = MPDedicatedPlayersOnlineList.getRowTextById(MPDedicatedPlayersOnlineList.getSelectedId());
 	%name = getField(%selected, 1);
@@ -197,11 +209,17 @@ function MPDedicatedPlayersDlg::updatePlayerList(%this) {
 	}
 }
 
+/**
+ * @param {MPDedicatedPlayersDlg} %this
+ */
 function MPDedicatedPlayersDlg::updateButtons(%this) {
 	MPDedicatedPlayersKick.setActive(MPDedicatedPlayersOnlineList.rowCount() && (MPDedicatedPlayersOnlineList.getSelectedId() != -1));
 	MPDedicatedPlayersHost.setActive(MPDedicatedPlayersOnlineList.rowCount() && (MPDedicatedPlayersOnlineList.getSelectedId() != -1));
 }
 
+/**
+ * @param {MPDedicatedPlayersDlg} %this
+ */
 function MPDedicatedPlayersDlg::kick(%this) {
 	%selected = MPDedicatedPlayersOnlineList.getRowTextById(MPDedicatedPlayersOnlineList.getSelectedId());
 	%name = getField(%selected, 1);
@@ -209,6 +227,9 @@ function MPDedicatedPlayersDlg::kick(%this) {
 	commandToServer('KickUser', %name);
 }
 
+/**
+ * @param {MPDedicatedPlayersDlg} %this
+ */
 function MPDedicatedPlayersDlg::makeHost(%this) {
 	%selected = MPDedicatedPlayersOnlineList.getRowTextById(MPDedicatedPlayersOnlineList.getSelectedId());
 	%name = getField(%selected, 1);

@@ -135,11 +135,18 @@ new GuiControl(QueueResultsDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {QueueResultsDlg} %this
+ * @param {MissionQueue} %queue
+ */
 function QueueResultsDlg::open(%this, %queue) {
 	%this.queue = %queue;
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {QueueResultsDlg} %this
+ */
 function QueueResultsDlg::onWake(%this) {
 	%qtitle = "<shadow:1:1><shadowcolor:000000bf><just:center>";
 	%qtitle = %qtitle @ shrinkToFit("Results: " @ %this.queue.getQueueName(), $DefaultFont["Bold"], 28, 24, getWord(ExitGameInfo.getExtent(), 0));

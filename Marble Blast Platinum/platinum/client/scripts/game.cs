@@ -140,6 +140,9 @@ function updateGameDiscordStatus() {
 	}
 }
 
+/**
+ * @param {ScriptObject} %info
+ */
 function getBestTimes(%info) {
 	%file = (%info.file $= "" ? $Client::MissionFile : %info.file);
 
@@ -913,6 +916,9 @@ function reformatGameEndText() {
 
 	ClientMode::callback("updateEndGame");
 }
+/**
+ * @param {SimGroup} %group
+ */
 function anyRespawningTTs(%group) {
 	%count = %group.getCount();
 	for (%i = 0; %i < %count; %i++) {
@@ -928,6 +934,9 @@ function anyRespawningTTs(%group) {
 	}
 	return false;
 }
+/**
+ * @param {SimGroup} %group
+ */
 function countTTs(%group) {
 	// stolen from countgems function in server/game.cs
 	%tts = 0;
@@ -942,6 +951,9 @@ function countTTs(%group) {
 	}
 	return %tts;
 }
+/**
+ * @param {SimGroup} %group
+ */
 function countInvisibleTTs(%group) {
 	%tts = 0;
 	%count = %group.getCount();
@@ -1092,6 +1104,9 @@ function formatTimeDays(%time) {
 	       %secondsTen @ %secondsOne;
 }
 
+/**
+ * @param {ActionMap} %this
+ */
 function ActionMap::isPushed(%this) {
 	if (!isObject(%this))
 		return false;

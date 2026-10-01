@@ -21,11 +21,17 @@
 //-----------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+/**
+ * @param LoadingGui Type
+ */
 function LoadingGui::onAdd(%this) {
 	%this.qLineCount = 0;
 }
 
 //------------------------------------------------------------------------------
+/**
+ * @param LoadingGui Type
+ */
 function LoadingGui::onWake(%this) {
 	$Game::Loading = true;
 	if (isObject($Menu::Queue)) {
@@ -248,6 +254,9 @@ function LoadingGui::onWake(%this) {
 	LoadingProgressBar.setVisible(false);
 }
 
+/**
+ * @param LoadingGui LoadingGui
+ */
 function LoadingGui::setProgress(%this, %message, %amount, %total, %repaint) {
 	if (%this.isAwake()) {
 		LoadingProgressBar.setVisible(true);
@@ -260,11 +269,17 @@ function LoadingGui::setProgress(%this, %message, %amount, %total, %repaint) {
 }
 
 //------------------------------------------------------------------------------
+/**
+ * @param {LoadingGui} %this
+ */
 function LoadingGui::onSleep(%this) {
 	$Game::Loading = false;
 }
 
 // if we click cancel in LoadingGui
+/**
+ * @param {LoadingGui} %this
+ */
 function LoadingGui::cancel(%this) {
 	if ($Server::ServerType $= "SinglePlayer") {
 		exitGame();
@@ -531,6 +546,9 @@ $Loading::Tip[2, $Loading::Tips[2] ++] = "Trivia: Several of PlatinumQuest's mul
 
 $Loading::TipsChance[2] = 0.17;
 
+/**
+ * @param {LoadingGui} %this
+ */
 function LoadingGui::getTip(%this) {
 	//Hacky: Because joystick users should know
 	if (isJoystickDetected() && !$pref::JoyTip) {
@@ -555,6 +573,9 @@ function LoadingGui::getTip(%this) {
 	return $Loading::Tip[%cat, %tip];
 }
 
+/**
+ * @param {LoadingGui} %this
+ */
 function LoadingGui::updateRtaSpeedrunTimer(%this, %text) {
 	LG_RtaSpeedrunTimer.setText("<condensed:48><color:FFFFFF><shadow:2:2><shadowcolor:777777>" @ %text);
 }

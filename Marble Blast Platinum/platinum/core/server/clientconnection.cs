@@ -33,6 +33,9 @@
 // anything else will be sent back as an error to the client.
 // All the connect args are passed also to onConnectRequest
 //
+/**
+ * @param {GameConnection} %client
+ */
 function GameConnection::onConnectRequest(%client, %netAddress, %name, %password, %marble, %bologna) {
 	if (%client.getAddress() $= "local")
 		%password = $MP::ServerPassword = $MPPref::ServerPassword;
@@ -46,6 +49,9 @@ function GameConnection::onConnectRequest(%client, %netAddress, %name, %password
 //-----------------------------------------------------------------------------
 // This script function is the first called on a client accept
 //
+/**
+ * @param {GameConnection} %client
+ */
 function GameConnection::onConnect(%client, %name, %password, %marble, %bologna) {
 	if ($Server::ServerType $= "MultiPlayer" && %client.getAddress() !$= "local") {
 		echo("Connect request from: " @ %netAddress);
@@ -125,6 +131,9 @@ function GameConnection::onConnect(%client, %name, %password, %marble, %bologna)
 		%client.finishConnect();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function GameConnection::finishConnect(%client) {
 	// I don't even
 	if (%this.verified) {
@@ -278,6 +287,9 @@ function GameConnection::finishConnect(%client) {
 // now we use the one passed from the client.
 // %realName = getField(%authInfo, 0);
 //
+/**
+ * @param {Type} %client
+ */
 function GameConnection::setPlayerName(%client, %name) {
 	%client.sendGuid = 0;
 
@@ -329,12 +341,18 @@ function isReturningName(%name) {
 	return false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getUsername(%this) {
 	if (%this._name !$= "")
 		return %this._name;
 	return %this.nameBase;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getDisplayName(%this) {
 	if (%this.displayName $= "") {
 		return %this.getUsername();
@@ -345,6 +363,9 @@ function GameConnection::getDisplayName(%this) {
 //-----------------------------------------------------------------------------
 // This function is called when a client drops for any reason
 //
+/**
+ * @param {GameConnection} %client
+ */
 function GameConnection::onDrop(%client, %reason) {
 	if (%client.pinging)
 		return;
@@ -428,18 +449,30 @@ function getRealClientCount() {
 	return getRealPlayerCount() + HoldGroup.getCount();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function isRealClient(%client) {
 	return (!%client.fake && isObject(%client) && %client.getClassName() $= "GameConnection");
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isReal(%this) {
 	return isRealClient(%this);
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::isReal(%this) {
 	return false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setHost(%this, %host) {
 	%this.isHost = %host;
 	commandToClient(%this, 'HostStatus', %host);
@@ -449,51 +482,84 @@ function GameConnection::setHost(%this, %host) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isHost(%this) {
 	return %this.isHost;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isAdmin(%this) {
 	return %this.isAdmin || %this.isSuperAdmin;
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::isAdmin(%this) {
 	return false;
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::isAIControlled(%this) {
 	return true; //Makes a lot of things shut up
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::getPing(%this) {
 	return 9999; //Well they won't get your messages anyway...
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::isGuest(%this) {
 	//Redirect
 	return GameConnection::isGuest(%this);
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::isHost(%this) {
 	//Nope!
 	return false;
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::setHost(%this) {
 	//Nope!
 	return;
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::getNameTag(%this) {
 	//Redirect
 	return GameConnection::getNameTag(%this);
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::getUsername(%this) {
 	//Redirect
 	return GameConnection::getUsername(%this);
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::getDisplayName(%this) {
 	//Redirect
 	return GameConnection::getDisplayName(%this);
@@ -511,12 +577,18 @@ function GameConnection::find(%name) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::startMission(%this) {
 	// Inform the client the mission starting
 	commandToClient(%this, 'MissionStart', $missionSequence);
 }
 
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::endMission(%this) {
 	%ret = $LB::LoggedIn || $Server::Dedicated;
 	if (%ret && $platform $= "windows") {
@@ -528,6 +600,9 @@ function GameConnection::endMission(%this) {
 
 //--------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::backup(%this) {
 	if (!$MPPref::BackupClients)
 		return;
@@ -579,6 +654,9 @@ function addFakeClient(%name) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::restore(%this, %name) {
 	echo("Attempting to restore" SPC %name);
 	%count = FakeClientGroup.getCount();
@@ -616,6 +694,9 @@ function GameConnection::restore(%this, %name) {
 	return false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendSettings(%this) {
 	%this.sendSettingsList();
 	messageClient(%this,
@@ -633,18 +714,30 @@ function pruneFakeClients() {
 	FakeClientGroup.clear();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isFake(%this) {
 	return false;
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::isFake(%this) {
 	return true;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isReal(%this) {
 	return true;
 }
 
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::isReal(%this) {
 	return false;
 }

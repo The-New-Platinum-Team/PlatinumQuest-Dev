@@ -143,6 +143,10 @@ function updateItemCollision() {
 		buildItemList();
 }
 
+/**
+ * @param {Item} %this
+ * @param {Marble} %marble
+ */
 function Item::onClientCollision(%this, %marble) {
 	if (!ClientMode::callback("shouldPickupItem", 
 		isClientSidedItem(%this), 
@@ -205,10 +209,16 @@ function Item::onClientCollision(%this, %marble) {
 	}
 }
 
+/**
+ * @param {Item} %this
+ */
 function Item::_getPowerUpId(%this) {
 	return %this.getDatablock()._getPowerUpId();
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function ItemData::_getPowerUpId(%this) {
 	switch$ (%this.getName()) {
 	case "SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU":
@@ -234,6 +244,9 @@ function ItemData::_getPowerUpId(%this) {
 	}
 }
 
+/**
+ * @param {Item} %item
+ */
 function isClientSidedItem(%item) {
 	switch$ (%item.getDataBlock().getName()) {
 	case
@@ -278,6 +291,9 @@ if (!isObject(ClientRespawnSet)) {
 	RootGroup.add(new SimSet(ClientRespawnSet));
 }
 
+/**
+ * @param {Item} %this
+ */
 function Item::_respawn(%this) {
 	ClientRespawnSet.add(%this);
 
@@ -292,6 +308,9 @@ function Item::_respawn(%this) {
 	%this.respSch = %this.schedule($Item::RespawnTime, "_respawnEnd");
 }
 
+/**
+ * @param {Item} %this
+ */
 function Item::_respawnEnd(%this) {
 	ClientRespawnSet.remove(%this);
 	cancel(%this.respSch);
@@ -301,6 +320,9 @@ function Item::_respawnEnd(%this) {
 	%this.startFade(1000, 0, false);
 }
 
+/**
+ * @param {Item} %this
+ */
 function Item::_respawnCancel(%this) {
 	ClientRespawnSet.remove(%this);
 	cancel(%this.respSch);
@@ -330,6 +352,9 @@ function clientCmdHuntGemSpawn(%count) {
 	deleteVariables("$Client::FoundSpawnSync*");
 }
 
+/**
+ * @param {SceneObject} %obj
+ */
 function gemSpawnSync(%obj) {
 	if ($Client::FoundSpawnSync[%obj.getSyncId()]) {
 		return;

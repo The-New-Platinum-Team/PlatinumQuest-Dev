@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_quota::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onFoundGem");
@@ -30,10 +33,18 @@ function Mode_quota::onLoad(%this) {
 	%this.registerCallback("canFinish");
 	%this.registerCallback("getFinishMessage");
 }
+/**
+ * @param {Mode_quota} %this
+ * @param {Type} %object
+ */
 function Mode_quota::canFinish(%this, %object) {
 	%quota = MissionInfo.GemQuota;
 	return !($Game::GemCount && %object.client.getGemCount() < %quota);
 }
+/**
+ * @param {Mode_quota} %this
+ * @param {Type} %object
+ */
 function Mode_quota::getFinishMessage(%this, %object) {
 	%gemCount = %object.client.getGemCount();
 
@@ -46,6 +57,10 @@ function Mode_quota::getFinishMessage(%this, %object) {
 		return "Congratulations! You\'ve finished!";
 	}
 }
+/**
+ * @param {Mode_quota} %this
+ * @param {Type} %object
+ */
 function Mode_quota::onFoundGem(%this, %object) {
 	%quota = MissionInfo.GemQuota;
 	%gemCount = %object.client.getGemCount();
@@ -83,9 +98,16 @@ function Mode_quota::onFoundGem(%this, %object) {
 	}
 	messageClient(%object.client, %msgType, %msg, %remaining);
 }
+/**
+ * @param {Mode_quota} %this
+ */
 function Mode_quota::onMissionReset(%this) {
 	commandToAll('SetGemQuota', $Game::GemCount, MissionInfo.GemQuota);
 }
+/**
+ * @param {Mode_quota} %this
+ * @param {Type} %object
+ */
 function Mode_quota::onGameState(%this, %object) {
 	commandToClient(%object.client, 'SetGemQuota', $Game::GemCount, MissionInfo.GemQuota);
 }

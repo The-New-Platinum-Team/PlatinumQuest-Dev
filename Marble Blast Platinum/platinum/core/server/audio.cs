@@ -58,5 +58,11 @@ function clientCmdAlxPlay(%sound) {
 }
 
 // No more console errors
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::play2D(%this) {}
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::play3D(%this) {}

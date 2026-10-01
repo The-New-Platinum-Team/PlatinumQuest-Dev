@@ -37,10 +37,16 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_elimination) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_elimination::onLoad(%this) {
 	%this.registerCallback("onEndGameSetup");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_elimination} %this
+ */
 function ClientMode_elimination::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }

@@ -251,6 +251,10 @@ function emibutton(%revert) {
 	}
 }
 
+/**
+ * @param {Type} %modeA
+ * @param {Type} %modeB
+ */
 function ModeSort(%modeA, %modeB) {
 	if (%modeA.complete != %modeB.complete) {
 		return %modeA.complete > %modeB.complete;
@@ -295,6 +299,9 @@ function EMI_replaceGameModes(%newMode, %on) {
 	%modes.delete();
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function editMissionInfo(%gui) {
 	%modes = Array(EMI_ModesArray);
 	%gm = "";
@@ -430,6 +437,9 @@ function editMissionInfo(%gui) {
 	EWorldEditor.isDirty = true;
 }
 
+/**
+ * @param {GuiControl} %control
+ */
 function miAssign(%field, %control, %cond) {
 	if (!isObject(%control) || (%cond !$= "" && !%cond)) {
 		MissionInfo.setFieldValue(%field, "");

@@ -70,6 +70,10 @@ datablock StaticShapeData(PushButton) {
 	customField[2, "default"] = "0";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Button::onAdd(%this, %obj) {
 	if (%obj.skin !$= "")
 		%obj.setSkinName(%obj.skin);
@@ -84,6 +88,9 @@ function Button::onAdd(%this, %obj) {
 		%obj.triggerOnce = "0";
 }
 
+/**
+ * @param {Button} %this
+ */
 function Button::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {
 	if (!Parent::onCollision(%this,%obj,%col,%vec, %vecLen, %material))
 		return;
@@ -94,6 +101,10 @@ function Button::onCollision(%this,%obj,%col,%vec, %vecLen, %material) {
 	%this.triggerCallback(%obj, %col);
 }
 
+/**
+ * @param {Button} %this
+ * @param {StaticShape} %obj
+ */
 function Button::_presave(%this, %obj) {
 	Parent::_presave(%this, %obj);
 	for (%i = 0; %i < 11; %i ++) {
@@ -103,6 +114,10 @@ function Button::_presave(%this, %obj) {
 			%obj.objectMethod[%i] = "";
 	}
 }
+/**
+ * @param {Button} %this
+ * @param {StaticShape} %obj
+ */
 function Button::_postSave(%this, %obj) {
 	Parent::_postSave(%this, %obj);
 	for (%i = 0; %i < 11; %i ++) {
@@ -113,6 +128,10 @@ function Button::_postSave(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Button::triggerCallback(%this, %obj, %col) {
 	//------------------
 	// GG's code
@@ -203,6 +222,10 @@ function insertParameter(%method, %param) {
 	return %final;
 }
 
+/**
+ * @param {Button} %this
+ * @param {StaticShape} %obj
+ */
 function Button::onMissionReset(%this, %obj) {
 	if (!isObject(%obj))
 		return;
@@ -212,6 +235,10 @@ function Button::onMissionReset(%this, %obj) {
 	}
 }
 
+/**
+ * @param {Button} %this
+ * @param {StaticShape} %obj
+ */
 function Button::activate(%this,%obj,%state) {
 	if (%state && !%obj._activated) {
 		%obj.playThread(0,"push");
@@ -269,6 +296,10 @@ datablock StaticShapeData(ToggleButton) {
 	customField[2, "default"] = "1";
 };
 
+/**
+ * @param {ToggleButton} %this
+ * @param {StaticShape} %obj
+ */
 function ToggleButton::onAdd(%this, %obj) {
 	if (%obj.skin !$= "")
 		%obj.setSkinName(%obj.skin);
@@ -282,6 +313,10 @@ function ToggleButton::onAdd(%this, %obj) {
 	%this.activate(%obj, %obj.initialState);
 }
 
+/**
+ * @param %thisToggleButton
+ * @param {StaticShape} %obj
+ */
 function ToggleButton::onCollision(%this, %obj, %col, %vec, %vecLen, %material) {
 	if (!GameBaseData::onCollision(%this, %obj, %col, %vec, %vecLen, %material))
 		return;
@@ -289,6 +324,10 @@ function ToggleButton::onCollision(%this, %obj, %col, %vec, %vecLen, %material) 
 	%this.activate(%obj, !%obj._activated);
 }
 
+/**
+ * @param {ToggleButton} %this
+ * @param {StaticShape} %obj
+ */
 function ToggleButton::activate(%this, %obj, %state) {
 	//Don't press it many times
 	if (%obj._disabled)
@@ -316,6 +355,10 @@ function ToggleButton::activate(%this, %obj, %state) {
 	%this.onNextFrame("scanGroup", %obj, %group);
 }
 
+/**
+ * @param {ToggleButton} %this
+ * @param {StaticShape} %obj
+ */
 function ToggleButton::scanGroup(%this, %obj, %group) {
 	//Pay no attention to the massive hack iterating from "" to n
 	for (%state = ""; %obj.correctState[%state] !$= ""; %state ++) {
@@ -324,8 +367,13 @@ function ToggleButton::scanGroup(%this, %obj, %group) {
 	}
 }
 
+/**
+ * @param {ToggleButton} %this
+ * @param {SimSet} %group
+ */
 function ToggleButton::scanGroupState(%this, %group, %state) {
 	for (%i = 0; %i < %group.getCount(); %i ++) {
+		/** @type {StaticShape} */
 		%obj = %group.getObject(%i);
 		//Check other buttons in this group to see if anyone is wrong
 		if (%obj.getClassName() $= "StaticShape" && %obj.getDatablock() == %this) {
@@ -345,6 +393,10 @@ function ToggleButton::scanGroupState(%this, %group, %state) {
 	return true;
 }
 
+/**
+ * @param {ToggleButton} %this
+ * @param {Type} %group
+ */
 function ToggleButton::activateGroup(%this, %group, %activated, %state) {
 	if (isObject(%group.targetPathedInterior[%state])) {
 		//Time and instantness are based on if you're correct
@@ -369,6 +421,10 @@ function ToggleButton::activateGroup(%this, %group, %activated, %state) {
 	}
 }
 
+/**
+ * @param {ToggleButton} %this
+ * @param {StaticShape} %obj
+ */
 function ToggleButton::onMissionReset(%this, %obj) {
 	//Don't activate when we're resetting the mission.
 	%obj._resetting = true;
@@ -377,6 +433,9 @@ function ToggleButton::onMissionReset(%this, %obj) {
 	%obj._resetting = "";
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButton::triggerCallback(%this, %obj) {
 	// N/A
 }
@@ -385,27 +444,51 @@ datablock StaticShapeData(ToggleButtonFlat_PQ : ToggleButton) {
 	shapeFile = "~/data/shapes_pq/Gameplay/pads/PushButtonFlatHalf.dts";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::onAdd(%this, %obj) {
 	ToggleButton::onAdd(%this, %obj);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::onCollision(%this, %obj, %col, %vec, %vecLen, %material) {
 	ToggleButton::onCollision(%this, %obj, %col, %vec, %vecLen, %material);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::activate(%this, %obj, %state) {
 	ToggleButton::activate(%this, %obj, %state);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::scanGroup(%this, %obj, %group) {
 	ToggleButton::scanGroup(%this, %obj, %group);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::scanGroupState(%this, %group, %state) {
 	return ToggleButton::scanGroupState(%this, %group, %state);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::activateGroup(%this, %group, %activated, %state) {
 	ToggleButton::activateGroup(%this, %group, %activated, %state);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::onMissionReset(%this, %obj) {
 	ToggleButton::onMissionReset(%this, %obj);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function ToggleButtonFlat_PQ::triggerCallback(%this, %obj) {
 	ToggleButton::triggerCallback(%this, %obj);
 }

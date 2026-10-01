@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_coop::onLoad(%this) {
 	%this.registerCallback("shouldPickupPowerUp");
 	%this.registerCallback("shouldDisablePowerup");
@@ -36,20 +39,37 @@ function Mode_coop::onLoad(%this) {
 	%this.registerCallback("getPregameUserRow");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_coop} %this
+ * @param {Type} %object
+ */
 function Mode_coop::shouldDisablePowerup(%this, %object) {
 	//Stuff that is handled by the client
 	return %object.this.coopClient;
 }
+/**
+ * @param {Mode_coop} %this
+ * @param {Type} %object
+ */
 function Mode_coop::shouldPickupPowerup(%this, %object) {
 	//Stuff that is handled by the client
 	return !%object.this.coopClient;
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::shouldUseClientPowerups(%this) {
 	return true;
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::shouldTotalGemCount(%this) {
 	return true;
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::getGemCount(%this, %object) {
 	//Get the total gemcount and tell everyone
 	%gemCount = 0;
@@ -59,23 +79,42 @@ function Mode_coop::getGemCount(%this, %object) {
 
 	return %gemCount;
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::shouldResetTime(%this, %object) {
 	return %this.shouldRestartOnOOB(%object);
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::getQuickRespawnTimeout(%this, %object) {
 	//Allow them to respawn instantly
 	return 0;
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::getMaxSpectators(%this) {
 	//Need at least two players
 	return getRealPlayerCount() - 2;
 }
+/**
+ * @param {Mode_coop} %this
+ */
 function Mode_coop::shouldDisableBlastShockwave(%this) {
 	return true;
 }
+/**
+ * @param {Mode_coop} %this
+ * @param {Type} %object
+ */
 function Mode_coop::getPregameUserRow(%this, %object) {
 	%name = %object.client.getDisplayName();
 

@@ -91,6 +91,10 @@ datablock StaticShapeData(TrapDoor_PQ : TrapDoor) {
 // 	shapeFile = "~/data/shapes_mbu/hazards/trapdoor.dts";
 // };
 
+/**
+ * @param {TrapDoorClass} %this
+ * @param {ShapeBase} %obj
+ */
 function TrapDoorClass::onAdd(%this, %obj) {
 	%obj._open = false;
 	%obj._timeout = 200;
@@ -122,6 +126,11 @@ function TrapDoorClass::onAdd(%this, %obj) {
 		%obj.mbuanim = "0";
 }
 
+/**
+ * @param {TrapDoorClass} %this
+ * @param {StaticShape} %obj
+ * @param {Marble} %col
+ */
 function TrapDoorClass::onCollision(%this,%obj,%col) {
 	if (!Parent::onCollision(%this,%obj,%col))
 		return;
@@ -137,6 +146,11 @@ function TrapDoorClass::onCollision(%this,%obj,%col) {
 	}
 }
 
+/**
+ * @param {TrapdoorClass} %this
+ * @param {StaticShape} %obj
+ * @param {Marble} %col
+ */
 function TrapdoorClass::open(%this, %obj) {
 	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
 		%obj.playAudio(0,TrapDoorOpenMbgSfx);
@@ -147,6 +161,10 @@ function TrapdoorClass::open(%this, %obj) {
 	%obj._open = true;
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function TrapDoor_MBU::open(%this, %obj) {
 	%obj.setThreadDir(0,true);
 
@@ -162,6 +180,10 @@ function TrapDoor_MBU::open(%this, %obj) {
 	%obj._open = true;
 }
 
+/**
+ * @param {TrapdoorClass} %this
+ * @param {StaticShape} %obj
+ */
 function TrapdoorClass::close(%this, %obj) {
 	if ((%obj.skin $= "skin1") && (%obj.dataBlock $= "Trapdoor"))
 		%obj.playAudio(0,TrapDoorOpenMbgSfx);
@@ -171,6 +193,10 @@ function TrapdoorClass::close(%this, %obj) {
 	%obj._open = false;
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function TrapDoor_MBU::close(%this, %obj) {
 	%obj.setThreadDir(0,false);
 
@@ -267,6 +293,10 @@ datablock StaticShapeData(NomeshDuctFan_PQ : DuctFan) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Hazards/ductfannomesh.dts";
 };
 
+/**
+ * @param {Fan} %this
+ * @param {StaticShape} %obj
+ */
 function Fan::onAdd(%this,%obj) {
 	if (%this.powerOn) {
 		%obj.playAudio(0, DuctFanSfx);
@@ -275,6 +305,10 @@ function Fan::onAdd(%this,%obj) {
 	%obj.setPoweredState(%this.powerOn);
 }
 
+/**
+ * @param {Fan} %this
+ * @param {StaticShape} %obj
+ */
 function Fan::onTrigger(%this,%obj,%mesg) {
 	if (%mesg) {
 		%obj.playAudio(0, DuctFanSfx);
@@ -286,6 +320,10 @@ function Fan::onTrigger(%this,%obj,%mesg) {
 	%obj.setPoweredState(%mesg);
 }
 
+/**
+ * @param {Fan} %this
+ * @param {StaticShape} %obj
+ */
 function Fan::onMissionReset(%this, %obj) {
 	if (!$Game::Menu && %obj.getPoweredState()) {
 		%obj.stopAudio(0);
@@ -293,6 +331,10 @@ function Fan::onMissionReset(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Ductfan_MBM::onAdd(%this,%obj) {
 	if ($pref::spchanges && %obj.isTemperable $= "1")
 		%obj.setDataBlock("Ductfan_MBU");
@@ -331,12 +373,20 @@ datablock StaticShapeData(Tornado) {
 	forceRadius[2] = 3;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Tornado::onAdd(%this,%obj) {
 	%obj.playThread(0,"ambient");
 	%obj.playAudio(0,TornadoSfx);
 	%obj.setPoweredState(true);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Tornado::onMissionReset(%this, %obj) {
 	if (!$Game::Menu) {
 		%obj.stopAudio(0);
@@ -374,6 +424,10 @@ datablock StaticShapeData(OilSlick) {
 	skin[1] = "ice";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function OilSlick::onAdd(%this,%obj) {
 	if (%obj.skin $= "")
 		%obj.skin = "base";
@@ -582,6 +636,10 @@ datablock StaticShapeData(LandMine_MBM : LandMine) {
 	skin = "base";
 };
 
+/**
+ * @param {LandMineClass} %this
+ * @param {ShapeBase} %obj
+ */
 function LandMineClass::onAdd(%this, %obj) {
 	if (%obj.resetTime $= "")
 		%obj.resetTime = "Default";
@@ -593,6 +651,10 @@ function LandMineClass::onAdd(%this, %obj) {
 	%obj.playThread(0, "anim0");
 }
 
+/**
+ * @param {LandMineClass} %this
+ * @param {ShapeBase} %obj
+ */
 function LandMineClass::onCollision(%this, %obj, %col) {
 	if (!Parent::onCollision(%this, %obj, %col))
 		return;
@@ -634,6 +696,10 @@ datablock StaticShapeData(Magnet) {
 };
 
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Magnet::onAdd(%this,%obj) {
 	if (%this.powerOn) {
 		%obj.playAudio(0, MagnetSfx);
@@ -642,6 +708,10 @@ function Magnet::onAdd(%this,%obj) {
 	%obj.setPoweredState(%this.powerOn);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Magnet::onTrigger(%this,%obj,%mesg) {
 	if (%mesg) {
 		%obj.playAudio(0, MagnetSfx);
@@ -653,6 +723,10 @@ function Magnet::onTrigger(%this,%obj,%mesg) {
 	%obj.setPoweredState(%mesg);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Magnet::onMissionReset(%this, %obj) {
 	if (!$Game::Menu && %obj.getPoweredState()) {
 		%obj.stopAudio(0);
@@ -851,6 +925,10 @@ datablock StaticShapeData(Nuke_PQ : Nuke) {
 };
 
 
+/**
+ * @param {NukeClass} %this
+ * @param {ShapeBase} %obj
+ */
 function NukeClass::onAdd(%this, %obj) {
 	if (%obj.resetTime $= "")
 		%obj.resetTime = "15000";
@@ -862,6 +940,10 @@ function NukeClass::onAdd(%this, %obj) {
 	%obj.playThread(0, "anim0");
 }
 
+/**
+ * @param {NukeClass} %this
+ * @param {ShapeBase} %obj
+ */
 function NukeClass::onCollision(%this, %obj, %col) {
 	if (!Parent::onCollision(%this, %obj, %col))
 		return;
@@ -1002,6 +1084,9 @@ datablock ParticleEmitterData(SpeckEmitter) {
 };
 
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function Tornado_PQ::onAdd(%this, %obj) {
 	Tornado::onAdd(%this, %obj);
 
@@ -1009,14 +1094,23 @@ function Tornado_PQ::onAdd(%this, %obj) {
 	%this.schedule(1000, "initFX", %obj);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function Tornado_MBM::onAdd(%this, %obj) {
 	Tornado::onAdd(%this, %obj);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function Tornado_PQ::onMissionReset(%this, %obj) {
 	Tornado::onMissionReset(%this, %obj);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function Tornado_MBM::onMissionReset(%this, %obj) {
 	Tornado::onMissionReset(%this, %obj);
 }
@@ -1202,6 +1296,10 @@ datablock StaticShapeData(PropSmallReverse5 : Propeller) {
 	forceArc[0] = 0.7;
 };
 
+/**
+ * @param {PropellerClass} %this
+ * @param {StaticShape} %obj
+ */
 function PropellerClass::onAdd(%this, %obj) {
 	if (%this.powerOn) {
 		%obj.playThread(1, "Rotate");
@@ -1287,25 +1385,42 @@ datablock StaticShapeData(IceChunkData) {
 	emap = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function IceShard1::onAdd(%this, %ice) {
 	//particles init
 	%this.schedule(500, "initFX", %ice);
 
 //	Hazard::onAdd(%this, %ice);
 }
+/**
+ * @param {StaticShapeData} %this
+ */
 function IceShard2::onAdd(%this, %ice) {
 	//particles init
 	IceShard1::onAdd(%this, %ice);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {ShapeBase} %ice
+ */
 function IceShard1::onMissionReset(%this, %ice) {
 	%ice.setDamageState("Enabled");
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function IceShard2::onMissionReset(%this, %ice) {
 	IceShard1::onMissionReset(%this, %ice);
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {Marble} %marble
+ */
 function IceShard::onCollision(%this, %ice, %marble, %unused1, %unused2, %material) {
 	if (!Parent::onCollision(%this, %ice, %marble, %unused1, %unused2, %material))
 		return;
@@ -1357,6 +1472,11 @@ function IceShard::onCollision(%this, %ice, %marble, %unused1, %unused2, %materi
 	return true;
 }
 
+/**
+ * @param {IceShard} %this
+ * @param {SceneObject} %ice
+ * @param {Marble} %marble
+ */
 function IceShard::unfreeze(%this, %ice, %marble, %cancel) {
 	if (!%marble.isFrozen)
 		return;

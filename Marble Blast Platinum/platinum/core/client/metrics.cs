@@ -160,9 +160,9 @@ function metrics(%expr) {
 		%cb = "timeMetricsCallback()";
 	case "terrain":
 		%cb = "terrainMetricsCallback()";
-	case "texture":
-		GLEnableMetrics(true);
-		%cb = "textureMetricsCallback()";
+	// case "texture":
+	// 	GLEnableMetrics(true);
+	// 	%cb = "textureMetricsCallback()";
 	case "marble":
 		%cb = "marbleCallback()";
 	case "video":
@@ -179,7 +179,7 @@ function metrics(%expr) {
 		RootGui.pushDialog(FrameOverlayGui, 1000);
 		FrameOverlayGui.callback = %cb;
 	} else {
-		GLEnableMetrics(false);
+		// GLEnableMetrics(false);
 		RootGui.popDialog(FrameOverlayGui);
 	}
 }

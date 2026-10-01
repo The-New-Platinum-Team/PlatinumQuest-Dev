@@ -35,6 +35,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_quota) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_quota::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("radarShowShouldFinish");
@@ -47,9 +50,15 @@ function ClientMode_quota::onLoad(%this) {
 
 
 }
+/**
+ * @param {ClientMode_quota} %this
+ */
 function ClientMode_quota::radarShowShouldFinish(%this, %remaining) {
 	return PlayGui.gemCount >= MissionInfo.GemQuota;
 }
+/**
+ * @param {ClientMode_quota} %this
+ */
 function ClientMode_quota::shouldUpdateGems(%this) {
 	%gotQuota = (PlayGui.gemCount >= MissionInfo.GemQuota);
 	PlayGui.gemGreen = %gotQuota;
@@ -67,6 +76,9 @@ function ClientMode_quota::shouldUpdateGems(%this) {
 	}
 	return true;
 }
+/**
+ * @param {ClientMode_quota} %this
+ */
 function ClientMode_quota::showEndGame(%this) {
 	//If they got 100% mark it down
 	if (PlayGui.gemCount == $Game::GemCount) {
@@ -100,17 +112,29 @@ function undoRainbowEffectIfNeeded(%needed) {
 	}
 }
 
+/**
+ * @param {ClientMode_quota} %this
+ */
 function ClientMode_quota::onMissionReset(%this) {
 	undoRainbowEffectIfNeeded();
 }
+/**
+ * @param {ClientMode_quota} %this
+ */
 function ClientMode_quota::onRespawnOnCheckpoint(%this) {
 	undoRainbowEffectIfNeeded();
 }
+/**
+ * @param {ClientMode_quota} %this
+ */
 function ClientMode_quota::onClientLeaveGame(%this) {
 	undoRainbowEffectIfNeeded(true);
 }
 
 
+/**
+ * @param {ClientMode_quota} %this
+ */
 function ClientMode_quota::onShowPlayGui(%this) {
 	GemsQuota.setVisible(true);
 	GemsQuota.setText("<font:24><color:FFFFFF>/" @ $Game::GemCount);

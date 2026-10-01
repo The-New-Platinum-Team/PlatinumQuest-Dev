@@ -37,6 +37,7 @@ function clientCmdSyncObjectTest(%id, %finishCmd, %arg0) {
 }
 
 function clientCmdSyncObject(%fields, %name, %id, %finishCmd, %arg0) {
+	/** @type {SimObject} */
 	%obj = getClientSyncObject(%id);
 	if (%obj == -1) {
 		//Hack -- if the object has magically disappeared then we need to ask for it again
@@ -79,6 +80,9 @@ function checkSyncObjectsDone() {
 	}
 }
 
+/**
+ * @param {SimObject} %datablock
+ */
 function clientCmdDatablockField(%datablock, %field, %value) {
 	devecho("DBField: " @ %datablock SPC%field SPC %value);
 	if (isObject(%datablock)) {

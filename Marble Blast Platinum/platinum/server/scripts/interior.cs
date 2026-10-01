@@ -25,6 +25,9 @@
 
 //Seizure-level hacking
 package ConsDirection {
+	/**
+	 * @param {InteriorInstance} %this
+	 */
 	function InteriorInstance::magicButton(%this) {
 		Parent::magicButton(%this);
 		//Modify all the created items from magic button

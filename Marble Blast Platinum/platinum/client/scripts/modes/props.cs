@@ -38,6 +38,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_props) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_props::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("onEndGameSetup");
@@ -47,19 +50,37 @@ function ClientMode_props::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
+/**
+ * @param {ClientMode_props} %this
+ */
 function ClientMode_props::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {ClientMode_props} %this
+ */
 function ClientMode_props::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }
+/**
+ * @param {ClientMode_props} %this
+ */
 function ClientMode_props::shouldGhostFollow(%this) {
 	return true;
 }
+/**
+ * @param {ClientMode_props} %this
+ * @param {SceneObject} %obj
+ * @returns {SimSet}
+ */
 function ClientMode_props::shouldIgnoreItem(%this, %obj) {
 	//Ignore our own prop, because otherwise it flashes
 	return GhostFollowSet.isMember(%obj);
 }
+/**
+ * @param {ClientMode_props} %this
+ * @param {SceneObject} %obj
+ */
 function ClientMode_props::updateGhostFollow(%this, %obj) {
 	//Set the item's position to the marble's position,
 	// rotated to gravity, and dropped at the ground.

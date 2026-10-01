@@ -255,6 +255,9 @@ function getCamera() {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Camera} %this
+ */
 function Camera::setNextLerp(%this, %point, %rot, %time) {
 	// Set delta = 0 (immediate)
 	%this.lerpDelta = 0;
@@ -278,6 +281,9 @@ function Camera::setNextLerp(%this, %point, %rot, %time) {
 	}
 }
 
+/**
+ * @param {Camera} %this
+ */
 function Camera::setNextSpline(%this, %point, %next, %rot, %time) {
 	// Set delta = 0 (immediate)
 	%this.lerpDelta = 0;
@@ -312,6 +318,9 @@ function Camera::setNextSpline(%this, %point, %next, %rot, %time) {
 	%this.lerpSpline = true;
 }
 
+/**
+ * @param {Camera} %this
+ */
 function Camera::followPath(%this, %path, %spline) {
 	// %path is a TAB-separated list of "x y z r1 r2 r3 r4 t"
 	%time  = 0;
@@ -489,6 +498,9 @@ function clientCmdStopOverview() {
 // Support functions
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function clientCmdDropCameraAtPlayer(%client) {
 	if (!MPMyMarbleExists())
 		return;

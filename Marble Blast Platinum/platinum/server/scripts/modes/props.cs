@@ -31,6 +31,9 @@
 //  - Hack DTS to have collision-less hazards?
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_props::onLoad(%this) {
 	%this.registerCallback("shouldPickupItem");
 	%this.registerCallback("getStartTime");
@@ -50,41 +53,80 @@ function Mode_props::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_props} %this
+ * @param {Type} %object
+ */
 function Mode_props::shouldPickupItem(%this, %object) {
 	if (%object.obj.prop)
 		return false;
 	return true;
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::getStartTime(%this) {
 	return (MissionInfo.time ? MissionInfo.time : 300000);
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::shouldDisablePowerup(%this, %object) {
 	return !%this.shouldPickupItem(%object);
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::shouldResetGem(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::shouldRespawnGems(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::shouldDisableCheckpoint(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::shouldAllowTTs(%this) {
 	return false;
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {Mode_props} %this
+ * @param {Type} %object
+ */
 function Mode_props::onFoundGem(%this, %object) {
 	%object.client.playPitchedSound("gotDiamond");
 }
+/**
+ * @param {Mode_props} %this
+ * @param {Type} %object
+ */
 function Mode_props::onServerChat(%this, %object) {
 	if (getWord(%object.message, 0) $= "/prop") {
 		if (isObject(getWord(%object.message, 1))) {
@@ -95,6 +137,9 @@ function Mode_props::onServerChat(%this, %object) {
 		return true;
 	}
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::onTimeExpire(%this) {
 	//backtrace();
 	if ($Server::Hosting && !$MP::Restarting) {
@@ -106,14 +151,25 @@ function Mode_props::onTimeExpire(%this) {
 	}
 	return false;
 }
+/**
+ * @param {Mode_props} %this
+ * @param {Type} %object
+ */
 function Mode_props::onPlayerLeave(%this, %object) {
 	if (isObject(%object.client.prop))
 		%object.client.prop.delete();
 }
+/**
+ * @param {Mode_props} %this
+ */
 function Mode_props::onMissionReset(%this) {
 	chooseSeeker();
 	startHiding();
 }
+/**
+ * @param {Mode_props} %this
+ * @param {Type} %object
+ */
 function Mode_props::onGameState(%this, %object) {
 	if (%object.state !$= "End" && %object.state !$= "Go" && %object.state !$= "Waiting") {
 		cancel(%object.client.stateSchedule);
@@ -137,6 +193,9 @@ function Mode_props::onGameState(%this, %object) {
 
 //--------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setSeeker(%this, %seeker) {
 	%this.seeker = %seeker;
 	if (%seeker) {
@@ -150,6 +209,9 @@ function GameConnection::setSeeker(%this, %seeker) {
 
 //--------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %seeker
+ */
 function chooseSeeker(%seeker) {
 	//Fuck the RNG.
 	setRandomSeed($Sim::Time);
@@ -233,6 +295,9 @@ function startSeeking() {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::clearProp(%this) {
 	%this.prop.delete();
 	%this.cloakProp(false);
@@ -240,6 +305,10 @@ function GameConnection::clearProp(%this) {
 	cancel(%this.cloakSch);
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {SimObject} %propdb
+ */
 function GameConnection::setProp(%this, %propdb) {
 	if (isObject(%this.prop))
 		%this.prop.delete();
@@ -267,6 +336,9 @@ function GameConnection::setProp(%this, %propdb) {
 	commandToClient(%this, 'DetectProp', %this.scale, %propClass, %propdb);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::cloakProp(%this, %cloaked) {
 	//No need to re-cloak
 	if (%this.propCloaked == %cloaked)
@@ -277,6 +349,9 @@ function GameConnection::cloakProp(%this, %cloaked) {
 	%this.player.setCloaked(%cloaked);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updateProp(%this) {
 	cancel(%this.propSch);
 	//Don't bother if we don't have a prop

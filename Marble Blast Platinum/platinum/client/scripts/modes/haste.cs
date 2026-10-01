@@ -37,6 +37,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_haste) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_haste::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("onActivate");
@@ -44,15 +47,27 @@ function ClientMode_haste::onLoad(%this) {
 	%this.registerCallback("shouldShowSpeedometer");
 	%this.registerCallback("updateSpeedometer");
 }
+/**
+ * @param {ClientMode_haste} %this
+ */
 function ClientMode_haste::onActivate(%this) {
 	PGHasteMarker.setVisible(1);
 }
+/**
+ * @param {ClientMode_haste} %this
+ */
 function ClientMode_haste::onDeactivate(%this) {
 	PGHasteMarker.setVisible(0);
 }
+/**
+ * @param {ClientMode_haste} %this
+ */
 function ClientMode_haste::shouldShowSpeedometer(%this) {
 	return true;
 }
+/**
+ * @param {ClientMode_haste} %this
+ */
 function ClientMode_haste::updateSpeedometer(%this, %velocity) {
 	PGHasteMarker.setPosition(0 SPC getWord(PGSPDBackground.position, 1) + 857 - 8 * MissionInfo.SpeedToQualify);
 	if (%velocity > MissionInfo.SpeedToQualify) {

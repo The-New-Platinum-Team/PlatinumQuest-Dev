@@ -29,6 +29,9 @@ $EFPDefault["visibleTime"]   = "1500";
 $EFPDefault["level"]         = "2";
 $EFPDefault["initialState"]  = "0";
 
+/**
+ * @param {Type} %obj
+ */
 function efpbutton(%obj) {
 	$Editor::FadingPlatform = %obj;
 	$EFPFunctionality = %obj.functionality;
@@ -113,6 +116,9 @@ function efpUpdateFunc() {
 	efpUpdate();
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function editFadingPlatform(%gui) {
 	EWorldEditor.applyAllSelection("efpApply");
 
@@ -121,6 +127,9 @@ function editFadingPlatform(%gui) {
 	EWorldEditor.isDirty = true;
 }
 
+/**
+ * @param {Type} %obj
+ */
 function efpApply(%obj) {
 	%obj.functionality = $EFPFunctionality;
 	switch$ ($EFPFunctionality) {
