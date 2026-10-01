@@ -54,6 +54,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_null) {
 
 //All modes are a subclass of ClientMode. Every mode will have a ScriptObject
 // created for it which will have onLoad called when a user loads the mode.
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_null::onLoad(%this) {
 	//Register the mode for all of the callbacks which it will need to use.
 	// The null mode registers for all callbacks, and has documentation on
@@ -94,6 +97,9 @@ function ClientMode_null::onLoad(%this) {
 
 	echo("[Client Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onActivate(%this, %object) {
 	//Description:
 	// Called when the mode is activated while loading a level or looking at a
@@ -126,60 +132,90 @@ function ClientMode_null::onActivate(%this, %object) {
 		ModeInfo_null.desc = "Get to the finish as fast as possible!";
 	}
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onShowPlayGui(%this, %object) {
 	//Description:
 	// Called when the PlayGui is shown. (onWake)
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onOutOfBounds(%this, %object) {
 	//Description:
 	// Called when the client falls Out of Bounds.
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onRespawnPlayer(%this, %object) {
 	//Description:
 	// Called when the client respawns. (respawnPlayer)
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onPlayerJoin(%this, %object) {
 	//Description:
 	// Called when a client joins the server. (finishConnect)
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onPlayerLeave(%this, %object) {
 	//Description:
 	// Called when a client leaves the server (onDrop)
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onMissionLoaded(%this, %object) {
 	//Description:
 	// Called from onMissionLoaded.
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onMissionEnded(%this, %object) {
 	//Description:
 	// Called from onMissionEnded.
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onMissionReset(%this, %object) {
 	//Description:
 	// Called from onMissionReset.
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::onEndGameSetup(%this, %object) {
 	//Description:
 	// Called from endGameSetup.
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::shouldIgnoreItem(%this, %object) {
 	//Description:
 	// Called to determine if the marble should ignore client-side collision
@@ -192,6 +228,9 @@ function ClientMode_null::shouldIgnoreItem(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::shouldUpdateGems(%this, %object) {
 	//Description:
 	// Called to determine if the PlayGui's gem counter should be updated. If
@@ -203,6 +242,9 @@ function ClientMode_null::shouldUpdateGems(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::timeMultiplier(%this, %object) {
 	//Description:
 	// Called to determine the game's time multiplier. All time increments
@@ -214,12 +256,18 @@ function ClientMode_null::timeMultiplier(%this, %object) {
 	// integer
 	return 1;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::updateControls(%this, %object) {
 	//Description:
 	// Called when the PlayGui updates its controls (timer, etc).
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::nametagDistance(%this, %object) {
 	//Description:
 	// Called to determine the distance at which name tags will be hidden.
@@ -231,6 +279,9 @@ function ClientMode_null::nametagDistance(%this, %object) {
 	// integer
 	return 2000;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::nametagRaycast(%this, %object) {
 	//Description:
 	// Called to determine whether or not to use client-side raycasting
@@ -241,6 +292,9 @@ function ClientMode_null::nametagRaycast(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::shouldGhostFollow(%this, %object) {
 	//Description:
 	// Called to determine if ghost following objects should be enabled. If
@@ -251,6 +305,9 @@ function ClientMode_null::shouldGhostFollow(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::updateGhostFollow(%this, %object) {
 	//Description:
 	// Called to update an object to follow the client's ghost. If false is
@@ -262,6 +319,9 @@ function ClientMode_null::updateGhostFollow(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::radarShouldShowObject(%this, %object) {
 	//Description:
 	// Called to determine if a particular gem should appear on the radar.
@@ -272,6 +332,9 @@ function ClientMode_null::radarShouldShowObject(%this, %object) {
 	// true/false
 	return true;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::radarGetDotBitmap(%this, %object) {
 	//Description:
 	// Called to get the filepath to the image for the radar for an object.
@@ -283,6 +346,9 @@ function ClientMode_null::radarGetDotBitmap(%this, %object) {
 	// string
 	return "";
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::showEndGame(%this) {
 	//Description:
 	// Called if a mode wants to show its own end game screen. Return true
@@ -293,6 +359,9 @@ function ClientMode_null::showEndGame(%this) {
 	// true/false
 	return false;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::shouldUpdateBlast(%this) {
 	//Description:
 	// Called to determine if the blast bar should fill. This will only
@@ -302,6 +371,9 @@ function ClientMode_null::shouldUpdateBlast(%this) {
 	//Returns: true/false
 	return false;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::shouldPickupItem(%this, %object) {
 	//Description:
 	// Called to determine if an object should be picked up client-side with
@@ -313,6 +385,9 @@ function ClientMode_null::shouldPickupItem(%this, %object) {
 	// true/false
 	return false;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::shouldUseClientPowerups(%this) {
 	//Description:
 	// Called to determine if the mode should use client-sided powerups.
@@ -322,6 +397,9 @@ function ClientMode_null::shouldUseClientPowerups(%this) {
 	// true/false
 	return $MP::FastPowerups;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::shouldShowSpeedometer(%this) {
 	//Description:
 	// Called to determine if the PlayGui should show the speedometer.
@@ -331,12 +409,18 @@ function ClientMode_null::shouldShowSpeedometer(%this) {
 	// true/false
 	return false;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::updateSpeedometer(%this, %velocity) {
 	//Description:
 	// Called every frame after the speedometer is updated
 	//Parameters (not a ScriptObject):
 	// velocity - Float
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::radarShowShouldFinish(%this, %remaining) {
 	//Description:
 	// Called to determine if the radar should show the finish pad
@@ -346,6 +430,9 @@ function ClientMode_null::radarShowShouldFinish(%this, %remaining) {
 	// true/false
 	return %remaining == 0;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::getCameraFov(%this) {
 	//Description:
 	// Should return the desired camera FOV when in-game
@@ -355,6 +442,9 @@ function ClientMode_null::getCameraFov(%this) {
 	// true/false
 	return $pref::Player::defaultFov;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::getMenuCameraFov(%this) {
 	//Description:
 	// Should return the desired camera FOV when on the menu
@@ -364,6 +454,9 @@ function ClientMode_null::getMenuCameraFov(%this) {
 	// true/false
 	return 90;
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::updateEndGame(%this) {
 	//Description:
 	// Called after the end game screen has finished updating so modes can add
@@ -371,6 +464,9 @@ function ClientMode_null::updateEndGame(%this) {
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::getScoreFields(%this) {
 	//Description:
 	// Called when submitting scores to the LBs so modes can add extra parameters
@@ -381,6 +477,9 @@ function ClientMode_null::getScoreFields(%this) {
 	// string
 	return "";
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::updatePlayMission(%this, %which) {
 	//Description:
 	// Called when PlayMissionGui has finished displaying text for the level,
@@ -389,6 +488,9 @@ function ClientMode_null::updatePlayMission(%this, %which) {
 	//Parameters (not a ScriptObject):
 	// which - String
 }
+/**
+ * @param {ClientMode_null} %this
+ */
 function ClientMode_null::getEggIcon(%this, %found) {
 	//Description:
 	// Called when PlayMissionGui thinks it should display an egg for a level

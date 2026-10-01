@@ -284,6 +284,9 @@ new GuiBitmapCtrl(LBRegisterDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::onWake(%this) {
 	%this.reset();
 	%this.loadTOS();
@@ -295,6 +298,9 @@ function LBRegisterDlg::onWake(%this) {
 	LBR_Title.setText("<bold:28><just:center>Register");
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::reset(%this) {
 	$LB::Register::Name = "";
 	$LB::Register::Password = "";
@@ -307,6 +313,9 @@ function LBRegisterDlg::reset(%this) {
 	%this.positionCheck();
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::loadTOS(%this) {
 	%file = new FileObject();
 	%tosPath = expandFilename("./login/tos.txt");
@@ -331,11 +340,17 @@ function LBRegisterDlg::loadTOS(%this) {
 	%this.positionCheck();
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::positionCheck(%this) {
 	LBR_Accept.setVisible(true);
 	LBR_Accept.resize(7, getWord(LBR_Tos.extent, 1) + getWord(LBR_Tos.position, 1) - 26, 256, 27); //Bottom
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::check(%this) {
 	%this.positionCheck();
 	%errorMessageBase = "<font:18><just:center>";
@@ -411,11 +426,17 @@ function LBRegisterDlg::check(%this) {
 	}
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::cancel(%this) {
 	RootGui.popDialog(%this);
 	%this.reset();
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::create(%this) {
 	$LB::Register::Name = getSubStr($LB::Register::Name, 0, 32);
 
@@ -426,6 +447,9 @@ function LBRegisterDlg::create(%this) {
 	LBR_ErrorMessage.setText("<font:24><just:center>Creating account...");
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::onRegisterStatus(%this, %parsed) {
 	switch$ (%parsed.result) {
 	case "false":
@@ -445,6 +469,9 @@ function LBRegisterDlg::onRegisterStatus(%this, %parsed) {
 	$lbr_finish = schedule(3000, 0, lb_register_finish, (%parsed.result !$= "false"));
 }
 
+/**
+ * @param {Type} %success
+ */
 function LB_Register_Finish(%success) {
 	if (%success) {
 		RootGui.popDialog(LBRegisterDlg);
@@ -460,6 +487,9 @@ function LB_Register_Finish(%success) {
 	%this.disconnect();
 }
 
+/**
+ * @param {LBRegisterDlg} %this
+ */
 function LBRegisterDlg::onDisconnect(%this) {
 	%this.delete();
 }

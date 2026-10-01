@@ -128,6 +128,9 @@ new GuiControl(ObjectBuilderGui) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::init(%this) {
 	%this.baseOffsetX       = 9;
 	%this.baseOffsetY       = 10;
@@ -147,6 +150,9 @@ function ObjectBuilderGui::init(%this) {
 	%this.reset();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::reset(%this) {
 	%this.curXPos           = %this.baseOffsetX;
 	%this.curYPos           = %this.baseOffsetY;
@@ -171,6 +177,9 @@ function ObjectBuilderGui::reset(%this) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::createFileType(%this, %index) {
 	if (%index >= %this.numFields || %this.field[%index, name] $= "") {
 		error("ObjectBuilderGui::createFileType: invalid field");
@@ -208,6 +217,9 @@ function ObjectBuilderGui::createFileType(%this, %index) {
 	%this.curYPos += %this.defaultFieldStep;
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::getFileName(%this, %index) {
 	if (%index >= %this.numFields || %this.field[%index, name] $= "") {
 		error("ObjectBuilderGui::getFileName: invalid field");
@@ -223,12 +235,18 @@ function ObjectBuilderGui::getFileName(%this, %index) {
 	getLoadFilename(%path @ "*" @ %ext, %this @ ".gotFileName");
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::gotFileName(%this, %name) {
 	%this.controls[%this.currentControl].setValue(%name);
 }
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::createDataBlockType(%this, %index) {
 	if (%index >= %this.numFields || %this.field[%index, name] $= "") {
 		error("ObjectBuilderGui::createDataBlockType: invalid field");
@@ -284,6 +302,9 @@ function ObjectBuilderGui::createDataBlockType(%this, %index) {
 	%datablocks.delete();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::createBoolType(%this, %index) {
 	if (%index >= %this.numFields || %this.field[%index, name] $= "") {
 		error("ObjectBuilderGui::createBoolType: invalid field");
@@ -325,6 +346,9 @@ function ObjectBuilderGui::createBoolType(%this, %index) {
 	%this.curYPos += %this.defaultFieldStep;
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::createStringType(%this, %index) {
 	if (%index >= %this.numFields || %this.field[%index, name] $= "") {
 		error("ObjectBuilderGui::createStringType: invalid field");
@@ -361,6 +385,9 @@ function ObjectBuilderGui::createStringType(%this, %index) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::adjustSizes(%this) {
 	if (%this.numControls == 0)
 		%this.curYPos = 0;
@@ -371,6 +398,9 @@ function ObjectBuilderGui::adjustSizes(%this) {
 	OBCancelButton.position = "156 " @ %this.curYPos + 62;
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::process(%this) {
 	if (%this.className $= "") {
 		error("ObjectBuilderGui::process: classname is not specified");
@@ -409,6 +439,10 @@ function ObjectBuilderGui::process(%this) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ * @param {SimObject} %obj
+ */
 function ObjectBuilderGui::processNewObject(%this, %obj) {
 	if (%this.createCallback !$= "")
 		eval(%this.createCallback);
@@ -422,6 +456,9 @@ function ObjectBuilderGui::processNewObject(%this, %obj) {
 	EWorldEditor.dropSelection();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::onOK(%this) {
 	// get current values
 	for (%i = 0; %i < %this.numControls; %i++)
@@ -444,11 +481,17 @@ function ObjectBuilderGui::onOK(%this) {
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::onCancel(%this) {
 	%this.reset();
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::addField(%this, %name, %type, %text, %value) {
 	%this.field[%this.numFields, name] = %name;
 	%this.field[%this.numFields, type] = %type;
@@ -462,17 +505,26 @@ function ObjectBuilderGui::addField(%this, %name, %type, %text, %value) {
 // Environment
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildfxSunLight(%this) {
 	%this.className = "fxSunLight";
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildfxLight(%this) {
 	%this.className = "fxLight";
 	%this.addField("dataBlock", "TypeDataBlock", "fxLight Data", "fxLightData");
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildSky(%this) {
 	%this.className = "Sky";
 
@@ -493,6 +545,9 @@ function ObjectBuilderGui::buildSky(%this) {
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildSun(%this) {
 	%this.className = "Sun";
 
@@ -503,6 +558,9 @@ function ObjectBuilderGui::buildSun(%this) {
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildLightningTorque(%this) {
 	%this.className = "LightningTorque";
 
@@ -511,6 +569,9 @@ function ObjectBuilderGui::buildLightningTorque(%this) {
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildWater(%this) {
 	%this.className = "WaterBlock";
 
@@ -532,6 +593,9 @@ function ObjectBuilderGui::buildWater(%this) {
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildTerrain(%this) {
 	%this.className = "TerrainBlock";
 	%this.createCallback = "ETerrainEditor.attachTerrain();";
@@ -542,6 +606,9 @@ function ObjectBuilderGui::buildTerrain(%this) {
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildAudioEmitter(%this) {
 	%this.className = "AudioEmitter";
 	%this.addField("profile", "TypeDataBlock", "Sound Profile", "AudioProfile");
@@ -564,6 +631,9 @@ function ObjectBuilderGui::buildAudioEmitter(%this) {
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildPrecipitation(%this) {
 	%this.className = "Precipitation";
 	%this.addField("nameTag", "TypeString", "Name", "");
@@ -571,6 +641,9 @@ function ObjectBuilderGui::buildPrecipitation(%this) {
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildParticleEmitter(%this) {
 	%this.className = "ParticleEmitterNode";
 	%this.addField("dataBlock", "TypeDataBlock", "datablock", "ParticleEmitterNodeData");
@@ -582,12 +655,18 @@ function ObjectBuilderGui::buildParticleEmitter(%this) {
 // Mission
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildMissionArea(%this) {
 	%this.className = "MissionArea";
 	%this.addField("area", "TypeRect", "Bounding area", "0 0 1024 1024");
 	%this.process();
 }
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildMarker(%this) {
 	%this.className = "Marker";
 	%this.process();
@@ -600,6 +679,9 @@ function ObjectBuilderGui::buildMarker(%this) {
 //   %this.process();
 //}
 //
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildTrigger(%this) {
 	%this.className = "Trigger";
 	%this.addField("dataBlock", "TypeDataBlock", "Data Block", "TriggerData defaultTrigger");
@@ -614,6 +696,9 @@ function ObjectBuilderGui::buildTrigger(%this) {
 //   %this.process();
 //}
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildCamera(%this) {
 	%this.className = "Camera";
 
@@ -629,6 +714,9 @@ function ObjectBuilderGui::buildCamera(%this) {
 // System
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ObjectBuilderGui} %this
+ */
 function ObjectBuilderGui::buildSimGroup(%this) {
 	%this.className = "SimGroup";
 	%this.process();

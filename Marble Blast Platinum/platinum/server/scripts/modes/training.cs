@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_training::onLoad(%this) {
 	%this.registerCallback("onHuntGemSpawn");
 	%this.registerCallback("onMissionReset");
@@ -29,6 +32,9 @@ function Mode_training::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 
+/**
+ * @param {Mode_training} %this
+ */
 function Mode_training::onMissionReset(%this) {
 	//Count the total
 	%this.spawnMax = %this.getCurrentSpawnScore();
@@ -36,6 +42,9 @@ function Mode_training::onMissionReset(%this) {
 	%this.waitingNotice = false;
 }
 
+/**
+ * @param {Mode_training} %this
+ */
 function Mode_training::onHuntGemSpawn(%this) {
 	if (%this.waitingNotice) {
 		//Got half the points on the last gem in the spawn
@@ -49,6 +58,10 @@ function Mode_training::onHuntGemSpawn(%this) {
 	cancel(%this.spawnSch);
 }
 
+/**
+ * @param {Mode_training} %this
+ * @param {Type} %object
+ */
 function Mode_training::onFoundGem(%this, %object) {
 	//Count how many gems remain
 	%score = %this.getCurrentSpawnScore();
@@ -66,6 +79,9 @@ function Mode_training::onFoundGem(%this, %object) {
 	}
 }
 
+/**
+ * @param {Mode_training} %this
+ */
 function Mode_training::getCurrentSpawnScore(%this) {
 	%score = 0;
 	for (%i = 0; %i < SpawnedSet.getCount(); %i ++) {

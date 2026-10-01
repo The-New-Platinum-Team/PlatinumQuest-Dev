@@ -23,6 +23,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updateGhostDatablock(%this) {
 	%marble = %this.getMarbleChoice();
 	%db = getField(%marble, 0);
@@ -70,10 +73,16 @@ function GameConnection::updateGhostDatablock(%this) {
 	});
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isMegaMarble(%this) {
 	return (isObject(%this.player) && %this.player.megaMarble) || MissionInfo.mega;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setMegaMarble(%this, %mega) {
 	%this.player.megaMarble = %mega;
 
@@ -87,6 +96,9 @@ function GameConnection::setMegaMarble(%this, %mega) {
 	%this.updateGhostDatablock();
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdMegaMarble(%client, %mega) {
 	if ($MPPref::FastPowerups) {
 		// Oh well, just listen to them
@@ -96,6 +108,10 @@ function serverCmdMegaMarble(%client, %mega) {
 }
 
 
+/**
+ * @param {GameConnection} %this
+ * @returns {StaticShape}
+ */
 function GameConnection::createGhostHat(%this, %data, %megadata) {
 	%hat = new StaticShape() {
 		datablock = %data;

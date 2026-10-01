@@ -22,6 +22,11 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Marble} %this
+ * @param {ItemData} %data
+ * @param {Item} %obj
+ */
 function Marble::_setPowerUp(%this, %data, %reset, %obj, %fields) {
 	if (isObject(%data)) {
 		%id = %data._getPowerUpId();
@@ -50,6 +55,10 @@ function Marble::_setPowerUp(%this, %data, %reset, %obj, %fields) {
 	devecho(%this SPC "setting powerupid to" SPC %data SPC "/" SPC %id SPC "reset:" SPC %reset SPC "fields:" SPC %fields);
 }
 
+/**
+ * @param {Marble} %this
+ * @param {Item} %obj
+ */
 function Marble::_setPowerUpObj(%this, %obj, %fields) {
 	%this._powerUpObj = %obj;
 	%oldFields = %this.getDynamicFieldList();
@@ -80,6 +89,9 @@ function Marble::_setPowerUpObj(%this, %obj, %fields) {
 	}
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::_onPowerUpUsed(%this, %id) {
 	if (%id $= "") {
 		%id = %this._powerUpId;
@@ -156,12 +168,18 @@ function Marble::_onPowerUpUsed(%this, %id) {
 	PlayGui.setPowerUp("");
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::_mouseFire(%this) {
 	if (%this._powerUpId) {
 		%this._onPowerUpUsed();
 	}
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::_respawnPowerup(%this) {
 	%this._setPowerUp(0, true, 0);
 	%this._checkpointPowerup = 0;
@@ -174,6 +192,9 @@ function Marble::_respawnPowerup(%this) {
 	%this._teleporterLocationSet = false;
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::_respawnPowerupOnCheckpoint(%this) {
 	devecho("Checkpoint respawn client powerup");
 	RootGroup.add(%fakePU = new ScriptObject(FakePup));
@@ -196,6 +217,9 @@ function Marble::_respawnPowerupOnCheckpoint(%this) {
 	%this._teleporterLocationSet = false;
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::_onActivateCheckpoint(%this) {
 	%this._checkpointPowerup = %this._powerUpData;
 	%this._checkpointPowerupObj = %this._powerUpDataObj;
@@ -218,6 +242,9 @@ function Marble::_onActivateCheckpoint(%this) {
 	}
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::onJump(%this) {
 	//Client-sided
 	$Game::LastJumpTime = $Sim::Time;
@@ -229,10 +256,16 @@ function Marble::onJump(%this) {
 	}
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::onClientGhostUpdate(%this) {
 	//Nothing here but we can if we want
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::onBeforeDoPowerUp(%this, %powerUpId) {
 	if ($Client::Frozen) {
 		//Hack: Save velocity so we don't affect it
@@ -248,6 +281,9 @@ function Marble::onBeforeDoPowerUp(%this, %powerUpId) {
 	}
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::onAfterDoPowerUp(%this, %powerUpId) {
 	if ($Client::Frozen) {
 		//Hack: Save velocity so we don't affect it
@@ -259,10 +295,16 @@ function Marble::onAfterDoPowerUp(%this, %powerUpId) {
 	}
 }
 
+/**
+ * @param {Item} %item
+ */
 function clientCmdPickupClientPowerup(%item, %reset, %objId, %fields) {
 	$MP::MyMarble._setPowerUp(%item, %reset, getClientSyncObject(%objId), %fields);
 }
 
+/**
+ * @param {Item} %item
+ */
 function clientCmdResetClientPowerup(%item, %reset) {
 	$MP::MyMarble._setPowerUp(0, true, 0);
 	devecho("Reset client powerup");
@@ -274,6 +316,9 @@ function clientCmdClientPowerUp(%index, %id) {
 	}
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::getVertexShader(%this) {
 	if (mp()) {
 		%player = PlayerList.getEntryByVariable("player", %this);
@@ -285,6 +330,9 @@ function Marble::getVertexShader(%this) {
 	return (getFieldCount(%selection) > 2 ? getField(%selection, 3) : "");
 }
 
+/**
+ * @param {Marble} %this
+ */
 function Marble::getFragmentShader(%this) {
 	if (mp()) {
 		%player = PlayerList.getEntryByVariable("player", %this);
@@ -302,6 +350,9 @@ if (!isObject(MarbleDataSet)) {
 	RootGroup.add(new SimSet(MarbleDataSet));
 }
 
+/**
+ * @param {SimGroup} %group
+ */
 function findMarbleDatablocks(%group) {
 	if (%group $= "") {
 		%group = ($Server::Hosting && !$Server::_Dedicated ? DataBlockGroup : ServerConnection);

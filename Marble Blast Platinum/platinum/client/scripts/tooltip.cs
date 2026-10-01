@@ -27,6 +27,9 @@ $TooltipMaxWidth = 300;
 $TooltipMinWidth = 100;
 
 package Tooltips {
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::setTooltip(%this, %tip) {
 		%this.tooltip = %tip;
 
@@ -39,6 +42,9 @@ package Tooltips {
 		%this.setTickable(true);
 	}
 
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::onTick(%this, %delta) {
 		if (%this.tooltip !$= "" && %this.isAwake()) {
 
@@ -86,24 +92,39 @@ package Tooltips {
 		Parent::onTick(%this, %delta);
 	}
 
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::showTooltip(%this) {
 		TooltipGui.show(Canvas.getCursorPos(), %this.tooltip);
 	}
 
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::hideTooltip(%this) {
 		TooltipGui.hide();
 	}
 
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiCanvas::setContent(%this, %cnt) {
 		Parent::setContent(%this, %cnt);
 		%this.updateTooltip();
 	}
 
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiCanvas::pushDialog(%this, %cnt) {
 		Parent::pushDialog(%this, %cnt);
 		//%this.updateTooltip();
 	}
 
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::updateTooltip(%this) {
 		%count = %this.getCount();
 		for (%i = 0; %i < %count; %i ++)
@@ -187,6 +208,9 @@ if (!isObject(TooltipGui)) new GuiControl(TooltipGui) {
 	};
 };
 
+/**
+ * @param {TooltipGui} %this
+ */
 function TooltipGui::show(%this, %pos, %text) {
 	%len = textLen(%text);
 
@@ -205,6 +229,9 @@ function TooltipGui::show(%this, %pos, %text) {
 	TooltipWindow.resize(getWord(%pos, 0), %y, %width, %height);
 }
 
+/**
+ * @param {TooltipGui} %this
+ */
 function TooltipGui::update(%this, %text) {
 	%pos = TooltipWindow.position;
 	%len = textLen(%text);
@@ -223,6 +250,9 @@ function TooltipGui::update(%this, %text) {
 	TooltipWindow.resize(getWord(%pos, 0), %y, %width, %height);
 }
 
+/**
+ * @param {TooltipGui} %this
+ */
 function TooltipGui::hide(%this) {
 	RootGui.popDialog(%this);
 }

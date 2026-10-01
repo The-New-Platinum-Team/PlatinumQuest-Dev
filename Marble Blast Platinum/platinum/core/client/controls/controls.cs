@@ -46,6 +46,9 @@ function Controls::addClass(%class) {
 	$Controls[%class] = 0;
 }
 
+/**
+ * @param {GuiControl} %ctrl
+ */
 function Controls::check(%ctrl) {
 	//Check anything it could be
 	%classes = %ctrl.getParentClasses();
@@ -63,6 +66,9 @@ function Controls::check(%ctrl) {
 	}
 }
 
+/**
+ * @param {GuiControl} %this
+ */
 function GuiControl::onAdd(%this) {
 	Controls::check(%this);
 }

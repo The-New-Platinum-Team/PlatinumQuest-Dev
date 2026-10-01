@@ -37,6 +37,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_collection) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_collection::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("radarShouldShowObject");
@@ -44,22 +47,42 @@ function ClientMode_collection::onLoad(%this) {
 	%this.registerCallback("shouldGhostFollow");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_collection} %this
+ */
 function ClientMode_collection::timeMultiplier(%this) {
 	return 1;
 }
+/**
+ * @param {ClientMode_collection} %this
+ * @param {Item} %gem
+ */
 function ClientMode_collection::radarShouldShowObject(%this, %gem) {
 	return %this.getGemColor(%gem) $= $Client::CollectionColor;
 }
+/**
+ * @param {ClientMode_collection} %this
+ * @param {Item} %gem
+ */
 function ClientMode_collection::getGemColor(%this, %gem) {
 	return %gem.getSkinName();
 }
+/**
+ * @param {ClientMode_collection} %this
+ */
 function ClientMode_collection::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }
+/**
+ * @param {ClientMode_collection} %this
+ */
 function ClientMode_collection::shouldGhostFollow(%this, %object) {
 	return true;
 }
 
+/**
+ * @param {ClientMode} %color
+ */
 function clientCmdSetCollectionColor(%color) {
 	$Client::CollectionColor = %color;
 	HUD_ShowGem.setModel($usermods @ "/data/shapes/items/gem.dts", %color);
@@ -68,6 +91,8 @@ function clientCmdSetCollectionColor(%color) {
 
 function clientCmdCollectionRing(%index, %id) {
 	//Find it
+	
+	/** @type {SceneObject} */
 	%obj = getClientSyncObject(%id);
 	if (!isObject(%obj)) {
 		schedule(100, 0, clientCmdCollectionRing, %index, %id);

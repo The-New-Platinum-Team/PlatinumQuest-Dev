@@ -35,6 +35,9 @@
 // Inventory server commands
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdUse(%client,%data) {
 	%client.getControlObject().use(%data);
 }
@@ -45,6 +48,10 @@ function serverCmdUse(%client,%data) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %this
+ * @param {ShapeBaseData} %data
+ */
 function ShapeBase::use(%this,%data) {
 	// Use an object in the inventory.
 	if (%this.getInventory(%data) > 0)
@@ -52,6 +59,10 @@ function ShapeBase::use(%this,%data) {
 	return false;
 }
 
+/**
+ * @param {ShapeBase} %this
+ * @param {ShapeBaseData} %data
+ */
 function ShapeBase::throw(%this,%data,%amount) {
 	// Throw objects from inventory. The onThrow method is
 	// responsible for decrementing the inventory.
@@ -65,11 +76,16 @@ function ShapeBase::throw(%this,%data,%amount) {
 	return false;
 }
 
+/**
+ * @param {ShapeBase} %this
+ * @param {ShapeBase} %obj
+ */
 function ShapeBase::pickup(%this,%obj,%amount) {
 	// This method is called to pickup an object and add it
 	// to the inventory. The datablock onPickup method is actually
 	// responsible for doing all the work, including incrementing
 	// the inventory.
+	/** @type {ShapeBaseData} */
 	%data = %obj.getDatablock();
 
 	// Try and pickup the max if no value was specified
@@ -87,11 +103,19 @@ function ShapeBase::pickup(%this,%obj,%amount) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %this
+ * @param {SimObject} %data
+ */
 function ShapeBase::maxInventory(%this,%data) {
 	// If there is no limit defined, we assume 0
 	return %this.getDatablock().maxInv[%data.getName()];
 }
 
+/**
+ * @param {ShapeBase} %this
+ * @param {SimObject} %data
+ */
 function ShapeBase::incInventory(%this,%data,%amount) {
 	// Increment the inventory by the given amount.  The return value
 	// is the amount actually added, which may be less than the
@@ -107,6 +131,10 @@ function ShapeBase::incInventory(%this,%data,%amount) {
 	return 0;
 }
 
+/**
+ * @param {ShapeBase} %this
+ * @param {SimObject} %data
+ */
 function ShapeBase::decInventory(%this,%data,%amount) {
 	// Decrement the inventory by the given amount. The return value
 	// is the amount actually removed.
@@ -123,11 +151,19 @@ function ShapeBase::decInventory(%this,%data,%amount) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %this
+ * @param {SimObject} %data
+ */
 function ShapeBase::getInventory(%this,%data) {
 	// Return the current inventory amount
 	return %this.inv[%data.getName()];
 }
 
+/**
+ * @param {ShapeBase} %this
+ * @param {ShapeBase} %data
+ */
 function ShapeBase::setInventory(%this,%data,%value) {
 	// Set the inventory amount for this datablock and invoke
 	// inventory callbacks.  All changes to inventory go through this
@@ -155,6 +191,9 @@ function ShapeBase::setInventory(%this,%data,%value) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::clearInventory(%this) {
 	// To be filled in...
 }
@@ -162,6 +201,10 @@ function ShapeBase::clearInventory(%this) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {ShapeBase} %this
+ * @param {Item} %obj
+ */
 function ShapeBase::throwObject(%this,%obj) {
 	// Throw the given object in the direction the shape is looking.
 	// The force value is hardcoded according to the current default
@@ -203,6 +246,9 @@ function ShapeBase::throwObject(%this,%obj) {
 //-----------------------------------------------------------------------------
 // ShapeBase object callbacks invoked by the inventory system
 
+/**
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::onInventory(%this, %data, %value) {
 	// Invoked on ShapeBase objects whenever their inventory changes
 	// for the given datablock.
@@ -212,12 +258,18 @@ function ShapeBase::onInventory(%this, %data, %value) {
 //-----------------------------------------------------------------------------
 // ShapeBase datablock callback invoked by the inventory system.
 
+/**
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::onUse(%this,%user) {
 	// Invoked when the object uses this datablock, should return
 	// true if the item was used.
 	return false;
 }
 
+/**
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::onThrow(%this,%user,%amount) {
 	// Invoked when the object is thrown.  This method should
 	// construct and return the actual mission object to be
@@ -226,6 +278,9 @@ function ShapeBaseData::onThrow(%this,%user,%amount) {
 	return 0;
 }
 
+/**
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::onPickup(%this,%obj,%user,%amount) {
 	// Invoked when the user attempts to pickup this datablock object.
 	// The %amount argument is the space in the user's inventory for
@@ -235,6 +290,9 @@ function ShapeBaseData::onPickup(%this,%obj,%user,%amount) {
 	return false;
 }
 
+/**
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::onInventory(%this,%user,%value) {
 	// Invoked whenever an user's inventory total changes for
 	// this datablock.

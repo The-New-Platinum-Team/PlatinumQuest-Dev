@@ -39,6 +39,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_coop) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_coop::onLoad(%this) {
 	%this.registerCallback("shouldIgnoreItem");
 	%this.registerCallback("shouldPickupItem");
@@ -52,6 +55,10 @@ function ClientMode_coop::onLoad(%this) {
 	%this.registerCallback("shouldUpdateBlast");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_coop} %this
+ * @param {ScriptObject} %object
+ */
 function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 	%name = %object.this.getDataBlock().getName();
 	switch$ (%name) {
@@ -84,6 +91,10 @@ function ClientMode_coop::shouldIgnoreItem(%this, %object) {
 		}
 	}
 }
+/**
+ * @param {ClientMode_coop} %this
+ * @param {ScriptObject} %object
+ */
 function ClientMode_coop::shouldPickupItem(%this, %object) {
 	%name = %object.this.getDataBlock().getName();
 	switch$ (%name) {
@@ -117,22 +128,37 @@ function ClientMode_coop::shouldPickupItem(%this, %object) {
 	}
 	return false;
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::shouldUseClientPowerups(%this) {
 	return true;
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::showEndGame(%this) {
 	RootGui.pushDialog(MPCoopEndGameDlg);
 	return true;
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::closeEndGame(%this) {
 	RootGui.popDialog(MPCoopEndGameDlg);
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::onShowPlayGui(%this) {
 	//Show this by default
 	if ($pref::ShowCoopView $= "")
 		$pref::ShowCoopView = true;
 	PGCoopView.setVisible($pref::ShowCoopView);
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::onFrameAdvance(%this, %delta) {
 	%count = ServerConnection.getCount();
 	if (!isObject(ClientCoOpMarbleSimSet)) {
@@ -180,6 +206,9 @@ function ClientMode_coop::onFrameAdvance(%this, %delta) {
 		$Client::LastCoOpMarble = ClientCoOpMarbleSimSet.getObject($pref::ShowCoopView);
 	}
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::getLevelGame(%this, %level) {
 	if (strPos(%level, "coop/") != -1) {
 		if (strPos(%level, "custom") != -1)
@@ -191,6 +220,9 @@ function ClientMode_coop::getLevelGame(%this, %level) {
 	}
 	return ""; //Unsure; keep looking
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::getLevelType(%this, %level) {
 	if (strPos(%level, "coop/") != -1) {
 		if (strPos(%level, "custom") != -1)
@@ -202,6 +234,9 @@ function ClientMode_coop::getLevelType(%this, %level) {
 	}
 	return ""; //Unsure; keep looking
 }
+/**
+ * @param {ClientMode_coop} %this
+ */
 function ClientMode_coop::shouldUpdateBlast(%this) {
 	//Allow people to use blast if they're starting the level
 	return $Game::State !$= "End";
@@ -479,6 +514,9 @@ if (!$Server::Dedicated) {
 //--- OBJECT WRITE END ---
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::onWake(%this) {
 	disableChatHUD();
 	if (ControllerGui.isJoystick()) {
@@ -582,6 +620,9 @@ function MPCoopEndGameDlg::onWake(%this) {
 	MPCEndRateContainer.setVisible(0);
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::updateActive(%this) {
 	MPCEndGameRestart.setActive($Server::Hosting);
 	%this.commandNameAlt1 = (MPCEndGameRestart.isActive() ? "Restart" : "");
@@ -597,6 +638,9 @@ function coop() {
 	Canvas.pushDialog(MPCoopEndGameDlg);
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::cont(%this) {
 	//Load next
 	%pmg = PlayMissionGui;
@@ -653,6 +697,9 @@ function MPCoopEndGameDlg::cont(%this) {
 	}
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::lobby(%this) {
 	if ($Server::Hosting && !%this.force) {
 		%this.force = true;
@@ -663,10 +710,16 @@ function MPCoopEndGameDlg::lobby(%this) {
 	}
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::restart(%this) {
 	commandToServer('LobbyRestart');
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::showRate(%this) {
 	MPCEndButtonsContainer.setVisible(0);
 	MPCEndRateContainer.setVisible(1);
@@ -676,6 +729,9 @@ function MPCoopEndGameDlg::showRate(%this) {
 	}
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::populate(%this) {
 	%this.clearPlayers();
 	if ($MP::TeamMode) {
@@ -703,17 +759,28 @@ function MPCoopEndGameDlg::populate(%this) {
 	}
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::clearPlayers(%this) {
 	//Remove all players
 	MPCEndGame_Scroll.clear();
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::addPlayer(%this, %idx, %count, %name, %gems, %tts, %marble, %index) {
 	//Name of the text fields
+	/** @type {GuiControl} */
 	%boxName    = "MPCEndGame_Player" @ %idx;
+	/** @type {GuiMLTextCtrl} */
 	%nameName   = "MPCEndGame_PlayerName" @ %idx;
+	/** @type {GuiMLTextCtrl} */
 	%gemsName   = "MPCEndGame_PlayerGems" @ %idx;
+	/** @type {GuiMLTextCtrl} */
 	%ttsName    = "MPCEndGame_PlayerTTs" @ %idx;
+	/** @type {GuiObjectView} */
 	%marbleName = "MPCEndGame_PlayerMarble" @ %idx;
 
 	switch (%count) {
@@ -848,6 +915,9 @@ function MPCoopEndGameDlg::addPlayer(%this, %idx, %count, %name, %gems, %tts, %m
 	%marbleName.skin    = %skin;
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::updateRating(%this) {
 	MPCEndRateTitle.setText("<just:center><color:ffffff><font:18>Rate This Level");
 
@@ -871,6 +941,9 @@ function MPCoopEndGameDlg::updateRating(%this) {
 	}
 }
 
+/**
+ * @param {MPCoopEndGameDlg} %this
+ */
 function MPCoopEndGameDlg::rate(%this, %choice) {
 	//Rate the level:
 	// -1: Negative / Dislike

@@ -281,6 +281,9 @@ package marble {
 		Parent::trace(%on);
 	}
 
+	/**
+	 * @param {GameConnection} %client
+	 */
 	function commandToClient(%client, %cmd, %a0, %a1, %a2, %a3, %a4, %a5, %a6, %a7, %a8, %a9, %a10, %dummy) {
 		if (%dummy !$= "") {
 			error("Too many args passed into commandToClient!");
@@ -346,6 +349,9 @@ function mp() {
 	return lb() && $Server::ServerType $= "MultiPlayer";
 }
 
+/**
+ * @returns {GuiControl}
+ */
 function ml() {
 	return PlayMissionGui.marbleland;
 }

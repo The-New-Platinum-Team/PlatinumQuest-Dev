@@ -22,6 +22,10 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Type} %obj
+ * @param {Type} %node
+ */
 function Node::getNextNode(%obj, %node) {
 	if (%node == -1)
 		return %node;
@@ -59,11 +63,19 @@ function Node::getNextNode(%obj, %node) {
 	return %node;
 }
 
+/**
+ * @param {Type} %node
+ */
 function Node::isBranching(%obj, %node) {
 	return Node_isBranching(%obj, %node);
 	return getWordCount(%node.branchNodes) > 1;
 }
 
+/**
+ * @param {GameBase} %obj
+ * @param {SceneObject} %node
+ * @param {SimSet} %group
+ */
 function Node::getPrevNode(%obj, %node, %group) {
 	return Node_getPrevNode(%obj, %node, %group);
 	//Iterate over the group and try to find the a node that points to this node
@@ -90,6 +102,9 @@ function Node::getPrevNode(%obj, %node, %group) {
 	return -1;
 }
 
+/**
+ * @param {Type} %node
+ */
 function Node::getAdjustedProgress(%obj, %node, %t) {
 	return Node_getAdjustedProgress(%obj, %node, %t);
 	//Cosine smoothing, should mimic the accelerate feature of moving platforms.
@@ -101,6 +116,9 @@ function Node::getAdjustedProgress(%obj, %node, %t) {
 	return %t;
 }
 
+/**
+ * @param {Type} %node
+ */
 function Node::getBezierHandle1(%obj, %node) {
 	return Node_getBezierHandle1(%obj, %node);
 	if (isObject(%node.BezierHandle1))
@@ -113,6 +131,9 @@ function Node::getBezierHandle1(%obj, %node) {
 	return -1;
 }
 
+/**
+ * @param {Type} %node
+ */
 function Node::getBezierHandle2(%obj, %node) {
 	return Node_getBezierHandle2(%obj, %node);
 	if (isObject(%node.BezierHandle2))
@@ -125,6 +146,10 @@ function Node::getBezierHandle2(%obj, %node) {
 	return -1;
 }
 
+/**
+ * @param {SceneObject} %node
+ * @param {SceneObject} %prev
+ */
 function Node::getPointList(%obj, %node, %prev) {
 	return Node_getPointList(%obj, %node, %prev);
 	//Next node, and future next node too (needed for spline)
@@ -175,6 +200,9 @@ function Node::getPointList(%obj, %node, %prev) {
 	return %posList;
 }
 
+/**
+ * @param {Type} %node
+ */
 function Node::getPathPosition(%obj, %node, %prev, %t) {
 	return Node_getPathPosition(%obj, %node, %prev, %t);
 	//Get the interpolated position along the path from %node to %node.nextNode
@@ -183,6 +211,9 @@ function Node::getPathPosition(%obj, %node, %prev, %t) {
 	return VectorBezier(Node::getAdjustedProgress(%obj, %node, %t), Node::getPointList(%obj, %node, %prev));
 }
 
+/**
+ * @param {SceneObject} %node
+ */
 function Node::getPathTime(%obj, %node) {
 	return Node_getPathTime(%obj, %node);
 	//Speed field for moving at a constant speed over an unknown distance
@@ -196,6 +227,9 @@ function Node::getPathTime(%obj, %node) {
 	return %node.delay + %node.timeToNext;
 }
 
+/**
+ * @param {SceneObject} %node
+ */
 function Node::getPathRotation(%obj, %node, %prev, %t) {
 	return Node_getPathRotation(%obj, %node, %prev, %t);
 	//Get the interpolated rotation along the path from %node to %node.nextNode
@@ -230,6 +264,9 @@ function Node::getPathRotation(%obj, %node, %prev, %t) {
 	return %rot;
 }
 
+/**
+ * @param {ActionMap} %node
+ */
 function Node::getPathScale(%obj, %node, %prev, %t) {
 	return Node_getPathScale(%obj, %node, %prev, %t);
 	//Get the interpolated scale along the path from %node to %node.nextNode
@@ -249,6 +286,9 @@ function Node::getPathScale(%obj, %node, %prev, %t) {
 	return VectorLerp(%startScale, %endScale, Node::getAdjustedProgress(%obj, %node, %t));
 }
 
+/**
+ * @param {Type} %node
+ */
 function Node::getPathTransform(%obj, %node, %prev, %t) {
 	return Node_getPathTransform(%obj, %node, %prev, %t);
 	%pos   = (%node.usePosition ? Node::getPathPosition(%obj, %node, %prev, %t) : "");
@@ -258,6 +298,10 @@ function Node::getPathTransform(%obj, %node, %prev, %t) {
 	return %pos TAB %rot TAB %scale;
 }
 
+/**
+ * @param {SceneObject} %obj
+ * @param {Type} %node
+ */
 function Node::updatePath(%obj, %node, %prev, %position) {
 	Node_updatePath(%obj, %node, %prev, %position);
 	return;

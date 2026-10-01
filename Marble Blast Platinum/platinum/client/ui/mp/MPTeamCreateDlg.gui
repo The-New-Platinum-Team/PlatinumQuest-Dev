@@ -275,6 +275,9 @@ new GuiBitmapCtrl(MPTeamCreateDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::onWake(%this) {
 	MPTeamCreateTitle.setText("<bold:28><just:center>Create Team");
 	MPTeamCreateNameTitle.setText("<font:18>Team Name:");
@@ -287,14 +290,23 @@ function MPTeamCreateDlg::onWake(%this) {
 	%this.checkDesc();
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::open(%this) {
 	RootGui.pushDialog(%this);
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::close(%this) {
 	RootGui.popDialog(%this);
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::nextColor(%this) {
 	%color = %this.colorChoice;
 	%color ++;
@@ -317,6 +329,9 @@ function MPTeamCreateDlg::nextColor(%this) {
 	%this.updateColor();
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::prevColor(%this) {
 	%color = %this.colorChoice;
 	%color --;
@@ -339,6 +354,9 @@ function MPTeamCreateDlg::prevColor(%this) {
 	%this.updateColor();
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::updateColor(%this) {
 	%this.colorChoice = min(max(%this.colorChoice, 1), 8);
 	%color = %this.colorChoice;
@@ -346,6 +364,9 @@ function MPTeamCreateDlg::updateColor(%this) {
 	MPTeamCreateColorIcon.setBitmap($userMods @ "/client/ui/mp/team/color_" @ %color);
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::updateActive(%this) {
 	%name = MPTeamCreateNameField.getValue();
 	MPTeamCreateButton.setActive(%name !$= "");
@@ -355,6 +376,9 @@ function MPTeamCreateDlg::updateActive(%this) {
 	MPTeamCreatePrivateCheck.setActive(true);
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::checkDesc(%this) {
 	cancel(%this.checkSch);
 	if (!%this.isAwake())
@@ -371,6 +395,9 @@ function MPTeamCreateDlg::checkDesc(%this) {
 	%this.checkSch = %this.schedule(2, "checkDesc");
 }
 
+/**
+ * @param {MPTeamCreateDlg} %this
+ */
 function MPTeamCreateDlg::create(%this) {
 	%name = MPTeamCreateNameField.getValue();
 	%desc = MPTeamCreateDescField.getValue();

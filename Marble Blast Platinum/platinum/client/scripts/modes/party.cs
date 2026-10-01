@@ -33,6 +33,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_party) {
 	hide = 1;
 });
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_party::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("onDeactivate");
@@ -48,17 +51,29 @@ function ClientMode_party::onLoad(%this) {
 	registerParty("alljump");
 }
 
+/**
+ * @param {ClientMode_party} %this
+ */
 function ClientMode_party::onDeactivate(%this) {
 	deleteVariables("$Party::Client::ActiveMode*");
 }
 
+/**
+ * @param {ClientMode_party} %this
+ */
 function ClientMode_party::onMissionReset(%this) {
 	//Fucking great callback system, me
 	onNextFrame(clientPartyCheckRespawn);
 }
+/**
+ * @param {ClientMode_party} %this
+ */
 function ClientMode_party::onRespawnPlayer(%this) {
 	onNextFrame(clientPartyCheckRespawn);
 }
+/**
+ * @param {ClientMode_party} %this
+ */
 function ClientMode_party::onRespawnOnCheckpoint(%this) {
 	onNextFrame(clientPartyCheckRespawn);
 }

@@ -57,6 +57,7 @@ function shiftMessages(%amount) {
 
 function updateMessages(%delta) {
 	for (%i = 0; %i < PG_MessageListBox.getCount(); %i ++) {
+		/** @type {GuiControl} */
 		%box = PG_MessageListBox.getObject(%i);
 		%x = %box.xPos !$= "" ? %box.xPos : getWord(%box.getPosition(), 0);
 		%y = %box.yPos !$= "" ? %box.yPos : getWord(%box.getPosition(), 1);
@@ -243,9 +244,13 @@ function updateAchievementMessages(%delta) {
 
 function createAchievementMessage(%id, %text, %bitmap, %extent, %timeout) {
 	//So we can address each component by name after creation
+	/** @type {GuiControl} */
 	%boxName        = ("PG_Message" @ %id @ "_Box");
+	/** @type {GuiMLTextCtrl} */
 	%foregroundName = ("PG_Message" @ %id @ "_TextForeground");
+	/** @type {GuiMLTextCtrl} */
 	%backgroundName = ("PG_Message" @ %id @ "_TextBackground");
+	/** @type {GuiBitmapCtrl} */
 	%bitmapName     = ("PG_Message" @ %id @ "_Bitmap");
 
 	%bitmapMax = 72;

@@ -241,6 +241,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_challenge) {
 
 //All modes are a subclass of ClientMode. Every mode will have a ScriptObject
 // created for it which will have onLoad called when a user loads the mode.
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_challenge::onLoad(%this) {
 	//Register the mode for all of the callbacks which it will need to use.
 	// The null mode registers for all callbacks, and has documentation on
@@ -255,6 +258,10 @@ function ClientMode_challenge::onLoad(%this) {
 
 	echo("[Client Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {ClientMode_challenge} %this
+ * @param {SimObject} %object
+ */
 function ClientMode_challenge::onActivate(%this, %object) {
 	//Description:
 	// Called when the mode is activated while loading a level or looking at a
@@ -280,25 +287,43 @@ function updateWeeklyChallengePhysics() {
 	Physics::pushLayerName($CurrentWeeklyChallenge.name);
 }
 
+/**
+ * @param {ClientMode_challenge} %this
+ */
 function ClientMode_challenge::onMissionReset(%this, %object) {
 	onNextFrame(updateWeeklyChallengePhysics);
 }
+/**
+ * @param {ClientMode_challenge} %this
+ */
 function ClientMode_challenge::onRespawnPlayer(%this) {
 	onNextFrame(updateWeeklyChallengePhysics);
 }
+/**
+ * @param {ClientMode_challenge} %this
+ */
 function ClientMode_challenge::onRespawnOnCheckpoint(%this) {
 	onNextFrame(updateWeeklyChallengePhysics);
 }
 
+/**
+ * @param {ClientMode_challenge} %this
+ */
 function ClientMode_challenge::onEndGameSetup(%this, %object) {
 	//Description:
 	// Called from endGameSetup.
 	//Parameters:
 	// none
 }
+/**
+ * @param {ClientMode_challenge} %this
+ */
 function ClientMode_challenge::shouldUpdateBlast(%this) {
 	return $CurrentWeeklyChallenge.blast;
 }
+/**
+ * @param {ClientMode_challenge} %this
+ */
 function ClientMode_challenge::getScoreFields(%this) {
 	return "&challenge=" @ $CurrentWeeklyChallenge.name;
 }

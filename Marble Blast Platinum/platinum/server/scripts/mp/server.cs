@@ -67,6 +67,9 @@ function serverStartFinish() {
 	$Game::FirstSpawn = false;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setPregame(%this, %set) {
 	commandToClient(%this, 'setPregame', %set);
 	updateSpectateFull();
@@ -99,6 +102,9 @@ function updateReadyUserList() {
 //-----------------------------------------------------------------------------
 
 // determine if the server has moving platforms or not
+/**
+ * @param {SimSet} %group
+ */
 function serverHasMovingPlatforms(%group) {
 	%count = %group.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -157,6 +163,9 @@ function MPOutofBounds() {
 	$MP::Schedule::OOB = schedule(50, 0, MPOutofBounds);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::mouseFire(%this, %val) {
 	//Nada
 }
@@ -207,6 +216,9 @@ function dumpScores() {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updateScores(%this) {
 	if ($Server::ServerType $= "SinglePlayer")
 		return;
@@ -304,6 +316,9 @@ function GameConnection::updateScores(%this) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function updateSingleScore(%client) {
 	// We need to send different things if we're in different modes
 	if ($MP::TeamMode) {
@@ -335,6 +350,9 @@ function updateSingleScore(%client) {
 }
 
 // Compare everyone's scores and get a client's current place in the game
+/**
+ * @param {FakeGameConnection} %this
+ */
 function FakeGameConnection::getPlace(%this) {
 	%place = 1;
 
@@ -371,6 +389,9 @@ function FakeGameConnection::getPlace(%this) {
 }
 
 // Compare everyone's scores and get a client's current place in the game
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getPlace(%this) {
 	%place = 1;
 
@@ -389,11 +410,17 @@ function GameConnection::getPlace(%this) {
 	return %place;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setNameTag(%this, %name) {
 	%this.customName = %name;
 	updatePlayerlist();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::getNameTag(%this) {
 	if (%this.customName !$= "")
 		return trim(%this.customName);

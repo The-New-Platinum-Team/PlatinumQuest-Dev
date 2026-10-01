@@ -134,6 +134,9 @@ datablock AudioProfile(TeleportSound) {
 	preload = true;
 };
 
+/**
+ * @param {SimSet} %group
+ */
 function TeleportTrigger::checkDest(%group, %destination) {
 	for (%i = 0; %i < %group.getCount(); %i++) {
 		%object = %group.getObject(%i);
@@ -149,6 +152,12 @@ function TeleportTrigger::checkDest(%group, %destination) {
 	return nameToId(%destination);
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {Marble} %player
+ * @param {SceneObject} %obj
+ * @param {Type} %teleTrigger
+ */
 function GameConnection::teleportPlayer(%this, %player, %obj, %teleTrigger) {
 	if ($Game::BlockTeleports) {
 		echo("Blocked teleport abuse");
@@ -197,8 +206,14 @@ function GameConnection::teleportPlayer(%this, %player, %obj, %teleTrigger) {
 	}
 }
 
+/**
+ * @param {TriggerData} %data
+ * @param {Trigger} %obj
+ * @param {Marble} %colObj
+ */
 function TeleportTrigger::onEnterTrigger(%data, %obj, %colObj) {
 	%name = %obj.getName();
+	/** @type {GameConnection} */
 	%client = %colObj.client;
 	%destination = %obj.destination;
 	%delay = %obj.delay;
@@ -255,6 +270,11 @@ function TeleportTrigger::onEnterTrigger(%data, %obj, %colObj) {
 	commandToClient(%client, 'PushTimer', 696969, getSimTime(), %delay);
 }
 
+/**
+ * @param {TriggerData} %data
+ * @param {Trigger} %obj
+ * @param {Marble} %colObj
+ */
 function TeleportTrigger::onLeaveTrigger(%data, %obj, %colObj) {
 	%checkname = %obj.getName();
 	%client = %colObj.client;
@@ -265,6 +285,10 @@ function TeleportTrigger::onLeaveTrigger(%data, %obj, %colObj) {
 	commandToClient(%client, 'PushTimer', 696969, getSimTime(), 0);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function RelativeTPTrigger::onAdd(%this, %obj) {
 	if (%obj.delay $= "")
 		%obj.delay = "0";
@@ -278,6 +302,11 @@ function RelativeTPTrigger::onAdd(%this, %obj) {
 		%obj.silent = 0;
 }
 
+/**
+ * @param {TriggerData} %data
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function RelativeTPTrigger::onEnterTrigger(%data, %trigger, %obj) {
 	%destination_obj = TeleportTrigger::checkDest(MissionGroup, %trigger.destination);
 	//echo("It returned " @ %destination_obj);
@@ -287,6 +316,7 @@ function RelativeTPTrigger::onEnterTrigger(%data, %trigger, %obj) {
 	}
 	$Game::BlockTeleports = false;
 
+	/** @type {GameConnection} */
 	%client = %obj.client;
 
 	// Calculate offset and do a command to client.
@@ -304,6 +334,11 @@ function RelativeTPTrigger::onEnterTrigger(%data, %trigger, %obj) {
 		%client.teleSound = %client.play3D(TeleportSound, %client.player.getPosition());
 }
 
+/**
+ * @param {TriggerData} %data
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function RelativeTPTrigger::onLeaveTrigger(%data, %trigger, %obj) {
 	%client = %obj.client;
 	cancel(%client.teleSched[%obj]);

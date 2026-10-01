@@ -65,30 +65,65 @@ function clientCmdSetGravityDir(%dir, %instant, %rotation) {
 // Gravity triggers and the like, from PQ
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_shouldTriggerForPlayer(%this, %trigger, %player) {
 	return (MPMyMarbleExists() && %player.getId() == MPGetMyMarble().getId());
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	Gravity::onClientEnterTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	Gravity::onClientLeaveTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_getDistance(%this, %trigger, %player) {
 	return 0;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_getRadius(%this, %trigger, %player) {
 	return -1;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_onPlayerEnter(%this, %trigger, %player) {
 	if (!%trigger.onLeave) {
 		%ppos = %player.getWorldBoxCenter();
@@ -97,6 +132,11 @@ function GravityTrigger_onPlayerEnter(%this, %trigger, %player) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_onPlayerLeave(%this, %trigger, %player) {
 	if (%trigger.onLeave) {
 		%ppos = %player.getWorldBoxCenter();
@@ -105,46 +145,96 @@ function GravityTrigger_onPlayerLeave(%this, %trigger, %player) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_getDownVector(%this, %trigger, %point) {
 	%tweaked = getWords(%trigger.simrotation, 0, 2) SPC mDegToRad(getWord(%trigger.simrotation, 3));
 	%ortho = vectorOrthoBasis(%tweaked);
 	return getWords(%ortho, 6);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityTrigger_onPlayerUpdate(%this, %trigger, %player) {
 	//Nothing
 }
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_shouldTriggerForPlayer(%this, %trigger, %player) {
 	return (MPMyMarbleExists() && %player.getId() == MPGetMyMarble().getId());
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	Gravity::onClientEnterTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	Gravity::onClientLeaveTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_getDistance(%this, %trigger, %player) {
 	return 0;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_getRadius(%this, %trigger, %player) {
 	return -1;
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_onPlayerEnter(%this, %trigger, %player) {
 
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_onPlayerLeave(%this, %trigger, %player) {
 	switch$ (%trigger.GravityAxis) {
 	case "x":
@@ -161,6 +251,11 @@ function AlterGravityTrigger_onPlayerLeave(%this, %trigger, %player) {
 	setGravityVector(getWords(%ortho, 6), true);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_getDownVector(%this, %trigger, %point) {
 	//get the lowest bound of the trigger
 	switch$ (%trigger.MeasureAxis) {
@@ -211,6 +306,11 @@ function AlterGravityTrigger_getDownVector(%this, %trigger, %point) {
 	return getWords(%ortho, 6);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function AlterGravityTrigger_onPlayerUpdate(%this, %trigger, %player) {
 	%ppos = %player.getWorldBoxCenter();
 	%newDown = AlterGravityTrigger_getDownVector(%this, %trigger, %ppos);
@@ -219,22 +319,47 @@ function AlterGravityTrigger_onPlayerUpdate(%this, %trigger, %player) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_shouldTriggerForPlayer(%this, %trigger, %player) {
 	return (MPMyMarbleExists() && %player.getId() == MPGetMyMarble().getId());
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	Gravity::onClientEnterTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	Gravity::onClientLeaveTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_getDistance(%this, %trigger, %player) {
 	//Trigger fields if specified, defaults otherwise
 	%radius = (%trigger.useRadius ? %trigger.RadiusSize : -1);
@@ -257,16 +382,31 @@ function GravityWellTrigger_getDistance(%this, %trigger, %player) {
 	return (%radius == -1 ? %dist : (%dist > %radius ? -1 : %dist));
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_getRadius(%this, %trigger, %player) {
 	return (%trigger.useRadius ? %trigger.RadiusSize : -1);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_onPlayerEnter(%this, %trigger, %player) {
 	if (%trigger.RestoreGravity) {
 		$GW::RestoreGravity = $Game::GravityRot;
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_onPlayerLeave(%this, %trigger, %player) {
 	if (%trigger.RestoreGravity !$= "") {
 		if (%trigger.RestoreGravity $= "1") {
@@ -281,6 +421,10 @@ function GravityWellTrigger_onPlayerLeave(%this, %trigger, %player) {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ */
 function GravityWellTrigger_getDownVector(%this, %trigger, %point) {
 	if (getWordCount(%trigger.custompoint) == 3)
 		%tpos = %trigger.custompoint;
@@ -301,6 +445,11 @@ function GravityWellTrigger_getDownVector(%this, %trigger, %point) {
 	return VectorNormalize(!%invert ? VectorScale(%vec, -1) : %vec);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityWellTrigger_onPlayerUpdate(%this, %trigger, %player) {
 	%ppos = %player.getWorldBoxCenter();
 	%newDown = GravityWellTrigger_getDownVector(%this, %trigger, %ppos);
@@ -309,22 +458,47 @@ function GravityWellTrigger_onPlayerUpdate(%this, %trigger, %player) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityPointTrigger_shouldTriggerForPlayer(%this, %trigger, %player) {
 	return (MPMyMarbleExists() && %player.getId() == MPGetMyMarble().getId());
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityPointTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	Gravity::onClientEnterTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityPointTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityPointTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	Gravity::onClientLeaveTrigger(%trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %player
+ */
 function GravityPointTrigger_getDistance(%this, %trigger, %object) {
 	//Trigger fields if specified, defaults otherwise
 	%radius = (%trigger.useRadius ? %trigger.RadiusSize : -1);
@@ -338,14 +512,28 @@ function GravityPointTrigger_getDistance(%this, %trigger, %object) {
 	return (%radius == -1 ? %dist : (%dist > %radius ? -1 : %dist));
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %object
+ */
 function GravityPointTrigger_getRadius(%this, %trigger, %object) {
 	return (%trigger.useRadius ? %trigger.RadiusSize : -1);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %object
+ */
 function GravityPointTrigger_onPlayerEnter(%this, %trigger, %object) {
 
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ */
 function GravityPointTrigger_getDownVector(%this, %trigger, %point) {
 	if (getWordCount(%trigger.custompoint) == 3)
 		%center = %trigger.custompoint;
@@ -358,12 +546,22 @@ function GravityPointTrigger_getDownVector(%this, %trigger, %point) {
 	return VectorNormalize((%trigger.invert ? VectorSub(%point, %center) : VectorSub(%center, %point)));
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %object
+ */
 function GravityPointTrigger_onPlayerUpdate(%this, %trigger, %object) {
 	%pos = %object.getPosition();
 	%newDown = GravityPointTrigger_getDownVector(%this, %trigger, %pos);
 	setGravityVector(%newDown, true);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %object
+ */
 function GravityPointTrigger_onPlayerLeave(%this, %trigger, %object) {
 	if (getWordCount(%trigger.custompoint) == 3)
 		%center = %trigger.custompoint;
@@ -392,6 +590,10 @@ function Gravity::clearTriggers(%user) {
 	deleteVariables("$Gravity::LastTrigger*");
 }
 
+/**
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function Gravity::onClientEnterTrigger(%trigger, %user) {
 	if (!%trigger.shouldTriggerForPlayer(%user))
 		return;
@@ -402,6 +604,10 @@ function Gravity::onClientEnterTrigger(%trigger, %user) {
 	$Gravity::Triggers[%user] ++;
 }
 
+/**
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function Gravity::onClientLeaveTrigger(%trigger, %user) {
 	if (!%trigger.shouldTriggerForPlayer(%user))
 		return;
@@ -416,6 +622,9 @@ function Gravity::onClientLeaveTrigger(%trigger, %user) {
 	}
 }
 
+/**
+ * @param {Marble} %user
+ */
 function Gravity::getClosestTrigger(%user) {
 	//Start with -1 so we have default values
 	%closest = -1;
@@ -423,6 +632,7 @@ function Gravity::getClosestTrigger(%user) {
 
 	//Find the closest trigger to our marble
 	for (%i = 0; %i < $Gravity::Triggers[%user]; %i ++) {
+		/** @type {Trigger} */
 		%trigger = $Gravity::Trigger[%user, %i];
 
 		//If the trigger no longer exists, we need to remove it
@@ -471,7 +681,9 @@ function Gravity::getClosestTrigger(%user) {
 }
 
 function Gravity::update() {
+	/** @type {Marble} */
 	%player = MPGetMyMarble();
+	/** @type {Trigger} */
 	%trigger = Gravity::getClosestTrigger(%player);
 
 	if (isObject(%trigger)) {

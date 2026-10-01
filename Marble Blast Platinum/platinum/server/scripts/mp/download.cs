@@ -23,6 +23,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdRequestMissionFile(%client, %file) {
 //   echo("Client" SPC %client.getUsername() SPC "is requesting a file transfer.");
 //   echo("   File:" SPC %file);
@@ -38,6 +41,9 @@ function serverCmdRequestMissionFile(%client, %file) {
 }
 
 // send a mission file to the client
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendFile(%this, %file) {
 	// encode mission to make it smaller
 	%stream = encodeMission(%file);
@@ -99,10 +105,16 @@ function checkMissionLoad(%file) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdDifExists(%client, %file, %dif, %has) {
 	%client.hasDif[%file, %dif] = %has;
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::canLoadMission(%this, %file) {
 	for (%i = 0; %i < $Game::RequireDifs[%file]; %i ++) {
 		if (!%this.hasDif[%file, $Game::RequireDif[%file, %i]]) {

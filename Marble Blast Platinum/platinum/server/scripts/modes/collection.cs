@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_collection::onLoad(%this) {
 	%this.registerCallback("shouldPickupGem");
 	%this.registerCallback("shouldIgnoreGem");
@@ -40,6 +43,10 @@ function Mode_collection::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {Item} %object
+ */
 function Mode_collection::shouldIgnoreGem(%this, %object) {
 	//Make sure it's our color
 	%color = %object.user.client.collectioncolor;
@@ -51,19 +58,36 @@ function Mode_collection::shouldIgnoreGem(%this, %object) {
 	}
 	return true;
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {Item} %object
+ */
 function Mode_collection::shouldPickupGem(%this, %object) {
 	%color = %object.user.client.collectioncolor;
 	return %this.getGemColor(%object.obj) $= %color;
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {Item} %object
+ */
 function Mode_collection::shouldStoreGem(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::timeMultiplier(%this) {
 	return 1;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::shouldSetSpectate(%this, %object) {
 	return $Game::Pregame;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::onMissionReset(%this, %object) {
 	//If they haven't specified to not randomize colors, then do so
 	if (!MissionInfo.noRandom) {
@@ -87,6 +111,9 @@ function Mode_collection::onMissionReset(%this, %object) {
 		%colors = removeWord(%colors, %index);
 	}
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setCollectionColor(%this, %color) {
 	%this.collectioncolor = %color;
 
@@ -96,35 +123,68 @@ function GameConnection::setCollectionColor(%this, %color) {
 	//Tell them which color they are
 	commandToClient(%this, 'SetCollectionColor', %this.collectioncolor);
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {Type} %object
+ */
 function Mode_collection::onGameState(%this, %object) {
 	%object.client.setMaxGems(%this.getColorCount(%object.client.collectioncolor));
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::getStartTime(%this) {
 	return 0;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::shouldResetGem(%this, %object) {
 	return true;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::shouldRespawnGems(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {Type} %object
+ */
 function Mode_collection::onFoundGem(%this, %object) {
 	%object.client.playPitchedSound("gotDiamond");
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::shouldTotalGemCount(%this) {
 	return false;
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {Type} %object
+ */
 function Mode_collection::onUpdateGhost(%this, %object) {
 	//backtrace();
 	%object.client.updateCollectionRing();
 	%object.client.schedule(1000, call, updateCollectionRing);
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updateCollectionRing(%this) {
 	//Need to mount as base first so the skin sets
 	if (!isObject(%this.collectionRing)) {
@@ -140,6 +200,9 @@ function GameConnection::updateCollectionRing(%this) {
 	}
 	%this.collectionRing.setSkinName(%this.collectioncolor);
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::sendCollectionRing(%this) {
 	if (%this.collectionRing.getSyncId() == -1) {
 		%this.schedule(100, sendCollectionRing);
@@ -147,6 +210,10 @@ function GameConnection::sendCollectionRing(%this) {
 	}
 	commandToAll('CollectionRing', %this.index, %this.collectionRing.getSyncId());
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {Type} %client
+ */
 function Mode_collection::checkWin(%this, %client) {
 	%color = %client.collectioncolor;
 
@@ -166,6 +233,9 @@ function Mode_collection::checkWin(%this, %client) {
 	//We win!
 	endGameSetup();
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::getColors(%this) {
 	%colors = "";
 	makeGemGroup(MissionGroup, true);
@@ -188,6 +258,9 @@ function Mode_collection::getColors(%this) {
 	}
 	return %colors;
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::getColorCount(%this, %color) {
 	%count = 0;
 
@@ -204,9 +277,16 @@ function Mode_collection::getColorCount(%this, %color) {
 	}
 	return %count;
 }
+/**
+ * @param {Mode_collection} %this
+ * @param {ShapeBase} %gem
+ */
 function Mode_collection::getGemColor(%this, %gem) {
 	return %gem.getSkinName();
 }
+/**
+ * @param {Mode_collection} %this
+ */
 function Mode_collection::randomizeColors(%this) {
 	//Don't include fake and spectating players
 	%players = getActivePlayerCount();

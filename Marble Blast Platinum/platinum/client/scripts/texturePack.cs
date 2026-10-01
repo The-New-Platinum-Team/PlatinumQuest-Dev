@@ -101,7 +101,7 @@ function reloadTexturePacks() {
 		loadTexturePack(%pack);
 	}
 
-	unloadTimerTextures();
+	//  unloadTimerTextures();
 	reloadShaders();
 	reloadGlowShaders();
 	reloadPostFX();
@@ -168,7 +168,7 @@ function unloadTexturePacks() {
 	}
 	ActiveTexturePacks.clear();
 
-	unloadTimerTextures();
+	// unloadTimerTextures();
 	reloadShaders();
 	reloadGlowShaders();
 	reloadPostFX();
@@ -233,6 +233,7 @@ function loadTexturePackMaterials(%pack) {
 		%count = getFieldCount(%fields);
 		for (%i = 0; %i < %count; %i ++) {
 			%field = getField(%fields, %i);
+			/** @type {ScriptObject} */
 			%value = %pack.materials.getFieldValue(%field);
 			if (!isObject(%value)) {
 				continue;
@@ -395,6 +396,7 @@ function loadTexturePackColorSwaps(%pack) {
 		%count = getFieldCount(%objects);
 		for (%i = 0; %i < %count; %i ++) {
 			%object = getField(%objects, %i);
+			/** @type {ScriptObject} */
 			%colorList = %pack.color_swaps.getFieldValue(%object);
 
 			if (isObject(%object)) {
@@ -557,6 +559,7 @@ function unloadTexturePackColorSwaps(%pack) {
 		%count = getFieldCount(%objects);
 		for (%i = 0; %i < %count; %i ++) {
 			%object = getField(%objects, %i);
+			/** @type {ScriptObject} */
 			%colorList = %pack.color_swaps.getFieldValue(%object);
 
 			if (isObject(%object)) {
@@ -613,6 +616,9 @@ function texturePackResolveFile(%pack, %file) {
 	return %file;
 }
 
+/**
+ * @param {ScriptObject} %obj
+ */
 function texturePackFieldSwap(%obj, %field, %new) {
 	if (%obj.__old[%field] $= "") {
 		%obj.__old[%field] = %obj.getFieldValue(%field);
@@ -620,22 +626,31 @@ function texturePackFieldSwap(%obj, %field, %new) {
 	%obj.setFieldValue(%field, %new);
 }
 
+/**
+ * @param {ScriptObject} %obj
+ */
 function texturePackFieldRestore(%obj, %field) {
 	if (%obj.__old[%field] !$= "") {
 		%obj.setFieldValue(%field, %obj.__old[%field]);
 	}
 }
 
+/**
+ * @param {SimGroup} %group
+ */
 function texturePackRecurse(%group) {
 	%count = %group.getCount();
 	for (%i = 0; %i < %count; %i ++) {
+		/** @type {SimObject} */
 		%obj = %group.getObject(%i);
 		%class = %obj.getClassName();
 
 		if (%class $= "GuiMLTextCtrl" && %obj.unformattedText !$= "") {
+			/** @type {GuiMLTextCtrl} */
 			%obj.setText(%obj.unformattedText);
 		}
 		if (%obj.hasTransparency) {
+			/** @type {GuiControl} */
 			%obj.reloadTransparency();
 		}
 

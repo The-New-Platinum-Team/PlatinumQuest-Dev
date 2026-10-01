@@ -45,6 +45,9 @@
 //   - consoleLineWidth
 //------------------------------------------------------------------------------
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::renderBox(%this, %box, %thickness) {
 	%this.renderLine(getWord(%box, 0) SPC getWord(%box, 1) SPC getWord(%box, 2), getWord(%box, 0) SPC getWord(%box, 1) SPC getWord(%box, 5), %thickness);
 	%this.renderLine(getWord(%box, 3) SPC getWord(%box, 1) SPC getWord(%box, 2), getWord(%box, 3) SPC getWord(%box, 1) SPC getWord(%box, 5), %thickness);
@@ -62,6 +65,9 @@ function WorldEditor::renderBox(%this, %box, %thickness) {
 	%this.renderLine(getWord(%box, 3) SPC getWord(%box, 1) SPC getWord(%box, 5), getWord(%box, 3) SPC getWord(%box, 4) SPC getWord(%box, 5), %thickness);
 }
 
+/**
+ * @param {WorldEditor} %this
+ */
 function WorldEditor::renderArrow(%this, %start, %end) {
 	%this.renderLine(%start,%end);
 	%mat = MatrixPoint(%end SPC "1 0 0 0",%start);
@@ -75,6 +81,10 @@ function WorldEditor::renderArrow(%this, %start, %end) {
 	%this.renderLine(%end,%right);
 }
 
+/**
+ * @param {SpawnSphere} %this
+ * @param {WorldEditor} %editor
+ */
 function SpawnSphere::onEditorRender(%this, %editor, %selected, %expanded) {
 	if (%selected) {
 		%editor.consoleFrameColor = "255 0 0";
@@ -83,6 +93,10 @@ function SpawnSphere::onEditorRender(%this, %editor, %selected, %expanded) {
 	}
 }
 
+/**
+ * @param {AudioEmitter} %this
+ * @param {WorldEditor} %editor
+ */
 function AudioEmitter::onEditorRender(%this, %editor, %selected, %expanded) {
 	if (%selected && %this.is3D && !%this.useProfileDescription) {
 		%editor.consoleFillColor = "0 0 0 0";
@@ -102,16 +116,23 @@ function renderTest() {
 	EWorldEditor.rendercircle("10 0 0", "0 0 0", 1, 360);
 }
 
+/**
+ * @param {PathedInterior} %this
+ */
 function PathedInterior::onEditorRender(%this, %editor, %selected, %expanded) {
 	if (!%selected)
 		return;
 
+	/** @type {SimGroup} */
 	%group = %this.getGroup();
 	for (%i = 0; %i < %group.getCount(); %i ++)
 		if (%group.getObject(%i).getClassName() $= "Path")
 			%group.getObject(%i).onEditorRender(%editor, %selected, %expanded);
 }
 
+/**
+ * @param {Path} %this
+ */
 function Path::onEditorRender(%this, %editor, %selected, %expanded, %time) {
 	if (!%selected)
 		return;
@@ -131,6 +152,7 @@ function Path::onEditorRender(%this, %editor, %selected, %expanded, %time) {
 	%count = %group.getCount();
 	for (%i = 1; %i < %count; %i++) {
 		if (%prevObj $= "")
+			/** @type {Marker} */
 			%prevObj = %group.getObject(0);
 		if (%prev2Obj $= "")
 			%prev2Obj = %group.getObject(0);
@@ -149,6 +171,7 @@ function Path::onEditorRender(%this, %editor, %selected, %expanded, %time) {
 		}
 		%amt = max(min(1, %amt), 0);
 
+		/** @type {Marker} */
 		%obj = %group.getObject(%i);
 		%futureObj = (%group.getCount() == %i + 1 ? %group.getObject(0) : %group.getObject(%i + 1));
 
@@ -202,6 +225,10 @@ function Path::onEditorRender(%this, %editor, %selected, %expanded, %time) {
 }
 
 // Yoink'd from PQ
+/**
+ * @param {Marker} %this
+ * @param {Marker} %this
+ */
 function Marker::onEditorRender(%this, %editor, %selected, %expanded) {
 	if (!%selected)
 		return;
@@ -221,16 +248,33 @@ function Marker::onEditorRender(%this, %editor, %selected, %expanded) {
 //   }
 //}
 
+/**
+ * @param {Trigger} %this
+ * @param {Trigger} %this
+ */
 function Trigger::onEditorRender(%this, %editor, %selected, %expanded) {
 	%this.getDataBlock().onEditorRender(%this, %editor, %selected, %expanded);
 }
+/**
+ * @param {Item} %this
+ * @param {Item} %this
+ */
 function Item::onEditorRender(%this, %editor, %selected, %expanded) {
 	%this.getDataBlock().onEditorRender(%this, %editor, %selected, %expanded);
 }
+/**
+ * @param {ShapeBase} %this
+ * @param {ShapeBase} %this
+ */
 function ShapeBase::onEditorRender(%this, %editor, %selected, %expanded) {
 	%this.getDataBlock().onEditorRender(%this, %editor, %selected, %expanded);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {TriggerData} %this
+ */
 function TriggerData::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (isServerMovingObject(%obj)) {
 		%editor.consoleFrameColor = "255 0 0";
@@ -241,6 +285,11 @@ function TriggerData::onEditorRender(%this, %obj, %editor, %selected, %expanded)
 		}
 	}
 }
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {ItemData} %this
+ */
 function ItemData::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (isServerMovingObject(%obj)) {
 		%editor.consoleFrameColor = "255 0 0";
@@ -251,6 +300,11 @@ function ItemData::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 		}
 	}
 }
+/**
+ * @param {ShapeBaseData} %this
+ * @param {ShapeBase} %obj
+ * @param {ShapeBaseData} %this
+ */
 function ShapeBaseData::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (isServerMovingObject(%obj)) {
 		%editor.consoleFrameColor = "255 0 0";
@@ -262,6 +316,11 @@ function ShapeBaseData::onEditorRender(%this, %obj, %editor, %selected, %expande
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {AlterGravityTrigger} %this
+ */
 function AlterGravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		//Find the normal / radius for the rings
@@ -309,6 +368,11 @@ function AlterGravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %e
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {GravityWellTrigger} %this
+ */
 function GravityWellTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		%center = (getWordCount(%obj.custompoint) == 3 ? %obj.custompoint : %obj.getWorldBoxCenter());
@@ -366,6 +430,11 @@ function GravityWellTrigger::onEditorRender(%this, %obj, %editor, %selected, %ex
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {GravityPointTrigger} %this
+ */
 function GravityPointTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		%center = (getWordCount(%obj.custompoint) == 3 ? %obj.custompoint : %obj.getWorldBoxCenter());
@@ -407,6 +476,11 @@ function GravityPointTrigger::onEditorRender(%this, %obj, %editor, %selected, %e
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {GravityTrigger} %this
+ */
 function GravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		//Find the normal / radius for the rings
@@ -437,6 +511,11 @@ function GravityTrigger::onEditorRender(%this, %obj, %editor, %selected, %expand
 	}
 }
 
+/**
+ * @param {Cannon} %this
+ * @param {SceneObject} %obj
+ * @param {Cannon} %this
+ */
 function Cannon::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		if (%obj.instant) {
@@ -509,12 +588,23 @@ function Cannon::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ * @param {HelpBubble} %this
+ */
 function HelpBubble::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		%editor.renderSphere(%obj.getPosition(), %obj.triggerRadius, 2);
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ * @param {PathNode} %this
+ * @param {SimObject} %first
+ */
 function PathNode::onEditorRender(%this, %obj, %editor, %selected, %expanded, %segments, %first, %prev) {
 	if (%selected) {
 		//If we're the first node
@@ -566,6 +656,11 @@ function PathNode::onEditorRender(%this, %obj, %editor, %selected, %expanded, %s
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ * @param {BezierHandle} %this
+ */
 function BezierHandle::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		if (isObject(%obj.parent)) {
@@ -577,6 +672,11 @@ function BezierHandle::onEditorRender(%this, %obj, %editor, %selected, %expanded
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {LapsCounterTrigger} %this
+ */
 function LapsCounterTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (!%obj.enableRespawning) {
 		return;
@@ -587,6 +687,11 @@ function LapsCounterTrigger::onEditorRender(%this, %obj, %editor, %selected, %ex
 	%editor.renderArrow(MatrixPos(%trans), VectorAdd(%trans, %forward));
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {LapsCheckpoint} %this
+ */
 function LapsCheckpoint::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (!%obj.enableRespawning) {
 		return;
@@ -599,6 +704,11 @@ function LapsCheckpoint::onEditorRender(%this, %obj, %editor, %selected, %expand
 
 //Draw a line from a Teleport Trigger to it's destination when selected.
 //Could be useful if a level has many teleport triggers and many destination triggers. ~Connie
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {TeleportTrigger} %this
+ */
 function TeleportTrigger::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if (%selected) {
 		%teltrig = %obj;
@@ -607,8 +717,14 @@ function TeleportTrigger::onEditorRender(%this, %obj, %editor, %selected, %expan
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ * @param {TriggerGotoTarget} %this
+ */
 function TriggerGotoTarget::onEditorRender(%this, %obj, %editor, %selected, %expanded) {
 	if(%selected) {
+		/** @type {SimGroup} */
 		%group = %obj.getGroup();
 		for (%i = 0; %i < %group.getCount(); %i ++)
 			if (%group.getObject(%i).getClassName() $= "Path")

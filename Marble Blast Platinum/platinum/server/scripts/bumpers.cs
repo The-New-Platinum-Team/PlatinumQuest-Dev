@@ -40,6 +40,10 @@ datablock AudioProfile(BumperFlat) {
 	preload = true;
 };
 
+/**
+ * @param {Bumper} %this
+ * @param {ShapeBase} %obj
+ */
 function Bumper::onCollision(%this, %obj, %col) {
 	if (!Parent::onCollision(%this, %obj, %col))
 		return;
@@ -99,10 +103,18 @@ datablock StaticShapeData(RoundBumper_MBU) {
 	useShaders = true;
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function RoundBumper_MBU::onAdd( %this, %obj ) {
 	%obj.playThread( 0, "idle" );
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function RoundBumper_Original::onAdd( %this, %obj ) {
 	if ($pref::spchanges && %obj.isTemperable $= "1")
 		%obj.setDataBlock("RoundBumper_MBU");
@@ -116,6 +128,10 @@ function RoundBumper_Original::onAdd( %this, %obj ) {
 //    %obj.playThread( 0, "idle" );
 // }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function RoundBumper_MBU::onCollision( %this, %obj, %col,%vec, %vecLen, %material ) {
 	// Currently activates when any object hits it.
 	//if( %material $= "BumperMaterial" )

@@ -36,6 +36,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_snowballsOnly) {
 	hasMissions = 0;
 });
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_snowballsOnly::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }

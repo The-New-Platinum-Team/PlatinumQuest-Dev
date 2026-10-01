@@ -75,6 +75,10 @@ datablock TriggerData(WaterPhysicsTrigger) {
 	customField[1, "default"] = "";
 };
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function WaterPhysicsTrigger::onAdd(%this, %obj) {
 	// Changes velocity of the marble whenever you are under water
 	if (%obj.VelocityMultiplier $= "")
@@ -86,6 +90,10 @@ function WaterPhysicsTrigger::onAdd(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {Water} %this
+ * @param {ShapeBase} %obj
+ */
 function Water::onAdd(%this, %obj) {
 	if (%obj.skin !$= "")
 		%obj.setSkinName(%obj.skin);
@@ -101,6 +109,9 @@ function Water::onAdd(%this, %obj) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdWaterSplash(%client, %datablock, %position) {
 	%particleEffect = new ParticleEmitterNode() {
 		datablock = FireWorkNode;

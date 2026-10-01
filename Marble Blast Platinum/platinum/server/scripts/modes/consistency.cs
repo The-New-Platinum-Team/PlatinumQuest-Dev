@@ -22,12 +22,18 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_consistency::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("onFrameAdvance");
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("onRespawnOnCheckpoint");
 }
+/**
+ * @param {Mode_consistency} %this
+ */
 function Mode_consistency::onFrameAdvance(%this, %delta) {
 	//Check for grace period
 	if ($Time::CurrentTime < MissionInfo.gracePeriod)
@@ -74,18 +80,29 @@ function Mode_consistency::onFrameAdvance(%this, %delta) {
 		}
 	}
 }
+/**
+ * @param {Mode_consistency} %this
+ * @param {Type} %object
+ */
 function Mode_consistency::onRespawnPlayer(%this, %object) {
 	//Reset everything
 	%object.client.consistencyFailing = false;
 	%object.client.consistencyFailed = false;
 	cancel(%object.client.consistencyFailSch);
 }
+/**
+ * @param {Mode_consistency} %this
+ * @param {Type} %object
+ */
 function Mode_consistency::onRespawnOnCheckpoint(%this, %object) {
 	//Reset everything
 	%object.client.consistencyFailing = false;
 	%object.client.consistencyFailed = false;
 	cancel(%object.client.consistencyFailSch);
 }
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::onConsistencyFail(%this) {
 	if ($Editor::Opened) {
 		return;

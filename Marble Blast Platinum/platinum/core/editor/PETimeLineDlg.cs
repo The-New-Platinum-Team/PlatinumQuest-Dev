@@ -26,10 +26,16 @@
 // Portions Copyright (c) 2001 GarageGames.Com
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::onWake(%gui) {
 	%gui.extent = %gui.getObject(0).extent;
 }
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::updateColor(%gui, %fromdata) {
 	PED.echo("updateColor: " @ !!%fromdata SPC "(fromdata)");
 	if (%fromdata) {
@@ -69,6 +75,9 @@ function PETimelineDlg::updateColor(%gui, %fromdata) {
 		$PETimeline::Colors[$PETimeline::ActiveNode] = %color SPC PETColorA.getValue();
 }
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::updateTime(%gui, %slider, %manual) {
 	PED.echo("updateTime: " @ !!%slider SPC !!%manual SPC "(slider, manual)");
 	if (%manual) {
@@ -157,6 +166,9 @@ function PETimelineDlg::updateTime(%gui, %slider, %manual) {
 	$PETimeline::times[%num] = %pos;
 }
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::open(%gui) {
 	RootGui.pushDialog(%gui);
 	%gui.importData();
@@ -165,6 +177,9 @@ function PETimelineDlg::open(%gui) {
 	%gui.schedule(1000, "loop");
 }
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::setActiveNode(%gui, %node) {
 	PED.echo("setActiveNode: " @ %node);
 	if (%node < 1 || %node > $PETimeline::NumNodes)
@@ -245,6 +260,9 @@ function PETimelineDlg::restoreData(%gui) {
 	ParticleEditor.PETimeLineDlgCallback(%db);
 }
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::updateNodes(%gui) {
 	%num = PETNumNodes.getValue();
 	$PETimeline::numNodes = %num;
@@ -279,6 +297,9 @@ function PETimelineDlg::updateNodes(%gui) {
 		%gui.setActiveNode($PETimeline::ActiveNode+1);
 }
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::updateAlpha(%gui, %flag) {
 	if (%flag)
 		PETColorA.setValue(PETAlpha2.getValue());
@@ -291,6 +312,9 @@ function PETimelineDlg::updateAlpha(%gui, %flag) {
 	$PETimeline::Colors[$PETimeline::ActiveNode] = PETColorR.getValue() SPC PETColorG.getValue() SPC PETColorB.getValue() SPC PETColorA.getValue();
 }
 
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::updateSize(%gui, %flag) {
 	if (%flag)
 		PETSize.setValue(PETSize2.getValue());
@@ -305,6 +329,9 @@ function PETimelineDlg::updateSize(%gui, %flag) {
 
 
 // dirty hack because the GuiTextEditSliderCtrl doesn't send its command
+/**
+ * @param {PETimelineDlg} %gui
+ */
 function PETimelineDlg::loop(%gui, %loop) {
 	if (%gui.getGroup() != Canvas.getID())
 		return;

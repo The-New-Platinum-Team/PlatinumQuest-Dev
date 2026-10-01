@@ -35,6 +35,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_competitive) {
 	hide = 1;
 });
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_competitive::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }

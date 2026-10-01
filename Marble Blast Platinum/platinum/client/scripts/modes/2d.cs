@@ -48,6 +48,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_2d) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_2d::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("onDeactivate");
@@ -57,9 +60,15 @@ function ClientMode_2d::onLoad(%this) {
 	%this.registerCallback("onRespawnPlayer");
 	%this.registerCallback("getCameraFov");
 }
+/**
+ * @param {ClientMode_2d} %this
+ */
 function ClientMode_2d::onDeactivate(%this) {
 	$Game::2D = false;
 }
+/**
+ * @param {ClientMode_2d} %this
+ */
 function ClientMode_2d::onEditorOpened(%this) {
 	if ($Game::2D) {
 		Physics::popLayerName("2d");
@@ -68,6 +77,9 @@ function ClientMode_2d::onEditorOpened(%this) {
 	$Editor::Was2D = $Game::2D;
 	$Game::2D = false;
 }
+/**
+ * @param {ClientMode_2d} %this
+ */
 function ClientMode_2d::onEditorClosed(%this) {
 	$Game::2D = $Editor::Was2D;
 	$Editor::Was2D = "";
@@ -76,14 +88,23 @@ function ClientMode_2d::onEditorClosed(%this) {
 		Physics::pushLayerName("2d");
 	}
 }
+/**
+ * @param {ClientMode_2d} %this
+ */
 function ClientMode_2d::onMissionEnded(%this) {
 	clientCmdStop2D(true);
 }
+/**
+ * @param {ClientMode_2d} %this
+ */
 function ClientMode_2d::onRespawnPlayer(%this) {
 	if ($Game::2D) {
 		Physics::pushLayerName("2d");
 	}
 }
+/**
+ * @param {ClientMode_2d} %this
+ */
 function ClientMode_2d::getCameraFov(%this) {
 	if ($Game::2D) {
 		//Because otherwise you can see way too much

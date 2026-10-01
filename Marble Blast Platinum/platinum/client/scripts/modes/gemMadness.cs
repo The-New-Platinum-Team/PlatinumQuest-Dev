@@ -35,6 +35,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_GemMadness) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_GemMadness::onLoad(%this) {
 	%this.registerCallback("shouldUpdateGems");
 	%this.registerCallback("timeMultiplier");
@@ -42,6 +45,9 @@ function ClientMode_GemMadness::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
 
+/**
+ * @param {ClientMode_GemMadness} %this
+ */
 function ClientMode_GemMadness::shouldUpdateGems(%this) {
 	// Just borrowing the hunt counter here
 
@@ -89,10 +95,16 @@ function ClientMode_GemMadness::shouldUpdateGems(%this) {
 	}
 	return false;
 }
+/**
+ * @param {ClientMode_GemMadness} %this
+ */
 function ClientMode_GemMadness::timeMultiplier(%this) {
 	// Timer counts down
 	return -1;
 }
+/**
+ * @param {ClientMode_GemMadness} %this
+ */
 function ClientMode_GemMadness::getDefaultScore(%this) {
 	return $ScoreType::Score TAB 0 TAB "Matan W.";
 }

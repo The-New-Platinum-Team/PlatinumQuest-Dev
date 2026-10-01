@@ -92,6 +92,9 @@ $Party::Pup[9] = "TimeTravelItem";
 $Party::Pup[10] = "AntiGravityItem";
 $Party::Pups = 11;
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_party::onLoad(%this) {
 	%this.registerCallback("onActivate");
 	%this.registerCallback("onDeactivate");
@@ -104,20 +107,36 @@ function Mode_party::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
 
+/**
+ * @param {Mode_party} %this
+ */
 function Mode_party::onActivate(%this) {
 	partyPickModes();
 }
 
+/**
+ * @param {Mode_party} %this
+ */
 function Mode_party::onDeactivate(%this) {
 	deleteVariables("$Party::Server::ActiveMode*");
 }
 
+/**
+ * @param {Mode_party} %this
+ * @param {ScriptObject} %data
+ */
 function Mode_party::onCreatePlayer(%this, %data) {
+	/** @type {GameConnection} */
 	%client = %data.client;
+	/** @type {ShapeBase} */
 	%hat = %client.createGhostHat(PartyHatImage, PartyHatLargeImage);
 	%hat.setSkinName($Party::HatColor[getRandom(0, $Party::HatColors - 1)]);
 }
 
+/**
+ * @param {Mode_party} %this
+ * @param {Type} %object
+ */
 function Mode_party::getMarbleSize(%this, %object) {
 	%marble = %object.client.getMarbleChoice();
 	%db = getField(%marble, 0);
@@ -131,6 +150,10 @@ function Mode_party::getMarbleSize(%this, %object) {
 	return %db.scale;
 }
 
+/**
+ * @param {Mode_party} %this
+ * @param {Type} %object
+ */
 function Mode_party::getMegaMarbleSize(%this, %object) {
 	%marble = %object.client.getMarbleChoice();
 	%db = getField(%marble, 0);
@@ -147,11 +170,18 @@ function Mode_party::getMegaMarbleSize(%this, %object) {
 	return %db.megaScale;
 }
 
+/**
+ * @param {Mode_party} %this
+ */
 function Mode_party::onMissionReset(%this) {
 	$Party::MegaScale = "1 1 1";
 	partyPickModes();
 }
 
+/**
+ * @param {Mode_party} %this
+ * @param {Type} %object
+ */
 function Mode_party::onBlast(%this, %object) {
 	if ($Party::Server::ActiveMode["steal"] && $Game::State !$= "End") {
 		%mePos = %object.this.getWorldBoxCenter();
@@ -179,6 +209,9 @@ function Mode_party::onBlast(%this, %object) {
 	}
 }
 
+/**
+ * @param {Mode_party} %this
+ */
 function Mode_party::onHuntGemSpawn(%this) {
 	if ($Party::Server::ActiveMode["madness"]) {
 		hideGems();
@@ -335,8 +368,12 @@ function megaScale(%scale) {
 	scaleGroup(%scale, MissionCleanup);
 }
 
+/**
+ * @param {SimSet} %group
+ */
 function scaleGroup(%scale, %group) {
 	for (%i = 0; %i < %group.getCount(); %i ++) {
+		/** @type {SceneObject} */
 		%obj = %group.getObject(%i);
 		if (%obj.getClassName() $= "SimGroup") {
 			scaleGroup(%scale, %obj);
@@ -414,11 +451,20 @@ datablock ItemData(PartyItem) {
 };
 
 
+/**
+ * @param {ItemData} %this
+ */
 function PartyItem::getPickupName(%this, %obj) {
 	return "a Party Item!";
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Marble} %user
+ */
 function PartyItem::onPickup(%this,%obj,%user,%amount) {
+	/** @type {GameConnection} */
 	%client = %user.client;
 	%place = %client.getPlace();
 	%count = $MP::TeamMode ? TeamGroup.getCount() : ClientGroup.getCount();

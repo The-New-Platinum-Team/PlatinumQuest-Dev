@@ -35,10 +35,16 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_spooky) {
 	teams = 1;
 });
 
+/**
+ * @param {ModeInfo} %this
+ */
 function ModeInfo_Spooky::isAvailable(%this) {
 	return !!$LB::SpookyMode;
 }
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_spooky::onLoad(%this) {
 	%this.registerCallback("updatePlayMission");
 	%this.registerCallback("onActivate");
@@ -94,6 +100,9 @@ function clientCmdSpookyGhosts(%enable) {
 	PlayMissionGui.updateMissionInfo();
 }
 
+/**
+ * @param {ClientMode_spooky} %this
+ */
 function ClientMode_spooky::onActivate(%this) {
 	if ($Server::Dedicated) {
 		//TFW dedicated servers call client code
@@ -108,6 +117,9 @@ function spookyTexturePackActivate() {
 	reloadTexturePacksHot(false, true);
 }
 
+/**
+ * @param {ClientMode_spooky} %this
+ */
 function ClientMode_spooky::onDeactivate(%this) {
 	if ($Server::Dedicated) {
 		//TFW dedicated servers call client code
@@ -122,6 +134,9 @@ function spookyTexturePackDeactivate() {
 	reloadTexturePacksHot(false, true);
 }
 
+/**
+ * @param {ClientMode_spooky} %this
+ */
 function ClientMode_spooky::updatePlayMission(%this, %location) {
 	switch$ (%location) {
 	case "sp":
@@ -137,6 +152,9 @@ function ClientMode_spooky::updatePlayMission(%this, %location) {
 	}
 }
 
+/**
+ * @param {ClientMode_spooky} %this
+ */
 function ClientMode_spooky::getEggIcon(%this, %found) {
 	%egg = "platinum/client/ui/play/frames/spooky/candy_";
 	%egg = %egg @ (%found ? "get_ol" : "notfound_ol");
@@ -148,7 +166,11 @@ function ClientMode_spooky::getEggIcon(%this, %found) {
 // // ...
 // // I'm sorry
 // package SpookyLevelSelect {
-// 	function PlayMissionGui::updateMissionFrame(%this, %frame) {
+// 	/**
+	 * @param {PlayMissionGui} %this
+	 * @param {GuiControl} %frame
+	 */
+	function PlayMissionGui::updateMissionFrame(%this, %frame) {
 // 		Parent::updateMissionFrame(%this, %frame);
 // 		if (strpos(%frame.mission.gamemode, "spooky") != -1) {
 // 			%image = %frame.button.bitmap;

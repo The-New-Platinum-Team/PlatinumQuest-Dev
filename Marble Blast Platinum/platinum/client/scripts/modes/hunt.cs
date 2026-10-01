@@ -37,6 +37,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_hunt) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_hunt::onLoad(%this) {
 	%this.registerCallback("shouldUpdateGems");
 	%this.registerCallback("timeMultiplier");
@@ -105,6 +108,9 @@ function updatePredictor() {
 	$updatePredictorSchedule = schedule(1000, 0, updatePredictor);
 }
 
+/**
+ * @param {ClientMode_hunt} %this
+ */
 function ClientMode_hunt::onClientLeaveGame(%this) {
 	cancel($updatePredictorSchedule);
 	PGScorePredictor.setVisible(false);
@@ -113,6 +119,9 @@ function ClientMode_hunt::onClientLeaveGame(%this) {
 	Hunt_CompetitiveClearTimer();
 }
 
+/**
+ * @param {ClientMode_hunt} %this
+ */
 function ClientMode_hunt::shouldUpdateGems(%this) {
 	PG_GemCounter.setVisible(false);
 	PG_HuntCounter.setVisible(true);
@@ -160,18 +169,34 @@ function ClientMode_hunt::shouldUpdateGems(%this) {
 	}
 	return false;
 }
+/**
+ * @param {ClientMode_hunt} %this
+ */
 function ClientMode_hunt::onMissionLoaded(%this) {
 	PGScorePredictor.setVisible(true);
 }
+/**
+ * @param {ClientMode_hunt} %this
+ * @param {Item} %gem
+ */
 function ClientMode_hunt::getGemColor(%this, %gem) {
 	return %gem.getSkinName();
 }
+/**
+ * @param {ClientMode_hunt} %this
+ */
 function ClientMode_hunt::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {ClientMode_hunt} %this
+ */
 function ClientMode_hunt::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }
+/**
+ * @param {ClientMode_hunt} %this
+ */
 function ClientMode_hunt::getDefaultScore(%this) {
 	return $ScoreType::Score TAB 0 TAB "Matan W.";
 }

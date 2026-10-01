@@ -22,6 +22,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_GemMadness::onLoad(%this) {
 	%this.registerCallback("shouldStoreGem");
 	%this.registerCallback("onFoundGem");
@@ -42,10 +45,18 @@ function Mode_GemMadness::onLoad(%this) {
 
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_GemMadness} %this
+ * @param {Type} %object
+ */
 function Mode_GemMadness::onFoundGem(%this, %object) {
 	// Play gem sound when collected
 	%object.client.playPitchedSound("gotDiamond" @ (%object.gem._huntDatablock.huntExtraValue + 1));
 }
+/**
+ * @param {Mode_GemMadness} %this
+ * @param {Type} %object
+ */
 function Mode_GemMadness::shouldStoreGem(%this, %object) {
 	// gems, like hunt mode, have different levels of points
 	%object.user.client.gemCount += %object.obj._huntDatablock.huntExtraValue;
@@ -71,25 +82,47 @@ function Mode_GemMadness::shouldStoreGem(%this, %object) {
 
 	return false;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldResetGem(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldResetTime(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldRestartOnOOB(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldRespawnGems(%this, %object) {
 	return false;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldRestorePowerup(%this, %object) {
 	return true;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldRestartOnOOB(%this, %object) {
 	// previously restarted on singleplayer, now oob finishes level with current score
 	return false;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ * @param {Type} %object
+ */
 function Mode_GemMadness::onOutOfBounds(%this, %object) {
 	if ($Server::ServerType $= "SinglePlayer") {
 		%this.gotAllGems = false;
@@ -100,43 +133,72 @@ function Mode_GemMadness::onOutOfBounds(%this, %object) {
 		endGameSetup();
 	}
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::onMissionReset(%this, %object) {
 	%this.gotAllGems = false;
 	commandToAll('UseTimeScore', false);
 }
 
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldResetTime(%this, %object) {
 	// The timer should reset only for singleplayer when the marble goes oob
 	return ($Server::ServerType $= "SinglePlayer");
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::shouldResetGem(%this, %object) {
 	// Whenever the mission is reset via onMissionReset(), the gems should be
 	// respawned
 	return true;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::getStartTime(%this) {
 	return (MissionInfo.time ? MissionInfo.time : 300000);
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::onTimeExpire(%this) {
 	%this.gotAllGems = false;
 	commandToAll('UseTimeScore', false);
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::timeMultiplier(%this) {
 	// Timer counts down
 	return -1;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ */
 function Mode_GemMadness::getScoreType(%this) {
 	if (%this.gotAllGems) {
 		return $ScoreType::Time;
 	}
 	return $ScoreType::Score;
 }
+/**
+ * @param {Mode_GemMadness} %this
+ * @param {Type} %object
+ */
 function Mode_GemMadness::getFinalScore(%this, %object) {
 	if (%this.gotAllGems) {
 		return $ScoreType::Time TAB $Time::CurrentTime;
 	}
 	return $ScoreType::Score TAB %object.client.getGemCount();
 }
+/**
+ * @param {Mode_GemMadness} %this
+ * @param {Type} %object
+ */
 function Mode_GemMadness::onEnterPad(%this, %object) {
 	%this.gotAllGems = false;
 	commandToAll('UseTimeScore', false);

@@ -86,6 +86,9 @@ if (!isObject(GuiTransparencyInnerProfile)) new GuiControlProfile(GuiTransparenc
 };
 
 package SexyTransparency {
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::onAdd(%this) {
 		Parent::onAdd(%this);
 		%this.checkTransparency();
@@ -98,6 +101,9 @@ package SexyTransparency {
 		}
 		return %bitmap;
 	}
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::reloadTransparency(%this) {
 		// Sanity
 		if (%this.getCount() == 0)
@@ -111,6 +117,9 @@ package SexyTransparency {
 		%this.pushToBack(%trans);
 		%trans.delete();
 	}
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::checkTransparency(%this) {
 		%transType = "";
 		// Different types of transparency get different profiles
@@ -247,6 +256,9 @@ package SexyTransparency {
 			%trans.bringToFront(%blur);
 		}
 	}
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::onInspectApply(%this) {
 		Parent::onInspectApply(%this);
 		//Clear transparency if we can
@@ -268,6 +280,9 @@ package SexyTransparency {
 
 		%this.checkTransparency();
 	}
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::onGuiEditorPreSave(%this) {
 		Parent::onGuiEditorPreSave(%this);
 		if (%this.transparency $= "1") {
@@ -280,6 +295,9 @@ package SexyTransparency {
 			$transparency[%this.getId()] = 1;
 		}
 	}
+	/**
+	 * @param {GuiControl} %this
+	 */
 	function GuiControl::onGuiEditorPostSave(%this) {
 		Parent::onGuiEditorPostSave(%this);
 		if ($transparency[%this.getId()] == 1) {

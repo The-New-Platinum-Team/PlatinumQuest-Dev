@@ -130,17 +130,26 @@ new GuiControl(LBTermsDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {LBTermsDlg} %this
+ */
 function LBTermsDlg::onWake(%this) {
 	LBT_Title.setText("<font:40><just:center>Terms and Conditions");
 	LBTerms_Text.setText(fread(expandFilename("./login/tos.txt")));
 }
 
+/**
+ * @param {LBTermsDlg} %this
+ */
 function LBTermsDlg::decline(%this) {
 	// Off my server
 	LBMessage("Cancelling...");
 	LBDisconnect();
 }
 
+/**
+ * @param {LBTermsDlg} %this
+ */
 function LBTermsDlg::accept(%this) {
 	if (isObject(LBNetwork)) {
 		LBNetwork.send("ACCEPTTOS\n");

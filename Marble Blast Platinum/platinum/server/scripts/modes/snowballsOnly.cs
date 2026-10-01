@@ -22,11 +22,18 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_snowballsOnly::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 	%this.registerCallback("modifyScoreData");
 }
 
+/**
+ * @param {Mode_snowballsOnly} %this
+ * @param {Type} %object
+ */
 function Mode_snowballsOnly::modifyScoreData(%this, %object) {
 	return %object.data @ "&extraModes[]=snowballsOnly";
 }

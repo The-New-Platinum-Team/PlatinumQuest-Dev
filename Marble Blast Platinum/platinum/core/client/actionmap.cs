@@ -9,6 +9,10 @@
 // Utility remap functions:
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ActionMap} %this
+ * @param {ActionMap} %otherMap
+ */
 function ActionMap::copyBind(%this, %otherMap, %command) {
 	if (!isObject(%otherMap)) {
 		error("ActionMap::copyBind - \"" @ %otherMap @ "\" is not an object!");
@@ -28,6 +32,10 @@ function ActionMap::copyBind(%this, %otherMap, %command) {
 
 //------------------------------------------------------------------------------
 
+/**
+ * @param {ActionMap} %this
+ * @param {ActionMap} %otherMap
+ */
 function ActionMap::blockBind(%this, %otherMap, %command) {
 	if (!isObject(%otherMap)) {
 		error("ActionMap::blockBind - \"" @ %otherMap @ "\" is not an object!");

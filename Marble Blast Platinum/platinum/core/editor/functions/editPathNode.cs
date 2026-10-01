@@ -20,6 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {SimObject} %node
+ */
 function epnbutton(%node) {
 	LargeFunctionDlg.node = %node;
 	LargeFunctionDlg.init("PNEdit", "Edit PathNode", 1);
@@ -51,7 +54,11 @@ function epnbutton(%node) {
 	LargeFunctionDlg.addTextEditField("PNE_BranchNodes", "BranchNodes - list potential NextNodes separated by spaces:", %node.BranchNodes, 250, 2);
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function PNEdit(%gui) {
+	/** @type {StaticShape} */
 	%node = %gui.node;
 	if (!isObject(%node)) {
 		Assert("!?", "Node doesn't exist!?");
@@ -134,6 +141,9 @@ function BuildSomeNodes(%name, %number, %loop) {
 	}
 }
 
+/**
+ * @param {SceneObject} %node
+ */
 function PNEPlace(%node, %flag) {
 	if (%flag) {
 		%node.setTransform(getCamera().getTransform());
@@ -143,6 +153,9 @@ function PNEPlace(%node, %flag) {
 	%node.setTransform(getCamera().getPosition() SPC %node.getRotation());
 }
 
+/**
+ * @param {SceneObject} %prevnode
+ */
 function newNode(%prevnode) {
 	if (!isObject(%prevnode))
 		return;

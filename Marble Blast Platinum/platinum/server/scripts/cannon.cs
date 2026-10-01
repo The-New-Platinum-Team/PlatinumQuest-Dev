@@ -26,11 +26,20 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Cannon} %this
+ * @param {Type} %col
+ */
 function Cannon::onCollision(%this, %obj, %col) {
 	if (!Parent::onCollision(%this, %obj, %col))
 		return;
 	%col.client.enterCannon(%obj);
 }
+/**
+ * @param {CannonBase} %this
+ * @param {Type} %obj
+ * @param {Type} %col
+ */
 function CannonBase::onCollision(%this, %obj, %col) {
 	if (!Parent::onCollision(%this, %obj, %col))
 		return;
@@ -39,6 +48,10 @@ function CannonBase::onCollision(%this, %obj, %col) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ * @param {SceneObject} %cannon
+ */
 function GameConnection::enterCannon(%this, %cannon) {
 	if (%this.disableCannon || %this.disableCannon[%cannon])
 		return;
@@ -64,9 +77,13 @@ function GameConnection::enterCannon(%this, %cannon) {
 	commandToClient(%this, 'EnterCannon', %cannon._id);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::leaveCannon(%this) {
 	echo("[Cannon Server]: Leaving cannon" SPC %cannon._id);
 
+	/** @type {GameBase} */
 	%cannon = %this.cannon;
 	//Show the cannon's explosion
 	%cannon.getDataBlock().explode(%cannon);
@@ -83,6 +100,9 @@ function GameConnection::leaveCannon(%this) {
 	%this.schedule(200, activateCannon, %cannon);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::cancelCannon(%this, %place) {
 	%this.activateCannon(%this.cannon);
 	%this.activateCannon();
@@ -92,14 +112,23 @@ function GameConnection::cancelCannon(%this, %place) {
 	commandToClient(%this, 'CancelCannon', %place);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isInCannon(%this) {
 	return %this.cannon != 0;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdLeaveCannon(%client) {
 	%client.leaveCannon();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::activateCannon(%this, %cannon) {
 	if (%cannon $= "") {
 		%this.disableCannon = false;
@@ -118,6 +147,10 @@ function initCannons() {
 	$Server::Cannons = 0;
 }
 
+/**
+ * @param {Cannon} %this
+ * @param {SceneObject} %obj
+ */
 function Cannon::onAdd(%this, %obj) {
 	//Start with ID 1
 	$Server::Cannons ++;
@@ -141,6 +174,10 @@ function Cannon::onAdd(%this, %obj) {
 	echo("[Cannon Server]: Adding cannon" SPC %obj @ "/" @ %id SPC "with transform (" @ %trans @ ")");
 }
 
+/**
+ * @param {Cannon} %this
+ * @param {SceneObject} %obj
+ */
 function Cannon::onEditorSetTransform(%this, %obj) {
 	%trans = %obj.getTransform();
 	%obj._baseTrans = %trans;
@@ -158,6 +195,10 @@ function Cannon::onEditorSetTransform(%this, %obj) {
 	}
 }
 
+/**
+ * @param {CannonBase} %this
+ * @param {SceneObject} %obj
+ */
 function CannonBase::onEditorSetTransform(%this, %obj) {
 	%baseTrans = %obj.getTransform();
 	%cannon = $Server::Cannon[%obj._id];
@@ -177,6 +218,10 @@ function CannonBase::onEditorSetTransform(%this, %obj) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function DefaultCannonBase::onAdd(%this, %obj, %tries) {
 	//Cancel if we have a previous schedule going
 	cancel(%this.findSchedule[%obj]);
@@ -213,6 +258,10 @@ function DefaultCannonBase::onAdd(%this, %obj, %tries) {
 	%this.findSchedule[%obj] = %this.schedule(100, onAdd, %obj, %tries ++);
 }
 
+/**
+ * @param {Cannon} %this
+ * @param {SceneObject} %obj
+ */
 function Cannon::reset(%this, %obj) {
 	if (%obj._id $= "") {
 		return;
@@ -241,6 +290,10 @@ function Cannon::reset(%this, %obj) {
 		%base.setTransform(%baseTrans);
 }
 
+/**
+ * @param {Cannon} %this
+ * @param {ShapeBase} %obj
+ */
 function Cannon::onInspectApply(%this, %obj) {
 	%this.reset(%obj);
 
@@ -283,6 +336,9 @@ function resetCannons() {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::resetCannons(%this) {
 	//All client-sided
 	commandToClient(%this, 'ResetCannons', $Server::Cannons);
@@ -303,6 +359,10 @@ datablock StaticShapeData(Target) {
 	skin[4] = "green";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Target::onAdd(%this, %obj) {
 	%obj.setSkinName(%obj.skin);
 }
@@ -626,6 +686,10 @@ datablock StaticShapeData(DefaultCannonBase) { //base
 	shapeFile = "~/data/shapes_pq/Gameplay/Cannon/base.dts";
 };
 
+/**
+ * @param {Cannon} %this
+ * @param {ShapeBase} %obj
+ */
 function Cannon::explode(%this, %obj) {
 
 	// Play the forceful sound effect when we have cannon force >= 200
@@ -639,6 +703,10 @@ function Cannon::explode(%this, %obj) {
 }
 
 //Copied from PQ
+/**
+ * @param {Cannon} %this
+ * @param {ShapeBase} %obj
+ */
 function Cannon::initFields(%this, %obj) {
 	// ------------
 	// Cannon Values

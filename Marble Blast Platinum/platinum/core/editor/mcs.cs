@@ -281,6 +281,9 @@ function mcsWriteScriptSection(%section) {
 	$MCS::Buffer = $MCS::Buffer @ %out;
 }
 
+/**
+ * @param {SimObject} %object
+ */
 function mcsWriteObjectFunctionSection(%section, %object, %fnname) {
 	%out =  "//--- " @ %section @ " BEGIN ---\n";
 	%out = %out @ $MCS::DefaultScript[%section];
@@ -513,6 +516,9 @@ function mcsCleanMissionInfo() {
 	MissionInfo.customRadarRule = $MCS::CustomRadarRuleTemp;
 }
 
+/**
+ * @param {GameBase} %obj
+ */
 function mcsMatch(%obj, %sel) {
 	%match = false;
 	while (%sel !$= "") {
@@ -556,6 +562,9 @@ function mcsMatch(%obj, %sel) {
 	return %match;
 }
 
+/**
+ * @param {SimSet} %group
+ */
 function mcsSearch(%group, %sel) {
 	%count = %group.getCount();
 	for (%i = 0; %i < %count; %i ++) {
@@ -572,6 +581,10 @@ function mcsSearch(%group, %sel) {
 	return -1;
 }
 
+/**
+ * @param {SimSet} %group
+ * @param {Array} %array
+ */
 function mcsSearchAll(%group, %sel, %array) {
 	if (%array $= "") {
 		%array = Array(MCSSearchArray);

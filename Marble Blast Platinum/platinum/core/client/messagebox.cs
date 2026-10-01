@@ -27,6 +27,9 @@
 // Portions Copyright (c) 2001 by Sierra Online, Inc.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GuiControl} %dlg
+ */
 function MessageCallback(%dlg,%callback) {
 	RootGui.popDialog(%dlg);
 	if (ControllerGui.isJoystick() && isObject(%dlg.prevControl)) {
@@ -38,6 +41,10 @@ function MessageCallback(%dlg,%callback) {
 // MBSetText resizes the message window, based on the change in size of the text
 // area.
 
+/**
+ * @param {GuiMLTextCtrl} %text
+ * @param {GuiControl} %frame
+ */
 function MBSetText(%text, %frame, %msg) {
 	%text.setText("<just:center><font:18>" @ %msg);
 	%text.forceReflow();
@@ -70,6 +77,9 @@ function MessageBoxOK(%title, %message, %callback) {
 }
 
 //------------------------------------------------------------------------------
+/**
+ * @param {MessageBoxOKDlg} %this
+ */
 function MessageBoxOKDlg::onSleep(%this) {
 	%this.callback = "";
 }
@@ -94,6 +104,9 @@ function MessageBoxYesNo(%title, %message, %yesCallback, %noCallback) {
 }
 
 //------------------------------------------------------------------------------
+/**
+ * @param {MessageBoxYesNoDlg} %this
+ */
 function MessageBoxYesNoDlg::onSleep(%this) {
 	%this.yesCallback = "";
 	%this.noCallback = "";

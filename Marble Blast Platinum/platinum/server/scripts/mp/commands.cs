@@ -23,12 +23,18 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdReady(%client, %ready) {
 	%client.ready = %ready;
 	updatePlayerlist();
 }
 
 // pregame play - start the match
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdPreGamePlay(%client, %override) {
 	// make sure ALL clients are ready unless we overrode it.
 	pruneFakeClients();
@@ -77,12 +83,18 @@ function serverPreGamePlay(%override) {
 }
 
 // gets the mouse button for server sided check clicking
+/**
+ * @param {Type} %client
+ */
 function serverCmdMouseFire(%client, %mousefire) {
 	%client.mouseFire = %mousefire;
 	MPOutofBounds();
 }
 
 // for the respond key
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdQuickRespawn(%client) {
 	if (!$Game::Finished && $MPPref::AllowQuickRespawn && !isCompetitiveMode()) {
 		if (%client.canQuickRespawn) {
@@ -96,6 +108,9 @@ function serverCmdQuickRespawn(%client) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdUpdateMarble(%client, %marble) {
 	// Replay has its own setting of skin choice.
 	if ($playingDemo)
@@ -121,6 +136,9 @@ function serverCmdUpdateMarble(%client, %marble) {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdItemCollision(%client, %position, %cid) {
 	// They said they collided. Did they really?
 	%obj = -1;
@@ -181,6 +199,9 @@ function serverCmdItemCollision(%client, %position, %cid) {
 
 // This method brakes off from onConnect, clients have to pass this check
 // in order to finish connecting to the server
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::validateCRC(%this) {
 	// It's the client's job to send the correct data.
 	// The server doesn't care that they might not like using the little extra
@@ -198,6 +219,9 @@ function GameConnection::validateCRC(%this) {
 	commandToClient(%this, 'CheckCRC');
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdStartCRC(%client) {
 	// Oh boy. The client is sending us CRCs. How joyful. </sarcasm>
 	// Let's just get this over with and kick 'em if we can!
@@ -206,6 +230,9 @@ function serverCmdStartCRC(%client) {
 	%client.failedCRC = false;
 }
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdFileCRC(%client, %file, %crc) {
 	// Here's a CRC coming in from %client! Let's hope they get it wrong
 	// so we can kick them off the server!
@@ -244,6 +271,9 @@ function serverCmdFileCRC(%client, %file, %crc) {
 $CRC_NOPE = (!$Server::Dedicated);
 $LB::ValidateSessions = true;
 
+/**
+ * @param {GameConnection} %client
+ */
 function serverCmdFinishCRC(%client, %cFiles) {
 	// if (%client.failedCRC) {
 	// 	devecho("\c2" @ %client._name SPC "failed CRC check!");
@@ -320,6 +350,9 @@ function initServerCRC() {
 	}
 }
 
+/**
+ * @param {Type} %client
+ */
 function serverCmdVerifySession(%client, %session, %dev) {
 	// I don't even
 	if (%this.verified)
@@ -333,6 +366,9 @@ function serverCmdVerifySession(%client, %session, %dev) {
 	statsVerifyPlayer(%client, %session);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::completeValidation(%this, %valid, %message) {
 	// I don't even
 	if (%this.verified)

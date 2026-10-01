@@ -41,6 +41,9 @@ function isGuest(%user) {
 	return (strStr(%user, "Guest_") != -1);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::isGuest(%this) {
 	return isGuest(%this.getUsername());
 }
@@ -379,6 +382,9 @@ function safeExecPrefs(%file) {
 	}
 }
 
+/**
+ * @param {SimObject} %obj
+ */
 function dumpObject(%obj, %format) {
 	if (%obj $= "RootGroup") //just no.
 		return "";

@@ -42,6 +42,10 @@ datablock CameraData(Observer) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {CameraData} %this
+ * @param {Camera} %obj
+ */
 function Observer::onTrigger(%this,%obj,%trigger,%state) {
 	// state = 0 means that a trigger key was released
 	if (%state == 0)
@@ -63,6 +67,11 @@ function Observer::onTrigger(%this,%obj,%trigger,%state) {
 	}
 }
 
+/**
+ * @param {CameraData} %this
+ * @param {Camera} %obj
+ * @param {SceneObject} %arg1
+ */
 function Observer::setMode(%this,%obj,%mode,%arg1,%arg2,%arg3) {
 	switch$ (%mode) {
 	case "Observer":
@@ -86,16 +95,25 @@ function Observer::setMode(%this,%obj,%mode,%arg1,%arg2,%arg3) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Camera} %this
+ */
 function Camera::onAdd(%this,%obj) {
 	// Default start mode
 	%this.setMode(%this.mode);
 }
 
+/**
+ * @param {Camera} %this
+ */
 function Camera::setMode(%this,%mode,%arg1,%arg2,%arg3) {
 	// Punt this one over to our datablock
 	%this.getDatablock().setMode(%this,%mode,%arg1,%arg2,%arg3);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setToggleCamera(%this, %toggle) {
 	// Copied from commands.cs
 	if (%toggle) {
@@ -109,6 +127,9 @@ function GameConnection::setToggleCamera(%this, %toggle) {
 	commandToClient(%this, 'SetToggleCamera', %toggle);
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::toggleCamera(%this) {
 	// Also copied
 	%control = %this.getControlObject();

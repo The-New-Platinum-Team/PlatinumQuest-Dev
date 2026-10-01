@@ -37,6 +37,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_king) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_king::onLoad(%this) {
 	%this.registerCallback("timeMultiplier");
 	%this.registerCallback("shouldUpdateGems");
@@ -44,10 +47,16 @@ function ClientMode_king::onLoad(%this) {
 	%this.registerCallback("getDefaultScore");
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 }
+/**
+ * @param {ClientMode_king} %this
+ */
 function ClientMode_king::timeMultiplier(%this) {
 	return -1;
 }
 
+/**
+ * @param {ClientMode_king} %this
+ */
 function ClientMode_king::shouldUpdateGems(%this) {
 	PG_GemCounter.setVisible(false);
 	PG_HuntCounter.setVisible(true);
@@ -93,9 +102,15 @@ function ClientMode_king::shouldUpdateGems(%this) {
 	}
 	return false;
 }
+/**
+ * @param {ClientMode_king} %this
+ */
 function ClientMode_king::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }
+/**
+ * @param {ClientMode_king} %this
+ */
 function ClientMode_king::getDefaultScore(%this) {
 	return $ScoreType::Score TAB 0 TAB "Matan W.";
 }

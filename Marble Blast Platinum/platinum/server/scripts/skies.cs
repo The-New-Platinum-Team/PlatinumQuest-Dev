@@ -32,6 +32,10 @@ datablock StaticShapeData(Cloudy) {
 	renderBin = "SkyShape";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Cloudy::onAdd(%this, %obj) {
 	%obj.playThread(0, "Rotate");
 }
@@ -49,6 +53,10 @@ datablock StaticShapeData(Clear) {
 	noBox = "1";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Clear::onAdd(%this, %obj) {
 	%obj.playThread(0, "Rotate");
 }
@@ -66,6 +74,10 @@ datablock StaticShapeData(Dusk) {
 	noBox = "1";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Dusk::onAdd(%this, %obj) {
 	%obj.playThread(0, "Rotate");
 }
@@ -83,6 +95,10 @@ datablock StaticShapeData(Wintry) {
 	noBox = "1";
 };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Wintry::onAdd(%this, %obj) {
 	%obj.playThread(0, "Rotate");
 }
@@ -96,6 +112,10 @@ function Wintry::onAdd(%this, %obj) {
 // 	shapefile = $usermods @ "/data/shapes_mbu/astrolabe/Astrolabe.dts";
 // };
 
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
 function Astrolabe::onAdd(%this, %obj) {
 
 	if (!$pref::LegacyItems) {

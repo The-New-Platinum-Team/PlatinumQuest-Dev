@@ -25,6 +25,9 @@ new ScriptObject(MarbleSelectDlg) {
 	lists = array(MarbleSelectListsArray);
 };
 
+/**
+ * @param {JSONObject} %parsed
+ */
 function loadDedicatedMarbleList(%parsed) {
 	//Add all of the categories
 	%count = %parsed.categories.getSize();

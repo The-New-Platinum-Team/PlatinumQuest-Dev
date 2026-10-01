@@ -43,6 +43,9 @@
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Item} %this
+ */
 function Item::respawn(%this) {
 	// This method is used to respawn static ammo and weapon items
 	// and is usually called when the item is picked up.
@@ -62,6 +65,9 @@ function Item::respawn(%this) {
 	%this._respawnSchedule = %this.schedule(%respawnTime, "onRespawn");
 }
 
+/**
+ * @param {Item} %this
+ */
 function Item::onRespawn(%this, %noFade) {
 	cancel(%this._respawnSchedule);
 	%this.hide(false);
@@ -79,6 +85,9 @@ function Item::onRespawn(%this, %noFade) {
 	%this.getDataBlock().onRespawn(%this);
 }
 
+/**
+ * @param {Item} %this
+ */
 function Item::onMissionReset(%this) {
 	cancelAll(%this);
 	if (%this.getDataBlock().onMissionReset(%this)) {
@@ -94,6 +103,9 @@ function Item::onMissionReset(%this) {
 	%this._respawns = 0;
 }
 
+/**
+ * @param {Item} %this
+ */
 function Item::onCheckpointReset(%this) {
 	if (%this.checkpointInstantRespawn || %this.getDataBlock().checkpointInstantRespawn && %this.isHidden()) {
 		cancelAll(%this);
@@ -101,14 +113,23 @@ function Item::onCheckpointReset(%this) {
 	}
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function ItemData::onMissionReset(%this, %obj) {
 	return true;
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function ItemData::onRespawn(%this, %obj) {
 
 }
 
+/**
+ * @param {ItemData} %this
+ */
 function ItemData::getPickupName(%this, %obj) {
 	// When the audio pack is set to change powerup names, do that. ~ Connie
 	// Thanks Keppy for the optimization <3
@@ -122,6 +143,11 @@ function ItemData::getPickupName(%this, %obj) {
   	return %this.pickupName;
 }
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ * @param {Type} %user
+ */
 function ItemData::onPickup(%this,%obj,%user,%amount) {
 	%pickup = Mode::callback("shouldPickupItem", true, new ScriptObject() {
 		this = %this;
@@ -176,6 +202,9 @@ function ItemData::onPickup(%this,%obj,%user,%amount) {
 //-----------------------------------------------------------------------------
 // Hook into the mission editor.
 
+/**
+ * @returns {Item}
+ */
 function ItemData::create(%data) {
 	// The mission editor invokes this method when it wants to create
 	// an object of the given datablock type.  For the mission editor
@@ -189,18 +218,30 @@ function ItemData::create(%data) {
 }
 
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::isGame(%this) {
 	return 0;
 }
 
+/**
+ * @param {GameBase} %this
+ */
 function GameBase::isGame(%this) {
 	return 1;
 }
 
+/**
+ * @param {SimObject} %this
+ */
 function SimObject::isScene(%this) {
 	return 0;
 }
 
+/**
+ * @param {SceneObject} %this
+ */
 function SceneObject::isScene(%this) {
 	return 1;
 }

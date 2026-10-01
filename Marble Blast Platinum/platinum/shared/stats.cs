@@ -30,6 +30,7 @@
 $Stats::Path   = "/";
 $Stats::RetryTime = 15000;
 
+/** @returns {StatsRequest} */
 function statsGet(%page, %values) {
 	if (lb()) {
 		%values = addParams(LBDefaultQuery(), %values);
@@ -38,6 +39,8 @@ function statsGet(%page, %values) {
 
 	return statsAddRequest("GET", $Stats::Path @ %page, %values);
 }
+
+/** @returns {StatsRequest} */
 function statsPost(%page, %values) {
 	if (lb()) {
 		%values = addParams(LBDefaultQuery(), %values);
@@ -47,6 +50,7 @@ function statsPost(%page, %values) {
 	return statsAddRequest("POST", $Stats::Path @ %page, %values);
 }
 
+/** @returns {StatsRequest} */
 function statsAddRequest(%method, %page, %values) {
 	RootGroup.add(%req = new ScriptObject() {
 		class = "StatsRequest";
@@ -61,6 +65,9 @@ function statsAddRequest(%method, %page, %values) {
 	return %req;
 }
 
+/**
+ * @param {StatsRequest} %this
+ */
 function StatsRequest::send(%this) {
 	cancelIgnorePause(%this.retrySend);
 	%this.retrySend = %this.scheduleIgnorePause($Stats::RetryTime, "send");
@@ -81,6 +88,10 @@ function StatsRequest::send(%this) {
 	}
 }
 
+/**
+ * @param {StatsNetwork} %this
+ * @param {StatsRequest} %req
+ */
 function StatsNetwork::sendRequest(%this, %req) {
 	//Don't send the last request twice
 	if (%req.sent) {
@@ -97,6 +108,9 @@ function StatsNetwork::sendRequest(%this, %req) {
 	}
 }
 
+/**
+ * @param {StatsNetwork} %this
+ */
 function StatsNetwork::onLine(%this, %line) {
 	%this.echo(%line, "Line");
 
@@ -136,6 +150,9 @@ function StatsNetwork::onLine(%this, %line) {
 	}
 }
 
+/**
+ * @param {StatsNetwork} %this
+ */
 function StatsNetwork::onDisconnect(%this) {
 	%this.delete();
 }
@@ -1098,6 +1115,9 @@ function statsRecordReplayLine(%line, %req) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {LBDownloadReplay} %this
+ */
 function LBDownloadReplay::onDownload(%this, %path) {
 	// Check if we are already in a level, *dont* do this when the level is in the middle of loading/we are inside the level
 	if (PlayMissionGui.isAwake() && !$Game::Loading) {
@@ -1107,11 +1127,17 @@ function LBDownloadReplay::onDownload(%this, %path) {
 	//%this.delete();
 }
 
+/**
+ * @param {LBDownloadReplay} %this
+ */
 function LBDownloadReplay::downloadFailed(%this, %path) {
 	MessageBoxOk("Cannot play replay");
 	%this.delete();
 }
 
+/**
+ * @param {LBDownloadReplay} %this
+ */
 function LBDownloadReplay::onDisconnect(%this) {
 	%this.delete();
 }
@@ -1267,6 +1293,9 @@ function statsRecordMatchLine(%line) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ */
 function statsVerifyPlayer(%client, %session) {
 	if ($Server::Offline) {
 		%client.completeValidation(true);
@@ -1306,6 +1335,11 @@ function statsRateMissionLine(%line) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %client
+ * @param {Trigger} %trigger
+ * @param {Marble} %obj
+ */
 function statsRecordEventTrigger(%client, %trigger, %obj) {
 	%req = statsPost("api/Event/RecordEventTrigger.php", "username=" @ %client.getUsername() @ "&trigger=" @ %trigger);
 	%req.client = %client;

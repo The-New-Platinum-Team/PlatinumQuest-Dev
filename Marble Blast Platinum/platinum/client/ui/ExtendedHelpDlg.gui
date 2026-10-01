@@ -93,6 +93,9 @@ new GuiBitmapCtrl(extendedhelpdlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {ExtendedHelpDlg} %this
+ */
 function ExtendedHelpDlg::open(%this, %message) {
 	RootGui.pushDialog(%this);
 	EH_Text.setText(%message);
@@ -102,6 +105,9 @@ function ExtendedHelpDlg::open(%this, %message) {
 	}
 }
 
+/**
+ * @param {ExtendedHelpDlg} %this
+ */
 function ExtendedHelpDlg::close(%this) {
 	RootGui.popDialog(%this);
 	resumeGame();

@@ -115,6 +115,7 @@ function clientCmdMegaMarble(%mega) {
 }
 
 function clientCmdUpdateMarbleShape(%marble) {
+	/** @type {Marble} */
 	%obj = getClientSyncObject(%marble);
 	if (isObject(%obj)) {
 		%obj.reloadShader();
@@ -143,7 +144,9 @@ function clientCmdFoundEgg(%time, %eggName, %eggPickup) {
 		$pref::EasterEggTime[$Server::MissionFile] = min(%time, $pref::EasterEggTime[$Server::MissionFile]);
 	}
 
-	if (lb()) {
+	%isMarbleland = marblelandIsMission($Client::MissionFile);
+
+	if (lb() && !%isMarbleland) {
 		%saved = PlayMissionGui.onlineEasterEggCache.getFieldValue(PlayMissionGui.getMissionInfo().id);
 
 		if (%time < %saved || %saved $= "") {
@@ -239,6 +242,9 @@ function clientCmdGameStatus(%status) {
 	}
 }
 
+/**
+ * @param {Item} %item
+ */
 function clientCmdNoCollision(%item) {
 	if (isObject(%item))
 		%item.hide(false);
@@ -343,6 +349,9 @@ function clientCmdGhostId(%index, %id) {
 	fixGhost();
 }
 
+/**
+ * @param {Marble} %marble
+ */
 function onNewMarble(%marble, %index) {
 	PlayerList.getEntry(%index).player = %marble;
 	%marble.index = %index;

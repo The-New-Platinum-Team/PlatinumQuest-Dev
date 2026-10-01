@@ -22,6 +22,10 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {GameBaseData} %this
+ * @param {ShapeBase} %obj
+ */
 function GameBaseData::initFX(%this, %obj) {
 	if (!isObject(FXGroup)) {
 		new SimGroup(FXGroup);
@@ -66,6 +70,11 @@ function GameBaseData::initFX(%this, %obj) {
 	}
 }
 
+/**
+ * @param {GameBaseData} %this
+ * @param {ShapeBase} %obj
+ * @param {ParticleEmitterNode} %emitter
+ */
 function GameBaseData::createFXEmitter(%this, %obj, %datablock, %emitter, %index) {
 	//Because apparently this can happen sometimes
 	if (!isObject(%obj)) {
@@ -118,6 +127,10 @@ function GameBaseData::createFXEmitter(%this, %obj, %datablock, %emitter, %index
 	}
 }
 
+/**
+ * @param {GameBaseData} %this
+ * @param {Type} %obj
+ */
 function GameBaseData::clearFX(%this, %obj) {
 	// kill off the particles
 	for (%i = 0; isObject(%obj._fx[%i]); %i ++) {

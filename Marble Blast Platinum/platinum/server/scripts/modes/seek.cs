@@ -24,6 +24,9 @@
 // DEALINGS IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {Mode} %this
+ */
 function Mode_seek::onLoad(%this) {
 	%this.registerCallback("onMissionReset");
 	%this.registerCallback("onMissionEnded");
@@ -40,6 +43,9 @@ function Mode_seek::onLoad(%this) {
 	%this.registerCallback("shouldAllowTTs");
 	echo("[Mode" SPC %this.name @ "]: Loaded!");
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::onMissionReset(%this) {
 	//Start up the game here
 	chooseSeeker();
@@ -62,6 +68,9 @@ function Mode_seek::onMissionReset(%this) {
 	%graceTime = (MissionInfo.graceTime ? MissionInfo.graceTime : 20000);
 	commandToAll('SeekGracePeriod', %graceTime);
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::onMissionEnded(%this) {
 	//Reset all the clients
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
@@ -73,6 +82,10 @@ function Mode_seek::onMissionEnded(%this) {
 
 	cancel($Game::SeekFreeze);
 }
+/**
+ * @param {Mode_seek} %this
+ * @param {Type} %object
+ */
 function Mode_seek::onGameState(%this, %object) {
 	if (%object.state !$= "End" && %object.state !$= "Go") {
 		cancel(%object.client.stateSchedule);
@@ -93,6 +106,9 @@ function Mode_seek::onGameState(%this, %object) {
 		}
 	}
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::onTimeExpire(%this) {
 	if ($Server::Hosting && !$MP::Restarting) {
 		if ($Game::Seeking) {
@@ -103,6 +119,10 @@ function Mode_seek::onTimeExpire(%this) {
 	}
 	return false;
 }
+/**
+ * @param {Mode_seek} %this
+ * @param {Type} %object
+ */
 function Mode_seek::onCollision(%this, %object) {
 	if (!$Game::Seeking)
 		return;
@@ -115,33 +135,63 @@ function Mode_seek::onCollision(%this, %object) {
 		}
 	}
 }
+/**
+ * @param {Mode_seek} %this
+ * @param {Type} %object
+ */
 function Mode_seek::onUpdateGhost(%this, %object) {
 	%object.client.updateSeekerMarble();
 }
+/**
+ * @param {Mode_seek} %this
+ * @param {Type} %object
+ */
 function Mode_seek::onPlayerJoin(%this, %object) {
 	%object.client.setSeeker(true);
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::onPlayerLeave(%this) {
 	detectSeekerUpdate();
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::shouldResetTime(%this) {
 	return false;
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::shouldRestartOnOOB(%this) {
 	return false;
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::onEndGameSetup(%this) {
 	checkSeekVictory();
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::updateWinner(%this, %winners) {
 	updateSeekWinner(%winners);
 }
+/**
+ * @param {Mode_seek} %this
+ */
 function Mode_seek::shouldAllowTTs(%this) {
 	return false;
 }
 
 //--------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %this
+ * @param {GameConnection} %client
+ */
 function GameConnection::onFind(%this, %client) {
 	//Let us know
 	%this.addHelpLine("You have found" SPC %client.getDisplayName() @ "!");
@@ -158,6 +208,9 @@ function GameConnection::onFind(%this, %client) {
 	detectSeekerUpdate();
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::setSeeker(%this, %seeker) {
 	%this.seeker = %seeker;
 	if (%seeker) {
@@ -167,6 +220,9 @@ function GameConnection::setSeeker(%this, %seeker) {
 	}
 }
 
+/**
+ * @param {GameConnection} %this
+ */
 function GameConnection::updateSeekerMarble(%this) {
 	if ($Game::Seeking) {
 		if (%this.seeker) {
@@ -240,6 +296,9 @@ function detectSeekerUpdate() {
 
 //--------------------------------------------------------------------------
 
+/**
+ * @param {GameConnection} %seeker
+ */
 function chooseSeeker(%seeker) {
 	//Fuck the RNG.
 	setRandomSeed($Sim::Time);
@@ -249,6 +308,7 @@ function chooseSeeker(%seeker) {
 	//Make everyone a hider except for one seeker
 	%possible = 0;
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
+		/** @type {GameConnection} */
 		%client = ClientGroup.getObject(%i);
 		%client.setSeeker(false);
 
@@ -384,6 +444,9 @@ function checkSeekVictory() {
 	}
 }
 
+/**
+ * @param {Array} %winners
+ */
 function updateSeekWinner(%winners) {
 	for (%i = 0; %i < ClientGroup.getCount(); %i ++) {
 		%client = ClientGroup.getObject(%i);

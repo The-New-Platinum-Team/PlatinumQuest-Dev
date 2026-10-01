@@ -146,6 +146,9 @@ new GuiControl(HintsDlg) {
 };
 //--- OBJECT WRITE END ---
 
+/**
+ * @param {HintsDlg} %this
+ */
 function HintsDlg::close(%this) {
 	RootGui.popDialog(HintsDlg);
 	if ($gamePaused && $Game::Running)
@@ -154,6 +157,9 @@ function HintsDlg::close(%this) {
 	PlayMissionGui.showBody();
 }
 
+/**
+ * @param {HintsDlg} %this
+ */
 function HintsDlg::onWake(%this) {
 	%mission = PlayMissionGui.getMissionInfo();
 
@@ -199,10 +205,16 @@ function HintsDlg::onWake(%this) {
 	Hints_Text.setText(%text);
 }
 
+/**
+ * @param {HintsDlg} %this
+ */
 function HintsDlg::shouldShowUltimate(%this, %mission) {
 	return %this.completion & $Completion::Platinum;
 }
 
+/**
+ * @param {HintsDlg} %this
+ */
 function HintsDlg::shouldShowAwesome(%this, %mission) {
 	//Don't let them know about these until they get one
 	if (!$pref::ShowAwesomeHints)
@@ -210,11 +222,17 @@ function HintsDlg::shouldShowAwesome(%this, %mission) {
 	return %this.completion & $Completion::Ultimate;
 }
 
+/**
+ * @param {HintsDlg} %this
+ */
 function HintsDlg::shouldShowEgg(%this, %mission) {
 	//If you beat the par then you can see the egg hint
 	return %this.completion & $Completion::Par;
 }
 
+/**
+ * @param {HintsDlg} %this
+ */
 function HintsDlg::shouldShowEasterEgg(%this, %mission) {
 	//If you beat the par then you can see the easter egg hint
 	return %this.completion & $Completion::Par;

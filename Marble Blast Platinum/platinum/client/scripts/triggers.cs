@@ -30,6 +30,9 @@ if (!isObject(ClientTriggerSet)) {
 }
 
 // credits to seizure22
+/**
+ * @param {Trigger} %trigger
+ */
 function Trigger::isPointInside(%trigger, %point, %includeEqualTo) {
 	%box = %trigger.getWorldBox();
 	%x1 = getWord(%box, 0);
@@ -53,43 +56,92 @@ function Trigger::isPointInside(%trigger, %point, %includeEqualTo) {
 		        %pz > %z1 && %pz < %z2);
 }
 
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::onClientEnterTrigger(%this, %user) {
 	call(%this.getDatablock().getName() @ "_onClientEnterTrigger", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::onClientStayTrigger(%this, %user) {
 	call(%this.getDatablock().getName() @ "_onClientStayTrigger", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::onClientLeaveTrigger(%this, %user) {
 	call(%this.getDatablock().getName() @ "_onClientLeaveTrigger", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::onPlayerEnter(%this, %user) {
 	call(%this.getDatablock().getName() @ "_onPlayerEnter", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::onPlayerUpdate(%this, %user) {
 	call(%this.getDatablock().getName() @ "_onPlayerUpdate", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::onPlayerLeave(%this, %user) {
 	call(%this.getDatablock().getName() @ "_onPlayerLeave", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::shouldTriggerForPlayer(%this, %user) {
 	return call(%this.getDatablock().getName() @ "_shouldTriggerForPlayer", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::getDistance(%this, %user) {
 	return call(%this.getDatablock().getName() @ "_getDistance", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ * @param {Marble} %user
+ */
 function Trigger::getRadius(%this, %user) {
 	return call(%this.getDatablock().getName() @ "_getRadius", %this.getDatablock(), %this, %user);
 }
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::onEditorCopy(%this) {
 	return call(%this.getDatablock().getName() @ "_onEditorCopy", %this.getDatablock(), %this);
 }
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::onEditorPaste(%this) {
 	return call(%this.getDatablock().getName() @ "_onEditorPaste", %this.getDatablock(), %this);
 }
+/**
+ * @param {Trigger} %this
+ */
 function Trigger::onEditorDelete(%this) {
 	return call(%this.getDatablock().getName() @ "_onEditorDelete", %this.getDatablock(), %this);
 }
 
+/**
+ * @param {Trigger} %this
+ * @param {SceneObject} %user
+ */
 function Trigger::fit(%this, %obj) {
 	%this.setScale("1 1 1");
 	%x = getRadius("x", %obj) / getRadius("x", %this);
@@ -110,6 +162,9 @@ function clientCmdReceiveTriggerStart() {
 	ClientTriggerSet.clear();
 }
 
+/**
+ * @param {Trigger} %this
+ */
 function onReceiveTrigger(%trigger) {
 	%worldBox = %trigger.getWorldBox();
 	%datablock = %trigger.getDatablock();
@@ -156,6 +211,9 @@ function clientTriggerCollisionTest() {
 		checkMarbleTriggerCollisions($MP::MyMarble);
 }
 
+/**
+ * @param {Marble} %marble
+ */
 function checkMarbleTriggerCollisions(%marble) {
 	//Apparently sometimes %marble isn't a marble
 	%collBox = %marble.getClassName() $= "Marble" ? %marble.getCollisionBox() : %marble.getWorldBox();
@@ -232,20 +290,40 @@ function clientResetTriggerEntry() {
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function AlignmentTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	AlignmentTrigger_align(%this, %trigger, %user);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function AlignmentTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	if (%trigger.alwaysOn) {
 		AlignmentTrigger_align(%this, %trigger, %user);
 	}
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function AlignmentTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function AlignmentTrigger_align(%this, %trigger, %user) {
 	//Don't care if other people need to be aligned
 	if (!MPMyMarbleExists() || %user.getId() != MPGetMyMarble().getId())
@@ -292,6 +370,11 @@ function AlignmentTrigger_align(%this, %trigger, %user) {
 
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function BubbleUseTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	//Don't care if other people use this
 	if (!MPMyMarbleExists() || %user.getId() != MPGetMyMarble().getId())
@@ -304,10 +387,20 @@ function BubbleUseTrigger_onClientEnterTrigger(%this, %trigger, %user) {
 	clientCmdSetBubbleTime(1, true);
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function BubbleUseTrigger_onClientStayTrigger(%this, %trigger, %user) {
 	//Nothing
 }
 
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %trigger
+ * @param {Marble} %user
+ */
 function BubbleUseTrigger_onClientLeaveTrigger(%this, %trigger, %user) {
 	//Don't care if other people use this
 	if (!MPMyMarbleExists() || %user.getId() != MPGetMyMarble().getId())

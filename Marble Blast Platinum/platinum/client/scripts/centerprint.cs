@@ -49,10 +49,16 @@ function clientCmdBottomPrint(%message, %time, %size) {
 		bottomPrintDlg.removePrint = schedule((%time * 1000), 0, "clientCmdClearbottomPrint");
 }
 
+/**
+ * @param {BottomPrintText} %this
+ */
 function BottomPrintText::onResize(%this, %width, %height) {
 	%this.position = "0 0";
 }
 
+/**
+ * @param {CenterPrintText} %this
+ */
 function CenterPrintText::onResize(%this, %width, %height) {
 	%this.position = "0 0";
 }

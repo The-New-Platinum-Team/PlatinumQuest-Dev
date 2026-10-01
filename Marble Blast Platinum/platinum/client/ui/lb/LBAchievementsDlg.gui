@@ -229,6 +229,9 @@ new GuiChunkedBitmapCtrl(LBAchievementsDlg) {
 // many achievements!
 //-----------------------------------------------------------------------------
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::show(%this, %user, %list) {
 	if (%user $= "")
 		%user = $LB::Username;
@@ -242,11 +245,17 @@ function LBAchievementsDlg::show(%this, %user, %list) {
 	%this.selectCategory(%list);
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::onSleep(%this) {
 	%this.user = "";
 	PlayMissionGui.showBody();
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::prevCategory(%this) {
 	switch$ (%this.list) {
 	case "Single Player":
@@ -258,6 +267,9 @@ function LBAchievementsDlg::prevCategory(%this) {
 	}
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::nextCategory(%this) {
 	switch$ (%this.list) {
 	case "Single Player":
@@ -269,6 +281,9 @@ function LBAchievementsDlg::nextCategory(%this) {
 	}
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::selectCategory(%this, %list) {
 	%this.list = %list;
 
@@ -293,12 +308,18 @@ function LBAchievementsDlg::selectCategory(%this, %list) {
 
 $LB::Achievement::ImageExtentX = 125;
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::getBitmapPath(%this, %list, %i) {
 	%cat = %this.achievementList.categories.getFieldValue(%list);
 	%achiev = %this.achievementList.achievements.getFieldValue(%list).getEntry(%i);
 	return strReplace(%cat.bitmap_path, "~", $usermods) @ %achiev.index;
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::generateAchList(%this, %list) {
 	while (LBachiev_container.getCount())
 		LBachiev_container.getObject(0).delete();
@@ -348,9 +369,13 @@ function LBAchievementsDlg::generateAchList(%this, %list) {
 	LBachiev_container.setVisible(false);
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::update(%this) {
 	%lineLength = 368;
 
+	/** @type {Array} */
 	%list = %this.achievementList.achievements.getFieldValue(%this.list);
 
 	for (%i = 0; %i < %list.getSize(); %i ++) {
@@ -411,20 +436,30 @@ function LBAchievementsDlg::update(%this) {
 	}
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::onAchievementListUpdate(%this, %list) {
 	%this.achievementList = %list;
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::onPlayerAchievementsUpdate(%this, %parsed) {
 	%this.playerAchievements[%parsed.username] = %parsed.achievements;
 	%this.update();
 }
 
+/**
+ * @param {LBAchievementsDlg} %this
+ */
 function LBAchievementsDlg::onGrantAchievement(%this, %id) {
 	//Iterate all achievements
 	for (%i = 0; %i < %this.achievementList.categoryNames.getSize(); %i ++) {
 		%catName = %this.achievementList.categoryNames.getEntry(%i);
 
+		/** @type {Array} */
 		%cat = %this.achievementList.achievements.getFieldValue(%catName);
 		for (%j = 0; %j < %cat.getSize(); %j ++) {
 			%ach = %cat.getEntry(%j);

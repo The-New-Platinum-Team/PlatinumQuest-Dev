@@ -537,6 +537,9 @@ function audioPackReset(%grp) {
 	}
 }
 
+/**
+ * @param {SimGroup} %grp
+ */
 function audioPackIterate(%grp, %pack) {
 	for (%i = 0; %i < %grp.getCount(); %i ++) {
 		%obj = %grp.getObject(%i);

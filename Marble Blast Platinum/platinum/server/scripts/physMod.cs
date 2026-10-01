@@ -101,6 +101,10 @@ datablock ParticleEmitterNodeData(PhysModEmitterNode) {
 /// Callback from the engine whenever a physmod trigger is added.
 /// @arg this The datablock of the physmod trigger
 /// @arg obj The trigger instance
+/**
+ * @param {TriggerData} %this
+ * @param {Trigger} %obj
+ */
 function MarblePhysModTrigger::onAdd(%this, %obj) {
 	//compatibility - convert the data storage strings
 	if (%obj.marbleAttribute !$= "") {
@@ -124,10 +128,14 @@ function MarblePhysModTrigger::onAdd(%this, %obj) {
 	%obj.setSync("onReceiveTrigger");
 }
 
+/**
+ * @param {SimSet} %group
+ */
 function buildPhysmodEmitters(%group) {
 	%count = %group.getCount();
 
 	for (%i = 0; %i < %count; %i++) {
+		/** @type {GameBase} */
 		%obj = %group.getObject(%i);
 		%class = %obj.getClassName();
 
@@ -168,6 +176,9 @@ function buildPhysmodEmitters(%group) {
 	}
 }
 
+/**
+ * @param {StaticShapeData} %this
+ */
 function PhysModEmitterBase::onAdd(%this, %obj) {
 	%this.initFX(%obj);
 }

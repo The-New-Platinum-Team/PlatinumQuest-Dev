@@ -118,6 +118,9 @@ new GuiControl(LargeFunctionDlg) {
 //--- OBJECT WRITE END ---
 //todo: delete key isn't mapped to editor anymore when using dialog (normally does quick restart) (possibly add guis to editorGui to stop it?)
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::test(%gui) {
 	// Load up features to test
 	%gui.init("testFunctionToCall", "Generic Title", 1);
@@ -143,6 +146,9 @@ function LargeFunctionDlg::test(%gui) {
 	%gui.addDropMenu(Menu4, "Example Menu", 3, "*Choice1\tChoice1\nChoice2\tChoice2\nChoice3\tChoice3\nChoice4\tChoice4");
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function testFunctionToCall(%gui) {
 	echo("in callback");
 	%gui.cleanup();
@@ -156,6 +162,12 @@ function testFunctionToCall(%gui) {
 //                if this is the case, your %callback function must call LargeFunctionDlg.cleanup();
 //
 
+/**
+ * @param {Type} %gui
+ * @param {Type} %callback
+ * @param {Type} %title
+ * @param {Type} %handleErrors
+ */
 function LargeFunctionDlg::init(%gui, %callback, %title, %handleErrors) {
 	if (%callback $= "") {
 		error("LargeFunctionDlg::init: no callback function name given");
@@ -173,6 +185,9 @@ function LargeFunctionDlg::init(%gui, %callback, %title, %handleErrors) {
 	RootGui.pushDialog(%gui);
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::accept(%gui) {
 	%callback = %gui.callback;
 
@@ -182,10 +197,16 @@ function LargeFunctionDlg::accept(%gui) {
 		RootGui.popDialog(LargeFunctionDlg);
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::cleanup(%gui) {
 	RootGui.popDialog(LargeFunctionDlg);
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::SingleValueEdit(%gui, %obj) {
 	if (!isObject(%obj)) {
 		PED.error("LargeFunctionDlg::SVEdit() " SPC %obj SPC "not an object!");
@@ -195,6 +216,9 @@ function LargeFunctionDlg::SingleValueEdit(%gui, %obj) {
 	%gui.LastSVEditObject = %obj;
 }
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::svcallback(%gui, %ignore, %value) {
 	%gui.LastSVEditObject.setValue(%value);
 }
@@ -210,6 +234,9 @@ function LargeFunctionDlg::svcallback(%gui, %ignore, %value) {
 //%tabs: how many tabs to move over from the left
 //
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::addTextEditField(%gui, %name, %title, %default, %xExtent, %tabs) {
 	if (%xExtent < 10)
 		%xExtent = 250;
@@ -262,6 +289,9 @@ function LargeFunctionDlg::addTextEditField(%gui, %name, %title, %default, %xExt
 //%tabs: how many tabs to move over from the left
 //
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::addTimeEditField(%gui, %name, %title, %default, %xExtent, %tabs) {
 	if (%xExtent < 10)
 		%xExtent = 250;
@@ -314,6 +344,9 @@ function LargeFunctionDlg::addTimeEditField(%gui, %name, %title, %default, %xExt
 //%tabs: how many tabs to move over from the left
 //
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::addCheckBox(%gui, %name, %title, %default, %tabs) {
 	if (isObject(%name)) {
 		error("LargeFunctionDlg: object " @ %name @ " already exists!");
@@ -351,6 +384,9 @@ function LargeFunctionDlg::addCheckBox(%gui, %name, %title, %default, %tabs) {
 //%useSVButton: allow users to click & set value with keyboard
 //
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::addSlider(%gui, %name, %title, %range, %default, %tabs, %useSVButton) {
 	if (isObject(%name)) {
 		error("LargeFunctionDlg: object " @ %name @ " already exists!");
@@ -415,6 +451,9 @@ function LargeFunctionDlg::addSlider(%gui, %name, %title, %range, %default, %tab
 //          add a star * at the front of the choice you want to be default
 //
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::addDropMenu(%gui, %name, %title, %tabs, %choices, %default) {
 	if (isObject(%name)) {
 		error("LargeFunctionDlg: object " @ %name @ " already exists!");
@@ -465,6 +504,9 @@ function LargeFunctionDlg::addDropMenu(%gui, %name, %title, %tabs, %choices, %de
 	LFDWScroll.setExtent(600 SPC(%gui.yposition + 10));
 }
 
+/**
+ * @param {LargeFunctionDlg} %this
+ */
 function GuiPopUpMenuCtrl::getValue(%this) {
 	%value = Parent::getValue(%this);
 	if (%this._value[%value] !$= "") {
@@ -473,6 +515,9 @@ function GuiPopUpMenuCtrl::getValue(%this) {
 	return %value;
 }
 
+/**
+ * @param {LargeFunctionDlg} %this
+ */
 function GuiPopUpMenuCtrl::setValue(%this, %value) {
 	if (%this._name[%value] !$= "") {
 		%value = %this._name[%value];
@@ -487,6 +532,9 @@ function GuiPopUpMenuCtrl::setValue(%this, %value) {
 //%tabs: how many tabs to move over from the left
 //
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::addNote(%gui, %text, %tabs) {
 	%gui1 = new GuiTextCtrl() {
 		profile = "GuiTextProfile";
@@ -513,6 +561,9 @@ function LargeFunctionDlg::addNote(%gui, %text, %tabs) {
 //calls %name::onPressed(%name, %gui);
 //
 
+/**
+ * @param {LargeFunctionDlg} %gui
+ */
 function LargeFunctionDlg::addButton(%gui, %name, %title, %tabs) {
 	if (isObject(%name)) {
 		error("LargeFunctionDlg: object " @ %name @ " already exists!");

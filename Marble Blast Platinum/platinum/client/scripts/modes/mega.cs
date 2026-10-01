@@ -37,6 +37,9 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_mega) {
 });
 
 
+/**
+ * @param {ClientMode} %this
+ */
 function ClientMode_mega::onLoad(%this) {
 	echo("[Mode" SPC %this.name @ " Client]: Loaded!");
 	%this.registerCallback("timeMultiplier");
@@ -45,21 +48,37 @@ function ClientMode_mega::onLoad(%this) {
 	%this.registerCallback("radarGetDotBitmap");
 	%this.registerCallback("nametagRaycast");
 }
+/**
+ * @param {ClientMode_mega} %this
+ */
 function ClientMode_mega::timeMultiplier(%this) {
 	return -1;
 }
+/**
+ * @param {ClientMode_mega} %this
+ */
 function ClientMode_mega::onEndGameSetup(%this) {
 	PlayGui.setTime(0);
 }
+/**
+ * @param {ClientMode_mega} %this
+ */
 function ClientMode_mega::getDefaultScore(%this) {
 	return $ScoreType::Score TAB 0 TAB "Matan W.";
 }
+/**
+ * @param {ClientMode_mega} %this
+ * @param {SceneObject} %object
+ */
 function ClientMode_mega::radarGetDotBitmap(%this, %object) {
 	if (%object.getClassName() $= "Marble" && %object != $MP::MyMarble) {
 		return $userMods @ "/client/ui/mp/radar/Marble.png" TAB "white";
 	}
 	return "";
 }
+/**
+ * @param {ClientMode_mega} %this
+ */
 function ClientMode_mega::nametagRaycast(%this) {
 	return false;
 }
