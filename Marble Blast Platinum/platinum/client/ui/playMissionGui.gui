@@ -3615,6 +3615,14 @@ function PlayMissionGui::updatePlayBitmap(%this) {
 		PM_MissionPlay.bitmap = "platinum/client/ui/play/buttons/rtaStart.png";
 		%this.setPlayColor($TimeColor["stopped"]);
 	}
+
+	if (mp()) {
+		if ($Client::Loading) {
+			PM_MissionPlay.bitmap = ("platinum/client/ui/play/buttons/cancelpreload.png");
+		} else {
+			PM_MissionPlay.bitmap = ($Client::Loaded ? "platinum/client/ui/play/buttons/play.png" : "platinum/client/ui/play/buttons/preload.png");
+		}
+	}
 }
 
 function PlayMissionGui::setPlayColor(%this, %color) {
@@ -5084,13 +5092,13 @@ function PlayMissionGui::updateMPButtons(%this) {
 	PM_MissionEnableTeams.setValue($MP::TeamMode);
 	PM_MissionEnableTeams.bitmap = ($MP::TeamMode ? "platinum/client/ui/play/buttons/teams-disable.png" : "platinum/client/ui/play/buttons/teams-enable.png");
 
+	%this.setBarButtonActive(PM_MissionPlay, $Server::Hosting);
+
 	if ($Client::Loading) {
 		PM_MissionPlay.bitmap = ("platinum/client/ui/play/buttons/cancelpreload.png");
 	} else {
 		PM_MissionPlay.bitmap = ($Client::Loaded ? "platinum/client/ui/play/buttons/play.png" : "platinum/client/ui/play/buttons/preload.png");
 	}
-
-	%this.setBarButtonActive(PM_MissionPlay, $Server::Hosting);
 }
 
 /**
