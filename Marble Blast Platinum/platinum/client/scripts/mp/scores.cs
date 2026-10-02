@@ -796,57 +796,95 @@ function scoreListUpdate() {
 				}
 				);
 				// Score list text and object
-				PGScoreListContainer.add(
-				new GuiControl(PGScoreContainer @ %index) {
-					profile = "GuiMLTextProfile";
-					position = "0 0";
-					extent = 460 SPC %pgitemHeight;
-					visible = "1";
+				if ($Game::isMode["race"]) {
+					PGScoreListContainer.add(
+					new GuiControl(PGScoreContainer @ %index) {
+						profile = "GuiMLTextProfile";
+						position = "0 0";
+						extent = 460 SPC %pgitemHeight;
+						visible = "1";
 
-					new GuiMLTextCtrl(PGScoreText @ %index) {
+						new GuiMLTextCtrl(PGScoreText @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "8 3";
+							extent = "300 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiMLTextCtrl(PGScoreGems @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "314 3";
+							extent = "85 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiMLTextCtrl(PGGemLossPopup @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "366 -3";
+							extent = "40 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiObjectView(PGPlayerMarble @ %index) {
+							profile = "GuiDefaultProfile";
+							position = "403 -2";
+							extent = "48 48";
+							visible = "1";
+							model = $usermods @ "/data/shapes/balls/ball-superball.dts";
+							skin = "base";
+							cameraZRotSpeed = "0.001";
+							orbitDistance = "0.75";
+						};
+						new GuiBitmapCtrl(PGPlayerPing @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "382 4";
+							extent = "32 32";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+					}
+					);
+				} else {
+						PGScoreListContainer.add(
+					new GuiControl(PGScoreContainer @ %index) {
 						profile = "GuiMLTextProfile";
-						position = "8 3";
-						extent = "300 14";
+						position = "0 0";
+						extent = 300 SPC %pgitemHeight;
 						visible = "1";
-						lineSpacing = "2";
-						maxChars = "-1";
-					};
-					new GuiMLTextCtrl(PGScoreGems @ %index) {
-						profile = "GuiMLTextProfile";
-						position = "314 3";
-						extent = "85 14";
-						visible = "1";
-						lineSpacing = "2";
-						maxChars = "-1";
-					};
-					new GuiMLTextCtrl(PGGemLossPopup @ %index) {
-						profile = "GuiMLTextProfile";
-						position = "366 -3";
-						extent = "40 14";
-						visible = "1";
-						lineSpacing = "2";
-						maxChars = "-1";
-					};
-					new GuiObjectView(PGPlayerMarble @ %index) {
-						profile = "GuiDefaultProfile";
-						position = "403 -2";
-						extent = "48 48";
-						visible = "1";
-						model = $usermods @ "/data/shapes/balls/ball-superball.dts";
-						skin = "base";
-						cameraZRotSpeed = "0.001";
-						orbitDistance = "0.75";
-					};
-					new GuiBitmapCtrl(PGPlayerPing @ %index) {
-						profile = "GuiMLTextProfile";
-						position = "382 4";
-						extent = "32 32";
-						visible = "1";
-						lineSpacing = "2";
-						maxChars = "-1";
-					};
+
+						new GuiMLTextCtrl(PGScoreText @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "8 3";
+							extent = "235 14";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+						new GuiObjectView(PGPlayerMarble @ %index) {
+							profile = "GuiDefaultProfile";
+							position = "260 -2";
+							extent = "48 48";
+							visible = "1";
+							model = $usermods @ "/data/shapes/balls/ball-superball.dts";
+							skin = "base";
+							cameraZRotSpeed = "0.001";
+							orbitDistance = "0.75";
+						};
+						new GuiBitmapCtrl(PGPlayerPing @ %index) {
+							profile = "GuiMLTextProfile";
+							position = "239 4";
+							extent = "32 32";
+							visible = "1";
+							lineSpacing = "2";
+							maxChars = "-1";
+						};
+					}
+					);
 				}
-				);
 			}
 
 			// At this point, they should have a display entry. Set it up!
@@ -868,7 +906,10 @@ function scoreListUpdate() {
 			// Resize these to be at the correct position
 			//                  x  y                        w    h
 			%container.resize(0, %rowIdx * %itemHeight,   630, %itemHeight);
-			%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 460, %itemHeight);
+			if ($Game::isMode["race"])
+				%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 460, %itemHeight);
+			else
+				%pgcontainer.resize(0, %rowIdx * %pgitemHeight, 300, %itemHeight);
 			%container.player   = %player;
 			%pgcontainer.player = %player;
 
@@ -900,10 +941,12 @@ function scoreListUpdate() {
 			%gems5     = mFloor(getWord(%gems, 2));
 			%gems10    = mFloor(getWord(%gems, 3));
 
-			//Flash name, timer, and gem count red for a moment after going OOB
-			%oobColorTag = %oobFlash ? "<color:ff4444>" : "";
+			if ($Game::IsMode["race"]) {
+				//Flash name, timer, and gem count red for a moment after going OOB
+				%oobColorTag = %oobFlash ? "<color:ff4444>" : "";
 
-			%pgscoreGems.setText(%pgfont @ "<just:center>" @ %oobColorTag @ %gemCount @ "/" @ PlayGui.maxGems);
+				%pgscoreGems.setText(%pgfont @ "<just:center>" @ %oobColorTag @ %gemCount @ "/" @ PlayGui.maxGems);
+			}
 
 			%gems1  = %gems1  $= "" || %gems1  == 0 ? "0" : %gems1;
 			%gems2  = %gems2  $= "" || %gems2  == 0 ? "0" : %gems2;
@@ -931,18 +974,24 @@ function scoreListUpdate() {
 			      || ($Server::_Dedicated && isObject(ScoreList.player[1])); //Hosting dedicated, hack but should work
 			%scoreIdx = (%vs ? 0 : 1);
 
-			if (%timeMode && %dnf)
-				%displayScore = "DNF";
-			else
-				%displayScore = %timeMode ? formatTime(%score) : %score;
+			if ($Game::IsMode["race"]) {
+				if (%timeMode && %dnf)
+					%displayScore = "DNF";
+				else
+					%displayScore = %timeMode ? formatTime(%score) : %score;
 
-			%nameWidth = %timeMode ? 170 : 200 - (15 * strlen(%displayScore));
+				%nameWidth = %timeMode ? 170 : 200 - (15 * strlen(%displayScore));
 
-			%scoreColorTag = %oobFlash ? %oobColorTag : ((%timeMode && %pendingBonus > 0) ? "<color:88ffcc>" : "");
+				%scoreColorTag = %oobFlash ? %oobColorTag : ((%timeMode && %pendingBonus > 0) ? "<color:88ffcc>" : "");
 
-			%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %displayScore);
-			%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC "<spush>" @ %oobColorTag @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<spop><just:right>" @ %pgface @ %scoreColorTag @ %displayScore);
+				%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %displayScore);
+				%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC "<spush>" @ %oobColorTag @ clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<spop><just:right>" @ %pgface @ %scoreColorTag @ %displayScore);
+			} else {
+				%nameWidth = 200 - (15 * strlen(%score));
 
+				%scoreText.setText(%font @ %rowIdx @ "." TAB clipPx($DefaultFont, 28, LBResolveName(%player, true), 280, true) TAB %face @ %score);
+				%pgscoreText.setText(%pgfont @ %color[%rowIdx] @ %rowIdx @ "." SPC clipPx($DefaultFont, 28, %prefix @ LBResolveName(%player, true), %nameWidth, true) @ "<just:right>" @ %pgface @ %score);
+			}
 			%gems1  = "<spush><color:FF0000>" @ %scoreColor @ %gems1  @ "<spop>";
 			%gems2  = "<spush><color:FFFF00>" @ %scoreColor @ %gems2  @ "<spop>";
 			%gems5  = "<spush><color:4040FF>" @ %scoreColor @ %gems5  @ "<spop>";
