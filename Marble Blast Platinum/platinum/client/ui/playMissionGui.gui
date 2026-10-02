@@ -215,28 +215,6 @@ new GuiControl(PlayMissionGui) {
 			maxChars = "-1";
 		};
 	};
-    new GuiBitmapCtrl(PMG_Web) {
-        isContainer = "0";
-        Profile = "GuiDefaultProfile";
-        HorizSizing = "right";
-        VertSizing = "bottom";
-        position = "266 -1";
-        Extent = "105 80";
-        MinExtent = "8 8";
-        canSave = "1";
-        Visible = "1";
-        Active = "1";
-        tooltipprofile = "GuiDefaultProfile";
-        tooltipWidth = "250";
-        hovertime = "1000";
-        bitmap = "./lb/events/spiderweb1";
-        wrap = "0";
-        bitmapColor = "255 255 255 255";
-        bitmapRotation = "0";
-        useSourceRect = "0";
-        sourceRect = "0 0 0 0";
-            helpTag = "0";
-    };
 	new GuiControl(PM_MissionBox) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "right";
@@ -258,6 +236,18 @@ new GuiControl(PlayMissionGui) {
 			visible = "1";
 			helpTag = "0";
 			bitmap = "./play/missionlist";
+			wrap = "0";
+		};
+		new GuiBitmapCtrl(PMG_SpookyWeb) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "right";
+			vertSizing = "bottom";
+			position = "256 -1";
+			extent = "105 80";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			bitmap = "./lb/events/frightfest/spiderweb1";
 			wrap = "0";
 		};
 		new GuiBorderButtonCtrl(PM_GameSelector) {
@@ -836,27 +826,17 @@ new GuiControl(PlayMissionGui) {
 				};
 			};
 		};
-		new GuiBitmapCtrl(PMG_pumpkin) {
-			isContainer = "0";
-			Profile = "GuiDefaultProfile";
-			HorizSizing = "left";
-			VertSizing = "top";
+		new GuiBitmapCtrl(PMG_SpookyPumpkin) {
+			profile = "GuiDefaultProfile";
+			horizSizing = "left";
+			vertSizing = "top";
 			position = "10 367";
-			Extent = "60 54";
-			MinExtent = "8 8";
-			canSave = "1";
-			Visible = "1";
-			Active = "1";
-			tooltipprofile = "GuiDefaultProfile";
-			tooltipWidth = "250";
-			hovertime = "1000";
-			bitmap = "./lb/events/pumpkin";
+			extent = "60 54";
+			minExtent = "8 8";
+			visible = "0";
+			helpTag = "0";
+			bitmap = "./lb/events/frightfest/pumpkin";
 			wrap = "0";
-			bitmapColor = "255 255 255 255";
-			bitmapRotation = "0";
-			useSourceRect = "0";
-			sourceRect = "0 0 0 0";
-				helpTag = "0";
 		};
 	};
 	new GuiControl(PM_ChatBox) {
@@ -878,7 +858,18 @@ new GuiControl(PlayMissionGui) {
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
-
+			new GuiBitmapCtrl(PMG_SpookyLights) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "right";
+				vertSizing = "bottom";
+				position = "11 20";
+				extent = "539 34";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+				bitmap = "./lb/events/frightfest/lights";
+				wrap = "0";
+			};
 			new GuiControl(PM_LBChatBox) {
 				profile = "GuiDefaultProfile";
 				horizSizing = "width";
@@ -888,7 +879,6 @@ new GuiControl(PlayMissionGui) {
 				minExtent = "61 61";
 				visible = "0";
 				helpTag = "0";
-
 				new GuiScrollCtrl(PM_LBChatContainer) {
 					profile = "PQScrollProfile";
 					horizSizing = "width";
@@ -1177,28 +1167,6 @@ new GuiControl(PlayMissionGui) {
 					tooltip = "Team";
 				};
 			};
-		};
-		new GuiBitmapCtrl(PMG_Lights) {
-			isContainer = "0";
-			Profile = "GuiDefaultProfile";
-			HorizSizing = "right";
-			VertSizing = "bottom";
-			position = "11 20";
-			Extent = "539 34";
-			MinExtent = "8 8";
-			canSave = "1";
-			Visible = "1";
-			Active = "1";
-			tooltipprofile = "GuiDefaultProfile";
-			tooltipWidth = "250";
-			hovertime = "1000";
-			bitmap = "./lb/events/lights";
-			wrap = "0";
-			bitmapColor = "255 255 255 255";
-			bitmapRotation = "0";
-			useSourceRect = "0";
-			sourceRect = "0 0 0 0";
-				helpTag = "0";
 		};
 	};
 	new GuiControl(PM_ButtonBox) {
@@ -1522,6 +1490,8 @@ function PlayMissionGui::onWake(%this) {
 		%this.clearServerPlayerList();
 		%this.updateServerPlayerList();
 	}
+
+	%this.checkHolidayDecor();
 }
 
 /**
@@ -1598,6 +1568,16 @@ function PlayMissionGui::onSleep(%this) {
 	if (mp()) {
 		%this.clearServerPlayerList();
 	}
+}
+
+//Yeah just slap this in here with all of the big boys
+function PlayMissionGui::checkHolidayDecor() {
+	%frightfest = ($GlobalHoliday $= "Frightfest");
+	%winterfest = ($GlobalHoliday $= "Winterfest");
+
+	PMG_SpookyWeb.setVisible(%frightfest);
+	PMG_SpookyPumpkin.setVisible(%frightfest);
+	PMG_SpookyLights.setVisible(%frightfest);
 }
 
 //-----------------------------------------------------------------------------

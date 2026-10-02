@@ -365,14 +365,21 @@ function playMusic(%musicFileBase) {
 }
 
 function playShellMusic() {
-	if (!$TexturePack::MBXP)
-		playMusic(getMusicFile("Menu"));
-	else
-		playMusic(getMusicFile("XP"));
+	%song = $TexturePack::MBXP ? "MenuXP" : "Menu";
+	playMusic(getMusicFile(%song));
 }
 
 function playLBMusic() {
-	playMusic(getMusicFile("LB"));
+	switch$ ($GlobalHoliday) {
+	case "Frightfest":
+		%song = "LBspooky";
+	case "Winterfest":
+		%song = "LBsnowball";
+	default:
+		%song = "LB";
+	}
+
+	playMusic(getMusicFile(%song));
 }
 
 function playGameMusic() {
@@ -447,21 +454,16 @@ function buildMusicList() {
 	}
 }
 
-$Music::Songs["LB"]     = "Comforting Mystery.ogg";
-$Music::Songs["Menu"]   = "Pianoforte.ogg";
-$Music::Songs["XP"]   = "ShellXP.ogg";
-$Music::Songs["Game"]   = "*";
+$Music::Songs["Menu"]       = "Pianoforte.ogg";
+$Music::Songs["MenuXP"]     = "ShellXP.ogg";
+$Music::Songs["LB"]         = "Comforting Mystery.ogg";
+$Music::Songs["LBspooky"]   = "Halloween Trance.ogg";
+$Music::Songs["LBsnowball"] = "Xmas Trance.ogg";
+$Music::Songs["Game"]       = "*";
 
 function getMusicFile(%location) {
 	//Grab the songs for the location
 	%songs = $pref::Music::Songs[%location];
-
-	switch$ ($GlobalHoliday) {
-	case "Frightfest":
-		%songs = ($pref::Music::SongsFright[%location] !$= "" ? $pref::Music::SongsFright[%location] : %songs);
-	case "Winterfest":
-		%songs = ($pref::Music::SongsWinter[%location] !$= "" ? $pref::Music::SongsWinter[%location] : %songs);
-	}
 
 	if (%songs $= "")
 		%songs = $Music::Songs[%location];

@@ -251,49 +251,29 @@ new GuiControl(LBLoginGui) {
 				allowColorChars = "0";
 				maxChars = "-1";
 			};
-			new GuiBitmapCtrl(LBChat_Lights) {
-				isContainer = "0";
-				Profile = "GuiDefaultProfile";
-				HorizSizing = "left";
-				VertSizing = "top";
+			new GuiBitmapCtrl(LBLogin_SpookyLights) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "top";
 				position = "10 11";
-				Extent = "484 30";
-				MinExtent = "8 8";
-				canSave = "1";
-				Visible = "1";
-				Active = "1";
-				tooltipprofile = "GuiDefaultProfile";
-				tooltipWidth = "250";
-				hovertime = "1000";
-				bitmap = "./events/lights";
+				extent = "484 30";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+				bitmap = "./events/frightfest/lights";
 				wrap = "0";
-				bitmapColor = "255 255 255 255";
-				bitmapRotation = "0";
-				useSourceRect = "0";
-				sourceRect = "0 0 0 0";
-					helpTag = "0";
 			};
-			new GuiBitmapCtrl(LBChat_ghost) {
-				isContainer = "0";
-				Profile = "GuiDefaultProfile";
-				HorizSizing = "left";
-				VertSizing = "top";
+			new GuiBitmapCtrl(LBLogin_SpookyGhost) {
+				profile = "GuiDefaultProfile";
+				horizSizing = "left";
+				vertSizing = "top";
 				position = "160 178";
-				Extent = "34 40";
-				MinExtent = "8 8";
-				canSave = "1";
-				Visible = "1";
-				Active = "1";
-				tooltipprofile = "GuiDefaultProfile";
-				tooltipWidth = "250";
-				hovertime = "1000";
-				bitmap = "./events/ghost_groovy";
+				extent = "34 40";
+				minExtent = "8 8";
+				visible = "0";
+				helpTag = "0";
+				bitmap = "./events/frightfest/ghost_groovy";
 				wrap = "0";
-				bitmapColor = "255 255 255 255";
-				bitmapRotation = "0";
-				useSourceRect = "0";
-				sourceRect = "0 0 0 0";
-					helpTag = "0";
 			};
 		};
 	};
@@ -327,6 +307,16 @@ function LBLoginGui::onWake(%this) {
 	%this.enableLogin();
 
 	MainMenuGui.checkScriptError();
+
+	%this.checkHolidayDecor();
+}
+
+function LBLoginGui::checkHolidayDecor() {
+	%frightfest = ($GlobalHoliday $= "Frightfest");
+	%winterfest = ($GlobalHoliday $= "Winterfest");
+
+	LBLogin_SpookyLights.setVisible(%frightfest);
+	LBLogin_SpookyGhost.setVisible(%frightfest);
 }
 
 // this enables/disables the login button,
