@@ -45,28 +45,6 @@ new GuiControl(LBChatGui) {
 		visible = "1";
 		helpTag = "0";
 
-		new GuiBitmapCtrl(LBBackground) {
-			isContainer = "0";
-			Profile = "GuiDefaultProfile";
-			HorizSizing = "width";
-			VertSizing = "height";
-			position = "0 0";
-			Extent = "800 600";
-			MinExtent = "8 8";
-			canSave = "1";
-			Visible = "1";
-			Active = "1";
-			tooltipprofile = "GuiDefaultProfile";
-			tooltipWidth = "250";
-			hovertime = "1000";
-			bitmap = "./events/img_spooky_sprawl";
-			wrap = "0";
-			bitmapColor = "255 255 255 255";
-			bitmapRotation = "0";
-			useSourceRect = "0";
-			sourceRect = "0 0 0 0";
-				helpTag = "0";
-		};
 		new GuiBitmapCtrl() {
 			profile = "GuiDefaultProfile";
 			horizSizing = "width";
@@ -264,6 +242,30 @@ new GuiControl(LBChatGui) {
 				visible = "1";
 				helpTag = "0";
 
+				new GuiBitmapCtrl(LBChat_SpookySpider) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "bottom";
+					position = "140 11";
+					extent = "81 150";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					bitmap = "./events/frightfest/spider";
+					wrap = "0";
+				};
+				new GuiBitmapCtrl(LBChat_SpookyLights) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "bottom";
+					position = "11 6";
+					extent = "215 31";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					bitmap = "./events/frightfest/lights-userlist";
+					wrap = "0";
+				};
 				new GuiScrollCtrl(LBChat_PlayerScroll) {
 					profile = "PQScrollProfile";
 					horizSizing = "left";
@@ -293,50 +295,6 @@ new GuiControl(LBChatGui) {
 						maxChars = "-1";
 					};
 				};
-				new GuiBitmapCtrl(LBChat_Spider) {
-					isContainer = "0";
-					Profile = "GuiDefaultProfile";
-					HorizSizing = "left";
-					VertSizing = "bottom";
-					position = "140 11";
-					Extent = "81 150";
-					MinExtent = "8 8";
-					canSave = "1";
-					Visible = "1";
-					Active = "1";
-					tooltipprofile = "GuiDefaultProfile";
-					tooltipWidth = "250";
-					hovertime = "1000";
-					bitmap = "./events/spider";
-					wrap = "0";
-					bitmapColor = "255 255 255 255";
-					bitmapRotation = "0";
-					useSourceRect = "0";
-					sourceRect = "0 0 0 0";
-						helpTag = "0";
-				};
-				new GuiBitmapCtrl(LBChat_Lights) {
-					isContainer = "0";
-					Profile = "GuiDefaultProfile";
-					HorizSizing = "left";
-					VertSizing = "bottom";
-					position = "11 6";
-					Extent = "215 31";
-					MinExtent = "8 8";
-					canSave = "1";
-					Visible = "1";
-					Active = "1";
-					tooltipprofile = "GuiDefaultProfile";
-					tooltipWidth = "250";
-					hovertime = "1000";
-					bitmap = "./events/lights-userlist";
-					wrap = "0";
-					bitmapColor = "255 255 255 255";
-					bitmapRotation = "0";
-					useSourceRect = "0";
-					sourceRect = "0 0 0 0";
-						helpTag = "0";
-				};
 			};
 			new GuiControl() {
 				profile = "PQWindowProfile";
@@ -347,7 +305,6 @@ new GuiControl(LBChatGui) {
 				minExtent = "61 61";
 				visible = "1";
 				helpTag = "0";
-
 				new GuiBitmapCtrl() {
 					profile = "GuiDefaultProfile";
 					horizSizing = "width";
@@ -360,49 +317,29 @@ new GuiControl(LBChatGui) {
 					bitmap = "./core/transparency/75/transparencyfill";
 					wrap = "0";
 				};
-				new GuiBitmapCtrl(LBChat_Pumpkins) {
-					isContainer = "0";
-					Profile = "GuiDefaultProfile";
-					HorizSizing = "left";
-					VertSizing = "top";
-					position = "340 390";
-					Extent = "230 100";
-					MinExtent = "8 8";
-					canSave = "1";
-					Visible = "1";
-					Active = "1";
-					tooltipprofile = "GuiDefaultProfile";
-					tooltipWidth = "250";
-					hovertime = "1000";
-					bitmap = "./events/pumpkins";
+				new GuiBitmapCtrl(LBChat_SpookyPumpkins) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "top";
+					position = "334 388";
+					extent = "230 100";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					bitmap = "./events/frightfest/pumpkins";
 					wrap = "0";
-					bitmapColor = "255 255 255 255";
-					bitmapRotation = "0";
-					useSourceRect = "0";
-					sourceRect = "0 0 0 0";
-						helpTag = "0";
 				};
-				new GuiBitmapCtrl(LBChat_Web) {
-					isContainer = "0";
-					Profile = "GuiDefaultProfile";
-					HorizSizing = "left";
-					VertSizing = "bottom";
+				new GuiBitmapCtrl(LBChat_SpookyWeb) {
+					profile = "GuiDefaultProfile";
+					horizSizing = "left";
+					vertSizing = "bottom";
 					position = "450 9";
-					Extent = "130 125";
-					MinExtent = "8 8";
-					canSave = "1";
-					Visible = "1";
-					Active = "1";
-					tooltipprofile = "GuiDefaultProfile";
-					tooltipWidth = "250";
-					hovertime = "1000";
-					bitmap = "./events/spiderweb1";
+					extent = "130 125";
+					minExtent = "8 8";
+					visible = "0";
+					helpTag = "0";
+					bitmap = "./events/frightfest/spiderweb1";
 					wrap = "0";
-					bitmapColor = "255 255 255 255";
-					bitmapRotation = "0";
-					useSourceRect = "0";
-					sourceRect = "0 0 0 0";
-						helpTag = "0";
 				};
 				new GuiScrollCtrl(LBChatContainer) {
 					profile = "PQScrollProfile";
@@ -602,6 +539,7 @@ function LBChatGui::onWake(%this) {
 	LBChatGui.richPresence[1] = "Online";
 	setDiscordStatus(LBChatGui.richPresence[1], LBChatGui.richPresence[0]);
 
+	%this.checkHolidayDecor();
 	// Rotate color of challenge button
 	if (!$LBPref::ChallengeOpened)
 		LBRotateChallengeColor();
@@ -627,6 +565,16 @@ function LBRotateChallengeColor() {
 		LBChatGui.colorRot++;
 		LBChatGui.challengeButtonSch = schedule(10, 0, LBRotateChallengeColor);
 	}
+}
+
+function LBChatGui::checkHolidayDecor() {
+	%frightfest = ($GlobalHoliday $= "Frightfest");
+	%winterfest = ($GlobalHoliday $= "Winterfest");
+
+	LBChat_SpookySpider.setVisible(%frightfest);
+	LBChat_SpookyLights.setVisible(%frightfest);
+	LBChat_SpookyPumpkins.setVisible(%frightfest);
+	LBChat_SpookyWeb.setVisible(%frightfest);
 }
 
 // show welcome message

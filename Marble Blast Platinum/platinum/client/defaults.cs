@@ -155,15 +155,12 @@ $LBPref::ChatMessageSize = 6;
 $pref::SSL::VerifyPeer = 1;
 $LBPref::ShowRecords = false;
 
-$pref::Music::Songs["LB"]     = "Comforting Mystery.ogg";
-$pref::Music::Songs["Menu"]   = "Pianoforte.ogg";
-$pref::Music::Songs["XP"]   = "shellXP.ogg";
-$pref::Music::Songs["Game"]   = "*";
-
-$pref::Music::SongsFright["LB"]     = "Halloween Trance.ogg";
-//$pref::Music::SongsFright["Menu"]   = "Halloween Trance.ogg";
-$pref::Music::SongsWinter["LB"]     = "Xmas Trance.ogg";
-//$pref::Music::SongsWinter["Menu"]   = "Xmas Trance.ogg";
+$pref::Music::Songs["Menu"]       = "Pianoforte.ogg";
+$pref::Music::Songs["MenuXP"]     = "shellXP.ogg";
+$pref::Music::Songs["LB"]         = "Comforting Mystery.ogg";
+$pref::Music::Songs["LBspooky"]   = "Halloween Trance.ogg";
+$pref::Music::Songs["LBsnowball"] = "Xmas Trance.ogg";
+$pref::Music::Songs["Game"]       = "*";
 
 //Graphics
 $pref::Snore = true;
