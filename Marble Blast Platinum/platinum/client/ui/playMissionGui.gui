@@ -215,6 +215,28 @@ new GuiControl(PlayMissionGui) {
 			maxChars = "-1";
 		};
 	};
+    new GuiBitmapCtrl(PMG_Web) {
+        isContainer = "0";
+        Profile = "GuiDefaultProfile";
+        HorizSizing = "right";
+        VertSizing = "bottom";
+        position = "266 -1";
+        Extent = "105 80";
+        MinExtent = "8 8";
+        canSave = "1";
+        Visible = "1";
+        Active = "1";
+        tooltipprofile = "GuiDefaultProfile";
+        tooltipWidth = "250";
+        hovertime = "1000";
+        bitmap = "./lb/events/spiderweb1";
+        wrap = "0";
+        bitmapColor = "255 255 255 255";
+        bitmapRotation = "0";
+        useSourceRect = "0";
+        sourceRect = "0 0 0 0";
+            helpTag = "0";
+    };
 	new GuiControl(PM_MissionBox) {
 		profile = "GuiDefaultProfile";
 		horizSizing = "right";
@@ -814,7 +836,7 @@ new GuiControl(PlayMissionGui) {
 				};
 			};
 		};
-		new GuiBitmapCtrl(pumpkin) {
+		new GuiBitmapCtrl(PMG_pumpkin) {
 			isContainer = "0";
 			Profile = "GuiDefaultProfile";
 			HorizSizing = "left";
@@ -1156,7 +1178,7 @@ new GuiControl(PlayMissionGui) {
 				};
 			};
 		};
-		new GuiBitmapCtrl(Lights) {
+		new GuiBitmapCtrl(PMG_Lights) {
 			isContainer = "0";
 			Profile = "GuiDefaultProfile";
 			HorizSizing = "right";
@@ -1201,28 +1223,6 @@ new GuiControl(PlayMissionGui) {
 		helpTag = "0";
 		wrap = "0";
 	};
-    new GuiBitmapCtrl(Web) {
-        isContainer = "0";
-        Profile = "GuiDefaultProfile";
-        HorizSizing = "right";
-        VertSizing = "bottom";
-        position = "266 -1";
-        Extent = "105 80";
-        MinExtent = "8 8";
-        canSave = "1";
-        Visible = "1";
-        Active = "1";
-        tooltipprofile = "GuiDefaultProfile";
-        tooltipWidth = "250";
-        hovertime = "1000";
-        bitmap = "./lb/events/spiderweb1";
-        wrap = "0";
-        bitmapColor = "255 255 255 255";
-        bitmapRotation = "0";
-        useSourceRect = "0";
-        sourceRect = "0 0 0 0";
-            helpTag = "0";
-    };
 	new GuiButtonBaseCtrl() {
 		profile = "GuiDefaultProfile";
 		horizSizing = "left";
@@ -5613,7 +5613,7 @@ function PlayMissionGui::switchHoliday(%this) {
 		echo("Switching holiday from current holiday " @ %this.currentHoliday @ ".");
 		switch$ (%this.currentHoliday) {
 		case "Hunt":
-			if      (%this.enabledHolidays["Frightfest"])
+			if (%this.enabledHolidays["Frightfest"])
 				%this.activateHoliday("Frightfest");
 			else if (%this.enabledHolidays["Winterfest"])
 				%this.activateHoliday("Winterfest");
