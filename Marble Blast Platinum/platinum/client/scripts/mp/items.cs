@@ -252,15 +252,8 @@ function isClientSidedItem(%item) {
 	case
 		"AntiGravityItem" or "AntiGravityItem_PQ" or "AntiGravityItem_MBU" or
 		"NoRespawnAntiGravityItem" or "NoRespawnAntiGravityItem_PQ" or "NoRespawnAntiGravityItem_MBU" or
-		"AnvilItem" or
-		"SuperJumpItem" or "SuperJumpItem_PQ" or "SuperJumpItem_MBU" or "CustomSuperJumpItem_PQ" or
-		"SuperSpeedItem" or "SuperSpeedItem_PQ" or "SuperSpeedItem_MBU" or
-		"SuperBounceItem" or "SuperBounceItem_PQ" or
-		"ShockAbsorberItem" or "ShockAbsorberItem_PQ" or
-		"HelicopterItem" or "HelicopterItem_PQ" or "HelicopterItem_MBU" or
-		"MegaMarbleItem" or "MegaMarbleItem_MBU" or
-		"BlastItem" or "BlastItem_MBU" or
-		"TeleportItem" or "BubbleItem": return true;
+		"AnvilItem":
+			return true;
 	}
 	return false;
 }
