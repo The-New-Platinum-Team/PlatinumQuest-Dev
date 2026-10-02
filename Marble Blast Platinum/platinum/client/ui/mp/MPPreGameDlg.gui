@@ -292,14 +292,14 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 			minExtent = "41 41";
 			visible = "1";
 			helpTag = "0";
-			new GuiBitmapCtrl(Spider) {
+			new GuiBitmapCtrl(MPPreGame_SpookySpider) {
 				profile = "GuiDefaultProfile";
 				horizSizing = "right";
 				vertSizing = "bottom";
 				position = "368 10";
 				extent = "45 83";
 				minExtent = "8 8";
-				visible = "1";
+				visible = "0";
 				helpTag = "0";
 				bitmap = "~/client/ui/lb/events/frightfest/spider";
 				wrap = "0";
@@ -348,26 +348,26 @@ new GuiBitmapCtrl(MPPreGameDlg) {
 				};
 			};
 		};
-		new GuiBitmapCtrl(Web) {
+		new GuiBitmapCtrl(MPPreGame_SpookyWeb) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "10 8";
 			extent = "100 85";
 			minExtent = "8 8";
-			visible = "1";
+			visible = "0";
 			helpTag = "0";
 			bitmap = "~/client/ui/lb/events/frightfest/spiderweb2";
 			wrap = "0";
 		};
-		new GuiBitmapCtrl(Pumpkin) {
+		new GuiBitmapCtrl(MPPreGame_SpookyPumpkin) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "460 65";
 			extent = "60 54";
 			minExtent = "8 8";
-			visible = "1";
+			visible = "0";
 			helpTag = "0";
 			bitmap = "~/client/ui/lb/events/frightfest/pumpkin";
 			wrap = "0";
@@ -452,6 +452,17 @@ function MPPreGameDlg::onWake(%this) {
 	%this.overrideSch = %this.schedule(60000, "override");
 	%this.overrideStart = getRealTime();
 	%this.overrideInterval = %this.interval(100, "updateActive");
+
+	%this.checkHolidayDecor();
+}
+
+function MPPreGameDlg::checkHolidayDecor() {
+	%frightfest = ($GlobalHoliday $= "Frightfest");
+	%winterfest = ($GlobalHoliday $= "Winterfest");
+
+	MPPreGame_SpookySpider.setVisible(%frightfest);
+	MPPreGame_SpookyWeb.setVisible(%frightfest);
+	MPPreGame_SpookyPumpkin.setVisible(%frightfest);
 }
 
 /**

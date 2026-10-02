@@ -242,26 +242,26 @@ new GuiControl(LBChatGui) {
 				visible = "1";
 				helpTag = "0";
 
-				new GuiBitmapCtrl(Spider) {
+				new GuiBitmapCtrl(LBChat_SpookySpider) {
 					profile = "GuiDefaultProfile";
 					horizSizing = "left";
 					vertSizing = "bottom";
 					position = "140 11";
 					extent = "81 150";
 					minExtent = "8 8";
-					visible = "1";
+					visible = "0";
 					helpTag = "0";
 					bitmap = "./events/frightfest/spider";
 					wrap = "0";
 				};
-				new GuiBitmapCtrl(Lights) {
+				new GuiBitmapCtrl(LBChat_SpookyLights) {
 					profile = "GuiDefaultProfile";
 					horizSizing = "left";
 					vertSizing = "bottom";
 					position = "11 6";
 					extent = "215 31";
 					minExtent = "8 8";
-					visible = "1";
+					visible = "0";
 					helpTag = "0";
 					bitmap = "./events/frightfest/lights-userlist";
 					wrap = "0";
@@ -317,26 +317,26 @@ new GuiControl(LBChatGui) {
 					bitmap = "./core/transparency/75/transparencyfill";
 					wrap = "0";
 				};
-				new GuiBitmapCtrl(Pumpkins) {
+				new GuiBitmapCtrl(LBChat_SpookyPumpkins) {
 					profile = "GuiDefaultProfile";
 					horizSizing = "left";
 					vertSizing = "top";
 					position = "334 388";
 					extent = "230 100";
 					minExtent = "8 8";
-					visible = "1";
+					visible = "0";
 					helpTag = "0";
 					bitmap = "./events/frightfest/pumpkins";
 					wrap = "0";
 				};
-				new GuiBitmapCtrl(Web) {
+				new GuiBitmapCtrl(LBChat_SpookyWeb) {
 					profile = "GuiDefaultProfile";
 					horizSizing = "left";
 					vertSizing = "bottom";
 					position = "450 9";
 					extent = "130 125";
 					minExtent = "8 8";
-					visible = "1";
+					visible = "0";
 					helpTag = "0";
 					bitmap = "./events/frightfest/spiderweb1";
 					wrap = "0";
@@ -539,6 +539,7 @@ function LBChatGui::onWake(%this) {
 	LBChatGui.richPresence[1] = "Online";
 	setDiscordStatus(LBChatGui.richPresence[1], LBChatGui.richPresence[0]);
 
+	%this.checkHolidayDecor();
 	// Rotate color of challenge button
 	if (!$LBPref::ChallengeOpened)
 		LBRotateChallengeColor();
@@ -564,6 +565,16 @@ function LBRotateChallengeColor() {
 		LBChatGui.colorRot++;
 		LBChatGui.challengeButtonSch = schedule(10, 0, LBRotateChallengeColor);
 	}
+}
+
+function LBChatGui::checkHolidayDecor() {
+	%frightfest = ($GlobalHoliday $= "Frightfest");
+	%winterfest = ($GlobalHoliday $= "Winterfest");
+
+	LBChat_SpookySpider.setVisible(%frightfest);
+	LBChat_SpookyLights.setVisible(%frightfest);
+	LBChat_SpookyPumpkins.setVisible(%frightfest);
+	LBChat_SpookyWeb.setVisible(%frightfest);
 }
 
 // show welcome message

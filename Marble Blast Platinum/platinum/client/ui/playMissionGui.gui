@@ -238,14 +238,14 @@ new GuiControl(PlayMissionGui) {
 			bitmap = "./play/missionlist";
 			wrap = "0";
 		};
-		new GuiBitmapCtrl(Web) {
+		new GuiBitmapCtrl(PMG_SpookyWeb) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "right";
 			vertSizing = "bottom";
 			position = "256 -1";
 			extent = "105 80";
 			minExtent = "8 8";
-			visible = "1";
+			visible = "0";
 			helpTag = "0";
 			bitmap = "./lb/events/frightfest/spiderweb1";
 			wrap = "0";
@@ -826,14 +826,14 @@ new GuiControl(PlayMissionGui) {
 				};
 			};
 		};
-		new GuiBitmapCtrl(pumpkin) {
+		new GuiBitmapCtrl(PMG_SpookyPumpkin) {
 			profile = "GuiDefaultProfile";
 			horizSizing = "left";
 			vertSizing = "top";
 			position = "10 367";
 			extent = "60 54";
 			minExtent = "8 8";
-			visible = "1";
+			visible = "0";
 			helpTag = "0";
 			bitmap = "./lb/events/frightfest/pumpkin";
 			wrap = "0";
@@ -858,14 +858,14 @@ new GuiControl(PlayMissionGui) {
 			minExtent = "61 61";
 			visible = "1";
 			helpTag = "0";
-			new GuiBitmapCtrl(Lights) {
+			new GuiBitmapCtrl(PMG_SpookyLights) {
 				profile = "GuiDefaultProfile";
 				horizSizing = "right";
 				vertSizing = "bottom";
 				position = "11 20";
 				extent = "539 34";
 				minExtent = "8 8";
-				visible = "1";
+				visible = "0";
 				helpTag = "0";
 				bitmap = "./lb/events/frightfest/lights";
 				wrap = "0";
@@ -1490,6 +1490,8 @@ function PlayMissionGui::onWake(%this) {
 		%this.clearServerPlayerList();
 		%this.updateServerPlayerList();
 	}
+
+	%this.checkHolidayDecor();
 }
 
 /**
@@ -1566,6 +1568,16 @@ function PlayMissionGui::onSleep(%this) {
 	if (mp()) {
 		%this.clearServerPlayerList();
 	}
+}
+
+//Yeah just slap this in here with all of the big boys
+function PlayMissionGui::checkHolidayDecor() {
+	%frightfest = ($GlobalHoliday $= "Frightfest");
+	%winterfest = ($GlobalHoliday $= "Winterfest");
+
+	PMG_SpookyWeb.setVisible(%frightfest);
+	PMG_SpookyPumpkin.setVisible(%frightfest);
+	PMG_SpookyLights.setVisible(%frightfest);
 }
 
 //-----------------------------------------------------------------------------

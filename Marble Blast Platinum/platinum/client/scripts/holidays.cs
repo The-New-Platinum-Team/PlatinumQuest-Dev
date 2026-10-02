@@ -35,7 +35,7 @@ function detectHolidays() {
 		MenuHolidayLogo.setBitmap($usermods @ "/client/ui/menu/pq_frightfest");
 		MenuHolidayLogo.setExtent("160 160");
 		MenuHolidayLogo.setVisible(true);
-		$GlobalHoliday = "Frightfest";
+		$GlobalHoliday = "";
 	} else if (%month == 12) {
 		echo("Based on system clock, Winterfest enabled!!");
 		MenuHolidayLogo.setBitmap($usermods @ "/client/ui/menu/pq_winterfest");

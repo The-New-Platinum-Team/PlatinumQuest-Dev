@@ -251,26 +251,26 @@ new GuiControl(LBLoginGui) {
 				allowColorChars = "0";
 				maxChars = "-1";
 			};
-			new GuiBitmapCtrl(lights) {
+			new GuiBitmapCtrl(LBLogin_SpookyLights) {
 				profile = "GuiDefaultProfile";
 				horizSizing = "left";
 				vertSizing = "top";
 				position = "10 11";
 				extent = "484 30";
 				minExtent = "8 8";
-				visible = "1";
+				visible = "0";
 				helpTag = "0";
 				bitmap = "./events/frightfest/lights";
 				wrap = "0";
 			};
-			new GuiBitmapCtrl(ghost) {
+			new GuiBitmapCtrl(LBLogin_SpookyGhost) {
 				profile = "GuiDefaultProfile";
 				horizSizing = "left";
 				vertSizing = "top";
 				position = "160 178";
 				extent = "34 40";
 				minExtent = "8 8";
-				visible = "1";
+				visible = "0";
 				helpTag = "0";
 				bitmap = "./events/frightfest/ghost_groovy";
 				wrap = "0";
@@ -307,6 +307,16 @@ function LBLoginGui::onWake(%this) {
 	%this.enableLogin();
 
 	MainMenuGui.checkScriptError();
+
+	%this.checkHolidayDecor();
+}
+
+function LBLoginGui::checkHolidayDecor() {
+	%frightfest = ($GlobalHoliday $= "Frightfest");
+	%winterfest = ($GlobalHoliday $= "Winterfest");
+
+	LBLogin_SpookyLights.setVisible(%frightfest);
+	LBLogin_SpookyGhost.setVisible(%frightfest);
 }
 
 // this enables/disables the login button,
