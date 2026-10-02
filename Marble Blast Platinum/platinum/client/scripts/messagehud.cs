@@ -411,7 +411,14 @@ function enableChatHUD() {
 	}
 
 	PG_LBChatEntry.makeFirstResponder(true);
+	
 	$chatHud = true;
 
 	PlayGui.updateMessageHud();
+
+	onNextFrame(clearChatEntry);
+}
+
+function clearChatEntry() {
+	PG_LBChatEntry.setValue("");
 }
