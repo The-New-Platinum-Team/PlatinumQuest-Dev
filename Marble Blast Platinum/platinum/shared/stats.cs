@@ -1234,6 +1234,9 @@ function statsRecordMatch(%mission) {
 		});
 		%score = getField(%score, 1);
 
+		if (%score >= 99999999)
+			continue; // don't submit absurdly high scores, also catches race mode DNF scores
+
 		%skin = MPMarbleList.findTextIndex(%player.skinChoice);
 		%data = %data @ "&scores[username][]=" @ URLEncode(%player.getUsername());
 		%data = %data @ "&scores[score][]=" @ mFloor(%score);
