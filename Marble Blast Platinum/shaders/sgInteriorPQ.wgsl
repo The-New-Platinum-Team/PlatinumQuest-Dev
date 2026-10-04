@@ -91,10 +91,6 @@ fn noise(co : vec2<f32>) -> f32 {
     return fract(sin(dot(co.xy, vec2<f32>(12.9898, 78.233))) * 43758.5453);
 }
 
-fn fixedFrac(v: f32) -> f32 {
-   return v - floor(v);
-}
-
 fn randNoise(uv: vec2<f32>, max: i32) -> i32 {
     // This is done by taking the floored UV (integer component) and running it through the
     //	above noise function. This value is then multiplied by the number of grids to get a
@@ -107,6 +103,14 @@ fn randNoise(uv: vec2<f32>, max: i32) -> i32 {
     return irand;
 }
 
+fn sampleChoiceTile(texture: texture_2d<f32>, samp: sampler, uv: vec2<f32>, slice: i32) -> vec4<f32> {
+   let atlasUV = vec2<f32>(uv.x, fract(uv.y) / tsUniforms.miscState.w + f32(slice) / tsUniforms.miscState.w);
+   let sliceScale = 1.0 / tsUniforms.miscState.w;
+   let dx = dpdx(uv) * vec2<f32>(1.0, sliceScale);
+   let dy = dpdy(uv) * vec2<f32>(1.0, sliceScale);
+   return textureSampleGrad(texture, samp, atlasUV, dx, dy);
+}
+
 @vertex
 fn vDefault(in: ITRPQVert) -> PQRasterizerData {
    var out : PQRasterizerData;
@@ -117,9 +121,9 @@ fn vDefault(in: ITRPQVert) -> PQRasterizerData {
    var calcTangent: vec4<f32> = vec4<f32>(in.tangent, 0.0f);
    var calcBitangent: vec4<f32> = vec4<f32>(in.bitangent, 0.0f);
    var worldPos : vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
-   var worldNorm : vec3<f32> = (calcNorm * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldTangent : vec3<f32> = (calcTangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldBitangent: vec3<f32> = (calcBitangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
+   var worldNorm : vec3<f32> = (calcNorm * tsUniforms.objectMat).xyz;
+   var worldTangent : vec3<f32> = (calcTangent * tsUniforms.objectMat).xyz;
+   var worldBitangent: vec3<f32> = (calcBitangent * tsUniforms.objectMat).xyz;
 
    var mv : mat4x4<f32> = expandTo44(commonUniforms.modelview);
    var mvp : mat4x4<f32> = mv * commonUniforms.projection;
@@ -177,9 +181,9 @@ fn vChoiceTile(in: ITRPQVert) -> PQRasterizerData {
    var calcTangent: vec4<f32> = vec4<f32>(in.tangent, 0.0f);
    var calcBitangent: vec4<f32> = vec4<f32>(in.bitangent, 0.0f);
    var worldPos : vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
-   var worldNorm : vec3<f32> = (calcNorm * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldTangent : vec3<f32> = (calcTangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldBitangent: vec3<f32> = (calcBitangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
+   var worldNorm : vec3<f32> = (calcNorm * tsUniforms.objectMat).xyz;
+   var worldTangent : vec3<f32> = (calcTangent * tsUniforms.objectMat).xyz;
+   var worldBitangent: vec3<f32> = (calcBitangent * tsUniforms.objectMat).xyz;
 
    var mv : mat4x4<f32> = expandTo44(commonUniforms.modelview);
    var mvp : mat4x4<f32> = mv * commonUniforms.projection;
@@ -207,10 +211,8 @@ fn vChoiceTile(in: ITRPQVert) -> PQRasterizerData {
 @fragment
 fn fChoiceTile(in: PQRasterizerData) -> @location(0) vec4<f32> {
    var slice = randNoise(in.uv, i32(tsUniforms.miscState.z));
-   var fragUV = vec2<f32>(in.uv.x, fixedFrac(in.uv.y) / tsUniforms.miscState.w + f32(slice) / tsUniforms.miscState.w);
-
-   var materialColor : vec4<f32> = vec4<f32>(textureSample(diffuseMap, diffuseSampler, fragUV).rgba); // base
-   var normalColor : vec4<f32> = vec4<f32>(textureSample(normalMap, normalSampler, fragUV).rgba * 2.0 - 1.0);
+   var materialColor : vec4<f32> = sampleChoiceTile(diffuseMap, diffuseSampler, in.uv, slice); // base
+   var normalColor : vec4<f32> = sampleChoiceTile(normalMap, normalSampler, in.uv, slice) * 2.0 - 1.0;
    var lightNormal = normalize(in.lightDir);
    var cosTheta = clamp(dot(normalColor.rgb, lightNormal.rgb), 0.0, 1.0);
    var lightUnit = tsUniforms.lights[0];
@@ -222,13 +224,12 @@ fn fChoiceTile(in: PQRasterizerData) -> @location(0) vec4<f32> {
 
    var viewDir = in.camPos - in.tangentPos;
 
-   var specularColor : vec4<f32> = vec4<f32>(textureSample(specularMap, specularSampler, fragUV).rgba);
+   var specularColor : vec4<f32> = sampleChoiceTile(specularMap, specularSampler, in.uv, slice);
    var lightReflection = reflect(-lightNormal.xyz, normalColor.rgb);
    var cosAlpha = clamp(dot(normalize(viewDir), lightReflection), 0.0, 1.0);
    
    var outColor = vec4<f32>(materialColor.rgb * effectiveSun.rgb, 1.0) + 
       vec4<f32>(specularColor.rgb * lightUnit.diffuse.rgb * pow(cosAlpha, 9.0), 1.0);
-
    return outColor;
 }
 
@@ -242,9 +243,9 @@ fn vChoiceTileDiffuse(in: ITRPQVert) -> PQRasterizerData {
    var calcTangent: vec4<f32> = vec4<f32>(in.tangent, 0.0f);
    var calcBitangent: vec4<f32> = vec4<f32>(in.bitangent, 0.0f);
    var worldPos : vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
-   var worldNorm : vec3<f32> = (calcNorm * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldTangent : vec3<f32> = (calcTangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldBitangent: vec3<f32> = (calcBitangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
+   var worldNorm : vec3<f32> = (calcNorm * tsUniforms.objectMat).xyz;
+   var worldTangent : vec3<f32> = (calcTangent * tsUniforms.objectMat).xyz;
+   var worldBitangent: vec3<f32> = (calcBitangent * tsUniforms.objectMat).xyz;
 
    var mv : mat4x4<f32> = expandTo44(commonUniforms.modelview);
    var mvp : mat4x4<f32> = mv * commonUniforms.projection;
@@ -271,10 +272,8 @@ fn vChoiceTileDiffuse(in: ITRPQVert) -> PQRasterizerData {
 @fragment
 fn fChoiceTileDiffuse(in: PQRasterizerData) -> @location(0) vec4<f32> {
    var slice = randNoise(in.uv, i32(tsUniforms.miscState.z));
-   var fragUV = vec2<f32>(in.uv.x, fixedFrac(in.uv.y) / tsUniforms.miscState.w + f32(slice) / tsUniforms.miscState.w);
-
-   var materialColor : vec4<f32> = vec4<f32>(textureSample(diffuseMap, diffuseSampler, fragUV).rgba); // base
-   var normalColor : vec4<f32> = vec4<f32>(textureSample(normalMap, normalSampler, in.uv).rgba * 2.0 - 1.0);
+   var materialColor : vec4<f32> = sampleChoiceTile(diffuseMap, diffuseSampler, in.uv, slice); // base
+   var normalColor : vec4<f32> = sampleChoiceTile(normalMap, normalSampler, in.uv, slice) * 2.0 - 1.0;
    var lightNormal = normalize(in.lightDir);
    var cosTheta = clamp(dot(normalColor.rgb, lightNormal.rgb), 0.0, 1.0);
    var lightUnit = tsUniforms.lights[0];
@@ -286,7 +285,7 @@ fn fChoiceTileDiffuse(in: PQRasterizerData) -> @location(0) vec4<f32> {
 
    var viewDir = in.camPos - in.tangentPos;
 
-   var specularColor : vec4<f32> = vec4<f32>(textureSample(specularMap, specularSampler, in.uv).rgba);
+   var specularColor : vec4<f32> = sampleChoiceTile(specularMap, specularSampler, in.uv, slice);
    var lightReflection = reflect(-lightNormal.xyz, normalColor.rgb);
    var cosAlpha = clamp(dot(normalize(viewDir), lightReflection), 0.0, 1.0);
    
@@ -308,9 +307,9 @@ fn vNoiseTile(in: ITRPQVert) -> PQRasterizerData {
    var calcTangent: vec4<f32> = vec4<f32>(in.tangent, 0.0f);
    var calcBitangent: vec4<f32> = vec4<f32>(in.bitangent, 0.0f);
    var worldPos : vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
-   var worldNorm : vec3<f32> = (calcNorm * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldTangent : vec3<f32> = (calcTangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
-   var worldBitangent: vec3<f32> = (calcBitangent * transpose(expandTo44(tsUniforms.invObjectMat))).xyz;
+   var worldNorm : vec3<f32> = (calcNorm * tsUniforms.objectMat).xyz;
+   var worldTangent : vec3<f32> = (calcTangent * tsUniforms.objectMat).xyz;
+   var worldBitangent: vec3<f32> = (calcBitangent * tsUniforms.objectMat).xyz;
 
    var camPos : vec3<f32> = (vec4<f32>(0,0,0,1) * commonUniforms.invCameraView).xyz;
 
