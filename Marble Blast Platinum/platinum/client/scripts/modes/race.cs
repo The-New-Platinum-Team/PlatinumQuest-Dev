@@ -36,6 +36,7 @@ ModeInfoGroup.add(new ScriptObject(ModeInfo_race) {
 
 	identifier = "race";
 	file = "race";
+	force = 1;
 
 	name = "Racing";
 	desc = "Race ahead of your competition as you see who can finish the level the fastest!";

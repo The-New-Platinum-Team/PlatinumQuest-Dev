@@ -924,7 +924,13 @@ function OnlineMissionList::buildMissionList(%this, %game, %difficulty) {
 			//Use the local .mis if we can, otherwise create a shell mission
 			if (isScriptFile(%file)) {
 				%info = getMissionInfo(%file, true);
-				%info.downloaded = true;
+
+				// verify if the info has the same id
+				if (%info.id !$= "" && %info.id != %missionObj.id) {
+					// don't pollute this one, instead, clone it
+					%info = %info.clone();
+				}
+ 				%info.downloaded = true;
 
 				if (%info.is_custom) {
 					//Double feature lmao
@@ -1163,7 +1169,9 @@ function ServerMissionList::addMission(%this, %gameName, %difficultyName, %info)
 
 	//Cache the info for this mission so we don't try to getMissionInfo() it later
 	if (!isFile(%mission.file)) {
-		$Mission::Info[%mission.file] = %mission;
+		if ($Mission::Info[%mission.file] $= "") {
+			$Mission::Info[%mission.file] = %mission;
+		}
 	}
 
 	%list = MissionList::getMissionList(%this, %gameName, %difficultyName);

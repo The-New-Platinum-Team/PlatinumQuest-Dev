@@ -204,7 +204,7 @@ function getClientScoreRecord(%client) {
 }
 
 function dumpScores() {
-	echo("Scores Update:");
+	// echo("Scores Update:");
 	%count = ClientGroup.getCount();
 
 	for (%i = 0; %i < %count; %i ++) {
@@ -212,7 +212,7 @@ function dumpScores() {
 		if (isRealClient(%client) && !%client.connected)
 			continue;
 		%score = %client.gemCount;
-		echo(%client.getUsername() @ ":" SPC %score SPC "(" @ %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10] @ ")");
+		// echo(%client.getUsername() @ ":" SPC %score SPC "(" @ %client.gemsFound[1] SPC %client.gemsFound[2] SPC %client.gemsFound[5] SPC %client.gemsFound[10] @ ")");
 	}
 }
 
