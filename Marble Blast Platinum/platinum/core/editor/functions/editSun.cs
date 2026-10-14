@@ -21,12 +21,26 @@
 //-----------------------------------------------------------------------------
 
 function sunbutton() {
-    %group = isObject(MissionData) ? MissionData : MissionGroup;
-    for(%i = 0; %i < %group.getCount(); %i++) {
-        %obj = %group.getObject(%i);
-        if(%obj.getClassName() $= "Sun") {
-            %sun = %obj;
-            break;
+    %group = MissionData;
+    
+    if (isObject(MissionData)) {
+        for(%i = 0; %i < %group.getCount(); %i++) {
+            %obj = %group.getObject(%i);
+            if(%obj.getClassName() $= "Sun") {
+                %sun = %obj;
+                break;
+            }
+        }
+    }
+    if (!isObject(%sun)) {
+        // search in mission group
+        %group = MissionGroup;
+        for (%i = 0; %i < %group.getCount(); %i++) {
+            %obj = %group.getObject(%i);
+            if (%obj.getClassName() $= "Sun") {
+                %sun = %obj;
+                break;
+            }
         }
     }
     if(!isObject(%sun)) {
