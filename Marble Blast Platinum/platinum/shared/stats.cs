@@ -934,16 +934,19 @@ $TCP::MaxPostLength = 1024 * 1024 * 7; //7MB
 $Replay::MaxTimeout = 1000; //ms
 
 function statsRecordReplay(%mission, %type, %isRetry) {
+	%author = $LB::DisplayName;
+	%name = "World Record " @ %type @ " - " @ %mission.name @ " " @ %i;
+	%desc = "Automatically saved.";
+	recordWriteMetadata(RecordFO, %author, %name, %desc);
+
 	//If we're waiting to end a recording, do that before anything else
 	if (isEventPending($recordFinish)) {
 		cancel($recordFinish);
 		recordFinish();
 		%keepRecording = false;
 	} else {
-		//Close handle to file
-		RecordFO.close();
-		RecordFO.delete();
-		%keepRecording = true;
+		// Write the record to file, but we continue recording
+		RecordFO.write($Record::File);
 	}
 
 	%file = "platinum/data/recordings/lb-" @ %type @ "-" @ fileBase(%mission.file) @ "-" @ %mission.id @ ".rrec";
@@ -954,83 +957,9 @@ function statsRecordReplay(%mission, %type, %isRetry) {
 	}
 	echo(%file);
 
-	// Save header
-	%author = $LB::DisplayName;
-	%name = "World Record " @ %type @ " - " @ %mission.name @ " " @ %i;
-	%desc = "Automatically saved.";
-
-	%fr = new FileObject();
-	if (!%fr.openForRead($Record::File)) {
-		MessageBoxOk("Cannot submit replay", "Couldn't open temp file");
-		if (%keepRecording) {
-			new FileObject(RecordFO);
-			RecordFO.openForAppend($Record::File);
-		}
-		return;
-	}
-	%fw = new FileObject();
-	if (!%fw.openForWrite(%file)) {
-		MessageBoxOk("Cannot submit replay", "Couldn't open copy file");
-		if (%keepRecording) {
-			new FileObject(RecordFO);
-			RecordFO.openForAppend($Record::File);
-		}
-		return;
-	}
-
-	//Copy header
-	%fw.writeRawS16(%fr.readRawS16());
-	%fw.writeRawS16(%fr.readRawS16());
-	%fw.writeRawString8(%fr.readRawString8());
-	%fw.writeRawString8(%fr.readRawString8());
-
-	//Change to mark as having metadata
-	%flags = %fr.readRawU8();
-	%flags |= 1;
-	%fw.writeRawU8(%flags);
-
-	//Write metadata
-	recordWriteMetadata(%fw, %author, %name, %desc);
-
-	//Write the rest of the everything
-	%fw.writeBase64(%fr.readBase64());
-
-	%fr.close();
-	%fw.close();
-	%fr.delete();
-	%fw.delete();
-
-	//Get contents
-	%fo = new FileObject();
-	if (!%fo.openForRead(%file)) {
-		MessageBoxOk("Cannot submit replay", "Replay file failed to copy");
-		if (%keepRecording) {
-			new FileObject(RecordFO);
-			RecordFO.openForAppend($Record::File);
-		}
-		return;
-	}
-	//El cheapo URLEncode
-	%conts = strReplace(%fo.readBase64(), "+", "%2B");
-	%len = strlen(%conts);
-
-	%fo.close();
-	%fo.delete();
-
-	if (%keepRecording) {
-		new FileObject(RecordFO);
-		RecordFO.openForAppend($Record::File);
-	}
+	copyFile($Record::File, %file);
 
 	uploadReplay(%file, "?" @ LBDefaultQuery() @ "&" @ statsGetMissionIdentifier(%mission) @ "&type=" @ %type, 1, "uploadReplayFinish");
-	// if (!%isRetry) {
-	// 	$Replay::LastTry = getRealTime();
-	// }
-
-	// %req = statsPost("api/Replay/RecordReplay.php", statsGetMissionIdentifier(%mission) @ "&type=" @ %type @ "&conts=" @ %conts);
-	// %req.file = %file;
-	// %req.mission = %mission;
-	// %req.type = %type;
 }
 
 function LBUpload::onLine(%this, %line) {
