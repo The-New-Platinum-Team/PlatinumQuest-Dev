@@ -329,6 +329,14 @@ datablock ItemData(SuperSpeedItem_PQ : SuperSpeedItem) {
 	shapeFile = "~/data/shapes_pq/Gameplay/Powerups/superspeed.dts";
 };
 
+/**
+ * @param {ItemData} %this
+ * @param {Item} %obj
+ */
+function SuperSpeedItem_MBU::onAdd(%this, %obj) {
+	%obj.playThread(0, "Ambient");
+}
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(PuShockAbsorberVoiceSfx) {
