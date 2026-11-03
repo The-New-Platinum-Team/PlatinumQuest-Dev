@@ -48,33 +48,79 @@
 datablock StaticShapeData(glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/3x3.dts";
 	renderBin = "TranslucentPreGlow";
+	category = "Glass";
 };
 
 datablock StaticShapeData(glass_6shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/6x3.dts";
 	renderBin = "TranslucentPreGlow";
+	category = "Glass";
 };
 
 datablock StaticShapeData(glass_9shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/9x3.dts";
 	renderBin = "TranslucentPreGlow";
+	category = "Glass";
 };
 
 datablock StaticShapeData(glass_12shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/12x3.dts";
 	renderBin = "TranslucentPreGlow";
+	category = "Glass";
 };
 
 datablock StaticShapeData(glass_15shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/15x3.dts";
 	renderBin = "TranslucentPreGlow";
+	category = "Glass";
 };
 
 datablock StaticShapeData(glass_18shape: glass_3shape) {
 	shapeFile = "~/data/shapes/Glass/Col/18x3.dts";
 	renderBin = "TranslucentPreGlow";
+	category = "Glass";
 };
 // }
+
+datablock StaticShapeData(glass_3shape_mbu) {
+	shapeFile = "~/data/shapes_mbu/structures/glass_3.dts";
+	renderBin = "TranslucentPreGlow";
+	useShaders = true;
+	category = "Glass";
+};
+
+datablock StaticShapeData(glass_6shape_mbu: glass_3shape_mbu) {
+	shapeFile = "~/data/shapes_mbu/structures/glass_6.dts";
+	renderBin = "TranslucentPreGlow";
+	useShaders = true;
+};
+
+datablock StaticShapeData(glass_9shape_mbu: glass_3shape_mbu) {
+	shapeFile = "~/data/shapes_mbu/structures/glass_9.dts";
+	renderBin = "TranslucentPreGlow";
+	useShaders = true;
+	category = "Glass";
+};
+
+datablock StaticShapeData(glass_12shape_mbu: glass_3shape_mbu) {
+	shapeFile = "~/data/shapes_mbu/structures/glass_12.dts";
+	renderBin = "TranslucentPreGlow";
+	useShaders = true;
+	category = "Glass";
+};
+
+datablock StaticShapeData(glass_15shape_mbu: glass_3shape_mbu) {
+	shapeFile = "~/data/shapes_mbu/structures/glass_15.dts";
+	renderBin = "TranslucentPreGlow";
+	useShaders = true;
+};
+
+datablock StaticShapeData(glass_18shape_mbu: glass_3shape_mbu) {
+	shapeFile = "~/data/shapes_mbu/structures/glass_18.dts";
+	renderBin = "TranslucentPreGlow";
+	useShaders = true;
+	category = "Glass";
+};
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //This whole ass .cs is barren and I'm going to make fucking use of it with Marble Blast XP shapes. - Daniel
