@@ -459,14 +459,12 @@ function statsRecordGraphicsMetrics() {
 	%info       = getVideoDriverInfo();
 	%vendor     = getField(%info, 0);
 	%renderer   = getField(%info, 1);
-	%version    = getWord(getField(%info, 2), 0);
-	%major      = getSubStr(%version, 0, strpos(%version, "."));
-	%minor      = getSubStr(%version, strpos(%version, ".") + 1, strlen(%version));
+	%version    = getField(%info, 2);
 	%extensions = getField(%info, 3);
 
 	%extensions = strReplace(" " @ %extensions, " ", "&extensions[]=");
 
-	%params = "major=" @ %major @ "&minor=" @ %minor @ "&vendor=" @ %vendor @ "&renderer=" @ %renderer @ "&os=" @ $platform @ %extensions;
+	%params = "version=" @ %version @ "&vendor=" @ %vendor @ "&renderer=" @ %renderer @ "&os=" @ $platform @ %extensions;
 
 	statsPost("api/Metrics/RecordGraphicsMetrics.php", %params);
 }
