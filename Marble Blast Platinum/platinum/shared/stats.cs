@@ -357,6 +357,11 @@ function statsRecordScoreLine(%line) {
 		echo("Stats: Rating delta is " @ %delta);
 		$LB::RatingDelta = %delta;
 		reformatGameEndText();
+	case "POSITIONDELTA":
+		%positionDelta = restWords(%line);
+		echo("Stats: Position delta is " @ %positionDelta);
+		$LB::PositionDelta = %positionDelta;
+		reformatGameEndText();
 	case "RECORDING":
 		//The server wants our recording, let's oblige
 		statsRecordReplay(getMissionInfo($Client::MissionFile), "Replay");

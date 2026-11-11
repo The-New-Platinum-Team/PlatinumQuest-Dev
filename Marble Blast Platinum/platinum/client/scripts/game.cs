@@ -866,7 +866,11 @@ function reformatGameEndText() {
 			%text = %text @ "<just:left>Rating:<just:right>" @ ($LB::RatingPending ? "..." : %rating) @ "\n";
 			%text = %text @ "<just:left>General Rating:<just:right>" @ formatRating($LB::TotalRating) @ "\n";
 		}
-		%text = %text @ "<just:left>Global Level Rank:<just:right>" @ ($LB::RatingPending ? "..." : $LB::LevelPosition);
+		%ranking = $LB::LevelPosition;
+		if ($LB::PositionDelta > 0) {
+			%ranking  = "<color:00ff00>(+" @ $LB::PositionDelta @ ")<color:000000> " @ %ranking;
+		}
+		%text = %text @ "<just:left>Global Level Rank:<just:right>" @ ($LB::RatingPending ? "..." : %ranking);
 
 		EG_Rating.setText(%text);
 	} else {
