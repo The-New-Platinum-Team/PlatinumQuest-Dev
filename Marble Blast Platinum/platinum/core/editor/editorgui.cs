@@ -607,6 +607,11 @@ function delayedEditorOpen() {
 		MissionCleanup.add(Editor);
 		Editor.open();
 	}
+	if ($Editor::AutoReloadMarbleTransform !$= "") {
+		LocalClientConnection.player.setTransform($Editor::AutoReloadMarbleTransform);
+		setGameState("Go");
+		$Editor::AutoReloadMarbleTransform = "";
+	}
 }
 
 function EditorTestCameraPath() {
@@ -699,6 +704,41 @@ function EditorDoPreviewScreenshotEnd(%gui) {
 
 function ReturnMarbletoNormal() {
 	$MP::MyMarble.scale = "1 1 1"; //When you are done taking the preview/icon picture, return the marble to it's normal size. ~Connie
+}
+
+function EditorDisableAutoReload() {
+	echo("Disabled mission auto-reload");
+	$Editor::AutoReload = false;
+	$Editor::AutoReloadMarbleTransform = "";
+	cancelIgnorePause($Editor::AutoReloadSch);
+}
+
+function EditorAutoReloadLoop(%activate) {
+	if(%activate) {
+		echo("Enabled mission auto-reload for" SPC $Server::MissionFile);
+		$Editor::AutoReload = true;
+	}
+
+	if(!$Editor::AutoReload)
+		return;
+
+	%currentMission = $Server::MissionFile;
+	if(%currentMission !$= $Editor::AutoReloadMission && !%activate) {
+		EditorDisableAutoReload();
+		return;
+	}
+
+	%currentMod = getFileModifiedTime(%currentMission);
+	if(!%activate && $Editor::AutoReloadModTime !$= %currentMod && !$Game::Menu) {
+		$Editor::AutoReloadMarbleTransform = $MP::MyMarble.getTransform();
+		addResPath("platinum/data"); // Make sure new interiors or textures get added
+		EditorDoReloadMission();
+	}
+
+	$Editor::AutoReloadModTime = %currentMod;
+	$Editor::AutoReloadMission = %currentMission;
+	cancelIgnorePause($Editor::AutoReloadSch);
+	$Editor::AutoReloadSch = scheduleIgnorePause(500, "EditorAutoReloadLoop");
 }
 
 /**
@@ -4848,6 +4888,10 @@ function EWorldEditor::buildSpecialNone(%this) {
 		%this.addSpecial("Connect Constructor", "ConnectAutoDIF(Constructor, 7653);" SPC %this @ ".buildSpecial();");
 		%this.addSpecial("Connect Blender", "ConnectAutoDIF(Blender, 7654);" SPC %this @ ".buildSpecial();");
 	}
+	if($Editor::AutoReload)
+		%this.addSpecial("Disable Auto-Reload", "EditorDisableAutoReload();" SPC %this @ ".buildSpecial();");
+	else
+		%this.addSpecial("Auto-Reload Mission", "EditorAutoReloadLoop(true);" SPC %this @ ".buildSpecial();");
 }
 
 /**
