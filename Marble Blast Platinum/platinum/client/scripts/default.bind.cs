@@ -1050,6 +1050,28 @@ function dropPlayerAtCamera(%val) {
 		commandToServer('DropPlayerAtCamera');
 }
 
+function playtestPointTeleport(%index) {
+	if (!lb() && !mp())
+		commandToServer('PlaytestPoint', %index);
+}
+
+function playtestBindIfFree(%key, %cmd) {
+	%existing = MoveMap.getCommand(keyboard, %key);
+	if (%existing $= "" || strPos(%existing, "taunt") == 0)
+		PlaytestMap.bindCmd(keyboard, %key, %cmd, "");
+}
+
+function buildPlaytestMap() {
+	if (isObject(PlaytestMap))
+		PlaytestMap.delete();
+
+	new ActionMap(PlaytestMap);
+	for (%i = 1; %i <= 9; %i++) {
+		playtestBindIfFree(%i, "playtestPointTeleport(" @ %i @ ");");
+		playtestBindIfFree("numpad" @ %i, "playtestPointTeleport(" @ %i @ ");");
+	}
+}
+
 function reloadConfig(%val) {
 	if (!%val) {
 		exec($usermods @ "/client/scripts/default.bind.cs");

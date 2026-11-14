@@ -608,9 +608,13 @@ function delayedEditorOpen() {
 		Editor.open();
 	}
 	if ($Editor::AutoReloadMarbleTransform !$= "") {
+		if ($Editor::AutoReloadGravityDir !$= "")
+			LocalClientConnection.setGravityDir($Editor::AutoReloadGravityDir, true, $Editor::AutoReloadGravityRot);
 		LocalClientConnection.player.setTransform($Editor::AutoReloadMarbleTransform);
 		setGameState("Go");
 		$Editor::AutoReloadMarbleTransform = "";
+		$Editor::AutoReloadGravityDir = "";
+		$Editor::AutoReloadGravityRot = "";
 	}
 }
 
@@ -710,6 +714,8 @@ function EditorDisableAutoReload() {
 	echo("Disabled mission auto-reload");
 	$Editor::AutoReload = false;
 	$Editor::AutoReloadMarbleTransform = "";
+	$Editor::AutoReloadGravityDir = "";
+	$Editor::AutoReloadGravityRot = "";
 	cancelIgnorePause($Editor::AutoReloadSch);
 }
 
@@ -731,6 +737,8 @@ function EditorAutoReloadLoop(%activate) {
 	%currentMod = getFileModifiedTime(%currentMission);
 	if(!%activate && $Editor::AutoReloadModTime !$= %currentMod && !$Game::Menu) {
 		$Editor::AutoReloadMarbleTransform = $MP::MyMarble.getTransform();
+		$Editor::AutoReloadGravityDir = LocalClientConnection.gravityDir;
+		$Editor::AutoReloadGravityRot = LocalClientConnection.gravityRot;
 		addResPath("platinum/data"); // Make sure new interiors or textures get added
 		EditorDoReloadMission();
 	}

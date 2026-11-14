@@ -68,4 +68,40 @@ function serverCmdDropCameraAtPlayer(%client) {
 	}
 }
 
+/**
+ * @param {GameConnection} %client
+ * @param {int} %index
+ */
+function serverCmdPlaytestPoint(%client, %index) {
+	if (lb() || mp() || !isObject(%client.player) || !isObject(MissionGroup) || !$Editor::Opened)
+		return;
+
+	%count = MissionGroup.getCount();
+	for (%i = 0; %i < %count; %i++) {
+		%obj = MissionGroup.getObject(%i);
+		if (%obj.getClassName() $= "ScriptObject" && %obj.class $= "PlaytestPoint" && mFloor(%obj.index) == %index) {
+			%pos = %obj.position !$= "" ? %obj.position : "0 0 0";
+			%rot = %obj.rotation !$= "" ? %obj.rotation : "1 0 0 0";
+			%rotRad = getWords(%rot, 0, 2) SPC mDegToRad(getWord(%rot, 3));
+			%gravity = RotMultiply(%rotRad, "1 0 0 3.1415926");
+			%ortho = VectorRemoveNotation(VectorOrthoBasis(%gravity));
+
+			if ($Game::State $= "Start" || $Game::State $= "Ready" || $Game::State $= "Set")
+				setGameState("Go");
+
+			%client.setGravityDir(%ortho, true, %gravity);
+			%client.player.setTransform(%pos SPC "1 0 0 0");
+			%client.player.setCameraYaw(0);
+			%client.player.setCameraPitch(MissionInfo.cameraPitch $= "" ? 0.45 : MissionInfo.cameraPitch);
+			%client.player.setVelocity("0 0 0");
+			%client.player.setAngularVelocity("0 0 0");
+			%client.setControlObject(%client.player);
+			%client.playPitchedSound("spawn");
+
+			%client.addBubbleLine("Playtest Point #" @ %index, false, 2000);
+			return;
+		}
+	}
+}
+
 
