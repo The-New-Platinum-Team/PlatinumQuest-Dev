@@ -1,6 +1,7 @@
 #include "stStructs.wgsl"
 #include "sgCommon.wgsl"
 #include "sgTSCommon.wgsl" 
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -74,5 +75,5 @@ fn fMarble(in: TSRasterizerData) -> @location(0) vec4<f32> {
 
    var calcColor : vec4<f32> = vec4<f32>(mix(materialColor.rgb * in.color.rgb, reflectionColor.rgb, reflectAmount), 1.0);
 
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }

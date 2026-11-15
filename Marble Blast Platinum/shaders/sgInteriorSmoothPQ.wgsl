@@ -1,4 +1,5 @@
 #include "stStructs.wgsl"
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -109,5 +110,5 @@ fn vSmooth(in: ITRPQVert) -> TSRasterizerData {
 @fragment
 fn fSmooth(in: TSRasterizerData) -> @location(0) vec4<f32> {
    var base : vec4<f32> = vec4<f32>(textureSample(diffuseMap, diffuseSampler, in.uv1).rgba) * in.color; // base
-   return base;
+   return ApplyShadow(base, in.worldSpacePosition, in.norm);
 }

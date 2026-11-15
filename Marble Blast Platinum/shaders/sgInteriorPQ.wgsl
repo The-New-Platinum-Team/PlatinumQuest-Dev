@@ -1,4 +1,5 @@
 #include "stStructs.wgsl"
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -168,7 +169,7 @@ fn fDefault(in: PQRasterizerData) -> @location(0) vec4<f32> {
    
    var outColor = vec4<f32>(materialColor.rgb * effectiveSun.rgb, 1.0) + 
       vec4<f32>(specularColor.rgb * lightUnit.diffuse.rgb * pow(cosAlpha, 9.0), 1.0);
-   return outColor;
+   return ApplyShadow(outColor, in.worldSpacePosition, in.norm);
 }
 
 @vertex
@@ -230,7 +231,7 @@ fn fChoiceTile(in: PQRasterizerData) -> @location(0) vec4<f32> {
    
    var outColor = vec4<f32>(materialColor.rgb * effectiveSun.rgb, 1.0) + 
       vec4<f32>(specularColor.rgb * lightUnit.diffuse.rgb * pow(cosAlpha, 9.0), 1.0);
-   return outColor;
+   return ApplyShadow(outColor, in.worldSpacePosition, in.norm);
 }
 
 @vertex
@@ -291,7 +292,7 @@ fn fChoiceTileDiffuse(in: PQRasterizerData) -> @location(0) vec4<f32> {
    
    var outColor = vec4<f32>(materialColor.rgb * effectiveSun.rgb, 1.0) + 
       vec4<f32>(specularColor.rgb * lightUnit.diffuse.rgb * pow(cosAlpha, 9.0), 1.0);
-   return outColor;
+   return ApplyShadow(outColor, in.worldSpacePosition, in.norm);
 }
 
 @vertex
@@ -356,5 +357,5 @@ fn fNoiseTile(in: PQRasterizerData) -> @location(0) vec4<f32> {
    
    var outColor = vec4<f32>(materialColor.rgb * effectiveSun.rgb * vec3<f32>(shade, shade, shade), 1.0) + 
       vec4<f32>(specularColor.rgb * lightUnit.diffuse.rgb * pow(cosAlpha, 9.0), 1.0);
-   return outColor;
+   return ApplyShadow(outColor, in.worldSpacePosition, in.norm);
 }

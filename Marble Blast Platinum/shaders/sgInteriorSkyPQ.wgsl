@@ -1,4 +1,5 @@
 #include "stStructs.wgsl"
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -159,5 +160,5 @@ fn fSkyboxIce(in: PQRasterizerData) -> @location(0) vec4<f32> {
    var cosAlpha = clamp(dot(normalize(viewDir), lightReflection), 0.0, 1.0);
    
    outCol += vec4<f32>(specularColor.rgb * lightUnit.diffuse.rgb * pow(cosAlpha, 9.0), 1.0);
-   return outCol;
+   return ApplyShadow(outCol, in.worldSpacePosition, in.norm);
 }

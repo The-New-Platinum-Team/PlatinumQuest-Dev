@@ -1,6 +1,7 @@
 #include "stStructs.wgsl"
 #include "sgCommon.wgsl"
 #include "sgTSCommon.wgsl"
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -46,5 +47,5 @@ fn vInteriorSmooth(in: ITRVert) -> TSRasterizerData {
 @fragment
 fn fInteriorSmooth(in: TSRasterizerData) -> @location(0) vec4<f32> {
    var base : vec4<f32> = vec4<f32>(textureSample(texs0, samplers0, in.uv1).rgba) * in.color; // base
-   return base;
+   return ApplyShadow(base, in.worldSpacePosition, in.norm);
 }

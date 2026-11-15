@@ -1,6 +1,7 @@
 #include "stStructs.wgsl"
 #include "sgCommon.wgsl"
 #include "sgTSCommon.wgsl" 
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -90,7 +91,7 @@ fn vTSPL_SELFILLUM_FOG_DEPTH(in : TSVert) -> TSRasterizerData {
 @fragment
 fn fTSPL(in: TSRasterizerData) -> @location(0) vec4<f32> {
    var calcColor : vec4<f32> = vec4<f32>(textureSample(texs0, samplers0, in.uv1).rgba) * in.color;
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 //
@@ -119,21 +120,21 @@ fn fTSPL_SELFILLUM_FOG_DEPTH(in: TSRasterizerData) -> @location(0) vec4<f32> {
 @fragment
 fn fTSPL_DEPTH(in: TSRasterizerData) -> @location(0) vec4<f32> {
    var calcColor : vec4<f32> = vec4<f32>(textureSample(texs0, samplers0, in.uv1).rgba) * in.color;
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 @fragment
 fn fTSPL_FOG(in: TSRasterizerData) -> @location(0) vec4<f32> {
    var calcColor : vec4<f32> = vec4<f32>(textureSample(texs0, samplers0, in.uv1).rgba) * in.color;
    calcColor = HandleFogFrag(calcColor, in.fogTexCoord, in.fogColor, etexs0, esamplers0);
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 @fragment
 fn fTSPL_FOG_DEPTH(in: TSRasterizerData) -> @location(0) vec4<f32> {
    var calcColor : vec4<f32> = vec4<f32>(textureSample(texs0, samplers0, in.uv1).rgba) * in.color;
    calcColor = HandleFogFrag(calcColor, in.fogTexCoord, in.fogColor, etexs0, esamplers0);
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 @fragment

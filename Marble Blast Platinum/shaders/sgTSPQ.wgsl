@@ -1,4 +1,5 @@
 #include "stStructs.wgsl"
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -130,5 +131,5 @@ fn fTS_DefaultMaterial(in: PQRasterizerData) -> @location(0) vec4<f32> {
 
 //    outCol = vec4<f32>(cubemapColor.rgb, 1.0);
 
-   return outCol;
+   return ApplyShadow(outCol, in.worldSpacePosition, in.norm);
 }

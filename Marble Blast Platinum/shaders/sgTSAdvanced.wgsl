@@ -1,6 +1,7 @@
 #include "stStructs.wgsl"
 #include "sgCommon.wgsl"
 #include "sgTSCommon.wgsl"
+#include "sgShadow.wgsl"
 
 // UG_COMMON_TS
 @group(0) @binding(0)
@@ -168,7 +169,7 @@ fn fTSPL_ADVANCED_MAP(in: TSRasterizerData) -> @location(0) vec4<f32> {
                                      etexs1, esamplers1,  // emap
                                      texs0,  samplers0,  // emapAlpha
                                      texs2,  samplers2); // dmap
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 @fragment
@@ -180,7 +181,7 @@ fn fTSPL_ADVANCED_MAP_DEPTH(in: TSRasterizerData) -> @location(0) vec4<f32> {
                                      etexs1, esamplers1,  // emap
                                      texs0,  samplers0,  // emapAlpha
                                      texs2,  samplers2); // dmap
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 @fragment
@@ -192,7 +193,7 @@ fn fTSPL_ADVANCED_MAP_FOG(in: TSRasterizerData) -> @location(0) vec4<f32> {
                                      texs0,  samplers0,  // emapAlpha
                                      texs2,  samplers2); // dmap
    calcColor = HandleFogFrag(calcColor, in.fogTexCoord, in.fogColor, etexs0, esamplers0);
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 @fragment
@@ -204,7 +205,7 @@ fn fTSPL_ADVANCED_MAP_FOG_DEPTH(in: TSRasterizerData) -> @location(0) vec4<f32> 
                                      texs0,  samplers0,  // emapAlpha
                                      texs2,  samplers2); // dmap
    calcColor = HandleFogFrag(calcColor, in.fogTexCoord, in.fogColor, etexs0, esamplers0);
-   return calcColor;
+   return ApplyShadow(calcColor, in.worldSpacePosition, in.norm);
 }
 
 

@@ -44,7 +44,21 @@ struct CommonUniformSet {
    miscControl: vec4<f32>,
    clipPlane: vec4<f32>,
    depthBias: vec4<f32>, // (bias, slope, clamp, enabled)
-   miscControl2: vec4<f32> // alphaTest, X, X, X
+   miscControl2: vec4<f32>, // alphaTest, X, X, X
+
+   // Light view and light projection per cascade
+   shadowMatrix: array<mat3x4<f32>, 4>,
+   shadowProj: array<mat4x4<f32>, 4>,
+   // x=enabled, y=texel size, z=depth bias, w=normal bias
+   shadowParams: vec4<f32>,
+   // light travel direction
+   shadowDir: vec4<f32>,
+   // camera-space far distance of each cascade
+   shadowSplits: vec4<f32>,
+   // camera position
+   shadowEye: vec4<f32>,
+   // x = active cascade, X, X, X
+   shadowActive: vec4<f32>
 }
 
 struct LightUnit {
