@@ -392,6 +392,26 @@ if (canSupportPostFX()) {
 	$Options::Tooltip ["Graphics", $i  ] = "Enable or disable post-processing effects. Disabling this can improve performance on lower-end systems.";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
+$Options::Name    ["Graphics", $i++] = "stencilShadows";
+$Options::Title   ["Graphics", $i  ] = "Shadows";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable real-time shadows cast by the sun from level geometry and marbles. Disabling this can improve performance on lower-end systems.";
+$Options::Type    ["Graphics", $i  ] = "boolean";
+$Options::Name    ["Graphics", $i++] = "stencilShadowStrength";
+$Options::Title   ["Graphics", $i  ] = "Shadow Strength";
+$Options::Tooltip ["Graphics", $i  ] = "Adjust how dark shadows are. 100 makes shadowed areas completely black.";
+$Options::Ctrl    ["Graphics", $i  ] = "slider";
+$Options::Min     ["Graphics", $i  ] = 0;
+$Options::Max     ["Graphics", $i  ] = 100;
+$Options::Ticks   ["Graphics", $i  ] = 20; //Every 5
+$Options::JoyTicks["Graphics", $i  ] = 20; //Every 5
+$Options::Name    ["Graphics", $i++] = "stencilShadowLength";
+$Options::Title   ["Graphics", $i  ] = "Shadow Length";
+$Options::Tooltip ["Graphics", $i  ] = "Adjust how far shadows can stretch. Lower this if you see shadow streaks or flickering in the distance.";
+$Options::Ctrl    ["Graphics", $i  ] = "slider";
+$Options::Min     ["Graphics", $i  ] = 50;
+$Options::Max     ["Graphics", $i  ] = 400;
+$Options::Ticks   ["Graphics", $i  ] = 14; //Every 25
+$Options::JoyTicks["Graphics", $i  ] = 14; //Every 25
 $Options::Name    ["Graphics", $i++] = "vsync";
 $Options::Title   ["Graphics", $i  ] = "Max Framerate";
 $Options::Tooltip ["Graphics", $i  ] = "Set the maximum number of frames that the game will render per second. This can help reduce screen tearing and improve performance on lower-end systems.";
@@ -869,6 +889,69 @@ function Opt_postprocessing_decrease() {
 
 function Opt_postprocessing_increase() {
 	$pref::Video::PostProcessing = !$pref::Video::PostProcessing;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_stencilShadows_getDisplay() {
+	return $pref::Shadows::stencil ? "Enabled" : "Disabled";
+}
+
+function Opt_stencilShadows_getValue() {
+	return $pref::Shadows::stencil;
+}
+
+function Opt_stencilShadows_decrease() {
+	$pref::Shadows::stencil = !$pref::Shadows::stencil;
+}
+
+function Opt_stencilShadows_increase() {
+	$pref::Shadows::stencil = !$pref::Shadows::stencil;
+}
+
+//-----------------------------------------------------------------------------
+
+// Shown as strength (0 = invisible, 100 = black); the engine stores the fraction of color kept
+function Opt_stencilShadowStrength_getValue() {
+	return mRound((1 - $pref::Shadows::stencilDarkness) * 100);
+}
+
+function Opt_stencilShadowStrength_getDisplay() {
+	return Opt_stencilShadowStrength_getValue();
+}
+
+function Opt_stencilShadowStrength_decrease(%size) {
+	Opt_stencilShadowStrength_setValue(Opt_stencilShadowStrength_getValue() - %size);
+}
+
+function Opt_stencilShadowStrength_increase(%size) {
+	Opt_stencilShadowStrength_setValue(Opt_stencilShadowStrength_getValue() + %size);
+}
+
+function Opt_stencilShadowStrength_setValue(%value) {
+	$pref::Shadows::stencilDarkness = 1 - (mClamp(mRound(%value), 0, 100) / 100);
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_stencilShadowLength_getValue() {
+	return mRound($pref::Shadows::stencilLength);
+}
+
+function Opt_stencilShadowLength_getDisplay() {
+	return Opt_stencilShadowLength_getValue();
+}
+
+function Opt_stencilShadowLength_decrease(%size) {
+	Opt_stencilShadowLength_setValue(Opt_stencilShadowLength_getValue() - %size);
+}
+
+function Opt_stencilShadowLength_increase(%size) {
+	Opt_stencilShadowLength_setValue(Opt_stencilShadowLength_getValue() + %size);
+}
+
+function Opt_stencilShadowLength_setValue(%value) {
+	$pref::Shadows::stencilLength = mClamp(mRound(%value), 50, 400);
 }
 
 //-----------------------------------------------------------------------------

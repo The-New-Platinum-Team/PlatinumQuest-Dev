@@ -84,6 +84,9 @@ $pref::shadows = "0";
 $pref::HudMessageLogSize = 40;
 $pref::ChatHudLength = 1;
 $pref::useStencilShadows = 0;
+$pref::Shadows::stencil = 0;
+$pref::Shadows::stencilDarkness = 0.6;
+$pref::Shadows::stencilLength = 150;
 
 $pref::Input::LinkMouseSensitivity = 1;
 // Direct Input keyboard, mouse, and joystick prefs
