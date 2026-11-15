@@ -59,7 +59,7 @@ struct CommonUniformSet {
    shadowSplits: vec4<f32>,
    // camera position
    shadowEye: vec4<f32>,
-   // x = active cascade, X, X, X
+   // x = active cascade, y = shadow strength, X, X
    shadowActive: vec4<f32>
 }
 

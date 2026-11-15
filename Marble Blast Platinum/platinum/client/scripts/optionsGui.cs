@@ -392,6 +392,18 @@ if (canSupportPostFX()) {
 	$Options::Tooltip ["Graphics", $i  ] = "Enable or disable post-processing effects. Disabling this can improve performance on lower-end systems.";
 	$Options::Type    ["Graphics", $i  ] = "value";
 }
+$Options::Name    ["Graphics", $i++] = "shadows";
+$Options::Title   ["Graphics", $i  ] = "Shadows";
+$Options::Tooltip ["Graphics", $i  ] = "Enable or disable real-time shadows. Disabling this can improve performance on lower-end systems.";
+$Options::Type    ["Graphics", $i  ] = "boolean";
+$Options::Name    ["Graphics", $i++] = "shadowStrength";
+$Options::Title   ["Graphics", $i  ] = "Shadow Strength";
+$Options::Tooltip ["Graphics", $i  ] = "Adjust how dark shadows are. 100 makes shadowed areas completely black.";
+$Options::Ctrl    ["Graphics", $i  ] = "slider";
+$Options::Min     ["Graphics", $i  ] = 0;
+$Options::Max     ["Graphics", $i  ] = 100;
+$Options::Ticks   ["Graphics", $i  ] = 20; //Every 5
+$Options::JoyTicks["Graphics", $i  ] = 20; //Every 5
 $Options::Name    ["Graphics", $i++] = "vsync";
 $Options::Title   ["Graphics", $i  ] = "Max Framerate";
 $Options::Tooltip ["Graphics", $i  ] = "Set the maximum number of frames that the game will render per second. This can help reduce screen tearing and improve performance on lower-end systems.";
@@ -869,6 +881,44 @@ function Opt_postprocessing_decrease() {
 
 function Opt_postprocessing_increase() {
 	$pref::Video::PostProcessing = !$pref::Video::PostProcessing;
+}
+
+function Opt_shadows_getDisplay() {
+	return $pref::shadowEnable ? "Enabled" : "Disabled";
+}
+
+function Opt_shadows_getValue() {
+	return $pref::shadowEnable;
+}
+
+function Opt_shadows_decrease() {
+	$pref::shadowEnable = !$pref::shadowEnable;
+}
+
+function Opt_shadows_increase() {
+	$pref::shadowEnable = !$pref::shadowEnable;
+}
+
+//-----------------------------------------------------------------------------
+
+function Opt_shadowStrength_getValue() {
+	return mRound((1 - $pref::shadowStrength) * 100);
+}
+
+function Opt_shadowStrength_getDisplay() {
+	return Opt_shadowStrength_getValue();
+}
+
+function Opt_shadowStrength_decrease(%size) {
+	Opt_shadowStrength_setValue(Opt_shadowStrength_getValue() - %size);
+}
+
+function Opt_shadowStrength_increase(%size) {
+	Opt_shadowStrength_setValue(Opt_shadowStrength_getValue() + %size);
+}
+
+function Opt_shadowStrength_setValue(%value) {
+	$pref::shadowStrength = 1 - (mClamp(mRound(%value), 0, 100) / 100);
 }
 
 //-----------------------------------------------------------------------------

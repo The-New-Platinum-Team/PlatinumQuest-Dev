@@ -112,5 +112,5 @@ fn SampleShadow(worldPos: vec3<f32>, normal: vec3<f32>) -> f32 {
 fn ApplyShadow(color: vec4<f32>, worldPos: vec3<f32>, normal: vec3<f32>) -> vec4<f32> {
    var visibility = SampleShadow(worldPos, normal);
    var shadowed = 1.0 - visibility;
-   return vec4<f32>(color.rgb * mix(1.0, 0.666, shadowed), color.a);
+   return vec4<f32>(color.rgb * mix(1.0, commonUniforms.shadowActive.y, shadowed), color.a);
 }
