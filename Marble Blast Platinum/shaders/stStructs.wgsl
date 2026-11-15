@@ -46,9 +46,11 @@ struct CommonUniformSet {
    depthBias: vec4<f32>, // (bias, slope, clamp, enabled)
    miscControl2: vec4<f32>, // alphaTest, X, X, X
 
-   // Light view and light projection per cascade
-   shadowMatrix: array<mat3x4<f32>, 4>,
-   shadowProj: array<mat4x4<f32>, 4>,
+   // Packed cascade shadows
+   shadowCascadeViewProj: mat4x4<f32>,
+   shadowCascadeScale: array<vec4<f32>, 4>,
+   shadowCascadeOffset: array<vec4<f32>, 4>,
+   shadowCascadeInfo: array<vec4<f32>, 4>,
    // x=enabled, y=texel size, z=depth bias, w=normal bias
    shadowParams: vec4<f32>,
    // light travel direction

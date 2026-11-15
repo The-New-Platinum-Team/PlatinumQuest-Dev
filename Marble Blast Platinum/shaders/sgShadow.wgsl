@@ -6,34 +6,28 @@ var shadowDepthMap: texture_depth_2d_array;
 var shadowDepthSampler: sampler;
 
 fn SampleCascade(cascade: i32, worldPos: vec3<f32>, normal: vec3<f32>) -> f32 {
-   var cascadeView = commonUniforms.shadowMatrix[cascade];
-   var cascadeProj = commonUniforms.shadowProj[cascade];
-
-   var n = normalize(normal);
-   var ndl = clamp(dot(n, -commonUniforms.shadowDir.xyz), 0.0, 1.0);
+   var nrm = normalize(normal);
+   var ndl = clamp(dot(nrm, -commonUniforms.shadowDir.xyz), 0.0, 1.0);
 
    var texel = commonUniforms.shadowParams.y; // 1 / shadow map size
-   var proj00 = abs(cascadeProj[0][0]);
-   var texelWorld = select(1.0, 2.0 * texel / proj00, proj00 > 1e-8);
-   var proj22 = abs(cascadeProj[2][2]);
-   var depthRange = select(1.0, 1.0 / proj22, proj22 > 1e-8);
+   var info = commonUniforms.shadowCascadeInfo[cascade];
+   var texelWorld = info.x;
+   var depthRange = 1.0 / max(info.y, 1e-8);
 
    var slope = sqrt(max(0.0, 1.0 - ndl * ndl)) / max(ndl, 0.2);
    var bias = texelWorld * (1.0 + 2.0 * slope) / depthRange;
    var normalBias = max(commonUniforms.shadowParams.w, texelWorld * 1.25);
-   var biasedWorld = worldPos + n * normalBias;
+   var biasedWorld = worldPos + nrm * normalBias;
 
-   var lightMvp = expandTo44(cascadeView) * cascadeProj;
-   var lightClip = vec4<f32>(biasedWorld, 1.0) * lightMvp;
-   if (lightClip.w <= 0.0) {
-      return 1.0;
-   }
+   var base = vec4<f32>(biasedWorld, 1.0) * commonUniforms.shadowCascadeViewProj;
+   var cascadeScale = commonUniforms.shadowCascadeScale[cascade];
+   var cascadeOffset = commonUniforms.shadowCascadeOffset[cascade];
+   var shadowPos = base.xyz * cascadeScale.xyz + cascadeOffset.xyz;
 
-   var lightSpace = lightClip.xyz / lightClip.w;
-   var uv = vec2<f32>(lightSpace.x * 0.5 + 0.5, 0.5 - lightSpace.y * 0.5);
+   var uv = shadowPos.xy;
 
    // Cascade doesn't cover this point
-   if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0 || lightSpace.z > 1.0) {
+   if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0 || shadowPos.z > 1.0) {
       return -1.0;
    }
 
@@ -51,7 +45,7 @@ fn SampleCascade(cascade: i32, worldPos: vec3<f32>, normal: vec3<f32>) -> f32 {
          var rotated = vec2<f32>(p.x * cs - p.y * sn, p.x * sn + p.y * cs);
          var offset = rotated * texel;
          var sampleDepth = textureSampleLevel(shadowDepthMap, shadowDepthSampler, uv + offset, cascade, 0i);
-         visibility = visibility + select(0.0, 1.0, lightSpace.z - bias <= sampleDepth);
+         visibility = visibility + select(0.0, 1.0, shadowPos.z - bias <= sampleDepth);
       }
    }
 
@@ -71,15 +65,16 @@ fn SampleShadow(worldPos: vec3<f32>, normal: vec3<f32>) -> f32 {
       return 1.0;
    }
 
-   var dist = length(worldPos - commonUniforms.shadowEye.xyz);
-   if (dist >= commonUniforms.shadowSplits.w) {
+   var camForward = normalize((vec4<f32>(0, 1, 0, 0) * expandTo44(commonUniforms.invCameraView)).xyz);
+   var viewZ = dot(worldPos - commonUniforms.shadowEye.xyz, camForward);
+   if (viewZ <= 0.0 || viewZ >= commonUniforms.shadowSplits.w) {
       return 1.0;
    }
 
    var cascade: i32 = 0;
-   if (dist > commonUniforms.shadowSplits.x) { cascade = 1; }
-   if (dist > commonUniforms.shadowSplits.y) { cascade = 2; }
-   if (dist > commonUniforms.shadowSplits.z) { cascade = 3; }
+   if (viewZ > commonUniforms.shadowSplits.x) { cascade = 1; }
+   if (viewZ > commonUniforms.shadowSplits.y) { cascade = 2; }
+   if (viewZ > commonUniforms.shadowSplits.z) { cascade = 3; }
 
    var visibility = -1.0;
    for (var c: i32 = cascade; c < 4; c = c + 1) {
@@ -102,8 +97,8 @@ fn SampleShadow(worldPos: vec3<f32>, normal: vec3<f32>) -> f32 {
 
    if (cascade < 3) {
       var band = split * 0.1;
-      if (dist > split - band) {
-         var t = clamp((dist - (split - band)) / band, 0.0, 1.0);
+      if (viewZ > split - band) {
+         var t = clamp((viewZ - (split - band)) / band, 0.0, 1.0);
          var nextVisibility = SampleCascade(cascade + 1, worldPos, normal);
          if (nextVisibility >= 0.0) {
             visibility = mix(visibility, nextVisibility, t);

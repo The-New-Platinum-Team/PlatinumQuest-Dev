@@ -20,15 +20,15 @@ fn ShadowWorldPos(pos: vec3<f32>) -> ShadowVertOut {
    var world = vec4<f32>(pos, 1.0) * tsUniforms.objectMat;
    var cascade = i32(commonUniforms.shadowActive.x);
 
-   var cascadeView = commonUniforms.shadowMatrix[cascade];
-   var cascadeProj = commonUniforms.shadowProj[cascade];
-
-   var lightMvp = expandTo44(cascadeView) * cascadeProj;
-   var clip = vec4<f32>(world.xyz, 1.0) * lightMvp;
+   var base = vec4<f32>(world.xyz, 1.0) * commonUniforms.shadowCascadeViewProj;
+   var cascadeScale = commonUniforms.shadowCascadeScale[cascade];
+   var cascadeOffset = commonUniforms.shadowCascadeOffset[cascade];
+   var shadowPos = base.xyz * cascadeScale.xyz + cascadeOffset.xyz;
 
    var out: ShadowVertOut;
-   out.position = clip;
-   out.depth = clip.z / clip.w;
+   // convert back to clip space.
+   out.position = vec4<f32>(shadowPos.x * 2.0 - 1.0, 1.0 - shadowPos.y * 2.0, shadowPos.z, 1.0);
+   out.depth = shadowPos.z;
    return out;
 }
 
