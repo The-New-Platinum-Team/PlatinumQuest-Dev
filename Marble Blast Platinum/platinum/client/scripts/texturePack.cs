@@ -260,6 +260,18 @@ function loadTexturePackTextureMaterials(%pack) {
 			registerMaterial(%field, %real);
 		}
 	}
+	// shadow materials
+	if (isObject(%pack.shadow_materials)) {
+		%fields = %pack.shadow_materials.getDynamicFieldList();
+		%count = getFieldCount(%fields);
+		for (%i = 0; %i < %count; %i ++) {
+			%field = getField(%fields, %i);
+			%value = %pack.shadow_materials.getFieldValue(%field);
+
+			devecho("Register shadow material: " @ %field @ " with " @ %value);
+			setShadowMaterial(%field, %value);
+		}
+	}
 }
 
 function loadTexturePackMaterialReplacements(%pack) {

@@ -102,7 +102,7 @@ fn fTS_DefaultMaterial(in: PQRasterizerData) -> @location(0) vec4<f32> {
 
     var eyeVec = normalize(in.camPos - in.tangentPos);
 
-    if tsUniforms.fogState.z > 0.0 {
+    if tsUniforms.fogState.w > 0.0 {
         let skyboxColor = textureSample(cubeTex, cubeSampler, in.camDir.xzy);
         outCol += vec4(skyboxColor.rgb * diffuse.a, 0);
     }
