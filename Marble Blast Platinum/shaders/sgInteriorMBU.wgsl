@@ -1,0 +1,295 @@
+#include "stStructs.wgsl"
+#include "sgShadow.wgsl"
+
+// UG_COMMON_TS
+@group(0) @binding(0)
+var<uniform> commonUniforms: CommonUniformSet;
+@group(0) @binding(1)
+var<uniform> tsUniforms: TSUniformSet;
+// TG_TEX2
+@group(1) @binding(0)
+var diffuseMap: texture_2d<f32>; 
+@group(1) @binding(1)
+var noiseMap: texture_2d<f32>; 
+@group(1) @binding(2)
+var diffuseSampler: sampler;
+@group(1) @binding(3)
+var noiseSampler: sampler;
+// TG_TEX2
+@group(2) @binding(0)
+var normalMap: texture_2d<f32>; 
+@group(2) @binding(1)
+var specularMap: texture_2d<f32>; 
+@group(2) @binding(2)
+var normalSampler: sampler;
+@group(2) @binding(3)
+var specularSampler: sampler;
+
+// Interior Shaders
+fn calcSingleLight(camDir: vec3<f32>, vpos: vec3<f32>, vnormal: vec3<f32>,
+    lightUnit: LightUnit) -> vec3<f32> {
+    // Handle basic positional vs directional light
+    var lightDir: vec3<f32>;
+    var attenFactor: f32 = 1.0f;
+
+    if lightUnit.position.w != 0.0f {
+        // Point light
+        lightDir = lightUnit.position.xyz - vpos;
+        var lightVertexDist: f32 = length(lightDir);
+        lightDir = normalize(lightDir);
+        var quadAtten: f32 = lightUnit.attenEnabled.z * lightVertexDist;
+        var invAtten: f32 = 1.0 - step(lightUnit.attenEnabled.x + lightUnit.attenEnabled.y + lightUnit.attenEnabled.z, 0.0);
+
+        attenFactor = 1.0f / (lightUnit.attenEnabled.x +
+                                  (lightUnit.attenEnabled.y * lightVertexDist) +
+                                  (quadAtten * quadAtten) +
+                            invAtten); // avoid div by zero
+    }
+   else {
+        // Directional light
+        lightDir = lightUnit.position.xyz;
+    }
+
+    // Diffuse
+    var diffuseDot: f32 = dot(vnormal, lightDir);
+    diffuseDot = max(dot(vnormal, lightDir), 0.0);
+
+    // // Spotlight effect
+    // // NOTE: should pow(spotDotFactor, exp) but since TGE doesn't use this
+    // // we ignore it.
+    /* const */ var RAD180: f32 = 3.14159f;
+    var spotDotFactor: f32 = max(dot(lightDir, lightUnit.spotDirectionCutoff.xyz), 0.0);
+    var spotlightEffect: f32;
+    if lightUnit.spotDirectionCutoff.w < RAD180 {
+        var cosv: f32 = cos(lightUnit.spotDirectionCutoff.w);
+        // spotDotFactor < cos(lightUnit.spotDirectionCutoff.w) ? 0.0f : spotDotFactor;
+        spotlightEffect = ((step(spotDotFactor, cosv) * 0.0) + (step(cosv, spotDotFactor) * spotDotFactor));
+    }
+   else {
+        spotlightEffect = 1.0f;
+    }
+
+    // // Specular...
+    // // NOTE: in tge, shininess is never set so specular color is
+    // // always modulated by 1
+    // var reflectionDirection : vec3<f32> = reflect(-lightDir, vnormal);
+    // var specFunc : f32 = max(dot(reflectionDirection, camDir), 0.0);
+
+    // Do final calc
+    var calc: vec3<f32> = lightUnit.ambient.rgb +
+          (diffuseDot * lightUnit.diffuse.rgb);
+    //(specFunc * lightUnit.specular.rgb);
+
+    calc *= attenFactor * spotlightEffect;
+    calc *= lightUnit.attenEnabled.w;
+
+    return calc;
+}
+
+@vertex
+fn vTile(in: ITRPQVert) -> PQRasterizerData {
+    var out: PQRasterizerData;
+
+    var lightDir = normalize(tsUniforms.lights[0].position.xyz);
+    var calcPos: vec4<f32> = vec4<f32>(in.pos.xyz, 1.0f);
+    var calcNorm: vec4<f32> = vec4<f32>(in.norm.xyz, 0.0f);
+    var calcTangent: vec4<f32> = vec4<f32>(in.tangent, 0.0f);
+    var calcBitangent: vec4<f32> = vec4<f32>(in.bitangent, 0.0f);
+    var worldPos: vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
+    let nm = transpose(expandTo44(tsUniforms.invObjectMat));
+    var worldNorm = normalize((calcNorm * nm).xyz);
+    var worldTangent = normalize((calcTangent * nm).xyz);
+    var worldBitangent = normalize((calcBitangent * nm).xyz);
+
+    var mv: mat4x4<f32> = expandTo44(commonUniforms.modelview);
+    var mvp: mat4x4<f32> = mv * commonUniforms.projection;
+
+    var camPos: vec3<f32> = (vec4<f32>(0, 0, 0, 1) * commonUniforms.invCameraView).xyz;
+
+    var tbn = mat3x3<f32>(worldTangent, worldBitangent, worldNorm);
+
+    out.clipSpacePosition = calcPos * mvp;
+    out.worldSpacePosition = (calcPos * tsUniforms.objectMat);
+    out.modelViewPosition = (calcPos * commonUniforms.modelview).xyz;
+    out.uv = (vec4<f32>(in.tex.xy, 0.0, 1.0) * tsUniforms.texMats[0]).xy * tsUniforms.miscState.xy;
+    out.norm = worldNorm;
+    out.camDir = vec4<f32>(camPos.xyz, step(0.0, dot(worldNorm, lightDir)));
+    // out.camDir = vec4<f32>(out.camDir.xyz * tbn, 0.0);
+    out.lightDir = lightDir * tbn;
+    out.camPos = camPos * tbn;
+    out.tangentPos = out.worldSpacePosition * tbn;
+
+    // HandleVertLight(worldPos, worldNorm, out.camDir.xyz, out.color);
+    return out;
+}
+
+fn getNoiseOffset(uv: vec2<f32>) -> vec3<f32> {
+    let halfPixel = vec2(1.0 / 64.0, 1.0 / 64.0);
+    let c1 = textureSample(noiseMap, noiseSampler, floor(uv - halfPixel) / 63.0 + 0.5 / 64.0) - 0.5;
+    let c2 = textureSample(noiseMap, noiseSampler, floor(vec2(uv.x - halfPixel.x, uv.y + halfPixel.y)) / 63.0 + 0.5 / 64.0) - 0.5;
+    let c3 = textureSample(noiseMap, noiseSampler, floor(uv + halfPixel) / 63.0 + 0.5 / 64.0) - 0.5;
+    let c4 = textureSample(noiseMap, noiseSampler, floor(vec2(uv.x + halfPixel.x, uv.y - halfPixel.y)) / 63.0 + 0.5 / 64.0) - 0.5;
+    return (c1.rgb + c2.rgb + c3.rgb + c4.rgb) / 4.0;
+}
+
+@fragment
+fn fTile(in: PQRasterizerData) -> @location(0) vec4<f32> {
+    var bumpNormal = textureSample(normalMap, normalSampler, in.uv).xyz * 2.0 - 1.0;
+    var outLightVec = in.lightDir;
+    var lightUnit = tsUniforms.lights[0];
+    var bumpDot = clamp(dot(bumpNormal, outLightVec), 0.0, 1.0);
+
+    // diffuse part
+    var diffuse: vec4<f32> = vec4<f32>(textureSample(diffuseMap, diffuseSampler, in.uv).rgba); // base
+
+    let noiseColor = getNoiseOffset(in.uv);
+    let shading = vec3(1.08, 1.03, 0.90);
+    let mbuAmbient = lightUnit.ambient.rgb * vec3(1.18, 1.06, 0.95);
+
+    var outCol = (diffuse.rgb + noiseColor * diffuse.a) * shading * (bumpDot + mbuAmbient);
+
+    var eyeVec = normalize(in.camPos - in.tangentPos);
+    var halfAng = normalize(eyeVec + outLightVec);
+    var specValue = clamp(dot(bumpNormal, halfAng), 0.0, 1.0) * in.camDir.w;
+
+    var specularColor = tsUniforms.fogColor;
+    var shininess = tsUniforms.fogState.x;
+    var specular = specularColor * pow(specValue, shininess);
+    outCol += specular.rgb * diffuse.a;
+
+    outCol = 1.00759 * pow(outCol, vec3(1.18764));
+
+    return ApplyShadow(vec4(outCol, 1.0), in.worldSpacePosition, in.norm);
+}
+
+@vertex
+fn vDefaultTile(in: ITRPQVert) -> PQRasterizerData {
+    var out: PQRasterizerData;
+
+    var lightDir = normalize(tsUniforms.lights[0].position.xyz);
+    var calcPos: vec4<f32> = vec4<f32>(in.pos.xyz, 1.0f);
+    var calcNorm: vec4<f32> = vec4<f32>(in.norm.xyz, 0.0f);
+    var calcTangent: vec4<f32> = vec4<f32>(in.tangent, 0.0f);
+    var calcBitangent: vec4<f32> = vec4<f32>(in.bitangent, 0.0f);
+    var worldPos: vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
+    let nm = transpose(expandTo44(tsUniforms.invObjectMat));
+    var worldNorm = normalize((calcNorm * nm).xyz);
+    var worldTangent = normalize((calcTangent * nm).xyz);
+    var worldBitangent = normalize((calcBitangent * nm).xyz);
+
+    var mv: mat4x4<f32> = expandTo44(commonUniforms.modelview);
+    var mvp: mat4x4<f32> = mv * commonUniforms.projection;
+
+    var camPos: vec3<f32> = (vec4<f32>(0, 0, 0, 1) * commonUniforms.invCameraView).xyz;
+
+    var tbn = mat3x3<f32>(worldTangent, worldBitangent, worldNorm);
+
+    out.clipSpacePosition = calcPos * mvp;
+    out.worldSpacePosition = (calcPos * tsUniforms.objectMat);
+    out.modelViewPosition = (calcPos * commonUniforms.modelview).xyz;
+    out.uv = (vec4<f32>(in.tex.xy, 0.0, 1.0) * tsUniforms.texMats[0]).xy * tsUniforms.miscState.xy;
+    out.norm = worldNorm;
+    out.camDir = vec4<f32>(camPos.xyz, step(-0.5, dot(worldNorm, lightDir)));
+    // out.camDir = vec4<f32>(out.camDir.xyz * tbn, 0.0);
+    out.lightDir = lightDir * tbn;
+    out.camPos = camPos * tbn;
+    out.tangentPos = out.worldSpacePosition * tbn;
+
+    // HandleVertLight(worldPos, worldNorm, out.camDir.xyz, out.color);
+    return out;
+}
+
+@fragment
+fn fDefaultTile(in: PQRasterizerData) -> @location(0) vec4<f32> {
+    var bumpNormal = textureSample(normalMap, normalSampler, in.uv).xyz * 2.0 - 1.0;
+    var outLightVec = in.lightDir;
+    var lightUnit = tsUniforms.lights[0];
+    var bumpDot = (dot(bumpNormal, outLightVec) + 1.0) * 0.5;
+
+    // diffuse part
+    var diffuse: vec4<f32> = vec4<f32>(textureSample(diffuseMap, diffuseSampler, in.uv).rgba); // base
+
+    let shading = vec3(1.08, 1.03, 0.90);
+    let mbuAmbient = lightUnit.ambient.rgb * vec3(1.18, 1.06, 0.95);
+
+    var outCol = diffuse.rgb * (shading * bumpDot + mbuAmbient);
+
+    var eyeVec = normalize(in.camPos - in.tangentPos);
+    var halfAng = normalize(eyeVec + outLightVec);
+    var specValue = clamp(dot(bumpNormal, halfAng), 0.0, 1.0) * in.camDir.w;
+
+    var specularColor = tsUniforms.fogColor;
+    var shininess = tsUniforms.fogState.x;
+    var specular = specularColor * pow(specValue, shininess);
+    outCol += specular.rgb * diffuse.a;
+
+    outCol = 1.00759 * pow(outCol, vec3(1.18764));
+
+    return ApplyShadow(vec4(outCol, 1.0), in.worldSpacePosition, in.norm);
+}
+
+@vertex
+fn vDefaultHalfTile(in: ITRPQVert) -> PQRasterizerData {
+    var out: PQRasterizerData;
+
+    var lightDir = normalize(tsUniforms.lights[0].position.xyz);
+    var calcPos: vec4<f32> = vec4<f32>(in.pos.xyz, 1.0f);
+    var calcNorm: vec4<f32> = vec4<f32>(in.norm.xyz, 0.0f);
+    var calcTangent: vec4<f32> = vec4<f32>(in.tangent, 0.0f);
+    var calcBitangent: vec4<f32> = vec4<f32>(in.bitangent, 0.0f);
+    var worldPos: vec3<f32> = (calcPos * tsUniforms.objectMat).xyz;
+    let nm = transpose(expandTo44(tsUniforms.invObjectMat));
+    var worldNorm = normalize((calcNorm * nm).xyz);
+    var worldTangent = normalize((calcTangent * nm).xyz);
+    var worldBitangent = normalize((calcBitangent * nm).xyz);
+
+    var mv: mat4x4<f32> = expandTo44(commonUniforms.modelview);
+    var mvp: mat4x4<f32> = mv * commonUniforms.projection;
+
+    var camPos: vec3<f32> = (vec4<f32>(0, 0, 0, 1) * commonUniforms.invCameraView).xyz;
+
+    var tbn = mat3x3<f32>(worldTangent, worldBitangent, worldNorm);
+
+    out.clipSpacePosition = calcPos * mvp;
+    out.worldSpacePosition = (calcPos * tsUniforms.objectMat);
+    out.modelViewPosition = (calcPos * commonUniforms.modelview).xyz;
+    out.uv = (vec4<f32>(in.tex.xy, 0.0, 1.0) * tsUniforms.texMats[0]).xy * tsUniforms.miscState.xy;
+    out.norm = worldNorm;
+    out.camDir = vec4<f32>(camPos.xyz, step(0.0, dot(worldNorm, lightDir)));
+    // out.camDir = vec4<f32>(out.camDir.xyz * tbn, 0.0);
+    out.lightDir = lightDir * tbn;
+    out.camPos = camPos * tbn;
+    out.tangentPos = out.worldSpacePosition * tbn;
+
+    // HandleVertLight(worldPos, worldNorm, out.camDir.xyz, out.color);
+    return out;
+}
+
+@fragment
+fn fDefaultHalfTile(in: PQRasterizerData) -> @location(0) vec4<f32> {
+    var bumpNormal = textureSample(normalMap, normalSampler, in.uv).xyz * 2.0 - 1.0;
+    var outLightVec = in.lightDir;
+    var lightUnit = tsUniforms.lights[0];
+    var bumpDot = clamp(dot(bumpNormal, outLightVec), 0.0, 1.0);
+
+    // diffuse part
+    var diffuse: vec4<f32> = vec4<f32>(textureSample(diffuseMap, diffuseSampler, in.uv).rgba); // base
+
+    let shading = vec3(1.08, 1.03, 0.90);
+    let mbuAmbient = lightUnit.ambient.rgb * vec3(1.18, 1.06, 0.95);
+
+    var outCol = diffuse.rgb * shading * (bumpDot + mbuAmbient);
+
+    var eyeVec = normalize(in.camPos - in.tangentPos);
+    var halfAng = normalize(eyeVec + outLightVec);
+    var specValue = clamp(dot(bumpNormal, halfAng), 0.0, 1.0) * in.camDir.w;
+
+    var specularColor = tsUniforms.fogColor;
+    var shininess = tsUniforms.fogState.x;
+    var specular = specularColor * pow(specValue, shininess);
+    outCol += specular.rgb * diffuse.a;
+
+    outCol = 1.00759 * pow(outCol, vec3(1.18764));
+
+    return ApplyShadow(vec4(outCol, 1.0), in.worldSpacePosition, in.norm);
+}

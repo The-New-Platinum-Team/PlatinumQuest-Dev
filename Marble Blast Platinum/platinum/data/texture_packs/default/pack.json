@@ -47,44 +47,242 @@
       "specular": "platinum/data/shaders/tex/tile_mbu.spec.jpg"
     },
     "MBUWallMaterial": {
-      "normal": "platinum/data/shaders/tex/wall_mbu.normal",
-      "specular": "platinum/data/shaders/tex/wall_mbu.spec.png"
+      "diffuse": "platinum/data/shaders/tex/mbu/wall_beginner.png",
+      "specularColor": "0.8 0.8 0.6 1",
+      "reflectivity": 12,
+      "shader": "MBUMaterial"
     },
     "MBUPlateMaterial": {
+      "diffuse": "platinum/data/shaders/tex/mbu/plate.randomize.png",
       "normal": "platinum/data/shaders/tex/plate_mbu.normal.png",
       "specular": "platinum/data/shaders/tex/plate_mbu.spec.jpg",
-      "textureScale": "0.5 0.5"
+      "textureScale": "0.5 0.5",
+      "specularColor": "1 1 0.8 1",
+      "reflectivity": 8,
+      "shader": "MBUHalfTile"
     },
     "MBUFrictionLowMaterial": {
-      "normal": "platinum/data/shaders/tex/friction_low_mbu.normal.png",
-      "specular": "platinum/data/shaders/tex/friction_low_mbu.spec.png",
-      "shader": "SkysphereIce",
-      "reflectivity": 0.25
+      "diffuse": "platinum/data/shaders/tex/mbu/friction_low.png",
+      "normal": "platinum/data/shaders/tex/mbu/friction_low.normal.png",
+      "specularColor": "1 1 0.8 1",
+      "shader": "MBUSky",
+      "reflectivity": 128,
+      "cubemap": "platinum/data/shaders/tex/mbu/acubezpos2.png;platinum/data/shaders/tex/mbu/acubexpos2.png;platinum/data/shaders/tex/mbu/acubezneg2.png;platinum/data/shaders/tex/mbu/acubexneg2.png;platinum/data/shaders/tex/mbu/acubeypos2.png;platinum/data/shaders/tex/mbu/acubeyneg2.png"
     },
     "MBUFrictionLowShadowMaterial": {
-      "normal": "platinum/data/shaders/tex/friction_low_mbu.normal.png",
-      "specular": "platinum/data/shaders/tex/friction_low_shadow_mbu.spec.png",
-      "shader": "SkysphereIce",
-      "reflectivity": 0.15
+      "diffuse": "platinum/data/shaders/tex/mbu/friction_low_shadow.png",
+      "normal": "platinum/data/shaders/tex/mbu/friction_low.normal.png",
+      "specularColor": "0.3 0.3 0.35 1",
+      "shader": "MBUSky",
+      "reflectivity": 128,
+      "cubemap": "platinum/data/shaders/tex/mbu/acubezpos2.png;platinum/data/shaders/tex/mbu/acubexpos2.png;platinum/data/shaders/tex/mbu/acubezneg2.png;platinum/data/shaders/tex/mbu/acubexneg2.png;platinum/data/shaders/tex/mbu/acubeypos2.png;platinum/data/shaders/tex/mbu/acubeyneg2.png"
     },
     "MBUFrictionHighMaterial": {
-      "normal": "platinum/data/shaders/tex/friction_high_mbu.normal.png",
-      "specular": "platinum/data/shaders/tex/friction_high_mbu.spec.png",
-      "textureScale": "2 2"
+      "diffuse": "platinum/data/shaders/tex/mbu/friction_high.png",
+      "normal": "platinum/data/shaders/tex/mbu/friction_high.normal.png",
+      "specularColor": "0.3 0.3 0.35 1",
+      "reflectivity": 10,
+      "textureScale": "2 2",
+      "shader": "MBUMaterial"
+    },
+    "MBUFrictionHighShadowMaterial": {
+      "diffuse": "platinum/data/shaders/tex/mbu/friction_high_shadow.png",
+      "normal": "platinum/data/shaders/tex/mbu/friction_high.normal.png",
+      "specularColor": "0.15 0.15 0.16 1",
+      "reflectivity": 10,
+      "textureScale": "2 2",
+      "shader": "MBUMaterial"
     },
     "MBUEdgeMaterial": {
-      "normal": "platinum/data/shaders/tex/edge_white_mbu.normal.jpg",
-      "specular": "platinum/data/shaders/tex/edge_white_mbu.spec.jpg"
+      "diffuse": "platinum/data/shaders/tex/mbu/edge_white.png",
+      "normal": "platinum/data/shaders/tex/mbu/edge.normal.png",
+      "shader": "MBUMaterial",
+      "specularColor": "0.8 0.8 0.8 1",
+      "reflectivity": 50
+    },
+    "MBUEdgeShadowMaterial": {
+      "diffuse": "platinum/data/shaders/tex/mbu/edge_white_shadow.png",
+      "normal": "platinum/data/shaders/tex/mbu/edge.normal.png",
+      "shader": "MBUMaterial",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 50
     },
     "MBUBeamMaterial": {
-      "normal": "platinum/data/shaders/tex/beam_side_mbu.normal",
-      "specular": "platinum/data/shaders/tex/noise"
+      "diffuse": "platinum/data/shaders/tex/mbu/beam.png",
+      "normal": "platinum/data/shaders/tex/mbu/beam.normal.png",
+      "shader": "MBUMaterial",
+      "specularColor": "0.8 0.8 0.6 1",
+      "reflectivity": 12
+    },
+    "MBUBeamSideMaterial": {
+      "diffuse": "platinum/data/shaders/tex/mbu/beam_side.png",
+      "normal": "platinum/data/shaders/tex/mbu/beam_side.normal.png",
+      "shader": "MBUMaterial",
+      "specularColor": "0.8 0.8 0.6 1",
+      "reflectivity": 12
+    },
+    "MBUStripeMaterial": {
+      "diffuse": "platinum/data/shaders/tex/mbu/stripe_caution.png",
+      "shader": "MBUMaterial",
+      "specularColor": "0.8 0.8 0.8 1",
+      "reflectivity": 12
     },
     "MBUTinyNoiseTileMaterial": {
       "normal": "platinum/data/shaders/tex/tile_mbu.normal.png",
       "specular": "platinum/data/shaders/tex/tile_mbu.spec_shadow.jpg",
       "shader": "Noise_Tile",
       "textureScale": "0.25 0.25"
+    },
+    "MBUTileUnderside": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_underside.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileBeginner": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_beginner.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileBeginnerShadow": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_beginner.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileBeginnerRed": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_beginner.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_red.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileBeginnerShadowRed": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_beginner.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_red_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileBeginnerBlue": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_beginner.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_blue.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileBeginnerShadowBlue": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_beginner.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_blue_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileIntermediate": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_intermediate.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileIntermediateShadow": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_intermediate.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileIntermediateRed": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_intermediate.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_red.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileIntermediateShadowRed": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_intermediate.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_red_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileIntermediateGreen": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_intermediate.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_green.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileIntermediateShadowGreen": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_intermediate.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_green_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileAdvanced": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_advanced.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileAdvancedShadow": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_advanced.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileAdvancedGreen": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_advanced.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_green.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileAdvancedShadowGreen": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_advanced.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_green_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
+    },
+    "MBUTileAdvancedBlue": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_advanced.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_blue.jpg",
+      "shader": "MBUTile",
+      "specularColor": "1 1 1 1",
+      "reflectivity": 40
+    },
+    "MBUTileAdvancedShadowBlue": {
+      "diffuse": "platinum/data/shaders/tex/mbu/tile_advanced.png",
+      "normal": "platinum/data/shaders/tex/mbu/tile_intermediate.normal.png",
+      "noise": "platinum/data/shaders/tex/mbu/noise_blue_shadow.jpg",
+      "shader": "MBUTile",
+      "specularColor": "0.2 0.2 0.2 0.2",
+      "reflectivity": 40
     },
     "PQRayWallMaterial": {
       "normal": "platinum/data/shaders/tex/pq_tile/ray_wall.normal.dds",
@@ -201,60 +399,60 @@
     }
   },
   "texture_materials": {
-    "platinum/data/lbinteriors_mbu/tile_advanced_blue_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_advanced_blue": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_advanced_green_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_advanced_green": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_advanced_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_advanced": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_beginner_blue_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_beginner_blue": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_beginner_red_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_beginner_red": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_beginner_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_beginner": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_intermediate_green_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_intermediate_green": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_intermediate_red_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_intermediate_red": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_intermediate_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_intermediate": "MBUNoiseTileMaterial",
-    "platinum/data/lbinteriors_mbu/tile_underside": "MBUTileMaterial",
+    "platinum/data/lbinteriors_mbu/tile_advanced_blue_shadow": "MBUTileAdvancedShadowBlue",
+    "platinum/data/lbinteriors_mbu/tile_advanced_blue": "MBUTileAdvancedBlue",
+    "platinum/data/lbinteriors_mbu/tile_advanced_green_shadow": "MBUTileAdvancedShadowGreen",
+    "platinum/data/lbinteriors_mbu/tile_advanced_green": "MBUTileAdvancedGreen",
+    "platinum/data/lbinteriors_mbu/tile_advanced_shadow": "MBUTileAdvancedShadow",
+    "platinum/data/lbinteriors_mbu/tile_advanced": "MBUTileAdvanced",
+    "platinum/data/lbinteriors_mbu/tile_beginner_blue_shadow": "MBUTileBeginnerShadowBlue",
+    "platinum/data/lbinteriors_mbu/tile_beginner_blue": "MBUTileBeginnerBlue",
+    "platinum/data/lbinteriors_mbu/tile_beginner_red_shadow": "MBUTileBeginnerShadowRed",
+    "platinum/data/lbinteriors_mbu/tile_beginner_red": "MBUTileBeginnerRed",
+    "platinum/data/lbinteriors_mbu/tile_beginner_shadow": "MBUTileBeginnerShadow",
+    "platinum/data/lbinteriors_mbu/tile_beginner": "MBUTileBeginner",
+    "platinum/data/lbinteriors_mbu/tile_intermediate_green_shadow": "MBUTileIntermediateShadowGreen",
+    "platinum/data/lbinteriors_mbu/tile_intermediate_green": "MBUTileIntermediateGreen",
+    "platinum/data/lbinteriors_mbu/tile_intermediate_red_shadow": "MBUTileIntermediateShadowRed",
+    "platinum/data/lbinteriors_mbu/tile_intermediate_red": "MBUTileIntermediateRed",
+    "platinum/data/lbinteriors_mbu/tile_intermediate_shadow": "MBUTileIntermediateShadow",
+    "platinum/data/lbinteriors_mbu/tile_intermediate": "MBUTileIntermediate",
+    "platinum/data/lbinteriors_mbu/tile_underside": "MBUTileUnderside",
     "platinum/data/lbinteriors_mbu/wall_beginner": "MBUWallMaterial",
     "platinum/data/lbinteriors_mbu/plate_1": "MBUPlateMaterial",
     "platinum/data/lbinteriors_mbu/friction_low": "MBUFrictionLowMaterial",
     "platinum/data/lbinteriors_mbu/edge_white": "MBUEdgeMaterial",
     "platinum/data/lbinteriors_mbu/friction_low_shadow": "MBUFrictionLowShadowMaterial",
-    "platinum/data/lbinteriors_mbu/edge_white_shadow": "MBUEdgeMaterial",
+    "platinum/data/lbinteriors_mbu/edge_white_shadow": "MBUEdgeShadowMaterial",
     "platinum/data/lbinteriors_mbu/beam": "MBUBeamMaterial",
-    "platinum/data/lbinteriors_mbu/beam_side": "MBUBeamMaterial",
-    "platinum/data/interiors_mbu/tile_advanced_blue_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_advanced_blue": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_advanced_green_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_advanced_green": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_advanced_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_advanced": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_beginner_blue_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_beginner_blue": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_beginner_red_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_beginner_red": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_beginner_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_beginner": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_intermediate_green_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_intermediate_green": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_intermediate_red_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_intermediate_red": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_intermediate_shadow": "MBUShadowNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_intermediate": "MBUNoiseTileMaterial",
-    "platinum/data/interiors_mbu/tile_underside": "MBUTileMaterial",
+    "platinum/data/lbinteriors_mbu/beam_side": "MBUBeamSideMaterial",
+    "platinum/data/interiors_mbu/tile_advanced_blue_shadow": "MBUTileAdvancedShadowBlue",
+    "platinum/data/interiors_mbu/tile_advanced_blue": "MBUTileAdvancedBlue",
+    "platinum/data/interiors_mbu/tile_advanced_green_shadow": "MBUTileAdvancedShadowGreen",
+    "platinum/data/interiors_mbu/tile_advanced_green": "MBUTileAdvancedGreen",
+    "platinum/data/interiors_mbu/tile_advanced_shadow": "MBUTileAdvancedShadow",
+    "platinum/data/interiors_mbu/tile_advanced": "MBUTileAdvanced",
+    "platinum/data/interiors_mbu/tile_beginner_blue_shadow": "MBUTileBeginnerShadowBlue",
+    "platinum/data/interiors_mbu/tile_beginner_blue": "MBUTileBeginnerBlue",
+    "platinum/data/interiors_mbu/tile_beginner_red_shadow": "MBUTileBeginnerShadowRed",
+    "platinum/data/interiors_mbu/tile_beginner_red": "MBUTileBeginnerRed",
+    "platinum/data/interiors_mbu/tile_beginner_shadow": "MBUTileBeginnerShadow",
+    "platinum/data/interiors_mbu/tile_beginner": "MBUTileBeginner",
+    "platinum/data/interiors_mbu/tile_intermediate_green_shadow": "MBUTileIntermediateShadowGreen",
+    "platinum/data/interiors_mbu/tile_intermediate_green": "MBUTileIntermediateGreen",
+    "platinum/data/interiors_mbu/tile_intermediate_red_shadow": "MBUTileIntermediateShadowRed",
+    "platinum/data/interiors_mbu/tile_intermediate_red": "MBUTileIntermediateRed",
+    "platinum/data/interiors_mbu/tile_intermediate_shadow": "MBUTileIntermediateShadow",
+    "platinum/data/interiors_mbu/tile_intermediate": "MBUTileIntermediate",
+    "platinum/data/interiors_mbu/tile_underside": "MBUTileUnderside",
     "platinum/data/interiors_mbu/wall_beginner": "MBUWallMaterial",
     "platinum/data/interiors_mbu/plate_1": "MBUPlateMaterial",
     "platinum/data/interiors_mbu/friction_low": "MBUFrictionLowMaterial",
     "platinum/data/interiors_mbu/edge_white": "MBUEdgeMaterial",
     "platinum/data/interiors_mbu/friction_low_shadow": "MBUFrictionLowShadowMaterial",
-    "platinum/data/interiors_mbu/edge_white_shadow": "MBUEdgeMaterial",
+    "platinum/data/interiors_mbu/edge_white_shadow": "MBUEdgeShadowMaterial",
     "platinum/data/interiors_mbu/beam": "MBUBeamMaterial",
-    "platinum/data/interiors_mbu/beam_side": "MBUBeamMaterial",
+    "platinum/data/interiors_mbu/beam_side": "MBUBeamSideMaterial",
     "platinum/data/interiors_mbu/tile_advanced_blue_shadow_tiny": "MBUTinyNoiseTileMaterial",
     "platinum/data/interiors_mbu/tile_advanced_green_shadow_tiny": "MBUTinyNoiseTileMaterial",
     "platinum/data/interiors_mbu/tile_advanced_shadow_tiny": "MBUTinyNoiseTileMaterial",
@@ -274,7 +472,7 @@
     "platinum/data/lbinteriors_mbu/tile_intermediate_red_shadow_tiny": "MBUTinyNoiseTileMaterial",
     "platinum/data/lbinteriors_mbu/tile_intermediate_shadow_tiny": "MBUTinyNoiseTileMaterial",
     "platinum/data/shaders/tex/friction_high_mbu": "MBUFrictionHighMaterial",
-    "platinum/data/shaders/tex/friction_high_shadow_mbu": "MBUFrictionHighMaterial",
+    "platinum/data/shaders/tex/friction_high_shadow_mbu": "MBUFrictionHighShadowMaterial",
     "platinum/data/shaders/tex/pq_tile/ray_wall": "PQRayWallMaterial",
     "platinum/data/interiors_pq/pq_circles_blue_dark": "PQCirclesMaterial",
     "platinum/data/interiors_pq/pq_circles_blue_light": "PQCirclesMaterial",
