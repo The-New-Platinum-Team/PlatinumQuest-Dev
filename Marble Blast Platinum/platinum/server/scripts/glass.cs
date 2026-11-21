@@ -46,6 +46,7 @@
 // 	};
 // } else {
 datablock StaticShapeData(glass_3shape) {
+	className = "LegacyGlass";
 	shapeFile = "~/data/shapes/Glass/Col/3x3.dts";
 	renderBin = "TranslucentPreGlow";
 	category = "Glass";
@@ -121,6 +122,16 @@ datablock StaticShapeData(glass_18shape_mbu: glass_3shape_mbu) {
 	useShaders = true;
 	category = "Glass";
 };
+
+/**
+ * @param {StaticShapeData} %this
+ * @param {StaticShape} %obj
+ */
+function LegacyGlass::onAdd(%this, %obj) {
+	if ($pref::spchanges && !lb() && ((MissionInfo.game $= "Ultra") || (MissionInfo.modification $= "Ultra"))) {
+		%obj.setDataBlock(%this.getName() @ "_mbu");
+	}
+}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //This whole ass .cs is barren and I'm going to make fucking use of it with Marble Blast XP shapes. - Daniel

@@ -67,6 +67,10 @@ function PlayGui::onWake(%this) {
 			JoystickMap.push();
 		} else {
 			MoveMap.push();
+			if (!lb() && !mp()) {
+				buildPlaytestMap();
+				PlaytestMap.push();
+			}
 		}
 	}
 
@@ -197,6 +201,8 @@ function PlayGui::onSleep(%this) {
 	$pref::LevelTime[strreplace($Client::MissionFile, "lbmission", "mission")] += %levelTime;
 
 	// pop the keymaps
+	if (isObject(PlaytestMap))
+		PlaytestMap.pop();
 	MoveMap.pop();
 	JoystickMap.pop();
 	demoMap.pop();
