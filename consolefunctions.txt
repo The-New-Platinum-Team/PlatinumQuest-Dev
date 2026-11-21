@@ -6,7 +6,9 @@ namespace Global {
 
 @see www.OpenAL.org for what these functions do. Variances from posted     behaviour is described below.
    @{ */
-   /*! Initializes the audio driver. */
+   /*! Initializes the OpenAL driver.
+
+@note You must call this before any sounds will work! */
    virtual bool OpenALInitDriver() {}
    virtual void OpenALShutdownDriver() {}
    virtual void OpenALRegisterExtensions() {}
@@ -14,6 +16,10 @@ namespace Global {
 
 This wraps alGetString(). */
    virtual string alGetString(string item) {}
+   /*! 
+
+@param filename File to determine length of.
+@returns Length in milliseconds. */
    virtual int alxGetWaveLen(string filename) {}
    /*!  or (profile, x,y,z) or (description, filename) or (description, filename, x,y,z) */
    virtual int alxCreateSource(profile) {}
@@ -48,6 +54,12 @@ This wraps alGetString(). */
 @param channel_id  ID of channel to set volume on.
 @param volume      New volume of channel, from 0.0f-1.0f */
    virtual bool alxSetChannelVolume(int channel_id, float volume) {}
+   virtual void alxEnvironmenti() {}
+   virtual void alxEnvironmentf() {}
+   virtual int alxGetEnvironmenti() {}
+   virtual float alxGetEnvironmentf() {}
+   virtual void alxSetEnvironment() {}
+   virtual void alxEnableEnvironmental() {}
    /// @}
 
    virtual void traceGuard() {}
@@ -597,6 +609,10 @@ This value is important because it allows us to properly index when calling setS
 @return Will return true if the information was successfully set, false otherwise.
 @sa getServerCount, queryLANServers, queryMasterServer, querySingleServer */
    virtual bool setServerInfo( index ) {}
+   /*!  - relay a WebRTC signaling message (0=offer,1=answer,2=iceCandidate,3=bye) to targetAddr through the master server. */
+   virtual void netDCSendSignal(targetAddr, signalType, payload) {}
+   /*!  - ask the master server for the STUN/TURN (ICE) server list, delivered via the onIceServers callback. */
+   virtual void netDCRequestIceServers() {}
    virtual bool isLocalAddress(addr) {}
    /// @}
 
@@ -763,6 +779,32 @@ This may not remove <br> correctly, so check before you trust this function.
    virtual float getRandom() {}
    /*! min, max */
    virtual float getRandomF() {}
+   /*!  - initialize the data channel driver */
+   virtual void netDCInit() {}
+   /*!  - tear down all peers */
+   virtual void netDCShutdown() {}
+   /*!  - create a peer connection, returns peer id */
+   virtual int netDCCreatePeer() {}
+   /*!  - offerer: create the local unreliable channel */
+   virtual bool netDCAddChannel(id) {}
+   /*!  - offerer: generate the local offer */
+   virtual void netDCCreateOffer(id) {}
+   /*!  - current local SDP (offer/answer) */
+   virtual string netDCLocalDescription(id) {}
+   virtual bool netDCSetRemoteDescription(id, sdp) {}
+   virtual bool netDCAddIceCandidate(id, candidate) {}
+   /*!  - pending local ICE candidates, newline-separated */
+   virtual string netDCTakeCandidates(id) {}
+   /*!  - synthetic address for NetConnection::connect() */
+   virtual string netDCGetAddress(id) {}
+   /*!  - is the data channel open */
+   virtual bool netDCIsOpen(id) {}
+   /*!  - is the peer connection connected */
+   virtual bool netDCIsConnected(id) {}
+   /*!  - semicolon-separated stun:// or turn:// servers */
+   virtual void netDCSetIceServers(urls) {}
+   /*!  - close a peer */
+   virtual void netDCClose(id) {}
    virtual void initDiscord(appId) {}
    virtual void setDiscordStatus(general[, detailed]) {}
    virtual void startDiscordTimer([secsRemaining]) {}
@@ -787,8 +829,6 @@ This may not remove <br> correctly, so check before you trust this function.
    /*!  - Create symbolic links */
    virtual bool createSymlink(from, to) {}
    virtual int zip(string path) {}
-   virtual string getFileSHA256(path) {}
-   virtual string getMissionSHA256(path) {}
    virtual string base64decode(base64 data) {}
    virtual string base64encode(string data) {}
    virtual void enableFrameRateUnlock(enabled) {}
@@ -821,6 +861,7 @@ This may not remove <br> correctly, so check before you trust this function.
    virtual void dumpRegisteredMaterials() {}
    virtual void registerMaterialTextures(baseTexture, normalTexture, specularTexture, [shader], [reflectivity], [textureScale]) {}
    virtual void registerMaterial(texture, [materialInfo]) {}
+   virtual void setShadowMaterial(main, shadow) {}
    /*! replaceDiffuseTexture(oldTexture, [newTexture]); */
    virtual void replaceMaterials() {}
    /*! registerMaterialTextures(name, baseTexture, normalTexture, specularColor, specularPower, [renderBin], [cubemapFacesCSV], [renderPreGlow]) */
@@ -860,6 +901,8 @@ This may not remove <br> correctly, so check before you trust this function.
    virtual void joystickMapActivate(S32 mapId) {}
    virtual void dumpControllers() {}
    virtual string getJoystickType(U32 joystickNum) {}
+   virtual string getFileSHA256(path) {}
+   virtual string getMissionSHA256(path) {}
    virtual void loadMBPackage(package) {}
    virtual void unloadMBPackage(package) {}
    virtual bool isLoadedMBPackage(package) {}
@@ -902,7 +945,6 @@ This may not remove <br> correctly, so check before you trust this function.
    virtual void _innerRadarBuildSearch(%marblePos, %showCallback, %showFinishCallback) {}
    virtual void _innerRadarLoop(%targetGroup, %marblePos, %cameraTransform, %fov, %canvasResolution, %marbleCameraYaw) {}
    virtual void RadarClearTargets() {}
-   virtual void editRREC(path, destpath, name, author, desc) {}
    virtual int getClientSyncObject(%ghostId) {}
    virtual int getServerSyncObject(%ghostId) {}
    virtual void clearSyncTodo() {}
@@ -990,6 +1032,8 @@ This may not remove <br> correctly, so check before you trust this function.
    virtual void RTAAS_setMissionTypeBeganTime() {}
    virtual void RTAAS_setCurrentGameBeganTime(timeInMs) {}
    virtual void RTAAS_setCurrentMission(currentMission) {}
+   /*!  -> Ends playback of the replay */
+   virtual void endReplayPlayback() {}
    virtual void stdRandomSetSeed() {}
    virtual int stdRandomGetInt() {}
    /*! cursorShapeName */
@@ -1122,15 +1166,6 @@ If exempt is specified, then it is temporarily excluded from collision checks (F
    virtual void adjustPlatformFontSize() {}
    /*! old name, new name */
    virtual void adjustPlatformFontName() {}
-   /*! Register a card profile with the card profile manager.
-
-Most of the parameters are fairly self-explanatory and very internal to the rendering code; however there are a few of note:
-@param vendor   The vendor string the card claims.
-@param renderer The renderer string the card claims.
-@param proFile  Name of the file where further configuration information is kept. */
-   virtual void addCardProfile(string vendor, string renderer,bool safeMode, bool lockArray, bool subImage, bool fogTexture,bool noEnvColor, bool clipHigh, bool deleteContext, bool texCompressbool interiorLock, bool skipFirstFog, bool only16,bool noArraysAlpha, string proFile) {}
-   /*!  Register with the profile manager what rendering mode is preferred with the specified card. */
-   virtual void addOSCardProfile(string vendor, string renderer) {}
    /*! getCompatibleRenderers */
    virtual string getCompatibleRenderers() {}
    virtual void enableWinConsole() {}

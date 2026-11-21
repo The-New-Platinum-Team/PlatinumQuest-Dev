@@ -1436,6 +1436,184 @@ class  PopupMenu : public SimObject {
    bool isPopup;
 };
 
+class  ReplayObject : public SimObject {
+  public:
+   /*!  -> Open a replay file */
+   virtual bool open(filename) {}
+   /*!  -> Open a replay file only for its header */
+   virtual bool openForInfo(filename) {}
+   /*!  -> Write a replay file */
+   virtual void write(filename) {}
+   /*!  -> Clear all frames from the replay */
+   virtual void clear() {}
+   /*!  -> Rewind the replay to the beginning */
+   virtual void rewind() {}
+   /*!  -> Writes the ServerTime frame */
+   virtual void writeTime() {}
+   /*!  -> Writes the Movement frame */
+   virtual void writeMovement() {}
+   /*!  -> Writes the Gem frame */
+   virtual void writeGems(gemCount, gemTotal, gemQuota, gemGreen) {}
+   /*!  -> Writes the Gravity frame */
+   virtual void writeGravity(instant) {}
+   /*!  -> Writes the Collision frame */
+   virtual void writeCollision(datablock, position) {}
+   /*!  -> Writes the Pickup frame */
+   virtual void writePickup(datablock, position) {}
+   /*!  -> Writes the Spawn frame */
+   virtual void writeSpawn() {}
+   /*!  -> Writes the Physics frame if any tracked attribute changed */
+   virtual void writePhysics() {}
+   /*!  -> Writes the Platform frame */
+   virtual void writePlatforms() {}
+   /*!  -> Writes the Position frame for the given marble object */
+   virtual void writePosition(marble) {}
+   /*!  -> Set the marble used for ghost playback */
+   virtual void setGhostMarble(marble) {}
+   /*!  -> Steps a ghost replay */
+   virtual void stepGhost(dt) {}
+   /*!  -> Begins playback of the replay */
+   virtual void beginPlayback() {}
+   /*!  -> Begins a custom frame with the given tag */
+   virtual void beginCustomFrame(tag) {}
+   /*!  -> Ends the current custom frame and writes it */
+   virtual void endCustomFrame() {}
+   virtual string readRawU8() {}
+   virtual string readFrameU8() {}
+   virtual void writeRawU8(U8 value) {}
+   virtual string readRawS8() {}
+   virtual string readFrameS8() {}
+   virtual void writeRawS8(S8 value) {}
+   virtual string readRawU16() {}
+   virtual string readFrameU16() {}
+   virtual void writeRawU16(U16 value) {}
+   virtual string readRawS16() {}
+   virtual string readFrameS16() {}
+   virtual void writeRawS16(S16 value) {}
+   virtual string readRawU32() {}
+   virtual string readFrameU32() {}
+   virtual void writeRawU32(U32 value) {}
+   virtual string readRawS32() {}
+   virtual string readFrameS32() {}
+   virtual void writeRawS32(S32 value) {}
+   virtual string readRawU64() {}
+   virtual string readFrameU64() {}
+   virtual void writeRawU64(U64 value) {}
+   virtual string readRawS64() {}
+   virtual string readFrameS64() {}
+   virtual void writeRawS64(S64 value) {}
+   virtual string readRawF32() {}
+   virtual string readFrameF32() {}
+   virtual void writeRawF32(F32 value) {}
+   virtual string readRawF64() {}
+   virtual string readFrameF64() {}
+   virtual void writeRawF64(F64 value) {}
+   virtual string readRawPoint2F() {}
+   virtual string readFramePoint2F() {}
+   virtual void writeRawPoint2F(Point2F value) {}
+   virtual string readRawPoint2I() {}
+   virtual string readFramePoint2I() {}
+   virtual void writeRawPoint2I(Point2I value) {}
+   virtual string readRawPoint3F() {}
+   virtual string readFramePoint3F() {}
+   virtual void writeRawPoint3F(Point3F value) {}
+   virtual string readRawPoint3D() {}
+   virtual string readFramePoint3D() {}
+   virtual void writeRawPoint3D(Point3D value) {}
+   virtual string readRawQuatF() {}
+   virtual string readFrameQuatF() {}
+   virtual void writeRawQuatF(QuatF value) {}
+   virtual string readRawAngAxisF() {}
+   virtual string readFrameAngAxisF() {}
+   virtual void writeRawAngAxisF(AngAxisF value) {}
+   virtual string readRawMatrixF() {}
+   virtual string readFrameMatrixF() {}
+   virtual void writeRawMatrixF(MatrixF value) {}
+   virtual string readRawOrthoF() {}
+   virtual string readFrameOrthoF() {}
+   virtual void writeRawOrthoF(OrthoF value) {}
+   virtual string readRawString8() {}
+   virtual string readFrameString8() {}
+   virtual void writeRawString8(value) {}
+   virtual string readRawString16() {}
+   virtual string readFrameString16() {}
+   virtual void writeRawString16(value) {}
+   virtual string readRawString32() {}
+   virtual string readFrameString32() {}
+   virtual void writeRawString32(value) {}
+
+   /*! @name Replay Data
+   
+   Fields related to the replay data.
+   @{ */
+   /*!
+   Author of this replay
+   
+    */
+   OwnedString author;
+   /*!
+   Name of this replay
+   
+    */
+   OwnedString name;
+   /*!
+   Description of this replay
+   
+    */
+   OwnedString desc;
+   /*!
+   Filename of this replay
+   
+    */
+   OwnedString fileName;
+   /*!
+    */
+   bool leaderboards;
+   /*!
+    */
+   bool multiplayer;
+   /*!
+    */
+   bool cameraSmoothing;
+   /*!
+   Whether this replay has been loaded
+   
+    */
+   bool loaded;
+   /*!
+   Whether this replay has metadata
+   
+    */
+   bool hasMetadata;
+   /*!
+   Version of the replay file
+   
+    */
+   int replayVersion;
+   /*!
+   Version of the game that created this replay
+   
+    */
+   int gameVersion;
+   /*!
+   Seed used for the SPRNG random number generator
+   
+    */
+   int sprngSeed;
+   /*!
+   Mission file used for this replay
+   
+    */
+   OwnedString missionFile;
+   /*!
+   Marble selection used for this replay
+   
+    */
+   OwnedString marbleSelection;
+   /// @}
+
+};
+
 class  SyncBatchEvent {
   public:
 };
@@ -16869,6 +17047,9 @@ class  WorldEditor : public EditTSCtrl {
    Point3F gridSize;
    /*!
     */
+   float gridPlaneZ;
+   /*!
+    */
    bool renderPopupBackground;
    /*!
     */
@@ -18095,27 +18276,6 @@ class  ScriptObject : public SimObject {
    /// @}
 
 };
-
-class  Array : public ScriptObject {
-  public:
-   virtual int addEntry(string entry) {}
-   virtual int replaceEntryByIndex(int index, string entry) {}
-   virtual int insertEntryBefore(int index, string entry) {}
-   virtual int removeEntryByIndex(int index) {}
-   virtual int removeEntry(int index) {}
-   virtual int removeEntriesByContents(string match) {}
-   virtual int removeMatching(string match) {}
-   virtual int clear() {}
-   virtual int swap(int index1, int index2) {}
-   virtual int sort([string compareFn]) {}
-   virtual string getEntryByIndex(int index) {}
-   virtual string getEntry(int index) {}
-   virtual int getSize() {}
-   virtual bool containsEntry(string entry) {}
-   virtual bool contains(string entry) {}
-   virtual void dumpEntries() {}
-};
-
 
 class  ConsoleLogger : public SimObject {
   public:
