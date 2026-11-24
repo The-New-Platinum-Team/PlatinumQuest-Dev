@@ -234,6 +234,18 @@ function loadMissionStage2() {
 	//Create this before we load
 	new SimGroup(MissionCleanup);
 
+	// Pop the custom material stack
+	while (getMaterialMapStackSize() > 0)
+		popMaterialMap();
+
+	// Push our current map for saving
+	pushMaterialMap();
+
+	// Load frictions if we are not .mcs
+	if (fileExt(%file) !$= ".mcs") {
+		parseCustomFrictions(%file);
+	}
+
 	// Exec the mission, objects are added to the ServerGroup
 	%oldError = $ScriptError;
 	$ScriptError = "";
@@ -349,6 +361,40 @@ function loadMissionFinish(%success) {
 	if (!%success) {
 		onMissionLoadFailed();
 	}
+}
+
+function parseCustomFrictions(%filePath) {
+	%fo = new FileObject();
+	%fo.openForRead(%filePath);
+
+	// Parse // @physmaterial MaterialName friction:1.0 restitution:1.0 force:0.0 stuff
+
+	while (!%fo.isEOF()) {
+		%line = %fo.readLine();
+		if (trim(%line) $= "//--- OBJECT WRITE BEGIN ---")
+			break;
+		if (getSubStr(%line, 0, 2) $= "//") {
+			// Parse the friction regex!
+			// Index of @physMaterial
+			%startIdx = striStr(%line, "@physmaterial");
+			%params = getSubStr(%line, %startIdx + 14, strlen(%line));
+			%materialName = firstWord(%params);
+			%materialProps = restWords(%params);
+			// Iterate over the props
+			%propCount = getWordCount(%materialProps);
+			%materialProp = new MaterialProperty(%materialName @ "_Mat");
+			for (%i = 0; %i < %propCount; %i++) {
+				%paramString = strreplace(getWord(%materialProps, %i), ":", " ");
+				%paramName = getWord(%paramString, 0);
+				%paramValue = stripChars(getWord(%paramString, 1), "\"");
+				%materialProp.setFieldValue(%paramName, %paramValue);
+			}
+			addMaterialMapping(%materialName, %materialName @ "_Mat");
+		}
+	}
+
+	%fo.close();
+	%fo.delete();
 }
 
 function applyGravity() {
